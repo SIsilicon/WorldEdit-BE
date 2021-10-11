@@ -1,0 +1,38 @@
+{
+	"type": "minecraftBedrock",
+	"packs": {
+		"behaviorPack": "./BP",
+		"resourcePack": "./RP"
+	},
+	"namespace": "wedit",
+	"targetVersion": "1.17.30",
+	"name": "[WorldEdit Compiler]",
+	"description": "[...]",
+	"experimentalGameplay": {
+		"cavesAndCliffs": false,
+		"holidayCreatorFeatures": true,
+		"creationOfCustomBiomes": false,
+		"additionalModdingCapabilities": false,
+		"upcomingCreatorFeatures": false,
+		"enableGameTestFramework": true,
+		"experimentalMolangFeatures": false,
+		"educationEdition": false
+	},
+	"compiler": {
+		"plugins": [
+			"typeScript",
+			"entityIdentifierAlias",
+			"customEntityComponents",
+			"customItemComponents",
+			"customBlockComponents",
+			"customCommands",
+			"moLang",
+			[
+				"simpleRewrite",
+				{
+					"packName": "WorldEdit Addon"
+				}
+			]
+		]
+	}
+}

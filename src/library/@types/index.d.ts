@@ -1,0 +1,1 @@
+export type dimension = "overworld" | "nether" | "the end";

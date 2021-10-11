@@ -1,0 +1,406 @@
+{
+  "namespace": "how_to_play",
+  "selector_stack_panel/how_to_play_selector_pane": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "remove",
+        "where": {
+          "padding_1@how_to_play_common.padding": {
+            "size": [
+              0,
+              10
+            ]
+          }
+        }
+      },
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "worldedit_category@how_to_play_common.topic_category": {
+              "$category": "worldEdit"
+            }
+          },
+          {
+            "wedit:intro_button@how_to_play.wedit:intro_button": {
+              "$toggle_group_forced_index": 71
+            }
+          },
+          {
+            "wedit:navigation_button@how_to_play.wedit:navigation_button": {
+              "$toggle_group_forced_index": 72
+            }
+          },
+          {
+            "wedit:selection_button@how_to_play.wedit:selection_button": {
+              "$toggle_group_forced_index": 73
+            }
+          },
+          {
+            "wedit:region_button@how_to_play.wedit:region_button": {
+              "$toggle_group_forced_index": 74
+            }
+          },
+          {
+            "wedit:pattern_button@how_to_play.wedit:pattern_button": {
+              "$toggle_group_forced_index": 75
+            }
+          },
+          {
+            "padding_1@how_to_play_common.padding": {
+              "size": [
+                0,
+                10
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "section_content_panels/general_tips_sections": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "remove",
+        "where": {
+          "section_contents_footer@how_to_play_common.section_contents_footer": {}
+        }
+      },
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "wedit:intro_section@how_to_play.wedit:intro_section": {}
+          },
+          {
+            "wedit:navigation_section@how_to_play.wedit:navigation_section": {}
+          },
+          {
+            "wedit:selection_section@how_to_play.wedit:selection_section": {}
+          },
+          {
+            "wedit:region_section@how_to_play.wedit:region_section": {}
+          },
+          {
+            "wedit:pattern_section@how_to_play.wedit:pattern_section": {}
+          },
+          {
+            "section_contents_footer@how_to_play_common.section_contents_footer": {}
+          }
+        ]
+      }
+    ]
+  },
+  "wedit:intro_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:intro"
+  },
+  "wedit:intro_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:intro_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.1.1"
+        }
+      },
+      {
+        "paragraph_1_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.1.2"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.2"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:intro.header.1"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.3"
+        }
+      },
+      {
+        "padding_3@how_to_play_common.padding": {}
+      },
+      {
+        "header_2@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:intro.header.2"
+        }
+      },
+      {
+        "paragraph_4_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.4.1"
+        }
+      },
+      {
+        "paragraph_4_2_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.wedit:intro.text.4.2.touch"
+        }
+      },
+      {
+        "paragraph_4_2_not_touch@how_to_play_common.paragraph_not_touch": {
+          "$text": "howtoplay.wedit:intro.text.4.2.notTouch"
+        }
+      },
+      {
+        "header_3@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:intro.header.3"
+        }
+      },
+      {
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:intro.text.5"
+        }
+      }
+    ]
+  },
+  "wedit:navigation_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:navigation"
+  },
+  "wedit:navigation_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:navigation_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:navigation.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.wedit:navigation.text.2.keyboard"
+        }
+      },
+      {
+        "paragraph_2_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.wedit:navigation.text.2.gamepad"
+        }
+      },
+      {
+        "paragraph_2_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.wedit:navigation.text.2.touch"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:navigation.text.3"
+        }
+      }
+    ]
+  },
+  "wedit:selection_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:selection"
+  },
+  "wedit:selection_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:selection_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:selection.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.wedit:selection.text.2.keyboard"
+        }
+      },
+      {
+        "paragraph_2_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.wedit:selection.text.2.gamepad"
+        }
+      },
+      {
+        "paragraph_2_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.wedit:selection.text.2.touch"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:selection.text.3"
+        }
+      }
+    ]
+  },
+  "wedit:region_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:region"
+  },
+  "wedit:region_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:region_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:region.header.1"
+        }
+      },
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:region.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:region.text.2"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:region.text.3"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:region.text.4"
+        }
+      },
+      {
+        "header_2@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:region.header.2"
+        }
+      },
+      {
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:region.text.5"
+        }
+      }
+    ]
+  },
+  "wedit:pattern_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:pattern"
+  },
+  "wedit:pattern_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:pattern_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.2"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.3"
+        }
+      },
+      {
+        "paragraph_3_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.3.1"
+        }
+      },
+      {
+        "paragraph_3_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.3.2"
+        }
+      },
+      {
+        "paragraph_3_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.3.3"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:pattern.header.1"
+        }
+      },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.4"
+        }
+      },
+      {
+        "paragraph_5_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.wedit:pattern.text.5.keyboard"
+        }
+      },
+      {
+        "paragraph_5_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.wedit:pattern.text.5.gamepad"
+        }
+      },
+      {
+        "paragraph_5_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.wedit:pattern.text.5.touch"
+        }
+      },
+      {
+        "paragraph_6@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.6"
+        }
+      }
+    ]
+  }
+}

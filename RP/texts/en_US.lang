@@ -1,0 +1,123 @@
+pack.name=WorldEdit: BE [RP]
+pack.description=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
+
+## ITEMS
+item.wedit:selection_wand=Selection Wand
+item.wedit:navigation_wand=Navigation Wand
+item.wedit:copy_button=Copy
+item.wedit:cut_button=Cut
+item.wedit:paste_button=Paste
+item.wedit:undo_button=Undo
+item.wedit:redo_button=Redo
+item.wedit:pattern_picker=Pattern Picker
+item.wedit:spawn_glass=Spawn Glass Block
+item.wedit:selection_fill=Fill Selection
+
+## WORLDEDIT COMMANDS
+worldedit.spawn-glass.error=Can't place block here.
+
+worldedit.pattern-picker.add=Added block to pattern: 
+worldedit.pattern-picker.set=Set pattern to block: 
+
+worldedit.undo.undone=Undid %s available edits.
+worldedit.undo.none=Nothing left to undo.
+worldedit.redo.redone=Redid %s available edits.
+worldedit.redo.none=Nothing left to redo.
+worldedit.clearhistory.cleared=History cleared.
+
+worldedit.error.empty-clipboard=Your clipboard is empty. Copy or cut a region first.
+worldedit.error.max-region-size=The maximum region size is (64x256x64). This will change in the future.
+worldedit.error.command-fail=Failed to execute this command.
+worldedit.error.expect-no-args=This command does not expect any arguments.
+worldedit.error.invaild-integer=%s is not a valid integer.
+worldedit.error.not-positive=%s is not a positive non-zero integer.
+worldedit.error.no-permission=You don't have the permission to execute this command.
+worldedit.error.incomplete-region=Make a region selection first.
+
+worldedit.drawsel.enabled=Your selections will now be visible.
+worldedit.drawsel.disabled=Your selections will no longer be visible.
+
+worldedit.wand.selwand.info=Sneak and tap block: select pos #1; Tap block without sneak: select pos #2
+worldedit.wand.navwand.info=Sneak and tap block: jump to location; Tap block without sneak: pass through walls
+
+worldedit.selection.cuboid.explain.primary=First position set to %s.
+worldedit.selection.cuboid.explain.primary-area=First position set to %1 (%2).
+worldedit.selection.cuboid.explain.secondary=Second position set to %s.
+worldedit.selection.cuboid.explain.secondary-area=Second position set to %1 (%2).
+
+worldedit.copy.explain=Copied %s blocks.
+worldedit.cut.explain=Cut %s blocks.
+worldedit.paste.explain=Pasted %s blocks.
+
+worldedit.generate.created=%s blocks have been created.
+worldedit.set.changed=%s blocks have been changed.
+
+worldedit.unstuck.moved=There you go!
+worldedit.thru.obstructed=No free spot ahead of you found.
+worldedit.thru.none=Not against or facing a wall to go through.
+worldedit.thru.moved=Whoosh!
+worldedit.up.moved=Whoosh!
+worldedit.jumpto.moved=Poof!
+worldedit.jumpto.none=No block in sight (or too far)!
+
+## HOW TO PLAY
+howtoplay.category.worldEdit=WorldEdit
+
+howtoplay.wedit:intro=Introduction
+howtoplay.wedit:intro.title=How to Play: Introduction to WorldEdit
+
+howtoplay.wedit:intro.text.1.1=WorldEdit is an addon that comes with a bunch of commands and items to make building things easier, and more fun!
+howtoplay.wedit:intro.text.1.2=Before you can use the addon at all, you must first make yourself a builder. To do that, open chat and type in the following command: §e/tag @s add builder§r
+howtoplay.wedit:intro.text.2=You have two ways to use this addon: with ;commands, or with button items. Commands can be used by more technical players and offer more features, while button items are easier to use on any device.
+
+howtoplay.wedit:intro.header.1=Commands
+howtoplay.wedit:intro.text.3=Every command in WorldEdit starts with a semicolon(;) rather than forward slash(/). To start making selections to edit, you'll need the Selection Wand. To get one, type §e;wand§r in chat. To see what other commands there are, type §e;help§r.
+
+howtoplay.wedit:intro.header.2=Button Items
+howtoplay.wedit:intro.text.4.1=Items are more convenient to use and more intuitive too. To start using these item, add a Wooden Axe to your inventory, like from the creative menu. It will be turned into a Selection Wand, and a variety of other items will be given to you.
+howtoplay.wedit:intro.text.4.2.notTouch=Use these items with :_input_key.use:.
+howtoplay.wedit:intro.text.4.2.touch=How you use an item depends on what the item does. For most items, holding anywhere on your screen will do, while items like the Pattern Picker needs you to tap on a block.
+
+howtoplay.wedit:intro.header.3=Undo and Redo
+howtoplay.wedit:intro.text.5=If you make a mistake you can undo it. If you make a mistake §oundoing§r your mistake then you redo. There are two button items for this, and also two commands: §e;undo§r and §e;redo§r. With the commands you can also say how many times you want to undo at once.
+
+howtoplay.wedit:navigation=Navigation
+howtoplay.wedit:navigation.title=How to Play: Navigation
+howtoplay.wedit:navigation.text.1=The Navigation Wand is a tool provided by WorldEdit to get from point A to point B more easily. You can get one by either using the command §e;navwand§r, or getting a compass.
+howtoplay.wedit:navigation.text.2.keyboard=:_input_key.use: to instantly teleport to the top of the block you're looking at. :_input_key.use: while sneaking allows you to teleport through walls!. If you're stuck in a block, using this tool can get you out without breaking anything.
+howtoplay.wedit:navigation.text.2.gamepad=Press :_input_key.use: to instantly teleport to the top of the block you're looking at. Press :_input_key.use: while sneaking allows you to teleport through walls!. If you're stuck in a block, using this tool can get you out without breaking anything.
+howtoplay.wedit:navigation.text.2.touch=Touch and hold to instantly teleport to the top of the block you're looking at. Touch and hold while sneaking allows you to teleport through walls!. If you're stuck in a block, using this tool can get you out without breaking anything.
+howtoplay.wedit:navigation.text.3=There are commands for these actions as well! They are §e;jumpto§r, §e;thru§r and §e;unstuck§r.
+
+howtoplay.wedit:selection=Selection
+howtoplay.wedit:selection.title=How to Play: Making Selections
+howtoplay.wedit:selection.text.1=The Selection Wand is the most important tool in WorldEdit. It is used to mark regions of your world for operations, from copying them, to setting them to blocks of your choosing. Your selection is in the shape of a cuboid, so you define one by marking two corners of the cuboid in your world.
+howtoplay.wedit:selection.text.2.keyboard=Sneak and :_input_key.use: a block to mark the first corner, and :_input_key.use: another block §owithout§r sneaking to mark the second corner. By default your selection will be highlighted with particles.
+howtoplay.wedit:selection.text.2.gamepad=Sneak and press :_input_key.use: on a block to mark the first corner, and press :_input_key.use: on another block §owithout§r sneaking to mark the second corner. By default your selection will be highlighted with particles.
+howtoplay.wedit:selection.text.2.touch=Sneak and tap a block to mark the first corner, and tap another block §owithout§r sneaking to mark the second corner. By default your selection will be highlighted with particles.
+howtoplay.wedit:selection.text.3=You can also use the commands §e;pos1§r and §e;pos2§r respectively to make these selections. They mark the space you're currently standing as part of your selection. If you don't want to see you're selection, toggle it with §e;drawsel§r.
+
+howtoplay.wedit:region=Region Operations
+howtoplay.wedit:region.title=How to Play: Region Operations
+howtoplay.wedit:region.header.1=Clipboard
+howtoplay.wedit:region.text.1=Whether you want to move a house or clone it a bunch, knowing how to manipulate the clipboard is essential.
+howtoplay.wedit:region.text.2=If you're using button items, you should have three items: Copy, Cut, and Paste. As their name implies, using them will either save your selection to the clipboard, save and delete your selection, or paste it somewhere.
+howtoplay.wedit:region.text.3=Where you are when you copy your selection is important. The position of your selection relative to you will be the same when you paste it, so if you move 5 blocks to the left after copying something, you will also paste it 5 blocks to the left.
+howtoplay.wedit:region.text.4=There are also the commands §e;copy§r, §e;cut§r and §e;paste§r. Something special about the §e;cut§r command is that you can specify what will be in the selection's place when it's removed. So if you're underwater, you can cut a selection out and leave water in its place!
+howtoplay.wedit:region.header.2=Set Selection
+howtoplay.wedit:region.text.5=The command §e;set§r and the Selection Fill item both set your current selection to a specified pattern. Everything block in your selection is overwritten when doing this.
+
+howtoplay.wedit:pattern=Pattern
+howtoplay.wedit:pattern.title=How to Play: Pattern
+howtoplay.wedit:pattern.text.1=A pattern in world edit is a block or a set of blocks that can be placed in an operation. They are currently used when filling a selection, filling the hole of a §e;cut§r command, or generating shapes.
+howtoplay.wedit:pattern.text.2=Patterns have the following syntaxes: <blockname>, <blockname>:<data-value>, <blockname>[<blockproperty>:<value>,...]. You can define multiple blocks comma separated without space.
+howtoplay.wedit:pattern.text.3=Here are a few examples:
+howtoplay.wedit:pattern.text.3.1=§e;set glass§r - makes glass
+howtoplay.wedit:pattern.text.3.2=§e;set stone:1§r - makes granite
+howtoplay.wedit:pattern.text.3.3=§e;set dirt,wool["color":"red"]§r - makes an even distribution of dirt and red wool
+howtoplay.wedit:pattern.header.1=Pattern Picker
+howtoplay.wedit:pattern.text.4=The Pattern Picker is an item that comes with the button items and makes it easier to make a pattern to fill selections with.
+howtoplay.wedit:pattern.text.5.keyboard=To make a pattern with it, :_input_key.use: a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and :_input_key.use: it.
+howtoplay.wedit:pattern.text.5.gamepad=To make a pattern with it, press :_input_key.use: on a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and press :_input_key.use: on it.
+howtoplay.wedit:pattern.text.5.touch=To make a pattern with it, tap a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and tap it.
+howtoplay.wedit:pattern.text.6=With this pattern you could then fill in your selection with it by using the 'Selection Fill' item.
