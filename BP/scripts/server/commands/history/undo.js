@@ -4,7 +4,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'undo',
     description: 'Undo a certain amount of actions.',
-    usage: '[times]',
+    usage: '[times: int]',
 };
 commandList['undo'] = [registerInformation, (session, builder, args) => {
         const times = parseInt(args[0] || '1');

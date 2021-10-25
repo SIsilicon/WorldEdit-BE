@@ -8,7 +8,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'cut',
     description: 'Remove your current selection and places it in the clipboard.',
-    usage: '[pattern]',
+    usage: '[pattern: Pattern]',
 };
 commandList['cut'] = [registerInformation, (session, builder, args) => {
         const history = session.getHistory();

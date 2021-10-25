@@ -6,11 +6,11 @@ const registerInformation = {
     cancelMessage: true,
     name: 'set',
     description: 'Set all the blocks in the selection',
-    usage: '<pattern>',
+    usage: '<pattern: Pattern>',
     example: [
         'set air',
-        'set minecraft:stone',
-        'set wool["color":"red"],dirt'
+        'set stone:2',
+        'set wool[\'color\':\'red\'],dirt'
     ]
 };
 /*
@@ -18,9 +18,9 @@ const registerInformation = {
 */
 export function set(session, pattern) {
     let count = 0;
-    const dimension = getPlayerDimension(session.getPlayer())[1];
+    const dim = getPlayerDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
-        if (pattern.setBlock(blockLoc, dimension)) {
+        if (pattern.setBlock(blockLoc, dim)) {
             continue;
         }
         count++;
@@ -34,6 +34,7 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
         if (args.length == 0 && !session.usePickerPattern || session.usePickerPattern && !session.getPickerPatternParsed()) {
             throw 'You need to specify a block to set the selection to!';
         }
+        const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[0]);
         const history = session.getHistory();
         history.record();
         if (session.selectionMode == 'cuboid') {
@@ -42,7 +43,6 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
             var end = regionMax(pos1, pos2);
             history.addUndoStructure(start, end, 'any');
         }
-        const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[0]);
         const count = set(session, pattern);
         history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
         history.commit();

@@ -1,8 +1,5 @@
-import { BlockType, MinecraftBlockTypes, Player, World } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
-import { assertBuilder } from '../../modules/assert.js';
-import { getSession, PlayerSession } from '../../sessions.js';
-import { getPlayerDimension, printLocation, regionMax, regionMin } from '../../util.js';
+import { PlayerSession } from '../../sessions.js';
+import { getPlayerDimension, regionMax, regionMin } from '../../util.js';
 import { Pattern } from '../../modules/pattern.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';
@@ -11,11 +8,11 @@ const registerInformation = {
     cancelMessage: true,
     name: 'set',
     description: 'Set all the blocks in the selection',
-    usage: '<pattern>',
+    usage: '<pattern: Pattern>',
     example: [
         'set air',
-        'set minecraft:stone',
-        'set wool["color":"red"],dirt'
+        'set stone:2',
+        'set wool[\'color\':\'red\'],dirt'
     ]
 };
 
@@ -24,9 +21,9 @@ const registerInformation = {
 */
 export function set(session: PlayerSession, pattern: Pattern) {
     let count = 0;
-    const dimension = getPlayerDimension(session.getPlayer())[1];
+    const dim = getPlayerDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
-        if (pattern.setBlock(blockLoc, dimension)) {
+        if (pattern.setBlock(blockLoc, dim)) {
             continue;
         }
         count++;
@@ -41,6 +38,8 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
     if (args.length == 0 && !session.usePickerPattern || session.usePickerPattern && !session.getPickerPatternParsed()) {
         throw 'You need to specify a block to set the selection to!';
     }
+    
+    const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[0]);
 
     const history = session.getHistory();
     history.record();
@@ -52,7 +51,6 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
         history.addUndoStructure(start, end, 'any');
     }
     
-    const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[0]);
     const count = set(session, pattern);
     
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);

@@ -5,7 +5,11 @@ const registerInformation = {
     cancelMessage: true,
     name: 'hsphere',
     description: 'Generate a hollow sphere.',
-    usage: '[-r] <pattern> <radii>',
+    usages: [
+        '[-r] <pattern: Pattern> <radii: int>',
+        '[-r] <pattern: Pattern> <radiiXZ: int> <radiiY: int>',
+        '[-r] <pattern: Pattern> <radiiX: int> <radiiY: int> <radiiZ: int>'
+    ]
 };
 
 commandList['hsphere'] = [registerInformation, (session, builder, args) => {

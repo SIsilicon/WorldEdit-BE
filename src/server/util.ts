@@ -1,4 +1,5 @@
 import { BlockLocation, Dimension, Entity, Location, Player, World } from 'mojang-minecraft';
+import { DEBUG, PLAYER_HEIGHT } from '../config.js';
 import { dimension } from '../library/@types/index.js';
 import { Server } from '../library/Minecraft.js';
 import { RawText } from './modules/rawtext.js';
@@ -16,7 +17,10 @@ Server.once('ready', ready => {
 });
 
 export function printDebug(data: any) {
-    return;
+    if (!DEBUG) {
+        return;
+    }
+
     let msg: string;
     if (data instanceof BlockLocation || data instanceof Location) {
         msg = printLocation(<BlockLocation> data);
@@ -32,18 +36,55 @@ export function printDebug(data: any) {
 }
 
 export function print(msg: string | RawText, player: Player, toActionBar = false) {
-    let command = msg instanceof RawText ? msg.toString() : `${msg}`;
-    let appendRaw = msg instanceof RawText ? 'raw' : '';
+    if (typeof msg == 'string') {
+        msg = <RawText> RawText.text(msg);
+    }
+    let command: string;
     if (toActionBar) {
-        command = `title${appendRaw} ${player.nameTag} actionbar ` + command;
+        command = `titleraw ${player.nameTag} actionbar ${msg.toString()}`;
     } else {
-        command = `tell${appendRaw} ${player.nameTag} ` + command;
+        command = `tellraw ${player.nameTag} ${msg.toString()}`;
     }
     Server.runCommand(command);
 }
 
 export function printerr(msg: string | RawText, player: Player, toActionBar = false) {
     print(msg instanceof RawText ? msg.prepend('text', '§c') : ('§c' + msg), player, toActionBar);
+}
+
+const worldY: {[k: string]: [number, number]} = {
+    'overworld': [-999, 999],
+    'nether': [0, 128],
+    'the_end': [0, 128]
+}
+export function getWorldMinY(player: Player) {
+    const dimName = getPlayerDimension(player)[1];
+    // Caves and Cliffs?
+    if (dimName == 'overworld' && worldY['overworld'][0] == -999) {
+        const test = getPlayerBlockLocation(player);
+        test.y = -1;
+        worldY['overworld'][0] = canPlaceBlock(test) ? -64 : 0;
+    }
+    return worldY[dimName][0];
+}
+
+export function getWorldMaxY(player: Player) {
+    const dimName = getPlayerDimension(player)[1];
+    // Caves and Cliffs?
+    if (dimName == 'overworld' && worldY['overworld'][1] == 999) {
+        const test = getPlayerBlockLocation(player);
+        test.y = 256;
+        worldY['overworld'][1] = canPlaceBlock(test) ? 319 : 255;
+    }
+    return worldY[dimName][1];
+}
+
+export function canPlaceBlock(loc: BlockLocation) {
+    const locString = printLocation(loc, false);
+    Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`);
+    const error = Server.runCommand(`structure load canPlaceHere ${locString}`).error;
+    Server.runCommand(`structure delete canPlaceHere ${locString}`);
+    return !error;
 }
 
 export function playerHasItem(player: Player, item: string) {
@@ -53,20 +94,18 @@ export function playerHasItem(player: Player, item: string) {
 export function getPlayerBlockLocation(player: Player) {
     return new BlockLocation(
         Math.floor(player.location.x),
-        Math.floor(player.location.y - 1.61), // Account for player height
+        Math.floor(player.location.y),
         Math.floor(player.location.z)
     );
 }
 
 export function requestPlayerDirection(player: Player) {
     return new Promise((resolve: (dir: Location) => void) => {
-        const locA = getPlayerBlockLocation(player);
+        const locA = player.location;
         let locB: Location;
         const dimension = getPlayerDimension(player)[1];
         const onSpawn = (entity: Entity) => {
-            if (entity.id == 'wedit:direction_marker' ||
-                entity.id == 'unknown' && entity.getComponent('minecraft:health')?.value == 48927) {
-                
+            if (entity.id == 'wedit:direction_marker') {
                 locB = entity.location;
                 entity.nameTag = 'wedit:pending_deletion_of_selector';
                 Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimension);
@@ -85,20 +124,29 @@ export function requestPlayerDirection(player: Player) {
     });
 }
 
-const playerDimensions: {[k: string]: [Dimension, dimension]} = {};
+const playerDimensions: Map<string, [boolean, Dimension, dimension]> = new Map();
+Server.on('tick', tick => {
+    for (const entry of playerDimensions) {
+        entry[1][0] = false;
+    }
+});
 export function getPlayerDimension(player: Player): [Dimension, dimension] {
+    if (playerDimensions.get(player.nameTag)?.[0]) {
+        return <[Dimension, dimension]> playerDimensions.get(player.nameTag).slice(1);
+    }
+
     const blockLoc = getPlayerBlockLocation(player);
     for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
         const dimension: Dimension = World.getDimension(dimName);
         const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
         for (const entity of entities) {
             if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
-                playerDimensions[player.nameTag] = [dimension, dimName];
+                playerDimensions.set(player.nameTag, [true, dimension, dimName]);
                 return [dimension, dimName];
             }
         }
     }
-    return playerDimensions[player.nameTag] || [null, null];
+    return <[Dimension, dimension]> playerDimensions.get(player.nameTag).slice(1) || [null, null];
 }
 
 export function printLocation(loc: BlockLocation | Location, pretty = true) {

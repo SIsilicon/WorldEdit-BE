@@ -40,6 +40,9 @@
 		},
 		"selection_wall": {
 			"textures": "textures/items/selection_wall"
+		},
+		"wooden_brush": {
+			"textures": "textures/items/wood_shovel"
 		}
 	}
 }

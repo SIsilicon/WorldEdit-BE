@@ -1,27 +1,83 @@
 import { Server } from '../../../library/Minecraft.js';
+import { commandList } from '../command_list.js';
+import { print } from '../../util.js';
+import { RawText } from '../../modules/rawtext.js';
 
 const registerInformation = {
     cancelMessage: true,
     name: 'help',
     description: 'Get list of all the commands available or input an argument to get information about that specific command',
-    usage: '[command name]',
+    usages: [
+        '[command: CommandName]',
+        '<page: int>'
+    ],
+    aliases: ['?'],
     example: [
         'help',
         'help copy'
     ]
 };
 
-Server.command.register(registerInformation, (data, args) => {
-    const cmdList = Server.command.getAll();
-    if(!args[0]) return Server.broadcast(`§bCustom Command prefix§f: §a${Server.command.prefix}\n§bType §a${Server.command.prefix}help §f[command name] §bfor more information on that command!\n§bCustom Command List: §l§c${cmdList.join(', ')}`, data.sender.nameTag);
+commandList['help'] = [registerInformation, (session, builder, args) => {
+    const cmdList = Server.command.getAllRegistation();
+    if(!args[0] || Number(args[0]) == Number(args[0])) {
+        const cmdInfo: [string, string][] = [];
+        for (const cmd of cmdList) {
+            cmdInfo.push([cmd.name, cmd.usage]);
+            if (cmd.aliases) {
+                for (const alias of cmd.aliases) {
+                    cmdInfo.push([alias, cmd.usage]);
+                }
+            }
+        }
+        cmdInfo.sort((a, b) => {
+            if (a[0] < b[0]) {
+                return -1;
+            }
+            if (a[0] > b[0]) {
+                return 1;
+            }
+            if (a[1] < b[1]) {
+                return -1;
+            }
+            return 1;
+        });
+        
+        const PAGE_SIZE = 7;
+        let totalPages = Math.ceil(cmdInfo.length / PAGE_SIZE);
+        let page = Number(args[0]);
+        page = page == page ? page : 1;
+        let pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
+        
+        let msg = RawText.text('§2').append('translate', 'worldedit.help.header').with(`${pageOff / PAGE_SIZE + 1}`).with(`${totalPages}`).append('text', '§r');
+        for (let i = pageOff; i < Math.min(pageOff + PAGE_SIZE, cmdInfo.length); i++) {
+            const cmd = cmdInfo[i];
+            msg.append('text', `\n${Server.command.prefix}${cmd[0]} ${cmd[1]}`);
+        }
+        return msg;
+    }
     
-    const cmdInfo = Server.command.getRegistration(args[0]);
-    if(!cmdInfo) return Server.broadcast('§cI couldn\'t find the command...', data.sender.nameTag);
+    const cmdBaseInfo = Server.command.getRegistration(args[0]);
+    if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[0]);
+    const cmdInfo = commandList[cmdBaseInfo.name][0];
     
-    let string = `\n§eCommand§f: §a${Server.command.prefix}§l§c${cmdInfo.name}§r\n`;
-    if(cmdInfo.aliases) string += `§eAliases§f: §c${cmdInfo.aliases.join('§r, ')}§r\n`;
-    if(cmdInfo.description) string += `§eDescription§f: ${cmdInfo.description}\n`;
-    if(cmdInfo.usage) string += `§eUsage§f: §a${Server.command.prefix}§f${cmdInfo.name} ${cmdInfo.usage}\n`;
-    if(cmdInfo.example) string += `§eExample§f: §a${Server.command.prefix}§f${cmdInfo.example.join(`\n${Server.command.prefix}§f`)}`;
-    Server.broadcast(string, data.sender.nameTag);
-});
+    let info = RawText.text('\n§e');
+    if (cmdInfo.aliases) {
+        info.append('translate', 'commands.help.command.aliases').with(cmdInfo.name).with(cmdInfo.aliases.join(', '));
+    } else {
+        info.append('text', cmdInfo.name + ':');
+    }
+    if (cmdInfo.description) {
+        info.append('text', '\n').append('translate', cmdInfo.description).append('text', '\n§r');
+    }
+    if (cmdInfo.usage) {
+        info.append('translate', 'commands.generic.usage').with(`\n- ${Server.command.prefix}${cmdInfo.name} ${cmdInfo.usage}`);
+    } else if (cmdInfo.usages) {
+        let usages = '';
+        for (const usage of cmdInfo.usages) {
+            usages += `\n- ${Server.command.prefix}${cmdInfo.name} ${usage}`;
+        }
+        info.append('translate', 'commands.generic.usage').with(usages);
+    }
+    return info;
+}];

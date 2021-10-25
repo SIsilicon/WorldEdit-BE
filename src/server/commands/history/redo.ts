@@ -11,7 +11,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'redo',
     description: 'Redo a certain amount of actions.',
-    usage: '[times]',
+    usage: '[times: int]',
 };
 
 commandList['redo'] = [registerInformation, (session, builder, args) => {

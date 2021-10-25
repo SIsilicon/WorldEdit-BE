@@ -8,7 +8,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'pos2',
     description: 'Set the second position of your selection as your current position',
-    usage: '[coordinates]',
+    usage: '[coordinates: xyx]',
 };
 
 commandList['pos2'] = [registerInformation, (session, builder, args) => {
@@ -25,6 +25,6 @@ commandList['pos2'] = [registerInformation, (session, builder, args) => {
         translate = 'worldedit.selection.cuboid.explain.secondary-area';
     }
     return RawText.translate(translate)
-        .with(printLocation(session.getSelectionPoints()[0]))
+        .with(printLocation(session.getSelectionPoints()[1]))
         .with(`${session.getBlocksSelected().length}`);
 }];

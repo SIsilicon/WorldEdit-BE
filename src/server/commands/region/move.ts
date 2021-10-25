@@ -11,7 +11,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'move',
     description: 'Move the selection in a certain direction',
-    usage: '<amount> [direction]',
+    usage: '<amount: int> [direction: Direction]',
     example: [
         'move 5',
         'move 10 up'

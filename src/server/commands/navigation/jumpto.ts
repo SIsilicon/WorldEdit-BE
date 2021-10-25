@@ -1,5 +1,6 @@
 import { BeforeChatEvent, BlockLocation, ChatEvent, Player } from 'mojang-minecraft';
 import { Server } from '../../../library/Minecraft.js';
+import { PLAYER_HEIGHT } from '../../../config.js';
 import { assertBuilder, assertNoArgs } from '../../modules/assert.js';
 import { RawText } from '../../modules/rawtext.js';
 import { raytrace } from '../../modules/raytrace.js';
@@ -10,7 +11,8 @@ const registerInformation = {
     cancelMessage: true,
     name: 'jumpto',
     description: 'Teleport you to the top of a block you\'re looking at.',
-    usage: ''
+    usage: '',
+    aliases: ['j']
 };
 
 commandList['jumpto'] = [registerInformation, (session, builder, args) => {
@@ -18,6 +20,7 @@ commandList['jumpto'] = [registerInformation, (session, builder, args) => {
 
     const [dimension, dimName] = getPlayerDimension(builder);
     const origin = builder.location;
+    origin.y += PLAYER_HEIGHT;
     return requestPlayerDirection(builder).then(dir => {
         const hit = raytrace(dimension, origin, dir);
         if (!hit || Server.runCommand(`tp ${builder.nameTag} ${printLocation(hit, false)}`, dimName).error) {

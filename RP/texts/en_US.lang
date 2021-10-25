@@ -4,6 +4,7 @@ pack.description=This is the resource pack used by the WorldEdit add-on. Be sure
 ## ITEMS
 item.wedit:selection_wand=Selection Wand
 item.wedit:navigation_wand=Navigation Wand
+item.wedit:wooden_brush=Wooden Brush
 item.wedit:copy_button=Copy
 item.wedit:cut_button=Cut
 item.wedit:paste_button=Paste
@@ -25,6 +26,9 @@ worldedit.redo.redone=Redid %s available edits.
 worldedit.redo.none=Nothing left to redo.
 worldedit.clearhistory.cleared=History cleared.
 
+worldedit.permission.granted=§eYou have been given WorldEdit permissions.§r
+worldedit.permission.revoked=§eYou're WorldEdit permissions have been removed.§r
+
 worldedit.error.empty-clipboard=Your clipboard is empty. Copy or cut a region first.
 worldedit.error.max-region-size=The maximum region size is (64x256x64). This will change in the future.
 worldedit.error.command-fail=Failed to execute this command.
@@ -34,12 +38,15 @@ worldedit.error.not-positive=%s is not a positive non-zero integer.
 worldedit.error.no-permission=You don't have the permission to execute this command.
 worldedit.error.incomplete-region=Make a region selection first.
 
+worldedit.help.header=--- Showing help page %1$d of %2$d (;help <page>) ---
+
 worldedit.drawsel.enabled=Your selections will now be visible.
 worldedit.drawsel.disabled=Your selections will no longer be visible.
 
 worldedit.wand.selwand.info=Sneak and tap block: select pos #1; Tap block without sneak: select pos #2
 worldedit.wand.navwand.info=Sneak and tap block: jump to location; Tap block without sneak: pass through walls
 
+worldedit.selection.no-primary=First selection has not been made yet.
 worldedit.selection.cuboid.explain.primary=First position set to %s.
 worldedit.selection.cuboid.explain.primary-area=First position set to %1 (%2).
 worldedit.selection.cuboid.explain.secondary=Second position set to %s.
@@ -110,14 +117,21 @@ howtoplay.wedit:region.text.5=The command §e;set§r and the Selection Fill item
 howtoplay.wedit:pattern=Pattern
 howtoplay.wedit:pattern.title=How to Play: Pattern
 howtoplay.wedit:pattern.text.1=A pattern in world edit is a block or a set of blocks that can be placed in an operation. They are currently used when filling a selection, filling the hole of a §e;cut§r command, or generating shapes.
-howtoplay.wedit:pattern.text.2=Patterns have the following syntaxes: <blockname>, <blockname>:<data-value>, <blockname>[<blockproperty>:<value>,...]. You can define multiple blocks comma separated without space.
+howtoplay.wedit:pattern.text.2=Patterns have the following syntaxes: <blockname>, <blockname>:<data-value>, <blockname>['<blockproperty>':'<value>',...]. You can define multiple blocks comma separated without space.
 howtoplay.wedit:pattern.text.3=Here are a few examples:
 howtoplay.wedit:pattern.text.3.1=§e;set glass§r - makes glass
 howtoplay.wedit:pattern.text.3.2=§e;set stone:1§r - makes granite
-howtoplay.wedit:pattern.text.3.3=§e;set dirt,wool["color":"red"]§r - makes an even distribution of dirt and red wool
+howtoplay.wedit:pattern.text.3.3=§e;set dirt,wool['color':'red']§r - makes an even distribution of dirt and red wool
+howtoplay.wedit:pattern.text.4=Tip: to know what data values or block properties you can change for a certain block, visit the minecraft fandom website and search for the block. Down the page will be valid data values for the block.location if any.
 howtoplay.wedit:pattern.header.1=Pattern Picker
 howtoplay.wedit:pattern.text.4=The Pattern Picker is an item that comes with the button items and makes it easier to make a pattern to fill selections with.
 howtoplay.wedit:pattern.text.5.keyboard=To make a pattern with it, :_input_key.use: a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and :_input_key.use: it.
 howtoplay.wedit:pattern.text.5.gamepad=To make a pattern with it, press :_input_key.use: on a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and press :_input_key.use: on it.
 howtoplay.wedit:pattern.text.5.touch=To make a pattern with it, tap a block to set the pattern to it. Add blocks by sneaking when doing this. To set a pattern to air, lava or water; Place down a cauldron; fill it with water, lava or nothing; and sneak and tap it.
 howtoplay.wedit:pattern.text.6=With this pattern you could then fill in your selection with it by using the 'Selection Fill' item.
+howtoplay.wedit:mask=Masks
+howtoplay.wedit:mask.title=How to Play: Masks
+howtoplay.wedit:mask.text.1=Sometimes, you don't want certain blocks to be affected when doing certain operations like making a sphere, or replacing blocks in a selection. That's where masks come in. Unlike patterns, they determine what blocks §ocan§r be affected in an operation. For example if you only want to make a stone sphere where air or wool is, you'd specify the following mask: §eair,wool§r
+howtoplay.wedit:mask.text.2=When it comes to defining blocks, masks share a similar syntax to patterns. Comma separated block masks tell worldedit that the block can either match one mask or the other.
+howtoplay.wedit:mask.header.1=Global Mask
+howtoplay.wedit:mask.text.3=The global mask is a mask that affects some of your worldedit operations; most notably generating shapes, and replacing blocks in your region. Any mask that an operation may use is stacked on top of this mask. So if you had a global mask of air, and you're replacing dirt in a replace command, nothing will happen since a block would need to be both air and dirt to somehow match both masks! You define or remove this global mask with the command §e;gmask§r. 

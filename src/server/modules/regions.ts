@@ -1,6 +1,6 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '../../library/Minecraft.js';
-import { getPlayerBlockLocation, getPlayerDimension, printLocation, regionMin, regionSize, regionVolume, subtractLocations } from '../util.js';
+import { getPlayerBlockLocation, getPlayerDimension, printDebug, printLocation, regionMin, regionSize, regionVolume, subtractLocations } from '../util.js';
 import { RawText } from './rawtext.js';
 
 interface StructureMeta {
@@ -9,8 +9,6 @@ interface StructureMeta {
     origin: BlockLocation;
     blockCount: number;
 }
-
-// TODO: Throw error when region is greater than (64x256x64)
 
 class RegionsManager {
     private structures: {[k: string]: StructureMeta} = {}
@@ -47,7 +45,6 @@ class RegionsManager {
             if (mode == 'relative') {
                 loadPos = subtractLocations(location, this.structures[structName].origin);
             }
-            
             return Server.runCommand(`structure load ${structName} ${printLocation(loadPos, false)}`, getPlayerDimension(player)[1]).error;
         }
         return true;

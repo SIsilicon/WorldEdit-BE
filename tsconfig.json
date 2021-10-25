@@ -8,7 +8,8 @@
         "noImplicitAny": true,
         "preserveConstEnums": true,
         "sourceMap": false,
-        "outDir": "./BP/scripts"
+        "outDir": "./BP/scripts",
+        "allowJs": true
     },
     "include": [
         "./src",

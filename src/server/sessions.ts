@@ -4,11 +4,12 @@ import { getPlayerDimension, printDebug, printLocation, regionMax, regionMin, re
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';
+import { Mask } from './modules/mask.js';
+import { RawText } from './modules/rawtext.js';
+import { TICKS_TO_DELETE_SESSION } from '../config.js';
 
 // TODO: Add other selection modes
 type selectMode = 'cuboid';
-
-const TIME_TO_DELETE_SESSION = 600 * TicksPerSecond;
 
 const playerSessions: {[k: string]: PlayerSession} = {};
 const pendingDeletion: {[k: string]: [number, PlayerSession]} = {}
@@ -27,6 +28,7 @@ Server.on('tick', ev => {
 
 export class PlayerSession {
     public usePickerPattern = false;
+    public globalMask = new Mask();
 
     private player: Player;
     private history: History;
@@ -36,7 +38,7 @@ export class PlayerSession {
     private _drawSelection = true;
     
     private pickerPattern: BlockPermutation[] = [];
-
+    
     private drawPoints: Location[] = [];
     private drawTimer: number = 0;
     private onTick = (tick: TickEvent) => {
@@ -72,6 +74,9 @@ export class PlayerSession {
     }
 
     public setSelectionPoint(index: number, loc: BlockLocation): void {
+        if (index > 0 && this.selectionPoints.length == 0) {
+          throw RawText.translate('worldedit.selection.no-primary');
+        }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
         }
@@ -84,7 +89,7 @@ export class PlayerSession {
     }
 
     public clearSelectionPoints() {
-        this.selectionPoints.length = 0;
+        this.selectionPoints = [];
         this.updateDrawSelection();
     }
 
@@ -225,6 +230,6 @@ export function removeSession(player: string) {
 
     playerSessions[player].clearSelectionPoints();
     playerSessions[player].clearPickerPattern();
-    pendingDeletion[player] = [TIME_TO_DELETE_SESSION, playerSessions[player]];
+    pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
     delete playerSessions[player];
 }

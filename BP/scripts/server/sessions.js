@@ -1,10 +1,12 @@
-import { Location, TicksPerSecond } from 'mojang-minecraft';
+import { Location } from 'mojang-minecraft';
 import { History } from './modules/history.js';
 import { getPlayerDimension, printDebug, printLocation, regionMax, regionMin } from './util.js';
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';
-const TIME_TO_DELETE_SESSION = 600 * TicksPerSecond;
+import { Mask } from './modules/mask.js';
+import { RawText } from './modules/rawtext.js';
+import { TICKS_TO_DELETE_SESSION } from '../config.js';
 const playerSessions = {};
 const pendingDeletion = {};
 Server.on('tick', ev => {
@@ -21,6 +23,7 @@ Server.on('tick', ev => {
 export class PlayerSession {
     constructor(player) {
         this.usePickerPattern = false;
+        this.globalMask = new Mask();
         this._selectionMode = 'cuboid';
         this._drawSelection = true;
         this.pickerPattern = [];
@@ -54,6 +57,9 @@ export class PlayerSession {
         this.history.reassignPlayer(player);
     }
     setSelectionPoint(index, loc) {
+        if (index > 0 && this.selectionPoints.length == 0) {
+            throw RawText.translate('worldedit.selection.no-primary');
+        }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
         }
@@ -64,7 +70,7 @@ export class PlayerSession {
         return this.selectionPoints.slice();
     }
     clearSelectionPoints() {
-        this.selectionPoints.length = 0;
+        this.selectionPoints = [];
         this.updateDrawSelection();
     }
     getBlocksSelected() {
@@ -186,6 +192,6 @@ export function removeSession(player) {
         return;
     playerSessions[player].clearSelectionPoints();
     playerSessions[player].clearPickerPattern();
-    pendingDeletion[player] = [TIME_TO_DELETE_SESSION, playerSessions[player]];
+    pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
     delete playerSessions[player];
 }

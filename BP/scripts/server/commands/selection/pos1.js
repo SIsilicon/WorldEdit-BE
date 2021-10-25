@@ -6,7 +6,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'pos1',
     description: 'Set the first position of your selection to the specified or current position',
-    usage: '[coordinates]',
+    usage: '[coordinates: xyz]',
 };
 commandList['pos1'] = [registerInformation, (session, builder, args) => {
         let loc = getPlayerBlockLocation(builder);

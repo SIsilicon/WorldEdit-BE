@@ -9,12 +9,16 @@ import './commands/import-commands.js';
 
 import { BlockLocation, BlockProperties, MinecraftBlockTypes, Player, World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
-import { getPlayerBlockLocation, getPlayerDimension, playerHasItem, print, printDebug, printerr } from './util.js';
+import { requestPlayerDirection, getPlayerBlockLocation, getPlayerDimension, playerHasItem, print, printDebug, printerr } from './util.js';
+import { PLAYER_HEIGHT, DEBUG } from '../config.js';
 import { dimension } from '../library/@types/index.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
 import { callCommand } from './commands/command_list.js';
+import { raytrace } from './modules/raytrace.js';
 import { RawText } from './modules/rawtext.js';
+import { generateSphere } from './commands/generation/sphere.js';
+import { Pattern } from './modules/pattern.js';
 
 // These markers are used to detect a player doing something with tools, items or brushes.
 const buildTagMarkers = [
@@ -28,6 +32,7 @@ const buildTagMarkers = [
     'wedit:performing_spawn_glass',
     'wedit:navigating',
     'wedit:performing_selection_fill',
+    'wedit:use_wooden_brush'
 ] as const;
 type builderTagMarker = typeof buildTagMarkers[number];
 
@@ -41,24 +46,30 @@ function processTag(tag: builderTagMarker, player: Player, callback: (player: Pl
     return false;
 }
 
+let ready = false;
 Server.on('ready', data => {
-    Server.runCommand('gamerule sendcommandfeedback false');
+    Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${data.loadTime} ticks!`);
+    ready = true;
 });
 
 Server.on('playerJoin', entity => {
     const player = World.getPlayers().find(p => {return p.nameTag == entity.nameTag});
-    makeBuilder(player);
+    const onTick = () => {
+        makeBuilder(player);
+        Server.off('tick', onTick);
+    }
+    Server.prependOnceListener('tick', onTick);
 })
 
 Server.on('playerLeave', player => {
-    revokeBuilder(player.name);
+    if (player.name) {
+        revokeBuilder(player.name);
+    }
 })
 
 Server.on('entityCreate', entity => {
-    if (entity.id == 'wedit:block_marker' ||
-        entity.id == 'unknown' && entity.getComponent('minecraft:health')?.value == 41902) {
-        
+    if (entity.id == 'wedit:block_marker') {
         const loc = new BlockLocation(
             Math.floor(entity.location.x),
             Math.floor(entity.location.y),
@@ -77,8 +88,8 @@ Server.on('entityCreate', entity => {
                     assertBuilder(player);
                     dimension = getPlayerDimension(player)[1];
                     let addedToPattern = false;
-                    let block = World.getDimension(dimension).getBlock(loc).getBlockData().clone();
-                    let blockName = block.getType().getName();
+                    let block = World.getDimension(dimension).getBlock(loc).permutation.clone();
+                    let blockName = block.type.id;
                     const session = getSession(player);
                     if (player.isSneaking) {
                         let isCauldron = false;
@@ -135,11 +146,17 @@ Server.on('entityCreate', entity => {
 });
 
 Server.on('tick', ev => {
+    if (!ready)
+      return;
+    
     for (const player of World.getPlayers()) {
         if (activeBuilders.includes(player)) {
             continue;
         }
-        makeBuilder(player); // Attempt to make them a builder.
+        
+        if (!makeBuilder(player)) { // Attempt to make them a builder.
+            print(RawText.translate('worldedit.permission.granted'), player);
+        }
     }
 
     for (const builder of activeBuilders) {
@@ -149,6 +166,7 @@ Server.on('tick', ev => {
             session = getSession(builder);
         } catch (e) {
             revokeBuilder(builder.nameTag);
+            print(RawText.translate('worldedit.permission.revoked'), builder);
             continue;
         }
         
@@ -201,6 +219,24 @@ Server.on('tick', ev => {
             } else {
                 callCommand(player, 'jumpto', []);
             }
+        });
+        
+        // TODO: Move brush operations somewhere else
+        processTag('wedit:use_wooden_brush', builder, player => {
+            const [dimension, dimName] = getPlayerDimension(player);
+            const origin = player.location;
+            origin.y += PLAYER_HEIGHT;
+            return requestPlayerDirection(player).then(dir => {
+                const hit = raytrace(dimension, origin, dir);
+                if (!hit) {
+                    printerr(RawText.translate('worldedit.jumpto.none'), player);
+                }
+                try {
+                    generateSphere(session, hit, [4, 4, 4], Pattern.parseArg('stone'), false);
+                } catch (e) {
+                    printerr(e, player);
+                }
+            });
         });
     }
 });

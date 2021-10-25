@@ -1,8 +1,7 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
-import { getPlayerDimension, regionMin } from '../util.js';
-
-const MAX_HISTORY_SIZE = 15;
+import { canPlaceBlock, getPlayerDimension, regionMin } from '../util.js';
+import { MAX_HISTORY_SIZE } from '../../config.js';
 
 type historyEntry = {
     name: string,
@@ -135,7 +134,7 @@ export class History {
     }
 
     private processRegion(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any') {
-        const tempRegion = 'tempHistoryProcess' + historyId;
+        const tempRegion = 'tempHistoryVoid';
         let structName: string;
 
         const finish = () => {
@@ -146,6 +145,10 @@ export class History {
         }
 
         try {
+            if (!canPlaceBlock(start) || !canPlaceBlock(end)) {
+                throw 'Failed to save history!';
+            }
+
             // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
             if (Array.isArray(blocks)) {
                 var loc = regionMin(start, end);
@@ -169,8 +172,8 @@ export class History {
                 throw 'Failed to save history!';
             }
         } catch(err) {
-            this.cancel();
             finish();
+            this.cancel();
             throw err;
         }
 

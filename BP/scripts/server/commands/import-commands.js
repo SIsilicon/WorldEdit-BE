@@ -8,6 +8,7 @@ import './information/help.js';
 import './selection/pos1.js';
 import './selection/pos2.js';
 import './selection/drawsel.js';
+import './selection/desel.js';
 import './selection/wand.js';
 import './clipboard/cut.js';
 import './clipboard/copy.js';
@@ -18,7 +19,9 @@ import './generation/cyl.js';
 import './generation/hcyl.js';
 import './generation/pyramid.js';
 import './generation/hpyramid.js';
+import './region/gmask.js';
 import './region/set.js';
+import './region/replace.js';
 //import './region/move.js';
 // TODO: Implement stack
 // TODO: Implement wall
@@ -38,15 +41,32 @@ import './history/clearhistory.js';
 import { print, printerr } from '../util.js';
 Server.command.prefix = ';';
 let _printToActionBar = false;
+// TODO: Support command aliases
 for (const name in commandList) {
     const command = commandList[name];
-    Server.command.register(command[0], (data, args) => {
+    if (command[0].usages) {
+        for (const usage of command[0].usages) {
+            const subCmd = {
+                name: command[0].name,
+                aliases: command[0].aliases,
+                description: command[0].description,
+                usage: usage
+            };
+            registerCommand(subCmd, command[1]);
+        }
+    }
+    else {
+        registerCommand(command[0], command[1]);
+    }
+}
+function registerCommand(cmd, callback) {
+    Server.command.register(cmd, (data, args) => {
         let toActionBar = _printToActionBar;
         _printToActionBar = false;
         try {
             const player = data.sender;
             assertBuilder(player);
-            const msg = command[1](getSession(player), player, args);
+            const msg = callback(getSession(player), player, args);
             if (msg instanceof Promise) {
                 msg.then(msg => {
                     print(msg, player, toActionBar);

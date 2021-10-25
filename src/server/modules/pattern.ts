@@ -1,35 +1,34 @@
 import { BlockLocation, BlockPermutation, World } from 'mojang-minecraft';
 import { dimension } from '../../library/@types';
 import { Server } from '../../library/Minecraft.js';
-import { printLocation } from '../util.js';
+import { printDebug, printLocation } from '../util.js';
+import { Token } from './extern/tokenizr.js';
+import { lexer, parseBlock, parsedBlock } from './parser.js';
 
-type patternBlock = {
-    id: string | BlockPermutation,
-    data: number,
-    states: string
-}
-
+// TODO: Update Documentation on patterns
 export class Pattern {
-    private blocks: patternBlock[] = [];
-    private arePermutations = false;
+    private blocks: parsedBlock[] = [];
 
-    private constructor(blocks: patternBlock[], arePermutations: boolean) {
-        this.arePermutations = arePermutations;
+    private constructor(blocks: parsedBlock[]) {
         this.blocks = blocks;
     }
 
     setBlock(loc: BlockLocation, dimension: dimension) {
         const block = this.blocks.length == 1 ? this.blocks[0] : this.blocks[Math.floor(Math.random() * this.blocks.length)];
-        
-        if (this.arePermutations) {
-            World.getDimension(dimension).getBlock(loc).setPermutation(<BlockPermutation> block.id);
-            return false;
-        }
 
         let command = block.id;
-        if (block.states) {
-            command += block.states;
-        } else {
+        if (block.states && block.states.size != 0) {
+            command += '['
+            let i = 0;
+            for (const state of block.states.entries()) {
+                command += `"${state[0]}":"${state[1]}"`
+                if (i < block.states.size - 1) {
+                    command += ',';
+                }
+                i++;
+            }
+            command += ']'
+        } else if (block.data != -1) {
             command += ` ${block.data}`;
         }
         const result = Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dimension);
@@ -37,50 +36,49 @@ export class Pattern {
     }
 
     static parseArg(argument: string) {
-        const blocks: patternBlock[] = [];
-        for (const subArg of argument.split(',')) {
-            const block: patternBlock = {
-                id: '',
-                data: 0,
-                states: ''
+        const blocks: parsedBlock[] = [];
+        
+        let block: parsedBlock = null;
+        function pushBlock() {
+            if (block == null) {
+                throw lexer.error('unexpected token!');
             }
-
-            let bracketIndex = -1;
-            if ((bracketIndex = subArg.lastIndexOf('[')) != -1) {
-                block.id = subArg.slice(0, bracketIndex);
-                block.states = subArg.slice(bracketIndex);
-                blocks.push(block);
-                continue;
-            }
-
-            let colonIndex = -1;
-            if ((colonIndex = subArg.lastIndexOf(':')) != -1) {
-                const data = parseInt(subArg.slice(colonIndex + 1))
-                if (isNaN(data)) {
-                    block.id = subArg;
-                } else {
-                    block.id = subArg.slice(0, colonIndex);
-                    block.data = data;
-                }
-                blocks.push(block);
-                continue;
-            }
-
-            block.id = subArg;
             blocks.push(block);
+            block = null;
         }
 
-        return new Pattern(blocks, false);
+        lexer.input(argument);
+        let token: Token;
+        while (token = lexer.token()) {
+            switch (token.type) {
+                case 'id':
+                    block = parseBlock(lexer, token);
+                case ',':
+                    pushBlock();
+                    break;
+                case 'EOF':
+                    pushBlock();
+                    break;
+                default:
+                    throw lexer.error('unexpected token!');
+            }
+        }
+        return new Pattern(blocks);
     }
 
     static parseBlockPermutations(blocks: BlockPermutation[]) {
         return new Pattern(
-            blocks.map(v => {return {
-                id: v,
-                data: 0,
-                states: ''
-            }}),
-            true
+            blocks.map(v => {
+                const states: Map<string, string> = new Map();
+                v.getAllProperties().forEach(state => {
+                    states.set(state.name, state.value);
+                })
+                return {
+                    id: v.type.id,
+                    data: -1,
+                    states: states
+                }
+            })
         )
     }
 }

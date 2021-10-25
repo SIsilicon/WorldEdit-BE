@@ -29,7 +29,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
         }
 
         function isSpaceEmpty(loc: BlockLocation) {
-            return dimension.getBlock(loc).isEmpty() && dimension.getBlock(loc.offset(0, 1, 0)).isEmpty();
+            return dimension.getBlock(loc).isEmpty && dimension.getBlock(loc.offset(0, 1, 0)).isEmpty;
         }
 
         let testLoc = blockLoc.offset(...cardinal);

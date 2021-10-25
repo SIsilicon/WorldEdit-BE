@@ -49,6 +49,11 @@
             }
           },
           {
+            "wedit:mask_button@how_to_play.wedit:mask_button": {
+              "$toggle_group_forced_index": 76
+            }
+          },
+          {
             "padding_1@how_to_play_common.padding": {
               "size": [
                 0,
@@ -87,6 +92,9 @@
           },
           {
             "wedit:pattern_section@how_to_play.wedit:pattern_section": {}
+          },
+          {
+            "wedit:mask_section@how_to_play.wedit:mask_section": {}
           },
           {
             "section_contents_footer@how_to_play_common.section_contents_footer": {}
@@ -369,6 +377,11 @@
         }
       },
       {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.4"
+        }
+      },
+      {
         "padding_2@how_to_play_common.padding": {}
       },
       {
@@ -399,6 +412,47 @@
       {
         "paragraph_6@how_to_play_common.paragraph": {
           "$text": "howtoplay.wedit:pattern.text.6"
+        }
+      }
+    ]
+  },
+  "wedit:mask_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:mask"
+  },
+  "wedit:mask_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:mask_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:mask.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:mask.text.2"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:mask.header.1"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:mask.text.3"
         }
       }
     ]

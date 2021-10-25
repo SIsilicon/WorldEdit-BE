@@ -1,7 +1,6 @@
 import { Server } from '../../library/Minecraft.js';
 import { getPlayerBlockLocation, getPlayerDimension, printLocation, regionMin, regionSize, regionVolume, subtractLocations } from '../util.js';
 import { RawText } from './rawtext.js';
-// TODO: Throw error when region is greater than (64x256x64)
 class RegionsManager {
     constructor() {
         this.structures = {};

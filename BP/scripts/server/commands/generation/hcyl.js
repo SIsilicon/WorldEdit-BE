@@ -3,7 +3,10 @@ const registerInformation = {
     cancelMessage: true,
     name: 'hcyl',
     description: 'Generate a hollow cylinder.',
-    usage: '[-r] <pattern> <radii> [height]',
+    usages: [
+        '[-r] <pattern: Pattern> <radii: int> [height: int]',
+        '[-r] <pattern: Pattern> <radiiX: int> <radiiZ: int> [height: int]',
+    ]
 };
 commandList['hcyl'] = [registerInformation, (session, builder, args) => {
         return commandList['cyl'][1](session, builder, args.concat('-h'));

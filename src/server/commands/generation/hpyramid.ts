@@ -5,7 +5,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'hpyramid',
     description: 'Generate a hollow pyramid.',
-    usage: '<pattern> <size>',
+    usage: '<pattern: Pattern> <size: int>',
 };
 
 commandList['hpyramid'] = [registerInformation, (session, builder, args) => {

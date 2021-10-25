@@ -7,7 +7,8 @@ const registerInformation = {
     cancelMessage: true,
     name: 'unstuck',
     description: 'Move you out of blocks.',
-    usage: ''
+    usage: '',
+    aliases: ['!']
 };
 commandList['unstuck'] = [registerInformation, (session, builder, args) => {
         assertNoArgs(args);

@@ -33,6 +33,7 @@ class ServerBuild extends ServerBuilder {
              */
             if (!data.message.startsWith(this.command.prefix))
                 return;
+            data.cancel = true;
             const args = data.message.slice(this.command.prefix.length).trim().split(/\s+/);
             const command = args.shift().toLowerCase();
             const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
@@ -41,14 +42,12 @@ class ServerBuild extends ServerBuilder {
                 return this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`);
             }
             ;
-            Command.getAllRegistation().forEach(element => {
-                if (!data.message.startsWith(this.command.prefix) || element.name !== command)
-                    return;
+            for (const element of Command.getAllRegistation()) {
+                if (!(element.name == command || element.aliases?.includes(command)))
+                    continue;
                 /**
                  * Registration callback
                  */
-                if (element?.cancelMessage)
-                    data.cancel = true;
                 try {
                     element.callback(data, args);
                 }
@@ -65,7 +64,9 @@ class ServerBuild extends ServerBuilder {
                     createdAt: date,
                     createdTimestamp: date.getTime()
                 });
-            });
+                break;
+            }
+            ;
         });
         /**
          * Emit to 'beforeExplosion' event listener

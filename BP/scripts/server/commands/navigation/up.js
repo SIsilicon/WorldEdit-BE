@@ -7,7 +7,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'up',
     description: 'Move you a certain number of blocks up.',
-    usage: '<height>',
+    usage: '<height: int>',
 };
 commandList['up'] = [registerInformation, (session, builder, args) => {
         if (args.length == 0)
