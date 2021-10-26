@@ -6,39 +6,15 @@ import './commands/import-commands.js';
 // // TODO: Add floodfill wand (Bucket?)
 // // TODO: Add brushes (Shovels?)
 // // TODO: Add In-game How to play
-import { BlockLocation, BlockProperties, MinecraftBlockTypes, World } from 'mojang-minecraft';
+import { World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
-import { requestPlayerDirection, getPlayerBlockLocation, getPlayerDimension, playerHasItem, print, printDebug, printerr } from './util.js';
-import { PLAYER_HEIGHT, DEBUG } from '../config.js';
+import { playerHasItem, print, printDebug } from './util.js';
+import { DEBUG } from '../config.js';
 import { getSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
-import { callCommand } from './commands/command_list.js';
-import { raytrace } from './modules/raytrace.js';
 import { RawText } from './modules/rawtext.js';
-import { generateSphere } from './commands/generation/sphere.js';
-import { Pattern } from './modules/pattern.js';
-// These markers are used to detect a player doing something with tools, items or brushes.
-const buildTagMarkers = [
-    'wedit:making_selection',
-    'wedit:picking_block_pattern',
-    'wedit:performing_copy',
-    'wedit:performing_cut',
-    'wedit:performing_paste',
-    'wedit:performing_undo',
-    'wedit:performing_redo',
-    'wedit:performing_spawn_glass',
-    'wedit:navigating',
-    'wedit:performing_selection_fill',
-    'wedit:use_wooden_brush'
-];
+Server.setMaxListeners(256);
 let activeBuilders = [];
-function processTag(tag, player, callback) {
-    if (!Server.runCommand(`tag ${player.nameTag} remove ${tag}`).error) {
-        callback(player);
-        return true;
-    }
-    return false;
-}
 let ready = false;
 Server.on('ready', data => {
     Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
@@ -56,77 +32,6 @@ Server.on('playerJoin', entity => {
 Server.on('playerLeave', player => {
     if (player.name) {
         revokeBuilder(player.name);
-    }
-});
-Server.on('entityCreate', entity => {
-    if (entity.id == 'wedit:block_marker') {
-        const loc = new BlockLocation(Math.floor(entity.location.x), Math.floor(entity.location.y), Math.floor(entity.location.z));
-        let dimension;
-        for (const player of World.getPlayers()) {
-            let processed = false;
-            processed || (processed = processTag('wedit:making_selection', player, player => {
-                callCommand(player, player.isSneaking ? 'pos1' : 'pos2', [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
-            }));
-            processed || (processed = processTag('wedit:picking_block_pattern', player, player => {
-                try {
-                    assertBuilder(player);
-                    dimension = getPlayerDimension(player)[1];
-                    let addedToPattern = false;
-                    let block = World.getDimension(dimension).getBlock(loc).permutation.clone();
-                    let blockName = block.type.id;
-                    const session = getSession(player);
-                    if (player.isSneaking) {
-                        let isCauldron = false;
-                        if (blockName == 'minecraft:cauldron' || blockName == 'minecraft:lava_cauldron') {
-                            isCauldron = true;
-                            session.clearPickerPattern();
-                            if (blockName == 'minecraft:lava_cauldron') {
-                                block = MinecraftBlockTypes.lava.createDefaultBlockPermutation();
-                                blockName = 'minecraft:flowing_lava';
-                            }
-                            else if (block.getProperty(BlockProperties.fillLevel).value) {
-                                block = MinecraftBlockTypes.water.createDefaultBlockPermutation();
-                                blockName = 'minecraft:water';
-                            }
-                            else {
-                                block = MinecraftBlockTypes.air.createDefaultBlockPermutation();
-                                blockName = 'minecraft:air';
-                            }
-                        }
-                        session.addPickerPattern(block);
-                        addedToPattern = !isCauldron;
-                    }
-                    else {
-                        session.clearPickerPattern();
-                        session.addPickerPattern(block);
-                    }
-                    // TODO: Properly name fences, shulker boxes, polished stones, slabs, glazed terracotta, sand
-                    for (const prop of block.getAllProperties()) {
-                        if (typeof prop.value == 'string') {
-                            blockName += '.' + prop.value;
-                        }
-                    }
-                    if (blockName.startsWith('minecraft:')) {
-                        blockName = blockName.slice('minecraft:'.length);
-                    }
-                    print(RawText.translate('worldedit.pattern-picker.' + (addedToPattern ? 'add' : 'set'))
-                        .append('translate', `tile.${blockName}.name`), player, true);
-                }
-                catch (e) {
-                    printerr(e, player, true);
-                }
-            }));
-            if (processed) {
-                if (!dimension)
-                    dimension = getPlayerDimension(player)[1];
-                break;
-            }
-        }
-        entity.nameTag = 'wedit:pending_deletion_of_selector';
-        if (dimension) {
-            Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimension);
-            Server.runCommand(`kill @e[name=${entity.nameTag}]`, dimension);
-        }
     }
 });
 Server.on('tick', ev => {
@@ -162,46 +67,8 @@ Server.on('tick', ev => {
         if (!playerHasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
         }
-        processTag('wedit:performing_copy', builder, player => {
-            callCommand(player, 'copy', []);
-        });
-        processTag('wedit:performing_cut', builder, player => {
-            callCommand(player, 'cut', []);
-        });
-        processTag('wedit:performing_paste', builder, player => {
-            callCommand(player, 'paste', []);
-        });
-        processTag('wedit:performing_undo', builder, player => {
-            callCommand(player, 'undo', []);
-        });
-        processTag('wedit:performing_redo', builder, player => {
-            callCommand(player, 'redo', []);
-        });
-        processTag('wedit:performing_spawn_glass', builder, player => {
-            if (Server.runCommand(`execute ${player.nameTag} ~~~ setblock ~~~ glass`).error) {
-                printerr(RawText.translate('worldedit.spawn-glass.error'), player, true);
-            }
-        });
-        processTag('wedit:performing_selection_fill', builder, player => {
-            const session = getSession(player);
-            session.usePickerPattern = true;
-            callCommand(player, 'set', []);
-            session.usePickerPattern = false;
-        });
-        processTag('wedit:navigating', builder, player => {
-            const dimension = getPlayerDimension(player)[0];
-            if (!dimension.isEmpty(getPlayerBlockLocation(player).offset(0, 1, 0))) {
-                callCommand(player, 'unstuck', []);
-            }
-            else if (player.isSneaking) {
-                callCommand(player, 'thru', []);
-            }
-            else {
-                callCommand(player, 'jumpto', []);
-            }
-        });
         // TODO: Move brush operations somewhere else
-        processTag('wedit:use_wooden_brush', builder, player => {
+        /*processTag('wedit:use_wooden_brush', builder, player => {
             const [dimension, dimName] = getPlayerDimension(player);
             const origin = player.location;
             origin.y += PLAYER_HEIGHT;
@@ -212,12 +79,11 @@ Server.on('tick', ev => {
                 }
                 try {
                     generateSphere(session, hit, [4, 4, 4], Pattern.parseArg('stone'), false);
-                }
-                catch (e) {
+                } catch (e) {
                     printerr(e, player);
                 }
             });
-        });
+        });*/
     }
 });
 function makeBuilder(player) {
@@ -225,8 +91,10 @@ function makeBuilder(player) {
         assertBuilder(player);
         getSession(player);
         activeBuilders.push(player);
-        for (const tag of buildTagMarkers) {
-            Server.runCommand(`tag ${player.nameTag} remove ${tag}`);
+        for (const tag of Server.player.getTags(player.nameTag)) {
+            if (tag.includes('wedit:')) {
+                Server.runCommand(`tag ${player.nameTag} remove ${tag}`);
+            }
         }
         printDebug('Added player to world edit!');
         return false;

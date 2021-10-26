@@ -1,4 +1,4 @@
-import { Location } from 'mojang-minecraft';
+import { BlockLocation, Location } from 'mojang-minecraft';
 import { History } from './modules/history.js';
 import { getPlayerDimension, printDebug, printLocation, regionMax, regionMin } from './util.js';
 import { Server } from '../library/Minecraft.js';
@@ -7,6 +7,8 @@ import { Regions } from './modules/regions.js';
 import { Mask } from './modules/mask.js';
 import { RawText } from './modules/rawtext.js';
 import { TICKS_TO_DELETE_SESSION } from '../config.js';
+import { Tools } from './tools/tool_manager.js';
+import './tools/register_tools.js';
 const playerSessions = {};
 const pendingDeletion = {};
 Server.on('tick', ev => {
@@ -24,27 +26,25 @@ export class PlayerSession {
     constructor(player) {
         this.usePickerPattern = false;
         this.globalMask = new Mask();
+        this.tools = new Map();
         this._selectionMode = 'cuboid';
         this._drawSelection = true;
         this.pickerPattern = [];
         this.drawPoints = [];
         this.drawTimer = 0;
-        this.onTick = (tick) => {
-            if (!this.drawSelection)
-                return;
-            if (this.drawTimer <= 0) {
-                this.drawTimer = 10;
-                const dimension = getPlayerDimension(this.player)[1];
-                for (const point of this.drawPoints) {
-                    Server.runCommand(`particle wedit:selection_draw ${printLocation(point, false)}`, dimension);
-                }
-            }
-            this.drawTimer--;
-        };
         this.player = player;
         this.history = new History(this.player);
         this.selectionPoints = [];
-        Server.on('tick', this.onTick);
+        this.tools.set('pattern_picker', Tools.create('pattern_picker'));
+        this.tools.set('selection_wand', Tools.create('selection_wand'));
+        this.tools.set('navigation_wand', Tools.create('navigation_wand'));
+        this.tools.set('cut', Tools.create('cut'));
+        this.tools.set('copy', Tools.create('copy'));
+        this.tools.set('paste', Tools.create('paste'));
+        this.tools.set('undo', Tools.create('undo'));
+        this.tools.set('redo', Tools.create('redo'));
+        this.tools.set('spawn_glass', Tools.create('spawn_glass'));
+        this.tools.set('selection_fill', Tools.create('selection_fill'));
     }
     getPlayer() {
         return this.player;
@@ -140,9 +140,30 @@ export class PlayerSession {
         this.pickerPattern.push(blockData);
     }
     delete() {
-        Server.off('tick', this.onTick);
         Regions.deletePlayer(this.player);
         this.history = null;
+    }
+    onTick(tick) {
+        for (const tool of this.tools.values()) {
+            tool.process(this);
+        }
+        if (!this.drawSelection)
+            return;
+        if (this.drawTimer <= 0) {
+            this.drawTimer = 10;
+            const dimension = getPlayerDimension(this.player)[1];
+            for (const point of this.drawPoints) {
+                Server.runCommand(`particle wedit:selection_draw ${printLocation(point, false)}`, dimension);
+            }
+        }
+        this.drawTimer--;
+    }
+    onEntityCreate(entity, loc) {
+        let processed = false;
+        for (const tool of this.tools.values()) {
+            processed || (processed = tool.process(this, loc));
+        }
+        return processed;
     }
     /**
      * Getter selectionMode
@@ -195,3 +216,25 @@ export function removeSession(player) {
     pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
     delete playerSessions[player];
 }
+Server.on('tick', (tick) => {
+    for (const player in playerSessions) {
+        playerSessions[player].onTick(tick);
+    }
+});
+Server.on('entityCreate', (entity) => {
+    if (entity.id == 'wedit:block_marker') {
+        const loc = new BlockLocation(Math.floor(entity.location.x), Math.floor(entity.location.y), Math.floor(entity.location.z));
+        let dimension;
+        for (const player in playerSessions) {
+            if (playerSessions[player].onEntityCreate(entity, loc)) {
+                dimension = getPlayerDimension(playerSessions[player].getPlayer())[1];
+                break;
+            }
+        }
+        entity.nameTag = 'wedit:pending_deletion_of_selector';
+        if (dimension) {
+            Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimension);
+            Server.runCommand(`kill @e[name=${entity.nameTag}]`, dimension);
+        }
+    }
+});

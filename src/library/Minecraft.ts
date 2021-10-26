@@ -34,6 +34,7 @@ class ServerBuild extends ServerBuilder {
             /**
              * This is for the command builder and a emitter
              */
+             // CHANGES HERE
             if(!data.message.startsWith(this.command.prefix)) return;
             data.cancel = true;
             const args = data.message.slice(this.command.prefix.length).trim().split(/\s+/);
