@@ -7,7 +7,7 @@ __Please note that this addon is currently in its beta stage, and requires exper
 
 ## Installation
 ### Locally
-First you must download the mcaddon file. You can find one in the release section. After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack and resource pack together. The following experimental features must also be enabled.
+First you must download the mcaddon file. You can find one in the [release section](https://github.com/SIsilicon/WorldEdit-BE/releases). After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack and resource pack together. The following experimental features must also be enabled.
 ![GameTest Framework and Holiday Creator Features](docs/Experimental_Features.jpg)
 And that's it! Your world is ready for WorldEdit.
 
