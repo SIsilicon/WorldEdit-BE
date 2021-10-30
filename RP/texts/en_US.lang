@@ -3,6 +3,7 @@ pack.description=This is the resource pack used by the WorldEdit add-on. Be sure
 
 ## ITEMS
 item.wedit:selection_wand=Selection Wand
+item.wedit:stacker_wand=Stacker Wand
 item.wedit:navigation_wand=Navigation Wand
 item.wedit:wooden_brush=Wooden Brush
 item.wedit:copy_button=Copy

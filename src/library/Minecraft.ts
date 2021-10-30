@@ -13,6 +13,8 @@ import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
 
+import { printDebug } from '../server/util.js';
+
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
     public player = Player;
@@ -117,13 +119,9 @@ class ServerBuild extends ServerBuilder {
 
         let worldLoaded = false, tickCount = 0;
         World.events.tick.subscribe((data) => {
-            /**
-             * Emit to 'tick' event listener
-             */
-            this.emit('tick', data);
-        
             let currentPlayer = Player.list();
-            let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
+            let playerLeft = oldPlayer.filter(old => !currentPlayer.includes(old));
+            
             /**
              * Emit to 'playerLeave' event listener
              */
@@ -138,6 +136,13 @@ class ServerBuild extends ServerBuilder {
                 this.emit('ready', { loadTime: tickCount });
                 worldLoaded = true;
             };
+            
+            /**
+             * Emit to 'tick' event listener
+             */
+            this.emit('tick', data);
+            
+            
         });
     };
 };

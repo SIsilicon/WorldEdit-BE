@@ -10,7 +10,7 @@ const registerInformation = {
 };
 commandList['wand'] = [registerInformation, (session, builder, args) => {
         const dimension = getPlayerDimension(builder)[1];
-        Server.runCommand(`clear ${builder.nameTag} wedit:selection_wand`, dimension);
-        Server.runCommand(`give ${builder.nameTag} wedit:selection_wand`, dimension);
+        Server.runCommand(`clear "${builder.nameTag}" wedit:selection_wand`, dimension);
+        Server.runCommand(`give "${builder.nameTag}" wedit:selection_wand`, dimension);
         return RawText.translate('worldedit.wand.selwand.info');
     }];

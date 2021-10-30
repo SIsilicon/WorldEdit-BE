@@ -14,7 +14,7 @@ class RegionsManager {
     private structures: {[k: string]: StructureMeta} = {}
 
     private static genName(name: string, player: Player) {
-        return `wedit:${name}_${player.nameTag}`
+        return `wedit:${name}_${player.nameTag.replace(' ', '_')}`
     }
     
     save(name: string, start: BlockLocation, end: BlockLocation, player: Player) {

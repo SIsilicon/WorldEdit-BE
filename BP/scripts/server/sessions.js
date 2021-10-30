@@ -38,6 +38,7 @@ export class PlayerSession {
         this.tools.set('pattern_picker', Tools.create('pattern_picker'));
         this.tools.set('selection_wand', Tools.create('selection_wand'));
         this.tools.set('navigation_wand', Tools.create('navigation_wand'));
+        this.tools.set('stacker_wand', Tools.create('stacker_wand', 5));
         this.tools.set('cut', Tools.create('cut'));
         this.tools.set('copy', Tools.create('copy'));
         this.tools.set('paste', Tools.create('paste'));
@@ -204,7 +205,9 @@ export function getSession(player) {
             session.reassignPlayer(player);
             delete pendingDeletion[name];
         }
-        playerSessions[name] = session || new PlayerSession(player);
+        playerSessions[name] = session ?? new PlayerSession(player);
+        printDebug(`new Session?: ${!session}`);
+        printDebug(playerSessions[name]?.getPlayer()?.nameTag);
     }
     return playerSessions[name];
 }

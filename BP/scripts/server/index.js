@@ -1,11 +1,9 @@
 import './util.js';
 import './commands/import-commands.js';
 // // TODO: Add settings icon to Inventory UI (Include entities, etc...)
-// // TODO: Implement masks
 // // TODO: Add stacker wand (Iron Axe?)
 // // TODO: Add floodfill wand (Bucket?)
-// // TODO: Add brushes (Shovels?)
-// // TODO: Add In-game How to play
+// // TODO: Add brushes (Shovels?
 import { World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
 import { playerHasItem, print, printDebug } from './util.js';
@@ -23,20 +21,14 @@ Server.on('ready', data => {
 });
 Server.on('playerJoin', entity => {
     const player = World.getPlayers().find(p => { return p.nameTag == entity.nameTag; });
-    const onTick = () => {
-        makeBuilder(player);
-        Server.off('tick', onTick);
-    };
-    Server.prependOnceListener('tick', onTick);
+    printDebug(`player ${player?.nameTag} joined.`);
+    // Can't make them a builder immediately since their tags aren't set up yet.
 });
 Server.on('playerLeave', player => {
-    if (player.name) {
-        revokeBuilder(player.name);
-    }
+    printDebug(`player ${player?.name} left.`);
+    revokeBuilder(player.name);
 });
 Server.on('tick', ev => {
-    if (!ready)
-        return;
     for (const player of World.getPlayers()) {
         if (activeBuilders.includes(player)) {
             continue;
@@ -45,7 +37,15 @@ Server.on('tick', ev => {
             print(RawText.translate('worldedit.permission.granted'), player);
         }
     }
-    for (const builder of activeBuilders) {
+    for (let i = activeBuilders.length - 1; i >= 0; i--) {
+        try {
+            let name = activeBuilders[i].name;
+        }
+        catch {
+            printDebug('A builder no longer exists!');
+            activeBuilders.splice(i, 1);
+        }
+        const builder = activeBuilders[i];
         let session;
         try {
             assertBuilder(builder);
@@ -57,12 +57,12 @@ Server.on('tick', ev => {
             continue;
         }
         if (playerHasItem(builder, 'wooden_axe') && !playerHasItem(builder, 'wedit:selection_wand')) {
-            Server.runCommand(`clear ${builder.nameTag} wooden_axe`);
+            Server.runCommand(`clear "${builder.nameTag}" wooden_axe`);
             giveWorldEditKit(builder);
         }
         if (playerHasItem(builder, 'compass') && !playerHasItem(builder, 'wedit:navigation_wand')) {
-            Server.runCommand(`clear ${builder.nameTag} compass`);
-            Server.runCommand(`give ${builder.nameTag} wedit:navigation_wand`);
+            Server.runCommand(`clear "${builder.nameTag}" compass`);
+            Server.runCommand(`give "${builder.nameTag}" wedit:navigation_wand`);
         }
         if (!playerHasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
@@ -93,7 +93,7 @@ function makeBuilder(player) {
         activeBuilders.push(player);
         for (const tag of Server.player.getTags(player.nameTag)) {
             if (tag.includes('wedit:')) {
-                Server.runCommand(`tag ${player.nameTag} remove ${tag}`);
+                Server.runCommand(`tag "${player.nameTag}" remove ${tag}`);
             }
         }
         printDebug('Added player to world edit!');
@@ -105,14 +105,26 @@ function makeBuilder(player) {
     ;
 }
 function revokeBuilder(player) {
-    activeBuilders.splice(activeBuilders.findIndex(p => { return p.nameTag == player; }), 1);
+    let i = -1;
+    do {
+        i = activeBuilders.findIndex(p => {
+            try {
+                return p.nameTag == player;
+            }
+            catch (e) {
+                return true;
+            }
+        });
+        if (i != -1)
+            activeBuilders.splice(i, 1);
+    } while (i != -1);
     removeSession(player);
     printDebug('Removed player from world edit!');
 }
 function giveWorldEditKit(player) {
     function giveItem(item) {
-        if (Server.runCommand(`clear ${player.nameTag} ${item} 0 0`).error) {
-            Server.runCommand(`give ${player.nameTag} ${item}`);
+        if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
+            Server.runCommand(`give "${player.nameTag}" ${item}`);
         }
     }
     giveItem('wedit:selection_wand');

@@ -29,7 +29,7 @@ export abstract class Tool {
         this.useOn != Tool.emptyUseOn && 
         this.use != Tool.emptyUse ? this.tag + '_block' : this.tag;
         
-        if (!Server.runCommand(`tag ${player.nameTag} remove ${tag}`).error) {
+        if (!Server.runCommand(`tag "${player.nameTag}" remove ${tag}`).error) {
             this.currentPlayer = player;
             try {
                 if (loc === undefined) {

@@ -2,23 +2,23 @@
 	"format_version": "1.16.100",
 	"minecraft:item": {
 		"description": {
-			"identifier": "wedit:selection_wand",
+			"identifier": "wedit:stacker_wand",
 			"category": "commands"
 		},
 		"components": {
 			"minecraft:icon": {
 				"texture": "axe",
-				"frame": 0
+				"frame": 2
 			},
 			"minecraft:max_stack_size": 1,
 			"minecraft:hand_equipped": true,
 			"minecraft:durability": {
-				"max_durability": 131
+				"max_durability": 250
 			},
 			"minecraft:mining_speed": 1,
 			"minecraft:damage": 3,
 			"minecraft:enchantable": {
-				"value": 15,
+				"value": 14,
 				"slot": "axe"
 			},
 			"minecraft:digger": {
@@ -28,15 +28,15 @@
 						"block": {
 							"tags": "q.any_tag('wood', 'pumpkin', 'plant')"
 						},
-						"speed": 2
+						"speed": 6
 					},
 					{
 						"block": "minecraft:chest",
-						"speed": 2
+						"speed": 6
 					},
 					{
 						"block": "minecraft:melon_block",
-						"speed": 2
+						"speed": 6
 					}
 				]
 			},
@@ -54,7 +54,7 @@
 					{
 						"run_command": {
 							"command": [
-								"tag @s add wedit:making_selection"
+								"tag @s add wedit:using_stacker"
 							],
 							"target": "holder"
 						}

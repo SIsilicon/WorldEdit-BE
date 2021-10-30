@@ -64,9 +64,9 @@ export class PlayerBuilder {
      * @example PlayerBuilder.list();
      */
     list(): Array<string> {
-        let data = [];
-        data = Server.runCommand(`list`).players.split(', ');
-        return data;
+        // CHANGED
+        const data = Minecraft.World.getPlayers();
+        return data.map(x => x.nameTag);
     };
     /**
      * Get the amount on a specific items player(s) has

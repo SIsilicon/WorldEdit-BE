@@ -118,12 +118,8 @@ class ServerBuild extends ServerBuilder {
         });
         let worldLoaded = false, tickCount = 0;
         World.events.tick.subscribe((data) => {
-            /**
-             * Emit to 'tick' event listener
-             */
-            this.emit('tick', data);
             let currentPlayer = Player.list();
-            let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
+            let playerLeft = oldPlayer.filter(old => !currentPlayer.includes(old));
             /**
              * Emit to 'playerLeave' event listener
              */
@@ -139,6 +135,10 @@ class ServerBuild extends ServerBuilder {
                 worldLoaded = true;
             }
             ;
+            /**
+             * Emit to 'tick' event listener
+             */
+            this.emit('tick', data);
         });
     }
     ;

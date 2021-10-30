@@ -6,7 +6,7 @@ class RegionsManager {
         this.structures = {};
     }
     static genName(name, player) {
-        return `wedit:${name}_${player.nameTag}`;
+        return `wedit:${name}_${player.nameTag.replace(' ', '_')}`;
     }
     save(name, start, end, player) {
         const size = regionSize(start, end);

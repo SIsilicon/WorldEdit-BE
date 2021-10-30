@@ -25,6 +25,6 @@ commandList['unstuck'] = [registerInformation, (session, builder, args) => {
     }
     while (blockLoc.y += 1);
 
-    Server.runCommand(`tp ${builder.nameTag} ${printLocation(blockLoc, false)}`, dimName);
+    Server.runCommand(`tp "${builder.nameTag}" ${printLocation(blockLoc, false)}`, dimName);
     return RawText.translate('worldedit.unstuck.moved');
 }];

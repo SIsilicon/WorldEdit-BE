@@ -41,7 +41,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
                 }
             }
             if (canGoThrough) {
-                Server.runCommand(`tp ${builder.nameTag} ${printLocation(testLoc, false)}`, dimName);
+                Server.runCommand(`tp "${builder.nameTag}" ${printLocation(testLoc, false)}`, dimName);
                 return RawText.translate('worldedit.thru.moved');
             }
             else {

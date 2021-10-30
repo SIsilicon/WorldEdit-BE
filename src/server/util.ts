@@ -41,9 +41,9 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
     }
     let command: string;
     if (toActionBar) {
-        command = `titleraw ${player.nameTag} actionbar ${msg.toString()}`;
+        command = `titleraw "${player.nameTag}" actionbar ${msg.toString()}`;
     } else {
-        command = `tellraw ${player.nameTag} ${msg.toString()}`;
+        command = `tellraw "${player.nameTag}" ${msg.toString()}`;
     }
     Server.runCommand(command);
 }
@@ -88,7 +88,7 @@ export function canPlaceBlock(loc: BlockLocation) {
 }
 
 export function playerHasItem(player: Player, item: string) {
-    return !Server.runCommand(`clear ${player.nameTag} ${item} 0 0`).error;
+    return !Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error;
 }
 
 export function getPlayerBlockLocation(player: Player) {
@@ -120,7 +120,7 @@ export function requestPlayerDirection(player: Player) {
         }
 
         Server.prependOnceListener('entityCreate', onSpawn);
-        Server.runCommand(`execute ${player.nameTag} ~~~ summon wedit:direction_marker ^^^20`, dimension);
+        Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ^^^20`, dimension);
     });
 }
 

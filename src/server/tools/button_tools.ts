@@ -51,7 +51,7 @@ class SpawnGlassTool extends Tool {
     tag = 'wedit:performing_spawn_glass';
     useOn = Tool.emptyUseOn;
     use = (player: Player, session: PlayerSession) => {
-        if (Server.runCommand(`execute ${player.nameTag} ~~~ setblock ~~~ glass`).error) {
+        if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
             throw RawText.translate('worldedit.spawn-glass.error');
         }
     }

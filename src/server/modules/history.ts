@@ -119,9 +119,12 @@ export class History {
     }
 
     clear() {
-        this.recording = true;
-        this.historyIdx = -2;
-        this.cancel();
+        this.historyIdx = -1;
+        for (let i = 0; i < this.undoStructures.length; i++) {
+            this.deleteHistoryRegions(i);
+        }
+        this.undoStructures.length = 0;
+        this.redoStructures.length = 0;
     }
 
     private deleteHistoryRegions(index: number) {
