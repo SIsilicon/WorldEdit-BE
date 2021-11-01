@@ -7,7 +7,7 @@ import { getPlayerDimension } from '../util.js';
 
 class PatternPickerTool extends Tool {
     tag = 'wedit:picking_block_pattern';
-    use = Tool.emptyUse;
+    itemTool = 'wedit:pattern_picker';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         const dimension = getPlayerDimension(player)[1];
         let addedToPattern = false;

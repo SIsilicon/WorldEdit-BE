@@ -56,14 +56,14 @@ Server.on('tick', ev => {
             print(RawText.translate('worldedit.permission.revoked'), builder);
             continue;
         }
-        if (playerHasItem(builder, 'wooden_axe') && !playerHasItem(builder, 'wedit:selection_wand')) {
+        /*if (playerHasItem(builder, 'wooden_axe') && !playerHasItem(builder, 'wedit:selection_wand')) {
             Server.runCommand(`clear "${builder.nameTag}" wooden_axe`);
             giveWorldEditKit(builder);
         }
         if (playerHasItem(builder, 'compass') && !playerHasItem(builder, 'wedit:navigation_wand')) {
             Server.runCommand(`clear "${builder.nameTag}" compass`);
             Server.runCommand(`give "${builder.nameTag}" wedit:navigation_wand`);
-        }
+        }*/
         if (!playerHasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
         }

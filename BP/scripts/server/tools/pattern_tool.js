@@ -7,7 +7,7 @@ class PatternPickerTool extends Tool {
     constructor() {
         super(...arguments);
         this.tag = 'wedit:picking_block_pattern';
-        this.use = Tool.emptyUse;
+        this.itemTool = 'wedit:pattern_picker';
         this.useOn = (player, session, loc) => {
             const dimension = getPlayerDimension(player)[1];
             let addedToPattern = false;

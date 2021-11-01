@@ -7,7 +7,8 @@ import { Tools } from './tool_manager.js';
 
 class NavigationTool extends Tool {
     tag = 'wedit:navigating';
-    useOn = Tool.emptyUseOn;
+    itemTool = 'wedit:navigation_wand';
+    itemBase = 'minecraft:compass';
     use = (player: Player, session: PlayerSession) => {
         const dimension = getPlayerDimension(player)[0];
         if (!dimension.isEmpty(getPlayerBlockLocation(player).offset(0, 1, 0))) {

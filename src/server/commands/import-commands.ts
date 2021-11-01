@@ -30,8 +30,8 @@ import './generation/hpyramid.js';
 import './region/gmask.js';
 import './region/set.js';
 import './region/replace.js';
-//import './region/move.js';
-// TODO: Implement stack
+import './region/move.js';
+import './region/stack.js';
 // TODO: Implement wall
 // TODO: Implement faces
 // TODO: Implement hollow

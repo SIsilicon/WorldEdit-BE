@@ -1,4 +1,5 @@
 import { assertValidInteger } from '../../modules/assert.js';
+import { getDirection } from '../../modules/directions.js';
 import { Pattern } from '../../modules/pattern.js';
 import { Regions } from '../../modules/regions.js';
 import { set } from './set.js';
@@ -13,27 +14,27 @@ const registerInformation = {
         'move 10 up'
     ]
 };
-// TODO: Finish move command
 commandList['move'] = [registerInformation, (session, builder, args) => {
-        if (args.length == 0)
-            throw 'You need to specify how far to move the selection!';
-        const amount = parseInt(args[0]);
+        const amount = args[0] ? parseInt(args[0]) : 1;
         assertValidInteger(amount, args[0]);
-        let dir = args[1] || 'me';
-        let direction = [0, amount, 0];
-        let [start, end] = session.getSelectionRange();
-        let movedStart = start.offset(...direction);
-        let movedEnd = end.offset(...direction);
-        const history = session.getHistory();
-        history.record();
-        history.addUndoStructure(start, end, 'any');
-        history.addUndoStructure(movedStart, movedEnd, 'any');
-        Regions.save('temp_move', start, end, builder);
-        const count = set(session, Pattern.parseArg('air'));
-        Regions.load('temp_move', movedStart, builder, 'absolute');
-        Regions.delete('temp_move', builder);
-        history.addRedoStructure(start, end, 'any');
-        history.addRedoStructure(movedStart, movedEnd, 'any');
-        history.commit();
-        return 'Set ${count} blocks successfully.';
+        const direction = (args[1] ?? 'me').toLowerCase();
+        return getDirection(direction, builder).then(dir => {
+            let direction = dir.map(v => { return v * amount; });
+            const [start, end] = session.getSelectionRange();
+            const movedStart = start.offset(...direction);
+            const movedEnd = end.offset(...direction);
+            const history = session.getHistory();
+            history.record();
+            history.addUndoStructure(start, end, 'any');
+            history.addUndoStructure(movedStart, movedEnd, 'any');
+            Regions.save('temp_move', start, end, builder);
+            let count = set(session, Pattern.parseArg('air'));
+            Regions.load('temp_move', movedStart, builder, 'absolute');
+            count += Regions.getBlockCount('temp_move', builder);
+            Regions.delete('temp_move', builder);
+            history.addRedoStructure(start, end, 'any');
+            history.addRedoStructure(movedStart, movedEnd, 'any');
+            history.commit();
+            return `Set ${count} blocks successfully.`;
+        });
     }];
