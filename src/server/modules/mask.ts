@@ -8,6 +8,7 @@ import { lexer, parseBlock, parsedBlock } from './parser.js';
 // TODO: Implement 'not' and 'and' operations
 export class Mask {
     private conditions: parsedBlock[] = [];
+    private stringObj = '';
 
     matchesBlock(loc: BlockLocation, dimension: dimension) {
         if (this.conditions.length == 0) {
@@ -53,6 +54,10 @@ export class Mask {
     };
 
     static parseArg(argument: string) {
+         if (!argument) {
+             return new Mask();
+         }
+        
         let conditions: parsedBlock[] = [];
         let block: parsedBlock = null;
         function pushBlock() {
@@ -81,7 +86,12 @@ export class Mask {
         }
 
         const mask = new Mask();
+        mask.stringObj = argument;
         mask.conditions = conditions;
         return mask;
+    }
+    
+    toString() {
+        return `[mask: ${this.stringObj}]`;
     }
 }

@@ -6,6 +6,7 @@ import { lexer, parseBlock } from './parser.js';
 export class Mask {
     constructor() {
         this.conditions = [];
+        this.stringObj = '';
     }
     matchesBlock(loc, dimension) {
         if (this.conditions.length == 0) {
@@ -50,6 +51,9 @@ export class Mask {
     }
     ;
     static parseArg(argument) {
+        if (!argument) {
+            return new Mask();
+        }
         let conditions = [];
         let block = null;
         function pushBlock() {
@@ -76,7 +80,11 @@ export class Mask {
             }
         }
         const mask = new Mask();
+        mask.stringObj = argument;
         mask.conditions = conditions;
         return mask;
+    }
+    toString() {
+        return `[mask: ${this.stringObj}]`;
     }
 }

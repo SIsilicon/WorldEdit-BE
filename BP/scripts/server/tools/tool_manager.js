@@ -6,7 +6,7 @@ class ToolBuilder {
         this.tools.set(name, toolClass);
     }
     create(name, ...args) {
-        return new (this.tools.get(name))(args);
+        return new (this.tools.get(name))(...args);
     }
 }
 export const Tools = new ToolBuilder();

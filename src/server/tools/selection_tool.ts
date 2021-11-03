@@ -15,8 +15,8 @@ class SelectionTool extends Tool {
         );
     }
     
-    replaceItemBase(player: Player, inv: PlayerInventoryComponentContainer) {
-        super.replaceItemBase(player, inv);
+    bind(player: Player, inv: PlayerInventoryComponentContainer) {
+        super.bind(player, inv);
         function giveItem(item: string) {
             if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
                 Server.runCommand(`give "${player.nameTag}" ${item}`);

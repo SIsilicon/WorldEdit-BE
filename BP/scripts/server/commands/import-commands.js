@@ -2,6 +2,7 @@ import { Server } from '../../library/Minecraft.js';
 import { commandList } from './command_list.js';
 import { assertBuilder } from '../modules/assert.js';
 import { getSession } from '../sessions.js';
+import { print, printerr } from '../util.js';
 // TODO: Localization of all strings
 // TODO: Throw proper syntax errors (command.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
 import './information/help.js';
@@ -35,13 +36,12 @@ import './navigation/jumpto.js';
 import './navigation/thru.js';
 // TODO: Implement ascend and descend
 // TODO: Implement ceil
+import './tool/tools.js';
 import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';
-import { print, printerr } from '../util.js';
 Server.command.prefix = ';';
 let _printToActionBar = false;
-// TODO: Support command aliases
 for (const name in commandList) {
     const command = commandList[name];
     if (command[0].usages) {

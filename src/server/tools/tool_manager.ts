@@ -9,7 +9,7 @@ class ToolBuilder {
     }
     
     create(name: string, ...args: any[]): Tool {
-        return new (this.tools.get(name))(args);
+        return new (this.tools.get(name))(...args);
     }
 }
 export const Tools = new ToolBuilder();

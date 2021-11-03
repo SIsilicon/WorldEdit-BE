@@ -1,4 +1,4 @@
-import { BeforeChatEvent, BlockLocation, ChatEvent, Player } from 'mojang-minecraft';
+import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '../../../library/Minecraft.js';
 import { PLAYER_HEIGHT } from '../../../config.js';
 import { assertBuilder, assertNoArgs } from '../../modules/assert.js';

@@ -9,7 +9,7 @@ export class Tool {
         const player = session.getPlayer();
         if (loc === undefined && this.itemBase !== undefined) {
             if (playerHasItem(player, this.itemBase) && !playerHasItem(player, this.itemTool)) {
-                this.replaceItemBase(player, player.getComponent('minecraft:inventory'));
+                this.bind(player, player.getComponent('minecraft:inventory'));
             }
         }
         if (loc === undefined && this.use === undefined ||
@@ -37,8 +37,12 @@ export class Tool {
         }
         return false;
     }
-    replaceItemBase(player, inv) {
+    bind(player, inv) {
         Server.runCommand(`clear "${player.nameTag}" ${this.itemBase}`);
         Server.runCommand(`give "${player.nameTag}" ${this.itemTool}`);
+    }
+    unbind(player) {
+        Server.runCommand(`clear "${player.nameTag}" ${this.itemTool}`);
+        Server.runCommand(`give "${player.nameTag}" ${this.itemBase}`);
     }
 }

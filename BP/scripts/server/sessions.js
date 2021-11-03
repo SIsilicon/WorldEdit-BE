@@ -35,17 +35,16 @@ export class PlayerSession {
         this.player = player;
         this.history = new History(this.player);
         this.selectionPoints = [];
-        this.tools.set('pattern_picker', Tools.create('pattern_picker'));
-        this.tools.set('selection_wand', Tools.create('selection_wand'));
-        this.tools.set('navigation_wand', Tools.create('navigation_wand'));
-        this.tools.set('stacker_wand', Tools.create('stacker_wand', 5));
-        this.tools.set('cut', Tools.create('cut'));
-        this.tools.set('copy', Tools.create('copy'));
-        this.tools.set('paste', Tools.create('paste'));
-        this.tools.set('undo', Tools.create('undo'));
-        this.tools.set('redo', Tools.create('redo'));
-        this.tools.set('spawn_glass', Tools.create('spawn_glass'));
-        this.tools.set('selection_fill', Tools.create('selection_fill'));
+        this.setTool('pattern_picker');
+        this.setTool('selection_wand');
+        this.setTool('navigation_wand');
+        this.setTool('cut');
+        this.setTool('copy');
+        this.setTool('paste');
+        this.setTool('undo');
+        this.setTool('redo');
+        this.setTool('spawn_glass');
+        this.setTool('selection_fill');
     }
     getPlayer() {
         return this.player;
@@ -139,6 +138,13 @@ export class PlayerSession {
     }
     addPickerPattern(blockData) {
         this.pickerPattern.push(blockData);
+    }
+    setTool(tool, ...args) {
+        this.tools.set(tool, Tools.create(tool, ...args));
+    }
+    unbindTool(tool) {
+        this.tools.get(tool).unbind(this.player);
+        this.tools.delete(tool);
     }
     delete() {
         Regions.deletePlayer(this.player);

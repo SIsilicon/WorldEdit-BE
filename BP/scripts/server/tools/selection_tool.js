@@ -12,8 +12,8 @@ class SelectionTool extends Tool {
             callCommand(player, player.isSneaking ? 'pos1' : 'pos2', [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
         };
     }
-    replaceItemBase(player, inv) {
-        super.replaceItemBase(player, inv);
+    bind(player, inv) {
+        super.bind(player, inv);
         function giveItem(item) {
             if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
                 Server.runCommand(`give "${player.nameTag}" ${item}`);

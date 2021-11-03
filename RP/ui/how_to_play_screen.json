@@ -390,28 +390,28 @@
         }
       },
       {
-        "paragraph_4@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:pattern.text.4"
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.5"
         }
       },
       {
-        "paragraph_5_keyboard@how_to_play_common.paragraph_keyboard": {
-          "$text": "howtoplay.wedit:pattern.text.5.keyboard"
+        "paragraph_6_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.wedit:pattern.text.6.keyboard"
         }
       },
       {
-        "paragraph_5_gamepad@how_to_play_common.paragraph_gamepad": {
-          "$text": "howtoplay.wedit:pattern.text.5.gamepad"
+        "paragraph_6_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.wedit:pattern.text.6.gamepad"
         }
       },
       {
-        "paragraph_5_touch@how_to_play_common.paragraph_touch": {
-          "$text": "howtoplay.wedit:pattern.text.5.touch"
+        "paragraph_6_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.wedit:pattern.text.6.touch"
         }
       },
       {
-        "paragraph_6@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:pattern.text.6"
+        "paragraph_7@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:pattern.text.7"
         }
       }
     ]

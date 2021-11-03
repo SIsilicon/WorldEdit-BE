@@ -25,7 +25,7 @@ export abstract class Tool {
         const player = session.getPlayer();
         if (loc === undefined && this.itemBase !== undefined) {
             if (playerHasItem(player, this.itemBase) && !playerHasItem(player, this.itemTool)) {
-                this.replaceItemBase(player, player.getComponent('minecraft:inventory'));
+                this.bind(player, player.getComponent('minecraft:inventory'));
             }
         }
         
@@ -55,8 +55,13 @@ export abstract class Tool {
         return false;
     }
     
-    replaceItemBase(player: Player, inv: PlayerInventoryComponentContainer) {
+    bind(player: Player, inv: PlayerInventoryComponentContainer) {
         Server.runCommand(`clear "${player.nameTag}" ${this.itemBase}`);
         Server.runCommand(`give "${player.nameTag}" ${this.itemTool}`);
+    }
+    
+    unbind(player: Player) {
+        Server.runCommand(`clear "${player.nameTag}" ${this.itemTool}`);
+        Server.runCommand(`give "${player.nameTag}" ${this.itemBase}`);
     }
 }
