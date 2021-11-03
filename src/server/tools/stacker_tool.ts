@@ -44,7 +44,7 @@ class StackerTool extends Tool {
         });
     }
     
-    constructor(range: int, mask: Mask) {
+    constructor(range: number, mask: Mask) {
         super();
         this.range = range;
         this.mask = mask;
