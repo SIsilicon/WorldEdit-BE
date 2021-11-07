@@ -1,7 +1,8 @@
 import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
-import { getPlayerBlockLocation, getPlayerDimension, getWorldMaxY, getWorldMinY } from '../../util.js';
+import { CylinderShape } from '../../shapes/cylinder.js';
+import { getPlayerBlockLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 const registerInformation = {
     cancelMessage: true,
@@ -9,60 +10,9 @@ const registerInformation = {
     description: 'Generate a filled cylinder.',
     usages: [
         '[-hr] <pattern: Pattern> <radii: int> [height: int]',
-        '[-hr] <pattern: Pattern> <radiiX: int> <radiiZ: int> [height: int]',
+        '[-hr] <pattern: Pattern> <radiiX: int>,<radiiZ: int> [height: int]',
     ]
 };
-// Note: Centered to bottom by default.
-function generateCylinder(session, loc, radii, height, pattern, isHollow) {
-    loc = loc.offset(0, -height / 2, 0);
-    const min = loc.offset(-radii[0], 0, -radii[1]);
-    const max = loc.offset(radii[0], height - 1, radii[1]);
-    const dimension = getPlayerDimension(session.getPlayer())[1];
-    const minY = getWorldMinY(session.getPlayer());
-    min.y = Math.max(minY, min.y);
-    const maxY = getWorldMaxY(session.getPlayer());
-    max.y = Math.min(maxY, max.y);
-    let canGenerate = max.y >= min.y;
-    const blocksAffected = [];
-    const radiiOff = radii.map(v => v + 0.5);
-    if (canGenerate) {
-        for (const block of min.blocksBetween(max)) {
-            if (!session.globalMask.matchesBlock(block, dimension)) {
-                continue;
-            }
-            if (isHollow) {
-                let hLocal = [
-                    (block.x - loc.x) / (radiiOff[0] - 1.0),
-                    (block.z - loc.z) / (radiiOff[1] - 1.0),
-                ];
-                if (hLocal[0] * hLocal[0] + hLocal[1] * hLocal[1] < 1.0) {
-                    continue;
-                }
-            }
-            let local = [
-                (block.x - loc.x) / radiiOff[0],
-                (block.z - loc.z) / radiiOff[1],
-            ];
-            if (local[0] * local[0] + local[1] * local[1] < 1.0) {
-                blocksAffected.push(block);
-            }
-        }
-    }
-    const history = session.getHistory();
-    history.record();
-    let count = 0;
-    if (canGenerate) {
-        history.addUndoStructure(min, max, blocksAffected);
-        for (const block of blocksAffected) {
-            if (!pattern.setBlock(block, dimension)) {
-                count++;
-            }
-        }
-        history.addRedoStructure(min, max, blocksAffected);
-    }
-    history.commit();
-    return count;
-}
 commandList['cyl'] = [registerInformation, (session, builder, args) => {
         if (args.length < 2)
             throw 'This command expects at least two arguments!';
@@ -108,6 +58,7 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
             throw 'Radii not defined!';
         height = height || 1;
         const loc = getPlayerBlockLocation(builder).offset(0, isRaised ? height / 2 : 0, 0);
-        const count = generateCylinder(session, loc, radii, height, pattern, isHollow);
+        const cylShape = new CylinderShape(height, ...radii);
+        const count = cylShape.generate(loc, pattern, null, session, { 'hollow': isHollow });
         return RawText.translate('worldedit.generate.created').with(`${count}`);
     }];

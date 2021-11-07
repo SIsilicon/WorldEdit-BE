@@ -80,6 +80,20 @@ export function canPlaceBlock(loc) {
 export function playerHasItem(player, item) {
     return !Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error;
 }
+export function playerReplaceItem(player, item, sub) {
+    const inv = player.getComponent('inventory').container;
+    for (let i = 0; i < inv.size; i++) {
+        if (inv.getItem(i)?.id === item) {
+            const slotType = i > 8 ? 'slot.inventory' : 'slot.hotbar';
+            const slotId = i > 8 ? i - 9 : i;
+            // printDebug(slotId);
+            // printDebug(slotType);
+            // printDebug(item + ' -> ' + sub);
+            Server.runCommand(`replaceitem entity "${player.nameTag}" ${slotType} ${slotId} ${sub}`);
+            break;
+        }
+    }
+}
 export function getPlayerBlockLocation(player) {
     return new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y), Math.floor(player.location.z));
 }

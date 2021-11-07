@@ -12,14 +12,13 @@ class SelectionTool extends Tool {
             callCommand(player, player.isSneaking ? 'pos1' : 'pos2', [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
         };
     }
-    bind(player, inv) {
-        super.bind(player, inv);
+    bind(player) {
+        super.bind(player);
         function giveItem(item) {
             if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
                 Server.runCommand(`give "${player.nameTag}" ${item}`);
             }
         }
-        giveItem('wedit:selection_wand');
         giveItem('wedit:selection_fill');
         giveItem('wedit:pattern_picker');
         giveItem('wedit:copy_button');

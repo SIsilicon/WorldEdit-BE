@@ -142,6 +142,12 @@ export class PlayerSession {
     setTool(tool, ...args) {
         this.tools.set(tool, Tools.create(tool, ...args));
     }
+    setToolProperty(tool, property, value) {
+        this.tools.get(tool)[property] = value;
+    }
+    hasTool(tool) {
+        return this.tools.has(tool);
+    }
     unbindTool(tool) {
         this.tools.get(tool).unbind(this.player);
         this.tools.delete(tool);

@@ -2,10 +2,20 @@
 	"format_version": "1.16.0",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "wedit:block_marker",
+			"identifier": "wedit:hand_checker",
 			"is_summonable": true,
 			"is_spawnable": false,
-			"is_experimental": false
+			"is_experimental": false,
+			
+			"animations": {
+				"hand_checker": "controller.animation.hand_checker.detect",
+				"detect": "animation.hand_checker.detect"
+			},
+			"scripts": {
+				"animate": [
+					"hand_checker"
+				]
+			}
 		},
 		"components": {
 			"minecraft:physics": {
@@ -38,6 +48,9 @@
 				"width": 0.0001,
 				"height": 0.0001
 			}
-		}
+		},
+		"events": {
+	        
+	    }
 	}
 }

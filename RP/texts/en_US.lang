@@ -42,6 +42,7 @@ worldedit.error.expect-no-args=This command does not expect any arguments.
 worldedit.error.invaild-integer=%s is not a valid integer.
 worldedit.error.not-positive=%s is not a positive non-zero integer.
 worldedit.error.no-permission=You don't have the permission to execute this command.
+worldedit.error.item.no-perms=You don't have the permission to use this item.
 worldedit.error.incomplete-region=Make a region selection first.
 
 worldedit.help.header=--- Showing help page %1$d of %2$d (;help <page>) ---
@@ -52,6 +53,7 @@ worldedit.drawsel.disabled=Your selections will no longer be visible.
 worldedit.wand.generic.info=Wand Updated.
 worldedit.wand.selwand.info=Sneak and tap block: select pos #1; Tap block without sneak: select pos #2
 worldedit.wand.navwand.info=Sneak and tap block: jump to location; Tap block without sneak: pass through walls
+worldedit.wand.brush.no-bind=No brush has been bounded to this tier.
 
 worldedit.selection.no-primary=First selection has not been made yet.
 worldedit.selection.cuboid.explain.primary=First position set to %s.
@@ -73,6 +75,7 @@ worldedit.thru.moved=Whoosh!
 worldedit.up.moved=Whoosh!
 worldedit.jumpto.moved=Poof!
 worldedit.jumpto.none=No block in sight (or too far)!
+worldedit.brush.invalid-tier=%s is an invalid brush tier.
 
 ## HOW TO PLAY
 howtoplay.category.worldEdit=WorldEdit

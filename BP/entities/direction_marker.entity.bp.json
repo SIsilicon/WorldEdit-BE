@@ -25,10 +25,6 @@
 					}
 				]
 			},
-			"minecraft:health": {
-				"value": 48927,
-				"max": 48927
-			},
 			"minecraft:damage_sensor": {
 				"triggers": {
 					"deals_damage": false

@@ -5,7 +5,7 @@ const registerInformation = {
     description: 'Generate a hollow cylinder.',
     usages: [
         '[-r] <pattern: Pattern> <radii: int> [height: int]',
-        '[-r] <pattern: Pattern> <radiiX: int> <radiiZ: int> [height: int]',
+        '[-r] <pattern: Pattern> <radiiX: int>,<radiiZ: int> [height: int]',
     ]
 };
 commandList['hcyl'] = [registerInformation, (session, builder, args) => {

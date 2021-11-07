@@ -1,17 +1,19 @@
 import './util.js';
 import './commands/import-commands.js';
-// // TODO: Add settings icon to Inventory UI (Include entities, etc...)
-// // TODO: Add stacker wand (Iron Axe?)
-// // TODO: Add floodfill wand (Bucket?)
-// // TODO: Add brushes (Shovels?
+// TODO: Add settings icon to Inventory UI (Include entities, etc...)
+// TODO: Add far wand (Golden Axe)
+// TODO: Add floodfill wand (Bucket?)
+// TODO: Add brushes (Shovels)
 import { World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
+import { Tools } from './tools/tool_manager.js';
 import { playerHasItem, print, printDebug } from './util.js';
-import { DEBUG } from '../config.js';
 import { getSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
 import { RawText } from './modules/rawtext.js';
+import { DEBUG } from '../config.js';
 Server.setMaxListeners(256);
+let justJoined = [];
 let activeBuilders = [];
 let ready = false;
 Server.on('ready', data => {
@@ -21,6 +23,7 @@ Server.on('ready', data => {
 });
 Server.on('playerJoin', entity => {
     const player = World.getPlayers().find(p => { return p.nameTag == entity.nameTag; });
+    justJoined.push(player);
     printDebug(`player ${player?.nameTag} joined.`);
     // Can't make them a builder immediately since their tags aren't set up yet.
 });
@@ -32,6 +35,9 @@ Server.on('tick', ev => {
     for (const player of World.getPlayers()) {
         if (activeBuilders.includes(player)) {
             continue;
+        }
+        if (!justJoined.includes(player)) {
+            Tools.unbindAll(player);
         }
         if (!makeBuilder(player)) { // Attempt to make them a builder.
             print(RawText.translate('worldedit.permission.granted'), player);
@@ -56,35 +62,15 @@ Server.on('tick', ev => {
             print(RawText.translate('worldedit.permission.revoked'), builder);
             continue;
         }
-        /*if (playerHasItem(builder, 'wooden_axe') && !playerHasItem(builder, 'wedit:selection_wand')) {
-            Server.runCommand(`clear "${builder.nameTag}" wooden_axe`);
-            giveWorldEditKit(builder);
-        }
-        if (playerHasItem(builder, 'compass') && !playerHasItem(builder, 'wedit:navigation_wand')) {
-            Server.runCommand(`clear "${builder.nameTag}" compass`);
-            Server.runCommand(`give "${builder.nameTag}" wedit:navigation_wand`);
-        }*/
         if (!playerHasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
         }
-        // TODO: Move brush operations somewhere else
-        /*processTag('wedit:use_wooden_brush', builder, player => {
-            const [dimension, dimName] = getPlayerDimension(player);
-            const origin = player.location;
-            origin.y += PLAYER_HEIGHT;
-            return requestPlayerDirection(player).then(dir => {
-                const hit = raytrace(dimension, origin, dir);
-                if (!hit) {
-                    printerr(RawText.translate('worldedit.jumpto.none'), player);
-                }
-                try {
-                    generateSphere(session, hit, [4, 4, 4], Pattern.parseArg('stone'), false);
-                } catch (e) {
-                    printerr(e, player);
-                }
-            });
-        });*/
+        /* const inv: PlayerInventoryComponentContainer = builder.getComponent('inventory').container;
+         if (inv.getItem(0)) {
+             printDebug(`${inv.size}` + ': ' + inv.getItem(0).id);
+         }*/
     }
+    justJoined.length = 0;
 });
 function makeBuilder(player) {
     try {
@@ -120,20 +106,4 @@ function revokeBuilder(player) {
     } while (i != -1);
     removeSession(player);
     printDebug('Removed player from world edit!');
-}
-function giveWorldEditKit(player) {
-    function giveItem(item) {
-        if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
-            Server.runCommand(`give "${player.nameTag}" ${item}`);
-        }
-    }
-    giveItem('wedit:selection_wand');
-    giveItem('wedit:selection_fill');
-    giveItem('wedit:pattern_picker');
-    giveItem('wedit:copy_button');
-    giveItem('wedit:cut_button');
-    giveItem('wedit:paste_button');
-    giveItem('wedit:undo_button');
-    giveItem('wedit:redo_button');
-    giveItem('wedit:spawn_glass');
 }

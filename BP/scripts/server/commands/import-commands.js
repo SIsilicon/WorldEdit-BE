@@ -37,6 +37,7 @@ import './navigation/thru.js';
 // TODO: Implement ascend and descend
 // TODO: Implement ceil
 import './tool/tools.js';
+import './brush/brushes.js';
 import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';

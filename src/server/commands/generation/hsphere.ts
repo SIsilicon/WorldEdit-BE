@@ -7,8 +7,8 @@ const registerInformation = {
     description: 'Generate a hollow sphere.',
     usages: [
         '[-r] <pattern: Pattern> <radii: int>',
-        '[-r] <pattern: Pattern> <radiiXZ: int> <radiiY: int>',
-        '[-r] <pattern: Pattern> <radiiX: int> <radiiY: int> <radiiZ: int>'
+        '[-r] <pattern: Pattern> <radiiXZ: int>,<radiiY: int>',
+        '[-r] <pattern: Pattern> <radiiX: int>,<radiiY: int>,<radiiZ: int>'
     ]
 };
 

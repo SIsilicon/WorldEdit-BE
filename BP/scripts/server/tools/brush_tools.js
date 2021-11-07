@@ -2,24 +2,29 @@ import { RawText } from '../modules/rawtext.js';
 import { raytrace } from '../modules/raytrace.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { requestPlayerDirection, getPlayerDimension } from '../util.js';
+import { requestPlayerDirection, getPlayerDimension, printerr } from '../util.js';
 import { PLAYER_HEIGHT } from '../../config.js';
 class BrushTool extends Tool {
     constructor(brush) {
         super();
         this.use = (player, session) => {
-            const [dimension, dimName] = getPlayerDimension(player);
+            const dimension = getPlayerDimension(player)[1];
             const origin = player.location;
             origin.y += PLAYER_HEIGHT;
             requestPlayerDirection(player).then(dir => {
-                const hit = raytrace(dimension, origin, dir);
+                const hit = raytrace(dimension, origin, dir, this.traceMask);
                 if (!hit) {
                     throw RawText.translate('worldedit.jumpto.none');
                 }
-                this.log(`Doing something with ${this.itemTool} : ${this.brush}`);
+                this.brush.apply(hit, session, this.mask);
+            }).catch(e => {
+                printerr(e, player, true);
             });
         };
         this.brush = brush;
+    }
+    set size(value) {
+        this.brush.resize(value);
     }
 }
 class WoodenBrushTool extends BrushTool {
