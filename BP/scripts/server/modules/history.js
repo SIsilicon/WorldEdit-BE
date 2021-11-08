@@ -1,11 +1,12 @@
 import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { Regions } from './regions.js';
 import { canPlaceBlock, getPlayerDimension, regionMin } from '../util.js';
-import { MAX_HISTORY_SIZE } from '../../config.js';
+import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '../../config.js';
 let historyId = Date.now();
 export class History {
     constructor(player) {
         this.recording = false;
+        this.recordingBrush = false;
         this.undoStructures = [];
         this.redoStructures = [];
         this.historyIdx = -1;
@@ -14,15 +15,19 @@ export class History {
     reassignPlayer(player) {
         this.player = player;
     }
-    record() {
+    record(brush = false) {
         this.assertNotRecording();
         this.recording = true;
+        this.recordingBrush = brush;
         this.recordingUndo = [];
         this.recordingRedo = [];
     }
     commit() {
         this.assertRecording();
         this.recording = false;
+        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+            return;
+        }
         this.historyIdx++;
         for (let i = this.historyIdx; i < this.undoStructures.length; i++) {
             this.deleteHistoryRegions(i);
@@ -50,6 +55,9 @@ export class History {
     }
     addUndoStructure(start, end, blocks = 'any') {
         this.assertRecording();
+        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+            return;
+        }
         const structName = this.processRegion(start, end, blocks);
         this.recordingUndo.push({
             'name': structName,
@@ -58,6 +66,9 @@ export class History {
     }
     addRedoStructure(start, end, blocks = 'any') {
         this.assertRecording();
+        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+            return;
+        }
         const structName = this.processRegion(start, end, blocks);
         this.recordingRedo.push({
             'name': structName,
@@ -107,8 +118,9 @@ export class History {
     processRegion(start, end, blocks) {
         const tempRegion = 'tempHistoryVoid';
         let structName;
+        const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
         const finish = () => {
-            if (Array.isArray(blocks)) {
+            if (recordBlocks) {
                 Regions.load(tempRegion, loc, this.player, 'absolute');
                 Regions.delete(tempRegion, this.player);
             }
@@ -118,7 +130,7 @@ export class History {
                 throw 'Failed to save history!';
             }
             // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
-            if (Array.isArray(blocks)) {
+            if (recordBlocks) {
                 var loc = regionMin(start, end);
                 const dimension = getPlayerDimension(this.player)[0];
                 const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();

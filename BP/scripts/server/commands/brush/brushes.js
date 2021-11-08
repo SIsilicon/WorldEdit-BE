@@ -15,7 +15,8 @@ const registerInformation = {
         '<tier: 1..6> cyl [-h] <pattern: Pattern> [radius: int] [height: int]',
         '<tier: 1..6> mask [mask: Mask]',
         '<tier: 1..6> tracemask [mask: Mask]',
-        '<tier: 1..6> size <size: int>'
+        '<tier: 1..6> size <size: int>',
+        '<tier: 1..6> range <range: int>'
     ]
 };
 const sphere_command = (session, builder, brush, args) => {
@@ -72,6 +73,18 @@ const size_command = (session, builder, brush, args) => {
     session.setToolProperty(brush, 'size', size);
     return RawText.translate('worldedit.wand.generic.info');
 };
+const range_command = (session, builder, brush, args) => {
+    if (!session.hasTool(brush)) {
+        throw RawText.translate('worldedit.wand.brush.no-bind');
+    }
+    let rangeArg = args.shift();
+    const range = parseInt(rangeArg);
+    if (range != range) {
+        throw RawText.translate('worldedit.error.invalid-integer').with(rangeArg ?? "' '");
+    }
+    session.setToolProperty(brush, 'range', range);
+    return RawText.translate('worldedit.wand.generic.info');
+};
 const none_command = (session, builder, brush, args) => {
     if (session.hasTool(brush)) {
         session.unbindTool(brush);
@@ -79,12 +92,12 @@ const none_command = (session, builder, brush, args) => {
     return RawText.translate('worldedit.wand.generic.info');
 };
 commandList['brush'] = [registerInformation, (session, builder, args) => {
-        if (!args[0] || !args[1]) {
-            return 'The following subcommands are available: sphere, cyl, mask, tracemask, size, none';
-        }
         const tier = parseInt(args[0]);
         if (tier != tier || tier < 1 || tier > 6) {
             throw RawText.translate('worldedit.brush.invalid-tier').with(args[0]);
+        }
+        if (!args[1]) {
+            throw 'No subcommand has been specified. Type (;help brush) to see the available subcommands';
         }
         const brush = {
             1: 'wooden_brush',

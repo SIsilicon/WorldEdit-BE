@@ -16,7 +16,7 @@ import { DEBUG } from '../config.js';
 
 Server.setMaxListeners(256);
 
-let justJoined: Player[] = [];
+let justJoined: string[] = [];
 let activeBuilders: Player[] = [];
 
 let ready = false;
@@ -28,8 +28,8 @@ Server.on('ready', data => {
 
 Server.on('playerJoin', entity => {
 	const player = World.getPlayers().find(p => {return p.nameTag == entity.nameTag});
-	justJoined.push(player);
-	printDebug(`player ${player?.nameTag} joined.`);
+	justJoined.push(player.nameTag);
+	printDebug(`player ${player.nameTag} joined.`);
 	// Can't make them a builder immediately since their tags aren't set up yet.
 })
 
@@ -39,16 +39,27 @@ Server.on('playerLeave', player => {
 })
 
 Server.on('tick', ev => {
+	if (!ready) return;
+
 	for (const player of World.getPlayers()) {
 		if (activeBuilders.includes(player)) {
 			continue;
 		}
 		
-		if (!justJoined.includes(player)) {
+		const playerJustJoined = justJoined.includes(player.nameTag);
+		if (!playerJustJoined) {
 			Tools.unbindAll(player);
 		}
+		
 		if (!makeBuilder(player)) { // Attempt to make them a builder.
 			print(RawText.translate('worldedit.permission.granted'), player);
+		}
+		
+		if (playerJustJoined && !Server.runCommand(`testfor ${player.nameTag}`).error) {
+			const i = justJoined.findIndex(p => { return p == player.nameTag });
+			if (i != -1) {
+				justJoined.splice(i, 1);
+			}
 		}
 	}
 
@@ -74,14 +85,7 @@ Server.on('tick', ev => {
 		if (!playerHasItem(builder, 'wedit:selection_wand')) {
 			session.clearSelectionPoints();
 		}
-		
-	   /* const inv: PlayerInventoryComponentContainer = builder.getComponent('inventory').container;
-		if (inv.getItem(0)) {
-			printDebug(`${inv.size}` + ': ' + inv.getItem(0).id);
-		}*/
 	}
-	
-	justJoined.length = 0;
 });
 
 function makeBuilder(player: Player) {

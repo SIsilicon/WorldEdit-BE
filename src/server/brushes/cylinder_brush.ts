@@ -15,6 +15,7 @@ export class CylinderBrush extends Brush {
 	constructor(radius: number, height: number, pattern: Pattern, hollow: boolean) {
 		super();
 		this.shape = new CylinderShape(height, radius);
+		this.shape.usedInBrush = true;
 		this.height = height;
 		this.pattern = pattern;
 		this.hollow = hollow;
@@ -22,6 +23,7 @@ export class CylinderBrush extends Brush {
 	
 	public resize(value: number) {
 		this.shape = new CylinderShape(this.height, value);
+		this.shape.usedInBrush = true;
 	}
 	
 	public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {

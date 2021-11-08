@@ -1,6 +1,9 @@
 import { Mask } from '../modules/mask.js';
 import { getPlayerDimension, subtractLocations, getWorldMinY, getWorldMaxY } from '../util.js';
 export class Shape {
+    constructor() {
+        this.usedInBrush = false;
+    }
     generate(loc, pattern, mask, session, options) {
         const [min, max] = this.getRegion(loc);
         const dimension = getPlayerDimension(session.getPlayer())[1];
@@ -25,7 +28,7 @@ export class Shape {
             }
         }
         const history = session.getHistory();
-        history.record();
+        history.record(this.usedInBrush);
         let count = 0;
         if (canGenerate) {
             history.addUndoStructure(min, max, blocksAffected);

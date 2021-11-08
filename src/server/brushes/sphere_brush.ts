@@ -14,12 +14,14 @@ export class SphereBrush extends Brush {
 	constructor(radius: number, pattern: Pattern, hollow: boolean) {
 		super();
 		this.shape = new SphereShape(radius);
+		this.shape.usedInBrush = true;
 		this.pattern = pattern;
 		this.hollow = hollow;
 	}
 	
 	public resize(value: number) {
 		this.shape = new SphereShape(value);
+		this.shape.usedInBrush = true;
 	}
 	
 	public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {

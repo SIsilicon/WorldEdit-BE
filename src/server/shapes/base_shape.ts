@@ -12,6 +12,7 @@ export type shapeGenVars = {[k: string]: any};
 
 export abstract class Shape {
 	private genVars: shapeGenVars;
+	public usedInBrush = false;
 	
 	public abstract getRegion(loc: BlockLocation): [BlockLocation, BlockLocation];
 	
@@ -49,7 +50,7 @@ export abstract class Shape {
 		}
 		
 		const history = session.getHistory();
-		history.record();
+		history.record(this.usedInBrush);
 		
 		let count = 0;
 		if (canGenerate) {

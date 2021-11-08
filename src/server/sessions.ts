@@ -147,7 +147,7 @@ export class PlayerSession {
 			const edgePoints: Location[] = [];
 			for (const edge of edgeData) {
 				const [a, b] = [corners[edge[0]], corners[edge[1]]];
-				const d = [b.x - a.x + 1, b.y - a.y + 1, b.z - a.z + 1];
+				const d = [b.x - a.x, b.y - a.y, b.z - a.z];
 				const pointCount = Math.min(Math.floor(Math.sqrt(d[0]*d[0] + d[1]*d[1] + d[2]*d[2])), 32);
 				for (let i = 1; i < pointCount; i++) {
 					let t = i / pointCount;
@@ -159,8 +159,13 @@ export class PlayerSession {
 				}
 			}
 			this.drawPoints = corners.concat(edgePoints);
-			this.drawTimer = 0;
 		}
+		
+		for (const point of this.drawPoints) {
+			point.x += 0.001;
+			point.z += 0.001;
+		}
+		this.drawTimer = 0;
 	}
 
 	public getPickerPatternParsed() {

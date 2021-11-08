@@ -20,7 +20,7 @@ export class SphereShape extends Shape {
     
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
-        genVars.radiiOff = this.radii.map(v => v + 0.01);
+        genVars.radiiOff = this.radii.map(v => v + 0.5);
     }
     
     protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {

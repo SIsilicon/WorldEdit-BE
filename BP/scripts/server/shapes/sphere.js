@@ -15,7 +15,7 @@ export class SphereShape extends Shape {
     }
     prepGeneration(genVars, options) {
         genVars.isHollow = options?.hollow ?? false;
-        genVars.radiiOff = this.radii.map(v => v + 0.01);
+        genVars.radiiOff = this.radii.map(v => v + 0.5);
     }
     inShape(relLoc, genVars) {
         if (genVars.isHollow) {
