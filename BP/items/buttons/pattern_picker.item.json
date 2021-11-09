@@ -11,14 +11,20 @@
 				"frame": 0
 			},
 			"minecraft:max_stack_size": 1,
+			"minecraft:liquid_clipped": true,
 			"minecraft:on_use_on": {
 				"on_use_on": {
-					"event": "wedit:block_pick"
+					"event": "wedit:on_use_on"
+				}
+			},
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "wedit:on_use"
 				}
 			}
 		},
 		"events": {
-			"wedit:block_pick": {
+			"wedit:on_use_on": {
 				"sequence": [
 					{
 						"run_command": {
@@ -36,6 +42,15 @@
 						}
 					}
 				]
+			},
+			"wedit:on_use": {
+				"swing": {},
+				"run_command": {
+					"command": [
+						"tag @s add wedit:picking_air"
+					],
+					"target": "holder"
+				}
 			}
 		}
 	}
