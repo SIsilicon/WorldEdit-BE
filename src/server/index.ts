@@ -8,7 +8,7 @@ import './commands/import-commands.js';
 import { Player, World, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
 import { Tools } from './tools/tool_manager.js';
-import { playerHasItem, print, printDebug } from './util.js';
+import { print, printDebug } from './util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
 import { RawText } from './modules/rawtext.js';

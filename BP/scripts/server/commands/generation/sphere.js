@@ -22,11 +22,15 @@ commandList['sphere'] = [registerInformation, (session, builder, args) => {
         let isHollow = false;
         let isRaised = false;
         for (const arg of args) {
-            if (arg == '-h') {
-                isHollow = true;
-            }
-            else if (arg == '-r') {
-                isRaised = true;
+            if (arg.charAt(0) == '-') {
+                for (const char of arg.slice(1)) {
+                    if (char == 'h') {
+                        isHollow = true;
+                    }
+                    else if (char == 'r') {
+                        isRaised = true;
+                    }
+                }
             }
             else if (!pattern) {
                 pattern = Pattern.parseArg(arg);
