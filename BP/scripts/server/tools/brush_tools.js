@@ -1,8 +1,9 @@
 import { RawText } from '../modules/rawtext.js';
 import { raytrace } from '../modules/raytrace.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { requestPlayerDirection, getPlayerDimension, printerr } from '../util.js';
+import { printerr } from '../util.js';
 import { PLAYER_HEIGHT } from '../../config.js';
 class BrushTool extends Tool {
     constructor(brush) {

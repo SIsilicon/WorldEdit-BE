@@ -2,7 +2,7 @@ import { World, MinecraftBlockTypes, BlockProperties } from 'mojang-minecraft';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { RawText } from '../modules/rawtext.js';
-import { getPlayerDimension } from '../util.js';
+import { PlayerUtil } from '../modules/player_util.js';
 class PatternPickerTool extends Tool {
     constructor() {
         super(...arguments);

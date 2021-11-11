@@ -2,6 +2,7 @@ import { BlockLocation, Player, PlayerInventoryComponentContainer } from 'mojang
 import { PlayerSession } from '../sessions.js';
 import { Server } from '../../library/Minecraft.js';
 
+import { PlayerUtil } from '../modules/player_util.js';
 import { RawText } from '../modules/rawtext.js';
 import { print, printerr, printDebug } from '../util.js';
 

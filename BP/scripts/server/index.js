@@ -3,11 +3,11 @@ import './commands/import-commands.js';
 // TODO: Add settings icon to Inventory UI (Include entities, etc...)
 // TODO: Add far wand (Golden Axe)
 // TODO: Add floodfill wand (Bucket?)
-// TODO: Add brushes (Shovels)
 import { World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
 import { Tools } from './tools/tool_manager.js';
 import { print, printDebug } from './util.js';
+import { PlayerUtil } from './modules/player_util.js';
 import { getSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
 import { RawText } from './modules/rawtext.js';
@@ -71,7 +71,7 @@ Server.on('tick', ev => {
             print(RawText.translate('worldedit.permission.revoked'), builder);
             continue;
         }
-        if (!playerHasItem(builder, 'wedit:selection_wand')) {
+        if (!PlayerUtil.hasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
         }
     }

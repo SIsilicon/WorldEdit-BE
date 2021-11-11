@@ -2,8 +2,9 @@ import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Regions } from '../modules/regions.js';
 import { Mask } from '../modules/mask.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { getDirection } from '../modules/directions.js';
-import { getPlayerDimension, printDebug, printerr } from '../util.js';
+import { printDebug, printerr } from '../util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 

@@ -1,7 +1,8 @@
 import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { Regions } from '../../modules/regions.js';
 import { Mask } from '../../modules/mask.js';
-import { regionMin, getPlayerDimension } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
+import { regionMin } from '../../util.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';
 // TODO: Ability to copy entities to clipboard
@@ -37,7 +38,7 @@ export function copy(session, args) {
     let tempUsed = !includeAir || mask;
     if (tempUsed) {
         Regions.save('tempCopy', pos1, pos2, player);
-        const [dimension, dimName] = getPlayerDimension(player);
+        const [dimension, dimName] = PlayerUtil.getDimension(player);
         const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
         const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
         for (const block of pos1.blocksBetween(pos2)) {

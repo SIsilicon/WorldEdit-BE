@@ -4,7 +4,8 @@ import { PLAYER_HEIGHT } from '../../../config.js';
 import { assertBuilder, assertNoArgs } from '../../modules/assert.js';
 import { RawText } from '../../modules/rawtext.js';
 import { raytrace } from '../../modules/raytrace.js';
-import { getPlayerBlockLocation, getPlayerDimension, printLocation, requestPlayerDirection } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
+import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {

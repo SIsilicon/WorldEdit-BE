@@ -3,9 +3,10 @@ import { Server } from '../../../library/Minecraft.js';
 import { assertBuilder } from '../../modules/assert.js';
 
 import { getSession } from '../../sessions.js';
-import { regionMin, regionMax, getPlayerDimension } from '../../util.js';
+import { regionMin, regionMax } from '../../util.js';
 import { copy } from './copy.js';
 import { set } from '../region/set.js';
+import { PlayerUtil } from '../../modules/player_util.js';
 import { Pattern } from '../../modules/pattern.js';
 import { Mask } from '../../modules/mask.js'
 import { commandList } from '../command_list.js';
@@ -54,7 +55,7 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
 
     set(session, Pattern.parseArg(pattern), mask);
     if (includeEntities) {
-    	const [dim, dimName] = getPlayerDimension(builder);
+    	const [dim, dimName] = PlayerUtil.getDimension(builder);
     	for (const block of start.blocksBetween(end)) {
     		for (const entity of dim.getEntitiesAtBlockLocation(block)) {
     			entity.nameTag = 'wedit:marked_for_deletion';
