@@ -12,7 +12,7 @@ let historyId = Date.now();
 
 export class History {
     private recording = false;
-	private recordingBrush = false;
+    private recordingBrush = false;
 
     private undoStructures: historyEntry[][] = [];
     private redoStructures: historyEntry[][] = [];
@@ -43,8 +43,8 @@ export class History {
     commit() {
         this.assertRecording();
         this.recording = false;
-		if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
-        	return;
+        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+            return;
         }
 
         this.historyIdx++;
@@ -80,7 +80,7 @@ export class History {
     addUndoStructure(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
         this.assertRecording();
         if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
-        	return;
+            return;
         }
         
         const structName = this.processRegion(start, end, blocks);
@@ -92,8 +92,8 @@ export class History {
 
     addRedoStructure(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
         this.assertRecording();
-		if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
-        	return;
+        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+            return;
         }
         
         const structName = this.processRegion(start, end, blocks);
@@ -152,8 +152,8 @@ export class History {
     private processRegion(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any') {
         const tempRegion = 'tempHistoryVoid';
         let structName: string;
-		const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
-		
+        const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
+        
         const finish = () => {
             if (recordBlocks) {
                 Regions.load(tempRegion, loc, this.player, 'absolute');
