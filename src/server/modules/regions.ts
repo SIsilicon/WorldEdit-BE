@@ -21,7 +21,7 @@ class RegionsManager {
 		return `wedit:${name}_${player.nameTag.replace(' ', '_')}`
 	}
 	
-	save(name: string, start: BlockLocation, end: BlockLocation, player: Player) {
+	save(name: string, start: BlockLocation, end: BlockLocation, player: Player, includeEntities = false) {
 		const min = regionMin(start, end);
 		const max = regionMax(start, end);
 		const size = regionSize(start, end);
@@ -45,7 +45,7 @@ class RegionsManager {
 				/* printDebug(subName);
 				printDebug(subStart);
 				printDebug(subEnd); */
-				if (!Server.runCommand(`structure save ${subName} ${subStart} ${subEnd} false memory`, dimension).error) {
+				if (!Server.runCommand(`structure save ${subName} ${subStart} ${subEnd} ${includeEntities} memory`, dimension).error) {
 					subStructs.push([x, y, z]);
 				} else {
 					for (const sub of subStructs) {
@@ -69,7 +69,7 @@ class RegionsManager {
 			/* printDebug(structName);
 			printDebug(startStr);
 			printDebug(endStr); */
-			if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} false memory`, dimension).error) {
+			if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} ${includeEntities} memory`, dimension).error) {
 				this.structures[structName] = {
 					position: min,
 					size: size,
