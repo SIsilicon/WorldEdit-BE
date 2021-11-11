@@ -1,5 +1,6 @@
 import { PlayerSession } from '../../sessions.js';
-import { addLocations, getPlayerDimension, regionMax, regionMin } from '../../util.js';
+import { addLocations, regionMax, regionMin } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
 import { Pattern } from '../../modules/pattern.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';

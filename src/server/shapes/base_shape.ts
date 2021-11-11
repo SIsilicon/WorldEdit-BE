@@ -1,8 +1,9 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Pattern } from '../modules/pattern.js';
 import { Mask } from '../modules/mask.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { PlayerSession } from '../sessions.js';
-import { getPlayerDimension, subtractLocations, getWorldMinY, getWorldMaxY } from '../util.js';
+import { subtractLocations, getWorldMinY, getWorldMaxY } from '../util.js';
 
 export type shapeGenOptions = {
 	hollow?: boolean

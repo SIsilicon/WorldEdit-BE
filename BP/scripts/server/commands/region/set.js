@@ -1,4 +1,5 @@
-import { getPlayerDimension, regionMax, regionMin } from '../../util.js';
+import { regionMax, regionMin } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
 import { Pattern } from '../../modules/pattern.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';
@@ -16,10 +17,13 @@ const registerInformation = {
 /*
     @return number of blocks set
 */
-export function set(session, pattern) {
+export function set(session, pattern, mask) {
     let count = 0;
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
+        if (mask && !mask.matchesBlock(blockLoc, dim)) {
+            continue;
+        }
         if (pattern.setBlock(blockLoc, dim)) {
             continue;
         }

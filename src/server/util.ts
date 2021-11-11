@@ -1,5 +1,6 @@
-import { BlockLocation, Dimension, Entity, Location, Player, World } from 'mojang-minecraft';
-import { DEBUG, PLAYER_HEIGHT } from '../config.js';
+import { BlockLocation, Dimension, Location, Player, World } from 'mojang-minecraft';
+import { DEBUG } from '../config.js';
+import { PlayerUtil } from './modules/player_util.js';
 import { dimension } from '../library/@types/index.js';
 import { Server } from '../library/Minecraft.js';
 import { RawText } from './modules/rawtext.js';
@@ -87,48 +88,48 @@ export function canPlaceBlock(loc: BlockLocation) {
     return !error;
 }
 
-export function PlayerUtil.hasItem(loc: BlockLocation | Location, pretty = true) {
+export function printLocation(loc: BlockLocation | Location, pretty = true) {
     if (pretty)
 		return `(${loc.x}, ${loc.y}, ${loc.z})`;
 	else
 		return `${loc.x} ${loc.y} ${loc.z}`;
+}
     
-    
-        port function subtractLocations(a: BlockLocation, b: BlockLocation) {
-            turn new BlockLocation(a.x - b.x, a.y - b.y, a.z - b.z);
-            
-            
-            ort function addLocations(a: BlockLocation, b: BlockLocation) {
-            turn new BlockLocation(a.x + b.x, a.y + b.y, a.z + b.z);
-            
-            
-        port function regionVolume(start: BlockLocation, end: BlockLocation) {
-    const size = regionSize(start, end);
-	return size.x * size.y * size.z;
+export function subtractLocations(a: BlockLocation, b: BlockLocation) {
+    return new BlockLocation(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-    xport function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLocation] {
-        et min = new BlockLocation(Infinity, Infinity, Infinity);
-        et max = new BlockLocation(-Infinity, -Infinity, -Infinity);
-        or (const block of blocks) {
-    	min = regionMin(min, block);
-		max = regionMax(max, block);
-	}
-	return [min, max];
+export function addLocations(a: BlockLocation, b: BlockLocation) {
+    return new BlockLocation(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+export function regionVolume(start: BlockLocation, end: BlockLocation) {
+    const size = regionSize(start, end);
+    return size.x * size.y * size.z;
+}
+
+export function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLocation] {
+    let min = new BlockLocation(Infinity, Infinity, Infinity);
+    let max = new BlockLocation(-Infinity, -Infinity, -Infinity);
+    for (const block of blocks) {
+        min = regionMin(min, block);
+        max = regionMax(max, block);
+    }
+    return [min, max];
+}
+
+export function regionMin(start: BlockLocation, end: BlockLocation) {
+    return new BlockLocation(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z));
+}
+
+export function regionMax(start: BlockLocation, end: BlockLocation) {
+    return new BlockLocation(Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z));
+}
     
-        
-        port function regionMin(start: BlockLocation, end: BlockLocation) {
-        eturn new BlockLocation(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z));
-        
-            
-                rt function regionMax(start: BlockLocation, end: BlockLocation) {
-                urn new BlockLocation(Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z));
-                
-                
 export function regionSize(start: BlockLocation, end: BlockLocation) {
-                urn new BlockLocation(
-                th.abs(start.x - end.x) + 1,
-                th.abs(start.y - end.y) + 1,
-                th.abs(start.z - end.z) + 1
-                
-                                                                                                                                                                                                                                                                                                    
+    return new BlockLocation(
+        Math.abs(start.x - end.x) + 1,
+        Math.abs(start.y - end.y) + 1,
+        Math.abs(start.z - end.z) + 1
+    );
+}

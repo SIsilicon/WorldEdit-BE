@@ -1,6 +1,7 @@
 import { BlockLocation, Location } from 'mojang-minecraft';
 import { History } from './modules/history.js';
-import { getPlayerDimension, printDebug, printLocation, regionMax, regionMin } from './util.js';
+import { PlayerUtil } from './modules/player_util.js';
+import { printDebug, printLocation, regionMax, regionMin } from './util.js';
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';

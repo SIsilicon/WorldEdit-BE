@@ -1,7 +1,8 @@
 import { Player, BlockLocation, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { dimension } from '../library/@types/index.js';
 import { History } from './modules/history.js';
-import { getPlayerDimension, printDebug, printLocation, regionMax, regionMin, regionSize } from './util.js';
+import { PlayerUtil } from './modules/player_util.js';
+import { printDebug, printLocation, regionMax, regionMin, regionSize } from './util.js';
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';

@@ -1,4 +1,4 @@
-import { getPlayerDimension, getPlayerBlockLocation } from '../util.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';

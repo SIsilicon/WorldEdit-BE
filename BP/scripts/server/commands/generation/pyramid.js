@@ -2,7 +2,7 @@ import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
 import { PyramidShape } from '../../shapes/pyramid.js';
-import { getPlayerBlockLocation } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
 import { commandList } from '../command_list.js';
 const registerInformation = {
     cancelMessage: true,

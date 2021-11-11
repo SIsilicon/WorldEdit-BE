@@ -2,8 +2,9 @@ import { BlockLocation } from 'mojang-minecraft';
 import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
+import { PlayerUtil } from '../../modules/player_util.js';
 import { SphereShape } from '../../shapes/sphere.js';
-import { printDebug, getPlayerBlockLocation, vector } from '../../util.js';
+import { printDebug, vector } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {

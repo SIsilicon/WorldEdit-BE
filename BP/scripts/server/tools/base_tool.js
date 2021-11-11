@@ -1,5 +1,6 @@
 import { Server } from '../../library/Minecraft.js';
-import { playerHasItem, playerReplaceItem, print, printerr } from '../util.js';
+import { PlayerUtil } from '../modules/player_util.js';
+import { print, printerr } from '../util.js';
 // Note: Tools that define both use and useOn require to activate the same tag with '_block' appended when used on a block.
 export class Tool {
     log(message) {
@@ -8,7 +9,7 @@ export class Tool {
     process(session, loc) {
         const player = session.getPlayer();
         if (loc === undefined && this.itemBase !== undefined) {
-            if (playerHasItem(player, this.itemBase) && !playerHasItem(player, this.itemTool)) {
+            if (PlayerUtil.hasItem(player, this.itemBase) && !PlayerUtil.hasItem(player, this.itemTool)) {
                 this.bind(player);
             }
         }
@@ -38,12 +39,12 @@ export class Tool {
         return false;
     }
     bind(player) {
-        playerReplaceItem(player, this.itemBase, this.itemTool);
+        PlayerUtil.replaceItem(player, this.itemBase, this.itemTool);
     }
     unbind(player) {
-        if (playerHasItem(player, this.itemTool)) {
+        if (PlayerUtil.hasItem(player, this.itemTool)) {
             if (this.itemBase) {
-                playerReplaceItem(player, this.itemTool, this.itemBase);
+                PlayerUtil.replaceItem(player, this.itemTool, this.itemBase);
             }
             else {
                 Server.runCommand(`clear "${player.nameTag}" ${this.itemTool}`);

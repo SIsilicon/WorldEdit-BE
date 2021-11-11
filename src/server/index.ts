@@ -8,7 +8,7 @@ import { Player, World, PlayerInventoryComponentContainer } from 'mojang-minecra
 import { Server } from '../library/Minecraft.js';
 import { Tools } from './tools/tool_manager.js';
 import { print, printDebug } from './util.js';
-import { PlayerUtil } from './modules/player.js';
+import { PlayerUtil } from './modules/player_util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { assertBuilder } from './modules/assert.js';
 import { RawText } from './modules/rawtext.js';

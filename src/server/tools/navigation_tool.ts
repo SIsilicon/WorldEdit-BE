@@ -1,5 +1,5 @@
 import { Player } from 'mojang-minecraft';
-import { getPlayerDimension, getPlayerBlockLocation } from '../util.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { PlayerSession } from '../sessions.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';

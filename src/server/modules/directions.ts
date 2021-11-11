@@ -1,5 +1,6 @@
 import { Player } from 'mojang-minecraft';
-import { requestPlayerDirection, vector } from '../util.js';
+import { PlayerUtil } from './player_util.js';
+import { vector } from '../util.js';
 
 const directions = ['up', 'down', 'left', 'right', 'forward', 'back', 'north', 'south', 'east', 'west', 'me'] as const;
 const dirAliases = ['u', 'd', 'l', 'r', 'f', 'b', 'n', 's', 'e', 'w', 'm'] as const;

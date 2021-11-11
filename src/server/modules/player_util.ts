@@ -1,12 +1,14 @@
-import { Player } from 'mojang-minecraft';
+import { Player, Dimension, Entity, World, Location, BlockLocation } from 'mojang-minecraft';
+import { dimension } from '../../library/@types/index.js';
 import { Server } from '../../library/Minecraft.js';
+import { PLAYER_HEIGHT } from '../../config.js';
 
 class PlayerHandler {
 	private playerDimensions: Map<string, [boolean, Dimension, dimension]> = new Map();
 	
 	constructor() {
 		Server.on('tick', tick => {
-			for (const entry of playerDimensions) {
+			for (const entry of this.playerDimensions) {
 				entry[1][0] = false;
 			}
 		});
@@ -43,7 +45,7 @@ class PlayerHandler {
 		return new Promise((resolve: (dir: Location) => void) => {
 			const locA = player.location;
 			let locB: Location;
-			const dimension = PlayerUtil.getDimension(player)[1];
+			const dimension = this.getDimension(player)[1];
 			const onSpawn = (entity: Entity) => {
 				if (entity.id == 'wedit:direction_marker') {
 					locB = entity.location;
@@ -65,22 +67,22 @@ class PlayerHandler {
 	}
 	
 	getDimension(player: Player): [Dimension, dimension] {
-		if (playerDimensions.get(player.nameTag)?.[0]) {
-			return <[Dimension, dimension]> playerDimensions.get(player.nameTag).slice(1);
+		if (this.playerDimensions.get(player.nameTag)?.[0]) {
+			return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1);
 		}
 	
-		const blockLoc = getBlockLocation(player);
+		const blockLoc = this.getBlockLocation(player);
 		for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
 			const dimension: Dimension = World.getDimension(dimName);
 			const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
 			for (const entity of entities) {
 				if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
-					playerDimensions.set(player.nameTag, [true, dimension, dimName]);
+					this.playerDimensions.set(player.nameTag, [true, dimension, dimName]);
 					return [dimension, dimName];
 				}
 			}
 		}
-		return <[Dimension, dimension]> playerDimensions.get(player.nameTag).slice(1) || [null, null];
+		return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1) || [null, null];
 	}
 }
 
