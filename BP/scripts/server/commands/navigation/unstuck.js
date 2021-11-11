@@ -12,8 +12,8 @@ const registerInformation = {
 };
 commandList['unstuck'] = [registerInformation, (session, builder, args) => {
         assertNoArgs(args);
-        let blockLoc = getPlayerBlockLocation(builder);
-        const [dimension, dimName] = getPlayerDimension(builder);
+        let blockLoc = PlayerUtil.getBlockLocation(builder);
+        const [dimension, dimName] = PlayerUtil.getDimension(builder);
         do {
             if (dimension.isEmpty(blockLoc) && dimension.isEmpty(blockLoc.offset(0, 1, 0))) {
                 break;

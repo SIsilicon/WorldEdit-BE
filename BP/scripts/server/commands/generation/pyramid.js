@@ -33,7 +33,7 @@ commandList['pyramid'] = [registerInformation, (session, builder, args) => {
             throw 'Pattern not defined!';
         if (!size)
             throw 'Size not defined!';
-        const loc = getPlayerBlockLocation(builder);
+        const loc = PlayerUtil.getBlockLocation(builder);
         const pyramidShape = new PyramidShape(size);
         const count = pyramidShape.generate(loc, pattern, null, session, { 'hollow': isHollow });
         return RawText.translate('worldedit.generate.created').with(`${count}`);

@@ -16,14 +16,10 @@ const registerInformation = {
 /*
     @return number of blocks set
 */
-export function set(session, pattern, mask) {
+export function set(session, pattern) {
     let count = 0;
-    const dim = getPlayerDimension(session.getPlayer())[1];
+    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
-        // printDebug(`${mask} - ${mask?.matchesBlock(blockLoc, dim)}`);
-        if (mask && !mask.matchesBlock(blockLoc, dim)) {
-            continue;
-        }
         if (pattern.setBlock(blockLoc, dim)) {
             continue;
         }

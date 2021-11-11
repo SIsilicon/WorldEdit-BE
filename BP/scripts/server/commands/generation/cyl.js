@@ -22,15 +22,11 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
         let isHollow = false;
         let isRaised = false;
         for (const arg of args) {
-            if (arg.charAt(0) == '-') {
-                for (const char of arg.slice(1)) {
-                    if (char == 'h') {
-                        isHollow = true;
-                    }
-                    else if (char == 'r') {
-                        isRaised = true;
-                    }
-                }
+            if (arg == '-h') {
+                isHollow = true;
+            }
+            else if (arg == '-r') {
+                isRaised = true;
             }
             else if (!pattern) {
                 pattern = Pattern.parseArg(arg);
@@ -61,7 +57,7 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
         if (!radii)
             throw 'Radii not defined!';
         height = height || 1;
-        const loc = getPlayerBlockLocation(builder).offset(0, isRaised ? height / 2 : 0, 0);
+        const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? height / 2 : 0, 0);
         const cylShape = new CylinderShape(height, ...radii);
         const count = cylShape.generate(loc, pattern, null, session, { 'hollow': isHollow });
         return RawText.translate('worldedit.generate.created').with(`${count}`);

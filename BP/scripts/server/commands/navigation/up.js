@@ -16,8 +16,8 @@ commandList['up'] = [registerInformation, (session, builder, args) => {
         assertValidInteger(height, args[0]);
         if (height <= 0)
             throw 'You can only travel up with this command!';
-        let blockLoc = getPlayerBlockLocation(builder);
-        const [dimension, dimName] = getPlayerDimension(builder);
+        let blockLoc = PlayerUtil.getBlockLocation(builder);
+        const [dimension, dimName] = PlayerUtil.getDimension(builder);
         for (let i = 0; i < height; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
             if (!dimension.isEmpty(blockLoc.offset(0, 2, 0))) {
                 break;

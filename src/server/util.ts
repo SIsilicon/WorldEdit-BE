@@ -58,10 +58,10 @@ const worldY: {[k: string]: [number, number]} = {
     'the_end': [0, 128]
 }
 export function getWorldMinY(player: Player) {
-    const dimName = getPlayerDimension(player)[1];
+    const dimName = PlayerUtil.getDimension(player)[1];
     // Caves and Cliffs?
     if (dimName == 'overworld' && worldY['overworld'][0] == -999) {
-        const test = getPlayerBlockLocation(player);
+        const test = PlayerUtil.getBlockLocation(player);
         test.y = -1;
         worldY['overworld'][0] = canPlaceBlock(test) ? -64 : 0;
     }
@@ -69,10 +69,10 @@ export function getWorldMinY(player: Player) {
 }
 
 export function getWorldMaxY(player: Player) {
-    const dimName = getPlayerDimension(player)[1];
+    const dimName = PlayerUtil.getDimension(player)[1];
     // Caves and Cliffs?
     if (dimName == 'overworld' && worldY['overworld'][1] == 999) {
-        const test = getPlayerBlockLocation(player);
+        const test = PlayerUtil.getBlockLocation(player);
         test.y = 256;
         worldY['overworld'][1] = canPlaceBlock(test) ? 319 : 255;
     }
@@ -87,7 +87,7 @@ export function canPlaceBlock(loc: BlockLocation) {
     return !error;
 }
 
-export function printLocation(loc: BlockLocation | Location, pretty = true) {
+export function PlayerUtil.hasItem(loc: BlockLocation | Location, pretty = true) {
     if (pretty)
 		return `(${loc.x}, ${loc.y}, ${loc.z})`;
 	else

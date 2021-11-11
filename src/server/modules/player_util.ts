@@ -43,7 +43,7 @@ class PlayerHandler {
 		return new Promise((resolve: (dir: Location) => void) => {
 			const locA = player.location;
 			let locB: Location;
-			const dimension = getPlayerDimension(player)[1];
+			const dimension = PlayerUtil.getDimension(player)[1];
 			const onSpawn = (entity: Entity) => {
 				if (entity.id == 'wedit:direction_marker') {
 					locB = entity.location;
@@ -69,7 +69,7 @@ class PlayerHandler {
 			return <[Dimension, dimension]> playerDimensions.get(player.nameTag).slice(1);
 		}
 	
-		const blockLoc = getPlayerBlockLocation(player);
+		const blockLoc = getBlockLocation(player);
 		for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
 			const dimension: Dimension = World.getDimension(dimName);
 			const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
@@ -84,4 +84,4 @@ class PlayerHandler {
 	}
 }
 
-export const PlayerUtils = new PlayerHandler();
+export const PlayerUtil = new PlayerHandler();

@@ -9,12 +9,12 @@ class RegionsManager {
     genName(name, player) {
         return `wedit:${name}_${player.nameTag.replace(' ', '_')}`;
     }
-    save(name, start, end, player, includeEntities = false) {
+    save(name, start, end, player) {
         const min = regionMin(start, end);
         const max = regionMax(start, end);
         const size = regionSize(start, end);
         const structName = this.genName(name, player);
-        const dimension = getPlayerDimension(player)[1];
+        const dimension = PlayerUtil.getDimension(player)[1];
         if (size.x > this.MAX_SIZE[0] || size.y > this.MAX_SIZE[1] || size.z > this.MAX_SIZE[2]) {
             const subStructs = [];
             for (let z = 0; z < size.z; z += this.MAX_SIZE[2])
@@ -27,7 +27,7 @@ class RegionsManager {
                         /* printDebug(subName);
                         printDebug(subStart);
                         printDebug(subEnd); */
-                        if (!Server.runCommand(`structure save ${subName} ${subStart} ${subEnd} ${includeEntities} memory`, dimension).error) {
+                        if (!Server.runCommand(`structure save ${subName} ${subStart} ${subEnd} false memory`, dimension).error) {
                             subStructs.push([x, y, z]);
                         }
                         else {
@@ -41,7 +41,7 @@ class RegionsManager {
                 subRegions: subStructs,
                 position: min,
                 size: size,
-                origin: subtractLocations(getPlayerBlockLocation(player), min),
+                origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                 blockCount: regionVolume(start, end)
             };
             return false;
@@ -52,11 +52,11 @@ class RegionsManager {
             /* printDebug(structName);
             printDebug(startStr);
             printDebug(endStr); */
-            if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} ${includeEntities} memory`, dimension).error) {
+            if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} false memory`, dimension).error) {
                 this.structures[structName] = {
                     position: min,
                     size: size,
-                    origin: subtractLocations(getPlayerBlockLocation(player), min),
+                    origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                     blockCount: regionVolume(start, end)
                 };
                 return false;
@@ -68,7 +68,7 @@ class RegionsManager {
         const structName = this.genName(name, player);
         const struct = this.structures[structName];
         if (struct) {
-            const dimension = getPlayerDimension(player)[1];
+            const dimension = PlayerUtil.getDimension(player)[1];
             let loadPos = location;
             if (mode == 'relative') {
                 loadPos = subtractLocations(location, struct.origin);

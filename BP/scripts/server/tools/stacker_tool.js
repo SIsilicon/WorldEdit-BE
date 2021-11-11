@@ -10,7 +10,7 @@ class StackerTool extends Tool {
         this.itemTool = 'wedit:stacker_wand';
         this.itemBase = 'minecraft:iron_axe';
         this.useOn = (player, session, loc) => {
-            const [dimension, dimName] = getPlayerDimension(player);
+            const [dimension, dimName] = PlayerUtil.getDimension(player);
             getDirection('back', player).then(dir => {
                 const start = loc.offset(...dir);
                 if (!this.mask.matchesBlock(start, dimName)) {

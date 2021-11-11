@@ -132,7 +132,7 @@ export class History {
             // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
             if (recordBlocks) {
                 var loc = regionMin(start, end);
-                const dimension = getPlayerDimension(this.player)[0];
+                const dimension = PlayerUtil.getDimension(this.player)[0];
                 const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
                 Regions.save(tempRegion, start, end, this.player);
                 let index = 0;
