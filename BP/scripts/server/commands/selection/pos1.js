@@ -9,7 +9,7 @@ const registerInformation = {
     usage: '[coordinates: xyz]',
 };
 commandList['pos1'] = [registerInformation, (session, builder, args) => {
-        let loc = getPlayerBlockLocation(builder);
+        let loc = PlayerUtil.getBlockLocation(builder);
         if (args.length > 0) {
             loc = parsePosition(args, loc);
         }

@@ -16,7 +16,7 @@ const stack_command = (session, builder, args) => {
     range = range == range ? range : 5;
     let mask = Mask.parseArg(args[1] ?? '');
     session.setTool('stacker_wand', range, mask);
-    const dimension = getPlayerDimension(builder)[1];
+    const dimension = PlayerUtil.getDimension(builder)[1];
     Server.runCommand(`clear "${builder.nameTag}" wedit:stacker_wand`, dimension);
     Server.runCommand(`give "${builder.nameTag}" wedit:stacker_wand`, dimension);
     return RawText.translate('worldedit.wand.generic.info');

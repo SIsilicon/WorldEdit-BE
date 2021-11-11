@@ -14,7 +14,7 @@ const registerInformation = {
 };
 function getAffectedBlocks(session, mask) {
     let blocks = [];
-    const dim = getPlayerDimension(session.getPlayer())[1];
+    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
         if (mask.matchesBlock(blockLoc, dim)) {
             blocks.push(blockLoc);
@@ -38,7 +38,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
             history.addUndoStructure(start, end, affectedBlocks);
         }
         let count = 0;
-        const dim = getPlayerDimension(session.getPlayer())[1];
+        const dim = PlayerUtil.getDimension(session.getPlayer())[1];
         for (const blockLoc of affectedBlocks) {
             if (!pattern.setBlock(blockLoc, dim)) {
                 count++;

@@ -6,7 +6,7 @@ export class Shape {
     }
     generate(loc, pattern, mask, session, options) {
         const [min, max] = this.getRegion(loc);
-        const dimension = getPlayerDimension(session.getPlayer())[1];
+        const dimension = PlayerUtil.getDimension(session.getPlayer())[1];
         const minY = getWorldMinY(session.getPlayer());
         min.y = Math.max(minY, min.y);
         const maxY = getWorldMaxY(session.getPlayer());

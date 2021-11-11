@@ -18,10 +18,10 @@ const registerInformation = {
 commandList['jumpto'] = [registerInformation, (session, builder, args) => {
     assertNoArgs(args);
 
-    const dimension = getPlayerDimension(builder)[1];
+    const dimension = PlayerUtil.getDimension(builder)[1];
     const origin = builder.location;
     origin.y += PLAYER_HEIGHT;
-    return requestPlayerDirection(builder).then(dir => {
+    return PlayerUtil.requestDirection(builder).then(dir => {
         const hit = raytrace(dimension, origin, dir);
         if (!hit || Server.runCommand(`tp "${builder.nameTag}" ${printLocation(hit, false)}`, dimension).error) {
             throw RawText.translate('worldedit.jumpto.none');

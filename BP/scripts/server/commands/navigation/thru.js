@@ -11,9 +11,9 @@ const registerInformation = {
 };
 commandList['thru'] = [registerInformation, (session, builder, args) => {
         assertNoArgs(args);
-        const [dimension, dimName] = getPlayerDimension(builder);
-        const blockLoc = getPlayerBlockLocation(builder);
-        return requestPlayerDirection(builder).then(dir => {
+        const [dimension, dimName] = PlayerUtil.getDimension(builder);
+        const blockLoc = PlayerUtil.getBlockLocation(builder);
+        return PlayerUtil.requestDirection(builder).then(dir => {
             let cardinal;
             const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
             if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {

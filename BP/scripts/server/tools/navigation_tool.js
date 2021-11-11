@@ -9,8 +9,8 @@ class NavigationTool extends Tool {
         this.itemTool = 'wedit:navigation_wand';
         this.itemBase = 'minecraft:compass';
         this.use = (player, session) => {
-            const dimension = getPlayerDimension(player)[0];
-            if (!dimension.isEmpty(getPlayerBlockLocation(player).offset(0, 1, 0))) {
+            const dimension = PlayerUtil.getDimension(player)[0];
+            if (!dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
                 callCommand(player, 'unstuck', []);
             }
             else if (player.isSneaking) {
