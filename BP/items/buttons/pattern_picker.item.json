@@ -1,44 +1,44 @@
 {
-	"format_version": "1.16.100",
-	"minecraft:item": {
-		"description": {
-			"identifier": "wedit:pattern_picker",
-			"category": "commands"
-		},
-		"components": {
-			"minecraft:icon": {
-				"texture": "eyedropper",
-				"frame": 0
-			},
-			"minecraft:max_stack_size": 1,
-			"minecraft:liquid_clipped": true,
-			"minecraft:on_use_on": {
-				"on_use_on": {
-					"event": "wedit:on_use_on"
-				}
-			},
-			"minecraft:on_use": {
-				"on_use": {
-					"event": "wedit:on_use"
-				}
-			}
-		},
-		"events": {
-			"wedit:on_use_on": {
-				"sequence": [
-					{
-						"run_command": {
-							"command": [
-								"tag @s add wedit:picking_block_pattern"
-							],
-							"target": "holder"
-						}
-					},
-					{
-						"run_command": {
-							"command": [
-								"summon wedit:block_marker"
-							]
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "wedit:pattern_picker",
+            "category": "commands"
+        },
+        "components": {
+            "minecraft:icon": {
+                "texture": "eyedropper",
+                "frame": 0
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:liquid_clipped": true,
+                minecraft:on_use_on": {
+                    on_use_on": {
+                	"event": "wedit:on_use_on"
+            	}
+        	},
+        	"minecraft:on_use": {
+            	"on_use": {
+                	"event": "wedit:on_use"
+                    
+                        
+                            
+                                s": {
+                            it:on_use_on": {
+                            quence": [
+                        
+                    	"run_command": {
+                    		"command": [
+                        		"tag @s add wedit:picking_block_pattern"
+                            ],
+                                target": "holder"
+                            
+                        ,
+                    {
+                		"run_command": {
+            				"command": [
+        						"summon wedit:block_marker"
+    						]
 						}
 					}
 				]

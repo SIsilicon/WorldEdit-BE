@@ -1,32 +1,32 @@
 {
-	"format_version": "1.16.100",
-	"minecraft:item": {
-		"description": {
-			"identifier": "wedit:paste_button",
-			"category": "commands"
-		},
-		"components": {
-			"minecraft:icon": {
-				"texture": "paste",
-				"frame": 0
-			},
-			"minecraft:max_stack_size": 1,
-			"minecraft:on_use": {
-				"on_use": {
-					"event": "wedit:on_use"
-				}
-			}
-		},
-		"events": {
-			"wedit:on_use": {
-				"swing": {},
-				"run_command": {
-					"command": [
-						"tag @s add wedit:performing_paste"
-					],
-					"target": "holder"
-				}
-			}
-		}
-	}
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "wedit:paste_button",
+            "category": "commands"
+        },
+        "components": {
+            "minecraft:icon": {
+                "texture": "paste",
+                "frame": 0
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "wedit:on_use"
+                }
+            }
+        },
+        "events": {
+            "wedit:on_use": {
+                "swing": {},
+                "run_command": {
+                    "command": [
+                        "tag @s add wedit:performing_paste"
+                    ],
+                    "target": "holder"
+                }
+            }
+        }
+    }
 }
