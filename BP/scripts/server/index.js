@@ -3,6 +3,7 @@ import './commands/import-commands.js';
 // TODO: Add settings icon to Inventory UI (Include entities, etc...)
 // TODO: Add far wand (Golden Axe)
 // TODO: Add floodfill wand (Bucket?)
+// TODO: Add brushes (Shovels)
 import { World } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
 import { Tools } from './tools/tool_manager.js';

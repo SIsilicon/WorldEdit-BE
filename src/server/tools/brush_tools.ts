@@ -3,10 +3,10 @@ import { PlayerSession } from '../sessions.js';
 import { RawText } from '../modules/rawtext.js';
 import { raytrace } from '../modules/raytrace.js';
 import { Mask } from '../modules/mask.js';
-import { PlayerUtil } from '../modules/player_util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { Brush } from '../brushes/base_brush.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { printerr } from '../util.js';
 import { PLAYER_HEIGHT } from '../../config.js';
 

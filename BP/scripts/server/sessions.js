@@ -1,10 +1,10 @@
 import { BlockLocation, Location } from 'mojang-minecraft';
 import { History } from './modules/history.js';
-import { PlayerUtil } from './modules/player_util.js';
 import { printDebug, printLocation, regionMax, regionMin } from './util.js';
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';
+import { PlayerUtil } from './modules/player_util.js';
 import { Mask } from './modules/mask.js';
 import { RawText } from './modules/rawtext.js';
 import { TICKS_TO_DELETE_SESSION } from '../config.js';
@@ -37,6 +37,7 @@ export class PlayerSession {
         this.history = new History(this.player);
         this.selectionPoints = [];
         this.setTool('pattern_picker');
+        this.setTool('pattern_air_picker');
         this.setTool('selection_wand');
         this.setTool('navigation_wand');
         this.setTool('cut');

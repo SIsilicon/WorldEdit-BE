@@ -1,7 +1,6 @@
-import { Player, Dimension, Entity, World, Location, BlockLocation } from 'mojang-minecraft';
+import { Player, Dimension, World, Entity, Location, BlockLocation } from 'mojang-minecraft';
 import { dimension } from '../../library/@types/index.js';
 import { Server } from '../../library/Minecraft.js';
-import { PLAYER_HEIGHT } from '../../config.js';
 
 class PlayerHandler {
 	private playerDimensions: Map<string, [boolean, Dimension, dimension]> = new Map();

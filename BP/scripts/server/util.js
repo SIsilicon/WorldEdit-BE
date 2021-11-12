@@ -1,8 +1,8 @@
 import { BlockLocation, Location } from 'mojang-minecraft';
 import { DEBUG } from '../config.js';
-import { PlayerUtil } from './modules/player_util.js';
 import { Server } from '../library/Minecraft.js';
 import { RawText } from './modules/rawtext.js';
+import { PlayerUtil } from './modules/player_util.js';
 let serverReady = false;
 const printsPending = [];
 Server.once('ready', ready => {

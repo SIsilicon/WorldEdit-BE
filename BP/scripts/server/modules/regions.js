@@ -1,6 +1,7 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Server } from '../../library/Minecraft.js';
-import { getPlayerBlockLocation, getPlayerDimension, printLocation, regionMin, regionMax, regionSize, regionVolume, subtractLocations } from '../util.js';
+import { printLocation, regionMin, regionMax, regionSize, regionVolume, subtractLocations } from '../util.js';
+import { PlayerUtil } from './player_util.js';
 class RegionsManager {
     constructor() {
         this.MAX_SIZE = [64, 256, 64];
@@ -14,7 +15,7 @@ class RegionsManager {
         const max = regionMax(start, end);
         const size = regionSize(start, end);
         const structName = this.genName(name, player);
-        const dimension = getPlayerDimension(player)[1];
+        const dimension = PlayerUtil.getDimension(player)[1];
         if (size.x > this.MAX_SIZE[0] || size.y > this.MAX_SIZE[1] || size.z > this.MAX_SIZE[2]) {
             const subStructs = [];
             for (let z = 0; z < size.z; z += this.MAX_SIZE[2])
@@ -41,7 +42,7 @@ class RegionsManager {
                 subRegions: subStructs,
                 position: min,
                 size: size,
-                origin: subtractLocations(getPlayerBlockLocation(player), min),
+                origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                 blockCount: regionVolume(start, end)
             };
             return false;
@@ -56,7 +57,7 @@ class RegionsManager {
                 this.structures[structName] = {
                     position: min,
                     size: size,
-                    origin: subtractLocations(getPlayerBlockLocation(player), min),
+                    origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                     blockCount: regionVolume(start, end)
                 };
                 return false;
@@ -68,7 +69,7 @@ class RegionsManager {
         const structName = this.genName(name, player);
         const struct = this.structures[structName];
         if (struct) {
-            const dimension = getPlayerDimension(player)[1];
+            const dimension = PlayerUtil.getDimension(player)[1];
             let loadPos = location;
             if (mode == 'relative') {
                 loadPos = subtractLocations(location, struct.origin);

@@ -1,8 +1,8 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '../../library/Minecraft.js';
-import { PlayerUtil } from './player_util.js';
 import { printDebug, printLocation, regionMin, regionMax, regionSize, regionVolume, subtractLocations } from '../util.js';
 import { RawText } from './rawtext.js';
+import { PlayerUtil } from './player_util.js';
 
 interface StructureMeta {
 	subRegions?: [number, number, number][];

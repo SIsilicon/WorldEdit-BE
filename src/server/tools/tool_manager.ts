@@ -16,9 +16,9 @@ class ToolBuilder {
     }
     
     unbindAll(player: Player) {
-        for (const tool of this.pseudoTools) {
-            tool.unbind(player);
-        }
+    	for (const tool of this.pseudoTools) {
+    		tool.unbind(player);
+    	}
     }
 }
 export const Tools = new ToolBuilder();

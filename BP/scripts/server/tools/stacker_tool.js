@@ -1,6 +1,6 @@
 import { Regions } from '../modules/regions.js';
-import { PlayerUtil } from '../modules/player_util.js';
 import { getDirection } from '../modules/directions.js';
+import { PlayerUtil } from '../modules/player_util.js';
 import { printDebug, printerr } from '../util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';

@@ -21,6 +21,7 @@ export function set(session, pattern, mask) {
     let count = 0;
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
+        // printDebug(`${mask} - ${mask?.matchesBlock(blockLoc, dim)}`);
         if (mask && !mask.matchesBlock(blockLoc, dim)) {
             continue;
         }
