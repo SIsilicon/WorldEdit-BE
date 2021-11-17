@@ -8,7 +8,7 @@ export class RawText {
         raw.lastElementIdx = this.lastElementIdx;
         const element = raw.rawtext[this.lastElementIdx];
         if (element?.translate) {
-            element.with.push(text);
+            element.with.push(`${text}`);
         }
         return raw;
     }

@@ -5,6 +5,7 @@ import { printDebug, printLocation, regionMax, regionMin, regionSize } from './u
 import { Server } from '../library/Minecraft.js';
 import { Pattern } from './modules/pattern.js';
 import { Regions } from './modules/regions.js';
+import { SettingsHotbar } from './modules/settings_hotbar.js';
 import { PlayerUtil } from './modules/player_util.js';
 import { Mask } from './modules/mask.js';
 import { RawText } from './modules/rawtext.js';
@@ -33,9 +34,12 @@ Server.on('tick', ev => {
 });
 
 export class PlayerSession {
-	public usePickerPattern = false;
+	public useGlobalPattern = false;
+	public globalPattern = new Pattern();
 	public globalMask = new Mask();
-
+    
+    public settingsHotbar: SettingsHotbar;
+    
 	private tools = new Map<string, Tool>();
 
 	private player: Player;
@@ -44,8 +48,6 @@ export class PlayerSession {
 
 	private _selectionMode: selectMode = 'cuboid';
 	private _drawSelection = true;
-	
-	private pickerPattern: BlockPermutation[] = [];
 	
 	private drawPoints: Location[] = [];
 	private drawTimer: number = 0;
@@ -56,9 +58,10 @@ export class PlayerSession {
 		this.selectionPoints = [];
 		
 		this.setTool('pattern_picker');
-		this.setTool('pattern_air_picker');
+		this.setTool('mask_picker');
 		this.setTool('selection_wand');
 		this.setTool('navigation_wand');
+		this.setTool('config');
 		this.setTool('cut');
 		this.setTool('copy');
 		this.setTool('paste');
@@ -66,6 +69,11 @@ export class PlayerSession {
 		this.setTool('redo');
 		this.setTool('spawn_glass');
 		this.setTool('selection_fill');
+		Tools.unbindAll(player, this.tools);
+		
+        if (PlayerUtil.isHotbarStashed(player)) {
+		    this.enterSettings();
+        }
 	}
 
 	public getPlayer() {
@@ -169,21 +177,7 @@ export class PlayerSession {
 		}
 		this.drawTimer = 0;
 	}
-
-	public getPickerPatternParsed() {
-		if (this.pickerPattern.length) {
-			return Pattern.parseBlockPermutations(this.pickerPattern);
-		}
-	}
-
-	public clearPickerPattern() {
-		this.pickerPattern.length = 0;
-	}
-
-	public addPickerPattern(blockData: BlockPermutation) {
-		this.pickerPattern.push(blockData);
-	}
-	
+    
 	public setTool(tool: string, ...args: any[]) {
 		this.tools.set(tool, Tools.create(tool, ...args));
 	}
@@ -201,12 +195,22 @@ export class PlayerSession {
 		this.tools.delete(tool);
 	}
 	
+	public enterSettings() {
+	    this.settingsHotbar = new SettingsHotbar(this);
+	}
+	
 	delete() {
 		Regions.deletePlayer(this.player);
 		this.history = null;
 	}
 
 	onTick(tick: TickEvent) {
+	    if (this.settingsHotbar) {
+	        this.settingsHotbar.onTick(tick);
+	    } else if (PlayerUtil.isHotbarStashed(this.player)) {
+	        this.enterSettings();
+	    }
+	    
 		for (const tool of this.tools.values()) {
 			tool.process(this);
 		}
@@ -284,7 +288,7 @@ export function removeSession(player: string) {
 	if (!playerSessions[player]) return;
 
 	playerSessions[player].clearSelectionPoints();
-	playerSessions[player].clearPickerPattern();
+	playerSessions[player].globalPattern.clear();
 	pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
 	delete playerSessions[player];
 }

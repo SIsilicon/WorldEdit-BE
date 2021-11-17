@@ -12,13 +12,13 @@ export class RawText {
     private rawtext: rawTextElement[] = [];
     private lastElementIdx: number;
 
-    public with(text: string) {
+    public with(text: any) {
         const raw = new RawText();
         raw.rawtext = this.rawtext;
         raw.lastElementIdx = this.lastElementIdx;
         const element = <translateElement> raw.rawtext[this.lastElementIdx];
         if (element?.translate) {
-            element.with.push(text);
+            element.with.push(`${text}`);
         }
         return raw;
     }

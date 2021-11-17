@@ -1,10 +1,12 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '../../library/Minecraft.js'
 import { PlayerSession } from '../sessions.js';
+import { printDebug } from '../util.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 
+import { PlayerUtil } from '../modules/player_util.js';
 import { RawText } from '../modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
@@ -67,9 +69,18 @@ class SelectionFillTool extends Tool {
     tag = 'wedit:performing_selection_fill';
     itemTool = 'wedit:selection_fill';
     use = (player: Player, session: PlayerSession) => {
-        session.usePickerPattern = true;
+        session.useGlobalPattern = true;
         callCommand(player, 'set', []);
-        session.usePickerPattern = false;
+        session.useGlobalPattern = false;
     }
 }
 Tools.register(SelectionFillTool, 'selection_fill');
+
+class ConfigTool extends Tool {
+    tag = 'wedit:performing_config';
+    itemTool = 'wedit:config_button';
+    use = (player: Player, session: PlayerSession) => {
+        session.enterSettings();
+    }
+}
+Tools.register(ConfigTool, 'config');

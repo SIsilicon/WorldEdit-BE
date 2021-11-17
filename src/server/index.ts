@@ -3,7 +3,6 @@ import './commands/import-commands.js';
 // TODO: Add settings icon to Inventory UI (Include entities, etc...)
 // TODO: Add far wand (Golden Axe)
 // TODO: Add floodfill wand (Bucket?)
-// TODO: Add brushes (Shovels)
 
 import { Player, World, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '../library/Minecraft.js';
@@ -42,21 +41,20 @@ Server.on('playerLeave', player => {
 Server.on('tick', ev => {
 	if (!ready) return;
 
-	for (const player of World.getPlayers()) {
-		if (activeBuilders.includes(player)) {
-			continue;
+    for (const player of World.getPlayers()) {
+		if (!activeBuilders.includes(player)) {
+			if (!justJoined.includes(player.nameTag)) {
+                if (PlayerUtil.isHotbarStashed(player)) {
+                    PlayerUtil.restoreHotbar(player);
+                }
+                Tools.unbindAll(player);
+            }
+         	if (!makeBuilder(player)) { // Attempt to make them a builder.
+                print(RawText.translate('worldedit.permission.granted'), player);
+         	}
 		}
 		
-		const playerJustJoined = justJoined.includes(player.nameTag);
-		if (!playerJustJoined) {
-			Tools.unbindAll(player);
-		}
-		
-		if (!makeBuilder(player)) { // Attempt to make them a builder.
-			print(RawText.translate('worldedit.permission.granted'), player);
-		}
-		
-		if (playerJustJoined && !Server.runCommand(`testfor ${player.nameTag}`).error) {
+		if (justJoined.includes(player.nameTag) && !Server.runCommand(`testfor ${player.nameTag}`).error) {
 			const i = justJoined.findIndex(p => { return p == player.nameTag });
 			if (i != -1) {
 				justJoined.splice(i, 1);
@@ -81,6 +79,10 @@ Server.on('tick', ev => {
 			revokeBuilder(builder.nameTag);
 			print(RawText.translate('worldedit.permission.revoked'), builder);
 			continue;
+		}
+		
+		if (builder.isSneaking) {
+		     printDebug(PlayerUtil.isHotbarStashed(builder));
 		}
 		
 		if (!PlayerUtil.hasItem(builder, 'wedit:selection_wand')) {

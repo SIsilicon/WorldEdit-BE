@@ -2,9 +2,6 @@
     "resource_pack_name": "wedit",
     "texture_name": "atlas.items",
     "texture_data": {
-        "selection_wand": {
-            "textures": "textures/items/wood_axe"
-        },
         "navigation_wand": {
             "textures": "textures/items/compass_item"
         },
@@ -26,6 +23,9 @@
         "eyedropper": {
             "textures": "textures/items/eyedropper"
         },
+        "maskdropper": {
+            "textures": "textures/items/maskdropper"
+        },
         "spawn_glass": {
             "textures": "textures/items/spawn_glass"
         },
@@ -41,8 +41,44 @@
         "selection_wall": {
             "textures": "textures/items/selection_wall"
         },
-        "wooden_brush": {
-            "textures": "textures/items/wood_shovel"
+        "config": {
+            "textures": "textures/ui/gear"
+        },
+        "confirm": {
+            "textures": "textures/ui/confirm"
+        },
+        "cancel": {
+            "textures": "textures/ui/cancel"
+        },
+        "blank": {
+            "textures": "textures/items/blank"
+        },
+        "brush_config": {
+            "textures": "textures/items/brush_config"
+        },
+        "cylinder_brush": {
+            "textures": "textures/items/cylinder_brush"
+        },
+        "sphere_brush": {
+            "textures": "textures/items/sphere_brush"
+        },
+        "one": {
+            "textures": "textures/items/one"
+        },
+        "two": {
+            "textures": "textures/items/two"
+        },
+        "three": {
+            "textures": "textures/items/three"
+        },
+        "four": {
+            "textures": "textures/items/four"
+        },
+        "five": {
+            "textures": "textures/items/five"
+        },
+        "six": {
+            "textures": "textures/items/six"
         }
     }
 }

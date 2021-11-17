@@ -68,5 +68,54 @@ class PlayerHandler {
         }
         return this.playerDimensions.get(player.nameTag).slice(1) || [null, null];
     }
+    isHotbarStashed(player) {
+        return !Server.runCommand(`testfor @e[type=wedit:inventory_stasher,name=wedit:stasher_for_${player.nameTag.replace(' ', '_')}]`).error;
+    }
+    stashHotbar(player) {
+        if (this.isHotbarStashed(player)) {
+            return true;
+        }
+        const stasher = World.getDimension('overworld').spawnEntity('wedit:inventory_stasher', new BlockLocation(0, 512, 0));
+        stasher.nameTag = 'wedit:stasher_for_' + player.nameTag.replace(' ', '_');
+        const inv = player.getComponent('inventory').container;
+        const inv_stash = stasher.getComponent('inventory').container;
+        for (let i = 0; i < 9; i++) {
+            inv.transferItem(i, i, inv_stash);
+        }
+        return false;
+    }
+    restoreHotbar(player) {
+        let stasher;
+        const dimension = this.getDimension(player)[1];
+        const stasherName = 'wedit:stasher_for_' + player.nameTag.replace(' ', '_');
+        Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${stasherName}] 0 512 0`, dimension);
+        for (const entity of World.getDimension(dimension).getEntitiesAtBlockLocation(new BlockLocation(0, 512, 0))) {
+            if (entity.nameTag == stasherName) {
+                stasher = entity;
+                break;
+            }
+        }
+        if (stasher) {
+            const inv = player.getComponent('inventory').container;
+            const inv_stash = stasher.getComponent('inventory').container;
+            for (let i = 0; i < 9; i++) {
+                if (inv.getItem(i) && inv_stash.getItem(i)) {
+                    inv.swapItems(i, i, inv_stash);
+                }
+                else if (inv.getItem(i)) {
+                    inv.transferItem(i, i, inv_stash);
+                }
+                else {
+                    inv_stash.transferItem(i, i, inv);
+                }
+            }
+            Server.runCommand(`tp @e[name=${stasherName}] 0 -256 0`, dimension);
+            stasher.triggerEvent('wedit:kill');
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
 export const PlayerUtil = new PlayerHandler();

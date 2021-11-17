@@ -18,7 +18,7 @@ class SelectionTool extends Tool {
 	bind(player: Player) {
 		super.bind(player);
 		function giveItem(item: string) {
-			if (Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error) {
+			if (Server.runCommand(`clear "${player.nameTag}" ${item} -1 0`).error) {
 				Server.runCommand(`give "${player.nameTag}" ${item}`);
 			}
 		}
@@ -31,6 +31,7 @@ class SelectionTool extends Tool {
 		giveItem('wedit:undo_button');
 		giveItem('wedit:redo_button');
 		giveItem('wedit:spawn_glass');
+		giveItem('wedit:config_button');
 	}
 }
 Tools.register(SelectionTool, 'selection_wand');

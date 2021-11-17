@@ -36,10 +36,10 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
         if (session.getBlocksSelected().length == 0) {
             throw 'You need to make a selection to set!';
         }
-        if (args.length == 0 && !session.usePickerPattern || session.usePickerPattern && !session.getPickerPatternParsed()) {
+        if (args.length == 0 && !session.useGlobalPattern || session.useGlobalPattern && !session.globalPattern.toString()) {
             throw 'You need to specify a block to set the selection to!';
         }
-        const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[0]);
+        const pattern = session.useGlobalPattern ? session.globalPattern : Pattern.parseArg(args[0]);
         const history = session.getHistory();
         history.record();
         if (session.selectionMode == 'cuboid') {

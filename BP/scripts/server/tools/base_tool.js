@@ -13,13 +13,10 @@ export class Tool {
                 this.bind(player);
             }
         }
-        if (loc === undefined && this.use === undefined ||
-            loc !== undefined && this.useOn === undefined) {
+        if (!loc && !this.use || loc && !this.useOn) {
             return false;
         }
-        const tag = loc !== undefined &&
-            this.useOn != undefined &&
-            this.use != undefined ? this.tag + '_block' : this.tag;
+        const tag = (loc && this.useOn && this.use) ? this.tag + '_block' : this.tag;
         if (!Server.runCommand(`tag "${player.nameTag}" remove ${tag}`).error) {
             this.currentPlayer = player;
             try {

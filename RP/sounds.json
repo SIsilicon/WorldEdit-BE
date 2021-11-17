@@ -3,20 +3,18 @@
         "entities": {
             "wedit:block_marker": {
                 "volume": 0,
-                "pitch": [
-                    1.0,
-                    1.0
-                ],
                 "events": {
                     "death": "bubble.up" // dummy sound
                 }
             },
             "wedit:direction_marker": {
                 "volume": 0,
-                "pitch": [
-                    1.0,
-                    1.0
-                ],
+                "events": {
+                    "death": "bubble.up" // dummy sound
+                }
+            },
+            "wedit:inventory_stasher": {
+                "volume": 0,
                 "events": {
                     "death": "bubble.up" // dummy sound
                 }

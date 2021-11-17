@@ -75,10 +75,21 @@ class SelectionFillTool extends Tool {
         this.tag = 'wedit:performing_selection_fill';
         this.itemTool = 'wedit:selection_fill';
         this.use = (player, session) => {
-            session.usePickerPattern = true;
+            session.useGlobalPattern = true;
             callCommand(player, 'set', []);
-            session.usePickerPattern = false;
+            session.useGlobalPattern = false;
         };
     }
 }
 Tools.register(SelectionFillTool, 'selection_fill');
+class ConfigTool extends Tool {
+    constructor() {
+        super(...arguments);
+        this.tag = 'wedit:performing_config';
+        this.itemTool = 'wedit:config_button';
+        this.use = (player, session) => {
+            session.enterSettings();
+        };
+    }
+}
+Tools.register(ConfigTool, 'config');

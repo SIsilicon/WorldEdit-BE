@@ -34,7 +34,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     }
     
     const mask = Mask.parseArg(args[0]);
-    const pattern = session.usePickerPattern ? session.getPickerPatternParsed() : Pattern.parseArg(args[1]);
+    const pattern = session.useGlobalPattern ? session.globalPattern : Pattern.parseArg(args[1]);
     
     const history = session.getHistory();
     history.record();

@@ -3,13 +3,16 @@ import { Token, Tokenizr } from './extern/tokenizr.js';
 export type parsedBlock = {
     id: string,
     data: number,
-    states: Map<string, string>
+    states: Map<string, string|number|boolean>
 }
 
 export const lexer = new Tokenizr();
 {
     lexer.rule(/'([a-z_][a-z0-9_]*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
+    });
+    lexer.rule(/(true|false)/, (ctx, match) => {
+        ctx.accept('boolean', match[0] == 'true' ? true : false);
     });
     lexer.rule(/[a-z_][a-z0-9_]*/, (ctx, match) => {
         ctx.accept('id');
@@ -92,12 +95,14 @@ function parseBlockStates(lexer: Tokenizr) {
     let token: Token;
     while (token = lexer.token()) {
         switch (token.type) {
-            case 'string':
+            case 'string': case 'number': case 'boolean':
                 if (expectingBlockValue) {
-                    if (blockDataValue != null) throw lexer.error('unexpected token!');
+                    if (blockDataValue != null)
+                        throw lexer.error('unexpected token!');
                     blockDataValue = token.value;
                 } else {
-                    if (blockDataName != null) throw lexer.error('unexpected token!');
+                    if (blockDataName != null || token.type == 'number' || token.type == 'boolean')
+                        throw lexer.error('unexpected token!');
                     blockDataName = token.value;
                 }
                 break;

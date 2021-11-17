@@ -1,6 +1,7 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Regions } from '../../modules/regions.js';
-import { addLocations, getPlayerBlockLocation, subtractLocations } from '../../util.js';
+import { PlayerUtil } from '../../modules/player_util.js';
+import { addLocations, subtractLocations } from '../../util.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';
 const registerInformation = {
@@ -38,7 +39,7 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
             loc = pasteStart;
         }
         else {
-            loc = getPlayerBlockLocation(builder);
+            loc = PlayerUtil.getBlockLocation(builder);
             pasteStart = subtractLocations(loc, Regions.getOrigin('clipboard', builder));
         }
         let pasteEnd = addLocations(pasteStart, subtractLocations(Regions.getSize('clipboard', builder), new BlockLocation(1, 1, 1)));

@@ -8,20 +8,18 @@ import { lexer, parseBlock, parsedBlock } from './parser.js';
 // TODO: Update Documentation on patterns
 export class Pattern {
     private blocks: parsedBlock[] = [];
-
-    private constructor(blocks: parsedBlock[]) {
-        this.blocks = blocks;
-    }
+    private stringObj = '';
 
     setBlock(loc: BlockLocation, dimension: dimension) {
         const block = this.blocks.length == 1 ? this.blocks[0] : this.blocks[Math.floor(Math.random() * this.blocks.length)];
-
+    
         let command = block.id;
         if (block.states && block.states.size != 0) {
             command += '['
             let i = 0;
             for (const state of block.states.entries()) {
-                command += `"${state[0]}":"${state[1]}"`
+                command += `"${state[0]}":`;
+                command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
                 if (i < block.states.size - 1) {
                     command += ',';
                 }
@@ -34,10 +32,60 @@ export class Pattern {
         const result = Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dimension);
         return result.error;
     }
-
-    static parseArg(argument: string) {
-        const blocks: parsedBlock[] = [];
+    
+    clear() {
+        this.blocks.length = 0;
+        this.stringObj = '';
+    }
+    
+    addBlock(block: BlockPermutation) {
+        const states: Map<string, string|number|boolean> = new Map();
+        block.getAllProperties().forEach(state => {
+            states.set(state.name, state.value);
+        })
+        this.blocks.push({
+            id: block.type.id,
+            data: -1,
+            states: states
+        });
+        this.stringObj = '(picked)';
+    }
+    
+    getBlockSummary() {
+        let text = '';
+        let blockMap = new Map<string, number>();
+        for (const block of this.blocks) {
+            let sub = block.id.replace('minecraft:', '');
+            for (const state of block.states) {
+                const val = state[1];
+                if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
+                    sub += `(${val})`;
+                    break;
+                }
+            }
+            if (blockMap.has(sub)) {
+                blockMap.set(sub, blockMap.get(sub) + 1);
+            } else {
+                blockMap.set(sub, 1);
+            }
+        }
         
+        for (const block of blockMap) {
+            if (block[1] > 1) {
+                text += `${block[1]}x ${block[0]},`
+            } else {
+                text += block[0];
+            }
+        }
+        return text.replace(/,\s*$/, '');
+    }
+    
+    static parseArg(argument: string) {
+        if (!argument) {
+            return new Pattern();
+        }
+        
+        const blocks: parsedBlock[] = [];
         let block: parsedBlock = null;
         function pushBlock() {
             if (block == null) {
@@ -63,22 +111,14 @@ export class Pattern {
                     throw lexer.error('unexpected token!');
             }
         }
-        return new Pattern(blocks);
+        
+        const pattern = new Pattern();
+        pattern.blocks = blocks;
+        pattern.stringObj = argument;
+        return pattern;
     }
-
-    static parseBlockPermutations(blocks: BlockPermutation[]) {
-        return new Pattern(
-            blocks.map(v => {
-                const states: Map<string, string> = new Map();
-                v.getAllProperties().forEach(state => {
-                    states.set(state.name, state.value);
-                })
-                return {
-                    id: v.type.id,
-                    data: -1,
-                    states: states
-                }
-            })
-        )
+    
+    toString() {
+        return `[pattern: ${this.stringObj}]`;
     }
 }

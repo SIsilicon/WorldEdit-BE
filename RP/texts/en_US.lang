@@ -17,14 +17,44 @@ item.wedit:paste_button=Paste
 item.wedit:undo_button=Undo
 item.wedit:redo_button=Redo
 item.wedit:pattern_picker=Pattern Picker
+item.wedit:mask_picker=Mask Picker
 item.wedit:spawn_glass=Spawn Glass Block
 item.wedit:selection_fill=Fill Selection
+item.wedit:config_button=WorldEdit Settings
+item.wedit:brush_config_button=Brush Settings
+item.wedit:sphere_button=Sphere Brush
+item.wedit:cylinder_button=Cylinder Brush
+item.wedit:one_button=One
+item.wedit:two_button=Two
+item.wedit:three_button=Three
+item.wedit:four_button=Four
+item.wedit:five_button=Five
+item.wedit:six_button=Six
+item.wedit:confirm_button=Ok
+item.wedit:cancel_button=Cancel
+item.wedit:cancel_button.1=Exit
+item.wedit:blank= 
 
 ## WORLDEDIT COMMANDS
 worldedit.spawn-glass.error=Can't place block here.
 
 worldedit.pattern-picker.add=Added block to pattern: 
 worldedit.pattern-picker.set=Set pattern to block: 
+worldedit.mask-picker.add=Added block to mask: 
+worldedit.mask-picker.set=Set mask to block: 
+
+worldedit.brush-config.choose-brush=Choose a brush to set up.
+worldedit.brush-config.choose-kind=Choose what kind of brush to make.
+worldedit.brush-config.select-radius=Choose the size of the brush.
+worldedit.brush-config.select-height=Choose the height of the brush.
+worldedit.brush-config.pattern-mask=Make a pattern and optional mask for the brush.
+worldedit.brush-config.confirm=Is this Ok?
+worldedit.brush-config.affects=Affects: %s
+worldedit.brush-config.creates=Creates: %s
+worldedit.brush-config.radius=Size: %s
+worldedit.brush-config.height=Height: %s
+worldedit.brush-config.set=Brush configured.
+worldedit.brush-config.cancel=Cancelled brush configuring.
 
 worldedit.undo.undone=Undid %s available edits.
 worldedit.undo.none=Nothing left to undo.

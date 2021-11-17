@@ -1,4 +1,4 @@
-import './pattern_tool.js';
+import './picker_tool.js';
 import './selection_tool.js';
 import './stacker_tool.js';
 import './navigation_tool.js';

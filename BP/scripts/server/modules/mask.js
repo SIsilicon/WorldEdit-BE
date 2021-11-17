@@ -26,7 +26,7 @@ export class Mask {
                     const prop = properties.find(value => {
                         return value.name == state[0];
                     });
-                    if (prop && `${prop.value}` == state[1]) {
+                    if (prop && prop.value == state[1]) {
                         states_passed++;
                     }
                 }
@@ -50,6 +50,37 @@ export class Mask {
         return passed;
     }
     ;
+    clear() {
+        this.conditions.length = 0;
+        this.stringObj = '';
+    }
+    addBlock(block) {
+        const states = new Map();
+        block.getAllProperties().forEach(state => {
+            states.set(state.name, state.value);
+        });
+        this.conditions.push({
+            id: block.type.id,
+            data: -1,
+            states: states
+        });
+        this.stringObj = '(picked)';
+    }
+    getBlockSummary() {
+        let text = '';
+        for (const block of this.conditions) {
+            let sub = block.id.replace('minecraft:', '');
+            for (const state of block.states) {
+                const val = state[1];
+                if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
+                    sub += `(${val})`;
+                    break;
+                }
+            }
+            text += sub + ',';
+        }
+        return text.replace(/,\s*$/, '');
+    }
     static parseArg(argument) {
         if (!argument) {
             return new Mask();
