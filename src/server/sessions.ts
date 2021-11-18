@@ -33,13 +33,20 @@ Server.on('tick', ev => {
 	}
 });
 
+PlayerUtil.on('playerChangeDimension', (player, dimension) => {
+    playerSessions[player.nameTag]?.clearSelectionPoints();
+});
+
 export class PlayerSession {
-	public useGlobalPattern = false;
+	public usingItem = false;
 	public globalPattern = new Pattern();
 	public globalMask = new Mask();
+    public includeEntities = false;
+    public includeAir = true;
     
     public settingsHotbar: SettingsHotbar;
     
+    private currentTick = 0;
 	private tools = new Map<string, Tool>();
 
 	private player: Player;
@@ -205,6 +212,7 @@ export class PlayerSession {
 	}
 
 	onTick(tick: TickEvent) {
+	    this.currentTick = tick.currentTick;
 	    if (this.settingsHotbar) {
 	        this.settingsHotbar.onTick(tick);
 	    } else if (PlayerUtil.isHotbarStashed(this.player)) {
@@ -212,7 +220,7 @@ export class PlayerSession {
 	    }
 	    
 		for (const tool of this.tools.values()) {
-			tool.process(this);
+			tool.process(this, this.currentTick);
 		}
 		
 		if (!this.drawSelection) return;
@@ -229,7 +237,8 @@ export class PlayerSession {
 	onEntityCreate(entity: Entity, loc: BlockLocation): boolean {
 		let processed = false;
 		for (const tool of this.tools.values()) {
-			processed ||= tool.process(this, loc);
+		    // one added to tick to compensate for late onTick call.
+			processed ||= tool.process(this, this.currentTick+1, loc);
 		}
 		return processed;
 	}

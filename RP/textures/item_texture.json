@@ -62,23 +62,27 @@
         "sphere_brush": {
             "textures": "textures/items/sphere_brush"
         },
-        "one": {
-            "textures": "textures/items/one"
+        "number": {
+            "textures": [
+                "textures/items/one",
+                "textures/items/two",
+                "textures/items/three",
+                "textures/items/four",
+                "textures/items/five",
+                "textures/items/six"
+            ]
         },
-        "two": {
-            "textures": "textures/items/two"
+        "include_entities": {
+            "textures": [
+                "textures/items/include_entities_on",
+                "textures/items/include_entities_off"
+            ]
         },
-        "three": {
-            "textures": "textures/items/three"
-        },
-        "four": {
-            "textures": "textures/items/four"
-        },
-        "five": {
-            "textures": "textures/items/five"
-        },
-        "six": {
-            "textures": "textures/items/six"
+        "include_air": {
+            "textures": [
+                "textures/items/include_air_on",
+                "textures/items/include_air_off"
+            ]
         }
     }
 }

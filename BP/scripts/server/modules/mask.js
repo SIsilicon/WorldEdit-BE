@@ -79,7 +79,7 @@ export class Mask {
             }
             text += sub + ',';
         }
-        return text.replace(/,\s*$/, '');
+        return text.replace(/,$/, '');
     }
     static parseArg(argument) {
         if (!argument) {

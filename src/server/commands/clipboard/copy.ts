@@ -23,8 +23,8 @@ export function copy(session: PlayerSession, args?: string[]) {
 	const [pos1, pos2] = session.getSelectionPoints().slice(0, 2);
 	if (session.getBlocksSelected().length == 0) throw RawText.translate('worldedit.error.incomplete-region');
 	
-	let includeEntities = false;
-	let includeAir = true;
+	let includeEntities = session.usingItem ? session.includeEntities : false;
+	let includeAir = session.usingItem ? session.includeAir : true;
 	let mask: Mask;
 	for (let i = 0; i < args.length; i++) {
 		if (args[i].charAt(0) == '-') {

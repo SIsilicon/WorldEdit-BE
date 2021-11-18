@@ -154,6 +154,7 @@ export class History {
         const tempRegion = 'tempHistoryVoid';
         let structName: string;
 		const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
+		const dim = PlayerUtil.getDimension(this.player)[1];
 		
         const finish = () => {
             if (recordBlocks) {
@@ -163,7 +164,7 @@ export class History {
         }
 
         try {
-            if (!canPlaceBlock(start) || !canPlaceBlock(end)) {
+            if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
                 throw 'Failed to save history!';
             }
 

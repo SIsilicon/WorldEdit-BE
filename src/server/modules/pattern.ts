@@ -72,12 +72,12 @@ export class Pattern {
         
         for (const block of blockMap) {
             if (block[1] > 1) {
-                text += `${block[1]}x ${block[0]},`
+                text += `${block[1]}x ${block[0]},`;
             } else {
                 text += block[0];
             }
         }
-        return text.replace(/,\s*$/, '');
+        return text.replace(/,$/, '');
     }
     
     static parseArg(argument: string) {

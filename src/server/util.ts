@@ -64,7 +64,7 @@ export function getWorldMinY(player: Player) {
 	if (dimName == 'overworld' && worldY['overworld'][0] == -999) {
 		const test = PlayerUtil.getBlockLocation(player);
 		test.y = -1;
-		worldY['overworld'][0] = canPlaceBlock(test) ? -64 : 0;
+		worldY['overworld'][0] = canPlaceBlock(test, dimName) ? -64 : 0;
 	}
 	return worldY[dimName][0];
 }
@@ -75,16 +75,16 @@ export function getWorldMaxY(player: Player) {
 	if (dimName == 'overworld' && worldY['overworld'][1] == 999) {
 		const test = PlayerUtil.getBlockLocation(player);
 		test.y = 256;
-		worldY['overworld'][1] = canPlaceBlock(test) ? 319 : 255;
+		worldY['overworld'][1] = canPlaceBlock(test, dimName) ? 319 : 255;
 	}
 	return worldY[dimName][1];
 }
 
-export function canPlaceBlock(loc: BlockLocation) {
+export function canPlaceBlock(loc: BlockLocation, dim: dimension) {
 	const locString = printLocation(loc, false);
-	Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`);
-	const error = Server.runCommand(`structure load canPlaceHere ${locString}`).error;
-	Server.runCommand(`structure delete canPlaceHere ${locString}`);
+	Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim);
+	const error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
+	Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
 	return !error;
 }
 

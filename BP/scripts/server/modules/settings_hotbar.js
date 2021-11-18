@@ -11,6 +11,8 @@ export class SettingsHotbar {
         this.state = 'main';
         this.menus = {
             main: {
+                0: 'wedit:inc_entities_on_button',
+                1: 'wedit:inc_air_on_button',
                 4: 'wedit:brush_config_button',
                 8: ['wedit:cancel_button', 1]
             },
@@ -50,8 +52,40 @@ export class SettingsHotbar {
         };
         this.states = {
             main: {
+                enterState: () => {
+                    const player = this.session.getPlayer();
+                    if (this.session.includeEntities) {
+                        PlayerUtil.replaceItem(player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button');
+                    }
+                    else {
+                        PlayerUtil.replaceItem(player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button');
+                    }
+                    if (this.session.includeAir) {
+                        PlayerUtil.replaceItem(player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button');
+                    }
+                    else {
+                        PlayerUtil.replaceItem(player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button');
+                    }
+                },
                 processState: () => {
-                    if (this.removeTag('config_brush_config')) {
+                    const player = this.session.getPlayer();
+                    if (this.removeTag('config_include_entities_off')) {
+                        this.session.includeEntities = false;
+                        PlayerUtil.replaceItem(player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button');
+                    }
+                    else if (this.removeTag('config_include_entities_on')) {
+                        this.session.includeEntities = true;
+                        PlayerUtil.replaceItem(player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button');
+                    }
+                    else if (this.removeTag('config_include_air_off')) {
+                        this.session.includeAir = false;
+                        PlayerUtil.replaceItem(player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button');
+                    }
+                    else if (this.removeTag('config_include_air_on')) {
+                        this.session.includeAir = true;
+                        PlayerUtil.replaceItem(player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button');
+                    }
+                    else if (this.removeTag('config_brush_config')) {
                         this.changeState('chooseBrush');
                     }
                     else if (this.removeTag('config_cancel')) {
@@ -242,7 +276,7 @@ export class SettingsHotbar {
         const player = this.session.getPlayer();
         for (let i = 0; i < 9; i++) {
             const [item, data] = Array.isArray(items[i]) ? items[i] : [items[i] ?? 'wedit:blank', 0];
-            Server.runCommand(`replaceitem entity "${player.nameTag}" slot.hotbar ${i} ${item} 1 ${data}`);
+            Server.runCommand(`replaceitem entity "${player.nameTag}" slot.hotbar ${i} ${item} 1 ${data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`);
         }
     }
     changeState(state) {

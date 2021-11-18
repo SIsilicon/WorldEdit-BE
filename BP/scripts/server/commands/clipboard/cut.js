@@ -27,7 +27,7 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
         }
         let pattern;
         let mask;
-        let includeEntities = false;
+        let includeEntities = session.usingItem ? session.includeEntities : false;
         for (let i = 0; i < args.length; i++) {
             if (args[i].charAt(0) == '-') {
                 for (const c of args[i]) {

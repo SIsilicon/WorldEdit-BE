@@ -28,7 +28,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
             throw 'You need to make a selection to replace!';
         }
         const mask = Mask.parseArg(args[0]);
-        const pattern = session.useGlobalPattern ? session.globalPattern : Pattern.parseArg(args[1]);
+        const pattern = session.usingItem ? session.globalPattern : Pattern.parseArg(args[1]);
         const history = session.getHistory();
         history.record();
         const affectedBlocks = getAffectedBlocks(session, mask);

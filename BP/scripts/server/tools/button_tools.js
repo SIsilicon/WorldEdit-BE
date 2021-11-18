@@ -7,7 +7,9 @@ class CommandButton extends Tool {
     constructor() {
         super(...arguments);
         this.use = (player, session) => {
+            session.usingItem = true;
             callCommand(player, this.command);
+            session.usingItem = false;
         };
     }
 }
@@ -69,16 +71,12 @@ class SpawnGlassTool extends Tool {
     }
 }
 Tools.register(SpawnGlassTool, 'spawn_glass');
-class SelectionFillTool extends Tool {
+class SelectionFillTool extends CommandButton {
     constructor() {
         super(...arguments);
         this.tag = 'wedit:performing_selection_fill';
+        this.command = 'set';
         this.itemTool = 'wedit:selection_fill';
-        this.use = (player, session) => {
-            session.useGlobalPattern = true;
-            callCommand(player, 'set', []);
-            session.useGlobalPattern = false;
-        };
     }
 }
 Tools.register(SelectionFillTool, 'selection_fill');

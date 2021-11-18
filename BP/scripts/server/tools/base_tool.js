@@ -3,10 +3,15 @@ import { PlayerUtil } from '../modules/player_util.js';
 import { print, printerr } from '../util.js';
 // Note: Tools that define both use and useOn require to activate the same tag with '_block' appended when used on a block.
 export class Tool {
+    constructor() {
+        // static readonly emptyUse = (player: Player, session: PlayerSession) => {};
+        // static readonly emptyUseOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {};
+        this.useOnTick = 0;
+    }
     log(message) {
         print(message, this.currentPlayer, true);
     }
-    process(session, loc) {
+    process(session, tick, loc) {
         const player = session.getPlayer();
         if (loc === undefined && this.itemBase !== undefined) {
             if (PlayerUtil.hasItem(player, this.itemBase) && !PlayerUtil.hasItem(player, this.itemTool)) {
@@ -21,9 +26,11 @@ export class Tool {
             this.currentPlayer = player;
             try {
                 if (loc === undefined) {
-                    this.use(player, session);
+                    if (this.useOnTick != tick)
+                        this.use(player, session);
                 }
                 else {
+                    this.useOnTick = tick;
                     this.useOn(player, session, loc);
                 }
             }

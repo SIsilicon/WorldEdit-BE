@@ -1,16 +1,32 @@
 import { Player, Dimension, World, Entity, Location, BlockLocation, InventoryComponentContainer } from 'mojang-minecraft';
 import { dimension } from '../../library/@types/index.js';
 import { Server } from '../../library/Minecraft.js';
+import { EventEmitter } from '../../library/build/classes/eventEmitter.js';
 import { printDebug } from '../util.js';
 
-class PlayerHandler {
-    private playerDimensions: Map<string, [boolean, Dimension, dimension]> = new Map();
+class PlayerHandler extends EventEmitter {
+    private playerDimensions = new Map<string, [boolean, Dimension, dimension]>();
     
     constructor() {
+        super();
         Server.on('tick', tick => {
             for (const entry of this.playerDimensions) {
                 entry[1][0] = false;
             }
+            
+            for (const player of World.getPlayers()) {
+                const oldDimension = this.playerDimensions.get(player.nameTag)?.[2];
+                const newDimension = this.getDimension(player)[1];
+                
+                if (oldDimension && oldDimension != newDimension) {
+                    this.emit('playerChangeDimension', player, newDimension);
+                }
+            }
+        });
+        this.on('playerChangeDimension', (player, dimension) => {
+            printDebug(`${player.nameTag} has travelled to "${dimension}"`);
+            const stasherName = 'wedit:stasher_for_' + player.nameTag.replace(' ', '_');
+            Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${stasherName}] 0 512 0`, dimension);
         });
     }
     
@@ -45,24 +61,30 @@ class PlayerHandler {
         return new Promise((resolve: (dir: Location) => void) => {
             const locA = player.location;
             let locB: Location;
-            const dimension = this.getDimension(player)[1];
-            const onSpawn = (entity: Entity) => {
-                if (entity.id == 'wedit:direction_marker') {
-                    locB = entity.location;
-                    entity.nameTag = 'wedit:pending_deletion_of_selector';
-                    Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimension);
-                    entity.kill();
-    
-                    let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
-                    const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
-                    dir = dir.map(v => {return v / len});
-                    Server.off('entityCreate', onSpawn);
-                    resolve(new Location(dir[0], dir[1], dir[2]));
+            const [dimension, dimName] = this.getDimension(player);
+            
+            Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ~~~`, dimName);
+            
+            let entity: Entity;
+            for (const e of dimension.getEntitiesAtBlockLocation(this.getBlockLocation(player))) {
+                if (e.id == 'wedit:direction_marker') {
+                    entity = e;
+                    entity.nameTag = 'wedit:direction_for_' + player.nameTag.replace(' ', '_');
+                    break;
                 }
             }
             
-            Server.prependOnceListener('entityCreate', onSpawn);
-            Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ^^^20`, dimension);
+            Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${entity.nameTag}] ^^^20`, dimName);
+            locB = entity.location;
+            entity.nameTag = 'wedit:pending_deletion_of_selector';
+            Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimName);
+            entity.kill();
+            
+            let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
+            const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
+            dir = dir.map(v => {return v / len});
+            
+            resolve(new Location(dir[0], dir[1], dir[2]));
         });
     }
     
@@ -94,7 +116,7 @@ class PlayerHandler {
             return true;
         }
         
-        const stasher = World.getDimension('overworld').spawnEntity('wedit:inventory_stasher', new BlockLocation(0, 512, 0));
+        const stasher = this.getDimension(player)[0].spawnEntity('wedit:inventory_stasher', new BlockLocation(0, 512, 0));
         stasher.nameTag = 'wedit:stasher_for_' + player.nameTag.replace(' ', '_');
         
         const inv: InventoryComponentContainer = player.getComponent('inventory').container;

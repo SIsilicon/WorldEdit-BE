@@ -31,8 +31,11 @@ item.wedit:four_button=Four
 item.wedit:five_button=Five
 item.wedit:six_button=Six
 item.wedit:confirm_button=Ok
-item.wedit:cancel_button=Cancel
-item.wedit:cancel_button.1=Exit
+item.wedit:cancel_button=Back
+item.wedit:inc_entities_on_button=Include Entities in Clipboard: §aEnabled§r
+item.wedit:inc_entities_off_button=Include Entities in Clipboard: §4Disabled§r
+item.wedit:inc_air_on_button=Include Air in Clipboard: §aEnabled§r
+item.wedit:inc_air_off_button=Include Air in Clipboard: §4Disabled§r
 item.wedit:blank= 
 
 ## WORLDEDIT COMMANDS
@@ -54,6 +57,7 @@ worldedit.brush-config.creates=Creates: %s
 worldedit.brush-config.radius=Size: %s
 worldedit.brush-config.height=Height: %s
 worldedit.brush-config.set=Brush configured.
+worldedit.brush-config.set-give=Brush configured and added to your inventory.
 worldedit.brush-config.cancel=Cancelled brush configuring.
 
 worldedit.undo.undone=Undid %s available edits.

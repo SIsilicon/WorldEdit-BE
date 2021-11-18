@@ -24,11 +24,17 @@ Server.on('tick', ev => {
         }
     }
 });
+PlayerUtil.on('playerChangeDimension', (player, dimension) => {
+    playerSessions[player.nameTag]?.clearSelectionPoints();
+});
 export class PlayerSession {
     constructor(player) {
-        this.useGlobalPattern = false;
+        this.usingItem = false;
         this.globalPattern = new Pattern();
         this.globalMask = new Mask();
+        this.includeEntities = false;
+        this.includeAir = true;
+        this.currentTick = 0;
         this.tools = new Map();
         this._selectionMode = 'cuboid';
         this._drawSelection = true;
@@ -161,6 +167,7 @@ export class PlayerSession {
         this.history = null;
     }
     onTick(tick) {
+        this.currentTick = tick.currentTick;
         if (this.settingsHotbar) {
             this.settingsHotbar.onTick(tick);
         }
@@ -168,7 +175,7 @@ export class PlayerSession {
             this.enterSettings();
         }
         for (const tool of this.tools.values()) {
-            tool.process(this);
+            tool.process(this, this.currentTick);
         }
         if (!this.drawSelection)
             return;
@@ -184,7 +191,8 @@ export class PlayerSession {
     onEntityCreate(entity, loc) {
         let processed = false;
         for (const tool of this.tools.values()) {
-            processed || (processed = tool.process(this, loc));
+            // one added to tick to compensate for late onTick call.
+            processed || (processed = tool.process(this, this.currentTick + 1, loc));
         }
         return processed;
     }

@@ -72,7 +72,7 @@ export class Pattern {
                 text += block[0];
             }
         }
-        return text.replace(/,\s*$/, '');
+        return text.replace(/,$/, '');
     }
     static parseArg(argument) {
         if (!argument) {

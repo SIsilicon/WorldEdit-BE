@@ -15,7 +15,9 @@ abstract class CommandButton extends Tool {
     abstract readonly itemTool: string;
     
     use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
         callCommand(player, this.command);
+        session.usingItem = false;
     }
 }
 
@@ -65,14 +67,10 @@ class SpawnGlassTool extends Tool {
 }
 Tools.register(SpawnGlassTool, 'spawn_glass');
 
-class SelectionFillTool extends Tool {
+class SelectionFillTool extends CommandButton {
     tag = 'wedit:performing_selection_fill';
+    command = 'set';
     itemTool = 'wedit:selection_fill';
-    use = (player: Player, session: PlayerSession) => {
-        session.useGlobalPattern = true;
-        callCommand(player, 'set', []);
-        session.useGlobalPattern = false;
-    }
 }
 Tools.register(SelectionFillTool, 'selection_fill');
 

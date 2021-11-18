@@ -1,4 +1,4 @@
-import { BlockLocation, Player, PlayerInventoryComponentContainer } from 'mojang-minecraft';
+import { BlockLocation, Player, TickEvent, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Server } from '../../library/Minecraft.js';
 
@@ -22,7 +22,9 @@ export abstract class Tool {
 		print(message, this.currentPlayer, true);
 	}
 	
-	process(session: PlayerSession, loc?: BlockLocation): boolean {
+	private useOnTick = 0;
+	
+	process(session: PlayerSession, tick: number, loc?: BlockLocation): boolean {
 		const player = session.getPlayer();
 		if (loc === undefined && this.itemBase !== undefined) {
 			if (PlayerUtil.hasItem(player, this.itemBase) && !PlayerUtil.hasItem(player, this.itemTool)) {
@@ -39,8 +41,10 @@ export abstract class Tool {
 			this.currentPlayer = player;
 			try {
 				if (loc === undefined) {
-					this.use(player, session);
+				    if (this.useOnTick != tick)
+					    this.use(player, session);
 				} else {
+				    this.useOnTick = tick;
 					this.useOn(player, session, loc);
 				}
 			} catch (e) {

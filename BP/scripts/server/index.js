@@ -17,6 +17,7 @@ let justJoined = [];
 let activeBuilders = [];
 let ready = false;
 Server.on('ready', data => {
+    Server.runCommand(`gamerule showtags false`);
     Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${data.loadTime} ticks!`);
     ready = true;
@@ -46,6 +47,7 @@ Server.on('tick', ev => {
                 print(RawText.translate('worldedit.permission.granted'), player);
             }
         }
+        // remove player from justJoined if they've been processed at least once.
         if (justJoined.includes(player.nameTag) && !Server.runCommand(`testfor ${player.nameTag}`).error) {
             const i = justJoined.findIndex(p => { return p == player.nameTag; });
             if (i != -1) {
@@ -73,7 +75,7 @@ Server.on('tick', ev => {
             continue;
         }
         if (builder.isSneaking) {
-            printDebug(PlayerUtil.isHotbarStashed(builder));
+            //printDebug(PlayerUtil.isHotbarStashed(builder));
         }
         if (!PlayerUtil.hasItem(builder, 'wedit:selection_wand')) {
             session.clearSelectionPoints();
@@ -85,6 +87,7 @@ function makeBuilder(player) {
         assertBuilder(player);
         getSession(player);
         activeBuilders.push(player);
+        // remove any stray tags to prevent accidental item activation.
         for (const tag of Server.player.getTags(player.nameTag)) {
             if (tag.includes('wedit:')) {
                 Server.runCommand(`tag "${player.nameTag}" remove ${tag}`);
