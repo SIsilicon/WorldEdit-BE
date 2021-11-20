@@ -6,15 +6,35 @@ import { RawText } from '../modules/rawtext.js';
 import { PlayerUtil } from '../modules/player_util.js';
 import { print, printerr, printDebug } from '../util.js';
 
-// Note: Tools that define both use and useOn require to activate the same tag with '_block' appended when used on a block.
+/**
+ * The base tool class for handling tools that WorldEdit builder may use.
+ * @remark Tools that define both {Tool.use} and {Tool.useOn} require to activate the same tag with '_block' appended when used on a block.
+ */
 export abstract class Tool {
-	// static readonly emptyUse = (player: Player, session: PlayerSession) => {};
-	// static readonly emptyUseOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {};
-	
+    /**
+     * The entity tag this tool gives players on activation.
+     */
 	abstract readonly tag: string;
+	
+	/**
+	 * The item this tool is associated with
+	 */
 	abstract readonly itemTool: string;
+	
+	/**
+	 * The function that's called when the tool is being used.
+	 */
 	readonly use: (player: Player, session: PlayerSession) => void;
+	
+	/**
+	 * The function that's called when the tool is being used on a block.
+	 */
 	readonly useOn: (player: Player, session: PlayerSession, loc: BlockLocation) => void;
+	
+	/**
+	 * The item this tool may originate from.
+	 * @example The selection wand is derived from the wooden axe.
+	 */
 	readonly itemBase: string;
 	
 	private currentPlayer: Player;

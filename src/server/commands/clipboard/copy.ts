@@ -10,7 +10,6 @@ import { printLocation, printDebug, regionSize, regionMin } from '../../util.js'
 import { commandList } from '../command_list.js';
 import { RawText } from '../../modules/rawtext.js';
 
-// TODO: Ability to copy entities to clipboard
 const registerInformation = {
 	cancelMessage: true,
 	name: 'copy',
@@ -18,6 +17,12 @@ const registerInformation = {
 	usage: '[-ea] [-m <mask: Mask>]',
 };
 
+/**
+ * Performs the ;copy command.
+ * @remark This function is only exported so as to not duplicate code for the ;cut command.
+ * @param session The session whose player is running this command
+ * @param args The arguments that change how the copying will happen
+ */
 export function copy(session: PlayerSession, args?: string[]) {
 	const player = session.getPlayer();
 	const [pos1, pos2] = session.getSelectionPoints().slice(0, 2);
@@ -40,6 +45,7 @@ export function copy(session: PlayerSession, args?: string[]) {
 		}
 	}
 	
+	// Create a temporary copy since we'll be adding void/air blocks to the selection.
 	let tempUsed = !includeAir || mask;
 	if (tempUsed) {
 		Regions.save('tempCopy', pos1, pos2, player);

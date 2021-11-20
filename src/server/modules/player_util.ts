@@ -4,6 +4,9 @@ import { Server } from '../../library/Minecraft.js';
 import { EventEmitter } from '../../library/build/classes/eventEmitter.js';
 import { printDebug } from '../util.js';
 
+/**
+ * This singleton holds utility functions for players.
+ */
 class PlayerHandler extends EventEmitter {
     private playerDimensions = new Map<string, [boolean, Dimension, dimension]>();
     
@@ -24,16 +27,30 @@ class PlayerHandler extends EventEmitter {
             }
         });
         this.on('playerChangeDimension', (player, dimension) => {
+            // Teleport the inventory stasher with the player
             printDebug(`${player.nameTag} has travelled to "${dimension}"`);
             const stasherName = 'wedit:stasher_for_' + player.nameTag.replace(' ', '_');
             Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${stasherName}] 0 512 0`, dimension);
         });
     }
     
+    /**
+     * Tells you whether the player has an item.
+     * @param player The player being tested
+     * @param item The item being tested for
+     * @return True if the player has the item; false otherwise
+     */
     hasItem(player: Player, item: string) {
         return !Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error;
     }
     
+    /**
+     * Replaces an item stack in the player's inventory with another item.
+     * @remark This does not check the player's armor slots nor offhand.
+     * @param player The player being affected
+     * @param item The item being replaced
+     * @param sub The new item being replaced with
+     */
     replaceItem(player: Player, item: string, sub: string) {
         const inv = player.getComponent('inventory').container;
         for (let i = 0; i < inv.size; i++) {
@@ -49,6 +66,11 @@ class PlayerHandler extends EventEmitter {
         }
     }
     
+    /**
+     * Gives the player's location in the form of {mojang-minecraft.BlockLocation}.
+     * @param player The player being queried
+     * @return The block location of the player
+     */
     getBlockLocation(player: Player) {
         return new BlockLocation(
             Math.floor(player.location.x),
@@ -57,37 +79,45 @@ class PlayerHandler extends EventEmitter {
         );
     }
     
-    requestDirection(player: Player) {
-        return new Promise((resolve: (dir: Location) => void) => {
-            const locA = player.location;
-            let locB: Location;
-            const [dimension, dimName] = this.getDimension(player);
-            
-            Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ~~~`, dimName);
-            
-            let entity: Entity;
-            for (const e of dimension.getEntitiesAtBlockLocation(this.getBlockLocation(player))) {
-                if (e.id == 'wedit:direction_marker') {
-                    entity = e;
-                    entity.nameTag = 'wedit:direction_for_' + player.nameTag.replace(' ', '_');
-                    break;
-                }
+    /**
+     * Gives the direction the player is looking in.
+     * @param player the player being queried
+     * @return The direction the player is looking in
+     */
+    getDirection(player: Player) {
+        const locA = player.location;
+        let locB: Location;
+        const [dimension, dimName] = this.getDimension(player);
+        
+        Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ~~~`, dimName);
+        
+        let entity: Entity;
+        for (const e of dimension.getEntitiesAtBlockLocation(this.getBlockLocation(player))) {
+            if (e.id == 'wedit:direction_marker') {
+                entity = e;
+                entity.nameTag = 'wedit:direction_for_' + player.nameTag.replace(' ', '_');
+                break;
             }
-            
-            Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${entity.nameTag}] ^^^20`, dimName);
-            locB = entity.location;
-            entity.nameTag = 'wedit:pending_deletion_of_selector';
-            Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimName);
-            entity.kill();
-            
-            let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
-            const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
-            dir = dir.map(v => {return v / len});
-            
-            resolve(new Location(dir[0], dir[1], dir[2]));
-        });
+        }
+        
+        Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name=${entity.nameTag}] ^^^20`, dimName);
+        locB = entity.location;
+        Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimName);
+        entity.kill();
+        
+        let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
+        const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
+        dir = dir.map(v => {return v / len});
+        
+        return new Location(dir[0], dir[1], dir[2]);
     }
     
+    /**
+     * Gives the dimension the player is currently
+     * @remark This will be depracated in Minecraft 1.18 in favour of {mojang-minecraft.Player.dimension}.
+     * @param player The player being queried
+     * @return An array containing the dimension object and its name
+     */
     getDimension(player: Player): [Dimension, dimension] {
         if (this.playerDimensions.get(player.nameTag)?.[0]) {
             return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1);
@@ -107,10 +137,20 @@ class PlayerHandler extends EventEmitter {
         return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1) || [null, null];
     }
     
+    /**
+     * Tells you whether the player's hotbar has been stashed in a temporary place.
+     * @param player The player being queried
+     * @return Whether the player's hotbar has been stashed
+     */
     isHotbarStashed(player: Player) {
         return !Server.runCommand(`testfor @e[type=wedit:inventory_stasher,name=wedit:stasher_for_${player.nameTag.replace(' ', '_')}]`).error;
     }
     
+    /**
+     * Stashes the player's hotbar in a temporary entity.
+     * @param player The player being affected
+     * @return True if the player's hotbar has already been stashed; false otherwise
+     */
     stashHotbar(player: Player) {
         if (this.isHotbarStashed(player)) {
             return true;
@@ -127,6 +167,11 @@ class PlayerHandler extends EventEmitter {
         return false;
     }
     
+    /**
+     * Restores the player's hotbar from a temporary entity.
+     * @param player The player being affected
+     * @return True if the player's hotbar hasn't been stashed yet; false otherwise
+     */
     restoreHotbar(player: Player) {
         let stasher: Entity;
         const dimension = this.getDimension(player)[1];

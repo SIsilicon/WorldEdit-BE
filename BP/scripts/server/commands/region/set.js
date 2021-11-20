@@ -14,9 +14,9 @@ const registerInformation = {
         'set wool[\'color\':\'red\'],dirt'
     ]
 };
-/*
-    @return number of blocks set
-*/
+/**
+ * @return number of blocks set
+ */
 export function set(session, pattern, mask) {
     let count = 0;
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];

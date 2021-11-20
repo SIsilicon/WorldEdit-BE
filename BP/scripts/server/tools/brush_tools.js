@@ -3,7 +3,6 @@ import { raytrace } from '../modules/raytrace.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { PlayerUtil } from '../modules/player_util.js';
-import { printerr } from '../util.js';
 import { PLAYER_HEIGHT } from '../../config.js';
 class BrushTool extends Tool {
     constructor(brush) {
@@ -12,15 +11,12 @@ class BrushTool extends Tool {
             const dimension = PlayerUtil.getDimension(player)[1];
             const origin = player.location;
             origin.y += PLAYER_HEIGHT;
-            PlayerUtil.requestDirection(player).then(dir => {
-                const hit = raytrace(dimension, origin, dir, this.range, this.traceMask);
-                if (!hit) {
-                    throw RawText.translate('worldedit.jumpto.none');
-                }
-                this.brush.apply(hit, session, this.mask);
-            }).catch(e => {
-                printerr(e, player, true);
-            });
+            const dir = PlayerUtil.getDirection(player);
+            const hit = raytrace(dimension, origin, dir, this.range, this.traceMask);
+            if (!hit) {
+                throw RawText.translate('worldedit.jumpto.none');
+            }
+            this.brush.apply(hit, session, this.mask);
         };
         this.brush = brush;
     }

@@ -1,6 +1,15 @@
 import { Brush } from './base_brush.js';
 import { CylinderShape } from '../shapes/cylinder.js';
+/**
+ * This brush creates cylinder shaped patterns in the world.
+ */
 export class CylinderBrush extends Brush {
+    /**
+     * @param radius The radius of the cylinders
+     * @param height The height of the cylinders
+     * @param pattern The pattern the cylinders will be made of
+     * @param hollow Whether the cylinders will be made hollow
+     */
     constructor(radius, height, pattern, hollow) {
         super();
         this.shape = new CylinderShape(height, radius);

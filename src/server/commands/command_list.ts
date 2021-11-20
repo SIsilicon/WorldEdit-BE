@@ -5,7 +5,7 @@ import { RawText } from '../modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { printToActionBar } from './import-commands.js';
 
-export type commandFunc = (s: PlayerSession, p: Player, args: string[]) => string | RawText | Promise<string | RawText>;
+export type commandFunc = (s: PlayerSession, p: Player, args: string[]) => string | RawText;
 
 export interface extendedRegisterInformation extends registerInformation {
     usages?: string[]
@@ -18,6 +18,13 @@ export let commandList: {
     ]
 } = {};
 
+/**
+ * Calls a WorldEdit command as a player.
+ * @remark This function also causes commands to print to the action bar.
+ * @param player The player the command will be called from
+ * @param command The name of the command to call
+ * @param args Arguments that the command may take
+ */
 export function callCommand(player: Player, command: string, args: string[] = []) {
     printToActionBar();
     Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, args);

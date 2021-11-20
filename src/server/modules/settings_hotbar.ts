@@ -92,7 +92,7 @@ export class SettingsHotbar {
                 } else if (this.removeTag('config_brush_config')) {
                     this.changeState('chooseBrush');
                 } else if (this.removeTag('config_cancel')) {
-                    this.exit();
+                    this.session.exitSettings();
                 }
             }
         },
@@ -302,7 +302,6 @@ export class SettingsHotbar {
     
     exit() {
         PlayerUtil.restoreHotbar(this.session.getPlayer());
-        this.session.settingsHotbar = null;
         this.session = null;
     }
 }

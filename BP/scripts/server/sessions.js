@@ -27,12 +27,34 @@ Server.on('tick', ev => {
 PlayerUtil.on('playerChangeDimension', (player, dimension) => {
     playerSessions[player.nameTag]?.clearSelectionPoints();
 });
+/**
+ * Represents a WorldEdit user's current session with the addon.
+ * It manages their selections, operation history, and other things related to WorldEdit per player.
+ */
 export class PlayerSession {
     constructor(player) {
+        /**
+         * Is true while a WorldEdit command is being called from an item; false otherwise.
+         * @readonly
+         */
         this.usingItem = false;
+        /**
+         * A pattern created by the pattern picker
+         * It's used by custom commands that are called from items.
+         */
         this.globalPattern = new Pattern();
+        /**
+         * A global mask created by the mask picker and ;gmask.
+         * It's used by various commands and operation that are affected by masks such as the ;cyl command and brushes in combination of their own masks.
+         */
         this.globalMask = new Mask();
+        /**
+         * Whether the copy and cut items should include entities in the clipboard.
+         */
         this.includeEntities = false;
+        /**
+         * Whether the copy and cut items should include air in the clipboard.
+         */
         this.includeAir = true;
         this.currentTick = 0;
         this.tools = new Map();
@@ -60,16 +82,31 @@ export class PlayerSession {
             this.enterSettings();
         }
     }
+    /**
+     * @return The player that this session handles
+     */
     getPlayer() {
         return this.player;
     }
+    /**
+     * @return The history handler that this session uses
+     */
     getHistory() {
         return this.history;
     }
+    /**
+     * @internal
+     */
     reassignPlayer(player) {
         this.player = player;
         this.history.reassignPlayer(player);
     }
+    /**
+     * Sets either the first or second selection point of a selection.
+     * @remarks This will eventially be revamped once multiple selection modes are implemented.
+     * @param index The first or second selection point
+     * @param loc The location the selection point is being made
+     */
     setSelectionPoint(index, loc) {
         if (index > 0 && this.selectionPoints.length == 0) {
             throw RawText.translate('worldedit.selection.no-primary');
@@ -80,13 +117,22 @@ export class PlayerSession {
         this.selectionPoints[index] = loc;
         this.updateDrawSelection();
     }
+    /**
+     * @return An array of selection points
+     */
     getSelectionPoints() {
         return this.selectionPoints.slice();
     }
+    /**
+     * Clears the selection points that have been made.
+     */
     clearSelectionPoints() {
         this.selectionPoints = [];
         this.updateDrawSelection();
     }
+    /**
+     * @return The blocks within the current selection
+     */
     getBlocksSelected() {
         let points = 0;
         for (const point of this.selectionPoints) {
@@ -101,12 +147,64 @@ export class PlayerSession {
             return min.blocksBetween(max);
         }
     }
+    /**
+     * @return The minimum and maximum points of the selection
+     */
     getSelectionRange() {
         if (this._selectionMode == 'cuboid') {
             const [pos1, pos2] = this.selectionPoints.slice(0, 2);
             return [regionMin(pos1, pos2), regionMax(pos1, pos2)];
         }
         return null;
+    }
+    /**
+     * Binds a new tool to this session.
+     * @param tool The id of the tool being made
+     * @param args Optional parameters the tool uses during its construction.
+     */
+    setTool(tool, ...args) {
+        this.tools.set(tool, Tools.create(tool, ...args));
+    }
+    /**
+     * Sets a property of a tool binded to this session.
+     * @param tool The id of the tool
+     * @param property The name of the tool's property
+     * @paran value The new value of the tool's property
+     */
+    setToolProperty(tool, property, value) {
+        this.tools.get(tool)[property] = value;
+    }
+    /**
+     * @param tool The tool being tested for
+     * @return Whether the session has a tool binded to it
+     */
+    hasTool(tool) {
+        return this.tools.has(tool);
+    }
+    /**
+     * Unbinds a tool from this session.
+     * @param tool The id of the tool being deleted
+     */
+    unbindTool(tool) {
+        this.tools.get(tool).unbind(this.player);
+        this.tools.delete(tool);
+    }
+    /**
+     * Triggers the hotbar setting menu to appear.
+     */
+    enterSettings() {
+        this.settingsHotbar = new SettingsHotbar(this);
+    }
+    /**
+     * Triggers the hotbar settings menu to disappear.
+     */
+    exitSettings() {
+        this.settingsHotbar.exit();
+        this.settingsHotbar = null;
+    }
+    delete() {
+        Regions.deletePlayer(this.player);
+        this.history = null;
     }
     updateDrawSelection() {
         this.drawPoints.length = 0;
@@ -140,43 +238,27 @@ export class PlayerSession {
             }
             this.drawPoints = corners.concat(edgePoints);
         }
+        // A slight offset is made since exact integers snap the particles to the center of blocks.
         for (const point of this.drawPoints) {
-            point.x += 0.001;
-            point.z += 0.001;
+            point.x += 0.00001;
+            point.z += 0.00001;
         }
         this.drawTimer = 0;
     }
-    setTool(tool, ...args) {
-        this.tools.set(tool, Tools.create(tool, ...args));
-    }
-    setToolProperty(tool, property, value) {
-        this.tools.get(tool)[property] = value;
-    }
-    hasTool(tool) {
-        return this.tools.has(tool);
-    }
-    unbindTool(tool) {
-        this.tools.get(tool).unbind(this.player);
-        this.tools.delete(tool);
-    }
-    enterSettings() {
-        this.settingsHotbar = new SettingsHotbar(this);
-    }
-    delete() {
-        Regions.deletePlayer(this.player);
-        this.history = null;
-    }
     onTick(tick) {
         this.currentTick = tick.currentTick;
+        // Process settingsHotbar
         if (this.settingsHotbar) {
             this.settingsHotbar.onTick(tick);
         }
         else if (PlayerUtil.isHotbarStashed(this.player)) {
             this.enterSettings();
         }
+        // Process tool use
         for (const tool of this.tools.values()) {
             tool.process(this, this.currentTick);
         }
+        // Draw Selection
         if (!this.drawSelection)
             return;
         if (this.drawTimer <= 0) {
@@ -198,28 +280,28 @@ export class PlayerSession {
     }
     /**
      * Getter selectionMode
-     * @return {selectMode }
+     * @return {selectMode}
      */
     get selectionMode() {
         return this._selectionMode;
     }
     /**
      * Setter selectionMode
-     * @param {selectMode } value
+     * @param {selectMode} value
      */
     set selectionMode(value) {
         this._selectionMode = value;
     }
     /**
      * Getter drawSelection
-     * @return {boolean }
+     * @return {boolean}
      */
     get drawSelection() {
         return this._drawSelection;
     }
     /**
      * Setter drawSelection
-     * @param {boolean } value
+     * @param {boolean} value
      */
     set drawSelection(value) {
         this._drawSelection = value;

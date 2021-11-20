@@ -20,6 +20,8 @@ const registerInformation = {
 
 commandList['help'] = [registerInformation, (session, builder, args) => {
     const cmdList = Server.command.getAllRegistation();
+    
+    // Show a page of the list of available WorldEdit commands
     if(!args[0] || Number(args[0]) == Number(args[0])) {
         const cmdInfo: [string, string][] = [];
         for (const cmd of cmdList) {
@@ -30,6 +32,8 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
                 }
             }
         }
+        
+        // Sort commands by name and arguments
         cmdInfo.sort((a, b) => {
             if (a[0] < b[0]) {
                 return -1;

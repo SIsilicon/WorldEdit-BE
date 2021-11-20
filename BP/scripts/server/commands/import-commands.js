@@ -68,16 +68,7 @@ function registerCommand(cmd, callback) {
             const player = data.sender;
             assertBuilder(player);
             const msg = callback(getSession(player), player, args);
-            if (msg instanceof Promise) {
-                msg.then(msg => {
-                    print(msg, player, toActionBar);
-                }).catch(err => {
-                    printerr(err, player, toActionBar);
-                });
-            }
-            else {
-                print(msg, player, toActionBar);
-            }
+            print(msg, player, toActionBar);
         }
         catch (e) {
             printerr(e, data.sender, toActionBar);

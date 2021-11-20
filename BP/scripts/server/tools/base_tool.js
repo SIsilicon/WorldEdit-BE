@@ -1,11 +1,12 @@
 import { Server } from '../../library/Minecraft.js';
 import { PlayerUtil } from '../modules/player_util.js';
 import { print, printerr } from '../util.js';
-// Note: Tools that define both use and useOn require to activate the same tag with '_block' appended when used on a block.
+/**
+ * The base tool class for handling tools that WorldEdit builder may use.
+ * @remark Tools that define both {Tool.use} and {Tool.useOn} require to activate the same tag with '_block' appended when used on a block.
+ */
 export class Tool {
     constructor() {
-        // static readonly emptyUse = (player: Player, session: PlayerSession) => {};
-        // static readonly emptyUseOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {};
         this.useOnTick = 0;
     }
     log(message) {

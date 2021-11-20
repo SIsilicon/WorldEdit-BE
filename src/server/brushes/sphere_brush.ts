@@ -6,11 +6,19 @@ import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { SphereShape } from '../shapes/sphere.js';
 
+/**
+ * This brush creates sphere shaped patterns in the world.
+ */
 export class SphereBrush extends Brush {
 	private shape: SphereShape;
 	private pattern: Pattern;
 	private hollow: boolean
 	
+	/**
+	 * @param radius The radius of the spheres
+	 * @param pattern The pattern the spheres will be made of
+	 * @param hollow Whether the spheres will be made hollow
+	 */
 	constructor(radius: number, pattern: Pattern, hollow: boolean) {
 		super();
 		this.shape = new SphereShape(radius);

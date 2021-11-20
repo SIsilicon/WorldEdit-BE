@@ -18,9 +18,9 @@ const registerInformation = {
 	]
 };
 
-/*
-	@return number of blocks set
-*/
+/**
+ * @return number of blocks set
+ */
 export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
 	let count = 0;
 	const dim = PlayerUtil.getDimension(session.getPlayer())[1];
