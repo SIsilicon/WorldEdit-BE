@@ -1,24 +1,34 @@
 import { RawText } from '../../modules/rawtext.js';
 import { Pattern } from '../../modules/pattern.js';
-import { Mask } from '../../modules/mask.js';
 import { commandList } from '../command_list.js';
 import { SphereBrush } from '../../brushes/sphere_brush.js';
 import { CylinderBrush } from '../../brushes/cylinder_brush.js';
 const registerInformation = {
     cancelMessage: true,
     name: 'brush',
-    description: 'Configure your brushes',
+    description: 'Set the type of a brush',
     aliases: ['br'],
     usages: [
         '<tier: 1..6> none',
         '<tier: 1..6> sphere [-h] <pattern: Pattern> [radius: int]',
-        '<tier: 1..6> cyl [-h] <pattern: Pattern> [radius: int] [height: int]',
-        '<tier: 1..6> mask [mask: Mask]',
-        '<tier: 1..6> tracemask [mask: Mask]',
-        '<tier: 1..6> size <size: int>',
-        '<tier: 1..6> range <range: int>'
+        '<tier: 1..6> cyl [-h] <pattern: Pattern> [radius: int] [height: int]'
     ]
 };
+export function getBrushTier(args) {
+    const tier = parseInt(args[0]);
+    if (tier != tier || tier < 1 || tier > 6) {
+        throw RawText.translate('worldedit.brush.invalid-tier').with(args[0]);
+    }
+    args.shift();
+    return {
+        1: 'wooden_brush',
+        2: 'stone_brush',
+        3: 'iron_brush',
+        4: 'golden_brush',
+        5: 'diamond_brush',
+        6: 'netherite_brush'
+    }[tier];
+}
 const sphere_command = (session, builder, brush, args) => {
     let hollow = false;
     if (args[0] == '-h') {
@@ -45,46 +55,6 @@ const cylinder_command = (session, builder, brush, args) => {
     session.setTool(brush, new CylinderBrush(radius, height, pattern, hollow));
     return RawText.translate('worldedit.wand.generic.info');
 };
-const mask_command = (session, builder, brush, args) => {
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
-    }
-    const mask = Mask.parseArg(args.shift() ?? '');
-    session.setToolProperty(brush, 'mask', mask);
-    return RawText.translate('worldedit.wand.generic.info');
-};
-const tracemask_command = (session, builder, brush, args) => {
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
-    }
-    const mask = Mask.parseArg(args.shift() ?? '');
-    session.setToolProperty(brush, 'traceMask', mask);
-    return RawText.translate('worldedit.wand.generic.info');
-};
-const size_command = (session, builder, brush, args) => {
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
-    }
-    let sizeArg = args.shift();
-    const size = parseInt(sizeArg);
-    if (size != size) {
-        throw RawText.translate('worldedit.error.invalid-integer').with(sizeArg ?? "' '");
-    }
-    session.setToolProperty(brush, 'size', size);
-    return RawText.translate('worldedit.wand.generic.info');
-};
-const range_command = (session, builder, brush, args) => {
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
-    }
-    let rangeArg = args.shift();
-    const range = parseInt(rangeArg);
-    if (range != range) {
-        throw RawText.translate('worldedit.error.invalid-integer').with(rangeArg ?? "' '");
-    }
-    session.setToolProperty(brush, 'range', range);
-    return RawText.translate('worldedit.wand.generic.info');
-};
 const none_command = (session, builder, brush, args) => {
     if (session.hasTool(brush)) {
         session.unbindTool(brush);
@@ -92,34 +62,17 @@ const none_command = (session, builder, brush, args) => {
     return RawText.translate('worldedit.wand.generic.info');
 };
 commandList['brush'] = [registerInformation, (session, builder, args) => {
-        const tier = parseInt(args[0]);
-        if (tier != tier || tier < 1 || tier > 6) {
-            throw RawText.translate('worldedit.brush.invalid-tier').with(args[0]);
-        }
-        if (!args[1]) {
+        const brush = getBrushTier(args);
+        if (!args[0]) {
             throw 'No subcommand has been specified. Type (;help brush) to see the available subcommands';
         }
-        const brush = {
-            1: 'wooden_brush',
-            2: 'stone_brush',
-            3: 'iron_brush',
-            4: 'golden_brush',
-            5: 'diamond_brush',
-            6: 'netherite_brush'
-        }[tier];
-        const subArgs = args.slice(2);
-        switch (args[1]) {
+        const subArgs = args.slice(1);
+        switch (args[0]) {
             case 'sphere':
                 return sphere_command(session, builder, brush, subArgs);
             case 'cyl':
             case 'cylinder':
                 return cylinder_command(session, builder, brush, subArgs);
-            case 'mask':
-                return mask_command(session, builder, brush, subArgs);
-            case 'tracemask':
-                return tracemask_command(session, builder, brush, subArgs);
-            case 'size':
-                return size_command(session, builder, brush, subArgs);
             case 'none':
                 return none_command(session, builder, brush, subArgs);
             default:

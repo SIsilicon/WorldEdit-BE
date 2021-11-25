@@ -70,14 +70,17 @@ export class Pattern {
             }
         }
         
+        let i = 0;
         for (const block of blockMap) {
             if (block[1] > 1) {
-                text += `${block[1]}x ${block[0]},`;
+                text += `${block[1]}x ${block[0]}`;
             } else {
                 text += block[0];
             }
+            if (i < blockMap.size-1) text += ', ';
+            i++;
         }
-        return text.replace(/,$/, '');
+        return text;
     }
     
     static parseArg(argument: string) {

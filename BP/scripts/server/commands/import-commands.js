@@ -38,6 +38,11 @@ import './navigation/thru.js';
 // TODO: Implement ceil
 import './tool/tools.js';
 import './brush/brushes.js';
+import './brush/mask.js';
+import './brush/tracemask.js';
+import './brush/size.js';
+import './brush/range.js';
+// TODO: Implement material
 import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';

@@ -25,7 +25,8 @@ class PatternPickerTool extends Tool {
             if (properties.length && blockName != 'water' && blockName != 'lava') {
                 for (let i = 0; i < properties.length; i++) {
                     const prop = properties[i];
-                    blockName += `\n§o${prop.name}§r: ${prop.value}`;
+                    const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
+                    blockName += `\n§o${prop.name}§r: ${val}`;
                 }
             }
             if (blockName.startsWith('minecraft:')) {
@@ -71,7 +72,8 @@ class MaskPickerTool extends Tool {
             if (properties.length && blockName != 'water' && blockName != 'lava') {
                 for (let i = 0; i < properties.length; i++) {
                     const prop = properties[i];
-                    blockName += `\n§o${prop.name}§r: ${prop.value}`;
+                    const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
+                    blockName += `\n§o${prop.name}§r: ${val}`;
                 }
             }
             if (blockName.startsWith('minecraft:')) {

@@ -73,6 +73,7 @@ export class Mask {
     
     getBlockSummary() {
         let text = '';
+        let i = 0;
         for (const block of this.conditions) {
             let sub = block.id.replace('minecraft:', '');
             for (const state of block.states) {
@@ -82,9 +83,11 @@ export class Mask {
                     break;
                 }
             }
-            text += sub + ',';
+            text += sub;
+            if (i < this.conditions.length-1) text += ', ';
+            i++;
         }
-        return text.replace(/,$/, '');
+        return text;
     }
     
     static parseArg(argument: string) {

@@ -1,5 +1,5 @@
 import { TicksPerSecond } from 'mojang-minecraft';
-// Enables `printDebug` messages and operation timers.
+// Enables `printDebug` messages.
 export const DEBUG = true;
 // How many operations can be recorded in a player's history.
 export const MAX_HISTORY_SIZE = 20;
