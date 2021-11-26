@@ -1,5 +1,5 @@
-pack.name=WorldEdit: BE [RP]
-pack.description=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
+worldedit.rp=WorldEdit: BE [RP]
+worldedit.rp.desc=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
 
 ## ITEMS
 item.wedit:selection_wand=Selection Wand

@@ -1,13 +1,13 @@
 {
     "format_version": 2,
     "header": {
-        "name": "pack.name",
-        "description": "pack.description",
+        "name": "worldedit.rp",
+        "description": "worldedit.rp.desc",
         "uuid": "e304a4eb-f0a0-4979-ac17-7b0f46a555c8",
         "version": [
             0,
-            1,
-            3
+            2,
+            0
         ],
         "min_engine_version": [
             1,

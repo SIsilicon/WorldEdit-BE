@@ -5,7 +5,7 @@
         "resourcePack": "./RP"
     },
     "namespace": "wedit",
-    "targetVersion": "1.17.30",
+    "targetVersion": "1.17.40",
     "name": "[WorldEdit Compiler]",
     "description": "[...]",
     "experimentalGameplay": {
@@ -30,7 +30,7 @@
             [
                 "simpleRewrite",
                 {
-                    "packName": "WorldEdit Addon"
+                    "packName": "WorldEdit"
                 }
             ]
         ]
