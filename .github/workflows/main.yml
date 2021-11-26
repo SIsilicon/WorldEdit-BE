@@ -31,11 +31,13 @@ jobs:
         with:
           node-version: 12
       
-      - name: yarn install
-        run: yarn install
+      - name: Install tsc
+        run: npm install -g tsc
       
       - name: Compile Typescript
-        uses: icrawl/action-tsc@v1
+        run: |
+          rm -rf BP/scripts/*
+          tsc -b
       
       - name: Zip behaviour pack
         run: |
