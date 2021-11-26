@@ -1,6 +1,9 @@
 # WorldEdit: Bedrock Edition
+![Build Workflow](https://github.com/SIsilicon/WorldEdit-BE/actions/workflows/main.yml/badge.svg)
+[![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://worldedit-be-docs.readthedocs.io/?badge=latest)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)
 [![Twitter Follow](https://img.shields.io/twitter/follow/iSiliconS?style=social)](https://twitter.com/iSiliconS)
+[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/M5uAkr9WU2)
 
 This is a Minecraft Bedrock addon port of the famous WorldEdit mod for Minecraft: Java Edition. The addon comes with custom commands to make building easier, and more fun! Not only are there commands, but also items to make it easier for anyone on any device to use this.
 __Please note that this addon is currently in its beta stage, and requires experimental features. To be on the safe side, make a backup of your world.__
@@ -14,12 +17,8 @@ And that's it! Your world is ready for WorldEdit.
 ### Aternos server
 To properly add this addon to the server, you first need to upload an already existing world with the required experimental features enabled. You must then install the addon separately in the server's `packs` folder. Read more about how aternos handles addons and experimental features [here](https://support.aternos.org/hc/en-us/articles/360042095232-Installing-Addons-Minecraft-Bedrock-Edition-) and [here](https://support.aternos.org/hc/en-us/articles/4407553257873-Enabling-experimental-gameplay-Minecraft-Bedrock-Edition-).
 
-## Usage
-The game will come with instructions on how to use WorldEdit in the How to Play section in settings while you're in the world.
-![How to Play](docs/How_to_Play.jpg)
-
 ## Features
-![Clipboard](docs/Clipboard.jpg)![Generation](docs/Generation.jpg)
+<!--![Clipboard](docs/Clipboard.jpg)![Generation](docs/Generation.jpg)-->
 WorldEdit currently has the following features.
 - Clipboard manipulation (Cut, Copy, Paste)
 - Masking blocks from certain actions
@@ -29,30 +28,29 @@ WorldEdit currently has the following features.
 - Multiblock patterns
 - Undo and Redo
 - Filling selections
+- Brushes for painting blocks
 
 ## Planned
 These features will be added in the near future.
-- Brushes
-- More tools and items
+- More brushes, tools and items
 - More selection shapes
 - More selection operations
 - More sophisticated patterns and masks
-- No limit to selection size
+- Basically, Java Parity
+
+## Documentation
+The addon comes with a quick start on how to use WorldEdit in `Settings > How to Play` while you're in the world.
+There's a more in-depth documentation over at the project's [docs page](https://worldedit-be-docs.readthedocs.io).
 
 ## Contribution
 ### Bug Report
-If you've encountered a bug with the addon, please do the following.
-1. Check the [issues page](https://github.com/SIsilicon/WorldEdit-BE/issues) to see if your bug was already reported. If not continue with the steps.
-2. In Minecraft, enable content log file and gui in `Settings > Creator`.
-3. Reproduce the bug and go to `Setting > Creator > Content Log History` and copy the logs, if applicable.
-4. Open a new [issue](https://github.com/SIsilicon/WorldEdit-BE/issues/new), state the bug, list the steps to reproduce and if you've got logs, paste them here too.
-5. Submit! 
+If you've encountered a bug with the addon, please go [here](https://github.com/SIsilicon/WorldEdit-BE/issues/new?template=bug_report.md) submit one.
 
 ### Feature Request
 The aim of this project is to replicate as many of the original WorldEdit features as possible, so if there's a feature you want that's in the original mod, it will likely be implemented anyway if possible.
 However, you can still propose features that _aren't_ in the original mod, so long as you can make a case for how useful it can be. Then the proposal will be considered.
 
-You submit proposals [here](https://github.com/SIsilicon/WorldEdit-BE/issues). Make sure that a similar proposal has not been made already.
+You submit proposals [here](https://github.com/SIsilicon/WorldEdit-BE/issues/new?template=feature_request.md). Make sure that a similar proposal has not been made already.
 
 ## License
 This addon is under the [GPLv3 license](LICENSE.txt). This means that you:
@@ -62,7 +60,7 @@ This addon is under the [GPLv3 license](LICENSE.txt). This means that you:
 - CAN'T make the modified source code closed.
 - HAVE TO indicate any changes in the modified version.
 
-You also dont HAVE to credit me, but it would be great if you did! 😁
+You also don't HAVE to credit me, but it would be great if you did to help support my work! 😁
 
 ## Special Thanks
 The backbone of this addon's code is notbeer's [GameTest API Wrapper](https://github.com/notbeer/Gametest-API-Wrapper).

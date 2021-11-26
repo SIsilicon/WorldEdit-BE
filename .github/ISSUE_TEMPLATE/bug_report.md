@@ -1,33 +1,46 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
+title: '[BUG] (Title Here)'
 labels: ''
 assignees: ''
 
 ---
+<!--
+When reporting a bug, please do the following:
+1. Check the https://github.com/SIsilicon/WorldEdit-BE/issues to see if your bug was already reported. If not continue with the steps.
+2. In Minecraft, enable content log file and gui in `Settings > Creator`.
+3. Reproduce the bug and go to `Setting > Creator > Content Log History` and copy the logs, if any.
+4. Fill in every category below, especially those marked "REQUIRED". The one's that are optional, you may remove if you don't use them.
+5. Submit!
+-->
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Description** <!--REQUIRED-->
+<!-- A clear and concise description of what the bug is. -->
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**Steps to reproduce** <!--REQUIRED-->
+<!--
+Steps to reproduce the behavior: e.g.
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+2. Use '....'
+3. Type '...'
 4. See error
+-->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected behavior** <!--REQUIRED-->
+<!-- A clear and concise description of what you expected to happen. -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem. -->
 
-**Content Logs (if applicable):**
-Paste content logs from Minecraft here.
+**Content logs**
+<!-- If applicable, paste content logs from Minecraft here. -->
 
-**Minecraft Version:**
-[e.g. 1.17.41]
+**Minecraft version** <!--REQUIRED-->
+<!-- e.g. 1.17.41 -->
 
-**Additional context**
-Add any other context about the problem here.
+**Device and operating system**
+<!-- e.g. Samsung Galaxy A02, Android 11 -->
+
+**Additional info**
+<!-- Add any other context about the problem here. -->
