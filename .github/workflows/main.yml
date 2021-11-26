@@ -32,7 +32,7 @@ jobs:
           node-version: 12
       
       - name: Install tsc
-        run: npm install -g tsc
+        run: npm install -g typescript
       
       - name: Compile Typescript
         run: |
