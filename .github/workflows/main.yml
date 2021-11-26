@@ -45,5 +45,5 @@ jobs:
       - name: Archive addon artifact
         uses: actions/upload-artifact@v2
         with:
-          name: WorldEdit.mcaddon
+          name: mcaddon-artifact
           path: WorldEdit.mcaddon
