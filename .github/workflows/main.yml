@@ -41,3 +41,9 @@ jobs:
         
       - name: Zip mcaddon
         run: zip WorldEdit.mcaddon WorldEditBP.mcpack WorldEditRP.mcpack
+      
+      - name: Archive addon artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: WorldEdit.mcaddon
+          path: WorldEdit.mcaddon
