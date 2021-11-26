@@ -32,14 +32,12 @@ jobs:
           cd BP
           zip -r file.zip ./*
           mv file.zip ../WorldEditBP.mcpack
-          cd ..
         
       - name: Zip resource pack
         run: |
-          cd ../RP
+          cd RP
           zip -r file.zip ./*
           mv file.zip ../WorldEditRP.mcpack
-          cd ..
         
       - name: Zip mcaddon
         run: zip WorldEdit.mcaddon WorldEditBP.mcpack WorldEditRP.mcpack
