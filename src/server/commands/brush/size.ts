@@ -18,9 +18,9 @@ commandList['size'] = [registerInformation, (session, builder, args) => {
 		throw RawText.translate('worldedit.wand.brush.no-bind');
 	}
 	let sizeArg = args.shift();
-	const size = parseInt(sizeArg);
+	const size = parseFloat(sizeArg);
 	if (size != size) {
-		throw RawText.translate('worldedit.error.invalid-integer').with(sizeArg ?? "' '");
+		throw RawText.translate('worldedit.error.invalid-number').with(sizeArg ?? "' '");
 	}
 	session.setToolProperty(brush, 'size', size);
 	return RawText.translate('worldedit.wand.generic.info');

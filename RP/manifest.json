@@ -1,8 +1,8 @@
 {
     "format_version": 2,
     "header": {
-        "name": "worldedit.rp",
-        "description": "worldedit.rp.desc",
+        "name": "WorldEdit [RP]",
+        "description": "pack.description",
         "uuid": "e304a4eb-f0a0-4979-ac17-7b0f46a555c8",
         "version": [
             0,

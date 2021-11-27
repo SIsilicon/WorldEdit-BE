@@ -14,13 +14,13 @@ export function assertNoArgs(args: string[]) {
     }
 }
 
-export function assertValidInteger(number: number, original: string) {
+export function assertValidNumber(number: number, original: string) {
     if (isNaN(number)) {
-        throw RawText.translate('worldedit.error.invalid-integer').with(original);
+        throw RawText.translate('worldedit.error.invalid-number').with(original);
     }
 }
 
-export function assertPositiveInt(number: number) {
+export function assertPositiveNumber(number: number) {
     if (number <= 0) {
         throw RawText.translate('worldedit.error.not-positive').with(`${number}`);
     }

@@ -16,8 +16,8 @@ const registerInformation = {
 	aliases: ['br'],
 	usages: [
 		'<tier: 1..6> none',
-		'<tier: 1..6> sphere [-h] <pattern: Pattern> [radius: int]',
-		'<tier: 1..6> cyl [-h] <pattern: Pattern> [radius: int] [height: int]'
+		'<tier: 1..6> sphere [-h] <pattern: Pattern> [radius: float]',
+		'<tier: 1..6> cyl [-h] <pattern: Pattern> [radius: float] [height: int]'
 	]
 };
 
@@ -46,8 +46,8 @@ const sphere_command = (session: PlayerSession, builder: Player, brush: string, 
 	}
 	
 	const pattern = Pattern.parseArg(args.shift() ?? '');
-	let radius = parseInt(args.shift());
-	radius = radius == radius ? radius : 3;
+	let radius = parseFloat(args.shift());
+	radius = radius == radius && radius > 0 ? radius : 3;
 	
 	session.setTool(brush, new SphereBrush(radius, pattern, hollow));
 	return RawText.translate('worldedit.wand.generic.info');
@@ -61,10 +61,10 @@ const cylinder_command = (session: PlayerSession, builder: Player, brush: string
 	}
 	
 	const pattern = Pattern.parseArg(args.shift() ?? '');
-	let radius = parseInt(args.shift());
-	radius = radius == radius ? radius : 3;
+	let radius = parseFloat(args.shift());
+	radius = radius == radius && radius > 0 ? radius : 3;
 	let height = parseInt(args.shift());
-	height = height == height ? height : 1;
+	height = height == height && height > 1 ? height : 1;
 	
 	session.setTool(brush, new CylinderBrush(radius, height, pattern, hollow));
 	return RawText.translate('worldedit.wand.generic.info');

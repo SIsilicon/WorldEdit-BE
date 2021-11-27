@@ -1,5 +1,5 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
+import { assertPositiveNumber, assertValidNumber } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
 import { CylinderShape } from '../../shapes/cylinder.js';
@@ -11,8 +11,8 @@ const registerInformation = {
 	name: 'cyl',
 	description: 'Generate a filled cylinder.',
 	usages: [
-		'[-hr] <pattern: Pattern> <radii: int> [height: int]',
-		'[-hr] <pattern: Pattern> <radiiX: int>,<radiiZ: int> [height: int]',
+		'[-hr] <pattern: Pattern> <radii: float> [height: int]',
+		'[-hr] <pattern: Pattern> <radiiX: float>,<radiiZ: float> [height: int]',
 	]
 };
 
@@ -40,9 +40,9 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
 			radii = [];
 			const subArgs = arg.split(',');
 			for (const n of subArgs) {
-				const radius = parseInt(n);
-				assertValidInteger(radius, n);
-				assertPositiveInt(radius);
+				const radius = parseFloat(n);
+				assertValidNumber(radius, n);
+				assertPositiveNumber(radius);
 				radii.push(radius);
 			}
 			if (radii.length > 2) throw 'Too many radii arguments are specified!';
@@ -52,8 +52,8 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
 		}
 		else if (!height) {
 			height = parseInt(arg);
-			assertValidInteger(height, arg);
-			assertPositiveInt(height);
+			assertValidNumber(height, arg);
+			assertPositiveNumber(height);
 		}
 	}
 	

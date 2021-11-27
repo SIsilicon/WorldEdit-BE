@@ -20,7 +20,7 @@ commandList['range'] = [registerInformation, (session, builder, args) => {
 	let rangeArg = args.shift();
 	const range = parseInt(rangeArg);
 	if (range != range) {
-		throw RawText.translate('worldedit.error.invalid-integer').with(rangeArg ?? "' '");
+		throw RawText.translate('worldedit.error.invalid-number').with(rangeArg ?? "' '");
 	}
 	session.setToolProperty(brush, 'range', range);
 	return RawText.translate('worldedit.wand.generic.info');

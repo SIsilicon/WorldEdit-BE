@@ -1,8 +1,8 @@
 {
     "format_version": 2,
     "header": {
-        "name": "worldedit.bp",
-        "description": "worldedit.bp.desc",
+        "name": "WorldEdit [BP]",
+        "description": "pack.description",
         "uuid": "3cdb2ddf-662e-4f8f-a0a1-1293b91ccb2f",
         "version": [
             0,

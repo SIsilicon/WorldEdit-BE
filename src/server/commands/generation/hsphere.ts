@@ -6,9 +6,9 @@ const registerInformation = {
 	name: 'hsphere',
 	description: 'Generate a hollow sphere.',
 	usages: [
-		'[-r] <pattern: Pattern> <radii: int>',
-		'[-r] <pattern: Pattern> <radiiXZ: int>,<radiiY: int>',
-		'[-r] <pattern: Pattern> <radiiX: int>,<radiiY: int>,<radiiZ: int>'
+		'[-r] <pattern: Pattern> <radii: float>',
+		'[-r] <pattern: Pattern> <radiiXZ: float>,<radiiY: float>',
+		'[-r] <pattern: Pattern> <radiiX: float>,<radiiY: float>,<radiiZ: float>'
 	]
 };
 

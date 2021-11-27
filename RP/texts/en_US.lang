@@ -1,5 +1,5 @@
-worldedit.rp=WorldEdit: BE [RP]
-worldedit.rp.desc=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
+pack.name=WorldEdit: BE [RP]
+pack.description=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
 
 ## ITEMS
 item.wedit:selection_wand=Selection Wand
@@ -72,8 +72,8 @@ worldedit.permission.revoked=Â§eYou're WorldEdit permissions have been removed.Â
 worldedit.error.empty-clipboard=Your clipboard is empty. Copy or cut a region first.
 worldedit.error.command-fail=Failed to execute this command.
 worldedit.error.expect-no-args=This command does not expect any arguments.
-worldedit.error.invaild-integer=%s is not a valid integer.
-worldedit.error.not-positive=%s is not a positive non-zero integer.
+worldedit.error.invaild-number=%s is not a valid number.
+worldedit.error.not-positive=%s is not a positive non-zero number.
 worldedit.error.no-permission=You don't have the permission to execute this command.
 worldedit.error.item.no-perms=You don't have the permission to use this item.
 worldedit.error.incomplete-region=Make a region selection first.

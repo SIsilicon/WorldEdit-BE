@@ -6,6 +6,6 @@ Desktop.ini
 !.bridge/extensions
 !.bridge/config.json
 builds
+BP/scripts/
 *.stfolder
-*.ttxfolder
-        
+    

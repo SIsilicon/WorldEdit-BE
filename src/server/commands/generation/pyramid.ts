@@ -1,5 +1,5 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
+import { assertPositiveNumber, assertValidNumber } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
 import { PyramidShape } from '../../shapes/pyramid.js';
@@ -10,7 +10,7 @@ const registerInformation = {
 	cancelMessage: true,
 	name: 'pyramid',
 	description: 'Generate a filled pyramid.',
-	usage: '[-h] <pattern: Patterm> <size: int>',
+	usage: '[-h] <pattern: Pattern> <size: int>',
 };
 
 commandList['pyramid'] = [registerInformation, (session, builder, args) => {
@@ -26,8 +26,8 @@ commandList['pyramid'] = [registerInformation, (session, builder, args) => {
 			pattern = Pattern.parseArg(arg);
 		} else if (!size) {
 			size = parseInt(arg);
-			assertValidInteger(size, arg);
-			assertPositiveInt(size);
+			assertValidNumber(size, arg);
+			assertPositiveNumber(size);
 		}
 	}
 	

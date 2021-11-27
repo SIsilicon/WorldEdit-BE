@@ -1,6 +1,6 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '../../../library/Minecraft.js';
-import { assertBuilder, assertValidInteger } from '../../modules/assert.js';
+import { assertBuilder, assertValidNumber } from '../../modules/assert.js';
 import { vector, regionSize, printDebug } from '../../util.js';
 import { getCardinalDirection, directions } from '../../modules/directions.js';
 import { Pattern } from '../../modules/pattern.js';
@@ -21,7 +21,7 @@ const registerInformation = {
 
 commandList['stack'] = [registerInformation, (session, builder, args) => {
     const amount = args[0] ? parseInt(args[0]) : 1;
-    assertValidInteger(amount, args[0]);
+    assertValidNumber(amount, args[0]);
     const [start, end] = session.getSelectionRange();
     const size = regionSize(start, end);
     

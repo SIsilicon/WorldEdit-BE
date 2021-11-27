@@ -1,5 +1,5 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveInt, assertValidInteger } from '../../modules/assert.js';
+import { assertPositiveNumber, assertValidNumber } from '../../modules/assert.js';
 import { Pattern } from '../../modules/pattern.js';
 import { RawText } from '../../modules/rawtext.js';
 import { PlayerUtil } from '../../modules/player_util.js';
@@ -12,9 +12,9 @@ const registerInformation = {
 	name: 'sphere',
 	description: 'Generate a filled sphere.',
 	usages: [
-		'[-hr] <pattern: Pattern> <radii: int>',
-		'[-hr] <pattern: Pattern> <radiiXZ: int>,<radiiY: int>',
-		'[-hr] <pattern: Pattern> <radiiX: int>,<radiiY: int>,<radiiZ: int>'
+		'[-hr] <pattern: Pattern> <radii: float>',
+		'[-hr] <pattern: Pattern> <radiiXZ: float>,<radiiY: float>',
+		'[-hr] <pattern: Pattern> <radiiX: float>,<radiiY: float>,<radiiZ: float>'
 	]
 };
 
@@ -40,9 +40,9 @@ commandList['sphere'] = [registerInformation, (session, builder, args) => {
 			radii = [];
 			const subArgs = arg.split(',');
 			for (const n of subArgs) {
-				const radius = parseInt(n);
-				assertValidInteger(radius, n);
-				assertPositiveInt(radius);
+				const radius = parseFloat(n);
+				assertValidNumber(radius, n);
+				assertPositiveNumber(radius);
 				radii.push(radius);
 			}
 			if (radii.length > 3) throw 'Too many radii arguments are specified!';

@@ -6,8 +6,8 @@ const registerInformation = {
 	name: 'hcyl',
 	description: 'Generate a hollow cylinder.',
 	usages: [
-		'[-r] <pattern: Pattern> <radii: int> [height: int]',
-		'[-r] <pattern: Pattern> <radiiX: int>,<radiiZ: int> [height: int]',
+		'[-r] <pattern: Pattern> <radii: float> [height: int]',
+		'[-r] <pattern: Pattern> <radiiX: float>,<radiiZ: float> [height: int]',
 	]
 };
 
