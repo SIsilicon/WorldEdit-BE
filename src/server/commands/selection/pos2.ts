@@ -8,7 +8,7 @@ const registerInformation = {
     cancelMessage: true,
     name: 'pos2',
     description: 'Set the second position of your selection as your current position',
-    usage: '[coordinates: xyx]',
+    usage: '[coordinates: xyz]',
 };
 
 commandList['pos2'] = [registerInformation, (session, builder, args) => {
