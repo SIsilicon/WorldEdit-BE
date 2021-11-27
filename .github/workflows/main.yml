@@ -19,7 +19,11 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    
+    strategy:
+      matrix:
+        target: [debug, release]
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -28,32 +32,18 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
       
       - name: Install tsc
         run: npm install -g typescript
       
-      - name: Compile Typescript
-        run: |
-          rm -rf BP/scripts/*
-          tsc -b
+      - name: Run build script (${{ matrix.target }})
+        run: python build.py --clean --target ${{ matrix.target }}
       
-      - name: Zip behaviour pack
-        run: |
-          cd BP
-          zip -r file.zip ./*
-          mv file.zip ../WorldEditBP.mcpack
-        
-      - name: Zip resource pack
-        run: |
-          cd RP
-          zip -r file.zip ./*
-          mv file.zip ../WorldEditRP.mcpack
-        
-      - name: Zip mcaddon
-        run: zip WorldEdit.mcaddon WorldEditBP.mcpack WorldEditRP.mcpack
-      
-      - name: Archive addon artifact
+      - name: Archive addon artifact (${{ matrix.target }})
         uses: actions/upload-artifact@v2
         with:
-          name: mcaddon-artifact
-          path: WorldEdit.mcaddon
+          name: mcaddon-artifact-${{ matrix.target }}
+          path: builds/WorldEdit.mcaddon

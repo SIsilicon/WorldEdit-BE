@@ -6,6 +6,8 @@ Desktop.ini
 !.bridge/extensions
 !.bridge/config.json
 builds
-BP/scripts/
+!BP/scripts
+BP/scripts/*
+!BP/scripts/README.txt
 *.stfolder
     
