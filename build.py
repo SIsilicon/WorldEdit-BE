@@ -32,7 +32,7 @@ if args.clean:
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
-            if not file_path.endswith('.js'):
+            if file_path.endswith('.txt'):
                 continue
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 os.unlink(file_path)
