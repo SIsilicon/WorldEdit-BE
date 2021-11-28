@@ -1,7 +1,7 @@
 # WorldEdit: Bedrock Edition
 ![Build Workflow](https://github.com/SIsilicon/WorldEdit-BE/actions/workflows/main.yml/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://worldedit-be-docs.readthedocs.io/?badge=latest)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DSIsilicon%26type%3Dpatrons&style=flat)](https://patreon.com/SIsilicon)
 [![Twitter Follow](https://img.shields.io/twitter/follow/iSiliconS?style=social)](https://twitter.com/iSiliconS)
 [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/M5uAkr9WU2)
 
@@ -68,4 +68,4 @@ The backbone of this addon's code is notbeer's [GameTest API Wrapper](https://gi
 And thanks to the original creator of the WorldEdit mod "sk89q" and [EngineHub](https://enginehub.org/) as a whole. They developed and excellent mod, and I'm just simply making a version of it work on bedrock. They're the real heroes. :) 
 
 ## Support
-I kmow you already saw the badge at the top, but it took time and effort to make this addon, so if you can, please support me by donating via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)!
+I kmow you already saw the badge at the top, but it took time and effort to make this addon, so if you can, please support me by becoming a [Patreon](https://patreon.com/SIsilicon)!
