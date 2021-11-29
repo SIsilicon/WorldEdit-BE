@@ -22,7 +22,8 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
     const cmdList = Server.command.getAllRegistation();
     
     // Show a page of the list of available WorldEdit commands
-    if(!args[0] || Number(args[0]) == Number(args[0])) {
+    let page = parseInt(args[0]);
+    if(!args[0] || (page == page && `${page}`.toLowerCase() != 'nan')) {
         const cmdInfo: [string, string][] = [];
         for (const cmd of cmdList) {
             cmdInfo.push([cmd.name, cmd.usage]);
@@ -49,7 +50,6 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
         
         const PAGE_SIZE = 7;
         let totalPages = Math.ceil(cmdInfo.length / PAGE_SIZE);
-        let page = Number(args[0]);
         page = page == page ? page : 1;
         let pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
         

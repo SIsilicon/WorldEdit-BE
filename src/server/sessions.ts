@@ -294,8 +294,8 @@ export class PlayerSession {
 		
 		// A slight offset is made since exact integers snap the particles to the center of blocks.
 		for (const point of this.drawPoints) {
-			point.x += 0.00001;
-			point.z += 0.00001;
+			point.x += 0.001;
+			point.z += 0.001;
 		}
 		this.drawTimer = 0;
 	}

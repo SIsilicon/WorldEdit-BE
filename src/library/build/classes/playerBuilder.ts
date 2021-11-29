@@ -21,11 +21,16 @@ export class PlayerBuilder {
      * @returns {boolean}
      * @example PlayerBuilder.hasTag("Owner", 'notbeer');
      */
-    hasTag(tag: string, player?: string): boolean {
-        const allTags = this.getTags(player);
+    hasTag(tag: string, player: string): boolean {
+        if (Server.runCommand(`tag "${player}" remove ${tag}`).error) {
+            return false;
+        } else {
+            Server.runCommand(`tag "${player}" add ${tag}`);
+            return true;
+        }
+        /*const allTags = this.getTags(player);
         if(!allTags) return false;
-        for(const Tag of allTags) if(Tag.replace(/§./g, '').match(new RegExp(`^${tag.replace(/§./g, '')}$`))) return true;
-        return false;
+        for(const Tag of allTags) if(Tag.replace(/§./g, '').match(new RegExp(`^${tag.replace(/§./g, '')}$`))) return true;*/
     };
     /**
      * Get players(s) at a position
