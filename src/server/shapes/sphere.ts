@@ -13,8 +13,8 @@ export class SphereShape extends Shape {
     
     public getRegion(loc: BlockLocation) {
         return <[BlockLocation, BlockLocation]>[
-            loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]),
-            loc.offset(this.radii[0], this.radii[1], this.radii[2])
+                loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]),
+                loc.offset(this.radii[0], this.radii[1], this.radii[2])
         ];
     }
     
@@ -25,23 +25,23 @@ export class SphereShape extends Shape {
     
     protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
         if (genVars.isHollow) {
-            let hLocal = [
-                relLoc.x / (genVars.radiiOff[0] - 1.0),
-                relLoc.y / (genVars.radiiOff[1] - 1.0),
-                relLoc.z / (genVars.radiiOff[2] - 1.0)
-            ];
-            if (hLocal[0]*hLocal[0] + hLocal[1]*hLocal[1] + hLocal[2]*hLocal[2] < 1.0) {
-                return false;
-            }
+                let hLocal = [
+                    relLoc.x / (genVars.radiiOff[0] - 1.0),
+                    relLoc.y / (genVars.radiiOff[1] - 1.0),
+                    relLoc.z / (genVars.radiiOff[2] - 1.0)
+                ];
+                if (hLocal[0]*hLocal[0] + hLocal[1]*hLocal[1] + hLocal[2]*hLocal[2] < 1.0) {
+                    return false;
+                }
         }
         
         let local = [
-            relLoc.x / genVars.radiiOff[0],
-            relLoc.y / genVars.radiiOff[1],
-            relLoc.z / genVars.radiiOff[2]
+                relLoc.x / genVars.radiiOff[0],
+                relLoc.y / genVars.radiiOff[1],
+                relLoc.z / genVars.radiiOff[2]
         ];
         if (local[0]*local[0] + local[1]*local[1] + local[2]*local[2] <= 1.0) {
-            return true;
+                return true;
         }
         
         return false;

@@ -47,35 +47,35 @@ export function parseBlock(lexer: Tokenizr, idtoken: Token) {
     let token: Token;
     while (token = lexer.token()) {
         switch (token.type) {
-            case 'colon':
-                token = lexer.token();
-                if (token.type == 'id') {
-                    if (block.id.includes(':') || block.data != -1) throw lexer.error('unexpected token!');
-                    block.id += ':' + token.value;
-                } else if (token.type == 'integer') {
-                    if (block.data != -1) throw lexer.error('unexpected token!');
-                    block.data = token.value;
-                } else {
+                case 'colon':
+                    token = lexer.token();
+                    if (token.type == 'id') {
+                        if (block.id.includes(':') || block.data != -1) throw lexer.error('unexpected token!');
+                        block.id += ':' + token.value;
+                    } else if (token.type == 'integer') {
+                        if (block.data != -1) throw lexer.error('unexpected token!');
+                        block.data = token.value;
+                    } else {
+                        throw lexer.error('unexpected token!');
+                    }
+                    break;
+                case 'bracket':
+                    if (token.value == '[') {
+                        if (block.states != null) throw lexer.error('unexpected token!');
+                        block.states = parseBlockStates(lexer);
+                    } else {
+                        throw lexer.error('unexpected token!');
+                    }
+                    break;
+                case 'comma':
+                case 'space':
+                case 'EOF':
+                    if (!block.id.includes(':')) {
+                        block.id = 'minecraft:' + block.id;
+                    }
+                    return block;
+                default:
                     throw lexer.error('unexpected token!');
-                }
-                break;
-            case 'bracket':
-                if (token.value == '[') {
-                    if (block.states != null) throw lexer.error('unexpected token!');
-                    block.states = parseBlockStates(lexer);
-                } else {
-                    throw lexer.error('unexpected token!');
-                }
-                break;
-            case 'comma':
-            case 'space':
-            case 'EOF':
-                if (!block.id.includes(':')) {
-                    block.id = 'minecraft:' + block.id;
-                }
-                return block;
-            default:
-                throw lexer.error('unexpected token!');
         }    
     }
 }
@@ -95,37 +95,37 @@ function parseBlockStates(lexer: Tokenizr) {
     let token: Token;
     while (token = lexer.token()) {
         switch (token.type) {
-            case 'string': case 'number': case 'boolean':
-                if (expectingBlockValue) {
-                    if (blockDataValue != null)
+                case 'string': case 'number': case 'boolean':
+                    if (expectingBlockValue) {
+                        if (blockDataValue != null)
+                                throw lexer.error('unexpected token!');
+                        blockDataValue = token.value;
+                    } else {
+                        if (blockDataName != null || token.type == 'number' || token.type == 'boolean')
+                                throw lexer.error('unexpected token!');
+                        blockDataName = token.value;
+                    }
+                    break;
+                case 'colon':
+                    if (expectingBlockValue) {
                         throw lexer.error('unexpected token!');
-                    blockDataValue = token.value;
-                } else {
-                    if (blockDataName != null || token.type == 'number' || token.type == 'boolean')
+                    }
+                    expectingBlockValue = true;
+                    break;
+                case 'comma':
+                    if (blockDataValue == null) {
                         throw lexer.error('unexpected token!');
-                    blockDataName = token.value;
-                }
-                break;
-            case 'colon':
-                if (expectingBlockValue) {
+                    }
+                    pushDataTag();
+                    break;
+                case 'bracket':
+                    if (token.value == '[' || token.value == ']' && blockDataValue == null) {
+                        throw lexer.error('unexpected token!');
+                    }
+                    pushDataTag();
+                    return blockStates;
+                default:
                     throw lexer.error('unexpected token!');
-                }
-                expectingBlockValue = true;
-                break;
-            case 'comma':
-                if (blockDataValue == null) {
-                    throw lexer.error('unexpected token!');
-                }
-                pushDataTag();
-                break;
-            case 'bracket':
-                if (token.value == '[' || token.value == ']' && blockDataValue == null) {
-                    throw lexer.error('unexpected token!');
-                }
-                pushDataTag();
-                return blockStates;
-            default:
-                throw lexer.error('unexpected token!');
         }
     }
 }

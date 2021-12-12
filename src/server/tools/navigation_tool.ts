@@ -1,5 +1,5 @@
 import { Player } from 'mojang-minecraft';
-import { PlayerUtil } from '../modules/player_util.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { PlayerSession } from '../sessions.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
@@ -12,11 +12,11 @@ class NavigationTool extends Tool {
     use = (player: Player, session: PlayerSession) => {
         const dimension = PlayerUtil.getDimension(player)[0];
         if (!dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
-            callCommand(player, 'unstuck', []);
+                callCommand(player, 'unstuck', []);
         } else if (player.isSneaking) {
-            callCommand(player, 'thru', []);
+                callCommand(player, 'thru', []);
         } else {
-            callCommand(player, 'jumpto', []);
+                callCommand(player, 'jumpto', []);
         }
     }
 }

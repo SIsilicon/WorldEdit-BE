@@ -1,10 +1,8 @@
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'sel',
     description: 'Change selection mode (currently can only clear selection)',
-    usage: '',
     aliases: ['deselect', 'desel']
 };
 

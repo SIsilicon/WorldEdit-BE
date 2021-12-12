@@ -1,35 +1,48 @@
-import { Server } from '../../../library/Minecraft.js';
+import { Server } from '@library/Minecraft.js';
 import { commandList } from '../command_list.js';
 import { print } from '../../util.js';
-import { RawText } from '../../modules/rawtext.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'help',
     description: 'Get list of all the commands available or input an argument to get information about that specific command',
-    usages: [
-        '[command: CommandName]',
-        '<page: int>'
+    usage: [
+        {
+            subName: '_command',
+            args: [
+                {
+                    name: 'command',
+                    type: 'CommandName'
+                }
+            ] 
+        }, {
+            subName: '_page',
+            args: [
+                {
+                    name: 'page',
+                    type: 'int',
+                    default: 1
+                }
+            ] 
+        }
     ],
-    aliases: ['?'],
-    example: [
-        'help',
-        'help copy'
-    ]
+    aliases: ['?']
 };
 
 commandList['help'] = [registerInformation, (session, builder, args) => {
     const cmdList = Server.command.getAllRegistation();
     
     // Show a page of the list of available WorldEdit commands
-    let page = parseInt(args[0]);
-    if(!args[0] || (page == page && `${page}`.toLowerCase() != 'nan')) {
+    if (args.has('_page')) {
         const cmdInfo: [string, string][] = [];
         for (const cmd of cmdList) {
-            cmdInfo.push([cmd.name, cmd.usage]);
-            if (cmd.aliases) {
-                for (const alias of cmd.aliases) {
-                    cmdInfo.push([alias, cmd.usage]);
+            const usages = Server.command.printCommandArguments(cmd.name);
+            for (const usage of usages) {
+                cmdInfo.push([cmd.name, usage]);
+                if (cmd.aliases) {
+                    for (const alias of cmd.aliases) {
+                        cmdInfo.push([alias, usage]);
+                    }
                 }
             }
         }
@@ -50,7 +63,7 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
         
         const PAGE_SIZE = 7;
         let totalPages = Math.ceil(cmdInfo.length / PAGE_SIZE);
-        page = page == page ? page : 1;
+        let page: number = Math.max(args.get('page'), 1);
         let pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
         
         let msg = RawText.text('§2').append('translate', 'worldedit.help.header').with(`${pageOff / PAGE_SIZE + 1}`).with(`${totalPages}`).append('text', '§r');
@@ -61,9 +74,7 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
         return msg;
     }
     
-    const cmdBaseInfo = Server.command.getRegistration(args[0]);
-    if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[0]);
-    const cmdInfo = commandList[cmdBaseInfo.name][0];
+    const cmdInfo = commandList[args.get('command')][0];
     
     let info = RawText.text('\n§e');
     if (cmdInfo.aliases) {
@@ -74,14 +85,13 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
     if (cmdInfo.description) {
         info.append('text', '\n').append('translate', cmdInfo.description).append('text', '\n§r');
     }
-    if (cmdInfo.usage) {
-        info.append('translate', 'commands.generic.usage').with(`\n- ${Server.command.prefix}${cmdInfo.name} ${cmdInfo.usage}`);
-    } else if (cmdInfo.usages) {
-        let usages = '';
-        for (const usage of cmdInfo.usages) {
+    
+    const cmdUsages = Server.command.printCommandArguments(cmdInfo.name);
+    let usages = '';
+    for (const usage of cmdUsages) {
             usages += `\n- ${Server.command.prefix}${cmdInfo.name} ${usage}`;
-        }
-        info.append('translate', 'commands.generic.usage').with(usages);
     }
+    info.append('translate', 'commands.generic.usage').with(usages);
+    
     return info;
 }];

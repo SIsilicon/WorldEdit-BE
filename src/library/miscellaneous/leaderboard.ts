@@ -35,9 +35,9 @@ export function writeLeaderboard([x, y, z]: [number, number, number], objective:
     for(const player of onlinePlayers) {
         let score = 0;
         for(const dummy of objective) {
-            const objScore = Entity.getScore(dummy, `[type=player,name="${player}"]`);
-            if(!objScore) return;
-            score += objScore;
+                const objScore = Entity.getScore(dummy, `[type=player,name="${player}"]`);
+                if(!objScore) return;
+                score += objScore;
         };
         const index = leaderboard.findIndex((obj => obj.gamertag === player));
         if(index !== -1) leaderboard[index].score = score;

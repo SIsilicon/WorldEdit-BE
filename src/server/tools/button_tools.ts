@@ -1,13 +1,13 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '../../library/Minecraft.js'
+import { Server } from '@library/Minecraft.js'
 import { PlayerSession } from '../sessions.js';
 import { printDebug } from '../util.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 
-import { PlayerUtil } from '../modules/player_util.js';
-import { RawText } from '../modules/rawtext.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string;
@@ -61,16 +61,20 @@ class SpawnGlassTool extends Tool {
     itemTool = 'wedit:spawn_glass';
     use = (player: Player, session: PlayerSession) => {
         if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
-            throw RawText.translate('worldedit.spawn-glass.error');
+                throw RawText.translate('worldedit.spawn-glass.error');
         }
     }
 }
 Tools.register(SpawnGlassTool, 'spawn_glass');
 
-class SelectionFillTool extends CommandButton {
+class SelectionFillTool extends Tool {
     tag = 'wedit:performing_selection_fill';
-    command = 'set';
     itemTool = 'wedit:selection_fill';
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        callCommand(player, 'set', ['placeholder']);
+        session.usingItem = false;
+    }
 }
 Tools.register(SelectionFillTool, 'selection_fill');
 

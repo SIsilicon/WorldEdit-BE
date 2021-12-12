@@ -54,6 +54,9 @@ with open('BP/scripts/config.js', 'r') as f:
 with open('BP/scripts/config.js', 'w') as f:
     f.write(content_new)
 
+# Remap absolute imports
+subprocess.call(['python', 'remap_imports.py'])
+
 # Package the addon
 subprocess.call(['zip', '-r', '../WorldEditBP.mcpack', './', '-x', '.stfolder/'], cwd='BP')
 subprocess.call(['zip', '-r', '../WorldEditRP.mcpack', './', '-x', '.stfolder/'], cwd='RP')

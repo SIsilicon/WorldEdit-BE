@@ -55,8 +55,8 @@ World.events.tick.subscribe(() => {
     for(const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if(tickTimeout.tick <= 0) {
-            tickTimeout.callback(...tickTimeout.args);
-            tickTimeoutMap.delete(ID);
+                tickTimeout.callback(...tickTimeout.args);
+                tickTimeoutMap.delete(ID);
         };
     };
     for(const [, tickInterval] of tickIntervalMap) {

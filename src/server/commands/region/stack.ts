@@ -1,31 +1,36 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
-import { assertBuilder, assertValidNumber } from '../../modules/assert.js';
+import { Server } from '@library/Minecraft.js';
+import { assertBuilder, assertValidNumber } from '@modules/assert.js';
 import { vector, regionSize, printDebug } from '../../util.js';
-import { getCardinalDirection, directions } from '../../modules/directions.js';
-import { Pattern } from '../../modules/pattern.js';
-import { Regions } from '../../modules/regions.js';
+import { Cardinal } from '@modules/directions.js';
+import { Pattern } from '@modules/pattern.js';
+import { Regions } from '@modules/regions.js';
 import { set } from './set.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'stack',
     description: 'Repeat the contents of the current selection',
-    usage: '[count: int] [offset: Direction]',
-    example: [
-        'stack 5',
-        'stack 10 up'
+    usage: [
+        {
+            name: 'count',
+            type: 'int',
+            range: [1, null] as [number, null],
+            default: 1
+        }, {
+            name: 'offset',
+            type: 'Direction',
+            default: Cardinal.parseArgs(['me']).result
+        }
     ]
 };
 
 commandList['stack'] = [registerInformation, (session, builder, args) => {
-    const amount = args[0] ? parseInt(args[0]) : 1;
-    assertValidNumber(amount, args[0]);
+    const amount = args.get('count');
     const [start, end] = session.getSelectionRange();
     const size = regionSize(start, end);
     
-    const dir = getCardinalDirection((args[1] ?? 'me').toLowerCase() as directions, builder);
+    const dir = args.get('offset').getDirection(builder);
     let direction = [
         dir[0] * size.x,
         dir[1] * size.y,

@@ -9,7 +9,14 @@
         "preserveConstEnums": true,
         "sourceMap": false,
         "outDir": "./BP/scripts",
-        "allowJs": true
+        "allowJs": true,
+        
+        "baseUrl": "./src",
+        "paths": {
+            "@config.js": ["config.js"],
+            "@modules/*": ["server/modules/*"],
+            "@library/*": ["library/*"]
+        }
     },
     "include": [
         "./src",

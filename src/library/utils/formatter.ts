@@ -12,8 +12,8 @@ function rainbowText(text: string): string {
     let newMessage = '', rainbowIndex = 0;
     letter.forEach(letter => {
         if(letter !== ' ') {
-            newMessage += `${rainbowCode[rainbowIndex]}${letter}`;
-            rainbowIndex + 1 >= rainbowCode.length ? rainbowIndex = 0 : rainbowIndex++;
+                newMessage += `${rainbowCode[rainbowIndex]}${letter}`;
+                rainbowIndex + 1 >= rainbowCode.length ? rainbowIndex = 0 : rainbowIndex++;
         } else newMessage += ' ';
     });
     return newMessage;
@@ -48,9 +48,9 @@ export function MS(value: number, { fullDuration, avoidDuration }?: { compactDur
 export function MS(value: StringValue | number, { compactDuration, fullDuration, avoidDuration }: { compactDuration?: boolean, fullDuration?: boolean, avoidDuration?: Array<compactUnitAnyCase> } = {}): string | number | undefined {
     try {
         if(typeof value === 'string') {
-            if(/^\d+$/.test(value)) return Number(value);
-            const durations = value.match(/-?\d*\.?\d+\s*?(years?|yrs?|weeks?|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?|ms|[smhdwy])/gi);
-            return durations ? durations.reduce((a, b) => a + toMS(b), 0) : null;
+                if(/^\d+$/.test(value)) return Number(value);
+                const durations = value.match(/-?\d*\.?\d+\s*?(years?|yrs?|weeks?|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?|ms|[smhdwy])/gi);
+                return durations ? durations.reduce((a, b) => a + toMS(b), 0) : null;
         };
         if(typeof value === 'number') return toDuration(value, { compactDuration, fullDuration, avoidDuration });
         throw new Error('Value is not a string or a number');

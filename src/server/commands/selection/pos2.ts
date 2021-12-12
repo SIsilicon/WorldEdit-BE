@@ -1,22 +1,23 @@
 import { printLocation, regionVolume } from '../../util.js';
-import { PlayerUtil } from '../../modules/player_util.js';
-import { parsePosition } from './selection_helper.js';
+import { CommandPosition } from '@library/build/classes/commandBuilder.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '../../modules/rawtext.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'pos2',
     description: 'Set the second position of your selection as your current position',
-    usage: '[coordinates: xyz]',
+    usage: [
+        {
+            name: 'coordinates',
+            type: 'xyz',
+            default: new CommandPosition()
+        }
+    ]
 };
 
 commandList['pos2'] = [registerInformation, (session, builder, args) => {
-    let loc = PlayerUtil.getBlockLocation(builder);
-    if (args.length > 0) {
-        loc = parsePosition(args, loc);
-    }
-    session.setSelectionPoint(1, loc);
+    session.setSelectionPoint(1, args.get('coordinates').relativeTo(builder, true));
 
     let translate: string;
     if (session.getBlocksSelected().length == 0) {

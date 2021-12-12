@@ -1,6 +1,7 @@
 import { BlockLocation, BlockPermutation, World } from 'mojang-minecraft';
-import { dimension } from '../../library/@types';
-import { Server } from '../../library/Minecraft.js';
+import { dimension } from '@library/@types';
+import { CustomArgType } from '@library/build/classes/commandBuilder.js';
+import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation } from '../util.js';
 import { Token } from './extern/tokenizr.js';
 import { lexer, parseBlock, parsedBlock } from './parser.js';
@@ -15,19 +16,19 @@ export class Pattern {
     
         let command = block.id;
         if (block.states && block.states.size != 0) {
-            command += '['
-            let i = 0;
-            for (const state of block.states.entries()) {
-                command += `"${state[0]}":`;
-                command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
-                if (i < block.states.size - 1) {
-                    command += ',';
+                command += '['
+                let i = 0;
+                for (const state of block.states.entries()) {
+                    command += `"${state[0]}":`;
+                    command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
+                    if (i < block.states.size - 1) {
+                        command += ',';
+                    }
+                    i++;
                 }
-                i++;
-            }
-            command += ']'
+                command += ']'
         } else if (block.data != -1) {
-            command += ` ${block.data}`;
+                command += ` ${block.data}`;
         }
         const result = Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dimension);
         return result.error;
@@ -41,12 +42,12 @@ export class Pattern {
     addBlock(block: BlockPermutation) {
         const states: Map<string, string|number|boolean> = new Map();
         block.getAllProperties().forEach(state => {
-            states.set(state.name, state.value);
+                states.set(state.name, state.value);
         })
         this.blocks.push({
-            id: block.type.id,
-            data: -1,
-            states: states
+                id: block.type.id,
+                data: -1,
+                states: states
         });
         this.stringObj = '(picked)';
     }
@@ -55,37 +56,37 @@ export class Pattern {
         let text = '';
         let blockMap = new Map<string, number>();
         for (const block of this.blocks) {
-            let sub = block.id.replace('minecraft:', '');
-            for (const state of block.states) {
-                const val = state[1];
-                if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
-                    sub += `(${val})`;
-                    break;
+                let sub = block.id.replace('minecraft:', '');
+                for (const state of block.states) {
+                    const val = state[1];
+                    if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
+                        sub += `(${val})`;
+                        break;
+                    }
                 }
-            }
-            if (blockMap.has(sub)) {
-                blockMap.set(sub, blockMap.get(sub) + 1);
-            } else {
-                blockMap.set(sub, 1);
-            }
+                if (blockMap.has(sub)) {
+                    blockMap.set(sub, blockMap.get(sub) + 1);
+                } else {
+                    blockMap.set(sub, 1);
+                }
         }
         
         let i = 0;
         for (const block of blockMap) {
-            if (block[1] > 1) {
-                text += `${block[1]}x ${block[0]}`;
-            } else {
-                text += block[0];
-            }
-            if (i < blockMap.size-1) text += ', ';
-            i++;
+                if (block[1] > 1) {
+                    text += `${block[1]}x ${block[0]}`;
+                } else {
+                    text += block[0];
+                }
+                if (i < blockMap.size-1) text += ', ';
+                i++;
         }
         return text;
     }
     
-    static parseArg(argument: string) {
-        if (!argument) {
-            return new Pattern();
+    static parseArgs(args: Array<string>, index = 0) {
+        if (!args[index]) {
+            return {result: new Pattern(), argIndex: index+1};
         }
         
         const blocks: parsedBlock[] = [];
@@ -98,7 +99,7 @@ export class Pattern {
             block = null;
         }
 
-        lexer.input(argument);
+        lexer.input(args[index]);
         let token: Token;
         while (token = lexer.token()) {
             switch (token.type) {
@@ -117,7 +118,14 @@ export class Pattern {
         
         const pattern = new Pattern();
         pattern.blocks = blocks;
-        pattern.stringObj = argument;
+        pattern.stringObj = args[index];
+        return {result: pattern, argIndex: index+1};
+    }
+    
+    static clone(original: Pattern) {
+        const pattern = new Pattern();
+        pattern.blocks = [...original.blocks];
+        pattern.stringObj = original.stringObj;
         return pattern;
     }
     

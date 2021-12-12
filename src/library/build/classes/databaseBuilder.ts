@@ -9,16 +9,16 @@ export default class Database {
         this._createTable();
     };
     /**
-     * @private
-     */
+    * @private
+    */
     private _createTable() {
         if(this._getTable()) return;
         let json = { GAMETEST_DB_TABLE: this.table };
         return Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
     };
     /**
-     * @private
-     */
+    * @private
+    */
     private _getTable() {
         const data = Server.runCommand(`scoreboard players list`);
         if(data.error) return;
@@ -28,11 +28,11 @@ export default class Database {
         else throw `[Database]: Error - Table "${this.table}" doesn't exist, please restart the world to possibly fix this issue`;
     };
     /**
-     * Save a value or update a value in the Database under a key
-     * @param {string} Key The key you want to save the value as
-     * @param {any} value The value you want to save
-     * @example Database.set('Test Key', 'Test Value');
-     */
+    * Save a value or update a value in the Database under a key
+    * @param {string} Key The key you want to save the value as
+    * @param {any} value The value you want to save
+    * @example Database.set('Test Key', 'Test Value');
+    */
     set(key: string, value: any): void {
         let json = this._getTable();
         if(typeof value === 'string') value = value.replace(/"/g, "'");
@@ -41,30 +41,30 @@ export default class Database {
         Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
     };
     /**
-     * Get the value of the key
-     * @param {string} key
-     * @returns {any}
-     * @example Database.get('Test Key');
-     */
+    * Get the value of the key
+    * @param {string} key
+    * @returns {any}
+    * @example Database.get('Test Key');
+    */
     get(key: string): any {
         let json = this._getTable();
         return json[key];
     };
     /**
-     * Check if the key exists in the table
-     * @param {string} key
-     * @returns {boolean}
-     * @example Database.has('Test Key');
-     */
+    * Check if the key exists in the table
+    * @param {string} key
+    * @returns {boolean}
+    * @example Database.has('Test Key');
+    */
     has(key: string): boolean {
         return this.keys().includes(key);
     };
     /**
-     * Delete the key from the table
-     * @param {string} key
-     * @returns {boolean}
-     * @example Database.delete('Test Key');
-     */
+    * Delete the key from the table
+    * @param {string} key
+    * @returns {boolean}
+    * @example Database.delete('Test Key');
+    */
     delete(key: string): boolean {
         let json = this._getTable();
         Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
@@ -73,9 +73,9 @@ export default class Database {
         return status;
     };
     /**
-     * Clear everything in the table
-     * @example Database.clear()
-     */
+    * Clear everything in the table
+    * @example Database.clear()
+    */
     clear(): void {
         let json = this._getTable();
         Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
@@ -83,59 +83,59 @@ export default class Database {
         Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
     };
     /**
-     * Get all the keys in the table
-     * @returns {Array<string>}
-     * @example Database.keys();
-     */
+    * Get all the keys in the table
+    * @returns {Array<string>}
+    * @example Database.keys();
+    */
     keys(): Array<string> {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return Object.keys(json);
     };
     /**
-     * Get all the values in the table
-     * @returns {Array<any>}
-     * @example Database.values();
-     */
+    * Get all the values in the table
+    * @returns {Array<any>}
+    * @example Database.values();
+    */
     values(): Array<any> {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return Object.values(json);
     };
     /**
-     * Gets all the keys and values
-     * @returns {any}
-     * @example Database.getCollection();
-     */
+    * Gets all the keys and values
+    * @returns {any}
+    * @example Database.getCollection();
+    */
     getCollection(): any {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return json;
     };
     /**
-     * Check if all the keys exists in the table
-     * @param {string} keys
-     * @returns {boolean}
-     * @example Database.hasAll('Test Key', 'Test Key 2', 'Test Key 3');
-     */
+    * Check if all the keys exists in the table
+    * @param {string} keys
+    * @returns {boolean}
+    * @example Database.hasAll('Test Key', 'Test Key 2', 'Test Key 3');
+    */
     hasAll(...keys: Array<string>): boolean {
         return keys.every((k) => this.has(k));
     };
     /**
-     * Check if any of the keys exists in the table
-     * @param {string} keys 
-     * @returns {boolean}
-     * @example Database.hasAny('Test Key', 'Test Key 2', 'Test Key 3');
-     */
+    * Check if any of the keys exists in the table
+    * @param {string} keys 
+    * @returns {boolean}
+    * @example Database.hasAny('Test Key', 'Test Key 2', 'Test Key 3');
+    */
     hasAny(...keys: Array<string>): boolean {
         return keys.some((k) => this.has(k));
     };
     /**
-     * Get all the key(s) from the beginning of the table
-     * @param {number} [amount] 
-     * @returns {Array<string>}
-     * @example Database.firstKey(2);
-     */
+    * Get all the key(s) from the beginning of the table
+    * @param {number} [amount] 
+    * @returns {Array<string>}
+    * @example Database.firstKey(2);
+    */
     firstKey(amount?: number): Array<string> {
         const keys = this.keys();
         if(typeof amount !== 'number') return [keys[0]];
@@ -144,11 +144,11 @@ export default class Database {
         return keys.slice(0, amount);
     };
     /**
-     * Get all the values(s) from the beginning of the table
-     * @param {number} [amount]  
-     * @returns {Array<any>}
-     * @example Database.firstValue(2);
-     */
+    * Get all the values(s) from the beginning of the table
+    * @param {number} [amount]  
+    * @returns {Array<any>}
+    * @example Database.firstValue(2);
+    */
     firstValue(amount?: number): Array<any> {
         const values = this.values();
         if(typeof amount !== 'number') return [values[0]];
@@ -157,11 +157,11 @@ export default class Database {
         return values.slice(0, amount);
     };
     /**
-     * Get all the key(s) from the end of the table
-     * @param {number} [amount]  
-     * @returns {Array<string>}
-     * @example Database.lastKey();
-     */
+    * Get all the key(s) from the end of the table
+    * @param {number} [amount]  
+    * @returns {Array<string>}
+    * @example Database.lastKey();
+    */
     lastKey(amount?: number): Array<string> {
         const keys = this.keys();
         if(typeof amount !== 'number') return [keys[keys.length - 1]];
@@ -170,11 +170,11 @@ export default class Database {
         return keys.slice(-amount).reverse();
     };
     /**
-     * Get all the values(s) from the end of the table
-     * @param {number} [amount] 
-     * @returns {Array<any>}
-     * @example Database.lastValue();
-     */
+    * Get all the values(s) from the end of the table
+    * @param {number} [amount] 
+    * @returns {Array<any>}
+    * @example Database.lastValue();
+    */
     lastValue(amount?: number): Array<any> {
         const values = this.values();
         if(typeof amount !== 'number') return [values[values.length - 1]];
@@ -183,21 +183,21 @@ export default class Database {
         return values.slice(-amount).reverse();
     };
     /**
-     * Get random key(s)
-     * @param {number} amount 
-     * @returns {Array<string>}
-     * @example Database.randomKey(3);
-     */
+    * Get random key(s)
+    * @param {number} amount 
+    * @returns {Array<string>}
+    * @example Database.randomKey(3);
+    */
     randomKey(amount?: number): Array<string> {
         const keys = this.keys();
         return keys.sort(() => Math.random() - Math.random()).slice(0, Math.abs(amount));
     };
     /**
-     * Get random value(s)
-     * @param {number} amount 
-     * @returns {Array<string>}
-     * @example Database.randomValue(3);
-     */
+    * Get random value(s)
+    * @param {number} amount 
+    * @returns {Array<string>}
+    * @example Database.randomValue(3);
+    */
     randomValue(amount?: number): Array<string> {
         const values = this.values();
         return values.sort(() => Math.random() - Math.random()).slice(0, Math.abs(amount));
