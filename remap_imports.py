@@ -80,18 +80,17 @@ if args.watch:
     observer.join()
 pass
 """
-regex = re.compile(r"import\s+{.+}\s+from\s'(.+)'");
-for filename in glob.iglob('./src/**/*.ts', recursive = True):
+regex = re.compile(r"builder.nameTag");
+for filename in glob.iglob('./src/server/**/*.ts', recursive = True):
     modified = False
     with open(filename, 'r') as file:
         newlines = []
         for line in file.readlines():
             #modified = True
-            if 'parseArgs' in line:
-                print(filename + ': ' + line)
-            line = line.replace('    cancelMessage: true,', '')
-            match = False#re.match(regex, line)
-            if match:
+            match = re.match(regex, line)
+            if match or True:
+                line = line.replace('player.nameTag', 'player.name')
+                modified = True
                 package = match.group(1)
                 for key, value in {'*/library/*': '@library/*'}.items():
                     module = re.match(key.replace('*', '(.+)'), package)
@@ -105,5 +104,5 @@ for filename in glob.iglob('./src/**/*.ts', recursive = True):
     if modified:
         print('modified ' + filename)
         with open(filename, 'w') as file:
-            file.writelines(newline)
+            file.writelines(newlines)
 """

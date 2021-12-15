@@ -7,7 +7,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'unstuck',
-    description: 'Move you out of blocks.',
+    description: 'commands.wedit:unstuck.description',
     aliases: ['!']
 };
 
@@ -21,6 +21,6 @@ commandList['unstuck'] = [registerInformation, (session, builder, args) => {
     }
     while (blockLoc.y += 1);
 
-    Server.runCommand(`tp "${builder.nameTag}" ${printLocation(blockLoc, false)}`, dimName);
+    Server.runCommand(`tp "${builder.name}" ${printLocation(blockLoc, false)}`, dimName);
     return RawText.translate('worldedit.unstuck.moved');
 }];

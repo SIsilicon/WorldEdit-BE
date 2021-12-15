@@ -57,7 +57,7 @@ export abstract class Tool {
         }
         const tag = (loc && this.useOn && this.use) ? this.tag + '_block' : this.tag;
         
-        if (!Server.runCommand(`tag "${player.nameTag}" remove ${tag}`).error) {
+        if (!Server.runCommand(`tag "${player.name}" remove ${tag}`).error) {
             this.currentPlayer = player;
             try {
                 if (loc === undefined) {
@@ -68,7 +68,14 @@ export abstract class Tool {
                     this.useOn(player, session, loc);
                 }
             } catch (e) {
+                const history = session.getHistory();
+                if (history.isRecording()) {
+                    history.cancel();
+                }
                 printerr(e, player, true);
+                if (e.stack) {
+                    printerr(e.stack, player, false);
+                }
             }
             this.currentPlayer = null;
             return true;
@@ -85,7 +92,7 @@ export abstract class Tool {
             if (this.itemBase) {
                 PlayerUtil.replaceItem(player, this.itemTool, this.itemBase);
             } else {
-                Server.runCommand(`clear "${player.nameTag}" ${this.itemTool}`);
+                Server.runCommand(`clear "${player.name}" ${this.itemTool}`);
             }
         }
     }

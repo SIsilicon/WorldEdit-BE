@@ -8,7 +8,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'undo',
-    description: 'Undo a certain amount of actions.',
+    description: 'commands.wedit:undo.description',
     usage: [
         {
             name: 'times',

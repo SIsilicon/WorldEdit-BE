@@ -10,7 +10,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'stack',
-    description: 'Repeat the contents of the current selection',
+    description: 'commands.wedit:stack.description',
     usage: [
         {
             name: 'count',

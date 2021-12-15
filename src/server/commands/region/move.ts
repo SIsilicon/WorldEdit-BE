@@ -10,7 +10,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'move',
-    description: 'Move the selection in a certain direction',
+    description: 'commands.wedit:move.description',
     usage: [
         {
             name: 'amount',

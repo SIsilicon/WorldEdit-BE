@@ -140,7 +140,11 @@ export class History {
         this.undoStructures.length = 0;
         this.redoStructures.length = 0;
     }
-
+    
+    isRecording() {
+        return this.recording;
+    }
+    
     private deleteHistoryRegions(index: number) {
         for (const struct of this.undoStructures[index]) {
                 Regions.delete(struct.name, this.player);

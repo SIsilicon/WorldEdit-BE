@@ -9,7 +9,7 @@ import { PlayerSession } from '../../sessions.js';
 
 const registerInformation = {
     name: 'tool',
-    description: 'Get all sorts of tools (stacker)',
+    description: 'commands.wedit:tool.description',
     usage: [
         {
             subName: 'stacker',
@@ -33,8 +33,8 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
     session.setTool('stacker_wand', args.get('range'), args.get('mask'));
     
     const dimension = PlayerUtil.getDimension(builder)[1];
-    Server.runCommand(`clear "${builder.nameTag}" wedit:stacker_wand`, dimension);
-    Server.runCommand(`give "${builder.nameTag}" wedit:stacker_wand`, dimension);
+    Server.runCommand(`clear "${builder.name}" wedit:stacker_wand`, dimension);
+    Server.runCommand(`give "${builder.name}" wedit:stacker_wand`, dimension);
     return RawText.translate('worldedit.wand.generic.info');
 };
 

@@ -9,7 +9,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'redo',
-    description: 'Redo a certain amount of actions.',
+    description: 'commands.wedit:redo.description',
     usage: [
         {
             name: 'times',

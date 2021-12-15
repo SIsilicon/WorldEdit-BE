@@ -3,7 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'drawsel',
-    description: 'Toggle your selection\'s visibility.',
+    description: 'commands.wedit:drawsel.description',
 };
 
 commandList['drawsel'] = [registerInformation, (session, builder, args) => {

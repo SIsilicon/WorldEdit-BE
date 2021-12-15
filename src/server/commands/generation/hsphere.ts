@@ -3,7 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hsphere',
-    description: 'Generate a hollow sphere.',
+    description: 'commands.wedit:hsphere.description',
     usage: [
         {
             flag: 'r'

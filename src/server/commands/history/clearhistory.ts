@@ -3,7 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'clearhistory',
-    description: 'Clear your editing history.'
+    description: 'commands.wedit:clearhistory.description'
 };
 
 commandList['clearhistory'] = [registerInformation, (session, builder, args) => {

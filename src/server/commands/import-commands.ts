@@ -7,10 +7,11 @@ import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { Cardinal } from '@modules/directions.js';
 import { Player } from 'mojang-minecraft';
-import { print, printerr } from '../util.js';
+import { print, printerr, printDebug } from '../util.js';
+import { COMMAND_PREFIX } from '@config.js';
 
 // TODO: Localization of all strings
-// TODO: Throw proper syntax errors (command.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
+// TODO: Throw proper syntax errors (commands.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
 
 Server.command.addCustomArgType('Mask', Mask);
 Server.command.addCustomArgType('Pattern', Pattern);
@@ -53,9 +54,9 @@ import './navigation/thru.js';
 // TODO: Implement ascend and descend
 // TODO: Implement ceil
 
-import './tool/tools.js';
+import './tool/tool.js';
 
-import './brush/brushes.js';
+import './brush/brush.js';
 import './brush/mask.js';
 import './brush/tracemask.js';
 import './brush/size.js';
@@ -66,7 +67,7 @@ import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';
 
-Server.command.prefix = ';';
+Server.command.prefix = COMMAND_PREFIX;
 let _printToActionBar = false;
 
 for (const name in commandList) {
@@ -84,7 +85,14 @@ function registerCommand(cmd: registerInformation, callback: commandFunc) {
             const msg = callback(getSession(player), player, Server.command.parseArgs(cmd.name, args));
             print(msg, player, toActionBar);
         } catch (e) {
+            const history = getSession(data.sender)?.getHistory();
+            if (history?.isRecording()) {
+                history.cancel();
+            }
             printerr(e, data.sender, toActionBar);
+            if (e.stack) {
+                printerr(e.stack, data.sender, false);
+            }
         }
     });
 }

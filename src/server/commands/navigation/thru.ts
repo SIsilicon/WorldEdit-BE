@@ -8,7 +8,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'thru',
-    description: 'Teleport you through any wall you look at.',
+    description: 'commands.wedit:thru.description',
 };
 
 commandList['thru'] = [registerInformation, (session, builder, args) => {
@@ -36,7 +36,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
     }
 
     if (canGoThrough) {
-        Server.runCommand(`tp "${builder.nameTag}" ${printLocation(testLoc, false)}`, dimName);
+        Server.runCommand(`tp "${builder.name}" ${printLocation(testLoc, false)}`, dimName);
         return RawText.translate('worldedit.thru.moved');
     } else {
         throw RawText.translate('worldedit.thru.obstructed');

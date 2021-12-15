@@ -3,7 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hcyl',
-    description: 'Generate a hollow cylinder.',
+    description: 'commands.wedit:hcyl.description',
     usage: [
         {
             flag: 'r'

@@ -1,10 +1,10 @@
 import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brushes.js';
+import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'size',
-    description: 'Set the size of the brush',
+    description: 'commands.wedit:size.description',
     usage: [
         {
             name: 'tier',

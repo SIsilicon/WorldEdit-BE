@@ -8,7 +8,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'cyl',
-    description: 'Generate a filled cylinder.',
+    description: 'commands.wedit:cyl.description',
     usage: [
         {
             flag: 'h'

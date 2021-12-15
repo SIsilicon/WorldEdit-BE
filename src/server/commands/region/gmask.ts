@@ -3,7 +3,7 @@ import { Mask } from '@modules/mask.js';
 
 const registerInformation = {
     name: 'gmask',
-    description: 'Set the global mask',
+    description: 'commands.wedit:gmask.description',
     usage: [
         {
             name: 'mask',

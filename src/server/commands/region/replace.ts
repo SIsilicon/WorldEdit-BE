@@ -9,7 +9,7 @@ import { BlockLocation } from 'mojang-minecraft';
 
 const registerInformation = {
     name: 'replace',
-    description: 'Replace certain blocks in the selection with other blocks',
+    description: 'commands.wedit:replace.description',
     usage: [
         {
             name: 'mask',

@@ -2,7 +2,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'sel',
-    description: 'Change selection mode (currently can only clear selection)',
+    description: 'commands.wedit:sel.description',
     aliases: ['deselect', 'desel']
 };
 

@@ -12,7 +12,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'copy',
-    description: 'Copy your current selection to the clipboard',
+    description: 'commands.wedit:copy.description',
     usage: [
         {
             flag: 'a'

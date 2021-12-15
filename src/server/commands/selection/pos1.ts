@@ -8,7 +8,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'pos1',
-    description: 'Set the first position of your selection to the specified or current position',
+    description: 'commands.wedit:pos1.description',
     usage: [
         {
             name: 'coordinates',

@@ -9,7 +9,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'sphere',
-    description: 'Generate a filled sphere.',
+    description: 'commands.wedit:sphere.description',
     usage: [
         {
             flag: 'h'

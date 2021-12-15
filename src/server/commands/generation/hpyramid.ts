@@ -3,7 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hpyramid',
-    description: 'Generate a hollow pyramid.',
+    description: 'commands.wedit:hpyramid.description',
     usage: [
         {
             name: 'pattern',

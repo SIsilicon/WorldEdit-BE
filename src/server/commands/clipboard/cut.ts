@@ -14,7 +14,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'cut',
-    description: 'Remove your current selection and places it in the clipboard.',
+    description: 'commands.wedit:cut.description',
     usage: [
         {
             flag: 'a'

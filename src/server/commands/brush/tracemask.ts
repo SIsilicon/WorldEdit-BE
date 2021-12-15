@@ -1,11 +1,11 @@
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brushes.js';
+import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'tracemask',
-    description: 'Set what blocks a brush can pass through',
+    description: 'commands.wedit:tracemask.description',
     usage: [
         {
             name: 'tier',

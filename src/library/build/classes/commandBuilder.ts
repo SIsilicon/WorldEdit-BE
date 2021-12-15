@@ -201,69 +201,67 @@ export class CommandBuilder {
     }
     
     parseArgs(comnand: string, args: Array<string>): Map<string, any> {
-        // TODO: Support subcommands
         // TODO: More accurate errors
-        
         const self = this;
         const result = new Map<string, any>();
         const argDefs = this.getRegistration(comnand)?.usage;
         if(argDefs == undefined) return;
         
-        function processArg(idx: number, arg: commandArg, result: Map<string, any>) {
-            if(arg.type == 'int') {
-                if(/^[-+]?(\d+)$/.test(args[idx])) {
-                    const val = Number(args[idx]);
-                    if(arg.range) {
-                        const less = val < (arg.range[0] ?? -Infinity);
-                        const greater = val > (arg.range[1] ?? Infinity);
-                        
-                        if(less) {
-                            throw 'Number too small!'
-                        } else if(greater) {
-                            throw 'Number too large!'
-                        }
-                    }
-                    
-                    idx++;
-                    result.set(arg.name, val);
-                } else {
-                    throw 'Invalid integer!'
-                }
-            } else if(arg.type == 'float') {
-                const val = parseFloat(args[idx]);
-                if(val != val) {
-                    throw 'Invalid number!'
+        function processArg(idx: number, def: commandArg, result: Map<string, any>) {
+            if(def.type == 'int') {
+                if(!/^[-+]?(\d+)$/.test(args[idx])) {
+                    throw RawText.translate('commands.generic.num.invalid').with(args[idx]);
                 }
                 
-                if(arg.range) {
-                    const less = val < (arg.range[0] ?? -Infinity);
-                    const greater = val > (arg.range[1] ?? Infinity);
+                const val = Number(args[idx]);
+                if(def.range) {
+                    const less = val < (def.range[0] ?? -Infinity);
+                    const greater = val > (def.range[1] ?? Infinity);
                     
                     if(less) {
-                        throw 'Number too small!'
+                        throw RawText.translate('commands.generic.tooSmall').with(val).with(def.range[0]);
                     } else if(greater) {
-                        throw 'Number too large!'
+                        throw RawText.translate('commands.generic.tooBig').with(val).with(def.range[1]);
                     }
                 }
                 
                 idx++;
-                result.set(arg.name, val);
-            } else if(arg.type == 'xyz') {
+                result.set(def.name, val);
+            } else if(def.type == 'float') {
+                const val = parseFloat(args[idx]);
+                if(val != val || isNaN(val)) {
+                    throw RawText.translate('commands.generic.num.invalid').with(args[idx]);
+                }
+                
+                if(def.range) {
+                    const less = val < (def.range[0] ?? -Infinity);
+                    const greater = val > (def.range[1] ?? Infinity);
+                    
+                    if(less) {
+                        throw RawText.translate('commands.generic.tooSmall').with(val).with(def.range[0]);
+                    } else if(greater) {
+                        throw RawText.translate('commands.generic.tooBig').with(val).with(def.range[1]);
+                    }
+                }
+                
+                idx++;
+                result.set(def.name, val);
+            } else if(def.type == 'xyz') {
                 const parse = CommandPosition.parseArgs(args, idx);
                 idx = parse.argIndex;
-                result.set(arg.name, parse.result);
-            } else if(arg.type == 'CommandName') {
+                result.set(def.name, parse.result);
+            } else if(def.type == 'CommandName') {
                 const cmdBaseInfo = self.getRegistration(args[idx]);
                 if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[idx]);
                 
                 idx++;
-                result.set(arg.name, cmdBaseInfo.name);
-            } else if(self.customArgTypes.has(arg.type)) {
-                const parse = self.customArgTypes.get(arg.type).parseArgs(args, idx);
+                result.set(def.name, cmdBaseInfo.name);
+            } else if(self.customArgTypes.has(def.type)) {
+                const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);
                 idx = parse.argIndex;
-                result.set(arg.name, parse.result);
+                result.set(def.name, parse.result);
             } else {
-                throw `Unknown argument type: ${arg.type}`;
+                throw `Unknown argument type: ${def.type}`;
             }
             return idx;
         }
@@ -340,7 +338,7 @@ export class CommandBuilder {
                                 }, result);
                             }
                         } else {
-                            throw `Unexpected flag: ${f}`;
+                            throw RawText.translate('commands.generic.invalidFlag').with(f);
                         }
                     }
                     continue;

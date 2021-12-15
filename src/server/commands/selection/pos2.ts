@@ -6,7 +6,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'pos2',
-    description: 'Set the second position of your selection as your current position',
+    description: 'commands.wedit:pos2.description',
     usage: [
         {
             name: 'coordinates',

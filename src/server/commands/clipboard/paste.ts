@@ -11,7 +11,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'paste',
-    description: 'Paste your clipboard into the world',
+    description: 'commands.wedit:paste.description',
     usage: [
         {
             flag: 'o'

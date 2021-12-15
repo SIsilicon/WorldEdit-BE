@@ -8,7 +8,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'pyramid',
-    description: 'Generate a filled pyramid.',
+    description: 'commands.wedit:pyramid.description',
     usage: [
         {
             flag: 'h'

@@ -8,7 +8,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'set',
-    description: 'Set all the blocks in the selection',
+    description: 'commands.wedit:set.description',
     usage: [
         {
             name: 'pattern',

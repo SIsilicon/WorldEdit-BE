@@ -11,7 +11,7 @@ import { CylinderBrush } from '../../brushes/cylinder_brush.js';
 
 const registerInformation = {
     name: 'brush',
-    description: 'Set the type of a brush',
+    description: 'commands.wedit:brush.description',
     aliases: ['br'],
     usage: [
         {

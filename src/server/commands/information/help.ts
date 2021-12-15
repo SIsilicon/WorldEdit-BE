@@ -5,7 +5,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'help',
-    description: 'Get list of all the commands available or input an argument to get information about that specific command',
+    description: 'commands.help.description',
     usage: [
         {
             subName: '_command',
