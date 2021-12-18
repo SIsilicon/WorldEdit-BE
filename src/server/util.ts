@@ -1,5 +1,5 @@
 import { BlockLocation, Dimension, Entity, Location, Player, World } from 'mojang-minecraft';
-import { DEBUG, PLAYER_HEIGHT } from '../config.js';
+import { DEBUG, PLAYER_HEIGHT, PRINT_TO_ACTION_BAR } from '../config.js';
 import { dimension } from '@library/@types/index.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
@@ -23,17 +23,19 @@ Server.once('ready', ready => {
  * @remark Doesn't do anything if {DEBUG} is disabled.
  * @param data The data to be printed to chat.
  */
-export function printDebug(data: any) {
+export function printDebug(...data: any[]) {
     if (!DEBUG) {
         return;
     }
 
-    let msg: string;
-    if (data instanceof BlockLocation || data instanceof Location) {
-        msg = printLocation(<BlockLocation> data);
-    } else {
-        msg = `${data}`;
-    }
+    let msg = '';
+    data.forEach(data => {
+        if (data instanceof BlockLocation || data instanceof Location) {
+            msg += ' ' + printLocation(<BlockLocation> data);
+        } else {
+            msg += ` ${data}`;
+        }
+    });
 
     if (serverReady) {
         Server.broadcast('[DEBUG] ' + msg);
@@ -53,7 +55,7 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
         msg = <RawText> RawText.text(msg);
     }
     let command: string;
-    if (toActionBar) {
+    if (toActionBar && PRINT_TO_ACTION_BAR) {
         command = `titleraw "${player.nameTag}" actionbar ${msg.toString()}`;
     } else {
         command = `tellraw "${player.nameTag}" ${msg.toString()}`;

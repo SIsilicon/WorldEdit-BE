@@ -34,7 +34,7 @@ Server.on('playerJoin', entity => {
 })
 
 Server.on('playerLeave', player => {
-    printDebug(`player ${player?.name} left.`);
+    printDebug(`player ${player.name} left.`);
     revokeBuilder(player.name);
 })
 
@@ -55,7 +55,7 @@ Server.on('tick', ev => {
         }
         
         // remove player from justJoined if they've been processed at least once.
-        if (justJoined.includes(player.nameTag) && !Server.runCommand(`testfor ${player.nameTag}`).error) {
+        if (justJoined.includes(player.nameTag) && !Server.runCommand(`testfor "${player.nameTag}"`).error) {
             const i = justJoined.findIndex(p => { return p == player.nameTag });
             if (i != -1) {
                 justJoined.splice(i, 1);
@@ -65,7 +65,7 @@ Server.on('tick', ev => {
 
     for (let i = activeBuilders.length - 1; i >= 0; i--) {
         try {
-            let name = activeBuilders[i].name;
+            let name = activeBuilders[i].nameTag;
         } catch {
             printDebug('A builder no longer exists!');
             activeBuilders.splice(i, 1);

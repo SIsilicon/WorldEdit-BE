@@ -1,15 +1,24 @@
 import { BlockLocation, BlockPermutation, BoolBlockProperty, IntBlockProperty, StringBlockProperty, World } from 'mojang-minecraft';
 import { dimension } from '@library/@types/index.js';
+import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation } from '../util.js';
 import { Token, Tokenizr } from './extern/tokenizr.js';
-import { lexer, parseBlock, parsedBlock } from './parser.js';
+import { lexer, throwTokenError, parseBlock, parsedBlock } from './parser.js';
 
 // TODO: Implement 'not' and 'and' operations
 export class Mask implements CustomArgType {
     private conditions: parsedBlock[] = [];
     private stringObj = '';
+
+    constructor(mask: string = '') {
+        if (mask) {
+            const obj = Mask.parseArgs([mask]).result;
+            this.conditions = obj.conditions;
+            this.stringObj = obj.stringObj;
+        }
+    }
 
     matchesBlock(loc: BlockLocation, dimension: dimension) {
         if (this.conditions.length == 0) {
@@ -98,9 +107,9 @@ export class Mask implements CustomArgType {
         
         let conditions: parsedBlock[] = [];
         let block: parsedBlock = null;
-        function pushBlock() {
+        function pushBlock(token: Token) {
             if (block == null) {
-                throw lexer.error('expected block!');
+                throwTokenError(token);
             }
             conditions.push(block);
             block = null;
@@ -108,21 +117,34 @@ export class Mask implements CustomArgType {
         
         lexer.input(args[index]);
         let token: Token;
-        while (token = lexer.token()) {
-            switch (token.type) {
-                case 'id':
-                    block = parseBlock(lexer, token);
-                case 'comma':
-                    pushBlock();
-                    break;
-                case 'EOF':
-                    pushBlock();
-                    break;
-                default:
-                    throw lexer.error('unexpected token!');
+        try {
+            while (token = lexer.token()) {
+                switch (token.type) {
+                    case 'id':
+                        block = parseBlock(lexer, token);
+                    case 'comma':
+                        pushBlock(token);
+                        break;
+                    case 'EOF':
+                        pushBlock(token);
+                        break;
+                    default:
+                        throwTokenError(token);
+                }
             }
+        } catch (error) {
+            if (error.pos != undefined) {
+                const err: commandSyntaxError = {
+                    isSyntaxError: true,
+                    idx: index,
+                    start: error.pos,
+                    end: error.pos+1
+                };
+                throw err;
+            }
+            throw error;
         }
-
+        
         const mask = new Mask();
         mask.stringObj = args[index];
         mask.conditions = conditions;

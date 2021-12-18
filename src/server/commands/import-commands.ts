@@ -2,7 +2,7 @@ import { Server } from '@library/Minecraft.js';
 import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { commandList, commandFunc } from './command_list.js';
 import { assertBuilder } from '@modules/assert.js';
-import { getSession } from '../sessions.js';
+import { getSession, hasSession } from '../sessions.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { Cardinal } from '@modules/directions.js';
@@ -82,12 +82,14 @@ function registerCommand(cmd: registerInformation, callback: commandFunc) {
         try {
             const player = data.sender;
             assertBuilder(player);
-            const msg = callback(getSession(player), player, Server.command.parseArgs(cmd.name, args));
+            const msg = callback(getSession(player), player, args);
             print(msg, player, toActionBar);
         } catch (e) {
-            const history = getSession(data.sender)?.getHistory();
-            if (history?.isRecording()) {
-                history.cancel();
+            if (hasSession(data.sender.nameTag)) {
+                const history = getSession(data.sender).getHistory();
+                if (history.isRecording()) {
+                    history.cancel();
+                }
             }
             printerr(e, data.sender, toActionBar);
             if (e.stack) {

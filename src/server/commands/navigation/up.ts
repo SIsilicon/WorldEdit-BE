@@ -29,7 +29,7 @@ commandList['up'] = [registerInformation, (session, builder, args) => {
         }
     }
 
-    Server.runCommand(`tp "${builder.name}" ${printLocation(blockLoc, false)}`, dimName);
+    Server.runCommand(`tp "${builder.nameTag}" ${printLocation(blockLoc, false)}`, dimName);
     Server.runCommand(`setblock ${printLocation(blockLoc.offset(0, -1, 0), false)} glass`, dimName);
     return RawText.translate('worldedit.up.moved');
 }];

@@ -15,7 +15,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
     const [dimension, dimName] = PlayerUtil.getDimension(builder);
     const blockLoc = PlayerUtil.getBlockLocation(builder);
     
-    const dir = Cardinal.parseArgs(['me']).result.getDirection(builder) as vector;
+    const dir = new Cardinal().getDirection(builder) as vector;
     
     function isSpaceEmpty(loc: BlockLocation) {
         return dimension.getBlock(loc).isEmpty && dimension.getBlock(loc.offset(0, 1, 0)).isEmpty;
@@ -36,7 +36,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
     }
 
     if (canGoThrough) {
-        Server.runCommand(`tp "${builder.name}" ${printLocation(testLoc, false)}`, dimName);
+        Server.runCommand(`tp "${builder.nameTag}" ${printLocation(testLoc, false)}`, dimName);
         return RawText.translate('worldedit.thru.moved');
     } else {
         throw RawText.translate('worldedit.thru.obstructed');

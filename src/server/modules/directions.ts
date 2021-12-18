@@ -1,5 +1,6 @@
 import { Player } from 'mojang-minecraft';
 import { PlayerUtil } from './player_util.js';
+import { RawText } from '@modules/rawtext.js';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { vector, printDebug } from '../util.js';
 
@@ -15,13 +16,32 @@ const DIRECTIONS: {[k: string]: vector} = {
     'w': [-1, 0, 0]
 }
 
+enum Dir {
+    FORWARD, BACK, LEFT, RIGHT,
+    NORTH, SOUTH, EAST, WEST,
+    UP, DOWN
+}
+
 export class Cardinal implements CustomArgType {
+    static readonly Dir = Dir;
+    readonly Dir = Cardinal.Dir;
+    
     private direction = 'me';
     
+    constructor(dir: Dir = Cardinal.Dir.FORWARD) {
+        this.direction = {
+            [Dir.FORWARD]: 'f', [Dir.BACK]: 'b',
+            [Dir.LEFT]: 'l', [Dir.RIGHT]: 'r',
+            [Dir.NORTH]: 'n', [Dir.SOUTH]: 's',
+            [Dir.EAST]: 'e', [Dir.WEST]: 'w',
+            [Dir.UP]: 'u', [Dir.DOWN]: 'd'
+        }[dir];
+    }
+    
     static parseArgs(args: Array<string>, index = 0) {
-        const dir = args[index].toLowerCase();
+        const dir = args[index][0].toLowerCase();
         if (!directions.includes(dir) && !dirAliases.includes(dir)) {
-            throw `Invalid direction: ${args[index]}!`;
+            throw RawText.translate('commands.generic.invalidDir').with(args[index]);
             /*printDebug(dir);
             printDebug(dir in directions);*/
         }

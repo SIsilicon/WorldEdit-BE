@@ -20,7 +20,7 @@ const registerInformation = {
         }, {
             name: 'offset',
             type: 'Direction',
-            default: Cardinal.parseArgs(['me']).result
+            default: new Cardinal()
         }
     ]
 };
@@ -39,7 +39,7 @@ commandList['move'] = [registerInformation, (session, builder, args) => {
     history.addUndoStructure(movedStart, movedEnd, 'any');    
     
     Regions.save('temp_move', start, end, builder);
-    let count = set(session, Pattern.parseArgs(['air']).result);
+    let count = set(session, new Pattern('air'));
     Regions.load('temp_move', movedStart, builder, 'absolute');
     count += Regions.getBlockCount('temp_move', builder);
     Regions.delete('temp_move', builder);

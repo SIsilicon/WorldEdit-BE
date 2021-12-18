@@ -17,7 +17,7 @@ class StackerTool extends Tool {
     itemBase = 'minecraft:iron_axe';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         const [dimension, dimName] = PlayerUtil.getDimension(player);
-        const dir = Cardinal.parseArgs(['back']).result.getDirection(player);
+        const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
         const start = loc.offset(...dir);
         if (!this.mask.matchesBlock(start, dimName)) {
                 printDebug('stacked nothing');

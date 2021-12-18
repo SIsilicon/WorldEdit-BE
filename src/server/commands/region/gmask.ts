@@ -1,5 +1,6 @@
 import { commandList } from '../command_list.js';
 import { Mask } from '@modules/mask.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'gmask',
@@ -16,8 +17,8 @@ const registerInformation = {
 commandList['gmask'] = [registerInformation, (session, builder, args) => {
     session.globalMask = args.get('mask');
     if (args.get('mask').toString()) {
-        return `Global mask set.` // TODO: Localize to worldedit.gmask.set
+        return RawText.translate('commands.wedit:gmask.set');
     } else {
-        return `Global mask disabled.` // TODO: Localize to worldedit.gmask.disabled
+        return RawText.translate('commands.wedit:gmask.disabled');
     }
 }];

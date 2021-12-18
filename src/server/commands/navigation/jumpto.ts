@@ -20,7 +20,7 @@ commandList['jumpto'] = [registerInformation, (session, builder, args) => {
     
     const dir = PlayerUtil.getDirection(builder);
     const hit = raytrace(dimension, origin, dir);
-    if (!hit || Server.runCommand(`tp "${builder.name}" ${printLocation(hit, false)}`, dimension).error) {
+    if (!hit || Server.runCommand(`tp "${builder.nameTag}" ${printLocation(hit, false)}`, dimension).error) {
         throw RawText.translate('worldedit.jumpto.none');
     }
     commandList['unstuck'][1](session, builder, new Map());

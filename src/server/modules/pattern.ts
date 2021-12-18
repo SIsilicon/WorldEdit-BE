@@ -1,16 +1,25 @@
 import { BlockLocation, BlockPermutation, World } from 'mojang-minecraft';
 import { dimension } from '@library/@types';
+import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation } from '../util.js';
 import { Token } from './extern/tokenizr.js';
-import { lexer, parseBlock, parsedBlock } from './parser.js';
+import { lexer, throwTokenError, parseBlock, parsedBlock } from './parser.js';
 
 // TODO: Update Documentation on patterns
 export class Pattern {
     private blocks: parsedBlock[] = [];
     private stringObj = '';
-
+    
+    constructor(pattern: string = '') {
+        if (pattern) {
+            const obj = Pattern.parseArgs([pattern]).result;
+            this.blocks = obj.blocks;
+            this.stringObj = obj.stringObj;
+        }
+    }
+    
     setBlock(loc: BlockLocation, dimension: dimension) {
         const block = this.blocks.length == 1 ? this.blocks[0] : this.blocks[Math.floor(Math.random() * this.blocks.length)];
     
@@ -91,9 +100,9 @@ export class Pattern {
         
         const blocks: parsedBlock[] = [];
         let block: parsedBlock = null;
-        function pushBlock() {
+        function pushBlock(token: Token) {
             if (block == null) {
-                throw lexer.error('unexpected token!');
+                throwTokenError(token);
             }
             blocks.push(block);
             block = null;
@@ -101,21 +110,33 @@ export class Pattern {
 
         lexer.input(args[index]);
         let token: Token;
-        while (token = lexer.token()) {
-            switch (token.type) {
-                case 'id':
-                    block = parseBlock(lexer, token);
-                case ',':
-                    pushBlock();
-                    break;
-                case 'EOF':
-                    pushBlock();
-                    break;
-                default:
-                    throw lexer.error('unexpected token!');
+        try {
+            while (token = lexer.token()) {
+                switch (token.type) {
+                    case 'id':
+                        block = parseBlock(lexer, token);
+                    case ',':
+                        pushBlock(token);
+                        break;
+                    case 'EOF':
+                        pushBlock(token);
+                        break;
+                    default:
+                        throwTokenError(token);
+                }
             }
+        } catch (error) {
+            if (error.pos != undefined) {
+                const err: commandSyntaxError = {
+                    isSyntaxError: true,
+                    idx: index,
+                    start: error.pos,
+                    end: error.pos+1
+                };
+                throw err;
+            }
+            throw error;
         }
-        
         const pattern = new Pattern();
         pattern.blocks = blocks;
         pattern.stringObj = args[index];

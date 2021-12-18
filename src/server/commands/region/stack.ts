@@ -20,7 +20,7 @@ const registerInformation = {
         }, {
             name: 'offset',
             type: 'Direction',
-            default: Cardinal.parseArgs(['me']).result
+            default: new Cardinal()
         }
     ]
 };

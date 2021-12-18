@@ -25,6 +25,13 @@ export interface argParseResult {
     argIndex: number
 }
 
+export interface commandSyntaxError {
+    isSyntaxError: true,
+    idx: number,
+    start?: number,
+    end?: number
+}
+
 export interface registerInformation {
     name: string,
     description: string,
@@ -32,5 +39,5 @@ export interface registerInformation {
     aliases?: Array<string>
 }
 export interface storedRegisterInformation extends registerInformation {
-    callback: (data: BeforeChatEvent, args: Array<string>) => void
+    callback: (data: BeforeChatEvent, args: Map<string, any>) => void
 }

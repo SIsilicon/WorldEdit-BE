@@ -395,6 +395,10 @@ export function removeSession(player: string) {
     delete playerSessions[player];
 }
 
+export function hasSession(player: string) {
+    return !!playerSessions[player];
+}
+
 Server.on('tick', (tick: TickEvent) => {
     for (const player in playerSessions) {
         playerSessions[player].onTick(tick);

@@ -23,7 +23,7 @@ const registerInformation = {
         }, {
             name: 'fill',
             type: 'Pattern',
-            default: Pattern.parseArgs(['air']).result
+            default: new Pattern('air')
         }, {
             flag: 'm',
             name: 'mask',

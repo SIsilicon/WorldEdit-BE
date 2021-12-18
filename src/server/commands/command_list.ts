@@ -23,5 +23,5 @@ export let commandList: {
  */
 export function callCommand(player: Player, command: string, args: string[] = []) {
     printToActionBar();
-    Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, args);
+    Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, Server.command.parseArgs(command, args));
 }

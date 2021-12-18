@@ -1,6 +1,6 @@
 import { BeforeChatEvent, Player, BlockLocation, Location } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, argParseResult } from "../../@types/build/classes/CommandBuilder";
+import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
 import { RawText } from "@modules/rawtext.js";
 import { Server } from "./serverBuilder.js";
 
@@ -23,6 +23,13 @@ export class CommandPosition implements CustomArgType {
         const pos = new CommandPosition();
         for(let i = 0; i < 3; i++) {
             let arg = args[index];
+            if(!args) {
+                const err: commandSyntaxError = {
+                    isSyntaxError: true,
+                    idx: -1
+                };
+                throw err;
+            }
             
             let relative = false;
             if (arg.includes('~')) {
@@ -30,8 +37,8 @@ export class CommandPosition implements CustomArgType {
                 relative = true;
             }
             const val = arg == '' ? 0 : parseFloat(arg);
-            if(val != val) {
-                throw 'Invalid number!'
+            if(val != val || isNaN(val)) {
+                throw RawText.translate('commands.generic.num.invalid').with(arg);
             }
             
             if (i == 0) {
@@ -73,12 +80,10 @@ export class CommandPosition implements CustomArgType {
     }
 }
 
-type argTypeConstruct = typeof CustomArgType;
-
 export class CommandBuilder {
     public prefix: string = configuration.prefix;
     private _registrationInformation: Array<storedRegisterInformation> = [];
-    private customArgTypes: Map<string, argTypeConstruct> = new Map();
+    private customArgTypes: Map<string, typeof CustomArgType> = new Map();
 
     /**
     * Register a command with a callback
@@ -90,7 +95,7 @@ export class CommandBuilder {
     *  server.broadcast('Pong!', data.sender.nameTag);
     * });
     */
-    register(register: registerInformation, callback: (data: BeforeChatEvent, args: Array<string>) => void): void {
+    register(register: registerInformation, callback: (data: BeforeChatEvent, args: Map<string, any>) => void): void {
         this._registrationInformation.push({
             name: register.name.toLowerCase(),
             aliases: register.aliases ? register.aliases.map(v => v.toLowerCase()) : null,
@@ -137,7 +142,7 @@ export class CommandBuilder {
         return register;
     };
     
-    addCustomArgType(name: string, argType: argTypeConstruct) {
+    addCustomArgType(name: string, argType: typeof CustomArgType) {
         this.customArgTypes.set(name, argType);
     }
     
@@ -253,13 +258,19 @@ export class CommandBuilder {
             } else if(def.type == 'CommandName') {
                 const cmdBaseInfo = self.getRegistration(args[idx]);
                 if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[idx]);
-                
                 idx++;
                 result.set(def.name, cmdBaseInfo.name);
             } else if(self.customArgTypes.has(def.type)) {
-                const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);
-                idx = parse.argIndex;
-                result.set(def.name, parse.result);
+                try {
+                    const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);
+                    idx = parse.argIndex;
+                    result.set(def.name, parse.result);
+                } catch(error) {
+                    if(error.isSyntaxError) {
+                        error.idx = idx;
+                    }
+                    throw error;
+                }
             } else {
                 throw `Unknown argument type: ${def.type}`;
             }
@@ -298,6 +309,15 @@ export class CommandBuilder {
                         }
                     }
                     defIdx++;
+                }
+                
+                // Unknown subcommand
+                if(!processed && hasNamedSubCmd && !unnamedSubs.length) {
+                    const err: commandSyntaxError = {
+                        isSyntaxError: true,
+                        idx: i
+                    };
+                    throw err;
                 }
                 
                 // process unnamed sub-commands
@@ -353,12 +373,13 @@ export class CommandBuilder {
                     defIdx++;
                 }
                 
+                // Leftover arguments
                 if(!argDef) {
-                    if (hasNamedSubCmd) {
-                        throw `Unknown subcommand: ${arg}`;
-                    } else {
-                        throw 'Leftover arguments!';
-                    }
+                    const err: commandSyntaxError = {
+                        isSyntaxError: true,
+                        idx: i
+                    };
+                    throw err;
                 }
                 
                 if('type' in argDef && !('flag' in argDef)) {
@@ -379,7 +400,12 @@ export class CommandBuilder {
                     } else if('subName' in argDef) {
                         processSubCmd(i, '');
                     } else {
-                        throw 'A required argument is not defined!';
+                        // Required arguments not specified
+                        const err: commandSyntaxError = {
+                            isSyntaxError: true,
+                            idx: -1
+                        };
+                        throw err;
                     }
                 }
                 defIdx++;
