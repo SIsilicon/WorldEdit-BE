@@ -1,24 +1,24 @@
 import { commandList } from '../command_list.js';
-import { Mask } from '../../modules/mask.js';
+import { Mask } from '@modules/mask.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'gmask',
-    description: 'Set the global mask',
-    usage: '[mask: Mask]',
-    example: [
-        'gmask',
-        'gmask air',
-        'gmask stone:2'
+    description: 'commands.wedit:gmask.description',
+    usage: [
+        {
+            name: 'mask',
+            type: 'Mask',
+            default: new Mask()
+        }
     ]
 };
 
 commandList['gmask'] = [registerInformation, (session, builder, args) => {
-    if (args.length == 0) {
-        session.globalMask = new Mask();
-        return `Global mask disabled.` // TODO: Localize to worldedit.gmask.disabled
+    session.globalMask = args.get('mask');
+    if (args.get('mask').toString()) {
+        return RawText.translate('commands.wedit:gmask.set');
     } else {
-        session.globalMask = Mask.parseArg(args[0]);
-        return `Global mask set.` // TODO: Localize to worldedit.gmask.set
+        return RawText.translate('commands.wedit:gmask.disabled');
     }
 }];

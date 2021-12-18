@@ -1,24 +1,25 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
+import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation } from '../../util.js';
-import { PlayerUtil } from '../../modules/player_util.js';
-import { parsePosition } from './selection_helper.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { CommandPosition } from '@library/build/classes/commandBuilder.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '../../modules/rawtext.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'pos1',
-    description: 'Set the first position of your selection to the specified or current position',
-    usage: '[coordinates: xyz]',
+    description: 'commands.wedit:pos1.description',
+    usage: [
+        {
+            name: 'coordinates',
+            type: 'xyz',
+            default: new CommandPosition()
+        }
+    ]
 };
 
 commandList['pos1'] = [registerInformation, (session, builder, args) => {
-    let loc = PlayerUtil.getBlockLocation(builder);
-    if (args.length > 0) {
-        loc = parsePosition(args, loc);
-    }
-    session.setSelectionPoint(0, loc);
+    session.setSelectionPoint(0, args.get('coordinates').relativeTo(builder, true));
 
     let translate: string;
     if (session.getBlocksSelected().length == 0) {

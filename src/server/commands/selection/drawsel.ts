@@ -1,11 +1,9 @@
-import { RawText } from '../../modules/rawtext.js';
+import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'drawsel',
-    description: 'Toggle your selection\'s visibility.',
-    usage: '',
+    description: 'commands.wedit:drawsel.description',
 };
 
 commandList['drawsel'] = [registerInformation, (session, builder, args) => {

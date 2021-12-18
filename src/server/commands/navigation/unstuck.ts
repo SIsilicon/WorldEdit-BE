@@ -1,27 +1,22 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
-import { assertBuilder, assertNoArgs } from '../../modules/assert.js';
-import { RawText } from '../../modules/rawtext.js';
-import { PlayerUtil } from '../../modules/player_util.js';
+import { Server } from '@library/Minecraft.js';
+import { RawText } from '@modules/rawtext.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'unstuck',
-    description: 'Move you out of blocks.',
-    usage: '',
+    description: 'commands.wedit:unstuck.description',
     aliases: ['!']
 };
 
 commandList['unstuck'] = [registerInformation, (session, builder, args) => {
-    assertNoArgs(args);
-
     let blockLoc = PlayerUtil.getBlockLocation(builder);
     const [dimension, dimName] = PlayerUtil.getDimension(builder);
     do {
         if (dimension.isEmpty(blockLoc) && dimension.isEmpty(blockLoc.offset(0, 1, 0))) {
-            break;
+                break;
         }
     }
     while (blockLoc.y += 1);

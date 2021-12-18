@@ -1,42 +1,36 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveNumber, assertValidNumber } from '../../modules/assert.js';
-import { Pattern } from '../../modules/pattern.js';
-import { RawText } from '../../modules/rawtext.js';
+import { assertPositiveNumber, assertValidNumber } from '@modules/assert.js';
+import { Pattern } from '@modules/pattern.js';
+import { RawText } from '@modules/rawtext.js';
 import { PyramidShape } from '../../shapes/pyramid.js';
-import { PlayerUtil } from '../../modules/player_util.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-	cancelMessage: true,
-	name: 'pyramid',
-	description: 'Generate a filled pyramid.',
-	usage: '[-h] <pattern: Pattern> <size: int>',
+    name: 'pyramid',
+    description: 'commands.wedit:pyramid.description',
+    usage: [
+        {
+            flag: 'h'
+        }, {
+            name: 'pattern',
+            type: 'Pattern'
+        }, {
+            name: 'size',
+            type: 'int',
+            range: [1, null] as [number, null]
+        }
+    ]
 };
 
 commandList['pyramid'] = [registerInformation, (session, builder, args) => {
-	if (args.length < 2) throw 'This command expects at least two arguments!';
-	
-	let pattern: Pattern;
-	let size: number;
-	let isHollow = false;
-	for (const arg of args) {
-		if (arg == '-h') {
-			isHollow = true;
-		} else if (!pattern) {
-			pattern = Pattern.parseArg(arg);
-		} else if (!size) {
-			size = parseInt(arg);
-			assertValidNumber(size, arg);
-			assertPositiveNumber(size);
-		}
-	}
-	
-	if (!pattern) throw 'Pattern not defined!';
-	if (!size) throw 'Size not defined!';
+    let pattern: Pattern = args.get('pattern');
+    let isHollow = args.has('h');
+    let size: number = args.get('size');
 
-	const loc = PlayerUtil.getBlockLocation(builder);
-	const pyramidShape = new PyramidShape(size);
-	const count = pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const loc = PlayerUtil.getBlockLocation(builder);
+    const pyramidShape = new PyramidShape(size);
+    const count = pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
-	return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('worldedit.generate.created').with(`${count}`);
 }];

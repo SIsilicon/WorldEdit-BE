@@ -1,15 +1,13 @@
 import { EntityInventoryComponent, ItemStack, ItemType, Player } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
-import { assertBuilder } from '../../modules/assert.js';
-import { RawText } from '../../modules/rawtext.js';
-import { PlayerUtil } from '../../modules/player_util.js';
+import { Server } from '@library/Minecraft.js';
+import { assertBuilder } from '@modules/assert.js';
+import { RawText } from '@modules/rawtext.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'wand',
-    description: 'Give yourself a selection wand.',
-    usage: '',
+    description: 'commands.wedit:wand.description',
 };
 
 commandList['wand'] = [registerInformation, (session, builder, args) => {

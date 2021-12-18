@@ -1,30 +1,31 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '../../../library/Minecraft.js';
-import { assertValidNumber } from '../../modules/assert.js';
-import { RawText } from '../../modules/rawtext.js';
-import { PlayerUtil } from '../../modules/player_util.js';
+import { Server } from '@library/Minecraft.js';
+import { assertValidNumber } from '@modules/assert.js';
+import { RawText } from '@modules/rawtext.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'up',
-    description: 'Move you a certain number of blocks up.',
-    usage: '<height: int>',
+    description: 'commands.wedit:up.description',
+    usage: [
+        {
+            name: 'height',
+            type: 'int',
+            range: [1, null] as [number, null]
+        }
+    ]
 };
 
 commandList['up'] = [registerInformation, (session, builder, args) => {
-    if (args.length == 0) throw 'You need to specify how far up to travel!';
+    const height = args.get('height') as number;
     
-    const height = parseInt(args[0]);
-    assertValidNumber(height, args[0]);
-    if (height <= 0) throw 'You can only travel up with this command!';
-
     let blockLoc = PlayerUtil.getBlockLocation(builder);
     const [dimension, dimName] = PlayerUtil.getDimension(builder);
     for (let i = 0; i < height; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
         if (!dimension.isEmpty(blockLoc.offset(0, 2, 0))) {
-            break;
+                break;
         }
     }
 

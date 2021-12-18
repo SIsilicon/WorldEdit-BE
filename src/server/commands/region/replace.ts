@@ -1,19 +1,23 @@
 import { PlayerSession } from '../../sessions.js';
 import { addLocations, regionMax, regionMin } from '../../util.js';
-import { PlayerUtil } from '../../modules/player_util.js';
-import { Pattern } from '../../modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { Pattern } from '@modules/pattern.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '../../modules/rawtext.js';
-import { Mask } from '../../modules/mask.js';
+import { RawText } from '@modules/rawtext.js';
+import { Mask } from '@modules/mask.js';
 import { BlockLocation } from 'mojang-minecraft';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'replace',
-    description: 'Replace certain blocks in the selection with other blocks',
-    usage: '<mask: Mask> <pattern: Pattern>',
-    example: [
-        'replace dirt,grass air',
+    description: 'commands.wedit:replace.description',
+    usage: [
+        {
+            name: 'mask',
+            type: 'Mask'
+        }, {
+            name: 'pattern',
+            type: 'Pattern',
+        }
     ]
 };
 
@@ -22,7 +26,7 @@ function getAffectedBlocks(session: PlayerSession, mask: Mask) {
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of session.getBlocksSelected()) {
         if (mask.matchesBlock(blockLoc, dim)) {
-            blocks.push(blockLoc);
+                blocks.push(blockLoc);
         }
     }
     return blocks;
@@ -33,14 +37,14 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
         throw 'You need to make a selection to replace!';
     }
     
-    const mask = Mask.parseArg(args[0]);
-    const pattern = session.usingItem ? session.globalPattern : Pattern.parseArg(args[1]);
+    const mask = args.get('mask');
+    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
     
     const history = session.getHistory();
     history.record();
 
     const affectedBlocks = getAffectedBlocks(session, mask);
-
+    
     if (session.selectionMode == 'cuboid') {
         const [pos1, pos2] = session.getSelectionPoints();
         var start = regionMin(pos1, pos2);
@@ -52,7 +56,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of affectedBlocks) {
         if (!pattern.setBlock(blockLoc, dim)) {
-            count++;
+                count++;
         }
     }
 

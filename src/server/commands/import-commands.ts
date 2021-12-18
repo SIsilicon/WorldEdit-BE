@@ -1,13 +1,21 @@
-import { Server } from '../../library/Minecraft.js';
-import { registerInformation } from '../../library/@types/build/classes/CommandBuilder.js';
+import { Server } from '@library/Minecraft.js';
+import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { commandList, commandFunc } from './command_list.js';
-import { assertBuilder } from '../modules/assert.js';
-import { getSession } from '../sessions.js';
+import { assertBuilder } from '@modules/assert.js';
+import { getSession, hasSession } from '../sessions.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { Cardinal } from '@modules/directions.js';
 import { Player } from 'mojang-minecraft';
-import { print, printerr } from '../util.js';
+import { print, printerr, printDebug } from '../util.js';
+import { COMMAND_PREFIX } from '@config.js';
 
 // TODO: Localization of all strings
-// TODO: Throw proper syntax errors (command.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
+// TODO: Throw proper syntax errors (commands.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
+
+Server.command.addCustomArgType('Mask', Mask);
+Server.command.addCustomArgType('Pattern', Pattern);
+Server.command.addCustomArgType('Direction', Cardinal);
 
 import './information/help.js';
 
@@ -46,9 +54,9 @@ import './navigation/thru.js';
 // TODO: Implement ascend and descend
 // TODO: Implement ceil
 
-import './tool/tools.js';
+import './tool/tool.js';
 
-import './brush/brushes.js';
+import './brush/brush.js';
 import './brush/mask.js';
 import './brush/tracemask.js';
 import './brush/size.js';
@@ -59,43 +67,38 @@ import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';
 
-Server.command.prefix = ';';
+Server.command.prefix = COMMAND_PREFIX;
 let _printToActionBar = false;
 
 for (const name in commandList) {
-	const command = commandList[name];
-	
-	if (command[0].usages) {
-		for (const usage of command[0].usages) {
-			const subCmd = {
-				name: command[0].name,
-				aliases: command[0].aliases,
-				description: command[0].description,
-				usage: usage
-			}
-			
-			registerCommand(subCmd, command[1]);
-		}
-	} else {
-		registerCommand(command[0], command[1]);
-	}
+    const command = commandList[name];
+    registerCommand(command[0], command[1]);
 }
 
 function registerCommand(cmd: registerInformation, callback: commandFunc) {
-	Server.command.register(cmd, (data, args) => {
-		let toActionBar = _printToActionBar;
-		_printToActionBar = false;
-		try {
-			const player = data.sender;
-			assertBuilder(player);
-			const msg = callback(getSession(player), player, args);
-			print(msg, player, toActionBar);
-		} catch (e) {
-			printerr(e, data.sender, toActionBar);
-		}
-	});
+    Server.command.register(cmd, (data, args) => {
+        let toActionBar = _printToActionBar;
+        _printToActionBar = false;
+        try {
+            const player = data.sender;
+            assertBuilder(player);
+            const msg = callback(getSession(player), player, args);
+            print(msg, player, toActionBar);
+        } catch (e) {
+            if (hasSession(data.sender.nameTag)) {
+                const history = getSession(data.sender).getHistory();
+                if (history.isRecording()) {
+                    history.cancel();
+                }
+            }
+            printerr(e, data.sender, toActionBar);
+            if (e.stack) {
+                printerr(e.stack, data.sender, false);
+            }
+        }
+    });
 }
 
 export function printToActionBar() {
-	_printToActionBar = true;
+    _printToActionBar = true;
 }

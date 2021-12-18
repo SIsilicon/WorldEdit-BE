@@ -1,13 +1,11 @@
-import { Server } from '../../../library/Minecraft.js';
-import { RawText } from '../../modules/rawtext.js';
-import { PlayerUtil } from '../../modules/player_util.js';
+import { Server } from '@library/Minecraft.js';
+import { RawText } from '@modules/rawtext.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-    cancelMessage: true,
     name: 'navwand',
-    description: 'Give yourself a navigation wand.',
-    usage: '',
+    description: 'commands.wedit:navwand.description',
 };
 
 commandList['navwand'] = [registerInformation, (session, builder, args) => {

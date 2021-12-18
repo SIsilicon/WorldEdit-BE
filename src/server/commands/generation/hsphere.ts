@@ -1,17 +1,59 @@
-import { Server } from '../../../library/Minecraft.js';
+import { Server } from '@library/Minecraft.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
-	cancelMessage: true,
-	name: 'hsphere',
-	description: 'Generate a hollow sphere.',
-	usages: [
-		'[-r] <pattern: Pattern> <radii: float>',
-		'[-r] <pattern: Pattern> <radiiXZ: float>,<radiiY: float>',
-		'[-r] <pattern: Pattern> <radiiX: float>,<radiiY: float>,<radiiZ: float>'
-	]
+    name: 'hsphere',
+    description: 'commands.wedit:hsphere.description',
+    usage: [
+        {
+            flag: 'r'
+        }, {
+            name: 'pattern',
+            type: 'Pattern'
+        }, {
+            subName: '_x',
+            args: [
+                {
+                    name: 'radii',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }
+            ]
+        }, {
+            subName: '_xy',
+            args: [
+                {
+                    name: 'radiiXZ',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }, {
+                    name: 'radiiY',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }
+            ]
+        }, {
+            subName: '_xyz',
+            args: [
+                {
+                    name: 'radiiX',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }, {
+                    name: 'radiiY',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }, {
+                    name: 'radiiZ',
+                    type: 'float',
+                    range: [0.01, null] as [number, null]
+                }
+            ]
+        }
+    ]
 };
 
 commandList['hsphere'] = [registerInformation, (session, builder, args) => {
-	return commandList['sphere'][1](session, builder, args.concat('-h'));
+    args.set('h', true);
+    return commandList['sphere'][1](session, builder, args);
 }];

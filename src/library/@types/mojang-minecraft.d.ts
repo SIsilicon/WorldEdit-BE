@@ -2,12 +2,12 @@ declare module "mojang-minecraft" {
     // Type definitions for Minecraft Bedrock Edition script APIs (experimental) 0.1
     // Project: https://docs.microsoft.com/minecraft/creator/
     // Definitions by: Jake Shirley <https://github.com/JakeShirley>
-    //                 Mike Ammerlaan <https://github.com/mammerla>
+    //                    Mike Ammerlaan <https://github.com/mammerla>
     // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
     /* *****************************************************************************
-   Copyright (c) Microsoft Corporation.
-   ***************************************************************************** */
+    Copyright (c) Microsoft Corporation.
+    ***************************************************************************** */
 
     /**
     * An event that fires as players enter chat messages.

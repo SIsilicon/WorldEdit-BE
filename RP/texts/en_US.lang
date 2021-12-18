@@ -39,6 +39,7 @@ item.wedit:inc_air_off_button=Include Air in Clipboard: §4Disabled§r
 item.wedit:blank= 
 
 ## WORLDEDIT COMMANDS
+
 worldedit.spawn-glass.error=Can't place block here.
 
 worldedit.pattern-picker.add=Added block to pattern: 
@@ -109,6 +110,49 @@ worldedit.up.moved=Whoosh!
 worldedit.jumpto.moved=Poof!
 worldedit.jumpto.none=No block in sight (or too far)!
 worldedit.brush.invalid-tier=%s is an invalid brush tier.
+
+commands.generic.invalidDir='%s' is an invalid direction argument!
+commands.generic.invalidFlag=Unexpected flag: %s
+commands.generic.tooSmall=The number (%1) is too small! It must be at least (%2).
+commands.generic.tooBig=The number (%1) is too big! It must be at most (%2).
+
+commands.wedit:brush.description=Set the type of a brush
+commands.wedit:mask.description=Set what kind of blocks a brush can affect, if any
+commands.wedit:material.description=Set what kind of blocks a brush should make
+commands.wedit:range.description=Set how far a brush can be used from
+commands.wedit:size.description=Set the size of a brush
+commands.wedit:tracemask.description=Set what kind of blocks a brush can be used on
+commands.wedit:copy.description=Copy the current selection to the clipboard
+commands.wedit:cut.description=Remove your current selection and place it in the clipboard
+commands.wedit:paste.description=Paste your clipboard into the world
+commands.wedit:cyl.description=Generate a cylinder
+commands.wedit:hcyl.description=Generate a hollow cylinder
+commands.wedit:sphere.description=Generate a sphere
+commands.wedit:hsphere.description=Generate a hollow sphere
+commands.wedit:pyramid.description=Generate a pyramid
+commands.wedit:hpyramid.description=Generate a hollow pyramid
+commands.wedit:clearhistory.description=Clear your editing history
+commands.wedit:undo.description=Undo a certain amount of actions
+commands.wedit:redo.description=Redo a certain amount of actions
+commands.wedit:jumpto.description=Teleport you to the top of the block you're looking at
+commands.wedit:navwand.description=Give yourself a navigation wand
+commands.wedit:thru.description=Teleport through any wall you look at
+commands.wedit:unstuck.description=Move out of blocks
+commands.wedit:up.description=Move up a certain number of blocks
+commands.wedit:gmask.set=Global mask set.
+commands.wedit:gmask.disabled=Global mask disabled.
+commands.wedit:gmask.description=Set the global mask
+commands.wedit:move.description=Move the selection in a certain direction
+commands.wedit:replace.description=Replace certain blocks in the selection with other blocks
+commands.wedit:sel.clear=Selection cleared.
+commands.wedit:set.description=Fill the selection with a block pattern
+commands.wedit:stack.description=Repeat the contents of the current selection
+commands.wedit:sel.description=Change selection mode (currently can only clear selection)
+commands.wedit:drawsel.description=Toggle your selection's visibility
+commands.wedit:pos1.description=Set the first position of your selection to the specified or current position
+commands.wedit:pos2.description=Set the second position of your selection to the specified or current position
+commands.wedit:wand.description=Give yourself a selection wand
+commands.wedit:tool.description=Get all sorts of tools (currently only the stacker)
 
 ## HOW TO PLAY
 howtoplay.category.worldEdit=WorldEdit

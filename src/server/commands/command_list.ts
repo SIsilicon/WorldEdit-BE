@@ -1,19 +1,15 @@
 import { BeforeChatEvent, Player } from 'mojang-minecraft';
-import { registerInformation } from '../../library/@types/build/classes/CommandBuilder.js';
-import { Server } from '../../library/Minecraft.js';
-import { RawText } from '../modules/rawtext.js';
+import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
+import { Server } from '@library/Minecraft.js';
+import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { printToActionBar } from './import-commands.js';
 
-export type commandFunc = (s: PlayerSession, p: Player, args: string[]) => string | RawText;
-
-export interface extendedRegisterInformation extends registerInformation {
-    usages?: string[]
-}
+export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText;
 
 export let commandList: {
     [k: string]: [
-        extendedRegisterInformation,
+        registerInformation,
         commandFunc
     ]
 } = {};
@@ -27,5 +23,5 @@ export let commandList: {
  */
 export function callCommand(player: Player, command: string, args: string[] = []) {
     printToActionBar();
-    Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, args);
+    Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, Server.command.parseArgs(command, args));
 }

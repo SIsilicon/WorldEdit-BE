@@ -18,7 +18,7 @@ export class RawText {
         raw.lastElementIdx = this.lastElementIdx;
         const element = <translateElement> raw.rawtext[this.lastElementIdx];
         if (element?.translate) {
-            element.with.push(`${text}`);
+                element.with.push(`${text}`);
         }
         return raw;
     }
@@ -27,14 +27,14 @@ export class RawText {
         const raw = new RawText();
         raw.rawtext = this.rawtext;
         if (type == 'text') {
-            raw.rawtext.unshift({
-                'text': data,
-            });
+                raw.rawtext.unshift({
+                    'text': data,
+                });
         } else {
-            raw.rawtext.unshift({
-                'translate': data,
-                'with': []
-            });
+                raw.rawtext.unshift({
+                    'translate': data,
+                    'with': []
+                });
         }
         raw.lastElementIdx = 0;
         return raw;
@@ -44,14 +44,14 @@ export class RawText {
         const raw = new RawText();
         raw.rawtext = this.rawtext;
         if (type == 'text') {
-            raw.rawtext.push({
-                'text': data,
-            });
+                raw.rawtext.push({
+                    'text': data,
+                });
         } else {
-            raw.rawtext.push({
-                'translate': data,
-                'with': []
-            });
+                raw.rawtext.push({
+                    'translate': data,
+                    'with': []
+                });
         }
         raw.lastElementIdx = raw.rawtext.length - 1;
         return raw;
@@ -60,8 +60,8 @@ export class RawText {
     public static translate(translationKey: string) {
         const raw = new RawText();
         raw.rawtext.push({
-            translate: translationKey,
-            with: []
+                translate: translationKey,
+                with: []
         });
         raw.lastElementIdx = 0;
         return raw;
@@ -70,7 +70,7 @@ export class RawText {
     public static text(text: string) {
         const raw = new RawText();
         raw.rawtext.push({
-            text: text
+                text: text
         });
         raw.lastElementIdx = 0;
         return raw;

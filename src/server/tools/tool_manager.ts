@@ -16,9 +16,9 @@ class ToolBuilder {
     }
     
     unbindAll(player: Player, active?: Map<string, Tool>) {
-    	for (const tool of this.pseudoTools) {
-    	    if (!active || !active.has(tool[0])) tool[1].unbind(player);
-    	}
+        for (const tool of this.pseudoTools) {
+            if (!active || !active.has(tool[0])) tool[1].unbind(player);
+        }
     }
 }
 export const Tools = new ToolBuilder();

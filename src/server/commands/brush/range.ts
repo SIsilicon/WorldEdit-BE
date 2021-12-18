@@ -1,27 +1,30 @@
-import { RawText } from '../../modules/rawtext.js';
+import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brushes.js';
+import { getBrushTier } from './brush.js';
 
 const registerInformation = {
-	cancelMessage: true,
-	name: 'range',
-	description: 'Set how far the brush will look for a block to apply on',
-	usages: [
-	    '<tier: 1..6> <range: int>'
-	]
+    name: 'range',
+    description: 'commands.wedit:range.description',
+    usage: [
+        {
+            name: 'tier',
+            type: 'int',
+            range: [1, 6] as [number, number]
+        }, {
+            name: 'range',
+            type: 'int',
+            range: [1, null] as [number, null],
+            default: -1
+        }
+    ]
 };
 
 commandList['range'] = [registerInformation, (session, builder, args) => {
     const brush = getBrushTier(args);
+    if (!session.hasTool(brush)) {
+        throw RawText.translate('worldedit.wand.brush.no-bind');
+    }
     
-	if (!session.hasTool(brush)) {
-		throw RawText.translate('worldedit.wand.brush.no-bind');
-	}
-	let rangeArg = args.shift();
-	const range = parseInt(rangeArg);
-	if (range != range) {
-		throw RawText.translate('worldedit.error.invalid-number').with(rangeArg ?? "' '");
-	}
-	session.setToolProperty(brush, 'range', range);
-	return RawText.translate('worldedit.wand.generic.info');
+    session.setToolProperty(brush, 'range', args.get('range'));
+    return RawText.translate('worldedit.wand.generic.info');
 }];
