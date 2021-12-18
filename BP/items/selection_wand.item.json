@@ -40,7 +40,6 @@
                     }
                 ]
             },
-            "tag:minecraft:is_axe": {},
             "minecraft:foil": true,
             "minecraft:on_use_on": {
                 "on_use_on": {

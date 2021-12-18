@@ -15,10 +15,23 @@ interface StructureMeta {
 class RegionsManager {
     private readonly MAX_SIZE: [number, number, number] = [64, 256, 64];
     
-    private readonly structures: {[k: string]: StructureMeta} = {}
+    private readonly structures = new Map<string, StructureMeta>();
+    private readonly ids = new Map<string, string>();
 
     private genName(name: string, player: Player) {
-        return `wedit:${name}_${player.nameTag.replace(' ', '_')}`
+        if (!this.ids.has(player.nameTag)) {
+            do {
+                var id = '';
+                let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let charsLength = chars.length;
+                for (let i = 0; i < 4; i++) {
+                    id += chars.charAt(Math.floor(Math.random() * charsLength));
+                }
+            } while (Array.from(this.ids.values()).includes(id));
+            this.ids.set(player.nameTag, id);
+            printDebug(`Given "${player.nameTag}" a region ID of ${id}.`);
+        }
+        return `wedit:${name}_${this.ids.get(player.nameTag)}`;
     }
     
     save(name: string, start: BlockLocation, end: BlockLocation, player: Player, includeEntities = false) {
@@ -55,13 +68,13 @@ class RegionsManager {
                 }
             }
             
-            this.structures[structName] = {
+            this.structures.set(structName, {
                 subRegions: subStructs,
                 position: min,
                 size: size,
                 origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                 blockCount: regionVolume(start, end)
-            }
+            });
             return false;
         } else {
             const startStr = printLocation(min, false);
@@ -70,12 +83,12 @@ class RegionsManager {
             printDebug(startStr);
             printDebug(endStr); */
             if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} ${includeEntities} memory`, dimension).error) {
-                this.structures[structName] = {
+                this.structures.set(structName, {
                     position: min,
                     size: size,
                     origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
                     blockCount: regionVolume(start, end)
-                }
+                });
                 return false;
             }
         }
@@ -84,7 +97,7 @@ class RegionsManager {
     
     load(name: string, location: BlockLocation, player: Player, mode: 'absolute' | 'relative') {
         const structName = this.genName(name, player);
-        const struct = this.structures[structName]
+        const struct = this.structures.get(structName);
         if (struct) {
             const dimension = PlayerUtil.getDimension(player)[1];
             let loadPos = location;
@@ -111,12 +124,12 @@ class RegionsManager {
     }
     
     has(name: string, player: Player) {
-        return this.genName(name, player) in this.structures;
+        return this.structures.has(this.genName(name, player));
     }
 
     delete(name: string, player: Player) {
         const structName = this.genName(name, player);
-        const struct = this.structures[structName];
+        const struct = this.structures.get(structName);
         if (struct) {
             let error = false;
             if (struct.subRegions) {
@@ -126,41 +139,41 @@ class RegionsManager {
             } else {
                 error = Server.runCommand(`structure delete ${structName}`).error;
             }
-            delete this.structures[structName];
+            this.structures.delete(structName);
             return error;
         }
         return true;
     }
     
     deletePlayer(player: Player) {
-        for (const struct in this.structures) {
-            if (struct.endsWith(player.nameTag.replace(' ', '_'))) {
+        this.structures.forEach((_, struct) => {
+            if (struct.endsWith('_' + this.ids.get(player.nameTag))) {
                 const error = Server.runCommand(`structure delete ${struct}`).error;
                 if (error) {
                     return true;
                 }
-                delete this.structures[struct];
+                this.structures.delete(struct);
             }
-        }
+        });
+        this.ids.delete(player.nameTag);
         return false;
     }
 
     getOrigin(name: string, player: Player) {
-        return this.structures[this.genName(name, player)].origin;
+        return this.structures.get(this.genName(name, player)).origin;
     }
 
     getPosition(name: string, player: Player) {
-        return this.structures[this.genName(name, player)].position;
+        return this.structures.get(this.genName(name, player)).position;
     }
 
     getSize(name: string, player: Player) {
-        return this.structures[this.genName(name, player)].size;
+        return this.structures.get(this.genName(name, player)).size;
     }
 
     getBlockCount(name: string, player: Player) {
-        return this.structures[this.genName(name, player)].blockCount;
+        return this.structures.get(this.genName(name, player)).blockCount;
     }
 }
 
-export const Regions = new RegionsManager()
-
+export const Regions = new RegionsManager();

@@ -30,7 +30,6 @@
                     "speed": 2
                 }]
             },
-            "tag:minecraft:is_shovel": {},
             "minecraft:foil": true,
             "minecraft:on_use": {
                 "on_use": {
