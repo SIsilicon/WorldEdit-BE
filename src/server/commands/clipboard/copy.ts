@@ -1,12 +1,12 @@
 import { Player, MinecraftBlockTypes } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { assertBuilder } from '@modules/assert.js';
-
+import { Vector } from '@modules/vector.js';
 import { getSession, PlayerSession } from '../../sessions.js';
 import { Regions } from '@modules/regions.js';
 import { Mask } from '@modules/mask.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { printLocation, printDebug, regionSize, regionMin } from '../../util.js';
+import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
 
@@ -64,7 +64,7 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     const error = Regions.save('clipboard', pos1, pos2, player, includeEntities);
     
     if (tempUsed) {
-        Regions.load('tempCopy', regionMin(pos1, pos2), player, 'absolute');
+        Regions.load('tempCopy', Vector.min(pos1, pos2).toBlock(), player);
         Regions.delete('tempCopy', player);
     }
     

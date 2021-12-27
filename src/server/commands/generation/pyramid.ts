@@ -1,5 +1,4 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveNumber, assertValidNumber } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { PyramidShape } from '../../shapes/pyramid.js';

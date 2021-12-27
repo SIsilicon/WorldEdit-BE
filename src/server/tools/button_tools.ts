@@ -10,13 +10,17 @@ import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
-    abstract readonly command: string;
+    abstract readonly command: string | string[];
     abstract readonly tag: string;
     abstract readonly itemTool: string;
     
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
-        callCommand(player, this.command);
+        if (typeof this.command == 'string') {
+            callCommand(player, this.command);
+        } else {
+            callCommand(player, this.command[0], this.command.slice(1));
+        }
         session.usingItem = false;
     }
 }
@@ -55,6 +59,27 @@ class RedoTool extends CommandButton {
     itemTool = 'wedit:redo_button';
 }
 Tools.register(RedoTool, 'redo');
+
+class RotateCWTool extends CommandButton {
+    tag = 'wedit:performing_rotate_cw';
+    command = ['rotate', '90'];
+    itemTool = 'wedit:rotate_cw_button';
+}
+Tools.register(RotateCWTool, 'rotate_cw');
+
+class RotateCCWTool extends CommandButton {
+    tag = 'wedit:performing_rotate_ccw';
+    command = ['rotate', '-90'];
+    itemTool = 'wedit:rotate_ccw_button';
+}
+Tools.register(RotateCCWTool, 'rotate_ccw');
+
+class FlipTool extends CommandButton {
+    tag = 'wedit:performing_flip';
+    command = 'flip';
+    itemTool = 'wedit:flip_button';
+}
+Tools.register(FlipTool, 'flip');
 
 class SpawnGlassTool extends Tool {
     tag = 'wedit:performing_spawn_glass';

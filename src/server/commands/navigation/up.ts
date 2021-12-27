@@ -1,6 +1,5 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertValidNumber } from '@modules/assert.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { printLocation } from '../../util.js';

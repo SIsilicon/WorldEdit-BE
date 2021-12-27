@@ -1,19 +1,20 @@
 import { Player } from 'mojang-minecraft';
 import { PlayerUtil } from './player_util.js';
 import { RawText } from '@modules/rawtext.js';
+import { Vector } from '@modules/vector.js';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
-import { vector, printDebug } from '../util.js';
+import { printDebug } from '../util.js';
 
 const directions = ['up', 'down', 'left', 'right', 'forward', 'back', 'north', 'south', 'east', 'west', 'me'];
 const dirAliases = ['u', 'd', 'l', 'r', 'f', 'b', 'n', 's', 'e', 'w', 'm'];
 
-const DIRECTIONS: {[k: string]: vector} = {
-    'u': [ 0, 1, 0],
-    'd': [ 0,-1, 0],
-    'n': [ 0, 0,-1],
-    's': [ 0, 0, 1],
-    'e': [ 1, 0, 0],
-    'w': [-1, 0, 0]
+const DIRECTIONS: {[k: string]: Vector} = {
+    'u': new Vector( 0, 1, 0),
+    'd': new Vector( 0,-1, 0),
+    'n': new Vector( 0, 0,-1),
+    's': new Vector( 0, 0, 1),
+    'e': new Vector( 1, 0, 0),
+    'w': new Vector(-1, 0, 0)
 }
 
 enum Dir {
@@ -60,28 +61,36 @@ export class Cardinal implements CustomArgType {
     getDirection(player: Player) {
         const dirChar = this.direction.charAt(0);
         if (DIRECTIONS[dirChar]) {
-            return DIRECTIONS[dirChar];
+            return DIRECTIONS[dirChar].clone();
         } else {
             const dir = PlayerUtil.getDirection(player);
-            let cardinal: vector
-            const absDir: vector = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
+            let cardinal = Vector.ZERO;
+            const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
             if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {
-                    cardinal = [Math.sign(dir.x), 0, 0];
+                cardinal.x = Math.sign(dir.x);
             } else if (absDir[2] > absDir[0] && absDir[2] > absDir[1]) {
-                    cardinal = [0, 0, Math.sign(dir.z)];
+                cardinal.z = Math.sign(dir.z);
             } else {
-                    cardinal = [0, Math.sign(dir.y), 0];
+                cardinal.y = Math.sign(dir.y);
             }
             
             if (dirChar == 'b') {
-                    cardinal = cardinal.map(n => {return -n}) as vector;
+                cardinal = cardinal.mul(-1);
             } else if (dirChar == 'l' || dirChar == 'r') {
-                    cardinal = absDir[0] > absDir[2] ? [Math.sign(dir.x), 0, 0] : [0, 0, Math.sign(dir.z)];
-                    if (dirChar == 'r') {
-                        cardinal = [-cardinal[2], 0, cardinal[0]];
-                    } else {
-                        cardinal = [cardinal[2], 0, -cardinal[0]];
-                    }
+                if (absDir[0] > absDir[2]) {
+                    cardinal = new Vector(Math.sign(dir.x), 0, 0);
+                } else {
+                    cardinal = new Vector(0, 0, Math.sign(dir.z));
+                }
+                
+                const xTemp = cardinal.x;
+                if (dirChar == 'r') {
+                    cardinal.x = -cardinal.z;
+                    cardinal.z = xTemp;
+                } else {
+                    cardinal.x = cardinal.z;
+                    cardinal.z = -xTemp;
+                }
             }
             
             return cardinal;
