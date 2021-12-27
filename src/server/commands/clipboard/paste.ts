@@ -1,11 +1,11 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertBuilder } from '@modules/assert.js';
+import { assertClipboard } from '@modules/assert.js';
 import { getSession } from '../../sessions.js';
 
 import { Regions } from '@modules/regions.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { addLocations, printLocation, subtractLocations } from '../../util.js';
+import { Vector } from '@modules/vector.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
 
@@ -24,30 +24,27 @@ const registerInformation = {
 };
 
 commandList['paste'] = [registerInformation, (session, builder, args) => {
-    if (!Regions.has('clipboard', builder)) {
-        throw RawText.translate('worldedit.error.empty-clipboard');
-    }
+    assertClipboard(builder);
     
     let setSelection = args.has('s') || args.has('n');
     let pasteOriginal = args.has('o');
     let pasteContent = !args.has('n');
     
-    let loc, pasteStart: BlockLocation;
+    let pasteStart: BlockLocation;
     if (pasteOriginal) {
         pasteStart = Regions.getPosition('clipboard', builder);
-        loc = pasteStart;
     } else {
-        loc = PlayerUtil.getBlockLocation(builder);
-        pasteStart = subtractLocations(loc, Regions.getOrigin('clipboard', builder))
+        let loc = PlayerUtil.getBlockLocation(builder);
+        pasteStart = Vector.sub(loc, Regions.getOrigin('clipboard', builder)).toBlock();
     }
-    let pasteEnd = addLocations(pasteStart, subtractLocations(Regions.getSize('clipboard', builder), new BlockLocation(1, 1, 1)));
+    let pasteEnd = Vector.add(pasteStart, Vector.sub(Regions.getSize('clipboard', builder), Vector.ONE)).toBlock();
     
     if (pasteContent) {
         const history = session.getHistory();
         history.record();
         history.addUndoStructure(pasteStart, pasteEnd, 'any');
         
-        if (Regions.load('clipboard', loc, builder, pasteOriginal ? 'absolute' : 'relative')) {
+        if (Regions.load('clipboard', pasteStart, builder)) {
             history.cancel();
             throw RawText.translate('worldedit.error.command-fail');
         }

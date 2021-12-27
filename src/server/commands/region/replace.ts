@@ -1,5 +1,5 @@
 import { PlayerSession } from '../../sessions.js';
-import { addLocations, regionMax, regionMin } from '../../util.js';
+import { Vector } from '@modules/vector.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Pattern } from '@modules/pattern.js';
 import { commandList } from '../command_list.js';
@@ -47,8 +47,8 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     
     if (session.selectionMode == 'cuboid') {
         const [pos1, pos2] = session.getSelectionPoints();
-        var start = regionMin(pos1, pos2);
-        var end = regionMax(pos1, pos2);
+        var start = Vector.min(pos1, pos2).toBlock();
+        var end = Vector.max(pos1, pos2).toBlock();
         history.addUndoStructure(start, end, affectedBlocks);
     }
     

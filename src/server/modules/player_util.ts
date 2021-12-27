@@ -2,6 +2,7 @@ import { Player, Dimension, World, Entity, Location, BlockLocation, InventoryCom
 import { dimension } from '@library/@types/index.js';
 import { Server } from '@library/Minecraft.js';
 import { EventEmitter } from '@library/build/classes/eventEmitter.js';
+import { Vector } from './vector.js';
 import { printDebug } from '../util.js';
 
 /**
@@ -106,11 +107,7 @@ class PlayerHandler extends EventEmitter {
         entity.kill();
         entity.nameTag = 'wedit:killed';
         
-        let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
-        const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
-        dir = dir.map(v => {return v / len});
-        
-        return new Location(dir[0], dir[1], dir[2]);
+        return Vector.sub(locB, locA).normalized();
     }
     
     /**

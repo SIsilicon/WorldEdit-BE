@@ -1,8 +1,9 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
-import { canPlaceBlock, regionMin } from '../util.js';
+import { canPlaceBlock } from '../util.js';
+import { Vector } from './vector.js';
 import { PlayerUtil } from './player_util.js';
-import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '../../config.js';
+import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
 
 type historyEntry = {
     name: string,
@@ -87,7 +88,7 @@ export class History {
         const structName = this.processRegion(start, end, blocks);
         this.recordingUndo.push({
                 'name': structName,
-                'location': regionMin(start, end)
+                'location': Vector.min(start, end).toBlock()
         })
     }
 
@@ -100,7 +101,7 @@ export class History {
         const structName = this.processRegion(start, end, blocks);
         this.recordingRedo.push({
                 'name': structName,
-                'location': regionMin(start, end)
+                'location': Vector.min(start, end).toBlock()
         })
     }
 
@@ -111,7 +112,7 @@ export class History {
         }
 
         for (const region of this.undoStructures[this.historyIdx]) {
-                Regions.load(region.name, region.location, this.player, 'absolute');
+                Regions.load(region.name, region.location, this.player);
         };
         this.historyIdx--;
 
@@ -126,7 +127,7 @@ export class History {
 
         this.historyIdx++;
         for (const region of this.redoStructures[this.historyIdx]) {
-                Regions.load(region.name, region.location, this.player, 'absolute');
+                Regions.load(region.name, region.location, this.player);
         };
 
         return false;
@@ -162,7 +163,7 @@ export class History {
         
         const finish = () => {
                 if (recordBlocks) {
-                    Regions.load(tempRegion, loc, this.player, 'absolute');
+                    Regions.load(tempRegion, loc, this.player);
                     Regions.delete(tempRegion, this.player);
                 }
         }
@@ -174,7 +175,7 @@ export class History {
 
                 // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
                 if (recordBlocks) {
-                    var loc = regionMin(start, end);
+                    var loc = Vector.min(start, end).toBlock();
                     const dimension = PlayerUtil.getDimension(this.player)[0];
                     const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
                     Regions.save(tempRegion, start, end, this.player);

@@ -4,7 +4,6 @@ import { assertBuilder } from '@modules/assert.js';
 import { RawText } from '@modules/rawtext.js';
 
 import { getSession } from '../../sessions.js';
-import { regionMin, regionMax } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {

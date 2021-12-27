@@ -3,7 +3,7 @@ import { Server } from '@library/Minecraft.js';
 import { assertBuilder } from '@modules/assert.js';
 
 import { getSession } from '../../sessions.js';
-import { regionMin, regionMax } from '../../util.js';
+import { Vector } from '@modules/vector.js';
 import { copy } from './copy.js';
 import { set } from '../region/set.js';
 import { PlayerUtil } from '@modules/player_util.js';
@@ -38,8 +38,8 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
 
     if (session.selectionMode == 'cuboid') {
         const [pos1, pos2] = session.getSelectionPoints();
-        var start = regionMin(pos1, pos2);
-        var end = regionMax(pos1, pos2);
+        var start = Vector.min(pos1, pos2).toBlock();
+        var end = Vector.max(pos1, pos2).toBlock();
         history.addUndoStructure(start, end, 'any');
     }
     

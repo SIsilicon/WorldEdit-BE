@@ -20,6 +20,15 @@
         "redo": {
             "textures": "textures/items/redo"
         },
+        "rotate": {
+            "textures": [
+                "textures/items/rotate_cw",
+                "textures/items/rotate_ccw"
+            ]
+        },
+        "flip": {
+            "textures": "textures/items/flip"
+        },
         "eyedropper": {
             "textures": "textures/items/eyedropper"
         },

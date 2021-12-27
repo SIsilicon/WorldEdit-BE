@@ -3,7 +3,7 @@ import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Cardinal } from '@modules/directions.js';
-import { printLocation, vector } from '../../util.js';
+import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -15,20 +15,20 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
     const [dimension, dimName] = PlayerUtil.getDimension(builder);
     const blockLoc = PlayerUtil.getBlockLocation(builder);
     
-    const dir = new Cardinal().getDirection(builder) as vector;
+    const dir = new Cardinal().getDirection(builder);
     
     function isSpaceEmpty(loc: BlockLocation) {
         return dimension.getBlock(loc).isEmpty && dimension.getBlock(loc.offset(0, 1, 0)).isEmpty;
     }
 
-    let testLoc = blockLoc.offset(...dir);
+    let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);
     if (isSpaceEmpty(testLoc)) {
         throw RawText.translate('worldedit.thru.none');
     }
 
     let canGoThrough = false;
-    for (let i = 0; i < (dir[1] == 0 ? 3 : 4); i++) {
-        testLoc = testLoc.offset(...dir);
+    for (let i = 0; i < (dir.y == 0 ? 3 : 4); i++) {
+        testLoc = testLoc.offset(dir.x, dir.y, dir.z);
         if (isSpaceEmpty(testLoc)) {
                 canGoThrough = true;
                 break;

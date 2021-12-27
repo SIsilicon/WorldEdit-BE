@@ -3,7 +3,8 @@ import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
 import { PlayerSession } from '../sessions.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { subtractLocations, getWorldMinY, getWorldMaxY } from '../util.js';
+import { Vector } from '@modules/vector.js';
+import { getWorldMinY, getWorldMaxY } from '../util.js';
 
 export type shapeGenOptions = {
     hollow?: boolean
@@ -76,7 +77,7 @@ export abstract class Shape {
                     continue;
                 }
                 
-                if (this.inShape(subtractLocations(block, loc), this.genVars)) {
+                if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
                     blocksAffected.push(block);
                 }
             }

@@ -1,7 +1,6 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertBuilder, assertValidNumber } from '@modules/assert.js';
-import { vector, regionSize, printDebug } from '../../util.js';
+import { regionSize, printDebug } from '../../util.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
@@ -30,15 +29,9 @@ commandList['stack'] = [registerInformation, (session, builder, args) => {
     const [start, end] = session.getSelectionRange();
     const size = regionSize(start, end);
     
-    const dir = args.get('offset').getDirection(builder);
-    let direction = [
-        dir[0] * size.x,
-        dir[1] * size.y,
-        dir[2] * size.z
-    ] as vector;
-    
-    let loadStart = start.offset(...direction);
-    let loadEnd = end.offset(...direction);
+    const dir = args.get('offset').getDirection(builder).mul(size);
+    let loadStart = start.offset(dir.x, dir.y, dir.z);
+    let loadEnd = end.offset(dir.x, dir.y, dir.z);
     let count = 0;
     
     const history = session.getHistory();
@@ -46,12 +39,12 @@ commandList['stack'] = [registerInformation, (session, builder, args) => {
     Regions.save('temp_stack', start, end, builder);
     for (let i = 0; i < amount; i++) {
         history.addUndoStructure(loadStart, loadEnd, 'any');
-        Regions.load('temp_stack', loadStart, builder, 'absolute');
+        Regions.load('temp_stack', loadStart, builder);
         history.addRedoStructure(loadStart, loadEnd, 'any');
         
         count += Regions.getBlockCount('temp_stack', builder);
-        loadStart = loadStart.offset(...direction);
-        loadEnd = loadEnd.offset(...direction);
+        loadStart = loadStart.offset(dir.x, dir.y, dir.z);
+        loadEnd = loadEnd.offset(dir.x, dir.y, dir.z);
     }
     Regions.delete('temp_stack', builder);
     history.commit();

@@ -11,13 +11,12 @@ import { print, printerr, printDebug } from '../util.js';
 import { COMMAND_PREFIX } from '@config.js';
 
 // TODO: Localization of all strings
-// TODO: Throw proper syntax errors (commands.generic.syntax = Syntax error: Unexpected "%2$s": at "%1$s>>%2$s<<%3$s")
 
 Server.command.addCustomArgType('Mask', Mask);
 Server.command.addCustomArgType('Pattern', Pattern);
 Server.command.addCustomArgType('Direction', Cardinal);
 
-import './information/help.js';
+import './misc/help.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';
@@ -41,6 +40,8 @@ import './region/set.js';
 import './region/replace.js';
 import './region/move.js';
 import './region/stack.js';
+import './region/rotate.js';
+import './region/flip.js';
 // TODO: Implement wall
 // TODO: Implement faces
 // TODO: Implement hollow
