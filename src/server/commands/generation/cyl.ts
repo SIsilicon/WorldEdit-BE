@@ -69,5 +69,5 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
     const cylShape = new CylinderShape(height, ...<[number, number]>radii);
     const count = cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

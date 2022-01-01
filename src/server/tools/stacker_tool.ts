@@ -26,18 +26,18 @@ class StackerTool extends Tool {
         }
         let end = loc;
         for (var i = 0; i < this.range; i++) {
-                end = end.offset(dir.x, dir.y, dir.z);
-                if (!this.mask.matchesBlock(end.offset(dir.x, dir.y, dir.z), dimName)) break;
+            end = end.offset(dir.x, dir.y, dir.z);
+            if (!this.mask.matchesBlock(end.offset(dir.x, dir.y, dir.z), dimName)) break;
         }
         const history = session.getHistory();
         history.record();
         history.addUndoStructure(start, end, 'any');
         
-        Regions.save('temp_stack', loc, loc, player);
+        Regions.save('tempStack', loc, loc, player);
         for (const pos of start.blocksBetween(end)) {
-                Regions.load('temp_stack', pos, player);
+            Regions.load('tempStack', pos, player);
         }
-        Regions.delete('temp_stack', player);
+        Regions.delete('tempStack', player);
         
         history.addRedoStructure(start, end, 'any');
         history.commit();

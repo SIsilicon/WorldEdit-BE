@@ -32,7 +32,7 @@ class PatternPickerTool extends Tool {
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.pattern-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
@@ -44,7 +44,7 @@ class PatternPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalPattern.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.pattern-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }
@@ -79,7 +79,7 @@ class MaskPickerTool extends Tool {
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.mask-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
@@ -91,7 +91,7 @@ class MaskPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalMask.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.mask-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }

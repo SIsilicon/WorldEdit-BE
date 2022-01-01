@@ -42,7 +42,7 @@ export class Cardinal implements CustomArgType {
     static parseArgs(args: Array<string>, index = 0) {
         const dir = args[index][0].toLowerCase();
         if (!directions.includes(dir) && !dirAliases.includes(dir)) {
-            throw RawText.translate('commands.generic.invalidDir').with(args[index]);
+            throw RawText.translate('commands.generic.wedit:invalidDir').with(args[index]);
             /*printDebug(dir);
             printDebug(dir in directions);*/
         }

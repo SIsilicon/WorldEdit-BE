@@ -9,8 +9,8 @@ const registerInformation = {
 commandList['drawsel'] = [registerInformation, (session, builder, args) => {
     session.drawSelection = !session.drawSelection;
     if (session.drawSelection) {
-        return RawText.translate('worldedit.drawsel.enabled');
+        return RawText.translate('commands.wedit:drawsel.enabled');
     } else {
-        return RawText.translate('worldedit.drawsel.disabled');;
+        return RawText.translate('commands.wedit:drawsel.disabled');;
     }
 }];

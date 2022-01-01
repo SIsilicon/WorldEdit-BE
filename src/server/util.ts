@@ -114,9 +114,11 @@ export function getWorldMaxY(player: Player) {
  */
 export function canPlaceBlock(loc: BlockLocation, dim: dimension) {
     const locString = printLocation(loc, false);
-    Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim);
-    const error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
-    Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+    let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
+    if (!error) {
+        error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
+        Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+    }
     return !error;
 }
 

@@ -4,7 +4,7 @@ import { set } from '../region/set.js';
 import { commandList } from '../command_list.js';
 import { regionCenter } from '../../util.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { assertClipboard, assertCuboidSelection } from '@modules/assert.js';
+import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
 import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
@@ -44,39 +44,46 @@ commandList['rotate'] = [registerInformation, (session, builder, args) => {
         blockCount = Regions.getBlockCount('clipboard', builder);
     } else {
         assertCuboidSelection(session);
-        const [pos1, pos2] = session.getSelectionPoints().slice(0, 2);
-        
         const history = session.getHistory();
         history.record();
     
-        if (session.selectionMode == 'cuboid') {
-            var start = Vector.min(pos1, pos2).toBlock();
-            var end = Vector.max(pos1, pos2).toBlock();
-        }
+        const [start, end] = session.getSelectionRange();
+        const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+        assertCanBuildWithin(dim, start, end);
         
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
+        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(builder.location);
         
         Regions.save('tempRotate', start, end, builder);
         Regions.rotate('tempRotate', args.get('rotate'), center, builder);
         blockCount = Regions.getBlockCount('tempRotate', builder);
         
-        const [newPos1, newPos2] = Regions.getBounds('tempRotate', builder);
+        const [newStart, newEnd] = Regions.getBounds('tempRotate', builder);
         history.addUndoStructure(start, end, 'any');
-        history.addUndoStructure(newPos1, newPos2, 'any');
+        history.addUndoStructure(newStart, newEnd, 'any');
+        
+        try {
+            assertCanBuildWithin(dim, newStart, newEnd);
+        } catch (e) {
+            Regions.delete('tempRotate', builder);
+            throw e;
+        }
         
         set(session, new Pattern('air'));
-        Regions.load('tempRotate', newPos1, builder);
+        if (Regions.load('tempRotate', newStart, builder)) {
+            Regions.delete('tempRotate', builder);
+            throw RawText.translate('commands.generic.wedit:commandFail');
+        }
         Regions.delete('tempRotate', builder);
         
-        history.addRedoStructure(newPos1, newPos2, 'any');
+        history.addRedoStructure(newStart, newEnd, 'any');
         history.addRedoStructure(start, end, 'any');
         history.commit();
         
         if (args.has('s')) {
-            session.setSelectionPoint(0, newPos1);
-            session.setSelectionPoint(1, newPos2);
+            session.setSelectionPoint(0, newStart);
+            session.setSelectionPoint(1, newEnd);
         }
     }
     
-    return RawText.translate('commands.wedit:rotate.rotated').with(blockCount);
+    return RawText.translate('commands.wedit:rotate.explain').with(blockCount);
 }];

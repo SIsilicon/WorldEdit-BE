@@ -24,8 +24,8 @@ commandList['undo'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     for(var i = 0; i < times; i++) {
         if (history.undo()) {
-                break;
+            break;
         }
     }
-    return RawText.translate(i == 0 ? 'worldedit.undo.none' : 'worldedit.undo.undone').with(`${i}`);
+    return RawText.translate(i == 0 ? 'commands.wedit:undo.none' : 'commands.wedit:undo.explain').with(`${i}`);
 }];

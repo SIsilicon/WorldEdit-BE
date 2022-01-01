@@ -21,9 +21,9 @@ const registerInformation = {
 commandList['size'] = [registerInformation, (session, builder, args) => {
     const brush = getBrushTier(args);
     if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
+        throw RawText.translate('commands.wedit:brush.noBind');
     }
     
     session.setToolProperty(brush, 'size', args.get('size'));
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 }];

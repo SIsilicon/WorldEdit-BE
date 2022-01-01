@@ -1,5 +1,6 @@
 import { PlayerSession } from '../../sessions.js';
 import { printDebug } from '../../util.js';
+import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Pattern } from '@modules/pattern.js';
@@ -39,11 +40,10 @@ export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
 }
 
 commandList['set'] = [registerInformation, (session, builder, args) => {
-    if (session.getBlocksSelected().length == 0) {
-        throw 'You need to make a selection to set!';
-    }
+    assertSelection(session);
+    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
     if (session.usingItem && !session.globalPattern.toString()) {
-        throw 'You need to specify a block to set the selection to!';
+        throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
@@ -63,5 +63,5 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
     history.commit();
 
-    return RawText.translate('worldedit.set.changed').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

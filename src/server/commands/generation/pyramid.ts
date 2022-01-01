@@ -31,5 +31,5 @@ commandList['pyramid'] = [registerInformation, (session, builder, args) => {
     const pyramidShape = new PyramidShape(size);
     const count = pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

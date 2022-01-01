@@ -1,6 +1,6 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertClipboard } from '@modules/assert.js';
+import { assertClipboard, assertCanBuildWithin } from '@modules/assert.js';
 import { getSession } from '../../sessions.js';
 
 import { Regions } from '@modules/regions.js';
@@ -40,13 +40,13 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     let pasteEnd = Vector.add(pasteStart, Vector.sub(Regions.getSize('clipboard', builder), Vector.ONE)).toBlock();
     
     if (pasteContent) {
+        assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], pasteStart, pasteEnd);
         const history = session.getHistory();
         history.record();
         history.addUndoStructure(pasteStart, pasteEnd, 'any');
         
         if (Regions.load('clipboard', pasteStart, builder)) {
-            history.cancel();
-            throw RawText.translate('worldedit.error.command-fail');
+            throw RawText.translate('commands.generic.wedit:command-Fail');
         }
         
         history.addRedoStructure(pasteStart, pasteEnd, 'any');
@@ -61,7 +61,7 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     }
     
     if (pasteContent) {
-        return RawText.translate('worldedit.paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);
+        return RawText.translate('commands.wedit:paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);
     }
     return '';
 }];

@@ -1,6 +1,6 @@
 import { Player, MinecraftBlockTypes } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertBuilder } from '@modules/assert.js';
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
 import { getSession, PlayerSession } from '../../sessions.js';
 import { Regions } from '@modules/regions.js';
@@ -33,9 +33,11 @@ const registerInformation = {
  * @param args The arguments that change how the copying will happen
  */
 export function copy(session: PlayerSession, args = new Map<string, any>()) {
+    assertCuboidSelection(session);
     const player = session.getPlayer();
-    const [pos1, pos2] = session.getSelectionPoints().slice(0, 2);
-    if (session.getBlocksSelected().length == 0) throw RawText.translate('worldedit.error.incomplete-region');
+    const [dimension, dimName] = PlayerUtil.getDimension(player);
+    const [start, end] = session.getSelectionRange();
+    assertCanBuildWithin(dimName, start, end);
     
     let includeEntities: boolean = session.usingItem ? session.includeEntities : args.has('e');
     let includeAir: boolean = session.usingItem ? session.includeAir : !args.has('a');
@@ -44,13 +46,12 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     // Create a temporary copy since we'll be adding void/air blocks to the selection.
     let tempUsed = !includeAir || mask;
     if (tempUsed) {
-        Regions.save('tempCopy', pos1, pos2, player);
+        Regions.save('tempCopy', start, end, player);
         
-        const [dimension, dimName] = PlayerUtil.getDimension(player);
         const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
         const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
         
-        for (const block of pos1.blocksBetween(pos2)) {
+        for (const block of start.blocksBetween(end)) {
             let wasAir = dimension.getBlock(block).id == 'minecraft:air';
             let isAir = wasAir || (mask ? !mask.matchesBlock(block, dimName) : false);
             if (includeAir && mask && !wasAir && isAir) {
@@ -61,10 +62,10 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
         }
     }
     
-    const error = Regions.save('clipboard', pos1, pos2, player, includeEntities);
+    const error = Regions.save('clipboard', start, end, player, includeEntities);
     
     if (tempUsed) {
-        Regions.load('tempCopy', Vector.min(pos1, pos2).toBlock(), player);
+        Regions.load('tempCopy', start, player);
         Regions.delete('tempCopy', player);
     }
     
@@ -73,7 +74,7 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
 
 commandList['copy'] = [registerInformation, (session, builder, args) => {
     if (copy(session, args)) {
-        throw RawText.translate('worldedit.error.command-fail');
+        throw RawText.translate('commands.generic.wedit:commandFail');
     }
-    return RawText.translate('worldedit.copy.explain').with(`${session.getBlocksSelected().length}`);
+    return RawText.translate('commands.wedit:copy.explain').with(`${session.getBlocksSelected().length}`);
 }];

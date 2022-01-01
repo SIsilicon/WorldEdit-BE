@@ -1,6 +1,7 @@
 import { PlayerSession } from '../../sessions.js';
 import { Vector } from '@modules/vector.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
@@ -33,9 +34,8 @@ function getAffectedBlocks(session: PlayerSession, mask: Mask) {
 }
 
 commandList['replace'] = [registerInformation, (session, builder, args) => {
-    if (session.getBlocksSelected().length == 0) {
-        throw 'You need to make a selection to replace!';
-    }
+    assertSelection(session);
+    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
     
     const mask = args.get('mask');
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
@@ -63,5 +63,5 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     history.addRedoStructure(start, end, affectedBlocks);
     history.commit();
 
-    return RawText.translate('worldedit.set.changed').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

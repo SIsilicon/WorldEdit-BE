@@ -4,7 +4,7 @@ import { set } from '../region/set.js';
 import { commandList } from '../command_list.js';
 import { regionCenter } from '../../util.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { assertClipboard, assertCuboidSelection } from '@modules/assert.js';
+import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
 import { Cardinal } from '@modules/directions.js';
 import { RawText } from '@modules/rawtext.js';
@@ -47,39 +47,46 @@ commandList['flip'] = [registerInformation, (session, builder, args) => {
         blockCount = Regions.getBlockCount('clipboard', builder);
     } else {
         assertCuboidSelection(session);
-        const [pos1, pos2] = session.getSelectionPoints().slice(0, 2);
-        
         const history = session.getHistory();
         history.record();
     
-        if (session.selectionMode == 'cuboid') {
-            var start = Vector.min(pos1, pos2).toBlock();
-            var end = Vector.max(pos1, pos2).toBlock();
-        }
+        const [start, end] = session.getSelectionRange();
+        const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+        assertCanBuildWithin(dim, start, end);
         
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
+        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(builder.location);
         
         Regions.save('tempFlip', start, end, builder);
         Regions.flip('tempFlip', dir, center, builder);
         blockCount = Regions.getBlockCount('tempFlip', builder);
         
-        const [newPos1, newPos2] = Regions.getBounds('tempFlip', builder);
+        const [newStart, newEnd] = Regions.getBounds('tempFlip', builder);
         history.addUndoStructure(start, end, 'any');
-        history.addUndoStructure(newPos1, newPos2, 'any');
+        history.addUndoStructure(newStart, newEnd, 'any');
+        
+        try {
+            assertCanBuildWithin(dim, newStart, newEnd);
+        } catch (e) {
+            Regions.delete('tempFlip', builder);
+            throw e;
+        }
         
         set(session, new Pattern('air'));
-        Regions.load('tempFlip', newPos1, builder);
+        if (Regions.load('tempFlip', newStart, builder)) {
+            Regions.delete('tempFlip', builder);
+            throw RawText.translate('commands.generic.wedit:commandFail');
+        }
         Regions.delete('tempFlip', builder);
         
-        history.addRedoStructure(newPos1, newPos2, 'any');
+        history.addRedoStructure(newStart, newEnd, 'any');
         history.addRedoStructure(start, end, 'any');
         history.commit();
         
         if (args.has('s')) {
-            session.setSelectionPoint(0, newPos1);
-            session.setSelectionPoint(1, newPos2);
+            session.setSelectionPoint(0, newStart);
+            session.setSelectionPoint(1, newEnd);
         }
     }
     
-    return RawText.translate('commands.wedit:flip.flipped').with(blockCount);
+    return RawText.translate('commands.wedit:flip.explain').with(blockCount);
 }];
