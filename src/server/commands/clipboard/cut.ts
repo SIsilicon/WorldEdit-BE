@@ -1,6 +1,6 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertBuilder } from '@modules/assert.js';
+import { assertCanBuildWithin } from '@modules/assert.js';
 
 import { getSession } from '../../sessions.js';
 import { Vector } from '@modules/vector.js';
@@ -36,15 +36,11 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     history.record();
 
-    if (session.selectionMode == 'cuboid') {
-        const [pos1, pos2] = session.getSelectionPoints();
-        var start = Vector.min(pos1, pos2).toBlock();
-        var end = Vector.max(pos1, pos2).toBlock();
-        history.addUndoStructure(start, end, 'any');
-    }
+    const [start, end] = session.getSelectionRange();
+    history.addUndoStructure(start, end, 'any');
     
     if (copy(session, args)) {
-        throw RawText.translate('worldedit.error.command-fail');
+        throw RawText.translate('commands.generic.wedit:commandFail');
     }
 
     let pattern: Pattern = args.get('fill');
@@ -66,5 +62,5 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
     history.commit();
     
-    return RawText.translate('worldedit.cut.explain').with(`${session.getBlocksSelected().length}`);
+    return RawText.translate('commands.wedit:cut.explain').with(`${session.getBlocksSelected().length}`);
 }];

@@ -4,6 +4,7 @@ import { Mask } from '@modules/mask.js';
 import { PlayerSession } from '../sessions.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Vector } from '@modules/vector.js';
+import { assertCanBuildWithin } from '@modules/assert.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
 
 export type shapeGenOptions = {
@@ -63,7 +64,8 @@ export abstract class Shape {
         const maxY = getWorldMaxY(session.getPlayer());
         max.y = Math.min(maxY, max.y);
         let canGenerate = max.y >= min.y;
-    
+        
+        assertCanBuildWithin(dimension, min, max);
         const blocksAffected = [];
         mask = mask ?? new Mask();
         

@@ -14,24 +14,5 @@ class SelectionTool extends Tool {
             [`${loc.x}`, `${loc.y}`, `${loc.z}`]
         );
     }
-    
-    bind(player: Player) {
-        super.bind(player);
-        function giveItem(item: string) {
-            if (Server.runCommand(`clear "${player.nameTag}" ${item} -1 0`).error) {
-                Server.runCommand(`give "${player.nameTag}" ${item}`);
-            }
-        }
-        
-        giveItem('wedit:selection_fill');
-        giveItem('wedit:pattern_picker');
-        giveItem('wedit:copy_button');
-        giveItem('wedit:cut_button');
-        giveItem('wedit:paste_button');
-        giveItem('wedit:undo_button');
-        giveItem('wedit:redo_button');
-        giveItem('wedit:spawn_glass');
-        giveItem('wedit:config_button');
-    }
 }
 Tools.register(SelectionTool, 'selection_wand');

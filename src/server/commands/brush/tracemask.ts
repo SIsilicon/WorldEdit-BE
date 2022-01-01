@@ -22,10 +22,10 @@ const registerInformation = {
 commandList['tracemask'] = [registerInformation, (session, builder, args) => {
     const brush = getBrushTier(args);
     if (!session.hasTool(brush)) {
-        throw RawText.translate('worldedit.wand.brush.no-bind');
+        throw RawText.translate('commands.wedit:brush.noBind');
     }
     
     const mask: Mask = args.get('mask');
     session.setToolProperty(brush, 'traceMask', mask.toString() ? mask : null);
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 }];

@@ -23,7 +23,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
 
     let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);
     if (isSpaceEmpty(testLoc)) {
-        throw RawText.translate('worldedit.thru.none');
+        throw RawText.translate('commands.wedit:thru.none');
     }
 
     let canGoThrough = false;
@@ -37,8 +37,8 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
 
     if (canGoThrough) {
         Server.runCommand(`tp "${builder.nameTag}" ${printLocation(testLoc, false)}`, dimName);
-        return RawText.translate('worldedit.thru.moved');
+        return RawText.translate('commands.wedit:thru.explain');
     } else {
-        throw RawText.translate('worldedit.thru.obstructed');
+        throw RawText.translate('commands.wedit:thru.obstructed');
     }
 }];

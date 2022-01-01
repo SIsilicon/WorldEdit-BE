@@ -1,5 +1,6 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
+import { assertCanBuildWithin } from './assert.js';
 import { canPlaceBlock } from '../util.js';
 import { Vector } from './vector.js';
 import { PlayerUtil } from './player_util.js';
@@ -51,7 +52,7 @@ export class History {
 
         this.historyIdx++;
         for (let i = this.historyIdx; i < this.undoStructures.length; i++) {
-                this.deleteHistoryRegions(i);
+            this.deleteHistoryRegions(i);
         }
         this.undoStructures.length = this.historyIdx + 1;
         this.redoStructures.length = this.historyIdx + 1;
@@ -60,10 +61,10 @@ export class History {
         this.redoStructures[this.historyIdx] = this.recordingRedo;
 
         while (this.historyIdx > MAX_HISTORY_SIZE - 1) {
-                this.deleteHistoryRegions(0);
-                this.undoStructures.shift();
-                this.redoStructures.shift();
-                this.historyIdx--;
+            this.deleteHistoryRegions(0);
+            this.undoStructures.shift();
+            this.redoStructures.shift();
+            this.historyIdx--;
         }
     }
 
@@ -72,10 +73,10 @@ export class History {
         this.recording = false;
 
         for (const struct of this.recordingUndo) {
-                Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, this.player);
         }
         for (const struct of this.recordingRedo) {
-                Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, this.player);
         }
     }
 
@@ -87,8 +88,8 @@ export class History {
         
         const structName = this.processRegion(start, end, blocks);
         this.recordingUndo.push({
-                'name': structName,
-                'location': Vector.min(start, end).toBlock()
+            'name': structName,
+            'location': Vector.min(start, end).toBlock()
         })
     }
 
@@ -100,19 +101,26 @@ export class History {
         
         const structName = this.processRegion(start, end, blocks);
         this.recordingRedo.push({
-                'name': structName,
-                'location': Vector.min(start, end).toBlock()
+            'name': structName,
+            'location': Vector.min(start, end).toBlock()
         })
     }
 
     undo() {
         this.assertNotRecording();
         if (this.historyIdx <= -1) {
-                return true;
+            return true;
         }
-
+        
+        const dim = PlayerUtil.getDimension(this.player)[1];
         for (const region of this.undoStructures[this.historyIdx]) {
-                Regions.load(region.name, region.location, this.player);
+            const pos = region.location;
+            const size = Regions.getSize(region.name, this.player);
+            assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+        };
+        
+        for (const region of this.undoStructures[this.historyIdx]) {
+            Regions.load(region.name, region.location, this.player);
         };
         this.historyIdx--;
 
@@ -122,12 +130,19 @@ export class History {
     redo() {
         this.assertNotRecording();
         if (this.historyIdx >= this.redoStructures.length - 1) {
-                return true;
+            return true;
         }
-
+        
+        const dim = PlayerUtil.getDimension(this.player)[1];
+        for (const region of this.redoStructures[this.historyIdx]) {
+            const pos = region.location;
+            const size = Regions.getSize(region.name, this.player);
+            assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+        };
+        
         this.historyIdx++;
         for (const region of this.redoStructures[this.historyIdx]) {
-                Regions.load(region.name, region.location, this.player);
+            Regions.load(region.name, region.location, this.player);
         };
 
         return false;
@@ -136,7 +151,7 @@ export class History {
     clear() {
         this.historyIdx = -1;
         for (let i = 0; i < this.undoStructures.length; i++) {
-                this.deleteHistoryRegions(i);
+            this.deleteHistoryRegions(i);
         }
         this.undoStructures.length = 0;
         this.redoStructures.length = 0;
@@ -148,10 +163,10 @@ export class History {
     
     private deleteHistoryRegions(index: number) {
         for (const struct of this.undoStructures[index]) {
-                Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, this.player);
         }
         for (const struct of this.redoStructures[index]) {
-                Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, this.player);
         }
     }
 
@@ -162,43 +177,43 @@ export class History {
         const dim = PlayerUtil.getDimension(this.player)[1];
         
         const finish = () => {
-                if (recordBlocks) {
-                    Regions.load(tempRegion, loc, this.player);
-                    Regions.delete(tempRegion, this.player);
-                }
+            if (recordBlocks) {
+                Regions.load(tempRegion, loc, this.player);
+                Regions.delete(tempRegion, this.player);
+            }
         }
 
         try {
-                if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
-                    throw 'Failed to save history!';
-                }
+            if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
+                throw 'Failed to save history!';
+            }
 
-                // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
-                if (recordBlocks) {
-                    var loc = Vector.min(start, end).toBlock();
-                    const dimension = PlayerUtil.getDimension(this.player)[0];
-                    const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
-                    Regions.save(tempRegion, start, end, this.player);
-                    let index = 0;
-                    for (const block of start.blocksBetween(end)) {
-                        if (blocks[index]?.equals(block)) {
-                                index++;
-                        } else {
-                                dimension.getBlock(block).setPermutation(voidBlock);
-                        }
+            // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
+            if (recordBlocks) {
+                var loc = Vector.min(start, end).toBlock();
+                const dimension = PlayerUtil.getDimension(this.player)[0];
+                const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
+                Regions.save(tempRegion, start, end, this.player);
+                let index = 0;
+                for (const block of start.blocksBetween(end)) {
+                    if (blocks[index]?.equals(block)) {
+                        index++;
+                    } else {
+                        dimension.getBlock(block).setPermutation(voidBlock);
                     }
                 }
+            }
 
-                structName = 'history' + historyId++;
-                if (Regions.save(structName, start, end, this.player)) {
-                    finish();
-                    this.cancel();
-                    throw 'Failed to save history!';
-                }
-        } catch(err) {
+            structName = 'history' + historyId++;
+            if (Regions.save(structName, start, end, this.player)) {
                 finish();
                 this.cancel();
-                throw err;
+                throw 'Failed to save history!';
+            }
+        } catch(err) {
+            finish();
+            this.cancel();
+            throw err;
         }
 
         finish();
@@ -207,13 +222,13 @@ export class History {
 
     private assertRecording() {
         if (!this.recording) {
-                throw 'History was not being recorded!';
+            throw 'History was not being recorded!';
         }
     }
 
     private assertNotRecording() {
         if (this.recording) {
-                throw 'History was still being recorded!';
+            throw 'History was still being recorded!';
         }
     }
 

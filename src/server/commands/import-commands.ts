@@ -17,6 +17,7 @@ Server.command.addCustomArgType('Pattern', Pattern);
 Server.command.addCustomArgType('Direction', Cardinal);
 
 import './misc/help.js';
+import './misc/kit.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';

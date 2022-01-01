@@ -36,7 +36,7 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
     if (!PlayerUtil.hasItem(builder, 'wedit:stacker_wand') && !PlayerUtil.hasItem(builder, 'minecraft:iron_axe')) {
         Server.runCommand(`give "${builder.nameTag}" iron_axe`, dimension);
     }
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {

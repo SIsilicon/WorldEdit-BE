@@ -79,7 +79,7 @@ const sphere_command = (session: PlayerSession, builder: Player, brush: string, 
         args.get('pattern'),
         args.has('h')
     ));
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
 const cylinder_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
@@ -89,14 +89,14 @@ const cylinder_command = (session: PlayerSession, builder: Player, brush: string
         args.get('pattern'),
         args.has('h')
     ));
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
 const none_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
     if (session.hasTool(brush)) {
         session.unbindTool(brush);
     }
-    return RawText.translate('worldedit.wand.generic.info');
+    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
 commandList['brush'] = [registerInformation, (session, builder, args) => {

@@ -9,5 +9,5 @@ const registerInformation = {
 commandList['clearhistory'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     history.clear();
-    return RawText.translate('worldedit.clearhistory.cleared');
+    return RawText.translate('commands.wedit:clearhistory.explain');
 }];

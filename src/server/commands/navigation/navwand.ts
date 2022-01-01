@@ -12,5 +12,5 @@ commandList['navwand'] = [registerInformation, (session, builder, args) => {
     const dimension = PlayerUtil.getDimension(builder)[1];
     Server.runCommand(`clear "${builder.nameTag}" wedit:navigation_wand`, dimension);
     Server.runCommand(`give "${builder.nameTag}" wedit:navigation_wand`, dimension);
-    return RawText.translate('worldedit.wand.navwand.info');
+    return RawText.translate('commands.wedit:navwand.explain');
 }];

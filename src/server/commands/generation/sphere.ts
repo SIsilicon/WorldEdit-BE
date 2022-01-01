@@ -78,5 +78,5 @@ commandList['sphere'] = [registerInformation, (session, builder, args) => {
     const sphereShape = new SphereShape(...radii);
     const count = sphereShape.generate(loc, pattern, null, session, {'hollow': isHollow});
     
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];
