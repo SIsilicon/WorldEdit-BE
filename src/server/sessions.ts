@@ -17,7 +17,7 @@ import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
 
 // TODO: Add other selection modes
-type selectMode = 'cuboid';
+export type selectMode = 'cuboid';
 
 const playerSessions: {[k: string]: PlayerSession} = {};
 const pendingDeletion: {[k: string]: [number, PlayerSession]} = {}
@@ -147,7 +147,7 @@ export class PlayerSession {
     */
     public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
         if (index > 0 && this.selectionPoints.length == 0) {
-        throw RawText.translate('worldedit.selection.no-primary');
+        throw RawText.translate('worldedit.selection.noPrimary');
         }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
@@ -349,6 +349,7 @@ export class PlayerSession {
     */
     public set selectionMode(value: selectMode) {
         this._selectionMode = value;
+        this.clearSelectionPoints();
     }
     
     /**
@@ -379,8 +380,8 @@ export function getSession(player: Player): PlayerSession {
             delete pendingDeletion[name];
         }
         playerSessions[name] = session ?? new PlayerSession(player);
-        printDebug(`new Session?: ${!session}`);
         printDebug(playerSessions[name]?.getPlayer()?.nameTag);
+        printDebug(`new Session?: ${!session}`);
     }
     return playerSessions[name];
 }

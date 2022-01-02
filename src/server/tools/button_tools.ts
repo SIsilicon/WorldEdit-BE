@@ -41,7 +41,7 @@ Tools.register(CopyTool, 'copy');
 
 class PasteTool extends CommandButton {
     tag = 'wedit:performing_paste';
-    command = 'paste';
+    command = ['paste', '-s'];
     itemTool = 'wedit:paste_button';
 }
 Tools.register(PasteTool, 'paste');
@@ -60,24 +60,51 @@ class RedoTool extends CommandButton {
 }
 Tools.register(RedoTool, 'redo');
 
-class RotateCWTool extends CommandButton {
+class RotateCWTool extends Tool {
     tag = 'wedit:performing_rotate_cw';
-    command = ['rotate', '90'];
     itemTool = 'wedit:rotate_cw_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['90', '-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'rotate', args);
+        session.usingItem = false;
+    }
 }
 Tools.register(RotateCWTool, 'rotate_cw');
 
-class RotateCCWTool extends CommandButton {
+class RotateCCWTool extends Tool {
     tag = 'wedit:performing_rotate_ccw';
-    command = ['rotate', '-90'];
     itemTool = 'wedit:rotate_ccw_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['-90', '-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'rotate', args);
+        session.usingItem = false;
+    }
 }
 Tools.register(RotateCCWTool, 'rotate_ccw');
 
-class FlipTool extends CommandButton {
+class FlipTool extends Tool {
     tag = 'wedit:performing_flip';
-    command = 'flip';
     itemTool = 'wedit:flip_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'flip', args);
+        session.usingItem = false;
+    }
 }
 Tools.register(FlipTool, 'flip');
 
@@ -97,7 +124,11 @@ class SelectionFillTool extends Tool {
     itemTool = 'wedit:selection_fill';
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
-        callCommand(player, 'set', ['placeholder']);
+        if (session.globalMask.empty()) {
+            callCommand(player, 'set', ['air']);
+        } else {
+            callCommand(player, 'replace', ['air', 'air']);
+        }
         session.usingItem = false;
     }
 }

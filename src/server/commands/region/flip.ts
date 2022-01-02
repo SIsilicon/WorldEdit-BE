@@ -54,7 +54,7 @@ commandList['flip'] = [registerInformation, (session, builder, args) => {
         const dim = PlayerUtil.getDimension(session.getPlayer())[1];
         assertCanBuildWithin(dim, start, end);
         
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(builder.location);
+        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
         
         Regions.save('tempFlip', start, end, builder);
         Regions.flip('tempFlip', dir, center, builder);
@@ -78,14 +78,16 @@ commandList['flip'] = [registerInformation, (session, builder, args) => {
         }
         Regions.delete('tempFlip', builder);
         
+        if (args.has('s')) {
+            history.recordSelection(session);
+            session.setSelectionPoint(0, newStart);
+            session.setSelectionPoint(1, newEnd);
+            history.recordSelection(session);
+        }
+        
         history.addRedoStructure(newStart, newEnd, 'any');
         history.addRedoStructure(start, end, 'any');
         history.commit();
-        
-        if (args.has('s')) {
-            session.setSelectionPoint(0, newStart);
-            session.setSelectionPoint(1, newEnd);
-        }
     }
     
     return RawText.translate('commands.wedit:flip.explain').with(blockCount);

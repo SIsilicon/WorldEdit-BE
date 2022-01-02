@@ -68,15 +68,21 @@ export class Mask implements CustomArgType {
         this.stringObj = '';
     }
     
+    empty() {
+        return this.conditions.length == 0;
+    }
+    
     addBlock(block: BlockPermutation) {
         const states: Map<string, string|number|boolean> = new Map();
         block.getAllProperties().forEach(state => {
+            if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
+            }
         })
         this.conditions.push({
-                id: block.type.id,
-                data: -1,
-                states: states
+            id: block.type.id,
+            data: -1,
+            states: states
         });
         this.stringObj = '(picked)';
     }
@@ -85,17 +91,17 @@ export class Mask implements CustomArgType {
         let text = '';
         let i = 0;
         for (const block of this.conditions) {
-                let sub = block.id.replace('minecraft:', '');
-                for (const state of block.states) {
-                    const val = state[1];
-                    if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
-                        sub += `(${val})`;
-                        break;
-                    }
+            let sub = block.id.replace('minecraft:', '');
+            for (const state of block.states) {
+                const val = state[1];
+                if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
+                    sub += `(${val})`;
+                    break;
                 }
-                text += sub;
-                if (i < this.conditions.length-1) text += ', ';
-                i++;
+            }
+            text += sub;
+            if (i < this.conditions.length-1) text += ', ';
+            i++;
         }
         return text;
     }

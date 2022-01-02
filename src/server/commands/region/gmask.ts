@@ -16,7 +16,7 @@ const registerInformation = {
 
 commandList['gmask'] = [registerInformation, (session, builder, args) => {
     session.globalMask = args.get('mask');
-    if (args.get('mask').toString()) {
+    if (!args.get('mask').empty()) {
         return RawText.translate('commands.wedit:gmask.set');
     } else {
         return RawText.translate('commands.wedit:gmask.disabled');

@@ -42,7 +42,7 @@ export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
 commandList['set'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
     assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
-    if (session.usingItem && !session.globalPattern.toString()) {
+    if (session.usingItem && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
@@ -60,6 +60,7 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
     
     const count = set(session, pattern);
     
+    history.recordSelection(session);
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
     history.commit();
 

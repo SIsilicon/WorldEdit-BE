@@ -1,7 +1,9 @@
-pack.name=WorldEdit: BE [RP]
-pack.description=This is the resource pack used by the WorldEdit add-on. Be sure to add this along with it.
+pack.name=WorldEdit [RP]
+pack.description=An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS).
 
 ## ITEMS
+item.error.wedit:noPerms=You don't have the permission to use this item.
+
 item.wedit:selection_wand=Selection Wand
 item.wedit:stacker_wand=Stacker Wand
 item.wedit:navigation_wand=Navigation Wand
@@ -41,124 +43,125 @@ item.wedit:inc_air_on_button=Include Air in Clipboard: §aEnabled§r
 item.wedit:inc_air_off_button=Include Air in Clipboard: §4Disabled§r
 item.wedit:blank= 
 
-## WORLDEDIT COMMANDS
+## WORLDEDIT TOOLS
 
-worldedit.spawn-glass.error=Can't place block here.
+worldedit.spawnGlass.error=Can't place block here.
+worldEdit.selectionFill.noPattern=You need to specify a block to set the selection to!
 
-worldedit.pattern-picker.add=Added block to pattern: 
-worldedit.pattern-picker.set=Set pattern to block: 
-worldedit.mask-picker.add=Added block to mask: 
-worldedit.mask-picker.set=Set mask to block: 
+worldedit.patternPicker.add=Added block to pattern: 
+worldedit.patternPicker.set=Set pattern to block: 
+worldedit.maskPicker.add=Added block to mask: 
+worldedit.maskPicker.set=Set mask to block: 
 
-worldedit.brush-config.choose-brush=Choose a brush to set up.
-worldedit.brush-config.choose-kind=Choose what kind of brush to make.
-worldedit.brush-config.select-radius=Choose the size of the brush.
-worldedit.brush-config.select-height=Choose the height of the brush.
-worldedit.brush-config.pattern-mask=Make a pattern and optional mask for the brush.
-worldedit.brush-config.confirm=Is this Ok?
-worldedit.brush-config.affects=Affects: %s
-worldedit.brush-config.creates=Creates: %s
-worldedit.brush-config.radius=Size: %s
-worldedit.brush-config.height=Height: %s
-worldedit.brush-config.set=Brush configured.
-worldedit.brush-config.set-give=Brush configured and added to your inventory.
-worldedit.brush-config.cancel=Cancelled brush configuring.
+worldedit.brushConfig.chooseBrush=Choose a brush to set up.
+worldedit.brushConfig.chooseKind=Choose what kind of brush to make.
+worldedit.brushConfig.selectRadius=Choose the size of the brush.
+worldedit.brushConfig.selectHeight=Choose the height of the brush.
+worldedit.brushConfig.patternMask=Make a pattern and optional mask for the brush.
+worldedit.brushConfig.confirm=Is this Ok?
+worldedit.brushConfig.affects=Affects: %s
+worldedit.brushConfig.creates=Creates: %s
+worldedit.brushConfig.radius=Size: %s
+worldedit.brushConfig.height=Height: %s
+worldedit.brushConfig.set=Brush configured.
+worldedit.brushConfig.setGive=Brush configured and added to your inventory.
+worldedit.brushConfig.cancel=Cancelled brush configuring.
 
-worldedit.undo.undone=Undid %s available edits.
-worldedit.undo.none=Nothing left to undo.
-worldedit.redo.redone=Redid %s available edits.
-worldedit.redo.none=Nothing left to redo.
-worldedit.clearhistory.cleared=History cleared.
+worldedit.selection.noPrimary=First selection has not been made yet.
+worldedit.selection.cuboid.primary=First position set to %s.
+worldedit.selection.cuboid.primaryArea=First position set to %1 (%2).
+worldedit.selection.cuboid.secondary=Second position set to %s.
+worldedit.selection.cuboid.secondaryArea=Second position set to %1 (%2).
 
-worldedit.permission.granted=§eYou have been given WorldEdit permissions.§r
+worldedit.permission.granted=§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r
 worldedit.permission.revoked=§eYou're WorldEdit permissions have been removed.§r
 
-commands.generic.wedit:no-clipboard=Your clipboard is empty. Copy or cut a region first.
-worldedit.error.command-fail=Failed to execute this command.
-worldedit.error.no-permission=You don't have the permission to execute this command.
-worldedit.error.item.no-perms=You don't have the permission to use this item.
-worldedit.error.incomplete-region=Make a region selection first.
+## WORLDEDIT COMMANDS
 
-worldedit.help.header=--- Showing help page %1$d of %2$d (;help <page>) ---
-
-worldedit.drawsel.enabled=Your selections will now be visible.
-worldedit.drawsel.disabled=Your selections will no longer be visible.
-
-worldedit.wand.generic.info=Wand Updated.
-worldedit.wand.selwand.info=Sneak and tap block: select pos #1; Tap block without sneak: select pos #2
-worldedit.wand.navwand.info=Sneak and tap block: jump to location; Tap block without sneak: pass through walls
-worldedit.wand.brush.no-bind=No brush has been bounded to this tier.
-
-worldedit.selection.no-primary=First selection has not been made yet.
-worldedit.selection.cuboid.explain.primary=First position set to %s.
-worldedit.selection.cuboid.explain.primary-area=First position set to %1 (%2).
-worldedit.selection.cuboid.explain.secondary=Second position set to %s.
-worldedit.selection.cuboid.explain.secondary-area=Second position set to %1 (%2).
-
-worldedit.copy.explain=Copied %s blocks.
-worldedit.cut.explain=Cut %s blocks.
-worldedit.paste.explain=Pasted %s blocks.
-
-worldedit.generate.created=%s blocks have been created.
-worldedit.set.changed=%s blocks have been changed.
-
-worldedit.unstuck.moved=There you go!
-worldedit.thru.obstructed=No free spot ahead of you found.
-worldedit.thru.none=Not against or facing a wall to go through.
-worldedit.thru.moved=Whoosh!
-worldedit.up.moved=Whoosh!
-worldedit.jumpto.moved=Poof!
-worldedit.jumpto.none=No block in sight (or too far)!
-worldedit.brush.invalid-tier=%s is an invalid brush tier.
-
-commands.generic.invalidDir='%s' is an invalid direction argument!
-commands.generic.invalidFlag=Unexpected flag: %s
-commands.generic.tooSmall=The number (%1) is too small! It must be at least (%2).
-commands.generic.tooBig=The number (%1) is too big! It must be at most (%2).
+commands.blocks.wedit:changed=%s blocks have been changed.
+commands.blocks.wedit:created=%s blocks have been created.
+commands.generic.wedit:commandFail=Failed to execute this command.
+commands.generic.wedit:noSelection=Make a selection first.
+commands.generic.wedit:invalidDir='%s' is an invalid direction argument!
+commands.generic.wedit:invalidFlag=Unexpected flag: %s
+commands.generic.wedit:noClipboard=Your clipboard is empty. Copy or cut a region first.
+commands.generic.wedit:noCuboidSelection=Make a cuboid selection first.
+commands.generic.wedit:noPermission=You don't have the permission to execute this command.
+commands.generic.wedit:outsideWorld=Cannot modify unloaded chunks!
+commands.generic.wedit:tooBig=The number (%1) is too big! It must be at most (%2).
+commands.generic.wedit:tooSmall=The number (%1) is too small! It must be at least (%2).
+commands.generic.wedit:wandInfo=Wand updated.
 
 commands.wedit:brush.description=Set the type of a brush
+commands.wedit:brush.noBind=No brush has been bounded to this tier.
+commands.wedit:clearhistory.description=Clear your editing history
+commands.wedit.clearhistory.explain=History cleared.
+commands.wedit:copy.description=Copy the current selection to the clipboard
+commands.wedit:copy.explain=Copied %s blocks.
+commands.wedit:cut.description=Remove your current selection and place it in the clipboard
+commands.wedit:cut.explain=Cut %s blocks.
+commands.wedit:cyl.description=Generate a cylinder
+commands.wedit:drawsel.description=Toggle your selection's visibility
+commands.wedit:drawsel.disabled=Your selections will no longer be visible.
+commands.wedit:drawsel.enabled=Your selections will now be visible.
+commands.wedit:flip.description=Flip the selection
+commands.wedit:flip.explain=Flipped %s blocks.
+commands.wedit:flip.notLateral=Cannot flip up or down!
+commands.wedit:gmask.description=Set the global mask
+commands.wedit:gmask.disabled=Global mask disabled.
+commands.wedit:gmask.set=Global mask set.
+commands.wedit:hcyl.description=Generate a hollow cylinder
+commands.wedit:help.header=--- Showing help page %1$d of %2$d (;help <page>) ---
+commands.wedit:hpyramid.description=Generate a hollow pyramid
+commands.wedit:hsphere.description=Generate a hollow sphere
+commands.wedit:jumpto.description=Teleport you to the top of the block you're looking at
+commands.wedit:jumpto.explain=Poof!
+commands.wedit:jumpto.none=No block in sight (or too far)!
+commands.wedit:kit.description=Give yourself a set of items to do common worldedit functions
+commands.wedit:kit.explain=Kit given.
 commands.wedit:mask.description=Set what kind of blocks a brush can affect, if any
 commands.wedit:material.description=Set what kind of blocks a brush should make
-commands.wedit:range.description=Set how far a brush can be used from
-commands.wedit:size.description=Set the size of a brush
-commands.wedit:tracemask.description=Set what kind of blocks a brush can be used on
-commands.wedit:copy.description=Copy the current selection to the clipboard
-commands.wedit:cut.description=Remove your current selection and place it in the clipboard
-commands.wedit:paste.description=Paste your clipboard into the world
-commands.wedit:cyl.description=Generate a cylinder
-commands.wedit:hcyl.description=Generate a hollow cylinder
-commands.wedit:sphere.description=Generate a sphere
-commands.wedit:hsphere.description=Generate a hollow sphere
-commands.wedit:pyramid.description=Generate a pyramid
-commands.wedit:hpyramid.description=Generate a hollow pyramid
-commands.wedit:clearhistory.description=Clear your editing history
-commands.wedit:undo.description=Undo a certain amount of actions
-commands.wedit:redo.description=Redo a certain amount of actions
-commands.wedit:jumpto.description=Teleport you to the top of the block you're looking at
-commands.wedit:navwand.description=Give yourself a navigation wand
-commands.wedit:thru.description=Teleport through any wall you look at
-commands.wedit:unstuck.description=Move out of blocks
-commands.wedit:up.description=Move up a certain number of blocks
-commands.wedit:gmask.set=Global mask set.
-commands.wedit:gmask.disabled=Global mask disabled.
-commands.wedit:gmask.description=Set the global mask
 commands.wedit:move.description=Move the selection in a certain direction
-commands.wedit:replace.description=Replace certain blocks in the selection with other blocks
-commands.wedit:flip.not-lateral=Cannot flip up or down!
-commands.wedit:flip.flipped=Flipped %s blocks.
-commands.wedit:flip.description=Flip the selection
-commands.wedit:rotate.not-ninety="%s" is not an increment of 90°!
-commands.wedit:rotate.rotated=Rotated %s blocks.
-commands.wedit:rotate.description=Rotate the selection
-commands.wedit:sel.clear=Selection cleared.
-commands.wedit:set.description=Fill the selection with a block pattern
-commands.wedit:stack.description=Repeat the contents of the current selection
-commands.wedit:sel.description=Change selection mode (currently can only clear selection)
-commands.wedit:drawsel.description=Toggle your selection's visibility
+commands.wedit:move.explain=Moved %s blocks.
+commands.wedit:navwand.description=Give yourself a navigation wand
+commands.wedit:navwand.explain=Sneak and tap block: jump to location; Tap block without sneak: pass through walls
+commands.wedit:paste.description=Paste your clipboard into the world
+commands.wedit:paste.explain=Pasted %s blocks.
 commands.wedit:pos1.description=Set the first position of your selection to the specified or current position
 commands.wedit:pos2.description=Set the second position of your selection to the specified or current position
-commands.wedit:wand.description=Give yourself a selection wand
+commands.wedit:pyramid.description=Generate a pyramid
+commands.wedit:range.description=Set how far a brush can be used from
+commands.wedit:redo.description=Redo a certain amount of actions
+commands.wedit:redo.explain=Redid %s available edits.
+commands.wedit:redo.none=Nothing left to redo.
+commands.wedit:replace.description=Replace certain blocks in the selection with other blocks
+commands.wedit:rotate.description=Rotate the selection
+commands.wedit:rotate.explain=Rotated %s blocks.
+commands.wedit:rotate.notNinety="%s" is not an increment of 90°!
+commands.wedit:sel.clear=Selection cleared.
+commands.wedit:sel.description=Change selection mode (currently can only clear selection)
+commands.wedit:set.description=Fill the selection with a block pattern
+commands.wedit:size.description=Set the size of a brush
+commands.wedit:stack.description=Repeat the contents of the current selection
+commands.wedit:stack.explain=Created %s blocks from stacking.
+commands.wedit:sphere.description=Generate a sphere
+commands.wedit:thru.description=Teleport through any wall you look at
+commands.wedit:thru.explain=Whoosh!
+commands.wedit:thru.none=Not against or facing a wall to go through.
+commands.wedit:thru.obstructed=No free spot ahead of you found.
+commands.wedit:tracemask.description=Set what kind of blocks a brush can be used on
 commands.wedit:tool.description=Get all sorts of tools (currently only the stacker)
+commands.wedit:unstuck.description=Move out of blocks
+commands.wedit:unstuck.explain=There you go!
+commands.wedit:undo.description=Undo a certain amount of actions
+commands.wedit:undo.explain=Undid %s available edits.
+commands.wedit:undo.none=Nothing left to undo.
+commands.wedit:up.description=Move up a certain number of blocks
+commands.wedit:up.explain=Whoosh!
+commands.wedit:wand.description=Give yourself a selection wand
+commands.wedit:wand.explain=Sneak and tap block: select pos #1; Tap block without sneak: select pos #2
+commands.wedit:worldedit.description=Information about WorldEdit
+commands.wedit:worldedit.version=WorldEdit version: %s
 
 ## HOW TO PLAY
 howtoplay.category.worldEdit=WorldEdit
@@ -206,7 +209,9 @@ howtoplay.wedit:quick_start.text.20=§r5. Disable the brush with §e;br tier non
 
 howtoplay.wedit:quick_start.header.6=No commands? No problem
 howtoplay.wedit:quick_start.text.21=If typing commands isn't your thing, whether it's because you don't use a keyboard, or their complicated, this addon gives you a simpler alternative.
-howtoplay.wedit:quick_start.text.22=If you get a wooden axe instead of using §e;wand§r, you'll be given a bunch of items as alternatives to commands. They're not as extensive as commands, but allow you to do the more common tasks more quickly, such as copying and pasting, and setting up brushes.
+howtoplay.wedit:quick_start.text.22=If you type §e;kit§r, you'll be given a bunch of items as alternatives to commands. They're not as extensive as commands, but allow you to do the more common tasks more quickly, such as copying and pasting, and setting up brushes.
 
 howtoplay.wedit:quick_start.header.7=What now?
 howtoplay.wedit:quick_start.text.23=To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r
+
+howtoplay.category.minecraft=Minecraft

@@ -51,7 +51,7 @@ commandList['rotate'] = [registerInformation, (session, builder, args) => {
         const dim = PlayerUtil.getDimension(session.getPlayer())[1];
         assertCanBuildWithin(dim, start, end);
         
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(builder.location);
+        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
         
         Regions.save('tempRotate', start, end, builder);
         Regions.rotate('tempRotate', args.get('rotate'), center, builder);
@@ -75,14 +75,16 @@ commandList['rotate'] = [registerInformation, (session, builder, args) => {
         }
         Regions.delete('tempRotate', builder);
         
+        if (args.has('s')) {
+            history.recordSelection(session);
+            session.setSelectionPoint(0, newStart);
+            session.setSelectionPoint(1, newEnd);
+            history.recordSelection(session);
+        }
+        
         history.addRedoStructure(newStart, newEnd, 'any');
         history.addRedoStructure(start, end, 'any');
         history.commit();
-        
-        if (args.has('s')) {
-            session.setSelectionPoint(0, newStart);
-            session.setSelectionPoint(1, newEnd);
-        }
     }
     
     return RawText.translate('commands.wedit:rotate.explain').with(blockCount);
