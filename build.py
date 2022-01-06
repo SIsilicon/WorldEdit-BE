@@ -80,6 +80,6 @@ else:
     try: shutil.copytree('RP', 'builds/WeditRP')
     except: pass
     
-    regExpSub('"name":(.+)",', '"name":\1(Dev)",', 'builds/WeditBP/manifest.json')
-    regExpSub('"name":(.+)",', '"name":\1(Dev)",', 'builds/WeditRP/manifest.json')
+    regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditBP/manifest.json')
+    regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditRP/manifest.json')
     
