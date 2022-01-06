@@ -4,8 +4,22 @@
     "modifications": [
       {
         "array_name": "controls",
+        "operation": "remove",
+        "where": {
+          "type": "panel",
+          "size": [0, 6]
+        }
+      },
+      {
+        "array_name": "controls",
         "operation": "insert_front",
         "value": [
+          {
+            "padding_0": {
+              "type": "panel",
+              "size": [0, 6]
+            }
+          },
           {
             "worldedit_category@how_to_play_common.topic_category": {
               "$category": "worldEdit"
@@ -196,24 +210,6 @@
       },
       {
         "padding_6@how_to_play_common.padding": {}
-      },
-      {
-        "header_6@how_to_play_common.header": {
-          "$text": "howtoplay.wedit:quick_start.header.6"
-        }
-      },
-      {
-        "paragraph_21@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:quick_start.text.21"
-        }
-      },
-      {
-        "paragraph_22@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:quick_start.text.22"
-        }
-      },
-      {
-        "padding_7@how_to_play_common.padding": {}
       },
       {
         "header_7@how_to_play_common.header": {

@@ -72,7 +72,7 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
 const worldY: {[k: string]: [number, number]} = {
     'overworld': [-999, 999],
     'nether': [0, 128],
-    'the_end': [0, 128]
+    'the end': [0, 128]
 }
 /**
  * Gets the minimum Y level of the dimension a player is in.

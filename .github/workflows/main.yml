@@ -28,6 +28,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
       - uses: montudor/action-zip@v1
       - uses: actions/setup-node@v1
         with:
@@ -42,8 +43,16 @@ jobs:
       - name: Run build script (${{ matrix.target }})
         run: python build.py --clean --target ${{ matrix.target }}
       
-      - name: Archive addon artifact (${{ matrix.target }})
+      - name: Archive addon artifact (release)
         uses: actions/upload-artifact@v2
+        if: ${{ matrix.target == 'release'}}
         with:
-          name: mcaddon-artifact-${{ matrix.target }}
+          name: mcaddon-artifact-release
           path: builds/WorldEdit.mcaddon
+      
+      - name: Archive addon artifact (debug)
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.target == 'debug'}}
+        with:
+          name: mcaddon-artifact-debug
+          path: builds/WeditBP | builds/WeditRP
