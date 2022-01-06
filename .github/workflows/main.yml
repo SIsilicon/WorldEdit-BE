@@ -55,4 +55,6 @@ jobs:
         if: ${{ matrix.target == 'debug'}}
         with:
           name: mcaddon-artifact-debug
-          path: builds/WeditBP | builds/WeditRP
+          path: |
+            builds/WeditBP
+            builds/WeditRP
