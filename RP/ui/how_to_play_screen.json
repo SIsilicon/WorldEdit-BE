@@ -4,18 +4,10 @@
     "modifications": [
       {
         "array_name": "controls",
-        "operation": "remove",
-        "where": {
-          "type": "panel",
-          "size": [0, 6]
-        }
-      },
-      {
-        "array_name": "controls",
         "operation": "insert_front",
         "value": [
           {
-            "padding_0": {
+            "padding_00": {
               "type": "panel",
               "size": [0, 6]
             }
