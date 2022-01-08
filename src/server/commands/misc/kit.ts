@@ -22,6 +22,7 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
         'wedit:flip_button',
         'wedit:rotate_cw_button',
         'wedit:rotate_ccw_button',
+        'wedit:mask_picker',
         'wedit:config_button'
     ];
     

@@ -15,7 +15,7 @@ export interface commandFlag {
 }
 export interface commandSubDef {
     subName: string,
-    args: commandArgList
+    args?: commandArgList
 }
 
 export type commandArgList = Array<commandArg | commandFlag | commandSubDef>;

@@ -1,7 +1,8 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
 import { assertCanBuildWithin } from './assert.js';
-import { canPlaceBlock } from '../util.js';
+import { canPlaceBlock, printDebug } from '../util.js';
+import { PlayerSession, selectMode } from '../sessions.js';
 import { Vector } from './vector.js';
 import { PlayerUtil } from './player_util.js';
 import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
@@ -9,7 +10,12 @@ import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
 type historyEntry = {
     name: string,
     location: BlockLocation
-}
+};
+
+type selectionEntry = {
+    type: selectMode,
+    points: BlockLocation[]
+};
 
 let historyId = Date.now();
 
@@ -17,13 +23,15 @@ export class History {
     private recording = false;
     private recordingBrush = false;
 
-    private undoStructures: historyEntry[][] = [];
-    private redoStructures: historyEntry[][] = [];
-    private historyIdx = -1;
-
     private recordingUndo: historyEntry[];
     private recordingRedo: historyEntry[];
-
+    private recordingSelection: [selectionEntry, selectionEntry] | selectionEntry | 'none';
+    
+    private undoStructures: historyEntry[][] = [];
+    private redoStructures: historyEntry[][] = [];
+    private selectionHistory: (typeof this.recordingSelection)[] = [];
+    private historyIdx = -1;
+    
     private player: Player;
 
     constructor(player: Player) {
@@ -41,6 +49,7 @@ export class History {
 
         this.recordingUndo = [];
         this.recordingRedo = [];
+        this.recordingSelection = 'none';
     }
 
     commit() {
@@ -54,16 +63,17 @@ export class History {
         for (let i = this.historyIdx; i < this.undoStructures.length; i++) {
             this.deleteHistoryRegions(i);
         }
-        this.undoStructures.length = this.historyIdx + 1;
-        this.redoStructures.length = this.historyIdx + 1;
-
+        this.undoStructures.length = this.redoStructures.length = this.selectionHistory.length = this.historyIdx + 1;
+        
         this.undoStructures[this.historyIdx] = this.recordingUndo;
         this.redoStructures[this.historyIdx] = this.recordingRedo;
-
+        this.selectionHistory[this.historyIdx] = this.recordingSelection;
+        
         while (this.historyIdx > MAX_HISTORY_SIZE - 1) {
             this.deleteHistoryRegions(0);
             this.undoStructures.shift();
             this.redoStructures.shift();
+            this.selectionHistory.shift();
             this.historyIdx--;
         }
     }
@@ -105,8 +115,28 @@ export class History {
             'location': Vector.min(start, end).toBlock()
         })
     }
-
-    undo() {
+    
+    recordSelection(session: PlayerSession) {
+        this.assertRecording();
+        if (this.recordingSelection == 'none') { 
+            this.recordingSelection = {
+                type: session.selectionMode,
+                points: session.getSelectionPoints()
+            }
+        } else if ('points' in this.recordingSelection) {
+            this.recordingSelection = [
+                this.recordingSelection,
+                {
+                    type: session.selectionMode,
+                    points: session.getSelectionPoints()
+                }
+            ]
+        } else {
+            throw 'Cannot call "recordSelection" more than two times!';
+        }
+    }
+    
+    undo(session: PlayerSession) {
         this.assertNotRecording();
         if (this.historyIdx <= -1) {
             return true;
@@ -117,33 +147,59 @@ export class History {
             const pos = region.location;
             const size = Regions.getSize(region.name, this.player);
             assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
-        };
+        }
         
         for (const region of this.undoStructures[this.historyIdx]) {
             Regions.load(region.name, region.location, this.player);
-        };
+        }
+        
+        let selection: selectionEntry;
+        if (Array.isArray(this.selectionHistory[this.historyIdx])) {
+            selection = (<[selectionEntry, selectionEntry]> this.selectionHistory[this.historyIdx])[0];
+        } else if (this.selectionHistory[this.historyIdx] != 'none') {
+            selection = <selectionEntry> this.selectionHistory[this.historyIdx];
+        }
+        if (selection) {
+            session.selectionMode = selection.type;
+            for (let i = 0; i < selection.points.length; i++) {
+                session.setSelectionPoint(i == 0 ? 0 : 1, selection.points[i]);
+            }
+        }
         this.historyIdx--;
 
         return false;
     }
 
-    redo() {
+    redo(session: PlayerSession) {
         this.assertNotRecording();
         if (this.historyIdx >= this.redoStructures.length - 1) {
             return true;
         }
         
         const dim = PlayerUtil.getDimension(this.player)[1];
-        for (const region of this.redoStructures[this.historyIdx]) {
+        for (const region of this.redoStructures[this.historyIdx+1]) {
             const pos = region.location;
             const size = Regions.getSize(region.name, this.player);
             assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
-        };
+        }
         
         this.historyIdx++;
         for (const region of this.redoStructures[this.historyIdx]) {
             Regions.load(region.name, region.location, this.player);
-        };
+        }
+        
+        let selection: selectionEntry;
+        if (Array.isArray(this.selectionHistory[this.historyIdx])) {
+            selection = (<[selectionEntry, selectionEntry]> this.selectionHistory[this.historyIdx])[1];
+        } else if (this.selectionHistory[this.historyIdx] != 'none') {
+            selection = <selectionEntry> this.selectionHistory[this.historyIdx];
+        }
+        if (selection) {
+            session.selectionMode = selection.type;
+            for (let i = 0; i < selection.points.length; i++) {
+                session.setSelectionPoint(i == 0 ? 0 : 1, selection.points[i]);
+            }
+        }
 
         return false;
     }
@@ -210,7 +266,7 @@ export class History {
                 this.cancel();
                 throw 'Failed to save history!';
             }
-        } catch(err) {
+        } catch (err) {
             finish();
             this.cancel();
             throw err;

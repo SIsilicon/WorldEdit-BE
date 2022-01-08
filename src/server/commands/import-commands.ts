@@ -10,14 +10,13 @@ import { Player } from 'mojang-minecraft';
 import { print, printerr, printDebug } from '../util.js';
 import { COMMAND_PREFIX } from '@config.js';
 
-// TODO: Localization of all strings
-
 Server.command.addCustomArgType('Mask', Mask);
 Server.command.addCustomArgType('Pattern', Pattern);
 Server.command.addCustomArgType('Direction', Cardinal);
 
 import './misc/help.js';
 import './misc/kit.js';
+import './misc/worldedit.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';
@@ -74,17 +73,13 @@ let _printToActionBar = false;
 
 for (const name in commandList) {
     const command = commandList[name];
-    registerCommand(command[0], command[1]);
-}
-
-function registerCommand(cmd: registerInformation, callback: commandFunc) {
-    Server.command.register(cmd, (data, args) => {
+    Server.command.register(command[0], (data, args) => {
         let toActionBar = _printToActionBar;
         _printToActionBar = false;
         try {
             const player = data.sender;
             assertBuilder(player);
-            const msg = callback(getSession(player), player, args);
+            const msg = command[1](getSession(player), player, args);
             print(msg, player, toActionBar);
         } catch (e) {
             if (hasSession(data.sender.nameTag)) {

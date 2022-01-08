@@ -15,11 +15,12 @@ try:
 except FileNotFoundError:
     sys.exit('tsc does not seem to exist. It is required to build the addon\'s scripts.')
 
-# Check for zip command
-try:
-    subprocess.call(['zip', '--version'])
-except FileNotFoundError:
-    sys.exit('zip does not seem to exist. It is required to package the addon.')
+if args.target == 'release':
+    # Check for zip 
+    try:
+        subprocess.call(['zip', '--version'])
+    except FileNotFoundError:
+        sys.exit('zip does not seem to exist. It is required to package the addon.')
 
 if not args.package_only:
     # Check for input and output folder
@@ -47,21 +48,38 @@ if not args.package_only:
     print('building scripts...')
     subprocess.call(['tsc', '-b'])
 
+def regExpSub(regEx, replace, file):
+    with open(file, 'r') as f:
+        content = f.read()
+        contentNew = re.sub(regEx, replace, content, flags = re.M)
+    with open(file, 'w') as f:
+        f.write(contentNew)
+
 # Set debug mode
-with open('BP/scripts/config.js', 'r') as f:
-    content = f.read()
-    content_new = re.sub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', content, flags = re.M)
-with open('BP/scripts/config.js', 'w') as f:
-    f.write(content_new)
+regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
 
 # Remap absolute imports
 subprocess.call(['python', 'remap_imports.py'])
 
-# Package the addon
-subprocess.call(['zip', '-r', '../WorldEditBP.mcpack', './', '-x', '.stfolder/'], cwd='BP')
-subprocess.call(['zip', '-r', '../WorldEditRP.mcpack', './', '-x', '.stfolder/'], cwd='RP')
-subprocess.call(['zip', '-m', 'WorldEdit.mcaddon', 'WorldEditRP.mcpack', 'WorldEditBP.mcpack'])
-
 if not os.path.isdir('builds'):
     os.makedirs('builds')
-os.replace('WorldEdit.mcaddon', 'builds/WorldEdit.mcaddon')
+
+if args.target == 'release':
+    # Package the addon
+    subprocess.call(['zip', '-r', '../WorldEditBP.mcpack', './', '-x', '.stfolder/'], cwd='BP')
+    subprocess.call(['zip', '-r', '../WorldEditRP.mcpack', './', '-x', '.stfolder/'], cwd='RP')
+    subprocess.call(['zip', '-m', 'WorldEdit.mcaddon', 'WorldEditRP.mcpack', 'WorldEditBP.mcpack'])
+    os.replace('WorldEdit.mcaddon', 'builds/WorldEdit.mcaddon')
+else:
+    if os.path.exists('builds/WeditBP'):
+        shutil.rmtree('builds/WeditBP')
+    if os.path.exists('builds/WeditRP'):
+        shutil.rmtree('builds/WeditRP')
+    try: shutil.copytree('BP', 'builds/WeditBP')
+    except: pass
+    try: shutil.copytree('RP', 'builds/WeditRP')
+    except: pass
+    
+    regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditBP/manifest.json')
+    regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditRP/manifest.json')
+    

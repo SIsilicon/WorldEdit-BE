@@ -7,7 +7,6 @@ import { printDebug, printLocation } from '../util.js';
 import { Token } from './extern/tokenizr.js';
 import { lexer, throwTokenError, parseBlock, parsedBlock } from './parser.js';
 
-// TODO: Update Documentation on patterns
 export class Pattern {
     private blocks: parsedBlock[] = [];
     private stringObj = '';
@@ -48,10 +47,16 @@ export class Pattern {
         this.stringObj = '';
     }
     
+    empty() {
+        return this.blocks.length == 0;
+    }
+    
     addBlock(block: BlockPermutation) {
         const states: Map<string, string|number|boolean> = new Map();
         block.getAllProperties().forEach(state => {
+            if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
+            }
         })
         this.blocks.push({
                 id: block.type.id,

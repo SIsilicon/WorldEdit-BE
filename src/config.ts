@@ -24,3 +24,6 @@ export const PRINT_TO_ACTION_BAR: boolean = true;
 
 // Assumed height of players.
 export const PLAYER_HEIGHT: number = 1.61;
+
+// The version of WorldEdit (do not change)
+export const VERSION: string = '0.3.0';

@@ -35,6 +35,7 @@ const registerInformation = {
 commandList['cut'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     history.record();
+    history.recordSelection(session);
 
     const [start, end] = session.getSelectionRange();
     history.addUndoStructure(start, end, 'any');

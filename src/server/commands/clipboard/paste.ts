@@ -39,26 +39,27 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     }
     let pasteEnd = Vector.add(pasteStart, Vector.sub(Regions.getSize('clipboard', builder), Vector.ONE)).toBlock();
     
+    const history = session.getHistory();
+    history.record();
+    
     if (pasteContent) {
         assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], pasteStart, pasteEnd);
-        const history = session.getHistory();
-        history.record();
-        history.addUndoStructure(pasteStart, pasteEnd, 'any');
         
+        history.addUndoStructure(pasteStart, pasteEnd, 'any');
         if (Regions.load('clipboard', pasteStart, builder)) {
             throw RawText.translate('commands.generic.wedit:command-Fail');
         }
-        
         history.addRedoStructure(pasteStart, pasteEnd, 'any');
-        history.commit();
     }
     
     if (setSelection) {
-        // TODO: Set selection to cuboid
-        session.clearSelectionPoints();
+        session.selectionMode = 'cuboid';
         session.setSelectionPoint(0, pasteStart);
         session.setSelectionPoint(1, pasteEnd);
+        history.recordSelection(session);
     }
+    
+    history.commit();
     
     if (pasteContent) {
         return RawText.translate('commands.wedit:paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);

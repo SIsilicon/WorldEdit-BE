@@ -36,8 +36,11 @@ function getAffectedBlocks(session: PlayerSession, mask: Mask) {
 commandList['replace'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
     assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    if (session.usingItem && session.globalPattern.empty()) {
+        throw RawText.translate('worldEdit.selectionFill.noPattern');
+    }
     
-    const mask = args.get('mask');
+    const mask = session.usingItem ?  session.globalMask : args.get('mask');
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
     
     const history = session.getHistory();
@@ -56,10 +59,11 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of affectedBlocks) {
         if (!pattern.setBlock(blockLoc, dim)) {
-                count++;
+            count++;
         }
     }
-
+    
+    history.recordSelection(session);
     history.addRedoStructure(start, end, affectedBlocks);
     history.commit();
 

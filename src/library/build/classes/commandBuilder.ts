@@ -162,7 +162,7 @@ export class CommandBuilder {
                 text.push(subName);
             }
             
-            args.forEach(arg => {
+            args?.forEach(arg => {
                 if((!('flag' in arg) || arg.flag && arg.name) && flagText) {
                     text.push(flagText + ']');
                     flagText = null;
@@ -282,11 +282,11 @@ export class CommandBuilder {
             let defIdx = 0;
             let hasNamedSubCmd = false;
             const flagDefs = new Map<string, commandFlag>();
-            for(const argDef of argDefs) {
+            argDefs?.forEach(argDef => {
                 if('flag' in argDef && !flagDefs.has(argDef.flag)) {
                     flagDefs.set(argDef.flag, argDef);
                 }
-            }
+            });
             
             function processSubCmd(idx: number, arg: string) {
                 let processed = false;
@@ -365,7 +365,7 @@ export class CommandBuilder {
                 }
                 
                 let argDef: commandArg | commandSubDef;
-                while(defIdx < argDefs.length) {
+                while(defIdx < (argDefs?.length ?? 0)) {
                     if(!('flag' in argDefs[defIdx])) {
                         argDef = <typeof argDef>argDefs[defIdx];
                         break;
@@ -391,7 +391,7 @@ export class CommandBuilder {
             }
             
             // Process optional arguments (and throw if some are required)
-            while(defIdx < argDefs.length) {
+            while(defIdx < (argDefs?.length ?? 0)) {
                 const argDef = argDefs[defIdx];
                 if(!('flag' in argDef)) {
                     if('type' in argDef && argDef?.default != undefined && !('subName' in argDef)) {

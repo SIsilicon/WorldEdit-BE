@@ -23,7 +23,7 @@ commandList['undo'] = [registerInformation, (session, builder, args) => {
     const times = args.get('times') as number;
     const history = session.getHistory();
     for(var i = 0; i < times; i++) {
-        if (history.undo()) {
+        if (history.undo(session)) {
             break;
         }
     }
