@@ -10,13 +10,17 @@ import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
-    abstract readonly command: string;
+    abstract readonly command: string | string[];
     abstract readonly tag: string;
     abstract readonly itemTool: string;
     
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
-        callCommand(player, this.command);
+        if (typeof this.command == 'string') {
+            callCommand(player, this.command);
+        } else {
+            callCommand(player, this.command[0], this.command.slice(1));
+        }
         session.usingItem = false;
     }
 }
@@ -37,7 +41,7 @@ Tools.register(CopyTool, 'copy');
 
 class PasteTool extends CommandButton {
     tag = 'wedit:performing_paste';
-    command = 'paste';
+    command = ['paste', '-s'];
     itemTool = 'wedit:paste_button';
 }
 Tools.register(PasteTool, 'paste');
@@ -56,12 +60,60 @@ class RedoTool extends CommandButton {
 }
 Tools.register(RedoTool, 'redo');
 
+class RotateCWTool extends Tool {
+    tag = 'wedit:performing_rotate_cw';
+    itemTool = 'wedit:rotate_cw_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['90', '-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'rotate', args);
+        session.usingItem = false;
+    }
+}
+Tools.register(RotateCWTool, 'rotate_cw');
+
+class RotateCCWTool extends Tool {
+    tag = 'wedit:performing_rotate_ccw';
+    itemTool = 'wedit:rotate_ccw_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['-90', '-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'rotate', args);
+        session.usingItem = false;
+    }
+}
+Tools.register(RotateCCWTool, 'rotate_ccw');
+
+class FlipTool extends Tool {
+    tag = 'wedit:performing_flip';
+    itemTool = 'wedit:flip_button';
+    
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        const args = ['-s'];
+        if (player.isSneaking) {
+            args.push('-o')
+        }
+        callCommand(player, 'flip', args);
+        session.usingItem = false;
+    }
+}
+Tools.register(FlipTool, 'flip');
+
 class SpawnGlassTool extends Tool {
     tag = 'wedit:performing_spawn_glass';
     itemTool = 'wedit:spawn_glass';
     use = (player: Player, session: PlayerSession) => {
         if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
-                throw RawText.translate('worldedit.spawn-glass.error');
+                throw RawText.translate('worldedit.spawnGlass.error');
         }
     }
 }
@@ -72,7 +124,11 @@ class SelectionFillTool extends Tool {
     itemTool = 'wedit:selection_fill';
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
-        callCommand(player, 'set', ['placeholder']);
+        if (session.globalMask.empty()) {
+            callCommand(player, 'set', ['air']);
+        } else {
+            callCommand(player, 'replace', ['air', 'air']);
+        }
         session.usingItem = false;
     }
 }

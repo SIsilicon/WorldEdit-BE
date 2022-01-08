@@ -1,21 +1,44 @@
-import { Player } from 'mojang-minecraft';
+import { Player, BlockLocation } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
+import { dimension } from '@library/@types/index.js';
 import { RawText } from './rawtext.js';
+import { Regions } from './regions.js';
+import { Vector } from './vector.js';
+import { PlayerSession } from '../sessions.js';
+import { canPlaceBlock, printDebug } from '../util.js';
 
 export function assertBuilder(player: Player) {
     if (!Server.player.hasTag('builder', player.nameTag)) {
-        throw RawText.translate('worldedit.error.no-permission');
+        throw RawText.translate('commands.generic.wedit:noPermission');
     }
 }
 
-export function assertValidNumber(number: number, original: string) {
-    if (isNaN(number)) {
-        throw RawText.translate('worldedit.error.invalid-number').with(original);
+export function assertCanBuildWithin(dim: dimension, min: BlockLocation, max: BlockLocation) {
+    const minChunk = Vector.from(min).mul(1/16).floor().mul(16);
+    const maxChunk = Vector.from(max).mul(1/16).ceil().mul(16);
+    
+    for (let z = minChunk.z; z < maxChunk.z; z += 16)
+    for (let x = minChunk.x; x < maxChunk.x; x += 16) {
+        if (!canPlaceBlock(new BlockLocation(x, 0, z), dim)) {
+            throw RawText.translate('commands.generic.wedit:outsideWorld');
+        }
     }
 }
 
-export function assertPositiveNumber(number: number) {
-    if (number <= 0) {
-        throw RawText.translate('worldedit.error.not-positive').with(`${number}`);
+export function assertClipboard(player: Player) {
+    if (!Regions.has('clipboard', player)) {
+        throw RawText.translate('commands.generic.wedit:noClipboard');
+    }
+}
+
+export function assertSelection(session: PlayerSession) {
+    if (session.getBlocksSelected().length == 0) {
+        throw RawText.translate('commands.generic.wedit:noSelection');
+    }
+}
+
+export function assertCuboidSelection(session: PlayerSession) {
+    if (session.getBlocksSelected().length == 0 || session.selectionMode != 'cuboid') {
+        throw RawText.translate('commands.generic.wedit:noCuboidSelection');
     }
 }

@@ -4,20 +4,14 @@
     "modifications": [
       {
         "array_name": "controls",
-        "operation": "remove",
-        "where": {
-          "padding_1@how_to_play_common.padding": {
-            "size": [
-              0,
-              10
-            ]
-          }
-        }
-      },
-      {
-        "array_name": "controls",
-        "operation": "insert_back",
+        "operation": "insert_front",
         "value": [
+          {
+            "padding_00": {
+              "type": "panel",
+              "size": [0, 6]
+            }
+          },
           {
             "worldedit_category@how_to_play_common.topic_category": {
               "$category": "worldEdit"
@@ -29,11 +23,8 @@
             }
           },
           {
-            "padding_1@how_to_play_common.padding": {
-              "size": [
-                0,
-                10
-              ]
+            "minecraft_category@how_to_play_common.topic_category": {
+              "$category": "minecraft"
             }
           }
         ]
@@ -44,20 +35,10 @@
     "modifications": [
       {
         "array_name": "controls",
-        "operation": "remove",
-        "where": {
-          "section_contents_footer@how_to_play_common.section_contents_footer": {}
-        }
-      },
-      {
-        "array_name": "controls",
-        "operation": "insert_back",
+        "operation": "insert_front",
         "value": [
           {
             "wedit:quick_start_section@how_to_play.wedit:quick_start_section": {}
-          },
-          {
-            "section_contents_footer@how_to_play_common.section_contents_footer": {}
           }
         ]
       }
@@ -76,6 +57,9 @@
       }
     ],
     "controls": [
+      {
+        "padding_0@how_to_play_common.padding": {}
+      },
       {
         "paragraph_1@how_to_play_common.paragraph": {
           "$text": "howtoplay.wedit:quick_start.text.1"
@@ -218,24 +202,6 @@
       },
       {
         "padding_6@how_to_play_common.padding": {}
-      },
-      {
-        "header_6@how_to_play_common.header": {
-          "$text": "howtoplay.wedit:quick_start.header.6"
-        }
-      },
-      {
-        "paragraph_21@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:quick_start.text.21"
-        }
-      },
-      {
-        "paragraph_22@how_to_play_common.paragraph": {
-          "$text": "howtoplay.wedit:quick_start.text.22"
-        }
-      },
-      {
-        "padding_7@how_to_play_common.padding": {}
       },
       {
         "header_7@how_to_play_common.header": {

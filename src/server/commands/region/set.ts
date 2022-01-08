@@ -1,5 +1,7 @@
 import { PlayerSession } from '../../sessions.js';
-import { printDebug, regionMax, regionMin } from '../../util.js';
+import { printDebug } from '../../util.js';
+import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { Vector } from '@modules/vector.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
@@ -38,11 +40,10 @@ export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
 }
 
 commandList['set'] = [registerInformation, (session, builder, args) => {
-    if (session.getBlocksSelected().length == 0) {
-        throw 'You need to make a selection to set!';
-    }
-    if (session.usingItem && !session.globalPattern.toString()) {
-        throw 'You need to specify a block to set the selection to!';
+    assertSelection(session);
+    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    if (session.usingItem && session.globalPattern.empty()) {
+        throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
@@ -52,15 +53,16 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
 
     if (session.selectionMode == 'cuboid') {
         const [pos1, pos2] = session.getSelectionPoints();
-        var start = regionMin(pos1, pos2);
-        var end = regionMax(pos1, pos2);
+        var start = Vector.min(pos1, pos2).toBlock();
+        var end = Vector.max(pos1, pos2).toBlock();
         history.addUndoStructure(start, end, 'any');
     }
     
     const count = set(session, pattern);
     
+    history.recordSelection(session);
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
     history.commit();
 
-    return RawText.translate('worldedit.set.changed').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

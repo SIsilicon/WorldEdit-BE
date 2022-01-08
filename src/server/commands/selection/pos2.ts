@@ -21,9 +21,9 @@ commandList['pos2'] = [registerInformation, (session, builder, args) => {
 
     let translate: string;
     if (session.getBlocksSelected().length == 0) {
-        translate = 'worldedit.selection.cuboid.explain.secondary';
+        translate = 'worldedit.selection.cuboid.secondary';
     } else {
-        translate = 'worldedit.selection.cuboid.explain.secondary-area';
+        translate = 'worldedit.selection.cuboid.secondaryArea';
     }
     return RawText.translate(translate)
         .with(printLocation(session.getSelectionPoints()[1]))

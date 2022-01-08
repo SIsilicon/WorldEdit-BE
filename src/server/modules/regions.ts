@@ -1,19 +1,22 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation, regionMin, regionMax, regionSize, regionVolume, subtractLocations } from '../util.js';
+import { printDebug, printLocation, regionSize, regionVolume, regionCenter, regionBounds } from '../util.js';
+import { Vector } from './vector.js';
 import { RawText } from './rawtext.js';
 import { PlayerUtil } from './player_util.js';
 
 interface StructureMeta {
-    subRegions?: [number, number, number][];
-    position: BlockLocation;
-    size: BlockLocation;
-    origin: BlockLocation;
+    subRegions?: [string, Vector, Vector][]; // name suffix, offset, end
+    position: Vector;
+    size: Vector;
+    origin: Vector; // position relative to player upon saving
+    rotation?: number; // increments of 90 only
+    flip?: 0|1|2|3; // first bit: x, second bit: z
     blockCount: number;
 }
 
 class RegionsManager {
-    private readonly MAX_SIZE: [number, number, number] = [64, 256, 64];
+    private readonly MAX_SIZE: Vector = new Vector(64, 256, 64);
     
     private readonly structures = new Map<string, StructureMeta>();
     private readonly ids = new Map<string, string>();
@@ -35,34 +38,33 @@ class RegionsManager {
     }
     
     save(name: string, start: BlockLocation, end: BlockLocation, player: Player, includeEntities = false) {
-        const min = regionMin(start, end);
-        const max = regionMax(start, end);
-        const size = regionSize(start, end);
+        const min = Vector.min(start, end);
+        const max = Vector.max(start, end);
+        const size = Vector.from(regionSize(start, end));
         const structName = this.genName(name, player);
         
         const dimension = PlayerUtil.getDimension(player)[1];
         
-        if (size.x > this.MAX_SIZE[0] || size.y > this.MAX_SIZE[1] || size.z > this.MAX_SIZE[2]) {
-            const subStructs: [number, number, number][] = [];
-            for (let z = 0; z < size.z; z += this.MAX_SIZE[2])
-            for (let y = 0; y < size.y; y += this.MAX_SIZE[1])
-            for (let x = 0; x < size.x; x += this.MAX_SIZE[0]) {
-                const subStart = printLocation(min.offset(x, y, z), false);
-                const subEnd = printLocation(
-                    regionMin(new BlockLocation(x, y, z).offset(...this.MAX_SIZE), size)
-                    .offset(min.x - 1, min.y - 1, min.z - 1),
-                    false
-                );
+        if (size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z) {
+            const subStructs: [string, Vector, Vector][] = [];
+            for (let z = 0; z < size.z; z += this.MAX_SIZE.z)
+            for (let y = 0; y < size.y; y += this.MAX_SIZE.y)
+            for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
+                const subStart = min.add([x, y, z]);
+                const subEnd = Vector.min(
+                    new Vector(x, y, z).add(this.MAX_SIZE), size
+                ).add(min).sub(Vector.ONE);
+                const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
                 
-                const subName = structName + `_${x}_${y}_${z}`;
-                /* printDebug(subName);
-                printDebug(subStart);
-                printDebug(subEnd); */
-                if (!Server.runCommand(`structure save ${subName} ${subStart} ${subEnd} ${includeEntities} memory`, dimension).error) {
-                    subStructs.push([x, y, z]);
+                if (!Server.runCommand(`structure save ${structName + subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} memory`, dimension).error) {
+                    subStructs.push([
+                        subName,
+                        new Vector(x, y, z),
+                        subEnd.sub(min).add(Vector.ONE)
+                    ]);
                 } else {
                     for (const sub of subStructs) {
-                        Server.runCommand(`structure delete ${structName}_${x}_${y}_${z}`);
+                        Server.runCommand(`structure delete ${structName + subName}`);
                     }
                     return true;
                 }
@@ -72,21 +74,19 @@ class RegionsManager {
                 subRegions: subStructs,
                 position: min,
                 size: size,
-                origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
+                origin: Vector.sub(player.location, min).floor(),
                 blockCount: regionVolume(start, end)
             });
             return false;
         } else {
-            const startStr = printLocation(min, false);
-            const endStr = printLocation(max, false);
-            /* printDebug(structName);
-            printDebug(startStr);
-            printDebug(endStr); */
+            const startStr = min.print();
+            const endStr = max.print();
+            
             if (!Server.runCommand(`structure save ${structName} ${startStr} ${endStr} ${includeEntities} memory`, dimension).error) {
                 this.structures.set(structName, {
                     position: min,
                     size: size,
-                    origin: subtractLocations(PlayerUtil.getBlockLocation(player), min),
+                    origin: Vector.sub(player.location, min).floor(),
                     blockCount: regionVolume(start, end)
                 });
                 return false;
@@ -95,30 +95,121 @@ class RegionsManager {
         return true;
     }
     
-    load(name: string, location: BlockLocation, player: Player, mode: 'absolute' | 'relative') {
+    load(name: string, location: BlockLocation, player: Player) {
         const structName = this.genName(name, player);
         const struct = this.structures.get(structName);
         if (struct) {
             const dimension = PlayerUtil.getDimension(player)[1];
-            let loadPos = location;
-            if (mode == 'relative') {
-                loadPos = subtractLocations(location, struct.origin);
-            }
+            let loadPos = Vector.from(location);
+            const rotation = `${struct.rotation ?? 0}_degrees`;
+            const flip = {0: 'none', 1: 'z', 2: 'x', 3: 'xz'}[struct.flip ?? 0];
             
             if (struct.subRegions) {
                 let success = false;
                 for (const sub of struct.subRegions) {
-                    const subLoad = printLocation(loadPos.offset(...sub), false);
-                    //printDebug(`${structName}_${sub[0]}_${sub[1]}_${sub[2]}`);
-                    //printDebug(subLoad);
-                    const s = !Server.runCommand(`structure load ${structName}_${sub[0]}_${sub[1]}_${sub[2]} ${subLoad}`, dimension).error;
-                    //printDebug(s);
+                    const subLoad = loadPos.add(sub[1]);
+                    
+                    const s = !Server.runCommand(`structure load ${structName + sub[0]} ${subLoad.print()} ${rotation} ${flip}`, dimension).error;
                     success ||= s;
                 }
                 return !success;
             } else {
-                return Server.runCommand(`structure load ${structName} ${printLocation(loadPos, false)}`, dimension).error;
+                return Server.runCommand(`structure load ${structName} ${loadPos.print()} ${rotation} ${flip}`, dimension).error;
             }
+        }
+        return true;
+    }
+    
+    // TODO: stack rotate and flip actions on top of each other
+    rotate(name: string, rotation: number, origin: Vector, player: Player) {
+        const structName = this.genName(name, player);
+        const struct = this.structures.get(structName);
+        if (struct) {
+            const d = 360;
+            const rot = (struct.rotation ?? 0) + rotation;
+            struct.rotation = rot >= 0 ? rot % d : (rot % d + d) % d;
+            
+            let oldOrigin = struct.origin.add(struct.position);
+            let oldEnd = struct.position.add(struct.size.sub(Vector.ONE));
+            let [start, end] = regionBounds([
+                struct.position.rotate(rotation, origin).toBlock(),
+                oldEnd.rotate(rotation, origin).toBlock()
+            ]);
+            
+            if (struct.subRegions) {
+                let min: Vector;
+                const newBounds: [BlockLocation, BlockLocation][] = [];
+                for (const sub of struct.subRegions) {
+                    let [start, end] = regionBounds([
+                        sub[1].rotate(rotation).toBlock(),
+                        sub[2].rotate(rotation).toBlock()
+                    ]);
+                    // printDebug(sub[1], sub[2], '-', start, end);
+                    min = !min ? Vector.from(start) : min.min(start);
+                    // printDebug('min', min)
+                    newBounds.push([start, end]);
+                }
+                for (let i = 0; i < newBounds.length; i++) {
+                    struct.subRegions[i][1] = Vector.sub(newBounds[i][0], min);
+                    struct.subRegions[i][2] = Vector.sub(newBounds[i][1], min);
+                }
+            }
+            
+            struct.position = Vector.from(start);
+            struct.size = Vector.from(end).sub(start).add(Vector.ONE);
+            struct.origin = oldOrigin.sub(struct.position);
+            
+            return false;
+        }
+        return true;
+    }
+    
+    flip(name: string, direction: Vector, origin: Vector, player: Player) {
+        const structName = this.genName(name, player);
+        const struct = this.structures.get(structName);
+        if (struct) {
+            let flip = struct.flip ?? 0;
+            let dir_sc: Vector;
+            if (direction.x != 0) {
+                flip ^= 0b01;
+                dir_sc = new Vector(-1, 1, 1);
+            } else if (direction.z != 0) {
+                flip ^= 0b10;
+                dir_sc = new Vector(1, 1, -1);
+            } else {
+                return true;
+            }
+            struct.flip = flip as 0|1|2|3;
+            
+            let oldOrigin = struct.origin.add(struct.position);
+            let oldEnd = struct.position.add(struct.size.sub(Vector.ONE));
+            let [start, end] = regionBounds([
+                struct.position.sub(origin).mul(dir_sc).add(origin).toBlock(),
+                oldEnd.sub(origin).mul(dir_sc).add(origin).toBlock()
+            ]);
+            
+            if (struct.subRegions) {
+                let min: Vector;
+                const newBounds: [BlockLocation, BlockLocation][] = [];
+                for (const sub of struct.subRegions) {
+                    let [start, end] = regionBounds([
+                        sub[1].mul(dir_sc).toBlock(),
+                        sub[2].mul(dir_sc).toBlock()
+                    ]);
+                    min = !min ? Vector.from(start) : min.min(start);
+                    newBounds.push([start, end]);
+                }
+                for (let i = 0; i < newBounds.length; i++) {
+                    struct.subRegions[i][1] = Vector.sub(newBounds[i][0], min);
+                    struct.subRegions[i][2] = Vector.sub(newBounds[i][1], min);
+                }
+            }
+            
+            struct.position = Vector.from(start);
+            struct.size = Vector.from(end).sub(start).add(Vector.ONE);
+            struct.origin = oldOrigin.sub(struct.position);
+            
+            return false;
         }
         return true;
     }
@@ -160,17 +251,25 @@ class RegionsManager {
     }
 
     getOrigin(name: string, player: Player) {
-        return this.structures.get(this.genName(name, player)).origin;
+        return this.structures.get(this.genName(name, player)).origin.toBlock();
     }
 
     getPosition(name: string, player: Player) {
-        return this.structures.get(this.genName(name, player)).position;
+        return this.structures.get(this.genName(name, player)).position.toBlock();
     }
 
     getSize(name: string, player: Player) {
-        return this.structures.get(this.genName(name, player)).size;
+        return this.structures.get(this.genName(name, player)).size.toBlock();
     }
-
+    
+    getBounds(name: string, player: Player): [BlockLocation, BlockLocation] {
+        const struct = this.structures.get(this.genName(name, player));
+        return [
+            struct.position.toBlock(),
+            struct.position.add(struct.size).sub(Vector.ONE).toBlock()
+        ];
+    }
+    
     getBlockCount(name: string, player: Player) {
         return this.structures.get(this.genName(name, player)).blockCount;
     }

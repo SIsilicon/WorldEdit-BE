@@ -1,5 +1,4 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveNumber, assertValidNumber } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { PyramidShape } from '../../shapes/pyramid.js';
@@ -32,5 +31,5 @@ commandList['pyramid'] = [registerInformation, (session, builder, args) => {
     const pyramidShape = new PyramidShape(size);
     const count = pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

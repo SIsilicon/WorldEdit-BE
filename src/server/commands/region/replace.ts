@@ -1,6 +1,7 @@
 import { PlayerSession } from '../../sessions.js';
-import { addLocations, regionMax, regionMin } from '../../util.js';
+import { Vector } from '@modules/vector.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
@@ -33,11 +34,13 @@ function getAffectedBlocks(session: PlayerSession, mask: Mask) {
 }
 
 commandList['replace'] = [registerInformation, (session, builder, args) => {
-    if (session.getBlocksSelected().length == 0) {
-        throw 'You need to make a selection to replace!';
+    assertSelection(session);
+    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    if (session.usingItem && session.globalPattern.empty()) {
+        throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const mask = args.get('mask');
+    const mask = session.usingItem ?  session.globalMask : args.get('mask');
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
     
     const history = session.getHistory();
@@ -47,8 +50,8 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     
     if (session.selectionMode == 'cuboid') {
         const [pos1, pos2] = session.getSelectionPoints();
-        var start = regionMin(pos1, pos2);
-        var end = regionMax(pos1, pos2);
+        var start = Vector.min(pos1, pos2).toBlock();
+        var end = Vector.max(pos1, pos2).toBlock();
         history.addUndoStructure(start, end, affectedBlocks);
     }
     
@@ -56,12 +59,13 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     const dim = PlayerUtil.getDimension(session.getPlayer())[1];
     for (const blockLoc of affectedBlocks) {
         if (!pattern.setBlock(blockLoc, dim)) {
-                count++;
+            count++;
         }
     }
-
+    
+    history.recordSelection(session);
     history.addRedoStructure(start, end, affectedBlocks);
     history.commit();
 
-    return RawText.translate('worldedit.set.changed').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

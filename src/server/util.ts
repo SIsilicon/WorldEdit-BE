@@ -5,8 +5,6 @@ import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 
-export type vector = [number, number, number];
-
 // Server broadcast doesn't print anything until the first player has loaded.
 let serverReady = false;
 const printsPending: string[] = [];
@@ -74,7 +72,7 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
 const worldY: {[k: string]: [number, number]} = {
     'overworld': [-999, 999],
     'nether': [0, 128],
-    'the_end': [0, 128]
+    'the end': [0, 128]
 }
 /**
  * Gets the minimum Y level of the dimension a player is in.
@@ -116,9 +114,11 @@ export function getWorldMaxY(player: Player) {
  */
 export function canPlaceBlock(loc: BlockLocation, dim: dimension) {
     const locString = printLocation(loc, false);
-    Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim);
-    const error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
-    Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+    let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
+    if (!error) {
+        error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
+        Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+    }
     return !error;
 }
 
@@ -133,26 +133,6 @@ export function printLocation(loc: BlockLocation | Location, pretty = true) {
         return `(${loc.x}, ${loc.y}, ${loc.z})`;
     else
         return `${loc.x} ${loc.y} ${loc.z}`;
-}
-
-/**
- * Subtracts one location from another.
- * @param a The first location
- * @param b The second location
- * @return a - b
- */
-export function subtractLocations(a: BlockLocation, b: BlockLocation) {
-    return new BlockLocation(a.x - b.x, a.y - b.y, a.z - b.z);
-}
-
-/**
- * Adds one location with another.
- * @param a The first location
- * @param b The second location
- * @return a + b
- */
-export function addLocations(a: BlockLocation, b: BlockLocation) {
-    return new BlockLocation(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
 /**
@@ -172,33 +152,35 @@ export function regionVolume(start: BlockLocation, end: BlockLocation) {
  * @return The minimum and maximum
  */
 export function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLocation] {
-    let min = new BlockLocation(Infinity, Infinity, Infinity);
-    let max = new BlockLocation(-Infinity, -Infinity, -Infinity);
+    let min: BlockLocation;
+    let max: BlockLocation;
     for (const block of blocks) {
-        min = regionMin(min, block);
-        max = regionMax(max, block);
+        if (!min) {
+            min = new BlockLocation(block.x, block.y, block.z);
+            max = new BlockLocation(block.x, block.y, block.z);
+        }
+        min.x = Math.min(block.x, min.x);
+        min.y = Math.min(block.y, min.y);
+        min.z = Math.min(block.z, min.z);
+        max.x = Math.max(block.x, max.x);
+        max.y = Math.max(block.y, max.y);
+        max.z = Math.max(block.z, max.z);
     }
     return [min, max];
 }
 
 /**
- * Gets the minimum coordinates of a region.
- * @param start The first corner of the region
- * @param end The second corner of the region
- * @return The minimum coordinates of the region
+ * Gives the center of a space defined by two corners.
+ * @param start The first location
+ * @param end The second location
+ * @return The center of the space between start and end
  */
-export function regionMin(start: BlockLocation, end: BlockLocation) {
-    return new BlockLocation(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z));
-}
-
-/**
- * Gets the maximum coordinates of a region.
- * @param start The first corner of the region
- * @param end The second corner of the region
- * @return The maximum coordinates of the region
- */
-export function regionMax(start: BlockLocation, end: BlockLocation) {
-    return new BlockLocation(Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z));
+export function regionCenter(start: BlockLocation, end: BlockLocation): BlockLocation {
+    return new BlockLocation(
+        Math.floor(start.x + (end.x - start.x) * 0.5),
+        Math.floor(start.y + (end.y - start.y) * 0.5),
+        Math.floor(start.z + (end.z - start.z) * 0.5)
+    );
 }
 
 /**

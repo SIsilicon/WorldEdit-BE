@@ -1,10 +1,9 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveNumber, assertValidNumber } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { SphereShape } from '../../shapes/sphere.js';
-import { printDebug, vector } from '../../util.js';
+import { printDebug } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -63,7 +62,7 @@ const registerInformation = {
 
 commandList['sphere'] = [registerInformation, (session, builder, args) => {
     let pattern: Pattern = args.get('pattern');
-    let radii: vector;
+    let radii: [number, number, number];
     let isHollow = args.has('h');
     let isRaised = args.has('r');
     
@@ -76,8 +75,8 @@ commandList['sphere'] = [registerInformation, (session, builder, args) => {
     
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? radii[1] : 0, 0);
     
-    const sphereShape = new SphereShape(...<vector>radii);
+    const sphereShape = new SphereShape(...radii);
     const count = sphereShape.generate(loc, pattern, null, session, {'hollow': isHollow});
     
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

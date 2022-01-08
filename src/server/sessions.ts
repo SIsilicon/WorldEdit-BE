@@ -1,10 +1,11 @@
 import { Player, BlockLocation, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { dimension } from '@library/@types/index.js';
 import { History } from '@modules/history.js';
-import { printDebug, printLocation, regionMax, regionMin, regionSize } from './util.js';
+import { printDebug, printLocation, regionSize } from './util.js';
 import { Server } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
+import { Vector } from '@modules/vector.js';
 import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Mask } from '@modules/mask.js';
@@ -16,7 +17,7 @@ import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
 
 // TODO: Add other selection modes
-type selectMode = 'cuboid';
+export type selectMode = 'cuboid';
 
 const playerSessions: {[k: string]: PlayerSession} = {};
 const pendingDeletion: {[k: string]: [number, PlayerSession]} = {}
@@ -86,7 +87,7 @@ export class PlayerSession {
     private _selectionMode: selectMode = 'cuboid';
     private _drawSelection = true;
     
-    private drawPoints: Location[] = [];
+    private drawPoints: Vector[] = [];
     private drawTimer: number = 0;
     
     constructor(player: Player) {
@@ -104,6 +105,9 @@ export class PlayerSession {
         this.setTool('paste');
         this.setTool('undo');
         this.setTool('redo');
+        this.setTool('rotate_cw');
+        this.setTool('rotate_ccw');
+        this.setTool('flip');
         this.setTool('spawn_glass');
         this.setTool('selection_fill');
         Tools.unbindAll(player, this.tools);
@@ -143,7 +147,7 @@ export class PlayerSession {
     */
     public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
         if (index > 0 && this.selectionPoints.length == 0) {
-        throw RawText.translate('worldedit.selection.no-primary');
+        throw RawText.translate('worldedit.selection.noPrimary');
         }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
@@ -179,9 +183,9 @@ export class PlayerSession {
             return [];
 
         if (this._selectionMode == 'cuboid') {
-            const min = regionMin(this.selectionPoints[0], this.selectionPoints[1]);
-            const max = regionMax(this.selectionPoints[0], this.selectionPoints[1]);
-            return min.blocksBetween(max);
+            const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]);
+            const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]);
+            return min.toBlock().blocksBetween(max.toBlock());
         }
     }
     
@@ -191,7 +195,7 @@ export class PlayerSession {
     public getSelectionRange(): [BlockLocation, BlockLocation] {
         if (this._selectionMode == 'cuboid') {
             const [pos1, pos2] = this.selectionPoints.slice(0, 2);
-            return [regionMin(pos1, pos2), regionMax(pos1, pos2)];
+            return [Vector.min(pos1, pos2).toBlock(), Vector.max(pos1, pos2).toBlock()];
         }
         return null;
     }
@@ -256,18 +260,18 @@ export class PlayerSession {
         this.drawPoints.length = 0;
         
         if (this.selectionMode == 'cuboid' && this.selectionPoints.length == 2) {
-            const min = regionMin(this.selectionPoints[0], this.selectionPoints[1]).offset(-0.5, 0, -0.5);
-            const max = regionMax(this.selectionPoints[0], this.selectionPoints[1]).offset(-0.5, 0, -0.5);
+            const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ZERO);
+            const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ONE);
 
             const corners = [
-                new Location(min.x  , min.y  , min.z  ),
-                new Location(max.x+1, min.y  , min.z  ),
-                new Location(min.x  , max.y+1, min.z  ),
-                new Location(max.x+1, max.y+1, min.z  ),
-                new Location(min.x  , min.y  , max.z+1),
-                new Location(max.x+1, min.y  , max.z+1),
-                new Location(min.x  , max.y+1, max.z+1),
-                new Location(max.x+1, max.y+1, max.z+1)
+                new Vector(min.x, min.y, min.z),
+                new Vector(max.x, min.y, min.z),
+                new Vector(min.x, max.y, min.z),
+                new Vector(max.x, max.y, min.z),
+                new Vector(min.x, min.y, max.z),
+                new Vector(max.x, min.y, max.z),
+                new Vector(min.x, max.y, max.z),
+                new Vector(max.x, max.y, max.z)
             ];
 
             const edgeData: [number, number][]= [
@@ -275,18 +279,13 @@ export class PlayerSession {
                 [0, 2], [1, 3], [4, 6], [5, 7],
                 [0, 4], [1, 5], [2, 6], [3, 7]
             ];
-            const edgePoints: Location[] = [];
+            const edgePoints: Vector[] = [];
             for (const edge of edgeData) {
                 const [a, b] = [corners[edge[0]], corners[edge[1]]];
-                const d = [b.x - a.x, b.y - a.y, b.z - a.z];
-                const pointCount = Math.min(Math.floor(Math.sqrt(d[0]*d[0] + d[1]*d[1] + d[2]*d[2])), 32);
+                const pointCount = Math.min(Math.floor(b.sub(a).length), 32);
                 for (let i = 1; i < pointCount; i++) {
                     let t = i / pointCount;
-                    edgePoints.push(new Location(
-                        (1.0 - t) * a.x + t * b.x,
-                        (1.0 - t) * a.y + t * b.y,
-                        (1.0 - t) * a.z + t * b.z
-                    ));
+                    edgePoints.push(a.lerp(b, t));
                 }
             }
             this.drawPoints = corners.concat(edgePoints);
@@ -321,7 +320,7 @@ export class PlayerSession {
             this.drawTimer = 10;
             const dimension = PlayerUtil.getDimension(this.player)[1];
             for (const point of this.drawPoints) {
-                Server.runCommand(`particle wedit:selection_draw ${printLocation(point, false)}`, dimension);
+                Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
             }
         }
         this.drawTimer--;
@@ -350,6 +349,7 @@ export class PlayerSession {
     */
     public set selectionMode(value: selectMode) {
         this._selectionMode = value;
+        this.clearSelectionPoints();
     }
     
     /**
@@ -380,8 +380,8 @@ export function getSession(player: Player): PlayerSession {
             delete pendingDeletion[name];
         }
         playerSessions[name] = session ?? new PlayerSession(player);
-        printDebug(`new Session?: ${!session}`);
         printDebug(playerSessions[name]?.getPlayer()?.nameTag);
+        printDebug(`new Session?: ${!session}`);
     }
     return playerSessions[name];
 }

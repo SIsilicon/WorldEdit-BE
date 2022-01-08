@@ -1,10 +1,12 @@
-import { Player } from 'mojang-minecraft';
+import { Player, BlockLocation } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertBuilder, assertValidNumber } from '@modules/assert.js';
-import { vector, regionSize, printDebug } from '../../util.js';
+import { regionSize, printDebug } from '../../util.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
+import { assertCanBuildWithin } from '@modules/assert.js';
 import { set } from './set.js';
 import { commandList } from '../command_list.js';
 
@@ -30,31 +32,31 @@ commandList['stack'] = [registerInformation, (session, builder, args) => {
     const [start, end] = session.getSelectionRange();
     const size = regionSize(start, end);
     
-    const dir = args.get('offset').getDirection(builder);
-    let direction = [
-        dir[0] * size.x,
-        dir[1] * size.y,
-        dir[2] * size.z
-    ] as vector;
-    
-    let loadStart = start.offset(...direction);
-    let loadEnd = end.offset(...direction);
+    const dir = args.get('offset').getDirection(builder).mul(size);
+    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    let loadStart = start.offset(dir.x, dir.y, dir.z);
+    let loadEnd = end.offset(dir.x, dir.y, dir.z);
     let count = 0;
+    
+    const loads: [BlockLocation, BlockLocation][] = [];
+    for (let i = 0; i < amount; i++) {
+        assertCanBuildWithin(dim, loadStart, loadEnd);
+        loads.push([loadStart, loadEnd]);
+        loadStart = loadStart.offset(dir.x, dir.y, dir.z);
+        loadEnd = loadEnd.offset(dir.x, dir.y, dir.z);
+    }
     
     const history = session.getHistory();
     history.record();
-    Regions.save('temp_stack', start, end, builder);
-    for (let i = 0; i < amount; i++) {
-        history.addUndoStructure(loadStart, loadEnd, 'any');
-        Regions.load('temp_stack', loadStart, builder, 'absolute');
-        history.addRedoStructure(loadStart, loadEnd, 'any');
-        
-        count += Regions.getBlockCount('temp_stack', builder);
-        loadStart = loadStart.offset(...direction);
-        loadEnd = loadEnd.offset(...direction);
+    Regions.save('tempStack', start, end, builder);
+    for (const load of loads) {
+        history.addUndoStructure(load[0], load[1], 'any');
+        Regions.load('tempStack', load[0], builder);
+        history.addRedoStructure(load[0], load[1], 'any');
+        count += Regions.getBlockCount('tempStack', builder);
     }
-    Regions.delete('temp_stack', builder);
+    Regions.delete('tempStack', builder);
     history.commit();
     
-    return `Set ${count} blocks successfully.`;
+    return RawText.translate('commands.wedit:stack.explain').with(count);
 }];

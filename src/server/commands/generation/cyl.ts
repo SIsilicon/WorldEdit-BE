@@ -1,5 +1,4 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { assertPositiveNumber, assertValidNumber } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { CylinderShape } from '../../shapes/cylinder.js';
@@ -70,5 +69,5 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
     const cylShape = new CylinderShape(height, ...<[number, number]>radii);
     const count = cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
-    return RawText.translate('worldedit.generate.created').with(`${count}`);
+    return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

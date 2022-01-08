@@ -1,4 +1,4 @@
-import { World, MinecraftBlockTypes, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
+import { World, MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
@@ -21,18 +21,11 @@ class PatternPickerTool extends Tool {
             session.globalPattern.addBlock(block);
         }
         
-        const properties = block.getAllProperties();
-        if (properties.length && blockName != 'water' && blockName != 'lava') {
-            for (let i = 0; i < properties.length; i++) {
-                const prop = properties[i];
-                const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
-                blockName += `\n§o${prop.name}§r: ${val}`;
-            }
-        }
+        blockName += printBlockProperties(block);
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.pattern-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
@@ -44,7 +37,7 @@ class PatternPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalPattern.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.pattern-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }
@@ -67,19 +60,11 @@ class MaskPickerTool extends Tool {
             session.globalMask.addBlock(block);
         }
         
-        // TODO: Properly name fences, shulker boxes, polished stones, slabs, glazed terracotta, sand
-        const properties = block.getAllProperties();
-        if (properties.length && blockName != 'water' && blockName != 'lava') {
-            for (let i = 0; i < properties.length; i++) {
-                const prop = properties[i];
-                const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
-                blockName += `\n§o${prop.name}§r: ${val}`;
-            }
-        }
+        blockName += printBlockProperties(block);
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.mask-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
@@ -91,9 +76,26 @@ class MaskPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalMask.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.mask-picker.' + (addedToPattern ? 'add' : 'set'))
+        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }
 }
 Tools.register(MaskPickerTool, 'mask_picker');
+
+function printBlockProperties(block: BlockPermutation) {
+    let propString = '';
+    const properties = block.getAllProperties();
+    if (properties.length && block.type.id != 'water' && block.type.id != 'lava') {
+        for (let i = 0; i < properties.length; i++) {
+            const prop = properties[i];
+            if (prop.name.startsWith('wall_connection_type') || prop.name.startsWith('liquid_depth')) {
+                continue;
+            }
+            
+            const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
+            propString += `\n§o${prop.name}§r: ${val}`;
+        }
+    }
+    return propString;
+}

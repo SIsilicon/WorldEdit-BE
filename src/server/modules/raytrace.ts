@@ -1,9 +1,10 @@
 import { BlockLocation, World, Location } from 'mojang-minecraft';
 import { dimension } from '@library/@types/index.js';
 import { Mask } from './mask.js';
+import { Vector } from './vector.js';
 
 // TODO: Make raytracer more accurate.
-export function raytrace(dimension: dimension, start: Location, dir: Location, range?: number, mask?: Mask) {
+export function raytrace(dimension: dimension, start: Location, dir: Vector, range?: number, mask?: Mask) {
     const dim = World.getDimension(dimension);
     for (let i = 0; i < 50; i += 0.2) {
         const point = new BlockLocation(

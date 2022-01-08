@@ -2,6 +2,7 @@ import { Player, Dimension, World, Entity, Location, BlockLocation, InventoryCom
 import { dimension } from '@library/@types/index.js';
 import { Server } from '@library/Minecraft.js';
 import { EventEmitter } from '@library/build/classes/eventEmitter.js';
+import { Vector } from './vector.js';
 import { printDebug } from '../util.js';
 
 /**
@@ -13,24 +14,24 @@ class PlayerHandler extends EventEmitter {
     constructor() {
         super();
         Server.on('tick', tick => {
-                for (const entry of this.playerDimensions) {
-                    entry[1][0] = false;
-                }
+            for (const entry of this.playerDimensions) {
+                entry[1][0] = false;
+            }
+            
+            for (const player of World.getPlayers()) {
+                const oldDimension = this.playerDimensions.get(player.nameTag)?.[2];
+                const newDimension = this.getDimension(player)[1];
                 
-                for (const player of World.getPlayers()) {
-                    const oldDimension = this.playerDimensions.get(player.nameTag)?.[2];
-                    const newDimension = this.getDimension(player)[1];
-                    
-                    if (oldDimension && oldDimension != newDimension) {
-                        this.emit('playerChangeDimension', player, newDimension);
-                    }
+                if (oldDimension && oldDimension != newDimension) {
+                    this.emit('playerChangeDimension', player, newDimension);
                 }
+            }
         });
         this.on('playerChangeDimension', (player, dimension) => {
-                // Teleport the inventory stasher with the player
-                printDebug(`"${player.nameTag}" has travelled to "${dimension}"`);
-                const stasherName = 'wedit:stasher_for_' + player.nameTag;
-                Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${stasherName}"] ~ 512 ~`, dimension);
+            // Teleport the inventory stasher with the player
+            printDebug(`"${player.nameTag}" has travelled to "${dimension}"`);
+            const stasherName = 'wedit:stasher_for_' + player.nameTag;
+            Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${stasherName}"] ~ 512 ~`, dimension);
         });
     }
     
@@ -54,15 +55,15 @@ class PlayerHandler extends EventEmitter {
     replaceItem(player: Player, item: string, sub: string) {
         const inv = player.getComponent('inventory').container;
         for (let i = 0; i < inv.size; i++) {
-                if (inv.getItem(i)?.id === item) {
-                    const slotType = i > 8 ? 'slot.inventory' : 'slot.hotbar';
-                    const slotId = i > 8 ? i - 9 : i;
-                    // printDebug(slotId);
-                    // printDebug(slotType);
-                    // printDebug(item + ' -> ' + sub);
-                    Server.runCommand(`replaceitem entity "${player.nameTag}" ${slotType} ${slotId} ${sub}`);
-                    break;
-                }
+            if (inv.getItem(i)?.id === item) {
+                const slotType = i > 8 ? 'slot.inventory' : 'slot.hotbar';
+                const slotId = i > 8 ? i - 9 : i;
+                // printDebug(slotId);
+                // printDebug(slotType);
+                // printDebug(item + ' -> ' + sub);
+                Server.runCommand(`replaceitem entity "${player.nameTag}" ${slotType} ${slotId} ${sub}`);
+                break;
+            }
         }
     }
     
@@ -106,11 +107,7 @@ class PlayerHandler extends EventEmitter {
         entity.kill();
         entity.nameTag = 'wedit:killed';
         
-        let dir = [locB.x - locA.x, locB.y - locA.y, locB.z - locA.z];
-        const len = Math.sqrt(dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2]);
-        dir = dir.map(v => {return v / len});
-        
-        return new Location(dir[0], dir[1], dir[2]);
+        return Vector.sub(locB, locA).normalized();
     }
     
     /**
@@ -121,19 +118,19 @@ class PlayerHandler extends EventEmitter {
     */
     getDimension(player: Player): [Dimension, dimension] {
         if (this.playerDimensions.get(player.nameTag)?.[0]) {
-                return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1);
+            return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1);
         }
     
         const blockLoc = this.getBlockLocation(player);
         for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
-                const dimension: Dimension = World.getDimension(dimName);
-                const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
-                for (const entity of entities) {
-                    if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
-                        this.playerDimensions.set(player.nameTag, [true, dimension, dimName]);
-                        return [dimension, dimName];
-                    }
+            const dimension: Dimension = World.getDimension(dimName);
+            const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
+            for (const entity of entities) {
+                if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
+                    this.playerDimensions.set(player.nameTag, [true, dimension, dimName]);
+                    return [dimension, dimName];
                 }
+            }
         }
         return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1) || [null, null];
     }
@@ -154,7 +151,7 @@ class PlayerHandler extends EventEmitter {
     */
     stashHotbar(player: Player) {
         if (this.isHotbarStashed(player)) {
-                return true;
+            return true;
         }
         
         const stasher = this.getDimension(player)[0].spawnEntity('wedit:inventory_stasher', new BlockLocation(player.location.x, 512, player.location.z));
@@ -163,7 +160,7 @@ class PlayerHandler extends EventEmitter {
         const inv: InventoryComponentContainer = player.getComponent('inventory').container;
         const inv_stash: InventoryComponentContainer = stasher.getComponent('inventory').container;
         for (let i = 0; i < 9; i++) {
-                inv.transferItem(i, i, inv_stash);
+            inv.transferItem(i, i, inv_stash);
         }
         return false;
     }
@@ -179,30 +176,30 @@ class PlayerHandler extends EventEmitter {
         const stasherName = 'wedit:stasher_for_' + player.nameTag;
         Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${stasherName}"] ~ 512 ~`, dimension);
         for (const entity of World.getDimension(dimension).getEntitiesAtBlockLocation(new BlockLocation(Math.floor(player.location.x), 512, Math.floor(player.location.z)))) {
-                if (entity.nameTag == stasherName) {
-                    stasher = entity;
-                    break;
-                }
+            if (entity.nameTag == stasherName) {
+                stasher = entity;
+                break;
+            }
         }
         
         if (stasher) {
-                const inv: InventoryComponentContainer = player.getComponent('inventory').container;
-                const inv_stash: InventoryComponentContainer = stasher.getComponent('inventory').container;
-                for (let i = 0; i < 9; i++) {
-                    if (inv.getItem(i) && inv_stash.getItem(i)) {
-                        inv.swapItems(i, i, inv_stash);
-                    } else if (inv.getItem(i)) {
-                        inv.transferItem(i, i, inv_stash);
-                    } else {
-                        inv_stash.transferItem(i, i, inv);
-                    }
+            const inv: InventoryComponentContainer = player.getComponent('inventory').container;
+            const inv_stash: InventoryComponentContainer = stasher.getComponent('inventory').container;
+            for (let i = 0; i < 9; i++) {
+                if (inv.getItem(i) && inv_stash.getItem(i)) {
+                    inv.swapItems(i, i, inv_stash);
+                } else if (inv.getItem(i)) {
+                    inv.transferItem(i, i, inv_stash);
+                } else {
+                    inv_stash.transferItem(i, i, inv);
                 }
-                Server.runCommand(`tp @e[name="${stasherName}"] ~ -256 ~`, dimension);
-                stasher.triggerEvent('wedit:kill');
-                stasher.nameTag = 'wedit:killed';
-                return false;
+            }
+            Server.runCommand(`tp @e[name="${stasherName}"] ~ -256 ~`, dimension);
+            stasher.triggerEvent('wedit:kill');
+            stasher.nameTag = 'wedit:killed';
+            return false;
         } else {
-                return true;
+            return true;
         }
     }
 }

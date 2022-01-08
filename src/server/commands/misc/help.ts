@@ -66,7 +66,7 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
         let page: number = Math.max(args.get('page'), 1);
         let pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
         
-        let msg = RawText.text('§2').append('translate', 'worldedit.help.header').with(`${pageOff / PAGE_SIZE + 1}`).with(`${totalPages}`).append('text', '§r');
+        let msg = RawText.text('§2').append('translate', 'commands.wedit:help.header').with(`${pageOff / PAGE_SIZE + 1}`).with(`${totalPages}`).append('text', '§r');
         for (let i = pageOff; i < Math.min(pageOff + PAGE_SIZE, cmdInfo.length); i++) {
             const cmd = cmdInfo[i];
             msg.append('text', `\n${Server.command.prefix}${cmd[0]} ${cmd[1]}`);

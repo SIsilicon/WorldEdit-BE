@@ -4,7 +4,6 @@ import { assertBuilder } from '@modules/assert.js';
 import { RawText } from '@modules/rawtext.js';
 
 import { getSession } from '../../sessions.js';
-import { regionMin, regionMax } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -24,10 +23,9 @@ commandList['redo'] = [registerInformation, (session, builder, args) => {
     const times = args.get('times') as number;
     const history = session.getHistory();
     for(var i = 0; i < times; i++) {
-        if (history.redo()) {
-                break;
+        if (history.redo(session)) {
+            break;
         }
     }
-    
-    return RawText.translate(i == 0 ? 'worldedit.redo.none' : 'worldedit.redo.redone').with(`${i}`);
+    return RawText.translate(i == 0 ? 'commands.wedit:redo.none' : 'commands.wedit:redo.explain').with(`${i}`);
 }];
