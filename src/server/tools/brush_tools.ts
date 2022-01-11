@@ -31,7 +31,7 @@ abstract class BrushTool extends Tool {
         const dir = PlayerUtil.getDirection(player);
         const hit = raytrace(dimension, origin, dir, this.range, this.traceMask);
         if (!hit) {
-            throw RawText.translate('worldedit.jumpto.none');
+            throw RawText.translate('commands.wedit:jumpto.none');
         }
         this.brush.apply(hit, session, this.mask);
     }
