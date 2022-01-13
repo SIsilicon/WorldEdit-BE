@@ -40,6 +40,9 @@ jobs:
       - name: Install tsc
         run: npm install -g typescript
       
+      - name: Install polib
+        run: pip install polib
+      
       - name: Run build script (${{ matrix.target }})
         run: python build.py --clean --target ${{ matrix.target }}
       

@@ -2,11 +2,11 @@ import subprocess, sys, os, shutil
 import argparse, re
 
 parser = argparse.ArgumentParser(description='Build and package the addon.')
+parser.add_argument('--watch', '-w', action='store_true', help='Whether to continually build the project while editing it.')
 parser.add_argument('--target', choices=['release', 'debug'], default='debug', help='Whether to build the addon in debug or release mode.')
 parser.add_argument('--clean', '-c', action='store_true', help='Clean "BP/scripts" folder before building.')
 parser.add_argument('--package-only', '-p', action='store_true', help='Only package what\'s already there.')
 args = parser.parse_args()
-
 
 # Check for typescript compiler
 try:
@@ -46,7 +46,25 @@ if not args.package_only:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
     
     print('building scripts...')
-    subprocess.call(['tsc', '-b'])
+    if args.watch:
+        print('Watch mode: press control-C to stop.')
+        tsc = subprocess.Popen(['tsc', '-w'])
+        # Remap absolute imports
+        remap_imports = subprocess.Popen([sys.executable, 'remap_imports.py', '-w'])
+        # Convert po to lang files
+        po2lang = subprocess.Popen([sys.executable, 'po2lang.py', '-w'])
+        
+        from time import sleep
+        try:
+            while True:
+                sleep(1)
+        except KeyboardInterrupt:
+            tsc.kill()
+            remap_imports.kill()
+            po2lang.kill()
+            exit()
+    else:
+        subprocess.call(['tsc', '-b'])
 
 def regExpSub(regEx, replace, file):
     with open(file, 'r') as f:
@@ -59,7 +77,9 @@ def regExpSub(regEx, replace, file):
 regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
 
 # Remap absolute imports
-subprocess.call(['python', 'remap_imports.py'])
+subprocess.call([sys.executable, 'remap_imports.py'])
+# Convert po to lang files
+subprocess.call([sys.executable, 'po2lang.py'])
 
 if not os.path.isdir('builds'):
     os.makedirs('builds')

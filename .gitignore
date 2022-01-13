@@ -10,4 +10,4 @@ builds
 BP/scripts/*
 !BP/scripts/README.txt
 *.stfolder
-    
+RP/texts/*
