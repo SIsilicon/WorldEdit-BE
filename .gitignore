@@ -10,4 +10,5 @@ builds
 BP/scripts/*
 !BP/scripts/README.txt
 *.stfolder
-RP/texts/*
+*/texts/*
+!*/texts/AUTO_GENERATED
