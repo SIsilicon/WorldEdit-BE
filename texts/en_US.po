@@ -1,400 +1,556 @@
-# The following translation strings are made for a Minecraft addon known as "WorldEdit: Bedrock Edition", a port of the original mod for Minecraft: Java Edition.
-# Copyright (C) 2022 Roujel Williams
-# This file is distributed under the same license as the "WorldEdit: Bedrock Edition" addon.
-# Roujel (SIsilicon) Williams <roujelwilliams@yahoo.com>, 2022.
-
-# Translation notes:
-# - Anywhere with %s or %(number) is a placeholder for whatever the addon may add to it.
-# - The § symbol is used to create format codes that Minecraft bedrock understands. See the minecraft wiki for possible format codes.
-# - Long strings and (\n) are not supported, so do not add them.
-# - Double quotes must be escaped (" -> \")
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: en-US\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/base.pot\n"
+"X-Crowdin-File-ID: 7\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: English, United States\n"
+"Language: en_US\n"
+"PO-Revision-Date: 2022-01-14 22:28\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr ""
 
 # ITEMS
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr ""
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
-msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
-msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
-msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
-msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
-msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
-msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
-msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
-msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
-msgid "item.wedit:copy_button"
-msgstr "Copy"
-msgid "item.wedit:cut_button"
-msgstr "Cut"
-msgid "item.wedit:paste_button"
-msgstr "Paste"
-msgid "item.wedit:undo_button"
-msgstr "Undo"
-msgid "item.wedit:redo_button"
-msgstr "Redo"
-msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
-msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
-msgid "item.wedit:flip_button"
-msgstr "Flip"
-msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
-msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
-msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
-msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
-msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
-msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
-msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
-msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
-msgid "item.wedit:one_button"
-msgstr "One"
-msgid "item.wedit:two_button"
-msgstr "Two"
-msgid "item.wedit:three_button"
-msgstr "Three"
-msgid "item.wedit:four_button"
-msgstr "Four"
-msgid "item.wedit:five_button"
-msgstr "Five"
-msgid "item.wedit:six_button"
-msgstr "Six"
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-msgid "item.wedit:cancel_button"
-msgstr "Back"
-msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-msgid "item.wedit:blank"
-msgstr " "
+msgstr ""
 
-# WORLDEDIT TOOLS
+msgid "item.wedit:stacker_wand"
+msgstr ""
+
+msgid "item.wedit:navigation_wand"
+msgstr ""
+
+msgid "item.wedit:wooden_brush"
+msgstr ""
+
+msgid "item.wedit:stone_brush"
+msgstr ""
+
+msgid "item.wedit:iron_brush"
+msgstr ""
+
+msgid "item.wedit:golden_brush"
+msgstr ""
+
+msgid "item.wedit:diamond_brush"
+msgstr ""
+
+msgid "item.wedit:netherite_brush"
+msgstr ""
+
+msgid "item.wedit:copy_button"
+msgstr ""
+
+msgid "item.wedit:cut_button"
+msgstr ""
+
+msgid "item.wedit:paste_button"
+msgstr ""
+
+msgid "item.wedit:undo_button"
+msgstr ""
+
+msgid "item.wedit:redo_button"
+msgstr ""
+
+msgid "item.wedit:rotate_cw_button"
+msgstr ""
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr ""
+
+msgid "item.wedit:flip_button"
+msgstr ""
+
+msgid "item.wedit:pattern_picker"
+msgstr ""
+
+msgid "item.wedit:mask_picker"
+msgstr ""
+
+msgid "item.wedit:spawn_glass"
+msgstr ""
+
+msgid "item.wedit:selection_fill"
+msgstr ""
+
+msgid "item.wedit:config_button"
+msgstr ""
+
+msgid "item.wedit:brush_config_button"
+msgstr ""
+
+msgid "item.wedit:sphere_button"
+msgstr ""
+
+msgid "item.wedit:cylinder_button"
+msgstr ""
+
+msgid "item.wedit:one_button"
+msgstr ""
+
+msgid "item.wedit:two_button"
+msgstr ""
+
+msgid "item.wedit:three_button"
+msgstr ""
+
+msgid "item.wedit:four_button"
+msgstr ""
+
+msgid "item.wedit:five_button"
+msgstr ""
+
+msgid "item.wedit:six_button"
+msgstr ""
+
+msgid "item.wedit:confirm_button"
+msgstr ""
+
+msgid "item.wedit:cancel_button"
+msgstr ""
+
+msgid "item.wedit:inc_entities_on_button"
+msgstr ""
+
+msgid "item.wedit:inc_entities_off_button"
+msgstr ""
+
+msgid "item.wedit:inc_air_on_button"
+msgstr ""
+
+msgid "item.wedit:inc_air_off_button"
+msgstr ""
+
+msgid "item.wedit:blank"
+msgstr ""
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr ""
+
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr ""
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr ""
+
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr ""
+
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr ""
+
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr ""
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr ""
+
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr ""
+
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr ""
+
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr ""
+
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr ""
+
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr ""
+
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr ""
+
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr ""
+
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr ""
+
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr ""
+
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr ""
+
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr ""
+
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr ""
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr ""
+
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr ""
+
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr ""
+
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr ""
+
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr ""
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
-msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr ""
 
-# WORLDEDIT COMMANDS
+msgid "worldedit.permission.revoked"
+msgstr ""
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr ""
+
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr ""
+
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr ""
+
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr ""
+
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr ""
+
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr ""
+
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr ""
+
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr ""
+
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr ""
+
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr ""
+
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr ""
+
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr ""
+
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr ""
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr ""
+
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr ""
+
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr ""
+
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr ""
+
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr ""
+
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr ""
+
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr ""
+
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr ""
+
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr ""
+
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr ""
+
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr ""
+
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr ""
+
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr ""
+
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr ""
+
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr ""
+
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr ""
+
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr ""
+
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr ""
+
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr ""
+
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr ""
+
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr ""
+
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr ""
+
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr ""
+
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr ""
+
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr ""
+
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr ""
+
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr ""
+
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr ""
+
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr ""
+
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr ""
+
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr ""
+
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr ""
+
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and tap block: jump to location; Tap block without sneak: pass through walls"
+msgstr ""
+
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr ""
+
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr ""
+
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr ""
+
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr ""
+
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr ""
+
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr ""
+
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr ""
+
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr ""
+
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr ""
+
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr ""
+
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr ""
+
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr ""
+
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr ""
+
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr ""
+
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr ""
+
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr ""
+
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr ""
+
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr ""
+
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr ""
+
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr ""
+
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr ""
+
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr ""
+
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr ""
+
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr ""
+
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr ""
+
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools (currently only the stacker)"
+msgstr ""
+
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr ""
+
 msgid "commands.wedit:unstuck.explain"
-msgstr "There you go!"
+msgstr ""
+
 msgid "commands.wedit:undo.description"
-msgstr "Undo a certain amount of actions"
+msgstr ""
+
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr ""
+
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr ""
+
 msgid "commands.wedit:up.description"
-msgstr "Move up a certain number of blocks"
+msgstr ""
+
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh!"
+msgstr ""
+
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr ""
+
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr ""
+
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr ""
+
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr ""
 
 # HOW TO PLAY
 msgid "howtoplay.category.worldEdit"
-msgstr "WorldEdit"
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Making Selections"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Doing stuff with your selection"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Selection Fill\". A cuboid of stone should be made.\"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Selection Fill\" again to clear the stone."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Selection Fill\" and you should have a mix of sandstone and glass."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type (preferably wooden), and place down cobblestone; you'll need it for the brush."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask tier grass§r§7. Use the brush now to make a cobblestone path."
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br tier none§r."
+msgstr ""
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr ""
+
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr ""
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr ""
 
