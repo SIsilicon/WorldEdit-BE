@@ -1,0 +1,8 @@
+"base_path": "."
+"preserve_hierarchy": true
+"files": [
+    {
+        "source": "/texts/base.pot",
+        "translation": "/texts/%locale_with_underscore%.po"
+    }
+]
