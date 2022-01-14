@@ -7,6 +7,7 @@
 # - Anywhere with %s or %(number) is a placeholder for whatever the addon may add to it.
 # - The § symbol is used to create format codes that Minecraft bedrock understands. See the minecraft wiki for possible format codes.
 # - Long strings and (\n) are not supported, so do not add them.
+# - Double quotes must be escaped (" -> \")
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
