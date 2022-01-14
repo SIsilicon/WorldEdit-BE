@@ -1,0 +1,556 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/base.pot\n"
+"X-Crowdin-File-ID: 7\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"PO-Revision-Date: 2022-01-14 22:28\n"
+
+msgid "pack.description"
+msgstr ""
+
+# ITEMS
+msgid "item.error.wedit:noPerms"
+msgstr ""
+
+msgid "item.wedit:selection_wand"
+msgstr ""
+
+msgid "item.wedit:stacker_wand"
+msgstr ""
+
+msgid "item.wedit:navigation_wand"
+msgstr ""
+
+msgid "item.wedit:wooden_brush"
+msgstr ""
+
+msgid "item.wedit:stone_brush"
+msgstr ""
+
+msgid "item.wedit:iron_brush"
+msgstr ""
+
+msgid "item.wedit:golden_brush"
+msgstr ""
+
+msgid "item.wedit:diamond_brush"
+msgstr ""
+
+msgid "item.wedit:netherite_brush"
+msgstr ""
+
+msgid "item.wedit:copy_button"
+msgstr ""
+
+msgid "item.wedit:cut_button"
+msgstr ""
+
+msgid "item.wedit:paste_button"
+msgstr ""
+
+msgid "item.wedit:undo_button"
+msgstr ""
+
+msgid "item.wedit:redo_button"
+msgstr ""
+
+msgid "item.wedit:rotate_cw_button"
+msgstr ""
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr ""
+
+msgid "item.wedit:flip_button"
+msgstr ""
+
+msgid "item.wedit:pattern_picker"
+msgstr ""
+
+msgid "item.wedit:mask_picker"
+msgstr ""
+
+msgid "item.wedit:spawn_glass"
+msgstr ""
+
+msgid "item.wedit:selection_fill"
+msgstr ""
+
+msgid "item.wedit:config_button"
+msgstr ""
+
+msgid "item.wedit:brush_config_button"
+msgstr ""
+
+msgid "item.wedit:sphere_button"
+msgstr ""
+
+msgid "item.wedit:cylinder_button"
+msgstr ""
+
+msgid "item.wedit:one_button"
+msgstr ""
+
+msgid "item.wedit:two_button"
+msgstr ""
+
+msgid "item.wedit:three_button"
+msgstr ""
+
+msgid "item.wedit:four_button"
+msgstr ""
+
+msgid "item.wedit:five_button"
+msgstr ""
+
+msgid "item.wedit:six_button"
+msgstr ""
+
+msgid "item.wedit:confirm_button"
+msgstr ""
+
+msgid "item.wedit:cancel_button"
+msgstr ""
+
+msgid "item.wedit:inc_entities_on_button"
+msgstr ""
+
+msgid "item.wedit:inc_entities_off_button"
+msgstr ""
+
+msgid "item.wedit:inc_air_on_button"
+msgstr ""
+
+msgid "item.wedit:inc_air_off_button"
+msgstr ""
+
+msgid "item.wedit:blank"
+msgstr ""
+
+msgid "worldedit.spawnGlass.error"
+msgstr ""
+
+msgid "worldEdit.selectionFill.noPattern"
+msgstr ""
+
+msgid "worldedit.patternPicker.add"
+msgstr ""
+
+msgid "worldedit.patternPicker.set"
+msgstr ""
+
+msgid "worldedit.maskPicker.add"
+msgstr ""
+
+msgid "worldedit.maskPicker.set"
+msgstr ""
+
+msgid "worldedit.brushConfig.chooseBrush"
+msgstr ""
+
+msgid "worldedit.brushConfig.chooseKind"
+msgstr ""
+
+msgid "worldedit.brushConfig.selectRadius"
+msgstr ""
+
+msgid "worldedit.brushConfig.selectHeight"
+msgstr ""
+
+msgid "worldedit.brushConfig.patternMask"
+msgstr ""
+
+msgid "worldedit.brushConfig.confirm"
+msgstr ""
+
+msgid "worldedit.brushConfig.affects"
+msgstr ""
+
+msgid "worldedit.brushConfig.creates"
+msgstr ""
+
+msgid "worldedit.brushConfig.radius"
+msgstr ""
+
+msgid "worldedit.brushConfig.height"
+msgstr ""
+
+msgid "worldedit.brushConfig.set"
+msgstr ""
+
+msgid "worldedit.brushConfig.setGive"
+msgstr ""
+
+msgid "worldedit.brushConfig.cancel"
+msgstr ""
+
+msgid "worldedit.selection.noPrimary"
+msgstr ""
+
+msgid "worldedit.selection.cuboid.primary"
+msgstr ""
+
+msgid "worldedit.selection.cuboid.primaryArea"
+msgstr ""
+
+msgid "worldedit.selection.cuboid.secondary"
+msgstr ""
+
+msgid "worldedit.selection.cuboid.secondaryArea"
+msgstr ""
+
+msgid "worldedit.permission.granted"
+msgstr ""
+
+msgid "worldedit.permission.revoked"
+msgstr ""
+
+msgid "commands.blocks.wedit:changed"
+msgstr ""
+
+msgid "commands.blocks.wedit:created"
+msgstr ""
+
+msgid "commands.generic.wedit:commandFail"
+msgstr ""
+
+msgid "commands.generic.wedit:noSelection"
+msgstr ""
+
+msgid "commands.generic.wedit:invalidDir"
+msgstr ""
+
+msgid "commands.generic.wedit:invalidFlag"
+msgstr ""
+
+msgid "commands.generic.wedit:noClipboard"
+msgstr ""
+
+msgid "commands.generic.wedit:noCuboidSelection"
+msgstr ""
+
+msgid "commands.generic.wedit:noPermission"
+msgstr ""
+
+msgid "commands.generic.wedit:outsideWorld"
+msgstr ""
+
+msgid "commands.generic.wedit:tooBig"
+msgstr ""
+
+msgid "commands.generic.wedit:tooSmall"
+msgstr ""
+
+msgid "commands.generic.wedit:wandInfo"
+msgstr ""
+
+msgid "commands.wedit:brush.description"
+msgstr ""
+
+msgid "commands.wedit:brush.noBind"
+msgstr ""
+
+msgid "commands.wedit:clearhistory.description"
+msgstr ""
+
+msgid "commands.wedit.clearhistory.explain"
+msgstr ""
+
+msgid "commands.wedit:copy.description"
+msgstr ""
+
+msgid "commands.wedit:copy.explain"
+msgstr ""
+
+msgid "commands.wedit:cut.description"
+msgstr ""
+
+msgid "commands.wedit:cut.explain"
+msgstr ""
+
+msgid "commands.wedit:cyl.description"
+msgstr ""
+
+msgid "commands.wedit:drawsel.description"
+msgstr ""
+
+msgid "commands.wedit:drawsel.disabled"
+msgstr ""
+
+msgid "commands.wedit:drawsel.enabled"
+msgstr ""
+
+msgid "commands.wedit:flip.description"
+msgstr ""
+
+msgid "commands.wedit:flip.explain"
+msgstr ""
+
+msgid "commands.wedit:flip.notLateral"
+msgstr ""
+
+msgid "commands.wedit:gmask.description"
+msgstr ""
+
+msgid "commands.wedit:gmask.disabled"
+msgstr ""
+
+msgid "commands.wedit:gmask.set"
+msgstr ""
+
+msgid "commands.wedit:hcyl.description"
+msgstr ""
+
+msgid "commands.wedit:help.header"
+msgstr ""
+
+msgid "commands.wedit:hpyramid.description"
+msgstr ""
+
+msgid "commands.wedit:hsphere.description"
+msgstr ""
+
+msgid "commands.wedit:jumpto.description"
+msgstr ""
+
+msgid "commands.wedit:jumpto.explain"
+msgstr ""
+
+msgid "commands.wedit:jumpto.none"
+msgstr ""
+
+msgid "commands.wedit:kit.description"
+msgstr ""
+
+msgid "commands.wedit:kit.explain"
+msgstr ""
+
+msgid "commands.wedit:mask.description"
+msgstr ""
+
+msgid "commands.wedit:material.description"
+msgstr ""
+
+msgid "commands.wedit:move.description"
+msgstr ""
+
+msgid "commands.wedit:move.explain"
+msgstr ""
+
+msgid "commands.wedit:navwand.description"
+msgstr ""
+
+msgid "commands.wedit:navwand.explain"
+msgstr ""
+
+msgid "commands.wedit:paste.description"
+msgstr ""
+
+msgid "commands.wedit:paste.explain"
+msgstr ""
+
+msgid "commands.wedit:pos1.description"
+msgstr ""
+
+msgid "commands.wedit:pos2.description"
+msgstr ""
+
+msgid "commands.wedit:pyramid.description"
+msgstr ""
+
+msgid "commands.wedit:range.description"
+msgstr ""
+
+msgid "commands.wedit:redo.description"
+msgstr ""
+
+msgid "commands.wedit:redo.explain"
+msgstr ""
+
+msgid "commands.wedit:redo.none"
+msgstr ""
+
+msgid "commands.wedit:replace.description"
+msgstr ""
+
+msgid "commands.wedit:rotate.description"
+msgstr ""
+
+msgid "commands.wedit:rotate.explain"
+msgstr ""
+
+msgid "commands.wedit:rotate.notNinety"
+msgstr ""
+
+msgid "commands.wedit:sel.clear"
+msgstr ""
+
+msgid "commands.wedit:sel.description"
+msgstr ""
+
+msgid "commands.wedit:set.description"
+msgstr ""
+
+msgid "commands.wedit:size.description"
+msgstr ""
+
+msgid "commands.wedit:stack.description"
+msgstr ""
+
+msgid "commands.wedit:stack.explain"
+msgstr ""
+
+msgid "commands.wedit:sphere.description"
+msgstr ""
+
+msgid "commands.wedit:thru.description"
+msgstr ""
+
+msgid "commands.wedit:thru.explain"
+msgstr ""
+
+msgid "commands.wedit:thru.none"
+msgstr ""
+
+msgid "commands.wedit:thru.obstructed"
+msgstr ""
+
+msgid "commands.wedit:tracemask.description"
+msgstr ""
+
+msgid "commands.wedit:tool.description"
+msgstr ""
+
+msgid "commands.wedit:unstuck.description"
+msgstr ""
+
+msgid "commands.wedit:unstuck.explain"
+msgstr ""
+
+msgid "commands.wedit:undo.description"
+msgstr ""
+
+msgid "commands.wedit:undo.explain"
+msgstr ""
+
+msgid "commands.wedit:undo.none"
+msgstr ""
+
+msgid "commands.wedit:up.description"
+msgstr ""
+
+msgid "commands.wedit:up.explain"
+msgstr ""
+
+msgid "commands.wedit:wand.description"
+msgstr ""
+
+msgid "commands.wedit:wand.explain"
+msgstr ""
+
+msgid "commands.wedit:worldedit.description"
+msgstr ""
+
+msgid "commands.wedit:worldedit.version"
+msgstr ""
+
+# HOW TO PLAY
+msgid "howtoplay.category.worldEdit"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.title"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.1"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.1"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.2"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.3"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.2"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.4"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.5"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.6"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.3"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.7"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.8"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.4"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.9"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.10"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.11"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.12"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.13"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.14"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.15"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.5"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.16"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.17"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.18"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.19"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.20"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.header.7"
+msgstr ""
+
+msgid "howtoplay.wedit:quick_start.text.23"
+msgstr ""
+
+msgid "howtoplay.category.minecraft"
+msgstr ""
+
