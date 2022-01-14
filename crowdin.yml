@@ -1,5 +1,6 @@
 "base_path": "."
 "preserve_hierarchy": true
+"commit_message": "[ci skip]"
 "files": [
     {
         "source": "/texts/base.pot",
