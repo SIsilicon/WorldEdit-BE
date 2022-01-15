@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 15:24\n"
+"PO-Revision-Date: 2022-01-15 16:17\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -452,13 +452,13 @@ msgid "commands.wedit:wand.description"
 msgstr "Give yourself a selection wand"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr "潛行和點擊方塊：選擇位置 #1；不潛行和點擊方塊：選擇位置 #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "有關 WorldEdit 的資訊"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "WorldEdit 版本: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
