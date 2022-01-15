@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-15 16:45\n"
+"PO-Revision-Date: 2022-01-15 18:58\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
@@ -341,7 +341,7 @@ msgid "commands.wedit:move.description"
 msgstr "Move the selection in a certain direction"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "Přesunuto %s bloků."
 
 msgid "commands.wedit:navwand.description"
 msgstr "Give yourself a navigation wand"
@@ -353,7 +353,7 @@ msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "Vloženo %s bloků."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
