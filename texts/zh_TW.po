@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 17:43\n"
+"PO-Revision-Date: 2022-01-15 18:58\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -275,7 +275,7 @@ msgid "commands.wedit:cut.explain"
 msgstr "已剪下 %s 個方塊"
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "生成一個圓柱體"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Toggle your selection's visibility"
@@ -305,13 +305,13 @@ msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "生成一個空心的圓柱體"
 
 msgid "commands.wedit:help.header"
 msgstr "--- 顯示說明第 %1 頁 (共 %2 頁) (;help <頁數>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "生成一個空心的錐體"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "生成一個空心的球體"
@@ -362,7 +362,7 @@ msgid "commands.wedit:pos2.description"
 msgstr "Set the second position of your selection to the specified or current position"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "生成一個錐體"
 
 msgid "commands.wedit:range.description"
 msgstr "Set how far a brush can be used from"
@@ -464,7 +464,7 @@ msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "快速開始"
 
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
@@ -473,7 +473,7 @@ msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
