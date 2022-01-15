@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 16:17\n"
+"PO-Revision-Date: 2022-01-15 17:43\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -137,7 +137,7 @@ msgid "worldedit.spawnGlass.error"
 msgstr "不能在這裡放置方塊"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "你需要選擇填充該區域的方塊！"
 
 msgid "worldedit.patternPicker.add"
 msgstr "已新增以下方塊到填充方塊選擇器: "
@@ -233,13 +233,13 @@ msgid "commands.generic.wedit:noClipboard"
 msgstr "你的剪貼板是空的。請先複製或剪切一個區域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "請先選擇一個長方體區域"
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "你沒有權限執行此命令"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "不能修改未加載的區塊!"
+msgstr "不能修改未加載的區塊！"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "The number (%1) is too big! It must be at most (%2)."
@@ -293,7 +293,7 @@ msgid "commands.wedit:flip.explain"
 msgstr "已翻轉 %s 個方塊"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "不能往上或往下翻轉！"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
@@ -314,7 +314,7 @@ msgid "commands.wedit:hpyramid.description"
 msgstr "Generate a hollow pyramid"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "生成一個空心的球體"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleport you to the top of the block you're looking at"
@@ -407,7 +407,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "生成一個球體"
 
 msgid "commands.wedit:thru.description"
 msgstr "Teleport through any wall you look at"
