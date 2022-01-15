@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-15 16:10\n"
+"PO-Revision-Date: 2022-01-15 17:43\n"
 
 msgid "pack.description"
-msgstr "Un portage en développement du mod Java et bien plus ! Add-on par Slsilicon (@iSiliconS)."
+msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "Vous n'avez pas la permission d'utiliser cet objet."
 
 msgid "item.wedit:selection_wand"
-msgstr "Outil de Selection"
+msgstr "Outil de Sélection"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
@@ -128,7 +128,7 @@ msgid "item.wedit:inc_air_on_button"
 msgstr "Inclure l'air dans le presse-papier : §aActivé§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Inclure l'air dans le presse-papier : §4Désactivé§r"
+msgstr "Inclure l'air dans le presse-papier: §4Désactivé§r"
 
 msgid "item.wedit:blank"
 msgstr " "
@@ -143,7 +143,7 @@ msgid "worldedit.patternPicker.add"
 msgstr "Bloc ajouté au motif : "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Motif défini sur :"
+msgstr "Motif défini sur: "
 
 msgid "worldedit.maskPicker.add"
 msgstr "Bloc ajouté au masque : "
@@ -239,7 +239,7 @@ msgid "commands.generic.wedit:noPermission"
 msgstr "Vous n'avez pas la permission d'exécuter cette commande."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Impossible de modifier les chunks non chargés !"
+msgstr "Impossible de modifier les chunks non chargés!"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "The number (%1) is too big! It must be at most (%2)."
@@ -413,7 +413,7 @@ msgid "commands.wedit:thru.description"
 msgstr "Se téléporter à travers n'importe quel mur que vous regardez"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh !"
+msgstr "Whoosh!"
 
 msgid "commands.wedit:thru.none"
 msgstr "Not against or facing a wall to go through."
@@ -446,7 +446,7 @@ msgid "commands.wedit:up.description"
 msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh !"
+msgstr "Whoosh!"
 
 msgid "commands.wedit:wand.description"
 msgstr "Donne un outil de sélection"
@@ -458,7 +458,7 @@ msgid "commands.wedit:worldedit.description"
 msgstr "Informations sur WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "Version de WorldEdit : %s"
+msgstr "Version de WorldEdit: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
@@ -548,7 +548,7 @@ msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Et maintenant?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "Pour en savoir plus sur l'add-on, voici un lien menant à sa documentation : §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Pour en savoir plus sur l'add-on, voici un lien menant à sa documentation: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
