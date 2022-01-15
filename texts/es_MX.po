@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-01-15 19:59\n"
+"PO-Revision-Date: 2022-01-15 20:59\n"
 
 msgid "pack.description"
 msgstr "Un porteo en desarrollo del mod de Java original y más! Complemento creado por SIsilicon (@iSiliconS)."
@@ -83,64 +83,64 @@ msgid "item.wedit:selection_fill"
 msgstr "Rellenar selección"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Ajustes de WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Ajustes de Brocha"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Brocha de Esfera"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Brocha Cilíndrica"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Uno"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dos"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tres"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Cuatro"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Cinco"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Seis"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Aceptar"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Atrás"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Incluir entidades en portapapeles: §aActivado§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Incluir entidades en portapapeles: §aDesactivado§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Incluir Aire en portapapeles: §aActivado§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Incluir Aire en portapapeles: §aDesactivado§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "No se puede colocar el bloque aquí."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "¡Necesitas especificar un bloque para establecer la selección!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Bloque agregado al patrón: "
 
 msgid "worldedit.patternPicker.set"
 msgstr "Set pattern to block: "
