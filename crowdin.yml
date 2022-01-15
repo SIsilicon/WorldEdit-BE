@@ -3,7 +3,7 @@
 "commit_message": "[ci skip]"
 "files": [
     {
-        "source": "/texts/base.pot",
+        "source": "/texts/en_US.po",
         "translation": "/texts/%locale_with_underscore%.po"
     }
 ]

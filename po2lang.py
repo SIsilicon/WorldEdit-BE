@@ -19,7 +19,7 @@ def get_lang(file):
 def convert_file(in_path, out_path):
     newlines = []
     for entry in polib.pofile(in_path):
-        if not(entry.msgid != 'pack.description' and 'BP' in out_path):
+        if entry.msgid != "" and not(entry.msgid != 'pack.description' and 'BP' in out_path):
             string = entry.msgstr.replace('\\"', '"')
             newlines.append(f'{entry.msgid}={string}\n')
     
@@ -28,22 +28,39 @@ def convert_file(in_path, out_path):
         print(f'{in_path} converted to {out_path}')
 
 def update_keys(filename):
-    baseKeys = []
-    for entry in polib.pofile(f'{srcdir}/base.pot'):
-        baseKeys.append(entry.msgid)
-    langEntries = {}
+    lang_entries = {}
+    crowd_lang = ''
+    lang_team = ''
+    
     for entry in polib.pofile(filename):
-        langEntries[entry.msgid] = entry.msgstr.replace('"', '\\"')
+        lang_entries[entry.msgid] = entry.msgstr.replace('"', '\\"')
+    with open(filename) as file:
+        line = file.readline()
+        while line:
+            if '"X-Crowdin-Language:' in line:
+                crowd_lang = line
+            elif '"Language-Team:' in line:
+                lang_team = line
+            if crowd_lang and lang_team:
+                break
+            line = file.readline()
     
     lines = []
-    with open(f'{srcdir}/base.pot') as file:
+    with open(f'{srcdir}/en_US.po') as file:
         lines = file.readlines()
     
     with open(filename, 'w') as file:
         msgid = ''
         for line in lines:
+            if '"X-Crowdin-Language:' in line:
+                file.write(crowd_lang)
+            elif '"Language-Team:' in line:
+                file.write(lang_team)
+            elif '"Language:' in line:
+                file.write(f'"Language: {get_lang(filename)}\n"')
+            
             if msgid:
-                file.write(f"msgstr \"{langEntries.get(msgid, '')}\"\n")
+                file.write(f"msgstr \"{lang_entries.get(msgid, '')}\"\n")
                 msgid = ''
             else:
                 match = re.match(r'msgid(.+)"(.+)"', line)
@@ -89,13 +106,13 @@ if args.watch:
     
     class MyHandler(FileSystemEventHandler):
         def on_modified(self, event):
-            if event.src_path.endswith('.po'):
-                convert_lang(event.src_path)
-                alert_watching()
-            elif event.src_path.endswith('.pot'):
+            if event.src_path.endswith('en_US.po'):
                 for filename in glob.iglob(srcdir + '/*.po', recursive = True):
                     update_keys(filename)
                     convert_lang(filename)
+                alert_watching()
+            elif event.src_path.endswith('.po'):
+                convert_lang(event.src_path)
                 alert_watching()
         
         def on_created(self, event):

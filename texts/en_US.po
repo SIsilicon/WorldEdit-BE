@@ -3,16 +3,32 @@
 # This file is distributed under the same license as the "WorldEdit: Bedrock Edition" addon.
 # Roujel (SIsilicon) Williams <roujelwilliams@yahoo.com>, 2022.
 
-# Translation notes:
+# Translation notes: 
 # - Anywhere with %s or %(number) is a placeholder for whatever the addon may add to it.
 # - The § symbol is used to create format codes that Minecraft bedrock understands. See the minecraft wiki for possible format codes.
 # - Long strings and (\n) are not supported, so do not add them.
 # - Double quotes must be escaped (" -> \")
 
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: en\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
+"X-Crowdin-File-ID: 7\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"PO-Revision-Date: 2022-01-14 22:27\n"
+
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
 
 # ITEMS
+
 msgid "item.error.wedit:noPerms"
 msgstr "You don't have the permission to use this item."
 
@@ -323,6 +339,7 @@ msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit version: %s"
 
 # HOW TO PLAY
+
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
@@ -364,7 +381,7 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Selection Fill\". A cuboid of stone should be made.\"
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Selection Fill\". A cuboid of stone should be made."
 msgid "howtoplay.wedit:quick_start.text.11"
 msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Selection Fill\" again to clear the stone."
 msgid "howtoplay.wedit:quick_start.text.12"
