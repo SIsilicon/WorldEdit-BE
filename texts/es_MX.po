@@ -11,76 +11,76 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-01-15 02:05\n"
+"PO-Revision-Date: 2022-01-15 19:59\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "Un porteo en desarrollo del mod de Java original y más! Complemento creado por SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "No tienes permiso para usar este objeto."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Varita Stacker"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Navegador"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Brocha de Madera"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Brocha de Piedra"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Brocha de Hierro"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Brocha de Oro"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Brocha de Diamante"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Brocha de Inframundita"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copiar"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Cortar"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Pegar"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Deshacer"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Rehacer"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Girar a la derecha"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Girar a la izquierda"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Voltear"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Selector de Patrones"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Selector de máscara"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Generar Bloque de Cristal"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Rellenar selección"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Settings"
