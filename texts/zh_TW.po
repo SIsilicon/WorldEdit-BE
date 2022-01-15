@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 02:05\n"
+"PO-Revision-Date: 2022-01-15 13:16\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -47,13 +47,13 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "複製"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "剪下"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "貼上"
 
 msgid "item.wedit:undo_button"
 msgstr "Undo"
@@ -77,13 +77,13 @@ msgid "item.wedit:mask_picker"
 msgstr "Mask Picker"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "生成玻璃方塊"
 
 msgid "item.wedit:selection_fill"
 msgstr "Fill Selection"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit 設定"
 
 msgid "item.wedit:brush_config_button"
 msgstr "Brush Settings"
@@ -95,22 +95,22 @@ msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "一"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "二"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "三"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "四"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "五"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "六"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
