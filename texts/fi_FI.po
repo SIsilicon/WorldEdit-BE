@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2022-01-15 02:06\n"
+"PO-Revision-Date: 2022-01-15 15:24\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Sinulla ei ole lupaa käyttää tätä tavaraa."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Valintasauva"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
@@ -29,121 +29,121 @@ msgid "item.wedit:navigation_wand"
 msgstr "Navigation Wand"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Puu Sivellin"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Kivi Sivellin"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Rauta Sivellin"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Kulta Sivellin"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Timantti Sivellin"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Netheriitti Sivellin"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopioi"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Leikkaa"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Liitä"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Kumoa"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Tee uudelleen"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Kierrä oikealle"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Kierrä vasemmalle"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Käännä"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Kuvion Valitsija"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Maskin valitsija"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Luo Lasikuutio"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Täytä Valinta"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit Asetukset"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Siveltimen Asetukset"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Pallo Sivellin"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Sylinteri Sivellin"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Yksi"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Kaksi"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Kolme"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Neljä"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Viisi"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Kuusi"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Takaisin"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Sisällytä yksiköt leikepöydälle: §aEnabled§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Sisällytä yksiköt leikepöydälle: §4Disabled§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Sisällytä ilma leikepöydälle: §aEnabled§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Sisällytä ilma leikepöydälle: §4Disabled§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Palikkaa ei voi asettaa tähän."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Sinun täytyy määrittää palikka jotta voit asettaa valinnan!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Lisätty palikka kuvioon: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Aseta kuvio palikkaan: "
 
 msgid "worldedit.maskPicker.add"
 msgstr "Added block to mask: "
