@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2022-01-15 15:24\n"
+"PO-Revision-Date: 2022-01-15 16:45\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -77,7 +77,7 @@ msgid "item.wedit:mask_picker"
 msgstr "Maskin valitsija"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Luo Lasikuutio"
+msgstr "Luo Lasi"
 
 msgid "item.wedit:selection_fill"
 msgstr "Täytä Valinta"
@@ -134,37 +134,37 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Palikkaa ei voi asettaa tähän."
+msgstr "Kuutiota ei voi asettaa tähän."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "Sinun täytyy määrittää palikka jotta voit asettaa valinnan!"
+msgstr "Sinun täytyy määrittää kuutio jotta voit asettaa valinnan!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Lisätty palikka kuvioon: "
+msgstr "Lisätty kuutio kuvioon: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Aseta kuvio palikkaan: "
+msgstr "Aseta kuvio kuutioon: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Lisätty kuutio maskiin: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Aseta maski kuutioon: "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Choose a brush to set up."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "Valitse millainen sivellin tehdään."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "Valitse siveltimen koko."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "Valitse siveltimen korkeus."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Tee kuvio ja valinnainen maski siveltimelle."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Is this Ok?"
@@ -545,10 +545,10 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Disable the brush with §e;br tier none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "Mitä nyt?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Jos haluat lisätietoja tästä lisäosasta, voit mennä sen online-dokumentaatioon täällä: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
