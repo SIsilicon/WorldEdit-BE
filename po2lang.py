@@ -22,51 +22,52 @@ def convert_file(in_path, out_path):
         if entry.msgid != "" and not(entry.msgid != 'pack.description' and 'BP' in out_path):
             string = entry.msgstr.replace('\\"', '"')
             newlines.append(f'{entry.msgid}={string}\n')
+            
+            if 'BP' in out_path:
+                break;
     
     with open(out_path, 'w') as file:
         file.writelines(newlines)
         print(f'{in_path} converted to {out_path}')
 
 def update_keys(filename):
-    lang_entries = {}
-    crowd_lang = ''
-    lang_team = ''
+    if filename.endswith('en_US.po'):
+        return
     
+    base_entries = {}
+    lang_entries = {}
+    
+    for entry in polib.pofile(f'{srcdir}/en_US.po'):
+        base_entries[entry.msgid] = entry.msgstr.replace('"', '\\"')
     for entry in polib.pofile(filename):
         lang_entries[entry.msgid] = entry.msgstr.replace('"', '\\"')
+    
+    meta = []
     with open(filename) as file:
+        reading_meta = False
         line = file.readline()
         while line:
-            if '"X-Crowdin-Language:' in line:
-                crowd_lang = line
-            elif '"Language-Team:' in line:
-                lang_team = line
-            if crowd_lang and lang_team:
-                break
+            if reading_meta:
+                if line == '\n' or line.startswith('#') or line.startswith('msgid'):
+                    break
+                meta.append(line)
+            if re.match(r'msgid\s+""', line):
+                reading_meta = True
             line = file.readline()
     
-    lines = []
-    with open(f'{srcdir}/en_US.po') as file:
-        lines = file.readlines()
+    if get_lang(filename) == 'bg_BG':
+        print(meta)
     
     with open(filename, 'w') as file:
-        msgid = ''
-        for line in lines:
-            if '"X-Crowdin-Language:' in line:
-                file.write(crowd_lang)
-            elif '"Language-Team:' in line:
-                file.write(lang_team)
-            elif '"Language:' in line:
-                file.write(f'"Language: {get_lang(filename)}\n"')
-            
-            if msgid:
-                file.write(f"msgstr \"{lang_entries.get(msgid, '')}\"\n")
-                msgid = ''
-            else:
-                match = re.match(r'msgid(.+)"(.+)"', line)
-                if match:
-                    msgid = match.group(2)
-                file.write(line)
+        file.write('msgid ""\n')
+        for line in meta:
+            file.write(line)
+        file.write('\n')
+        
+        for entry in base_entries:
+            file.write(f'msgid "{entry}"\n')
+            file.write(f"msgstr \"{lang_entries.get(entry, base_entries.get(entry, ''))}\"\n")
+            file.write('\n')
 
 def convert_lang(filename):
     lang = get_lang(filename)
@@ -104,14 +105,24 @@ if args.watch:
     def alert_watching():
         print('Watching for file changes...')
     
+    updating_keys = False
+    
     class MyHandler(FileSystemEventHandler):
+        def __init__(self):
+            self.updating_keys = False
+        
         def on_modified(self, event):
-            if event.src_path.endswith('en_US.po'):
-                for filename in glob.iglob(srcdir + '/*.po', recursive = True):
-                    update_keys(filename)
-                    convert_lang(filename)
-                alert_watching()
-            elif event.src_path.endswith('.po'):
+            if self.updating_keys:
+                return
+            
+            # if event.src_path.endswith('en_US.po'):
+            #     self.updating_keys = True
+            #     for filename in glob.iglob(srcdir + '/*.po', recursive = True):
+            #         update_keys(filename)
+            #         convert_lang(filename)
+            #     self.updating_keys = False
+            #     alert_watching()
+            if event.src_path.endswith('.po'):
                 convert_lang(event.src_path)
                 alert_watching()
         

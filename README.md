@@ -40,7 +40,7 @@ These features will be added in the near future.
 
 ## Documentation
 The addon comes with a quick start on how to use WorldEdit in `Settings > How to Play` while you're in the world.
-There's a more in-depth documentation over at the project's [docs page](https://worldedit-be-docs.readthedocs.io).
+There's a more in-depth documentation over at the project's docs page: https://worldedit-be-docs.readthedocs.io
 
 ## Contribution
 ### Bug Report
