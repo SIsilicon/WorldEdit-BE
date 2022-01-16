@@ -28,22 +28,13 @@ commandList['wall'] = [registerInformation, (session, builder, args) => {
     }
     
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
-
-    const history = session.getHistory();
-    history.record();
     
     let count = 0;
     let [start, end] = session.getSelectionRange();
-    
     if (session.selectionMode == 'cuboid') {
-        history.addUndoStructure(start, end, 'any');
         const size = Vector.sub(end, start).add(Vector.ONE);
         count = new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {wall: true});
     }
     
-    history.recordSelection(session);
-    history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
-    history.commit();
-
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

@@ -29,13 +29,13 @@ export class CuboidShape extends Shape {
     protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
         const end = genVars.end;
         if (genVars.isHollow &&
-            relLoc.x > 0 && relLoc.x < end.x &&
-            relLoc.y > 0 && relLoc.y < end.y &&
-            relLoc.z > 0 && relLoc.z < end.z) {
+            relLoc.x > 0 && relLoc.x < end[0] &&
+            relLoc.y > 0 && relLoc.y < end[1] &&
+            relLoc.z > 0 && relLoc.z < end[2]) {
             return false;
         } else if (genVars.isWall &&
-            relLoc.x > 0 && relLoc.x < end.x &&
-            relLoc.z > 0 && relLoc.z < end.z) {
+            relLoc.x > 0 && relLoc.x < end[0] &&
+            relLoc.z > 0 && relLoc.z < end[2]) {
             return false;
         }
         
