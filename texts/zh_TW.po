@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-16 14:04\n"
+"PO-Revision-Date: 2022-01-16 15:00\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "有時候由A點移動到B點很麻煩。幸連地，這個附加包添加了一種名為導航工具的物品。要獲得一個，你可以在物品欄中擁有一個指南針，或輸入命令 §e;navwand§r。當你有這個物品時，只需要與它進行互動便可以傳送到視線中方塊的位置。想前往牆壁或天花板的另一邊？在潛行時使用導航工具即可穿過它！在方塊裏面困住了？使用導航工具即可解困！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
+msgstr "§l§a提示:§r§a 如果你不想使用導航工具，這些動作也可透過命令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成§r。"
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Making Selections"
