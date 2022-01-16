@@ -134,6 +134,17 @@ class SelectionFillTool extends Tool {
 }
 Tools.register(SelectionFillTool, 'selection_fill');
 
+class SelectionWallTool extends Tool {
+    tag = 'wedit:performing_selection_wall';
+    itemTool = 'wedit:selection_wall';
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        callCommand(player, 'wall', ['air']);
+        session.usingItem = false;
+    }
+}
+Tools.register(SelectionWallTool, 'selection_wall');
+
 class ConfigTool extends Tool {
     tag = 'wedit:performing_config';
     itemTool = 'wedit:config_button';

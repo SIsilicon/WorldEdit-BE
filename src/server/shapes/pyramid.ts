@@ -16,6 +16,11 @@ export class PyramidShape extends Shape {
         ];
     }
     
+    public getYRange(x: number, z: number): null {
+        throw new Error('getYRange not implemented!');
+        return null;
+    }
+    
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
     }
