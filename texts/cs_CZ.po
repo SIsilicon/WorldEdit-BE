@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-16 12:56\n"
+"PO-Revision-Date: 2022-01-16 15:01\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
@@ -332,25 +332,25 @@ msgid "commands.wedit:kit.explain"
 msgstr "Byla vám dána sada."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Nastavte, jaký druh bloků může štětec ovlivnit, pokud nějaký"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Nastavte, jaký druh bloků může štětce pokládat"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Posune výběr v určitém směru"
 
 msgid "commands.wedit:move.explain"
 msgstr "Přesunuto %s bloků."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Dá vám navigační hůlku"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "Skrčit a použít: projít skrz zdi; použít bez skrčení: přeskočit na místo"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Vložte svou schránku do světa"
 
 msgid "commands.wedit:paste.explain"
 msgstr "Vloženo %s bloků."
