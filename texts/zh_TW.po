@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 18:58\n"
+"PO-Revision-Date: 2022-01-16 01:46\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -257,10 +257,10 @@ msgid "commands.wedit:brush.noBind"
 msgstr "No brush has been bounded to this tier."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "清除你的歷史編輯記錄"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "已清除歷史操作記錄"
+msgstr "已清除歷史編輯記錄"
 
 msgid "commands.wedit:copy.description"
 msgstr "Copy the current selection to the clipboard"
@@ -467,7 +467,7 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "快速開始"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "怎樣玩: WorldEdit的快速開始"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
