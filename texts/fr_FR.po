@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-15 17:43\n"
+"PO-Revision-Date: 2022-01-16 12:55\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -347,7 +347,7 @@ msgid "commands.wedit:navwand.description"
 msgstr "Donne un outil de navigation"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "S'accroupir et appuyer sur le bloc : Se téléporter l'emplacement ; Appuyer sur le bloc sans s'accroupir : Traverser les murs"
+msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
 
 msgid "commands.wedit:paste.description"
 msgstr "Colle le presse-papier dans le monde"
