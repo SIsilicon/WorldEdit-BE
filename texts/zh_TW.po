@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-16 05:51\n"
+"PO-Revision-Date: 2022-01-16 12:55\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -347,7 +347,7 @@ msgid "commands.wedit:navwand.description"
 msgstr "給自己一個導航工具"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "潛行和點擊方塊：傳送到視線中方塊的位置；不潛行和點擊方塊：穿牆"
+msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
 
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
@@ -488,7 +488,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意:§r§a 附加包所提供的指令使用一個分號(;)取代一個斜線(/)。在未來，Mojang 可能會在 Minecraft 增加實際的自訂指令支援。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "有時候由A點移動到B點很麻煩。幸連地，這個附加包添加了一種名為導航工具的物品。要獲得一個，你可以在物品欄中擁有一個指南針，或輸入命令 §e;navwand§r。當你有這個物品時，只需要與它進行互動便可以傳送到視線中方塊的位置。想前往牆壁或天花板的另一邊？在潛行時使用導航工具 (Translation Paused)"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
