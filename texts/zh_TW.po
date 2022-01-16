@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-16 01:46\n"
+"PO-Revision-Date: 2022-01-16 02:47\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -206,7 +206,7 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二個位置已設定至 %1 (已選擇 %2 個方塊)。"
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§e你已獲得 WorldEdit 權限。前往 (設定 > 遊戲說明 > 快速開始) 以獲得 WorldEdit 教學。§r"
 
 msgid "worldedit.permission.revoked"
 msgstr "§e已撤消你的 WorldEdit 權限§r"
@@ -224,7 +224,7 @@ msgid "commands.generic.wedit:noSelection"
 msgstr "請先選擇一個區域"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s'是一個無效的方向參數！"
 
 msgid "commands.generic.wedit:invalidFlag"
 msgstr "Unexpected flag: %s"
@@ -242,10 +242,10 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "不能修改未加載的區塊！"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "數值(%1)太大了！它的最大是(%2)。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "數值(%1)太小了！它的最少是(%2)。"
 
 msgid "commands.generic.wedit:wandInfo"
 msgstr "Wand updated."
@@ -344,7 +344,7 @@ msgid "commands.wedit:move.explain"
 msgstr "已移動 %s 個方塊"
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "給自己一個導航工具"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "潛行和點擊方塊：傳送到視線中方塊的位置；不潛行和點擊方塊：穿牆"
@@ -449,7 +449,7 @@ msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "給自己一個區域選擇工具"
 
 msgid "commands.wedit:wand.explain"
 msgstr "潛行和點擊方塊：選擇位置 #1；不潛行和點擊方塊：選擇位置 #2"
@@ -467,7 +467,7 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "快速開始"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "怎樣玩: WorldEdit的快速開始"
+msgstr "遊戲說明: WorldEdit的快速開始"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
@@ -476,16 +476,16 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr "在默認情況下，玩家並不允許使用WorldEdit。只有那些被標籤為建築者的玩家可以使用它的功能。如果要使自己標籤為建築者，在聊天欄裏輸入 §e/tag @s add builder§r。你應該會收到一個信息說你已獲得 WorldEdit 權限。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§a提示:§r§a 你也可以透過把 §e@s§r§a 變更為其他玩家名稱以標籤他們為建築者。如果玩家名稱中帶有空格，你需要將其括在引號中。例子: §e/tag \"Steve Wanderer\" add builder§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr "前往地方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§a注意:§r§a 附加包所提供的指令使用一個分號(;)取代一個斜線(/)。在未來，Mojang 可能會在 Minecraft 增加實際的自訂指令支援。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
