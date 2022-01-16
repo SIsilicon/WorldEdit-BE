@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-16 15:00\n"
+"PO-Revision-Date: 2022-01-16 15:58\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -227,7 +227,7 @@ msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s'是一個無效的方向參數！"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "預期外的旗標: %s"
 
 msgid "commands.generic.wedit:noClipboard"
 msgstr "你的剪貼板是空的。請先複製或剪切一個區域。"
