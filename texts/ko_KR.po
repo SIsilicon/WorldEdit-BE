@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-17 10:29\n"
+"PO-Revision-Date: 2022-01-17 12:29\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -59,7 +59,7 @@ msgid "item.wedit:undo_button"
 msgstr "실행 취소"
 
 msgid "item.wedit:redo_button"
-msgstr "실행 취소 취소"
+msgstr "되돌리기"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "시계 방향 회전"
@@ -368,13 +368,13 @@ msgid "commands.wedit:range.description"
 msgstr "브러쉬를 사용할 수 있는 거리 설정"
 
 msgid "commands.wedit:redo.description"
-msgstr "일정량의 작업 취소를 취소합니다."
+msgstr "일정량의 작업 취소를 되돌립니다."
 
 msgid "commands.wedit:redo.explain"
 msgstr "%s 번의 가능한 편집을 되돌렸습니다."
 
 msgid "commands.wedit:redo.none"
-msgstr "작업 취소 취소할 작업이 남아 있지 않습니다."
+msgstr "되돌릴 것이 없습니다."
 
 msgid "commands.wedit:replace.description"
 msgstr "선택 영역의 특정 블록을 다른 블록으로 바꿉니다."
@@ -431,13 +431,13 @@ msgid "commands.wedit:unstuck.description"
 msgstr "블록 밖으로 이동"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "잘했어!"
+msgstr "나왔어요!"
 
 msgid "commands.wedit:undo.description"
-msgstr "일정량의 작업 실행 취소"
+msgstr "일정량의 작업을 취소합니다."
 
 msgid "commands.wedit:undo.explain"
-msgstr "%s 번의 가능한 편집을 되돌렸습니다."
+msgstr "%s 번의 가능한 편집을 취소했습니다."
 
 msgid "commands.wedit:undo.none"
 msgstr "취소할 것이 없습니다."
