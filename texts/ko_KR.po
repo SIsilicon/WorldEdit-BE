@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-17 05:34\n"
+"PO-Revision-Date: 2022-01-17 07:00\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -59,115 +59,115 @@ msgid "item.wedit:undo_button"
 msgstr "실행 취소"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "실행 취소 취소"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "시계 방향 회전"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "반시계 방향 회전"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "뒤집기"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "패턴 피커"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "마스크 피커"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "유리블럭 설치"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "채우기 도구"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "월드에딧 설정"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "브러쉬 설정"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "구 설정"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "원기둥 브러쉬"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "일"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "이"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "삼"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "사"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "오"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "육"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "확인"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "취소"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "클립보드에 몹 포함 §a켜짐§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "클립보드에 몹 포함 §4꺼짐§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "클립보드에 공기 포함 §a켜짐§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "클립보드에 공기 포함 §4꺼짐§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "여기엔 블럭을 놓을수 없습니다."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "패턴을 블록으로 추가: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "패턴을 블록으로 설정: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "마스크를 블록으로 추가: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "설정할 브러쉬를 선택하세요."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "어떤 브러시를 만들 것인지 선택하세요."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "브러쉬의 크기를 선택하세요."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "브러쉬의 높이를 설정하세요."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "브러시에 사용할 패턴과 마스크(옵션)를 선택하세요."
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "확인합니다"
 
 msgid "worldedit.brushConfig.affects"
 msgstr "Affects: %s"
@@ -320,124 +320,124 @@ msgid "commands.wedit:jumpto.description"
 msgstr "Teleport you to the top of the block you're looking at"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "슝!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "시야(또는 너무 멀리)에 블록이 없습니다!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "모든 월드에딧 아이템을 받을 수 있는 커맨드"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "키트가 지급되었습니다."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "브러시가 만들 블록 유형 설정(필수)"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "선택 영역을 특정 방향으로 이동합니다."
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "%s 만큼 움직였습니다."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "이동 도구를 받을 수 있습니다."
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "웅크리고 아이템 사용: 벽 통과, 웅크리지 않고 아이템 사용: 바라보는 위치로 이동"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "클립보드를 월드에 붙여넣기"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "%s 블럭을 붙여넣었습니다."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "선택 영역의 첫 번째 위치를 지정 위치 또는 현재 위치로 설정합니다."
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "선택 영역의 두 번째 위치를 지정 위치 또는 현재 위치로 설정합니다."
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "피라미드가 생성되었습니다."
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "브러쉬를 사용할 수 있는 거리 설정"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "일정량의 작업 취소를 취소합니다."
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "%s 번의 가능한 편집을 되돌렸습니다."
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "작업 취소 취소할 작업이 남아 있지 않습니다."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "선택 영역의 특정 블록을 다른 블록으로 바꿉니다."
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "선택 영역을 돌립니다."
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "%s 블록을 회전했습니다."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "'%s'은 90°의 증분이 아닙니다!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "선택 영역을 지웠습니다."
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr "선택 모드 변경(현재 선택 항목만 지울 수 있음)"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "블록 패턴으로 선택 영역을 채웁니다."
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "브러쉬의 사이즈를 선택합니다."
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "현재 선택 영역의 내용을 반복합니다."
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "쌓아서 %s 블록을 생성했습니다."
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "구를 생성합니다."
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "보이는 벽을 통과해 순간이동합니다."
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "훙!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "벽에 기대거나 벽을 향하지 않고 통과할 수 있습니다."
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "빈곳을 찾을수 없습니다."
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "브러시를 사용할 수 있는 블록 유형 설정"
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools (currently only the stacker)"
+msgstr "모든 종류의 도구 가져오기(현재 쌓기 도구만 해당)"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "블록 밖으로 이동"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "There you go!"
+msgstr "잘했어!"
 
 msgid "commands.wedit:undo.description"
-msgstr "Undo a certain amount of actions"
+msgstr "일정량의 작업 실행 취소"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr "%s 번의 가능한 편집을 되돌렸습니다."
 
 msgid "commands.wedit:undo.none"
 msgstr "Nothing left to undo."
