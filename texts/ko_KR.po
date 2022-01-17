@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-17 07:00\n"
+"PO-Revision-Date: 2022-01-17 08:09\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -170,154 +170,154 @@ msgid "worldedit.brushConfig.confirm"
 msgstr "확인합니다"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "영향: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "생성: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "사이즈: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "높이: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "브러쉬가 구성됨"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "브러쉬 구성과 함께 당신의 인벤토리에 추가하였습니다."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "브러쉬 구성을 취소했습니다."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "첫 번째 위치가 %s 로 설정되었습니다."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "첫 번째 위치가 %1 (%2)로 설정되었습니다."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "두 번째 위치가 %s로 설정되었습니다."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "두 번째 위치가 %1 (%2)로 설정되었습니다."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eWorldEdit 권한이 부여되었습니다. (설정 > 게임 방법 > 빠른 시작)에서 안내를 받으실 수 있습니다.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eWorldEdit 권한이 제거되었습니다.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 블록이 바뀌었습니다."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s 블록이 생성되었습니다."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "이 명령을 실행하지 못했습니다."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "먼저 선택 영역을 선택하십시오."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s'은 잘못된 방향 인수입니다!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "예기치 않은 플래그: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "클립보드가 비어 있습니다. 먼저 영역을 복사하거나 잘라내십시오."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "먼저 정육면체 선택을 하세요."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "이 명령을 실행할 수 있는 권한이 없습니다."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "숫자(%1) 가 너무 작습니다! 최소 (%2) 이상이어야 합니다."
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "도구가 업데이트 되었습니다."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "브러시 유형 설정"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "이 티어에 바인딩된 브러시가 없습니다."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "편집 기록 지우기"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "기록이 지워졌습니다."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "현재 선택 항목을 클립보드에 복사합니다."
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "%s 블록을 복사했습니다."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "현재 선택 항목을 제거하고 클립보드에 배치합니다."
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "%s 블록을 잘라내기 했습니다."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "원기둥을 생성합니다."
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "선택 영역의 표시 여부를 전환합니다."
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "선택한 항목이 더 이상 표시되지 않습니다."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "이제 선택사항이 표시됩니다."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "선택사항을 뒤집습니다."
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "%s 블록을 뒤집었습니다."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "위아래로 뒤집을 수 없습니다!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "글로벌 마스크 설정입니다."
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "글로벌 마스크가 비활성화 되었습니다."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "글로벌 마스크가 생성되었습니다."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "안쪽이 빈 원기둥을 생성합니다."
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- 도움말 %1 / %2 페이지 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "속이 빈 피라미드를 생성합니다."
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "속이 빈 구체를 생성합니다."
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "보고 있는 블록의 꼭대기로 순간이동합니다."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "슝!"
@@ -440,43 +440,43 @@ msgid "commands.wedit:undo.explain"
 msgstr "%s 번의 가능한 편집을 되돌렸습니다."
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "취소할 것이 없습니다."
 
 msgid "commands.wedit:up.description"
-msgstr "Move up a certain number of blocks"
+msgstr "특정 블록 수 위로 이동합니다."
 
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh!"
+msgstr "우와아!"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "사용 하면 선택 도구를 받을수 있습니다."
 
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr "웅크리고 블록을 상호작용: 지점 #1 선택, 웅크리지 않고 블록을 상호작용: 지점 #2 선택"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "WorldEdit에 대한 정보"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "WorldEdit 버전: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "빠른 시작"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "How to Play: WorldEdit 빠른 시작"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr "환영합니다! 이것은 원래 마인크래프트: 자바 에디션용 WorldEdit 모드의 포트입니다. 이 애드온은 마인크래프트 안에서 당신의 월드를 형성하는데 도움을 줄 것입니다."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "다른 무엇보다도 먼저.."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr "기본적으로 플레이어는 WorldEdit를 사용할 수 없습니다. 작성기로 태그된 사용자만 해당 기능을 사용할 수 있습니다. 빌더를 만들려면 채팅에 §e/tag @s add builder§r를 입력하십시오. 그러면 WorldEdit 권한을 부여했다는 메시지가 표시됩니다."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
