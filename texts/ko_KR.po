@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-17 08:53\n"
+"PO-Revision-Date: 2022-01-17 10:29\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -320,7 +320,7 @@ msgid "commands.wedit:jumpto.description"
 msgstr "보고 있는 블록의 꼭대기로 순간이동합니다."
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "슝!"
+msgstr "휙!"
 
 msgid "commands.wedit:jumpto.none"
 msgstr "시야(또는 너무 멀리)에 블록이 없습니다!"
@@ -413,7 +413,7 @@ msgid "commands.wedit:thru.description"
 msgstr "보이는 벽을 통과해 순간이동합니다."
 
 msgid "commands.wedit:thru.explain"
-msgstr "훙!"
+msgstr "우와아!"
 
 msgid "commands.wedit:thru.none"
 msgstr "벽에 기대거나 벽을 향하지 않고 통과할 수 있습니다."
