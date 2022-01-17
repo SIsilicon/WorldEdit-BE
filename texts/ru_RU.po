@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-17 13:29\n"
+"PO-Revision-Date: 2022-01-17 14:51\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порта оригинального мода Java и многое другое! Аддон от Silicon (@iSiliconS)."
@@ -191,121 +191,121 @@ msgid "worldedit.brushConfig.cancel"
 msgstr "Настройки кисти отменена."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "Первая точка не была выбрана."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Первая точка поставлена на %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Первая точка поставлена на %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Вторая точка поставлена на %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Вторая точка поставлена на %1 (%2)."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eВам предоставлены права WorldEdit. Откройте (Настройки > Как играть > Быстрый старт) для получения руководства.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eВаши права на WorldEdit были убраны.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s блоки были изменины."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s блоки были созданы."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Не удалось выполнить эту команду."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Вначале выберите точки."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "%s не правильный вариант поворота!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Не правильный флаг: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Ваши заметки пусты. Вначале скопируйте или вырежьте регион."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Для начала выберите прямоугольные точки."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "У вас не достаточно прав чтобы использовать эту команду."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Не возможно модифицировать не загруженные чанки!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "Число (%1) слишком маленькое! Самое маленькое допустимое число (%2)."
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "Вещь обновлена."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "Настройте тип кисти"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "Ни одна кисть не привязана к этому уровню."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Очистите историю редактирования"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "История очищена."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Скопируйте регион в заметки"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "Скопировано %s блоков."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Удалите текущий выбор и поместите его в заметки"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "Вырезано %s блоков."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Сгенерируйте цилиндр"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Переключить видимость вашего выбора"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Ваш выбор больше не будет виден."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Ваш выбор теперь будет виден."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Переверните постройку которую вы выбрали"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "Перевёрнуто %s блоков."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Невозможно перевернуть верх или вниз!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Поставьте глобальную маску"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Глобальная маска выключена."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Глобальная маска поставлена."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Сгенерировать пустой целиндр"
 
 msgid "commands.wedit:help.header"
 msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
