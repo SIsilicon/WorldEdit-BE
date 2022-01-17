@@ -11,163 +11,163 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-17 13:29\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "Находящийся в разработке порта оригинального мода Java и многое другое! Аддон от Silicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "У вас не достаточно прав чтобы использовать этот предмет."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Топор Выбора"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Навигационная Палка"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Деревянная Кисть"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Каменная Кисть"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Железная Кисть"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Золотая Кисть"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Алмазная Кисть"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Незеритовая Кисть"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Скопировать"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Вырезать"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Вставить"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Отменить"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Переделать"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Повернуть по часовой стрелке"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Повернуть против часовой стрелки"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Перевернуть"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Выбор Шаблона"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Выбор Маски"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Поставить Стеклянный Блок"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Заполнение"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Настройки WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Настройки Кисти"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Сферовая Кисть"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Целиндровая Кисть"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Один"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Два"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Три"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Четыре"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Пять"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Шесть"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Ок"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Назад"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Учитывать существа в Заметки §aВключено§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Учитывать существа в Заметки §aВыключено§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Учитывать воздух в Заметки §aВключено§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Учитывать воздух в Заметки §aВыключено§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Вы не можете поставить книжку сюда."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Вам нужно указать блок, чтобы установить выбор!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Блок добавлен в шаблон: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Выбрать блок для шаблона: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Добавлен блок для Маски: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Поставить маску для блока: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "Выберите кисть чтобы настроить."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "Выберите вид кисти."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "Выберите размер для кисти."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "Выберите высоту кисти."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Сделайте узор и опциональную маску для кисти."
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "Так нормально?"
 
 msgid "worldedit.brushConfig.affects"
 msgstr "Affects: %s"
@@ -176,19 +176,19 @@ msgid "worldedit.brushConfig.creates"
 msgstr "Creates: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "Размер: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "Высота: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "Кисть настроена."
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "Кисть настроена и добавлена в ваш инвентарь."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "Настройки кисти отменена."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
@@ -314,16 +314,16 @@ msgid "commands.wedit:hpyramid.description"
 msgstr "Generate a hollow pyramid"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Сгенерировать пустую сферу"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Телепортирует вас на блок на который вы смотрите"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "Вжух!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "Нет блока в поле зрения (или слишком далеко)!"
 
 msgid "commands.wedit:kit.description"
 msgstr "Give yourself a set of items to do common worldedit functions"
