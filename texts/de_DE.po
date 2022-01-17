@@ -11,22 +11,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-16 12:56\n"
+"PO-Revision-Date: 2022-01-17 18:09\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Sie haben nicht die Berechtigung, dieses Item zu verwenden."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Auswahl-Stab"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Stapel-Stab"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Navigations-Stab"
 
 msgid "item.wedit:wooden_brush"
 msgstr "Wooden Brush"
@@ -47,19 +47,19 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopieren"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Ausschneiden"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Einfügen"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Rückgängig"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Wiederholen"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "Rotate Clockwise"
@@ -95,28 +95,28 @@ msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Eins"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Zwei"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Drei"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Vier"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Fünf"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Sechs"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Zurück"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Include Entities in Clipboard: §aEnabled§r"
