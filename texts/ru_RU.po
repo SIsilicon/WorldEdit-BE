@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-17 14:51\n"
+"PO-Revision-Date: 2022-01-17 15:57\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порта оригинального мода Java и многое другое! Аддон от Silicon (@iSiliconS)."
@@ -308,10 +308,10 @@ msgid "commands.wedit:hcyl.description"
 msgstr "Сгенерировать пустой целиндр"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Сгенерировать пустую пирамиду"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
@@ -326,97 +326,97 @@ msgid "commands.wedit:jumpto.none"
 msgstr "Нет блока в поле зрения (или слишком далеко)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Дайте себе набор предметов для обычных функций WorldEdit"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "Кит получен."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Установите, на какие блоки может воздействовать кисть, если они есть"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Установите, какие блоки должна создавать кисть"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Переместить выделение в определенном направлении"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "Перемещено %s блоков."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Дать себе Навигационную Палку"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "Присесть и использовать предмет: проходить сквозь стены; Используйте вещь без кнопки присесть: телепортироваться на блок"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Вставьте данные из заметок в мир"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "Вставлено %s блоков."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Установите первую позицию вашего выбора в указанную или текущую позицию"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Установите вторую позицию вашего выбора в указанную или текущую позицию"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "Сгенерировать пирамиду"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "Настройте как далеко Кисть может быть использована"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "Повторить определенное количество действий"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "Повторено %s доступных изменений."
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "Ничего не осталось для повторения."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "Заменить определенные блоки в выделении другими блоками"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "Повернуть блоки в выделении"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "Повернуто %s блоков."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "%s не является приращением 90°!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "Выделение очищено."
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr "Изменить режим выбора (в настоящее время можно только очистить выбор)"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "Заполнить выделение выбраным блоком"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Установить размер кисти"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Повторить содержимое текущего выделения"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "Создано %s блоков из стопки."
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "Сгенерировать сферу"
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "Телепортироваться сквозь любую стену на которую вы посмотрите"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "Вух!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "Не напротив или лицом к стене, чтобы пройти сквозь."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "No free spot ahead of you found."
