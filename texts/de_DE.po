@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-17 19:24\n"
+"PO-Revision-Date: 2022-01-19 15:00\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -308,7 +308,7 @@ msgid "commands.wedit:hcyl.description"
 msgstr "Hohlen Zylinder generieren"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Hilfeseite %1 von %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Hohle Pyramide generieren"
@@ -317,7 +317,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Hohle Kugel generieren"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Teleportiert Sie auf den Block, den Sie anschauen"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Puff!"
@@ -326,7 +326,7 @@ msgid "commands.wedit:jumpto.none"
 msgstr "Kein Block in Sichtweite (oder zu weit entfernt)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Gibt Ihnen ein Set von Items, welche WorldEdit-Funktionen ausführen"
 
 msgid "commands.wedit:kit.explain"
 msgstr "Kit gegeben."
@@ -356,10 +356,10 @@ msgid "commands.wedit:paste.explain"
 msgstr "%s Blöcke eingefügt."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Setzen Sie die erste Position Ihrer Auswahl auf die angegebene oder aktuelle Position"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Setzen Sie die zweite Position Ihrer Auswahl auf die angegebene oder aktuelle Position"
 
 msgid "commands.wedit:pyramid.description"
 msgstr "Pyramide generieren"
@@ -401,7 +401,7 @@ msgid "commands.wedit:size.description"
 msgstr "Größe eines Pinsels festlegen"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Wiederholen Sie den Inhalt der aktuellen Auswahl"
 
 msgid "commands.wedit:stack.explain"
 msgstr "%s Blöcke durch Stapeln erstellt."
@@ -416,13 +416,13 @@ msgid "commands.wedit:thru.explain"
 msgstr "Wusch!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "Nicht gegen oder mit Blick auf eine Wand, um durchzugehen."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Keine freie Stelle vor Ihnen gefunden."
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
 
 msgid "commands.wedit:tool.description"
 msgstr "Holen Sie sich alle Arten von Tools (derzeit nur der Stacker)"
@@ -476,16 +476,16 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Vor allem anderen..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr "Standardmäßig dürfen Spieler WorldEdit nicht verwenden. Nur diejenigen, die als Builder getaggt sind, können ihre Funktionen nutzen. Um Sie zu einem Baumeister zu machen, geben Sie §e/tag @s add Builder§r im Chat ein. Sie sollten dann eine Nachricht erhalten, die besagt, dass Sie WorldEdit Berechtigungen erhalten haben."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§aTipp:§r§a Sie können auch andere Spieler zu Baumeistern machen, indem Sie §e@s§r§a zum Namen des Spielers ändern. Sie müssen ihn in Anführungszeichen umgeben, wenn er ein Leerzeichen hat, z. B.: §e/tag \"Steve Wanderer\" add Builder§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Gehe zu Orten"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§aHinweis:§r§a Die Befehle dieses Addons verwenden ein Semikolon (;) statt eines Schrägstrichs (/). In Zukunft könnte Mojang tatsächlich benutzerdefinierte Befehle für Minecraft unterstützen.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Von Punkt A zu Punkt B zu kommen kann manchmal schwer sein. Zum Glück kommt dieses Addon mit dem so genannten Navigations-Stab. Um einen zu bekommen, können Sie entweder einen Kompass in Ihrem Inventar haben oder den Befehl §e;navwand§r eingeben. Sobald Sie diesen Gegenstand haben, interagieren Sie einfach mit ihm, um an den Ort teleportiert zu werden, an dem Sie sich gerade befinden. Möchten Sie auf der anderen Seite einer Wand oder Decke stehen? Benutzen Sie den Stab beim Schleichen um durch sie zu gehen! Stecken Sie in einem Block? Mit dem Stab können Sie sich herausteleportieren!"
@@ -500,31 +500,31 @@ msgid "howtoplay.wedit:quick_start.text.7"
 msgstr "Wie die ursprüngliche Mod verwenden Sie den so genannten Auswahlstab, um Regionen Ihrer Welt einfach für verschiedene Operationen zu markieren. Um einen zu bekommen, nimm eine Holzaxt oder gib den Befehl §e;wand§r ein. Auswahl in WorldEdit ist standardmäßig quaderförmig geformt. Um eine Auswahl zu treffen, müssen Sie die beiden Ecken dieses Quaders markieren. Sie markieren die erste Ecke, indem Sie den Stab während des Schleichens auf einem Block an der Ecke benutzt. Sie markieren den zweiten Punkt, indem Sie ihn auf einem Block §lohne§r zu schleichen benutzen. Wenn das richtig geht, sollten Sie Ihre Auswahl sehen."
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
+msgstr "Wenn Sie keine Ecke markieren können, wie z. B. in der Luft, können Sie auch die Befehle §e;pos1§r oder §e;pos2§r benutzen, um die erste bzw. zweite Ecke als die Position zu markieren, in der Sie gerade stehen. Dies ist nicht die gleiche Position wie die §lauf§r der Sie stehen."
 
 msgid "howtoplay.wedit:quick_start.header.4"
 msgstr "Mit Ihrer Auswahl etwas tun"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr "Machen Sie eine bescheidene Auswahlmit der Sie arbeiten können und machen Sie ihr Kit mit §e;kit§r bereit. Wir werden einige der Features von WorldEdit ausprobieren."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Selection Fill\". A cuboid of stone should be made."
+msgstr "§71. Platzieren Sie Stein, benutzen Sie den Muster-Picker und benutzen Sie dann \"Selektionsfüllung\". Eine Kugel aus Stein sollte hergestellt werden."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Selection Fill\" again to clear the stone."
+msgstr "§r2. Benutzen Sie die Musterauswahl in der Luft (Handyspieler müssen den Bildschirm gedrückt halten) und verwenden Sie erneut \"Auswahlfüllung\" um den Stein zu löschen."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Selection Fill\" and you should have a mix of sandstone and glass."
+msgstr "§73. Platzieren Sie Sandstein und Glas, benutzen Sie den Muster-Picker auf dem Sandstein, und schleichen und verwenden Sie es auf dem Glas, um Ihr Muster hinzuzufügen. Verwenden Sie \"Auswahlfüllung\" und Sie sollten eine Mischung aus Sandstein und Glas haben."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
+msgstr "§r4. Nehmen Sie das Maskenauswahl-Werkzeug in Ihrem Inventar und benutzen Sie es auf dem Sandstein. Setzen Sie einen Block Ihrer Wahl als Ihr Muster und verwenden Sie \"Auswahlfüllung\". Alle Sandsteine sollten nun durch diesen Block ersetzt werden."
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. Wiederholen Sie Ihre Auswahl nach oben, indem Sie den Befehl §e;stack 4 up§r§7 eintippen."
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "Wenn Sie möchten, können Sie alles rückgängig machen, indem Sie den Zurück-Gegenstand nutzen, bis Sie nichts mehr rückgängig machen können."
 
 msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Mit Pinseln spielen"
@@ -539,16 +539,16 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Zielen Sie auf den Boden nicht in Ihrer Nähe und interagieren Sie mit der Schaufel (jetzt Pinsel) um Bruchsteinsphären zu platzieren."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask tier grass§r§7. Use the brush now to make a cobblestone path."
+msgstr "§74. Lassen Sie den Pinsel nur Gras beeinflussen mit §e;mask tier grass§r§7. Benutzen Sie den Pinsel, um einen Pflastersteinpfad zu erstellen."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br tier none§r."
+msgstr "§r5. Deaktivieren Sie den Pinsel mit §e;br tier none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Was jetzt?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Um mehr über dieses Add-on zu erfahren, gehen Sie in die Online-Dokumentation hier: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
