@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 16:47\n"
+"PO-Revision-Date: 2022-01-19 17:50\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -269,31 +269,31 @@ msgid "commands.wedit:copy.explain"
 msgstr "已复制 %s 个方。"
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "删除您当前的选区并将其记录在剪贴板"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "剪切 %s 个方块。"
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "生成一个圆柱体"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "切换您的选区的可见性"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "您的选区将不再可见。"
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "您的选区现在是可见的。"
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "翻转选区"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "翻转了 %s 个方块。"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "不能上下翻转！"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
@@ -305,25 +305,25 @@ msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "生成一个空心圆柱体"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- 显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "生成一个空心金字塔结构"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "生成一个空心球体"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "将您传送至您看到的方块的顶部"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "噗！"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "视线中没有方块(或者离方块太远了)！"
 
 msgid "commands.wedit:kit.description"
 msgstr "Give yourself a set of items to do common worldedit functions"
