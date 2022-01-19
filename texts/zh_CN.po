@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 10:20\n"
+"PO-Revision-Date: 2022-01-19 11:18\n"
 
 msgid "pack.description"
-msgstr "一个起源于Java版模组且不止于此的正在开发中的端口！附加包由 SIsilicon (@iSiliconS) 制作。"
+msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
 
 msgid "item.error.wedit:noPerms"
 msgstr "您没有使用此道具的权限。"
@@ -74,7 +74,7 @@ msgid "item.wedit:pattern_picker"
 msgstr "填充方块选取器"
 
 msgid "item.wedit:mask_picker"
-msgstr "生效方块选取器"
+msgstr "取代方块选取器"
 
 msgid "item.wedit:spawn_glass"
 msgstr "生成立足点"
@@ -146,25 +146,25 @@ msgid "worldedit.patternPicker.set"
 msgstr "将填充方块设为: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "已添加的生效方块： "
+msgstr "已添加的取代方块： "
 
 msgid "worldedit.maskPicker.set"
-msgstr "将生效方块设为： "
+msgstr "将取代方块设为： "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "选择一种笔刷进行设置。"
+msgstr "选择一种笔刷进行设置"
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "选择要制作的笔刷类型"
+msgstr "选择要制作的笔刷类型。"
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "选择笔刷的尺寸"
+msgstr "选择笔刷的尺寸。"
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "选择笔刷的高度。"
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "请设定笔刷的填充方块（必选）和取代方块（可选）。"
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Is this Ok?"
