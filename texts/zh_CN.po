@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 11:18\n"
+"PO-Revision-Date: 2022-01-19 12:44\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -167,100 +167,100 @@ msgid "worldedit.brushConfig.patternMask"
 msgstr "请设定笔刷的填充方块（必选）和取代方块（可选）。"
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "确定设置成这样吗？"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "被取代的方块类型：%s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "填充的方块类型：%s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "尺寸：%s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "高度%s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "笔刷已设定。"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "配置好的笔刷已加入您的物品栏。"
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "已取消笔刷的配置。"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "您还没有选定第一个点。"
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "第一个点设定为 %s。"
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "第一个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "第二个点设定为 %s。"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§e您的创世神权限已被移除§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 的方块已被改变。"
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s 的方块已被创建。"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "无法执行此命令。"
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "请先选定一个区域。"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' 是无效的方向参数!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "预设外的字符: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "您的剪贴板是空的。请先复制或剪切一个区域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "请先选取一个矩形区域。"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "您没有执行此命令的权限。"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "无法修改未加载的区块！"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "数值 (%1) 太小了! 它的最小值为 (%2)。"
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "道具已更新。"
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "设置笔刷的类型"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "未将笔刷绑定到此层。"
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "清除您的使用记录"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "历史记录已被清空。"
 
 msgid "commands.wedit:copy.description"
 msgstr "Copy the current selection to the clipboard"
