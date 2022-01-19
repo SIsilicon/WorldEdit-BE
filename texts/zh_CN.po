@@ -11,19 +11,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-19 06:29\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "一个起源于Java版模组且不止于此的正在开发中的端口！附加组件由 SIsilicon (@iSiliconS) 制作。"
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "您没有使用此道具的权限"
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "选择器"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "堆叠器"
 
 msgid "item.wedit:navigation_wand"
 msgstr "Navigation Wand"
