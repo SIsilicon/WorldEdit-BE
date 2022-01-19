@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 07:31\n"
+"PO-Revision-Date: 2022-01-19 09:15\n"
 
 msgid "pack.description"
 msgstr "一个起源于Java版模组且不止于此的正在开发中的端口！附加包由 SIsilicon (@iSiliconS) 制作。"
@@ -149,7 +149,7 @@ msgid "worldedit.maskPicker.add"
 msgstr "已添加的生效方块： "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "将生效方块设为： "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Choose a brush to set up."
