@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 06:29\n"
+"PO-Revision-Date: 2022-01-19 07:31\n"
 
 msgid "pack.description"
-msgstr "一个起源于Java版模组且不止于此的正在开发中的端口！附加组件由 SIsilicon (@iSiliconS) 制作。"
+msgstr "一个起源于Java版模组且不止于此的正在开发中的端口！附加包由 SIsilicon (@iSiliconS) 制作。"
 
 msgid "item.error.wedit:noPerms"
-msgstr "您没有使用此道具的权限"
+msgstr "您没有使用此道具的权限。"
 
 msgid "item.wedit:selection_wand"
 msgstr "选择器"
@@ -26,127 +26,127 @@ msgid "item.wedit:stacker_wand"
 msgstr "堆叠器"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "传送器"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "木制笔刷"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "石制笔刷"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "铁制笔刷"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "金制笔刷"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "钻石笔刷"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "下界合金笔刷"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "复制"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "剪切"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "粘贴"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "撤回"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "重复"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "顺时针旋转"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "逆时针旋转"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "翻转"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "填充方块选取器"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "生效方块选取器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "生成立足点"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "填充选区"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "创世神设置"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "笔刷设置"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "球形笔刷"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "圆柱形笔刷"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "一"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "二"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "三"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "四"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "五"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "六"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "确定"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "返回"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "在剪贴板中包含实体：§a启用§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "在剪贴板中包含实体：§a禁用§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "在剪贴板中包含空气：§a启用§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "在剪贴板中包含空气：§4禁用§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "不能在此处放置方块"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "您需要指定一个方块来设置选区！"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "已添加的填充方块： "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "将填充方块设为: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "已添加的生效方块： "
 
 msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
