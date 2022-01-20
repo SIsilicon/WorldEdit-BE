@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-19 01:13\n"
+"PO-Revision-Date: 2022-01-20 09:03\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -89,7 +89,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "브러쉬 설정"
 
 msgid "item.wedit:sphere_button"
-msgstr "구 설정"
+msgstr "구 브러쉬"
 
 msgid "item.wedit:cylinder_button"
 msgstr "원기둥 브러쉬"
