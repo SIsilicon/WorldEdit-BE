@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-20 09:03\n"
+"PO-Revision-Date: 2022-01-20 10:20\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -539,10 +539,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 근처에 있지 않은 땅을 조준하고 삽(이젠 브러시지만)과 상호 작용하여 조약돌 구체를 배치합니다."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 브러시가 §e;mask 티어(wood,stone,iron,gold,diamond,netherite) grass§r§7명령을 사용해 잔디에만 영향을 미치도록 합니다. 이제 브러시를 사용하여 조약돌 경로를 만드십시오."
+msgstr "§74. 브러시가 §e;mask 티어(1..6) grass§r§7명령을 사용해 잔디에만 영향을 미치도록 합니다. 이제 브러시를 사용하여 조약돌 경로를 만드십시오."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. §e;br 티어(wood,stone,iron,gold,diamond,netherite) none§r로 브러시를 비활성화합니다."
+msgstr "§r5. §e;br 티어(1..6) none§r로 브러시를 비활성화합니다."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "이제는?"
