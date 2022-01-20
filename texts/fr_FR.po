@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-20 13:56\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -23,7 +23,7 @@ msgid "item.wedit:selection_wand"
 msgstr "Outil de Sélection"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Baguette d'empilage"
 
 msgid "item.wedit:navigation_wand"
 msgstr "Outil de Navigation"
@@ -185,19 +185,19 @@ msgid "worldedit.brushConfig.set"
 msgstr "Brush configured."
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pinceau configuré et ajouté à votre inventaire."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "Configuration du pinceau annulée."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "La première sélection n'a pas encore été faite."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Première position définie sur %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Première position définie sur %1(%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
 msgstr "Second position set to %s."
