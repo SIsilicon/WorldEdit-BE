@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-20 13:56\n"
+"PO-Revision-Date: 2022-01-24 18:30\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -81,6 +81,9 @@ msgstr "Apparaître un Bloc de Terre"
 
 msgid "item.wedit:selection_fill"
 msgstr "Remplir la sélection"
+
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
 msgstr "Réglages WorldEdit"
@@ -447,6 +450,9 @@ msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
 
 msgid "commands.wedit:wand.description"
 msgstr "Donne un outil de sélection"
