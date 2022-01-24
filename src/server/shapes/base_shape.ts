@@ -8,7 +8,8 @@ import { assertCanBuildWithin } from '@modules/assert.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
 
 export type shapeGenOptions = {
-    hollow?: boolean
+    hollow?: boolean,
+    wall?: boolean
 };
 
 export type shapeGenVars = {[k: string]: any};
@@ -31,6 +32,14 @@ export abstract class Shape {
     * @return An array containing the minimum and maximum corners of the shape bounds
     */
     public abstract getRegion(loc: BlockLocation): [BlockLocation, BlockLocation];
+    
+    /**
+     * Get the minimum and maximum y in a column of the shape.
+     * @param x the x coordinate of the column
+     * @param z the z coordinate of the column
+     * @return The minimum y and maximum y if the the coordinates are within the shape; otherwise null
+     */
+    public abstract getYRange(x: number, z: number): [number, number] | null;
     
     /**
     * Prepares some variables that the shape will use when generating blocks.
@@ -73,7 +82,6 @@ export abstract class Shape {
             this.genVars = {};
             this.prepGeneration(this.genVars, options);
             
-            let retLoc: BlockLocation;
             for (const block of min.blocksBetween(max)) {
                 if (!session.globalMask.matchesBlock(block, dimension) || !mask.matchesBlock(block, dimension)) {
                     continue;
