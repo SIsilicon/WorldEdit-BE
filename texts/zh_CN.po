@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-19 17:50\n"
+"PO-Revision-Date: 2022-01-24 05:14\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -467,7 +467,7 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "Quick Start"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "游戏指南: 快速学习如何使用创世神插件"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
