@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-17 10:29\n"
+"PO-Revision-Date: 2022-01-20 10:20\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -59,7 +59,7 @@ msgid "item.wedit:undo_button"
 msgstr "실행 취소"
 
 msgid "item.wedit:redo_button"
-msgstr "실행 취소 취소"
+msgstr "되돌리기"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "시계 방향 회전"
@@ -89,7 +89,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "브러쉬 설정"
 
 msgid "item.wedit:sphere_button"
-msgstr "구 설정"
+msgstr "구 브러쉬"
 
 msgid "item.wedit:cylinder_button"
 msgstr "원기둥 브러쉬"
@@ -275,7 +275,7 @@ msgid "commands.wedit:cut.explain"
 msgstr "%s 블록을 잘라내기 했습니다."
 
 msgid "commands.wedit:cyl.description"
-msgstr "원기둥을 생성합니다."
+msgstr "원기둥을 생성합니다"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "선택 영역의 표시 여부를 전환합니다."
@@ -287,7 +287,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
 
 msgid "commands.wedit:flip.description"
-msgstr "선택사항을 뒤집습니다."
+msgstr "선택사항을 뒤집습니다"
 
 msgid "commands.wedit:flip.explain"
 msgstr "%s 블록을 뒤집었습니다."
@@ -305,7 +305,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "글로벌 마스크가 생성되었습니다."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "안쪽이 빈 원기둥을 생성합니다."
+msgstr "안쪽이 빈 원기둥을 생성합니다"
 
 msgid "commands.wedit:help.header"
 msgstr "--- 도움말 %1 / %2 페이지 (;help <page>) ---"
@@ -317,7 +317,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "속이 빈 구체를 생성합니다."
 
 msgid "commands.wedit:jumpto.description"
-msgstr "보고 있는 블록의 꼭대기로 순간이동합니다."
+msgstr "보고 있는 블록의 꼭대기로 순간이동합니다"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "휙!"
@@ -368,13 +368,13 @@ msgid "commands.wedit:range.description"
 msgstr "브러쉬를 사용할 수 있는 거리 설정"
 
 msgid "commands.wedit:redo.description"
-msgstr "일정량의 작업 취소를 취소합니다."
+msgstr "일정량의 작업 취소를 되돌립니다."
 
 msgid "commands.wedit:redo.explain"
 msgstr "%s 번의 가능한 편집을 되돌렸습니다."
 
 msgid "commands.wedit:redo.none"
-msgstr "작업 취소 취소할 작업이 남아 있지 않습니다."
+msgstr "되돌릴 것이 없습니다."
 
 msgid "commands.wedit:replace.description"
 msgstr "선택 영역의 특정 블록을 다른 블록으로 바꿉니다."
@@ -410,7 +410,7 @@ msgid "commands.wedit:sphere.description"
 msgstr "구를 생성합니다."
 
 msgid "commands.wedit:thru.description"
-msgstr "보이는 벽을 통과해 순간이동합니다."
+msgstr "보이는 벽을 통과해 순간이동합니다"
 
 msgid "commands.wedit:thru.explain"
 msgstr "우와아!"
@@ -431,13 +431,13 @@ msgid "commands.wedit:unstuck.description"
 msgstr "블록 밖으로 이동"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "잘했어!"
+msgstr "나왔어요!"
 
 msgid "commands.wedit:undo.description"
-msgstr "일정량의 작업 실행 취소"
+msgstr "일정량의 작업을 취소합니다."
 
 msgid "commands.wedit:undo.explain"
-msgstr "%s 번의 가능한 편집을 되돌렸습니다."
+msgstr "%s 번의 가능한 편집을 취소했습니다."
 
 msgid "commands.wedit:undo.none"
 msgstr "취소할 것이 없습니다."
@@ -449,7 +449,7 @@ msgid "commands.wedit:up.explain"
 msgstr "우와아!"
 
 msgid "commands.wedit:wand.description"
-msgstr "사용 하면 선택 도구를 받을수 있습니다."
+msgstr "사용 하면 선택 도구를 받을수 있습니다"
 
 msgid "commands.wedit:wand.explain"
 msgstr "웅크리고 블록을 상호작용: 지점 #1 선택, 웅크리지 않고 블록을 상호작용: 지점 #2 선택"
@@ -539,10 +539,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 근처에 있지 않은 땅을 조준하고 삽(이젠 브러시지만)과 상호 작용하여 조약돌 구체를 배치합니다."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 브러시가 §e;mask 티어(wood,stone,iron,gold,diamond,netherite) grass§r§7명령을 사용해 잔디에만 영향을 미치도록 합니다. 이제 브러시를 사용하여 조약돌 경로를 만드십시오."
+msgstr "§74. 브러시가 §e;mask 티어(1..6) grass§r§7명령을 사용해 잔디에만 영향을 미치도록 합니다. 이제 브러시를 사용하여 조약돌 경로를 만드십시오."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. §e;br 티어(wood,stone,iron,gold,diamond,netherite) none§r로 브러시를 비활성화합니다."
+msgstr "§r5. §e;br 티어(1..6) none§r로 브러시를 비활성화합니다."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "이제는?"

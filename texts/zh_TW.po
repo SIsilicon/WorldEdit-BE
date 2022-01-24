@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-17 10:29\n"
+"PO-Revision-Date: 2022-01-17 12:29\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -413,7 +413,7 @@ msgid "commands.wedit:thru.description"
 msgstr "Teleport through any wall you look at"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "嗖！"
 
 msgid "commands.wedit:thru.none"
 msgstr "在你前面沒有找到牆壁。"
