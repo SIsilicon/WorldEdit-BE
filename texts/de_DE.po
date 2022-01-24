@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-24 18:30\n"
+"PO-Revision-Date: 2022-01-24 19:28\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -83,7 +83,7 @@ msgid "item.wedit:selection_fill"
 msgstr "Auswahl füllen"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Wandauswahl"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Einstellungen"
@@ -452,7 +452,7 @@ msgid "commands.wedit:up.explain"
 msgstr "Wusch!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "Eine Wand aus Ihrer Auswahl generieren"
 
 msgid "commands.wedit:wand.description"
 msgstr "Geben Sie sich einen Auswahlstab"
