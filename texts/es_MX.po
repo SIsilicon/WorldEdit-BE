@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-24 18:30\n"
 
 msgid "pack.description"
 msgstr "Un porteo en desarrollo del mod de Java original y más! Complemento creado por SIsilicon (@iSiliconS)."
@@ -81,6 +81,9 @@ msgstr "Generar Bloque de Cristal"
 
 msgid "item.wedit:selection_fill"
 msgstr "Rellenar selección"
+
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
 msgstr "Ajustes de WorldEdit"
@@ -447,6 +450,9 @@ msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
 
 msgid "commands.wedit:wand.description"
 msgstr "Give yourself a selection wand"
