@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-24 18:30\n"
+"PO-Revision-Date: 2022-01-24 21:10\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -47,19 +47,19 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copiar"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Cortar"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Colar"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Desfazer"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Refazer"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "Rotate Clockwise"
@@ -68,7 +68,7 @@ msgid "item.wedit:rotate_ccw_button"
 msgstr "Rotate Counter-Clockwise"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Virar"
 
 msgid "item.wedit:pattern_picker"
 msgstr "Pattern Picker"
@@ -80,7 +80,7 @@ msgid "item.wedit:spawn_glass"
 msgstr "Spawn Glass Block"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Preencher seleção"
 
 msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
@@ -98,34 +98,34 @@ msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Um"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dois"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Três"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Quatro"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Cinco"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Seis"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Voltar"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Incluir Entidades na área de transferência: §aAtivado§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Incluir entidades na área de transferência: §4Desativado§r"
 
 msgid "item.wedit:inc_air_on_button"
 msgstr "Include Air in Clipboard: §aEnabled§r"
@@ -137,16 +137,16 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Não é possível colocar blocos aqui."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Você precisa especificar um bloco para definir a seleção!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Bloco adicionado ao padrão: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Definir padrão para bloco: "
 
 msgid "worldedit.maskPicker.add"
 msgstr "Added block to mask: "
