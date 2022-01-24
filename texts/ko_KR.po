@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-20 10:20\n"
+"PO-Revision-Date: 2022-01-24 18:30\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -81,6 +81,9 @@ msgstr "유리블럭 설치"
 
 msgid "item.wedit:selection_fill"
 msgstr "채우기 도구"
+
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 설정"
@@ -447,6 +450,9 @@ msgstr "특정 블록 수 위로 이동합니다."
 
 msgid "commands.wedit:up.explain"
 msgstr "우와아!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
 
 msgid "commands.wedit:wand.description"
 msgstr "사용 하면 선택 도구를 받을수 있습니다"
