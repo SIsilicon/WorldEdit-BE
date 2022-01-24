@@ -11,40 +11,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-24 22:42\n"
+"PO-Revision-Date: 2022-01-24 23:40\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extenção por SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Você não tem permissão para utilizar esse item."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Varinha de Seleção"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Varinha de Empilhamento"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Varinha de Navegação"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Pincel de Madeira"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Pincel de Pedra"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Pincel de Pedra"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Pincel de Ouro"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Pincel de Diamante"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Pincel de Netherite"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -62,40 +62,40 @@ msgid "item.wedit:redo_button"
 msgstr "Refazer"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Girar no sentido horário"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Girar no sentido anti-horário"
 
 msgid "item.wedit:flip_button"
 msgstr "Virar"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Selecionador de Padrões"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Selecionador de Máscara"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Spawnar Bloco de Vidro"
 
 msgid "item.wedit:selection_fill"
 msgstr "Preencher seleção"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Seleção de Parede"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Configurações do WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Configurações do Pincel"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Pincel de Esfera"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Pincel de Cilindro"
 
 msgid "item.wedit:one_button"
 msgstr "Um"
@@ -128,10 +128,10 @@ msgid "item.wedit:inc_entities_off_button"
 msgstr "Incluir entidades na área de transferência: §4Desativado§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Incluir ar na área de transferência: §aAtivado§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Incluir ar na área de transferência: §4Desativado§r"
 
 msgid "item.wedit:blank"
 msgstr " "
@@ -152,7 +152,7 @@ msgid "worldedit.maskPicker.add"
 msgstr "Bloco adicionado à máscara: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Definir máscara para bloco: "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Escolha um pincel para configurar."
@@ -167,64 +167,64 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "Escolha a altura do pincel."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Faça um padrão e uma máscara opcional para o pincel."
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "Isto está certo?"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "Afeta: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "Cria: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "Tamanho: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "Altura: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "Pincel Configurado."
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pincel configurado e adicionado ao seu inventário."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "Configuração do pincel cancelada."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "A primeira seleção ainda não foi feita."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Primeira posição definida para %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Primeira posição definida para %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Segunda posição definida para %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Segunda posição definida para %1 (%2)."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eVocê recebeu permissões do WorldEdit. Vá para (Configurações> Como Jogar > Início rápido) para um guia.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eAs suas permissões do WorldEdit foram removidas§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blocos foram alterados."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s blocos foram criados."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Falha ao executar este comando."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Faça uma seleção primeiro."
 
 msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' is an invalid direction argument!"
@@ -326,13 +326,13 @@ msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "Nenhum bloco à vista (ou muito longe)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Dê a si mesmo um conjunto de itens para fazer funções comuns do worldedit"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "Kit fornecido."
 
 msgid "commands.wedit:mask.description"
 msgstr "Set what kind of blocks a brush can affect, if any"
@@ -362,37 +362,37 @@ msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Defina a segunda posição de sua seleção para a posição especificada ou atual"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "Gera uma pirâmide"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "Defina de quão longe um pincel pode ser usado"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "Refaz uma certa quantidade de ações"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "Refez %s edições disponíveis."
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "Não existe mais nada para refazer."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "Substitui certos blocos na seleção por outros blocos"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "Rotaciona a seleção"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "Rotacionou %s blocos."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "'%s' não é um incremento de 90°!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "Seleção limpa."
 
 msgid "commands.wedit:sel.description"
 msgstr "Altera o modo de seleção (atualmente só pode limpar a seleção)"
@@ -521,7 +521,7 @@ msgid "howtoplay.wedit:quick_start.text.11"
 msgstr "§r2. Use o Seletor de Padrões no ar (jogadores em dispositivos móveis devem segurar a tela com ele) e use o \"Preenchimento de Selecionação\" novamente para limpar a pedra."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Selection Fill\" and you should have a mix of sandstone and glass."
+msgstr "§73. Coloque arenito e vidro, use o Selecionador de Padrões no arenito, agache e use-o no vidro para adicionar ao seu padrão. Use \"Preenchimento de Seleção\" e você deve ter uma mistura de arenito e vidro."
 
 msgid "howtoplay.wedit:quick_start.text.13"
 msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
