@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-16 15:01\n"
+"PO-Revision-Date: 2022-01-24 18:30\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
@@ -81,6 +81,9 @@ msgstr "Položit sklo"
 
 msgid "item.wedit:selection_fill"
 msgstr "Vyplnit výběr"
+
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
 msgstr "Nastavení WorldEdit"
@@ -447,6 +450,9 @@ msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
 
 msgid "commands.wedit:wand.description"
 msgstr "Give yourself a selection wand"
