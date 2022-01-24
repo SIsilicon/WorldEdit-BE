@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-24 18:30\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -81,6 +81,9 @@ msgstr "Spawn Glass Block"
 
 msgid "item.wedit:selection_fill"
 msgstr "Fill Selection"
+
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Settings"
@@ -447,6 +450,9 @@ msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
 
 msgid "commands.wedit:wand.description"
 msgstr "Give yourself a selection wand"
