@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-24 23:40\n"
+"PO-Revision-Date: 2022-01-25 00:54\n"
 
 msgid "pack.description"
-msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extenção por SIsilicon (@iSiliconS)."
+msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extensão por SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "Você não tem permissão para utilizar esse item."
@@ -227,100 +227,100 @@ msgid "commands.generic.wedit:noSelection"
 msgstr "Faça uma seleção primeiro."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' é um argumento de direção inválido!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Argumento inesperado: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Sua área de transferência está vazia. Copie ou recorte uma região primeiro."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Faça uma seleção cubica primeiro."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Você não tem permissão para executar este comando."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Não é possível modificar chunks descarregados!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "O número (%1) é muito grande! Deve ser no máximo (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "O número (%1) é muito pequeno! Deve ser pelo menos (%2)."
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "Varinha atualizada."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "Defina o tipo de pincel"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "Nenhum pincel foi limitado a este nível."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Limpa seu histórico de edição"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "Histórico limpo."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Copia a seleção atual para a área de transferência"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "%s blocos copiados."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Remove sua seleção atual e a coloca na área de transferência"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "Recorte %s blocos."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Gera um cilindro"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Alterna a visibilidade da sua seleção"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Suas seleções não estarão mais visíveis."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "As suas seleções serão visíveis agora."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Vira a seleção"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "Virou %s blocos."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Não é possível virar para cima ou para baixo!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Define a máscara global"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Máscara global desativada."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Máscara global definida."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Gera um cilindro oco"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Mostrando a página de ajuda %1 de %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Gera uma pirâmide oca"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Gera uma esfera vazia"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Teletransporta você para o topo do bloco que você está olhando"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
@@ -335,31 +335,31 @@ msgid "commands.wedit:kit.explain"
 msgstr "Kit fornecido."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Define quais tipos de blocos um pincel pode afetar, se houver"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Define quais tipos de blocos um pincel deve fazer"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Move a seleção em uma certa direção"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "Moveu %s blocos."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Dê a si mesmo uma varinha de navegação"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "Agache e use o item: passe pelas paredes; Use o item sem se agachar: pula para a localização"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Cole sua área de transferência no mundo"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "Colou %s blocos."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Define a primeira posição da sua seleção para a posição especificada ou atual"
 
 msgid "commands.wedit:pos2.description"
 msgstr "Defina a segunda posição de sua seleção para a posição especificada ou atual"
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Indo a lugares"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aAviso:§r§a Os comandos fornecidos por esta extensão usam ponto e vírgula (;) em vez de um parênteses (/). No futuro, talvez a Mojang possa adicionar suporte a comandos personalizados ao Minecraft.§r"
+msgstr "§l§aAviso:§r§a Os comandos fornecidos por esta extensão usam ponto e vírgula (;) em vez de um parêntese (/). No futuro, talvez a Mojang possa adicionar suporte a comandos personalizados ao Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Indo do ponto A ao ponto B às vezes pode ser complicado. Felizmente, esta extenção vem com o que é conhecido como uma Varinha de Navegação. Para pegar uma, você pode ter uma bússola no seu inventário ou digitar o comando §e;navwand§r. Assim que você tiver este item, basta apenas interagir com ele para ser teleportado para o local em que você está olhando. Quer ir do outro lado de uma parede ou teto? Use a varinha enquanto estiver agachado para passar por ela! Preso em um bloco? Usar a varinha vai te desprender!"
@@ -524,13 +524,13 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. Coloque arenito e vidro, use o Selecionador de Padrões no arenito, agache e use-o no vidro para adicionar ao seu padrão. Use \"Preenchimento de Seleção\" e você deve ter uma mistura de arenito e vidro."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
+msgstr "§r4. Pegue o Selecionador de Máscara em seu inventário e use-o no arenito. Defina um bloco de sua escolha como seu padrão e use \"Preenchimento de Seleção\". Todas as pedras devem agora ser substituídas por esse bloco."
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. Repita a sua seleção para cima digitando o comando §e;stack 4 up§r§7."
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "Se você quiser, você pode desfazer tudo usando o item de desfazer até que não seja mais possível."
 
 msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Brincando com pincéis"
@@ -539,10 +539,10 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Pegue uma pá de qualquer tipo (preferêncialmente de madeira) e coloque um bloco de pedregulho; você vai precisar dele para o pincel."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Use o item \"WorldEdit Configurações\". Um menu na barra de atalhos deve aparecer incluindo \"Configurações do Pincel\". Selecione o item e, em seguida, selecione a pá a vincular. Faça um pincel de esfera de raio 3 e um padrão de pedregulho. Confirme as configurações e saia do menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
+msgstr "§r3. Mire no chão longe de você e interaja com a pá (agora pincel) para colocar as esferas de pedregulho."
 
 msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Faça com que o pincel afete apenas a grama usando §e;mask tier grass §r§7. Agora, use o pincel para fazer o caminho de pedregulho."
