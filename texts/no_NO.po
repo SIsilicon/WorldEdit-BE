@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-01-25 09:34\n"
+"PO-Revision-Date: 2022-01-25 10:42\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "En inn-utviklende port av den opprinnelige Java-modden og mer! Utvidelse av SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "Du har ikke tulgang til å bruke dette."
@@ -23,250 +23,250 @@ msgid "item.wedit:selection_wand"
 msgstr "Utvalgstav"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Stablestav"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Navigeringsstav"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Trepensel"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Steinpensel"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Jernpensel"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Gullpensel"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Diamantbørste"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Netherittpensel"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopier"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Klipp"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Lim"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Angre"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Gjenta"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Roter med klokken"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Roter mot klokken"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Vend"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Mønster-velger"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Maske-velger"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Fremkall glassblokk"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Fyll markering"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Vegg utvalg"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit innstillinger"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Børste-innstillinger"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Kulepensel"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Sylinderpensel"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "En"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "To"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tre"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Fire"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Fem"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Seks"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Tilbake"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Inkluder enheter i utklippstavlen: §aAktivert§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Inkluder enheter i utklippstavlen: §4Deaktivert§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Inkluder luft i utklippstavlen: §aAktivert§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Inkluder luft i utklippstavlen: §4Deaktivert§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Kan ikke plassere blokken her."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Du må spesifisere en blokk for å sette valget til!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "La til blokk i mønsteret: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Sett mønster til blokk: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "La til blokk til masken: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Sett maske til blokk: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "Velg en pensel du vil konfigurere."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "Velg hva slags pensel som skal lages."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "Velg størrelsen på penselen."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "Velg høyden på penselen."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Lag et mønster og en valgfri maske for penselen."
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "Er dette Ok?"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "Påvirker: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "Oppretter: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "Størrelse: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "Høyde: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "Pensel konfigurert."
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pensel konfigurert og lagt til inventaret ditt."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "Kansellert penselkonfigurering."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "Første valg har ikke blitt gjort ennå."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Første posisjon satt til %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Første posisjon satt til %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Andre posisjon satt til %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Andre posisjon satt til %1 (%2)."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eDu har fått WorldEdit permissions. Gå til (Innstillinger > Hvordan Spill > Hurtigstart) for en veiledning.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eDin WorldEdit tilgang har blitt fjernet.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blokker har blitt endret."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s blokker har blitt opprettet."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Kunne ikke utføre denne kommandoen."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Gjør et valg først."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' er et ugyldig retning-argument!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Uventet flagg: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Utklippstavlen er tom. Kopier eller klipp ut et område først."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Gjør et kube valg først."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Du har ikke tillatelse til å utføre denne kommandoen."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Kan ikke endre ubelastede deler!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Tallet (%1) er for stort! Det må være maksimalt (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "Tallet (%1) er for liten! Det må være minst (%2)."
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "Stav oppdatert."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "Angi type pensel"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "Ingen penseler har blitt bundet til dette nivået."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Fjerner din redigeringshistorikk"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "Slettet historikk."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Kopier gjeldende utvalg til utklippstavlen"
 
 msgid "commands.wedit:copy.explain"
 msgstr "Copied %s blocks."
@@ -314,13 +314,13 @@ msgid "commands.wedit:help.header"
 msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Generer en hul pyramide"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Generer et hul kule"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Teleporter deg til toppen av blokken du ser på"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
