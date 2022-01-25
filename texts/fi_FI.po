@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2022-01-15 02:06\n"
+"PO-Revision-Date: 2022-01-16 12:56\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Sinulla ei ole lupaa käyttää tätä tavaraa."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Valintasauva"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
@@ -29,142 +29,142 @@ msgid "item.wedit:navigation_wand"
 msgstr "Navigation Wand"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Puu Sivellin"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Kivi Sivellin"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Rauta Sivellin"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Kulta Sivellin"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Timantti Sivellin"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Netheriitti Sivellin"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopioi"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Leikkaa"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Liitä"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Kumoa"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Tee uudelleen"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Kierrä oikealle"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Kierrä vasemmalle"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Käännä"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Kuvion Valitsija"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Maskin valitsija"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Luo Lasi"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Täytä Valinta"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit Asetukset"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Siveltimen Asetukset"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Pallo Sivellin"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Sylinteri Sivellin"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Yksi"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Kaksi"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Kolme"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Neljä"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Viisi"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Kuusi"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Takaisin"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Sisällytä yksiköt leikepöydälle: §aEnabled§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Sisällytä yksiköt leikepöydälle: §4Disabled§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Sisällytä ilma leikepöydälle: §aEnabled§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Sisällytä ilma leikepöydälle: §4Disabled§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Kuutiota ei voi asettaa tähän."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Sinun täytyy määrittää kuutio jotta voit asettaa valinnan!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Lisätty kuutio kuvioon: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Aseta kuvio kuutioon: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Lisätty kuutio maskiin: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Aseta maski kuutioon: "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Choose a brush to set up."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "Valitse millainen sivellin tehdään."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "Valitse siveltimen koko."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "Valitse siveltimen korkeus."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Tee kuvio ja valinnainen maski siveltimelle."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Is this Ok?"
@@ -347,7 +347,7 @@ msgid "commands.wedit:navwand.description"
 msgstr "Give yourself a navigation wand"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and tap block: jump to location; Tap block without sneak: pass through walls"
+msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
 
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
@@ -455,10 +455,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "Tietoa WorldEditistä"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "WorldEdit versio: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
@@ -542,13 +542,13 @@ msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Make it so the brush only affects grass with §e;mask tier grass§r§7. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br tier none§r."
+msgstr "§r5. Poista sivellin käytöstä §e;br tier none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "Mitä nyt?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Jos haluat lisätietoja tästä lisäosasta, voit mennä sen online-dokumentaatioon täällä: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"

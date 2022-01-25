@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-01-15 02:05\n"
+"PO-Revision-Date: 2022-01-16 12:55\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -347,7 +347,7 @@ msgid "commands.wedit:navwand.description"
 msgstr "Give yourself a navigation wand"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and tap block: jump to location; Tap block without sneak: pass through walls"
+msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
 
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
