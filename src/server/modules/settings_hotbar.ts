@@ -8,6 +8,7 @@ import { PlayerSession } from '../sessions.js';
 import { printDebug, print } from '../util.js';
 import { SphereBrush } from '../brushes/sphere_brush.js';
 import { CylinderBrush } from '../brushes/cylinder_brush.js';
+import { SmoothBrush } from '../brushes/smooth_brush.js';
 
 type hotbarItems = {[k: number]: string|[string, number]};
 type state = {
@@ -37,7 +38,8 @@ export class SettingsHotbar {
         },
         editBrush: {
             3: 'wedit:sphere_button',
-            5: 'wedit:cylinder_button',
+            4: 'wedit:cylinder_button',
+            5: 'wedit:smooth_button',
             8: 'wedit:cancel_button'
         },
         selectNumber: {
@@ -52,6 +54,11 @@ export class SettingsHotbar {
         patternAndMask: {
             3: 'wedit:pattern_picker',
             5: 'wedit:mask_picker',
+            7: 'wedit:confirm_button',
+            8: 'wedit:cancel_button'
+        },
+        mask: {
+            4: 'wedit:mask_picker',
             7: 'wedit:confirm_button',
             8: 'wedit:cancel_button'
         },
@@ -137,6 +144,9 @@ export class SettingsHotbar {
                 } else if (this.removeTag('config_cylinder')) {
                     this.editingBrush = 'cylinder';
                     this.changeState(this.brushMenus['cylinder'][0])
+                } else if (this.removeTag('config_smooth')) {
+                    this.editingBrush = 'smooth';
+                    this.changeState(this.brushMenus['smooth'][0])
                 } else if (this.removeTag('config_cancel')) {
                     this.changeState('chooseBrush');
                 }
@@ -148,6 +158,8 @@ export class SettingsHotbar {
                     this.msg('worldedit.brushConfig.selectRadius');
                 } else if (this.brushData.length == 1 && this.editingBrush == 'cylinder') {
                     this.msg('worldedit.brushConfig.selectHeight');
+                } else if (this.brushData.length == 1 && this.editingBrush == 'smooth') {
+                    this.msg('worldedit.brushConfig.selectSmooth');
                 }
             },
             processState: () => {
@@ -196,6 +208,24 @@ export class SettingsHotbar {
                 this.session.globalMask = this.stashedMask;
             }
         },
+        mask: {
+            enterState: () => {
+                this.stashedMask = this.session.globalMask;
+                this.session.globalMask = new Mask();
+                this.msg('worldedit.brushConfig.mask');
+            },
+            processState: () => {
+                if (this.removeTag('config_confirm')) {
+                    this.brushData.push(this.session.globalMask);
+                    this.changeState(this.brushMenus[this.editingBrush][this.brushData.length]);
+                } else if (this.removeTag('config_cancel')) {
+                    this.changeState('editBrush');
+                }
+            },
+            exitState: () => {
+                this.session.globalMask = this.stashedMask;
+            }
+        },
         confirmBrush: {
             processState: () => {
                 let msg = RawText.translate('worldedit.brushConfig.confirm').append('text', '\n');
@@ -228,6 +258,16 @@ export class SettingsHotbar {
                         msg.append('text', '\n ');
                         msg.append('translate', 'worldedit.brushConfig.affects').with(mask);
                     }
+                } else if (this.editingBrush == 'smooth') {
+                    msg.append('translate', 'worldedit.brushConfig.radius').with(this.brushData[0]);
+                    msg.append('text', '\n ');
+                    msg.append('translate', 'worldedit.brushConfig.smooth').with(this.brushData[1]);
+                    let mask = this.brushData[2].getBlockSummary();
+                    
+                    if (mask) {
+                        msg.append('text', '\n ');
+                        msg.append('translate', 'worldedit.brushConfig.affects').with(mask);
+                    }
                 }
                 this.msg(msg);
                 
@@ -238,6 +278,8 @@ export class SettingsHotbar {
                     } else if (this.editingBrush == 'cylinder') {
                         this.session.setTool(this.currBrushTier, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false));
                         this.session.setToolProperty(this.currBrushTier, 'mask', this.brushData[2][1]);
+                    } else if (this.editingBrush == 'smooth') {
+                        this.session.setTool(this.currBrushTier, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
                     }
                     
                     this.msg('worldedit.brushConfig.set');
@@ -254,7 +296,8 @@ export class SettingsHotbar {
     private brushData: any[] = [];
     private brushMenus: {[k: string]: string[]} = {
         'sphere': ['selectNumber', 'patternAndMask', 'confirmBrush'],
-        'cylinder': ['selectNumber', 'selectNumber', 'patternAndMask', 'confirmBrush']
+        'cylinder': ['selectNumber', 'selectNumber', 'patternAndMask', 'confirmBrush'],
+        'smooth': ['selectNumber', 'selectNumber', 'mask', 'confirmBrush']
     }
     
     private stashedPattern: Pattern;

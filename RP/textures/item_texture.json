@@ -71,6 +71,9 @@
         "sphere_brush": {
             "textures": "textures/items/sphere_brush"
         },
+        "smooth_brush": {
+            "textures": "textures/items/smooth_brush"
+        },
         "number": {
             "textures": [
                 "textures/items/one",

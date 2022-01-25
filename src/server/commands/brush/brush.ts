@@ -1,13 +1,15 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
-import { Pattern } from '@modules/pattern.js'
+import { Pattern } from '@modules/pattern.js';
+import { Mask } from '@modules/mask.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 import { PlayerSession } from '../../sessions.js';
 
 import { SphereBrush } from '../../brushes/sphere_brush.js';
 import { CylinderBrush } from '../../brushes/cylinder_brush.js';
+import { SmoothBrush } from '../../brushes/smooth_brush.js';
 
 const registerInformation = {
     name: 'brush',
@@ -53,16 +55,28 @@ const registerInformation = {
                     default: 3
                 }
             ]
+        }, {
+            subName: 'smooth',
+            args: [
+                {
+                    name: 'radius',
+                    type: 'float',
+                    default: 3
+                }, {
+                    name: 'iterations',
+                    type: 'int',
+                    default: 1
+                }, {
+                    name: 'mask',
+                    type: 'Mask',
+                    default: new Mask()
+                }
+            ]
         }
     ],
 };
 
 export function getBrushTier(args: Map<string, any>) {
-    /**const tier: number = parseInt(args[0]);
-    if (tier != tier || tier < 1 || tier > 6) {
-        throw RawText.translate('worldedit.brush.invalid-tier').with(args[0]);
-    }
-    args.shift();**/
     return {
         1: 'wooden_brush',
         2: 'stone_brush',
@@ -92,6 +106,15 @@ const cylinder_command = (session: PlayerSession, builder: Player, brush: string
     return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
+const smooth_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
+    session.setTool(brush, new SmoothBrush(
+        args.get('radius'),
+        args.get('iterations'),
+        args.get('mask')
+    ));
+    return RawText.translate('commands.generic.wedit:wandInfo');
+};
+
 const none_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
     if (session.hasTool(brush)) {
         session.unbindTool(brush);
@@ -106,6 +129,8 @@ commandList['brush'] = [registerInformation, (session, builder, args) => {
         return sphere_command(session, builder, brush, args);
     } else if (args.has('cyl')) {
         return cylinder_command(session, builder, brush, args);
+     } else if (args.has('smooth')) {
+        return smooth_command(session, builder, brush, args);
     } else {
         return none_command(session, builder, brush, args);
     }
