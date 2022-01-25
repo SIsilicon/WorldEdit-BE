@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-24 18:30\n"
+"PO-Revision-Date: 2022-01-25 20:23\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon (@iSiliconS)."
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Куда пойти"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aПримечание:§r§a В командах, предоставляемых этим аддонах, используется точка с запятой (;) вместо слэша (/). В будущем Mojang может добавить в Minecraft реальную поддержку пользовательских команд.§r"
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Добраться из точки А в точку Б иногда бывает проблематично. К счастью, этот аддон поставляется с так называемой навигационной палочкой. Чтобы получить его, вы можете либо иметь компас в своем инвентаре, либо ввести команду §e;navwand§r. Получив этот предмет, просто взаимодействуйте с ним, чтобы телепортироваться в то место, на которое вы смотрите. Хотите попасть на другую сторону стены или потолка? Используйте палочку, крадучись, чтобы пройти сквозь нее! Застрял в блоке? Использование палочки поможет вам спастись!"
