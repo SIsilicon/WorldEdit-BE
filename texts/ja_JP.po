@@ -11,343 +11,343 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-25 13:45\n"
+"PO-Revision-Date: 2022-01-25 14:48\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "このアイテムを使用する権限がありません。"
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "選択用の杖"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "スタッカーの杖"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "案内用の杖"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "木のブラシ"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "石のブラシ"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "鉄のブラシ"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "金のブラシ"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "ダイアモンドのブラシ"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "ネザライトのブラシ"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "コピー"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "カット"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "ペースト"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "元に戻す"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "やり直す"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "時計回りに回転"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "反時計回りに回転"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "反転"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "パターンピッカー"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "マスクピッカー"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "ガラスブロックを生成"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "フィルの選択"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "壁の選択"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit の設定"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "ブラシの設定"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "球体ブラシ"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "円柱ブラシ"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "1"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "2"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "3"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "4"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "5"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "6"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "OK"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "戻る"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "クリップボードにエンティティを含める: §a有効§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "クリップボードにエンティティを含める: §a無効§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "クリップボードに空気を含める: §a有効§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "クリップボードに空気を含める: §a無効§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "ここにはブロックを置けません。"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "選択範囲を設定するにはブロックを指定してください！"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "ブロックをパターンに追加: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "パターンをブロックに設定: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "ブロックをマスクに追加: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "マスクをブロックに設定: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "設定するブラシを選択してください。"
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "作るブラシの種類を選択してください。"
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "ブラシのサイズを選択してください。"
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "ブラシの高さを選択してください。"
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "ブラシのパターンと任意でマスクを作成してください。"
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "これでよろしいですか？"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "影響: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "作成数: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "サイズ: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "高さ: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "ブラシを設定しました。"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "ブラシを設定し、インベントリに追加しました。"
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "ブラシの設定をキャンセルしました。"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "最初の選択がまだ行われていません。"
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "最初の位置を %s に設定しました。"
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "最初の位置を %1 (%2) に設定しました。"
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "2番目の位置を %s に設定しました。"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "2番目の位置を %1 (%2) に設定しました。"
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eWorldEdit の権限が削除されました。§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 個のブロックが変更されました。"
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s 個のブロックが作成されました。"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "このコマンドは実行できませんでした。"
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "先に選択してください。"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' は不正な方向引数です！"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "予期しないフラグ: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "クリップボードは空です。最初に範囲をコピーまたはカットしてください。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "先に立方体を選択してください。"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "このコマンドを実行する権限がありません。"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "読み込まれていないチャンクは変更できません！"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "数 (%1) は大きすぎます! 最大 (%2) でなければなりません。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "数 (%1) は小さすぎます! 最小 (%2) でなければなりません。"
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "杖を更新しました。"
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "ブラシの種類を設定する"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "この階層にはブラシがありません。"
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "編集履歴を消去する"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "履歴を消去しました。"
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "現在の選択範囲をクリップボードにコピーする"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "%s 個のブロックをコピーしました。"
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "現在の選択範囲を削除してクリップボードにコピーする"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "%s 個のブロックをカットしました。"
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "円柱を生成する"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "選択範囲の表示を切り替える"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "選択範囲は表示されません。"
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "選択範囲が表示されます。"
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "選択範囲を反転する"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "%s 個のブロックを反転しました。"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "上下の反転はできません！"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "共通マスクを設定する"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "共通マスクを無効にしました。"
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "共通マスクを設定しました。"
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "空洞の円柱を生成する"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- ヘルプ ページの %1 ／ %2 ページを表示 (;help <ページ番号>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "空洞のピラミッドを生成する"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "空洞の球体を生成する"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "見ているブロックの上にテレポートする"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "視界にブロックがありません (または遠すぎます)！"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "自身に WorldEdit 機能を使うのに必要な各種アイテムを与える"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "アイテムを付与しました。"
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "ブラシのブロックの種類を設定する"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "選択範囲を特定の方向に移動する"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "%s 個のブロックを移動しました。"
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "自身に案内用の杖を付与する"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
