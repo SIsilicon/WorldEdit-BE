@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-24 18:30\n"
+"PO-Revision-Date: 2022-01-25 20:23\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "원하는 곳에 가기"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§a공지:§r§a이 추가 명령어는 슬래시(/) 대신 세미콜론(;)을 사용합니다. 미래에는 Mojang이 마인크래프트에 커스텀 명령어 지원을 추가할 수도 있습니다."
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "A 지점에서 B 지점으로 이동하는 것은 때때로 번거로울 수 있습니다. 운 좋게도, 이 애드온에는 이동 도구라고 알려진 것이 함께 나옵니다. 나침반을 가져오려면 인벤토리에 나침반이 있거나 §e;navwand§r 명령을 입력하십시오. 일단 당신이 이 물건을 가지고 나면, 당신이 보고 있는 장소로 순간 이동하기 위해 도구와 상호작용하기만 하면 됩니다. 벽이나 천장의 반대편을 통과하고 싶으세요? 도구를 이용해서 통과해 지나가세요! 블록에 갇혔어요? 지팡이를 사용하면 벗어날 수 있습니다!"
