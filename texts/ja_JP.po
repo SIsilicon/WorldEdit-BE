@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-25 16:41\n"
+"PO-Revision-Date: 2022-01-25 20:23\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "場所の移動"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§a注意:§r§a このアドオンが提供するコマンドは、スラッシュ (/) の代わりにセミコロン (;) を使用します。 将来、Mojang Studios は Minecraft に実際のカスタムコマンドを追加するかもしれません。§r"
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "A地点からB地点へ行くことが面倒なこともあるでしょう。幸いにも、このアドオンには「案内用の杖」というものが付いています。 取得するには、インベントリにコンパスを持つか、コマンド §e;navwand§r を入力してください。 アイテムを手に入れたら、使うだけで見ている場所にテレポートされます。 壁や天井の反対側に行きたいなら、スニークしながら杖を使えば通り抜けられます！ ブロックに埋まってしまったら、杖を使えば解放されます！"
