@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-25 00:54\n"
+"PO-Revision-Date: 2022-01-25 20:23\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extensão por SIsilicon (@iSiliconS)."
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Indo a lugares"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aAviso:§r§a Os comandos fornecidos por esta extensão usam ponto e vírgula (;) em vez de um parêntese (/). No futuro, talvez a Mojang possa adicionar suporte a comandos personalizados ao Minecraft.§r"
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Indo do ponto A ao ponto B às vezes pode ser complicado. Felizmente, esta extenção vem com o que é conhecido como uma Varinha de Navegação. Para pegar uma, você pode ter uma bússola no seu inventário ou digitar o comando §e;navwand§r. Assim que você tiver este item, basta apenas interagir com ele para ser teleportado para o local em que você está olhando. Quer ir do outro lado de uma parede ou teto? Use a varinha enquanto estiver agachado para passar por ela! Preso em um bloco? Usar a varinha vai te desprender!"
