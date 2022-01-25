@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-25 14:48\n"
+"PO-Revision-Date: 2022-01-25 15:45\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -350,151 +350,151 @@ msgid "commands.wedit:navwand.description"
 msgstr "自身に案内用の杖を付与する"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "スニークしながらアイテムを使うと壁を通過します。スニークせずに使うとロケーションまで移動します。"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "クリップボードをワールドに貼り付ける"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "%s 個のブロックをペーストしました。"
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "選択範囲の2番目の位置を、指定または現在の位置に設定する"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "ピラミッドを生成する"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "ブラシの使用できる距離を設定する"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "一定回数の操作をやり直す"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "%s 回の編集をやり直しました。"
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "やり直す必要はありません。"
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "選択範囲内の特定のブロックを他のブロックに置き換える"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "選択範囲を回転する"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "%s 個のブロックを回転しました。"
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "'%s' は90°の倍数ではありません！"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "選択を消去しました。"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr "選択モードの変更 (現時点では選択の消去のみ可能です)"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "選択範囲をブロックパターンで塗りつぶす"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "ブラシのサイズを設定する"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "現在の選択範囲の内容を繰り返す"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "%s 個のブロックをスタックから生成しました。"
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "球体を生成する"
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "見ている壁を通してテレポートする"
 
 msgid "commands.wedit:thru.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "通過する壁に面していません。"
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools (currently only the stacker)"
+msgstr "全てのツールを取得する (現時点ではスタッカーのみ)"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "ブロックの外に移動する"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "There you go!"
 
 msgid "commands.wedit:undo.description"
-msgstr "Undo a certain amount of actions"
+msgstr "一定回数の操作を元に戻す"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr "%s 回の編集を元に戻しました。"
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "元に戻す必要はありません。"
 
 msgid "commands.wedit:up.description"
-msgstr "Move up a certain number of blocks"
+msgstr "一定数のブロックを上に移動する"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "選択範囲から壁を生成する"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "自身に選択用の杖を付与する"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr "スニークしながらブロックをタップして最初の位置を選択します。スニークせずにブロックをタップして2番目の位置を選択します。"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "WorldEdit について"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "WorldEdit のバージョン: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "クイックスタート"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "遊び方: WorldEdit をクイックスタート"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr "ようこそ！これは Minecraft: Java Edition のオリジナル WorldEdit モッドの移植版です。このアドオンは、Minecraft のワールドを形作るのに役立ちます。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。ビルダーとしてタグ付けされたプレイヤーのみが使用できます。 自身をビルダーにするには、チャットで §e/tag @s add builder§r を入力してください。WorldEdit の権限が与えられたというメッセージを受け取るはずです。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーをビルダーにすることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add builder§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr "場所の移動"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§a注意:§r§a このアドオンが提供するコマンドは、スラッシュ (/) の代わりにセミコロン (;) を使用します。 将来、Mojang Studios は Minecraft に実際のカスタムコマンドを追加するかもしれません。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "A地点からB地点へ行くことが面倒なこともあるでしょう。幸いにも、このアドオンには「案内用の杖」というものが付いています。 取得するには、インベントリにコンパスを持つか、コマンド §e;navwand§r を入力してください。 アイテムを手に入れたら、使うだけで見ている場所にテレポートされます。 壁や天井の反対側に行きたいなら、スニークしながら杖を使えば通り抜けられます！ ブロックに埋まってしまったら、杖を使えば解放されます！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
