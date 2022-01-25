@@ -11,289 +11,289 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-15 02:05\n"
+"PO-Revision-Date: 2022-01-17 12:29\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "你沒有權限使用此物品"
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "區域選擇工具"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "方塊堆疊工具"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "導航工具"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "木畫筆"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "石畫筆"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "鐵畫筆"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "金畫筆"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "鑽石畫筆"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "獄髓畫筆"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "複製"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "剪下"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "貼上"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "復原"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "重做"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "順時針旋轉"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "逆時針旋轉"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "翻轉"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "填充方塊選擇器"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "取代方塊選擇器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "生成玻璃方塊"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "填滿選中的區域"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit 設定"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "畫筆設定"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "球體畫筆"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "圓柱體畫筆"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "一"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "二"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "三"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "四"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "五"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "六"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "確定"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "返回"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "把生物複製或剪下至剪貼板中: §a啟用§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "把生物複製或剪下至剪貼板中: §4禁用§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "把空氣方塊複製或剪下至剪貼板中: §a啟用§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "把空氣方塊複製或剪下至剪貼板中: §4禁用§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "不能在這裡放置方塊"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "你需要選擇填充選中的區域的方塊！"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "已新增以下方塊到填充方塊選擇器: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "已設定以下方塊為填充方塊: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "已新增以下方塊到取代方塊選擇器: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "已設定以下方塊為取代方塊: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "請選擇要設定的畫筆。"
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "請選擇畫筆的形狀。"
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "請選擇畫筆的大小。"
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "請選擇畫筆的高度。"
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "請設定畫筆的填充方塊(必選)和取代方塊(可選)。"
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "這樣可以嗎?"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "取代方塊: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "填充方塊: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "大小: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "高度: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "畫筆設定完成。"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "畫筆設定完成，已添加此畫筆到你的物品欄。"
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "已取消畫筆設定。"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "請先設定第一個位置。"
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "第一個位置已設定至 %s。"
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "第一個位置已設定至 %1 (已選擇 %2 個方塊)。"
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "第二個位置已設定至 %s。"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "第二個位置已設定至 %1 (已選擇 %2 個方塊)。"
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§e你已獲得 WorldEdit 權限。前往 (設定 > 遊戲說明 > 快速開始) 以獲得 WorldEdit 教學。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§e已撤消你的 WorldEdit 權限§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "已變更 %s 個方塊"
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "已創建 %s 個方塊"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "無法執行此命令"
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "請先選擇一個區域"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s'是一個無效的方向參數！"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "預期外的旗標: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "你的剪貼板是空的。請先複製或剪切一個區域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "請先選擇一個長方體區域"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "你沒有權限執行此命令"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "不能修改未加載的區塊！"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "數值(%1)太大了！它的最大是(%2)。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "數值(%1)太小了！它的最少是(%2)。"
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "已更新工具"
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "設定畫筆的類型"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "此畫筆没有設定資料。"
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "清除你的歷史編輯記錄"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "已清除歷史編輯記錄"
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "複製目前所選中的區域到剪貼板上"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "已複製 %s 個方塊"
 
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "已剪下 %s 個方塊"
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "生成一個圓柱體"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "設定你所選中的區域的可見度"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "你所選中的區域已設定為不可見"
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "你所選中的區域已設定為可見"
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "翻轉所選中的區域"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "已翻轉 %s 個方塊"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "不能往上或往下翻轉！"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
@@ -305,64 +305,64 @@ msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "生成一個空心的圓柱體"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- 顯示說明第 %1 頁 (共 %2 頁) (;help <頁數>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "生成一個空心的錐體"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "生成一個空心的球體"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "傳送你到你視線中方塊的頂端"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "噗！"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "視線中沒有方塊（或方塊距離太遠）!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "給自己一套物品用於執行常見的 WorldEdit 功能"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "您收到了 WorldEdit 的一套物品"
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "設定畫筆可以變更的方塊，如果有的話"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "設定畫筆應該創建甚麼方塊"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "將所選中的區域向某個方向移動"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "已移動 %s 個方塊"
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "給自己一個導航工具"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and tap block: jump to location; Tap block without sneak: pass through walls"
+msgstr "潛行和使用物品：穿牆；不潛行和使用物品：傳送到視線中方塊的位置"
 
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "已貼上 %s 個方塊"
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "設定你所選中的區域的第一個位置到指定或目前的位置"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "設定你所選中的區域的第二個位置到指定或目前的位置"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "生成一個錐體"
 
 msgid "commands.wedit:range.description"
 msgstr "Set how far a brush can be used from"
@@ -371,31 +371,31 @@ msgid "commands.wedit:redo.description"
 msgstr "Redo a certain amount of actions"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "已重做 %s 個操作"
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "沒有可重做的操作"
 
 msgid "commands.wedit:replace.description"
 msgstr "Replace certain blocks in the selection with other blocks"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "順轉已選中的區域"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "已旋轉 %s 個方塊"
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' is not an increment of 90°!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "已清除所選擇的區域"
 
 msgid "commands.wedit:sel.description"
 msgstr "Change selection mode (currently can only clear selection)"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "用填充方塊來填滿選中的區域"
 
 msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush"
@@ -407,19 +407,19 @@ msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "生成一個球體"
 
 msgid "commands.wedit:thru.description"
 msgstr "Teleport through any wall you look at"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "嗖！"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "在你前面沒有找到牆壁。"
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "在你前面沒有找到可傳送的位置。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Set what kind of blocks a brush can be used on"
@@ -428,7 +428,7 @@ msgid "commands.wedit:tool.description"
 msgstr "Get all sorts of tools (currently only the stacker)"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "在方塊裏面移出"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "There you go!"
@@ -437,61 +437,61 @@ msgid "commands.wedit:undo.description"
 msgstr "Undo a certain amount of actions"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr "已復原 %s 個操作"
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "沒有可復原的操作"
 
 msgid "commands.wedit:up.description"
 msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh!"
+msgstr "嗖！"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "給自己一個區域選擇工具"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr "潛行和點擊方塊：選擇位置 #1；不潛行和點擊方塊：選擇位置 #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "有關 WorldEdit 的資訊"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "WorldEdit 版本: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "快速開始"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "遊戲說明: WorldEdit的快速開始"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
+msgstr "在默認情況下，玩家並不允許使用WorldEdit。只有那些被標籤為建築者的玩家可以使用它的功能。如果要使自己標籤為建築者，在聊天欄裏輸入 §e/tag @s add builder§r。你應該會收到一個信息說你已獲得 WorldEdit 權限。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also make other players builders by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§a提示:§r§a 你也可以透過把 §e@s§r§a 變更為其他玩家名稱以標籤他們為建築者。如果玩家名稱中帶有空格，你需要將其括在引號中。例子: §e/tag \"Steve Wanderer\" add builder§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr "前往地方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§a注意:§r§a 附加包所提供的指令使用一個分號(;)取代一個斜線(/)。在未來，Mojang 可能會在 Minecraft 增加實際的自訂指令支援。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "有時候由A點移動到B點很麻煩。幸連地，這個附加包添加了一種名為導航工具的物品。要獲得一個，你可以在物品欄中擁有一個指南針，或輸入命令 §e;navwand§r。當你有這個物品時，只需要與它進行互動便可以傳送到視線中方塊的位置。想前往牆壁或天花板的另一邊？在潛行時使用導航工具即可穿過它！在方塊裏面困住了？使用導航工具即可解困！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
+msgstr "§l§a提示:§r§a 如果你不想使用導航工具，這些動作也可透過命令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成§r。"
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Making Selections"
@@ -527,7 +527,7 @@ msgid "howtoplay.wedit:quick_start.text.15"
 msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr "用畫筆來遊玩"
 
 msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Get a shovel of any type (preferably wooden), and place down cobblestone; you'll need it for the brush."
@@ -545,11 +545,11 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Disable the brush with §e;br tier none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "那麼現在呢？"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "若要了解有關此附加包的更多信息，你可以在此連結訪問其在線文檔：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr "我的世界"
 

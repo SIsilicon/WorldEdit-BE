@@ -73,7 +73,7 @@ export class PlayerSession {
     
     /**
     * Handles the settings UI created from the config item.
-    * Is Null when the UI isn't active.
+    * Is null when the UI isn't active.
     */
     public settingsHotbar: SettingsHotbar;
     
@@ -110,6 +110,7 @@ export class PlayerSession {
         this.setTool('flip');
         this.setTool('spawn_glass');
         this.setTool('selection_fill');
+        this.setTool('selection_wall');
         Tools.unbindAll(player, this.tools);
         
         if (PlayerUtil.isHotbarStashed(player)) {

@@ -1,7 +1,6 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { assertCanBuildWithin } from '@modules/assert.js';
-
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { getSession } from '../../sessions.js';
 import { Vector } from '@modules/vector.js';
 import { copy } from './copy.js';
@@ -33,11 +32,16 @@ const registerInformation = {
 };
 
 commandList['cut'] = [registerInformation, (session, builder, args) => {
+    assertCuboidSelection(session);
+    const player = session.getPlayer();
+    const [dim, dimName] = PlayerUtil.getDimension(player);
+    const [start, end] = session.getSelectionRange();
+    assertCanBuildWithin(dimName, start, end);
+    
     const history = session.getHistory();
     history.record();
     history.recordSelection(session);
-
-    const [start, end] = session.getSelectionRange();
+    
     history.addUndoStructure(start, end, 'any');
     
     if (copy(session, args)) {
@@ -50,7 +54,6 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
 
     set(session, pattern, mask);
     if (includeEntities) {
-        const [dim, dimName] = PlayerUtil.getDimension(builder);
         for (const block of start.blocksBetween(end)) {
             for (const entity of dim.getEntitiesAtBlockLocation(block)) {
                 entity.nameTag = 'wedit:marked_for_deletion';

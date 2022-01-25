@@ -42,7 +42,7 @@ import './region/move.js';
 import './region/stack.js';
 import './region/rotate.js';
 import './region/flip.js';
-// TODO: Implement wall
+import './region/wall.js';
 // TODO: Implement faces
 // TODO: Implement hollow
 // TODO: Implement line

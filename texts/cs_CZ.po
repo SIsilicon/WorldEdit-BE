@@ -11,349 +11,349 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-15 02:06\n"
+"PO-Revision-Date: 2022-01-16 15:01\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Nemáte povolení použít tuto věc."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Hůlka výběru"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Hůlka hromadění"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Hůlka navigace"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Dřevěný štětec"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Kamenný štětec"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Železný štětec"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Zlatý štětec"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Diamantový štětec"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Netheritový štětec"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopírovat"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Vyjmout"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Vložit"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Vrátit"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Znovu udělat"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Otočit ve směru hodinových ručiček"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Otočit proti směru hodinových ručiček"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Převrátit"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Výběr vzoru"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Výběr masky"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Položit sklo"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Vyplnit výběr"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Nastavení WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Nastavení štětce"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Kulovitý štětec"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Válcový štětec"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Jedna"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dva"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tři"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Čtyři"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Pět"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Šest"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Zpět"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Zahrnout entity do schránky: §aPovoleno§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Zahrnout entity do schránky: §4Zakázáno§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Zahrnout vzduch do schránky: §aPovoleno§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Zahrnout vzduch do schránky: §4Zakázáno§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Zde nelze položit blok."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Musíte zadat blok, na který chcete nastavit výběr!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Blok přidán do vzoru: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Nastavit vzor na blok: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Blok přidán do masky: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Nastavit masku na blok: "
 
 msgid "worldedit.brushConfig.chooseBrush"
-msgstr "Choose a brush to set up."
+msgstr "Vyberte štětec, který chcete nastavit."
 
 msgid "worldedit.brushConfig.chooseKind"
-msgstr "Choose what kind of brush to make."
+msgstr "Vyberte, který druh štětce chcete vyrobit."
 
 msgid "worldedit.brushConfig.selectRadius"
-msgstr "Choose the size of the brush."
+msgstr "Vyberte velikost štětce."
 
 msgid "worldedit.brushConfig.selectHeight"
-msgstr "Choose the height of the brush."
+msgstr "Vyberte výšku štětce."
 
 msgid "worldedit.brushConfig.patternMask"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Vytvořte vzor a volitelně masku pro štětec."
 
 msgid "worldedit.brushConfig.confirm"
-msgstr "Is this Ok?"
+msgstr "Je tohle správně?"
 
 msgid "worldedit.brushConfig.affects"
-msgstr "Affects: %s"
+msgstr "Ovlivňuje: %s"
 
 msgid "worldedit.brushConfig.creates"
-msgstr "Creates: %s"
+msgstr "Vytvoří: %s"
 
 msgid "worldedit.brushConfig.radius"
-msgstr "Size: %s"
+msgstr "Velikost: %s"
 
 msgid "worldedit.brushConfig.height"
-msgstr "Height: %s"
+msgstr "Výška: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "Brush configured."
+msgstr "Štětec nastaven."
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "Brush configured and added to your inventory."
+msgstr "Štětec nastaven a přidán do vašeho inventáře."
 
 msgid "worldedit.brushConfig.cancel"
-msgstr "Cancelled brush configuring."
+msgstr "Nastavování štětce zrušeno."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "První výběr ještě nebyl proveden."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "První pozice nastavena na %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "První pozice nastavena na %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Druhá pozice nastavena na %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Druhá pozice byla nastavena na %1 (%2)."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eDostal jste oprávnění používat WorldEdit. Otevřete (Nastavení > Pravidla hry > Rychlý start) pro návod. §r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYou're WorldEdit permissions have been removed.§r"
+msgstr "§eOprávnění pro používání WorldEdit bylo odebráno.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s bloků bylo změněno."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s bloků bylo vytvořeno."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Provedení tohoto příkazu se nezdařilo."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Nejprve proveďte výběr."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' je neplatný parametr směru!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Neočekávaný údaj: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Vaše schránka je prázdná. Nejprve zkopírujte nebo vyjměte region."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Nejdříve proveďte výběr ve tvaru krychle."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Nemáte oprávnění k provedení tohoto příkazu."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Nelze upravovat nenačtené chunky!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Číslo (%1) je příliš velké! Musí být nanejvýš (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "Číslo (%1) je příliš malé! Musí být alespoň (%2)."
 
 msgid "commands.generic.wedit:wandInfo"
-msgstr "Wand updated."
+msgstr "Hůlka aktualizována."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush"
+msgstr "Nastavit typ štětce"
 
 msgid "commands.wedit:brush.noBind"
-msgstr "No brush has been bounded to this tier."
+msgstr "Žádný štětec nebyl přiřazen k této úrovni."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Vymazat vaši historii úprav"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "Historie vymazána."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Zkopírovat aktuální výběr do schránky"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "Zkopírováno %s bloků."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Odstranit aktuální výběr a umístit jej do schránky"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "Vyjmout %s bloků."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Vygenerovat válec"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Přepnout viditelnost vašeho výběru"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Váš výběr již nebude viditelný."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Váš výběr bude nyní viditelný."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Překlopit výběr"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "Překlopeno %s bloků."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Nelze překlopit nahoru nebo dolů!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Nastavit globální masku"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Globální maska je vypnuta."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Globální maska nastavena."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Vygenerovat dutý válec"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Zobrazení nápovědy stránka %1 z %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Generovat dutou pyramidu"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Vygenerovat dutou kouli"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Teleportuje vás na vrch bloku, na který se díváte"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "Žádný blok v dohledu (nebo příliš daleko)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Dá vám sadu věcí pro používání častých funkcí worldedit"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "Byla vám dána sada."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Nastavte, jaký druh bloků může štětec ovlivnit, pokud nějaký"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Nastavte, jaký druh bloků může štětce pokládat"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Posune výběr v určitém směru"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "Přesunuto %s bloků."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Dá vám navigační hůlku"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and tap block: jump to location; Tap block without sneak: pass through walls"
+msgstr "Skrčit a použít: projít skrz zdi; použít bez skrčení: přeskočit na místo"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Vložte svou schránku do světa"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "Vloženo %s bloků."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
