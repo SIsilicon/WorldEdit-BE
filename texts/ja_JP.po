@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-26 01:54\n"
+"PO-Revision-Date: 2022-01-26 02:57\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -80,7 +80,7 @@ msgid "item.wedit:spawn_glass"
 msgstr "ガラスブロックを生成"
 
 msgid "item.wedit:selection_fill"
-msgstr "フィルの選択"
+msgstr "範囲フィル"
 
 msgid "item.wedit:selection_wall"
 msgstr "壁の選択"
@@ -503,40 +503,40 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "選択する"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
+msgstr "元祖の Mod と同様、選択用の杖というアイテムを使用してさまざまな操作で簡単にワールドの領域をマークできます。 取得するには、木の斧を持つか、 §e;wand§r コマンドを入力します。 WorldEdit の選択範囲のデフォルトは立方体です。 選択するには、この立方体の2つの角をマークする必要があります。 スニークしながら角のブロックに杖を使って最初の角をマークします。 スニーク§lせずに§rブロックに杖を使って 2 番目の角をマークします。正しく行われた場合は、選択範囲がハイライトされます。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
+msgstr "空高くにある場合など角にマークするブロックが見つからない場合は、コマンド §e;pos1§r と §e;pos2§r を使って、それぞれ最初と 2 番目の角を立っている位置でマークすることもできます。 立っている§l下の§rブロックではありません。"
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Doing stuff with your selection"
+msgstr "選択したものを操作する"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr "操作する範囲を控えめのサイズで選択したら、 §e;kit§r コマンドでアイテムを準備します。 では、 WorldEdit が提供する機能をいくつか試してみましょう。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Selection Fill\". A cuboid of stone should be made."
+msgstr "§71. 石を設置し、パターンピッカーを石に向けて使って「範囲フィル」を選びます。石の立方体が生成されます。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Selection Fill\" again to clear the stone."
+msgstr "§r2. 空中でパターンピッカーを使って (モバイル版は画面を長押し) 、もう一度「範囲フィル」を選べば石が削除されます。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Selection Fill\" and you should have a mix of sandstone and glass."
+msgstr "§73. 砂岩とガラスを置き、砂岩に向けてパターンピッカーを使い、次にスニークしながらガラスに向けて使えばパターンに追加されます。「範囲フィル」を使用すれば、砂岩とガラスのパターンが生成されます。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
+msgstr "§r4. マスクピッカーをインベントリから取り出し、砂岩に向けて使用します。 好きなブロックをパターンとして設定し、「範囲フィル」を使います。すべての砂岩が選んだブロックに置き換わります。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. コマンド §e;stack 4 up§r §7を入力して、選択内容を上へ繰り返します。"
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "元に戻すアイテムを使えば、制限回数に達するまではどの操作も元に戻すことができます。"
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr "ブラシで遊ぶ"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type (preferably wooden), and place down cobblestone; you'll need it for the brush."
+msgstr "1. シャベル (木のシャベルが良い) を取得し、丸石を設置します。 ブラシに必要な工程です。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
