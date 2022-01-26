@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-26 16:04\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -47,28 +47,28 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopyala"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Kes"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Yapıştır"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Geri Al"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "İleri Al"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Saat yönünde döndür"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Saat yönünün tersine döndür"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Çevir"
 
 msgid "item.wedit:pattern_picker"
 msgstr "Pattern Picker"
@@ -98,28 +98,28 @@ msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Bir"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "İki"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Üç"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Dört"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Beş"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Altı"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Tamam"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Geri"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Include Entities in Clipboard: §aEnabled§r"
