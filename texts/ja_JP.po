@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-26 02:57\n"
+"PO-Revision-Date: 2022-01-26 04:06\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -41,7 +41,7 @@ msgid "item.wedit:golden_brush"
 msgstr "金のブラシ"
 
 msgid "item.wedit:diamond_brush"
-msgstr "ダイアモンドのブラシ"
+msgstr "ダイヤモンドのブラシ"
 
 msgid "item.wedit:netherite_brush"
 msgstr "ネザライトのブラシ"
@@ -539,16 +539,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. シャベル (木のシャベルが良い) を取得し、丸石を設置します。 ブラシに必要な工程です。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. 「WorldEdit の設定」 アイテムを使用してください。ホットバーに「ブラシの設定」を含むメニューが表示されます。ブラシの設定を選択し、紐付けるシャベルを選択します。 半径 3 の球体ブラシを丸石のパターンで作成してください。設定を確認し、メニューを終了します。"
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
+msgstr "§r3. 離れた地面に向かってシャベル (ブラシになったもの) を使い、丸石の球体を設置します。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask tier grass§r§7. Use the brush now to make a cobblestone path."
+msgstr "§74. コマンド §e;mask tier grass§r §7で、ブラシが草ブロックにのみ影響を与えるようにします。それからブラシを使って、丸石の道を作ってください。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br tier none§r."
+msgstr "§r5. §e;br tier none§r でブラシを無効にします。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "さて、どうする？"
