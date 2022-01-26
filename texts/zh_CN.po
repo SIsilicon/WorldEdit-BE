@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-26 09:12\n"
+"PO-Revision-Date: 2022-01-26 10:07\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -332,109 +332,109 @@ msgid "commands.wedit:kit.description"
 msgstr "Give yourself a set of items to do common worldedit functions"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "配套工具已被给予"
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "设置笔刷应该用哪种方块进行填充"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "将选区移动到指定的方向"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "已移除%s个方块"
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "给你自己一个传送器"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "将您的剪切板粘贴至这个世界"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "已粘贴%s个方块"
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "将您的选区的第一个点设置为指定的或当前的位置"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "将您的选区的第二个点设置为指定的或当前的位置"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "生成一个金字塔形的结构"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "设置笔刷能够生效的距离"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "重做一定数量的操作"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "重复了 %s 个可用的编辑。"
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "没有可以重复做的步骤"
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "将选区中确定的方块替换为其它方块"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "旋转选区"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "已旋转%s个方块。"
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "'%s'不是一个90°的倍数！"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "选区已清除"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr "更改选区模式(目前只能清除选区)"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "用选择好的填充方块填充选区"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "设置笔刷的尺寸"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "重复当前选区的内容"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "堆叠操作共创造了%s个方块"
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "生成一个球体"
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "传送您通过您面向的任何墙"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "呼呼！"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "不要贴近或面对一面墙就可以穿过它。"
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "未在您的前方发现有效空间。"
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "设定笔刷能使用的方块的类型"
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools (currently only the stacker)"
+msgstr "获取所有类型的快捷工具 (目前只有堆叠器)"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "移除方块"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "There you go!"
+msgstr "完成了！"
 
 msgid "commands.wedit:undo.description"
 msgstr "Undo a certain amount of actions"
@@ -443,34 +443,34 @@ msgid "commands.wedit:undo.explain"
 msgstr "Undid %s available edits."
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "没有可以撤销的步骤了。"
 
 msgid "commands.wedit:up.description"
 msgstr "Move up a certain number of blocks"
 
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh!"
+msgstr "呼呼！"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "在您的选区中生成一面墙"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "给你自己一个选择器"
 
 msgid "commands.wedit:wand.explain"
 msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Information about WorldEdit"
+msgstr "关于创世神插件的信息"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "创世神版本：%s"
 
 msgid "howtoplay.category.worldEdit"
-msgstr "WorldEdit"
+msgstr "创世神"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "快速入门"
 
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "游戏指南: 快速学习如何使用创世神插件"
@@ -479,7 +479,7 @@ msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "在开始之前，"
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged as a builder can use its features. To make yourself a builder, enter §e/tag @s add builder§r in chat. You should then receive a message saying that you have been giving WorldEdit permissions."
@@ -500,7 +500,7 @@ msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Making Selections"
+msgstr "创建选区"
 
 msgid "howtoplay.wedit:quick_start.text.7"
 msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
@@ -533,7 +533,7 @@ msgid "howtoplay.wedit:quick_start.text.15"
 msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr "笔刷的使用"
 
 msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Get a shovel of any type (preferably wooden), and place down cobblestone; you'll need it for the brush."
@@ -548,14 +548,14 @@ msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Make it so the brush only affects grass with §e;mask tier grass§r§7. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br tier none§r."
+msgstr "§r5. 禁用笔刷的指令：§e;br tier none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "现在该做什么？"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "想要了解更多关于此插件的信息，您可以在这里访问它的在线文档：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr "我的世界"
 
