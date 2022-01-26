@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-26 11:18\n"
 
 msgid "pack.description"
 msgstr "En inn-utviklende port av den opprinnelige Java-modden og mer! Utvidelse av SIsilicon (@iSiliconS)."
@@ -269,49 +269,49 @@ msgid "commands.wedit:copy.description"
 msgstr "Kopier gjeldende utvalg til utklippstavlen"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "Kopierte %s blokker."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Fjern ditt nåværende utvalg og plasser det på utklippstavlen"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "Klipp ut %s blokker."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Generer en sylinder"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Slå av/på utvalgets synlighet"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Dine valg vil ikke lenger være synlige."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Dine valg vil nå være synlige."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Vend utvalget"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "Vendte %s blokker."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Kan ikke snu opp eller ned!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Sett global maske"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Globalmaske deaktivert."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Globalmaske satt."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Generer en hul sylinder"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Viser hjelpeside %1 av %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Generer en hul pyramide"
@@ -323,40 +323,40 @@ msgid "commands.wedit:jumpto.description"
 msgstr "Teleporter deg til toppen av blokken du ser på"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "Poff!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "Ingen blokk synlig (eller for langt)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Gi deg selv et sett med gjenstander som gjør vanlige worldedit funksjoner"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "Sett gitt."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Angi hva slags blokk en pensel skal lage"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Flytt utvalget i en bestemt retning"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "Flyttet %s blokker."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Gi deg selv en navigeringsstav"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "Snik og bruk gjenstand: gå gjennom vegger; Bruk gjenstanden uten sniking; hopp til sted"
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Lim inn utklippstavlen din i verdenen"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "Limte inn %s blokker."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
