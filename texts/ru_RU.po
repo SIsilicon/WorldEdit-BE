@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-27 13:42\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon (@iSiliconS)."
+msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "У вас недостаточно прав чтобы использовать этот предмет."
@@ -83,7 +83,7 @@ msgid "item.wedit:selection_fill"
 msgstr "Заполнение"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Выбор Стены"
 
 msgid "item.wedit:config_button"
 msgstr "Настройки WorldEdit"
@@ -452,7 +452,7 @@ msgid "commands.wedit:up.explain"
 msgstr "Вух!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "Сгенерировать стену в выборе"
 
 msgid "commands.wedit:wand.description"
 msgstr "Дай себе топор для выделения"
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Куда пойти"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§aПримечание:§r§a В командах этого дополнения используется точка с запятой (;) вместо косой черты (/). В будущем Mojang может добавить в Minecraft реальную поддержку пользовательских команд.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Добраться из точки А в точку Б иногда бывает проблематично. К счастью, этот аддон поставляется с так называемой навигационной палочкой. Чтобы получить его, вы можете либо иметь компас в своем инвентаре, либо ввести команду §e;navwand§r. Получив этот предмет, просто взаимодействуйте с ним, чтобы телепортироваться в то место, на которое вы смотрите. Хотите попасть на другую сторону стены или потолка? Используйте палочку, крадучись, чтобы пройти сквозь нее! Застрял в блоке? Использование палочки поможет вам спастись!"
