@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-27 13:42\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Kamu tidak memiliki izin untuk menggunakan item ini."
 
 msgid "item.wedit:selection_wand"
 msgstr "Selection Wand"
@@ -26,7 +26,7 @@ msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Tongkat Navigasi"
 
 msgid "item.wedit:wooden_brush"
 msgstr "Wooden Brush"
@@ -47,28 +47,28 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Salin"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Potong"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Tempel"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Urungkan"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Kembalikan"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Putar searah jarum jam"
 
 msgid "item.wedit:rotate_ccw_button"
 msgstr "Rotate Counter-Clockwise"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Balik"
 
 msgid "item.wedit:pattern_picker"
 msgstr "Pattern Picker"
@@ -86,7 +86,7 @@ msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Pengaturan WorldEdit"
 
 msgid "item.wedit:brush_config_button"
 msgstr "Brush Settings"
@@ -98,28 +98,28 @@ msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Satu"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dua"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tiga"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Empat"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Lima"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Enam"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Kembali"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Include Entities in Clipboard: §aEnabled§r"
@@ -137,7 +137,7 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Tidak bisa menaruh blok disini."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
