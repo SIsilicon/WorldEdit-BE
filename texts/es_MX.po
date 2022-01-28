@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-28 03:26\n"
 
 msgid "pack.description"
 msgstr "Un porteo en desarrollo del mod de Java original y más! Complemento creado por SIsilicon (@iSiliconS)."
@@ -83,7 +83,7 @@ msgid "item.wedit:selection_fill"
 msgstr "Rellenar selección"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Buena"
 
 msgid "item.wedit:config_button"
 msgstr "Ajustes de WorldEdit"
