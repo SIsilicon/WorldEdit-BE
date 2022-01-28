@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-28 15:30\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -491,7 +491,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Gehe zu Orten"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§aHinweis:§r§a Die von diesem Addon bereitgestellten Befehle verwenden ein Semikolon (;) anstelle eines Schrägstrichs (/). In Zukunft könnte Mojang tatsächlich Unterstützung für benutzerdefinierte Befehle zu Minecraft hinzufügen.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Von Punkt A zu Punkt B zu kommen kann manchmal schwer sein. Zum Glück kommt dieses Addon mit dem so genannten Navigations-Stab. Um einen zu bekommen, können Sie entweder einen Kompass in Ihrem Inventar haben oder den Befehl §e;navwand§r eingeben. Sobald Sie diesen Gegenstand haben, interagieren Sie einfach mit ihm, um an den Ort teleportiert zu werden, an dem Sie sich gerade befinden. Möchten Sie auf der anderen Seite einer Wand oder Decke stehen? Benutzen Sie den Stab beim Schleichen um durch sie zu gehen! Stecken Sie in einem Block? Mit dem Stab können Sie sich herausteleportieren!"
