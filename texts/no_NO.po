@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-01-26 11:18\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "En inn-utviklende port av den opprinnelige Java-modden og mer! Utvidelse av SIsilicon (@iSiliconS)."
@@ -97,6 +97,9 @@ msgstr "Kulepensel"
 msgid "item.wedit:cylinder_button"
 msgstr "Sylinderpensel"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "En"
 
@@ -166,8 +169,14 @@ msgstr "Velg størrelsen på penselen."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Velg høyden på penselen."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Lag et mønster og en valgfri maske for penselen."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Er dette Ok?"
@@ -183,6 +192,9 @@ msgstr "Størrelse: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Høyde: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Pensel konfigurert."
@@ -408,6 +420,9 @@ msgstr "Repeat the contents of the current selection"
 
 msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Generate a sphere"
