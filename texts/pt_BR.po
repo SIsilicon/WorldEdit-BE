@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-01-31 23:01\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extensão por SIsilicon (@iSiliconS)."
@@ -98,7 +98,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "Pincel de Cilindro"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Pincel Suave"
 
 msgid "item.wedit:one_button"
 msgstr "Um"
@@ -170,13 +170,13 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "Escolha a altura do pincel."
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "Escolha a suavidade do pincel."
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Faça um padrão e uma máscara opcional para o pincel."
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "Faça uma máscara opcional para o pincel."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Isto está certo?"
@@ -194,7 +194,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "Altura: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "Suavidade: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Pincel Configurado."
@@ -422,7 +422,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "Criado %s blocos da pilha."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Suavize a superfície dentro da seleção"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Gera uma esfera"
