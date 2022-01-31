@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-27 13:42\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -97,6 +97,9 @@ msgstr "Сферовая Кисть"
 msgid "item.wedit:cylinder_button"
 msgstr "Целиндровая Кисть"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "Один"
 
@@ -166,8 +169,14 @@ msgstr "Выберите размер для кисти."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Выберите высоту кисти."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Сделайте узор и опциональную маску для кисти."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Так нормально?"
@@ -183,6 +192,9 @@ msgstr "Размер: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Высота: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Кисть настроена."
@@ -408,6 +420,9 @@ msgstr "Повторить содержимое текущего выделен�
 
 msgid "commands.wedit:stack.explain"
 msgstr "Создано %s блоков из стопки."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Сгенерировать сферу"
