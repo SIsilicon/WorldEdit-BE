@@ -29,7 +29,8 @@ export interface commandSyntaxError {
     isSyntaxError: true,
     idx: number,
     start?: number,
-    end?: number
+    end?: number,
+    stack: string
 }
 
 export interface registerInformation {

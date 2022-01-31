@@ -26,6 +26,7 @@ export class CommandPosition implements CustomArgType {
             if(!args) {
                 const err: commandSyntaxError = {
                     isSyntaxError: true,
+                    stack: Error().stack,
                     idx: -1
                 };
                 throw err;
@@ -315,6 +316,7 @@ export class CommandBuilder {
                 if(!processed && hasNamedSubCmd && !unnamedSubs.length) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
+                        stack: Error().stack,
                         idx: i
                     };
                     throw err;
@@ -377,6 +379,7 @@ export class CommandBuilder {
                 if(!argDef) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
+                        stack: Error().stack,
                         idx: i
                     };
                     throw err;
@@ -403,6 +406,7 @@ export class CommandBuilder {
                         // Required arguments not specified
                         const err: commandSyntaxError = {
                             isSyntaxError: true,
+                            stack: Error().stack,
                             idx: -1
                         };
                         throw err;
