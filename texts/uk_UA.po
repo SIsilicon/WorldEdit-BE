@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -97,6 +97,9 @@ msgstr "Sphere Brush"
 msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "One"
 
@@ -166,8 +169,14 @@ msgstr "Choose the size of the brush."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Choose the height of the brush."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Is this Ok?"
@@ -183,6 +192,9 @@ msgstr "Size: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Height: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Brush configured."
@@ -408,6 +420,9 @@ msgstr "Repeat the contents of the current selection"
 
 msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Generate a sphere"
