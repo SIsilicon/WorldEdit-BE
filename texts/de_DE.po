@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-28 15:30\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -97,6 +97,9 @@ msgstr "Kugelpinsel"
 msgid "item.wedit:cylinder_button"
 msgstr "Zylinder-Pinsel"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "Eins"
 
@@ -166,8 +169,14 @@ msgstr "Wählen Sie die gewünschte Größe des Pinsels."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Wählen Sie die gewünschte Höhe des Pinsels."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Ist das in Ordnung?"
@@ -183,6 +192,9 @@ msgstr "Größe: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Höhe: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Pinsel konfiguriert."
@@ -408,6 +420,9 @@ msgstr "Wiederholen Sie den Inhalt der aktuellen Auswahl"
 
 msgid "commands.wedit:stack.explain"
 msgstr "%s Blöcke durch Stapeln erstellt."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Kugel generieren"
