@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-25 20:23\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
@@ -97,6 +97,9 @@ msgstr "Kulovitý štětec"
 msgid "item.wedit:cylinder_button"
 msgstr "Válcový štětec"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "Jedna"
 
@@ -166,8 +169,14 @@ msgstr "Vyberte velikost štětce."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Vyberte výšku štětce."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Vytvořte vzor a volitelně masku pro štětec."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Je tohle správně?"
@@ -183,6 +192,9 @@ msgstr "Velikost: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Výška: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Štětec nastaven."
@@ -408,6 +420,9 @@ msgstr "Repeat the contents of the current selection"
 
 msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Generate a sphere"
