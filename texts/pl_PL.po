@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-16 12:55\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -82,6 +82,9 @@ msgstr "Spawn Glass Block"
 msgid "item.wedit:selection_fill"
 msgstr "Fill Selection"
 
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
+
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Settings"
 
@@ -93,6 +96,9 @@ msgstr "Sphere Brush"
 
 msgid "item.wedit:cylinder_button"
 msgstr "Cylinder Brush"
+
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
 
 msgid "item.wedit:one_button"
 msgstr "One"
@@ -163,8 +169,14 @@ msgstr "Choose the size of the brush."
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "Choose the height of the brush."
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Is this Ok?"
@@ -180,6 +192,9 @@ msgstr "Size: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "Height: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Brush configured."
@@ -406,6 +421,9 @@ msgstr "Repeat the contents of the current selection"
 msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
 
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
+
 msgid "commands.wedit:sphere.description"
 msgstr "Generate a sphere"
 
@@ -448,6 +466,9 @@ msgstr "Move up a certain number of blocks"
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
 
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
+
 msgid "commands.wedit:wand.description"
 msgstr "Give yourself a selection wand"
 
@@ -485,7 +506,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Going places"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a bracket (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"

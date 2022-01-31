@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-17 12:29\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -82,6 +82,9 @@ msgstr "生成玻璃方塊"
 msgid "item.wedit:selection_fill"
 msgstr "填滿選中的區域"
 
+msgid "item.wedit:selection_wall"
+msgstr "Wall Selection"
+
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 設定"
 
@@ -93,6 +96,9 @@ msgstr "球體畫筆"
 
 msgid "item.wedit:cylinder_button"
 msgstr "圓柱體畫筆"
+
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
 
 msgid "item.wedit:one_button"
 msgstr "一"
@@ -163,8 +169,14 @@ msgstr "請選擇畫筆的大小。"
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "請選擇畫筆的高度。"
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "請設定畫筆的填充方塊(必選)和取代方塊(可選)。"
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "這樣可以嗎?"
@@ -180,6 +192,9 @@ msgstr "大小: %s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "高度: %s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "畫筆設定完成。"
@@ -406,6 +421,9 @@ msgstr "Repeat the contents of the current selection"
 msgid "commands.wedit:stack.explain"
 msgstr "Created %s blocks from stacking."
 
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
+
 msgid "commands.wedit:sphere.description"
 msgstr "生成一個球體"
 
@@ -448,6 +466,9 @@ msgstr "Move up a certain number of blocks"
 msgid "commands.wedit:up.explain"
 msgstr "嗖！"
 
+msgid "commands.wedit:wall.description"
+msgstr "Generate a wall from your selection"
+
 msgid "commands.wedit:wand.description"
 msgstr "給自己一個區域選擇工具"
 
@@ -485,7 +506,7 @@ msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "前往地方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§a注意:§r§a 附加包所提供的指令使用一個分號(;)取代一個斜線(/)。在未來，Mojang 可能會在 Minecraft 增加實際的自訂指令支援。§r"
+msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "有時候由A點移動到B點很麻煩。幸連地，這個附加包添加了一種名為導航工具的物品。要獲得一個，你可以在物品欄中擁有一個指南針，或輸入命令 §e;navwand§r。當你有這個物品時，只需要與它進行互動便可以傳送到視線中方塊的位置。想前往牆壁或天花板的另一邊？在潛行時使用導航工具即可穿過它！在方塊裏面困住了？使用導航工具即可解困！"
