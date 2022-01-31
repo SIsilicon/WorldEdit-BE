@@ -1,161 +1,402 @@
-import { BlockLocation, BlockPermutation, World } from 'mojang-minecraft';
+import { BlockLocation, BlockPermutation, World, IntBlockProperty, BoolBlockProperty, StringBlockProperty } from 'mojang-minecraft';
 import { dimension } from '@library/@types';
 import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation } from '../util.js';
 import { Token } from './extern/tokenizr.js';
-import { lexer, throwTokenError, parseBlock, parsedBlock } from './parser.js';
+import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock } from './parser.js';
+
+type IBlockProperty = IntBlockProperty | BoolBlockProperty | StringBlockProperty;
 
 export class Pattern {
-    private blocks: parsedBlock[] = [];
+    private block: PatternNode;
     private stringObj = '';
     
     constructor(pattern: string = '') {
         if (pattern) {
             const obj = Pattern.parseArgs([pattern]).result;
-            this.blocks = obj.blocks;
+            this.block = obj.block;
             this.stringObj = obj.stringObj;
         }
     }
     
     setBlock(loc: BlockLocation, dimension: dimension) {
-        const block = this.blocks.length == 1 ? this.blocks[0] : this.blocks[Math.floor(Math.random() * this.blocks.length)];
-    
-        let command = block.id;
-        if (block.states && block.states.size != 0) {
-                command += '['
-                let i = 0;
-                for (const state of block.states.entries()) {
-                    command += `"${state[0]}":`;
-                    command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
-                    if (i < block.states.size - 1) {
-                        command += ',';
-                    }
-                    i++;
-                }
-                command += ']'
-        } else if (block.data != -1) {
-                command += ` ${block.data}`;
-        }
-        const result = Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dimension);
-        return result.error;
+        return this.block.setBlock(loc, dimension);
     }
     
     clear() {
-        this.blocks.length = 0;
+        this.block = null;
         this.stringObj = '';
     }
     
     empty() {
-        return this.blocks.length == 0;
+        return this.block == null;
     }
     
     addBlock(block: BlockPermutation) {
-        const states: Map<string, string|number|boolean> = new Map();
+        const states: parsedBlock['states'] = new Map();
         block.getAllProperties().forEach(state => {
             if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
             }
         })
-        this.blocks.push({
+        
+        if (this.block == null) {
+            this.block = new ChainPattern(null);
+        }
+        
+        this.block.nodes.push(new BlockPattern(null, {
                 id: block.type.id,
                 data: -1,
                 states: states
-        });
+        }));
         this.stringObj = '(picked)';
     }
     
     getBlockSummary() {
         let text = '';
         let blockMap = new Map<string, number>();
-        for (const block of this.blocks) {
-                let sub = block.id.replace('minecraft:', '');
-                for (const state of block.states) {
-                    const val = state[1];
-                    if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
-                        sub += `(${val})`;
-                        break;
-                    }
+        for (const pattern of this.block.nodes) {
+            let sub = (<BlockPattern> pattern).block.id.replace('minecraft:', '');
+            for (const state of (<BlockPattern> pattern).block.states) {
+                const val = state[1];
+                if (typeof val == 'string' && val != 'x' && val != 'y' && val != 'z') {
+                    sub += `(${val})`;
+                    break;
                 }
-                if (blockMap.has(sub)) {
-                    blockMap.set(sub, blockMap.get(sub) + 1);
-                } else {
-                    blockMap.set(sub, 1);
-                }
+            }
+            if (blockMap.has(sub)) {
+                blockMap.set(sub, blockMap.get(sub) + 1);
+            } else {
+                blockMap.set(sub, 1);
+            }
         }
         
         let i = 0;
         for (const block of blockMap) {
-                if (block[1] > 1) {
-                    text += `${block[1]}x ${block[0]}`;
-                } else {
-                    text += block[0];
-                }
-                if (i < blockMap.size-1) text += ', ';
-                i++;
+            if (block[1] > 1) {
+                text += `${block[1]}x ${block[0]}`;
+            } else {
+                text += block[0];
+            }
+            if (i < blockMap.size-1) text += ', ';
+            i++;
         }
         return text;
     }
     
     static parseArgs(args: Array<string>, index = 0) {
-        if (!args[index]) {
+        const input = args[index];
+        if (!input) {
             return {result: new Pattern(), argIndex: index+1};
         }
         
-        const blocks: parsedBlock[] = [];
-        let block: parsedBlock = null;
-        function pushBlock(token: Token) {
-            if (block == null) {
-                throwTokenError(token);
-            }
-            blocks.push(block);
-            block = null;
-        }
-
-        lexer.input(args[index]);
+        const tokens = tokenize(input);
         let token: Token;
-        try {
-            while (token = lexer.token()) {
-                switch (token.type) {
-                    case 'id':
-                        block = parseBlock(lexer, token);
-                    case ',':
-                        pushBlock(token);
-                        break;
-                    case 'EOF':
-                        pushBlock(token);
-                        break;
-                    default:
+        
+        function processTokens(inBracket: boolean) {
+            let ops: PatternNode[] = [];
+            let out: PatternNode[] = [];
+            const start = tokens.curr(); 
+            
+            function nodeToken() {
+                return mergeTokens(token, tokens.curr(), input);
+            }
+            
+            while (token = tokens.next()) {
+                if (token.type == 'id') {
+                    let block = parseBlock(tokens);
+                    out.push(new BlockPattern(nodeToken(), block));
+                } else if (token.type == 'number') {
+                    const num = token;
+                    const t = tokens.next();
+                    if (t.type == 'percent') {
+                        processOps(out, ops, new PercentPattern(nodeToken(), num.value));
+                    } else {
+                        throwTokenError(t);
+                    }
+                } else if (token.type == 'comma') {
+                    processOps(out, ops, new ChainPattern(token));
+                } else if (token.type == 'caret') {
+                    const t = tokens.next();
+                    if (t.type == 'id') {
+                        processOps(out, ops, new TypePattern(nodeToken(), t.value));
+                    } else if (t.value == '[') {
+                        const states = parseBlockStates(tokens);
+                        processOps(out, ops, new StatePattern(nodeToken(), states));
+                    } else {
+                        throwTokenError(t);
+                    }
+                } else if (token.type == 'star') {
+                    const t = tokens.next();
+                    if (t.type != 'id') {
+                        throwTokenError(t);
+                    }
+                    processOps(out, ops, new RandStatePattern(nodeToken(), t.value));
+                } else if (token.type == 'bracket') {
+                    if (token.value == '(') {
+                        out.push(processTokens(true));
+                    } else if (token.value == ')') {
+                        if (!inBracket) {
+                            throwTokenError(token);
+                        } else {
+                            processOps(out, ops);
+                            break;
+                        }
+                    } else {
                         throwTokenError(token);
+                    }
+                } else if (token.type == 'EOF') {
+                    if (inBracket) {
+                        throwTokenError(token);
+                    } else {
+                        processOps(out, ops);
+                    }
+                } else {
+                    throwTokenError(token);
                 }
             }
+            
+            if (out.length > 1) {
+                throwTokenError(out.slice(-1)[0].token);
+            } else if (!out.length) {
+                throwTokenError(start);
+            } else if (ops.length) {
+                const op = ops.slice(-1)[0];
+                throwTokenError(op instanceof Token ? op : op.token);
+            }
+            
+            return out[0];
+        }
+        
+        let out: PatternNode;
+        try {
+            out = processTokens(false);
+            out.postProcess();
         } catch (error) {
             if (error.pos != undefined) {
                 const err: commandSyntaxError = {
                     isSyntaxError: true,
                     idx: index,
                     start: error.pos,
-                    end: error.pos+1
+                    end: error.pos+1,
+                    stack: error.stack
                 };
                 throw err;
             }
             throw error;
         }
+        
         const pattern = new Pattern();
-        pattern.blocks = blocks;
         pattern.stringObj = args[index];
+        pattern.block = out;
+        
         return {result: pattern, argIndex: index+1};
     }
     
     static clone(original: Pattern) {
         const pattern = new Pattern();
-        pattern.blocks = [...original.blocks];
+        pattern.block = original.block;
         pattern.stringObj = original.stringObj;
         return pattern;
     }
     
     toString() {
         return `[pattern: ${this.stringObj}]`;
+    }
+}
+
+abstract class PatternNode implements AstNode {
+    public nodes: PatternNode[] = [];
+    abstract readonly prec: number;
+    abstract readonly opCount: number;
+    
+    constructor(public readonly token: Token) {}
+    
+    abstract setBlock(loc: BlockLocation, dim: dimension): boolean;
+    
+    postProcess() {}
+}
+
+class BlockPattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    
+    constructor(token: Token, public block: parsedBlock) {
+        super(token);
+    }
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        return BlockPattern.placeBlock(this.block, loc, dim);
+    }
+    
+    static placeBlock(block: parsedBlock, loc: BlockLocation, dim: dimension) {
+        let command = block.id;
+        if (block.states && block.states.size != 0) {
+            command += '['
+            let i = 0;
+            for (const state of block.states.entries()) {
+                command += `"${state[0]}":`;
+                command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
+                if (i < block.states.size - 1) {
+                    command += ',';
+                }
+                i++;
+            }
+            command += ']'
+        } else if (block.data != -1) {
+            command += ` ${block.data}`;
+        }
+        return Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dim).error;
+    }
+}
+
+class TypePattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    
+    constructor(token: Token, public type: string) {
+        super(token);
+    }
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        const block = World.getDimension(dim).getBlock(loc);
+        const states: parsedBlock['states'] = new Map();
+        block.permutation.getAllProperties().forEach(state => {
+            states.set(state.name, state.value);
+        });
+        
+        return BlockPattern.placeBlock({
+            id: this.type,
+            data: -1,
+            states: states
+        }, loc, dim);
+    }
+}
+
+class StatePattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    
+    constructor(token: Token, public states: parsedBlock['states']) {
+        super(token);
+    }
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        const block = World.getDimension(dim).getBlock(loc);
+        const states: parsedBlock['states'] = new Map();
+        block.permutation.getAllProperties().forEach(state => {
+            states.set(state.name, this.states.has(state.name) ? this.states.get(state.name) : state.value);
+        });
+        
+        return BlockPattern.placeBlock({
+            id: block.type.id,
+            data: -1,
+            states: states
+        }, loc, dim);
+    }
+}
+
+class RandStatePattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    
+    constructor(token: Token, public block: string) {
+        super(token);
+    }
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        const block = World.getDimension(dim).getBlock(loc);
+        const states: parsedBlock['states'] = new Map();
+        block.permutation.getAllProperties().forEach(state => {
+            states.set(state.name, state.validValues[Math.floor(Math.random() * state.validValues.length)] ?? state.value);
+        });
+        
+        return BlockPattern.placeBlock({
+            id: block.type.id,
+            data: -1,
+            states: states
+        }, loc, dim);
+    }
+}
+
+class PercentPattern extends PatternNode {
+    readonly prec = 2;
+    readonly opCount = 1;
+    
+    constructor(token: Token, public percent: number) {
+        super(token);
+    }
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        return true;
+    }
+}
+
+class ChainPattern extends PatternNode {
+    readonly prec = 1;
+    readonly opCount = 2;
+    
+    private evenDistribution = true;
+    private cumWeights: number[] = [];
+    private weightTotal: number;
+    
+    setBlock(loc: BlockLocation, dim: dimension) {
+        let pattern = this.nodes[0];
+        if (this.evenDistribution) {
+            pattern = this.nodes[Math.floor(Math.random() * this.nodes.length)];
+        } else {
+            const rand = this.weightTotal * Math.random();
+            for (let i = 0; i < this.nodes.length; i++) {
+                if (this.cumWeights[i] >= rand) {
+                    pattern = this.nodes[i];
+                    break;
+                }
+            }
+        }
+        return pattern.setBlock(loc, dim);
+    }
+    
+    postProcess() {
+        super.postProcess();
+        
+        const defaultPercent = 100 / this.nodes.length;
+        let totalPercent = 0;
+        
+        const patterns = this.nodes;
+        const weights = [];
+        this.nodes = [];
+        while (patterns.length) {
+            const pattern = patterns.shift();
+            if (pattern instanceof ChainPattern) {
+                const sub = pattern.nodes.reverse();
+                for (const child of sub) {
+                    patterns.unshift(child);
+                }
+            } else if (pattern instanceof PercentPattern) {
+                this.evenDistribution = false;
+                this.nodes.push(pattern.nodes[0]);
+                weights.push(pattern.percent);
+                pattern.nodes[0].postProcess();
+                totalPercent += pattern.percent;
+            } else {
+                this.nodes.push(pattern);
+                weights.push(defaultPercent);
+                pattern.postProcess();
+                totalPercent += defaultPercent;
+            }
+        }
+        weights.map(value => {
+            printDebug(value / totalPercent);
+            return value / totalPercent;
+        });
+        
+        if (!this.evenDistribution) {
+            for (let i = 0; i < weights.length; i += 1) {
+                this.cumWeights.push(weights[i] + (this.cumWeights[i-1] || 0));
+            }
+            this.weightTotal = this.cumWeights[this.cumWeights.length - 1];
+        }
     }
 }

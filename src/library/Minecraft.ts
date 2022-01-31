@@ -60,7 +60,16 @@ class ServerBuild extends ServerBuilder {
             const offsets: Array<number> = [];
             let i = regexIndexOf(msg, /[^\s]/, this.command.prefix.length + command.length);
             while(i < msg.length && i != -1) {
-                let idx = regexIndexOf(msg, /\s/, i);
+                const quoted = msg[i] == '"';
+                
+                let idx: number;
+                if (quoted) {
+                    i++;
+                    idx = regexIndexOf(msg, /"/, i);
+                } else {
+                    idx = regexIndexOf(msg, /\s/, i);
+                }
+                
                 if (idx == -1) {
                     args.push(msg.slice(i));
                     printDebug(i, msg.slice(i), 'end');
@@ -70,7 +79,7 @@ class ServerBuild extends ServerBuilder {
                     args.push(msg.slice(i, idx));
                     printDebug(i, msg.slice(i, idx), idx);
                     offsets.push(i);
-                    i = regexIndexOf(msg, /[^\s]/, idx);
+                    i = regexIndexOf(msg, /[^\s]/, idx + (quoted ? 1:0));
                     printDebug('new i:', i);
                 }
             }
@@ -85,6 +94,7 @@ class ServerBuild extends ServerBuilder {
                     element.callback(data, Command.parseArgs(command, args));
                 } catch(error) {
                     if(error.isSyntaxError) {
+                        printDebug(error.stack);
                         if(error.idx == -1 || error.idx >= args.length) {
                             printerr(RawText.translate('commands.generic.syntax')
                                 .with(msg)

@@ -53,7 +53,7 @@ const excerpt = (txt, o) => {
 }
 
 /*  internal helper class for token representation  */
-class Token {
+export class Token {
     constructor(type, value, text, pos = 0, line = 0, column = 0) {
         this.type = type
         this.value = value
@@ -80,7 +80,7 @@ class Token {
 }
 
 /*  internal helper class for tokenization error reporting  */
-class ParsingError extends Error {
+export class ParsingError extends Error {
     /*  construct and initialize object  */
     constructor(message, pos, line, column, input) {
         super(message)
