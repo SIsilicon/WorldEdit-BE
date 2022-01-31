@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-26 11:18\n"
+"PO-Revision-Date: 2022-01-31 22:02\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -97,6 +97,9 @@ msgstr "球形笔刷"
 msgid "item.wedit:cylinder_button"
 msgstr "圆柱形笔刷"
 
+msgid "item.wedit:smooth_button"
+msgstr "Smooth Brush"
+
 msgid "item.wedit:one_button"
 msgstr "一"
 
@@ -166,8 +169,14 @@ msgstr "选择笔刷的尺寸。"
 msgid "worldedit.brushConfig.selectHeight"
 msgstr "选择笔刷的高度。"
 
+msgid "worldedit.brushConfig.selectSmooth"
+msgstr "Choose the smoothness of the brush."
+
 msgid "worldedit.brushConfig.patternMask"
 msgstr "请设定笔刷的填充方块（必选）和取代方块（可选）。"
+
+msgid "worldedit.brushConfig.mask"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "确定设置成这样吗？"
@@ -183,6 +192,9 @@ msgstr "尺寸：%s"
 
 msgid "worldedit.brushConfig.height"
 msgstr "高度%s"
+
+msgid "worldedit.brushConfig.smooth"
+msgstr "Smoothness: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "笔刷已设定。"
@@ -408,6 +420,9 @@ msgstr "重复当前选区的内容"
 
 msgid "commands.wedit:stack.explain"
 msgstr "堆叠操作共创造了%s个方块"
+
+msgid "commands.wedit:smooth.description"
+msgstr "Smooth the surface within the selection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "生成一个球体"
