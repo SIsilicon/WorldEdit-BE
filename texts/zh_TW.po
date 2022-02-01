@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -84,6 +84,12 @@ msgstr "填滿選中的區域"
 
 msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 設定"
@@ -301,6 +307,9 @@ msgstr "你所選中的區域已設定為不可見"
 msgid "commands.wedit:drawsel.enabled"
 msgstr "你所選中的區域已設定為可見"
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "翻轉所選中的區域"
 
@@ -345,6 +354,9 @@ msgstr "給自己一套物品用於執行常見的 WorldEdit 功能"
 
 msgid "commands.wedit:kit.explain"
 msgstr "您收到了 WorldEdit 的一套物品"
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "設定畫筆可以變更的方塊，如果有的話"
