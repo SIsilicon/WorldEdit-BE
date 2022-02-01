@@ -111,6 +111,8 @@ export class PlayerSession {
         this.setTool('spawn_glass');
         this.setTool('selection_fill');
         this.setTool('selection_wall');
+        this.setTool('selection_outline');
+        this.setTool('draw_line');
         Tools.unbindAll(player, this.tools);
         
         if (PlayerUtil.isHotbarStashed(player)) {

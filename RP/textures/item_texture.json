@@ -50,6 +50,9 @@
         "selection_wall": {
             "textures": "textures/items/selection_wall"
         },
+        "draw_line": {
+            "textures": "textures/items/draw_line"
+        },
         "config": {
             "textures": "textures/ui/gear"
         },

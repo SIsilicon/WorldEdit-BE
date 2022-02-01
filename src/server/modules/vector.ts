@@ -144,6 +144,14 @@ export class Vector {
         );
     }
     
+    abs() {
+        return new Vector(
+            Math.abs(this.x),
+            Math.abs(this.y),
+            Math.abs(this.z),
+        );
+    }
+    
     normalized() {
         let vec = new Vector(...this.vals);
         vec.length = 1;

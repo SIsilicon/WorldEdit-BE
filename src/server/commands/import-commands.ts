@@ -44,9 +44,9 @@ import './region/rotate.js';
 import './region/flip.js';
 import './region/wall.js';
 import './region/smooth.js';
-// TODO: Implement faces
+import './region/faces.js';
 // TODO: Implement hollow
-// TODO: Implement line
+import './region/line.js';
 
 import './navigation/navwand.js';
 import './navigation/up.js';
