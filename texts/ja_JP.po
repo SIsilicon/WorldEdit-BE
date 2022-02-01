@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-01 01:11\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "範囲フィル"
 
 msgid "item.wedit:selection_wall"
 msgstr "壁の選択"
+
+msgid "item.wedit:selection_outline"
+msgstr "範囲の輪郭線を生成"
+
+msgid "item.wedit:draw_line"
+msgstr "線を引く"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit の設定"
@@ -301,6 +307,9 @@ msgstr "選択範囲は表示されません。"
 msgid "commands.wedit:drawsel.enabled"
 msgstr "選択範囲が表示されます。"
 
+msgid "commands.wedit:faces.description"
+msgstr "選択範囲の輪郭線を生成する"
+
 msgid "commands.wedit:flip.description"
 msgstr "選択範囲を反転する"
 
@@ -345,6 +354,9 @@ msgstr "自身に WorldEdit 機能を使うのに必要な各種アイテムを�
 
 msgid "commands.wedit:kit.explain"
 msgstr "アイテムを付与しました。"
+
+msgid "commands.wedit:line.description"
+msgstr "最初と2番目のポイントの間に線を生成する"
 
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
