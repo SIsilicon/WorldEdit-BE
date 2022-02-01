@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "Vyplnit výběr"
 
 msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "Nastavení WorldEdit"
@@ -301,6 +307,9 @@ msgstr "Váš výběr již nebude viditelný."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Váš výběr bude nyní viditelný."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "Překlopit výběr"
 
@@ -345,6 +354,9 @@ msgstr "Dá vám sadu věcí pro používání častých funkcí worldedit"
 
 msgid "commands.wedit:kit.explain"
 msgstr "Byla vám dána sada."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "Nastavte, jaký druh bloků může štětec ovlivnit, pokud nějaký"
