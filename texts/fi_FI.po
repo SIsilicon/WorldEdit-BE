@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "Täytä Valinta"
 
 msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Asetukset"
@@ -301,6 +307,9 @@ msgstr "Your selections will no longer be visible."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Your selections will now be visible."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "Flip the selection"
 
@@ -345,6 +354,9 @@ msgstr "Give yourself a set of items to do common worldedit functions"
 
 msgid "commands.wedit:kit.explain"
 msgstr "Kit given."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "Set what kind of blocks a brush can affect, if any"
