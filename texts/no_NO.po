@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "En inn-utviklende port av den opprinnelige Java-modden og mer! Utvidelse av SIsilicon (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "Fyll markering"
 
 msgid "item.wedit:selection_wall"
 msgstr "Vegg utvalg"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit innstillinger"
@@ -301,6 +307,9 @@ msgstr "Dine valg vil ikke lenger være synlige."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Dine valg vil nå være synlige."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "Vend utvalget"
 
@@ -345,6 +354,9 @@ msgstr "Gi deg selv et sett med gjenstander som gjør vanlige worldedit funksjon
 
 msgid "commands.wedit:kit.explain"
 msgstr "Sett gitt."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
