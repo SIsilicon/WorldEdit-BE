@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -84,6 +84,12 @@ msgstr "填充选区"
 
 msgid "item.wedit:selection_wall"
 msgstr "墙壁选区"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "创世神设置"
@@ -301,6 +307,9 @@ msgstr "您的选区将不再可见。"
 msgid "commands.wedit:drawsel.enabled"
 msgstr "您的选区现在是可见的。"
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "翻转选区"
 
@@ -345,6 +354,9 @@ msgstr "Give yourself a set of items to do common worldedit functions"
 
 msgid "commands.wedit:kit.explain"
 msgstr "配套工具已被给予"
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
