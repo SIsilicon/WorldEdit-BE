@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "Заполнение"
 
 msgid "item.wedit:selection_wall"
 msgstr "Выбор Стены"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "Настройки WorldEdit"
@@ -301,6 +307,9 @@ msgstr "Ваш выбор больше не будет виден."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Ваш выбор теперь будет виден."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "Переверните постройку которую вы выбрали"
 
@@ -345,6 +354,9 @@ msgstr "Дайте себе набор предметов для обычных 
 
 msgid "commands.wedit:kit.explain"
 msgstr "Кит получен."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "Установите, на какие блоки может воздействовать кисть, если они есть"
