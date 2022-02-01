@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-01-31 23:01\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extensão por SIsilicon (@iSiliconS)."
@@ -84,6 +84,12 @@ msgstr "Preencher seleção"
 
 msgid "item.wedit:selection_wall"
 msgstr "Seleção de Parede"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "Configurações do WorldEdit"
@@ -301,6 +307,9 @@ msgstr "Suas seleções não estarão mais visíveis."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "As suas seleções serão visíveis agora."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "Vira a seleção"
 
@@ -345,6 +354,9 @@ msgstr "Dê a si mesmo um conjunto de itens para fazer funções comuns do world
 
 msgid "commands.wedit:kit.explain"
 msgstr "Kit fornecido."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "Define quais tipos de blocos um pincel pode afetar, se houver"
