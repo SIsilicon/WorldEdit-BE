@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-01 13:46\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -84,6 +84,12 @@ msgstr "채우기 도구"
 
 msgid "item.wedit:selection_wall"
 msgstr "벽 도구"
+
+msgid "item.wedit:selection_outline"
+msgstr "Outline Selection"
+
+msgid "item.wedit:draw_line"
+msgstr "Draw Line"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 설정"
@@ -301,6 +307,9 @@ msgstr "선택한 항목이 더 이상 표시되지 않습니다."
 msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
 
+msgid "commands.wedit:faces.description"
+msgstr "Generate an outline from your selection"
+
 msgid "commands.wedit:flip.description"
 msgstr "선택사항을 뒤집습니다"
 
@@ -345,6 +354,9 @@ msgstr "모든 월드에딧 아이템을 받을 수 있는 커맨드"
 
 msgid "commands.wedit:kit.explain"
 msgstr "키트가 지급되었습니다."
+
+msgid "commands.wedit:line.description"
+msgstr "Create a line between your first and second selection points"
 
 msgid "commands.wedit:mask.description"
 msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
