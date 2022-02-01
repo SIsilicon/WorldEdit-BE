@@ -145,6 +145,28 @@ class SelectionWallTool extends Tool {
 }
 Tools.register(SelectionWallTool, 'selection_wall');
 
+class SelectionOutlineTool extends Tool {
+    tag = 'wedit:performing_selection_outline';
+    itemTool = 'wedit:selection_outline';
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        callCommand(player, 'faces', ['air']);
+        session.usingItem = false;
+    }
+}
+Tools.register(SelectionOutlineTool, 'selection_outline');
+
+class DrawLineTool extends Tool {
+    tag = 'wedit:performing_draw_line';
+    itemTool = 'wedit:draw_line';
+    use = (player: Player, session: PlayerSession) => {
+        session.usingItem = true;
+        callCommand(player, 'line', ['air']);
+        session.usingItem = false;
+    }
+}
+Tools.register(DrawLineTool, 'draw_line');
+
 class ConfigTool extends Tool {
     tag = 'wedit:performing_config';
     itemTool = 'wedit:config_button';

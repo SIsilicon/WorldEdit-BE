@@ -23,7 +23,9 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
         'wedit:rotate_cw_button',
         'wedit:rotate_ccw_button',
         'wedit:mask_picker',
+        'wedit:draw_line',
         'wedit:selection_wall',
+        'wedit:selection_outline',
         'wedit:config_button'
     ];
     
