@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-01 13:46\n"
+"PO-Revision-Date: 2022-02-02 19:04\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -86,10 +86,10 @@ msgid "item.wedit:selection_wall"
 msgstr "Wandauswahl"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Konturenauswahl"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Linie zeichnen"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit Einstellungen"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "Zylinder-Pinsel"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Glatter Pinsel"
 
 msgid "item.wedit:one_button"
 msgstr "Eins"
@@ -176,13 +176,13 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "Wählen Sie die gewünschte Höhe des Pinsels."
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "Wählen Sie die Glättung des Pinsels."
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "Erstellen Sie eine optionale Maske für den Pinsel."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Ist das in Ordnung?"
@@ -200,7 +200,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "Höhe: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "Glätte: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Pinsel konfiguriert."
@@ -227,7 +227,7 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
 
 msgid "worldedit.permission.granted"
-msgstr "§eSie haben WorldEdit-Berechtigungen erhalten. Gehen Sie zu (Einstellungen > Anleitung > Schnellstart) für eine Anleitung.§R"
+msgstr "§eSie haben WorldEdit-Berechtigungen erhalten. Gehen Sie zu (Einstellungen > So wird gespielt > Schnellstart) für eine Anleitung.§R"
 
 msgid "worldedit.permission.revoked"
 msgstr "§eIhre WorldEdit-Berechtigungen wurden entfernt.§r"
@@ -308,7 +308,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "Ihre Auswahl wird nun sichtbar sein."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Eine Kontur aus Ihrer Auswahl generieren"
 
 msgid "commands.wedit:flip.description"
 msgstr "Auswahl spiegeln"
@@ -356,7 +356,7 @@ msgid "commands.wedit:kit.explain"
 msgstr "Kit gegeben."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Erstellen Sie eine Linie zwischen Ihren ersten und zweiten Auswahlpunkten"
 
 msgid "commands.wedit:mask.description"
 msgstr "Legen Sie fest, welche Art von Blöcken ein Pinsel beeinflussen kann, falls es welche gibt"
@@ -434,7 +434,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "%s Blöcke durch Stapeln erstellt."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Glättet die Oberfläche innerhalb der Auswahl"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Kugel generieren"
