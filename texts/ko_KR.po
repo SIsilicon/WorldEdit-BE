@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-02-02 01:50\n"
+"PO-Revision-Date: 2022-02-02 02:54\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "원기둥 브러쉬"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "다듬기 브러쉬"
 
 msgid "item.wedit:one_button"
 msgstr "일"
@@ -176,13 +176,13 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "브러쉬의 높이를 설정하세요."
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "브러쉬의 부드럽게 할 정도를 선택합니다."
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "브러시에 사용할 패턴과 마스크(옵션)를 선택하세요."
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "브러쉬에 사용할 마스크(옵션)을 선택합니다."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "괜찮습니까?"
@@ -200,7 +200,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "높이: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "부드러운 정도:%s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "브러쉬가 구성됨"
@@ -308,7 +308,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "선택 항목에서 테두리를 생성합니다."
 
 msgid "commands.wedit:flip.description"
 msgstr "선택사항을 뒤집습니다"
@@ -356,7 +356,7 @@ msgid "commands.wedit:kit.explain"
 msgstr "키트가 지급되었습니다."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "첫 번째 선택 지점과 두 번째 선택 지점 사이에 선을 생성합니다."
 
 msgid "commands.wedit:mask.description"
 msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
@@ -434,7 +434,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "쌓아서 %s 블록을 생성했습니다."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "선택 영역의 표면을 매끄럽게 합니다."
 
 msgid "commands.wedit:sphere.description"
 msgstr "구를 생성합니다."
