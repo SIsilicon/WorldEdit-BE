@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-02-01 13:46\n"
+"PO-Revision-Date: 2022-02-04 20:18\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "Een ontwikkelingspoort van de originele Java mod en meer! Addon door SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "You don't have the permission to use this item."
@@ -47,7 +47,7 @@ msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Kopieer"
 
 msgid "item.wedit:cut_button"
 msgstr "Cut"
