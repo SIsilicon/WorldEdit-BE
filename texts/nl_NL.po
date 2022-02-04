@@ -11,37 +11,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-02-04 20:18\n"
+"PO-Revision-Date: 2022-02-04 21:22\n"
 
 msgid "pack.description"
 msgstr "Een ontwikkelingspoort van de originele Java mod en meer! Addon door SIsilicon (@iSiliconS)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "U hebt geen toestemming om dit item te gebruiken."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Selecteer Wand"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Stapel wand"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Navigatie wand"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Houten brush"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Stenen brush"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Ijzeren brush"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Houten brush"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Diamanten brush"
 
 msgid "item.wedit:netherite_brush"
 msgstr "Netherite Brush"
@@ -50,13 +50,13 @@ msgid "item.wedit:copy_button"
 msgstr "Kopieer"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Knippen"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Plak"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Ongedaan maken"
 
 msgid "item.wedit:redo_button"
 msgstr "Redo"
