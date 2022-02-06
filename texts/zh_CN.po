@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-06 01:17\n"
+"PO-Revision-Date: 2022-02-06 04:28\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -524,7 +524,7 @@ msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "从A点到B点有时会很麻烦。幸运的是，这个插件附带了导航棒。要获得一个指南针，你可以在你的库存中有一个指南针，或者输入命令§e；导航魔杖§r.一旦你拥有了这个物品，只需与它互动，就可以远程传送到你所看到的地方。想站在墙或天花板的另一边吗？用魔杖偷偷穿过它！困在街区里？使用魔杖会让你松开！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§a提示:§r§a 如果你不想使用导航wand, 这些动作也可以使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a以及§r."
+msgstr "§l§a提示:§r§a 如果你不想使用传送器,你也可以通过使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a来实现这一功能§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "创建选区"
