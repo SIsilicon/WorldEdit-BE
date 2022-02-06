@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-01 13:46\n"
+"PO-Revision-Date: 2022-02-06 00:16\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -86,10 +86,10 @@ msgid "item.wedit:selection_wall"
 msgstr "墙壁选区"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "大纲选择"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "划线"
 
 msgid "item.wedit:config_button"
 msgstr "创世神设置"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "圆柱形笔刷"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "光滑刷"
 
 msgid "item.wedit:one_button"
 msgstr "一"
