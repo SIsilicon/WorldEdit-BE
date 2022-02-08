@@ -1,15 +1,12 @@
-import { BlockLocation, BlockPermutation, World, IntBlockProperty, BoolBlockProperty, StringBlockProperty } from 'mojang-minecraft';
-import { dimension } from '@library/@types';
+import { BlockLocation, BlockPermutation, IBlockProperty, Dimension } from 'mojang-minecraft';
 import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation } from '../util.js';
+import { printDebug, printLocation, placeBlock } from '../util.js';
 import { Token } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock } from './parser.js';
 
-type IBlockProperty = IntBlockProperty | BoolBlockProperty | StringBlockProperty;
-
-export class Pattern {
+export class Pattern implements CustomArgType {
     private block: PatternNode;
     private stringObj = '';
     
@@ -21,7 +18,7 @@ export class Pattern {
         }
     }
     
-    setBlock(loc: BlockLocation, dimension: dimension) {
+    setBlock(loc: BlockLocation, dimension: Dimension) {
         return this.block.setBlock(loc, dimension);
     }
     
@@ -214,7 +211,7 @@ abstract class PatternNode implements AstNode {
     
     constructor(public readonly token: Token) {}
     
-    abstract setBlock(loc: BlockLocation, dim: dimension): boolean;
+    abstract setBlock(loc: BlockLocation, dim: Dimension): boolean;
     
     postProcess() {}
 }
@@ -227,28 +224,8 @@ class BlockPattern extends PatternNode {
         super(token);
     }
     
-    setBlock(loc: BlockLocation, dim: dimension) {
-        return BlockPattern.placeBlock(this.block, loc, dim);
-    }
-    
-    static placeBlock(block: parsedBlock, loc: BlockLocation, dim: dimension) {
-        let command = block.id;
-        if (block.states && block.states.size != 0) {
-            command += '['
-            let i = 0;
-            for (const state of block.states.entries()) {
-                command += `"${state[0]}":`;
-                command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
-                if (i < block.states.size - 1) {
-                    command += ',';
-                }
-                i++;
-            }
-            command += ']'
-        } else if (block.data != -1) {
-            command += ` ${block.data}`;
-        }
-        return Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dim).error;
+    setBlock(loc: BlockLocation, dim: Dimension) {
+        return placeBlock(this.block, loc, dim);
     }
 }
 
@@ -260,14 +237,14 @@ class TypePattern extends PatternNode {
         super(token);
     }
     
-    setBlock(loc: BlockLocation, dim: dimension) {
-        const block = World.getDimension(dim).getBlock(loc);
+    setBlock(loc: BlockLocation, dim: Dimension) {
+        const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
         block.permutation.getAllProperties().forEach(state => {
             states.set(state.name, state.value);
         });
         
-        return BlockPattern.placeBlock({
+        return placeBlock({
             id: this.type,
             data: -1,
             states: states
@@ -283,14 +260,14 @@ class StatePattern extends PatternNode {
         super(token);
     }
     
-    setBlock(loc: BlockLocation, dim: dimension) {
-        const block = World.getDimension(dim).getBlock(loc);
+    setBlock(loc: BlockLocation, dim: Dimension) {
+        const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
         block.permutation.getAllProperties().forEach(state => {
             states.set(state.name, this.states.has(state.name) ? this.states.get(state.name) : state.value);
         });
         
-        return BlockPattern.placeBlock({
+        return placeBlock({
             id: block.type.id,
             data: -1,
             states: states
@@ -306,14 +283,16 @@ class RandStatePattern extends PatternNode {
         super(token);
     }
     
-    setBlock(loc: BlockLocation, dim: dimension) {
-        const block = World.getDimension(dim).getBlock(loc);
+    setBlock(loc: BlockLocation, dim: Dimension) {
+        Server.runCommand(`setblock ${printLocation(loc, false)} ${this.block}`, dim);
+        
+        const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
         block.permutation.getAllProperties().forEach(state => {
             states.set(state.name, state.validValues[Math.floor(Math.random() * state.validValues.length)] ?? state.value);
         });
         
-        return BlockPattern.placeBlock({
+        return placeBlock({
             id: block.type.id,
             data: -1,
             states: states
@@ -329,7 +308,7 @@ class PercentPattern extends PatternNode {
         super(token);
     }
     
-    setBlock(loc: BlockLocation, dim: dimension) {
+    setBlock(loc: BlockLocation, dim: Dimension) {
         return true;
     }
 }
@@ -342,7 +321,7 @@ class ChainPattern extends PatternNode {
     private cumWeights: number[] = [];
     private weightTotal: number;
     
-    setBlock(loc: BlockLocation, dim: dimension) {
+    setBlock(loc: BlockLocation, dim: Dimension) {
         let pattern = this.nodes[0];
         if (this.evenDistribution) {
             pattern = this.nodes[Math.floor(Math.random() * this.nodes.length)];

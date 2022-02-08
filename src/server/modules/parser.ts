@@ -197,7 +197,7 @@ export function parseBlockStates(tokens: Tokens): parsedBlock['states'] {
                     blockDataName = token.value;
                 }
                 break;
-            case 'colon':
+            case 'equal':
                 if (expectingBlockValue) {
                     throwTokenError(token);
                 }

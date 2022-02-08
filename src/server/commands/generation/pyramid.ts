@@ -7,6 +7,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'pyramid',
+    permission: 'worldedit.generation.pyramid',
     description: 'commands.wedit:pyramid.description',
     usage: [
         {

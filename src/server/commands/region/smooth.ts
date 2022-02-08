@@ -14,6 +14,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'smooth',
+    permission: 'worldedit.region.smooth',
     description: 'commands.wedit:smooth.description',
     usage: [
         {
@@ -64,9 +65,10 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
     let top = createMap(sizeX, sizeZ);
     let base = createMap(sizeX, sizeZ);
     
-    const [dim, dimName] = PlayerUtil.getDimension(session.getPlayer());
-    const minY = getWorldMinY(session.getPlayer());
-    const maxY = getWorldMaxY(session.getPlayer());
+    const player = session.getPlayer()
+    const dim = player.dimension;
+    const minY = getWorldMinY(player);
+    const maxY = getWorldMaxY(player);
     modifyMap(map, (x, z) => {
         let yRange = shape.getYRange(x, z);
         if (yRange == null) return;
@@ -75,7 +77,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
         yRange[1] = Math.min(yRange[1] + loc.y, maxY);
         
         for (var h = new BlockLocation(x+range[0].x, yRange[1], z+range[0].z); h.y >= yRange[0]; h.y--) {
-            if (!dim.getBlock(h).isEmpty && mask.matchesBlock(h, dimName)) {
+            if (!dim.getBlock(h).isEmpty && mask.matchesBlock(h, dim)) {
                 break;
             }
         }
@@ -109,7 +111,6 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
         });
     }
     
-    const player = session.getPlayer();
     const history = session.getHistory();
     
     history.record();
@@ -126,20 +127,20 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
         if (heightDiff >= 0.5) {
             for (let h = new BlockLocation(x+range[0].x, maxY, z+range[0].z); h.y >= minY; h.y--) {
                 const newH = new BlockLocation(h.x, Math.max(h.y - heightDiff, minY-1), h.z);
-                if (dim.isEmpty(newH) || mask.matchesBlock(newH, dimName)) {
+                if (dim.isEmpty(newH) || mask.matchesBlock(newH, dim)) {
                     Regions.save('temp', newH, newH, player);
                 }
-                if (dim.isEmpty(h) || mask.matchesBlock(h, dimName)) {
+                if (dim.isEmpty(h) || mask.matchesBlock(h, dim)) {
                     Regions.load('temp', h, player);
                 }
             }
         } else if (heightDiff <= -0.5) {
             for (let h = new BlockLocation(x+range[0].x, minY, z+range[0].z); h.y <= maxY; h.y++) {
                 const newH = new BlockLocation(h.x, Math.min(h.y - heightDiff, maxY+1), h.z);
-                if (dim.isEmpty(newH) || mask.matchesBlock(newH, dimName)) {
+                if (dim.isEmpty(newH) || mask.matchesBlock(newH, dim)) {
                     Regions.save('temp', newH, newH, player);
                 }
-                if (dim.isEmpty(h) || mask.matchesBlock(h, dimName)) {
+                if (dim.isEmpty(h) || mask.matchesBlock(h, dim)) {
                     Regions.load('temp', h, player);
                 }
             }
@@ -153,7 +154,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
 
 commandList['smooth'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
-    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
     let count = 0;
     let [start, end] = session.getSelectionRange();

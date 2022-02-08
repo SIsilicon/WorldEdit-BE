@@ -3,7 +3,6 @@ import { Server } from '@library/Minecraft.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
 import { set } from './set.js';
@@ -11,6 +10,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'move',
+    permission: 'worldedit.region.move',
     description: 'commands.wedit:move.description',
     usage: [
         {
@@ -29,7 +29,7 @@ const registerInformation = {
 commandList['move'] = [registerInformation, (session, builder, args) => {
     assertCuboidSelection(session);
     const dir = args.get('offset').getDirection(builder).mul(args.get('amount'));
-    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    const dim = builder.dimension;
     
     const [start, end] = session.getSelectionRange();
     const movedStart = start.offset(dir.x, dir.y, dir.z);

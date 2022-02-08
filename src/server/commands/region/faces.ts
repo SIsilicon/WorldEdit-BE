@@ -2,7 +2,6 @@ import { PlayerSession } from '../../sessions.js';
 import { printDebug } from '../../util.js';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
 import { CuboidShape } from '../../shapes/cuboid.js';
@@ -11,6 +10,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'faces',
+    permission: 'worldedit.region.faces',
     description: 'commands.wedit:faces.description',
     usage: [
         {
@@ -22,7 +22,7 @@ const registerInformation = {
 
 commandList['faces'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
-    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.usingItem && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }

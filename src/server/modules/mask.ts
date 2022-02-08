@@ -1,5 +1,4 @@
-import { BlockLocation, BlockPermutation, BoolBlockProperty, IntBlockProperty, StringBlockProperty, World, Dimension } from 'mojang-minecraft';
-import { dimension } from '@library/@types/index.js';
+import { BlockLocation, BlockPermutation, IBlockProperty, Dimension } from 'mojang-minecraft';
 import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
 import { CustomArgType } from '@library/build/classes/commandBuilder.js';
 import { Server } from '@library/Minecraft.js';
@@ -19,7 +18,7 @@ export class Mask implements CustomArgType {
         }
     }
 
-    matchesBlock(loc: BlockLocation, dimension: dimension) {
+    matchesBlock(loc: BlockLocation, dimension: Dimension) {
         if (this.empty()) {
             return true;
         }
@@ -228,7 +227,7 @@ abstract class MaskNode implements AstNode {
     
     constructor(public readonly token: Token) {}
     
-    abstract matchesBlock(loc: BlockLocation, dim: dimension): boolean;
+    abstract matchesBlock(loc: BlockLocation, dim: Dimension): boolean;
     
     postProcess() {}
 }
@@ -241,9 +240,9 @@ class BlockMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         if (this.block.data == -1) {
-            const block = World.getDimension(dim).getBlock(loc).permutation;
+            const block = dim.getBlock(loc).permutation;
             if (block.type.id != this.block.id) {
                 return false;
             }
@@ -254,7 +253,7 @@ class BlockMask extends MaskNode {
             const properties = block.getAllProperties();
             let states_passed = 0;
             for (const state of this.block.states) {
-                const prop = <IntBlockProperty | BoolBlockProperty | StringBlockProperty> properties.find(value => {
+                const prop = <IBlockProperty> properties.find(value => {
                     return value.name == state[0];
                 });
                 if (prop && prop.value == state[1]) {
@@ -278,13 +277,13 @@ class StateMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
-        const block = World.getDimension(dim).getBlock(loc).permutation;
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
+        const block = dim.getBlock(loc).permutation;
         
         const properties = block.getAllProperties();
         let states_passed = 0;
         for (const state of this.states) {
-            const prop = <IntBlockProperty | BoolBlockProperty | StringBlockProperty> properties.find(value => {
+            const prop = <IBlockProperty> properties.find(value => {
                 return value.name == state[0];
             });
             if (this.strict && prop && prop.value == state[1]) {
@@ -301,15 +300,14 @@ class SurfaceMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
-        const dimension = World.getDimension(dim);
-        return !dimension.isEmpty(loc) && (
-            dimension.isEmpty(loc.offset(0, 1, 0)) ||
-            dimension.isEmpty(loc.offset(0, -1, 0)) ||
-            dimension.isEmpty(loc.offset(-1, 0, 0)) ||
-            dimension.isEmpty(loc.offset(1, 0, 0)) ||
-            dimension.isEmpty(loc.offset(0, 0, -1)) ||
-            dimension.isEmpty(loc.offset(0, 0, 1))
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
+        return !dim.isEmpty(loc) && (
+            dim.isEmpty(loc.offset(0, 1, 0)) ||
+            dim.isEmpty(loc.offset(0, -1, 0)) ||
+            dim.isEmpty(loc.offset(-1, 0, 0)) ||
+            dim.isEmpty(loc.offset(1, 0, 0)) ||
+            dim.isEmpty(loc.offset(0, 0, -1)) ||
+            dim.isEmpty(loc.offset(0, 0, 1))
         );
     }
 }
@@ -318,8 +316,8 @@ class ExistingMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
-        return !World.getDimension(dim).isEmpty(loc);
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
+        return !dim.isEmpty(loc);
     }
 }
 
@@ -331,8 +329,8 @@ class TagMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
-        return World.getDimension(dim).getBlock(loc).hasTag(this.tag);
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
+        return dim.getBlock(loc).hasTag(this.tag);
     }
 }
 
@@ -344,7 +342,7 @@ class PercentMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         return Math.random() < this.percent;
     }
 }
@@ -353,7 +351,7 @@ class ChainMask extends MaskNode {
     readonly prec = 3;
     readonly opCount = 2;
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         for (const mask of this.nodes) {
             if (mask.matchesBlock(loc, dim)) {
                 return true;
@@ -386,7 +384,7 @@ class IntersectMask extends MaskNode {
     readonly prec = 1;
     readonly opCount = 2;
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         for (const mask of this.nodes) {
             if (!mask.matchesBlock(loc, dim)) {
                 return false;
@@ -419,7 +417,7 @@ class NegateMask extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         return !this.nodes[0].matchesBlock(loc, dim);
     }
 }
@@ -433,7 +431,7 @@ class OffsetMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: dimension) {
+    matchesBlock(loc: BlockLocation, dim: Dimension) {
         return this.nodes[0].matchesBlock(loc.offset(this.x, this.y, this.z), dim);
     }
     

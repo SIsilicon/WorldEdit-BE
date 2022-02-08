@@ -9,6 +9,7 @@ class SelectionTool extends Tool {
     tag = 'wedit:making_selection';
     itemTool = 'wedit:selection_wand';
     itemBase = 'minecraft:wooden_axe';
+    permission = 'worldedit.selection.pos';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         callCommand(player, player.isSneaking ? 'pos1' : 'pos2',
             [`${loc.x}`, `${loc.y}`, `${loc.z}`]

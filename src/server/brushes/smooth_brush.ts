@@ -1,5 +1,6 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
@@ -32,6 +33,10 @@ export class SmoothBrush extends Brush {
         this.shape = new CuboidShape(value*2+1, value*4+1, value*2+1);
         this.size = value;
         this.shape.usedInBrush = true;
+    }
+    
+    public paintWith(value: Pattern) {
+        throw 'commands.generic.wedit:noBrushMaterial';
     }
     
     public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {

@@ -10,6 +10,7 @@ import { BlockLocation } from 'mojang-minecraft';
 
 const registerInformation = {
     name: 'replace',
+    permission: 'worldedit.region.replace',
     description: 'commands.wedit:replace.description',
     usage: [
         {
@@ -24,7 +25,7 @@ const registerInformation = {
 
 function getAffectedBlocks(session: PlayerSession, mask: Mask) {
     let blocks: BlockLocation[] = [];
-    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    const dim = session.getPlayer().dimension;
     for (const blockLoc of session.getBlocksSelected()) {
         if (mask.matchesBlock(blockLoc, dim)) {
                 blocks.push(blockLoc);
@@ -35,7 +36,7 @@ function getAffectedBlocks(session: PlayerSession, mask: Mask) {
 
 commandList['replace'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
-    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.usingItem && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
@@ -56,7 +57,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
     }
     
     let count = 0;
-    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    const dim = builder.dimension;
     for (const blockLoc of affectedBlocks) {
         if (!pattern.setBlock(blockLoc, dim)) {
             count++;

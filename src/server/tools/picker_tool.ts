@@ -1,17 +1,16 @@
-import { World, MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
+import { MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { RawText } from '@modules/rawtext.js';
-import { PlayerUtil } from '@modules/player_util.js';
 
 class PatternPickerTool extends Tool {
     tag = 'wedit:picking_pattern';
     itemTool = 'wedit:pattern_picker';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
-        const dimension = PlayerUtil.getDimension(player)[1];
+        const dimension = player.dimension;
         let addedToPattern = false;
-        let block = World.getDimension(dimension).getBlock(loc).permutation.clone();
+        let block = dimension.getBlock(loc).permutation.clone();
         let blockName = block.type.id;
         if (player.isSneaking) {
             session.globalPattern.addBlock(block);
@@ -30,7 +29,7 @@ class PatternPickerTool extends Tool {
         );
     }
     use = (player: Player, session: PlayerSession) => {
-        const dimension = PlayerUtil.getDimension(player)[1];
+        const dimension = player.dimension;
         let addedToPattern = true;
         if (!player.isSneaking) {
             session.globalPattern.clear();
@@ -47,10 +46,11 @@ Tools.register(PatternPickerTool, 'pattern_picker');
 class MaskPickerTool extends Tool {
     tag = 'wedit:picking_mask';
     itemTool = 'wedit:mask_picker';
+    permission = 'worldedit.global-mask';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
-        const dimension = PlayerUtil.getDimension(player)[1];
+        const dimension = player.dimension;
         let addedToPattern = false;
-        let block = World.getDimension(dimension).getBlock(loc).permutation.clone();
+        let block = dimension.getBlock(loc).permutation.clone();
         let blockName = block.type.id;
         if (player.isSneaking) {
             session.globalMask.addBlock(block);
@@ -69,7 +69,7 @@ class MaskPickerTool extends Tool {
         );
     }
     use = (player: Player, session: PlayerSession) => {
-        const dimension = PlayerUtil.getDimension(player)[1];
+        const dimension = player.dimension;
         let addedToPattern = true;
         if (!player.isSneaking) {
             session.globalMask.clear();

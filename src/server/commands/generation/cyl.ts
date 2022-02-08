@@ -7,6 +7,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'cyl',
+    permission: 'worldedit.generation.cylinder',
     description: 'commands.wedit:cyl.description',
     usage: [
         {

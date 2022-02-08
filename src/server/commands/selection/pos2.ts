@@ -6,6 +6,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'pos2',
+    permission: 'worldedit.selection.pos',
     description: 'commands.wedit:pos2.description',
     usage: [
         {
@@ -13,7 +14,8 @@ const registerInformation = {
             type: 'xyz',
             default: new CommandPosition()
         }
-    ]
+    ],
+    aliases: ['2']
 };
 
 commandList['pos2'] = [registerInformation, (session, builder, args) => {

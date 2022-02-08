@@ -1,6 +1,5 @@
 import * as Minecraft from 'mojang-minecraft';
 import { Server } from './serverBuilder.js';
-import { dimension } from '../../@types/index';
 import { getEntityAtPosReturn } from '../../@types/build/classes/EntityBuilder';
 
 export class EntityBuilder {
@@ -27,14 +26,14 @@ export class EntityBuilder {
     * @returns {Array<getEntityAtPosReturn>}
     * @example EntityBuilder.getEntityAtPos([0, 5, 0], { dimension: 'nether', ignoreType: ['minecraft:player']});
     */
-    getAtPos([x, y, z]: [number, number, number], { dimension, ignoreType }: { dimension?: dimension, ignoreType?: Array<string> } = {}): getEntityAtPosReturn {
+    getAtPos([x, y, z]: [number, number, number], { dimension, ignoreType }: { dimension?: Minecraft.Dimension, ignoreType?: Array<string> } = {}): getEntityAtPosReturn {
         try {
-                const entity = Minecraft.World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new Minecraft.BlockLocation(x, y, z));
-                for(let i = 0; i < entity.length; i++)
-                    if(ignoreType.includes(entity[i].id)) entity.splice(i, 1);
-                return { list: entity, error: false };
+            const entity = (dimension ?? Minecraft.world.getDimension('overworld')).getEntitiesAtBlockLocation(new Minecraft.BlockLocation(x, y, z));
+            for(let i = 0; i < entity.length; i++)
+                if(ignoreType.includes(entity[i].id)) entity.splice(i, 1);
+            return { list: entity, error: false };
         } catch (err) {
-                return { list: null, error: true };
+            return { list: null, error: true };
         };
     };
     /**

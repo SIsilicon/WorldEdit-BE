@@ -9,6 +9,9 @@ export const COMMAND_PREFIX: string = ';';
 // How many operations can be recorded in a player's history.
 export const MAX_HISTORY_SIZE: number = 20;
 
+// Whether a player's selection is drawn by default.
+export const DRAW_SELECTION: boolean = true;
+
 // 0 - DISABLED    - Undo and redo will be disabled.
 // 1 - FAST     - The cuboid region of each operation will be recorded.
 // 2 - ACCURATE    - Individual blocks in each operation will be recorded.
@@ -22,8 +25,5 @@ export const TICKS_TO_DELETE_SESSION: number = 600 * TicksPerSecond;
 // Whether commands executed by items print their messages to the action bar or the chat.
 export const PRINT_TO_ACTION_BAR: boolean = true;
 
-// Assumed height of players.
-export const PLAYER_HEIGHT: number = 1.61;
-
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.3.5';
+export const VERSION: string = '0.3.7';

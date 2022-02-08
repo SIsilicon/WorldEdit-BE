@@ -3,6 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hcyl',
+    permission: 'worldedit.generation.cylinder',
     description: 'commands.wedit:hcyl.description',
     usage: [
         {

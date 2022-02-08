@@ -5,13 +5,10 @@ import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'tracemask',
+    permission: 'worldedit.brush.options.tracemask',
     description: 'commands.wedit:tracemask.description',
     usage: [
         {
-            name: 'tier',
-            type: 'int',
-            range: [1, 6] as [number, number],
-        }, {
             name: 'mask',
             type: 'Mask',
             default: new Mask()
@@ -20,7 +17,7 @@ const registerInformation = {
 };
 
 commandList['tracemask'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(args);
+    const brush = getBrushTier(builder);
     if (!session.hasTool(brush)) {
         throw RawText.translate('commands.wedit:brush.noBind');
     }

@@ -1,13 +1,9 @@
-import { Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { assertBuilder } from '@modules/assert.js';
 import { RawText } from '@modules/rawtext.js';
-
-import { getSession } from '../../sessions.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'undo',
+    permission: 'worldedit.history.undo',
     description: 'commands.wedit:undo.description',
     usage: [
         {

@@ -1,16 +1,14 @@
 import './util.js';
 import './commands/import-commands.js';
-// TODO: Add settings icon to Inventory UI (Include entities, etc...)
 // TODO: Add far wand (Golden Axe)
 // TODO: Add floodfill wand (Bucket?)
 
-import { Player, World, PlayerInventoryComponentContainer } from 'mojang-minecraft';
+import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { Tools } from './tools/tool_manager.js';
 import { print, printDebug } from './util.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
-import { assertBuilder } from '@modules/assert.js';
 import { RawText } from '@modules/rawtext.js';
 import { DEBUG } from '@config.js';
 
@@ -19,44 +17,44 @@ let justJoined: string[] = [];
 let activeBuilders: Player[] = [];
 
 let ready = false;
-Server.on('ready', data => {
+Server.on('ready', ev => {
     Server.runCommand(`gamerule showtags false`);
     Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
-    printDebug(`World has been loaded in ${data.loadTime} ticks!`);
+    printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;
 });
 
-Server.on('playerJoin', entity => {
-    const player = World.getPlayers().find(p => {return p.nameTag == entity.nameTag});
-    justJoined.push(player.nameTag);
-    printDebug(`player ${player.nameTag} joined.`);
-    // Can't make them a builder immediately since their tags aren't set up yet.
+Server.on('playerJoin', ev => {
+    justJoined.push(ev.player.name);
+    printDebug(`player ${ev.player.name} joined.`);
+    makeBuilder(ev.player);
 })
 
-Server.on('playerLeave', player => {
-    printDebug(`player ${player.name} left.`);
-    revokeBuilder(player.name);
+Server.on('playerLeave', ev => {
+    printDebug(`player ${ev.playerName} left.`);
+    removeBuilder(ev.playerName);
 })
 
 Server.on('tick', ev => {
     if (!ready) return;
 
-    for (const player of World.getPlayers()) {
+    for (const entity of world.getPlayers()) {
+        const player = entity as Player;
         if (!activeBuilders.includes(player)) {
-            if (!justJoined.includes(player.nameTag)) {
-                    if (PlayerUtil.isHotbarStashed(player)) {
-                        PlayerUtil.restoreHotbar(player);
-                    }
-                    Tools.unbindAll(player);
+            if (!justJoined.includes(player.name)) {
+                if (PlayerUtil.isHotbarStashed(player)) {
+                    PlayerUtil.restoreHotbar(player);
                 }
                 if (!makeBuilder(player)) { // Attempt to make them a builder.
-                    print(RawText.translate('worldedit.permission.granted'), player);
+                    print('worldedit.permission.granted', player);
                 }
+                Tools.unbindAll(player);
+            }
         }
         
         // remove player from justJoined if they've been processed at least once.
-        if (justJoined.includes(player.nameTag) && !Server.runCommand(`testfor "${player.nameTag}"`).error) {
-            const i = justJoined.findIndex(p => { return p == player.nameTag });
+        if (justJoined.includes(player.name) && !Server.runCommand(`testfor "${player.nameTag}"`).error) {
+            const i = justJoined.findIndex(p => { return p == player.name });
             if (i != -1) {
                 justJoined.splice(i, 1);
             }
@@ -65,7 +63,7 @@ Server.on('tick', ev => {
 
     for (let i = activeBuilders.length - 1; i >= 0; i--) {
         try {
-            let name = activeBuilders[i].nameTag;
+            let name = activeBuilders[i].name;
         } catch {
             printDebug('A builder no longer exists!');
             activeBuilders.splice(i, 1);
@@ -73,51 +71,45 @@ Server.on('tick', ev => {
         
         const builder = activeBuilders[i];
         let session: PlayerSession;
-        try {
-            assertBuilder(builder);
+        if (hasWorldEdit(builder)) {
             session = getSession(builder);
-        } catch (e) {
-            revokeBuilder(builder.nameTag);
-            print(RawText.translate('worldedit.permission.revoked'), builder);
+        } else {
+            removeBuilder(builder.name);
+            print('worldedit.permission.revoked', builder);
             continue;
         }
         
         if (builder.isSneaking) {
             //printDebug(PlayerUtil.isHotbarStashed(builder));
         }
-        
-        if (!PlayerUtil.hasItem(builder, 'wedit:selection_wand')) {
-            session.clearSelectionPoints();
-        }
     }
 });
 
 function makeBuilder(player: Player) {
-    try {
-        assertBuilder(player);
+    if (hasWorldEdit(player)) {
         getSession(player);
         activeBuilders.push(player);
         
         // remove any stray tags to prevent accidental item activation.
-        for (const tag of Server.player.getTags(player.nameTag)) {
+        for (const tag of player.getTags()) {
             if (tag.includes('wedit:')) {
-                Server.runCommand(`tag "${player.nameTag}" remove ${tag}`);
+                player.removeTag(tag);
             }
         }
         
         printDebug('Added player to world edit!');
         return false;
-    } catch (e) {
-        return true;
-    };
+    }
+    
+    return true;
 }
 
-function revokeBuilder(player: string) {
+function removeBuilder(player: string) {
     let i = -1;
     do {
         i = activeBuilders.findIndex(p => {
             try {
-                return p.nameTag == player;
+                return p.name == player;
             } catch (e) {
                 return true;
             }
@@ -127,4 +119,13 @@ function revokeBuilder(player: string) {
     
     removeSession(player);
     printDebug('Removed player from world edit!');
+}
+
+function hasWorldEdit(player: Player) {
+    for (const tag of player.getTags()) {
+        if (tag.startsWith('worldedit')) {
+            return true;
+        }
+    }
+    return false;
 }

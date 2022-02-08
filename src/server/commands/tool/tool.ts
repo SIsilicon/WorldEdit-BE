@@ -1,11 +1,11 @@
 import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { assertPermission } from '@modules/assert.js';
+import { PlayerSession } from '../../sessions.js';
 import { printDebug } from '../../util.js';
 import { commandList } from '../command_list.js';
-import { PlayerSession } from '../../sessions.js';
 
 const registerInformation = {
     name: 'tool',
@@ -13,6 +13,8 @@ const registerInformation = {
     usage: [
         {
             subName: 'stacker',
+            permission: 'worldedit.tool.stack',
+            description: 'commands.wedit:tool.description.stacker',
             args: [
                 {
                     name: 'range',
@@ -30,13 +32,13 @@ const registerInformation = {
 };
 
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, registerInformation.usage[0].permission);
     session.setTool('stacker_wand', args.get('range'), args.get('mask'));
     
-    const dimension = PlayerUtil.getDimension(builder)[1];
     if (!PlayerUtil.hasItem(builder, 'wedit:stacker_wand') && !PlayerUtil.hasItem(builder, 'minecraft:iron_axe')) {
-        Server.runCommand(`give "${builder.nameTag}" iron_axe`, dimension);
+        Server.runCommand(`give @s iron_axe`, builder);
     }
-    return RawText.translate('commands.generic.wedit:wandInfo');
+    return 'commands.generic.wedit:wandInfo';
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {

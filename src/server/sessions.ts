@@ -1,5 +1,4 @@
-import { Player, BlockLocation, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
-import { dimension } from '@library/@types/index.js';
+import { Player, BlockLocation, Dimension, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
 import { printDebug, printLocation, regionSize } from './util.js';
 import { Server } from '@library/Minecraft.js';
@@ -35,7 +34,7 @@ Server.on('tick', ev => {
 });
 
 PlayerUtil.on('playerChangeDimension', (player, dimension) => {
-    playerSessions[player.nameTag]?.clearSelectionPoints();
+    playerSessions[player.name]?.clearSelectionPoints();
 });
 
 /**
@@ -285,7 +284,7 @@ export class PlayerSession {
             const edgePoints: Vector[] = [];
             for (const edge of edgeData) {
                 const [a, b] = [corners[edge[0]], corners[edge[1]]];
-                const pointCount = Math.min(Math.floor(b.sub(a).length), 32);
+                const pointCount = Math.min(Math.floor(b.sub(a).length), 16);
                 for (let i = 1; i < pointCount; i++) {
                     let t = i / pointCount;
                     edgePoints.push(a.lerp(b, t));
@@ -321,7 +320,7 @@ export class PlayerSession {
         if (!this.drawSelection) return;
         if (this.drawTimer <= 0) {
             this.drawTimer = 10;
-            const dimension = PlayerUtil.getDimension(this.player)[1];
+            const dimension = this.player.dimension;
             for (const point of this.drawPoints) {
                 Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
             }
@@ -374,7 +373,7 @@ export class PlayerSession {
 }
 
 export function getSession(player: Player): PlayerSession {
-    const name = player.nameTag;
+    const name = player.name;
     if (!playerSessions[name]) {
         let session: PlayerSession
         if (pendingDeletion[name]) {
@@ -383,7 +382,7 @@ export function getSession(player: Player): PlayerSession {
             delete pendingDeletion[name];
         }
         playerSessions[name] = session ?? new PlayerSession(player);
-        printDebug(playerSessions[name]?.getPlayer()?.nameTag);
+        printDebug(playerSessions[name]?.getPlayer()?.name);
         printDebug(`new Session?: ${!session}`);
     }
     return playerSessions[name];
@@ -402,32 +401,23 @@ export function hasSession(player: string) {
     return !!playerSessions[player];
 }
 
-Server.on('tick', (tick: TickEvent) => {
+Server.on('tick', ev => {
     for (const player in playerSessions) {
-        playerSessions[player].onTick(tick);
+        playerSessions[player].onTick(ev);
     }
 })
 
-Server.on('entityCreate', (entity: Entity) => {
-    if (entity.id == 'wedit:block_marker') {
-        const loc = new BlockLocation(
-            Math.floor(entity.location.x),
-            Math.floor(entity.location.y),
-            Math.floor(entity.location.z)
-        );
-        
-        let dimension: dimension;
+Server.on('entityCreate', ev => {
+    if (ev.entity.id == 'wedit:block_marker') {
+        const loc = Vector.from(ev.entity.location).toBlock();
         for (const player in playerSessions) {
-            if (playerSessions[player].onEntityCreate(entity, loc)) {
-                dimension = PlayerUtil.getDimension(playerSessions[player].getPlayer())[1];
+            if (playerSessions[player].onEntityCreate(ev.entity, loc)) {
                 break;
             }
         }
         
-        entity.nameTag = 'wedit:pending_deletion_of_selector';
-        if (dimension) {
-            Server.runCommand(`execute @e[name=${entity.nameTag}] ~~~ tp @s ~ -256 ~`, dimension);
-            Server.runCommand(`kill @e[name=${entity.nameTag}]`, dimension);
-        }
+        ev.entity.nameTag = 'wedit:pending_deletion_of_selector';
+        Server.runCommand(`tp @s ~ -256 ~`, ev.entity);
+        Server.runCommand(`kill @s`, ev.entity);
     }
 })

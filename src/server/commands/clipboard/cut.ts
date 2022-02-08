@@ -13,6 +13,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'cut',
+    permission: 'worldedit.clipboard.cut',
     description: 'commands.wedit:cut.description',
     usage: [
         {
@@ -33,10 +34,9 @@ const registerInformation = {
 
 commandList['cut'] = [registerInformation, (session, builder, args) => {
     assertCuboidSelection(session);
-    const player = session.getPlayer();
-    const [dim, dimName] = PlayerUtil.getDimension(player);
+    const dim = builder.dimension;
     const [start, end] = session.getSelectionRange();
-    assertCanBuildWithin(dimName, start, end);
+    assertCanBuildWithin(dim, start, end);
     
     const history = session.getHistory();
     history.record();
@@ -59,8 +59,8 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
                 entity.nameTag = 'wedit:marked_for_deletion';
             }
         }
-        Server.runCommand('execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -256 ~', dimName);
-        Server.runCommand('kill @e[name=wedit:marked_for_deletion]', dimName);
+        Server.runCommand('execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -256 ~', dim);
+        Server.runCommand('kill @e[name=wedit:marked_for_deletion]', dim);
     }
 
     history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);

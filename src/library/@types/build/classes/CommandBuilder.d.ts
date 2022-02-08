@@ -11,10 +11,12 @@ export interface commandArg {
 export interface commandFlag {
     flag: string,
     name?: string,
-    type?: string
+    type?: string,
 }
 export interface commandSubDef {
     subName: string,
+    permission?: string,
+    description?: string,
     args?: commandArgList
 }
 
@@ -35,6 +37,7 @@ export interface commandSyntaxError {
 
 export interface registerInformation {
     name: string,
+    permission?: string,
     description: string,
     usage?: commandArgList,
     aliases?: Array<string>

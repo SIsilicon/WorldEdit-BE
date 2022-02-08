@@ -7,13 +7,14 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'unstuck',
+    permission: 'worldedit.navigation.unstuck',
     description: 'commands.wedit:unstuck.description',
     aliases: ['!']
 };
 
 commandList['unstuck'] = [registerInformation, (session, builder, args) => {
     let blockLoc = PlayerUtil.getBlockLocation(builder);
-    const [dimension, dimName] = PlayerUtil.getDimension(builder);
+    const dimension = builder.dimension;
     do {
         if (dimension.isEmpty(blockLoc) && dimension.isEmpty(blockLoc.offset(0, 1, 0))) {
                 break;
@@ -21,6 +22,6 @@ commandList['unstuck'] = [registerInformation, (session, builder, args) => {
     }
     while (blockLoc.y += 1);
 
-    Server.runCommand(`tp "${builder.nameTag}" ${printLocation(blockLoc, false)}`, dimName);
+    Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
     return RawText.translate('commands.wedit:unstuck.explain');
 }];

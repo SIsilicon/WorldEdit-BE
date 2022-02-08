@@ -3,6 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'drawsel',
+    permission: 'worldedit.drawsel',
     description: 'commands.wedit:drawsel.description',
 };
 

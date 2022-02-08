@@ -3,6 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hsphere',
+    permission: 'worldedit.generation.sphere',
     description: 'commands.wedit:hsphere.description',
     usage: [
         {

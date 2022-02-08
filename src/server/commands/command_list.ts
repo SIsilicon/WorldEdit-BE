@@ -2,7 +2,8 @@ import { BeforeChatEvent, Player } from 'mojang-minecraft';
 import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
-import { PlayerSession } from '../sessions.js';
+import { assertPermission } from '@modules/assert.js';
+import { PlayerSession, getSession } from '../sessions.js';
 import { printToActionBar } from './import-commands.js';
 
 export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText;
@@ -22,6 +23,8 @@ export let commandList: {
  * @param args Arguments that the command may take
  */
 export function callCommand(player: Player, command: string, args: string[] = []) {
+    const registration = Server.command.getRegistration(command);
+    assertPermission(player, registration.permission);
     printToActionBar();
-    Server.command.getRegistration(command).callback(<BeforeChatEvent> {sender: player}, Server.command.parseArgs(command, args));
+    registration.callback(<BeforeChatEvent> {cancel: true, sender: player}, Server.command.parseArgs(command, args));
 }

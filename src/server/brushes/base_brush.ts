@@ -1,6 +1,6 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
+import { Pattern } from '@modules/pattern.js';
 import { PlayerSession } from '../sessions.js';
 
 /**
@@ -12,6 +12,12 @@ export abstract class Brush {
     * @param size The new size of the brush
     */
     public abstract resize(size: number): void;
+    
+    /**
+    * A method that changes the material of the brush.
+    * @param material The new material of the brush
+    */
+    public abstract paintWith(material: Pattern): void;
     
     /**
     * Applies the brush's effect somewhere in the world.

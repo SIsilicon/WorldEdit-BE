@@ -8,11 +8,12 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'thru',
+    permission: 'worldedit.navigation.thru.command',
     description: 'commands.wedit:thru.description',
 };
 
 commandList['thru'] = [registerInformation, (session, builder, args) => {
-    const [dimension, dimName] = PlayerUtil.getDimension(builder);
+    const dimension = builder.dimension;
     const blockLoc = PlayerUtil.getBlockLocation(builder);
     
     const dir = new Cardinal().getDirection(builder);
@@ -30,13 +31,13 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
     for (let i = 0; i < (dir.y == 0 ? 3 : 4); i++) {
         testLoc = testLoc.offset(dir.x, dir.y, dir.z);
         if (isSpaceEmpty(testLoc)) {
-                canGoThrough = true;
-                break;
+            canGoThrough = true;
+            break;
         }
     }
 
     if (canGoThrough) {
-        Server.runCommand(`tp "${builder.nameTag}" ${printLocation(testLoc, false)}`, dimName);
+        Server.runCommand(`tp @s ${printLocation(testLoc, false)}`, builder);
         return RawText.translate('commands.wedit:thru.explain');
     } else {
         throw RawText.translate('commands.wedit:thru.obstructed');
