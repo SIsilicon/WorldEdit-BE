@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-09 23:43\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eWorldEdit の権限が削除されました。§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 個のブロックが変更されました。"
