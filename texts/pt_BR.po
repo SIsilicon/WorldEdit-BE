@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-02-01 22:31\n"
+"PO-Revision-Date: 2022-02-09 19:36\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e muito mais! Extensão por SIsilicon (@iSiliconS)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eVocê recebeu permissões do WorldEdit. Vá para (Configurações> Como Jogar > Início rápido) para um guia.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eAs suas permissões do WorldEdit foram removidas§r"
+msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocos foram alterados."
@@ -272,10 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "Varinha atualizada."
 
 msgid "commands.wedit:brush.description"
-msgstr "Defina o tipo de pincel"
+msgstr "Set the type of a brush being held"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Unbind a bound brush from your current item"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Create a sphere brush"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Create a cylinder brush"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "Nenhum pincel foi limitado a este nível."
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.invalidItem"
+msgstr "The held item cannot be used as a brush."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Clear your clipboard"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Limpa seu histórico de edição"
@@ -457,6 +478,9 @@ msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
 msgid "commands.wedit:tool.description"
 msgstr "Obtenha todos os tipos de ferramentas (atualmente apenas as da pilha)"
 
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Block stacker tool"
+
 msgid "commands.wedit:unstuck.description"
 msgstr "Saia de dentro dos blocos"
 
@@ -488,7 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "Agachar e bater em um bloco: seleciona a posição #1; Bater em um bloco sem agachar: seleciona a posição #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Informações sobre o WorldEdit"
+msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Get WorldEdit version"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit versão: %s"
@@ -509,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "Por padrão, os jogadores não podem usar o WorldEdit. Apenas aqueles marcados como construtores podem usar seus recursos. Para se tornar um construtor, digite §e/tag @s add builder§r no chat. Você deve então receber uma mensagem dizendo que você recebeu permissões do WorldEdit."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aDica:§r§a Você também pode tornar outros jogadores construtores alterando §e@s§r§a para o nome do jogador. Caso o jogador possua espaços no nome, será nescessário utilizar aspas duplas. Por exemplo: §e/tag \"Steve Da Silva\" add builder§r"
+msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Indo a lugares"
@@ -563,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Brincando com pincéis"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Pegue uma pá de qualquer tipo (preferêncialmente de madeira) e coloque um bloco de pedregulho; você vai precisar dele para o pincel."
+msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. Use o item \"WorldEdit Configurações\". Um menu na barra de atalhos deve aparecer incluindo \"Configurações do Pincel\". Selecione o item e, em seguida, selecione a pá a vincular. Faça um pincel de esfera de raio 3 e um padrão de pedregulho. Confirme as configurações e saia do menu."
@@ -572,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Mire no chão longe de você e interaja com a pá (agora pincel) para colocar as esferas de pedregulho."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Faça com que o pincel afete apenas a grama usando §e;mask tier grass §r§7. Agora, use o pincel para fazer o caminho de pedregulho."
+msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Desative o pincel com §e;br tier none§r."
+msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "E agora?"
