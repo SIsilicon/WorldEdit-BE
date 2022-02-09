@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-06 04:28\n"
+"PO-Revision-Date: 2022-02-09 19:36\n"
 
 msgid "pack.description"
 msgstr "这是一个原生Java模组以及其他的正在开发中的端口！此附加包的作者为SIsilicon (@iSiliconS) 。"
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§e您的创世神权限已被移除§r"
+msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 的方块已被改变。"
@@ -272,10 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "道具已更新。"
 
 msgid "commands.wedit:brush.description"
-msgstr "设置笔刷的类型"
+msgstr "Set the type of a brush being held"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Unbind a bound brush from your current item"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Create a sphere brush"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Create a cylinder brush"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "未将笔刷绑定到此层。"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.invalidItem"
+msgstr "The held item cannot be used as a brush."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Clear your clipboard"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "清除您的使用记录"
@@ -457,6 +478,9 @@ msgstr "设定笔刷能使用的方块的类型"
 msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的快捷工具 (目前只有堆叠器)"
 
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Block stacker tool"
+
 msgid "commands.wedit:unstuck.description"
 msgstr "移除方块"
 
@@ -488,7 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "潜行并点击方块：选定第一个点; 不潜行，直接点击方块：选定第二个点"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "关于创世神插件的信息"
+msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Get WorldEdit version"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "创世神版本：%s"
@@ -509,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "默认情况下，普通玩家无法使用创世神插件。只有那些被标记为“builder”的人才可以使用它。 如果您想使自己获得“builder”标签，请在聊天框中输入 §e/tag @s add builder§r 然后，您应该会收到一条消息，提示您已经获得了创世神权限。"
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§a提示:§r§a 您也可以将 §e@s§a 更改为指定的玩家名字来给其他玩家添加“builder”标签。 如果他们的名字中有空格，那么您需要用\"\"来引用他们的名字。举个例子: §e/tag \"Steve Wander\" add builder§r§a输入这行指令后，名字为Steve Wander的玩家就能获得\"builder\"标签。"
+msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "去的地方"
@@ -563,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "笔刷的使用"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. 拿一个任意类型的铲子(最好是木铲) 然后放置一个圆石（你待会需要用它来设置笔刷）。"
+msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 使用“WorldEdit设置”项。热栏中应该会出现一个包含“笔刷设置”的菜单。选择项目，然后选择要绑定到的电铲。制作一个半径为3的球形笔刷和鹅卵石图案。确认设置并退出菜单。"
@@ -572,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 使刷子只影响带有§e的草；遮罩层草§r§7。现在用刷子画一条鹅卵石路。"
+msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. 禁用笔刷的指令：§e;br tier none§r."
+msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "现在该做什么？"
