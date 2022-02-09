@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-09 19:36\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
@@ -85,6 +85,12 @@ msgstr "채우기 도구"
 msgid "item.wedit:selection_wall"
 msgstr "벽 도구"
 
+msgid "item.wedit:selection_outline"
+msgstr "테두리 도구"
+
+msgid "item.wedit:draw_line"
+msgstr "그리기 도구"
+
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 설정"
 
@@ -98,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "원기둥 브러쉬"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "다듬기 브러쉬"
 
 msgid "item.wedit:one_button"
 msgstr "일"
@@ -170,13 +176,13 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "브러쉬의 높이를 설정하세요."
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "브러쉬의 부드럽게 할 정도를 선택합니다."
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "브러시에 사용할 패턴과 마스크(옵션)를 선택하세요."
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "브러쉬에 사용할 마스크(옵션)을 선택합니다."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "괜찮습니까?"
@@ -194,7 +200,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "높이: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "부드러운 정도:%s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "브러쉬가 구성됨"
@@ -224,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit 권한이 부여되었습니다. (설정 > 게임 방법 > 빠른 시작)에서 안내를 받으실 수 있습니다.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eWorldEdit 권한이 제거되었습니다.§r"
+msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 블록이 바뀌었습니다."
@@ -266,10 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "도구가 업데이트 되었습니다."
 
 msgid "commands.wedit:brush.description"
-msgstr "브러시 유형 설정"
+msgstr "Set the type of a brush being held"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Unbind a bound brush from your current item"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Create a sphere brush"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Create a cylinder brush"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "이 티어에 바인딩된 브러시가 없습니다."
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.invalidItem"
+msgstr "The held item cannot be used as a brush."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Clear your clipboard"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "편집 기록 지우기"
@@ -300,6 +327,9 @@ msgstr "선택한 항목이 더 이상 표시되지 않습니다."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
+
+msgid "commands.wedit:faces.description"
+msgstr "선택 항목에서 테두리를 생성합니다."
 
 msgid "commands.wedit:flip.description"
 msgstr "선택사항을 뒤집습니다"
@@ -345,6 +375,9 @@ msgstr "모든 월드에딧 아이템을 받을 수 있는 커맨드"
 
 msgid "commands.wedit:kit.explain"
 msgstr "키트가 지급되었습니다."
+
+msgid "commands.wedit:line.description"
+msgstr "첫 번째 선택 지점과 두 번째 선택 지점 사이에 선을 생성합니다."
 
 msgid "commands.wedit:mask.description"
 msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
@@ -422,7 +455,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "쌓아서 %s 블록을 생성했습니다."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "선택 영역의 표면을 매끄럽게 합니다."
 
 msgid "commands.wedit:sphere.description"
 msgstr "구를 생성합니다."
@@ -444,6 +477,9 @@ msgstr "브러시를 사용할 수 있는 블록 유형 설정"
 
 msgid "commands.wedit:tool.description"
 msgstr "모든 종류의 도구 가져오기(현재 쌓기 도구만 해당)"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Block stacker tool"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "블록 밖으로 이동"
@@ -476,7 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "웅크리고 블록을 상호작용: 지점 #1 선택, 웅크리지 않고 블록을 상호작용: 지점 #2 선택"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit에 대한 정보"
+msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Get WorldEdit version"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit 버전: %s"
@@ -497,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "다른 무엇보다도 먼저.."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "기본적으로 플레이어는 WorldEdit를 사용할 수 없습니다. \"builder\"로 태그된 사용자만 해당 기능을 사용할 수 있습니다. 빌더를 만들려면 채팅에 §e/tag @s add builder§r를 입력하십시오. 그러면 WorldEdit 권한을 부여했다는 메시지가 표시됩니다."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a §e@s§r§a를 플레이어 이름으로 변경하여 다른 플레이어 빌더를 만들 수도 있습니다. 공백이 있으면 따옴표로 묶어야 합니다. 예: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "원하는 곳에 가기"
@@ -551,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "브러쉬 사용법"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. 어떤 종류의 삽(가급적 나무)을 가져와 조약돌을 바닥에 깔아 놓습니다. 브러시에 필요합니다. "
+msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. \"WorldEdit 설정\" 항목을 사용하십시오. \"브러시 설정\"을 포함한 메뉴가 핫바에 나타나야 합니다. 항목을 선택한 다음 바인딩할 삽을 선택합니다. 반경 3의 \"구\"형 브러시와 조약돌 패턴으로 만듭니다. 설정을 확인하고 메뉴를 종료합니다."
@@ -560,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 근처에 있지 않은 땅을 조준하고 삽(이젠 브러시지만)과 상호 작용하여 조약돌 구체를 배치합니다."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 브러시가 §e;mask 티어(1..6) grass§r§7명령을 사용해 잔디에만 영향을 미치도록 합니다. 이제 브러시를 사용하여 조약돌 경로를 만드십시오."
+msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. §e;br 티어(1..6) none§r로 브러시를 비활성화합니다."
+msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "이제는?"

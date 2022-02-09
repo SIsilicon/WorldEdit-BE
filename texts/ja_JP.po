@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-01-31 22:02\n"
+"PO-Revision-Date: 2022-02-09 19:36\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -85,6 +85,12 @@ msgstr "範囲フィル"
 msgid "item.wedit:selection_wall"
 msgstr "壁の選択"
 
+msgid "item.wedit:selection_outline"
+msgstr "範囲の輪郭線を生成"
+
+msgid "item.wedit:draw_line"
+msgstr "線を引く"
+
 msgid "item.wedit:config_button"
 msgstr "WorldEdit の設定"
 
@@ -98,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "円柱ブラシ"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "スムーズブラシ"
 
 msgid "item.wedit:one_button"
 msgstr "1"
@@ -170,13 +176,13 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "ブラシの高さを選択してください。"
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "ブラシの滑らかさを選択してください。"
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "ブラシのマスクを任意で作成してください。"
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "これでよろしいですか？"
@@ -194,7 +200,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "高さ: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "滑らかさ: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "ブラシを設定しました。"
@@ -224,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eWorldEdit の権限が削除されました。§r"
+msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 個のブロックが変更されました。"
@@ -266,10 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "杖を更新しました。"
 
 msgid "commands.wedit:brush.description"
-msgstr "ブラシの種類を設定する"
+msgstr "Set the type of a brush being held"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Unbind a bound brush from your current item"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Create a sphere brush"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Create a cylinder brush"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "この階層にはブラシがありません。"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.invalidItem"
+msgstr "The held item cannot be used as a brush."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Clear your clipboard"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "編集履歴を消去する"
@@ -300,6 +327,9 @@ msgstr "選択範囲は表示されません。"
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "選択範囲が表示されます。"
+
+msgid "commands.wedit:faces.description"
+msgstr "選択範囲の輪郭線を生成する"
 
 msgid "commands.wedit:flip.description"
 msgstr "選択範囲を反転する"
@@ -345,6 +375,9 @@ msgstr "自身に WorldEdit 機能を使うのに必要な各種アイテムを�
 
 msgid "commands.wedit:kit.explain"
 msgstr "アイテムを付与しました。"
+
+msgid "commands.wedit:line.description"
+msgstr "最初と2番目のポイントの間に線を生成する"
 
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
@@ -422,7 +455,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "%s 個のブロックをスタックから生成しました。"
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "選択範囲の表面を滑らかにする"
 
 msgid "commands.wedit:sphere.description"
 msgstr "球体を生成する"
@@ -444,6 +477,9 @@ msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:tool.description"
 msgstr "全てのツールを取得する (現時点ではスタッカーのみ)"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Block stacker tool"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "ブロックの外に移動する"
@@ -476,7 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "スニークしながらブロックをタップして最初の位置を選択します。スニークせずにブロックをタップして2番目の位置を選択します。"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit について"
+msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Get WorldEdit version"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit のバージョン: %s"
@@ -497,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。ビルダーとしてタグ付けされたプレイヤーのみが使用できます。 自身をビルダーにするには、チャットで §e/tag @s add builder§r を入力してください。WorldEdit の権限が与えられたというメッセージを受け取るはずです。"
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーをビルダーにすることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "場所の移動"
@@ -551,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "ブラシで遊ぶ"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. シャベル (木のシャベルが良い) を取得し、丸石を設置します。 ブラシに必要な工程です。"
+msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 「WorldEdit の設定」 アイテムを使用してください。ホットバーに「ブラシの設定」を含むメニューが表示されます。ブラシの設定を選択し、紐付けるシャベルを選択します。 半径 3 の球体ブラシを丸石のパターンで作成してください。設定を確認し、メニューを終了します。"
@@ -560,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 離れた地面に向かってシャベル (ブラシになったもの) を使い、丸石の球体を設置します。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. コマンド §e;mask tier grass§r §7で、ブラシが草ブロックにのみ影響を与えるようにします。それからブラシを使って、丸石の道を作ってください。"
+msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. §e;br tier none§r でブラシを無効にします。"
+msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "さて、どうする？"
