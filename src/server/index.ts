@@ -13,7 +13,6 @@ import { RawText } from '@modules/rawtext.js';
 import { DEBUG } from '@config.js';
 
 Server.setMaxListeners(256);
-let justJoined: string[] = [];
 let activeBuilders: Player[] = [];
 
 let ready = false;
@@ -21,19 +20,19 @@ Server.on('ready', ev => {
     Server.runCommand(`gamerule showtags false`);
     Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
+    printDebug(isNaN(NaN));
     ready = true;
 });
 
 Server.on('playerJoin', ev => {
-    justJoined.push(ev.player.name);
     printDebug(`player ${ev.player.name} joined.`);
     makeBuilder(ev.player);
-})
+});
 
 Server.on('playerLeave', ev => {
     printDebug(`player ${ev.playerName} left.`);
     removeBuilder(ev.playerName);
-})
+});
 
 Server.on('tick', ev => {
     if (!ready) return;
@@ -41,23 +40,14 @@ Server.on('tick', ev => {
     for (const entity of world.getPlayers()) {
         const player = entity as Player;
         if (!activeBuilders.includes(player)) {
-            if (!justJoined.includes(player.name)) {
-                if (PlayerUtil.isHotbarStashed(player)) {
-                    PlayerUtil.restoreHotbar(player);
-                }
-                if (!makeBuilder(player)) { // Attempt to make them a builder.
-                    print('worldedit.permission.granted', player);
-                }
-                Tools.unbindAll(player);
+            if (PlayerUtil.isHotbarStashed(player)) {
+                PlayerUtil.restoreHotbar(player);
             }
-        }
-        
-        // remove player from justJoined if they've been processed at least once.
-        if (justJoined.includes(player.name) && !Server.runCommand(`testfor "${player.nameTag}"`).error) {
-            const i = justJoined.findIndex(p => { return p == player.name });
-            if (i != -1) {
-                justJoined.splice(i, 1);
+            if (!makeBuilder(player)) { // Attempt to make them a builder.
+                print('worldedit.permission.granted', player);
+                continue;
             }
+            Tools.unbindAll(player);
         }
     }
 
@@ -75,6 +65,7 @@ Server.on('tick', ev => {
             session = getSession(builder);
         } else {
             removeBuilder(builder.name);
+            Tools.unbindAll(builder);
             print('worldedit.permission.revoked', builder);
             continue;
         }

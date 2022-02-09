@@ -27,7 +27,7 @@ const registerInformation = {
             description: 'commands.wedit:brush.description.sphere',
             args: [
                 {
-                    flag: 'h',
+                    flag: 'h'
                 },
                 {
                     name: 'pattern',
@@ -46,7 +46,7 @@ const registerInformation = {
             description: 'commands.wedit:brush.description.cylinder',
             args: [
                 {
-                    flag: 'h',
+                    flag: 'h'
                 },
                 {
                     name: 'pattern',
@@ -86,7 +86,7 @@ const registerInformation = {
                 }
             ]
         }
-    ],
+    ]
 };
 
 export function getBrushTier(player: Player) {

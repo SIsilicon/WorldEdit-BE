@@ -15,7 +15,7 @@ const registerInformation = {
     usage: [
         {
             name: 'pattern',
-            type: 'Pattern',
+            type: 'Pattern'
         }
     ]
 };

@@ -4,7 +4,7 @@ import { commandList } from '../command_list.js';
 const registerInformation = {
     name: 'drawsel',
     permission: 'worldedit.drawsel',
-    description: 'commands.wedit:drawsel.description',
+    description: 'commands.wedit:drawsel.description'
 };
 
 commandList['drawsel'] = [registerInformation, (session, builder, args) => {

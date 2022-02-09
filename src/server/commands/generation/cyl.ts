@@ -27,8 +27,8 @@ const registerInformation = {
                 }, {
                     name: 'height',
                     type: 'int',
-                    range: [1, null] as [number, null],
-                    default: 1
+                    default: 1,
+                    range: [1, null] as [number, null]
                 }
             ]
         }, {
@@ -45,8 +45,8 @@ const registerInformation = {
                 }, {
                     name: 'height',
                     type: 'int',
-                    range: [1, null] as [number, null],
-                    default: 1
+                    default: 1,
+                    range: [1, null] as [number, null]
                 }
             ]
         }

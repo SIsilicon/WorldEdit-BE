@@ -16,8 +16,8 @@ const registerInformation = {
         {
             name: 'amount',
             type: 'int',
-            range: [1, null] as [number, null],
-            default: 1
+            default: 1,
+            range: [1, null] as [number, null]
         }, {
             name: 'offset',
             type: 'Direction',

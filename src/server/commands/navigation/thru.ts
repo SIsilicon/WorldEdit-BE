@@ -9,7 +9,7 @@ import { commandList } from '../command_list.js';
 const registerInformation = {
     name: 'thru',
     permission: 'worldedit.navigation.thru.command',
-    description: 'commands.wedit:thru.description',
+    description: 'commands.wedit:thru.description'
 };
 
 commandList['thru'] = [registerInformation, (session, builder, args) => {

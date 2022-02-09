@@ -94,6 +94,7 @@ export class PlayerSession {
         this.history = new History(this.player);
         this.selectionPoints = [];
         
+        // Tools are bound by default.
         this.setTool('pattern_picker');
         this.setTool('mask_picker');
         this.setTool('selection_wand');

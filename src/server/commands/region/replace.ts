@@ -18,7 +18,7 @@ const registerInformation = {
             type: 'Mask'
         }, {
             name: 'pattern',
-            type: 'Pattern',
+            type: 'Pattern'
         }
     ]
 };

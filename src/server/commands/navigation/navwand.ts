@@ -5,7 +5,7 @@ import { commandList } from '../command_list.js';
 const registerInformation = {
     name: 'navwand',
     permission: 'worldedit.setwand',
-    description: 'commands.wedit:navwand.description',
+    description: 'commands.wedit:navwand.description'
 };
 
 commandList['navwand'] = [registerInformation, (session, builder, args) => {
