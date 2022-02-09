@@ -1,9 +1,11 @@
-import { Player, Dimension, World, Entity, Location, BlockLocation, InventoryComponentContainer } from 'mojang-minecraft';
-import { dimension } from '@library/@types/index.js';
+import { Player, Dimension, world, Entity, Location, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { EventEmitter } from '@library/build/classes/eventEmitter.js';
 import { Vector } from './vector.js';
+import { Mask } from './mask.js';
 import { printDebug } from '../util.js';
+
+type dimension = 'overworld' | 'nether' | 'the end';
 
 /**
  * This singleton holds utility functions for players.
@@ -13,26 +15,49 @@ class PlayerHandler extends EventEmitter {
     
     constructor() {
         super();
-        Server.on('tick', tick => {
+        Server.on('tick', ev => {
             for (const entry of this.playerDimensions) {
                 entry[1][0] = false;
             }
             
-            for (const player of World.getPlayers()) {
-                const oldDimension = this.playerDimensions.get(player.nameTag)?.[2];
-                const newDimension = this.getDimension(player)[1];
+            for (const player of <Player[]> world.getPlayers()) {
+                const oldDimension = this.playerDimensions.get(player.name)?.[2];
+                const newDimension = this.getDimensionName(player);
                 
                 if (oldDimension && oldDimension != newDimension) {
-                    this.emit('playerChangeDimension', player, newDimension);
+                    this.emit('playerChangeDimension', player, world.getDimension(<dimension> newDimension));
                 }
             }
         });
         this.on('playerChangeDimension', (player, dimension) => {
             // Teleport the inventory stasher with the player
-            printDebug(`"${player.nameTag}" has travelled to "${dimension}"`);
-            const stasherName = 'wedit:stasher_for_' + player.nameTag;
-            Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${stasherName}"] ~ 512 ~`, dimension);
+            printDebug(`"${player.name}" has travelled to "${PlayerUtil.getDimensionName(player)}"`);
+            const stasherName = 'wedit:stasher_for_' + player.name;
+            Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
         });
+    }
+    
+    /**
+    * Gives the name of the dimension the player is currently in.
+    * @param player The player being queried
+    * @return The name of the dimension
+    */
+    getDimensionName(player: Player): dimension | '' {
+        if (this.playerDimensions.get(player.name)?.[0]) {
+            return this.playerDimensions.get(player.name)[2];
+        }
+    
+        const blockLoc = this.getBlockLocation(player);
+        for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
+            const dim: Dimension = world.getDimension(dimName);
+            for (const entity of dim.getEntitiesAtBlockLocation(blockLoc)) {
+                if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
+                    this.playerDimensions.set(player.name, [true, dim, dimName]);
+                    return dimName;
+                }
+            }
+        }
+        return this.playerDimensions.get(player.name)?.[2] ?? '';
     }
     
     /**
@@ -42,7 +67,7 @@ class PlayerHandler extends EventEmitter {
     * @return True if the player has the item; false otherwise
     */
     hasItem(player: Player, item: string) {
-        return !Server.runCommand(`clear "${player.nameTag}" ${item} 0 0`).error;
+        return !Server.runCommand(`clear @s ${item} 0 0`, player).error;
     }
     
     /**
@@ -53,7 +78,7 @@ class PlayerHandler extends EventEmitter {
     * @param sub The new item being replaced with
     */
     replaceItem(player: Player, item: string, sub: string) {
-        const inv = player.getComponent('inventory').container;
+        const inv = (<EntityInventoryComponent> player.getComponent('inventory')).container;
         for (let i = 0; i < inv.size; i++) {
             if (inv.getItem(i)?.id === item) {
                 const slotType = i > 8 ? 'slot.inventory' : 'slot.hotbar';
@@ -61,7 +86,7 @@ class PlayerHandler extends EventEmitter {
                 // printDebug(slotId);
                 // printDebug(slotType);
                 // printDebug(item + ' -> ' + sub);
-                Server.runCommand(`replaceitem entity "${player.nameTag}" ${slotType} ${slotId} ${sub}`);
+                Server.runCommand(`replaceitem entity @s ${slotType} ${slotId} ${sub}`, player);
                 break;
             }
         }
@@ -81,67 +106,40 @@ class PlayerHandler extends EventEmitter {
     }
     
     /**
-    * Gives the direction the player is looking in.
-    * @param player the player being queried
-    * @return The direction the player is looking in
-    */
-    getDirection(player: Player) {
-        const locA = player.location;
-        let locB: Location;
-        const [dimension, dimName] = this.getDimension(player);
-        
-        Server.runCommand(`execute "${player.nameTag}" ~~~ summon wedit:direction_marker ~~~`, dimName);
-        
-        let entity: Entity;
-        for (const e of dimension.getEntitiesAtBlockLocation(this.getBlockLocation(player))) {
-            if (e.id == 'wedit:direction_marker') {
-                entity = e;
-                entity.nameTag = 'wedit:direction_for_' + player.nameTag;
-                break;
-            }
-        }
-        
-        Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${entity.nameTag}"] ^^^20`, dimName);
-        locB = entity.location;
-        Server.runCommand(`execute @e[name="${entity.nameTag}"] ~~~ tp @s ~ -256 ~`, dimName);
-        entity.kill();
-        entity.nameTag = 'wedit:killed';
-        
-        return Vector.sub(locB, locA).normalized();
-    }
-    
-    /**
-    * Gives the dimension the player is currently in
-    * @remark This will be depracated in Minecraft 1.18 in favour of {mojang-minecraft.Player.dimension}.
-    * @param player The player being queried
-    * @return An array containing the dimension object and its name
-    */
-    getDimension(player: Player): [Dimension, dimension] {
-        if (this.playerDimensions.get(player.nameTag)?.[0]) {
-            return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1);
-        }
-    
-        const blockLoc = this.getBlockLocation(player);
-        for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
-            const dimension: Dimension = World.getDimension(dimName);
-            const entities: Entity[] = dimension.getEntitiesAtBlockLocation(blockLoc);
-            for (const entity of entities) {
-                if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
-                    this.playerDimensions.set(player.nameTag, [true, dimension, dimName]);
-                    return [dimension, dimName];
-                }
-            }
-        }
-        return <[Dimension, dimension]> this.playerDimensions.get(player.nameTag).slice(1) || [null, null];
-    }
-    
-    /**
     * Tells you whether the player's hotbar has been stashed in a temporary place.
     * @param player The player being queried
     * @return Whether the player's hotbar has been stashed
     */
     isHotbarStashed(player: Player) {
-        return !Server.runCommand(`testfor @e[type=wedit:inventory_stasher,name="wedit:stasher_for_${player.nameTag}"]`).error;
+        return !Server.runCommand(`testfor @e[name="wedit:stasher_for_${player.name}"]`).error;
+    }
+    
+    /**
+     * Traces a block from the player's head in the direction they're looking,
+     * @param player The player to trace for blocks from
+     * @param range How far to trace for blocks
+     * @param mask What kind of blocks the ray can hit
+     * @return The location of the block the ray hits or reached its range at; null otherwise
+     */
+    traceForBlock(player: Player, range?: number, mask?: Mask) {
+        const start = player.headLocation;
+        const dir = player.viewVector;
+        const dim = player.dimension;
+        for (let i = 0; i < 50; i += 0.2) {
+            const point = new BlockLocation(
+                Math.floor(start.x + dir.x * i),
+                Math.floor(start.y + dir.y * i),
+                Math.floor(start.z + dir.z * i)
+            );
+            
+            if (mask && mask.matchesBlock(point, dim)) {
+                return point;
+            } else if (!mask && !dim.isEmpty(point)) {
+                return point;
+            } else if (range && range > 0 && i >= range) {
+                return point;
+            }
+        }    
     }
     
     /**
@@ -154,11 +152,11 @@ class PlayerHandler extends EventEmitter {
             return true;
         }
         
-        const stasher = this.getDimension(player)[0].spawnEntity('wedit:inventory_stasher', new BlockLocation(player.location.x, 512, player.location.z));
-        stasher.nameTag = 'wedit:stasher_for_' + player.nameTag;
+        const stasher = player.dimension.spawnEntity('wedit:inventory_stasher', new BlockLocation(player.location.x, 512, player.location.z));
+        stasher.nameTag = 'wedit:stasher_for_' + player.name;
         
-        const inv: InventoryComponentContainer = player.getComponent('inventory').container;
-        const inv_stash: InventoryComponentContainer = stasher.getComponent('inventory').container;
+        const inv = (<EntityInventoryComponent> player.getComponent('inventory')).container;
+        const inv_stash = (<EntityInventoryComponent> stasher.getComponent('inventory')).container;
         for (let i = 0; i < 9; i++) {
             inv.transferItem(i, i, inv_stash);
         }
@@ -172,19 +170,19 @@ class PlayerHandler extends EventEmitter {
     */
     restoreHotbar(player: Player) {
         let stasher: Entity;
-        const dimension = this.getDimension(player)[1];
-        const stasherName = 'wedit:stasher_for_' + player.nameTag;
-        Server.runCommand(`execute "${player.nameTag}" ~~~ tp @e[name="${stasherName}"] ~ 512 ~`, dimension);
-        for (const entity of World.getDimension(dimension).getEntitiesAtBlockLocation(new BlockLocation(Math.floor(player.location.x), 512, Math.floor(player.location.z)))) {
-            if (entity.nameTag == stasherName) {
-                stasher = entity;
-                break;
-            }
+        const stasherName = 'wedit:stasher_for_' + player.name;
+        Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+        Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+        
+        const query = new EntityQueryOptions();
+        query.name = stasherName;
+        for (const entity of player.dimension.getEntities(query)) {
+            stasher = entity;
         }
         
         if (stasher) {
-            const inv: InventoryComponentContainer = player.getComponent('inventory').container;
-            const inv_stash: InventoryComponentContainer = stasher.getComponent('inventory').container;
+            const inv = (<EntityInventoryComponent> player.getComponent('inventory')).container;
+            const inv_stash = (<EntityInventoryComponent> stasher.getComponent('inventory')).container;
             for (let i = 0; i < 9; i++) {
                 if (inv.getItem(i) && inv_stash.getItem(i)) {
                     inv.swapItems(i, i, inv_stash);
@@ -194,7 +192,7 @@ class PlayerHandler extends EventEmitter {
                     inv_stash.transferItem(i, i, inv);
                 }
             }
-            Server.runCommand(`tp @e[name="${stasherName}"] ~ -256 ~`, dimension);
+            Server.runCommand(`tp @e[name="${stasherName}"] ~ -256 ~`, player);
             stasher.triggerEvent('wedit:kill');
             stasher.nameTag = 'wedit:killed';
             return false;

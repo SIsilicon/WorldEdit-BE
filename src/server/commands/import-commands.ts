@@ -1,7 +1,6 @@
 import { Server } from '@library/Minecraft.js';
 import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { commandList, commandFunc } from './command_list.js';
-import { assertBuilder } from '@modules/assert.js';
 import { getSession, hasSession } from '../sessions.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
@@ -27,6 +26,7 @@ import './selection/wand.js';
 import './clipboard/cut.js';
 import './clipboard/copy.js';
 import './clipboard/paste.js';
+import './clipboard/clearclipboard.js';
 
 import './generation/hsphere.js';
 import './generation/sphere.js';
@@ -63,7 +63,7 @@ import './brush/mask.js';
 import './brush/tracemask.js';
 import './brush/size.js';
 import './brush/range.js';
-// TODO: Implement material
+import './brush/material.js';
 
 import './history/undo.js';
 import './history/redo.js';
@@ -77,17 +77,21 @@ for (const name in commandList) {
     Server.command.register(command[0], (data, args) => {
         let toActionBar = _printToActionBar;
         _printToActionBar = false;
+        const player = data.sender;
+        if (!hasSession(player.name)) {
+            data.cancel = false;
+            return;
+        }
+        
         try {
-            const player = data.sender;
-            assertBuilder(player);
+            const start = new Date().getTime();
             const msg = command[1](getSession(player), player, args);
+            printDebug(`Time taken to execute: ${new Date().getTime() - start}ms`);
             print(msg, player, toActionBar);
         } catch (e) {
-            if (hasSession(data.sender.nameTag)) {
-                const history = getSession(data.sender).getHistory();
-                if (history.isRecording()) {
-                    history.cancel();
-                }
+            const history = getSession(data.sender).getHistory();
+            if (history.isRecording()) {
+                history.cancel();
             }
             printerr(e, data.sender, toActionBar);
             if (e.stack) {

@@ -2,16 +2,15 @@ import { Player, MinecraftBlockTypes } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
-import { getSession, PlayerSession } from '../../sessions.js';
+import { PlayerSession } from '../../sessions.js';
 import { Regions } from '@modules/regions.js';
 import { Mask } from '@modules/mask.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'copy',
+    permission: 'worldedit.clipboard.copy',
     description: 'commands.wedit:copy.description',
     usage: [
         {
@@ -35,9 +34,9 @@ const registerInformation = {
 export function copy(session: PlayerSession, args = new Map<string, any>()) {
     assertCuboidSelection(session);
     const player = session.getPlayer();
-    const [dimension, dimName] = PlayerUtil.getDimension(player);
+    const dimension = player.dimension;
     const [start, end] = session.getSelectionRange();
-    assertCanBuildWithin(dimName, start, end);
+    assertCanBuildWithin(dimension, start, end);
     
     let includeEntities: boolean = session.usingItem ? session.includeEntities : args.has('e');
     let includeAir: boolean = session.usingItem ? session.includeAir : !args.has('a');
@@ -53,7 +52,7 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
         
         for (const block of start.blocksBetween(end)) {
             let wasAir = dimension.getBlock(block).id == 'minecraft:air';
-            let isAir = wasAir || (mask ? !mask.matchesBlock(block, dimName) : false);
+            let isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
             if (includeAir && mask && !wasAir && isAir) {
                 dimension.getBlock(block).setPermutation(airBlock);
             } else if (!includeAir && isAir) {

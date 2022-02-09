@@ -1,9 +1,9 @@
-import { BlockLocation, Dimension, Entity, Location, Player, World } from 'mojang-minecraft';
-import { DEBUG, PLAYER_HEIGHT, PRINT_TO_ACTION_BAR } from '../config.js';
-import { dimension } from '@library/@types/index.js';
+import { BlockLocation, Dimension, Entity, Location, Player, EntityQueryOptions } from 'mojang-minecraft';
+import { DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { parsedBlock } from '@modules/parser.js';
 
 // Server broadcast doesn't print anything until the first player has loaded.
 let serverReady = false;
@@ -50,60 +50,50 @@ export function printDebug(...data: any[]) {
  */
 export function print(msg: string | RawText, player: Player, toActionBar = false) {
     if (typeof msg == 'string') {
-        msg = <RawText> RawText.text(msg);
+        msg = <RawText> RawText.translate(msg);
     }
     let command: string;
     if (toActionBar && PRINT_TO_ACTION_BAR) {
-        command = `titleraw "${player.nameTag}" actionbar ${msg.toString()}`;
+        command = `titleraw @s actionbar ${msg.toString()}`;
     } else {
-        command = `tellraw "${player.nameTag}" ${msg.toString()}`;
+        command = `tellraw @s ${msg.toString()}`;
     }
-    Server.runCommand(command);
+    Server.runCommand(command, player);
 }
 
 /**
- * Acts just like {print} but also prepends a red code to make the message appear red.
+ * Acts just like {print} but also prepends '§c' to make the message appear red.
  * @see {print}
  */
 export function printerr(msg: string | RawText, player: Player, toActionBar = false) {
-    print(msg instanceof RawText ? msg.prepend('text', '§c') : ('§c' + msg), player, toActionBar);
+    if (!(msg instanceof RawText)) {
+        msg = <RawText> RawText.translate(msg);
+    }
+    print(msg.prepend('text', '§c'), player, toActionBar);
 }
 
-const worldY: {[k: string]: [number, number]} = {
-    'overworld': [-999, 999],
+const worldY = {
+    'overworld': [-64, 320],
     'nether': [0, 128],
-    'the end': [0, 128]
-}
+    'the end': [0, 256],
+    '': [0, 0]
+};
 /**
  * Gets the minimum Y level of the dimension a player is in.
- * @param player The player we're testing
+ * @param player The player whose dimension we're testing
  * @return The minimum Y level of the dimension the player is in
  */
 export function getWorldMinY(player: Player) {
-    const dimName = PlayerUtil.getDimension(player)[1];
-    // Caves and Cliffs?
-    if (dimName == 'overworld' && worldY['overworld'][0] == -999) {
-        const test = PlayerUtil.getBlockLocation(player);
-        test.y = -1;
-        worldY['overworld'][0] = canPlaceBlock(test, dimName) ? -64 : 0;
-    }
-    return worldY[dimName][0];
+    return worldY[PlayerUtil.getDimensionName(player)][0];
 }
 
 /**
  * Gets the maximum Y level of the dimension a player is in.
- * @param player The player we're testing
+ * @param player The player whose dimension we're testing
  * @return The maximum Y level of the dimension the player is in
  */
 export function getWorldMaxY(player: Player) {
-    const dimName = PlayerUtil.getDimension(player)[1];
-    // Caves and Cliffs?
-    if (dimName == 'overworld' && worldY['overworld'][1] == 999) {
-        const test = PlayerUtil.getBlockLocation(player);
-        test.y = 256;
-        worldY['overworld'][1] = canPlaceBlock(test, dimName) ? 319 : 255;
-    }
-    return worldY[dimName][1];
+    return worldY[PlayerUtil.getDimensionName(player)][1];
 }
 
 /**
@@ -112,7 +102,7 @@ export function getWorldMaxY(player: Player) {
  * @param dim The dimension we are testing in
  * @return Whether a block can be placed
  */
-export function canPlaceBlock(loc: BlockLocation, dim: dimension) {
+export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
     const locString = printLocation(loc, false);
     let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
     if (!error) {
@@ -120,6 +110,29 @@ export function canPlaceBlock(loc: BlockLocation, dim: dimension) {
         Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
     }
     return !error;
+}
+
+/**
+ * Places a block in the location of a dimension
+ */
+export function placeBlock(block: parsedBlock, loc: BlockLocation, dim: Dimension) {
+    let command = block.id;
+    if (block.states && block.states.size != 0) {
+        command += '['
+        let i = 0;
+        for (const state of block.states.entries()) {
+            command += `"${state[0]}":`;
+            command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
+            if (i < block.states.size - 1) {
+                command += ',';
+            }
+            i++;
+        }
+        command += ']'
+    } else if (block.data != -1) {
+        command += ` ${block.data}`;
+    }
+    return Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dim).error;
 }
 
 /**

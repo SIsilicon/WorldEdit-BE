@@ -35,6 +35,10 @@ export class CylinderBrush extends Brush {
         this.shape.usedInBrush = true;
     }
     
+    public paintWith(value: Pattern) {
+        this.pattern = value;
+    }
+    
     public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
         this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
     }

@@ -7,7 +7,7 @@ export { compressNumber, formatNumber, MS, rainbowText };
 import Database from "./build/classes/databaseBuilder.js";
 export { Database };
 
-import { World } from 'mojang-minecraft';
+import { world } from 'mojang-minecraft';
 import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
@@ -28,7 +28,7 @@ class ServerBuild extends ServerBuilder {
     * @private
     */
     private _buildEvent() {
-        World.events.beforeChat.subscribe(data => {
+        world.events.beforeChat.subscribe(data => {
             const date = new Date();
             /**
             * Emit to 'beforeMessage' event listener
@@ -53,7 +53,7 @@ class ServerBuild extends ServerBuilder {
             const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
             if(!getCommand) {
                 data.cancel = true;
-                return this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`);
+                return this.runCommand(`tellraw @s {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`, data.sender);
             };
             
             const args: Array<string> = [];
@@ -91,6 +91,9 @@ class ServerBuild extends ServerBuilder {
                 * Registration callback
                 */
                 try {
+                    if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
+                        throw 'commands.generic.wedit:noPermission';
+                    }
                     element.callback(data, Command.parseArgs(command, args));
                 } catch(error) {
                     if(error.isSyntaxError) {
@@ -135,62 +138,50 @@ class ServerBuild extends ServerBuilder {
         /**
         * Emit to 'beforeExplosion' event listener
         */
-        World.events.beforeExplosion.subscribe(data => this.emit('beforeExplosion', data));
+        world.events.beforeExplosion.subscribe(data => this.emit('beforeExplosion', data));
         /**
         * Emit to 'beforePistonActivate' event listener
         */
-        World.events.beforePistonActivate.subscribe(data => this.emit('beforePistonActivate', data));
+        world.events.beforePistonActivate.subscribe(data => this.emit('beforePistonActivate', data));
         /**
             * Emit to 'blockExplode' event listener
             */
-        World.events.blockExplode.subscribe(data => this.emit('blockExplode', data));
+        world.events.blockExplode.subscribe(data => this.emit('blockExplode', data));
         /**
         * Emit to 'beforeExplosion' event listener
         */
-        World.events.explosion.subscribe(data => this.emit('explosion', data));
+        world.events.explosion.subscribe(data => this.emit('explosion', data));
         /**
         * Emit to 'beforeExplosion' event listener
         */
-        World.events.pistonActivate.subscribe(data => this.emit('pistonActivate', data));
+        world.events.pistonActivate.subscribe(data => this.emit('pistonActivate', data));
         /**
         * Emit to 'messageCreate' event listener
         */
-        World.events.chat.subscribe(data => this.emit('messageCreate', data));
+        world.events.chat.subscribe(data => this.emit('messageCreate', data));
         /**
         * Emit to 'entityEffected' event listener
         */
-        World.events.effectAdd.subscribe(data => this.emit('entityEffected', data));
+        world.events.effectAdd.subscribe(data => this.emit('entityEffected', data));
         /**
         * Emit to 'weatherChange' event listener
         */
-        World.events.weatherChange.subscribe(data => this.emit('weatherChange', data));
+        world.events.weatherChange.subscribe(data => this.emit('weatherChange', data));
+        /**
+        * Emit to 'entityCreate' event listener
+        */
+        world.events.entityCreate.subscribe(data => this.emit('entityCreate', data));
+        /**
+        * Emit to 'playerJoin' event listener
+        */
+        world.events.playerJoin.subscribe(data => this.emit('playerJoin', data));
+        /**
+        * Emit to 'playerLeave' event listener
+        */
+        world.events.playerLeave.subscribe(data => this.emit('playerLeave', data));
         
-        let oldPlayer: Array<string> = [];
-        World.events.entityCreate.subscribe(data => {
-            /**
-            * Emit to 'entityCreate' event listener
-            */
-            this.emit('entityCreate', data.entity);
-    
-            if(data.entity.id !== 'minecraft:player') return;
-            let playerJoined = Player.list().filter(current => !oldPlayer.some(old => current === old));
-            /**
-            * Emit to 'playerJoin' event listener
-            */
-            if(playerJoined.includes(data.entity.nameTag)) this.emit('playerJoin', data.entity);
-        });
-
         let worldLoaded = false, tickCount = 0;
-        World.events.tick.subscribe((data) => {
-            let currentPlayer = Player.list();
-            let playerLeft = oldPlayer.filter(old => !currentPlayer.includes(old));
-            
-            /**
-            * Emit to 'playerLeave' event listener
-            */
-            for(let player of playerLeft) this.emit('playerLeave', { name: player });
-            oldPlayer = currentPlayer;
-    
+        world.events.tick.subscribe((data) => {
             tickCount++;
             if(!this.runCommand('testfor @a').error && !worldLoaded) {
                 /**
@@ -204,8 +195,6 @@ class ServerBuild extends ServerBuilder {
             * Emit to 'tick' event listener
             */
             this.emit('tick', data);
-            
-            
         });
     };
 };

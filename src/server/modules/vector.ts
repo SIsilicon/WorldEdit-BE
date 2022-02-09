@@ -1,6 +1,7 @@
 import { BlockLocation, Location } from 'mojang-minecraft';
+import { Vector as MCVector } from 'mojang-minecraft'
 
-type anyVec = BlockLocation|Location|Vector|[number, number, number];
+type anyVec = BlockLocation|Location|Vector|MCVector|[number, number, number];
 type anyLoc = BlockLocation|Location;
 
 export class Vector {
@@ -17,7 +18,7 @@ export class Vector {
     }
     
     private static ensureVector(v: anyVec): Vector {
-        if (v instanceof Location || v instanceof BlockLocation) {
+        if (v instanceof Location || v instanceof BlockLocation || v instanceof MCVector) {
             return Vector.from(v);
         } else if (Array.isArray(v)) {
             return new Vector(...<[number, number, number]>v);

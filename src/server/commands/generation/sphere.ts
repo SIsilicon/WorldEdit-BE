@@ -8,6 +8,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'sphere',
+    permission: 'worldedit.generation.sphere',
     description: 'commands.wedit:sphere.description',
     usage: [
         {

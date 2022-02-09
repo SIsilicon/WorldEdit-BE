@@ -2,7 +2,7 @@ import { BeforeChatEvent, Player, BlockLocation, Location } from "mojang-minecra
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
 import { RawText } from "@modules/rawtext.js";
-import { Server } from "./serverBuilder.js";
+import { Server } from "../../Minecraft.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -102,6 +102,7 @@ export class CommandBuilder {
             aliases: register.aliases ? register.aliases.map(v => v.toLowerCase()) : null,
             description: register.description,
             usage: register.usage ?? [] as commandArgList,
+            permission: register.permission,
             callback
         });
     };
@@ -147,12 +148,11 @@ export class CommandBuilder {
         this.customArgTypes.set(name, argType);
     }
     
-    printCommandArguments(name: string): Array<string> {
+    printCommandArguments(name: string, player?: Player): Array<string> {
         const register = this.getRegistration(name);
         if(!register) return;
         
         const usages: Array<string> = [];
-        if(!register.usage.length) return [''];
         
         function accumulate(base: Array<string>, args: commandArgList, subName = '_') {
             const text = [...base];
@@ -171,6 +171,9 @@ export class CommandBuilder {
                 
                 if('subName' in arg) {
                     hasSubCommand = true;
+                    if (player && !Server.player.hasPermission(player, arg.permission)) {
+                        return;
+                    }
                     accumulate(text, arg.args, arg.subName);
                 } else if('flag' in arg) {
                     if(!flagText) flagText = '[-';
@@ -201,6 +204,12 @@ export class CommandBuilder {
                 usages.push(text.join(' '));
             }
         }
+        
+        if (player && !Server.player.hasPermission(player, register.permission)) {
+            return [];
+        }
+        
+        if(!register.usage.length) return [''];
         accumulate([], register.usage);
         
         return usages;
@@ -261,6 +270,8 @@ export class CommandBuilder {
                 if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[idx]);
                 idx++;
                 result.set(def.name, cmdBaseInfo.name);
+            } else if(def.type == 'any') {
+                result.set(def.name, args[idx++]);
             } else if(self.customArgTypes.has(def.type)) {
                 try {
                     const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);

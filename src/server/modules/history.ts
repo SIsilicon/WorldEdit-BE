@@ -132,7 +132,7 @@ export class History {
                 }
             ]
         } else {
-            throw 'Cannot call "recordSelection" more than two times!';
+            throw new Error('Cannot call "recordSelection" more than two times!');
         }
     }
     
@@ -142,7 +142,7 @@ export class History {
             return true;
         }
         
-        const dim = PlayerUtil.getDimension(this.player)[1];
+        const dim = this.player.dimension;
         for (const region of this.undoStructures[this.historyIdx]) {
             const pos = region.location;
             const size = Regions.getSize(region.name, this.player);
@@ -176,7 +176,7 @@ export class History {
             return true;
         }
         
-        const dim = PlayerUtil.getDimension(this.player)[1];
+        const dim = this.player.dimension;
         for (const region of this.redoStructures[this.historyIdx+1]) {
             const pos = region.location;
             const size = Regions.getSize(region.name, this.player);
@@ -230,7 +230,7 @@ export class History {
         const tempRegion = 'tempHistoryVoid';
         let structName: string;
         const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
-        const dim = PlayerUtil.getDimension(this.player)[1];
+        const dim = this.player.dimension;
         
         const finish = () => {
             if (recordBlocks) {
@@ -241,13 +241,12 @@ export class History {
 
         try {
             if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
-                throw 'Failed to save history!';
+                throw new Error('Failed to save history!');
             }
 
             // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
             if (recordBlocks) {
                 var loc = Vector.min(start, end).toBlock();
-                const dimension = PlayerUtil.getDimension(this.player)[0];
                 const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
                 Regions.save(tempRegion, start, end, this.player);
                 let index = 0;
@@ -255,7 +254,7 @@ export class History {
                     if (blocks[index]?.equals(block)) {
                         index++;
                     } else {
-                        dimension.getBlock(block).setPermutation(voidBlock);
+                        dim.getBlock(block).setPermutation(voidBlock);
                     }
                 }
             }
@@ -264,7 +263,7 @@ export class History {
             if (Regions.save(structName, start, end, this.player)) {
                 finish();
                 this.cancel();
-                throw 'Failed to save history!';
+                throw new Error('Failed to save history!');
             }
         } catch (err) {
             finish();
@@ -278,13 +277,13 @@ export class History {
 
     private assertRecording() {
         if (!this.recording) {
-            throw 'History was not being recorded!';
+            throw new Error('History was not being recorded!');
         }
     }
 
     private assertNotRecording() {
         if (this.recording) {
-            throw 'History was still being recorded!';
+            throw new Error('History was still being recorded!');
         }
     }
 

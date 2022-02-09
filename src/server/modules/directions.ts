@@ -63,7 +63,7 @@ export class Cardinal implements CustomArgType {
         if (DIRECTIONS[dirChar]) {
             return DIRECTIONS[dirChar].clone();
         } else {
-            const dir = PlayerUtil.getDirection(player);
+            const dir = player.viewVector;
             let cardinal = Vector.ZERO;
             const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
             if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {

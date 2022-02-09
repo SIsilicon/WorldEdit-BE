@@ -5,13 +5,9 @@ import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'mask',
+    permission: 'worldedit.brush.options.mask',
     description: 'commands.wedit:mask.description',
     usage: [
-        {
-            name: 'tier',
-            type: 'int',
-            range: [1, 6] as [number, number]
-        },
         {
             name: 'mask',
             type: 'Mask',
@@ -21,7 +17,7 @@ const registerInformation = {
 };
 
 commandList['mask'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(args);
+    const brush = getBrushTier(builder);
     if (!session.hasTool(brush)) {
         throw RawText.translate('commands.wedit:brush.noBind');
     }

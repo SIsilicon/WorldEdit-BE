@@ -11,6 +11,7 @@ import { Regions } from '@modules/regions.js';
 
 const registerInformation = {
     name: 'rotate',
+    permission: 'worldedit.region.rotate',
     description: 'commands.wedit:rotate.description',
     usage: [
         {
@@ -48,7 +49,7 @@ commandList['rotate'] = [registerInformation, (session, builder, args) => {
         history.record();
     
         const [start, end] = session.getSelectionRange();
-        const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+        const dim = builder.dimension;
         assertCanBuildWithin(dim, start, end);
         
         const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));

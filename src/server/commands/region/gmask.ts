@@ -4,6 +4,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'gmask',
+    permission: 'worldedit.global-mask',
     description: 'commands.wedit:gmask.description',
     usage: [
         {

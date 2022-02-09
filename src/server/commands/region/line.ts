@@ -2,7 +2,6 @@ import { PlayerSession } from '../../sessions.js';
 import { printDebug } from '../../util.js';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
 import { commandList } from '../command_list.js';
@@ -10,11 +9,12 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'line',
+    permission: 'worldedit.region.line',
     description: 'commands.wedit:line.description',
     usage: [
         {
             name: 'pattern',
-            type: 'Pattern',
+            type: 'Pattern'
         }
     ]
 };
@@ -95,33 +95,34 @@ function bresenham3d(p1: Vector, p2: Vector) {
 
 commandList['line'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
-    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.usingItem && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    const dim = builder.dimension;
     const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
-
-    const history = session.getHistory();
-    history.record();
-
+    
     if (session.selectionMode == 'cuboid') {
         var [pos1, pos2] = session.getSelectionPoints();
         var start = Vector.min(pos1, pos2).toBlock();
         var end = Vector.max(pos1, pos2).toBlock();
-        history.addUndoStructure(start, end, 'any');
     }
     
+    const history = session.getHistory();
+    history.record();
+    const points = bresenham3d(Vector.from(pos1), Vector.from(pos2)).map(p => p.toBlock());
+    
+    history.addUndoStructure(start, end, points);
     let count = 0;
-    for (const point of bresenham3d(Vector.from(pos1), Vector.from(pos2))) {
-        if (session.globalMask.matchesBlock(point.toBlock(), dim) && !pattern.setBlock(point.toBlock(), dim)) {
+    for (const point of points) {
+        if (session.globalMask.matchesBlock(point, dim) && !pattern.setBlock(point, dim)) {
             count++;
         }
     }
     
     history.recordSelection(session);
-    history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
+    history.addRedoStructure(start, end, points);
     history.commit();
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

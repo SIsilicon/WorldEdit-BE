@@ -1,19 +1,18 @@
-import { Player, BlockLocation } from 'mojang-minecraft';
+import { Player, BlockLocation, Dimension } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { dimension } from '@library/@types/index.js';
 import { RawText } from './rawtext.js';
 import { Regions } from './regions.js';
 import { Vector } from './vector.js';
 import { PlayerSession } from '../sessions.js';
 import { canPlaceBlock, printDebug } from '../util.js';
 
-export function assertBuilder(player: Player) {
-    if (!Server.player.hasTag('builder', player.nameTag)) {
-        throw RawText.translate('commands.generic.wedit:noPermission');
+export function assertPermission(player: Player, perm: string) {
+    if (!Server.player.hasPermission(player, perm)) {
+        throw 'commands.generic.wedit:noPermission';
     }
 }
 
-export function assertCanBuildWithin(dim: dimension, min: BlockLocation, max: BlockLocation) {
+export function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: BlockLocation) {
     const minChunk = Vector.from(min).mul(1/16).floor().mul(16);
     const maxChunk = Vector.from(max).mul(1/16).ceil().mul(16);
     

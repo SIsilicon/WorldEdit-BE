@@ -4,13 +4,10 @@ import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'size',
+    permission: 'worldedit.brush.options.size',
     description: 'commands.wedit:size.description',
     usage: [
         {
-            name: 'tier',
-            type: 'int',
-            range: [1, 6] as [number, number]
-        }, {
             name: 'size',
             type: 'int',
             range: [1, null] as [number, null]
@@ -19,7 +16,7 @@ const registerInformation = {
 };
 
 commandList['size'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(args);
+    const brush = getBrushTier(builder);
     if (!session.hasTool(brush)) {
         throw RawText.translate('commands.wedit:brush.noBind');
     }

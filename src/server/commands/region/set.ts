@@ -10,11 +10,12 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'set',
+    permission: 'worldedit.region.set',
     description: 'commands.wedit:set.description',
     usage: [
         {
             name: 'pattern',
-            type: 'Pattern',
+            type: 'Pattern'
         }
     ]
 };
@@ -24,7 +25,7 @@ const registerInformation = {
  */
 export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
     let count = 0;
-    const dim = PlayerUtil.getDimension(session.getPlayer())[1];
+    const dim = session.getPlayer().dimension;
     for (const blockLoc of session.getBlocksSelected()) {
         // printDebug(`${mask} - ${mask?.matchesBlock(blockLoc, dim)}`);
         if (mask && !mask.matchesBlock(blockLoc, dim)) {
@@ -41,7 +42,7 @@ export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
 
 commandList['set'] = [registerInformation, (session, builder, args) => {
     assertSelection(session);
-    assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.usingItem && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }

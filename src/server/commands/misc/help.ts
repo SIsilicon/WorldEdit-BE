@@ -5,6 +5,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'help',
+    permission: 'worldedit.help',
     description: 'commands.help.description',
     usage: [
         {
@@ -36,7 +37,7 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
     if (args.has('_page')) {
         const cmdInfo: [string, string][] = [];
         for (const cmd of cmdList) {
-            const usages = Server.command.printCommandArguments(cmd.name);
+            const usages = Server.command.printCommandArguments(cmd.name, builder);
             for (const usage of usages) {
                 cmdInfo.push([cmd.name, usage]);
                 if (cmd.aliases) {

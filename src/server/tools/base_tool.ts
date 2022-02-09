@@ -37,6 +37,11 @@ export abstract class Tool {
     */
     readonly itemBase: string;
     
+    /**
+     * The permission required for the tool to be used.
+     */
+    readonly permission: string;
+    
     private currentPlayer: Player;
     log(message: string | RawText) {
         print(message, this.currentPlayer, true);
@@ -46,9 +51,12 @@ export abstract class Tool {
     
     process(session: PlayerSession, tick: number, loc?: BlockLocation): boolean {
         const player = session.getPlayer();
-        if (loc === undefined && this.itemBase !== undefined) {
-            if (PlayerUtil.hasItem(player, this.itemBase) && !PlayerUtil.hasItem(player, this.itemTool)) {
+        const hasPerms = Server.player.hasPermission(player, this.permission);
+        if (!loc) {
+            if (hasPerms) {
                 this.bind(player);
+            } else {
+                this.unbind(player);
             }
         }
         
@@ -57,10 +65,11 @@ export abstract class Tool {
         }
         const tag = (loc && this.useOn && this.use) ? this.tag + '_block' : this.tag;
         
-        if (!Server.runCommand(`tag "${player.nameTag}" remove ${tag}`).error) {
+        if (player.hasTag(tag)) {
+            player.removeTag(tag);
             this.currentPlayer = player;
             try {
-                if (loc === undefined) {
+                if (!loc) {
                     if (this.useOnTick != tick)
                         this.use(player, session);
                 } else {
@@ -84,7 +93,9 @@ export abstract class Tool {
     }
     
     bind(player: Player) {
-        PlayerUtil.replaceItem(player, this.itemBase, this.itemTool);
+        if (PlayerUtil.hasItem(player, this.itemBase)) {
+            PlayerUtil.replaceItem(player, this.itemBase, this.itemTool);
+        }
     }
     
     unbind(player: Player) {
@@ -92,7 +103,7 @@ export abstract class Tool {
             if (this.itemBase) {
                 PlayerUtil.replaceItem(player, this.itemTool, this.itemBase);
             } else {
-                Server.runCommand(`clear "${player.nameTag}" ${this.itemTool}`);
+                Server.runCommand(`clear @s ${this.itemTool} 0 1`, player);
             }
         }
     }

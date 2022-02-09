@@ -66,7 +66,7 @@ export abstract class Shape {
     */
     public generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions) {
         const [min, max] = this.getRegion(loc);
-        const dimension = PlayerUtil.getDimension(session.getPlayer())[1];
+        const dimension = session.getPlayer().dimension;
         
         const minY = getWorldMinY(session.getPlayer());
         min.y = Math.max(minY, min.y);

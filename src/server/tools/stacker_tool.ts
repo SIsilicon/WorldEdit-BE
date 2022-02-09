@@ -4,7 +4,6 @@ import { Regions } from '@modules/regions.js';
 import { Mask } from '@modules/mask.js';
 import { Vector } from '@modules/vector.js';
 import { Cardinal } from '@modules/directions.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { printDebug, printerr } from '../util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
@@ -16,18 +15,19 @@ class StackerTool extends Tool {
     tag = 'wedit:using_stacker';
     itemTool = 'wedit:stacker_wand';
     itemBase = 'minecraft:iron_axe';
+    permission = 'worldedit.region.stack';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
-        const [dimension, dimName] = PlayerUtil.getDimension(player);
+        const dim = player.dimension;
         const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
         const start = loc.offset(dir.x, dir.y, dir.z);
-        if (!this.mask.matchesBlock(start, dimName)) {
-                printDebug('stacked nothing');
-                return;
+        if (!this.mask.matchesBlock(start, dim)) {
+            printDebug('stacked nothing');
+            return;
         }
         let end = loc;
         for (var i = 0; i < this.range; i++) {
             end = end.offset(dir.x, dir.y, dir.z);
-            if (!this.mask.matchesBlock(end.offset(dir.x, dir.y, dir.z), dimName)) break;
+            if (!this.mask.matchesBlock(end.offset(dir.x, dir.y, dir.z), dim)) break;
         }
         const history = session.getHistory();
         history.record();

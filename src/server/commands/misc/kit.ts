@@ -4,6 +4,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'kit',
+    permission: 'worldedit.kit',
     description: 'commands.wedit:kit.description'
 };
 
@@ -30,8 +31,8 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
     ];
     
     for (const item of items) {
-        if (Server.runCommand(`clear "${builder.nameTag}" ${item} -1 0`).error) {
-            Server.runCommand(`give "${builder.nameTag}" ${item}`);
+        if (Server.runCommand(`clear @s ${item} -1 0`, builder).error) {
+            Server.runCommand(`give @s ${item}`, builder);
         }
     }
     

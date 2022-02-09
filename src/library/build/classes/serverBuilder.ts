@@ -1,6 +1,5 @@
-import { Commands, World } from 'mojang-minecraft';
+import { world, Player, Entity, Dimension } from 'mojang-minecraft';
 import { EventEmitter } from './eventEmitter.js';
-import { dimension } from '../../@types/index';
 import { runCommandReturn } from '../../@types/build/classes/ServerBuilder';
 
 export class ServerBuilder extends EventEmitter {
@@ -10,9 +9,9 @@ export class ServerBuilder extends EventEmitter {
     */
     close(): void {
         function crash() {
-                while(true) {
-                    crash();
-                };
+            while(true) {
+                crash();
+            };
         };
         crash();
     };
@@ -32,11 +31,11 @@ export class ServerBuilder extends EventEmitter {
     * @returns {runCommandReturn}
     * @example ServerBuilder.runCommand('say Hello World!');
     */
-    runCommand(command: string, dimension?: dimension): runCommandReturn {
+    runCommand(command: string, target?: Dimension|Player|Entity): runCommandReturn {
         try {
-                return { error: false, ...Commands.run(command, World.getDimension(dimension ?? 'overworld')) };
+            return { error: false, ...(target ?? world.getDimension('overworld')).runCommand(command) };
         } catch(error) {
-                return { error: true };
+            return { error: true };
         };
     };
     //TODO: Improve this
@@ -54,8 +53,8 @@ export class ServerBuilder extends EventEmitter {
         if(conditionalRegex.test(commands[0])) throw '[Server]: runCommands(): Error - First command in the Array CANNOT be Conditional';
         let error = false;
         commands.forEach(cmd => {
-                if(error && conditionalRegex.test(cmd)) return;
-                error = this.runCommand(cmd.replace(conditionalRegex, '')).error;
+            if(error && conditionalRegex.test(cmd)) return;
+            error = this.runCommand(cmd.replace(conditionalRegex, '')).error;
         });
         return { error: error };
     };

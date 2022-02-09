@@ -3,6 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'hcyl',
+    permission: 'worldedit.generation.cylinder',
     description: 'commands.wedit:hcyl.description',
     usage: [
         {
@@ -20,8 +21,8 @@ const registerInformation = {
                 }, {
                     name: 'height',
                     type: 'int',
-                    range: [1, null] as [number, null],
-                    default: 1
+                    default: 1,
+                    range: [1, null] as [number, null]
                 }
             ]
         }, {
@@ -38,8 +39,8 @@ const registerInformation = {
                 }, {
                     name: 'height',
                     type: 'int',
-                    range: [1, null] as [number, null],
-                    default: 1
+                    default: 1,
+                    range: [1, null] as [number, null]
                 }
             ]
         }

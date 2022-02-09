@@ -3,6 +3,7 @@ import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'clearhistory',
+    permission: 'worldedit.history.clear',
     description: 'commands.wedit:clearhistory.description'
 };
 

@@ -9,9 +9,10 @@ class NavigationTool extends Tool {
     tag = 'wedit:navigating';
     itemTool = 'wedit:navigation_wand';
     itemBase = 'minecraft:compass';
+    permission = 'worldedit.navigation';
+    
     use = (player: Player, session: PlayerSession) => {
-        const dimension = PlayerUtil.getDimension(player)[0];
-        if (!dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
+        if (!player.dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
                 callCommand(player, 'unstuck', []);
         } else if (player.isSneaking) {
                 callCommand(player, 'thru', []);

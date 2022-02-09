@@ -5,8 +5,10 @@ import {
     BlockExplodeEvent,
     ChatEvent,
     TickEvent,
+    PlayerJoinEvent,
+    PlayerLeaveEvent,
     EffectAddEvent,
-    Entity,
+    EntityCreateEvent,
     ExplosionEvent,
     PistonActivateEvent,
     WeatherChangeEvent 
@@ -21,17 +23,14 @@ export interface EventList {
     messageCreate: [ChatEvent],
     tick: [TickEvent],
     entityEffected: [EffectAddEvent],
-    entityCreate: [Entity],
+    entityCreate: [EntityCreateEvent],
     explosion: [ExplosionEvent],
     pistonActivate: [PistonActivateEvent],
     weatherChange: [WeatherChangeEvent],
-    playerJoin: [Entity],
-    playerLeave: [playerLeave],
+    playerJoin: [PlayerJoinEvent],
+    playerLeave: [PlayerLeaveEvent],
     ready: [ready],
     customCommand: [customCommand]
-}
-interface playerLeave {
-    readonly name: string
 }
 interface ready {
     readonly loadTime: number

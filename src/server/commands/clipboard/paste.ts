@@ -11,6 +11,7 @@ import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'paste',
+    permission: 'worldedit.clipboard.paste',
     description: 'commands.wedit:paste.description',
     usage: [
         {
@@ -43,11 +44,11 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     history.record();
     
     if (pasteContent) {
-        assertCanBuildWithin(PlayerUtil.getDimension(session.getPlayer())[1], pasteStart, pasteEnd);
+        assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
         
         history.addUndoStructure(pasteStart, pasteEnd, 'any');
         if (Regions.load('clipboard', pasteStart, builder)) {
-            throw RawText.translate('commands.generic.wedit:command-Fail');
+            throw RawText.translate('commands.generic.wedit:commandFail');
         }
         history.addRedoStructure(pasteStart, pasteEnd, 'any');
     }

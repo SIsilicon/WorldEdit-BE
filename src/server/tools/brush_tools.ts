@@ -1,14 +1,14 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
-import { PlayerSession } from '../sessions.js';
+import { Vector } from '@modules/vector.js';
 import { RawText } from '@modules/rawtext.js';
-import { raytrace } from '@modules/raytrace.js';
 import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { Brush } from '../brushes/base_brush.js';
-import { PlayerUtil } from '@modules/player_util.js';
+import { PlayerSession } from '../sessions.js';
 import { printerr } from '../util.js';
-import { PLAYER_HEIGHT } from '../../config.js';
 
 abstract class BrushTool extends Tool {
     public brush: Brush;
@@ -24,17 +24,19 @@ abstract class BrushTool extends Tool {
         this.brush.resize(value);
     }
     
+    set material(value: Pattern) {
+        this.brush.paintWith(value);
+    }
+    
     use = (player: Player, session: PlayerSession) => {
-        const dimension = PlayerUtil.getDimension(player)[1];
-        const origin = player.location;
-        origin.y += PLAYER_HEIGHT;
-        const dir = PlayerUtil.getDirection(player);
-        const hit = raytrace(dimension, origin, dir, this.range, this.traceMask);
+        const hit = PlayerUtil.traceForBlock(player, this.range, this.traceMask);
         if (!hit) {
             throw RawText.translate('commands.wedit:jumpto.none');
         }
         this.brush.apply(hit, session, this.mask);
     }
+    
+    permission = 'worldedit.brush';
     
     constructor(brush: Brush) {
         super();
