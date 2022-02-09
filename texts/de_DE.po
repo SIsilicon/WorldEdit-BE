@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-09 21:31\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (@iSiliconS)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eSie haben WorldEdit-Berechtigungen erhalten. Gehen Sie zu (Einstellungen > So wird gespielt > Schnellstart) für eine Anleitung.§R"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eIhre WorldEdit-Berechtigungen wurden entfernt.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s Blöcke wurden geändert."
@@ -272,31 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "Stab aktualisiert."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Entbinden Sie einen gebundenen Pinsel von Ihrem aktuellen Item"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Kugelpinsel erstellen"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Zylinderpinsel erstellen"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Geländeglättungspinsel erstellen"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "Es wurde kein Pinsel auf diese Stufe gesetzt."
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
 
 msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgstr "Das gehaltene Item kann nicht als Pinsel benutzt werden."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Zwischenablage leeren"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Editierverlauf löschen"
@@ -479,7 +479,7 @@ msgid "commands.wedit:tool.description"
 msgstr "Holen Sie sich alle Arten von Tools (derzeit nur der Stacker)"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "Blockstapelwerkzeug"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Aus Blöcken wegbewegen"
@@ -512,10 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "Schleiche und tippe auf den Block: Wähle Pos #1; Tippe auf Block ohne zu schleichen: wähle Pos #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "WorldEdit Befehle"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "WorldEdit Version erhalten"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit-Version: %s"
