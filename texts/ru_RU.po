@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-02-01 13:46\n"
+"PO-Revision-Date: 2022-02-09 19:36\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eВам предоставлены права WorldEdit. Откройте (Настройки > Как играть > Быстрый старт) для получения руководства.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eВаши права на WorldEdit были убраны.§r"
+msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -272,10 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "Вещь обновлена."
 
 msgid "commands.wedit:brush.description"
-msgstr "Настройте тип кисти"
+msgstr "Set the type of a brush being held"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Unbind a bound brush from your current item"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Create a sphere brush"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Create a cylinder brush"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "Ни одна кисть не привязана к этому уровню."
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.invalidItem"
+msgstr "The held item cannot be used as a brush."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Clear your clipboard"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Очистите историю редактирования"
@@ -457,6 +478,9 @@ msgstr "Установите, на каких блоках можно испол
 msgid "commands.wedit:tool.description"
 msgstr "Получите все виды инструментов (в настоящее время только укладчик)"
 
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Block stacker tool"
+
 msgid "commands.wedit:unstuck.description"
 msgstr "Выйти из блоков"
 
@@ -488,7 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "Присесть и нажать на блок: выбрать точку #1; Нажмите на блок без приседания: выбрать точку #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "Информация о WorldEdit"
+msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Get WorldEdit version"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "Версия WorldEdit: %s"
@@ -509,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перед чем-либо еще..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "По умолчанию игрокам не разрешено использовать WorldEdit. Только те, кто помечен как строитель, могут использовать его функции. Чтобы сделать себя строителем, введите §e/tag @s add builder§r в чат. Затем вы должны получить сообщение о том, что вы получили разрешения WorldEdit."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aСовет:§r§a Вы также можете сделать других игроков строителями, заменив §e@s§r§a на имя игрока. Вам нужно будет заключить его в кавычки, если в нем есть пробел. Например: §e/tag \"Steve Wanderer\" add builder§r"
+msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Куда пойти"
@@ -563,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Игра с кистями"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Возьмите любую лопату (желательно деревянную) и положите булыжник; вам понадобится это для кисти."
+msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. Воспользуйтесь пунктом «Настройки WorldEdit». На панели быстрого доступа должно появиться меню, включающее «Настройки кисти». Выберите предмет, затем выберите лопату для привязки. Сделайте его сферической кистью радиуса 3 и узором из булыжника. Подтвердите настройки и выйдите из меню."
@@ -572,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Сделайте так, чтобы кисть воздействовала только на траву с помощью §e;mask tier grass§r§7. Теперь используйте кисть, чтобы сделать дорожку из булыжника."
+msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Выключите Кисть с помощью команды §e;br tier none§r."
+msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Что сейчас?"
