@@ -5,6 +5,24 @@
         "navigation_wand": {
             "textures": "textures/items/compass_item"
         },
+        "wood_shovel": {
+            "textures": "textures/items/wood_shovel"
+        },
+        "stone_shovel": {
+            "textures": "textures/items/stone_shovel"
+        },
+        "iron_shovel": {
+            "textures": "textures/items/iron_shovel"
+        },
+        "gold_shovel": {
+            "textures": "textures/items/gold_shovel"
+        },
+        "diamond_shovel": {
+            "textures": "textures/items/diamond_shovel"
+        },
+        "netherite_shovel": {
+            "textures": "textures/items/netherite_shovel"
+        },
         "copy": {
             "textures": "textures/items/copy"
         },
@@ -20,11 +38,11 @@
         "redo": {
             "textures": "textures/items/redo"
         },
-        "rotate": {
-            "textures": [
-                "textures/items/rotate_cw",
-                "textures/items/rotate_ccw"
-            ]
+        "rotate_cw": {
+            "textures": "textures/items/rotate_cw"
+        },
+        "rotate_ccw": {
+            "textures": "textures/items/rotate_ccw"
         },
         "flip": {
             "textures": "textures/items/flip"
@@ -77,27 +95,35 @@
         "smooth_brush": {
             "textures": "textures/items/smooth_brush"
         },
-        "number": {
-            "textures": [
-                "textures/items/one",
-                "textures/items/two",
-                "textures/items/three",
-                "textures/items/four",
-                "textures/items/five",
-                "textures/items/six"
-            ]
+        "number_one": {
+            "textures": "textures/items/one"
         },
-        "include_entities": {
-            "textures": [
-                "textures/items/include_entities_on",
-                "textures/items/include_entities_off"
-            ]
+        "number_two": {
+            "textures": "textures/items/two"
         },
-        "include_air": {
-            "textures": [
-                "textures/items/include_air_on",
-                "textures/items/include_air_off"
-            ]
+        "number_three": {
+            "textures": "textures/items/three"
+        },
+        "number_four": {
+            "textures": "textures/items/four"
+        },
+        "number_five": {
+            "textures": "textures/items/five"
+        },
+        "number_six": {
+            "textures": "textures/items/six"
+        },
+        "include_entities_on": {
+            "textures": "textures/items/include_entities_on"
+        },
+        "include_entities_off": {
+            "textures": "textures/items/include_entities_off"
+        },
+        "include_air_on": {
+            "textures": "textures/items/include_air_on"
+        },
+        "include_air_off": {
+            "textures": "textures/items/include_air_off"
         }
     }
 }

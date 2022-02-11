@@ -7,7 +7,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "texture": "shovel",
+                "texture": "wood_shovel",
                 "frame": 0
             },
             "minecraft:max_stack_size": 1,

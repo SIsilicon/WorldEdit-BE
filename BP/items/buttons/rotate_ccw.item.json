@@ -7,8 +7,8 @@
         },
         "components": {
             "minecraft:icon": {
-                "texture": "rotate",
-                "frame": 1
+                "texture": "rotate_ccw",
+                "frame": 0
             },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {

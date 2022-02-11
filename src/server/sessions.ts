@@ -1,6 +1,6 @@
 import { Player, BlockLocation, Dimension, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
-import { printDebug, printLocation, regionSize } from './util.js';
+import { printDebug, printLocation, regionSize, regionVolume } from './util.js';
 import { Server } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
@@ -9,7 +9,7 @@ import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@modules/rawtext.js';
-import { TICKS_TO_DELETE_SESSION } from '../config.js';
+import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION } from '../config.js';
 
 import { Tool } from './tools/base_tool.js';
 import { Tools } from './tools/tool_manager.js';
@@ -77,14 +77,14 @@ export class PlayerSession {
     public settingsHotbar: SettingsHotbar;
     
     private currentTick = 0;
-    private tools = new Map<string, Tool>();
+    public tools = new Map<string, Tool>();
 
     private player: Player;
     private history: History;
     private selectionPoints: BlockLocation[];
 
     private _selectionMode: selectMode = 'cuboid';
-    private _drawSelection = true;
+    private _drawSelection = DRAW_SELECTION;
     
     private drawPoints: Vector[] = [];
     private drawTimer: number = 0;
@@ -113,7 +113,6 @@ export class PlayerSession {
         this.setTool('selection_wall');
         this.setTool('selection_outline');
         this.setTool('draw_line');
-        Tools.unbindAll(player, this.tools);
         
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
@@ -189,6 +188,19 @@ export class PlayerSession {
             const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]);
             const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]);
             return min.toBlock().blocksBetween(max.toBlock());
+        }
+    }
+    
+    public getSelectedBlockCount() {
+        let points = 0;
+        for (const point of this.selectionPoints) {
+            if (point) points++;
+        }
+        if (points == 0 || points == 1)
+            return 0;
+
+        if (this._selectionMode == 'cuboid') {
+            return regionVolume(this.selectionPoints[0], this.selectionPoints[1]);
         }
     }
     

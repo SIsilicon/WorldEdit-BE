@@ -31,5 +31,5 @@ commandList['pos1'] = [registerInformation, (session, builder, args) => {
     }
     return RawText.translate(translate)
         .with(printLocation(session.getSelectionPoints()[0]))
-        .with(`${session.getBlocksSelected().length}`);
+        .with(`${session.getSelectedBlockCount()}`);
 }];

@@ -7,8 +7,8 @@
         },
         "components": {
             "minecraft:icon": {
-                "texture": "include_air",
-                "frame": 1
+                "texture": "include_air_off",
+                "frame": 0
             },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {

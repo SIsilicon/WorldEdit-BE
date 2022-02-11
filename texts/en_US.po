@@ -25,7 +25,7 @@ msgstr ""
 "PO-Revision-Date: 2022-01-14 22:27\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (@iSiliconS)."
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 # ITEMS
 

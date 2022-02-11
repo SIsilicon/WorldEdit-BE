@@ -20,7 +20,6 @@ Server.on('ready', ev => {
     Server.runCommand(`gamerule showtags false`);
     Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
-    printDebug(isNaN(NaN));
     ready = true;
 });
 
@@ -48,6 +47,10 @@ Server.on('tick', ev => {
                 continue;
             }
             Tools.unbindAll(player);
+        } else {
+            if (!PlayerUtil.isHotbarStashed(player)) {
+                Tools.unbindAll(player, getSession(player).tools);
+            }
         }
     }
 
@@ -83,7 +86,7 @@ function makeBuilder(player: Player) {
         
         // remove any stray tags to prevent accidental item activation.
         for (const tag of player.getTags()) {
-            if (tag.includes('wedit:')) {
+            if (tag.startsWith('wedit:')) {
                 player.removeTag(tag);
             }
         }
