@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-11 02:15\n"
 
 msgid "pack.description"
-msgstr "這是一個由原版Java模組的開發中端口以及更多！此附加包的作者為 SIsilicon (@iSiliconS)。"
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "你沒有權限使用此物品"
