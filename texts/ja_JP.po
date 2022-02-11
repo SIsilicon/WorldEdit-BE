@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-10 00:42\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! Addon by SIsilicon (@iSiliconS)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eWorldEdit の権限が削除されました。§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 個のブロックが変更されました。"
@@ -272,31 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "杖を更新しました。"
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "持つブラシの種類を設定する"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "手持ちのブラシの紐づけを解除する"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "球体ブラシを生成する"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "円柱ブラシを生成する"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "地形をなだらかにするスムーズブラシを生成する"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "この階層にはブラシがありません。"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "このブラシには材料が必要ありません。"
 
 msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgstr "持っているアイテムはブラシとして使用できません。"
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "クリップボードを消去する"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "編集履歴を消去する"
@@ -479,7 +479,7 @@ msgid "commands.wedit:tool.description"
 msgstr "全てのツールを取得する (現時点ではスタッカーのみ)"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "スタッカーツールをブロックする"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "ブロックの外に移動する"
@@ -512,10 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "スニークしながらブロックをタップして最初の位置を選択します。スニークせずにブロックをタップして2番目の位置を選択します。"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "WorldEdit のコマンド"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "WorldEdit のバージョンを取得する"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit のバージョン: %s"
@@ -536,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。WorldEdit の権限者としてタグ付けされたプレイヤーのみが使用できます。 自身に権限を与えるには、チャットで §e/tag @s add worldedit§r を入力してください。これですべてのWorldEdit コマンドにアクセスできます。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーに権限を与えることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "場所の移動"
@@ -590,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "ブラシで遊ぶ"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. 任意のシャベルを取得し、丸石を設置します。 ブラシに必要な工程です。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 「WorldEdit の設定」 アイテムを使用してください。ホットバーに「ブラシの設定」を含むメニューが表示されます。ブラシの設定を選択し、紐付けるシャベルを選択します。 半径 3 の球体ブラシを丸石のパターンで作成してください。設定を確認し、メニューを終了します。"
@@ -599,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 離れた地面に向かってシャベル (ブラシになったもの) を使い、丸石の球体を設置します。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. ブラシを持ちながらコマンド §e;mask grass§r §7を入力して、ブラシが草ブロックにのみ影響を与えるようにします。それからブラシを使って、丸石の道を作ってください。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. §e;br none§r でブラシを無効にします。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "さて、どうする？"
