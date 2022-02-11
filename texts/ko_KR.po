@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-11 02:15\n"
 
 msgid "pack.description"
-msgstr "기존 Java 모드 등의 개발 중인 포트입니다! 제작자: SIsilicon (@iSiliconS)"
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "당신은 이 아이템을 사용할 권한이 없습니다."
