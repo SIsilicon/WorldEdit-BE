@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-02-12 12:16\n"
+"PO-Revision-Date: 2022-02-12 13:27\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -182,7 +182,7 @@ msgid "worldedit.brushConfig.patternMask"
 msgstr "Vytvořte vzor a volitelně masku pro štětec."
 
 msgid "worldedit.brushConfig.mask"
-msgstr "Make an optional mask for the brush."
+msgstr "Vytvořit nepovinnou masku pro štětec."
 
 msgid "worldedit.brushConfig.confirm"
 msgstr "Je tohle správně?"
@@ -200,7 +200,7 @@ msgid "worldedit.brushConfig.height"
 msgstr "Výška: %s"
 
 msgid "worldedit.brushConfig.smooth"
-msgstr "Smoothness: %s"
+msgstr "Hladkost: %s"
 
 msgid "worldedit.brushConfig.set"
 msgstr "Štětec nastaven."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eDostal jste oprávnění používat WorldEdit. Otevřete (Nastavení > Pravidla hry > Rychlý start) pro návod. §r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eVaše povolení k používání Worldedit bylo odstraněno.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s bloků bylo změněno."
@@ -272,31 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "Hůlka aktualizována."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Nastavit typ štětce, který držíte"
 
 msgid "commands.wedit:brush.description.none"
 msgstr "Unbind a bound brush from your current item"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Vytvořit kulovitý štětec"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Vytvořit válcovitý štětec"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Vytvořit štětec na vyhlazení terénu"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "Žádný štětec nebyl přiřazen k této úrovni."
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Tento štětec nepotřebuje žádný materiál, aby fungoval."
 
 msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgstr "Věc, kterou držíte, se nedá použít jako štětec."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Vymazat schránku"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Vymazat vaši historii úprav"
@@ -329,7 +329,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "Váš výběr bude nyní viditelný."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Vytvořit ohraničení z vašeho výběru"
 
 msgid "commands.wedit:flip.description"
 msgstr "Překlopit výběr"
@@ -377,7 +377,7 @@ msgid "commands.wedit:kit.explain"
 msgstr "Byla vám dána sada."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Vytvořit čáru mezi vaším prvním a druhým bodem výběru"
 
 msgid "commands.wedit:mask.description"
 msgstr "Nastavte, jaký druh bloků může štětec ovlivnit, pokud nějaký"
@@ -404,22 +404,22 @@ msgid "commands.wedit:paste.explain"
 msgstr "Vloženo %s bloků."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Nastavte první pozici vašeho výběru na vybranou nebo aktuální pozici"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Nastavte druhou pozici vašeho výběru na vybranou nebo aktuální pozici"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "Vytvořit pyramidu"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "Nastavit, jak daleko se může používat štětec"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "Znovu udělat určitý počet akcí"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "Znovu uděláno %s dostupných úprav."
 
 msgid "commands.wedit:redo.none"
 msgstr "Nothing left to redo."
