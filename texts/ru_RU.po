@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-02-09 19:36\n"
+"PO-Revision-Date: 2022-02-11 02:15\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "У вас недостаточно прав чтобы использовать этот предмет."
