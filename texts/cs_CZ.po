@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-02-12 12:16\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -86,10 +86,10 @@ msgid "item.wedit:selection_wall"
 msgstr "Wall Selection"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Ohraničení výběru"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Nakreslit čáru"
 
 msgid "item.wedit:config_button"
 msgstr "Nastavení WorldEdit"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "Válcový štětec"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Hladký štětec"
 
 msgid "item.wedit:one_button"
 msgstr "Jedna"
@@ -176,7 +176,7 @@ msgid "worldedit.brushConfig.selectHeight"
 msgstr "Vyberte výšku štětce."
 
 msgid "worldedit.brushConfig.selectSmooth"
-msgstr "Choose the smoothness of the brush."
+msgstr "Vyberte, jak hladký má být štětec."
 
 msgid "worldedit.brushConfig.patternMask"
 msgstr "Vytvořte vzor a volitelně masku pro štětec."
@@ -554,7 +554,7 @@ msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Making Selections"
+msgstr "Výběr"
 
 msgid "howtoplay.wedit:quick_start.text.7"
 msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
@@ -605,10 +605,11 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "Co teď?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Pro více informací o tomto addonu jděte na webovou stránku s dokumentací:\n"
+"§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
