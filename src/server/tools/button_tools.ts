@@ -151,7 +151,7 @@ class SelectionWallTool extends Tool {
     
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
-        callCommand(player, 'wall', ['air']);
+        callCommand(player, 'walls', ['air']);
         session.usingItem = false;
     }
 }
