@@ -112,8 +112,8 @@ commandList['line'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     history.record();
     const points = bresenham3d(Vector.from(pos1), Vector.from(pos2)).map(p => p.toBlock());
-    
-    history.addUndoStructure(start, end, points);
+    // TODO: sort line blocks as if it came from start.blocksBetween(end).
+    history.addUndoStructure(start, end);
     let count = 0;
     for (const point of points) {
         if (session.globalMask.matchesBlock(point, dim) && !pattern.setBlock(point, dim)) {
@@ -122,7 +122,7 @@ commandList['line'] = [registerInformation, (session, builder, args) => {
     }
     
     history.recordSelection(session);
-    history.addRedoStructure(start, end, points);
+    history.addRedoStructure(start, end);
     history.commit();
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
