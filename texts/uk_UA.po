@@ -11,64 +11,64 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-02-14 15:24\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Ви не маєте дозволу на використання цього предмету."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Вибір інструменту"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Інструмент складення"
 
 msgid "item.wedit:navigation_wand"
-msgstr "Navigation Wand"
+msgstr "Інструмент навігації"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Дерев'яний пензель"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Кам'яний пензель"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Залізний пензель"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Золотий пензель"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Діамантовий пензель"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Незеритовий пензель"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Копіювати"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Вирізати"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Вставити"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Назад"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Вперед"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Повернути за годинниковою стрілкою"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Повернути проти годинникової стрілки"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Перевернути"
 
 msgid "item.wedit:pattern_picker"
 msgstr "Pattern Picker"
