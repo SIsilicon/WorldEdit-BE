@@ -11,40 +11,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2022-02-11 02:14\n"
+"PO-Revision-Date: 2022-02-14 22:25\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
 msgstr "Kamu tidak memiliki izin untuk menggunakan item ini."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Tongkat Seleksi"
 
 msgid "item.wedit:stacker_wand"
-msgstr "Stacker Wand"
+msgstr "Tongkat Penumpuk"
 
 msgid "item.wedit:navigation_wand"
 msgstr "Tongkat Navigasi"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Sikat Kayu"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Sikat Batu"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Sikat Besi"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Sikat Emas"
 
 msgid "item.wedit:diamond_brush"
-msgstr "Diamond Brush"
+msgstr "Sikat Berlian"
 
 msgid "item.wedit:netherite_brush"
-msgstr "Netherite Brush"
+msgstr "Sikat Netherite"
 
 msgid "item.wedit:copy_button"
 msgstr "Salin"
@@ -65,13 +65,13 @@ msgid "item.wedit:rotate_cw_button"
 msgstr "Putar searah jarum jam"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Rotasi Berlawanan Arah Jarum Jam"
 
 msgid "item.wedit:flip_button"
 msgstr "Balik"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Pemilih Pola"
 
 msgid "item.wedit:mask_picker"
 msgstr "Mask Picker"
