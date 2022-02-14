@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2022-02-13 23:48\n"
+"PO-Revision-Date: 2022-02-14 04:26\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Ang in-development port ng original na Java mod at iba pa! Addon ni SIsilicon(§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Wala kang permission na gamitin ito."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Wand sa Pagpili"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
@@ -29,16 +29,16 @@ msgid "item.wedit:navigation_wand"
 msgstr "Navigation Wand"
 
 msgid "item.wedit:wooden_brush"
-msgstr "Wooden Brush"
+msgstr "Kahoy na Brush"
 
 msgid "item.wedit:stone_brush"
-msgstr "Stone Brush"
+msgstr "Bato na Brush"
 
 msgid "item.wedit:iron_brush"
-msgstr "Iron Brush"
+msgstr "Bakal na Brush"
 
 msgid "item.wedit:golden_brush"
-msgstr "Golden Brush"
+msgstr "Gintong Brush"
 
 msgid "item.wedit:diamond_brush"
 msgstr "Diamond Brush"
