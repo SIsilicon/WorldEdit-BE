@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-16 01:31\n"
+"PO-Revision-Date: 2022-02-16 02:30\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "这是 Java 版的 WorldEdit 到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "item.error.wedit:noPerms"
 msgstr "您没有使用此道具的权限。"
@@ -272,16 +272,16 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "道具已更新。"
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "设置所持画笔的类型"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "从您当前项目中取消绑定笔刷的绑定"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "创建球形笔刷"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "创建圆柱形笔刷"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "创建地形平滑笔刷"
@@ -293,7 +293,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "此笔刷不需要材料来工作。"
 
 msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgstr "所持物品不能用作笔刷。"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空剪贴板"
@@ -479,7 +479,7 @@ msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的快捷工具 (目前只有堆叠器)"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "方块堆叠工具"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "移除方块"
@@ -536,10 +536,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "默认情况下，普通玩家无法使用 WorldEdit。只有那些有 “worldedit” 标签的玩家才可以使用它。 如果您想使自己获得“worldedit”标签，请在聊天框中输入 §e/tag @s add worldedit§r 。您应该会收到一条消息，提示您已经获得了 WorldEdit 权限。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§a提示：§r§a 您也可以将 §e@s§a 更改为指定的玩家名字来给其他玩家添加“worldedit”标签。 如果他们的名字中有空格，那么您需要在玩家名两测添加英文引号。比方说，§e/tag \"Steve Wander\" add worldedit§r§a输入这行指令后，名字为Steve Wander的玩家就能获得\"worldedit\"标签。"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "去的地方"
@@ -590,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "笔刷的使用"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. 取任意类型的铲子，然后放置一个圆石（你待会需要用它来设置笔刷）。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 使用“WorldEdit设置”项。热栏中应该会出现一个包含“笔刷设置”的菜单。选择项目，然后选择要绑定到的电铲。制作一个半径为3的球形笔刷和鹅卵石图案。确认设置并退出菜单。"
@@ -602,7 +602,7 @@ msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. 使用 §e;br none §r来禁用笔刷。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "现在该做什么？"
