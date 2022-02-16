@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-02-16 01:31\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -92,7 +92,7 @@ msgid "item.wedit:draw_line"
 msgstr "划线"
 
 msgid "item.wedit:config_button"
-msgstr "创世神设置"
+msgstr "WorldEdit 设置"
 
 msgid "item.wedit:brush_config_button"
 msgstr "笔刷设置"
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§e您的 WorldEdit 权限已被移除。§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 的方块已被改变。"
@@ -278,25 +278,25 @@ msgid "commands.wedit:brush.description.none"
 msgstr "Unbind a bound brush from your current item"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "创建球形笔刷"
 
 msgid "commands.wedit:brush.description.cyl"
 msgstr "Create a cylinder brush"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "创建地形平滑笔刷"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "未将笔刷绑定到此层。"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "此笔刷不需要材料来工作。"
 
 msgid "commands.wedit:brush.invalidItem"
 msgstr "The held item cannot be used as a brush."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "清空剪贴板"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "清除您的使用记录"
@@ -512,10 +512,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "潜行并点击方块：选定第一个点; 不潜行，直接点击方块：选定第二个点"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "WorldEdit 命令"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "获取 WorldEdit 版本"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "创世神版本：%s"
