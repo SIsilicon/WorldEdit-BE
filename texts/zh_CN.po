@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-16 10:47\n"
+"PO-Revision-Date: 2022-02-16 12:40\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版的 WorldEdit 到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -581,7 +581,7 @@ msgid "howtoplay.wedit:quick_start.text.13"
 msgstr "§r4。拿出你库存中的面具选择器，在砂岩上使用。将你选择的块设置为你的图案，并使用“选择填充”。现在所有的砂岩都应该被那块岩石所取代。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. 通过键入命令§e向上重复选择；4.将§r§7堆叠起来。"
+msgstr "§75. 通过键入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
 
 msgid "howtoplay.wedit:quick_start.text.15"
 msgstr "如果需要，可以使用“撤消”项撤消所有内容，直到无法再撤消为止。"
