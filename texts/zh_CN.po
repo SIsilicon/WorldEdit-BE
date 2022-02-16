@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-16 13:58\n"
+"PO-Revision-Date: 2022-02-16 20:38\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版的 WorldEdit 到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -572,7 +572,7 @@ msgid "howtoplay.wedit:quick_start.text.10"
 msgstr "§71. 放置石头，使用填充方块选择器，然后使用“填充选区”。应该会出现长方体状的石头。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2。在空中使用模式选择器（移动玩家必须用它握住屏幕），然后再次使用“选择填充”清除石头。"
+msgstr "§r2. 对着空气使用模式选择器（移动端玩家需要长按屏幕来选取），然后再次使用“选择填充”清除石头。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. 放下砂岩和玻璃，在砂岩上使用图案选择器，然后偷偷地在玻璃上使用它来添加图案。使用“选择填充”，你应该有砂岩和玻璃的混合。"
