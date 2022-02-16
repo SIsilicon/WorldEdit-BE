@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-16 10:18\n"
+"PO-Revision-Date: 2022-02-16 10:47\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版的 WorldEdit 到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -386,7 +386,7 @@ msgid "commands.wedit:material.description"
 msgstr "设置笔刷应该用哪种方块进行填充"
 
 msgid "commands.wedit:move.description"
-msgstr "将选区移动到指定的方向"
+msgstr "将选区在特定方向上移动"
 
 msgid "commands.wedit:move.explain"
 msgstr "已移除%s个方块"
@@ -419,10 +419,10 @@ msgid "commands.wedit:redo.description"
 msgstr "重做一定数量的操作"
 
 msgid "commands.wedit:redo.explain"
-msgstr "重复了 %s 个可用的编辑。"
+msgstr "重做了 %s 个可用的编辑。"
 
 msgid "commands.wedit:redo.none"
-msgstr "没有可以重复做的步骤"
+msgstr "没有可以重做的步骤"
 
 msgid "commands.wedit:replace.description"
 msgstr "将选区中确定的方块替换为其它方块"
@@ -518,19 +518,19 @@ msgid "commands.wedit:worldedit.description.version"
 msgstr "获取 WorldEdit 版本"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "创世神版本：%s"
+msgstr "WorldEdit 版本：%s"
 
 msgid "howtoplay.category.worldEdit"
-msgstr "创世神"
+msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
 msgstr "快速入门"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "游戏指南: 快速学习如何使用创世神插件"
+msgstr "游戏指南: 快速学习如何使用 WorldEdit 插件"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "欢迎这是Minecraft的原始WorldEdit模块的一个端口：Java版。这个插件将帮助你在Minecraft中塑造你的世界。"
+msgstr "欢迎使用 WorldEdit。这个 Addon 是 Java 版同名模组到基岩版的移植，将帮助你在 Minecraft 中塑造你的世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
@@ -542,13 +542,13 @@ msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a提示：§r§a 您也可以将 §e@s§a 更改为指定的玩家名字来给其他玩家添加“worldedit”标签。 如果他们的名字中有空格，那么您需要在玩家名两测添加英文引号。比方说，§e/tag \"Steve Wander\" add worldedit§r§a输入这行指令后，名字为Steve Wander的玩家就能获得\"worldedit\"标签。"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "去的地方"
+msgstr "行走八方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意：§r§a此插件提供的命令使用分号（;) 而不是正斜杠（/）。未来，Mojang可能会为Minecraft添加实际的自定义命令支持。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "从A点到B点有时会很麻烦。幸运的是，这个插件附带了导航棒。要获得一个指南针，你可以在你的库存中有一个指南针，或者输入命令§e；导航魔杖§r.一旦你拥有了这个物品，只需与它互动，就可以远程传送到你所看到的地方。想站在墙或天花板的另一边吗？用魔杖偷偷穿过它！困在街区里？使用魔杖会让你松开！"
+msgstr "从这里到那里的路途有时会很麻烦。幸运的是，这个 Addon 附带了传送器，可以通过在物品栏中添加一个指南针，或是使用 §e;navwand§r 命令获取。拿到之后，就可以使用此物品来远程传送到你所看的地方。如果想穿过墙或者天花板，潜行时使用传送器即可穿过。如果被困在方块中，使用传送器可以进行脱困。"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a提示:§r§a 如果你不想使用传送器,你也可以通过使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a来实现这一功能§r."
@@ -557,19 +557,19 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "创建选区"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "像原有的模组一样，你可以使用所谓的选区温度来轻松标记你的世界的区域进行各种操作。 要获取一个，就要抓取一个木斧，或输入命令§e;wand§r。WorldEdit 中的选择是默认形成。 要选择一个选项，您需要标记这个立方体的两个角落。 当潜入时，你会在那个角落的方块上使用wand来标记第一个角落。 你通过在方块§l没有 §r上使用它来标记第二点。如果做得正确，你应该看到你选择的高亮。"
+msgstr "与原版模组相同，你会使用选择器来标记世界中的区域以便进行各种操作。你可以通过掏出一个木斧头，或是通过 §e;wand§r 命令获取选择器。WorldEdit 中的选区默认是长方体形状的。为了形成一个选区，你需要标记立方体的两个角落：第一点的选择方法是潜行状态下对目标点使用选择器；第二点的选择方法是 §l非潜行状态§r 下对目标点使用选择器。如果步骤正确，你的选区会被高亮。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "如果没有障碍物供你标记角落，比如高空，你也可以使用命令§e；pos1§r或§e；pos2§r分别标记第一个和第二个角，作为您当前站立的位置。这与你站的位置不同。"
+msgstr "如果没有方块供你标记角落，比如高空，你也可以使用命令 §e;pos1§r 和 §e;pos2§r 分别将目前站立的坐标标记为第一个和第二个点。§l需要注意的是，标记的是人物当前所在的坐标，而不是当前脚下的方块的坐标。§r"
 
 msgid "howtoplay.wedit:quick_start.header.4"
 msgstr "用您的选区进行工作"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "选择合适的尺寸，并准备好§e的工具包；kit§r.我们将尝试WorldEdit提供的一些功能。"
+msgstr "选择一个大小合适的区域，并使用 §e;kit§r 给自己一套工具集。我们将尝试 WorldEdit 提供的一些功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. 放下石头，使用图案选择器，然后使用“选择填充”。应该做一个长方体的石头。"
+msgstr "§71. 放置石头，使用填充方块选择器，然后使用“填充选区”。应该会出现长方体状的石头。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
 msgstr "§r2。在空中使用模式选择器（移动玩家必须用它握住屏幕），然后再次使用“选择填充”清除石头。"
@@ -599,7 +599,7 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. 在手持刷子的时候用 §e;mask grass§r§7 命令来让刷子只影响草。现在用刷子画一条圆石的路。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. 使用 §e;br none §r来禁用笔刷。"
