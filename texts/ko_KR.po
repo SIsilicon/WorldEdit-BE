@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-02-21 03:45\n"
+"PO-Revision-Date: 2022-02-21 04:40\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -599,10 +599,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 근처에 있지 않은 땅을 조준하고 삽(이젠 브러시지만)과 상호 작용하여 조약돌 구체를 배치합니다."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. 브러쉬를 잡고 있는 동안 §e;mask grass§r§7로 잔디에만 영향을 미치도록 합니다. 이제 브러쉬를 사용하여 조약돌길을 만들어 보세요."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. §e;br none§r로 브러시를 비활성화합니다."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "이제는?"
