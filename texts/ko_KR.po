@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-02-14 03:46\n"
+"PO-Revision-Date: 2022-02-21 03:45\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -539,7 +539,7 @@ msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "기본적으로 플레이어는 WorldEdit를 사용할 수 없습니다. WorldEdit 권한이 있는 사용자만 해당 기능을 사용할 수 있습니다. 자신에게 권한을 부여하려면 채팅에 §e/tag @s add worldedit§r를 입력하십시오. 이제 모든 WorldEdit 명령에 액세스할 수 있습니다."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aTip:§r§a 다른 플레이어에게 §e@s§r§a를 플레이어 이름으로 변경하여 권한을 부여할 수도 있습니다. 공백이 있으면 따옴표로 묶어야 합니다. 예: §e/tag add \"Steve Wanderer\" worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "원하는 곳에 가기"
@@ -590,7 +590,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "브러쉬 사용법"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. 어떤 종류든 삽을 들고, 조약돌을 설치하세요. 브러시를 쓸 때 필요할 것 입니다."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. \"WorldEdit 설정\" 항목을 사용하십시오. \"브러시 설정\"을 포함한 메뉴가 핫바에 나타나야 합니다. 항목을 선택한 다음 바인딩할 삽을 선택합니다. 반경 3의 \"구\"형 브러시와 조약돌 패턴으로 만듭니다. 설정을 확인하고 메뉴를 종료합니다."
