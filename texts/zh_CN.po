@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-25 10:19\n"
+"PO-Revision-Date: 2022-02-25 11:16\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的 WorldEdit 模组到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -203,16 +203,16 @@ msgid "worldedit.brushConfig.smooth"
 msgstr "平滑度: %s"
 
 msgid "worldedit.brushConfig.set"
-msgstr "笔刷已设定。"
+msgstr "笔刷已配置。"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "配置好的笔刷已加入您的物品栏。"
+msgstr "笔刷已配置好并被放入您的物品栏。"
 
 msgid "worldedit.brushConfig.cancel"
 msgstr "已取消笔刷的配置。"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "您还没有选定第一个点。"
+msgstr "还没有选定第一个点。"
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
@@ -233,13 +233,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§e您的 WorldEdit 权限已被移除。§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s 个方块已被改变。"
+msgstr "%s 个方块已被更改。"
 
 msgid "commands.blocks.wedit:created"
 msgstr "%s 个方块已被创建。"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "无法执行此命令。"
+msgstr "未能执行此命令。"
 
 msgid "commands.generic.wedit:noSelection"
 msgstr "请先选定一个区域。"
@@ -248,13 +248,13 @@ msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' 是无效的方向参数!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "预设外的字符: %s"
+msgstr "预设外的标志: %s"
 
 msgid "commands.generic.wedit:noClipboard"
 msgstr "您的剪贴板是空的。请先复制或剪切一个区域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "请先选取一个矩形区域。"
+msgstr "请先选取一个立方体区域。"
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "您没有执行此命令的权限。"
@@ -275,7 +275,7 @@ msgid "commands.wedit:brush.description"
 msgstr "设置所持画笔的类型"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "从您当前项目中取消绑定笔刷的绑定"
+msgstr "从您当前的物品中取消绑定笔刷的绑定"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "创建球形笔刷"
@@ -299,7 +299,7 @@ msgid "commands.wedit:clearclipboard.description"
 msgstr "清空剪贴板"
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "清除您的使用记录"
+msgstr "清除您的编辑记录"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "历史记录已被清空。"
@@ -338,13 +338,13 @@ msgid "commands.wedit:flip.explain"
 msgstr "翻转了 %s 个方块。"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "不能上下翻转！"
+msgstr "不能向上或向下翻转！"
 
 msgid "commands.wedit:gmask.description"
 msgstr "设置全局蒙板"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "全局掩码已禁用"
+msgstr "已禁用全局蒙版。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "已设置全局蒙版。"
@@ -353,16 +353,16 @@ msgid "commands.wedit:hcyl.description"
 msgstr "生成一个空心圆柱体"
 
 msgid "commands.wedit:help.header"
-msgstr "--- 显示帮助页面 第%1页 共%2页 (;help <page>) ---"
+msgstr "--- 正在显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "生成一个空心金字塔结构"
+msgstr "生成一个空心棱锥体"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "生成一个空心球体"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "将您传送至您看到的方块的顶部"
+msgstr "将您传送至您看着的方块的顶部"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
@@ -371,7 +371,7 @@ msgid "commands.wedit:jumpto.none"
 msgstr "视线中没有方块(或者离方块太远了)！"
 
 msgid "commands.wedit:kit.description"
-msgstr "给自己一组物品来完成常见的 WorldEdit 功能"
+msgstr "给您自己一套物品来使用常见的 WorldEdit 功能"
 
 msgid "commands.wedit:kit.explain"
 msgstr "配套工具已被给予"
@@ -392,7 +392,7 @@ msgid "commands.wedit:move.explain"
 msgstr "已移除%s个方块"
 
 msgid "commands.wedit:navwand.description"
-msgstr "给你自己一个传送器"
+msgstr "给你自己一个传送棍"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
@@ -410,7 +410,7 @@ msgid "commands.wedit:pos2.description"
 msgstr "将您的选区的第二个点设置为指定的或当前的位置"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "生成一个金字塔形的结构"
+msgstr "生成一个棱锥体结构"
 
 msgid "commands.wedit:range.description"
 msgstr "设置笔刷能够生效的距离"
@@ -434,7 +434,7 @@ msgid "commands.wedit:rotate.explain"
 msgstr "已旋转%s个方块。"
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s'不是一个90°的倍数！"
+msgstr "'%s'不是90°的倍数！"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -461,13 +461,13 @@ msgid "commands.wedit:sphere.description"
 msgstr "生成一个球体"
 
 msgid "commands.wedit:thru.description"
-msgstr "传送您通过您面向的任何墙"
+msgstr "让您穿过您面向的墙"
 
 msgid "commands.wedit:thru.explain"
 msgstr "呼呼！"
 
 msgid "commands.wedit:thru.none"
-msgstr "不要贴近或面对一面墙就可以穿过它。"
+msgstr "没有贴近或面对一面要穿过的墙。"
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "未在您的前方发现有效空间。"
@@ -476,16 +476,16 @@ msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
 msgid "commands.wedit:tool.description"
-msgstr "获取所有类型的快捷工具 (目前只有堆叠器)"
+msgstr "获取各种快捷工具 (目前只有堆叠器)"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "方块堆叠工具"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "移除方块"
+msgstr "从方块中脱离"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "完成了！"
+msgstr "这边请！"
 
 msgid "commands.wedit:undo.description"
 msgstr "撤销一定数量的操作"
@@ -497,7 +497,7 @@ msgid "commands.wedit:undo.none"
 msgstr "没有可以撤销的步骤了。"
 
 msgid "commands.wedit:up.description"
-msgstr "向上移动一定数量的方块"
+msgstr "向上移动一定高度"
 
 msgid "commands.wedit:up.explain"
 msgstr "呼呼！"
@@ -506,10 +506,10 @@ msgid "commands.wedit:wall.description"
 msgstr "在您的选区中生成一面墙"
 
 msgid "commands.wedit:wand.description"
-msgstr "给你自己一个选择器"
+msgstr "给你自己一个选择棍"
 
 msgid "commands.wedit:wand.explain"
-msgstr "潜行并点击方块：选定第一个点; 不潜行，直接点击方块：选定第二个点"
+msgstr "潜行并点击方块：选定点#1; 不潜行，直接点击方块：选定点#2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit 命令"
@@ -608,7 +608,7 @@ msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "现在该做什么？"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "想要了解更多关于此插件的信息，您可以在这里访问它的在线文档：§ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "想要了解更多关于此插件的信息，您可以访问它的在线文档：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
