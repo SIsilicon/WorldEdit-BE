@@ -11,22 +11,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-16 20:38\n"
+"PO-Revision-Date: 2022-02-25 10:19\n"
 
 msgid "pack.description"
-msgstr "这是 Java 版的 WorldEdit 到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是一个正在开发中的 Java 版的 WorldEdit 模组到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "item.error.wedit:noPerms"
 msgstr "您没有使用此道具的权限。"
 
 msgid "item.wedit:selection_wand"
-msgstr "选择器"
+msgstr "选择棍"
 
 msgid "item.wedit:stacker_wand"
-msgstr "堆叠器"
+msgstr "堆叠棍"
 
 msgid "item.wedit:navigation_wand"
-msgstr "传送器"
+msgstr "传送棍"
 
 msgid "item.wedit:wooden_brush"
 msgstr "木制笔刷"
@@ -56,10 +56,10 @@ msgid "item.wedit:paste_button"
 msgstr "粘贴"
 
 msgid "item.wedit:undo_button"
-msgstr "撤回"
+msgstr "撤销"
 
 msgid "item.wedit:redo_button"
-msgstr "重复"
+msgstr "重做"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "顺时针旋转"
@@ -77,16 +77,16 @@ msgid "item.wedit:mask_picker"
 msgstr "取代方块选取器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "生成立足点"
+msgstr "在脚下生成玻璃"
 
 msgid "item.wedit:selection_fill"
 msgstr "填充选区"
 
 msgid "item.wedit:selection_wall"
-msgstr "墙壁选区"
+msgstr "为选区建造墙壁"
 
 msgid "item.wedit:selection_outline"
-msgstr "大纲选择"
+msgstr "勾勒选区轮廓"
 
 msgid "item.wedit:draw_line"
 msgstr "划线"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "圆柱形笔刷"
 
 msgid "item.wedit:smooth_button"
-msgstr "光滑刷"
+msgstr "光滑笔刷"
 
 msgid "item.wedit:one_button"
 msgstr "一"
