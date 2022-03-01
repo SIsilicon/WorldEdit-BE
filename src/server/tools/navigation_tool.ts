@@ -6,19 +6,16 @@ import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 
 class NavigationTool extends Tool {
-    tag = 'wedit:navigating';
-    itemTool = 'wedit:navigation_wand';
-    itemBase = 'minecraft:compass';
     permission = 'worldedit.navigation';
     
     use = (player: Player, session: PlayerSession) => {
         if (!player.dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
-                callCommand(player, 'unstuck', []);
+            callCommand(player, 'unstuck', []);
         } else if (player.isSneaking) {
-                callCommand(player, 'thru', []);
+            callCommand(player, 'thru', []);
         } else {
-                callCommand(player, 'jumpto', []);
+            callCommand(player, 'jumpto', []);
         }
     }
 }
-Tools.register(NavigationTool, 'navigation_wand');
+Tools.register(NavigationTool, 'navigation_wand', 'wedit:_tool_compass');

@@ -12,6 +12,9 @@ const registerInformation = {
     description: 'commands.wedit:tool.description',
     usage: [
         {
+            subName: 'none'
+        },
+        {
             subName: 'stacker',
             permission: 'worldedit.tool.stack',
             description: 'commands.wedit:tool.description.stacker',
@@ -33,15 +36,19 @@ const registerInformation = {
 
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
-    session.setTool('stacker_wand', args.get('range'), args.get('mask'));
-    
-    if (!PlayerUtil.hasItem(builder, 'wedit:stacker_wand') && !PlayerUtil.hasItem(builder, 'minecraft:iron_axe')) {
-        Server.runCommand(`give @s iron_axe`, builder);
-    }
+    session.bindTool('stacker_wand', args.get('range'), args.get('mask'));
+    return 'commands.generic.wedit:wandInfo';
+};
+
+const none_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    session.unbindTool();
     return 'commands.generic.wedit:wandInfo';
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {
-    if (args.has('stacker'))
+    if (args.has('stacker')) {
         return stack_command(session, builder, args);
+    } else {
+        return none_command(session, builder, args);
+    }
 }];

@@ -11,8 +11,6 @@ import { RawText } from '@modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
-    abstract readonly tag: string;
-    abstract readonly itemTool: string;
     
     use = (player: Player, session: PlayerSession) => {
         session.usingItem = true;
@@ -26,48 +24,36 @@ abstract class CommandButton extends Tool {
 }
 
 class CutTool extends CommandButton {
-    tag = 'wedit:performing_cut';
     command = 'cut';
-    itemTool = 'wedit:cut_button';
     permission = 'worldedit.clipboard.cut';
 }
-Tools.register(CutTool, 'cut');
+Tools.register(CutTool, 'cut', 'wedit:cut_button');
 
 class CopyTool extends CommandButton {
-    tag = 'wedit:performing_copy';
     command = 'copy';
-    itemTool = 'wedit:copy_button';
     permission = 'worldedit.clipboard.copy';
 }
-Tools.register(CopyTool, 'copy');
+Tools.register(CopyTool, 'copy', 'wedit:copy_button');
 
 class PasteTool extends CommandButton {
-    tag = 'wedit:performing_paste';
     command = ['paste', '-s'];
-    itemTool = 'wedit:paste_button';
     permission = 'worldedit.clipboard.paste';
 }
-Tools.register(PasteTool, 'paste');
+Tools.register(PasteTool, 'paste', 'wedit:paste_button');
 
 class UndoTool extends CommandButton {
-    tag = 'wedit:performing_undo';
     command = 'undo';
-    itemTool = 'wedit:undo_button';
     permission = 'worldedit.history.undo';
 }
-Tools.register(UndoTool, 'undo');
+Tools.register(UndoTool, 'undo', 'wedit:undo_button');
 
 class RedoTool extends CommandButton {
-    tag = 'wedit:performing_redo';
     command = 'redo';
-    itemTool = 'wedit:redo_button';
     permission = 'worldedit.history.redo';
 }
-Tools.register(RedoTool, 'redo');
+Tools.register(RedoTool, 'redo', 'wedit:redo_button');
 
 class RotateCWTool extends Tool {
-    tag = 'wedit:performing_rotate_cw';
-    itemTool = 'wedit:rotate_cw_button';
     permission = 'worldedit.region.rotate';
     
     use = (player: Player, session: PlayerSession) => {
@@ -80,11 +66,9 @@ class RotateCWTool extends Tool {
         session.usingItem = false;
     }
 }
-Tools.register(RotateCWTool, 'rotate_cw');
+Tools.register(RotateCWTool, 'rotate_cw', 'wedit:rotate_cw_button');
 
 class RotateCCWTool extends Tool {
-    tag = 'wedit:performing_rotate_ccw';
-    itemTool = 'wedit:rotate_ccw_button';
     permission = 'worldedit.region.rotate';
     
     use = (player: Player, session: PlayerSession) => {
@@ -97,11 +81,9 @@ class RotateCCWTool extends Tool {
         session.usingItem = false;
     }
 }
-Tools.register(RotateCCWTool, 'rotate_ccw');
+Tools.register(RotateCCWTool, 'rotate_ccw', 'wedit:rotate_ccw_button');
 
 class FlipTool extends Tool {
-    tag = 'wedit:performing_flip';
-    itemTool = 'wedit:flip_button';
     permission = 'worldedit.region.flip';
     
     use = (player: Player, session: PlayerSession) => {
@@ -114,22 +96,18 @@ class FlipTool extends Tool {
         session.usingItem = false;
     }
 }
-Tools.register(FlipTool, 'flip');
+Tools.register(FlipTool, 'flip', 'wedit:flip_button');
 
 class SpawnGlassTool extends Tool {
-    tag = 'wedit:performing_spawn_glass';
-    itemTool = 'wedit:spawn_glass';
     use = (player: Player, session: PlayerSession) => {
         if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
                 throw RawText.translate('worldedit.spawnGlass.error');
         }
     }
 }
-Tools.register(SpawnGlassTool, 'spawn_glass');
+Tools.register(SpawnGlassTool, 'spawn_glass', 'wedit:spawn_glass');
 
 class SelectionFillTool extends Tool {
-    tag = 'wedit:performing_selection_fill';
-    itemTool = 'wedit:selection_fill';
     permission = 'worldedit.region.replace';
     
     use = (player: Player, session: PlayerSession) => {
@@ -142,52 +120,29 @@ class SelectionFillTool extends Tool {
         session.usingItem = false;
     }
 }
-Tools.register(SelectionFillTool, 'selection_fill');
+Tools.register(SelectionFillTool, 'selection_fill', 'wedit:selection_fill');
 
-class SelectionWallTool extends Tool {
-    tag = 'wedit:performing_selection_wall';
-    itemTool = 'wedit:selection_wall';
+class SelectionWallTool extends CommandButton {
     permission = 'worldedit.region.walls';
-    
-    use = (player: Player, session: PlayerSession) => {
-        session.usingItem = true;
-        callCommand(player, 'walls', ['air']);
-        session.usingItem = false;
-    }
+    command = ['walls', 'air']
 }
-Tools.register(SelectionWallTool, 'selection_wall');
+Tools.register(SelectionWallTool, 'selection_wall', 'wedit:selection_wall');
 
-class SelectionOutlineTool extends Tool {
-    tag = 'wedit:performing_selection_outline';
-    itemTool = 'wedit:selection_outline';
+class SelectionOutlineTool extends CommandButton {
     permission = 'worldedit.region.faces';
-    
-    use = (player: Player, session: PlayerSession) => {
-        session.usingItem = true;
-        callCommand(player, 'faces', ['air']);
-        session.usingItem = false;
-    }
+    command = ['faces', 'air'];
 }
-Tools.register(SelectionOutlineTool, 'selection_outline');
+Tools.register(SelectionOutlineTool, 'selection_outline', 'wedit:selection_outline');
 
-class DrawLineTool extends Tool {
-    tag = 'wedit:performing_draw_line';
-    itemTool = 'wedit:draw_line';
+class DrawLineTool extends CommandButton {
     permission = 'worldedit.region.line';
-    
-    use = (player: Player, session: PlayerSession) => {
-        session.usingItem = true;
-        callCommand(player, 'line', ['air']);
-        session.usingItem = false;
-    }
+    command = ['line', 'air'];
 }
-Tools.register(DrawLineTool, 'draw_line');
+Tools.register(DrawLineTool, 'draw_line', 'wedit:draw_line');
 
 class ConfigTool extends Tool {
-    tag = 'wedit:performing_config';
-    itemTool = 'wedit:config_button';
     use = (player: Player, session: PlayerSession) => {
         session.enterSettings();
     }
 }
-Tools.register(ConfigTool, 'config');
+Tools.register(ConfigTool, 'config', 'wedit:config_button');

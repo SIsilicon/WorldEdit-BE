@@ -144,17 +144,28 @@ class ServerBuild extends ServerBuilder {
         */
         world.events.beforePistonActivate.subscribe(data => this.emit('beforePistonActivate', data));
         /**
-            * Emit to 'blockExplode' event listener
-            */
+        * Emit to 'blockExplode' event listener
+        */
         world.events.blockExplode.subscribe(data => this.emit('blockExplode', data));
         /**
         * Emit to 'beforeExplosion' event listener
         */
         world.events.explosion.subscribe(data => this.emit('explosion', data));
         /**
-        * Emit to 'beforeExplosion' event listener
+        * Emit to 'pistonActivate' event listener
         */
         world.events.pistonActivate.subscribe(data => this.emit('pistonActivate', data));
+        
+        /**
+        * Emit to 'beforeItemUse' event listener
+        */
+        world.events.beforeItemUse.subscribe(data => this.emit('beforeItemUse', data));
+        
+        /**
+        * Emit to 'beforeItemUseOm' event listener
+        */
+        world.events.beforeItemUseOn.subscribe(data => this.emit('beforeItemUseOn', data));
+        
         /**
         * Emit to 'messageCreate' event listener
         */

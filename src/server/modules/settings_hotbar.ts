@@ -273,13 +273,13 @@ export class SettingsHotbar {
                 
                 if (this.removeTag('config_confirm')) {
                     if (this.editingBrush == 'sphere') {
-                        this.session.setTool(this.currBrushTier, new SphereBrush(this.brushData[0], this.brushData[1][0], false));
-                        this.session.setToolProperty(this.currBrushTier, 'mask', this.brushData[1][1]);
+                        this.session.bindTool(this.currBrushTier, new SphereBrush(this.brushData[0], this.brushData[1][0], false));
+                        this.session.setToolProperty('mask', this.brushData[1][1]);
                     } else if (this.editingBrush == 'cylinder') {
-                        this.session.setTool(this.currBrushTier, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false));
-                        this.session.setToolProperty(this.currBrushTier, 'mask', this.brushData[2][1]);
+                        this.session.bindTool(this.currBrushTier, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false));
+                        this.session.setToolProperty('mask', this.brushData[2][1]);
                     } else if (this.editingBrush == 'smooth') {
-                        this.session.setTool(this.currBrushTier, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
+                        this.session.bindTool(this.currBrushTier, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
                     }
                     
                     this.msg('worldedit.brushConfig.set');

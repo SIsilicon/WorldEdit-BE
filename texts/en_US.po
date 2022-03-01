@@ -29,9 +29,6 @@ msgstr "An in-development port of the original Java mod and more! Addon by SIsil
 
 # ITEMS
 
-msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
-
 msgid "item.wedit:selection_wand"
 msgstr "Selection Wand"
 msgid "item.wedit:stacker_wand"
@@ -176,6 +173,17 @@ msgid "worldedit.selection.cuboid.secondary"
 msgstr "Second position set to %s."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Second position set to %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
 
 msgid "worldedit.permission.granted"
 msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"

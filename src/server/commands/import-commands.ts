@@ -93,7 +93,7 @@ for (const name in commandList) {
             if (history.isRecording()) {
                 history.cancel();
             }
-            printerr(e, data.sender, toActionBar);
+            printerr(e.message ? `${e.name}: ${e.message}` : e, data.sender, toActionBar);
             if (e.stack) {
                 printerr(e.stack, data.sender, false);
             }

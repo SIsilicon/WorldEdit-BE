@@ -77,7 +77,6 @@ export class PlayerSession {
     public settingsHotbar: SettingsHotbar;
     
     private currentTick = 0;
-    public tools = new Map<string, Tool>();
 
     private player: Player;
     private history: History;
@@ -93,26 +92,6 @@ export class PlayerSession {
         this.player = player;
         this.history = new History(this.player);
         this.selectionPoints = [];
-        
-        // Tools are bound by default.
-        this.setTool('pattern_picker');
-        this.setTool('mask_picker');
-        this.setTool('selection_wand');
-        this.setTool('navigation_wand');
-        this.setTool('config');
-        this.setTool('cut');
-        this.setTool('copy');
-        this.setTool('paste');
-        this.setTool('undo');
-        this.setTool('redo');
-        this.setTool('rotate_cw');
-        this.setTool('rotate_ccw');
-        this.setTool('flip');
-        this.setTool('spawn_glass');
-        this.setTool('selection_fill');
-        this.setTool('selection_wall');
-        this.setTool('selection_outline');
-        this.setTool('draw_line');
         
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
@@ -220,35 +199,39 @@ export class PlayerSession {
     * @param tool The id of the tool being made
     * @param args Optional parameters the tool uses during its construction.
     */
-    public setTool(tool: string, ...args: any[]) {
-        this.tools.set(tool, Tools.create(tool, ...args));
+    public bindTool(tool: string, ...args: any[]) {
+        Tools.bind(tool, this.player, ...args);
     }
     
     /**
-    * Sets a property of a tool binded to this session.
-    * @param tool The id of the tool
+    * Tests for a property of a tool in the session's player's main hand.
+    * @param property The name of the tool's property
+    */
+    public hasToolProperty(property: string) {
+        return Tools.hasProperty(this.player, property);
+    }
+    
+    /**
+    * Sets a property of a tool in the session's player's main hand.
     * @param property The name of the tool's property
     * @paran value The new value of the tool's property
     */
-    public setToolProperty(tool: string, property: string, value: any) {
-        (<{[k: string]: any}>this.tools.get(tool))[property] = value;
+    public setToolProperty(property: string, value: any) {
+        return Tools.setProperty(this.player, property, value);
     }
     
     /**
-    * @param tool The tool being tested for
-    * @return Whether the session has a tool binded to it
+    * @return Whether the session has a tool binded to the player's hand.
     */
-    public hasTool(tool: string) {
-        return this.tools.has(tool);
+    public hasTool() {
+        return Tools.hasBinding(this.player);
     }
     
     /**
-    * Unbinds a tool from this session.
-    * @param tool The id of the tool being deleted
+    * Unbinds a tool from this session's player's hand.
     */
-    public unbindTool(tool: string) {
-        this.tools.get(tool).unbind(this.player);
-        this.tools.delete(tool);
+    public unbindTool() {
+        Tools.unbind(this.player);
     }
     
     /**
@@ -324,11 +307,6 @@ export class PlayerSession {
             this.enterSettings();
         }
         
-        // Process tool use
-        for (const tool of this.tools.values()) {
-            tool.process(this, this.currentTick);
-        }
-        
         // Draw Selection
         if (!this.drawSelection) return;
         if (this.drawTimer <= 0) {
@@ -339,15 +317,6 @@ export class PlayerSession {
             }
         }
         this.drawTimer--;
-    }
-    
-    onEntityCreate(entity: Entity, loc: BlockLocation): boolean {
-        let processed = false;
-        for (const tool of this.tools.values()) {
-            // one added to tick to compensate for late onTick call.
-            processed ||= tool.process(this, this.currentTick+1, loc);
-        }
-        return processed;
     }
     
     /**
@@ -418,19 +387,4 @@ Server.on('tick', ev => {
     for (const player in playerSessions) {
         playerSessions[player].onTick(ev);
     }
-})
-
-Server.on('entityCreate', ev => {
-    if (ev.entity.id == 'wedit:block_marker') {
-        const loc = Vector.from(ev.entity.location).toBlock();
-        for (const player in playerSessions) {
-            if (playerSessions[player].onEntityCreate(ev.entity, loc)) {
-                break;
-            }
-        }
-        
-        ev.entity.nameTag = 'wedit:pending_deletion_of_selector';
-        Server.runCommand(`tp @s ~ -256 ~`, ev.entity);
-        Server.runCommand(`kill @s`, ev.entity);
-    }
-})
+});

@@ -1,0 +1,54 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "category": "commands",
+            "identifier": "wedit:_tool_iron_pickaxe"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:foil": true,
+            "minecraft:liquid_clipped": true,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "wedit:on_use"
+                }
+            },
+            "minecraft:display_name": {
+                "value": "item.iron_pickaxe.name"
+            },
+            "minecraft:render_offsets": "tools",
+            "minecraft:icon": {
+                "texture": "pickaxe_2",
+                "frame": 0
+            },
+            "minecraft:hand_equipped": true,
+            "minecraft:mining_speed": 1,
+            "minecraft:damage": 2,
+            "minecraft:digger": {
+                "use_efficiency": true,
+                "destroy_speeds": [
+                    {
+                        "block": {
+                            "tags": "q.any_tag('stone', 'metal', 'iron_pick_diggable')"
+                        },
+                        "speed": 6
+                    },
+                    {
+                        "block": "minecraft:ice",
+                        "speed": 6
+                    },
+                    {
+                        "block": "minecraft:sandstone",
+                        "speed": 6
+                    }
+                ]
+            }
+        },
+        "events": {
+            "wedit:on_use": {
+                "swing": {}
+            }
+        }
+    }
+}

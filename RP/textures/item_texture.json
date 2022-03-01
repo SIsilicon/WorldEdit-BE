@@ -124,6 +124,183 @@
         },
         "include_air_off": {
             "textures": "textures/items/include_air_off"
+        },
+        "dye_powder_11": {
+            "textures": "textures/items/dye_powder_yellow"
+        },
+        "dye_powder_19": {
+            "textures": "textures/items/dye_powder_white_new"
+        },
+        "sword_1": {
+            "textures": "textures/items/stone_sword"
+        },
+        "shovel_1": {
+            "textures": "textures/items/stone_shovel"
+        },
+        "pickaxe_1": {
+            "textures": "textures/items/stone_pickaxe"
+        },
+        "hoe_1": {
+            "textures": "textures/items/stone_hoe"
+        },
+        "axe_1": {
+            "textures": "textures/items/stone_axe"
+        },
+        "dye_powder_1": {
+            "textures": "textures/items/dye_powder_red"
+        },
+        "dye_powder_5": {
+            "textures": "textures/items/dye_powder_purple"
+        },
+        "dye_powder_9": {
+            "textures": "textures/items/dye_powder_pink"
+        },
+        "dye_powder_14": {
+            "textures": "textures/items/dye_powder_orange"
+        },
+        "leggings_5": {
+            "textures": "textures/items/netherite_leggings"
+        },
+        "helmet_5": {
+            "textures": "textures/items/netherite_helmet"
+        },
+        "chestplate_5": {
+            "textures": "textures/items/netherite_chestplate"
+        },
+        "boots_5": {
+            "textures": "textures/items/netherite_boots"
+        },
+        "dye_powder_13": {
+            "textures": "textures/items/dye_powder_magenta"
+        },
+        "dye_powder_10": {
+            "textures": "textures/items/dye_powder_lime"
+        },
+        "dye_powder_7": {
+            "textures": "textures/items/dye_powder_silver"
+        },
+        "dye_powder_12": {
+            "textures": "textures/items/dye_powder_light_blue"
+        },
+        "dye_powder_4": {
+            "textures": "textures/items/dye_powder_blue"
+        },
+        "sword_2": {
+            "textures": "textures/items/iron_sword"
+        },
+        "shovel_2": {
+            "textures": "textures/items/iron_shovel"
+        },
+        "pickaxe_2": {
+            "textures": "textures/items/iron_pickaxe"
+        },
+        "leggings_2": {
+            "textures": "textures/items/iron_leggings"
+        },
+        "hoe_2": {
+            "textures": "textures/items/iron_hoe"
+        },
+        "helmet_2": {
+            "textures": "textures/items/iron_helmet"
+        },
+        "chestplate_2": {
+            "textures": "textures/items/iron_chestplate"
+        },
+        "boots_2": {
+            "textures": "textures/items/iron_boots"
+        },
+        "axe_2": {
+            "textures": "textures/items/iron_axe"
+        },
+        "dye_powder_2": {
+            "textures": "textures/items/dye_powder_green"
+        },
+        "dye_powder_8": {
+            "textures": "textures/items/dye_powder_gray"
+        },
+        "sword_3": {
+            "textures": "textures/items/gold_sword"
+        },
+        "shovel_3": {
+            "textures": "textures/items/gold_shovel"
+        },
+        "pickaxe_3": {
+            "textures": "textures/items/gold_pickaxe"
+        },
+        "leggings_3": {
+            "textures": "textures/items/gold_leggings"
+        },
+        "hoe_3": {
+            "textures": "textures/items/gold_hoe"
+        },
+        "helmet_3": {
+            "textures": "textures/items/gold_helmet"
+        },
+        "chestplate_3": {
+            "textures": "textures/items/gold_chestplate"
+        },
+        "boots_3": {
+            "textures": "textures/items/gold_boots"
+        },
+        "axe_3": {
+            "textures": "textures/items/gold_axe"
+        },
+        "sword_4": {
+            "textures": "textures/items/diamond_sword"
+        },
+        "shovel_4": {
+            "textures": "textures/items/diamond_shovel"
+        },
+        "pickaxe_4": {
+            "textures": "textures/items/diamond_pickaxe"
+        },
+        "leggings_4": {
+            "textures": "textures/items/diamond_leggings"
+        },
+        "hoe_4": {
+            "textures": "textures/items/diamond_hoe"
+        },
+        "helmet_4": {
+            "textures": "textures/items/diamond_helmet"
+        },
+        "chestplate_4": {
+            "textures": "textures/items/diamond_chestplate"
+        },
+        "boots_4": {
+            "textures": "textures/items/diamond_boots"
+        },
+        "axe_4": {
+            "textures": "textures/items/diamond_axe"
+        },
+        "dye_powder_6": {
+            "textures": "textures/items/dye_powder_cyan"
+        },
+        "dye_powder_3": {
+            "textures": "textures/items/dye_powder_brown"
+        },
+        "leggings_1": {
+            "textures": "textures/items/chainmail_leggings"
+        },
+        "helmet_1": {
+            "textures": "textures/items/chainmail_helmet"
+        },
+        "chestplate_1": {
+            "textures": "textures/items/chainmail_chestplate"
+        },
+        "boots_1": {
+            "textures": "textures/items/chainmail_boots"
+        },
+        "dye_powder_17": {
+            "textures": "textures/items/dye_powder_brown_new"
+        },
+        "dye_powder_15": {
+            "textures": "textures/items/dye_powder_white"
+        },
+        "dye_powder_18": {
+            "textures": "textures/items/dye_powder_blue_new"
+        },
+        "dye_powder_16": {
+            "textures": "textures/items/dye_powder_black_new"
         }
     }
 }

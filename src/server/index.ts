@@ -46,11 +46,6 @@ Server.on('tick', ev => {
                 print('worldedit.permission.granted', player);
                 continue;
             }
-            Tools.unbindAll(player);
-        } else {
-            if (!PlayerUtil.isHotbarStashed(player)) {
-                Tools.unbindAll(player, getSession(player).tools);
-            }
         }
     }
 
@@ -68,7 +63,6 @@ Server.on('tick', ev => {
             session = getSession(builder);
         } else {
             removeBuilder(builder.name);
-            Tools.unbindAll(builder);
             print('worldedit.permission.revoked', builder);
             continue;
         }

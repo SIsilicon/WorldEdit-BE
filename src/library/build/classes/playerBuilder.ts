@@ -77,6 +77,14 @@ export class PlayerBuilder {
         return itemCount ? itemCount : [];
     };
     /**
+     * Get the current item in the player's main hand
+     * @param {Player} [player] Player you are searching
+     * @returns {?ItemStack}
+     */
+    getHeldItem(player: Player) {
+        return (player.getComponent('minecraft:inventory') as Minecraft.EntityInventoryComponent).container.getItem(player.selectedSlot);
+    }
+    /**
     * Get players score on a specific objective
     * @param {Player} player Requirements for the entity
     * @param {string} objective Objective name you want to search

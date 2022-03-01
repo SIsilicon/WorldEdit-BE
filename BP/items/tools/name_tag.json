@@ -1,0 +1,31 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "category": "commands",
+            "identifier": "wedit:_tool_name_tag"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:foil": true,
+            "minecraft:liquid_clipped": true,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "wedit:on_use"
+                }
+            },
+            "minecraft:display_name": {
+                "value": "item.name_tag.name"
+            },
+            "minecraft:render_offsets": "name_tag",
+            "minecraft:icon": {
+                "texture": "name_tag"
+            }
+        },
+        "events": {
+            "wedit:on_use": {
+                "swing": {}
+            }
+        }
+    }
+}

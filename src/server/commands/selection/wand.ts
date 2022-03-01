@@ -11,7 +11,7 @@ const registerInformation = {
 };
 
 commandList['wand'] = [registerInformation, (session, builder, args) => {
-    Server.runCommand(`clear @s wedit:selection_wand`, builder);
-    Server.runCommand(`give @s wedit:selection_wand`, builder);
+    Server.runCommand(`clear @s wedit:_tool_wooden_axe`, builder);
+    Server.runCommand(`give @s wedit:_tool_wooden_axe`, builder);
     return RawText.translate('commands.wedit:wand.explain');
 }];

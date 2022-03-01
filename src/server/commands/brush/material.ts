@@ -1,6 +1,4 @@
-import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'material',
@@ -15,11 +13,10 @@ const registerInformation = {
 };
 
 commandList['material'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(builder);
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('commands.wedit:brush.noBind');
+    if (!session.hasToolProperty('brush')) {
+        throw 'commands.wedit:brush.noBind';
     }
     
-    session.setToolProperty(brush, 'material', args.get('pattern'));
-    return RawText.translate('commands.generic.wedit:wandInfo');
+    session.setToolProperty('material', args.get('pattern'));
+    return 'commands.generic.wedit:wandInfo';
 }];

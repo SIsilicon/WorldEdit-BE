@@ -1,6 +1,4 @@
-import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'range',
@@ -17,11 +15,10 @@ const registerInformation = {
 };
 
 commandList['range'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(builder);
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('commands.wedit:brush.noBind');
+    if (!session.hasToolProperty('brush')) {
+        throw 'commands.wedit:brush.noBind';
     }
     
-    session.setToolProperty(brush, 'range', args.get('range'));
-    return RawText.translate('commands.generic.wedit:wandInfo');
+    session.setToolProperty('range', args.get('range'));
+    return 'commands.generic.wedit:wandInfo';
 }];

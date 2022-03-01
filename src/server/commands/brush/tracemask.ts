@@ -1,7 +1,5 @@
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
-import { getBrushTier } from './brush.js';
 
 const registerInformation = {
     name: 'tracemask',
@@ -17,12 +15,11 @@ const registerInformation = {
 };
 
 commandList['tracemask'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(builder);
-    if (!session.hasTool(brush)) {
-        throw RawText.translate('commands.wedit:brush.noBind');
+    if (!session.hasToolProperty('brush')) {
+        throw 'commands.wedit:brush.noBind';
     }
     
     const mask: Mask = args.get('mask');
-    session.setToolProperty(brush, 'traceMask', mask.toString() ? mask : null);
-    return RawText.translate('commands.generic.wedit:wandInfo');
+    session.setToolProperty('traceMask', mask.toString() ? mask : null);
+    return 'commands.generic.wedit:wandInfo';
 }];

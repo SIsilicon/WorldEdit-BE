@@ -19,13 +19,7 @@
         },
         "events": {
             "wedit:on_use": {
-                "swing": {},
-                "run_command": {
-                    "command": [
-                        "tag @s add wedit:performing_selection_fill"
-                    ],
-                    "target": "holder"
-                }
+                "swing": {}
             }
         }
     }
