@@ -22,7 +22,7 @@ commandList['pos2'] = [registerInformation, (session, builder, args) => {
     session.setSelectionPoint(1, args.get('coordinates').relativeTo(builder, true));
 
     let translate: string;
-    if (session.getBlocksSelected().length == 0) {
+    if (session.getSelectedBlockCount() == 0) {
         translate = 'worldedit.selection.cuboid.secondary';
     } else {
         translate = 'worldedit.selection.cuboid.secondaryArea';
