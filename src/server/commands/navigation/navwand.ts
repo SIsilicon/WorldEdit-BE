@@ -9,7 +9,7 @@ const registerInformation = {
 };
 
 commandList['navwand'] = [registerInformation, (session, builder, args) => {
-    Server.runCommand(`clear @s wedit:navigation_wand`, builder);
-    Server.runCommand(`give @s wedit:navigation_wand`, builder);
+    Server.runCommand(`clear @s wedit:_tool_compass`, builder);
+    Server.runCommand(`give @s wedit:_tool_compass`, builder);
     return RawText.translate('commands.wedit:navwand.explain');
 }];

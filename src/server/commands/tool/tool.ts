@@ -30,6 +30,16 @@ const registerInformation = {
                     default: new Mask()
                 }
             ]
+        },
+        {
+            subName: 'selwand',
+            permission: 'worldedit.setwand',
+            description: 'commands.wedit:tool.description.selwand'
+        },
+        {
+            subName: 'navwand',
+            permission: 'worldedit.setwand',
+            description: 'commands.wedit:tool.description.navwand'
         }
     ]
 };
@@ -37,18 +47,27 @@ const registerInformation = {
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('stacker_wand', args.get('range'), args.get('mask'));
-    return 'commands.generic.wedit:wandInfo';
 };
 
-const none_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    session.unbindTool();
-    return 'commands.generic.wedit:wandInfo';
+const selwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, registerInformation.usage[0].permission);
+    session.bindTool('selection_wand');
+};
+
+const navwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, registerInformation.usage[0].permission);
+    session.bindTool('navigation_wand');
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {
     if (args.has('stacker')) {
-        return stack_command(session, builder, args);
+        stack_command(session, builder, args);
+    } else if (args.has('selwand')) {
+        selwand_command(session, builder, args);
+    } else if (args.has('navwand')) {
+        navwand_command(session, builder, args);
     } else {
-        return none_command(session, builder, args);
+        session.unbindTool();
     }
+    return 'commands.generic.wedit:wandInfo';
 }];

@@ -2,27 +2,6 @@
     "resource_pack_name": "wedit",
     "texture_name": "atlas.items",
     "texture_data": {
-        "navigation_wand": {
-            "textures": "textures/items/compass_item"
-        },
-        "wood_shovel": {
-            "textures": "textures/items/wood_shovel"
-        },
-        "stone_shovel": {
-            "textures": "textures/items/stone_shovel"
-        },
-        "iron_shovel": {
-            "textures": "textures/items/iron_shovel"
-        },
-        "gold_shovel": {
-            "textures": "textures/items/gold_shovel"
-        },
-        "diamond_shovel": {
-            "textures": "textures/items/diamond_shovel"
-        },
-        "netherite_shovel": {
-            "textures": "textures/items/netherite_shovel"
-        },
         "copy": {
             "textures": "textures/items/copy"
         },

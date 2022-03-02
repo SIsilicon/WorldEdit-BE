@@ -1,4 +1,4 @@
-import { Player, BlockLocation, ItemStack, Items } from 'mojang-minecraft';
+import { world, Player, BlockLocation, ItemStack, Items } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { Tool } from './base_tool.js';
 import { hasSession, getSession } from '../sessions.js';
@@ -10,13 +10,9 @@ const baseItems = ["minecraft:yellow_dye", "minecraft:wooden_sword", "minecraft:
 
 type toolConstruct = new (...args: any[]) => Tool;
 
-function itemToKey(item: ItemStack) {
-    return `${item.id}/${item.data}`;
-}
-
 class ToolBuilder {
     private tools = new Map<string, toolConstruct>();
-    private bindings = new Map<string, Tool>();
+    private bindings = new Map<string, Map<string, Tool>>();
     private fixedBindings = new Map<string, Tool>();
     
     private currentTick = 0;
@@ -34,14 +30,22 @@ class ToolBuilder {
             }
             this.onItemUse(ev.item, ev.source as Player, ev.blockLocation);
         });
-        Server.on('tick', ev => {this.currentTick = ev.currentTick});
+        Server.on('tick', ev => {
+            this.currentTick = ev.currentTick;
+            for (const entity of world.getPlayers()) {
+                if (!this.hasBinding(entity as Player)) {
+                    try {
+                        this.unbind(entity as Player);
+                    } catch (e) {}
+                }
+            }
+        });
     }
     
     register(toolClass: toolConstruct, name: string, item?: string) {
         this.tools.set(name, toolClass);
-        //this.pseudoTools.set(name, new toolClass());
         if (item) {
-            this.fixedBindings.set(`${item}/0`, new (toolClass)());
+            this.fixedBindings.set(item, new (toolClass)());
         }
     }
     
@@ -55,26 +59,11 @@ class ToolBuilder {
             
             const tool = new (this.tools.get(toolId))(...args);
             let newId = item.id.replace('minecraft:', 'wedit:_tool_');
-            let toolData = 0;
-            let tries = 0;
-            do {
-                if (tries > 100) {
-                    throw 'Failed to bind tool!';
-                }
-                tries++;
-                // item data consists of up to 15 bits.
-                toolData = Math.floor(Math.random() * 512);
-                toolData = (toolData << 6) | item.data;
-                // 6 least sig. bits: item's original data value.
-                // 9 most sig. bits: tool's id
-            } while (this.bindings.has(`${newId}/${toolData}`));
-            printDebug('tool and old item data:', toolData, item.data);
-            
-            Server.runCommand(`replaceitem entity @s slot.weapon.mainhand 0 destroy ${newId} 1 ${toolData}`, player);
+            Server.runCommand(`replaceitem entity @s slot.weapon.mainhand 0 destroy ${newId} 1 ${item.data}`, player);
             
             const newItem = Server.player.getHeldItem(player);
-            printDebug('new item data:', newItem.data);
-            this.bindings.set(itemToKey(newItem), tool);
+            this.createPlayerBindingMap(player);
+            this.bindings.get(player.name).set(newItem.id, tool);
             return tool;
         } else {
             throw 'worldedit.tool.noItem';
@@ -84,26 +73,29 @@ class ToolBuilder {
     unbind(player: Player) {
         const item = Server.player.getHeldItem(player);
         if (item) {
-            if (this.fixedBindings.has(itemToKey(item))) {
+            if (this.fixedBindings.has(item.id)) {
                 throw 'worldedit.tool.fixedBind';
             }
             if (!item.id.startsWith('wedit:_tool_')) {
                 return;
             }
-            this.bindings.delete(itemToKey(item));
+            this.createPlayerBindingMap(player);
+            this.bindings.get(player.name).delete(item.id);
             
-            const toolData = item.data & 63;
-            Server.runCommand(`replaceitem entity @s slot.weapon.mainhand 0 destroy ${item.id.replace('wedit:_tool_', 'minecraft:')} 1 ${toolData}`, player);
-            printDebug('old item and tool data:', toolData, item.data);
+            Server.runCommand(`replaceitem entity @s slot.weapon.mainhand 0 destroy ${item.id.replace('wedit:_tool_', 'minecraft:')} 1 ${item.data}`, player);
         } else {
             throw 'worldedit.tool.noItem';
         }
     }
     
+    deleteBindings(player: Player) {
+        this.bindings.delete(player.name);
+    }
+    
     hasBinding(player: Player) {
         const item = Server.player.getHeldItem(player);
         if (item) {
-            return this.bindings.has(itemToKey(item)) || this.fixedBindings.has(itemToKey(item));
+            return this.bindings.get(player.name)?.has(item.id) || this.fixedBindings.has(item.id);
         } else {
             return false;
         }
@@ -112,7 +104,7 @@ class ToolBuilder {
     setProperty(player: Player, prop: string, value: any) {
         const item = Server.player.getHeldItem(player);
         if (item) {
-            const tool: {[key: string]: any} = this.bindings.get(itemToKey(item));
+            const tool: {[key: string]: any} = this.bindings.get(player.name).get(item.id);
             if (tool && prop in tool) {
                 tool[prop] = value;
                 return true;
@@ -124,7 +116,7 @@ class ToolBuilder {
     hasProperty(player: Player, prop: string) {
         const item = Server.player.getHeldItem(player);
         if (item) {
-            const tool: {[key: string]: any} = this.bindings.get(itemToKey(item));
+            const tool: {[key: string]: any} = this.bindings.get(player.name).get(item.id);
             if (tool && prop in tool) {
                 return true;
             }
@@ -133,10 +125,10 @@ class ToolBuilder {
     }
     
     private onItemUse(item: ItemStack, player: Player, loc?: BlockLocation) {
-        const key = itemToKey(item);
+        const key = item.id;
         let tool: Tool;
-        if (this.bindings.has(key)) {
-            tool = this.bindings.get(key);
+        if (this.bindings.get(player.name)?.has(key)) {
+            tool = this.bindings.get(player.name).get(key);
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else {
@@ -149,6 +141,12 @@ class ToolBuilder {
         }
         
         tool.process(getSession(player), this.currentTick, loc);
+    }
+    
+    private createPlayerBindingMap(player: Player) {
+        if (!this.bindings.has(player.name)) {
+            this.bindings.set(player.name, new Map<string, Tool>());
+        }
     }
 }
 export const Tools = new ToolBuilder();

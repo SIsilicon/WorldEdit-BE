@@ -36,9 +36,7 @@ for filename in os.listdir(dirBP):
                 }
             },
             'events': {
-                'wedit:on_use': {
-                    'swing': {}
-                }
+                'wedit:on_use': {}
             }
         }
     }

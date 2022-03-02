@@ -24,9 +24,7 @@
             "minecraft:hand_equipped": true
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "wedit:on_use": {}
         }
     }
 }

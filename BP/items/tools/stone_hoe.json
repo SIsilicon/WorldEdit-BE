@@ -27,9 +27,7 @@
             "minecraft:damage": 0
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "wedit:on_use": {}
         }
     }
 }

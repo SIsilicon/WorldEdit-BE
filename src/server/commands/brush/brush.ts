@@ -95,7 +95,6 @@ const sphere_command = (session: PlayerSession, builder: Player, args: Map<strin
         args.get('pattern'),
         args.has('h')
     ));
-    return 'commands.generic.wedit:wandInfo';
 };
 
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
@@ -106,7 +105,6 @@ const cylinder_command = (session: PlayerSession, builder: Player, args: Map<str
         args.get('pattern'),
         args.has('h')
     ));
-    return 'commands.generic.wedit:wandInfo';
 };
 
 const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
@@ -116,22 +114,17 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
         args.get('iterations'),
         args.get('mask')
     ));
-    return 'commands.generic.wedit:wandInfo';
-};
-
-const none_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    session.unbindTool();
-    return 'commands.generic.wedit:wandInfo';
 };
 
 commandList['brush'] = [registerInformation, (session, builder, args) => {
     if (args.has('sphere')) {
-        return sphere_command(session, builder, args);
+        sphere_command(session, builder, args);
     } else if (args.has('cyl')) {
-        return cylinder_command(session, builder, args);
+        cylinder_command(session, builder, args);
      } else if (args.has('smooth')) {
-        return smooth_command(session, builder, args);
+        smooth_command(session, builder, args);
     } else {
-        return none_command(session, builder, args);
+        session.unbindTool();
     }
+    return 'commands.generic.wedit:wandInfo';
 }];

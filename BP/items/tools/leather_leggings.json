@@ -24,9 +24,7 @@
             }
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "wedit:on_use": {}
         }
     }
 }

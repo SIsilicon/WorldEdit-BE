@@ -28,12 +28,8 @@ export class SettingsHotbar {
             8: ['wedit:cancel_button', 1]
         },
         chooseBrush: {
-            1: 'wedit:wooden_brush',
-            2: 'wedit:stone_brush',
-            3: 'wedit:iron_brush',
-            4: 'wedit:golden_brush',
-            5: 'wedit:diamond_brush',
-            6: 'wedit:netherite_brush',
+            0: 'wedit:create_button',
+            
             8: 'wedit:cancel_button'
         },
         editBrush: {
@@ -106,30 +102,33 @@ export class SettingsHotbar {
         chooseBrush: {
             enterState: () => {
                 this.msg('worldedit.brushConfig.chooseBrush');
-            },
-            processState: () => {
+                
+                Server.prependOnceListener('beforeItemUse', ev => {
+                    
+                });
                 if (this.removeTag('use_wooden_brush')) {
-                    this.currBrushTier = 'wooden_brush';
+                    this.currBrushItem = 'wedit:_tool_wooden_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('use_stone_brush')) {
-                    this.currBrushTier = 'stone_brush';
+                    this.currBrushItem = 'wedit:_tool_stone_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('use_iron_brush')) {
-                    this.currBrushTier = 'iron_brush';
+                    this.currBrushItem = 'wedit:_tool_iron_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('use_golden_brush')) {
-                    this.currBrushTier = 'golden_brush';
+                    this.currBrushItem = 'wedit:_tool_golden_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('use_diamond_brush')) {
-                    this.currBrushTier = 'diamond_brush';
+                    this.currBrushItem = 'wedit:_tool_diamond_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('use_netherite_brush')) {
-                    this.currBrushTier = 'netherite_brush';
+                    this.currBrushItem = 'wedit:_tool_netherite_shovel';
                     this.changeState('editBrush');
                 } else if (this.removeTag('config_cancel')) {
                     this.changeState('main');
                 }
-            }
+            },
+            processState: () => {}
         },
         editBrush: {
             enterState: () => {
@@ -273,13 +272,13 @@ export class SettingsHotbar {
                 
                 if (this.removeTag('config_confirm')) {
                     if (this.editingBrush == 'sphere') {
-                        this.session.bindTool(this.currBrushTier, new SphereBrush(this.brushData[0], this.brushData[1][0], false));
+                        this.session.bindTool(this.currBrushItem, new SphereBrush(this.brushData[0], this.brushData[1][0], false));
                         this.session.setToolProperty('mask', this.brushData[1][1]);
                     } else if (this.editingBrush == 'cylinder') {
-                        this.session.bindTool(this.currBrushTier, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false));
+                        this.session.bindTool(this.currBrushItem, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false));
                         this.session.setToolProperty('mask', this.brushData[2][1]);
                     } else if (this.editingBrush == 'smooth') {
-                        this.session.bindTool(this.currBrushTier, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
+                        this.session.bindTool(this.currBrushItem, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
                     }
                     
                     this.msg('worldedit.brushConfig.set');
@@ -291,7 +290,7 @@ export class SettingsHotbar {
         }
     };
     
-    private currBrushTier: string;
+    private currBrushItem: string;
     private editingBrush: string = '';
     private brushData: any[] = [];
     private brushMenus: {[k: string]: string[]} = {

@@ -251,6 +251,7 @@ export class PlayerSession {
     
     delete() {
         Regions.deletePlayer(this.player);
+        Tools.deleteBindings(this.player);
         this.history = null;
     }
     

@@ -3,7 +3,7 @@
     "minecraft:item": {
         "description": {
             "category": "commands",
-            "identifier": "wedit:_tool_potion"
+            "identifier": "wedit:_tool_compass"
         },
         "components": {
             "minecraft:max_stack_size": 1,
@@ -15,17 +15,15 @@
                 }
             },
             "minecraft:display_name": {
-                "value": "item.potion.name"
+                "value": "item.compass.name"
             },
-            "minecraft:render_offsets": "bottles",
+            "minecraft:render_offsets": "miscellaneous",
             "minecraft:icon": {
-                "texture": "potion_overlay"
+                "texture": "compass_item"
             }
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "wedit:on_use": {}
         }
     }
 }
