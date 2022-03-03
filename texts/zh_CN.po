@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-03 11:18\n"
+"PO-Revision-Date: 2022-03-03 12:22\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的 WorldEdit 模组到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -149,7 +149,7 @@ msgid "worldedit.spawnGlass.error"
 msgstr "无法在此处放置方块"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "您需要指定一个方块来设置选区！"
+msgstr "你需要指定一个方块才能设置选区！"
 
 msgid "worldedit.patternPicker.add"
 msgstr "已添加的填充方块： "
@@ -305,7 +305,7 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "历史记录已被清空。"
 
 msgid "commands.wedit:copy.description"
-msgstr "将当前选区复制到剪贴板"
+msgstr "将选区复制到剪贴板"
 
 msgid "commands.wedit:copy.explain"
 msgstr "已复制 %s 个方块。"
@@ -455,7 +455,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "堆叠操作共创造了%s个方块"
 
 msgid "commands.wedit:smooth.description"
-msgstr "在选择范围内平滑曲面"
+msgstr "平滑选区内曲面"
 
 msgid "commands.wedit:sphere.description"
 msgstr "生成一个球体"
