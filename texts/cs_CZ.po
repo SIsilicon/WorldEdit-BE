@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-02-12 13:27\n"
+"PO-Revision-Date: 2022-03-06 21:39\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -608,8 +608,7 @@ msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Co teď?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "Pro více informací o tomto addonu jděte na webovou stránku s dokumentací:\n"
-"§ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Pro více informací o tomto addonu jděte na webovou stránku s dokumentací: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
