@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-07 03:51\n"
+"PO-Revision-Date: 2022-03-07 05:26\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -77,7 +77,7 @@ msgid "item.wedit:mask_picker"
 msgstr "取代方块选取器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "在脚下生成玻璃"
+msgstr "在脚下生成玻璃方块"
 
 msgid "item.wedit:selection_fill"
 msgstr "填充选区"
@@ -89,10 +89,10 @@ msgid "item.wedit:selection_outline"
 msgstr "勾勒选区轮廓"
 
 msgid "item.wedit:draw_line"
-msgstr "划线"
+msgstr "绘线"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit 设置"
+msgstr "创世神设置"
 
 msgid "item.wedit:brush_config_button"
 msgstr "笔刷设置"
@@ -104,7 +104,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "圆柱形笔刷"
 
 msgid "item.wedit:smooth_button"
-msgstr "光滑笔刷"
+msgstr "平滑笔刷"
 
 msgid "item.wedit:one_button"
 msgstr "一"
@@ -146,10 +146,10 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "无法在此处放置方块"
+msgstr "不能在此处放置方块"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "你需要指定一个方块才能设置选区！"
+msgstr "您需要指定一个方块来设置选区！"
 
 msgid "worldedit.patternPicker.add"
 msgstr "已添加的填充方块： "
@@ -206,13 +206,13 @@ msgid "worldedit.brushConfig.set"
 msgstr "笔刷已配置。"
 
 msgid "worldedit.brushConfig.setGive"
-msgstr "笔刷已配置好并被放入您的物品栏。"
+msgstr "配置好的笔刷已加入您的物品栏。"
 
 msgid "worldedit.brushConfig.cancel"
 msgstr "已取消笔刷的配置。"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "还没有选定第一个点。"
+msgstr "您还没有选定第一个点。"
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
@@ -227,10 +227,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.permission.granted"
-msgstr "§e您已经被给予 WorldEdit 权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
+msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§e您的 WorldEdit 权限已被移除。§r"
+msgstr "§e您的创世神权限已被移除§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
@@ -248,13 +248,13 @@ msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' 是无效的方向参数!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "预设外的标志: %s"
+msgstr "预设外的字符: %s"
 
 msgid "commands.generic.wedit:noClipboard"
 msgstr "您的剪贴板是空的。请先复制或剪切一个区域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "请先选取一个立方体区域。"
+msgstr "请先选取一个矩形区域。"
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "您没有执行此命令的权限。"
@@ -272,31 +272,31 @@ msgid "commands.generic.wedit:wandInfo"
 msgstr "道具已更新。"
 
 msgid "commands.wedit:brush.description"
-msgstr "设置所持画笔的类型"
+msgstr "设置所持笔刷的类型"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "从您当前的物品中取消绑定笔刷的绑定"
+msgstr "解绑您当前的物品栏中绑定好的笔刷"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "创建球形笔刷"
+msgstr "创建一个球形笔刷"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "创建圆柱形笔刷"
+msgstr "创建一个圆柱形笔刷"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "创建地形平滑笔刷"
+msgstr "创建一个平滑笔刷"
 
 msgid "commands.wedit:brush.noBind"
 msgstr "未将笔刷绑定到此层。"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "此笔刷不需要材料来工作。"
+msgstr "此笔刷不需要材料来运作。"
 
 msgid "commands.wedit:brush.invalidItem"
-msgstr "所持物品不能用作笔刷。"
+msgstr "所持物品不能被用作为笔刷。"
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "清空剪贴板"
+msgstr "清空您的剪贴板"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "清除您的编辑记录"
