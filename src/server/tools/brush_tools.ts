@@ -24,9 +24,10 @@ class BrushTool extends Tool {
         this.brush.apply(hit, session, this.mask);
     }
     
-    constructor(brush: Brush) {
+    constructor(brush: Brush, mask?: Mask) {
         super();
         this.brush = brush;
+        this.mask = mask;
     }
     
     set size(value: number) {

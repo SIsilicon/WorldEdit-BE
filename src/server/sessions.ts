@@ -1,7 +1,7 @@
-import { Player, BlockLocation, Dimension, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
+import { Player, BlockLocation, Dimension, TickEvent, BeforeItemUseEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
 import { printDebug, printLocation, regionSize, regionVolume } from './util.js';
-import { Server } from '@library/Minecraft.js';
+import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
 import { Vector } from '@modules/vector.js';
@@ -18,23 +18,11 @@ import './tools/register_tools.js';
 // TODO: Add other selection modes
 export type selectMode = 'cuboid';
 
-const playerSessions: {[k: string]: PlayerSession} = {};
-const pendingDeletion: {[k: string]: [number, PlayerSession]} = {}
-
-Server.on('tick', ev => {
-    for (const player in pendingDeletion) {
-        const session = pendingDeletion[player];
-        session[0]--;
-        if (session[0] < 0) {
-            session[1].delete();
-            delete pendingDeletion[player];
-            printDebug('Deleted player session!');
-        }
-    }
-});
+const playerSessions: Map<string, PlayerSession> = new Map();
+const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
 PlayerUtil.on('playerChangeDimension', (player, dimension) => {
-    playerSessions[player.name]?.clearSelectionPoints();
+    playerSessions.get(player.name)?.clearSelectionPoints();
 });
 
 /**
@@ -320,6 +308,12 @@ export class PlayerSession {
         this.drawTimer--;
     }
     
+    onItemUse(ev: BeforeItemUseEvent) {
+        if (this.settingsHotbar) {
+            this.settingsHotbar.onItemUse(ev);
+        }
+    }
+    
     /**
     * Getter selectionMode
     * @return {selectMode}
@@ -357,35 +351,55 @@ export class PlayerSession {
 
 export function getSession(player: Player): PlayerSession {
     const name = player.name;
-    if (!playerSessions[name]) {
+    if (!playerSessions.has(name)) {
         let session: PlayerSession
-        if (pendingDeletion[name]) {
-            session = pendingDeletion[name][1];
+        if (pendingDeletion.has(name)) {
+            session = pendingDeletion.get(name)[1];
             session.reassignPlayer(player);
-            delete pendingDeletion[name];
+            pendingDeletion.get(name);
         }
-        playerSessions[name] = session ?? new PlayerSession(player);
-        printDebug(playerSessions[name]?.getPlayer()?.name);
+        playerSessions.set(name, session ?? new PlayerSession(player));
+        printDebug(playerSessions.get(name)?.getPlayer()?.name);
         printDebug(`new Session?: ${!session}`);
     }
-    return playerSessions[name];
+    return playerSessions.get(name);
 }
 
 export function removeSession(player: string) {
-    if (!playerSessions[player]) return;
+    if (!playerSessions.has(player)) return;
 
-    playerSessions[player].clearSelectionPoints();
-    playerSessions[player].globalPattern.clear();
-    pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
-    delete playerSessions[player];
+    playerSessions.get(player).clearSelectionPoints();
+    playerSessions.get(player).globalPattern.clear();
+    pendingDeletion.set(player, [TICKS_TO_DELETE_SESSION, playerSessions.get(player)]);
+    playerSessions.delete(player);
 }
 
 export function hasSession(player: string) {
-    return !!playerSessions[player];
+    return playerSessions.has(player);
 }
 
-Server.on('tick', ev => {
-    for (const player in playerSessions) {
-        playerSessions[player].onTick(ev);
-    }
-});
+// Delayed a tick so that it's processed before other listeners
+setTickTimeout(() => {
+    Server.prependListener('tick', ev => {
+        for (const player of pendingDeletion.keys()) {
+            const session = pendingDeletion.get(player);
+            session[0]--;
+            if (session[0] < 0) {
+                session[1].delete();
+                pendingDeletion.delete(player);
+                printDebug('Deleted player session!');
+            }
+        }
+        
+        for (const session of playerSessions.values()) {
+            session.onTick(ev);
+        }
+    });
+    
+    Server.prependListener('beforeItemUse', ev => {
+        if (ev.source.id == 'minecraft:player') {
+            const name = (ev.source as Player).name;
+            playerSessions.get(name)?.onItemUse(ev);
+        }
+    });
+}, 1);

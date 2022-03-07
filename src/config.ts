@@ -26,4 +26,4 @@ export const TICKS_TO_DELETE_SESSION: number = 600 * TicksPerSecond;
 export const PRINT_TO_ACTION_BAR: boolean = true;
 
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.1 [beta]';
+export const VERSION: string = '0.5.2 [beta]';

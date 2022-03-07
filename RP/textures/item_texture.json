@@ -59,50 +59,59 @@
         "cancel": {
             "textures": "textures/ui/cancel"
         },
+        "arrow_left": {
+            "textures": "textures/ui/arrow_left"
+        },
+        "arrow_right": {
+            "textures": "textures/ui/arrow_right"
+        },
+        "plus": {
+            "textures": "textures/ui/color_plus"
+        },
         "blank": {
-            "textures": "textures/items/blank"
+            "textures": "textures/ui/blank"
         },
         "brush_config": {
-            "textures": "textures/items/brush_config"
+            "textures": "textures/ui/brush_config"
         },
         "cylinder_brush": {
-            "textures": "textures/items/cylinder_brush"
+            "textures": "textures/ui/cylinder_brush"
         },
         "sphere_brush": {
-            "textures": "textures/items/sphere_brush"
+            "textures": "textures/ui/sphere_brush"
         },
         "smooth_brush": {
-            "textures": "textures/items/smooth_brush"
+            "textures": "textures/ui/smooth_brush"
         },
         "number_one": {
-            "textures": "textures/items/one"
+            "textures": "textures/ui/one"
         },
         "number_two": {
-            "textures": "textures/items/two"
+            "textures": "textures/ui/two"
         },
         "number_three": {
-            "textures": "textures/items/three"
+            "textures": "textures/ui/three"
         },
         "number_four": {
-            "textures": "textures/items/four"
+            "textures": "textures/ui/four"
         },
         "number_five": {
-            "textures": "textures/items/five"
+            "textures": "textures/ui/five"
         },
         "number_six": {
-            "textures": "textures/items/six"
+            "textures": "textures/ui/six"
         },
         "include_entities_on": {
-            "textures": "textures/items/include_entities_on"
+            "textures": "textures/ui/include_entities_on"
         },
         "include_entities_off": {
-            "textures": "textures/items/include_entities_off"
+            "textures": "textures/ui/include_entities_off"
         },
         "include_air_on": {
-            "textures": "textures/items/include_air_on"
+            "textures": "textures/ui/include_air_on"
         },
         "include_air_off": {
-            "textures": "textures/items/include_air_off"
+            "textures": "textures/ui/include_air_off"
         },
         "dye_powder_11": {
             "textures": "textures/items/dye_powder_yellow"

@@ -2,12 +2,12 @@
     "format_version": "1.16.100",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:smooth_button",
+            "identifier": "wedit:new_brush_button",
             "category": "commands"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "smooth_brush",
+                "texture": "plus",
                 "frame": 0
             },
             "minecraft:max_stack_size": 1,
@@ -18,15 +18,7 @@
             }
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {},
-                "run_command": {
-                    "command": [
-                        "tag @s add wedit:config_smooth"
-                    ],
-                    "target": "holder"
-                }
-            }
+            "wedit:on_use": {}
         }
     }
 }

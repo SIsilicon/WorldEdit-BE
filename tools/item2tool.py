@@ -91,6 +91,6 @@ savejson('../RP/textures/item_texture.json', itemTex)
 
 with open('../src/server/tools/tool_manager.ts', 'r+') as f:
     file = f.read()
-    file = re.sub(r'(// AUTO GENERATED\n).+(\n// AUTO_GENERATED)', rf'\1const baseItems = {json.dumps(baseitems)};\2', file)
+    file = re.sub(r'(// AUTO GENERATED\n).+?(\n// AUTO GENERATED)', rf'\1const baseItems = {json.dumps(baseitems)};\2', file)
     f.seek(0)
     f.write(file)

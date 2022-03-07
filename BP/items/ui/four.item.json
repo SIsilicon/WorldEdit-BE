@@ -2,12 +2,12 @@
     "format_version": "1.16.100",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:inc_air_on_button",
+            "identifier": "wedit:four_button",
             "category": "commands"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "include_air_on",
+                "texture": "number_four",
                 "frame": 0
             },
             "minecraft:max_stack_size": 1,
@@ -18,15 +18,7 @@
             }
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {},
-                "run_command": {
-                    "command": [
-                        "tag @s add wedit:config_include_air_off"
-                    ],
-                    "target": "holder"
-                }
-            }
+            "wedit:on_use": {}
         }
     }
 }

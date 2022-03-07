@@ -39,6 +39,9 @@ export abstract class Tool {
         
         this.currentPlayer = player;
         try {
+            if (!Server.player.hasPermission(player, this.permission)) {
+                throw 'worldedit.tool.noPerm';
+            }
             if (!loc) {
                 if (this.useOnTick != tick)
                     this.use(player, session);

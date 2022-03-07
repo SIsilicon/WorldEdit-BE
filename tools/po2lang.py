@@ -21,10 +21,13 @@ def convert_file(in_path, out_path):
     for entry in polib.pofile(in_path):
         if entry.msgid != "" and not(entry.msgid != 'pack.description' and 'BP' in out_path):
             string = entry.msgstr.replace('\\"', '"')
+            if '\n' in string:
+                print('new line!')
             newlines.append(f'{entry.msgid}={string}\n')
             
             if 'BP' in out_path:
-                break;
+                break
+    newlines[-1] = newlines[-1][:-1]
     
     with open(out_path, 'w') as file:
         file.writelines(newlines)

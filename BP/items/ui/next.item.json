@@ -2,12 +2,12 @@
     "format_version": "1.16.100",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:confirm_button",
+            "identifier": "wedit:next_button",
             "category": "commands"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "confirm",
+                "texture": "arrow_right",
                 "frame": 0
             },
             "minecraft:max_stack_size": 1,
@@ -18,15 +18,7 @@
             }
         },
         "events": {
-            "wedit:on_use": {
-                "swing": {},
-                "run_command": {
-                    "command": [
-                        "tag @s add wedit:config_confirm"
-                    ],
-                    "target": "holder"
-                }
-            }
+            "wedit:on_use": {}
         }
     }
 }

@@ -66,8 +66,28 @@ class PlayerHandler extends EventEmitter {
     * @param item The item being tested for
     * @return True if the player has the item; false otherwise
     */
-    hasItem(player: Player, item: string) {
-        return !Server.runCommand(`clear @s ${item} 0 0`, player).error;
+    hasItem(player: Player, item: string, data = -1) {
+        let hasItem = Server.runCommand(`clear @s ${item} 0 ${data}`, player).error;
+        if (this.isHotbarStashed(player) && !hasItem) {
+            let stasher: Entity;
+            const query = new EntityQueryOptions();
+            query.name = 'wedit:stasher_for_' + player.name;
+            for (const entity of player.dimension.getEntities(query)) {
+                stasher = entity;
+            }
+            
+            if (stasher) {
+                const inv_stash = (<EntityInventoryComponent> stasher.getComponent('inventory')).container;
+                for (let i = 0; i < 9; i++) {
+                    const stashed = inv_stash.getItem(i);
+                    if (stashed.id == item && (stashed.data == data || data < 0)) {
+                        hasItem = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return hasItem;
     }
     
     /**
