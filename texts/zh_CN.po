@@ -11,19 +11,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-07 02:38\n"
+"PO-Revision-Date: 2022-03-07 03:51\n"
 
 msgid "pack.description"
-msgstr "这是一个正在开发中的 Java 版的 WorldEdit 模组到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "item.error.wedit:noPerms"
 msgstr "您没有使用此道具的权限。"
 
 msgid "item.wedit:selection_wand"
-msgstr "选择棍"
+msgstr "选择器"
 
 msgid "item.wedit:stacker_wand"
-msgstr "堆叠棍"
+msgstr "堆叠器"
 
 msgid "item.wedit:navigation_wand"
 msgstr "传送器"
@@ -593,7 +593,7 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 取任意类型的铲子，然后放置一个圆石（你待会需要用它来设置笔刷）。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. 使用“WorldEdit设置”项。热栏中应该会出现一个包含“笔刷设置”的菜单。选择项目，然后选择要绑定到的电铲。制作一个半径为3的球形笔刷和鹅卵石图案。确认设置并退出菜单。"
+msgstr "§72. 使用“创世神设置”道具。物品栏中应该会出现一个包含“笔刷设置”的菜单。选择菜单中的选项，然后选择要绑定到的铲子类型。制作一个半径为3格的球形笔刷且以圆石为填充物。最后确认设置并退出菜单。"
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
