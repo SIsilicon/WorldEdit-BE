@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-03 12:22\n"
+"PO-Revision-Date: 2022-03-07 02:38\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的 WorldEdit 模组到基岩版的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -26,7 +26,7 @@ msgid "item.wedit:stacker_wand"
 msgstr "堆叠棍"
 
 msgid "item.wedit:navigation_wand"
-msgstr "传送棍"
+msgstr "传送器"
 
 msgid "item.wedit:wooden_brush"
 msgstr "木制笔刷"
