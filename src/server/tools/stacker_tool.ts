@@ -9,12 +9,9 @@ import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 
 class StackerTool extends Tool {
-    range: number;
-    mask: Mask;
+    public range: number;
+    public mask: Mask;
     
-    tag = 'wedit:using_stacker';
-    itemTool = 'wedit:stacker_wand';
-    itemBase = 'minecraft:iron_axe';
     permission = 'worldedit.region.stack';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         const dim = player.dimension;

@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "category": "commands",
+            "identifier": "wedit:_tool_netherStar"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:foil": true,
+            "minecraft:liquid_clipped": true,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "wedit:on_use"
+                }
+            },
+            "minecraft:display_name": {
+                "value": "item.netherStar.name"
+            },
+            "minecraft:render_offsets": "miscellaneous",
+            "minecraft:icon": {
+                "texture": "nether_star"
+            }
+        },
+        "events": {
+            "wedit:on_use": {}
+        }
+    }
+}

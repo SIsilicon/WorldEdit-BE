@@ -8,20 +8,6 @@ parser.add_argument('--clean', '-c', action='store_true', help='Clean "BP/script
 parser.add_argument('--package-only', '-p', action='store_true', help='Only package what\'s already there.')
 args = parser.parse_args()
 
-# Check for typescript compiler
-try:
-    if not args.package_only:
-        subprocess.call(['tsc', '--version'])
-except FileNotFoundError:
-    sys.exit('tsc does not seem to exist. It is required to build the addon\'s scripts.')
-
-if args.target == 'release':
-    # Check for zip 
-    try:
-        subprocess.call(['zip', '--version'])
-    except FileNotFoundError:
-        sys.exit('zip does not seem to exist. It is required to package the addon.')
-
 if not args.package_only:
     # Check for input and output folder
     if not os.path.isdir('src'):
@@ -50,9 +36,9 @@ if not args.package_only:
         print('Watch mode: press control-C to stop.')
         tsc = subprocess.Popen(['tsc', '-w'])
         # Remap absolute imports
-        remap_imports = subprocess.Popen([sys.executable, 'remap_imports.py', '-w'])
+        remap_imports = subprocess.Popen([sys.executable, 'tools/remap_imports.py', '-w'])
         # Convert po to lang files
-        po2lang = subprocess.Popen([sys.executable, 'po2lang.py', '-w'])
+        po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'])
         
         from time import sleep
         try:
@@ -77,9 +63,9 @@ def regExpSub(regEx, replace, file):
 regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
 
 # Remap absolute imports
-subprocess.call([sys.executable, 'remap_imports.py'])
+subprocess.call([sys.executable, 'tools/remap_imports.py'])
 # Convert po to lang files
-subprocess.call([sys.executable, 'po2lang.py'])
+subprocess.call([sys.executable, 'tools/po2lang.py'])
 
 if not os.path.isdir('builds'):
     os.makedirs('builds')

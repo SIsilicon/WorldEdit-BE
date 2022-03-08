@@ -10,7 +10,7 @@ const registerInformation = {
 
 commandList['kit'] = [registerInformation, (session, builder, args) => {
     const items = [
-        'wedit:selection_wand',
+        'wedit:_tool_wooden_axe',
         'wedit:selection_fill',
         'wedit:pattern_picker',
         'wedit:copy_button',

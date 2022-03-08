@@ -5,8 +5,6 @@ import { Tools } from './tool_manager.js';
 import { RawText } from '@modules/rawtext.js';
 
 class PatternPickerTool extends Tool {
-    tag = 'wedit:picking_pattern';
-    itemTool = 'wedit:pattern_picker';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         const dimension = player.dimension;
         let addedToPattern = false;
@@ -41,11 +39,9 @@ class PatternPickerTool extends Tool {
         );
     }
 }
-Tools.register(PatternPickerTool, 'pattern_picker');
+Tools.register(PatternPickerTool, 'pattern_picker', 'wedit:pattern_picker');
 
 class MaskPickerTool extends Tool {
-    tag = 'wedit:picking_mask';
-    itemTool = 'wedit:mask_picker';
     permission = 'worldedit.global-mask';
     useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
         const dimension = player.dimension;
@@ -81,7 +77,7 @@ class MaskPickerTool extends Tool {
         );
     }
 }
-Tools.register(MaskPickerTool, 'mask_picker');
+Tools.register(MaskPickerTool, 'mask_picker', 'wedit:mask_picker');
 
 function printBlockProperties(block: BlockPermutation) {
     let propString = '';

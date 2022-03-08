@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "category": "commands",
+            "identifier": "wedit:_tool_beetroot_seeds"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:foil": true,
+            "minecraft:liquid_clipped": true,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "wedit:on_use"
+                }
+            },
+            "minecraft:display_name": {
+                "value": "item.beetroot_seeds.name"
+            },
+            "minecraft:render_offsets": "seeds",
+            "minecraft:icon": {
+                "texture": "seeds_beetroot"
+            }
+        },
+        "events": {
+            "wedit:on_use": {}
+        }
+    }
+}

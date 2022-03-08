@@ -1,6 +1,5 @@
 import { Player, EntityInventoryComponent } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
 import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
 import { assertPermission } from '@modules/assert.js';
@@ -89,76 +88,43 @@ const registerInformation = {
     ]
 };
 
-export function getBrushTier(player: Player) {
-    const container = (player.getComponent('minecraft:inventory') as EntityInventoryComponent).container;
-    const item = container.getItem(player.selectedSlot).id;
-    
-    if (item == 'wedit:wooden_brush' || item == 'minecraft:wooden_shovel') {
-        return 'wooden_brush';
-    } else if (item == 'wedit:stone_brush' || item == 'minecraft:stone_shovel') {
-        return 'stone_brush';
-    } else if (item == 'wedit:iron_brush' || item == 'minecraft:iron_shovel') {
-        return 'iron_brush';
-    } else if (item == 'wedit:golden_brush' || item == 'minecraft:golden_shovel') {
-        return 'golden_brush';
-    } else if (item == 'wedit:diamond_brush' || item == 'minecraft:diamond_shovel') {
-        return 'diamond_brush';
-    } else if (item == 'wedit:netherite_brush' || item == 'minecraft:netherite_shovel') {
-        return 'netherite_brush';
-    } else {
-        throw 'commands.wedit:brush.invalidItem';
-    }
-}
-
-const sphere_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
+const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.setTool(brush, new SphereBrush(
+    session.bindTool('brush', new SphereBrush(
         args.get('radius'),
         args.get('pattern'),
         args.has('h')
     ));
-    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
-const cylinder_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
+const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[2].permission);
-    session.setTool(brush, new CylinderBrush(
+    session.bindTool('brush', new CylinderBrush(
         args.get('radius'),
         args.get('height'),
         args.get('pattern'),
         args.has('h')
     ));
-    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
-const smooth_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
+const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[3].permission);
-    session.setTool(brush, new SmoothBrush(
+    session.bindTool('brush', new SmoothBrush(
         args.get('radius'),
         args.get('iterations'),
         args.get('mask')
     ));
-    return RawText.translate('commands.generic.wedit:wandInfo');
-};
-
-const none_command = (session: PlayerSession, builder: Player, brush: string, args: Map<string, any>) => {
-    if (session.hasTool(brush)) {
-        session.unbindTool(brush);
-    }
-    return RawText.translate('commands.generic.wedit:wandInfo');
 };
 
 commandList['brush'] = [registerInformation, (session, builder, args) => {
-    const brush = getBrushTier(builder);
-    
     if (args.has('sphere')) {
-        return sphere_command(session, builder, brush, args);
+        sphere_command(session, builder, args);
     } else if (args.has('cyl')) {
-        return cylinder_command(session, builder, brush, args);
+        cylinder_command(session, builder, args);
      } else if (args.has('smooth')) {
-        return smooth_command(session, builder, brush, args);
+        smooth_command(session, builder, args);
     } else {
-        return none_command(session, builder, brush, args);
+        session.unbindTool();
     }
-    // throw RawText.translate('commands.generic.unknown').with('brush <tier> ' + args[1]);
+    return 'commands.generic.wedit:wandInfo';
 }];

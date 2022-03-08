@@ -1,7 +1,7 @@
-import { Player, BlockLocation, Dimension, TickEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
+import { Player, BlockLocation, Dimension, TickEvent, BeforeItemUseEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
 import { printDebug, printLocation, regionSize, regionVolume } from './util.js';
-import { Server } from '@library/Minecraft.js';
+import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
 import { Vector } from '@modules/vector.js';
@@ -18,23 +18,11 @@ import './tools/register_tools.js';
 // TODO: Add other selection modes
 export type selectMode = 'cuboid';
 
-const playerSessions: {[k: string]: PlayerSession} = {};
-const pendingDeletion: {[k: string]: [number, PlayerSession]} = {}
-
-Server.on('tick', ev => {
-    for (const player in pendingDeletion) {
-        const session = pendingDeletion[player];
-        session[0]--;
-        if (session[0] < 0) {
-            session[1].delete();
-            delete pendingDeletion[player];
-            printDebug('Deleted player session!');
-        }
-    }
-});
+const playerSessions: Map<string, PlayerSession> = new Map();
+const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
 PlayerUtil.on('playerChangeDimension', (player, dimension) => {
-    playerSessions[player.name]?.clearSelectionPoints();
+    playerSessions.get(player.name)?.clearSelectionPoints();
 });
 
 /**
@@ -77,7 +65,6 @@ export class PlayerSession {
     public settingsHotbar: SettingsHotbar;
     
     private currentTick = 0;
-    public tools = new Map<string, Tool>();
 
     private player: Player;
     private history: History;
@@ -93,26 +80,6 @@ export class PlayerSession {
         this.player = player;
         this.history = new History(this.player);
         this.selectionPoints = [];
-        
-        // Tools are bound by default.
-        this.setTool('pattern_picker');
-        this.setTool('mask_picker');
-        this.setTool('selection_wand');
-        this.setTool('navigation_wand');
-        this.setTool('config');
-        this.setTool('cut');
-        this.setTool('copy');
-        this.setTool('paste');
-        this.setTool('undo');
-        this.setTool('redo');
-        this.setTool('rotate_cw');
-        this.setTool('rotate_ccw');
-        this.setTool('flip');
-        this.setTool('spawn_glass');
-        this.setTool('selection_fill');
-        this.setTool('selection_wall');
-        this.setTool('selection_outline');
-        this.setTool('draw_line');
         
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
@@ -220,35 +187,39 @@ export class PlayerSession {
     * @param tool The id of the tool being made
     * @param args Optional parameters the tool uses during its construction.
     */
-    public setTool(tool: string, ...args: any[]) {
-        this.tools.set(tool, Tools.create(tool, ...args));
+    public bindTool(tool: string, ...args: any[]) {
+        Tools.bind(tool, this.player, ...args);
     }
     
     /**
-    * Sets a property of a tool binded to this session.
-    * @param tool The id of the tool
+    * Tests for a property of a tool in the session's player's main hand.
+    * @param property The name of the tool's property
+    */
+    public hasToolProperty(property: string) {
+        return Tools.hasProperty(this.player, property);
+    }
+    
+    /**
+    * Sets a property of a tool in the session's player's main hand.
     * @param property The name of the tool's property
     * @paran value The new value of the tool's property
     */
-    public setToolProperty(tool: string, property: string, value: any) {
-        (<{[k: string]: any}>this.tools.get(tool))[property] = value;
+    public setToolProperty(property: string, value: any) {
+        return Tools.setProperty(this.player, property, value);
     }
     
     /**
-    * @param tool The tool being tested for
-    * @return Whether the session has a tool binded to it
+    * @return Whether the session has a tool binded to the player's hand.
     */
-    public hasTool(tool: string) {
-        return this.tools.has(tool);
+    public hasTool() {
+        return Tools.hasBinding(this.player);
     }
     
     /**
-    * Unbinds a tool from this session.
-    * @param tool The id of the tool being deleted
+    * Unbinds a tool from this session's player's hand.
     */
-    public unbindTool(tool: string) {
-        this.tools.get(tool).unbind(this.player);
-        this.tools.delete(tool);
+    public unbindTool() {
+        Tools.unbind(this.player);
     }
     
     /**
@@ -268,6 +239,7 @@ export class PlayerSession {
     
     delete() {
         Regions.deletePlayer(this.player);
+        Tools.deleteBindings(this.player);
         this.history = null;
     }
     
@@ -324,11 +296,6 @@ export class PlayerSession {
             this.enterSettings();
         }
         
-        // Process tool use
-        for (const tool of this.tools.values()) {
-            tool.process(this, this.currentTick);
-        }
-        
         // Draw Selection
         if (!this.drawSelection) return;
         if (this.drawTimer <= 0) {
@@ -341,13 +308,10 @@ export class PlayerSession {
         this.drawTimer--;
     }
     
-    onEntityCreate(entity: Entity, loc: BlockLocation): boolean {
-        let processed = false;
-        for (const tool of this.tools.values()) {
-            // one added to tick to compensate for late onTick call.
-            processed ||= tool.process(this, this.currentTick+1, loc);
+    onItemUse(ev: BeforeItemUseEvent) {
+        if (this.settingsHotbar) {
+            this.settingsHotbar.onItemUse(ev);
         }
-        return processed;
     }
     
     /**
@@ -387,50 +351,55 @@ export class PlayerSession {
 
 export function getSession(player: Player): PlayerSession {
     const name = player.name;
-    if (!playerSessions[name]) {
+    if (!playerSessions.has(name)) {
         let session: PlayerSession
-        if (pendingDeletion[name]) {
-            session = pendingDeletion[name][1];
+        if (pendingDeletion.has(name)) {
+            session = pendingDeletion.get(name)[1];
             session.reassignPlayer(player);
-            delete pendingDeletion[name];
+            pendingDeletion.get(name);
         }
-        playerSessions[name] = session ?? new PlayerSession(player);
-        printDebug(playerSessions[name]?.getPlayer()?.name);
+        playerSessions.set(name, session ?? new PlayerSession(player));
+        printDebug(playerSessions.get(name)?.getPlayer()?.name);
         printDebug(`new Session?: ${!session}`);
     }
-    return playerSessions[name];
+    return playerSessions.get(name);
 }
 
 export function removeSession(player: string) {
-    if (!playerSessions[player]) return;
+    if (!playerSessions.has(player)) return;
 
-    playerSessions[player].clearSelectionPoints();
-    playerSessions[player].globalPattern.clear();
-    pendingDeletion[player] = [TICKS_TO_DELETE_SESSION, playerSessions[player]];
-    delete playerSessions[player];
+    playerSessions.get(player).clearSelectionPoints();
+    playerSessions.get(player).globalPattern.clear();
+    pendingDeletion.set(player, [TICKS_TO_DELETE_SESSION, playerSessions.get(player)]);
+    playerSessions.delete(player);
 }
 
 export function hasSession(player: string) {
-    return !!playerSessions[player];
+    return playerSessions.has(player);
 }
 
-Server.on('tick', ev => {
-    for (const player in playerSessions) {
-        playerSessions[player].onTick(ev);
-    }
-})
-
-Server.on('entityCreate', ev => {
-    if (ev.entity.id == 'wedit:block_marker') {
-        const loc = Vector.from(ev.entity.location).toBlock();
-        for (const player in playerSessions) {
-            if (playerSessions[player].onEntityCreate(ev.entity, loc)) {
-                break;
+// Delayed a tick so that it's processed before other listeners
+setTickTimeout(() => {
+    Server.prependListener('tick', ev => {
+        for (const player of pendingDeletion.keys()) {
+            const session = pendingDeletion.get(player);
+            session[0]--;
+            if (session[0] < 0) {
+                session[1].delete();
+                pendingDeletion.delete(player);
+                printDebug('Deleted player session!');
             }
         }
         
-        ev.entity.nameTag = 'wedit:pending_deletion_of_selector';
-        Server.runCommand(`tp @s ~ -256 ~`, ev.entity);
-        Server.runCommand(`kill @s`, ev.entity);
-    }
-})
+        for (const session of playerSessions.values()) {
+            session.onTick(ev);
+        }
+    });
+    
+    Server.prependListener('beforeItemUse', ev => {
+        if (ev.source.id == 'minecraft:player') {
+            const name = (ev.source as Player).name;
+            playerSessions.get(name)?.onItemUse(ev);
+        }
+    });
+}, 1);
