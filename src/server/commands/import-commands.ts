@@ -22,6 +22,11 @@ import './selection/pos2.js';
 import './selection/drawsel.js';
 import './selection/desel.js';
 import './selection/wand.js';
+import './selection/contract.js';
+import './selection/expand.js';
+import './selection/shift.js';
+import './selection/outset.js';
+import './selection/inset.js';
 
 import './clipboard/cut.js';
 import './clipboard/copy.js';

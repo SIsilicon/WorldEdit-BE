@@ -234,9 +234,9 @@ export class CommandBuilder {
                     const greater = val > (def.range[1] ?? Infinity);
                     
                     if(less) {
-                        throw RawText.translate('commands.generic.tooSmall').with(val).with(def.range[0]);
+                        throw RawText.translate('commands.generic.wedit:tooSmall').with(val).with(def.range[0]);
                     } else if(greater) {
-                        throw RawText.translate('commands.generic.tooBig').with(val).with(def.range[1]);
+                        throw RawText.translate('commands.generic.wedit:tooBig').with(val).with(def.range[1]);
                     }
                 }
                 

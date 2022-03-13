@@ -1,7 +1,5 @@
 import './util.js';
 import './commands/import-commands.js';
-// TODO: Add far wand (Golden Axe)
-// TODO: Add floodfill wand (Bucket?)
 
 import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
@@ -17,8 +15,8 @@ let activeBuilders: Player[] = [];
 
 let ready = false;
 Server.on('ready', ev => {
-    Server.runCommand(`gamerule showtags false`);
-    Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
+    // Server.runCommand(`gamerule showtags false`);
+    // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;
 });
@@ -65,10 +63,6 @@ Server.on('tick', ev => {
             removeBuilder(builder.name);
             print('worldedit.permission.revoked', builder);
             continue;
-        }
-        
-        if (builder.isSneaking) {
-            //printDebug(PlayerUtil.isHotbarStashed(builder));
         }
     }
 });

@@ -11,6 +11,8 @@ import { CylinderBrush } from '../brushes/cylinder_brush.js';
 import { SmoothBrush } from '../brushes/smooth_brush.js';
 import { Tools } from '../tools/tool_manager.js';
 
+const itemLock = '{"minecraft:item_lock":{"mode":"lock_in_slot"}}';
+
 type hotbarItems = {[k: number]: string|[string, number]};
 interface state {
     hotbar: hotbarItems,
@@ -380,7 +382,7 @@ export class SettingsHotbar {
         const player = this.player;
         for (let i = 0; i < 9; i++) {
             const [item, data] = Array.isArray(items[i]) ? <[string, number]>items[i] : [<string>items[i] ?? 'wedit:blank', 0];
-            Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item} 1 ${data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`, player);
+            Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item} 1 ${data} ${itemLock}`, player);
         }
     }
     

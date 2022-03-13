@@ -65,6 +65,14 @@ export class Vector {
         this.z = this.z / len * val;
     }
     
+    getIdx(idx: 0|1|2) {
+        return this.vals[idx];
+    }
+
+    setIdx(idx: 0|1|2, val: number) {
+        this.vals[idx] = val;
+    }
+
     clone() {
         return new Vector(...this.vals);
     }
@@ -175,13 +183,13 @@ export class Vector {
         );
     }
     
-    toString() {
-        return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`
-    }
-    
     *[Symbol.iterator] () {
         yield this.vals[0];
         yield this.vals[1];
         yield this.vals[2];
     }
+}
+
+Vector.prototype.toString = function() {
+    return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`
 }

@@ -31,13 +31,13 @@ export function assertClipboard(player: Player) {
 }
 
 export function assertSelection(session: PlayerSession) {
-    if (session.getBlocksSelected().length == 0) {
+    if (session.getSelectedBlockCount() == 0) {
         throw RawText.translate('commands.generic.wedit:noSelection');
     }
 }
 
 export function assertCuboidSelection(session: PlayerSession) {
-    if (session.getBlocksSelected().length == 0 || session.selectionMode != 'cuboid') {
+    if (session.getSelectedBlockCount() == 0 || (session.selectionMode != 'cuboid' && session.selectionMode != 'extend')) {
         throw RawText.translate('commands.generic.wedit:noCuboidSelection');
     }
 }

@@ -34,11 +34,13 @@ if not args.package_only:
     print('building scripts...')
     if args.watch:
         print('Watch mode: press control-C to stop.')
-        tsc = subprocess.Popen(['tsc', '-w'])
+        tsc = subprocess.Popen('tsc -w', shell=True)
         # Remap absolute imports
         remap_imports = subprocess.Popen([sys.executable, 'tools/remap_imports.py', '-w'])
         # Convert po to lang files
         po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'])
+        # Sync to com.mojang
+        sync_mojang = subprocess.Popen([sys.executable, 'tools/sync2com-mojang.py', '-w'], stdout=subprocess.DEVNULL)
         
         from time import sleep
         try:
@@ -48,6 +50,7 @@ if not args.package_only:
             tsc.kill()
             remap_imports.kill()
             po2lang.kill()
+            sync_mojang.kill()
             exit()
     else:
         subprocess.call(['tsc', '-b'])

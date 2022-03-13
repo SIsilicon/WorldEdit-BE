@@ -31,7 +31,7 @@ commandList['faces'] = [registerInformation, (session, builder, args) => {
     
     let count = 0;
     let [start, end] = session.getSelectionRange();
-    if (session.selectionMode == 'cuboid') {
+    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const size = Vector.sub(end, start).add(Vector.ONE);
         count = new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {hollow: true});
     }
