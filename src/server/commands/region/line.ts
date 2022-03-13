@@ -1,9 +1,5 @@
-import { PlayerSession } from '../../sessions.js';
-import { printDebug } from '../../util.js';
-import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
-import { Pattern } from '@modules/pattern.js';
-import { Mask } from '@modules/mask.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
 
@@ -94,10 +90,13 @@ function bresenham3d(p1: Vector, p2: Vector) {
 }
 
 commandList['line'] = [registerInformation, (session, builder, args) => {
-    assertSelection(session);
+    assertCuboidSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
+    if (session.selectionMode != 'cuboid') {
+        throw 'commands.wedit:line.invalidType';
+    }
     if (session.usingItem && session.globalPattern.empty()) {
-        throw RawText.translate('worldEdit.selectionFill.noPattern');
+        throw 'worldEdit.selectionFill.noPattern';
     }
     
     const dim = builder.dimension;

@@ -75,5 +75,5 @@ commandList['copy'] = [registerInformation, (session, builder, args) => {
     if (copy(session, args)) {
         throw RawText.translate('commands.generic.wedit:commandFail');
     }
-    return RawText.translate('commands.wedit:copy.explain').with(`${session.getBlocksSelected().length}`);
+    return RawText.translate('commands.wedit:copy.explain').with(`${session.getSelectedBlockCount()}`);
 }];

@@ -80,7 +80,7 @@ class PlayerHandler extends EventEmitter {
                 const inv_stash = (<EntityInventoryComponent> stasher.getComponent('inventory')).container;
                 for (let i = 0; i < 9; i++) {
                     const stashed = inv_stash.getItem(i);
-                    if (stashed.id == item && (stashed.data == data || data < 0)) {
+                    if (stashed && stashed.id == item && (stashed.data == data || data < 0)) {
                         hasItem = true;
                         break;
                     }
@@ -212,9 +212,9 @@ class PlayerHandler extends EventEmitter {
                     inv_stash.transferItem(i, i, inv);
                 }
             }
-            Server.runCommand(`tp @e[name="${stasherName}"] ~ -256 ~`, player);
-            stasher.triggerEvent('wedit:kill');
-            stasher.nameTag = 'wedit:killed';
+            Server.runCommand(`tp @e[name="${stasherName}"] ~ ~ ~`, player);
+            stasher.triggerEvent('wedit:despawn');
+            stasher.nameTag = 'despawned';
             return false;
         } else {
             return true;

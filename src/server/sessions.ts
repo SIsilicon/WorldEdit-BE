@@ -16,7 +16,7 @@ import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
 
 // TODO: Add other selection modes
-export type selectMode = 'cuboid';
+export type selectMode = 'cuboid' | 'extend';
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -115,13 +115,26 @@ export class PlayerSession {
     * @param loc The location the selection point is being made
     */
     public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
-        if (index > 0 && this.selectionPoints.length == 0) {
+        if (index > 0 && this.selectionPoints.length == 0 && this.selectionMode != 'cuboid') {
         throw RawText.translate('worldedit.selection.noPrimary');
         }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
         }
-        this.selectionPoints[index] = loc;
+        
+        if (this.selectionMode == 'cuboid') {
+            this.selectionPoints[index] = loc;
+            if (this.selectionMode != 'cuboid') {
+                this.selectionPoints.length = 1;
+            }
+        } else if (this.selectionMode == 'extend') {
+            if (index == 0) {
+                this.selectionPoints = [loc, loc.offset(0, 0, 0)];
+            } else {
+                this.selectionPoints[0] = Vector.min(this.selectionPoints[0], this.selectionPoints[1]).min(loc).toBlock();
+                this.selectionPoints[1] = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).max(loc).toBlock();
+            }
+        }
         this.updateDrawSelection();
     }
     
@@ -151,7 +164,7 @@ export class PlayerSession {
         if (points == 0 || points == 1)
             return [];
 
-        if (this._selectionMode == 'cuboid') {
+        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
             const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]);
             const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]);
             return min.toBlock().blocksBetween(max.toBlock());
@@ -166,7 +179,7 @@ export class PlayerSession {
         if (points == 0 || points == 1)
             return 0;
 
-        if (this._selectionMode == 'cuboid') {
+        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
             return regionVolume(this.selectionPoints[0], this.selectionPoints[1]);
         }
     }
@@ -175,7 +188,7 @@ export class PlayerSession {
     * @return The minimum and maximum points of the selection
     */
     public getSelectionRange(): [BlockLocation, BlockLocation] {
-        if (this._selectionMode == 'cuboid') {
+        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
             const [pos1, pos2] = this.selectionPoints.slice(0, 2);
             return [Vector.min(pos1, pos2).toBlock(), Vector.max(pos1, pos2).toBlock()];
         }
@@ -246,7 +259,10 @@ export class PlayerSession {
     private updateDrawSelection() {
         this.drawPoints.length = 0;
         
-        if (this.selectionMode == 'cuboid' && this.selectionPoints.length == 2) {
+        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
+            if (this.selectionPoints.length != 2 || this.selectionPoints[0] === undefined) {
+                return;
+            }
             const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ZERO);
             const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ONE);
 
@@ -327,8 +343,10 @@ export class PlayerSession {
     * @param {selectMode} value
     */
     public set selectionMode(value: selectMode) {
+        if (!(['cuboid', 'extend'].includes(this.selectionMode) && ['cuboid', 'extend'].includes(value))) {
+            this.clearSelectionPoints();
+        }
         this._selectionMode = value;
-        this.clearSelectionPoints();
     }
     
     /**

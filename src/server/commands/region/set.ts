@@ -52,7 +52,7 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
     const history = session.getHistory();
     history.record();
 
-    if (session.selectionMode == 'cuboid') {
+    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const [pos1, pos2] = session.getSelectionPoints();
         var start = Vector.min(pos1, pos2).toBlock();
         var end = Vector.max(pos1, pos2).toBlock();
@@ -62,7 +62,7 @@ commandList['set'] = [registerInformation, (session, builder, args) => {
     const count = set(session, pattern);
     
     history.recordSelection(session);
-    history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
+    history.addRedoStructure(start, end, (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') ? 'any' : []);
     history.commit();
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

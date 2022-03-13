@@ -44,6 +44,9 @@ const registerInformation = {
     ]
 };
 
+// TODO: Add far wand
+// TODO: Add floodfill wand
+
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('stacker_wand', args.get('range'), args.get('mask'));

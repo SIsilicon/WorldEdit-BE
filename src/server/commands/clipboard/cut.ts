@@ -63,8 +63,8 @@ commandList['cut'] = [registerInformation, (session, builder, args) => {
         Server.runCommand('kill @e[name=wedit:marked_for_deletion]', dim);
     }
 
-    history.addRedoStructure(start, end, session.selectionMode == 'cuboid' ? 'any' : []);
+    history.addRedoStructure(start, end, 'any');
     history.commit();
     
-    return RawText.translate('commands.wedit:cut.explain').with(`${session.getBlocksSelected().length}`);
+    return RawText.translate('commands.wedit:cut.explain').with(`${session.getSelectedBlockCount()}`);
 }];

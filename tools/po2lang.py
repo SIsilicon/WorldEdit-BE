@@ -1,6 +1,5 @@
-import json, glob, re, polib
+import glob, re, polib
 import os
-from os.path import relpath
 from itertools import chain
 
 import argparse
@@ -29,7 +28,7 @@ def convert_file(in_path, out_path):
                 break
     newlines[-1] = newlines[-1][:-1]
     
-    with open(out_path, 'w') as file:
+    with open(out_path, 'w', encoding='utf-8') as file:
         file.writelines(newlines)
         print(f'{in_path} converted to {out_path}')
 
@@ -61,7 +60,7 @@ def update_keys(filename):
     if get_lang(filename) == 'bg_BG':
         print(meta)
     
-    with open(filename, 'w') as file:
+    with open(filename, 'w', encoding='utf-8') as file:
         file.write('msgid ""\n')
         for line in meta:
             file.write(line)

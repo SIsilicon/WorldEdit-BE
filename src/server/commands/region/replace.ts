@@ -49,7 +49,7 @@ commandList['replace'] = [registerInformation, (session, builder, args) => {
 
     const affectedBlocks = getAffectedBlocks(session, mask);
     
-    if (session.selectionMode == 'cuboid') {
+    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const [pos1, pos2] = session.getSelectionPoints();
         var start = Vector.min(pos1, pos2).toBlock();
         var end = Vector.max(pos1, pos2).toBlock();

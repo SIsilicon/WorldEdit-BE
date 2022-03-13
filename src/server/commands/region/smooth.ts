@@ -33,6 +33,8 @@ const registerInformation = {
 
 export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, mask: Mask) {
     const range = shape.getRegion(loc);
+    range[0].y = Math.max(getWorldMinY(session.getPlayer()), range[0].y);
+    range[1].y = Math.min(getWorldMaxY(session.getPlayer()), range[1].y);
     type map = (number | null)[][];
     
     function getMap(arr: map, x: number, z: number) {
@@ -158,7 +160,7 @@ commandList['smooth'] = [registerInformation, (session, builder, args) => {
     
     let count = 0;
     let [start, end] = session.getSelectionRange();
-    if (session.selectionMode == 'cuboid') {
+    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const size = Vector.sub(end, start).add(Vector.ONE);
         const shape = new CuboidShape(size.x, size.y, size.z);
         smooth(session, args.get('iterations'), shape, start, args.get('mask'));

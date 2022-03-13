@@ -18,21 +18,24 @@ def modify_file(path):
     modified = False
     with open(path, 'r') as file:
         newlines = []
-        for line in file.readlines():
-            match = re.match(regex, line)
-            if match:
-                package = match.group(1)
-                for key, value in paths.items():
-                    module = re.match(key.replace('*', '(.+)'), package)
-                    if module:
-                        newpackage = outdir + '/' + value[0]
-                        for g in module.groups():
-                            newpackage = newpackage.replace('*', g, 1)
-                        newpackage = relpath(newpackage, path).replace('../', './', 1)
-                        line = line.replace(package, newpackage)
-                        modified = True
-                        break
-            newlines.append(line)
+        try:
+            for line in file.readlines():
+                match = re.match(regex, line)
+                if match:
+                    package = match.group(1)
+                    for key, value in paths.items():
+                        module = re.match(key.replace('*', '(.+)'), package)
+                        if module:
+                            newpackage = outdir + '/' + value[0]
+                            for g in module.groups():
+                                newpackage = newpackage.replace('*', g, 1)
+                            newpackage = relpath(newpackage, path).replace('\\', '/').replace('../', './', 1)
+                            line = line.replace(package, newpackage)
+                            modified = True
+                            break
+                newlines.append(line)
+        except:
+            pass
     
     if modified:
         print('remapped imports in: ' + path)
@@ -55,13 +58,11 @@ if args.watch:
     class MyHandler(FileSystemEventHandler):
         def on_modified(self,  event):
             if not event.is_directory:
-                if modify_file(event.src_path):
-                    alert_watching()
+                modify_file(event.src_path)
         
         def on_created(self,  event):
             if not event.is_directory:
-                if modify_file(event.src_path):
-                    alert_watching()
+                modify_file(event.src_path)
         
         def on_deleted(self,  event):
             pass
@@ -73,7 +74,7 @@ if args.watch:
     try:
         alert_watching()
         while  True:
-            time.sleep(1)
+            time.sleep(2)
     except  KeyboardInterrupt:
         observer.stop()
     print('\n')
