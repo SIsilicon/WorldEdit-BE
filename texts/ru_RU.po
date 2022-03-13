@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-02-13 20:06\n"
+"PO-Revision-Date: 2022-03-13 16:50\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
-
-msgid "item.error.wedit:noPerms"
-msgstr "У вас недостаточно прав, чтобы использовать этот предмет."
-
-msgid "item.wedit:selection_wand"
-msgstr "Топор Выбра"
-
-msgid "item.wedit:stacker_wand"
-msgstr "Палка укладка"
-
-msgid "item.wedit:navigation_wand"
-msgstr "Навигационная Палка"
-
-msgid "item.wedit:wooden_brush"
-msgstr "Деревянная Кисть"
-
-msgid "item.wedit:stone_brush"
-msgstr "Каменная Кисть"
-
-msgid "item.wedit:iron_brush"
-msgstr "Железная Кисть"
-
-msgid "item.wedit:golden_brush"
-msgstr "Золотая Кисть"
-
-msgid "item.wedit:diamond_brush"
-msgstr "Алмазная Кисть"
-
-msgid "item.wedit:netherite_brush"
-msgstr "Незеритовая Кисть"
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -130,6 +100,15 @@ msgstr "Ок"
 msgid "item.wedit:cancel_button"
 msgstr "Назад"
 
+msgid "item.wedit:prev_button"
+msgstr "Previous"
+
+msgid "item.wedit:next_button"
+msgstr "Next"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Create New Brush"
+
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Учитывать существа в Заметки §aВключено§r"
 
@@ -165,6 +144,9 @@ msgstr "Поставить маску для блока: "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Выберите кисть чтобы настроить."
+
+msgid "worldedit.brushConfig.chooseItem"
+msgstr "Hold an item to bind a brush to."
 
 msgid "worldedit.brushConfig.chooseKind"
 msgstr "Выберите вид кисти."
@@ -225,6 +207,21 @@ msgstr "Вторая точка поставлена на %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Вторая точка поставлена на %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
 
 msgid "worldedit.permission.granted"
 msgstr "§eВам предоставлены права WorldEdit. Откройте (Настройки > Как играть > Быстрый старт) для получения руководства.§r"
@@ -304,6 +301,9 @@ msgstr "Очистите историю редактирования"
 msgid "commands.wedit.clearhistory.explain"
 msgstr "История очищена."
 
+msgid "commands.wedit:contract.explain"
+msgstr "Region contracted %s blocks."
+
 msgid "commands.wedit:copy.description"
 msgstr "Скопируйте регион в заметки"
 
@@ -327,6 +327,9 @@ msgstr "Ваш выбор больше не будет виден."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Ваш выбор теперь будет виден."
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region expanded %s blocks."
 
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
@@ -364,6 +367,9 @@ msgstr "Сгенерировать пустую сферу"
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region inset."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "Вжух!"
 
@@ -378,6 +384,9 @@ msgstr "Кит получен."
 
 msgid "commands.wedit:line.description"
 msgstr "Create a line between your first and second selection points"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections\" # \" or convex polyhedral selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "Установите, на какие блоки может воздействовать кисть, если они есть"
@@ -396,6 +405,9 @@ msgstr "Дать себе Навигационную Палку"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Присесть и использовать предмет: проходить сквозь стены; Используйте вещь без кнопки присесть: телепортироваться на блок"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region outset."
 
 msgid "commands.wedit:paste.description"
 msgstr "Вставьте данные из заметок в мир"
@@ -439,11 +451,20 @@ msgstr "%s не является приращением 90°!"
 msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "Изменить режим выбора (в настоящее время можно только очистить выбор)"
+msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
 
 msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "Установить размер кисти"
@@ -476,10 +497,19 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Установите, на каких блоках можно использовать кисть"
 
 msgid "commands.wedit:tool.description"
-msgstr "Получите все виды инструментов (в настоящее время только укладчик)"
+msgstr "Get all sorts of tools"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Selection tool"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Unbind held tool"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Выйти из блоков"
