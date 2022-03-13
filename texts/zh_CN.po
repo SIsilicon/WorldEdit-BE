@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-07 05:26\n"
+"PO-Revision-Date: 2022-03-13 16:50\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
-
-msgid "item.error.wedit:noPerms"
-msgstr "您没有使用此道具的权限。"
-
-msgid "item.wedit:selection_wand"
-msgstr "选择器"
-
-msgid "item.wedit:stacker_wand"
-msgstr "堆叠器"
-
-msgid "item.wedit:navigation_wand"
-msgstr "传送器"
-
-msgid "item.wedit:wooden_brush"
-msgstr "木制笔刷"
-
-msgid "item.wedit:stone_brush"
-msgstr "石制笔刷"
-
-msgid "item.wedit:iron_brush"
-msgstr "铁制笔刷"
-
-msgid "item.wedit:golden_brush"
-msgstr "金制笔刷"
-
-msgid "item.wedit:diamond_brush"
-msgstr "钻石笔刷"
-
-msgid "item.wedit:netherite_brush"
-msgstr "下界合金笔刷"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -130,6 +100,15 @@ msgstr "确定"
 msgid "item.wedit:cancel_button"
 msgstr "返回"
 
+msgid "item.wedit:prev_button"
+msgstr "Previous"
+
+msgid "item.wedit:next_button"
+msgstr "Next"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Create New Brush"
+
 msgid "item.wedit:inc_entities_on_button"
 msgstr "在剪贴板中包含实体：§a启用§r"
 
@@ -165,6 +144,9 @@ msgstr "将取代方块设为： "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "选择一种笔刷进行设置"
+
+msgid "worldedit.brushConfig.chooseItem"
+msgstr "Hold an item to bind a brush to."
 
 msgid "worldedit.brushConfig.chooseKind"
 msgstr "选择要制作的笔刷类型。"
@@ -225,6 +207,21 @@ msgstr "第二个点设定为 %s。"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
 
 msgid "worldedit.permission.granted"
 msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
@@ -304,6 +301,9 @@ msgstr "清除您的编辑记录"
 msgid "commands.wedit.clearhistory.explain"
 msgstr "历史记录已被清空。"
 
+msgid "commands.wedit:contract.explain"
+msgstr "Region contracted %s blocks."
+
 msgid "commands.wedit:copy.description"
 msgstr "将选区复制到剪贴板"
 
@@ -327,6 +327,9 @@ msgstr "您的选区将不再可见。"
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "您的选区现在是可见的。"
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region expanded %s blocks."
 
 msgid "commands.wedit:faces.description"
 msgstr "基于您的选区生成轮廓"
@@ -364,6 +367,9 @@ msgstr "生成一个空心球体"
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至您看着的方块的顶部"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region inset."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
 
@@ -378,6 +384,9 @@ msgstr "配套工具已被给予"
 
 msgid "commands.wedit:line.description"
 msgstr "在第一个和第二个选择点之间创建一条线"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections\" # \" or convex polyhedral selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
@@ -396,6 +405,9 @@ msgstr "给你自己一个传送棍"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region outset."
 
 msgid "commands.wedit:paste.description"
 msgstr "将您的剪切板粘贴至这个世界"
@@ -439,11 +451,20 @@ msgstr "'%s'不是90°的倍数！"
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "更改选区模式(目前只能清除选区)"
+msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
 
 msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "设置笔刷的尺寸"
@@ -476,10 +497,19 @@ msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
 msgid "commands.wedit:tool.description"
-msgstr "获取各种快捷工具 (目前只有堆叠器)"
+msgstr "Get all sorts of tools"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Selection tool"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "方块堆叠工具"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Unbind held tool"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "从方块中脱离"
