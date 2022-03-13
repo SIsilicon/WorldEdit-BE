@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-03-13 16:51\n"
+"PO-Revision-Date: 2022-03-13 17:58\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -101,13 +101,13 @@ msgid "item.wedit:cancel_button"
 msgstr "Zurück"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Zurück"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Weiter"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Brush"
+msgstr "Neuen Pinsel erstellen"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Entitäten in die Zwischenablage einbeziehen: §aAktiviert§r"
@@ -146,7 +146,7 @@ msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Wählen Sie einen Pinsel zum Einrichten."
 
 msgid "worldedit.brushConfig.chooseItem"
-msgstr "Hold an item to bind a brush to."
+msgstr "Halten Sie ein Item, um es zu einem Pinsel zu binden."
 
 msgid "worldedit.brushConfig.chooseKind"
 msgstr "Wählen Sie, welche Art von Pinsel Sie machen sollen."
@@ -209,16 +209,16 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Ein Item muss in Ihrer Haupthand sein."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Sie können dieses Item nicht binden."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Dieses Item ist noch nicht zu einem Werkzeug gebunden."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Sie haben nicht die Berechtigung, dieses Item zu verwenden."
 
 msgid "worldedit.tool.fixedBind"
 msgstr "The tool on this item cannot be removed or replaced."
