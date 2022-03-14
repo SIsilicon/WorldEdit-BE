@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-14 02:51\n"
+"PO-Revision-Date: 2022-03-14 03:50\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -302,7 +302,7 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "履歴を消去しました。"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "範囲が %s ブロックに収縮しました。"
 
 msgid "commands.wedit:copy.description"
 msgstr "現在の選択範囲をクリップボードにコピーする"
@@ -329,7 +329,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "選択範囲が表示されます。"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "範囲が %s ブロックに拡大しました。"
 
 msgid "commands.wedit:faces.description"
 msgstr "選択範囲の輪郭線を生成する"
@@ -368,7 +368,7 @@ msgid "commands.wedit:jumpto.description"
 msgstr "見ているブロックの上にテレポートする"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "範囲を挿入しました。"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
@@ -386,7 +386,7 @@ msgid "commands.wedit:line.description"
 msgstr "最初と2番目のポイントの間に線を生成する"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections\" # \" or convex polyhedral selections"
+msgstr "このコマンドは直方体か凸多面体の選択でのみ使用できます"
 
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
@@ -407,7 +407,7 @@ msgid "commands.wedit:navwand.explain"
 msgstr "スニークしながらアイテムを使うと壁を通過します。スニークせずに使うとロケーションまで移動します。"
 
 msgid "commands.wedit:outset.explain"
-msgstr "Region outset."
+msgstr "範囲を初期化しました。"
 
 msgid "commands.wedit:paste.description"
 msgstr "クリップボードをワールドに貼り付ける"
@@ -452,19 +452,19 @@ msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+msgstr "直方体: スニークしながらタップして地点1、スニークせずにタップして地点2を作成する"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode"
+msgstr "選択モードを変更する"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "範囲を移動しました。"
 
 msgid "commands.wedit:size.description"
 msgstr "ブラシのサイズを設定する"
@@ -497,19 +497,19 @@ msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "すべての種類のツールを入手する"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "選択ツール"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "案内ツール"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "スタッカーツールをブロックする"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "保持しているツールの紐づけを解除する"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "ブロックの外に移動する"
