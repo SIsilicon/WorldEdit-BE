@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-03-10 00:31\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -230,7 +230,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eVocê recebeu permissões do WorldEdit. Vá para (Configurações> Como Jogar > Início rápido) para um guia.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eSua permissão de WorldEdit foi Removida.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocos foram alterados."

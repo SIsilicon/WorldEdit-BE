@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-03-09 19:13\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.error.wedit:noPerms"
-msgstr "You don't have the permission to use this item."
+msgstr "Usted no tiene permiso para usar este item."
 
 msgid "item.wedit:selection_wand"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "item.wedit:stacker_wand"
 msgstr "Stacker Wand"
