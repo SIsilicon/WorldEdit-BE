@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-13 16:51\n"
+"PO-Revision-Date: 2022-03-14 02:51\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -101,13 +101,13 @@ msgid "item.wedit:cancel_button"
 msgstr "戻る"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "戻る"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "次へ"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Brush"
+msgstr "新規ブラシを作成"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "クリップボードにエンティティを含める: §a有効§r"
@@ -146,7 +146,7 @@ msgid "worldedit.brushConfig.chooseBrush"
 msgstr "設定するブラシを選択してください。"
 
 msgid "worldedit.brushConfig.chooseItem"
-msgstr "Hold an item to bind a brush to."
+msgstr "ブラシを紐づけるアイテムを持ってください。"
 
 msgid "worldedit.brushConfig.chooseKind"
 msgstr "作るブラシの種類を選択してください。"
@@ -209,19 +209,19 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "2番目の位置を %1 (%2) に設定しました。"
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "アイテムをメインハンドに持ってください。"
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "この種類のアイテムを紐づけることはできません。"
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "このアイテムはどのツールにも紐付けられていません。"
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "このアイテムを使用する権限がありません。"
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "このアイテムのツールは削除または置き換えできません。"
 
 msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
