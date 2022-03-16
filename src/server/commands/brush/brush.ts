@@ -90,7 +90,7 @@ const registerInformation = {
 
 const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.bindTool('brush', new SphereBrush(
+    session.bindTool('brush', null, new SphereBrush(
         args.get('radius'),
         args.get('pattern'),
         args.has('h')
@@ -99,7 +99,7 @@ const sphere_command = (session: PlayerSession, builder: Player, args: Map<strin
 
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[2].permission);
-    session.bindTool('brush', new CylinderBrush(
+    session.bindTool('brush', null, new CylinderBrush(
         args.get('radius'),
         args.get('height'),
         args.get('pattern'),
@@ -109,7 +109,7 @@ const cylinder_command = (session: PlayerSession, builder: Player, args: Map<str
 
 const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[3].permission);
-    session.bindTool('brush', new SmoothBrush(
+    session.bindTool('brush', null, new SmoothBrush(
         args.get('radius'),
         args.get('iterations'),
         args.get('mask')
@@ -124,7 +124,7 @@ commandList['brush'] = [registerInformation, (session, builder, args) => {
      } else if (args.has('smooth')) {
         smooth_command(session, builder, args);
     } else {
-        session.unbindTool();
+        session.unbindTool(null);
     }
     return 'commands.generic.wedit:wandInfo';
 }];

@@ -18,4 +18,4 @@ class NavigationTool extends Tool {
         }
     }
 }
-Tools.register(NavigationTool, 'navigation_wand', 'wedit:_tool_compass');
+Tools.register(NavigationTool, 'navigation_wand');

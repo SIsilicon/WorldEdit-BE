@@ -40,26 +40,35 @@ const registerInformation = {
             subName: 'navwand',
             permission: 'worldedit.setwand',
             description: 'commands.wedit:tool.description.navwand'
+        },
+        {
+            subName: 'farwand',
+            permission: 'worldedit.farwand',
+            description: 'commands.wedit:tool.description.farwand'
         }
     ]
 };
 
-// TODO: Add far wand
 // TODO: Add floodfill wand
 
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
-    session.bindTool('stacker_wand', args.get('range'), args.get('mask'));
+    session.bindTool('stacker_wand', null, args.get('range'), args.get('mask'));
 };
 
 const selwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
-    session.bindTool('selection_wand');
+    session.bindTool('selection_wand', null);
 };
 
 const navwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
-    session.bindTool('navigation_wand');
+    session.bindTool('navigation_wand', null);
+};
+
+const farwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, registerInformation.usage[0].permission);
+    session.bindTool('far_selection_wand', null);
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {
@@ -69,8 +78,10 @@ commandList['tool'] = [registerInformation, (session, builder, args) => {
         selwand_command(session, builder, args);
     } else if (args.has('navwand')) {
         navwand_command(session, builder, args);
+    } else if (args.has('farwand')) {
+        farwand_command(session, builder, args);
     } else {
-        session.unbindTool();
+        session.unbindTool(null);
     }
     return 'commands.generic.wedit:wandInfo';
 }];

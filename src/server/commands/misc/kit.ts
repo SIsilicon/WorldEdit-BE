@@ -1,6 +1,7 @@
 import { Server } from '@library/Minecraft.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
+import { WAND_ITEM } from '@config.js';
 
 const registerInformation = {
     name: 'kit',
@@ -10,7 +11,7 @@ const registerInformation = {
 
 commandList['kit'] = [registerInformation, (session, builder, args) => {
     const items = [
-        'wedit:_tool_wooden_axe',
+        WAND_ITEM,
         'wedit:selection_fill',
         'wedit:pattern_picker',
         'wedit:copy_button',
@@ -35,6 +36,7 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
             Server.runCommand(`give @s ${item}`, builder);
         }
     }
+    session.bindTool('selection_wand', WAND_ITEM);
     
     return RawText.translate('commands.wedit:kit.explain');
 }];

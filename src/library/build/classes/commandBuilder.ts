@@ -216,7 +216,6 @@ export class CommandBuilder {
     }
     
     parseArgs(comnand: string, args: Array<string>): Map<string, any> {
-        // TODO: More accurate errors
         const self = this;
         const result = new Map<string, any>();
         const argDefs = this.getRegistration(comnand)?.usage;

@@ -1,7 +1,6 @@
 import { BlockLocation, Player, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { callCommand } from '../commands/command_list.js';
-import { Server } from '@library/Minecraft.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 
@@ -13,4 +12,12 @@ class SelectionTool extends Tool {
         );
     }
 }
-Tools.register(SelectionTool, 'selection_wand', 'wedit:_tool_wooden_axe');
+Tools.register(SelectionTool, 'selection_wand');
+
+class FarSelectionTool extends Tool {
+    permission = 'worldedit.selection.hpos';
+    use = (player: Player, session: PlayerSession) => {
+        callCommand(player, player.isSneaking ? 'hpos1' : 'hpos2');
+    }
+}
+Tools.register(FarSelectionTool, 'far_selection_wand');

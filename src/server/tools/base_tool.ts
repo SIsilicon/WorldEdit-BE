@@ -22,6 +22,12 @@ export abstract class Tool {
      * The permission required for the tool to be used.
      */
     readonly permission: string;
+
+    /**
+     * @internal
+     * The type of the tool; is set on bind, from registration information
+     */
+    type: string;
     
     private currentPlayer: Player;
     log(message: string | RawText) {

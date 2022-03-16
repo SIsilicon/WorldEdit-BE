@@ -1,5 +1,7 @@
+import { NAV_WAND_ITEM } from '@config.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
+import { printDebug } from '../../util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -9,7 +11,7 @@ const registerInformation = {
 };
 
 commandList['navwand'] = [registerInformation, (session, builder, args) => {
-    Server.runCommand(`clear @s wedit:_tool_compass`, builder);
-    Server.runCommand(`give @s wedit:_tool_compass`, builder);
+    Server.runCommand(`give @s ${NAV_WAND_ITEM}`, builder);
+    session.bindTool('navigation_wand', NAV_WAND_ITEM);
     return RawText.translate('commands.wedit:navwand.explain');
 }];

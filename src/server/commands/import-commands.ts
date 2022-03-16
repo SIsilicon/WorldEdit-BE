@@ -19,6 +19,8 @@ import './misc/worldedit.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';
+import './selection/hpos1.js';
+import './selection/hpos2.js';
 import './selection/drawsel.js';
 import './selection/desel.js';
 import './selection/wand.js';

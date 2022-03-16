@@ -15,11 +15,11 @@ const registerInformation = {
 };
 
 commandList['tracemask'] = [registerInformation, (session, builder, args) => {
-    if (!session.hasToolProperty('brush')) {
+    if (!session.hasToolProperty(null, 'brush')) {
         throw 'commands.wedit:brush.noBind';
     }
     
     const mask: Mask = args.get('mask');
-    session.setToolProperty('traceMask', mask.toString() ? mask : null);
+    session.setToolProperty(null, 'traceMask', mask.toString() ? mask : null);
     return 'commands.generic.wedit:wandInfo';
 }];

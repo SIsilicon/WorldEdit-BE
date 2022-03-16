@@ -15,10 +15,10 @@ const registerInformation = {
 };
 
 commandList['range'] = [registerInformation, (session, builder, args) => {
-    if (!session.hasToolProperty('brush')) {
+    if (!session.hasToolProperty(null, 'brush')) {
         throw 'commands.wedit:brush.noBind';
     }
     
-    session.setToolProperty('range', args.get('range'));
+    session.setToolProperty(null, 'range', args.get('range'));
     return 'commands.generic.wedit:wandInfo';
 }];

@@ -36,9 +36,9 @@ if not args.package_only:
         print('Watch mode: press control-C to stop.')
         tsc = subprocess.Popen('tsc -w', shell=True)
         # Remap absolute imports
-        remap_imports = subprocess.Popen([sys.executable, 'tools/remap_imports.py', '-w'])
+        remap_imports = subprocess.Popen([sys.executable, 'tools/remap_imports.py', '-w'], stdout=subprocess.DEVNULL)
         # Convert po to lang files
-        po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'])
+        po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'], stdout=subprocess.DEVNULL)
         # Sync to com.mojang
         sync_mojang = subprocess.Popen([sys.executable, 'tools/sync2com-mojang.py', '-w'], stdout=subprocess.DEVNULL)
         

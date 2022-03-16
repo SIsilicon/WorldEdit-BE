@@ -9,7 +9,7 @@ import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@modules/rawtext.js';
-import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION } from '../config.js';
+import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM } from '../config.js';
 
 import { Tool } from './tools/base_tool.js';
 import { Tools } from './tools/tool_manager.js';
@@ -81,6 +81,8 @@ export class PlayerSession {
         this.history = new History(this.player);
         this.selectionPoints = [];
         
+        this.bindTool('selection_wand', WAND_ITEM);
+        this.bindTool('navigation_wand', NAV_WAND_ITEM);
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
         }
@@ -198,41 +200,46 @@ export class PlayerSession {
     /**
     * Binds a new tool to this session.
     * @param tool The id of the tool being made
+    * @param item The id of the item to bind to (null defaults to held item)
     * @param args Optional parameters the tool uses during its construction.
     */
-    public bindTool(tool: string, ...args: any[]) {
-        Tools.bind(tool, this.player, ...args);
+    public bindTool(tool: string, item: string|null, ...args: any[]) {
+        Tools.bind(tool, item ?? Server.player.getHeldItem(this.player)?.id, this.player, ...args);
     }
     
     /**
     * Tests for a property of a tool in the session's player's main hand.
+    * @param item The id of the item with the tool to test (null defaults to held item)
     * @param property The name of the tool's property
     */
-    public hasToolProperty(property: string) {
-        return Tools.hasProperty(this.player, property);
+    public hasToolProperty(item: string|null, property: string) {
+        return Tools.hasProperty(item ?? Server.player.getHeldItem(this.player)?.id, this.player, property);
     }
     
     /**
     * Sets a property of a tool in the session's player's main hand.
+    * @param item The id of the item with the tool to set the property of (null defaults to held item)
     * @param property The name of the tool's property
-    * @paran value The new value of the tool's property
+    * @param value The new value of the tool's property
     */
-    public setToolProperty(property: string, value: any) {
-        return Tools.setProperty(this.player, property, value);
+    public setToolProperty(item: string|null, property: string, value: any) {
+        return Tools.setProperty(item ?? Server.player.getHeldItem(this.player)?.id, this.player, property, value);
     }
     
     /**
+    * @param item The id of the item to test (null defaults to held item)
     * @return Whether the session has a tool binded to the player's hand.
     */
-    public hasTool() {
-        return Tools.hasBinding(this.player);
+    public hasTool(item: string|null) {
+        return Tools.hasBinding(item ?? Server.player.getHeldItem(this.player)?.id, this.player);
     }
     
     /**
+    * @param item The id of the item to unbinf from (null defaults to held item)
     * Unbinds a tool from this session's player's hand.
     */
-    public unbindTool() {
-        Tools.unbind(this.player);
+    public unbindTool(item: string|null) {
+        Tools.unbind(item ?? Server.player.getHeldItem(this.player)?.id, this.player);
     }
     
     /**

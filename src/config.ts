@@ -1,5 +1,3 @@
-import { TicksPerSecond } from 'mojang-minecraft';
-
 // Enables `printDebug` messages and operation timers.
 export const DEBUG: boolean = true;
 
@@ -20,10 +18,16 @@ export const BRUSH_HISTORY_MODE: 0|1|2 = 1; // How to handle brush undo and redo
 
 // How long until a previously active builder's session gets deleted.
 // This includes their undo redo history.
-export const TICKS_TO_DELETE_SESSION: number = 600 * TicksPerSecond;
+export const TICKS_TO_DELETE_SESSION: number = 12000; // 10 minutes
 
 // Whether commands executed by items print their messages to the action bar or the chat.
 export const PRINT_TO_ACTION_BAR: boolean = true;
 
+// The default item used for marking selection wand.
+export const WAND_ITEM: string = 'minecraft:wooden_axe';
+
+// The default item used for the navigation wand.
+export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
+
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.2 [beta]';
+export const VERSION: string = '0.5.4 [beta]';

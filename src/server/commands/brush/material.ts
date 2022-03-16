@@ -13,10 +13,10 @@ const registerInformation = {
 };
 
 commandList['material'] = [registerInformation, (session, builder, args) => {
-    if (!session.hasToolProperty('brush')) {
+    if (!session.hasToolProperty(null, 'brush')) {
         throw 'commands.wedit:brush.noBind';
     }
     
-    session.setToolProperty('material', args.get('pattern'));
+    session.setToolProperty(null, 'material', args.get('pattern'));
     return 'commands.generic.wedit:wandInfo';
 }];

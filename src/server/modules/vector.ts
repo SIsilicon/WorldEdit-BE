@@ -77,6 +77,11 @@ export class Vector {
         return new Vector(...this.vals);
     }
     
+    equals(v: anyVec) {
+        v = Vector.ensureVector(v);
+        return this.x == v.x && this.y == v.y && this.z == v.z;
+    }
+
     add(v: anyVec) {
         v = Vector.ensureVector(v);
         return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
