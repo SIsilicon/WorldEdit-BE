@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-17 02:23\n"
+"PO-Revision-Date: 2022-03-17 03:19\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -209,10 +209,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "2番目の位置を %1 (%2) に設定しました。"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "%1 (%2) で選択を開始しました。"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "%1 (%2) を含む範囲を拡張しました。"
 
 msgid "worldedit.tool.noItem"
 msgstr "アイテムをメインハンドに持ってください。"
@@ -272,19 +272,19 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "数 (%1) は小さすぎます! 最小 (%2) でなければなりません。"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを解除します。§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "球体のブラシをセットしました (%s) 。"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "円柱のブラシをセットしました (%1 x %2) 。"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
 
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
@@ -302,31 +302,31 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "地形をなだらかにするスムーズブラシを生成する"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "ブラシのマスクを設定しました。"
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "ブラシのマスクを無効にしました。"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "ブラシの素材を設定しました。"
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "ブラシ範囲を設定しました。"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "ブラシサイズを設定しました。"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "トレースマスクを設定しました。"
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "トレースマスクを無効にしました。"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "このブラシには材料が必要ありません。"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
@@ -422,7 +422,7 @@ msgid "commands.wedit:line.description"
 msgstr "最初と2番目のポイントの間に線を生成する"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "このコマンドは直方体の選択でのみ動作します"
 
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
@@ -536,16 +536,16 @@ msgid "commands.wedit:tool.description"
 msgstr "すべての種類のツールを入手する"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
+msgstr "選択用の杖を %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
+msgstr "案内用の杖を %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "遠距離選択用の杖を %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "スタッカーツールを %s にセットしました。"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "選択ツール"
@@ -560,7 +560,7 @@ msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "ツールと現在のアイテムの紐づけを解除しました。"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "ブロックの外に移動する"
