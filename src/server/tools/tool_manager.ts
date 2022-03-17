@@ -2,7 +2,6 @@ import { world, Player, BlockLocation, ItemStack, Items, BeforeItemUseEvent } fr
 import { Server } from '@library/Minecraft.js';
 import { Tool } from './base_tool.js';
 import { hasSession, getSession } from '../sessions.js';
-import { print, printDebug } from '../util.js';
 
 type toolConstruct = new (...args: any[]) => Tool;
 

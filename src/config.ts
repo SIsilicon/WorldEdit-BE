@@ -29,5 +29,11 @@ export const WAND_ITEM: string = 'minecraft:wooden_axe';
 // The default item used for the navigation wand.
 export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
 
+// THe distance the navwand, among other tools and commands, traces for a block of interest.
+export const NAV_WAND_DISTANCE: number = 50;
+
+// The maximum brush radius.
+export const MAX_BRUSH_RADIUS: number = 6;
+
 // The version of WorldEdit (do not change)
 export const VERSION: string = '0.5.4 [beta]';

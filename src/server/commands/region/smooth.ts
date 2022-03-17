@@ -31,10 +31,12 @@ const registerInformation = {
     ]
 };
 
-export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, mask: Mask) {
+export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask) {
     const range = shape.getRegion(loc);
     range[0].y = Math.max(getWorldMinY(session.getPlayer()), range[0].y);
     range[1].y = Math.min(getWorldMaxY(session.getPlayer()), range[1].y);
+    mask = mask ? mask.intersect(session.globalMask) : session.globalMask;
+    
     type map = (number | null)[][];
     
     function getMap(arr: map, x: number, z: number) {
@@ -79,7 +81,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
         yRange[1] = Math.min(yRange[1] + loc.y, maxY);
         
         for (var h = new BlockLocation(x+range[0].x, yRange[1], z+range[0].z); h.y >= yRange[0]; h.y--) {
-            if (!dim.getBlock(h).isEmpty && mask.matchesBlock(h, dim)) {
+            if (!dim.getBlock(h).isEmpty && heightMask.matchesBlock(h, dim)) {
                 break;
             }
         }
@@ -163,7 +165,7 @@ commandList['smooth'] = [registerInformation, (session, builder, args) => {
     if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const size = Vector.sub(end, start).add(Vector.ONE);
         const shape = new CuboidShape(size.x, size.y, size.z);
-        smooth(session, args.get('iterations'), shape, start, args.get('mask'));
+        smooth(session, args.get('iterations'), shape, start, args.get('mask'), null);
     }
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

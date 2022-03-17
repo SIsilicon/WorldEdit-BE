@@ -6,6 +6,7 @@ import { assertPermission } from '@modules/assert.js';
 import { PlayerSession } from '../../sessions.js';
 import { printDebug } from '../../util.js';
 import { commandList } from '../command_list.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'tool',
@@ -49,39 +50,51 @@ const registerInformation = {
     ]
 };
 
-// TODO: Add floodfill wand
+// TODO: Add floodfill tool
+// TODO: Add delete tree tool
+
+function heldItemName(player: Player) {
+    let name = Server.player.getHeldItem(player).id;
+    return name.replace('minecraft:', '');
+}
 
 const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('stacker_wand', null, args.get('range'), args.get('mask'));
+    return RawText.translate('commands.wedit:tool.bind.stacker').with(heldItemName(builder));
 };
 
 const selwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('selection_wand', null);
+    return RawText.translate('commands.wedit:tool.bind.selwand').with(heldItemName(builder));
 };
 
 const navwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('navigation_wand', null);
+    return RawText.translate('commands.wedit:tool.bind.navwand').with(heldItemName(builder));
 };
 
 const farwand_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[0].permission);
     session.bindTool('far_selection_wand', null);
+    return RawText.translate('commands.wedit:tool.bind.farwand').with(heldItemName(builder));
 };
 
 commandList['tool'] = [registerInformation, (session, builder, args) => {
+    let msg: RawText;
     if (args.has('stacker')) {
-        stack_command(session, builder, args);
+        msg = stack_command(session, builder, args);
     } else if (args.has('selwand')) {
-        selwand_command(session, builder, args);
+        msg = selwand_command(session, builder, args);
     } else if (args.has('navwand')) {
-        navwand_command(session, builder, args);
+        msg = navwand_command(session, builder, args);
     } else if (args.has('farwand')) {
-        farwand_command(session, builder, args);
+        msg = farwand_command(session, builder, args);
     } else {
         session.unbindTool(null);
+        return 'commands.wedit:tool.unbind';
     }
-    return 'commands.generic.wedit:wandInfo';
+    return msg.append('text', '\n').append('translate', 'commands.generic.wedit:unbindInfo').with(';tool none');
 }];

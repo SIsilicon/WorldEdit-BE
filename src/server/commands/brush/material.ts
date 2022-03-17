@@ -1,4 +1,5 @@
 import { commandList } from '../command_list.js';
+import { createDefaultBrush } from './brush.js';
 
 const registerInformation = {
     name: 'material',
@@ -14,9 +15,9 @@ const registerInformation = {
 
 commandList['material'] = [registerInformation, (session, builder, args) => {
     if (!session.hasToolProperty(null, 'brush')) {
-        throw 'commands.wedit:brush.noBind';
+        session.bindTool('brush', null, createDefaultBrush());
     }
     
     session.setToolProperty(null, 'material', args.get('pattern'));
-    return 'commands.generic.wedit:wandInfo';
+    return 'commands.wedit:brush.material.set';
 }];

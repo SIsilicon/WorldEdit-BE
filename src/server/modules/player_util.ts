@@ -4,6 +4,7 @@ import { EventEmitter } from '@library/build/classes/eventEmitter.js';
 import { Vector } from './vector.js';
 import { Mask } from './mask.js';
 import { printDebug } from '../util.js';
+import { NAV_WAND_DISTANCE } from '@config.js';
 
 type dimension = 'overworld' | 'nether' | 'the end';
 
@@ -145,7 +146,7 @@ class PlayerHandler extends EventEmitter {
         const start = player.headLocation;
         const dir = player.viewVector;
         const dim = player.dimension;
-        for (let i = 0; i < 50; i += 0.2) {
+        for (let i = 0; i < NAV_WAND_DISTANCE; i += 0.2) {
             const point = new BlockLocation(
                 Math.floor(start.x + dir.x * i),
                 Math.floor(start.y + dir.y * i),

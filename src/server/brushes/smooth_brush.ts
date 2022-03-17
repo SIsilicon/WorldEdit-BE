@@ -1,7 +1,6 @@
 import { BlockLocation } from 'mojang-minecraft';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { CuboidShape } from '../shapes/cuboid.js';
@@ -23,14 +22,14 @@ export class SmoothBrush extends Brush {
     */
     constructor(radius: number, iterations: number, mask: Mask) {
         super();
-        this.shape = new CuboidShape(radius*2+1, radius*4+1, radius*2+1);
+        this.shape = new CuboidShape(radius*2+1, radius*2+1, radius*2+1);
         this.size = radius;
         this.iterations = iterations;
         this.mask = mask;
     }
     
     public resize(value: number) {
-        this.shape = new CuboidShape(value*2+1, value*4+1, value*2+1);
+        this.shape = new CuboidShape(value*2+1, value*2+1, value*2+1);
         this.size = value;
         this.shape.usedInBrush = true;
     }
@@ -40,7 +39,7 @@ export class SmoothBrush extends Brush {
     }
     
     public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
-        const point = loc.offset(-this.size, -this.size*2, -this.size);
-        smooth(session, this.iterations, this.shape, point, this.mask);
+        const point = loc.offset(-this.size, -this.size, -this.size);
+        smooth(session, this.iterations, this.shape, point, this.mask, mask);
     }
 }

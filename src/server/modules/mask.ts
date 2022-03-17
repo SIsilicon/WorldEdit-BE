@@ -54,6 +54,22 @@ export class Mask implements CustomArgType {
         this.stringObj = '(picked)';
     }
     
+    intersect(mask: Mask) {
+        let node: MaskNode;
+        if (!mask.condition) {
+            node = this.condition;
+        } else if (!this.condition) {
+            node = mask.condition;
+        } else {
+            new IntersectMask(null);
+            node.nodes = [this.condition, mask.condition];
+        }
+
+        const intersect = new Mask();
+        intersect.condition =  node;
+        return intersect;
+    }
+
     getBlockSummary() {
         if (!this.condition || !(this.condition instanceof ChainMask)) {
             return '';

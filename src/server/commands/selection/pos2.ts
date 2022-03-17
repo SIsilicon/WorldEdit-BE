@@ -27,9 +27,9 @@ export function setPos2(session: PlayerSession, loc: BlockLocation) {
     if (session.getSelectionPoints().some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
         if (session.getSelectedBlockCount() == 0) {
-            translate = 'worldedit.selection.cuboid.secondary';
+            translate = `worldedit.selection.${session.selectionMode}.secondary`;
         } else {
-            translate = 'worldedit.selection.cuboid.secondaryArea';
+            translate = `worldedit.selection.${session.selectionMode}.secondaryArea`;
         }
         return RawText.translate(translate)
             .with(printLocation(session.getSelectionPoints()[1]))

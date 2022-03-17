@@ -28,9 +28,9 @@ export function setPos1(session: PlayerSession, loc: BlockLocation) {
     if (session.getSelectionPoints().some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
         if (session.getSelectedBlockCount() == 0) {
-            translate = 'worldedit.selection.cuboid.primary';
+            translate = `worldedit.selection.${session.selectionMode}.primary`;
         } else {
-            translate = 'worldedit.selection.cuboid.primaryArea';
+            translate = `worldedit.selection.${session.selectionMode}.primaryArea`;
         }
         return RawText.translate(translate)
             .with(printLocation(session.getSelectionPoints()[0]))

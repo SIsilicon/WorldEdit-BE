@@ -4,7 +4,7 @@ import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { assertPermission } from '@modules/assert.js';
 import { PlayerSession, getSession } from '../sessions.js';
-import { printToActionBar } from './import-commands.js';
+import { printToActionBar } from './register_commands.js';
 
 export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText;
 

@@ -1,16 +1,14 @@
-import { Player, EntityInventoryComponent } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { Pattern } from '@modules/pattern.js';
+import { Player } from 'mojang-minecraft';
 import { Mask } from '@modules/mask.js';
 import { assertPermission } from '@modules/assert.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 import { PlayerSession } from '../../sessions.js';
-import { printDebug } from '../../util.js';
 
 import { SphereBrush } from '../../brushes/sphere_brush.js';
 import { CylinderBrush } from '../../brushes/cylinder_brush.js';
 import { SmoothBrush } from '../../brushes/smooth_brush.js';
+import { RawText } from '@modules/rawtext.js';
+import { Pattern } from '@modules/pattern.js';
 
 const registerInformation = {
     name: 'brush',
@@ -71,12 +69,12 @@ const registerInformation = {
                 {
                     name: 'radius',
                     type: 'float',
-                    default: 3
+                    default: 2
                 },
                 {
                     name: 'iterations',
                     type: 'int',
-                    default: 1
+                    default: 4
                 },
                 {
                     name: 'mask',
@@ -88,6 +86,10 @@ const registerInformation = {
     ]
 };
 
+export function createDefaultBrush() {
+    return new SphereBrush(1, new Pattern('cobblestone'), false);
+}
+
 const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
     session.bindTool('brush', null, new SphereBrush(
@@ -95,6 +97,7 @@ const sphere_command = (session: PlayerSession, builder: Player, args: Map<strin
         args.get('pattern'),
         args.has('h')
     ));
+    return RawText.translate('commands.wedit:brush.bind.sphere').with(args.get('radius'));
 };
 
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
@@ -105,6 +108,7 @@ const cylinder_command = (session: PlayerSession, builder: Player, args: Map<str
         args.get('pattern'),
         args.has('h')
     ));
+    return RawText.translate('commands.wedit:brush.bind.cylinder').with(args.get('radius')).with(args.get('height'));
 };
 
 const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
@@ -114,17 +118,22 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
         args.get('iterations'),
         args.get('mask')
     ));
+    
+    let msg = 'commands.wedit:brush.bind.smooth.' + ((args.get('mask') as Mask).empty() ? 'noFilter' : 'filter');
+    return RawText.translate(msg).with(args.get('radius')).with(args.get('iterations'));
 };
 
 commandList['brush'] = [registerInformation, (session, builder, args) => {
+    let msg: RawText;
     if (args.has('sphere')) {
-        sphere_command(session, builder, args);
+        msg = sphere_command(session, builder, args);
     } else if (args.has('cyl')) {
-        cylinder_command(session, builder, args);
+        msg = cylinder_command(session, builder, args);
      } else if (args.has('smooth')) {
-        smooth_command(session, builder, args);
+        msg = smooth_command(session, builder, args);
     } else {
         session.unbindTool(null);
+        return 'commands.wedit:brush.unbind';
     }
-    return 'commands.generic.wedit:wandInfo';
+    return msg.append('text', '\n').append('translate', 'commands.generic.wedit:unbindInfo').with(';brush none');
 }];

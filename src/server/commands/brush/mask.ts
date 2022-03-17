@@ -1,5 +1,6 @@
 import { Mask } from '@modules/mask.js';
 import { commandList } from '../command_list.js';
+import { createDefaultBrush } from './brush.js';
 
 const registerInformation = {
     name: 'mask',
@@ -16,9 +17,9 @@ const registerInformation = {
 
 commandList['mask'] = [registerInformation, (session, builder, args) => {
     if (!session.hasToolProperty(null, 'brush')) {
-        throw 'commands.wedit:brush.noBind';
+        session.bindTool('brush', null, createDefaultBrush());
     }
     
     session.setToolProperty(null, 'mask', args.get('mask'));
-    return 'commands.generic.wedit:wandInfo';
+    return 'commands.wedit:brush.mask.' + (args.get('mask').empty() ? 'disabled' : 'set');
 }];

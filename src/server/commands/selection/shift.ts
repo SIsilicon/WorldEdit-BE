@@ -10,7 +10,7 @@ const registerInformation = {
     usage: [
         {
             name: 'amount',
-            type: 'int',
+            type: 'int'
         },
         {
             name: 'direction',
