@@ -1,4 +1,4 @@
-import { TickEvent, BeforeItemUseEvent, Player } from 'mojang-minecraft';
+import { TickEvent, BeforeItemUseEvent, Player, BeforeItemUseOnEvent } from 'mojang-minecraft';
 import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { PlayerUtil } from './player_util.js';
 import { Pattern } from './pattern.js';
@@ -353,6 +353,10 @@ export class SettingsHotbar {
         'smooth': ['selectNumber', 'selectNumber', 'mask', 'confirmBrush']
     }
 
+    private cancelItemUseOn = function(ev: BeforeItemUseOnEvent) {
+        ev.cancel = true;
+    }
+            
     private stashedPattern: Pattern;
     private stashedMask: Mask;
 
@@ -361,6 +365,7 @@ export class SettingsHotbar {
         this.player = session.getPlayer();
         PlayerUtil.stashHotbar(session.getPlayer());
         this.changeState('main');
+        Server.on('beforeItemUseOn', this.cancelItemUseOn);
     }
 
     onTick(ev: TickEvent) {
@@ -413,5 +418,6 @@ export class SettingsHotbar {
         PlayerUtil.restoreHotbar(this.player);
         this.session = null;
         this.player = null;
+        Server.off('beforeItemUseOn', this.cancelItemUseOn);
     }
 }

@@ -1,4 +1,4 @@
-import { world, Player, BlockLocation, ItemStack, Items, BeforeItemUseEvent } from 'mojang-minecraft';
+import { world, Player, BlockLocation, ItemStack, Items, BeforeItemUseEvent, EntityInventoryComponent } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { Tool } from './base_tool.js';
 import { hasSession, getSession } from '../sessions.js';
@@ -130,6 +130,11 @@ class ToolBuilder {
         
         tool.process(getSession(player), this.currentTick, loc);
         ev.cancel = true;
+
+        // Cancel block breaks (maybe?)
+        const playerContainer = (player.getComponent('minecraft:inventory') as EntityInventoryComponent).container;
+        playerContainer.swapItems(player.selectedSlot, (player.selectedSlot + 1) % 9, playerContainer);
+        playerContainer.swapItems(player.selectedSlot, (player.selectedSlot + 1) % 9, playerContainer);
     }
     
     private createPlayerBindingMap(player: Player) {

@@ -5,7 +5,7 @@ export const DEBUG: boolean = true;
 export const COMMAND_PREFIX: string = ';';
 
 // How many operations can be recorded in a player's history.
-export const MAX_HISTORY_SIZE: number = 20;
+export const MAX_HISTORY_SIZE: number = 25;
 
 // Whether a player's selection is drawn by default.
 export const DRAW_SELECTION: boolean = true;
