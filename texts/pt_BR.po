@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-03-10 00:31\n"
+"PO-Revision-Date: 2022-03-17 02:23\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
-
-msgid "item.error.wedit:noPerms"
-msgstr "Você não tem permissão para utilizar esse item."
-
-msgid "item.wedit:selection_wand"
-msgstr "Varinha de Seleção"
-
-msgid "item.wedit:stacker_wand"
-msgstr "Varinha de Empilhamento"
-
-msgid "item.wedit:navigation_wand"
-msgstr "Varinha de Navegação"
-
-msgid "item.wedit:wooden_brush"
-msgstr "Pincel de Madeira"
-
-msgid "item.wedit:stone_brush"
-msgstr "Pincel de Pedra"
-
-msgid "item.wedit:iron_brush"
-msgstr "Pincel de Pedra"
-
-msgid "item.wedit:golden_brush"
-msgstr "Pincel de Ouro"
-
-msgid "item.wedit:diamond_brush"
-msgstr "Pincel de Diamante"
-
-msgid "item.wedit:netherite_brush"
-msgstr "Pincel de Netherite"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -130,6 +100,15 @@ msgstr "Ok"
 msgid "item.wedit:cancel_button"
 msgstr "Voltar"
 
+msgid "item.wedit:prev_button"
+msgstr "Previous"
+
+msgid "item.wedit:next_button"
+msgstr "Next"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Create New Brush"
+
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Incluir Entidades na área de transferência: §aAtivado§r"
 
@@ -165,6 +144,9 @@ msgstr "Definir máscara para bloco: "
 
 msgid "worldedit.brushConfig.chooseBrush"
 msgstr "Escolha um pincel para configurar."
+
+msgid "worldedit.brushConfig.chooseItem"
+msgstr "Hold an item to bind a brush to."
 
 msgid "worldedit.brushConfig.chooseKind"
 msgstr "Escolha qual o tipo de pincel a ser feito."
@@ -226,6 +208,27 @@ msgstr "Segunda posição definida para %s."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Segunda posição definida para %1 (%2)."
 
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Started selection at %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Extended selection to encompass %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
+
 msgid "worldedit.permission.granted"
 msgstr "§eVocê recebeu permissões do WorldEdit. Vá para (Configurações> Como Jogar > Início rápido) para um guia.§r"
 
@@ -268,8 +271,20 @@ msgstr "O número (%1) é muito grande! Deve ser no máximo (%2)."
 msgid "commands.generic.wedit:tooSmall"
 msgstr "O número (%1) é muito pequeno! Deve ser pelo menos (%2)."
 
-msgid "commands.generic.wedit:wandInfo"
-msgstr "Varinha atualizada."
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Sphere brush shape equipped (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Cylinder brush shape equipped (%1 by %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Smooth brush equipped (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
@@ -286,14 +301,32 @@ msgstr "Create a cylinder brush"
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
 
-msgid "commands.wedit:brush.noBind"
-msgstr "Nenhum pincel foi limitado a este nível."
+msgid "commands.wedit:brush.mask.set"
+msgstr "Brush mask set."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Brush mask disabled."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Brush material set."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Brush range set."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Brush size set."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Trace mask set."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "This brush does not require a material to work."
 
-msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgid "commands.wedit:brush.unbind"
+msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
@@ -303,6 +336,9 @@ msgstr "Limpa seu histórico de edição"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "Histórico limpo."
+
+msgid "commands.wedit:contract.explain"
+msgstr "Region contracted %s blocks."
 
 msgid "commands.wedit:copy.description"
 msgstr "Copia a seleção atual para a área de transferência"
@@ -327,6 +363,9 @@ msgstr "Suas seleções não estarão mais visíveis."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "As suas seleções serão visíveis agora."
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region expanded %s blocks."
 
 msgid "commands.wedit:faces.description"
 msgstr "Gera um contorno a partir da sua seleção"
@@ -364,6 +403,9 @@ msgstr "Gera uma esfera vazia"
 msgid "commands.wedit:jumpto.description"
 msgstr "Teletransporta você para o topo do bloco que você está olhando"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region inset."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
 
@@ -378,6 +420,9 @@ msgstr "Kit fornecido."
 
 msgid "commands.wedit:line.description"
 msgstr "Cria uma linha entre o seu primeiro e segundo pontos de seleção"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "Define quais tipos de blocos um pincel pode afetar, se houver"
@@ -396,6 +441,9 @@ msgstr "Dê a si mesmo uma varinha de navegação"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Agache e use o item: passe pelas paredes; Use o item sem se agachar: pula para a localização"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region outset."
 
 msgid "commands.wedit:paste.description"
 msgstr "Cole sua área de transferência no mundo"
@@ -439,11 +487,20 @@ msgstr "'%s' não é um incremento de 90°!"
 msgid "commands.wedit:sel.clear"
 msgstr "Seleção limpa."
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "Altera o modo de seleção (atualmente só pode limpar a seleção)"
+msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
 
 msgid "commands.wedit:set.description"
 msgstr "Preenche a seleção com um padrão de blocos"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "Define o tamanho de um pincel"
@@ -476,10 +533,34 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
 
 msgid "commands.wedit:tool.description"
-msgstr "Obtenha todos os tipos de ferramentas (atualmente apenas as da pilha)"
+msgstr "Get all sorts of tools"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigation wand bound to %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Far selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Stacker tool bound to %s."
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Selection tool"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Unbind held tool"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Tool unbound from your current item."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Saia de dentro dos blocos"
