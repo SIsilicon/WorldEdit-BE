@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-17 03:19\n"
+"PO-Revision-Date: 2022-03-22 02:28\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -67,6 +67,9 @@ msgstr "WorldEdit の設定"
 msgid "item.wedit:brush_config_button"
 msgstr "ブラシの設定"
 
+msgid "item.wedit:tool_config_button"
+msgstr "Tool Settings"
+
 msgid "item.wedit:sphere_button"
 msgstr "球体ブラシ"
 
@@ -75,6 +78,18 @@ msgstr "円柱ブラシ"
 
 msgid "item.wedit:smooth_button"
 msgstr "スムーズブラシ"
+
+msgid "item.wedit:selection_button"
+msgstr "Selection Wand"
+
+msgid "item.wedit:far_selection_button"
+msgstr "Far Selection Wand"
+
+msgid "item.wedit:navigation_button"
+msgstr "Navigation Wand"
+
+msgid "item.wedit:stacker_button"
+msgstr "Stacker Tool"
 
 msgid "item.wedit:one_button"
 msgstr "1"
@@ -106,8 +121,11 @@ msgstr "戻る"
 msgid "item.wedit:next_button"
 msgstr "次へ"
 
+msgid "item.wedit:delete_button"
+msgstr "Delete"
+
 msgid "item.wedit:new_brush_button"
-msgstr "新規ブラシを作成"
+msgstr "Create New Tool"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "クリップボードにエンティティを含める: §a有効§r"
@@ -143,52 +161,82 @@ msgid "worldedit.maskPicker.set"
 msgstr "マスクをブロックに設定: "
 
 msgid "worldedit.config.editTool"
-msgstr "設定するブラシを選択してください。"
+msgstr "Choose an item to set up."
+
+msgid "worldedit.config.chooseItem"
+msgstr "Hold an item to bind to."
 
 msgid "worldedit.config.choose.brush"
-msgstr "作るブラシの種類を選択してください。"
+msgstr "Choose what kind of brush to make."
+
+msgid "worldedit.config.choose.tool"
+msgstr "Choose what kind of tool to make."
+
+msgid "worldedit.config.selectRange.tool"
+msgstr "Choose the range of the tool."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "ブラシのサイズを選択してください。"
+msgstr "Choose the size of the brush."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "ブラシの高さを選択してください。"
+msgstr "Choose the height of the brush."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "ブラシの滑らかさを選択してください。"
+msgstr "Choose the smoothness of the brush."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "ブラシのパターンと任意でマスクを作成してください。"
+msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.config.mask.tool"
+msgstr "Make an optional mask for the tool."
 
 msgid "worldedit.config.mask.brush"
-msgstr "ブラシのマスクを任意で作成してください。"
+msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.config.confirm"
-msgstr "これでよろしいですか？"
+msgstr "Is this Ok?"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "Are you sure you want to unbind this item?"
 
 msgid "worldedit.config.affects"
-msgstr "影響: %s"
+msgstr "Affects: %s"
 
 msgid "worldedit.config.creates"
-msgstr "作成数: %s"
+msgstr "Creates: %s"
 
 msgid "worldedit.config.radius"
-msgstr "サイズ: %s"
+msgstr "Size: %s"
 
 msgid "worldedit.config.height"
-msgstr "高さ: %s"
+msgstr "Height: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "滑らかさ: %s"
+msgstr "Smoothness: %s"
+
+msgid "worldedit.config.range"
+msgstr "Range: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "ブラシを設定しました。"
+msgstr "Brush configured."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "ブラシを設定し、インベントリに追加しました。"
+msgstr "Brush configured and added to your inventory."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "ブラシの設定をキャンセルしました。"
+msgstr "Cancelled brush configuring."
+
+msgid "worldedit.config.set.tool"
+msgstr "Tool configured."
+
+msgid "worldedit.config.setGive.tool"
+msgstr "Tool configured and added to your inventory."
+
+msgid "worldedit.config.cancel.tool"
+msgstr "Cancelled tool configuring."
+
+msgid "worldedit.config.unbind"
+msgstr "Item unbound."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
@@ -319,6 +367,9 @@ msgstr "トレースマスクを設定しました。"
 msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "トレースマスクを無効にしました。"
 
+msgid "commands.wedit:brush.tooLarge"
+msgstr "Maximum allowed brush radius: %s"
+
 msgid "commands.wedit:brush.noMaterial"
 msgstr "このブラシには材料が必要ありません。"
 
@@ -333,6 +384,9 @@ msgstr "編集履歴を消去する"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "履歴を消去しました。"
+
+msgid "commands.wedit:contract.description"
+msgstr "Contract the selection area"
 
 msgid "commands.wedit:contract.explain"
 msgstr "範囲が %s ブロックに収縮しました。"
@@ -360,6 +414,9 @@ msgstr "選択範囲は表示されません。"
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "選択範囲が表示されます。"
+
+msgid "commands.wedit:expand.description"
+msgstr "Expand the selection area"
 
 msgid "commands.wedit:expand.explain"
 msgstr "範囲が %s ブロックに拡大しました。"
@@ -391,11 +448,20 @@ msgstr "空洞の円柱を生成する"
 msgid "commands.wedit:help.header"
 msgstr "--- ヘルプ ページの %1 ／ %2 ページを表示 (;help <ページ番号>) ---"
 
+msgid "commands.wedit:hpos1.description"
+msgstr "Set the first position of your selection to the position of the block you're facing"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "Set the second position of your selection to the position of the block you're facing"
+
 msgid "commands.wedit:hpyramid.description"
 msgstr "空洞のピラミッドを生成する"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "空洞の球体を生成する"
+
+msgid "commands.wedit:inset.description"
+msgstr "Inset the selection area"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "見ているブロックの上にテレポートする"
@@ -421,6 +487,15 @@ msgstr "最初と2番目のポイントの間に線を生成する"
 msgid "commands.wedit:line.invalidType"
 msgstr "このコマンドは直方体の選択でのみ動作します"
 
+msgid "commands.wedit:limit.description"
+msgstr "Set the number of blocks you can change per action"
+
+msgid "commands.wedit:limit.set"
+msgstr "Block change limit set to %s."
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "Your maximum allowable limit is %s."
+
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
 
@@ -438,6 +513,9 @@ msgstr "自身に案内用の杖を付与する"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "スニークしながらアイテムを使うと壁を通過します。スニークせずに使うとロケーションまで移動します。"
+
+msgid "commands.wedit:outset.description"
+msgstr "Outset the selection area"
 
 msgid "commands.wedit:outset.explain"
 msgstr "範囲を初期化しました。"
@@ -490,11 +568,20 @@ msgstr "直方体: スニークしながらタップして地点1、スニーク
 msgid "commands.wedit:sel.description"
 msgstr "選択モードを変更する"
 
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "Select two corners of a cuboid"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "Fast cuboid selection mode"
+
 msgid "commands.wedit:sel.extend"
 msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
+
+msgid "commands.wedit:shift.description"
+msgstr "Shift the selection area"
 
 msgid "commands.wedit:shift.explain"
 msgstr "範囲を移動しました。"
@@ -529,9 +616,6 @@ msgstr "前方にスペースが見つかりませんでした。"
 msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
-msgid "commands.wedit:tool.description"
-msgstr "すべての種類のツールを入手する"
-
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "選択用の杖を %s にセットしました。"
 
@@ -543,6 +627,12 @@ msgstr "遠距離選択用の杖を %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "スタッカーツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.description"
+msgstr "すべての種類のツールを入手する"
+
+msgid "commands.wedit:tool.description.farwand"
+msgstr "Selection tool, but can reach farther"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "選択ツール"
@@ -626,7 +716,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意:§r§a このアドオンが提供するコマンドは、スラッシュ (/) の代わりにセミコロン (;) を使用します。 将来、Mojang は Minecraft に実際のカスタムコマンドを追加するかもしれません。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "A地点からB地点へ行くことが面倒なこともあるでしょう。幸いにも、このアドオンには「案内用の杖」というものが付いています。 取得するには、インベントリにコンパスを持つか、コマンド §e;navwand§r を入力してください。 アイテムを手に入れたら、使うだけで見ている場所にテレポートされます。 壁や天井の反対側に行きたいなら、スニークしながら杖を使えば通り抜けられます！ ブロックに埋まってしまったら、杖を使えば解放されます！"
+msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a豆知識:§r§a 案内用の杖を使用しない場合は、コマンド §e;jumpto§r§a 、 §e;thru§r§a 、 §e;unstuck§r§a でも同様にアクションを実行できます。§r"
