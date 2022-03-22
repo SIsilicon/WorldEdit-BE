@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-03-17 02:23\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
-
-msgid "item.error.wedit:noPerms"
-msgstr "Sie haben nicht die Berechtigung, dieses Item zu verwenden."
-
-msgid "item.wedit:selection_wand"
-msgstr "Auswahl-Stab"
-
-msgid "item.wedit:stacker_wand"
-msgstr "Stapel-Stab"
-
-msgid "item.wedit:navigation_wand"
-msgstr "Navigations-Stab"
-
-msgid "item.wedit:wooden_brush"
-msgstr "Holzpinsel"
-
-msgid "item.wedit:stone_brush"
-msgstr "Steinpinsel"
-
-msgid "item.wedit:iron_brush"
-msgstr "Eisenpinsel"
-
-msgid "item.wedit:golden_brush"
-msgstr "Goldpinsel"
-
-msgid "item.wedit:diamond_brush"
-msgstr "Diamantpinsel"
-
-msgid "item.wedit:netherite_brush"
-msgstr "Netheritpinsel"
+msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Kopieren"
@@ -129,6 +99,15 @@ msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
 msgstr "Zurück"
+
+msgid "item.wedit:prev_button"
+msgstr "Zurück"
+
+msgid "item.wedit:next_button"
+msgstr "Weiter"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Neuen Pinsel erstellen"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Entitäten in die Zwischenablage einbeziehen: §aAktiviert§r"
@@ -226,6 +205,27 @@ msgstr "Zweite Position auf %s gesetzt."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
 
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Started selection at %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Extended selection to encompass %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "Ein Item muss in Ihrer Haupthand sein."
+
+msgid "worldedit.tool.cantBind"
+msgstr "Sie können dieses Item nicht binden."
+
+msgid "worldedit.tool.noBind"
+msgstr "Dieses Item ist noch nicht zu einem Werkzeug gebunden."
+
+msgid "worldedit.tool.noPerm"
+msgstr "Sie haben nicht die Berechtigung, dieses Item zu verwenden."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "Das Werkzeug auf diesem Item kann nicht entfernt oder ersetzt werden."
+
 msgid "worldedit.permission.granted"
 msgstr "§eSie haben WorldEdit-Berechtigungen erhalten. Gehen Sie zu (Einstellungen > So wird gespielt > Schnellstart) für eine Anleitung.§R"
 
@@ -268,8 +268,20 @@ msgstr "Die Zahl (%1) ist zu groß! Sie muss höchstens (%2) sein."
 msgid "commands.generic.wedit:tooSmall"
 msgstr "Die Zahl (%1) ist zu klein! Sie muss mindestens (%2) sein."
 
-msgid "commands.generic.wedit:wandInfo"
-msgstr "Stab aktualisiert."
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Sphere brush shape equipped (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Cylinder brush shape equipped (%1 by %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Smooth brush equipped (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
@@ -286,14 +298,32 @@ msgstr "Zylinderpinsel erstellen"
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Geländeglättungspinsel erstellen"
 
-msgid "commands.wedit:brush.noBind"
-msgstr "Es wurde kein Pinsel auf diese Stufe gesetzt."
+msgid "commands.wedit:brush.mask.set"
+msgstr "Brush mask set."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Brush mask disabled."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Brush material set."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Brush range set."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Brush size set."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Trace mask set."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
 
-msgid "commands.wedit:brush.invalidItem"
-msgstr "Das gehaltene Item kann nicht als Pinsel benutzt werden."
+msgid "commands.wedit:brush.unbind"
+msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Zwischenablage leeren"
@@ -303,6 +333,9 @@ msgstr "Editierverlauf löschen"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "Verlauf gelöscht."
+
+msgid "commands.wedit:contract.explain"
+msgstr "Region hat %s Blöcke festgelegt."
 
 msgid "commands.wedit:copy.description"
 msgstr "Aktuelle Auswahl in die Zwischenablage kopieren"
@@ -327,6 +360,9 @@ msgstr "Ihre Auswahl wird nicht mehr sichtbar sein."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Ihre Auswahl wird nun sichtbar sein."
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region um %s Blöcke erweitert."
 
 msgid "commands.wedit:faces.description"
 msgstr "Eine Kontur aus Ihrer Auswahl generieren"
@@ -364,6 +400,9 @@ msgstr "Hohle Kugel generieren"
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleportiert Sie auf den Block, den Sie anschauen"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region einsetzen."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "Puff!"
 
@@ -378,6 +417,9 @@ msgstr "Kit gegeben."
 
 msgid "commands.wedit:line.description"
 msgstr "Erstellen Sie eine Linie zwischen Ihren ersten und zweiten Auswahlpunkten"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "Legen Sie fest, welche Art von Blöcken ein Pinsel beeinflussen kann, falls es welche gibt"
@@ -396,6 +438,9 @@ msgstr "Geben Sie sich einen Navigationsstab"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Schleichen und Item benutzen: durch Wände gehen; Verwende Item ohne zu schleichen: Springe zu Standort"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Beginn der Region."
 
 msgid "commands.wedit:paste.description"
 msgstr "Zwischenablage in die Welt einfügen"
@@ -439,11 +484,20 @@ msgstr "'%s' ist keine Steigerung von 90°!"
 msgid "commands.wedit:sel.clear"
 msgstr "Auswahl geleert."
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Rechteckig: Tippen Sie während des Schleichens auf Punkt 1, tippen Sie ohne Schleichen für Punkt 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "Auswahlmodus ändern (kann zur Zeit nur Auswahl löschen)"
+msgstr "Auswahlmodus ändern"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Erweitern: Tippen Sie während des Schleichens für einen Startpunkt, tippen Sie ohne Schleichen um zu erweitern"
 
 msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region verschoben."
 
 msgid "commands.wedit:size.description"
 msgstr "Größe eines Pinsels festlegen"
@@ -476,10 +530,34 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
 
 msgid "commands.wedit:tool.description"
-msgstr "Holen Sie sich alle Arten von Tools (derzeit nur der Stacker)"
+msgstr "Holen Sie sich alle Arten von Tools"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigation wand bound to %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Far selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Stacker tool bound to %s."
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Auswahlwerkzeug"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigationswerkzeug"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Blockstapelwerkzeug"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Gehaltenes Wekzeug entfernen"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Tool unbound from your current item."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Aus Blöcken wegbewegen"

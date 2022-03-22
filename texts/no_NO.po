@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-02-11 02:15\n"
+"PO-Revision-Date: 2022-03-17 02:22\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
-
-msgid "item.error.wedit:noPerms"
-msgstr "Du har ikke tulgang til å bruke dette."
-
-msgid "item.wedit:selection_wand"
-msgstr "Utvalgstav"
-
-msgid "item.wedit:stacker_wand"
-msgstr "Stablestav"
-
-msgid "item.wedit:navigation_wand"
-msgstr "Navigeringsstav"
-
-msgid "item.wedit:wooden_brush"
-msgstr "Trepensel"
-
-msgid "item.wedit:stone_brush"
-msgstr "Steinpensel"
-
-msgid "item.wedit:iron_brush"
-msgstr "Jernpensel"
-
-msgid "item.wedit:golden_brush"
-msgstr "Gullpensel"
-
-msgid "item.wedit:diamond_brush"
-msgstr "Diamantbørste"
-
-msgid "item.wedit:netherite_brush"
-msgstr "Netherittpensel"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopier"
@@ -129,6 +99,15 @@ msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
 msgstr "Tilbake"
+
+msgid "item.wedit:prev_button"
+msgstr "Previous"
+
+msgid "item.wedit:next_button"
+msgstr "Next"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Create New Brush"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Inkluder enheter i utklippstavlen: §aAktivert§r"
@@ -226,6 +205,27 @@ msgstr "Andre posisjon satt til %s."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Andre posisjon satt til %1 (%2)."
 
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Started selection at %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Extended selection to encompass %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
+
 msgid "worldedit.permission.granted"
 msgstr "§eDu har fått WorldEdit permissions. Gå til (Innstillinger > Hvordan Spill > Hurtigstart) for en veiledning.§r"
 
@@ -268,8 +268,20 @@ msgstr "Tallet (%1) er for stort! Det må være maksimalt (%2)."
 msgid "commands.generic.wedit:tooSmall"
 msgstr "Tallet (%1) er for liten! Det må være minst (%2)."
 
-msgid "commands.generic.wedit:wandInfo"
-msgstr "Stav oppdatert."
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Sphere brush shape equipped (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Cylinder brush shape equipped (%1 by %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Smooth brush equipped (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
@@ -286,14 +298,32 @@ msgstr "Create a cylinder brush"
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
 
-msgid "commands.wedit:brush.noBind"
-msgstr "Ingen penseler har blitt bundet til dette nivået."
+msgid "commands.wedit:brush.mask.set"
+msgstr "Brush mask set."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Brush mask disabled."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Brush material set."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Brush range set."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Brush size set."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Trace mask set."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "This brush does not require a material to work."
 
-msgid "commands.wedit:brush.invalidItem"
-msgstr "The held item cannot be used as a brush."
+msgid "commands.wedit:brush.unbind"
+msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
@@ -303,6 +333,9 @@ msgstr "Fjerner din redigeringshistorikk"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "Slettet historikk."
+
+msgid "commands.wedit:contract.explain"
+msgstr "Region contracted %s blocks."
 
 msgid "commands.wedit:copy.description"
 msgstr "Kopier gjeldende utvalg til utklippstavlen"
@@ -327,6 +360,9 @@ msgstr "Dine valg vil ikke lenger være synlige."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Dine valg vil nå være synlige."
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region expanded %s blocks."
 
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
@@ -364,6 +400,9 @@ msgstr "Generer et hul kule"
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleporter deg til toppen av blokken du ser på"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region inset."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poff!"
 
@@ -378,6 +417,9 @@ msgstr "Sett gitt."
 
 msgid "commands.wedit:line.description"
 msgstr "Create a line between your first and second selection points"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
@@ -396,6 +438,9 @@ msgstr "Gi deg selv en navigeringsstav"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Snik og bruk gjenstand: gå gjennom vegger; Bruk gjenstanden uten sniking; hopp til sted"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region outset."
 
 msgid "commands.wedit:paste.description"
 msgstr "Lim inn utklippstavlen din i verdenen"
@@ -439,11 +484,20 @@ msgstr "'%s' is not an increment of 90°!"
 msgid "commands.wedit:sel.clear"
 msgstr "Selection cleared."
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode (currently can only clear selection)"
+msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
 
 msgid "commands.wedit:set.description"
 msgstr "Fill the selection with a block pattern"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush"
@@ -476,10 +530,34 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Set what kind of blocks a brush can be used on"
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools (currently only the stacker)"
+msgstr "Get all sorts of tools"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigation wand bound to %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Far selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Stacker tool bound to %s."
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Selection tool"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Unbind held tool"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Tool unbound from your current item."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Move out of blocks"

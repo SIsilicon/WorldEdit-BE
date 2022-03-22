@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-02-21 04:40\n"
+"PO-Revision-Date: 2022-03-17 02:22\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
-
-msgid "item.error.wedit:noPerms"
-msgstr "당신은 이 아이템을 사용할 권한이 없습니다."
-
-msgid "item.wedit:selection_wand"
-msgstr "선택 도구"
-
-msgid "item.wedit:stacker_wand"
-msgstr "쌓기 도구"
-
-msgid "item.wedit:navigation_wand"
-msgstr "네비게이션 도구"
-
-msgid "item.wedit:wooden_brush"
-msgstr "나무 브러쉬"
-
-msgid "item.wedit:stone_brush"
-msgstr "돌 브러쉬"
-
-msgid "item.wedit:iron_brush"
-msgstr "철제 브러쉬"
-
-msgid "item.wedit:golden_brush"
-msgstr "황금 브러쉬"
-
-msgid "item.wedit:diamond_brush"
-msgstr "다이아몬드 브러쉬"
-
-msgid "item.wedit:netherite_brush"
-msgstr "네더라이트 브러쉬"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -129,6 +99,15 @@ msgstr "확인"
 
 msgid "item.wedit:cancel_button"
 msgstr "취소"
+
+msgid "item.wedit:prev_button"
+msgstr "Previous"
+
+msgid "item.wedit:next_button"
+msgstr "Next"
+
+msgid "item.wedit:new_brush_button"
+msgstr "Create New Brush"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "클립보드에 몹 포함 §a켜짐§r"
@@ -226,6 +205,27 @@ msgstr "두 번째 위치가 %s로 설정되었습니다."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "두 번째 위치가 %1 (%2)로 설정되었습니다."
 
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Started selection at %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Extended selection to encompass %1 (%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "An item must be in your main hand."
+
+msgid "worldedit.tool.cantBind"
+msgstr "You cannot bind to this kind of item."
+
+msgid "worldedit.tool.noBind"
+msgstr "This item is not bound to any tool."
+
+msgid "worldedit.tool.noPerm"
+msgstr "You don't have permission to use this item."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "The tool on this item cannot be removed or replaced."
+
 msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit 권한이 부여되었습니다. (설정 > 게임 방법 > 빠른 시작)에서 안내를 받으실 수 있습니다.§r"
 
@@ -268,8 +268,20 @@ msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
 msgid "commands.generic.wedit:tooSmall"
 msgstr "숫자(%1) 가 너무 작습니다! 최소 (%2) 이상이어야 합니다."
 
-msgid "commands.generic.wedit:wandInfo"
-msgstr "도구가 업데이트 되었습니다."
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Sphere brush shape equipped (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Cylinder brush shape equipped (%1 by %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Smooth brush equipped (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
@@ -286,14 +298,32 @@ msgstr "원기둥 브러쉬 생성"
 msgid "commands.wedit:brush.description.smooth"
 msgstr "지형 스무딩 브러쉬 생성"
 
-msgid "commands.wedit:brush.noBind"
-msgstr "이 티어에 바인딩된 브러시가 없습니다."
+msgid "commands.wedit:brush.mask.set"
+msgstr "Brush mask set."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Brush mask disabled."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Brush material set."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Brush range set."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Brush size set."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Trace mask set."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "이 브러시는 작업하는 데 재료가 필요하지 않습니다."
 
-msgid "commands.wedit:brush.invalidItem"
-msgstr "보류된 항목은 브러시로 사용할 수 없습니다."
+msgid "commands.wedit:brush.unbind"
+msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "클립보드를 지웁니다."
@@ -303,6 +333,9 @@ msgstr "편집 기록 지우기"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "기록이 지워졌습니다."
+
+msgid "commands.wedit:contract.explain"
+msgstr "Region contracted %s blocks."
 
 msgid "commands.wedit:copy.description"
 msgstr "현재 선택 항목을 클립보드에 복사합니다."
@@ -327,6 +360,9 @@ msgstr "선택한 항목이 더 이상 표시되지 않습니다."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region expanded %s blocks."
 
 msgid "commands.wedit:faces.description"
 msgstr "선택 항목에서 테두리를 생성합니다."
@@ -364,6 +400,9 @@ msgstr "속이 빈 구체를 생성합니다."
 msgid "commands.wedit:jumpto.description"
 msgstr "보고 있는 블록의 꼭대기로 순간이동합니다"
 
+msgid "commands.wedit:inset.explain"
+msgstr "Region inset."
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "휙!"
 
@@ -378,6 +417,9 @@ msgstr "키트가 지급되었습니다."
 
 msgid "commands.wedit:line.description"
 msgstr "첫 번째 선택 지점과 두 번째 선택 지점 사이에 선을 생성합니다."
+
+msgid "commands.wedit:line.invalidType"
+msgstr "this command only works with cuboid selections"
 
 msgid "commands.wedit:mask.description"
 msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
@@ -396,6 +438,9 @@ msgstr "이동 도구를 받을 수 있습니다."
 
 msgid "commands.wedit:navwand.explain"
 msgstr "웅크리고 아이템 사용: 벽 통과, 웅크리지 않고 아이템 사용: 바라보는 위치로 이동"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region outset."
 
 msgid "commands.wedit:paste.description"
 msgstr "클립보드를 월드에 붙여넣기"
@@ -439,11 +484,20 @@ msgstr "'%s'은 90°의 증분이 아닙니다!"
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+
 msgid "commands.wedit:sel.description"
-msgstr "선택 모드 변경(현재 선택 항목만 지울 수 있음)"
+msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
 
 msgid "commands.wedit:set.description"
 msgstr "블록 패턴으로 선택 영역을 채웁니다."
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "브러쉬의 사이즈를 선택합니다."
@@ -476,10 +530,34 @@ msgid "commands.wedit:tracemask.description"
 msgstr "브러시를 사용할 수 있는 블록 유형 설정"
 
 msgid "commands.wedit:tool.description"
-msgstr "모든 종류의 도구 가져오기(현재 쌓기 도구만 해당)"
+msgstr "Get all sorts of tools"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigation wand bound to %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Far selection wand bound to %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Stacker tool bound to %s."
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Selection tool"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "블럭 쌓기 도구"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Unbind held tool"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Tool unbound from your current item."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "블록 밖으로 이동"

@@ -11,40 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-11 03:20\n"
+"PO-Revision-Date: 2022-03-17 03:19\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
-
-msgid "item.error.wedit:noPerms"
-msgstr "このアイテムを使用する権限がありません。"
-
-msgid "item.wedit:selection_wand"
-msgstr "選択用の杖"
-
-msgid "item.wedit:stacker_wand"
-msgstr "スタッカーの杖"
-
-msgid "item.wedit:navigation_wand"
-msgstr "案内用の杖"
-
-msgid "item.wedit:wooden_brush"
-msgstr "木のブラシ"
-
-msgid "item.wedit:stone_brush"
-msgstr "石のブラシ"
-
-msgid "item.wedit:iron_brush"
-msgstr "鉄のブラシ"
-
-msgid "item.wedit:golden_brush"
-msgstr "金のブラシ"
-
-msgid "item.wedit:diamond_brush"
-msgstr "ダイヤモンドのブラシ"
-
-msgid "item.wedit:netherite_brush"
-msgstr "ネザライトのブラシ"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
@@ -129,6 +99,15 @@ msgstr "OK"
 
 msgid "item.wedit:cancel_button"
 msgstr "戻る"
+
+msgid "item.wedit:prev_button"
+msgstr "戻る"
+
+msgid "item.wedit:next_button"
+msgstr "次へ"
+
+msgid "item.wedit:new_brush_button"
+msgstr "新規ブラシを作成"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "クリップボードにエンティティを含める: §a有効§r"
@@ -226,6 +205,27 @@ msgstr "2番目の位置を %s に設定しました。"
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "2番目の位置を %1 (%2) に設定しました。"
 
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "%1 (%2) で選択を開始しました。"
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "%1 (%2) を含む範囲を拡張しました。"
+
+msgid "worldedit.tool.noItem"
+msgstr "アイテムをメインハンドに持ってください。"
+
+msgid "worldedit.tool.cantBind"
+msgstr "この種類のアイテムを紐づけることはできません。"
+
+msgid "worldedit.tool.noBind"
+msgstr "このアイテムはどのツールにも紐付けられていません。"
+
+msgid "worldedit.tool.noPerm"
+msgstr "このアイテムを使用する権限がありません。"
+
+msgid "worldedit.tool.fixedBind"
+msgstr "このアイテムのツールは削除または置き換えできません。"
+
 msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
 
@@ -268,8 +268,20 @@ msgstr "数 (%1) は大きすぎます! 最大 (%2) でなければなりませ�
 msgid "commands.generic.wedit:tooSmall"
 msgstr "数 (%1) は小さすぎます! 最小 (%2) でなければなりません。"
 
-msgid "commands.generic.wedit:wandInfo"
-msgstr "杖を更新しました。"
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを解除します。§r"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "球体のブラシをセットしました (%s) 。"
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "円柱のブラシをセットしました (%1 x %2) 。"
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
 
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
@@ -286,14 +298,32 @@ msgstr "円柱ブラシを生成する"
 msgid "commands.wedit:brush.description.smooth"
 msgstr "地形をなだらかにするスムーズブラシを生成する"
 
-msgid "commands.wedit:brush.noBind"
-msgstr "この階層にはブラシがありません。"
+msgid "commands.wedit:brush.mask.set"
+msgstr "ブラシのマスクを設定しました。"
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "ブラシのマスクを無効にしました。"
+
+msgid "commands.wedit:brush.material.set"
+msgstr "ブラシの素材を設定しました。"
+
+msgid "commands.wedit:brush.range.set"
+msgstr "ブラシ範囲を設定しました。"
+
+msgid "commands.wedit:brush.size.set"
+msgstr "ブラシサイズを設定しました。"
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "トレースマスクを設定しました。"
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "トレースマスクを無効にしました。"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "このブラシには材料が必要ありません。"
 
-msgid "commands.wedit:brush.invalidItem"
-msgstr "持っているアイテムはブラシとして使用できません。"
+msgid "commands.wedit:brush.unbind"
+msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
@@ -303,6 +333,9 @@ msgstr "編集履歴を消去する"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "履歴を消去しました。"
+
+msgid "commands.wedit:contract.explain"
+msgstr "範囲が %s ブロックに収縮しました。"
 
 msgid "commands.wedit:copy.description"
 msgstr "現在の選択範囲をクリップボードにコピーする"
@@ -327,6 +360,9 @@ msgstr "選択範囲は表示されません。"
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "選択範囲が表示されます。"
+
+msgid "commands.wedit:expand.explain"
+msgstr "範囲が %s ブロックに拡大しました。"
 
 msgid "commands.wedit:faces.description"
 msgstr "選択範囲の輪郭線を生成する"
@@ -364,6 +400,9 @@ msgstr "空洞の球体を生成する"
 msgid "commands.wedit:jumpto.description"
 msgstr "見ているブロックの上にテレポートする"
 
+msgid "commands.wedit:inset.explain"
+msgstr "範囲を挿入しました。"
+
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poof!"
 
@@ -378,6 +417,9 @@ msgstr "アイテムを付与しました。"
 
 msgid "commands.wedit:line.description"
 msgstr "最初と2番目のポイントの間に線を生成する"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "このコマンドは直方体の選択でのみ動作します"
 
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
@@ -396,6 +438,9 @@ msgstr "自身に案内用の杖を付与する"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "スニークしながらアイテムを使うと壁を通過します。スニークせずに使うとロケーションまで移動します。"
+
+msgid "commands.wedit:outset.explain"
+msgstr "範囲を初期化しました。"
 
 msgid "commands.wedit:paste.description"
 msgstr "クリップボードをワールドに貼り付ける"
@@ -439,11 +484,20 @@ msgstr "'%s' は90°の倍数ではありません！"
 msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
 
+msgid "commands.wedit:sel.cuboid"
+msgstr "直方体: スニークしながらタップして地点1、スニークせずにタップして地点2を作成する"
+
 msgid "commands.wedit:sel.description"
-msgstr "選択モードの変更 (現時点では選択の消去のみ可能です)"
+msgstr "選択モードを変更する"
+
+msgid "commands.wedit:sel.extend"
+msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
+
+msgid "commands.wedit:shift.explain"
+msgstr "範囲を移動しました。"
 
 msgid "commands.wedit:size.description"
 msgstr "ブラシのサイズを設定する"
@@ -476,10 +530,34 @@ msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:tool.description"
-msgstr "全てのツールを取得する (現時点ではスタッカーのみ)"
+msgstr "すべての種類のツールを入手する"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "選択用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "案内用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "遠距離選択用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "スタッカーツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "選択ツール"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "案内ツール"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "スタッカーツールをブロックする"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "保持しているツールの紐づけを解除する"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "ツールと現在のアイテムの紐づけを解除しました。"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "ブロックの外に移動する"
