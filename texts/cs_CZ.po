@@ -163,52 +163,52 @@ msgstr "Blok přidán do masky: "
 msgid "worldedit.maskPicker.set"
 msgstr "Nastavit masku na blok: "
 
-msgid "worldedit.brushConfig.chooseBrush"
+msgid "worldedit.config.editTool"
 msgstr "Vyberte štětec, který chcete nastavit."
 
-msgid "worldedit.brushConfig.chooseKind"
+msgid "worldedit.config.choose.brush"
 msgstr "Vyberte, který druh štětce chcete vyrobit."
 
-msgid "worldedit.brushConfig.selectRadius"
+msgid "worldedit.config.selectRadius.brush"
 msgstr "Vyberte velikost štětce."
 
-msgid "worldedit.brushConfig.selectHeight"
+msgid "worldedit.config.selectHeight.brush"
 msgstr "Vyberte výšku štětce."
 
-msgid "worldedit.brushConfig.selectSmooth"
+msgid "worldedit.config.selectSmooth.brush"
 msgstr "Vyberte, jak hladký má být štětec."
 
-msgid "worldedit.brushConfig.patternMask"
+msgid "worldedit.config.paternMask.brush"
 msgstr "Vytvořte vzor a volitelně masku pro štětec."
 
-msgid "worldedit.brushConfig.mask"
+msgid "worldedit.config.mask.brush"
 msgstr "Vytvořit nepovinnou masku pro štětec."
 
-msgid "worldedit.brushConfig.confirm"
+msgid "worldedit.config.confirm"
 msgstr "Je tohle správně?"
 
-msgid "worldedit.brushConfig.affects"
+msgid "worldedit.config.affects"
 msgstr "Ovlivňuje: %s"
 
-msgid "worldedit.brushConfig.creates"
+msgid "worldedit.config.creates"
 msgstr "Vytvoří: %s"
 
-msgid "worldedit.brushConfig.radius"
+msgid "worldedit.config.radius"
 msgstr "Velikost: %s"
 
-msgid "worldedit.brushConfig.height"
+msgid "worldedit.config.height"
 msgstr "Výška: %s"
 
-msgid "worldedit.brushConfig.smooth"
+msgid "worldedit.config.smooth"
 msgstr "Hladkost: %s"
 
-msgid "worldedit.brushConfig.set"
+msgid "worldedit.config.set.brush"
 msgstr "Štětec nastaven."
 
-msgid "worldedit.brushConfig.setGive"
+msgid "worldedit.config.setGive.brush"
 msgstr "Štětec nastaven a přidán do vašeho inventáře."
 
-msgid "worldedit.brushConfig.cancel"
+msgid "worldedit.config.cancel.brush"
 msgstr "Nastavování štětce zrušeno."
 
 msgid "worldedit.selection.noPrimary"

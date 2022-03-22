@@ -163,52 +163,52 @@ msgstr "Bloc ajouté au masque : "
 msgid "worldedit.maskPicker.set"
 msgstr "Définir le masque sur le bloc: "
 
-msgid "worldedit.brushConfig.chooseBrush"
+msgid "worldedit.config.editTool"
 msgstr "Choisissez une brosse à configurer."
 
-msgid "worldedit.brushConfig.chooseKind"
+msgid "worldedit.config.choose.brush"
 msgstr "Choisissez le type de brosse à faire."
 
-msgid "worldedit.brushConfig.selectRadius"
+msgid "worldedit.config.selectRadius.brush"
 msgstr "Choisissez la taille du pinceau."
 
-msgid "worldedit.brushConfig.selectHeight"
+msgid "worldedit.config.selectHeight.brush"
 msgstr "Choisissez la hauteur du pinceau."
 
-msgid "worldedit.brushConfig.selectSmooth"
+msgid "worldedit.config.selectSmooth.brush"
 msgstr "Choisissez la douceur du pinceau."
 
-msgid "worldedit.brushConfig.patternMask"
+msgid "worldedit.config.paternMask.brush"
 msgstr "Ajoutez un motif et un masque optionnel pour la brosse."
 
-msgid "worldedit.brushConfig.mask"
+msgid "worldedit.config.mask.brush"
 msgstr "Ajoutez un motif et un masque optionnel pour la brosse."
 
-msgid "worldedit.brushConfig.confirm"
+msgid "worldedit.config.confirm"
 msgstr "Est-ce correct ?"
 
-msgid "worldedit.brushConfig.affects"
+msgid "worldedit.config.affects"
 msgstr "Affectes : %s"
 
-msgid "worldedit.brushConfig.creates"
+msgid "worldedit.config.creates"
 msgstr "Créé : %s"
 
-msgid "worldedit.brushConfig.radius"
+msgid "worldedit.config.radius"
 msgstr "Taille : %s"
 
-msgid "worldedit.brushConfig.height"
+msgid "worldedit.config.height"
 msgstr "Hauteur : %s"
 
-msgid "worldedit.brushConfig.smooth"
+msgid "worldedit.config.smooth"
 msgstr "Smoothness: %s"
 
-msgid "worldedit.brushConfig.set"
+msgid "worldedit.config.set.brush"
 msgstr "Brush configured."
 
-msgid "worldedit.brushConfig.setGive"
+msgid "worldedit.config.setGive.brush"
 msgstr "Pinceau configuré et ajouté à votre inventaire."
 
-msgid "worldedit.brushConfig.cancel"
+msgid "worldedit.config.cancel.brush"
 msgstr "Configuration du pinceau annulée."
 
 msgid "worldedit.selection.noPrimary"

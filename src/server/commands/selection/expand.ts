@@ -3,6 +3,7 @@ import { RawText } from '@modules/rawtext.js';
 import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
+import { getWorldMaxY, getWorldMinY } from '../../util.js';
 
 const registerInformation = {
     name: 'expand',
@@ -10,18 +11,33 @@ const registerInformation = {
     permission: 'worldedit.selection.expand',
     usage: [
         {
-            name: 'amount',
-            type: 'int'
+            subName: 'vert',
+            args: [
+                {
+                    name: 'height',
+                    type: 'int',
+                    default: 384
+                }
+            ]
         },
         {
-            name: 'reverseAmount',
-            type: 'int',
-            default: 0
-        },
-        {
-            name: 'direction',
-            type: 'Direction',
-            default: new Cardinal(Cardinal.Dir.FORWARD)
+            subName: '_default',
+            args: [
+                {
+                    name: 'amount',
+                    type: 'int'
+                },
+                {
+                    name: 'reverseAmount',
+                    type: 'int',
+                    default: 0
+                },
+                {
+                    name: 'direction',
+                    type: 'Direction',
+                    default: new Cardinal(Cardinal.Dir.FORWARD)
+                }
+            ]
         }
     ]
 };
@@ -29,18 +45,19 @@ const registerInformation = {
 commandList['expand'] = [registerInformation, (session, builder, args) => {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
-    const dir = (args.get('direction') as Cardinal).getDirection(builder);
     
-    let dirIdx: 0|1|2 = 0;
-    if (dir.y) {
-        dirIdx = 1;
-    } else if (dir.z) {
-        dirIdx = 2;
+    if (args.has('vert')) {
+        var dir = new Vector(0, 1, 0);
+        var dirIdx = 1;
+        var side1 = args.get('height') as number;
+        var side2 = args.get('height') as number;
+    } else {
+        var dir = (args.get('direction') as Cardinal).getDirection(builder);
+        var dirIdx = dir.x ? 0 : (dir.y ? 1 : 2);
+        var side1 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount'), 0);
+        var side2 = Math.max(args.get('amount'), 0) + Math.max(-args.get('reverseAmount'), 0);
     }
-    
-    let side1 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount'), 0);
-    let side2 = Math.max(args.get('amount'), 0) + Math.max(-args.get('reverseAmount'), 0);
-    
+
     let [minPoint, maxPoint] = [-1, -1];
     let [axis1, axis2] = [points[0].getIdx(dirIdx), points[1].getIdx(dirIdx)];
     if (dir.getIdx(dirIdx) >= 0) {

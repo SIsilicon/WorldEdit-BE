@@ -34,30 +34,30 @@ class ToolBuilder {
     register(toolClass: toolConstruct, name: string, item?: string) {
         this.tools.set(name, toolClass);
         if (item) {
-            this.fixedBindings.set(item, new (toolClass)());
+            this.fixedBindings.set(item + '/0', new (toolClass)());
         }
     }
     
-    bind(toolId: string, itemId: string, player: Player, ...args: any[]) {
-        this.unbind(itemId, player);
+    bind(toolId: string, itemId: string, itemData: number, player: Player, ...args: any[]) {
+        this.unbind(itemId, itemData, player);
         if (itemId) {
             const tool = new (this.tools.get(toolId))(...args);
             tool.type = toolId;
             this.createPlayerBindingMap(player);
-            this.bindings.get(player.name).set(itemId, tool);
+            this.bindings.get(player.name).set(`${itemId}/${itemData}`, tool);
             return tool;
         } else {
             throw 'worldedit.tool.noItem';
         }
     }
     
-    unbind(itemId: string, player: Player) {
+    unbind(itemId: string, itemData: number, player: Player) {
         if (itemId) {
-            if (this.fixedBindings.has(itemId)) {
+            if (this.fixedBindings.has(itemId + '/0')) {
                 throw 'worldedit.tool.fixedBind';
             }
             this.createPlayerBindingMap(player);
-            this.bindings.get(player.name).delete(itemId);
+            this.bindings.get(player.name).delete(`${itemId}/${itemData}`);
         } else {
             throw 'worldedit.tool.noItem';
         }
@@ -68,25 +68,25 @@ class ToolBuilder {
         this.setDisabled(player, false);
     }
     
-    hasBinding(itemId: string, player: Player) {
+    hasBinding(itemId: string, itemData: number, player: Player) {
         if (itemId) {
-            return this.bindings.get(player.name)?.has(itemId) || this.fixedBindings.has(itemId);
+            return this.bindings.get(player.name)?.has(`${itemId}/${itemData}`) || this.fixedBindings.has(itemId + '/0');
         } else {
             return false;
         }
     }
     
-    getBoundItems(player: Player, type?: string) {
+    getBoundItems(player: Player, type?: RegExp|string) {
         const tools = this.bindings.get(player.name);
         return tools ? Array.from(tools.entries())
-            .filter(binding => !type || binding[1].type == type)
-            .map(binding => binding[0])
-        : [] as string[];
+            .filter(binding => !type || (typeof type == 'string' ? binding[1].type == type : type.test(binding[1].type)))
+            .map(binding => [binding[0].split('/')[0], parseInt(binding[0].split('/')[1])] as [string, number])
+        : [] as [string, number][];
     }
     
-    setProperty(itemId: string, player: Player, prop: string, value: any) {
+    setProperty(itemId: string, itemData: number, player: Player, prop: string, value: any) {
         if (itemId) {
-            const tool: {[key: string]: any} = this.bindings.get(player.name).get(itemId);
+            const tool: {[key: string]: any} = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
             if (tool && prop in tool) {
                 tool[prop] = value;
                 return true;
@@ -95,9 +95,9 @@ class ToolBuilder {
         return false;
     }
     
-    hasProperty(itemId: string, player: Player, prop: string) {
+    hasProperty(itemId: string, itemData: number, player: Player, prop: string) {
         if (itemId) {
-            const tool: {[key: string]: any} = this.bindings.get(player.name).get(itemId);
+            const tool: {[key: string]: any} = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
             if (tool && prop in tool) {
                 return true;
             }
@@ -118,7 +118,7 @@ class ToolBuilder {
             return;
         }
         
-        const key = item.id;
+        const key = `${item.id}/${item.data}`;
         let tool: Tool;
         if (this.bindings.get(player.name)?.has(key)) {
             tool = this.bindings.get(player.name).get(key);
@@ -130,11 +130,6 @@ class ToolBuilder {
         
         tool.process(getSession(player), this.currentTick, loc);
         ev.cancel = true;
-
-        // Cancel block breaks (maybe?)
-        const playerContainer = (player.getComponent('minecraft:inventory') as EntityInventoryComponent).container;
-        playerContainer.swapItems(player.selectedSlot, (player.selectedSlot + 1) % 9, playerContainer);
-        playerContainer.swapItems(player.selectedSlot, (player.selectedSlot + 1) % 9, playerContainer);
     }
     
     private createPlayerBindingMap(player: Player) {

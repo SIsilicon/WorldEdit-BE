@@ -13,15 +13,18 @@ mojang_rp = com_mojang + '\\development_resource_packs\\WorldEdit RP'
 def sync_file(path, from_root, to_root):
     from_file = Path(path).relative_to(from_root)
     to_file = Path(to_root, from_file)
-    if os.path.exists(path):
-        to_folder = to_file.parent
-        if not os.path.exists(to_folder):
-            os.makedirs(to_folder)
-        shutil.copy(path, to_folder)
-        print(f'synced {path} to com.mojang')
-    else:
-        os.remove(to_file)
-        print(f'deleted {path} from com.mojang')
+    try:
+        if os.path.exists(path):
+            to_folder = to_file.parent
+            if not os.path.exists(to_folder):
+                os.makedirs(to_folder)
+            shutil.copy(path, to_folder)
+            print(f'synced {path} to com.mojang')
+        else:
+            os.remove(to_file)
+            print(f'deleted {path} from com.mojang')
+    except OSError:
+        pass
 
 def sync_all():
     for file in glob.iglob('BP/**', recursive=True):

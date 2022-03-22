@@ -163,52 +163,52 @@ msgstr "Bloco adicionado à máscara: "
 msgid "worldedit.maskPicker.set"
 msgstr "Definir máscara para bloco: "
 
-msgid "worldedit.brushConfig.chooseBrush"
+msgid "worldedit.config.editTool"
 msgstr "Escolha um pincel para configurar."
 
-msgid "worldedit.brushConfig.chooseKind"
+msgid "worldedit.config.choose.brush"
 msgstr "Escolha qual o tipo de pincel a ser feito."
 
-msgid "worldedit.brushConfig.selectRadius"
+msgid "worldedit.config.selectRadius.brush"
 msgstr "Escolha o tamanho do pincel."
 
-msgid "worldedit.brushConfig.selectHeight"
+msgid "worldedit.config.selectHeight.brush"
 msgstr "Escolha a altura do pincel."
 
-msgid "worldedit.brushConfig.selectSmooth"
+msgid "worldedit.config.selectSmooth.brush"
 msgstr "Escolha a suavidade do pincel."
 
-msgid "worldedit.brushConfig.patternMask"
+msgid "worldedit.config.paternMask.brush"
 msgstr "Faça um padrão e uma máscara opcional para o pincel."
 
-msgid "worldedit.brushConfig.mask"
+msgid "worldedit.config.mask.brush"
 msgstr "Faça uma máscara opcional para o pincel."
 
-msgid "worldedit.brushConfig.confirm"
+msgid "worldedit.config.confirm"
 msgstr "Isto está certo?"
 
-msgid "worldedit.brushConfig.affects"
+msgid "worldedit.config.affects"
 msgstr "Afeta: %s"
 
-msgid "worldedit.brushConfig.creates"
+msgid "worldedit.config.creates"
 msgstr "Cria: %s"
 
-msgid "worldedit.brushConfig.radius"
+msgid "worldedit.config.radius"
 msgstr "Tamanho: %s"
 
-msgid "worldedit.brushConfig.height"
+msgid "worldedit.config.height"
 msgstr "Altura: %s"
 
-msgid "worldedit.brushConfig.smooth"
+msgid "worldedit.config.smooth"
 msgstr "Suavidade: %s"
 
-msgid "worldedit.brushConfig.set"
+msgid "worldedit.config.set.brush"
 msgstr "Pincel Configurado."
 
-msgid "worldedit.brushConfig.setGive"
+msgid "worldedit.config.setGive.brush"
 msgstr "Pincel configurado e adicionado ao seu inventário."
 
-msgid "worldedit.brushConfig.cancel"
+msgid "worldedit.config.cancel.brush"
 msgstr "Configuração do pincel cancelada."
 
 msgid "worldedit.selection.noPrimary"

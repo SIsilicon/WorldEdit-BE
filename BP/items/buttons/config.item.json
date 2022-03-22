@@ -8,7 +8,7 @@
         "components": {
             "minecraft:icon": {
                 "texture": "config",
-                "frame": 0
+                "frame": "0"
             },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {

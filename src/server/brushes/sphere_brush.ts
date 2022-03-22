@@ -21,6 +21,7 @@ export class SphereBrush extends Brush {
     */
     constructor(radius: number, pattern: Pattern, hollow: boolean) {
         super();
+        this.assertSizeInRange(radius);
         this.shape = new SphereShape(radius);
         this.shape.usedInBrush = true;
         this.pattern = pattern;
@@ -28,6 +29,7 @@ export class SphereBrush extends Brush {
     }
     
     public resize(value: number) {
+        this.assertSizeInRange(value);
         this.shape = new SphereShape(value);
         this.shape.usedInBrush = true;
     }

@@ -23,6 +23,7 @@ export class CylinderBrush extends Brush {
     */
     constructor(radius: number, height: number, pattern: Pattern, hollow: boolean) {
         super();
+        this.assertSizeInRange(radius);
         this.shape = new CylinderShape(height, radius);
         this.shape.usedInBrush = true;
         this.height = height;
@@ -31,6 +32,7 @@ export class CylinderBrush extends Brush {
     }
     
     public resize(value: number) {
+        this.assertSizeInRange(value);
         this.shape = new CylinderShape(this.height, value);
         this.shape.usedInBrush = true;
     }

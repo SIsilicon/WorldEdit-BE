@@ -163,52 +163,52 @@ msgstr "Added block to mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
-msgid "worldedit.brushConfig.chooseBrush"
+msgid "worldedit.config.editTool"
 msgstr "Choose a brush to set up."
 
-msgid "worldedit.brushConfig.chooseKind"
+msgid "worldedit.config.choose.brush"
 msgstr "Choose what kind of brush to make."
 
-msgid "worldedit.brushConfig.selectRadius"
+msgid "worldedit.config.selectRadius.brush"
 msgstr "Choose the size of the brush."
 
-msgid "worldedit.brushConfig.selectHeight"
+msgid "worldedit.config.selectHeight.brush"
 msgstr "Choose the height of the brush."
 
-msgid "worldedit.brushConfig.selectSmooth"
+msgid "worldedit.config.selectSmooth.brush"
 msgstr "Choose the smoothness of the brush."
 
-msgid "worldedit.brushConfig.patternMask"
+msgid "worldedit.config.paternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
 
-msgid "worldedit.brushConfig.mask"
+msgid "worldedit.config.mask.brush"
 msgstr "Make an optional mask for the brush."
 
-msgid "worldedit.brushConfig.confirm"
+msgid "worldedit.config.confirm"
 msgstr "Is this Ok?"
 
-msgid "worldedit.brushConfig.affects"
+msgid "worldedit.config.affects"
 msgstr "Affects: %s"
 
-msgid "worldedit.brushConfig.creates"
+msgid "worldedit.config.creates"
 msgstr "Creates: %s"
 
-msgid "worldedit.brushConfig.radius"
+msgid "worldedit.config.radius"
 msgstr "Size: %s"
 
-msgid "worldedit.brushConfig.height"
+msgid "worldedit.config.height"
 msgstr "Height: %s"
 
-msgid "worldedit.brushConfig.smooth"
+msgid "worldedit.config.smooth"
 msgstr "Smoothness: %s"
 
-msgid "worldedit.brushConfig.set"
+msgid "worldedit.config.set.brush"
 msgstr "Brush configured."
 
-msgid "worldedit.brushConfig.setGive"
+msgid "worldedit.config.setGive.brush"
 msgstr "Brush configured and added to your inventory."
 
-msgid "worldedit.brushConfig.cancel"
+msgid "worldedit.config.cancel.brush"
 msgstr "Cancelled brush configuring."
 
 msgid "worldedit.selection.noPrimary"

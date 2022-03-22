@@ -163,52 +163,52 @@ msgstr "已新增以下方塊到取代方塊選擇器: "
 msgid "worldedit.maskPicker.set"
 msgstr "已設定以下方塊為取代方塊: "
 
-msgid "worldedit.brushConfig.chooseBrush"
+msgid "worldedit.config.editTool"
 msgstr "請選擇要設定的畫筆。"
 
-msgid "worldedit.brushConfig.chooseKind"
+msgid "worldedit.config.choose.brush"
 msgstr "請選擇畫筆的形狀。"
 
-msgid "worldedit.brushConfig.selectRadius"
+msgid "worldedit.config.selectRadius.brush"
 msgstr "請選擇畫筆的大小。"
 
-msgid "worldedit.brushConfig.selectHeight"
+msgid "worldedit.config.selectHeight.brush"
 msgstr "請選擇畫筆的高度。"
 
-msgid "worldedit.brushConfig.selectSmooth"
+msgid "worldedit.config.selectSmooth.brush"
 msgstr "Choose the smoothness of the brush."
 
-msgid "worldedit.brushConfig.patternMask"
+msgid "worldedit.config.paternMask.brush"
 msgstr "請設定畫筆的填充方塊(必選)和取代方塊(可選)。"
 
-msgid "worldedit.brushConfig.mask"
+msgid "worldedit.config.mask.brush"
 msgstr "Make an optional mask for the brush."
 
-msgid "worldedit.brushConfig.confirm"
+msgid "worldedit.config.confirm"
 msgstr "這樣可以嗎?"
 
-msgid "worldedit.brushConfig.affects"
+msgid "worldedit.config.affects"
 msgstr "取代方塊: %s"
 
-msgid "worldedit.brushConfig.creates"
+msgid "worldedit.config.creates"
 msgstr "填充方塊: %s"
 
-msgid "worldedit.brushConfig.radius"
+msgid "worldedit.config.radius"
 msgstr "大小: %s"
 
-msgid "worldedit.brushConfig.height"
+msgid "worldedit.config.height"
 msgstr "高度: %s"
 
-msgid "worldedit.brushConfig.smooth"
+msgid "worldedit.config.smooth"
 msgstr "Smoothness: %s"
 
-msgid "worldedit.brushConfig.set"
+msgid "worldedit.config.set.brush"
 msgstr "畫筆設定完成。"
 
-msgid "worldedit.brushConfig.setGive"
+msgid "worldedit.config.setGive.brush"
 msgstr "畫筆設定完成，已添加此畫筆到你的物品欄。"
 
-msgid "worldedit.brushConfig.cancel"
+msgid "worldedit.config.cancel.brush"
 msgstr "已取消畫筆設定。"
 
 msgid "worldedit.selection.noPrimary"

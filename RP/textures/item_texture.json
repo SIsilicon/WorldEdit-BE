@@ -59,6 +59,9 @@
         "cancel": {
             "textures": "textures/ui/cancel"
         },
+        "delete": {
+            "textures": "textures/ui/icon_trash"
+        },
         "arrow_left": {
             "textures": "textures/ui/arrow_left"
         },
@@ -74,6 +77,9 @@
         "brush_config": {
             "textures": "textures/ui/brush_config"
         },
+        "tool_config": {
+            "textures": "textures/ui/tool_config"
+        },
         "cylinder_brush": {
             "textures": "textures/ui/cylinder_brush"
         },
@@ -82,6 +88,18 @@
         },
         "smooth_brush": {
             "textures": "textures/ui/smooth_brush"
+        },
+        "selection_wand": {
+            "textures": "textures/ui/selection_wand"
+        },
+        "far_selection_wand": {
+            "textures": "textures/ui/far_selection_wand"
+        },
+        "navigation_wand": {
+            "textures": "textures/ui/navigation_wand"
+        },
+        "stacker_wand": {
+            "textures": "textures/ui/stacker_wand"
         },
         "number_one": {
             "textures": "textures/ui/one"

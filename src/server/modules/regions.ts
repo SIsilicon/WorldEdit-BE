@@ -2,9 +2,7 @@ import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { printDebug, printLocation, placeBlock, regionSize, regionVolume, regionCenter, regionBounds } from '../util.js';
 import { Vector } from './vector.js';
-import { RawText } from './rawtext.js';
 import { parsedBlock } from './parser.js';
-import { PlayerUtil } from './player_util.js';
 
 interface StructureMeta {
     blocks: Map<Vector, parsedBlock>;

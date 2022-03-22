@@ -22,6 +22,7 @@ export class SmoothBrush extends Brush {
     */
     constructor(radius: number, iterations: number, mask: Mask) {
         super();
+        this.assertSizeInRange(radius);
         this.shape = new CuboidShape(radius*2+1, radius*2+1, radius*2+1);
         this.size = radius;
         this.iterations = iterations;
@@ -29,6 +30,7 @@ export class SmoothBrush extends Brush {
     }
     
     public resize(value: number) {
+        this.assertSizeInRange(value);
         this.shape = new CuboidShape(value*2+1, value*2+1, value*2+1);
         this.size = value;
         this.shape.usedInBrush = true;

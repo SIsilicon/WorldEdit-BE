@@ -73,9 +73,9 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
 }
 
 const worldY = {
-    'overworld': [-64, 320],
-    'nether': [0, 128],
-    'the end': [0, 256],
+    'overworld': [-64, 319],
+    'nether': [0, 127],
+    'the end': [0, 255],
     '': [0, 0]
 };
 /**

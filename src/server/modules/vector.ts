@@ -65,11 +65,11 @@ export class Vector {
         this.z = this.z / len * val;
     }
     
-    getIdx(idx: 0|1|2) {
+    getIdx(idx: number) {
         return this.vals[idx];
     }
 
-    setIdx(idx: 0|1|2, val: number) {
+    setIdx(idx: number, val: number) {
         this.vals[idx] = val;
     }
 

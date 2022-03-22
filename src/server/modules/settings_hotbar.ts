@@ -17,7 +17,7 @@ type hotbarItems = { [k: number]: string | [string, number] };
 interface state {
     hotbar: hotbarItems,
     entered?: () => void,
-    input?: (itemType: string) => void | boolean,
+    input?: (itemType: string, itemData?: number) => void | boolean,
     tick?: () => void,
     exiting?: () => void,
     [key: string]: any
@@ -32,7 +32,8 @@ export class SettingsHotbar {
             hotbar: {
                 0: 'wedit:inc_entities_on_button',
                 1: 'wedit:inc_air_on_button',
-                4: 'wedit:brush_config_button',
+                3: 'wedit:tool_config_button',
+                5: 'wedit:brush_config_button',
                 8: ['wedit:cancel_button', 1]
             },
             // TODO: Prevent these items from dropping
@@ -61,41 +62,47 @@ export class SettingsHotbar {
                 } else if (itemType == 'wedit:inc_air_on_button') {
                     this.session.includeAir = false;
                     PlayerUtil.replaceItem(this.player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button');
+                } else if (itemType == 'wedit:tool_config_button') {
+                    this.state['editMode'] = 'tool';
+                    this.changeState('chooseTool');
                 } else if (itemType == 'wedit:brush_config_button') {
-                    this.changeState('chooseBrush');
+                    this.state['editMode'] = 'brush';
+                    this.changeState('chooseTool');
                 } else if (itemType == 'wedit:cancel_button') {
                     this.session.exitSettings();
                 }
-            }
+            },
+            editMode: 'brush'
         },
-        chooseBrush: {
+        chooseTool: {
             hotbar: {
                 0: 'wedit:new_brush_button',
                 8: 'wedit:cancel_button'
             },
             entered: () => {
-                this.state['idx'] = 0;
-                this.state['update']();
-                this.msg('worldedit.brushConfig.chooseBrush');
+                this.state.idx = 0;
+                this.state.update();
+                this.msg('worldedit.config.editTool');
                 Tools.setDisabled(this.player, true);
             },
-            input: (itemType) => {
+            input: (itemType, itemData) => {
                 if (itemType == 'wedit:new_brush_button') {
                     this.changeState('chooseItem');
+                    this.newTool = true;
                 } else if (itemType == 'wedit:cancel_button') {
                     this.changeState('main');
                 } else if (itemType == 'wedit:next_button') {
-                    this.state['idx']++;
-                    this.state['update']();
+                    this.state.idx++;
+                    this.state.update();
                 } else if (itemType == 'wedit:prev_button') {
-                    this.state['idx']--;
-                    this.state['update']();
+                    this.state.idx--;
+                    this.state.update();
                 } else if (itemType == 'wedit:blank') {
                     return;
                 } else {
-                    this.currBrushItem = [itemType, 0];
-                    this.changeState('editBrush');
-                    // TODO: Cancel ItemUseOnEvent as well, somehow
+                    this.currBindItem = [itemType, itemData];
+                    this.newTool = false;
+                    this.changeState('editTool');
                     return true;
                 }
             },
@@ -107,14 +114,14 @@ export class SettingsHotbar {
 
             idx: 0,
             update: () => {
-                const tools = Tools.getBoundItems(this.player, 'brush');
+                const tools = Tools.getBoundItems(this.player, this.states.main.editMode == 'brush' ? 'brush' : /^.*(?<!brush)$/);
                 let items: hotbarItems = { ...this.state.hotbar };
                 if (tools.length < 6) {
                     for (let i = 0; i < tools.length; i++) {
                         items[i + 2] = tools[i];
                     }
                 } else {
-                    const idx = this.state['idx'];
+                    const idx = this.state.idx;
                     if (idx > 0) {
                         items[1] = 'wedit:prev_button';
                     }
@@ -133,46 +140,78 @@ export class SettingsHotbar {
                 8: 'wedit:cancel_button'
             },
             entered: () => {
-                this.msg('worldedit.brushConfig.chooseItem');
+                this.msg(`worldedit.config.chooseItem`);
                 Server.runCommand('clear @s wedit:blank', this.player);
             },
             input: (itemType) => {
                 if (itemType == 'wedit:cancel_button') {
-                    this.changeState('chooseBrush');
+                    this.changeState('chooseTool');
                 }
             },
             tick: () => {
                 let item = Server.player.getHeldItem(this.player);
                 if (this.player.selectedSlot != 8 && item) {
-                    this.currBrushItem = [item.id, item.data] as [string, number];
-                    this.changeState('editBrush');
+                    this.currBindItem = [item.id, item.data];
+                    this.changeState('editTool');
                 }
             }
         },
-        editBrush: {
+        editTool: {
             hotbar: {
+                0: 'wedit:delete_button',
                 3: 'wedit:sphere_button',
                 4: 'wedit:cylinder_button',
                 5: 'wedit:smooth_button',
                 8: 'wedit:cancel_button'
             },
             entered: () => {
-                this.editingBrush = '';
-                this.brushData = [];
-                this.msg('worldedit.brushConfig.chooseKind');
+                let hotbarItems = { ...this.state.hotbar };
+                if (this.states.main.editMode == 'tool') {
+                    hotbarItems = {
+                        0: 'wedit:delete_button',
+                        2: 'wedit:selection_button',
+                        3: 'wedit:far_selection_button',
+                        5: 'wedit:navigation_button',
+                        6: 'wedit:stacker_button',
+                        8: 'wedit:cancel_button'
+                    };
+                }
+                if (this.newTool) {
+                    delete hotbarItems[0];
+                }
+
+                this.editingTool = '';
+                this.toolData = [];
+                this.setHotbarItems(hotbarItems);
+                this.msg('worldedit.config.choose.' + this.states.main.editMode);
             },
             input: (itemType) => {
                 if (itemType == 'wedit:sphere_button') {
-                    this.editingBrush = 'sphere';
-                    this.changeState(this.brushMenus['sphere'][0])
+                    this.editingTool = 'sphere';
+                    this.changeState(this.toolMenus['sphere'][0]);
                 } else if (itemType == 'wedit:cylinder_button') {
-                    this.editingBrush = 'cylinder';
-                    this.changeState(this.brushMenus['cylinder'][0])
+                    this.editingTool = 'cylinder';
+                    this.changeState(this.toolMenus['cylinder'][0]);
                 } else if (itemType == 'wedit:smooth_button') {
-                    this.editingBrush = 'smooth';
-                    this.changeState(this.brushMenus['smooth'][0])
+                    this.editingTool = 'smooth';
+                    this.changeState(this.toolMenus['smooth'][0]);
+                } else if (itemType == 'wedit:selection_button') {
+                    this.editingTool = 'selection';
+                    this.changeState('confirmTool');
+                } else if (itemType == 'wedit:far_selection_button') {
+                    this.editingTool = 'far_selection';
+                    this.changeState('confirmTool');
+                } else if (itemType == 'wedit:navigation_button') {
+                    this.editingTool = 'navigation';
+                    this.changeState('confirmTool');
+                } else if (itemType == 'wedit:stacker_button') {
+                    this.editingTool = 'stacker';
+                    this.changeState(this.toolMenus['stacker'][0]);
+                } else if (itemType == 'wedit:delete_button') {
+                    this.editingTool = 'unbind';
+                    this.changeState('confirmTool');
                 } else if (itemType == 'wedit:cancel_button') {
-                    this.changeState('chooseBrush');
+                    this.changeState('chooseTool');
                 }
             }
         },
@@ -187,12 +226,18 @@ export class SettingsHotbar {
                 8: 'wedit:cancel_button'
             },
             entered: () => {
-                if (this.brushData.length == 0) {
-                    this.msg('worldedit.brushConfig.selectRadius');
-                } else if (this.brushData.length == 1 && this.editingBrush == 'cylinder') {
-                    this.msg('worldedit.brushConfig.selectHeight');
-                } else if (this.brushData.length == 1 && this.editingBrush == 'smooth') {
-                    this.msg('worldedit.brushConfig.selectSmooth');
+                if (this.states.main.editMode == 'tool') {
+                    if (this.editingTool == 'stacker') {
+                        this.msg('worldedit.config.selectRange.tool');
+                    }
+                } else {
+                    if (this.toolData.length == 0) {
+                        this.msg('worldedit.config.selectRadius.brush');
+                    } else if (this.toolData.length == 1 && this.editingTool == 'cylinder') {
+                        this.msg('worldedit.config.selectHeight.brush');
+                    } else if (this.toolData.length == 1 && this.editingTool == 'smooth') {
+                        this.msg('worldedit.config.selectSmooth.brush');
+                    }
                 }
             },
             input: (itemType) => {
@@ -210,12 +255,12 @@ export class SettingsHotbar {
                 } else if (itemType == 'wedit:six_button') {
                     num = 6;
                 } else if (itemType == 'wedit:cancel_button') {
-                    this.changeState('editBrush');
+                    this.changeState('editTool');
                     return;
                 }
                 if (num) {
-                    this.brushData.push(num);
-                    this.changeState(this.brushMenus[this.editingBrush][this.brushData.length]);
+                    this.toolData.push(num);
+                    this.changeState(this.toolMenus[this.editingTool][this.toolData.length]);
                 }
             }
         },
@@ -232,14 +277,14 @@ export class SettingsHotbar {
                 this.session.globalPattern = new Pattern();
                 this.session.globalMask = new Mask();
 
-                this.msg('worldedit.brushConfig.patternMask');
+                this.msg('worldedit.config.paternMask.' + this.states.main.editMode);
             },
             input: (itemType) => {
                 if (itemType == 'wedit:confirm_button') {
-                    this.brushData.push([this.session.globalPattern, this.session.globalMask]);
-                    this.changeState(this.brushMenus[this.editingBrush][this.brushData.length]);
+                    this.toolData.push([this.session.globalPattern, this.session.globalMask]);
+                    this.changeState(this.toolMenus[this.editingTool][this.toolData.length]);
                 } else if (itemType == 'wedit:cancel_button') {
-                    this.changeState('editBrush');
+                    this.changeState('editTool');
                 }
             },
             exiting: () => {
@@ -256,87 +301,115 @@ export class SettingsHotbar {
             entered: () => {
                 this.stashedMask = this.session.globalMask;
                 this.session.globalMask = new Mask();
-                this.msg('worldedit.brushConfig.mask');
+                this.msg('worldedit.config.mask.' + this.states.main.editMode);
             },
             input: (itemType) => {
                 if (itemType == 'wedit:confirm_button') {
-                    this.brushData.push(this.session.globalMask);
-                    this.changeState(this.brushMenus[this.editingBrush][this.brushData.length]);
+                    this.toolData.push(this.session.globalMask);
+                    this.changeState(this.toolMenus[this.editingTool][this.toolData.length]);
                 } else if (itemType == 'wedit:cancel_button') {
-                    this.changeState('editBrush');
+                    this.changeState('editTool');
                 }
             },
             exiting: () => {
                 this.session.globalMask = this.stashedMask;
             }
         },
-        confirmBrush: {
+        confirmTool: {
             hotbar: {
                 3: 'wedit:confirm_button',
                 5: 'wedit:cancel_button'
             },
             input: (itemType) => {
                 if (itemType == 'wedit:confirm_button') {
-                    const item = this.currBrushItem[0];
-                    if (this.editingBrush == 'sphere') {
-                        this.session.bindTool('brush', item, new SphereBrush(this.brushData[0], this.brushData[1][0], false), this.brushData[1][1]);
-                    } else if (this.editingBrush == 'cylinder') {
-                        this.session.bindTool('brush', item, new CylinderBrush(this.brushData[0], this.brushData[1], this.brushData[2][0], false), this.brushData[2][1]);
-                    } else if (this.editingBrush == 'smooth') {
-                        this.session.bindTool('brush', item, new SmoothBrush(this.brushData[0], this.brushData[1], this.brushData[2]));
+                    const item = this.currBindItem;
+
+                    if (this.editingTool == 'unbind') {
+                        this.session.unbindTool(item);
+                        this.changeState('chooseTool');
+                        this.msg('worldedit.config.unbind');
+                        return;
                     }
 
-                    this.changeState('chooseBrush');
-                    if (!PlayerUtil.hasItem(this.player, ...this.currBrushItem)) {
-                        Server.runCommand(`give @s ${item} 1 ${this.currBrushItem[1]}`, this.player);
-                        this.msg('worldedit.brushConfig.setGive');
+                    if (this.editingTool == 'sphere') {
+                        this.session.bindTool('brush', item, new SphereBrush(this.toolData[0], this.toolData[1][0], false), this.toolData[1][1]);
+                    } else if (this.editingTool == 'cylinder') {
+                        this.session.bindTool('brush', item, new CylinderBrush(this.toolData[0], this.toolData[1], this.toolData[2][0], false), this.toolData[2][1]);
+                    } else if (this.editingTool == 'smooth') {
+                        this.session.bindTool('brush', item, new SmoothBrush(this.toolData[0], this.toolData[1], this.toolData[2]));
+                    } else if (this.editingTool == 'selection') {
+                        this.session.bindTool('selection_wand', item);
+                    } else if (this.editingTool == 'far_selection') {
+                        this.session.bindTool('far_selection_wand', item);
+                    } else if (this.editingTool == 'navigation') {
+                        this.session.bindTool('navigation_wand', item);
+                    } else if (this.editingTool == 'stacker') {
+                        this.session.bindTool('stacker_wand', item, this.toolData[0], this.toolData[1]);
+                    }
+
+                    this.changeState('chooseTool');
+                    if (!PlayerUtil.hasItem(this.player, ...item)) {
+                        Server.runCommand(`give @s ${item[0]} 1 ${item[1]}`, this.player);
+                        this.msg('worldedit.config.setGive.' + this.states.main.editMode);
                     } else {
-                        this.msg('worldedit.brushConfig.set');
+                        this.msg('worldedit.config.set.' + this.states.main.editMode);
                     }
                 } else if (itemType == 'wedit:cancel_button') {
-                    this.changeState('editBrush');
+                    this.changeState('editTool');
                 }
             },
             tick: () => {
-                let msg = RawText.translate('worldedit.brushConfig.confirm').append('text', '\n');
-                msg = msg.append('translate', `item.wedit:${this.editingBrush}_button`).append('text', this.brushData.length ? ':\n ' : '');
+                if (this.editingTool == 'unbind') {
+                    this.msg('worldedit.config.confirm.delete');
+                    return;
+                }
 
-                if (this.editingBrush == 'sphere') {
-                    msg.append('translate', 'worldedit.brushConfig.radius').with(this.brushData[0]);
-                    let pattern = this.brushData[1][0].getBlockSummary();
-                    let mask = this.brushData[1][1].getBlockSummary();
+                let msg = RawText.translate('worldedit.config.confirm').append('text', '\n');
+                msg = msg.append('translate', `item.wedit:${this.editingTool}_button`).append('text', this.toolData.length ? ':\n ' : '');
+
+                if (this.editingTool == 'sphere') {
+                    msg.append('translate', 'worldedit.config.radius').with(this.toolData[0]);
+                    let pattern = this.toolData[1][0].getBlockSummary();
+                    let mask = this.toolData[1][1].getBlockSummary();
                     if (pattern) {
                         msg.append('text', '\n ');
-                        msg.append('translate', 'worldedit.brushConfig.creates').with(pattern);
+                        msg.append('translate', 'worldedit.config.creates').with(pattern);
                     }
                     if (mask) {
                         msg.append('text', '\n ');
-                        msg.append('translate', 'worldedit.brushConfig.affects').with(mask);
+                        msg.append('translate', 'worldedit.config.affects').with(mask);
                     }
-                } else if (this.editingBrush == 'cylinder') {
-                    msg.append('translate', 'worldedit.brushConfig.radius').with(this.brushData[0]);
+                } else if (this.editingTool == 'cylinder') {
+                    msg.append('translate', 'worldedit.config.radius').with(this.toolData[0]);
                     msg.append('text', '\n ');
-                    msg.append('translate', 'worldedit.brushConfig.height').with(this.brushData[1]);
-                    let pattern = this.brushData[2][0].getBlockSummary();
-                    let mask = this.brushData[2][1].getBlockSummary();
+                    msg.append('translate', 'worldedit.config.height').with(this.toolData[1]);
+                    let pattern = this.toolData[2][0].getBlockSummary();
+                    let mask = this.toolData[2][1].getBlockSummary();
 
                     if (pattern) {
                         msg.append('text', '\n ');
-                        msg.append('translate', 'worldedit.brushConfig.creates').with(pattern);
+                        msg.append('translate', 'worldedit.config.creates').with(pattern);
                     }
                     if (mask) {
                         msg.append('text', '\n ');
-                        msg.append('translate', 'worldedit.brushConfig.affects').with(mask);
+                        msg.append('translate', 'worldedit.config.affects').with(mask);
                     }
-                } else if (this.editingBrush == 'smooth') {
-                    msg.append('translate', 'worldedit.brushConfig.radius').with(this.brushData[0]);
+                } else if (this.editingTool == 'smooth') {
+                    msg.append('translate', 'worldedit.config.radius').with(this.toolData[0]);
                     msg.append('text', '\n ');
-                    msg.append('translate', 'worldedit.brushConfig.smooth').with(this.brushData[1]);
-                    let mask = this.brushData[2].getBlockSummary();
+                    msg.append('translate', 'worldedit.config.smooth').with(this.toolData[1]);
+                    let mask = this.toolData[2].getBlockSummary();
 
                     if (mask) {
                         msg.append('text', '\n ');
-                        msg.append('translate', 'worldedit.brushConfig.affects').with(mask);
+                        msg.append('translate', 'worldedit.config.affects').with(mask);
+                    }
+                } else if (this.editingTool == 'stacker') {
+                    msg.append('translate', 'worldedit.config.range').with(this.toolData[0]);
+                    let mask = this.toolData[1].getBlockSummary();
+                    if (mask) {
+                        msg.append('text', '\n ');
+                        msg.append('translate', 'worldedit.config.affects').with(mask);
                     }
                 }
                 this.msg(msg);
@@ -344,13 +417,15 @@ export class SettingsHotbar {
         }
     };
 
-    private currBrushItem: [string, number]; // Id and data value
-    private editingBrush: string = '';
-    private brushData: any[] = [];
-    private brushMenus: { [k: string]: string[] } = {
-        'sphere': ['selectNumber', 'patternAndMask', 'confirmBrush'],
-        'cylinder': ['selectNumber', 'selectNumber', 'patternAndMask', 'confirmBrush'],
-        'smooth': ['selectNumber', 'selectNumber', 'mask', 'confirmBrush']
+    private currBindItem: [string, number]; // Id and data value
+    private newTool: boolean;
+    private editingTool: string = '';
+    private toolData: any[] = [];
+    private toolMenus: { [k: string]: string[] } = {
+        'sphere': ['selectNumber', 'patternAndMask', 'confirmTool'],
+        'cylinder': ['selectNumber', 'selectNumber', 'patternAndMask', 'confirmTool'],
+        'smooth': ['selectNumber', 'selectNumber', 'mask', 'confirmTool'],
+        'stacker': ['selectNumber', 'mask', 'confirmTool']
     }
 
     private cancelItemUseOn = function(ev: BeforeItemUseOnEvent) {
@@ -374,7 +449,7 @@ export class SettingsHotbar {
 
     onItemUse(ev: BeforeItemUseEvent) {
         if (ev.item) {
-            if (this.state?.input?.(ev.item.id)) {
+            if (this.state?.input?.(ev.item.id, ev.item.data)) {
                 ev.cancel = true;
             }
         }

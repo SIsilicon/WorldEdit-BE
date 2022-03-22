@@ -16,6 +16,7 @@ Server.command.addCustomArgType('Direction', Cardinal);
 import './misc/help.js';
 import './misc/kit.js';
 import './misc/worldedit.js';
+import './misc/limit.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';

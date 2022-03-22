@@ -32,8 +32,15 @@ export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
 // THe distance the navwand, among other tools and commands, traces for a block of interest.
 export const NAV_WAND_DISTANCE: number = 50;
 
-// The maximum brush radius.
+// The maximum brush radius allowed.
 export const MAX_BRUSH_RADIUS: number = 6;
 
+// The default amount of blocks that can be "potentially" affected within a single operation.
+export const DEFAULT_CHANGE_LIMIT: number = -1;
+
+// The absolute change limit that can be set from the ;limit command. 
+// Bypassed with "worldedit.limit.unlimited" permission.
+export const MAX_CHANGE_LIMIT: number = -1;
+
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.4 [beta]';
+export const VERSION: string = '0.5.5 [beta]';

@@ -1,6 +1,6 @@
-import { Player, BlockLocation, Dimension, TickEvent, BeforeItemUseEvent, Location, BlockPermutation, TicksPerSecond, Entity } from 'mojang-minecraft';
+import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
-import { printDebug, printLocation, regionSize, regionVolume } from './util.js';
+import { getWorldMaxY, getWorldMinY, printDebug, regionVolume } from './util.js';
 import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
@@ -9,9 +9,8 @@ import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@modules/rawtext.js';
-import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM } from '../config.js';
+import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
-import { Tool } from './tools/base_tool.js';
 import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
 
@@ -21,7 +20,7 @@ export type selectMode = 'cuboid' | 'extend';
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
-PlayerUtil.on('playerChangeDimension', (player, dimension) => {
+PlayerUtil.on('playerChangeDimension', (player) => {
     playerSessions.get(player.name)?.clearSelectionPoints();
 });
 
@@ -58,6 +57,11 @@ export class PlayerSession {
     */
     public includeAir = true;
     
+    /**
+     * The amount of blocks that can be changed in one operation.
+     */
+    public changeLimit = DEFAULT_CHANGE_LIMIT == -1 ? Infinity : DEFAULT_CHANGE_LIMIT;
+
     /**
     * Handles the settings UI created from the config item.
     * Is null when the UI isn't active.
@@ -137,6 +141,10 @@ export class PlayerSession {
                 this.selectionPoints[1] = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).max(loc).toBlock();
             }
         }
+
+
+        const [min, max] = [getWorldMinY(this.player), getWorldMaxY(this.player)];
+        this.selectionPoints.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
         this.updateDrawSelection();
     }
     
@@ -203,8 +211,14 @@ export class PlayerSession {
     * @param item The id of the item to bind to (null defaults to held item)
     * @param args Optional parameters the tool uses during its construction.
     */
-    public bindTool(tool: string, item: string|null, ...args: any[]) {
-        Tools.bind(tool, item ?? Server.player.getHeldItem(this.player)?.id, this.player, ...args);
+    public bindTool(tool: string, item: string|[string, number]|null, ...args: any[]) {
+        if (!item) {
+            let stack = Server.player.getHeldItem(this.player);
+            item = [stack.id, stack.data];
+        } else if (typeof item == 'string') {
+            item = [item, 0];
+        }
+        return Tools.bind(tool, item[0], item[1], this.player, ...args);
     }
     
     /**
@@ -212,8 +226,14 @@ export class PlayerSession {
     * @param item The id of the item with the tool to test (null defaults to held item)
     * @param property The name of the tool's property
     */
-    public hasToolProperty(item: string|null, property: string) {
-        return Tools.hasProperty(item ?? Server.player.getHeldItem(this.player)?.id, this.player, property);
+    public hasToolProperty(item: string|[string, number]|null, property: string) {
+        if (!item) {
+            let stack = Server.player.getHeldItem(this.player);
+            item = [stack.id, stack.data];
+        } else if (typeof item == 'string') {
+            item = [item, 0];
+        }
+        return Tools.hasProperty(item[0], item[1], this.player, property);
     }
     
     /**
@@ -222,24 +242,42 @@ export class PlayerSession {
     * @param property The name of the tool's property
     * @param value The new value of the tool's property
     */
-    public setToolProperty(item: string|null, property: string, value: any) {
-        return Tools.setProperty(item ?? Server.player.getHeldItem(this.player)?.id, this.player, property, value);
+    public setToolProperty(item: string|[string, number]|null, property: string, value: any) {
+        if (!item) {
+            let stack = Server.player.getHeldItem(this.player);
+            item = [stack.id, stack.data];
+        } else if (typeof item == 'string') {
+            item = [item, 0];
+        }
+        return Tools.setProperty(item[0], item[1], this.player, property, value);
     }
     
     /**
     * @param item The id of the item to test (null defaults to held item)
     * @return Whether the session has a tool binded to the player's hand.
     */
-    public hasTool(item: string|null) {
-        return Tools.hasBinding(item ?? Server.player.getHeldItem(this.player)?.id, this.player);
+    public hasTool(item: string|[string, number]|null) {
+        if (!item) {
+            let stack = Server.player.getHeldItem(this.player);
+            item = [stack.id, stack.data];
+        } else if (typeof item == 'string') {
+            item = [item, 0];
+        }
+        return Tools.hasBinding(item[0], item[1], this.player);
     }
     
     /**
     * @param item The id of the item to unbinf from (null defaults to held item)
     * Unbinds a tool from this session's player's hand.
     */
-    public unbindTool(item: string|null) {
-        Tools.unbind(item ?? Server.player.getHeldItem(this.player)?.id, this.player);
+    public unbindTool(item: string|[string, number]|null) {
+        if (!item) {
+            let stack = Server.player.getHeldItem(this.player);
+            item = [stack.id, stack.data];
+        } else if (typeof item == 'string') {
+            item = [item, 0];
+        }
+        return Tools.unbind(item[0], item[1], this.player);
     }
     
     /**

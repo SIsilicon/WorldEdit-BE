@@ -1,10 +1,9 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
 import { assertCanBuildWithin } from './assert.js';
-import { canPlaceBlock, printDebug } from '../util.js';
-import { PlayerSession, selectMode } from '../sessions.js';
+import { canPlaceBlock, printDebug, regionVolume } from '../util.js';
+import { getSession, PlayerSession, selectMode } from '../sessions.js';
 import { Vector } from './vector.js';
-import { PlayerUtil } from './player_util.js';
 import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
 
 type historyEntry = {
@@ -22,6 +21,7 @@ let historyId = Date.now();
 export class History {
     private recording = false;
     private recordingBrush = false;
+    private blocksChanged = 0;
 
     private recordingUndo: historyEntry[];
     private recordingRedo: historyEntry[];
@@ -46,6 +46,7 @@ export class History {
         this.assertNotRecording();
         this.recording = true;
         this.recordingBrush = brush;
+        this.blocksChanged = 0;
 
         this.recordingUndo = [];
         this.recordingRedo = [];
@@ -92,6 +93,14 @@ export class History {
 
     addUndoStructure(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
         this.assertRecording();
+        this.blocksChanged += regionVolume(start, end);
+        // We test the change limit here,
+        if (this.blocksChanged > getSession(this.player).changeLimit) {
+            // TODO: localize
+            throw 'Too many blocks!'
+        }
+
+
         if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
             return;
         }

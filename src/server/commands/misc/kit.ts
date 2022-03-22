@@ -11,6 +11,7 @@ const registerInformation = {
 
 commandList['kit'] = [registerInformation, (session, builder, args) => {
     const items = [
+        // HOTBAR ITEMS
         WAND_ITEM,
         'wedit:selection_fill',
         'wedit:pattern_picker',
@@ -19,8 +20,8 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
         'wedit:paste_button',
         'wedit:undo_button',
         'wedit:redo_button',
-        'wedit:spawn_glass',
-        
+        'wedit:config_button',
+        // INVENTORY ITEMS
         'wedit:flip_button',
         'wedit:rotate_cw_button',
         'wedit:rotate_ccw_button',
@@ -28,7 +29,7 @@ commandList['kit'] = [registerInformation, (session, builder, args) => {
         'wedit:draw_line',
         'wedit:selection_wall',
         'wedit:selection_outline',
-        'wedit:config_button'
+        'wedit:spawn_glass'
     ];
     
     for (const item of items) {
