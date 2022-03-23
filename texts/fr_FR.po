@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-03-22 02:28\n"
+"PO-Revision-Date: 2022-03-23 15:31\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -47,7 +47,7 @@ msgid "item.wedit:mask_picker"
 msgstr "Sélecteur de Masque"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Apparaître un Bloc de Terre"
+msgstr "Apparaître un Bloc de Verre"
 
 msgid "item.wedit:selection_fill"
 msgstr "Remplir la sélection"
