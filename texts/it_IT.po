@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-03-24 03:11\n"
+"PO-Revision-Date: 2022-03-24 04:10\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -746,37 +746,37 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. Metti giù arenaria e vetro, usa il Pattern Picker sulla  arenaria, e abbassati e usalo sul vetro per aggiungerlo al vostro modello. Utilizzare \"Riempimento di selezione\" e si dovrebbe avere un mix di arenaria e vetro."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Selection Fill\". All sandstone should now be replaced with that block."
+msgstr "§r4. Estrai il selettore di Maschera dal tuo inventario e usalo sulla pietra arenaria. Imposta un blocco a tua scelta come modello e usa \"Riempimento selezione\". Ora tutte le arenarie dovrebbero essere sostituite con quel blocco."
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. Ripeti la tua selezione verso l'alto digitando il comando §e;stack 4 up§r§7."
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "Se vuoi puoi annullare ogni cosa usando l'oggetto annullamento fino a quando non puoi annullare ulteriormente."
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr "Giocare con i pennelli"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. Prendi una pala di qualsiasi tipo, e posiziona della cobblestone; ne avrete bisogno per il pennello."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Usa l'elemento \"Impostazioni WorldEdit\". Un menu nella tua hotbar dovrebbe apparire includendo \"Impostazioni pennello\". Selezionare l'elemento, quindi selezionare la pala a cui collegarlo. Rendilo un pennello a sfera di raggio 3, e un motivo a ciottoli. Confermare le impostazioni ed uscire dal menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
+msgstr "§r3. Mira a terra non vicino a te e interagisci con la pala (ora penello) per posizionare sfere di ciottoli."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Rendilo in modo che il pennello influisca solo sull'erba con §e;mask grass§r§7 mentre lo tieni in mano. Usa il pennello ora per fare un percorso di ciottoli."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Disabilita il pennello con §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "E ora?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Per saperne di più su questo addon, puoi andare alla sua documentazione online qui: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
