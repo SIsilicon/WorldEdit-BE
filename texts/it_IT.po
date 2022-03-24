@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-03-24 01:10\n"
+"PO-Revision-Date: 2022-03-24 02:07\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -44,229 +44,229 @@ msgid "item.wedit:pattern_picker"
 msgstr "Selettore modelli"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Selettore maschera"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Genera Blocco Di Vetro"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Riempimento Selezione"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Muro area selezionata"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Profilo area selezionata"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Traccia linea"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Impostazioni WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Impostazioni Pennello"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Impostazioni Strumenti"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Pennello Della Sfera"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Pennello Del Cilindro"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Pennello Liscio"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Bacchetta Di Selezione"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Bacchetta Di Selezione Lontana"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Bacchetta di navigazione"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Strumento Impilatore"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Uno"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Due"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tre"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Quattro"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Cinque"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Sei"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Conferma"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Indietro"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Precedente"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Successivo"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Cancella"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Crea nuovo attrezzo"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Includi entità nella copia: §aAbilitato§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Includi entità nella copia: §4Disabilitato§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Includi aria nella copia: §aAbilitato§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Includi aria nella copia: §4Disabilitato§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Impossibile posizionare il blocco qui."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Devi specificare un blocco su cui impostare la selezione!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Blocco aggiunto al modello: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Imposta il motivo sul blocco: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Aggiunto il blocco alla maschera: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Imposta la maschera al blocco: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Scegli un oggetto da configurare."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Tieni premuto un oggetto a cui collegare."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Scegli che tipo di pennello fare."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Scegli che tipo di strumento fare."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Scegli la distanza dello strumento."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Scegli la dimensione del pennello."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Scegli l'altezza del pennello."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Scegli la morbidezza del pennello."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Crea un motivo e una maschera opzionale per il pennello."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Crea una maschera opzionale per lo strumento."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Crea una maschera opzionale per lo strumento."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Così va bene?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Sei sicuro di voler annullare l'associazione di questo oggetto?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Influenze: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Creare%s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Dimensione: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Altezza: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Smussamento: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Distanza: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pennello configurato."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pennello configurato e aggiunto al tuo inventario."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Configurazione pennello annullata."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Strumento configurato."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Strumento configurato e aggiunto al tuo inventario."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Configurazione strumento annullata."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Oggetto scollegato."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "La prima selezione non è ancora stata effettuata."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Prima posizione impostata a %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Prima posizione impostata a %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Seconda posizione impostata a %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Seconda posizione impostata a %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Iniziata la selezione a %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Selezione estesa per comprendere %1 (%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Un oggetto deve essere nella tua mano principale."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Non puoi associarti a questo tipo di oggetti."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Questo oggetto non è associato ad alcun strumento."
 
 msgid "worldedit.tool.noPerm"
 msgstr "You don't have permission to use this item."
