@@ -11,37 +11,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-03-22 02:28\n"
+"PO-Revision-Date: 2022-03-24 01:10\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copia"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Taglia"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Incolla"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Annulla"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Ripeti"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Ruota in senso orario"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Ruota In senso antiorario"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Ruota"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Selettore modelli"
 
 msgid "item.wedit:mask_picker"
 msgstr "Mask Picker"
