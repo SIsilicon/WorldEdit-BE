@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-26 02:54\n"
+"PO-Revision-Date: 2022-03-26 03:58\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -317,7 +317,7 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "数 (%1) は小さすぎます! 最小 (%2) でなければなりません。"
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "ブロックが多すぎます！"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを解除します。§r"
