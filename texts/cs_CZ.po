@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-03-22 02:28\n"
+"PO-Revision-Date: 2022-03-26 02:54\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -315,6 +315,9 @@ msgstr "Číslo (%1) je příliš velké! Musí být nanejvýš (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
 msgstr "Číslo (%1) je příliš malé! Musí být alespoň (%2)."
+
+msgid "commands.generic.wedit:blockLimit"
+msgstr "Too many blocks!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
