@@ -72,15 +72,15 @@ class ServerBuild extends ServerBuilder {
                 
                 if (idx == -1) {
                     args.push(msg.slice(i));
-                    printDebug(i, msg.slice(i), 'end');
+                    // printDebug(i, msg.slice(i), 'end');
                     offsets.push(i);
                     break;
                 } else {
                     args.push(msg.slice(i, idx));
-                    printDebug(i, msg.slice(i, idx), idx);
+                    // printDebug(i, msg.slice(i, idx), idx);
                     offsets.push(i);
                     i = regexIndexOf(msg, /[^\s]/, idx + (quoted ? 1:0));
-                    printDebug('new i:', i);
+                    // printDebug('new i:', i);
                 }
             }
             

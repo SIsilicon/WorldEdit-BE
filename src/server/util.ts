@@ -1,19 +1,19 @@
-import { BlockLocation, Dimension, Entity, Location, Player, EntityQueryOptions } from 'mojang-minecraft';
+import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
 import { DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { parsedBlock } from '@modules/parser.js';
 
-// Server broadcast doesn't print anything until the first player has loaded.
-let serverReady = false;
-const printsPending: string[] = [];
-Server.once('ready', ready => {
-    serverReady = true;
-    for (const msg of printsPending) {
-        printDebug(msg);
+const debugPending: string[] = [];
+let debugMsg = '';
+world.events.entityCreate.subscribe(ev => {
+    if (ev.entity.id == 'wedit:console_log' && debugMsg) {
+        ev.entity.triggerEvent('wedit:despawn');
+        const msg = debugMsg;
+        debugMsg = '';
+        throw '[DEBUG] ' + msg;
     }
-    printsPending.length = 0;
 });
 
 /**
@@ -34,12 +34,20 @@ export function printDebug(...data: any[]) {
             msg += ` ${data}`;
         }
     });
-
-    if (serverReady) {
-        Server.broadcast('[DEBUG] ' + msg);
-    } else {
-        printsPending.push(msg);
+    
+    Server.broadcast('[DEBUG] ' + msg);
+    try {
+        while (debugPending.length) {
+            debugMsg = debugPending.shift();
+            world.getDimension('overworld').runCommand(`summon wedit:console_log`);
+        }
+        debugMsg = msg;
+        world.getDimension('overworld').runCommand(`summon wedit:console_log`);
+    } catch {
+        debugPending.push(debugMsg);
+        debugMsg = '';
     }
+    
 }
 
 /**

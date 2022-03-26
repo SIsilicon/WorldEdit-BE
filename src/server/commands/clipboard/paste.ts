@@ -54,7 +54,7 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     }
     
     if (setSelection) {
-        session.selectionMode = 'cuboid';
+        session.selectionMode = session.selectionMode == 'extend' ? 'extend' : 'cuboid';
         session.setSelectionPoint(0, pasteStart);
         session.setSelectionPoint(1, pasteEnd);
         history.recordSelection(session);

@@ -1,4 +1,4 @@
-// Enables `printDebug` messages and operation timers.
+// Enables `printDebug` messages and operation timers to content log.
 export const DEBUG: boolean = true;
 
 // What character(s) to use to define the beginning of custom commands.
@@ -43,4 +43,4 @@ export const DEFAULT_CHANGE_LIMIT: number = -1;
 export const MAX_CHANGE_LIMIT: number = -1;
 
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.5 [beta]';
+export const VERSION: string = '0.5.0';

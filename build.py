@@ -53,7 +53,7 @@ if not args.package_only:
             sync_mojang.kill()
             exit()
     else:
-        subprocess.call(['tsc', '-b'])
+        subprocess.call(['tsc', '-b'], shell=True)
 
 def regExpSub(regEx, replace, file):
     with open(file, 'r') as f:

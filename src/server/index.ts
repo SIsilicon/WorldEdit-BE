@@ -15,7 +15,7 @@ let activeBuilders: Player[] = [];
 
 let ready = false;
 Server.on('ready', ev => {
-    // Server.runCommand(`gamerule showtags false`);
+    Server.runCommand(`gamerule showtags false`);
     // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;

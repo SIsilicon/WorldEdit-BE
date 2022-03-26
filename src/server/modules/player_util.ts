@@ -98,16 +98,17 @@ class PlayerHandler extends EventEmitter {
     * @param item The item being replaced
     * @param sub The new item being replaced with
     */
-    replaceItem(player: Player, item: string, sub: string) {
+    replaceItem(player: Player, item: string, sub: string, locked = false) {
         const inv = (<EntityInventoryComponent> player.getComponent('inventory')).container;
         for (let i = 0; i < inv.size; i++) {
             if (inv.getItem(i)?.id === item) {
                 const slotType = i > 8 ? 'slot.inventory' : 'slot.hotbar';
                 const slotId = i > 8 ? i - 9 : i;
-                // printDebug(slotId);
-                // printDebug(slotType);
-                // printDebug(item + ' -> ' + sub);
-                Server.runCommand(`replaceitem entity @s ${slotType} ${slotId} ${sub}`, player);
+                let command = `replaceitem entity @s ${slotType} ${slotId} ${sub}`
+                if (locked) {
+                    command += ` ${inv.getItem(i).amount} ${inv.getItem(i).data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`;
+                }
+                Server.runCommand(command, player);
                 break;
             }
         }

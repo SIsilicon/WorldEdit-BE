@@ -96,8 +96,7 @@ export class History {
         this.blocksChanged += regionVolume(start, end);
         // We test the change limit here,
         if (this.blocksChanged > getSession(this.player).changeLimit) {
-            // TODO: localize
-            throw 'Too many blocks!'
+            throw 'commands.generic.wedit:blockLimit';
         }
 
 

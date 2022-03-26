@@ -367,7 +367,7 @@ class ChainPattern extends PatternNode {
             }
         }
         weights.map(value => {
-            printDebug(value / totalPercent);
+            // printDebug(value / totalPercent);
             return value / totalPercent;
         });
         

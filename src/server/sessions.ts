@@ -419,7 +419,7 @@ export function getSession(player: Player): PlayerSession {
         if (pendingDeletion.has(name)) {
             session = pendingDeletion.get(name)[1];
             session.reassignPlayer(player);
-            pendingDeletion.get(name);
+            pendingDeletion.delete(name);
         }
         playerSessions.set(name, session ?? new PlayerSession(player));
         printDebug(playerSessions.get(name)?.getPlayer()?.name);

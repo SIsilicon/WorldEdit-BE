@@ -240,6 +240,8 @@ msgid "commands.generic.wedit:tooBig"
 msgstr "The number (%1) is too big! It must be at most (%2)."
 msgid "commands.generic.wedit:tooSmall"
 msgstr "The number (%1) is too small! It must be at least (%2)."
+msgid "commands.generic.wedit:blockLimit"
+msgstr "Too many blocks!"
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
 

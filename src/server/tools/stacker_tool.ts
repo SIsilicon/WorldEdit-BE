@@ -18,7 +18,6 @@ class StackerTool extends Tool {
         const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
         const start = loc.offset(dir.x, dir.y, dir.z);
         if (!this.mask.matchesBlock(start, dim)) {
-            printDebug('stacked nothing');
             return;
         }
         let end = loc;

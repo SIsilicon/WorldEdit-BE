@@ -370,7 +370,7 @@ export class CommandBuilder {
                                 }, result);
                             }
                         } else {
-                            throw RawText.translate('commands.generic.invalidFlag').with(f);
+                            throw RawText.translate('commands.generic.wedit:invalidFlag').with(f);
                         }
                     }
                     continue;

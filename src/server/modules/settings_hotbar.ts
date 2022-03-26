@@ -11,8 +11,6 @@ import { CylinderBrush } from '../brushes/cylinder_brush.js';
 import { SmoothBrush } from '../brushes/smooth_brush.js';
 import { Tools } from '../tools/tool_manager.js';
 
-const itemLock = '{"minecraft:item_lock":{"mode":"lock_in_slot"}}';
-
 type hotbarItems = { [k: number]: string | [string, number] };
 interface state {
     hotbar: hotbarItems,
@@ -36,32 +34,31 @@ export class SettingsHotbar {
                 5: 'wedit:brush_config_button',
                 8: ['wedit:cancel_button', 1]
             },
-            // TODO: Prevent these items from dropping
             entered: () => {
                 if (this.session.includeEntities) {
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button', true);
                 } else {
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button', true);
                 }
                 if (this.session.includeAir) {
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button', true);
                 } else {
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button', true);
                 }
             },
             input: (itemType) => {
                 if (itemType == 'wedit:inc_entities_off_button') {
                     this.session.includeEntities = true;
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_off_button', 'wedit:inc_entities_on_button', true);
                 } else if (itemType == 'wedit:inc_entities_on_button') {
                     this.session.includeEntities = false;
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_entities_on_button', 'wedit:inc_entities_off_button', true);
                 } else if (itemType == 'wedit:inc_air_off_button') {
                     this.session.includeAir = true;
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_off_button', 'wedit:inc_air_on_button', true);
                 } else if (itemType == 'wedit:inc_air_on_button') {
                     this.session.includeAir = false;
-                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button');
+                    PlayerUtil.replaceItem(this.player, 'wedit:inc_air_on_button', 'wedit:inc_air_off_button', true);
                 } else if (itemType == 'wedit:tool_config_button') {
                     this.state['editMode'] = 'tool';
                     this.changeState('chooseTool');
@@ -428,8 +425,10 @@ export class SettingsHotbar {
         'stacker': ['selectNumber', 'mask', 'confirmTool']
     }
 
-    private cancelItemUseOn = function(ev: BeforeItemUseOnEvent) {
-        ev.cancel = true;
+    private cancelItemUseOn = (ev: BeforeItemUseOnEvent) => {
+        if (ev.source.id == 'minecraft:player' && (ev.source as Player).name == this.player.name) {
+            ev.cancel = true;
+        }
     }
             
     private stashedPattern: Pattern;
@@ -459,7 +458,7 @@ export class SettingsHotbar {
         const player = this.player;
         for (let i = 0; i < 9; i++) {
             const [item, data] = Array.isArray(items[i]) ? <[string, number]>items[i] : [<string>items[i] ?? 'wedit:blank', 0];
-            Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item} 1 ${data} ${itemLock}`, player);
+            Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item} 1 ${data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`, player);
         }
     }
 
