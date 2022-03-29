@@ -1,12 +1,10 @@
 import { Server } from '@library/Minecraft.js';
-import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { commandList, commandFunc } from './command_list.js';
 import { getSession, hasSession } from '../sessions.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { Cardinal } from '@modules/directions.js';
-import { Player } from 'mojang-minecraft';
-import { print, printerr, printDebug } from '../util.js';
+import { print, printerr, printDebug, printLog } from '../util.js';
 import { COMMAND_PREFIX } from '@config.js';
 
 Server.command.addCustomArgType('Mask', Mask);
@@ -14,9 +12,9 @@ Server.command.addCustomArgType('Pattern', Pattern);
 Server.command.addCustomArgType('Direction', Cardinal);
 
 import './misc/help.js';
-import './misc/kit.js';
 import './misc/worldedit.js';
 import './misc/limit.js';
+import './misc/kit.js';
 
 import './selection/pos1.js';
 import './selection/pos2.js';
@@ -93,15 +91,19 @@ for (const name in commandList) {
         
         try {
             const start = new Date().getTime();
+            printLog(`Processing command '${data.message}' for '${data.sender.name}'`);
             const msg = command[1](getSession(player), player, args);
-            printDebug(`Time taken to execute: ${new Date().getTime() - start}ms`);
+            const time = new Date().getTime() - start;
+            printLog(`Time taken to execute: ${time}ms (${time/1000.0} secs)`);
             print(msg, player, toActionBar);
         } catch (e) {
             const history = getSession(data.sender).getHistory();
             if (history.isRecording()) {
                 history.cancel();
             }
-            printerr(e.message ? `${e.name}: ${e.message}` : e, data.sender, toActionBar);
+            const errMsg = e.message ? `${e.name}: ${e.message}` : e;
+            printLog(`Command '${data.message}' failed for '${data.sender.name}' with msg: ${errMsg}`);
+            printerr(errMsg, data.sender, toActionBar);
             if (e.stack) {
                 printerr(e.stack, data.sender, false);
             }

@@ -3,12 +3,9 @@ import './commands/register_commands.js';
 
 import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { Tools } from './tools/tool_manager.js';
-import { print, printDebug } from './util.js';
+import { print, printDebug, printLog } from './util.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
-import { RawText } from '@modules/rawtext.js';
-import { DEBUG } from '@config.js';
 
 Server.setMaxListeners(256);
 let activeBuilders: Player[] = [];
@@ -61,6 +58,7 @@ Server.on('tick', ev => {
             session = getSession(builder);
         } else {
             removeBuilder(builder.name);
+            printLog(`${builder.name} has been revoked of their worldedit permissions.`);
             print('worldedit.permission.revoked', builder);
             continue;
         }
@@ -79,7 +77,7 @@ function makeBuilder(player: Player) {
             }
         }
         
-        printDebug('Added player to world edit!');
+        printLog(`${player.name} has been given worldedit permissions.`);
         return false;
     }
     

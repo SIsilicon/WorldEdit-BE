@@ -26,5 +26,9 @@ export function callCommand(player: Player, command: string, args: string[] = []
     const registration = Server.command.getRegistration(command);
     assertPermission(player, registration.permission);
     printToActionBar();
-    registration.callback(<BeforeChatEvent> {cancel: true, sender: player}, Server.command.parseArgs(command, args));
+    registration.callback(<BeforeChatEvent> {
+        cancel: true,
+        sender: player,
+        message: `;${command} ${args.join(' ')}`
+    }, Server.command.parseArgs(command, args));
 }

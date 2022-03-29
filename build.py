@@ -1,3 +1,4 @@
+from pathlib import Path
 import subprocess, sys, os, shutil
 import argparse, re
 
@@ -7,6 +8,13 @@ parser.add_argument('--target', choices=['release', 'debug'], default='debug', h
 parser.add_argument('--clean', '-c', action='store_true', help='Clean "BP/scripts" folder before building.')
 parser.add_argument('--package-only', '-p', action='store_true', help='Only package what\'s already there.')
 args = parser.parse_args()
+
+def regExpSub(regEx, replace, file):
+    with open(file, 'r') as f:
+        content = f.read()
+        contentNew = re.sub(regEx, replace, content, flags = re.M)
+    with open(file, 'w') as f:
+        f.write(contentNew)
 
 if not args.package_only:
     # Check for input and output folder
@@ -55,39 +63,40 @@ if not args.package_only:
     else:
         subprocess.call(['tsc', '-b'], shell=True)
 
-def regExpSub(regEx, replace, file):
-    with open(file, 'r') as f:
-        content = f.read()
-        contentNew = re.sub(regEx, replace, content, flags = re.M)
-    with open(file, 'w') as f:
-        f.write(contentNew)
+    # Set debug mode
+    regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
 
-# Set debug mode
-regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
-
-# Remap absolute imports
-subprocess.call([sys.executable, 'tools/remap_imports.py'])
-# Convert po to lang files
-subprocess.call([sys.executable, 'tools/po2lang.py'])
+    # Remap absolute imports
+    subprocess.call([sys.executable, 'tools/remap_imports.py'])
+    # Convert po to lang files
+    subprocess.call([sys.executable, 'tools/po2lang.py'])
 
 if not os.path.isdir('builds'):
     os.makedirs('builds')
 
+if os.path.exists('builds/WeditBP'):
+    shutil.rmtree('builds/WeditBP')
+if os.path.exists('builds/WeditRP'):
+    shutil.rmtree('builds/WeditRP')
+try: shutil.copytree('BP', 'builds/WeditBP')
+except: pass
+try: shutil.copytree('RP', 'builds/WeditRP')
+except: pass
+
 if args.target == 'release':
-    # Package the addon
-    subprocess.call(['zip', '-r', '../WorldEditBP.mcpack', './', '-x', '.stfolder/'], cwd='BP')
-    subprocess.call(['zip', '-r', '../WorldEditRP.mcpack', './', '-x', '.stfolder/'], cwd='RP')
-    subprocess.call(['zip', '-m', 'WorldEdit.mcaddon', 'WorldEditRP.mcpack', 'WorldEditBP.mcpack'])
-    os.replace('WorldEdit.mcaddon', 'builds/WorldEdit.mcaddon')
+    from zipfile import ZipFile;
+
+    def zipWriteDir(zip, dirname, arcname):
+        for folderName, _, filenames in os.walk(dirname):
+            for filename in filenames:
+                filePath = os.path.join(folderName, filename)
+                zip.write(filePath, arcname / Path(filePath).relative_to(dirname))
+    
+    with ZipFile('builds/WorldEdit.mcaddon', 'w') as zip:
+        zipWriteDir(zip, 'builds/WeditBP', 'WorldEditBP')
+        zipWriteDir(zip, 'builds/WeditRP', 'WorldEditRP')
+    
 else:
-    if os.path.exists('builds/WeditBP'):
-        shutil.rmtree('builds/WeditBP')
-    if os.path.exists('builds/WeditRP'):
-        shutil.rmtree('builds/WeditRP')
-    try: shutil.copytree('BP', 'builds/WeditBP')
-    except: pass
-    try: shutil.copytree('RP', 'builds/WeditRP')
-    except: pass
     
     regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditBP/manifest.json')
     regExpSub('"name":(.+)",', r'"name":\1(Dev)",', 'builds/WeditRP/manifest.json')

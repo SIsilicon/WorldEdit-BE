@@ -10,18 +10,36 @@ const registerInformation = {
     permission: 'worldedit.selection.contract',
     usage: [
         {
-            name: 'amount',
-            type: 'int'
+            subName: '_defaultA',
+            args: [
+                {
+                    name: 'amount',
+                    type: 'int'
+                },
+                {
+                    name: 'direction',
+                    type: 'Direction',
+                    default: new Cardinal(Cardinal.Dir.FORWARD)
+                }
+            ]
         },
         {
-            name: 'reverseAmount',
-            type: 'int',
-            default: 0
-        },
-        {
-            name: 'direction',
-            type: 'Direction',
-            default: new Cardinal(Cardinal.Dir.FORWARD)
+            subName: '_defaultB',
+            args: [
+                {
+                    name: 'amount',
+                    type: 'int'
+                },
+                {
+                    name: 'reverseAmount',
+                    type: 'int'
+                },
+                {
+                    name: 'direction',
+                    type: 'Direction',
+                    default: new Cardinal(Cardinal.Dir.FORWARD)
+                }
+            ]
         }
     ]
 };
@@ -38,8 +56,8 @@ commandList['contract'] = [registerInformation, (session, builder, args) => {
         dirIdx = 2;
     }
     
-    let side1 = Math.max(args.get('amount'), 0) + Math.max(-args.get('reverseAmount'), 0);
-    let side2 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount'), 0);
+    let side1 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount') ?? 0, 0);
+    let side2 = Math.max(args.get('amount'), 0) + Math.max(-(args.get('reverseAmount') ?? 0), 0);
     
     let [minPoint, maxPoint] = [-1, -1];
     let [axis1, axis2] = [points[0].getIdx(dirIdx), points[1].getIdx(dirIdx)];

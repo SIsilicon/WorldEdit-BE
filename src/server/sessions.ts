@@ -1,6 +1,6 @@
 import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
 import { History } from '@modules/history.js';
-import { getWorldMaxY, getWorldMinY, printDebug, regionVolume } from './util.js';
+import { getWorldMaxY, getWorldMinY, printDebug, printLog, regionVolume } from './util.js';
 import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { Pattern } from '@modules/pattern.js';
 import { Regions } from '@modules/regions.js';
@@ -450,7 +450,7 @@ setTickTimeout(() => {
             if (session[0] < 0) {
                 session[1].delete();
                 pendingDeletion.delete(player);
-                printDebug('Deleted player session!');
+                printLog(`${player}'s session has been deleted.`);
             }
         }
         

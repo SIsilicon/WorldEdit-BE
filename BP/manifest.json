@@ -1,7 +1,7 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "WorldEdit [BP]",
+		"name": "WorldEdit Bedrock Edition",
 		"description": "pack.description",
 		"uuid": "3cdb2ddf-662e-4f8f-a0a1-1293b91ccb2f",
 		"version": [
@@ -72,6 +72,9 @@
 		"generated_with": {
 			"bridge": [
 				"2.2.5"
+			],
+			"dash": [
+				"0.8.3"
 			]
 		}
 	}

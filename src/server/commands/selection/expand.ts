@@ -3,7 +3,9 @@ import { RawText } from '@modules/rawtext.js';
 import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
-import { getWorldMaxY, getWorldMinY } from '../../util.js';
+import { printDebug } from '../../util.js';
+
+// TODO: Support multiple directions at once (contract too)
 
 const registerInformation = {
     name: 'expand',
@@ -21,7 +23,21 @@ const registerInformation = {
             ]
         },
         {
-            subName: '_default',
+            subName: '_defaultA',
+            args: [
+                {
+                    name: 'amount',
+                    type: 'int'
+                },
+                {
+                    name: 'direction',
+                    type: 'Direction',
+                    default: new Cardinal(Cardinal.Dir.FORWARD)
+                }
+            ]
+        },
+        {
+            subName: '_defaultB',
             args: [
                 {
                     name: 'amount',
@@ -29,8 +45,7 @@ const registerInformation = {
                 },
                 {
                     name: 'reverseAmount',
-                    type: 'int',
-                    default: 0
+                    type: 'int'
                 },
                 {
                     name: 'direction',
@@ -39,6 +54,7 @@ const registerInformation = {
                 }
             ]
         }
+
     ]
 };
 
@@ -54,8 +70,8 @@ commandList['expand'] = [registerInformation, (session, builder, args) => {
     } else {
         var dir = (args.get('direction') as Cardinal).getDirection(builder);
         var dirIdx = dir.x ? 0 : (dir.y ? 1 : 2);
-        var side1 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount'), 0);
-        var side2 = Math.max(args.get('amount'), 0) + Math.max(-args.get('reverseAmount'), 0);
+        var side1 = Math.max(-args.get('amount'), 0) + Math.max(args.get('reverseAmount') ?? 0, 0);
+        var side2 = Math.max(args.get('amount'), 0) + Math.max(-(args.get('reverseAmount') ?? 0), 0);
     }
 
     let [minPoint, maxPoint] = [-1, -1];

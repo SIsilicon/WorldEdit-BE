@@ -1,5 +1,8 @@
-// Enables `printDebug` messages and operation timers to content log.
+// Enables `printDebug` messages to chat.
 export const DEBUG: boolean = true;
+
+// Enables `printLog` messages to content logs.
+export const CONTENT_LOG: boolean = false;
 
 // What character(s) to use to define the beginning of custom commands.
 export const COMMAND_PREFIX: string = ';';
@@ -30,7 +33,7 @@ export const WAND_ITEM: string = 'minecraft:wooden_axe';
 export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
 
 // THe distance the navwand, among other tools and commands, traces for a block of interest.
-export const NAV_WAND_DISTANCE: number = 50;
+export const NAV_WAND_DISTANCE: number = 64;
 
 // The maximum brush radius allowed.
 export const MAX_BRUSH_RADIUS: number = 6;

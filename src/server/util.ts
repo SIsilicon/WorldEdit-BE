@@ -1,18 +1,18 @@
 import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
-import { DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
+import { CONTENT_LOG, DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
 import { Server } from '@library/Minecraft.js';
 import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { parsedBlock } from '@modules/parser.js';
 
-const debugPending: string[] = [];
-let debugMsg = '';
+const logPending: string[] = [];
+let logMsg = '';
 world.events.entityCreate.subscribe(ev => {
-    if (ev.entity.id == 'wedit:console_log' && debugMsg) {
+    if (ev.entity.id == 'wedit:console_log' && logMsg) {
         ev.entity.triggerEvent('wedit:despawn');
-        const msg = debugMsg;
-        debugMsg = '';
-        throw '[DEBUG] ' + msg;
+        const msg = logMsg;
+        logMsg = '';
+        throw '[INFO] ' + msg;
     }
 });
 
@@ -36,18 +36,37 @@ export function printDebug(...data: any[]) {
     });
     
     Server.broadcast('[DEBUG] ' + msg);
-    try {
-        while (debugPending.length) {
-            debugMsg = debugPending.shift();
-            world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-        }
-        debugMsg = msg;
-        world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-    } catch {
-        debugPending.push(debugMsg);
-        debugMsg = '';
+}
+
+/**
+ * Prints a message to content log.
+ * @param data The data to be printed.
+ */
+export function printLog(...data: any[]) {
+    if (!CONTENT_LOG) {
+        return;
     }
     
+    let msg = '';
+    data.forEach(data => {
+        if (data instanceof BlockLocation || data instanceof Location) {
+            msg += ' ' + printLocation(<BlockLocation> data);
+        } else {
+            msg += ` ${data}`;
+        }
+    });
+    
+    try {
+        while (logPending.length) {
+            logMsg = logPending.shift();
+            world.getDimension('overworld').runCommand(`summon wedit:console_log`);
+        }
+        logMsg = msg;
+        world.getDimension('overworld').runCommand(`summon wedit:console_log`);
+    } catch {
+        logPending.push(logMsg);
+        logMsg = '';
+    }
 }
 
 /**
