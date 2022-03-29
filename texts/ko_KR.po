@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-03-26 02:54\n"
+"PO-Revision-Date: 2022-03-29 04:54\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -421,6 +421,9 @@ msgstr "이제 선택사항이 표시됩니다."
 msgid "commands.wedit:expand.description"
 msgstr "Expand the selection area"
 
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
@@ -740,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "작업할 적당한 크기를 선택하고 §e;kit§r로 키트를 준비하십시오. WorldEdit이 제공하는 몇 가지 기능을 시도해 볼 것입니다."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. 돌을 놓고 패턴 피커를 사용한 다음 \"채우기 도구\"를 사용하십시오. 돌의 직육면체를 만들어야합니다"
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. 공중에서 패턴 피커를 사용하고(모바일 플레이어는 화면을 꾹 눌러야 함) \"채우기 도구\"를 다시 사용하여 돌을 제거하십시오."
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. 사암과 유리를 놓고 사암에 패턴 피커를 사용하고 웅크리고 유리에 사용하여 패턴에 추가하십시오. \"채우기 도구\"를 사용하면 사암과 유리가 혼합되어 있어야 합니다."
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. 인벤토리에서 마스크 피커를 꺼내 사암에서 사용하십시오. 원하는 블록을 패턴으로 설정하고 \"선택 채우기\"를 사용하십시오. 이제 모든 사암을 해당 블록으로 교체해야 합니다."
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. §e;stack 4 up§r§7 명령을 입력하여 선택 항목을 위쪽으로 반복합니다."
