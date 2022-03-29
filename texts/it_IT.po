@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-03-26 02:54\n"
+"PO-Revision-Date: 2022-03-29 04:54\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -421,6 +421,9 @@ msgstr "Le tue selezioni saranno ora visibili."
 msgid "commands.wedit:expand.description"
 msgstr "Espandi l'area di selezione"
 
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
 msgid "commands.wedit:expand.explain"
 msgstr "Regione espansa di %s blocchi."
 
@@ -740,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Crea una selezione di dimensioni modeste per lavorare e prepara il tuo kit con §e;kit§r. Stiamo provando alcune delle funzionalità che WorldEdit ha da offrire."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Posiziona della pietra, usa il selettore del motivo su di essa e poi usa \"Riempimento della selezione\". Un cubo di pietra dovrebbe essere fatto."
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Usa il Pattern Picker in aria (i giocatori da dispositivi mobili devono tenere premuto lo schermo) e usa nuovamente \"Riempimento selezione\" per cancellare la pietra."
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Metti giù arenaria e vetro, usa il Pattern Picker sulla  arenaria, e abbassati e usalo sul vetro per aggiungerlo al vostro modello. Utilizzare \"Riempimento di selezione\" e si dovrebbe avere un mix di arenaria e vetro."
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Estrai il selettore di Maschera dal tuo inventario e usalo sulla pietra arenaria. Imposta un blocco a tua scelta come modello e usa \"Riempimento selezione\". Ora tutte le arenarie dovrebbero essere sostituite con quel blocco."
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Ripeti la tua selezione verso l'alto digitando il comando §e;stack 4 up§r§7."
