@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-03-26 02:55\n"
+"PO-Revision-Date: 2022-03-29 04:54\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -421,6 +421,9 @@ msgstr "Ihre Auswahl wird nun sichtbar sein."
 msgid "commands.wedit:expand.description"
 msgstr "Expand the selection area"
 
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
 msgid "commands.wedit:expand.explain"
 msgstr "Region um %s Blöcke erweitert."
 
@@ -740,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Machen Sie eine bescheidene Auswahlmit der Sie arbeiten können und machen Sie ihr Kit mit §e;kit§r bereit. Wir werden einige der Features von WorldEdit ausprobieren."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Platzieren Sie Stein, benutzen Sie den Muster-Picker und benutzen Sie dann \"Selektionsfüllung\". Eine Kugel aus Stein sollte hergestellt werden."
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Benutzen Sie die Musterauswahl in der Luft (Handyspieler müssen den Bildschirm gedrückt halten) und verwenden Sie erneut \"Auswahlfüllung\" um den Stein zu löschen."
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Platzieren Sie Sandstein und Glas, benutzen Sie den Muster-Picker auf dem Sandstein, und schleichen und verwenden Sie es auf dem Glas, um Ihr Muster hinzuzufügen. Verwenden Sie \"Auswahlfüllung\" und Sie sollten eine Mischung aus Sandstein und Glas haben."
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Nehmen Sie das Maskenauswahl-Werkzeug in Ihrem Inventar und benutzen Sie es auf dem Sandstein. Setzen Sie einen Block Ihrer Wahl als Ihr Muster und verwenden Sie \"Auswahlfüllung\". Alle Sandsteine sollten nun durch diesen Block ersetzt werden."
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Wiederholen Sie Ihre Auswahl nach oben, indem Sie den Befehl §e;stack 4 up§r§7 eintippen."
