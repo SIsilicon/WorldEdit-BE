@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-29 04:54\n"
+"PO-Revision-Date: 2022-03-29 06:04\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -422,7 +422,7 @@ msgid "commands.wedit:expand.description"
 msgstr "選択範囲を拡張する"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "選択範囲を高度限界まで垂直方向に広げる"
 
 msgid "commands.wedit:expand.explain"
 msgstr "範囲が %s ブロックに拡大しました。"
@@ -743,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "操作する範囲を控えめのサイズで選択したら、 §e;kit§r コマンドでアイテムを準備します。 では、 WorldEdit が提供する機能をいくつか試してみましょう。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. 石を設置し、パターンピッカーを石に向けて使って「範囲フィル」を選びます。石の立方体が生成されます。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. 空中でパターンピッカーを使って (モバイル版は画面を長押し) 、もう一度「範囲フィル」を選べば石が削除されます。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. 砂岩とガラスを置き、砂岩に向けてパターンピッカーを使い、次にスニークしながらガラスに向けて使えばパターンに追加されます。「範囲フィル」を使用すれば、砂岩とガラスのパターンが生成されます。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. マスクピッカーをインベントリから取り出し、砂岩に向けて使用します。 好きなブロックをパターンとして設定し、「範囲フィル」を使います。すべての砂岩が選んだブロックに置き換わります。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. コマンド §e;stack 4 up§r §7を入力して、選択内容を上へ繰り返します。"
