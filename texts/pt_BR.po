@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-03-26 02:55\n"
+"PO-Revision-Date: 2022-03-29 04:54\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -421,6 +421,9 @@ msgstr "As suas seleções serão visíveis agora."
 msgid "commands.wedit:expand.description"
 msgstr "Expand the selection area"
 
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
@@ -740,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Faça uma seleção de tamanho modesto para trabalhar e prepare o seu kit com §e;kit§r. Nós vamos tentar alguns dos recursos que o WorldEdit tem a oferecer."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Coloque um bloco de pedra, use o Seletor de Padrões nela e então use o \"Preenchimento de Seleção\". Um grande cubo de pedra deve aparecer."
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use o Seletor de Padrões no ar (jogadores em dispositivos móveis devem segurar a tela com ele) e use o \"Preenchimento de Selecionação\" novamente para limpar a pedra."
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Coloque arenito e vidro, use o Selecionador de Padrões no arenito, agache e use-o no vidro para adicionar ao seu padrão. Use \"Preenchimento de Seleção\" e você deve ter uma mistura de arenito e vidro."
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Pegue o Selecionador de Máscara em seu inventário e use-o no arenito. Defina um bloco de sua escolha como seu padrão e use \"Preenchimento de Seleção\". Todas as pedras devem agora ser substituídas por esse bloco."
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Repita a sua seleção para cima digitando o comando §e;stack 4 up§r§7."
