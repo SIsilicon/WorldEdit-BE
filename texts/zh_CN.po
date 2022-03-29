@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-26 02:54\n"
+"PO-Revision-Date: 2022-03-29 04:53\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -421,6 +421,9 @@ msgstr "您的选区现在是可见的。"
 msgid "commands.wedit:expand.description"
 msgstr "Expand the selection area"
 
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
 
@@ -740,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "选择一个大小合适的区域，并使用 §e;kit§r 给自己一套工具集。我们将尝试 WorldEdit 提供的一些功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. 放置石头，使用填充方块选择器，然后使用“填充选区”。应该会出现长方体状的石头。"
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. 对着空气使用模式选择器（移动端玩家需要长按屏幕来选取），然后再次使用“选择填充”清除石头。"
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. 放下砂岩和玻璃，在砂岩上使用图案选择器，然后偷偷地在玻璃上使用它来添加图案。使用“选择填充”，你应该有砂岩和玻璃的混合。"
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4。拿出你库存中的面具选择器，在砂岩上使用。将你选择的块设置为你的图案，并使用“选择填充”。现在所有的砂岩都应该被那块岩石所取代。"
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 通过键入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
