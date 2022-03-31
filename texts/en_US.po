@@ -504,6 +504,11 @@ msgstr "Quick Start"
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
 
+msgid "howtoplay.wedit:license"
+msgstr "License"
+msgid "howtoplay.wedit:license.title"
+msgstr "How to Play: WorldEdit License"
+
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
 

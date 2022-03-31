@@ -23,6 +23,11 @@
             }
           },
           {
+            "wedit:license_button@how_to_play.wedit:license_button": {
+              "$toggle_group_forced_index": 72
+            }
+          },
+          {
             "minecraft_category@how_to_play_common.topic_category": {
               "$category": "minecraft"
             }
@@ -39,6 +44,9 @@
         "value": [
           {
             "wedit:quick_start_section@how_to_play.wedit:quick_start_section": {}
+          },
+          {
+            "wedit:license_section@how_to_play.wedit:license_section": {}
           }
         ]
       }
@@ -57,9 +65,6 @@
       }
     ],
     "controls": [
-      {
-        "padding_0@how_to_play_common.padding": {}
-      },
       {
         "paragraph_1@how_to_play_common.paragraph": {
           "$text": "howtoplay.wedit:quick_start.text.1"
@@ -214,5 +219,49 @@
         }
       }
     ]
+  },
+  "wedit:license_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:license"
+  },
+  "wedit:license_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:license_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "    WorldEdit: BE - A Minecraft addon port of the WorldEdit mod for Minecraft: Java Edition. Copyright (C) 2022  Roujel Williams"
+        }
+      },
+      {
+        "padding_0@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "    This  program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version."
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "    You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."
+        }
+      }
+   ]
   }
 }

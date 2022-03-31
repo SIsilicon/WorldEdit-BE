@@ -2,6 +2,7 @@
 ![Build Workflow](https://github.com/SIsilicon/WorldEdit-BE/actions/workflows/main.yml/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://worldedit-be-docs.readthedocs.io/?badge=latest)
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DSIsilicon%26type%3Dpatrons&style=flat)](https://patreon.com/SIsilicon)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)
 [![Twitter Follow](https://img.shields.io/twitter/follow/iSiliconS?style=social)](https://twitter.com/iSiliconS)
 [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/M5uAkr9WU2)
 
@@ -10,7 +11,7 @@ __Please note that this addon is currently in its beta stage, and requires exper
 
 ## Installation
 ### Locally
-First you must download the mcaddon file. You can find one in the [release section](https://github.com/SIsilicon/WorldEdit-BE/releases). After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack and resource pack together. The following experimental features must also be enabled.
+First you must download the mcaddon file. You can find one in the [release section](https://github.com/SIsilicon/WorldEdit-BE/releases). After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack (the resource pack should apply automatically). The "Holiday Creator Features" and "GameTest Framework" experimental features must also be enabled.
 ![GameTest Framework and Holiday Creator Features](docs/Experimental_Features.jpg)
 And that's it! Your world is ready for WorldEdit.
 
@@ -22,20 +23,20 @@ To properly add this addon to the server, you first need to upload an already ex
 WorldEdit currently has the following features.
 - Clipboard manipulation (Cut, Copy, Paste)
 - Masking blocks from certain actions
-- Making cuboid region selections
+- Maniuplating cuboid region selections
 - Navigation commands and the Navigation Wand
 - Generating shapes
 - Multiblock patterns
 - Undo and Redo
-- Filling selections
-- Brushes for painting blocks
+- Brushes for painting/affecting blocks
 
 ## Planned
 These features will be added in the near future.
-- More brushes, tools and items
+- More brushes and tools
 - More selection shapes
 - More selection operations
-- More sophisticated patterns and masks
+- Generate custom shapes
+- Manipulate biome data
 - Basically, Java Parity
 
 ## Documentation
@@ -68,4 +69,4 @@ The backbone of this addon's code is notbeer's [GameTest API Wrapper](https://gi
 And thanks to the original creator of the WorldEdit mod "sk89q" and [EngineHub](https://enginehub.org/) as a whole. They developed and excellent mod, and I'm just simply making a version of it work on bedrock. They're the real heroes. :) 
 
 ## Support
-I know you already saw the badge at the top, but it took time and effort to make this addon, so if you can, please support me by becoming a [Patreon](https://patreon.com/SIsilicon)!
+I know you already saw the badge at the top, but it took time and effort to make this addon, so if you can, please support me by becoming a [Patreon](https://patreon.com/SIsilicon), or donating via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)!

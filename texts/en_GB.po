@@ -626,7 +626,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, you can either have a compass in your inventory, or enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
