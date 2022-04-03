@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-04-03 04:51\n"
+"PO-Revision-Date: 2022-04-03 05:48\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -197,46 +197,46 @@ msgid "worldedit.config.confirm"
 msgstr "确定吗？"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "你确定要删除这个项目的绑定吗？"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "被取代的方块类型：%s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "填充的方块类型：%s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "尺寸：%s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "高度%s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "平滑度: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "范围：%s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "笔刷已设定。"
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "设定好的笔刷已添加进您的物品栏。"
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "已取消笔刷的设定。"
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "工具已设定。"
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "设定好的工具已添加进您的物品栏。"
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "已取消工具的设定。"
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "物品已解除绑定。"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
@@ -254,13 +254,13 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "开始选择在 %1 (%2)。"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "扩大选区的范围，包括 %1 (%2)。"
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "一个物品必须放在你的主手"
 
 msgid "worldedit.tool.cantBind"
 msgstr "您不能绑定到这种物品。"
@@ -317,22 +317,22 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "数值 (%1) 太小了! 它的最小值为 (%2)。"
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "太多方块！"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "已装载球形笔刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "已装载圆柱形笔刷 (%1 ，由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "平滑笔刷已装载 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "平滑笔刷已装载 (%1 x %2x并使用过滤器)"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
@@ -350,34 +350,34 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "创建一个平滑笔刷"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "已设定笔刷遮罩。"
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "已禁用笔刷遮罩。"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "已设定笔刷材料。"
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "已设定笔刷范围。"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "已设定画笔大小。"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "已设定追踪遮罩。"
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "已禁用追踪遮罩。"
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "最大允许笔刷半径： %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "此笔刷不需要材料来运作。"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "笔刷已从您的当前物品解绑。"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空您的剪贴板"
@@ -389,7 +389,7 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "历史记录已被清空。"
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "收缩选择区域。"
 
 msgid "commands.wedit:contract.explain"
 msgstr "选区已收缩 %s 个方块。"
@@ -419,10 +419,10 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "您的选区现在是可见的。"
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "扩大选择区域。"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "垂直扩展你的选区，达到世界高度限制。"
 
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
@@ -455,10 +455,10 @@ msgid "commands.wedit:help.header"
 msgstr "--- 正在显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "将您选择的第一个位置设置为你所面对的方块的位置。"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "将您选择的第二个位置设置为你所面对的方块的位置。"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一个空心棱锥体"
@@ -752,7 +752,7 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4。拿出你库存中的选择器，在砂岩上使用。将你选择的方块设置为你的图案，并使用“选择填充”。现在所有的砂岩都应该被那个方块所取代。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 通过键入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
