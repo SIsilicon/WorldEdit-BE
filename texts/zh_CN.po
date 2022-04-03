@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-03-17 02:22\n"
+"PO-Revision-Date: 2022-04-03 06:50\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -67,6 +67,9 @@ msgstr "创世神设置"
 msgid "item.wedit:brush_config_button"
 msgstr "笔刷设置"
 
+msgid "item.wedit:tool_config_button"
+msgstr "工具设置"
+
 msgid "item.wedit:sphere_button"
 msgstr "球形笔刷"
 
@@ -75,6 +78,18 @@ msgstr "圆柱形笔刷"
 
 msgid "item.wedit:smooth_button"
 msgstr "平滑笔刷"
+
+msgid "item.wedit:selection_button"
+msgstr "选择器"
+
+msgid "item.wedit:far_selection_button"
+msgstr "远程选择器"
+
+msgid "item.wedit:navigation_button"
+msgstr "传送器"
+
+msgid "item.wedit:stacker_button"
+msgstr "标记工具"
 
 msgid "item.wedit:one_button"
 msgstr "一"
@@ -101,13 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "返回"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "上一页"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "下一页"
+
+msgid "item.wedit:delete_button"
+msgstr "删除"
 
 msgid "item.wedit:new_brush_button"
-msgstr "创建新笔刷"
+msgstr "新建工具"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "在剪贴板中包含实体：§a启用§r"
@@ -143,10 +161,19 @@ msgid "worldedit.maskPicker.set"
 msgstr "将取代方块设为： "
 
 msgid "worldedit.config.editTool"
-msgstr "选择一种笔刷进行设置"
+msgstr "选择一个项目进行设置"
+
+msgid "worldedit.config.chooseItem"
+msgstr "切换到要绑定笔刷的物品。"
 
 msgid "worldedit.config.choose.brush"
 msgstr "选择要制作的笔刷类型。"
+
+msgid "worldedit.config.choose.tool"
+msgstr "选择制作的工具类型"
+
+msgid "worldedit.config.selectRange.tool"
+msgstr "选择工具的范围"
 
 msgid "worldedit.config.selectRadius.brush"
 msgstr "选择笔刷的尺寸。"
@@ -158,13 +185,19 @@ msgid "worldedit.config.selectSmooth.brush"
 msgstr "选择笔刷的平滑度。"
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "请设定笔刷的填充方块（必选）和取代方块（可选）。"
+msgstr "设定笔刷的填充方块及取代方块"
+
+msgid "worldedit.config.mask.tool"
+msgstr "选择工具的平滑度"
 
 msgid "worldedit.config.mask.brush"
 msgstr "选择笔刷的平滑度"
 
 msgid "worldedit.config.confirm"
-msgstr "确定设置成这样吗？"
+msgstr "确定吗？"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "你确定要删除这个项目的绑定吗？"
 
 msgid "worldedit.config.affects"
 msgstr "被取代的方块类型：%s"
@@ -181,14 +214,29 @@ msgstr "高度%s"
 msgid "worldedit.config.smooth"
 msgstr "平滑度: %s"
 
+msgid "worldedit.config.range"
+msgstr "范围：%s"
+
 msgid "worldedit.config.set.brush"
-msgstr "笔刷已配置。"
+msgstr "笔刷已设定。"
 
 msgid "worldedit.config.setGive.brush"
-msgstr "配置好的笔刷已加入您的物品栏。"
+msgstr "设定好的笔刷已添加进您的物品栏。"
 
 msgid "worldedit.config.cancel.brush"
-msgstr "已取消笔刷的配置。"
+msgstr "已取消笔刷的设定。"
+
+msgid "worldedit.config.set.tool"
+msgstr "工具已设定。"
+
+msgid "worldedit.config.setGive.tool"
+msgstr "设定好的工具已添加进您的物品栏。"
+
+msgid "worldedit.config.cancel.tool"
+msgstr "已取消工具的设定。"
+
+msgid "worldedit.config.unbind"
+msgstr "物品已解除绑定。"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
@@ -206,13 +254,13 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "开始选择在 %1 (%2)。"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "扩大选区的范围，包括 %1 (%2)。"
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "一个物品必须放在你的主手"
 
 msgid "worldedit.tool.cantBind"
 msgstr "您不能绑定到这种物品。"
@@ -268,20 +316,23 @@ msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
 msgid "commands.generic.wedit:tooSmall"
 msgstr "数值 (%1) 太小了! 它的最小值为 (%2)。"
 
+msgid "commands.generic.wedit:blockLimit"
+msgstr "太多方块！"
+
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "在持有§7项目的情况下，通过执行§e%s§7来解绑。§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "已装载球形笔刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "已装载圆柱形笔刷 (%1 ，由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "平滑笔刷已装载 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "平滑笔刷已装载 (%1 x %2x并使用过滤器)"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
@@ -299,31 +350,34 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "创建一个平滑笔刷"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "已设定笔刷遮罩。"
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "已禁用笔刷遮罩。"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "已设定笔刷材料。"
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "已设定笔刷范围。"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "已设定画笔大小。"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "已设定追踪遮罩。"
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "已禁用追踪遮罩。"
+
+msgid "commands.wedit:brush.tooLarge"
+msgstr "最大允许笔刷半径： %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "此笔刷不需要材料来运作。"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "笔刷已从您的当前物品解绑。"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空您的剪贴板"
@@ -333,6 +387,9 @@ msgstr "清除您的编辑记录"
 
 msgid "commands.wedit.clearhistory.explain"
 msgstr "历史记录已被清空。"
+
+msgid "commands.wedit:contract.description"
+msgstr "收缩选择区域。"
 
 msgid "commands.wedit:contract.explain"
 msgstr "选区已收缩 %s 个方块。"
@@ -360,6 +417,12 @@ msgstr "您的选区将不再可见。"
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "您的选区现在是可见的。"
+
+msgid "commands.wedit:expand.description"
+msgstr "扩大选择区域。"
+
+msgid "commands.wedit:expand.description.vert"
+msgstr "垂直扩展你的选区，达到世界高度限制。"
 
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
@@ -391,17 +454,26 @@ msgstr "生成一个空心圆柱体"
 msgid "commands.wedit:help.header"
 msgstr "--- 正在显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
+msgid "commands.wedit:hpos1.description"
+msgstr "将您选择的第一个位置设置为你所面对的方块的位置。"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "将您选择的第二个位置设置为你所面对的方块的位置。"
+
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一个空心棱锥体"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "生成一个空心球体"
 
+msgid "commands.wedit:inset.description"
+msgstr "嵌入选择区域。"
+
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至您看着的方块的顶部"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "区域已嵌入。"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
@@ -419,7 +491,16 @@ msgid "commands.wedit:line.description"
 msgstr "在第一个和第二个选择点之间创建一条线"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "此命令只适用于立方体的选择。"
+
+msgid "commands.wedit:limit.description"
+msgstr "设置每个动作可以更改的方块数量。"
+
+msgid "commands.wedit:limit.set"
+msgstr "方块变化限制已设定为 %s。"
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "您最大的允许限制为 %s。"
 
 msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
@@ -439,8 +520,11 @@ msgstr "给你自己一个传送棍"
 msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
 
+msgid "commands.wedit:outset.description"
+msgstr "外移选择区域。"
+
 msgid "commands.wedit:outset.explain"
-msgstr "Region outset."
+msgstr "已外移区域。"
 
 msgid "commands.wedit:paste.description"
 msgstr "将您的剪切板粘贴至这个世界"
@@ -490,11 +574,20 @@ msgstr "扩展：在潜行时点击以设置第一点，不潜行时点击以设
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
 
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "选择一个立方体的两个顶点。"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "快速选取立方体模式"
+
 msgid "commands.wedit:sel.extend"
 msgstr "扩展：在潜行时点击以获取起点，不潜行时点击即可扩展"
 
 msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
+
+msgid "commands.wedit:shift.description"
+msgstr "移动选择区域"
 
 msgid "commands.wedit:shift.explain"
 msgstr "区域已移动。"
@@ -529,20 +622,23 @@ msgstr "未在您的前方发现有效空间。"
 msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "选择的工具被绑定到 %s。"
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "导航工具已绑定到 %s。"
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "远处的选择工具已绑定到 %s。"
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "叠放工具已绑定到 %s。"
+
 msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的工具"
 
-msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
-
-msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
-
-msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
-
-msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgid "commands.wedit:tool.description.farwand"
+msgstr "选择工具，但是可以达到更远的地方。"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "选区工具"
@@ -557,7 +653,7 @@ msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "工具已从您的当前物品解绑。"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "从方块中脱离"
@@ -647,16 +743,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "选择一个大小合适的区域，并使用 §e;kit§r 给自己一套工具集。我们将尝试 WorldEdit 提供的一些功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. 放置石头，使用填充方块选择器，然后使用“填充选区”。应该会出现长方体状的石头。"
+msgstr "放置石头，使用选择器，然后使用“填充选区”。应该会出现一个用石头组成的长方体。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. 对着空气使用模式选择器（移动端玩家需要长按屏幕来选取），然后再次使用“选择填充”清除石头。"
+msgstr "§r2. 对着空气使用模式选择器 (手机版玩家需要长按屏幕来选取) ，然后再次使用“选择填充”清除石头。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. 放下砂岩和玻璃，在砂岩上使用图案选择器，然后偷偷地在玻璃上使用它来添加图案。使用“选择填充”，你应该有砂岩和玻璃的混合。"
+msgstr "§73. 放下砂岩和玻璃，在砂岩上使用图案选择器，然后偷偷地在玻璃上使用它来添加图案。使用“选择填充”，你应该会拥有砂岩和玻璃的混合体。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4。拿出你库存中的面具选择器，在砂岩上使用。将你选择的块设置为你的图案，并使用“选择填充”。现在所有的砂岩都应该被那块岩石所取代。"
+msgstr "§r4。拿出你库存中的选择器，在砂岩上使用。将你选择的方块设置为你的图案，并使用“选择填充”。现在所有的砂岩都应该被那个方块所取代。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 通过键入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
