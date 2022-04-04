@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-04-04 01:52\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -704,10 +704,10 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "遊び方: WorldEdit をクイックスタート"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "ライセンス"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "遊び方: WorldEdit ライセンス"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "ようこそ！これは Minecraft: Java Edition のオリジナル WorldEdit モッドの移植版です。このアドオンは、Minecraft のワールドを形作るのに役立ちます。"
