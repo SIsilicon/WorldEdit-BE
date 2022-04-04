@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-04-04 05:17\n"
+"PO-Revision-Date: 2022-04-04 06:31\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -47,19 +47,19 @@ msgid "item.wedit:mask_picker"
 msgstr "取代方块选取器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "在脚下生成玻璃方块"
+msgstr "在脚下生成玻璃"
 
 msgid "item.wedit:selection_fill"
 msgstr "填充选区"
 
 msgid "item.wedit:selection_wall"
-msgstr "为选区建造墙壁"
+msgstr "墙壁选区"
 
 msgid "item.wedit:selection_outline"
 msgstr "勾勒选区轮廓"
 
 msgid "item.wedit:draw_line"
-msgstr "绘线"
+msgstr "划线"
 
 msgid "item.wedit:config_button"
 msgstr "创世神设置"
@@ -137,7 +137,7 @@ msgid "item.wedit:inc_air_on_button"
 msgstr "在剪贴板中包含空气：§a启用§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "剪贴板包含空气：§a禁用§r"
+msgstr "在剪贴板中包含空气：§4禁用§r"
 
 msgid "item.wedit:blank"
 msgstr " "
@@ -161,7 +161,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "将取代方块设为： "
 
 msgid "worldedit.config.editTool"
-msgstr "选择一个项目进行设置"
+msgstr "选择一个物品进行设置"
 
 msgid "worldedit.config.chooseItem"
 msgstr "切换到要绑定笔刷的物品。"
@@ -197,7 +197,7 @@ msgid "worldedit.config.confirm"
 msgstr "确定吗？"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "你确定要删除这个项目的绑定吗？"
+msgstr "你确定要删除这个物品的绑定吗？"
 
 msgid "worldedit.config.affects"
 msgstr "被取代的方块类型：%s"
@@ -209,10 +209,10 @@ msgid "worldedit.config.radius"
 msgstr "尺寸：%s"
 
 msgid "worldedit.config.height"
-msgstr "高度%s"
+msgstr "高度：%s"
 
 msgid "worldedit.config.smooth"
-msgstr "平滑度: %s"
+msgstr "平滑度： %s"
 
 msgid "worldedit.config.range"
 msgstr "范围：%s"
@@ -254,19 +254,19 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "开始选择在 %1 (%2)。"
+msgstr "在 %1 (%2) 开始选择。"
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "扩大选区的范围，包括 %1 (%2)。"
 
 msgid "worldedit.tool.noItem"
-msgstr "一个物品必须放在你的主手"
+msgstr "一个物品必须放在您的主手"
 
 msgid "worldedit.tool.cantBind"
 msgstr "您不能绑定到这种物品。"
 
 msgid "worldedit.tool.noBind"
-msgstr "此项目未绑定到工具。"
+msgstr "此物品未绑定到工具。"
 
 msgid "worldedit.tool.noPerm"
 msgstr "您无权使用该工具。"
@@ -278,7 +278,7 @@ msgid "worldedit.permission.granted"
 msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§e您的创世神权限已被移除§r"
+msgstr "§e您的 WorldEdit 权限已被移除。§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
@@ -293,7 +293,7 @@ msgid "commands.generic.wedit:noSelection"
 msgstr "请先选定一个区域。"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' 是无效的方向参数!"
+msgstr "“%s”是无效的方向参数!"
 
 msgid "commands.generic.wedit:invalidFlag"
 msgstr "预设外的字符: %s"
@@ -311,16 +311,16 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
+msgstr "数值 (%1) 太大了！它的最大值为(%2)。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "数值 (%1) 太小了! 它的最小值为 (%2)。"
+msgstr "数值 (%1) 太小了！它的最小值为 (%2)。"
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "太多方块！"
+msgstr "太多方块了！"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "在持有§7项目的情况下，通过执行§e%s§7来解绑。§r"
+msgstr "在持有物品的情况下，通过§7执行§e%s§7来解绑。§r"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已装载球形笔刷 (%s)。"
