@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-03-29 04:54\n"
+"PO-Revision-Date: 2022-04-04 14:34\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -41,43 +41,43 @@ msgid "item.wedit:flip_button"
 msgstr "Перевернути"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Вибір шаблону"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Вибір маски"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Створити скляний блок"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Заповнити виділене"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Вибір стіни"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Контурний вибір"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Малювати лінію"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Налаштування редактора світу"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Налаштування пензля"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Налаштування інструменту"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Сферичний пензель"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Циліндричний пензель"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Пензель згладжування"
 
 msgid "item.wedit:selection_button"
 msgstr "Selection Wand"
@@ -702,6 +702,12 @@ msgstr "Quick Start"
 
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
+
+msgid "howtoplay.wedit:license"
+msgstr "License"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "How to Play: WorldEdit License"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."

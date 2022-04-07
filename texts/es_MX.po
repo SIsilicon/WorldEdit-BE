@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-03-29 04:54\n"
+"PO-Revision-Date: 2022-04-05 07:16\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -26,7 +26,7 @@ msgid "item.wedit:paste_button"
 msgstr "Pegar"
 
 msgid "item.wedit:undo_button"
-msgstr "Deshacer"
+msgstr "Desechar"
 
 msgid "item.wedit:redo_button"
 msgstr "Rehacer"
@@ -56,10 +56,10 @@ msgid "item.wedit:selection_wall"
 msgstr "Buena"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Selección de contorno"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Línea de dibujo"
 
 msgid "item.wedit:config_button"
 msgstr "Ajustes de WorldEdit"
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Ajustes de Brocha"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Ajustes de herramientas"
 
 msgid "item.wedit:sphere_button"
 msgstr "Brocha de Esfera"
@@ -116,16 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "Atrás"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Previamente"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Siguiente"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Borrar"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Crear nueva herramienta"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Incluir entidades en portapapeles: §aActivado§r"
@@ -161,7 +161,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Escoje un ítem para establecerlo."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold an item to bind to."
@@ -194,7 +194,7 @@ msgid "worldedit.config.mask.brush"
 msgstr "Make an optional mask for the brush."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
@@ -215,37 +215,37 @@ msgid "worldedit.config.smooth"
 msgstr "Smoothness: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "%sDistancia"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pincel configurado."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pincel configurado y añadido a tu inventario."
 
 msgid "worldedit.config.cancel.brush"
 msgstr "Cancelled brush configuring."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Herramienta configurada."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Herramienta configurada y añadida a tu inventario."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Configuración de la herramienta cancelada."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Ítem desvinculado."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "Primera selección no ha sido todavía hecha."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Primera posición establecida a %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Primera posición establecida a %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
 msgstr "Second position set to %s."
@@ -269,10 +269,10 @@ msgid "worldedit.tool.noBind"
 msgstr "This item is not bound to any tool."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "No tienes permiso para usar este ítem."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "La herramienta de este elemento no puede ser removido o reemplazado."
 
 msgid "worldedit.permission.granted"
 msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
@@ -308,7 +308,7 @@ msgid "commands.generic.wedit:noPermission"
 msgstr "You don't have the permission to execute this command."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "¡No se pueden modificar los chunks descargados!"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "The number (%1) is too big! It must be at most (%2)."
@@ -317,7 +317,7 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "The number (%1) is too small! It must be at least (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "¡Demasiados bloques!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
@@ -446,7 +446,7 @@ msgid "commands.wedit:gmask.disabled"
 msgstr "Global mask disabled."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Establecer máscara global."
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Generate a hollow cylinder"
@@ -467,10 +467,10 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Generate a hollow sphere"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Inserta la área de selección"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Teletransportarte a la parte súper de el bloque que estás mirando"
 
 msgid "commands.wedit:inset.explain"
 msgstr "Region inset."
@@ -702,6 +702,12 @@ msgstr "Quick Start"
 
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
+
+msgid "howtoplay.wedit:license"
+msgstr "License"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "How to Play: WorldEdit License"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."

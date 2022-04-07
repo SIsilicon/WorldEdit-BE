@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-03-29 04:54\n"
+"PO-Revision-Date: 2022-04-03 22:26\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -702,6 +702,12 @@ msgstr "빠른 시작"
 
 msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: WorldEdit 빠른 시작"
+
+msgid "howtoplay.wedit:license"
+msgstr "License"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "How to Play: WorldEdit License"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "환영합니다! 이것은 원래 마인크래프트: 자바 에디션용 WorldEdit 모드의 포트입니다. 이 애드온은 마인크래프트 안에서 당신의 월드를 형성하는데 도움을 줄 것입니다."
