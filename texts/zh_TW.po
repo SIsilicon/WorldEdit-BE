@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-04-05 02:56\n"
+"PO-Revision-Date: 2022-04-08 01:27\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
 
 msgid "item.wedit:copy_button"
 msgstr "複製"
@@ -53,7 +53,7 @@ msgid "item.wedit:selection_fill"
 msgstr "填滿選中的區域"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "填充所选区"
 
 msgid "item.wedit:selection_outline"
 msgstr "Outline Selection"
