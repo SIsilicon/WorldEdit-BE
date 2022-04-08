@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-04-08 17:44\n"
+"PO-Revision-Date: 2022-04-08 18:52\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -53,13 +53,13 @@ msgid "item.wedit:selection_fill"
 msgstr "填充选区"
 
 msgid "item.wedit:selection_wall"
-msgstr "墙壁选区"
+msgstr "填充选区的侧面"
 
 msgid "item.wedit:selection_outline"
-msgstr "勾勒选区轮廓"
+msgstr "填充选区表面"
 
 msgid "item.wedit:draw_line"
-msgstr "划线"
+msgstr "填充选区对角线"
 
 msgid "item.wedit:config_button"
 msgstr "创世神设置"
@@ -365,7 +365,7 @@ msgid "commands.wedit:brush.size.set"
 msgstr "已设定笔刷大小。"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "已设定追踪遮罩。"
+msgstr "已设定笔刷生效方块"
 
 msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "已禁用追踪遮罩。"
@@ -446,7 +446,7 @@ msgid "commands.wedit:gmask.disabled"
 msgstr "已禁用全局蒙版。"
 
 msgid "commands.wedit:gmask.set"
-msgstr "已设置全局蒙版。"
+msgstr "已设置全局被取代的方块。"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "生成一个空心圆柱体"
@@ -707,7 +707,7 @@ msgid "howtoplay.wedit:license"
 msgstr "授权"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "游戏指南：创世神插件授权"
+msgstr "游戏指南：创世神插件授权许可证"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "欢迎使用 WorldEdit。这个 Addon 是 Java 版同名模组到基岩版的移植，将帮助你在 Minecraft 中塑造你的世界。"
