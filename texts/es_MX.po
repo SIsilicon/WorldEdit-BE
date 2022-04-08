@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-04-05 07:16\n"
+"PO-Revision-Date: 2022-04-08 00:30\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -77,19 +77,19 @@ msgid "item.wedit:cylinder_button"
 msgstr "Brocha Cilíndrica"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Pincelada Suave"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Varita de selección avanzada"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Varita de Navegación"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Herramienta Apiladora"
 
 msgid "item.wedit:one_button"
 msgstr "Uno"
@@ -164,43 +164,43 @@ msgid "worldedit.config.editTool"
 msgstr "Escoje un ítem para establecerlo."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Mantener un elemento para enlazar."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Elegir que tipo de pincel hacer."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Elige qué tipo de herramienta hacer."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Elija el rango de la herramienta."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Elegir el tamaño de el pincel."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Elegir la Altura de el pincel."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Elegir la suavidad del pincel."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Elegir un patrón y opcionalmente una máscara para el pincel."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Crea una máscara opcional para la herramienta."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Hacer una máscara opcional para el pincel."
 
 msgid "worldedit.config.confirm"
 msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "¿Está seguro de que desea desvincular este elemento?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Afectar: %s"
 
 msgid "worldedit.config.creates"
 msgstr "Creates: %s"
