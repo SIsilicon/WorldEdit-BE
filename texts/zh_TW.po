@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-04-08 01:27\n"
+"PO-Revision-Date: 2022-04-08 02:30\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -53,7 +53,7 @@ msgid "item.wedit:selection_fill"
 msgstr "填滿選中的區域"
 
 msgid "item.wedit:selection_wall"
-msgstr "填充所选区"
+msgstr "Wall Selection"
 
 msgid "item.wedit:selection_outline"
 msgstr "Outline Selection"
