@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-04-04 06:31\n"
+"PO-Revision-Date: 2022-04-08 15:34\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -422,7 +422,7 @@ msgid "commands.wedit:expand.description"
 msgstr "扩大选择区域。"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "垂直扩展你的选区，达到世界高度限制。"
+msgstr "垂直拓展你的选区直到它到达世界高度限制。"
 
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
