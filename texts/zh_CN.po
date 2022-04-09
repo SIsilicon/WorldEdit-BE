@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-04-08 18:52\n"
+"PO-Revision-Date: 2022-04-09 05:03\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -350,7 +350,7 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "创建一个平滑笔刷"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "已设定笔刷生效方块"
+msgstr "已设定笔刷替换的方块"
 
 msgid "commands.wedit:brush.mask.disabled"
 msgstr "已禁用笔刷生效方块。"
