@@ -11,163 +11,163 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-04-09 08:42\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copiar"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Cortar"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Pegar"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Deshacer"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Rehacer"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Girar a la derecha"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Girar a la izquierda"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Dar la vuelta"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Selector de patrón"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Selector de máscaras"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Generar Bloque de Cristal"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Rellenar selección"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Seleccionar muro"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Selección exterior"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Dibujar línea"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Configuración del WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Ajustes de Pincel"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Ajustes de herramienta"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Pincel esférico"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Pincel cilíndrico"
 
 msgid "item.wedit:smooth_button"
 msgstr "Smooth Brush"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Varita de selección lejana"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Varita de navegación"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Herramienta Acumuladora"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Uno"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dos"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Tres"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Cuatro"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Cinco"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Seis"
 
 msgid "item.wedit:confirm_button"
 msgstr "Ok"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Volver"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Previo"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Siguiente"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Borrar"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Crear nueva herramienta"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Incluye entidades en el portapapeles: §aActivado§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Incluye entidades en el portapapeles: §4Desactivado§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Incluye aire en el portapapeles: §aActivado§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Incluye aire en el portapapeles: §4Desactivado§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "No puedes colocar un bloque aquí."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "¡Necesitas especificar un bloque para establecer la selección!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Bloque añadido al patrón: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Fijar patrón a bloquear: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Bloque añadido a la máscara: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Establecer máscara a bloquear: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Elija un elemento a configurar."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Mantén un elemento al que enlazar."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Choose what kind of tool to make."
@@ -317,25 +317,25 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "The number (%1) is too small! It must be at least (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "¡Demasiados bloques!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Ejecuta §e%s§7 mientras sostienes el objeto para desvincularlo.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Forma de pincel esférico equipada (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Forma de pincel de cilindro equipada (%1 por %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Pincel suavizado equipado (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Pincel suavizado equipado (%1 x %2x usando filtro)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Establece el tipo de pincel que se sostiene"
 
 msgid "commands.wedit:brush.description.none"
 msgstr "Unbind a bound brush from your current item"
