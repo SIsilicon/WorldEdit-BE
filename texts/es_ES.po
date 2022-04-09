@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-09 08:42\n"
+"PO-Revision-Date: 2022-04-09 09:00\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -338,25 +338,25 @@ msgid "commands.wedit:brush.description"
 msgstr "Establece el tipo de pincel que se sostiene"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Desvincular un pincel limitado de tu elemento actual"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Crear un pincel de esfera"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Crear un pincel cilindrico"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Crear un pincel suavizador de terrenos"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Conjunto de máscara de pincel."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Máscara de pincel desactivada."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Conjunto de material pincel."
 
 msgid "commands.wedit:brush.range.set"
 msgstr "Brush range set."
