@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-10 20:15\n"
+"PO-Revision-Date: 2022-04-10 21:27\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -491,16 +491,16 @@ msgid "commands.wedit:line.description"
 msgstr "Opprett en linje mellom ditt første og andre valgspunkt"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "denne kommandoen fungerer bare med kube-valg"
 
 msgid "commands.wedit:limit.description"
-msgstr "Set the number of blocks you can change per action"
+msgstr "Angi antall blokker du kan endre per handling"
 
 msgid "commands.wedit:limit.set"
-msgstr "Block change limit set to %s."
+msgstr "Grense for blokker endret satt til %s."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Your maximum allowable limit is %s."
+msgstr "Maksimalt tillat grense er %s."
 
 msgid "commands.wedit:mask.description"
 msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
@@ -521,10 +521,10 @@ msgid "commands.wedit:navwand.explain"
 msgstr "Snik og bruk gjenstand: gå gjennom vegger; Bruk gjenstanden uten sniking; hopp til sted"
 
 msgid "commands.wedit:outset.description"
-msgstr "Outset the selection area"
+msgstr "Sett ut utvalgsområdet"
 
 msgid "commands.wedit:outset.explain"
-msgstr "Region outset."
+msgstr "Region satt ut."
 
 msgid "commands.wedit:paste.description"
 msgstr "Lim inn utklippstavlen din i verdenen"
@@ -533,91 +533,91 @@ msgid "commands.wedit:paste.explain"
 msgstr "Limte inn %s blokker."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Angi den første posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Angi den andre posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "Generer en pyramide"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "Angi hvor langt ifra et pensel kan bli brukt fra"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "Gjenta en bestemte mengde handlinger"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "Gjorde om %s tilgjengelige redigeringer."
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "Ingenting igjen å gjøre om."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "Erstatt visse blokker i utvalget med andre blokker"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "Roter utvalget"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "Roterte %s blokker."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "'%s' er ikke et interval av 90°!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "Utvalg fjernet."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+msgstr "Kube: trykk mens du sniker for punkt 1, trykk uten sniking for punkt 2"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode"
+msgstr "Endre utvalgs-modus"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "Velg to gjørner av en kube"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "Hurtig kube valgs-modus"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+msgstr "Utvid: trykk mens du sniker for et startpunkt, trykk igjen uten å snike for å utvide"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "Fyll utvalget med et blokkmønster"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "Bytt utvalgsområdet"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "Region byttet."
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Sett størrelsen av et pensel"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Gjenta innholdet til det nåværende utvalget"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "Lagde %s blokker fra stabling."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Jevn overflaten innenfor utvalget"
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "Generer en kule"
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "Telerporten gjennom hvilken som helst vegg du ser på"
 
 msgid "commands.wedit:thru.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "Ikke mot eller vendt mot en vegg til å gå gjennom."
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "Ingen tomme områder funnet foran deg."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Set what kind of blocks a brush can be used on"
@@ -777,7 +777,7 @@ msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen
 "Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
+msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
 
 msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
@@ -786,10 +786,10 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "Hva nå?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "For å lære mer om dett tillegget kan du gå til den nettbaserte documentationen her: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
