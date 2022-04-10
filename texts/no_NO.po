@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-10 14:10\n"
+"PO-Revision-Date: 2022-04-10 15:08\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -77,7 +77,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "Sylinderpensel"
 
 msgid "item.wedit:smooth_button"
-msgstr "Jevn børste"
+msgstr "Jevnbørste"
 
 msgid "item.wedit:selection_button"
 msgstr "Utvalgstav"
@@ -224,19 +224,19 @@ msgid "worldedit.config.setGive.brush"
 msgstr "Pensel konfigurert og lagt til inventaret ditt."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Avbrutt pensel-konfigurering."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Verktøy konfigurert."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Verktøy konfigurert og lagt til inventaret ditt."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Avbrutt verktøy-konfigurering."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Fjernet binding fra gjenstanden."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
@@ -254,31 +254,31 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Andre posisjon satt til %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Begynte valg ved %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Utvidet utvalg for å inkludere %1 (%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "En gjenstand må være i hovedhånden din."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Du kan ikke binde deg selv til denne typen gjenstand."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Denne gjenstanden er ikke bundet til noen verktøy."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Du har ikke tilgang til å bruke denne gjenstanden."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Verktøyet på denne gjenstanden kan ikke bli fjernet eller erstattet."
 
 msgid "worldedit.permission.granted"
-msgstr "§eDu har fått WorldEdit permissions. Gå til (Innstillinger > Hvordan Spill > Hurtigstart) for en veiledning.§r"
+msgstr "§eDu har fått WorldEdit tillatelser. Gå til (Innstillinger > Hvordan Spill > Hurtigstart) for en veiledning.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eDin WorldEdit tillatelser har blitt fjernet.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blokker har blitt endret."
@@ -317,58 +317,58 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "Tallet (%1) er for liten! Det må være minst (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "For mange blokker!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Kjør §e%s§7 mens du holder gjenstanden for å fjerne bindingen.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Kulepensel-form valgt (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Sylinderpensel-form valgt (%1 på %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Jevnbørste valgt (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Jevnbørste valgt (%1 x %2x med filter)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Angi typen pensel som blir holdt"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Fjern bindingen fra en bindet pensel til din nåværende gjenstand"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Lag en kulepensel"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Lag en sylinderpensel"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Lag et terreng-utjevningspensel"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Pensel-maske satt."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Pensel-maske deaktivert."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Pensel-material satt."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Pensel-rekkevidde satt."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "Pensel-størrelse satt."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "Spor-maske satt."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "Spor-maske deaktivert."
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "Maximum allowed brush radius: %s"
@@ -770,10 +770,11 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Playing with brushes"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
+"Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
