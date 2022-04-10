@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-10 15:08\n"
+"PO-Revision-Date: 2022-04-10 20:15\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -371,16 +371,16 @@ msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "Spor-maske deaktivert."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Maksimum tillat pensel-radius: %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Dette penselet trenger ikke et material for å fungere."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Pensel ubundet fra din nåværende gjenstand."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Tøm utklippstavlen"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Fjerner din redigeringshistorikk"
@@ -389,10 +389,10 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "Slettet historikk."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Minsk utvalgsområdet"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "Region minsket %s blokker."
 
 msgid "commands.wedit:copy.description"
 msgstr "Kopier gjeldende utvalg til utklippstavlen"
@@ -419,16 +419,16 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "Dine valg vil nå være synlige."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Utvid utvalgsområdet"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Utvid utvalget ditt vertikalt til verdenshøyde"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "Region utvidet %s blokker."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Generer en omrisse fra ditt utvalg"
 
 msgid "commands.wedit:flip.description"
 msgstr "Vend utvalget"
@@ -455,10 +455,10 @@ msgid "commands.wedit:help.header"
 msgstr "--- Viser hjelpeside %1 av %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "Angi den første posisjonen av utvalget ditt til posisjonen til blokken du ser på"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "Angi den andre posisjonen av utvalget ditt til posisjonen til blokken du ser på"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Generer en hul pyramide"
@@ -467,13 +467,13 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Generer et hul kule"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Sett in utvalgsområdet"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleporter deg til toppen av blokken du ser på"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "Region satt inn."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Poff!"
@@ -488,7 +488,7 @@ msgid "commands.wedit:kit.explain"
 msgstr "Sett gitt."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Opprett en linje mellom ditt første og andre valgspunkt"
 
 msgid "commands.wedit:line.invalidType"
 msgstr "this command only works with cuboid selections"
