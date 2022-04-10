@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-03 22:27\n"
+"PO-Revision-Date: 2022-04-10 14:10\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Kopier"
@@ -56,10 +56,10 @@ msgid "item.wedit:selection_wall"
 msgstr "Vegg utvalg"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Omriss valg"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Tegn linje"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit innstillinger"
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Børste-innstillinger"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Verktøy innstillinger"
 
 msgid "item.wedit:sphere_button"
 msgstr "Kulepensel"
@@ -77,19 +77,19 @@ msgid "item.wedit:cylinder_button"
 msgstr "Sylinderpensel"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Jevn børste"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Utvalgstav"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Fjern utvalgstav"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Navigeringsstav"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Stable-verktøy"
 
 msgid "item.wedit:one_button"
 msgstr "En"
@@ -116,16 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "Tilbake"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Forrige"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Neste"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Slett"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Lag nytt verktøy"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Inkluder enheter i utklippstavlen: §aAktivert§r"
@@ -161,67 +161,67 @@ msgid "worldedit.maskPicker.set"
 msgstr "Sett maske til blokk: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Velg en gjenstand å konfigurere."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Hold en gjenstand å binde til."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Velg hva slags pensel som skal lages."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Velg hva slags verktøy som skal lages."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Velg rekkevidden til verktøyet."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Velg størrelsen av penselet."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Velg høyden til penselet."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Velg glattheten på penselet."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Lag et mønster og valgfri maske for penselet."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Lag en valgfri maske for verktøyet."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Lag en valgfri maske for penselet."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Er dette ok?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Påvirker: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Opretter: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Størrelse: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Høyde: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Glatthey: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Rekkevidde: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pensel konfigurert."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pensel konfigurert og lagt til inventaret ditt."
 
 msgid "worldedit.config.cancel.brush"
 msgstr "Cancelled brush configuring."
