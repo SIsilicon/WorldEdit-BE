@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-12 18:48\n"
+"PO-Revision-Date: 2022-04-12 19:46\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -203,73 +203,73 @@ msgid "worldedit.config.affects"
 msgstr "Afecta: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Crear: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Tamaño: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Altura: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Suavidad: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Rango: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pincel configurado."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pincel configurado y añadido a tu inventario."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Configuración del pincel cancelada."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Herramienta configurada."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Herramienta configurada y añadida a tu inventario."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Configuración de la herramienta cancelada."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Objeto desvinculado."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "La primera selección aún no se ha hecho."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Primera posición establecida en %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Primera posición establecida en %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Segunda posición establecida en %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Segunda posición establecida en %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Selección iniciada en %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Selección extendida para abarcar %1 (%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Un objeto debe estar en tu mano principal."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "No puedes vincularte a este tipo de objeto."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Este objeto no está vinculado a ninguna herramienta."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "No tiene permiso para usar este objeto."
 
 msgid "worldedit.tool.fixedBind"
 msgstr "The tool on this item cannot be removed or replaced."
