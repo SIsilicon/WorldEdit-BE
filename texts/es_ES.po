@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-09 09:00\n"
+"PO-Revision-Date: 2022-04-12 18:48\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -77,7 +77,7 @@ msgid "item.wedit:cylinder_button"
 msgstr "Pincel cilíndrico"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Cepillo suave"
 
 msgid "item.wedit:selection_button"
 msgstr "Varita de Selección"
@@ -170,37 +170,37 @@ msgid "worldedit.config.choose.brush"
 msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Elija el rango de la herramienta."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Elegir el tamaño del pincel"
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Elegir el tamaño del pincel."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Elige la suavidad del pincel."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Haz un patrón y una máscara opcional para el pincel."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Haga una máscara opcional para la herramienta."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Haz una máscara opcional para el pincel."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "¿Está seguro de que desea borrar este elemento?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Afecta: %s"
 
 msgid "worldedit.config.creates"
 msgstr "Creates: %s"
