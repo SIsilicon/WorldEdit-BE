@@ -108,29 +108,29 @@ export class Pattern implements CustomArgType {
                 } else if (token.type == 'number') {
                     const num = token;
                     const t = tokens.next();
-                    if (t.type == 'percent') {
+                    if (t.value == '%') {
                         processOps(out, ops, new PercentPattern(nodeToken(), num.value));
                     } else {
                         throwTokenError(t);
                     }
-                } else if (token.type == 'comma') {
+                } else if (token.value == ',') {
                     processOps(out, ops, new ChainPattern(token));
-                } else if (token.type == 'caret') {
+                } else if (token.value == '^') {
                     const t = tokens.next();
                     if (t.type == 'id') {
-                        processOps(out, ops, new TypePattern(nodeToken(), t.value));
+                        out.push(new TypePattern(nodeToken(), t.value));
                     } else if (t.value == '[') {
                         const states = parseBlockStates(tokens);
-                        processOps(out, ops, new StatePattern(nodeToken(), states));
+                        out.push(new StatePattern(nodeToken(), states));
                     } else {
                         throwTokenError(t);
                     }
-                } else if (token.type == 'star') {
+                } else if (token.value == '*') {
                     const t = tokens.next();
                     if (t.type != 'id') {
                         throwTokenError(t);
                     }
-                    processOps(out, ops, new RandStatePattern(nodeToken(), t.value));
+                    out.push(new RandStatePattern(nodeToken(), t.value));
                 } else if (token.type == 'bracket') {
                     if (token.value == '(') {
                         out.push(processTokens(true));

@@ -115,11 +115,11 @@ export class Mask implements CustomArgType {
                 if (token.type == 'id') {
                     let block = parseBlock(tokens);
                     out.push(new BlockMask(nodeToken(), block));
-                } else if (token.type == 'comma') {
+                } else if (token.value == ',') {
                     processOps(out, ops, new ChainMask(token));
                 } else if (token.type == 'space') {
                     processOps(out, ops, new IntersectMask(token));
-                } else if (token.type == 'exclamation') {
+                } else if (token.value == '!') {
                     processOps(out, ops, new NegateMask(token));
                 } else if (token.type == 'bracket') {
                     if (token.value == '<') {
@@ -138,7 +138,7 @@ export class Mask implements CustomArgType {
                     } else {
                         throwTokenError(token);
                     }
-                } else if (token.type == 'hash') {
+                } else if (token.value == '#') {
                     const t = tokens.next();
                     if (t.value == 'existing') {
                         out.push(new ExistingMask(nodeToken()));
@@ -153,13 +153,13 @@ export class Mask implements CustomArgType {
                     } else {
                         throwTokenError(t);
                     }
-                } else if (token.type == 'percent') {
+                } else if (token.value == '%') {
                     const num = tokens.next();
                     if (num.type != 'number') {
                         throwTokenError(num);
                     }
                     out.push(new PercentMask(nodeToken(), num.value / 100));
-                } else if (token.type == 'caret') {
+                } else if (token.value == '^') {
                     let states: parsedBlock['states'];
                     let strict = false;
                     let t = tokens.next();

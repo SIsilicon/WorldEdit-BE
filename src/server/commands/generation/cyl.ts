@@ -53,7 +53,7 @@ const registerInformation = {
     ]
 };
 
-commandList['cyl'] = [registerInformation, (session, builder, args) => {
+commandList['cyl'] = [registerInformation, async (session, builder, args) => {
     let pattern: Pattern = args.get('pattern');
     let radii: [number, number];
     let height: number = args.get('height');
@@ -68,7 +68,7 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? height/2 : 0, 0);
     
     const cylShape = new CylinderShape(height, ...<[number, number]>radii);
-    const count = cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = await cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

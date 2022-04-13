@@ -1,5 +1,5 @@
-import { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout } from "./utils/scheduling.js";
-export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout };
+import { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer } from "./utils/scheduling.js";
+export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer };
 
 import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
 export { compressNumber, formatNumber, MS, rainbowText };

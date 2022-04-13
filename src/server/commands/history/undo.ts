@@ -15,6 +15,7 @@ const registerInformation = {
     ]
 };
 
+// TODO: Support async
 commandList['undo'] = [registerInformation, (session, builder, args) => {
     const times = args.get('times') as number;
     const history = session.getHistory();

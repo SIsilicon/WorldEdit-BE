@@ -40,8 +40,8 @@ export class SmoothBrush extends Brush {
         throw 'commands.generic.wedit:noBrushMaterial';
     }
     
-    public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+    public async apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
         const point = loc.offset(-this.size, -this.size, -this.size);
-        smooth(session, this.iterations, this.shape, point, this.mask, mask);
+        await smooth(session, this.iterations, this.shape, point, this.mask, mask);
     }
 }

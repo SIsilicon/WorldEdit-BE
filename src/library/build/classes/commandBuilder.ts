@@ -269,7 +269,7 @@ export class CommandBuilder {
                 if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[idx]);
                 idx++;
                 result.set(def.name, cmdBaseInfo.name);
-            } else if(def.type == 'any') {
+            } else if(def.type == 'string') {
                 result.set(def.name, args[idx++]);
             } else if(self.customArgTypes.has(def.type)) {
                 try {

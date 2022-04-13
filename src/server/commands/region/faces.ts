@@ -20,7 +20,7 @@ const registerInformation = {
     ]
 };
 
-commandList['faces'] = [registerInformation, (session, builder, args) => {
+commandList['faces'] = [registerInformation, async (session, builder, args) => {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.usingItem && session.globalPattern.empty()) {
@@ -33,7 +33,7 @@ commandList['faces'] = [registerInformation, (session, builder, args) => {
     let [start, end] = session.getSelectionRange();
     if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const size = Vector.sub(end, start).add(Vector.ONE);
-        count = new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {hollow: true});
+        count = await new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {hollow: true});
     }
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

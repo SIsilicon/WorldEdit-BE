@@ -2,10 +2,11 @@ import { BlockLocation } from 'mojang-minecraft';
 import { Pattern } from '@modules/pattern.js';
 import { Mask } from '@modules/mask.js';
 import { PlayerSession } from '../sessions.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { Vector } from '@modules/vector.js';
 import { assertCanBuildWithin } from '@modules/assert.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
+import { Timer } from '@library/Minecraft.js';
+import { ASYNC_TIME_BUDGET } from '@config.js';
 
 export type shapeGenOptions = {
     hollow?: boolean,
@@ -64,7 +65,7 @@ export abstract class Shape {
     * @param session The session that's using this shape
     * @param options A group of options that can change how the shape is generated
     */
-    public generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions) {
+    public async generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions) {
         const [min, max] = this.getRegion(loc);
         const dimension = session.getPlayer().dimension;
         
@@ -78,11 +79,19 @@ export abstract class Shape {
         const blocksAffected = [];
         mask = mask ?? new Mask();
         
+        const timer = new Timer();
         if (canGenerate) {
             this.genVars = {};
             this.prepGeneration(this.genVars, options);
-            
-            for (const block of min.blocksBetween(max)) {
+
+            const blocks = min.blocksBetween(max);
+            timer.start();
+            for (const block of blocks) {
+                if (timer.getTime() >= ASYNC_TIME_BUDGET) {
+                    timer.end();
+                    await 1;
+                    timer.start();
+                }
                 if (!session.globalMask.matchesBlock(block, dimension) || !mask.matchesBlock(block, dimension)) {
                     continue;
                 }
@@ -91,6 +100,7 @@ export abstract class Shape {
                     blocksAffected.push(block);
                 }
             }
+            timer.end();
         }
         
         const history = session.getHistory();
@@ -99,11 +109,18 @@ export abstract class Shape {
         let count = 0;
         if (canGenerate) {
             history.addUndoStructure(min, max, blocksAffected);
+            timer.start();
             for (const block of blocksAffected) {
+                if (timer.getTime() >= ASYNC_TIME_BUDGET) {
+                    timer.end();
+                    await 1;
+                    timer.start();
+                }
                 if (!pattern.setBlock(block, dimension)) {
                     count++;
                 }
             }
+            timer.end();
             history.addRedoStructure(min, max, blocksAffected);
         }
         

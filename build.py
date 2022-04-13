@@ -39,8 +39,10 @@ if not args.package_only:
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
     
-    print('building scripts...')
     if args.watch:
+        print('syncing com.mojang folder...')
+        subprocess.call([sys.executable, 'tools/sync2com-mojang.py'], stdout=subprocess.DEVNULL)
+
         print('Watch mode: press control-C to stop.')
         tsc = subprocess.Popen('tsc -w', shell=True)
         # Remap absolute imports
@@ -48,7 +50,7 @@ if not args.package_only:
         # Convert po to lang files
         po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'], stdout=subprocess.DEVNULL)
         # Sync to com.mojang
-        sync_mojang = subprocess.Popen([sys.executable, 'tools/sync2com-mojang.py', '-w'], stdout=subprocess.DEVNULL)
+        sync_mojang = subprocess.Popen([sys.executable, 'tools/sync2com-mojang.py', '-w', '--init=False'], stdout=subprocess.DEVNULL)
         
         from time import sleep
         try:
@@ -61,6 +63,7 @@ if not args.package_only:
             sync_mojang.kill()
             exit()
     else:
+        print('building scripts...')
         subprocess.call(['tsc', '-b'], shell=True)
 
     # Set debug mode

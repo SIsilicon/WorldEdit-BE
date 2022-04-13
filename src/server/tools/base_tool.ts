@@ -7,17 +7,17 @@ import { PlayerUtil } from '@modules/player_util.js';
 import { print, printerr, printDebug } from '../util.js';
 
 /**
- * The base tool class for handling tools that WorldEdit builder may use.
+ * The base tool class for handling tools that WorldEdit builders may use.
  */
 export abstract class Tool {
     /**
     * The function that's called when the tool is being used.
     */
-    readonly use: (player: Player, session: PlayerSession) => void;
+    readonly use: (player: Player, session: PlayerSession) => void | Promise<void>;
     /**
     * The function that's called when the tool is being used on a block.
     */
-    readonly useOn: (player: Player, session: PlayerSession, loc: BlockLocation) => void;
+    readonly useOn: (player: Player, session: PlayerSession, loc: BlockLocation) => void | Promise<void>;
     /**
      * The permission required for the tool to be used.
      */
@@ -43,19 +43,7 @@ export abstract class Tool {
             return false;
         }
         
-        this.currentPlayer = player;
-        try {
-            if (!Server.player.hasPermission(player, this.permission)) {
-                throw 'worldedit.tool.noPerm';
-            }
-            if (!loc) {
-                if (this.useOnTick != tick)
-                    this.use(player, session);
-            } else {
-                this.useOnTick = tick;
-                this.useOn(player, session, loc);
-            }
-        } catch (e) {
+        const onFail = (e: any) => {
             const history = session.getHistory();
             if (history.isRecording()) {
                 history.cancel();
@@ -65,7 +53,30 @@ export abstract class Tool {
                 printerr(e.stack, player, false);
             }
         }
-        this.currentPlayer = null;
+
+        this.currentPlayer = player;
+        let res;
+        try {
+            if (!Server.player.hasPermission(player, this.permission)) {
+                throw 'worldedit.tool.noPerm';
+            }
+
+            if (!loc) {
+                if (this.useOnTick != tick)
+                    res = this.use(player, session);
+            } else {
+                this.useOnTick = tick;
+                res = this.useOn(player, session, loc);
+            }
+        } catch(e) {
+            onFail(e);
+        }
+
+        if (res instanceof Promise) {
+            res.finally(() => this.currentPlayer = null).catch(onFail);
+        } else {
+            this.currentPlayer = null
+        }
         return true;
     }
 }

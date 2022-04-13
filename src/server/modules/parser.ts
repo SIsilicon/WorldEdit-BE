@@ -10,6 +10,7 @@ export type parsedBlock = {
 export interface AstNode {
     prec: number,
     opCount: number,
+    rightAssoc?: boolean,
     nodes: AstNode[],
     token: Token
 }
@@ -19,44 +20,26 @@ const lexer = new Tokenizr();
     /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
+    lexer.rule(/[~#%^=*+-/|:!&,]/, (ctx, match) => {
+        ctx.accept('misc');
+    });
+    lexer.rule(/\s+/, (ctx, match) => {
+        ctx.accept('space');
+    });
+    lexer.rule(/[\[\]\(\)\<\>\{\}]/, (ctx, match) => {
+        ctx.accept('bracket');
+    });
     lexer.rule(/(true|false)/, (ctx, match) => {
         ctx.accept('boolean', match[0] == 'true' ? true : false);
     });
     lexer.rule(/[a-zA-Z_][a-zA-Z0-9_]*/, (ctx, match) => {
         ctx.accept('id');
     });
+    lexer.rule(/[0-9]+(\.[0-9]+)*/, (ctx, match) => {
+        ctx.accept('number', parseFloat(match[0]));
+    });
     lexer.rule(/[0-9]+/, (ctx, match) => {
         ctx.accept('number', parseInt(match[0]));
-    });
-    lexer.rule(/\s+/, (ctx, match) => {
-        ctx.accept('space');
-    });
-    lexer.rule(/!/, (ctx, match) => {
-        ctx.accept('exclamation');
-    });
-    lexer.rule(/:/, (ctx, match) => {
-        ctx.accept('colon');
-    });
-    lexer.rule(/,/, (ctx, match) => {
-        ctx.accept('comma');
-    });
-    lexer.rule(/[\[\]\(\)\<\>\{\}]/, (ctx, match) => {
-        ctx.accept('bracket');
-    });
-    lexer.rule(/#/, (ctx, match) => {
-        ctx.accept('hash');
-    });
-    lexer.rule(/%/, (ctx, match) => {
-        ctx.accept('percent');
-    });
-    lexer.rule(/\^/, (ctx, match) => {
-        ctx.accept('caret');
-    });
-    lexer.rule(/=/, (ctx, match) => {
-        ctx.accept('equal');
-    });
-    lexer.rule(/\*/, (ctx, match) => {
-        ctx.accept('star');
     });
 }
 
@@ -98,7 +81,7 @@ export function throwTokenError(token: Token): never {
 export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     while (ops.length) {
         const op2 = ops.slice(-1)[0];
-        if (op && op.prec > op2.prec) {
+        if (op && (op.prec > op2.prec || op.prec == op2.prec && op2.rightAssoc)) {
             break;
         }
         
@@ -108,7 +91,7 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
         
         ops.pop(); // <= op2
         for (let i = 0; i < op2.opCount; i++) {
-            op2.nodes.push(out.pop());
+            op2.nodes.unshift(out.pop());
         }
         out.push(op2);
     }

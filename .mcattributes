@@ -1,1 +1,2 @@
 diagnostic.disable.mcfunction.syntax.unknown=true
+diagnostic.disable.minecraft.language.comment.invalid=false

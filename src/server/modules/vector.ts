@@ -10,7 +10,7 @@ export class Vector {
     static get ZERO() {return new Vector(0, 0, 0);}
     static get ONE() {return new Vector(1, 1, 1);}
     
-    static from(loc: anyLoc|[number, number, number]) {
+    static from(loc: anyVec) {
         if (Array.isArray(loc)) {
             return new Vector(...loc);
         }

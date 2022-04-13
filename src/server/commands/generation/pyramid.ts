@@ -23,14 +23,14 @@ const registerInformation = {
     ]
 };
 
-commandList['pyramid'] = [registerInformation, (session, builder, args) => {
+commandList['pyramid'] = [registerInformation, async (session, builder, args) => {
     let pattern: Pattern = args.get('pattern');
     let isHollow = args.has('h');
     let size: number = args.get('size');
 
     const loc = PlayerUtil.getBlockLocation(builder);
     const pyramidShape = new PyramidShape(size);
-    const count = pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = await pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

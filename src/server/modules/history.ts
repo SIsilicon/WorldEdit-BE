@@ -294,5 +294,4 @@ export class History {
             throw new Error('History was still being recorded!');
         }
     }
-
 }

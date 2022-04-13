@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "minecraft-js",
+        "request": "attach",
+        "name": "Wait for Minecraft Debug Connections",
+        "mode": "listen",
+        "localRoot": "${workspaceFolder}/BP",
+        "port": 19144
+      }
+    ]
+  }

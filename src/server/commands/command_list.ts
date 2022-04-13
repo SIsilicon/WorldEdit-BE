@@ -6,7 +6,7 @@ import { assertPermission } from '@modules/assert.js';
 import { PlayerSession, getSession } from '../sessions.js';
 import { printToActionBar } from './register_commands.js';
 
-export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText;
+export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText | Promise<RawText|string>;
 
 export let commandList: {
     [k: string]: [

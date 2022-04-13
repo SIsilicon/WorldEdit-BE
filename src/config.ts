@@ -2,7 +2,7 @@
 export const DEBUG: boolean = true;
 
 // Enables `printLog` messages to content logs.
-export const CONTENT_LOG: boolean = false;
+export const CONTENT_LOG: boolean = true;
 
 // What character(s) to use to define the beginning of custom commands.
 export const COMMAND_PREFIX: string = ';';
@@ -44,6 +44,10 @@ export const DEFAULT_CHANGE_LIMIT: number = -1;
 // The absolute change limit that can be set from the ;limit command. 
 // Bypassed with "worldedit.limit.unlimited" permission.
 export const MAX_CHANGE_LIMIT: number = -1;
+
+// How long an async operation will run until giving Minecraft a chance to run.
+// The higher the value, the faster the operation, but the slower Minecraft takes to run.
+export const ASYNC_TIME_BUDGET: number = 200;
 
 // The version of WorldEdit (do not change)
 export const VERSION: string = '0.5.0';

@@ -16,12 +16,12 @@ class BrushTool extends Tool {
     
     permission = 'worldedit.brush';
     
-    use = (player: Player, session: PlayerSession) => {
+    use = async (player: Player, session: PlayerSession) => {
         const hit = PlayerUtil.traceForBlock(player, this.range, this.traceMask);
         if (!hit) {
             throw 'commands.wedit:jumpto.none';
         }
-        this.brush.apply(hit, session, this.mask);
+        await this.brush.apply(hit, session, this.mask);
     }
     
     constructor(brush: Brush, mask?: Mask) {

@@ -38,7 +38,7 @@ export class SphereBrush extends Brush {
         this.pattern = value;
     }
     
-    public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
-        this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
+    public async apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+        await this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
     }
 }

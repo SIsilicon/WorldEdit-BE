@@ -11,6 +11,8 @@ import { CuboidShape } from '../../shapes/cuboid.js';
 import { getWorldMinY, getWorldMaxY } from '../../util.js';
 import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
+import { sleep, startTime } from '@library/Minecraft.js';
+import { ASYNC_TIME_BUDGET } from '@config.js';
 
 const registerInformation = {
     name: 'smooth',
@@ -31,7 +33,7 @@ const registerInformation = {
     ]
 };
 
-export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask) {
+export async function smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask) {
     const range = shape.getRegion(loc);
     range[0].y = Math.max(getWorldMinY(session.getPlayer()), range[0].y);
     range[1].y = Math.min(getWorldMaxY(session.getPlayer()), range[1].y);
@@ -55,12 +57,19 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
         return arr;
     }
     
-    function modifyMap(arr: map, func: (x: number, z: number) => (number | null)) {
+    async function modifyMap(arr: map, func: (x: number, z: number) => (number | null)) {
+        const timer = startTime();
         for (let x = 0; x < arr.length; x++) {
             for (let z = 0; z < arr[x].length; z++) {
                 arr[x][z] = func(x, z);
+                if (timer.getTime() > ASYNC_TIME_BUDGET) {
+                    timer.end();
+                    await 1;
+                    timer.start();
+                }
             }
         }
+        timer.end();
     }
     
     const [sizeX, sizeZ] = [range[1].x-range[0].x+1, range[1].z-range[0].z+1];
@@ -73,7 +82,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
     const dim = player.dimension;
     const minY = getWorldMinY(player);
     const maxY = getWorldMaxY(player);
-    modifyMap(map, (x, z) => {
+    await modifyMap(map, (x, z) => {
         let yRange = shape.getYRange(x, z);
         if (yRange == null) return;
         
@@ -95,7 +104,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
     
     let back = createMap(sizeX, sizeZ);
     for (let i = 0; i < iter; i++) {
-        modifyMap(back, (x, z) => {
+        await modifyMap(back, (x, z) => {
             let c = getMap(map, x, z);
             if (c == null) return null;
             
@@ -104,7 +113,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
             height += (getMap(map, x, z+1) ?? c) * 0.2;
             return height;
         });
-        modifyMap(map, (x, z) => {
+        await modifyMap(map, (x, z) => {
             let c = getMap(back, x, z);
             if (c == null) return null;
             
@@ -119,7 +128,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
     
     history.record();
     history.addUndoStructure(range[0], range[1], 'any');
-    modifyMap(back, (x, z) => {
+    await modifyMap(back, (x, z) => {
         if (getMap(map, x, z) == null) return;
         
         const worldPos = new Vector(x, 0, z).add(range[0]);
@@ -156,7 +165,7 @@ export function smooth(session: PlayerSession, iter: number, shape: Shape, loc: 
     history.commit();
 }
 
-commandList['smooth'] = [registerInformation, (session, builder, args) => {
+commandList['smooth'] = [registerInformation, async (session, builder, args) => {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
@@ -165,7 +174,7 @@ commandList['smooth'] = [registerInformation, (session, builder, args) => {
     if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
         const size = Vector.sub(end, start).add(Vector.ONE);
         const shape = new CuboidShape(size.x, size.y, size.z);
-        smooth(session, args.get('iterations'), shape, start, args.get('mask'), null);
+        await smooth(session, args.get('iterations'), shape, start, args.get('mask'), null);
     }
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

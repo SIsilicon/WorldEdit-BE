@@ -64,4 +64,43 @@ world.events.tick.subscribe(() => {
     };
 });
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
+function sleep(ticks: number) {
+    return new Promise(resolve => setTickTimeout(resolve, ticks));
+}
+
+
+class Timer {
+    private time = Date.now();
+    private isActive = false;
+
+    start() {
+        if (!this.isActive) {
+            this.time = Date.now();
+            this.isActive = true;
+        }
+    }
+
+    getTime() {
+        if (this.isActive) {
+            return Date.now() - this.time;
+        }
+    }
+
+    end() {
+        if (this.isActive) {
+            this.isActive = false;
+            return Date.now() - this.time;
+        }
+    }
+}
+
+/**
+ * Creates a timer and starts it.
+ */
+function startTime() {
+    const timer = new Timer();
+    timer.start();
+    return timer;
+}
+
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, sleep, startTime, Timer };
