@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-12 19:58\n"
+"PO-Revision-Date: 2022-04-15 12:53\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -659,22 +659,22 @@ msgid "commands.wedit:unstuck.description"
 msgstr "Move out of blocks"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "There you go!"
+msgstr "Ahí estás!"
 
 msgid "commands.wedit:undo.description"
-msgstr "Undo a certain amount of actions"
+msgstr "Deshace una cierta cantidad de acciones"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr "Desechas %s ediciones disponibles"
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "Nada que deshacer."
 
 msgid "commands.wedit:up.description"
-msgstr "Move up a certain number of blocks"
+msgstr "Sube una determinada cantidad de bloques"
 
 msgid "commands.wedit:up.explain"
-msgstr "Whoosh!"
+msgstr "Ups!"
 
 msgid "commands.wedit:wall.description"
 msgstr "Generate a wall from your selection"
