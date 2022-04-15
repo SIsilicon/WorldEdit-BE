@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-15 13:55\n"
+"PO-Revision-Date: 2022-04-15 15:03\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -359,253 +359,253 @@ msgid "commands.wedit:brush.material.set"
 msgstr "Conjunto de material pincel."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Establecer rango del pincel."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "Establecer rango del pincel."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "Establecer máscara del pincel."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "Máscara del trazo desactivada."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Radio máximo del pincel: %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Este pincel no requiere un material para trabajar."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Desvinculaste el pincel de su ítem."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Borra el portapapeles"
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Borra tu historial de edición"
 
 msgid "commands.wedit.clearhistory.explain"
-msgstr "History cleared."
+msgstr "Se ha eliminado el historial de ediciones."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Encoge el área seleccionada"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "Se encogieron %s bloques de la región."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Copia la selección actual al portapapeles"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "%s bloques copiados."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Elimina la selección actual y lo coloca en el portapapeles"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "%s bloques copiados."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Genera un cilindro"
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Cambia la visibilidad de tu selección"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Tus selecciones ya no serán visibles."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Tus selecciones ahora serán visibles."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Expande el área seleccionada"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Expande verticalmente tu selección hasta los límites de altura del mundo"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "La región se ha expandido %s bloques."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Genera un contorno a partir de tu selección"
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Reflejar selección"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "%s bloques reflejados."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "¡No se puede voltear hacia arriba o hacia abajo!"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Establece la máscara global"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Máscara global deshabilitada."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Máscara global establecida."
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Genera un cilindro hueco"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Mostrando la página de ayuda %1 de %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "Establece la primera posición de tu selección a la posición del bloque en la que estás debajo"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "Establece la segunda posición de tu selección a la posición del bloque en la que estás debajo"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Genera una pirámide hueca"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Genera un cuadrado hueco"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Inserta el área seleccionada"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Teleport you to the top of the block you're looking at"
+msgstr "Te teletransporta a la parte superior del bloque al que estás mirando"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "Región insertada."
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "¡Puf!"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "No block in sight (or too far)!"
+msgstr "¡No hay bloques a la vista (o está muy lejos)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Give yourself a set of items to do common worldedit functions"
+msgstr "Te da un conjunto de herramientas para empezar a trabajar con WorldEdit"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Kit given."
+msgstr "Kit dado."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Crea una línea entre el primer y segundo punto de selección"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "este comando funciona con selecciones en forma de cubo"
 
 msgid "commands.wedit:limit.description"
-msgstr "Set the number of blocks you can change per action"
+msgstr "Establece el número de bloques que puedes cambiar por acción"
 
 msgid "commands.wedit:limit.set"
-msgstr "Block change limit set to %s."
+msgstr "Límite de bloques establecido a %s."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Your maximum allowable limit is %s."
+msgstr "Tu límite máximo permitido es de %s."
 
 msgid "commands.wedit:mask.description"
-msgstr "Set what kind of blocks a brush can affect, if any"
+msgstr "Establece que tipo de bloques puede afectar el pincel, si hay"
 
 msgid "commands.wedit:material.description"
-msgstr "Set what kind of blocks a brush should make"
+msgstr "Establece que bloques puede crear el pincel"
 
 msgid "commands.wedit:move.description"
-msgstr "Move the selection in a certain direction"
+msgstr "Mueve la selección a una cierta dirección"
 
 msgid "commands.wedit:move.explain"
-msgstr "Moved %s blocks."
+msgstr "%s bloques movidos."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Give yourself a navigation wand"
+msgstr "Te da una varita de navegación"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Sneak and use item: pass through walls; Use item without sneak: jump to location"
+msgstr "Agáchate y usa la varita para atravesar las paredes; úsalo sin agacharte para saltar a la ubicación deseada"
 
 msgid "commands.wedit:outset.description"
-msgstr "Outset the selection area"
+msgstr "Quita el área seleccionada"
 
 msgid "commands.wedit:outset.explain"
-msgstr "Region outset."
+msgstr "Región quitada."
 
 msgid "commands.wedit:paste.description"
-msgstr "Paste your clipboard into the world"
+msgstr "Pega lo que hay en el portapapeles"
 
 msgid "commands.wedit:paste.explain"
-msgstr "Pasted %s blocks."
+msgstr "%s bloques pegados."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Set the first position of your selection to the specified or current position"
+msgstr "Establece la primera posición de tu selección a la posición especificada o actual"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Set the second position of your selection to the specified or current position"
+msgstr "Establece la segunda posición de tu selección a la posición especificada o actual"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "Generate a pyramid"
+msgstr "Genera una pirámide"
 
 msgid "commands.wedit:range.description"
-msgstr "Set how far a brush can be used from"
+msgstr "Establece desde qué distancia que puede usar el pincel"
 
 msgid "commands.wedit:redo.description"
-msgstr "Redo a certain amount of actions"
+msgstr "Rehace una cierta cantidad de acciones"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Redid %s available edits."
+msgstr "Rehechas %s ediciones disponibles."
 
 msgid "commands.wedit:redo.none"
-msgstr "Nothing left to redo."
+msgstr "No hay nada que rehacer."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "Reemplaza ciertos bloques en la selección por otros bloques"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Rotate the selection"
+msgstr "Rotar selección"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Rotated %s blocks."
+msgstr "%s bloques rotados."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' is not an increment of 90°!"
+msgstr "¡'%s' no es un incremento de 90°!"
 
 msgid "commands.wedit:sel.clear"
-msgstr "Selection cleared."
+msgstr "Selección borrada."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+msgstr "Cubo: presiona mientras te agachas para punto 1, presiona sin agacharte para punto 2"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode"
+msgstr "Cambia el modo de selección"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "Selecciona dos esquinas del cubo"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "Modo de selección rápida de cubos"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+msgstr "Extender: presiona mientras te agachas para el punto de partida, presiona sin agacharte para extender"
 
 msgid "commands.wedit:set.description"
-msgstr "Fill the selection with a block pattern"
+msgstr "Llena la selección con un patrón de bloque"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "Cambia el área de selección"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "Región cambiada."
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Establece el tamaño de un pincel"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Repite los contenidos de la selección actual"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "%s bloques creados."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Suaviza la superficie dentro de la selección"
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "Genera una esfera"
 
 msgid "commands.wedit:thru.description"
 msgstr "Teleport through any wall you look at"
@@ -731,7 +731,7 @@ msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Trasladarse de un punto A a un punto B a veces puede ser un problema. Por fortuna, este complemento viene con un item llamado Varita de Navegación. Para obtenerlo, simplemente coloca el comando §e;navwand§r. Al tenerlo, podrás teletransportarte al interactuar con ella. ¿Necesitas ponerte al otro lado de una pared? Usa la varita mientras te agachas para traspasarlo. ¿Atascado en un bloque? ¡Usa la varita y te desatascarás!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aConsejo:§r§a Si no quieres usar la varita de navegación, sus funciones se pueden usar con los comandos §e;jumpto§r§a, §e;thru§r§a y §e;unstuck§r§a también§r."
+msgstr "§l§aConsejo:§r§a Si no quieres usar la varita de navegación, sus funciones se pueden reemplazar con los comandos §e;jumpto§r§a, §e;thru§r§a y §e;unstuck§r§a también§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Haciendo selecciones"
