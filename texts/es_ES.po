@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-15 16:19\n"
+"PO-Revision-Date: 2022-04-15 18:28\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -629,34 +629,34 @@ msgid "commands.wedit:tool.bind.navwand"
 msgstr "Has asignado la herramienta de navegación a %s."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "Has asignado la herramienta de selección lejana a %s."
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "Herramienta Stacker vinculada a %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "Obtén todo tipo de herramientas"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "La misma herramienta de selección, pero puede llegar más lejos"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "Herramienta de selección"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "Herramienta de navegación"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "Bloquear herramienta Stacker"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "Desvincula la herramienta activa en el inventario"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Has desvinculado la herramienta asignada."
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "Mueve afuera del bloque"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "Ahí estás!"
@@ -752,7 +752,7 @@ msgid "howtoplay.wedit:quick_start.text.10"
 msgstr "§71. Coloca piedra aquí, usa el selector de patrones ahí y luego usa \"Rellenar selección\". Un cubo de piedra será creado."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. Usa el selector de patrones en el aire (los jugadores que usan pantalla táctil deben mantener presionado con ella) y usa \"Llenar selección\" de nuevo para limpiar la piedra."
 
 msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
