@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-15 12:53\n"
+"PO-Revision-Date: 2022-04-15 13:55\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -677,79 +677,79 @@ msgid "commands.wedit:up.explain"
 msgstr "Ups!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "Genera un muro a partir de la selección"
 
 msgid "commands.wedit:wand.description"
-msgstr "Give yourself a selection wand"
+msgstr "Te da una varita para seleccionar"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos #2"
+msgstr "Agáchate y presiona el bloque para seleccionar la primera posición; y hazlo sin agacharte para sel. posición 2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "Comandos de WorldEdit"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "Obtén la versión de WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit version: %s"
+msgstr "Versión de WorldEdit: %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Quick Start"
+msgstr "Lo básico"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "Como usar WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Licencias"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "Como usar WorldEdit"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr "Bienvenido! Esta es una recreación del original WorldEdit para Minecraft: Java Edition. Este addon te ayudará a dar forma a tu mundo de Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "Antes que nada..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "Por defecto, los jugadores no podrán usar WorldEdit, sólo aquellos etiquetados con los permisos de WorldEdit pueden usar sus funciones. Para poder tener los permisos, deberás escribir §e/tag @s add worldedit§r en el chat. Ahora tienes acceso a los comandos que el addon puede ofrecerte."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aConsejo:§r§a Puedes dar permiso a otros jugadores cambiando el §e@s§r§a al nombre del jugador deseado. Si tiene espacios en su nombre deberás escribirlo entre comillas. Por ejemplo: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr "Ir a ubicaciones"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§aAviso:§r§a Los comandos funcionarán al colocar primero un punto y coma (;) en ves de una barra de dirección (/). En el futuro, Mojang podría agregar los comandos personalizados a Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "Trasladarse de un punto A a un punto B a veces puede ser un problema. Por fortuna, este complemento viene con un item llamado Varita de Navegación. Para obtenerlo, simplemente coloca el comando §e;navwand§r. Al tenerlo, podrás teletransportarte al interactuar con ella. ¿Necesitas ponerte al otro lado de una pared? Usa la varita mientras te agachas para traspasarlo. ¿Atascado en un bloque? ¡Usa la varita y te desatascarás!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aTip:§r§a If you don't want to use the navigation wand, these actions can also be done with the commands §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a as well§r."
+msgstr "§l§aConsejo:§r§a Si no quieres usar la varita de navegación, sus funciones se pueden usar con los comandos §e;jumpto§r§a, §e;thru§r§a y §e;unstuck§r§a también§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Making Selections"
+msgstr "Haciendo selecciones"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
+msgstr "Al igual que en el mod original, usas el item llamado Varita de Navegación. Con esto, podrás marcar fácilmente las regiones para editarlas y hacer varias operaciones. Para obtenerlo, agarra un hacha de madera o escribe el comando §e;wand§r. Las selecciones en WorldEdit son en forma de cubo, así que deberás marcar las dos esquinas del ese cubo. Mientras te agachas presiona el bloque con la varita donde está la primera esquina. Luego lo usas en otro bloque §lsin§r agacharte para marcar la segunda esquina. Si lo hiciste bien, deberás ver un resaltado de tu selección."
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
+msgstr "Si vas a usarlo en el aire, o donde no haya algún bloque, ubícate en la coordenada donde estaría ese bloque y usa los comandos §e;pos1§r o §e;pos2§r para marcar la primera y segunda esquina respectivamente. Recuerda que §lno es la misma coordenada§r estando parado en un bloque."
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Doing stuff with your selection"
+msgstr "Interactuar con tu selección"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr "Crea una selección modesta para trabajar y ten tu kit listo con §e;kit§r. Veamos algunas cosas que WorldEdit tiene para ofrecer."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. Coloca piedra aquí, usa el selector de patrones ahí y luego usa \"Rellenar selección\". Un cubo de piedra será creado."
 
 msgid "howtoplay.wedit:quick_start.text.11"
 msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
