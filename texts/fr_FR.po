@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-04-17 12:16\n"
+"PO-Revision-Date: 2022-04-17 13:12\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -161,25 +161,25 @@ msgid "worldedit.maskPicker.set"
 msgstr "Définir le masque sur le bloc: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Choisissez un élément à configurer."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Maintenez un objet pour le lier."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Choisissez le type de pinceau à créer."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Choisissez quel type d'outil à créer."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Choisissez la gamme de l'outil."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Choisissez la taille du pinceau."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Choisissez la hauteur du pinceau."
 
 msgid "worldedit.config.selectSmooth.brush"
 msgstr "Choose the smoothness of the brush."
@@ -263,13 +263,13 @@ msgid "worldedit.tool.noItem"
 msgstr "An item must be in your main hand."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Vous ne pouvez pas vous lier à ce type d'élément."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Cet élément n'est lié à aucun outil."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Vous n'avez pas la permission d'utiliser cet élément."
 
 msgid "worldedit.tool.fixedBind"
 msgstr "The tool on this item cannot be removed or replaced."
@@ -281,10 +281,10 @@ msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blocs ont été changés."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s blocs ont été créés."
 
 msgid "commands.generic.wedit:commandFail"
 msgstr "Impossible d'exécuter cette commande."
@@ -293,10 +293,10 @@ msgid "commands.generic.wedit:noSelection"
 msgstr "Faites d'abord une sélection."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' est un argument de direction invalide !"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Drapeau inattendu : %s"
 
 msgid "commands.generic.wedit:noClipboard"
 msgstr "Votre presse-papiers est vide. Copiez ou coupez une région d'abord."
@@ -416,16 +416,16 @@ msgid "commands.wedit:drawsel.disabled"
 msgstr "Your selections will no longer be visible."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Vos sélections seront maintenant visibles."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Agrandir la zone de sélection"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Élargir verticalement votre sélection aux limites de hauteur du monde"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "Région étendue de %s blocs."
 
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
@@ -437,22 +437,22 @@ msgid "commands.wedit:flip.explain"
 msgstr "Flipped %s blocks."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Impossible de retourner vers le haut ou vers le bas!"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Définir le masque global"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Masque global désactivé."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Masque global défini."
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Générer un cylindre creux"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Affichage de la page d'aide %1 de %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Set the first position of your selection to the position of the block you're facing"
@@ -638,13 +638,13 @@ msgid "commands.wedit:tool.description"
 msgstr "Get all sorts of tools"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "Outil de sélection, mais peut aller plus loin"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "Outil de sélection"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "Outil de navigation"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
@@ -704,13 +704,13 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Licence"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "Comment jouer : licence WorldEdit"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr "Bienvenue ! Ceci est un portage du mod original WorldEdit pour Minecraft: Java Edition. Cet addon vous aidera à façonner votre monde dans Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Avant tout le reste..,"
