@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-04-17 12:16\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Réglages du pinceau"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Paramètres de l'outil"
 
 msgid "item.wedit:sphere_button"
 msgstr "Pinceau sphérique"
@@ -80,13 +80,13 @@ msgid "item.wedit:smooth_button"
 msgstr "Pinceau doux"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Baguette de sélection"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Baguette de sélection de distance"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Baguette de navigation"
 
 msgid "item.wedit:stacker_button"
 msgstr "Stacker Tool"
@@ -116,16 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "Retour"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Précédent"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Suivant"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Supprimer"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Créer un nouvel outil"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Inclure les entités dans le presse-papier : §aActivé§r"
@@ -206,34 +206,34 @@ msgid "worldedit.config.creates"
 msgstr "Creates: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Taille : %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Hauteur : %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Lissage : %s"
 
 msgid "worldedit.config.range"
 msgstr "Range: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pinceau configuré."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pinceau configuré et ajouté à votre inventaire."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Configuration du pinceau annulée."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Outil configuré."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Outil configuré et ajouté à votre inventaire."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Configuration de l'outil annulée."
 
 msgid "worldedit.config.unbind"
 msgstr "Item unbound."
@@ -299,10 +299,10 @@ msgid "commands.generic.wedit:invalidFlag"
 msgstr "Unexpected flag: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Votre presse-papiers est vide. Copiez ou coupez une région d'abord."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Faites une sélection cuboïde d'abord."
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "Vous n'avez pas la permission d'exécuter cette commande."
@@ -311,16 +311,16 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Impossible de modifier les chunks non chargés!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Le nombre (%1) est trop grand ! Il doit être au plus (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "Le nombre (%1) est trop petit ! Il doit être au moins (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Trop de blocs!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Exécutez §e%s§7 tout en tenant l'objet pour le délier.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Sphere brush shape equipped (%s)."
@@ -779,10 +779,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Faites en sorte que le pinceau n'affecte que l'herbe avec §e;mask grass§r§7 en la tenant. Utilisez le pinceau maintenant pour faire un chemin de pierre."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Désactiver le pinceau avec §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Et maintenant?"
