@@ -15,7 +15,7 @@ const registerInformation = {
     ]
 };
 
-commandList['tracemask'] = [registerInformation, (session, builder, args) => {
+commandList['tracemask'] = [registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }

@@ -1,12 +1,11 @@
-import { Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+;
+import { set } from './set.js';
+import { commandList } from '../command_list.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
-import { set } from './set.js';
-import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'move',
@@ -26,7 +25,7 @@ const registerInformation = {
     ]
 };
 
-commandList['move'] = [registerInformation, (session, builder, args) => {
+commandList['move'] = [registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const dir = args.get('offset').getDirection(builder).mul(args.get('amount'));
     const dim = builder.dimension;
@@ -39,19 +38,25 @@ commandList['move'] = [registerInformation, (session, builder, args) => {
     assertCanBuildWithin(dim, movedStart, movedEnd);
     
     const history = session.getHistory();
-    history.record();
-    history.addUndoStructure(start, end, 'any');
-    history.addUndoStructure(movedStart, movedEnd, 'any');    
-    
-    Regions.save('tempMove', start, end, builder);
-    let count = set(session, new Pattern('air'));
-    Regions.load('tempMove', movedStart, builder);
-    count += Regions.getBlockCount('tempMove', builder);
-    Regions.delete('tempMove', builder);
-    
-    history.addRedoStructure(start, end, 'any');
-    history.addRedoStructure(movedStart, movedEnd, 'any');
-    history.commit();
+    const record = history.record();
+    try {
+
+        history.addUndoStructure(record, start, end, 'any');
+        history.addUndoStructure(record, movedStart, movedEnd, 'any');    
+        
+        Regions.save('tempMove', start, end, builder);
+        var count = yield* set(session, new Pattern('air'));
+        Regions.load('tempMove', movedStart, builder);
+        count += Regions.getBlockCount('tempMove', builder);
+        Regions.delete('tempMove', builder);
+        
+        history.addRedoStructure(record, start, end, 'any');
+        history.addRedoStructure(record, movedStart, movedEnd, 'any');
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
+    }
     
     return RawText.translate('commands.wedit:move.explain').with(count);
 }];

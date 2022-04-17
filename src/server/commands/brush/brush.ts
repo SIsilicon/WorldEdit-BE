@@ -1,14 +1,13 @@
 import { Player } from 'mojang-minecraft';
-import { Mask } from '@modules/mask.js';
-import { assertPermission } from '@modules/assert.js';
 import { commandList } from '../command_list.js';
 import { PlayerSession } from '../../sessions.js';
-
 import { SphereBrush } from '../../brushes/sphere_brush.js';
 import { CylinderBrush } from '../../brushes/cylinder_brush.js';
 import { SmoothBrush } from '../../brushes/smooth_brush.js';
-import { RawText } from '@modules/rawtext.js';
+import { assertPermission } from '@modules/assert.js';
+import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'brush',
@@ -123,7 +122,7 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
     return RawText.translate(msg).with(args.get('radius')).with(args.get('iterations'));
 };
 
-commandList['brush'] = [registerInformation, (session, builder, args) => {
+commandList['brush'] = [registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has('sphere')) {
         msg = sphere_command(session, builder, args);

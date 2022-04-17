@@ -47,7 +47,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hcyl'] = [registerInformation, (session, builder, args) => {
+commandList['hcyl'] = [registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return commandList['cyl'][1](session, builder, args);
+    return yield* commandList['cyl'][1](session, builder, args) as any;
 }];

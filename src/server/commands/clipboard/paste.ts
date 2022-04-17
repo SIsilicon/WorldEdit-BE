@@ -1,13 +1,10 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { assertClipboard, assertCanBuildWithin } from '@modules/assert.js';
-import { getSession } from '../../sessions.js';
-
-import { Regions } from '@modules/regions.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Vector } from '@modules/vector.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { assertClipboard, assertCanBuildWithin } from '@modules/assert';
+import { PlayerUtil } from '@modules/player_util';
+import { RawText } from '@modules/rawtext';
+import { Regions } from '@modules/regions';
+import { Vector } from '@modules/vector';
+import { BlockLocation } from 'mojang-minecraft';
+import { commandList } from '../command_list';
 
 const registerInformation = {
     name: 'paste',
@@ -24,7 +21,7 @@ const registerInformation = {
     ]
 };
 
-commandList['paste'] = [registerInformation, (session, builder, args) => {
+commandList['paste'] = [registerInformation, function* (session, builder, args) {
     assertClipboard(builder);
     
     let setSelection = args.has('s') || args.has('n');
@@ -41,26 +38,30 @@ commandList['paste'] = [registerInformation, (session, builder, args) => {
     let pasteEnd = Vector.add(pasteStart, Vector.sub(Regions.getSize('clipboard', builder), Vector.ONE)).toBlock();
     
     const history = session.getHistory();
-    history.record();
-    
-    if (pasteContent) {
-        assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
-        
-        history.addUndoStructure(pasteStart, pasteEnd, 'any');
-        if (Regions.load('clipboard', pasteStart, builder)) {
-            throw RawText.translate('commands.generic.wedit:commandFail');
+    const record = history.record();
+    try {
+        if (pasteContent) {
+            assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
+            
+            history.addUndoStructure(record, pasteStart, pasteEnd, 'any');
+            if (Regions.load('clipboard', pasteStart, builder)) {
+                throw RawText.translate('commands.generic.wedit:commandFail');
+            }
+            history.addRedoStructure(record, pasteStart, pasteEnd, 'any');
         }
-        history.addRedoStructure(pasteStart, pasteEnd, 'any');
+        
+        if (setSelection) {
+            session.selectionMode = session.selectionMode == 'extend' ? 'extend' : 'cuboid';
+            session.setSelectionPoint(0, pasteStart);
+            session.setSelectionPoint(1, pasteEnd);
+            history.recordSelection(record, session);
+        }
+        
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
     }
-    
-    if (setSelection) {
-        session.selectionMode = session.selectionMode == 'extend' ? 'extend' : 'cuboid';
-        session.setSelectionPoint(0, pasteStart);
-        session.setSelectionPoint(1, pasteEnd);
-        history.recordSelection(session);
-    }
-    
-    history.commit();
     
     if (pasteContent) {
         return RawText.translate('commands.wedit:paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);

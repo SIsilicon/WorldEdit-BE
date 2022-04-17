@@ -1,9 +1,9 @@
-import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
 import { ExpressionShape } from '../../shapes/expression.js';
-import { assertCanBuildWithin, assertCuboidSelection } from '@modules/assert.js';
 import { regionSize } from '../../util.js';
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { Pattern } from '@modules/pattern.js';
+import { RawText } from '@modules/rawtext.js';
 import { Vector } from '@modules/vector.js';
 
 const registerInformation = {
@@ -24,7 +24,7 @@ const registerInformation = {
     aliases: ['g']
 };
 
-commandList['gen'] = [registerInformation, async (session, builder, args) => {
+commandList['gen'] = [registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
@@ -34,7 +34,7 @@ commandList['gen'] = [registerInformation, async (session, builder, args) => {
     let isHollow = args.has('h');
     
     const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get('expr'));
-    const count = await exprShape.generate(Vector.min(start, end).toBlock(), pattern, null, session, {'hollow': isHollow});
+    const count = yield* exprShape.generate(Vector.min(start, end).toBlock(), pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

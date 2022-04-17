@@ -1,7 +1,5 @@
-import { printLocation } from '../../util.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 import { setPos2 } from './pos2.js';
 
 const registerInformation = {
@@ -10,7 +8,7 @@ const registerInformation = {
     description: 'commands.wedit:hpos2.description'
 };
 
-commandList['hpos2'] = [registerInformation, (session, builder, args) => {
+commandList['hpos2'] = [registerInformation, function (session, builder, args) {
     const hit = PlayerUtil.traceForBlock(builder);
     if (!hit) {
         throw 'commands.wedit:jumpto.none';

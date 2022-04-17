@@ -1,12 +1,10 @@
-import { Player, MinecraftBlockTypes } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { PlayerSession } from '../../sessions.js';
-import { Regions } from '@modules/regions.js';
 import { Mask } from '@modules/mask.js';
-import { commandList } from '../command_list.js';
 import { RawText } from '@modules/rawtext.js';
+import { Regions } from '@modules/regions.js';
+import { MinecraftBlockTypes } from 'mojang-minecraft';
+import { PlayerSession } from '../../sessions.js';
+import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'copy',
@@ -71,7 +69,7 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     return error;
 }
 
-commandList['copy'] = [registerInformation, (session, builder, args) => {
+commandList['copy'] = [registerInformation, function (session, builder, args) {
     if (copy(session, args)) {
         throw RawText.translate('commands.generic.wedit:commandFail');
     }

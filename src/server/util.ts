@@ -1,20 +1,10 @@
 import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
 import { CONTENT_LOG, DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { parsedBlock } from '@modules/parser.js';
-
-const logPending: string[] = [];
-let logMsg = '';
-world.events.entityCreate.subscribe(ev => {
-    if (ev.entity.id == 'wedit:console_log' && logMsg) {
-        ev.entity.triggerEvent('wedit:despawn');
-        const msg = logMsg;
-        logMsg = '';
-        throw '[INFO] ' + msg;
-    }
-});
+import { log } from '@library/utils/console.js';
+import { parsedBlock } from './modules/parser.js';
+import { PlayerUtil } from './modules/player_util.js';
+import { RawText } from './modules/rawtext.js';
 
 /**
  * Prints a message or object to chat for debugging.
@@ -47,26 +37,7 @@ export function printLog(...data: any[]) {
         return;
     }
     
-    let msg = '';
-    data.forEach(data => {
-        if (data instanceof BlockLocation || data instanceof Location) {
-            msg += ' ' + printLocation(<BlockLocation> data);
-        } else {
-            msg += ` ${data}`;
-        }
-    });
-    
-    try {
-        while (logPending.length) {
-            logMsg = logPending.shift();
-            world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-        }
-        logMsg = msg;
-        world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-    } catch {
-        logPending.push(logMsg);
-        logMsg = '';
-    }
+    log(...data);
 }
 
 /**

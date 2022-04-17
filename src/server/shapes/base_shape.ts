@@ -1,12 +1,11 @@
-import { BlockLocation } from 'mojang-minecraft';
-import { Pattern } from '@modules/pattern.js';
-import { Mask } from '@modules/mask.js';
-import { PlayerSession } from '../sessions.js';
-import { Vector } from '@modules/vector.js';
 import { assertCanBuildWithin } from '@modules/assert.js';
+import { Jobs } from '@modules/jobs.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { Vector } from '@modules/vector.js';
+import { BlockLocation } from 'mojang-minecraft';
+import { PlayerSession } from '../sessions.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
-import { Timer } from '@library/Minecraft.js';
-import { ASYNC_TIME_BUDGET } from '@config.js';
 
 export type shapeGenOptions = {
     hollow?: boolean,
@@ -65,13 +64,14 @@ export abstract class Shape {
     * @param session The session that's using this shape
     * @param options A group of options that can change how the shape is generated
     */
-    public async generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions) {
+    public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<void, number> {
         const [min, max] = this.getRegion(loc);
-        const dimension = session.getPlayer().dimension;
+        const player = session.getPlayer();
+        const dimension = player.dimension;
         
-        const minY = getWorldMinY(session.getPlayer());
+        const minY = getWorldMinY(player);
         min.y = Math.max(minY, min.y);
-        const maxY = getWorldMaxY(session.getPlayer());
+        const maxY = getWorldMaxY(player);
         max.y = Math.min(maxY, max.y);
         let canGenerate = max.y >= min.y;
         
@@ -79,52 +79,54 @@ export abstract class Shape {
         const blocksAffected = [];
         mask = mask ?? new Mask();
         
-        const timer = new Timer();
-        if (canGenerate) {
-            this.genVars = {};
-            this.prepGeneration(this.genVars, options);
-
-            const blocks = min.blocksBetween(max);
-            timer.start();
-            for (const block of blocks) {
-                if (timer.getTime() >= ASYNC_TIME_BUDGET) {
-                    timer.end();
-                    await 1;
-                    timer.start();
-                }
-                if (!session.globalMask.matchesBlock(block, dimension) || !mask.matchesBlock(block, dimension)) {
-                    continue;
-                }
-                
-                if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
-                    blocksAffected.push(block);
-                }
-            }
-            timer.end();
-        }
-        
+        const job = this.usedInBrush ? -1 : Jobs.startJob(player, 2);
         const history = session.getHistory();
-        history.record(this.usedInBrush);
-        
-        let count = 0;
-        if (canGenerate) {
-            history.addUndoStructure(min, max, blocksAffected);
-            timer.start();
-            for (const block of blocksAffected) {
-                if (timer.getTime() >= ASYNC_TIME_BUDGET) {
-                    timer.end();
-                    await 1;
-                    timer.start();
-                }
-                if (!pattern.setBlock(block, dimension)) {
-                    count++;
+        const record = history.record(this.usedInBrush);
+        try {
+            if (canGenerate) {
+                this.genVars = {};
+                this.prepGeneration(this.genVars, options);
+                
+                // TODO: Localize
+                Jobs.nextStep(job, 'Calculating shape...');
+                let progress = 0;
+                const blocks = min.blocksBetween(max);
+                for (const block of blocks) {
+                    yield;
+                    if (!session.globalMask.matchesBlock(block, dimension) || !mask.matchesBlock(block, dimension)) {
+                        continue;
+                    }
+                    
+                    if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
+                        blocksAffected.push(block);
+                    }
+                    // TODO: Localize
+                    Jobs.setProgress(job, ++progress / blocks.length);
                 }
             }
-            timer.end();
-            history.addRedoStructure(min, max, blocksAffected);
+            
+            Jobs.nextStep(job, 'Generating blocks...');
+            let count = 0;
+            if (canGenerate) {
+                let progress = 0;
+                history.addUndoStructure(record, min, max, blocksAffected);
+                for (const block of blocksAffected) {
+                    yield;
+                    if (!pattern.setBlock(block, dimension)) {
+                        count++;
+                    }
+                    Jobs.setProgress(job, ++progress / blocksAffected.length);
+                }
+                history.addRedoStructure(record, min, max, blocksAffected);
+            }
+            
+            history.commit(record);
+            return count;
+        } catch(e) {
+            history.cancel(record);
+            throw e;
+        } finally {
+            Jobs.finishJob(job);
         }
-        
-        history.commit();
-        return count;
     }
 }

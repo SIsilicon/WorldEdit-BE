@@ -1,8 +1,8 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
-import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
+import { Cardinal } from '@modules/directions.js';
+import { RawText } from '@modules/rawtext.js';
 import { Vector } from '@modules/vector.js';
+import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'contract',
@@ -44,7 +44,7 @@ const registerInformation = {
     ]
 };
 
-commandList['contract'] = [registerInformation, (session, builder, args) => {
+commandList['contract'] = [registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     const dir = (args.get('direction') as Cardinal).getDirection(builder);

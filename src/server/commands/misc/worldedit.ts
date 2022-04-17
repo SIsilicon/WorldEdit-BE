@@ -1,6 +1,6 @@
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 import { VERSION } from '@config.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'worldedit',
@@ -13,7 +13,7 @@ const registerInformation = {
     aliases: ['we']
 };
 
-commandList['worldedit'] = [registerInformation, (session, builder, args) => {
+commandList['worldedit'] = [registerInformation, function (session, builder, args) {
     if (args.has('version')) {
         return RawText.translate('commands.wedit:worldedit.version').with(VERSION);
     }

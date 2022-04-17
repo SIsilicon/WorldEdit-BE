@@ -1,7 +1,7 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { RawText } from '@modules/rawtext.js';
 import { Vector } from '@modules/vector.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'line',
@@ -15,7 +15,7 @@ const registerInformation = {
     ]
 };
 
-function bresenham3d(p1: Vector, p2: Vector) {
+function* bresenham3d(p1: Vector, p2: Vector): Generator<void, Vector[]> {
     const pointList: Vector[] = [];
     pointList.push(p1.clone());
     let d = p2.sub(p1).abs();
@@ -43,6 +43,7 @@ function bresenham3d(p1: Vector, p2: Vector) {
             sub1 += 2 * d.y;
             sub2 += 2 * d.z;
             pointList.push(p1);
+            yield;
         }
     }
     // Driving axis is Y-axis
@@ -63,6 +64,7 @@ function bresenham3d(p1: Vector, p2: Vector) {
             sub1 += 2 * d.x;
             sub2 += 2 * d.z;
             pointList.push(p1);
+            yield;
         }
     }
     // Driving axis is Z-axis
@@ -83,13 +85,14 @@ function bresenham3d(p1: Vector, p2: Vector) {
             sub1 += 2 * d.y;
             sub2 += 2 * d.x;
             pointList.push(p1);
+            yield;
         }
     }
     
     return pointList;
 }
 
-commandList['line'] = [registerInformation, (session, builder, args) => {
+commandList['line'] = [registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.selectionMode != 'cuboid') {
@@ -104,25 +107,30 @@ commandList['line'] = [registerInformation, (session, builder, args) => {
     
     if (session.selectionMode == 'cuboid') {
         var [pos1, pos2] = session.getSelectionPoints();
-        var start = Vector.min(pos1, pos2).toBlock();
-        var end = Vector.max(pos1, pos2).toBlock();
+        var [start, end] = session.getSelectionRange();
     }
     
     const history = session.getHistory();
-    history.record();
-    const points = bresenham3d(Vector.from(pos1), Vector.from(pos2)).map(p => p.toBlock());
-    // TODO: sort line blocks as if it came from start.blocksBetween(end).
-    history.addUndoStructure(start, end);
-    let count = 0;
-    for (const point of points) {
-        if (session.globalMask.matchesBlock(point, dim) && !pattern.setBlock(point, dim)) {
-            count++;
+    const record = history.record();
+    try {
+        const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.toBlock());
+        // TODO: sort line blocks as if it came from start.blocksBetween(end).
+        history.addUndoStructure(record, start, end);
+        var count = 0;
+        for (const point of points) {
+            if (session.globalMask.matchesBlock(point, dim) && !pattern.setBlock(point, dim)) {
+                count++;
+            }
+            yield;
         }
+        
+        history.recordSelection(record, session);
+        history.addRedoStructure(record, start, end);
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
     }
-    
-    history.recordSelection(session);
-    history.addRedoStructure(start, end);
-    history.commit();
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 }];

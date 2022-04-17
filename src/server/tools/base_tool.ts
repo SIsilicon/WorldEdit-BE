@@ -1,10 +1,8 @@
-import { BlockLocation, Player, TickEvent, PlayerInventoryComponentContainer } from 'mojang-minecraft';
+import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
-import { Server } from '@library/Minecraft.js';
-
-import { RawText } from '@modules/rawtext.js';
-import { PlayerUtil } from '@modules/player_util.js';
+import { Server, Thread } from '@library/Minecraft.js';
 import { print, printerr, printDebug } from '../util.js';
+import { RawText } from '@modules/rawtext.js';
 
 /**
  * The base tool class for handling tools that WorldEdit builders may use.
@@ -13,11 +11,11 @@ export abstract class Tool {
     /**
     * The function that's called when the tool is being used.
     */
-    readonly use: (player: Player, session: PlayerSession) => void | Promise<void>;
+    readonly use: (self: Tool, player: Player, session: PlayerSession) => void | Generator<void, void>;
     /**
     * The function that's called when the tool is being used on a block.
     */
-    readonly useOn: (player: Player, session: PlayerSession, loc: BlockLocation) => void | Promise<void>;
+    readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) => void;
     /**
      * The permission required for the tool to be used.
      */
@@ -35,6 +33,7 @@ export abstract class Tool {
     }
     
     private useOnTick = 0;
+    private lastUse = Date.now();
     
     process(session: PlayerSession, tick: number, loc?: BlockLocation): boolean {
         const player = session.getPlayer();
@@ -44,39 +43,39 @@ export abstract class Tool {
         }
         
         const onFail = (e: any) => {
-            const history = session.getHistory();
-            if (history.isRecording()) {
-                history.cancel();
-            }
             printerr(e.message ? `${e.name}: ${e.message}` : e, player, true);
             if (e.stack) {
                 printerr(e.stack, player, false);
             }
         }
-
-        this.currentPlayer = player;
-        let res;
-        try {
-            if (!Server.player.hasPermission(player, this.permission)) {
-                throw 'worldedit.tool.noPerm';
+        
+        new Thread().start(function* (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+            self.currentPlayer = player;
+            try {
+                if (!Server.player.hasPermission(player, self.permission)) {
+                    throw 'worldedit.tool.noPerm';
+                }
+                
+                if (Date.now() - self.lastUse > 200) {
+                    self.lastUse = Date.now();
+                    if (!loc) {
+                        if (self.useOnTick != tick) {
+                            if (self.use.constructor.name == 'GeneratorFunction') {
+                                yield* self.use(self, player, session) as Generator<void, void>;
+                            } else {
+                                self.use(self, player, session) as void;
+                            }
+                        }
+                    } else {
+                        self.useOnTick = tick;
+                        self.useOn(self, player, session, loc);
+                    }
+                }
+            } catch(e) {
+                onFail(e);
             }
-
-            if (!loc) {
-                if (this.useOnTick != tick)
-                    res = this.use(player, session);
-            } else {
-                this.useOnTick = tick;
-                res = this.useOn(player, session, loc);
-            }
-        } catch(e) {
-            onFail(e);
-        }
-
-        if (res instanceof Promise) {
-            res.finally(() => this.currentPlayer = null).catch(onFail);
-        } else {
-            this.currentPlayer = null
-        }
+            self.currentPlayer = null;
+        }, this, player, session, loc);
         return true;
     }
 }

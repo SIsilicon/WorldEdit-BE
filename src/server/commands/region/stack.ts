@@ -1,13 +1,10 @@
-import { Player, BlockLocation } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { regionSize, printDebug } from '../../util.js';
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { Pattern } from '@modules/pattern.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
-import { assertCanBuildWithin, assertCuboidSelection } from '@modules/assert.js';
-import { set } from './set.js';
+import { BlockLocation } from 'mojang-minecraft';
+import { regionSize } from '../../util.js';
+;
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -28,7 +25,7 @@ const registerInformation = {
     ]
 };
 
-commandList['stack'] = [registerInformation, (session, builder, args) => {
+commandList['stack'] = [registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get('count');
     const [start, end] = session.getSelectionRange();
@@ -48,16 +45,21 @@ commandList['stack'] = [registerInformation, (session, builder, args) => {
     }
     
     const history = session.getHistory();
-    history.record();
-    Regions.save('tempStack', start, end, builder);
-    for (const load of loads) {
-        history.addUndoStructure(load[0], load[1], 'any');
-        Regions.load('tempStack', load[0], builder);
-        history.addRedoStructure(load[0], load[1], 'any');
-        count += Regions.getBlockCount('tempStack', builder);
+    const record = history.record();
+    try {
+        Regions.save('tempStack', start, end, builder);
+        for (const load of loads) {
+            history.addUndoStructure(record, load[0], load[1], 'any');
+            Regions.load('tempStack', load[0], builder);
+            history.addRedoStructure(record, load[0], load[1], 'any');
+            count += Regions.getBlockCount('tempStack', builder);
+        }
+        Regions.delete('tempStack', builder);
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
     }
-    Regions.delete('tempStack', builder);
-    history.commit();
     
     return RawText.translate('commands.wedit:stack.explain').with(count);
 }];

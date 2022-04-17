@@ -54,7 +54,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hsphere'] = [registerInformation, (session, builder, args) => {
+commandList['hsphere'] = [registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return commandList['sphere'][1](session, builder, args);
+    return yield* commandList['sphere'][1](session, builder, args) as any;
 }];

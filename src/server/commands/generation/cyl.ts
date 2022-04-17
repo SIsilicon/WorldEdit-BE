@@ -1,8 +1,7 @@
-import { BlockLocation } from 'mojang-minecraft';
 import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 import { CylinderShape } from '../../shapes/cylinder.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -53,7 +52,7 @@ const registerInformation = {
     ]
 };
 
-commandList['cyl'] = [registerInformation, async (session, builder, args) => {
+commandList['cyl'] = [registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let radii: [number, number];
     let height: number = args.get('height');
@@ -68,7 +67,7 @@ commandList['cyl'] = [registerInformation, async (session, builder, args) => {
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? height/2 : 0, 0);
     
     const cylShape = new CylinderShape(height, ...<[number, number]>radii);
-    const count = await cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = yield* cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 }];

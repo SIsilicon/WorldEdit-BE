@@ -118,21 +118,25 @@ export function parseBlock(tokens: Tokens): parsedBlock {
     
     while (token = tokens.peek()) {
         switch (token.type) {
-            case 'colon':
-                token = tokens.next();
-                const peek = tokens.peek();
-                if (peek.type == 'id') {
-                    if (block.id.includes(':') || block.data != -1) throwTokenError(peek);
-                    block.id += ':' + peek.value;
+            case 'misc':
+                if (token.value == ':') {
                     token = tokens.next();
-                } else if (peek.type == 'number') {
-                    if (block.data != -1)
+                    const peek = tokens.peek();
+                    if (peek.type == 'id') {
+                        if (block.id.includes(':') || block.data != -1) throwTokenError(peek);
+                        block.id += ':' + peek.value;
+                        token = tokens.next();
+                    } else if (peek.type == 'number') {
+                        if (block.data != -1)
+                            throwTokenError(peek);
+                        block.data = peek.value;
+                        token = tokens.next();
+                        return finish();
+                    } else {
                         throwTokenError(peek);
-                    block.data = peek.value;
-                    token = tokens.next();
-                    return finish();
+                    }
                 } else {
-                    throwTokenError(peek);
+                    return finish();
                 }
                 break;
             case 'bracket':
@@ -180,17 +184,20 @@ export function parseBlockStates(tokens: Tokens): parsedBlock['states'] {
                     blockDataName = token.value;
                 }
                 break;
-            case 'equal':
-                if (expectingBlockValue) {
+            case 'misc':
+                if (token.value == '=') {
+                    if (expectingBlockValue) {
+                        throwTokenError(token);
+                    }
+                    expectingBlockValue = true;
+                } else if (token.value == ',') {
+                    if (blockDataValue == null) {
+                        throwTokenError(token);
+                    }
+                    pushDataTag();
+                } else {
                     throwTokenError(token);
                 }
-                expectingBlockValue = true;
-                break;
-            case 'comma':
-                if (blockDataValue == null) {
-                    throwTokenError(token);
-                }
-                pushDataTag();
                 break;
             case 'bracket':
                 if (token.value != ']' || token.value == ']' && blockDataValue == null) {

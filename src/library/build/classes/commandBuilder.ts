@@ -1,7 +1,7 @@
-import { BeforeChatEvent, Player, BlockLocation, Location } from "mojang-minecraft";
+import { Player, BlockLocation, Location } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
-import { RawText } from "@modules/rawtext.js";
+import { RawText } from '@modules/rawtext.js';
 import { Server } from "../../Minecraft.js";
 
 //import { printDebug } from "@modules/../util.js"
@@ -96,7 +96,7 @@ export class CommandBuilder {
     *  server.broadcast('Pong!', data.sender.nameTag);
     * });
     */
-    register(register: registerInformation, callback: (data: BeforeChatEvent, args: Map<string, any>) => void): void {
+    register(register: registerInformation, callback: storedRegisterInformation['callback']): void {
         this._registrationInformation.push({
             name: register.name.toLowerCase(),
             aliases: register.aliases ? register.aliases.map(v => v.toLowerCase()) : null,

@@ -4,6 +4,9 @@ export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, s
 import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
 export { compressNumber, formatNumber, MS, rainbowText };
 
+import { Thread } from "./utils/multithreading.js";
+export { Thread };
+
 import Database from "./build/classes/databaseBuilder.js";
 export { Database };
 
@@ -13,8 +16,9 @@ import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
 
-import { RawText } from '@modules/rawtext.js';
-import { printDebug, printerr } from '@modules/../util.js';
+import { printDebug, printerr } from '../server/util.js';
+import { RawText } from "@modules/rawtext.js";
+import { log } from "./utils/console.js";
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
@@ -41,8 +45,7 @@ class ServerBuild extends ServerBuilder {
             if(!data.message.startsWith(this.command.prefix)) return;
             data.cancel = true;
             let msg = data.message;
-            
-            //const args = data.message.slice(this.command.prefix.length).trim().split(/\s+/);
+            data.message = data.message.substring(this.command.prefix.length);
             
             function regexIndexOf(text: string, re: RegExp, index: number) {
                 const i = text.slice(index).search(re);

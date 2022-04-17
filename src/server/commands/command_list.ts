@@ -1,12 +1,12 @@
 import { BeforeChatEvent, Player } from 'mojang-minecraft';
 import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { assertPermission } from '@modules/assert.js';
-import { PlayerSession, getSession } from '../sessions.js';
+import { PlayerSession } from '../sessions.js';
 import { printToActionBar } from './register_commands.js';
+import { assertPermission } from '@modules/assert.js';
+import { RawText } from '@modules/rawtext.js';
 
-export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => string | RawText | Promise<RawText|string>;
+export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<void, RawText | string> | RawText | string;
 
 export let commandList: {
     [k: string]: [
@@ -26,7 +26,7 @@ export function callCommand(player: Player, command: string, args: string[] = []
     const registration = Server.command.getRegistration(command);
     assertPermission(player, registration.permission);
     printToActionBar();
-    registration.callback(<BeforeChatEvent> {
+    return registration.callback(<BeforeChatEvent> {
         cancel: true,
         sender: player,
         message: `;${command} ${args.join(' ')}`

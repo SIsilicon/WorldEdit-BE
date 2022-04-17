@@ -1,10 +1,13 @@
-import { Server, Timer } from '@library/Minecraft.js';
+import { Server, Thread, Timer } from '@library/Minecraft.js';
 import { commandList } from './command_list.js';
 import { getSession, hasSession } from '../sessions.js';
+import { print, printerr } from '../util.js';
+import { error, log, warn } from '@library/utils/console.js';
+import { RawText } from '@modules/rawtext.js';
+import { Cardinal } from '@modules/directions.js';
+import { Expression } from '@modules/expression.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { Cardinal } from '@modules/directions.js';
-import { print, printerr } from '../util.js';
 import { COMMAND_PREFIX } from '@config.js';
 
 Server.command.addCustomArgType('Mask', Mask);
@@ -76,10 +79,6 @@ import './brush/material.js';
 import './history/undo.js';
 import './history/redo.js';
 import './history/clearhistory.js';
-import { Expression } from '@modules/expression.js';
-import { TicksPerSecond } from 'mojang-minecraft';
-import { RawText } from '@modules/rawtext.js';
-import { error, log, warn } from '@library/utils/console.js';
 
 Server.command.prefix = COMMAND_PREFIX;
 let _printToActionBar = false;
@@ -96,38 +95,33 @@ for (const name in commandList) {
             return;
         }
         
-        const timer = new Timer();
-        const errHandler = (e: any) => {
-            const history = getSession(data.sender).getHistory();
-            if (history.isRecording()) {
-                history.cancel();
+        const thread = new Thread();
+        thread.start(function* (msg, player, args) {
+            const timer = new Timer();
+            try {
+                timer.start();
+                log(`Processing command '${msg}' for '${player.name}'`);
+                let result: string | RawText;
+                if (command[1].constructor.name == 'GeneratorFunction') {
+                    result = yield* command[1](getSession(player), player, args) as Generator<void, RawText | string>;
+                } else {
+                    result = command[1](getSession(player), player, args) as string | RawText;
+                }
+                const time = timer.end();
+                log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                print(result, player, toActionBar);
             }
-            const errMsg = e.message ? `${e.name}: ${e.message}` : e;
-            error(`Command '${data.message}' failed for '${data.sender.name}' with msg: ${errMsg}`);
-            printerr(errMsg, data.sender, toActionBar);
-            if (e.stack) {
-                printerr(e.stack, data.sender, false);
+            catch (e) {
+                const errMsg = e.message ? `${e.name}: ${e.message}` : e;
+                error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                printerr(errMsg, player, toActionBar);
+                if (e.stack) {
+                    printerr(e.stack, player, false);
+                }
             }
-        }
-        const onFinish = (msg: string|RawText) => {
-            const time = timer.end();
-            log(`Time taken to execute: ${time}ms (${time/1000.0} secs)`);
-            print(msg, player, toActionBar);
-        }
+        }, data.message, data.sender, args);
 
-        try {
-            timer.start();
-            log(`Processing command '${data.message}' for '${data.sender.name}'`);
-            const msg = command[1](getSession(player), player, args);
-            
-            if (msg instanceof Promise) {
-                msg.then(onFinish).catch(errHandler);
-            } else {
-                onFinish(msg);
-            }
-        } catch (e) {
-            errHandler(e);
-        }
+        return thread;
     });
 }
 

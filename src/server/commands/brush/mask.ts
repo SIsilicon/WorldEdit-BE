@@ -15,7 +15,7 @@ const registerInformation = {
     ]
 };
 
-commandList['mask'] = [registerInformation, (session, builder, args) => {
+commandList['mask'] = [registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }

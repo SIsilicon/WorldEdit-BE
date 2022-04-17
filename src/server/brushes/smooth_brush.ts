@@ -1,10 +1,11 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { Mask } from '@modules/mask.js';
-import { Pattern } from '@modules/pattern.js';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { CuboidShape } from '../shapes/cuboid.js';
 import { smooth } from '../commands/region/smooth.js';
+import { Jobs } from '@modules/jobs.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
 
 /**
  * This smooths the terrain in the world.
@@ -40,8 +41,9 @@ export class SmoothBrush extends Brush {
         throw 'commands.generic.wedit:noBrushMaterial';
     }
     
-    public async apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+    public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
         const point = loc.offset(-this.size, -this.size, -this.size);
-        await smooth(session, this.iterations, this.shape, point, this.mask, mask);
+        const job = Jobs.startJob(session.getPlayer(), 2 + 2 * this.iterations);
+        yield* smooth(session, this.iterations, this.shape, point, this.mask, mask, job);
     }
 }

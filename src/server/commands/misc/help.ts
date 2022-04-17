@@ -1,6 +1,5 @@
 import { Server } from '@library/Minecraft.js';
 import { commandList } from '../command_list.js';
-import { print } from '../../util.js';
 import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
@@ -30,7 +29,7 @@ const registerInformation = {
     aliases: ['?']
 };
 
-commandList['help'] = [registerInformation, (session, builder, args) => {
+commandList['help'] = [registerInformation, function (session, builder, args) {
     const cmdList = Server.command.getAllRegistation();
     
     // Show a page of the list of available WorldEdit commands

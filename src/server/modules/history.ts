@@ -16,20 +16,24 @@ type selectionEntry = {
     points: BlockLocation[]
 };
 
+type historyPoint = {
+    undo: historyEntry[];
+    redo: historyEntry[];
+    selection: [selectionEntry, selectionEntry] | selectionEntry | 'none';
+    
+    blocksChanged: number;
+    brush: boolean;
+};
+
 let historyId = Date.now();
+let historyPointId = 0;
 
 export class History {
-    private recording = false;
-    private recordingBrush = false;
-    private blocksChanged = 0;
+    private historyPoints = new Map<number, historyPoint>();
 
-    private recordingUndo: historyEntry[];
-    private recordingRedo: historyEntry[];
-    private recordingSelection: [selectionEntry, selectionEntry] | selectionEntry | 'none';
-    
     private undoStructures: historyEntry[][] = [];
     private redoStructures: historyEntry[][] = [];
-    private selectionHistory: (typeof this.recordingSelection)[] = [];
+    private selectionHistory: historyPoint['selection'][] = [];
     private historyIdx = -1;
     
     private player: Player;
@@ -43,20 +47,22 @@ export class History {
     }
 
     record(brush = false) {
-        this.assertNotRecording();
-        this.recording = true;
-        this.recordingBrush = brush;
-        this.blocksChanged = 0;
-
-        this.recordingUndo = [];
-        this.recordingRedo = [];
-        this.recordingSelection = 'none';
+        let historyPoint = {
+            undo: [] as historyEntry[],
+            redo: [] as historyEntry[],
+            selection: 'none',
+            
+            blocksChanged: 0,
+            brush: brush
+        } as historyPoint;
+        this.historyPoints.set(++historyPointId, historyPoint);
+        return historyPointId;
     }
 
-    commit() {
-        this.assertRecording();
-        this.recording = false;
-        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+    commit(historyPoint: number) {
+        const point = this.historyPoints.get(historyPoint);
+        this.historyPoints.delete(historyPoint);
+        if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
             return;
         }
 
@@ -66,9 +72,9 @@ export class History {
         }
         this.undoStructures.length = this.redoStructures.length = this.selectionHistory.length = this.historyIdx + 1;
         
-        this.undoStructures[this.historyIdx] = this.recordingUndo;
-        this.redoStructures[this.historyIdx] = this.recordingRedo;
-        this.selectionHistory[this.historyIdx] = this.recordingSelection;
+        this.undoStructures[this.historyIdx] = point.undo;
+        this.redoStructures[this.historyIdx] = point.redo;
+        this.selectionHistory[this.historyIdx] = point.selection;
         
         while (this.historyIdx > MAX_HISTORY_SIZE - 1) {
             this.deleteHistoryRegions(0);
@@ -79,61 +85,61 @@ export class History {
         }
     }
 
-    cancel() {
-        this.assertRecording();
-        this.recording = false;
+    cancel(historyPoint: number) {
+        const point = this.historyPoints.get(historyPoint);
+        this.historyPoints.delete(historyPoint);
 
-        for (const struct of this.recordingUndo) {
+        for (const struct of point.undo) {
             Regions.delete(struct.name, this.player);
         }
-        for (const struct of this.recordingRedo) {
+        for (const struct of point.redo) {
             Regions.delete(struct.name, this.player);
         }
     }
 
-    addUndoStructure(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
-        this.assertRecording();
-        this.blocksChanged += regionVolume(start, end);
+    addUndoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
+        const point = this.historyPoints.get(historyPoint);
+        point.blocksChanged += regionVolume(start, end);
         // We test the change limit here,
-        if (this.blocksChanged > getSession(this.player).changeLimit) {
+        if (point.blocksChanged > getSession(this.player).changeLimit) {
             throw 'commands.generic.wedit:blockLimit';
         }
-
-
-        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+        
+        if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
             return;
         }
         
-        const structName = this.processRegion(start, end, blocks);
-        this.recordingUndo.push({
+        const structName = this.processRegion(historyPoint, start, end, blocks);
+        point.undo.push({
             'name': structName,
             'location': Vector.min(start, end).toBlock()
         })
     }
 
-    addRedoStructure(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
+    addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
+        const point = this.historyPoints.get(historyPoint);
         this.assertRecording();
-        if (this.recordingBrush && !BRUSH_HISTORY_MODE || !this.recordingBrush && !HISTORY_MODE) {
+        if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
             return;
         }
         
-        const structName = this.processRegion(start, end, blocks);
-        this.recordingRedo.push({
+        const structName = this.processRegion(historyPoint, start, end, blocks);
+        point.redo.push({
             'name': structName,
             'location': Vector.min(start, end).toBlock()
         })
     }
     
-    recordSelection(session: PlayerSession) {
-        this.assertRecording();
-        if (this.recordingSelection == 'none') { 
-            this.recordingSelection = {
+    recordSelection(historyPoint: number, session: PlayerSession) {
+        const point = this.historyPoints.get(historyPoint);
+        if (point.selection == 'none') { 
+            point.selection = {
                 type: session.selectionMode,
                 points: session.getSelectionPoints()
             }
-        } else if ('points' in this.recordingSelection) {
-            this.recordingSelection = [
-                this.recordingSelection,
+        } else if ('points' in point.selection) {
+            point.selection = [
+                point.selection,
                 {
                     type: session.selectionMode,
                     points: session.getSelectionPoints()
@@ -222,7 +228,7 @@ export class History {
     }
     
     isRecording() {
-        return this.recording;
+        return this.historyPoints.size != 0;
     }
     
     private deleteHistoryRegions(index: number) {
@@ -234,10 +240,11 @@ export class History {
         }
     }
 
-    private processRegion(start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any') {
+    private processRegion(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any') {
         const tempRegion = 'tempHistoryVoid';
+        const point = this.historyPoints.get(historyPoint);
         let structName: string;
-        const recordBlocks = Array.isArray(blocks) && (this.recordingBrush && BRUSH_HISTORY_MODE == 2 || !this.recordingBrush && HISTORY_MODE == 2);
+        const recordBlocks = Array.isArray(blocks) && (point.brush && BRUSH_HISTORY_MODE == 2 || !point.brush && HISTORY_MODE == 2);
         const dim = this.player.dimension;
         
         const finish = () => {
@@ -270,12 +277,12 @@ export class History {
             structName = 'history' + historyId++;
             if (Regions.save(structName, start, end, this.player)) {
                 finish();
-                this.cancel();
+                this.cancel(historyPoint);
                 throw new Error('Failed to save history!');
             }
         } catch (err) {
             finish();
-            this.cancel();
+            this.cancel(historyPoint);
             throw err;
         }
 
@@ -284,13 +291,13 @@ export class History {
     }
 
     private assertRecording() {
-        if (!this.recording) {
+        if (!this.isRecording()) {
             throw new Error('History was not being recorded!');
         }
     }
 
     private assertNotRecording() {
-        if (this.recording) {
+        if (this.isRecording()) {
             throw new Error('History was still being recorded!');
         }
     }

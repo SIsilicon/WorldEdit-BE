@@ -6,7 +6,7 @@ import { Tools } from './tool_manager.js';
 
 class SelectionTool extends Tool {
     permission = 'worldedit.selection.pos';
-    useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
+    useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
         callCommand(player, player.isSneaking ? 'pos1' : 'pos2',
             [`${loc.x}`, `${loc.y}`, `${loc.z}`]
         );
@@ -16,7 +16,7 @@ Tools.register(SelectionTool, 'selection_wand');
 
 class FarSelectionTool extends Tool {
     permission = 'worldedit.selection.hpos';
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         callCommand(player, player.isSneaking ? 'hpos1' : 'hpos2');
     }
 }

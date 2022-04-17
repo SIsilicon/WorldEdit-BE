@@ -1,21 +1,23 @@
 import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
-import { History } from '@modules/history.js';
 import { getWorldMaxY, getWorldMinY, printDebug, printLog, regionVolume } from './util.js';
 import { Server, setTickTimeout } from '@library/Minecraft.js';
-import { Pattern } from '@modules/pattern.js';
-import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
-import { SettingsHotbar } from '@modules/settings_hotbar.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
 import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
 import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
+import { History } from '@modules/history.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@modules/rawtext.js';
+import { Regions } from '@modules/regions.js';
+import { SettingsHotbar } from '@modules/settings_hotbar.js';
+import { Vector } from '@modules/vector.js';
+import { log } from '@library/utils/console.js';
 
 // TODO: Add other selection modes
-export type selectMode = 'cuboid' | 'extend';
+export const selectModes = ['cuboid', 'extend'] as const;
+export type selectMode = typeof selectModes[number];
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -89,6 +91,12 @@ export class PlayerSession {
         this.bindTool('navigation_wand', NAV_WAND_ITEM);
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
+        }
+
+        for (const tag of player.getTags()) {
+            if (tag.startsWith('wedit:defaultTag_')) {
+                this.selectionMode = tag.split('_', 2)[1] as selectMode;
+            }
         }
     }
     

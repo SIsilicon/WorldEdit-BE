@@ -1,4 +1,5 @@
 import { Server } from '@library/Minecraft.js';
+import { RawText } from '@modules/rawtext.js';
 import { commandList } from '../command_list.js';
 
 const registerInformation = {
@@ -17,7 +18,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hpyramid'] = [registerInformation, (session, builder, args) => {
+commandList['hpyramid'] = [registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return commandList['pyramid'][1](session, builder, args);
+    return yield* commandList['pyramid'][1](session, builder, args) as any;
 }];

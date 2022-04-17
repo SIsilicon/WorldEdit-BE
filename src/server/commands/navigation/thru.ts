@@ -1,10 +1,10 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Cardinal } from '@modules/directions.js';
 import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
+import { Cardinal } from '@modules/directions.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'thru',
@@ -12,7 +12,7 @@ const registerInformation = {
     description: 'commands.wedit:thru.description'
 };
 
-commandList['thru'] = [registerInformation, (session, builder, args) => {
+commandList['thru'] = [registerInformation, function (session, builder, args) {
     const dimension = builder.dimension;
     const blockLoc = PlayerUtil.getBlockLocation(builder);
     
@@ -24,7 +24,7 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
 
     let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);
     if (isSpaceEmpty(testLoc)) {
-        throw RawText.translate('commands.wedit:thru.none');
+        throw 'commands.wedit:thru.none';
     }
 
     let canGoThrough = false;
@@ -38,8 +38,8 @@ commandList['thru'] = [registerInformation, (session, builder, args) => {
 
     if (canGoThrough) {
         Server.runCommand(`tp @s ${printLocation(testLoc, false)}`, builder);
-        return RawText.translate('commands.wedit:thru.explain');
+        return 'commands.wedit:thru.explain';
     } else {
-        throw RawText.translate('commands.wedit:thru.obstructed');
+        throw 'commands.wedit:thru.obstructed';
     }
 }];

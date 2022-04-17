@@ -14,7 +14,7 @@ const registerInformation = {
     ]
 };
 
-commandList['size'] = [registerInformation, (session, builder, args) => {
+commandList['size'] = [registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }

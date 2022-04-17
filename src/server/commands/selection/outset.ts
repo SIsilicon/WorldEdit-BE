@@ -1,6 +1,6 @@
-import { commandList } from '../command_list.js';
 import { assertCuboidSelection } from '@modules/assert.js';
 import { Vector } from '@modules/vector.js';
+import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'outset',
@@ -20,7 +20,7 @@ const registerInformation = {
     ]
 };
 
-commandList['outset'] = [registerInformation, (session, builder, args) => {
+commandList['outset'] = [registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     let dir = points[1].sub(points[0]);

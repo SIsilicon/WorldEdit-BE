@@ -13,7 +13,7 @@ const registerInformation = {
     ]
 };
 
-commandList['material'] = [registerInformation, (session, builder, args) => {
+commandList['material'] = [registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }

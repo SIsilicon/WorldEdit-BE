@@ -1,19 +1,20 @@
 import { Player, Dimension, world, Entity, Location, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { EventEmitter } from '@library/build/classes/eventEmitter.js';
-import { Vector } from './vector.js';
 import { Mask } from './mask.js';
 import { printDebug } from '../util.js';
 import { NAV_WAND_DISTANCE } from '@config.js';
+import { RawText } from './rawtext.js';
 
 type dimension = 'overworld' | 'nether' | 'the end';
 
 /**
- * This singleton holds utility functions for players.
+ * This singleton holds utility and miscellaneous functions for players.
  */
 class PlayerHandler extends EventEmitter {
     private playerDimensions = new Map<string, [boolean, Dimension, dimension]>();
-    
+    private jobs = new Map<number, [Player, string, number]>();
+
     constructor() {
         super();
         Server.on('tick', ev => {

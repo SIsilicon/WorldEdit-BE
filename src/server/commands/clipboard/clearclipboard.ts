@@ -1,6 +1,5 @@
 import { Regions } from '@modules/regions.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'clearclipboard',
@@ -8,9 +7,9 @@ const registerInformation = {
     description: 'commands.wedit:clearclipboard.description'
 };
 
-commandList['clearclipboard'] = [registerInformation, (session, builder, args) => {
+commandList['clearclipboard'] = [registerInformation, function (session, builder, args) {
     if (Regions.delete('clipboard', builder)) {
-        throw RawText.translate('commands.generic.wedit:commandFail');
+        throw 'commands.generic.wedit:commandFail';
     }
-    return RawText.translate('commands.wedit:clearclipboard.explain');
+    return 'commands.wedit:clearclipboard.explain';
 }];

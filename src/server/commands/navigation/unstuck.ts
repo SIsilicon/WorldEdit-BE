@@ -1,7 +1,6 @@
-import { Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@modules/rawtext.js';
 import { printLocation } from '../../util.js';
 import { commandList } from '../command_list.js';
 
@@ -12,7 +11,7 @@ const registerInformation = {
     aliases: ['!']
 };
 
-commandList['unstuck'] = [registerInformation, (session, builder, args) => {
+commandList['unstuck'] = [registerInformation, function (session, builder, args) {
     let blockLoc = PlayerUtil.getBlockLocation(builder);
     const dimension = builder.dimension;
     do {

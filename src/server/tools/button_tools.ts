@@ -1,23 +1,20 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js'
 import { PlayerSession } from '../sessions.js';
-import { printDebug } from '../util.js';
 import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-
-import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@modules/rawtext.js';
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
     
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: CommandButton, player: Player, session: PlayerSession) {
         session.usingItem = true;
-        if (typeof this.command == 'string') {
-            callCommand(player, this.command);
+        if (typeof self.command == 'string') {
+            callCommand(player, self.command);
         } else {
-            callCommand(player, this.command[0], this.command.slice(1));
+            callCommand(player, self.command[0], self.command.slice(1));
         }
         session.usingItem = false;
     }
@@ -56,13 +53,13 @@ Tools.register(RedoTool, 'redo', 'wedit:redo_button');
 class RotateCWTool extends Tool {
     permission = 'worldedit.region.rotate';
     
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         session.usingItem = true;
         const args = ['90', '-s'];
         if (player.isSneaking) {
             args.push('-o')
         }
-        callCommand(player, 'rotate', args);
+        callCommand(player, 'rotate', args).join();
         session.usingItem = false;
     }
 }
@@ -71,7 +68,7 @@ Tools.register(RotateCWTool, 'rotate_cw', 'wedit:rotate_cw_button');
 class RotateCCWTool extends Tool {
     permission = 'worldedit.region.rotate';
     
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         session.usingItem = true;
         const args = ['-90', '-s'];
         if (player.isSneaking) {
@@ -86,7 +83,7 @@ Tools.register(RotateCCWTool, 'rotate_ccw', 'wedit:rotate_ccw_button');
 class FlipTool extends Tool {
     permission = 'worldedit.region.flip';
     
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         session.usingItem = true;
         const args = ['-s'];
         if (player.isSneaking) {
@@ -99,7 +96,7 @@ class FlipTool extends Tool {
 Tools.register(FlipTool, 'flip', 'wedit:flip_button');
 
 class SpawnGlassTool extends Tool {
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
                 throw RawText.translate('worldedit.spawnGlass.error');
         }
@@ -110,7 +107,7 @@ Tools.register(SpawnGlassTool, 'spawn_glass', 'wedit:spawn_glass');
 class SelectionFillTool extends Tool {
     permission = 'worldedit.region.replace';
     
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         session.usingItem = true;
         if (session.globalMask.empty()) {
             callCommand(player, 'set', ['air']);
@@ -141,7 +138,7 @@ class DrawLineTool extends CommandButton {
 Tools.register(DrawLineTool, 'draw_line', 'wedit:draw_line');
 
 class ConfigTool extends Tool {
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         session.enterSettings();
     }
 }

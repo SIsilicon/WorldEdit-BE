@@ -4,8 +4,8 @@ import './commands/register_commands.js';
 import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { print, printDebug, printLog } from './util.js';
-import { PlayerUtil } from '@modules/player_util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
+import { PlayerUtil } from '@modules/player_util.js';
 
 Server.setMaxListeners(256);
 let activeBuilders: Player[] = [];
@@ -69,14 +69,6 @@ function makeBuilder(player: Player) {
     if (hasWorldEdit(player)) {
         getSession(player);
         activeBuilders.push(player);
-        
-        // remove any stray tags to prevent accidental item activation.
-        for (const tag of player.getTags()) {
-            if (tag.startsWith('wedit:')) {
-                player.removeTag(tag);
-            }
-        }
-        
         printLog(`${player.name} has been given worldedit permissions.`);
         return false;
     }

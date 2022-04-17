@@ -5,14 +5,15 @@ import { Regions } from './regions.js';
 import { Vector } from './vector.js';
 import { PlayerSession } from '../sessions.js';
 import { canPlaceBlock, printDebug } from '../util.js';
+import { History } from './history.js';
 
-export function assertPermission(player: Player, perm: string) {
+function assertPermission(player: Player, perm: string) {
     if (!Server.player.hasPermission(player, perm)) {
         throw 'commands.generic.wedit:noPermission';
     }
 }
 
-export function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: BlockLocation) {
+function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: BlockLocation) {
     const minChunk = Vector.from(min).mul(1/16).floor().mul(16);
     const maxChunk = Vector.from(max).mul(1/16).ceil().mul(16);
     
@@ -24,20 +25,29 @@ export function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: Bl
     }
 }
 
-export function assertClipboard(player: Player) {
+function assertClipboard(player: Player) {
     if (!Regions.has('clipboard', player)) {
         throw RawText.translate('commands.generic.wedit:noClipboard');
     }
 }
 
-export function assertSelection(session: PlayerSession) {
+function assertSelection(session: PlayerSession) {
     if (session.getSelectedBlockCount() == 0) {
         throw RawText.translate('commands.generic.wedit:noSelection');
     }
 }
 
-export function assertCuboidSelection(session: PlayerSession) {
+function assertCuboidSelection(session: PlayerSession) {
     if (session.getSelectedBlockCount() == 0 || (session.selectionMode != 'cuboid' && session.selectionMode != 'extend')) {
         throw RawText.translate('commands.generic.wedit:noCuboidSelection');
     }
 }
+
+// TODO: Localize
+function assertHistoryNotRecording(history: History) {
+    if (history.isRecording()) {
+        throw RawText.translate('History is still being recorded!');
+    }
+}
+
+export { assertCanBuildWithin, assertClipboard, assertCuboidSelection, assertHistoryNotRecording, assertPermission, assertSelection }

@@ -1,7 +1,7 @@
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 import { DEFAULT_CHANGE_LIMIT, MAX_CHANGE_LIMIT } from '@config.js';
 import { Server } from '@library/Minecraft.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'limit',
@@ -17,7 +17,7 @@ const registerInformation = {
     ]
 };
 
-commandList['limit'] = [registerInformation, (session, builder, args) => {
+commandList['limit'] = [registerInformation, function (session, builder, args) {
     let changeLimit = args.get('limit') == -1 ? DEFAULT_CHANGE_LIMIT : args.get('limit');
     if (changeLimit == -1) {
         changeLimit = Infinity;

@@ -7,7 +7,7 @@ const registerInformation = {
     description: 'commands.wedit:drawsel.description'
 };
 
-commandList['drawsel'] = [registerInformation, (session, builder, args) => {
+commandList['drawsel'] = [registerInformation, function (session, builder, args) {
     session.drawSelection = !session.drawSelection;
     if (session.drawSelection) {
         return RawText.translate('commands.wedit:drawsel.enabled');

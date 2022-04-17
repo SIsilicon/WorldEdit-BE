@@ -1,3 +1,4 @@
+import { Thread } from "@library/Minecraft";
 import { BeforeChatEvent, Player, Location } from "mojang-minecraft";
 
 export type range = [number | null, number | null];
@@ -43,5 +44,5 @@ export interface registerInformation {
     aliases?: Array<string>
 }
 export interface storedRegisterInformation extends registerInformation {
-    callback: (data: BeforeChatEvent, args: Map<string, any>) => void
+    callback: (data: BeforeChatEvent, args: Map<string, any>) => Thread
 }

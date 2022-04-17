@@ -1,11 +1,9 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation } from '../../util.js';
-import { PlayerUtil } from '@modules/player_util.js';
+import { BlockLocation } from 'mojang-minecraft';
+import { printLocation } from '../../util.js';
 import { CommandPosition } from '@library/build/classes/commandBuilder.js';
 import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../../sessions.js';
+import { RawText } from '@modules/rawtext.js';
 
 const registerInformation = {
     name: 'pos1',
@@ -39,6 +37,6 @@ export function setPos1(session: PlayerSession, loc: BlockLocation) {
     return '';
 }
 
-commandList['pos1'] = [registerInformation, (session, builder, args) => {
+commandList['pos1'] = [registerInformation, function (session, builder, args) {
     return setPos1(session, args.get('coordinates').relativeTo(builder, true));
 }];

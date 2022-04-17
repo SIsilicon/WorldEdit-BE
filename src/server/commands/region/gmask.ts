@@ -1,6 +1,6 @@
-import { commandList } from '../command_list.js';
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@modules/rawtext.js';
+import { commandList } from '../command_list.js';
 
 const registerInformation = {
     name: 'gmask',
@@ -15,7 +15,7 @@ const registerInformation = {
     ]
 };
 
-commandList['gmask'] = [registerInformation, (session, builder, args) => {
+commandList['gmask'] = [registerInformation, function (session, builder, args) {
     session.globalMask = args.get('mask');
     if (!args.get('mask').empty()) {
         return RawText.translate('commands.wedit:gmask.set');
