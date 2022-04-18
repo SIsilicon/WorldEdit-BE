@@ -7,6 +7,9 @@ export { compressNumber, formatNumber, MS, rainbowText };
 import { Thread } from "./utils/multithreading.js";
 export { Thread };
 
+import { RawText } from "./utils/rawtext.js";
+export { RawText };
+
 import Database from "./build/classes/databaseBuilder.js";
 export { Database };
 
@@ -15,10 +18,7 @@ import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
-
-import { printDebug, printerr } from '../server/util.js';
-import { RawText } from "@modules/rawtext.js";
-import { log } from "./utils/console.js";
+import { error } from "./utils/console.js";
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
@@ -98,34 +98,33 @@ class ServerBuild extends ServerBuilder {
                         throw 'commands.generic.wedit:noPermission';
                     }
                     element.callback(data, Command.parseArgs(command, args));
-                } catch(error) {
-                    if(error.isSyntaxError) {
-                        printDebug(error.stack);
-                        if(error.idx == -1 || error.idx >= args.length) {
-                            printerr(RawText.translate('commands.generic.syntax')
+                } catch(e) {
+                    if(e.isSyntaxError) {
+                        error(e.stack);
+                        if(e.idx == -1 || e.idx >= args.length) {
+                            RawText.translate('commands.generic.syntax')
                                 .with(msg)
                                 .with('')
-                                .with(''),
-                            data.sender);
+                                .with('')
+                            .printError(data.sender);
                         } else {
-                            let start = offsets[error.idx];
-                            if(error.start) start += error.start;
-                            let end = start + args[error.idx].length;
-                            if(error.end) end = start + error.end;
-                            
-                            printerr(RawText.translate('commands.generic.syntax')
+                            let start = offsets[e.idx];
+                            if(e.start) start += e.start;
+                            let end = start + args[e.idx].length;
+                            if(e.end) end = start + e.end;
+                            RawText.translate('commands.generic.syntax')
                                 .with(msg.slice(0, start))
                                 .with(msg.slice(start, end))
-                                .with(msg.slice(end)),
-                            data.sender);
+                                .with(msg.slice(end))
+                            .printError(data.sender);
                         }
                     } else {
-                        printerr(error, data.sender);
-                        if (error.stack) {
-                            printerr(error.stack, data.sender);
+                        RawText.text(e).printError(data.sender);
+                        if (e.stack) {
+                            RawText.text(e.stack).printError(data.sender);
                         }
                     }
-                };
+                }
                 /**
                 * Emit to 'customCommand' event listener
                 */
@@ -136,7 +135,7 @@ class ServerBuild extends ServerBuilder {
                     createdTimestamp: date.getTime() 
                 });
                 break;
-            };
+            }
         });
         /**
         * Emit to 'beforeExplosion' event listener

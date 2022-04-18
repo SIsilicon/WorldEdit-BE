@@ -3,7 +3,7 @@ import { PlayerSession } from '../sessions.js';
 import { MAX_BRUSH_RADIUS } from '@config.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 
 /**
  * This class is the base for all brush types available in WorldEdit.

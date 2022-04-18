@@ -1,5 +1,5 @@
 import { Regions } from '@modules/regions.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'clearclipboard',
@@ -7,9 +7,9 @@ const registerInformation = {
     description: 'commands.wedit:clearclipboard.description'
 };
 
-commandList['clearclipboard'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     if (Regions.delete('clipboard', builder)) {
         throw 'commands.generic.wedit:commandFail';
     }
     return 'commands.wedit:clearclipboard.explain';
-}];
+});

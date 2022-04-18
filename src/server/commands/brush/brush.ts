@@ -1,5 +1,4 @@
 import { Player } from 'mojang-minecraft';
-import { commandList } from '../command_list.js';
 import { PlayerSession } from '../../sessions.js';
 import { SphereBrush } from '../../brushes/sphere_brush.js';
 import { CylinderBrush } from '../../brushes/cylinder_brush.js';
@@ -7,7 +6,8 @@ import { SmoothBrush } from '../../brushes/smooth_brush.js';
 import { assertPermission } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'brush',
@@ -122,7 +122,7 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
     return RawText.translate(msg).with(args.get('radius')).with(args.get('iterations'));
 };
 
-commandList['brush'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has('sphere')) {
         msg = sphere_command(session, builder, args);
@@ -135,4 +135,4 @@ commandList['brush'] = [registerInformation, function (session, builder, args) {
         return 'commands.wedit:brush.unbind';
     }
     return msg.append('text', '\n').append('translate', 'commands.generic.wedit:unbindInfo').with(';brush none');
-}];
+});

@@ -1,5 +1,5 @@
 import { PlayerUtil } from '@modules/player_util.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { setPos1 } from './pos1.js';
 
 const registerInformation = {
@@ -8,10 +8,10 @@ const registerInformation = {
     description: 'commands.wedit:hpos1.description'
 };
 
-commandList['hpos1'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const hit = PlayerUtil.traceForBlock(builder);
     if (!hit) {
         throw 'commands.wedit:jumpto.none';
     }
     return setPos1(session, hit);
-}];
+});

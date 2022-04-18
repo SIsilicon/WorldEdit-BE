@@ -1,8 +1,8 @@
 import { Server } from '@library/Minecraft.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { printLocation } from '../../util.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'up',
@@ -17,7 +17,7 @@ const registerInformation = {
     ]
 };
 
-commandList['up'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const height = args.get('height') as number;
     
     let blockLoc = PlayerUtil.getBlockLocation(builder);
@@ -31,4 +31,4 @@ commandList['up'] = [registerInformation, function (session, builder, args) {
     Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
     Server.runCommand(`setblock ${printLocation(blockLoc.offset(0, -1, 0), false)} glass`, dimension);
     return RawText.translate('commands.wedit:up.explain');
-}];
+});

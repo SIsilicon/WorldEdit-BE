@@ -1,6 +1,6 @@
 import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { getCommandInfo, registerCommand } from '../register_commands.js';
+import { RawText } from '@library/Minecraft.js';
 
 const registerInformation = {
     name: 'help',
@@ -29,7 +29,7 @@ const registerInformation = {
     aliases: ['?']
 };
 
-commandList['help'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const cmdList = Server.command.getAllRegistation();
     
     // Show a page of the list of available WorldEdit commands
@@ -74,7 +74,7 @@ commandList['help'] = [registerInformation, function (session, builder, args) {
         return msg;
     }
     
-    const cmdInfo = commandList[args.get('command')][0];
+    const cmdInfo = getCommandInfo(args.get('command'));
     
     let info = RawText.text('\n§e');
     if (cmdInfo.aliases) {
@@ -94,4 +94,4 @@ commandList['help'] = [registerInformation, function (session, builder, args) {
     info.append('translate', 'commands.generic.usage').with(usages);
     
     return info;
-}];
+});

@@ -1,11 +1,11 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Regions } from '@modules/regions.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { regionSize } from '../../util.js';
 ;
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'stack',
@@ -25,7 +25,7 @@ const registerInformation = {
     ]
 };
 
-commandList['stack'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get('count');
     const [start, end] = session.getSelectionRange();
@@ -62,4 +62,4 @@ commandList['stack'] = [registerInformation, function* (session, builder, args) 
     }
     
     return RawText.translate('commands.wedit:stack.explain').with(count);
-}];
+});

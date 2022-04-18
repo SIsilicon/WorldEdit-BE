@@ -1,11 +1,11 @@
 import { PlayerSession } from '../../sessions.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { Jobs } from '@modules/jobs.js';
 import { Vector } from '@modules/vector.js';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 
 const registerInformation = {
     name: 'replace',
@@ -36,15 +36,15 @@ function* getAffectedBlocks(session: PlayerSession, mask: Mask): Generator<void,
     return blocks;
 }
 
-commandList['replace'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.usingItem && session.globalPattern.empty()) {
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const mask = session.usingItem ?  session.globalMask : args.get('mask');
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
+    const mask = args.get('_using_item') ?  session.globalMask : args.get('mask');
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
     const job = Jobs.startJob(builder, 2);
     const history = session.getHistory();
@@ -80,4 +80,4 @@ commandList['replace'] = [registerInformation, function* (session, builder, args
     }
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

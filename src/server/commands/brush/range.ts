@@ -1,4 +1,4 @@
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { createDefaultBrush } from './brush.js';
 
 const registerInformation = {
@@ -15,11 +15,11 @@ const registerInformation = {
     ]
 };
 
-commandList['range'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }
     
     session.setToolProperty(null, 'range', args.get('range'));
     return 'commands.wedit:brush.range.set';
-}];
+});

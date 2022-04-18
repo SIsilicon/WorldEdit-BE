@@ -9,11 +9,9 @@ import { History } from '@modules/history.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
 import { Regions } from '@modules/regions.js';
 import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { Vector } from '@modules/vector.js';
-import { log } from '@library/utils/console.js';
 
 // TODO: Add other selection modes
 export const selectModes = ['cuboid', 'extend'] as const;
@@ -130,7 +128,7 @@ export class PlayerSession {
     */
     public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
         if (index > 0 && this.selectionPoints.length == 0 && this.selectionMode != 'cuboid') {
-        throw RawText.translate('worldedit.selection.noPrimary');
+            throw 'worldedit.selection.noPrimary';
         }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;

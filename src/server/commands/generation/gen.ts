@@ -1,9 +1,9 @@
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { ExpressionShape } from '../../shapes/expression.js';
 import { regionSize } from '../../util.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Vector } from '@modules/vector.js';
 
 const registerInformation = {
@@ -24,7 +24,7 @@ const registerInformation = {
     aliases: ['g']
 };
 
-commandList['gen'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
@@ -37,4 +37,4 @@ commandList['gen'] = [registerInformation, function* (session, builder, args) {
     const count = yield* exprShape.generate(Vector.min(start, end).toBlock(), pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

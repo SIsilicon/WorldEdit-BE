@@ -3,7 +3,7 @@ import { Server, setTickTimeout } from '@library/Minecraft.js';
 import { PlayerUtil } from './player_util.js';
 import { Pattern } from './pattern.js';
 import { Mask } from './mask.js';
-import { RawText } from './rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
 import { SphereBrush } from '../brushes/sphere_brush.js';

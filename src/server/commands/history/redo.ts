@@ -1,6 +1,6 @@
 import { assertHistoryNotRecording } from '@modules/assert.js';
-import { RawText } from '@modules/rawtext.js';
-import { commandList } from '../command_list.js';
+import { RawText } from '@library/Minecraft.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'redo',
@@ -16,7 +16,7 @@ const registerInformation = {
     ]
 };
 
-commandList['redo'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const times = args.get('times') as number;
     const history = session.getHistory();
     assertHistoryNotRecording(history);
@@ -26,4 +26,4 @@ commandList['redo'] = [registerInformation, function (session, builder, args) {
         }
     }
     return RawText.translate(i == 0 ? 'commands.wedit:redo.none' : 'commands.wedit:redo.explain').with(`${i}`);
-}];
+});

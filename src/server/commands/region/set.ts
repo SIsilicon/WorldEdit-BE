@@ -1,10 +1,11 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Vector } from '@modules/vector.js';
 import { PlayerSession } from '../../sessions.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
+import { log } from '@library/utils/console.js';
 
 const registerInformation = {
     name: 'set',
@@ -38,14 +39,14 @@ export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask): Gen
     return count;
 }
 
-commandList['set'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.usingItem && session.globalPattern.empty()) {
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
 
     const history = session.getHistory();
     const record = history.record();
@@ -68,4 +69,4 @@ commandList['set'] = [registerInformation, function* (session, builder, args) {
     }
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

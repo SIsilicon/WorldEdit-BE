@@ -1,8 +1,8 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Vector } from '@modules/vector.js';
 import { CuboidShape } from '../../shapes/cuboid.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'faces',
@@ -16,14 +16,14 @@ const registerInformation = {
     ]
 };
 
-commandList['faces'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.usingItem && session.globalPattern.empty()) {
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
     let count = 0;
     let [start, end] = session.getSelectionRange();
@@ -33,4 +33,4 @@ commandList['faces'] = [registerInformation, function* (session, builder, args) 
     }
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

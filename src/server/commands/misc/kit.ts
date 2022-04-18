@@ -1,5 +1,5 @@
 import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { WAND_ITEM } from '@config.js';
 
 const registerInformation = {
@@ -8,7 +8,7 @@ const registerInformation = {
     description: 'commands.wedit:kit.description'
 };
 
-commandList['kit'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const items = [
         // HOTBAR ITEMS
         WAND_ITEM,
@@ -39,4 +39,4 @@ commandList['kit'] = [registerInformation, function (session, builder, args) {
     session.bindTool('selection_wand', WAND_ITEM);
     
     return 'commands.wedit:kit.explain';
-}];
+});

@@ -1,5 +1,5 @@
 import './util.js';
-import './commands/register_commands.js';
+import './commands/command_list.js';
 
 import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';

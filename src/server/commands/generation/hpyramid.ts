@@ -1,6 +1,6 @@
 import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { commandList } from '../command_list.js';
+import { RawText } from '@library/Minecraft.js';
+import { getCommandFunc, registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'hpyramid',
@@ -18,7 +18,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hpyramid'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return yield* commandList['pyramid'][1](session, builder, args) as any;
-}];
+    return yield* getCommandFunc('pyramid')(session, builder, args) as any;
+});

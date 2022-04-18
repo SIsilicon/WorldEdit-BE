@@ -4,7 +4,9 @@ import { Server } from '@library/Minecraft.js';
 import { log } from '@library/utils/console.js';
 import { parsedBlock } from './modules/parser.js';
 import { PlayerUtil } from './modules/player_util.js';
-import { RawText } from './modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
+
+import { RawText as rt } from '@modules/rawtext.js';
 
 /**
  * Prints a message or object to chat for debugging.
@@ -46,7 +48,7 @@ export function printLog(...data: any[]) {
  * @param player The one to send the message to
  * @param toActionBar If true the message goes to the player's action bar; otherwise it goes to chat
  */
-export function print(msg: string | RawText, player: Player, toActionBar = false) {
+export function print(msg: string | RawText | rt, player: Player, toActionBar = false) {
     if (typeof msg == 'string') {
         msg = <RawText> RawText.translate(msg);
     }

@@ -1,10 +1,10 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js';
 import { printLocation } from '../../util.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { Cardinal } from '@modules/directions.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 
 const registerInformation = {
     name: 'thru',
@@ -12,7 +12,7 @@ const registerInformation = {
     description: 'commands.wedit:thru.description'
 };
 
-commandList['thru'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     const dimension = builder.dimension;
     const blockLoc = PlayerUtil.getBlockLocation(builder);
     
@@ -42,4 +42,4 @@ commandList['thru'] = [registerInformation, function (session, builder, args) {
     } else {
         throw 'commands.wedit:thru.obstructed';
     }
-}];
+});

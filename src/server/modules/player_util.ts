@@ -2,9 +2,8 @@ import { Player, Dimension, world, Entity, Location, BlockLocation, EntityInvent
 import { Server } from '@library/Minecraft.js';
 import { EventEmitter } from '@library/build/classes/eventEmitter.js';
 import { Mask } from './mask.js';
-import { printDebug } from '../util.js';
 import { NAV_WAND_DISTANCE } from '@config.js';
-import { RawText } from './rawtext.js';
+import { log } from '@library/utils/console.js';
 
 type dimension = 'overworld' | 'nether' | 'the end';
 
@@ -33,7 +32,7 @@ class PlayerHandler extends EventEmitter {
         });
         this.on('playerChangeDimension', (player, dimension) => {
             // Teleport the inventory stasher with the player
-            printDebug(`"${player.name}" has travelled to "${PlayerUtil.getDimensionName(player)}"`);
+            log(`"${player.name}" has travelled to "${PlayerUtil.getDimensionName(player)}"`);
             const stasherName = 'wedit:stasher_for_' + player.name;
             Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
         });

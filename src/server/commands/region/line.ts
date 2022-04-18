@@ -1,7 +1,7 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Vector } from '@modules/vector.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'line',
@@ -92,18 +92,18 @@ function* bresenham3d(p1: Vector, p2: Vector): Generator<void, Vector[]> {
     return pointList;
 }
 
-commandList['line'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     if (session.selectionMode != 'cuboid') {
         throw 'commands.wedit:line.invalidType';
     }
-    if (session.usingItem && session.globalPattern.empty()) {
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw 'worldEdit.selectionFill.noPattern';
     }
     
     const dim = builder.dimension;
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
     if (session.selectionMode == 'cuboid') {
         var [pos1, pos2] = session.getSelectionPoints();
@@ -133,4 +133,4 @@ commandList['line'] = [registerInformation, function* (session, builder, args) {
     }
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

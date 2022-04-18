@@ -1,8 +1,8 @@
 import { assertCuboidSelection } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Vector } from '@modules/vector.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 // TODO: Support multiple directions at once (contract too)
 const registerInformation = {
@@ -56,7 +56,7 @@ const registerInformation = {
     ]
 };
 
-commandList['expand'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     
@@ -90,4 +90,4 @@ commandList['expand'] = [registerInformation, function (session, builder, args) 
     const afterVol = session.getSelectedBlockCount();
 
     return RawText.translate('commands.wedit:expand.explain').with(afterVol - beforeVol);
-}];
+});

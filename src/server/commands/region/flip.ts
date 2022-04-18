@@ -1,10 +1,10 @@
 import { set } from '../region/set.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Regions } from '@modules/regions.js';
 import { Vector } from '@modules/vector.js';
 ;
@@ -31,7 +31,7 @@ const registerInformation = {
     ]
 };
 
-commandList['flip'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     const dir: Vector = args.get('direction').getDirection(builder);
     if (dir.y != 0) {
         throw RawText.translate('commands.wedit:flip.not-lateral');
@@ -95,4 +95,4 @@ commandList['flip'] = [registerInformation, function* (session, builder, args) {
     }
     
     return RawText.translate('commands.wedit:flip.explain').with(blockCount);
-}];
+});

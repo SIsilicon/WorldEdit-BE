@@ -1,10 +1,10 @@
 ;
 import { set } from './set.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Regions } from '@modules/regions.js';
 
 const registerInformation = {
@@ -25,7 +25,7 @@ const registerInformation = {
     ]
 };
 
-commandList['move'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const dir = args.get('offset').getDirection(builder).mul(args.get('amount'));
     const dim = builder.dimension;
@@ -59,4 +59,4 @@ commandList['move'] = [registerInformation, function* (session, builder, args) {
     }
     
     return RawText.translate('commands.wedit:move.explain').with(count);
-}];
+});

@@ -1,6 +1,6 @@
 import { Server } from '@library/Minecraft.js';
 import { selectModes } from '../../sessions.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'sel',
@@ -22,7 +22,7 @@ const registerInformation = {
     ]
 };
 
-commandList['sel'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     try {
         if (args.has('cuboid')) {
             session.selectionMode = 'cuboid';
@@ -42,4 +42,4 @@ commandList['sel'] = [registerInformation, function (session, builder, args) {
             builder.addTag(`wedit:defaultTag_${session.selectionMode}`);
         }
     }
-}];
+});

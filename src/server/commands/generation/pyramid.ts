@@ -1,8 +1,8 @@
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { PyramidShape } from '../../shapes/pyramid.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'pyramid',
@@ -22,7 +22,7 @@ const registerInformation = {
     ]
 };
 
-commandList['pyramid'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let isHollow = args.has('h');
     let size: number = args.get('size');
@@ -32,4 +32,4 @@ commandList['pyramid'] = [registerInformation, function* (session, builder, args
     const count = yield* pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

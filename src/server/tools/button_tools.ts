@@ -1,10 +1,9 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { Server } from '@library/Minecraft.js'
 import { PlayerSession } from '../sessions.js';
-import { callCommand } from '../commands/command_list.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
@@ -12,9 +11,9 @@ abstract class CommandButton extends Tool {
     use = function (self: CommandButton, player: Player, session: PlayerSession) {
         session.usingItem = true;
         if (typeof self.command == 'string') {
-            callCommand(player, self.command);
+            Server.command.callCommand(player, self.command);
         } else {
-            callCommand(player, self.command[0], self.command.slice(1));
+            Server.command.callCommand(player, self.command[0], self.command.slice(1));
         }
         session.usingItem = false;
     }
@@ -59,7 +58,7 @@ class RotateCWTool extends Tool {
         if (player.isSneaking) {
             args.push('-o')
         }
-        callCommand(player, 'rotate', args).join();
+        Server.command.callCommand(player, 'rotate', args).join();
         session.usingItem = false;
     }
 }
@@ -74,7 +73,7 @@ class RotateCCWTool extends Tool {
         if (player.isSneaking) {
             args.push('-o')
         }
-        callCommand(player, 'rotate', args);
+        Server.command.callCommand(player, 'rotate', args);
         session.usingItem = false;
     }
 }
@@ -89,7 +88,7 @@ class FlipTool extends Tool {
         if (player.isSneaking) {
             args.push('-o')
         }
-        callCommand(player, 'flip', args);
+        Server.command.callCommand(player, 'flip', args);
         session.usingItem = false;
     }
 }
@@ -110,9 +109,9 @@ class SelectionFillTool extends Tool {
     use = function (self: Tool, player: Player, session: PlayerSession) {
         session.usingItem = true;
         if (session.globalMask.empty()) {
-            callCommand(player, 'set', ['air']);
+            Server.command.callCommand(player, 'set', ['air']);
         } else {
-            callCommand(player, 'replace', ['air', 'air']);
+            Server.command.callCommand(player, 'replace', ['air', 'air']);
         }
         session.usingItem = false;
     }

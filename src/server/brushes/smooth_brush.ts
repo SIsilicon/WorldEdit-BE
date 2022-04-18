@@ -2,10 +2,10 @@ import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { CuboidShape } from '../shapes/cuboid.js';
-import { smooth } from '../commands/region/smooth.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
+import { smooth } from '../commands/region/smooth_func.js';
 
 /**
  * This smooths the terrain in the world.

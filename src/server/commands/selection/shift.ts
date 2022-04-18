@@ -1,7 +1,7 @@
 import { assertSelection } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Vector } from '@modules/vector.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'shift',
@@ -20,7 +20,7 @@ const registerInformation = {
     ]
 };
 
-commandList['shift'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     assertSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     const dir = (args.get('direction') as Cardinal).getDirection(builder).mul(args.get('amount'));
@@ -31,4 +31,4 @@ commandList['shift'] = [registerInformation, function (session, builder, args) {
     });
 
     return 'commands.wedit:shift.explain';
-}];
+});

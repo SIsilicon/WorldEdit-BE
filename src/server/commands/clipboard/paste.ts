@@ -1,10 +1,10 @@
 import { assertClipboard, assertCanBuildWithin } from '@modules/assert';
-import { PlayerUtil } from '@modules/player_util';
-import { RawText } from '@modules/rawtext';
-import { Regions } from '@modules/regions';
-import { Vector } from '@modules/vector';
+import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@library/Minecraft.js';
+import { Regions } from '@modules/regions.js';
+import { Vector } from '@modules/vector.js';
 import { BlockLocation } from 'mojang-minecraft';
-import { commandList } from '../command_list';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'paste',
@@ -21,7 +21,7 @@ const registerInformation = {
     ]
 };
 
-commandList['paste'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertClipboard(builder);
     
     let setSelection = args.has('s') || args.has('n');
@@ -67,4 +67,4 @@ commandList['paste'] = [registerInformation, function* (session, builder, args) 
         return RawText.translate('commands.wedit:paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);
     }
     return '';
-}];
+});

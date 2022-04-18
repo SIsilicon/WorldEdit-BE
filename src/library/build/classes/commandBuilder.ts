@@ -1,8 +1,9 @@
-import { Player, BlockLocation, Location } from "mojang-minecraft";
+import { Player, BlockLocation, Location, BeforeChatEvent } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
-import { RawText } from '@modules/rawtext.js';
-import { Server } from "../../Minecraft.js";
+import { RawText } from "../../utils/rawtext.js";
+import { Player as playerHandler } from "./playerBuilder.js";
+import { error } from "@library/utils/console.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -171,7 +172,7 @@ export class CommandBuilder {
                 
                 if('subName' in arg) {
                     hasSubCommand = true;
-                    if (player && !Server.player.hasPermission(player, arg.permission)) {
+                    if (player && !playerHandler.hasPermission(player, arg.permission)) {
                         return;
                     }
                     accumulate(text, arg.args, arg.subName);
@@ -205,7 +206,7 @@ export class CommandBuilder {
             }
         }
         
-        if (player && !Server.player.hasPermission(player, register.permission)) {
+        if (player && !playerHandler.hasPermission(player, register.permission)) {
             return [];
         }
         
@@ -430,6 +431,18 @@ export class CommandBuilder {
         
         processList(0, argDefs, result);
         return result;
+    }
+
+    callCommand(player: Player, command: string, args: Array<string> = []) {
+        const registration = this.getRegistration(command);
+        if (!playerHandler.hasPermission(player, registration.permission)) {
+            throw 'commands.generic.wedit:noPermission';
+        }
+        return registration.callback(<BeforeChatEvent> {
+            cancel: true,
+            sender: player,
+            message: `;${command} ${args.join(' ')}`
+        }, this.parseArgs(command, args));
     }
 };
 export const Command = new CommandBuilder();

@@ -1,4 +1,4 @@
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { createDefaultBrush } from './brush.js';
 
 const registerInformation = {
@@ -13,11 +13,11 @@ const registerInformation = {
     ]
 };
 
-commandList['material'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     if (!session.hasToolProperty(null, 'brush')) {
         session.bindTool('brush', null, createDefaultBrush());
     }
     
     session.setToolProperty(null, 'material', args.get('pattern'));
     return 'commands.wedit:brush.material.set';
-}];
+});

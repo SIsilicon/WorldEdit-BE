@@ -1,8 +1,8 @@
 import { Server } from '@library/Minecraft.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { printLocation } from '../../util.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'unstuck',
@@ -11,7 +11,7 @@ const registerInformation = {
     aliases: ['!']
 };
 
-commandList['unstuck'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     let blockLoc = PlayerUtil.getBlockLocation(builder);
     const dimension = builder.dimension;
     do {
@@ -23,4 +23,4 @@ commandList['unstuck'] = [registerInformation, function (session, builder, args)
 
     Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
     return RawText.translate('commands.wedit:unstuck.explain');
-}];
+});

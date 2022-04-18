@@ -1,10 +1,10 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { Regions } from '@modules/regions.js';
 import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'copy',
@@ -36,8 +36,8 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     const [start, end] = session.getSelectionRange();
     assertCanBuildWithin(dimension, start, end);
     
-    let includeEntities: boolean = session.usingItem ? session.includeEntities : args.has('e');
-    let includeAir: boolean = session.usingItem ? session.includeAir : !args.has('a');
+    let includeEntities: boolean = args.get('_using_item') ? session.includeEntities : args.has('e');
+    let includeAir: boolean = args.get('_using_item') ? session.includeAir : !args.has('a');
     let mask: Mask = args.has('m') ? args.get('m-mask') : undefined;
     
     // Create a temporary copy since we'll be adding void/air blocks to the selection.
@@ -69,9 +69,9 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     return error;
 }
 
-commandList['copy'] = [registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
     if (copy(session, args)) {
         throw RawText.translate('commands.generic.wedit:commandFail');
     }
     return RawText.translate('commands.wedit:copy.explain').with(`${session.getSelectedBlockCount()}`);
-}];
+});

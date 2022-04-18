@@ -1,6 +1,6 @@
 import { set } from '../region/set.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { registerCommand } from '../register_commands.js';
+import { RawText } from '@library/Minecraft.js';
 import { Regions } from '@modules/regions.js';
 import { Pattern } from '@modules/pattern.js';
 import { assertCanBuildWithin, assertClipboard, assertCuboidSelection } from '@modules/assert.js';
@@ -28,7 +28,7 @@ const registerInformation = {
     ]
 };
 
-commandList['rotate'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     if ((Math.abs(args.get('rotate')) / 90) % 1 != 0) {
         throw RawText.translate('commands.wedit:rotate.not-ninety').with(args.get('rotate'));
     }
@@ -91,4 +91,4 @@ commandList['rotate'] = [registerInformation, function* (session, builder, args)
     }
     
     return RawText.translate('commands.wedit:rotate.explain').with(blockCount);
-}];
+});

@@ -1,8 +1,8 @@
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 import { CylinderShape } from '../../shapes/cylinder.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'cyl',
@@ -52,7 +52,7 @@ const registerInformation = {
     ]
 };
 
-commandList['cyl'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let radii: [number, number];
     let height: number = args.get('height');
@@ -70,4 +70,4 @@ commandList['cyl'] = [registerInformation, function* (session, builder, args) {
     const count = yield* cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

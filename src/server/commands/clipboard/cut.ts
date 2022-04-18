@@ -1,11 +1,11 @@
 import { Server } from '@library/Minecraft.js';
 import { copy } from './copy.js';
 import { set } from '../region/set.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@library/Minecraft.js';
 
 const registerInformation = {
     name: 'cut',
@@ -28,7 +28,7 @@ const registerInformation = {
     ]
 };
 
-commandList['cut'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const dim = builder.dimension;
     const [start, end] = session.getSelectionRange();
@@ -46,7 +46,7 @@ commandList['cut'] = [registerInformation, function* (session, builder, args) {
     
         let pattern: Pattern = args.get('fill');
         let mask: Mask = args.has('m') ? args.get('m-mask') : undefined;
-        let includeEntities: boolean = session.usingItem ? session.includeEntities : args.has('e');
+        let includeEntities: boolean = args.get('_using_item') ? session.includeEntities : args.has('e');
     
         yield* set(session, pattern, mask);
         if (includeEntities) {
@@ -67,4 +67,4 @@ commandList['cut'] = [registerInformation, function* (session, builder, args) {
     }
     
     return RawText.translate('commands.wedit:cut.explain').with(`${session.getSelectedBlockCount()}`);
-}];
+});

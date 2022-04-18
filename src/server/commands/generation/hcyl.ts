@@ -1,5 +1,4 @@
-import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
+import { getCommandFunc, registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'hcyl',
@@ -47,7 +46,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hcyl'] = [registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return yield* commandList['cyl'][1](session, builder, args) as any;
-}];
+    return yield* getCommandFunc('cyl')(session, builder, args) as any;
+});
