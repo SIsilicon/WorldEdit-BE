@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-10 21:27\n"
+"PO-Revision-Date: 2022-04-18 21:16\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -620,43 +620,43 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "Ingen tomme områder funnet foran deg."
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "Angi hva slags blokker et pensel kan bli brukt på"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
+msgstr "Utvalgsstav bundet til %s."
 
 msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
+msgstr "Navigeringsstav bundet til %s."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "Fjern utvalgsstav bundet til %s."
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "Stablingsverktøy bundet til %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "Få alle typer verktøy"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "Utvalgsverktøy, men kan nå lengre"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "Utvalgsverktøy"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "Navigeringsverktøy"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "Blokkstablingsverktøy"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "Fjern bindingen av verktøyet som blir holdt"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Verktøy ubundet fra ditt nåværende gjenstand."
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "Flytt ut av blokker"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "There you go!"
