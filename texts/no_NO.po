@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-04-19 10:15\n"
+"PO-Revision-Date: 2022-04-19 11:15\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -746,28 +746,28 @@ msgid "howtoplay.wedit:quick_start.header.4"
 msgstr "Gjør ting med ditt utvalg"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr "Lag et lite utvalg for å jobbe med og klargjør settet ditt med §e;kit§r. Vi skal prøve noen av funksjonene WorldEdit har å tilby."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. Plasser stein, bruk mønstervelgeren på steinen og bruk deretter \"Fyll utvalg\". En kube av stein burde bli laget."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. Bruk mønstervelgeren i luften (mobil-spillere må holde skjermen med den) og bruk \"Fyll utvalg\" igjen for å fjerne steinen."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. Plasser sandstein og glass, bruk deretter mønstervelgeren på sandsteinen, snik og bruk det på glasset for å legge til mønsteret ditt. Bruk \"Fyll utvalg\" og du bør ha en blanding av sandstein og glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. Ta ut maskevelgeren fra inventaret ditt og bruk det på sandsteinen. Angi en blokk av ditt valg som mønsteret ditt og bruk \"Fyll utvalg\". All sandsteinen burde nå være erstattet av den blokken."
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. Gjenta utvalget ditt oppover ved å skrive inn kommandoen §e;stack 4 up§r§7."
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "Hvis du vil, kan du angre alt ved å bruke angre-gjenstanden til du ikke kan angre lengre."
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "Playing with brushes"
+msgstr "Leking med penseler"
 
 msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
@@ -780,10 +780,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Gjør det slik at penselet bare påvirker gress med §e;mask grass§r§7 mens du holder den. Bruk penselet nå til å lage en brostein-sti."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Deaktiver penselet med §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Hva nå?"
