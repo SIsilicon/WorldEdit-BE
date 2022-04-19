@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-04-08 00:30\n"
+"PO-Revision-Date: 2022-04-19 22:29\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -203,16 +203,16 @@ msgid "worldedit.config.affects"
 msgstr "Afectar: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Crear: %s create"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Tamaño: %ssize"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Altura: %s Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Suavidad: %s Smoothness"
 
 msgid "worldedit.config.range"
 msgstr "%sDistancia"
@@ -224,7 +224,7 @@ msgid "worldedit.config.setGive.brush"
 msgstr "Pincel configurado y añadido a tu inventario."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Configuración de la herramienta cancelada."
 
 msgid "worldedit.config.set.tool"
 msgstr "Herramienta configurada."
@@ -248,7 +248,7 @@ msgid "worldedit.selection.cuboid.primaryArea"
 msgstr "Primera posición establecida a %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Segunda posición establecida en %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Second position set to %1 (%2)."
