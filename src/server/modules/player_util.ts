@@ -1,5 +1,5 @@
 import { Player, Dimension, world, Entity, Location, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from 'mojang-minecraft';
-import { Server, console } from '@notbeer-api';
+import { Server, contentLog } from '@notbeer-api';
 import { Mask } from './mask.js';
 import { NAV_WAND_DISTANCE } from '@config.js';
 
@@ -11,7 +11,7 @@ class PlayerHandler {
     constructor() {
         Server.on('playerChangeDimension', ev => {
             // Teleport the inventory stasher with the player
-            console.log(`"${ev.player.name}" has travelled to "${ev.dimension.id}"`);
+            contentLog.log(`"${ev.player.name}" has travelled to "${ev.dimension.id}"`);
             const stasherName = 'wedit:stasher_for_' + ev.player.name;
             Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, ev.player);
         });

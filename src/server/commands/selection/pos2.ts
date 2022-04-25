@@ -1,4 +1,4 @@
-import { printLocation, regionVolume } from '../../util.js';
+import { printLocation } from '../../util.js';
 import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';

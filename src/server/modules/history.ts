@@ -1,9 +1,9 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
 import { assertCanBuildWithin } from './assert.js';
-import { canPlaceBlock, regionVolume } from '../util.js';
+import { canPlaceBlock } from '../util.js';
 import { PlayerSession, selectMode } from '../sessions.js';
-import { Vector } from '@notbeer-api';
+import { Vector, regionVolume } from '@notbeer-api';
 import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
 
 type historyEntry = {

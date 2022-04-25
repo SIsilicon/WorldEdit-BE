@@ -1,6 +1,6 @@
 import { configuration } from "../build/configurations.js";
 import { world } from "mojang-minecraft";
-import { console } from "./console.js";
+import { contentLog } from "./contentlog.js";
 
 const threads: Thread[] = [];
 
@@ -73,7 +73,7 @@ const listener = function() {
             }
             threads.unshift(thread);
         } catch (e) {
-            console.error(e);
+            contentLog.error(e);
             thread.join();
         }
     }

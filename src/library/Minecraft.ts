@@ -1,23 +1,5 @@
-import { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer } from "./utils/scheduling.js";
-export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer };
-
-import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
-export { compressNumber, formatNumber, MS, rainbowText };
-
-import { console } from "./utils/console.js";
-export { console };
-
-import { Thread } from "./utils/multithreading.js";
-export { Thread };
-
-import { RawText } from "./utils/rawtext.js";
-export { RawText };
-
-import { Vector } from "./utils/vector.js";
-export { Vector };
-
-import Database from "./build/classes/databaseBuilder.js";
-export { Database };
+import { contentLog, RawText } from './utils/index';
+export * from './utils/index';
 
 import { world } from 'mojang-minecraft';
 import { Entity } from "./build/classes/entityBuilder.js";
@@ -25,13 +7,14 @@ import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
 
-// export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
-// export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
+export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
+export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
     public player = Player;
     public command = Command;
+    //public structure = Structure;
     constructor() {
         super();
         this._buildEvent();
@@ -108,7 +91,7 @@ class ServerBuild extends ServerBuilder {
                     element.callback(data, Command.parseArgs(command, args));
                 } catch(e) {
                     if(e.isSyntaxError) {
-                        console.error(e.stack);
+                        contentLog.error(e.stack);
                         if(e.idx == -1 || e.idx >= args.length) {
                             RawText.translate('commands.generic.syntax')
                                 .with(msg)
@@ -234,6 +217,7 @@ class ServerBuild extends ServerBuilder {
             this.emit('tick', data);
         });
     };
+
 };
 /**
  * Import this constructor

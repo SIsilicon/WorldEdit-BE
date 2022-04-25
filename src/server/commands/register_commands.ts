@@ -1,4 +1,4 @@
-import { CommandInfo, Server, Thread, Timer, RawText, console } from '@notbeer-api';
+import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from '@notbeer-api';
 import { getSession, hasSession, PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
 import { BeforeChatEvent, Player } from 'mojang-minecraft';
@@ -23,7 +23,7 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
             const timer = new Timer();
             try {
                 timer.start();
-                console.log(`Processing command '${msg}' for '${player.name}'`);
+                contentLog.log(`Processing command '${msg}' for '${player.name}'`);
                 let result: string | RawText;
                 if (callback.constructor.name == 'GeneratorFunction') {
                     result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
@@ -31,12 +31,12 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
                     result = callback(getSession(player), player, args) as string | RawText;
                 }
                 const time = timer.end();
-                console.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
                 print(result, player, toActionBar);
             }
             catch (e) {
                 const errMsg = e.message ? `${e.name}: ${e.message}` : e;
-                console.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
                 printerr(errMsg, player, toActionBar);
                 if (e.stack) {
                     printerr(e.stack, player, false);

@@ -25,4 +25,4 @@ class Console {
     }
 }
 
-export const console = new Console(); 
+export const contentLog = new Console(); 

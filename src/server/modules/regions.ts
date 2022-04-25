@@ -1,6 +1,5 @@
 import { BlockLocation, BoolBlockProperty, IntBlockProperty, Player, StringBlockProperty } from 'mojang-minecraft';
-import { Server, Vector } from '@notbeer-api';
-import { printDebug, printLocation, placeBlock, regionSize, regionVolume, regionCenter, regionBounds } from '../util.js';
+import { regionBounds, regionSize, regionVolume, Server, Vector } from '@notbeer-api';
 import { parsedBlock } from './parser.js';
 
 interface StructureMeta {
@@ -32,7 +31,6 @@ class RegionsManager {
                 }
             } while (Array.from(this.ids.values()).includes(id));
             this.ids.set(player.nameTag, id);
-            printDebug(`Given "${player.nameTag}" a region ID of ${id}.`);
         }
         return `wedit:${name}_${this.ids.get(player.nameTag)}`;
     }

@@ -1,10 +1,8 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText } from '@notbeer-api';
+import { RawText, regionSize } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
 import { BlockLocation } from 'mojang-minecraft';
-import { regionSize } from '../../util.js';
-;
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
