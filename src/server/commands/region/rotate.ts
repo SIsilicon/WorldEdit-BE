@@ -1,10 +1,10 @@
 import { set } from '../region/set.js';
 import { registerCommand } from '../register_commands.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
 import { Pattern } from '@modules/pattern.js';
 import { assertCanBuildWithin, assertClipboard, assertCuboidSelection } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { PlayerUtil } from '@modules/player_util.js';
 
 const registerInformation = {

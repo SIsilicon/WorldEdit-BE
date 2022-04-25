@@ -1,10 +1,10 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { printLocation } from '../../util.js';
 import { registerCommand } from '../register_commands.js';
 import { Cardinal } from '@modules/directions.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'thru',

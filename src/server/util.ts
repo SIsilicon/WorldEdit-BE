@@ -1,12 +1,8 @@
 import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
 import { CONTENT_LOG, DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
-import { Server } from '@library/Minecraft.js';
-import { log } from '@library/utils/console.js';
+import { Server, RawText, console } from '@notbeer-api';
 import { parsedBlock } from './modules/parser.js';
 import { PlayerUtil } from './modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
-
-import { RawText as rt } from '@modules/rawtext.js';
 
 /**
  * Prints a message or object to chat for debugging.
@@ -39,7 +35,7 @@ export function printLog(...data: any[]) {
         return;
     }
     
-    log(...data);
+    console.log(...data);
 }
 
 /**
@@ -48,7 +44,7 @@ export function printLog(...data: any[]) {
  * @param player The one to send the message to
  * @param toActionBar If true the message goes to the player's action bar; otherwise it goes to chat
  */
-export function print(msg: string | RawText | rt, player: Player, toActionBar = false) {
+export function print(msg: string | RawText, player: Player, toActionBar = false) {
     if (typeof msg == 'string') {
         msg = <RawText> RawText.translate(msg);
     }
@@ -72,19 +68,20 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
     print(msg.prepend('text', '§c'), player, toActionBar);
 }
 
-const worldY = {
-    'overworld': [-64, 319],
-    'nether': [0, 127],
-    'the end': [0, 255],
-    '': [0, 0]
-};
+const worldY = new Map<string, [number, number]>([
+    ['minecraft:overworld', [-64, 319]],
+    ['minecraft:nether', [0, 127]],
+    ['minecraft:the_end', [0, 255]],
+    ['', [0, 0]]
+]);
+
 /**
  * Gets the minimum Y level of the dimension a player is in.
  * @param player The player whose dimension we're testing
  * @return The minimum Y level of the dimension the player is in
  */
 export function getWorldMinY(player: Player) {
-    return worldY[PlayerUtil.getDimensionName(player)][0];
+    return worldY.get(player.dimension.id)[0];
 }
 
 /**
@@ -93,7 +90,7 @@ export function getWorldMinY(player: Player) {
  * @return The maximum Y level of the dimension the player is in
  */
 export function getWorldMaxY(player: Player) {
-    return worldY[PlayerUtil.getDimensionName(player)][1];
+    return worldY.get(player.dimension.id)[1];
 }
 
 /**

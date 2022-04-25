@@ -1,5 +1,5 @@
-import { RawText } from '@library/Minecraft.js';
-import { MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
+import { RawText } from '@notbeer-api';
+import { MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
@@ -88,9 +88,7 @@ function printBlockProperties(block: BlockPermutation) {
             if (prop.name.startsWith('wall_connection_type') || prop.name.startsWith('liquid_depth')) {
                 continue;
             }
-            
-            const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
-            propString += `\n§o${prop.name}§r: ${val}`;
+            propString += `\n§o${prop.name}§r: ${(prop as BoolBlockProperty|StringBlockProperty|IntBlockProperty).value}`;
         }
     }
     return propString;

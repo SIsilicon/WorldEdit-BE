@@ -1,8 +1,6 @@
 import { Player, BlockLocation, Dimension } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { RawText } from './rawtext.js';
+import { Server, Vector, RawText } from '@notbeer-api';
 import { Regions } from './regions.js';
-import { Vector } from './vector.js';
 import { PlayerSession } from '../sessions.js';
 import { canPlaceBlock, printDebug } from '../util.js';
 import { History } from './history.js';

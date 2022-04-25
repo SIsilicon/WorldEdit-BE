@@ -1,6 +1,6 @@
 import { NAV_WAND_ITEM } from '@config.js';
-import { Server } from '@library/Minecraft.js';
-import { RawText } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {

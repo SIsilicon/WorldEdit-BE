@@ -1,8 +1,8 @@
 import { assertClipboard, assertCanBuildWithin } from '@modules/assert';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { registerCommand } from '../register_commands.js';
 

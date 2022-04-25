@@ -1,11 +1,9 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@library/Minecraft.js';
-import { Vector } from '@modules/vector.js';
+import { RawText, Vector } from '@notbeer-api';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
-import { log } from '@library/utils/console.js';
 
 const registerInformation = {
     name: 'set',

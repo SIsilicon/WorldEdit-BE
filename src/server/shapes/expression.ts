@@ -1,7 +1,7 @@
 import { Shape, shapeGenOptions, shapeGenVars } from './base_shape.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { Expression } from '@modules/expression.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 
 export class ExpressionShape extends Shape {
     private size: Vector;

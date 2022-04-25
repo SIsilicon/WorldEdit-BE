@@ -1,4 +1,4 @@
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
+import { commandSyntaxError } from '@notbeer-api';
 import { Token, Tokenizr, ParsingError } from './extern/tokenizr.js';
 
 export type parsedBlock = {

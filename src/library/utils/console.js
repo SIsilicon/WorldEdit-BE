@@ -3,23 +3,26 @@ function date() {
     return `[${new Date().toLocaleTimeString()}]`
 }
 
-function log(...msg) {
-    console.log(date(), ...msg);
-}
+class Console {
+    
+    log(...msg) {
+        console.log(date(), ...msg);
+    }
+    
+    warn(...msg) {
+        console.warn(date(), ...msg);
+    }
 
-function warn(...msg) {
-    console.warn(date(), ...msg);
-}
-
-function error(...msg) {
-    console.error(date(), ...msg);
-    if (msg[0]?.stack) {
-        console.error(msg[0].stack);
+    error(...msg) {
+        console.error(date(), ...msg);
+        if (msg[0]?.stack) {
+            console.error(msg[0].stack);
+        }
+    }
+    
+    stack() {
+        warn(new Error().stack);
     }
 }
 
-function stack() {
-    warn(new Error().stack);
-}
-
-export {log, warn, error, stack}
+export const console = new Console(); 

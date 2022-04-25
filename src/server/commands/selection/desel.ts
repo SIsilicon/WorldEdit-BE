@@ -1,4 +1,4 @@
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { selectModes } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 

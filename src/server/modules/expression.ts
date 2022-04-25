@@ -1,5 +1,4 @@
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
-import { CustomArgType } from '@library/build/classes/commandBuilder.js';
+import { CustomArgType, commandSyntaxError } from '@notbeer-api';
 import { printDebug } from '../util.js';
 import { Token } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, AstNode, processOps } from './parser.js';

@@ -4,11 +4,17 @@ export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, s
 import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
 export { compressNumber, formatNumber, MS, rainbowText };
 
+import { console } from "./utils/console.js";
+export { console };
+
 import { Thread } from "./utils/multithreading.js";
 export { Thread };
 
 import { RawText } from "./utils/rawtext.js";
 export { RawText };
+
+import { Vector } from "./utils/vector.js";
+export { Vector };
 
 import Database from "./build/classes/databaseBuilder.js";
 export { Database };
@@ -18,7 +24,9 @@ import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
-import { error } from "./utils/console.js";
+
+// export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
+// export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
@@ -100,7 +108,7 @@ class ServerBuild extends ServerBuilder {
                     element.callback(data, Command.parseArgs(command, args));
                 } catch(e) {
                     if(e.isSyntaxError) {
-                        error(e.stack);
+                        console.error(e.stack);
                         if(e.idx == -1 || e.idx >= args.length) {
                             RawText.translate('commands.generic.syntax')
                                 .with(msg)
@@ -193,7 +201,7 @@ class ServerBuild extends ServerBuilder {
         */
         world.events.playerLeave.subscribe(data => this.emit('playerLeave', data));
         
-        let worldLoaded = false, tickCount = 0;
+        let worldLoaded = false, tickCount = 0, playerDimensions = new Map<string, [boolean, string]>();
         world.events.tick.subscribe((data) => {
             tickCount++;
             if(!this.runCommand('testfor @a').error && !worldLoaded) {
@@ -204,6 +212,22 @@ class ServerBuild extends ServerBuilder {
                 worldLoaded = true;
             };
             
+            for (const entry of playerDimensions) {
+                entry[1][0] = false;
+            }
+            
+            for (const player of world.getPlayers()) {
+                const oldDimension = playerDimensions.get(player.name)?.[1];
+                const newDimension = player.dimension.id;
+                
+                if (oldDimension && oldDimension != newDimension) {
+                    this.emit('playerChangeDimension', {
+                        player: player,
+                        dimension: player.dimension
+                    });
+                }
+            }
+
             /**
             * Emit to 'tick' event listener
             */

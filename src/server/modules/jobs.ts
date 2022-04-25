@@ -1,7 +1,5 @@
-import { Server } from "@library/Minecraft";
-import { Player } from "mojang-minecraft";
-import { print } from "server/util";
-import { RawText } from "./rawtext";
+import { Server, RawText } from '@notbeer-api';
+import { Player } from 'mojang-minecraft';
 
 let jobId = 0;
 

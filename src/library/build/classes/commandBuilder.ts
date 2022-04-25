@@ -1,9 +1,8 @@
 import { Player, BlockLocation, Location, BeforeChatEvent } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
+import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../../@types/build/classes/CommandBuilder";
 import { RawText } from "../../utils/rawtext.js";
 import { Player as playerHandler } from "./playerBuilder.js";
-import { error } from "@library/utils/console.js";
 
 //import { printDebug } from "@modules/../util.js"
 

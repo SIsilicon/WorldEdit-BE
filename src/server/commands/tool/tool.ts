@@ -1,10 +1,10 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 import { assertPermission } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'tool',

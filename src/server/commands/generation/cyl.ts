@@ -1,6 +1,6 @@
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { CylinderShape } from '../../shapes/cylinder.js';
 import { registerCommand } from '../register_commands.js';
 

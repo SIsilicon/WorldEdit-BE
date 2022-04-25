@@ -1,8 +1,8 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
-import { Server, Thread } from '@library/Minecraft.js';
+import { Server, Thread } from '@notbeer-api';
 import { print, printerr, printDebug } from '../util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 /**
  * The base tool class for handling tools that WorldEdit builders may use.

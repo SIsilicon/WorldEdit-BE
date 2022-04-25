@@ -1,6 +1,6 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { regionSize } from '../../util.js';

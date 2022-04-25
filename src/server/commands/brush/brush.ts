@@ -6,7 +6,7 @@ import { SmoothBrush } from '../../brushes/smooth_brush.js';
 import { assertPermission } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {

@@ -1,6 +1,6 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { RawText } from '@library/Minecraft.js';
-import { Vector } from '@modules/vector.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
 import { CuboidShape } from '../../shapes/cuboid.js';
 import { registerCommand } from '../register_commands.js';
 

@@ -1,14 +1,12 @@
-import { BlockLocation, Player, PlayerInventoryComponentContainer } from 'mojang-minecraft';
+import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { printToActionBar } from '../commands/register_commands.js';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 
 class SelectionTool extends Tool {
     permission = 'worldedit.selection.pos';
     useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
-        printToActionBar();
         Server.command.callCommand(player, player.isSneaking ? 'pos1' : 'pos2',
             [`${loc.x}`, `${loc.y}`, `${loc.z}`]
         );

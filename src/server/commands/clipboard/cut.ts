@@ -1,11 +1,11 @@
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { copy } from './copy.js';
 import { set } from '../region/set.js';
 import { registerCommand } from '../register_commands.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'cut',

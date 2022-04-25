@@ -3,8 +3,8 @@ import { ExpressionShape } from '../../shapes/expression.js';
 import { regionSize } from '../../util.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@library/Minecraft.js';
-import { Vector } from '@modules/vector.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
 
 const registerInformation = {
     name: 'gen',

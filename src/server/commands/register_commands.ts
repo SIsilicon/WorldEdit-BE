@@ -1,26 +1,21 @@
-import { Server, Thread, Timer } from '@library/Minecraft.js';
+import { CommandInfo, Server, Thread, Timer, RawText, console } from '@notbeer-api';
 import { getSession, hasSession, PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
-import { error, log, warn } from '@library/utils/console.js';
-import { RawText } from '@library/Minecraft.js';
-import { registerInformation } from '@library/@types/build/classes/CommandBuilder.js';
-import { Player } from 'mojang-minecraft';
+import { BeforeChatEvent, Player } from 'mojang-minecraft';
 
-let _printToActionBar = false;
 type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<void, RawText | string> | RawText | string;
 
-const commandList = new Map<string, [registerInformation, commandFunc]>();
+const commandList = new Map<string, [CommandInfo, commandFunc]>();
 
-export function registerCommand(registerInformation: registerInformation, callback: commandFunc) {
+export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
     commandList.set(registerInformation.name, [registerInformation, callback]);
-    Server.command.register(registerInformation, (data, args) => {
-        let toActionBar = _printToActionBar;
-        _printToActionBar = false;
+    Server.command.register(registerInformation, (data: BeforeChatEvent, args: Map<string, any>) => {
         const player = data.sender;
         if (!hasSession(player.name)) {
             data.cancel = false;
             return;
         }
+        let toActionBar = getSession(player).usingItem;
         args.set('_using_item', getSession(player).usingItem);
 
         const thread = new Thread();
@@ -28,7 +23,7 @@ export function registerCommand(registerInformation: registerInformation, callba
             const timer = new Timer();
             try {
                 timer.start();
-                log(`Processing command '${msg}' for '${player.name}'`);
+                console.log(`Processing command '${msg}' for '${player.name}'`);
                 let result: string | RawText;
                 if (callback.constructor.name == 'GeneratorFunction') {
                     result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
@@ -36,12 +31,12 @@ export function registerCommand(registerInformation: registerInformation, callba
                     result = callback(getSession(player), player, args) as string | RawText;
                 }
                 const time = timer.end();
-                log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                console.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
                 print(result, player, toActionBar);
             }
             catch (e) {
                 const errMsg = e.message ? `${e.name}: ${e.message}` : e;
-                error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                console.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
                 printerr(errMsg, player, toActionBar);
                 if (e.stack) {
                     printerr(e.stack, player, false);
@@ -59,8 +54,4 @@ export function getCommandFunc(command: string) {
 
 export function getCommandInfo(command: string) {
     return commandList.get(command)[0];
-}
-
-export function printToActionBar() {
-    _printToActionBar = true;
 }

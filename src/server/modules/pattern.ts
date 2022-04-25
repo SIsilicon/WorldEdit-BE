@@ -1,10 +1,10 @@
-import { BlockLocation, BlockPermutation, IBlockProperty, Dimension } from 'mojang-minecraft';
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
-import { CustomArgType } from '@library/build/classes/commandBuilder.js';
-import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation, placeBlock } from '../util.js';
+import { BlockLocation, BlockPermutation, IBlockProperty, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from 'mojang-minecraft';
+import { Server, CustomArgType, commandSyntaxError } from '@notbeer-api';
+import { printLocation, placeBlock } from '../util.js';
 import { Token } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock } from './parser.js';
+
+type AnyBlockProperty = StringBlockProperty|BoolBlockProperty|IntBlockProperty;
 
 export class Pattern implements CustomArgType {
     private block: PatternNode;
@@ -33,7 +33,7 @@ export class Pattern implements CustomArgType {
     
     addBlock(block: BlockPermutation) {
         const states: parsedBlock['states'] = new Map();
-        block.getAllProperties().forEach(state => {
+        block.getAllProperties().forEach((state: AnyBlockProperty) => {
             if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
             }
@@ -240,7 +240,7 @@ class TypePattern extends PatternNode {
     setBlock(loc: BlockLocation, dim: Dimension) {
         const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
-        block.permutation.getAllProperties().forEach(state => {
+        block.permutation.getAllProperties().forEach((state: AnyBlockProperty) => {
             states.set(state.name, state.value);
         });
         
@@ -263,7 +263,7 @@ class StatePattern extends PatternNode {
     setBlock(loc: BlockLocation, dim: Dimension) {
         const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
-        block.permutation.getAllProperties().forEach(state => {
+        block.permutation.getAllProperties().forEach((state: AnyBlockProperty) => {
             states.set(state.name, this.states.has(state.name) ? this.states.get(state.name) : state.value);
         });
         
@@ -288,7 +288,7 @@ class RandStatePattern extends PatternNode {
         
         const block = dim.getBlock(loc);
         const states: parsedBlock['states'] = new Map();
-        block.permutation.getAllProperties().forEach(state => {
+        block.permutation.getAllProperties().forEach((state: AnyBlockProperty) => {
             states.set(state.name, state.validValues[Math.floor(Math.random() * state.validValues.length)] ?? state.value);
         });
         

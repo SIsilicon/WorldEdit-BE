@@ -1,9 +1,8 @@
 import { printLocation, regionVolume } from '../../util.js';
-import { CommandPosition } from '@library/build/classes/commandBuilder.js';
 import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText, CommandPosition } from '@notbeer-api';
 
 const registerInformation = {
     name: 'pos2',

@@ -1,5 +1,5 @@
-import { Server } from '@library/Minecraft.js';
-import { RawText } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
 import { getCommandFunc, registerCommand } from '../register_commands.js';
 
 const registerInformation = {

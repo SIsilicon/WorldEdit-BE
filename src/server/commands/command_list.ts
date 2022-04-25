@@ -1,4 +1,4 @@
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { Cardinal } from '@modules/directions.js';
 import { Expression } from '@modules/expression.js';
 import { Mask } from '@modules/mask.js';

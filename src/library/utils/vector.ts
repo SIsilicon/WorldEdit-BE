@@ -1,5 +1,4 @@
-import { BlockLocation, Location } from 'mojang-minecraft';
-import { Vector as MCVector } from 'mojang-minecraft'
+import { BlockLocation, Location, Vector as MCVector } from 'mojang-minecraft';
 
 type anyVec = BlockLocation|Location|Vector|MCVector|[number, number, number];
 type anyLoc = BlockLocation|Location;

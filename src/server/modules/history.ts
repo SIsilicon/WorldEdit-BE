@@ -1,9 +1,9 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { Regions } from './regions.js';
 import { assertCanBuildWithin } from './assert.js';
-import { canPlaceBlock, printDebug, regionVolume } from '../util.js';
-import { getSession, PlayerSession, selectMode } from '../sessions.js';
-import { Vector } from './vector.js';
+import { canPlaceBlock, regionVolume } from '../util.js';
+import { PlayerSession, selectMode } from '../sessions.js';
+import { Vector } from '@notbeer-api';
 import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
 
 type historyEntry = {
@@ -36,14 +36,10 @@ export class History {
     private selectionHistory: historyPoint['selection'][] = [];
     private historyIdx = -1;
     
-    private player: Player;
+    private session: PlayerSession;
 
-    constructor(player: Player) {
-        this.player = player;
-    }
-
-    reassignPlayer(player: Player) {
-        this.player = player;
+    constructor(session: PlayerSession) {
+        this.session = session;
     }
 
     record(brush = false) {
@@ -89,11 +85,12 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         this.historyPoints.delete(historyPoint);
 
+        const player = this.session.getPlayer();
         for (const struct of point.undo) {
-            Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, player);
         }
         for (const struct of point.redo) {
-            Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, player);
         }
     }
 
@@ -101,7 +98,7 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         point.blocksChanged += regionVolume(start, end);
         // We test the change limit here,
-        if (point.blocksChanged > getSession(this.player).changeLimit) {
+        if (point.blocksChanged > this.session.changeLimit) {
             throw 'commands.generic.wedit:blockLimit';
         }
         
@@ -156,15 +153,16 @@ export class History {
             return true;
         }
         
-        const dim = this.player.dimension;
+        const player = this.session.getPlayer();
+        const dim = player.dimension;
         for (const region of this.undoStructures[this.historyIdx]) {
             const pos = region.location;
-            const size = Regions.getSize(region.name, this.player);
+            const size = Regions.getSize(region.name, player);
             assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
         }
         
         for (const region of this.undoStructures[this.historyIdx]) {
-            Regions.load(region.name, region.location, this.player);
+            Regions.load(region.name, region.location, player);
         }
         
         let selection: selectionEntry;
@@ -190,16 +188,17 @@ export class History {
             return true;
         }
         
-        const dim = this.player.dimension;
+        const player = this.session.getPlayer();
+        const dim = player.dimension;
         for (const region of this.redoStructures[this.historyIdx+1]) {
             const pos = region.location;
-            const size = Regions.getSize(region.name, this.player);
+            const size = Regions.getSize(region.name, player);
             assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
         }
         
         this.historyIdx++;
         for (const region of this.redoStructures[this.historyIdx]) {
-            Regions.load(region.name, region.location, this.player);
+            Regions.load(region.name, region.location, player);
         }
         
         let selection: selectionEntry;
@@ -232,11 +231,12 @@ export class History {
     }
     
     private deleteHistoryRegions(index: number) {
+        const player = this.session.getPlayer();
         for (const struct of this.undoStructures[index]) {
-            Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, player);
         }
         for (const struct of this.redoStructures[index]) {
-            Regions.delete(struct.name, this.player);
+            Regions.delete(struct.name, player);
         }
     }
 
@@ -245,12 +245,13 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         let structName: string;
         const recordBlocks = Array.isArray(blocks) && (point.brush && BRUSH_HISTORY_MODE == 2 || !point.brush && HISTORY_MODE == 2);
-        const dim = this.player.dimension;
+        const player = this.session.getPlayer();
+        const dim = player.dimension;
         
         const finish = () => {
             if (recordBlocks) {
-                Regions.load(tempRegion, loc, this.player);
-                Regions.delete(tempRegion, this.player);
+                Regions.load(tempRegion, loc, player);
+                Regions.delete(tempRegion, player);
             }
         }
 
@@ -263,7 +264,7 @@ export class History {
             if (recordBlocks) {
                 var loc = Vector.min(start, end).toBlock();
                 const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
-                Regions.save(tempRegion, start, end, this.player);
+                Regions.save(tempRegion, start, end, player);
                 let index = 0;
                 for (const block of start.blocksBetween(end)) {
                     if (blocks[index]?.equals(block)) {
@@ -275,7 +276,7 @@ export class History {
             }
 
             structName = 'history' + historyId++;
-            if (Regions.save(structName, start, end, this.player)) {
+            if (Regions.save(structName, start, end, player)) {
                 finish();
                 this.cancel(historyPoint);
                 throw new Error('Failed to save history!');

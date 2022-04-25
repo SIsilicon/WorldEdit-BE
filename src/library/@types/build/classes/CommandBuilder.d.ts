@@ -1,4 +1,4 @@
-import { Thread } from "@library/Minecraft";
+import { Thread } from "@notbeer-api";
 import { BeforeChatEvent, Player, Location } from "mojang-minecraft";
 
 export type range = [number | null, number | null];

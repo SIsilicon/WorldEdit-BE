@@ -1,6 +1,6 @@
 import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
 import { getWorldMaxY, getWorldMinY, printDebug, printLog, regionVolume } from './util.js';
-import { Server, setTickTimeout } from '@library/Minecraft.js';
+import { Server, Vector, setTickTimeout } from '@notbeer-api';
 import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
 import { Tools } from './tools/tool_manager.js';
@@ -11,7 +11,6 @@ import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { Regions } from '@modules/regions.js';
 import { SettingsHotbar } from '@modules/settings_hotbar.js';
-import { Vector } from '@modules/vector.js';
 
 // TODO: Add other selection modes
 export const selectModes = ['cuboid', 'extend'] as const;
@@ -20,8 +19,8 @@ export type selectMode = typeof selectModes[number];
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
-PlayerUtil.on('playerChangeDimension', (player) => {
-    playerSessions.get(player.name)?.clearSelectionPoints();
+Server.on('playerChangeDimension', ev => {
+    playerSessions.get(ev.player.name)?.clearSelectionPoints();
 });
 
 /**
@@ -82,7 +81,7 @@ export class PlayerSession {
     
     constructor(player: Player) {
         this.player = player;
-        this.history = new History(this.player);
+        this.history = new History(this);
         this.selectionPoints = [];
         
         this.bindTool('selection_wand', WAND_ITEM);
@@ -117,7 +116,6 @@ export class PlayerSession {
     */
     reassignPlayer(player: Player) {
         this.player = player;
-        this.history.reassignPlayer(player);
     }
     
     /**

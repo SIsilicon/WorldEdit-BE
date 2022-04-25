@@ -1,7 +1,7 @@
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
 import { Shape } from '../../shapes/base_shape.js';

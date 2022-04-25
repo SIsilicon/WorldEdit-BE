@@ -4,7 +4,7 @@ import { registerCommand } from '../register_commands.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
 
 const registerInformation = {

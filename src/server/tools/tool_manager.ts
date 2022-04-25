@@ -1,5 +1,5 @@
 import { world, Player, BlockLocation, ItemStack, Items, BeforeItemUseEvent, EntityInventoryComponent } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { Tool } from './base_tool.js';
 import { hasSession, getSession } from '../sessions.js';
 

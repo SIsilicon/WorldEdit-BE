@@ -1,6 +1,6 @@
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { printLocation } from '../../util.js';
 import { getCommandFunc, registerCommand } from '../register_commands.js';
 

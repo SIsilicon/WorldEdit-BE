@@ -1,9 +1,9 @@
 import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js'
+import { Server } from '@notbeer-api'
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];

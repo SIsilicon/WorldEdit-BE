@@ -15,7 +15,7 @@
         "paths": {
             "@config.js": ["config.js"],
             "@modules/*": ["server/modules/*"],
-            "@library/*": ["library/*"]
+            "@notbeer-api": ["library/Minecraft.js"]
         }
     },
     "include": [

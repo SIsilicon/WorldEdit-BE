@@ -1,7 +1,7 @@
 import { registerCommand } from '../register_commands.js';
 import { DEFAULT_CHANGE_LIMIT, MAX_CHANGE_LIMIT } from '@config.js';
-import { Server } from '@library/Minecraft.js';
-import { RawText } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'limit',

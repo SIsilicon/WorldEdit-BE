@@ -1,4 +1,4 @@
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {

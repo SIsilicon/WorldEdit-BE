@@ -1,64 +1,20 @@
 import { Player, Dimension, world, Entity, Location, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { EventEmitter } from '@library/build/classes/eventEmitter.js';
+import { Server, console } from '@notbeer-api';
 import { Mask } from './mask.js';
 import { NAV_WAND_DISTANCE } from '@config.js';
-import { log } from '@library/utils/console.js';
-
-type dimension = 'overworld' | 'nether' | 'the end';
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
  */
-class PlayerHandler extends EventEmitter {
-    private playerDimensions = new Map<string, [boolean, Dimension, dimension]>();
-    private jobs = new Map<number, [Player, string, number]>();
+class PlayerHandler {
 
     constructor() {
-        super();
-        Server.on('tick', ev => {
-            for (const entry of this.playerDimensions) {
-                entry[1][0] = false;
-            }
-            
-            for (const player of <Player[]> world.getPlayers()) {
-                const oldDimension = this.playerDimensions.get(player.name)?.[2];
-                const newDimension = this.getDimensionName(player);
-                
-                if (oldDimension && oldDimension != newDimension) {
-                    this.emit('playerChangeDimension', player, world.getDimension(<dimension> newDimension));
-                }
-            }
-        });
-        this.on('playerChangeDimension', (player, dimension) => {
+        Server.on('playerChangeDimension', ev => {
             // Teleport the inventory stasher with the player
-            log(`"${player.name}" has travelled to "${PlayerUtil.getDimensionName(player)}"`);
-            const stasherName = 'wedit:stasher_for_' + player.name;
-            Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+            console.log(`"${ev.player.name}" has travelled to "${ev.dimension.id}"`);
+            const stasherName = 'wedit:stasher_for_' + ev.player.name;
+            Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, ev.player);
         });
-    }
-    
-    /**
-    * Gives the name of the dimension the player is currently in.
-    * @param player The player being queried
-    * @return The name of the dimension
-    */
-    getDimensionName(player: Player): dimension | '' {
-        if (this.playerDimensions.get(player.name)?.[0]) {
-            return this.playerDimensions.get(player.name)[2];
-        }
-    
-        const blockLoc = this.getBlockLocation(player);
-        for (const dimName of <dimension[]> ['overworld', 'nether', 'the end']) {
-            const dim: Dimension = world.getDimension(dimName);
-            for (const entity of dim.getEntitiesAtBlockLocation(blockLoc)) {
-                if (entity.id == 'minecraft:player' && entity.nameTag == player.nameTag) {
-                    this.playerDimensions.set(player.name, [true, dim, dimName]);
-                    return dimName;
-                }
-            }
-        }
-        return this.playerDimensions.get(player.name)?.[2] ?? '';
     }
     
     /**

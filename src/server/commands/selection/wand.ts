@@ -1,7 +1,7 @@
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 import { WAND_ITEM } from '@config.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'wand',

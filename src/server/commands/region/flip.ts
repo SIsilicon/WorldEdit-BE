@@ -4,9 +4,9 @@ import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@m
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 ;
 
 const registerInformation = {

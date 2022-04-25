@@ -3,7 +3,7 @@ import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 
 class NavigationTool extends Tool {
     permission = 'worldedit.navigation';

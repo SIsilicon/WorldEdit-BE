@@ -1,6 +1,6 @@
 import { registerCommand } from '../register_commands.js';
 import { VERSION } from '@config.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'worldedit',

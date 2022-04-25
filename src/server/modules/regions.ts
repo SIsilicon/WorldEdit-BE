@@ -1,7 +1,6 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+import { BlockLocation, BoolBlockProperty, IntBlockProperty, Player, StringBlockProperty } from 'mojang-minecraft';
+import { Server, Vector } from '@notbeer-api';
 import { printDebug, printLocation, placeBlock, regionSize, regionVolume, regionCenter, regionBounds } from '../util.js';
-import { Vector } from './vector.js';
 import { parsedBlock } from './parser.js';
 
 interface StructureMeta {
@@ -55,7 +54,7 @@ class RegionsManager {
                 const block = dim.getBlock(orgBlock.offset(x, y, z)).permutation;
                 const states: parsedBlock['states'] = new Map();
                 for (const state of block.getAllProperties()) {
-                    states.set(state.name, state.value);
+                    states.set(state.name, (state as StringBlockProperty|BoolBlockProperty|IntBlockProperty).value);
                 }
                 blocks.set(new Vector(x, y, z), {
                     id: block.type.id,

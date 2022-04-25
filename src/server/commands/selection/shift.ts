@@ -1,6 +1,6 @@
 import { assertSelection } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {

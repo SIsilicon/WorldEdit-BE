@@ -2,7 +2,7 @@ import { assertCanBuildWithin } from '@modules/assert.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';

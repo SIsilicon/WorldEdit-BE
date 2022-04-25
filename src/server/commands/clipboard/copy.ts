@@ -1,6 +1,6 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 import { Regions } from '@modules/regions.js';
 import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';

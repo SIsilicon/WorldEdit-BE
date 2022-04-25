@@ -2,7 +2,7 @@ import './util.js';
 import './commands/command_list.js';
 
 import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
+import { Server } from '@notbeer-api';
 import { print, printDebug, printLog } from './util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { PlayerUtil } from '@modules/player_util.js';

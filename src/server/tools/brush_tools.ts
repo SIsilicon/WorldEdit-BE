@@ -3,7 +3,6 @@ import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
 import { Brush } from '../brushes/base_brush.js';
 import { PlayerSession } from '../sessions.js';
-import { log } from '@library/utils/console.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
@@ -22,7 +21,6 @@ class BrushTool extends Tool {
         if (!hit) {
             throw 'commands.wedit:jumpto.none';
         }
-        log(self.brush);
         yield* self.brush.apply(hit, session, self.mask);
     }
     

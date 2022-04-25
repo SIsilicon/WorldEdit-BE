@@ -2,10 +2,10 @@ import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { Jobs } from '@modules/jobs.js';
-import { Vector } from '@modules/vector.js';
+import { Vector } from '@notbeer-api';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@library/Minecraft.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'replace',
