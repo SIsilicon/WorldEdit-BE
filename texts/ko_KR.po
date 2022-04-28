@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-04-28 14:19\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -381,6 +381,9 @@ msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "클립보드를 지웁니다."
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Cleared clipboard."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "편집 기록 지우기"
