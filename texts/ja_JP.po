@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-04-28 14:19\n"
+"PO-Revision-Date: 2022-04-28 15:36\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -383,7 +383,7 @@ msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "クリップボードを消去しました。"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "編集履歴を消去する"
