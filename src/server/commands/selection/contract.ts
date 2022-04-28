@@ -1,8 +1,8 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
-import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
+import { Cardinal } from '@modules/directions.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'contract',
@@ -44,7 +44,7 @@ const registerInformation = {
     ]
 };
 
-commandList['contract'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     const dir = (args.get('direction') as Cardinal).getDirection(builder);
@@ -77,4 +77,4 @@ commandList['contract'] = [registerInformation, (session, builder, args) => {
     const afterVol = session.getSelectedBlockCount();
 
     return RawText.translate('commands.wedit:contract.explain').with(beforeVol - afterVol);
-}];
+});

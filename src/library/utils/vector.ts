@@ -1,5 +1,4 @@
-import { BlockLocation, Location } from 'mojang-minecraft';
-import { Vector as MCVector } from 'mojang-minecraft'
+import { BlockLocation, Location, Vector as MCVector } from 'mojang-minecraft';
 
 type anyVec = BlockLocation|Location|Vector|MCVector|[number, number, number];
 type anyLoc = BlockLocation|Location;
@@ -82,14 +81,22 @@ export class Vector {
         return this.x == v.x && this.y == v.y && this.z == v.z;
     }
 
-    add(v: anyVec) {
-        v = Vector.ensureVector(v);
-        return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
+    add(v: anyVec|number) {
+        if (typeof v == 'number') {
+            return new Vector(this.x + v, this.y + v, this.z + v);
+        } else {
+            v = Vector.ensureVector(v);
+            return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
+        }
     }
     
-    sub(v: anyVec) {
-        v = Vector.ensureVector(v);
-        return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
+    sub(v: anyVec|number) {
+        if (typeof v == 'number') {
+            return new Vector(this.x - v, this.y - v, this.z - v);
+        } else {
+            v = Vector.ensureVector(v);
+            return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
+        }
     }
     
     mul(v: anyVec|number) {

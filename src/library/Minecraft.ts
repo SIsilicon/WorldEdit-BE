@@ -1,25 +1,23 @@
-import { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer } from "./utils/scheduling.js";
-export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout, sleep, startTime, Timer };
-
-import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
-export { compressNumber, formatNumber, MS, rainbowText };
-
-import Database from "./build/classes/databaseBuilder.js";
-export { Database };
+import { contentLog, RawText } from './utils/index.js';
+export * from './utils/index.js';
 
 import { world } from 'mojang-minecraft';
 import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
+import { Structure } from "./structure/structureBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
 
-import { RawText } from '@modules/rawtext.js';
-import { printDebug, printerr } from '@modules/../util.js';
+export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
+export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
+export { StructureSaveOptions, StructureLoadOptions } from "./structure/structureBuilder.js";
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
     public player = Player;
     public command = Command;
+    public structure = Structure;
+    //public structure = Structure;
     constructor() {
         super();
         this._buildEvent();
@@ -41,8 +39,7 @@ class ServerBuild extends ServerBuilder {
             if(!data.message.startsWith(this.command.prefix)) return;
             data.cancel = true;
             let msg = data.message;
-            
-            //const args = data.message.slice(this.command.prefix.length).trim().split(/\s+/);
+            data.message = data.message.substring(this.command.prefix.length);
             
             function regexIndexOf(text: string, re: RegExp, index: number) {
                 const i = text.slice(index).search(re);
@@ -95,34 +92,37 @@ class ServerBuild extends ServerBuilder {
                         throw 'commands.generic.wedit:noPermission';
                     }
                     element.callback(data, Command.parseArgs(command, args));
-                } catch(error) {
-                    if(error.isSyntaxError) {
-                        printDebug(error.stack);
-                        if(error.idx == -1 || error.idx >= args.length) {
-                            printerr(RawText.translate('commands.generic.syntax')
+                } catch(e) {
+                    if(e.isSyntaxError) {
+                        contentLog.error(e.stack);
+                        if(e.idx == -1 || e.idx >= args.length) {
+                            RawText.translate('commands.generic.syntax')
                                 .with(msg)
                                 .with('')
-                                .with(''),
-                            data.sender);
+                                .with('')
+                            .printError(data.sender);
                         } else {
-                            let start = offsets[error.idx];
-                            if(error.start) start += error.start;
-                            let end = start + args[error.idx].length;
-                            if(error.end) end = start + error.end;
-                            
-                            printerr(RawText.translate('commands.generic.syntax')
+                            let start = offsets[e.idx];
+                            if(e.start) start += e.start;
+                            let end = start + args[e.idx].length;
+                            if(e.end) end = start + e.end;
+                            RawText.translate('commands.generic.syntax')
                                 .with(msg.slice(0, start))
                                 .with(msg.slice(start, end))
-                                .with(msg.slice(end)),
-                            data.sender);
+                                .with(msg.slice(end))
+                            .printError(data.sender);
                         }
                     } else {
-                        printerr(error, data.sender);
-                        if (error.stack) {
-                            printerr(error.stack, data.sender);
+                        if (e instanceof RawText) {
+                            e.printError(data.sender);
+                        } else {
+                            RawText.text(e).printError(data.sender);
+                            if (e.stack) {
+                                RawText.text(e.stack).printError(data.sender);
+                            }
                         }
                     }
-                };
+                }
                 /**
                 * Emit to 'customCommand' event listener
                 */
@@ -133,7 +133,7 @@ class ServerBuild extends ServerBuilder {
                     createdTimestamp: date.getTime() 
                 });
                 break;
-            };
+            }
         });
         /**
         * Emit to 'beforeExplosion' event listener
@@ -191,7 +191,7 @@ class ServerBuild extends ServerBuilder {
         */
         world.events.playerLeave.subscribe(data => this.emit('playerLeave', data));
         
-        let worldLoaded = false, tickCount = 0;
+        let worldLoaded = false, tickCount = 0, playerDimensions = new Map<string, [boolean, string]>();
         world.events.tick.subscribe((data) => {
             tickCount++;
             if(!this.runCommand('testfor @a').error && !worldLoaded) {
@@ -202,12 +202,29 @@ class ServerBuild extends ServerBuilder {
                 worldLoaded = true;
             };
             
+            for (const entry of playerDimensions) {
+                entry[1][0] = false;
+            }
+            
+            for (const player of world.getPlayers()) {
+                const oldDimension = playerDimensions.get(player.name)?.[1];
+                const newDimension = player.dimension.id;
+                
+                if (oldDimension && oldDimension != newDimension) {
+                    this.emit('playerChangeDimension', {
+                        player: player,
+                        dimension: player.dimension
+                    });
+                }
+            }
+
             /**
             * Emit to 'tick' event listener
             */
             this.emit('tick', data);
         });
     };
+
 };
 /**
  * Import this constructor

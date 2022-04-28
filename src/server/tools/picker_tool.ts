@@ -1,11 +1,11 @@
-import { MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player } from 'mojang-minecraft';
+import { RawText } from '@notbeer-api';
+import { MinecraftBlockTypes, BlockPermutation, BlockProperties, BlockLocation, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
 import { Tools } from './tool_manager.js';
-import { RawText } from '@modules/rawtext.js';
 
 class PatternPickerTool extends Tool {
-    useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
+    useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
         const dimension = player.dimension;
         let addedToPattern = false;
         let block = dimension.getBlock(loc).permutation.clone();
@@ -22,11 +22,11 @@ class PatternPickerTool extends Tool {
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
+        self.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         const dimension = player.dimension;
         let addedToPattern = true;
         if (!player.isSneaking) {
@@ -34,7 +34,7 @@ class PatternPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalPattern.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
+        self.log(RawText.translate('worldedit.patternPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }
@@ -43,7 +43,7 @@ Tools.register(PatternPickerTool, 'pattern_picker', 'wedit:pattern_picker');
 
 class MaskPickerTool extends Tool {
     permission = 'worldedit.global-mask';
-    useOn = (player: Player, session: PlayerSession, loc: BlockLocation) => {
+    useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
         const dimension = player.dimension;
         let addedToPattern = false;
         let block = dimension.getBlock(loc).permutation.clone();
@@ -60,11 +60,11 @@ class MaskPickerTool extends Tool {
         if (blockName.startsWith('minecraft:')) {
             blockName = blockName.slice('minecraft:'.length);
         }
-        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
+        self.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', blockName)
         );
     }
-    use = (player: Player, session: PlayerSession) => {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         const dimension = player.dimension;
         let addedToPattern = true;
         if (!player.isSneaking) {
@@ -72,7 +72,7 @@ class MaskPickerTool extends Tool {
             addedToPattern = false;
         }
         session.globalMask.addBlock(MinecraftBlockTypes.air.createDefaultBlockPermutation());
-        this.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
+        self.log(RawText.translate('worldedit.maskPicker.' + (addedToPattern ? 'add' : 'set'))
             .append('text', 'air')
         );
     }
@@ -88,9 +88,7 @@ function printBlockProperties(block: BlockPermutation) {
             if (prop.name.startsWith('wall_connection_type') || prop.name.startsWith('liquid_depth')) {
                 continue;
             }
-            
-            const val = typeof prop.value == 'string' ? `'${prop.value}'` : prop.value;
-            propString += `\n§o${prop.name}§r: ${val}`;
+            propString += `\n§o${prop.name}§r: ${(prop as BoolBlockProperty|StringBlockProperty|IntBlockProperty).value}`;
         }
     }
     return propString;

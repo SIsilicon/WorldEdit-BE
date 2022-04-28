@@ -1,5 +1,6 @@
-import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
+import { Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
+import { getCommandFunc, registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'hpyramid',
@@ -17,7 +18,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hpyramid'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return commandList['pyramid'][1](session, builder, args);
-}];
+    return yield* getCommandFunc('pyramid')(session, builder, args) as any;
+});

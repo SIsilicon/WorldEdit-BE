@@ -1,6 +1,5 @@
-import { Regions } from '@modules/regions.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { Server } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'clearclipboard',
@@ -8,9 +7,11 @@ const registerInformation = {
     description: 'commands.wedit:clearclipboard.description'
 };
 
-commandList['clearclipboard'] = [registerInformation, (session, builder, args) => {
-    if (Regions.delete('clipboard', builder)) {
-        throw RawText.translate('commands.generic.wedit:commandFail');
+registerCommand(registerInformation, function (session, builder, args) {
+    if (!session.clipboard) {
+        throw 'commands.generic.wedit:commandFail';
     }
-    return RawText.translate('commands.wedit:clearclipboard.explain');
-}];
+    session.deleteRegion(session.clipboard);
+    session.clipboard = null;
+    return 'commands.wedit:clearclipboard.explain';
+});

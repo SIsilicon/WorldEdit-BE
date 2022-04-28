@@ -1,9 +1,8 @@
-import { BlockLocation } from 'mojang-minecraft';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
-import { PyramidShape } from '../../shapes/pyramid.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { commandList } from '../command_list.js';
+import { RawText } from '@notbeer-api';
+import { PyramidShape } from '../../shapes/pyramid.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'pyramid',
@@ -23,14 +22,14 @@ const registerInformation = {
     ]
 };
 
-commandList['pyramid'] = [registerInformation, async (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let isHollow = args.has('h');
     let size: number = args.get('size');
 
     const loc = PlayerUtil.getBlockLocation(builder);
     const pyramidShape = new PyramidShape(size);
-    const count = await pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = yield* pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

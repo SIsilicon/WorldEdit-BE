@@ -1,11 +1,8 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation } from '../../util.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { CommandPosition } from '@library/build/classes/commandBuilder.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { BlockLocation } from 'mojang-minecraft';
+import { printLocation } from '../../util.js';
+import { registerCommand } from '../register_commands.js';
 import { PlayerSession } from '../../sessions.js';
+import { RawText, CommandPosition } from '@notbeer-api';
 
 const registerInformation = {
     name: 'pos1',
@@ -39,6 +36,6 @@ export function setPos1(session: PlayerSession, loc: BlockLocation) {
     return '';
 }
 
-commandList['pos1'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     return setPos1(session, args.get('coordinates').relativeTo(builder, true));
-}];
+});

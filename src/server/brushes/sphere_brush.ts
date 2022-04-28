@@ -1,10 +1,9 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { Mask } from '@modules/mask.js';
-import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { SphereShape } from '../shapes/sphere.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
 
 /**
  * This brush creates sphere shaped patterns in the world.
@@ -38,7 +37,7 @@ export class SphereBrush extends Brush {
         this.pattern = value;
     }
     
-    public async apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
-        await this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
+    public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+        yield* this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
     }
 }

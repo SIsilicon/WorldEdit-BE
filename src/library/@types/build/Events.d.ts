@@ -13,7 +13,9 @@ import {
     EntityCreateEvent,
     ExplosionEvent,
     PistonActivateEvent,
-    WeatherChangeEvent 
+    WeatherChangeEvent, 
+    Player,
+    Dimension
 } from "mojang-minecraft";
 import { registerInformation } from './classes/CommandBuilder';
 
@@ -34,10 +36,15 @@ export interface EventList {
     playerJoin: [PlayerJoinEvent],
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
-    customCommand: [customCommand]
+    customCommand: [customCommand],
+    playerChangeDimension: [playerChangeDimension]
 }
 interface ready {
     readonly loadTime: number
+}
+interface playerChangeDimension {
+    readonly player: Player,
+    readonly dimension: Dimension
 }
 interface customCommand {
     registration: registerInformation,

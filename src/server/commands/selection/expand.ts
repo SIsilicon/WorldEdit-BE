@@ -1,12 +1,10 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
-import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { printDebug } from '../../util.js';
+import { Cardinal } from '@modules/directions.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 // TODO: Support multiple directions at once (contract too)
-
 const registerInformation = {
     name: 'expand',
     description: 'commands.wedit:expand.description',
@@ -58,7 +56,7 @@ const registerInformation = {
     ]
 };
 
-commandList['expand'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
     let points = session.getSelectionPoints().map(block => Vector.from(block));
     
@@ -92,4 +90,4 @@ commandList['expand'] = [registerInformation, (session, builder, args) => {
     const afterVol = session.getSelectedBlockCount();
 
     return RawText.translate('commands.wedit:expand.explain').with(afterVol - beforeVol);
-}];
+});

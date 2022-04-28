@@ -1,10 +1,8 @@
-import { BlockLocation } from 'mojang-minecraft';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { RawText } from '@notbeer-api';
 import { SphereShape } from '../../shapes/sphere.js';
-import { printDebug } from '../../util.js';
-import { commandList } from '../command_list.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'sphere',
@@ -61,7 +59,7 @@ const registerInformation = {
     ]
 };
 
-commandList['sphere'] = [registerInformation, async (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let radii: [number, number, number];
     let isHollow = args.has('h');
@@ -77,7 +75,7 @@ commandList['sphere'] = [registerInformation, async (session, builder, args) => 
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? radii[1] : 0, 0);
     
     const sphereShape = new SphereShape(...radii);
-    const count = await sphereShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = yield* sphereShape.generate(loc, pattern, null, session, {'hollow': isHollow});
     
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

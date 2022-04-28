@@ -50,4 +50,4 @@ export const MAX_CHANGE_LIMIT: number = -1;
 export const ASYNC_TIME_BUDGET: number = 200;
 
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.0';
+export const VERSION: string = '0.6.1 [beta]';

@@ -1,8 +1,7 @@
 import { NAV_WAND_ITEM } from '@config.js';
-import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { printDebug } from '../../util.js';
-import { commandList } from '../command_list.js';
+import { Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'navwand',
@@ -10,8 +9,8 @@ const registerInformation = {
     description: 'commands.wedit:navwand.description'
 };
 
-commandList['navwand'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     Server.runCommand(`give @s ${NAV_WAND_ITEM}`, builder);
     session.bindTool('navigation_wand', NAV_WAND_ITEM);
     return RawText.translate('commands.wedit:navwand.explain');
-}];
+});

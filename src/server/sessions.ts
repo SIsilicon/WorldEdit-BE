@@ -1,27 +1,26 @@
 import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
-import { History } from '@modules/history.js';
-import { getWorldMaxY, getWorldMinY, printDebug, printLog, regionVolume } from './util.js';
-import { Server, setTickTimeout } from '@library/Minecraft.js';
-import { Pattern } from '@modules/pattern.js';
-import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
-import { SettingsHotbar } from '@modules/settings_hotbar.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
+import { getWorldMaxY, getWorldMinY, printDebug, printLog } from './util.js';
+import { Server, Vector, setTickTimeout, regionVolume, generateId, regionBounds } from '@notbeer-api';
 import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
 import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
+import { History } from '@modules/history.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { SettingsHotbar } from '@modules/settings_hotbar.js';
+import { RegionBuffer } from '@modules/region_buffer.js';
 
 // TODO: Add other selection modes
-export type selectMode = 'cuboid' | 'extend';
+export const selectModes = ['cuboid', 'extend'] as const;
+export type selectMode = typeof selectModes[number];
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
-PlayerUtil.on('playerChangeDimension', (player) => {
-    playerSessions.get(player.name)?.clearSelectionPoints();
+Server.on('playerChangeDimension', ev => {
+    playerSessions.get(ev.player.name)?.clearSelectionPoints();
 });
 
 /**
@@ -67,12 +66,25 @@ export class PlayerSession {
     * Is null when the UI isn't active.
     */
     public settingsHotbar: SettingsHotbar;
-    
-    private currentTick = 0;
+
+    /**
+     * The clipboard region created by the player.
+     */
+    public clipboard: RegionBuffer;
+    /**
+     * The transformation properties currently on the clipboard
+     */
+    public clipboardTransform = {
+        originalLoc: Vector.ZERO,
+        relative: Vector.ZERO,
+        rotation: 0,
+        flip: 'none' as 'none'|'x'|'z'|'xz'
+    }
 
     private player: Player;
     private history: History;
     private selectionPoints: BlockLocation[];
+    private regions = new Map<string, RegionBuffer>();
 
     private _selectionMode: selectMode = 'cuboid';
     private _drawSelection = DRAW_SELECTION;
@@ -82,13 +94,19 @@ export class PlayerSession {
     
     constructor(player: Player) {
         this.player = player;
-        this.history = new History(this.player);
+        this.history = new History(this);
         this.selectionPoints = [];
         
         this.bindTool('selection_wand', WAND_ITEM);
         this.bindTool('navigation_wand', NAV_WAND_ITEM);
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
+        }
+
+        for (const tag of player.getTags()) {
+            if (tag.startsWith('wedit:defaultTag_')) {
+                this.selectionMode = tag.split('_', 2)[1] as selectMode;
+            }
         }
     }
     
@@ -111,7 +129,6 @@ export class PlayerSession {
     */
     reassignPlayer(player: Player) {
         this.player = player;
-        this.history.reassignPlayer(player);
     }
     
     /**
@@ -122,7 +139,7 @@ export class PlayerSession {
     */
     public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
         if (index > 0 && this.selectionPoints.length == 0 && this.selectionMode != 'cuboid') {
-        throw RawText.translate('worldedit.selection.noPrimary');
+            throw 'worldedit.selection.noPrimary';
         }
         if (this.selectionPoints.length <= index) {
             this.selectionPoints.length = index + 1;
@@ -200,7 +217,7 @@ export class PlayerSession {
     public getSelectionRange(): [BlockLocation, BlockLocation] {
         if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
             const [pos1, pos2] = this.selectionPoints.slice(0, 2);
-            return [Vector.min(pos1, pos2).toBlock(), Vector.max(pos1, pos2).toBlock()];
+            return regionBounds([pos1, pos2]);
         }
         return null;
     }
@@ -295,9 +312,23 @@ export class PlayerSession {
         this.settingsHotbar = null;
     }
     
+    public createRegion(isAccurate: boolean) {
+        const buffer = new RegionBuffer(isAccurate);
+        this.regions.set(buffer.id, buffer);
+        return buffer;
+    }
+
+    public deleteRegion(buffer: RegionBuffer) {
+        this.regions.delete(buffer.id);
+    }
+
     delete() {
-        Regions.deletePlayer(this.player);
+        for (const region of this.regions.values()) {
+            region.delete();
+        }
+        this.regions.clear();
         Tools.deleteBindings(this.player);
+        this.history.delete();
         this.history = null;
     }
     
@@ -348,8 +379,6 @@ export class PlayerSession {
     }
     
     onTick(tick: TickEvent) {
-        this.currentTick = tick.currentTick;
-        
         // Process settingsHotbar
         if (this.settingsHotbar) {
             this.settingsHotbar.onTick(tick);

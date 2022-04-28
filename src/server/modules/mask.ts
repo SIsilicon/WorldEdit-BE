@@ -1,7 +1,5 @@
-import { BlockLocation, BlockPermutation, IBlockProperty, Dimension } from 'mojang-minecraft';
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
-import { CustomArgType } from '@library/build/classes/commandBuilder.js';
-import { Server } from '@library/Minecraft.js';
+import { BlockLocation, BlockPermutation, IBlockProperty, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from 'mojang-minecraft';
+import { Server, CustomArgType, commandSyntaxError } from '@notbeer-api';
 import { printDebug, printLocation } from '../util.js';
 import { Token, Tokenizr } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock } from './parser.js';
@@ -36,7 +34,7 @@ export class Mask implements CustomArgType {
     
     addBlock(block: BlockPermutation) {
         const states: parsedBlock['states'] = new Map();
-        block.getAllProperties().forEach(state => {
+        block.getAllProperties().forEach((state: StringBlockProperty|BoolBlockProperty|IntBlockProperty) => {
             if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
             }
@@ -269,7 +267,7 @@ class BlockMask extends MaskNode {
             const properties = block.getAllProperties();
             let states_passed = 0;
             for (const state of this.block.states) {
-                const prop = <IBlockProperty> properties.find(value => {
+                const prop = <StringBlockProperty|BoolBlockProperty|IntBlockProperty> properties.find(value => {
                     return value.name == state[0];
                 });
                 if (prop && prop.value == state[1]) {
@@ -299,7 +297,7 @@ class StateMask extends MaskNode {
         const properties = block.getAllProperties();
         let states_passed = 0;
         for (const state of this.states) {
-            const prop = <IBlockProperty> properties.find(value => {
+            const prop = <StringBlockProperty|BoolBlockProperty|IntBlockProperty> properties.find(value => {
                 return value.name == state[0];
             });
             if (this.strict && prop && prop.value == state[1]) {

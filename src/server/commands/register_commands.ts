@@ -1,136 +1,57 @@
-import { Server, Timer } from '@library/Minecraft.js';
-import { commandList } from './command_list.js';
-import { getSession, hasSession } from '../sessions.js';
-import { Mask } from '@modules/mask.js';
-import { Pattern } from '@modules/pattern.js';
-import { Cardinal } from '@modules/directions.js';
+import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from '@notbeer-api';
+import { getSession, hasSession, PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
-import { COMMAND_PREFIX } from '@config.js';
+import { BeforeChatEvent, Player } from 'mojang-minecraft';
 
-Server.command.addCustomArgType('Mask', Mask);
-Server.command.addCustomArgType('Pattern', Pattern);
-Server.command.addCustomArgType('Direction', Cardinal);
-Server.command.addCustomArgType('Expression', Expression);
+type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<void, RawText | string> | RawText | string;
 
-import './misc/help.js';
-import './misc/worldedit.js';
-import './misc/limit.js';
-import './misc/kit.js';
+const commandList = new Map<string, [CommandInfo, commandFunc]>();
 
-import './selection/pos1.js';
-import './selection/pos2.js';
-import './selection/hpos1.js';
-import './selection/hpos2.js';
-import './selection/drawsel.js';
-import './selection/desel.js';
-import './selection/wand.js';
-import './selection/contract.js';
-import './selection/expand.js';
-import './selection/shift.js';
-import './selection/outset.js';
-import './selection/inset.js';
-
-import './clipboard/cut.js';
-import './clipboard/copy.js';
-import './clipboard/paste.js';
-import './clipboard/clearclipboard.js';
-
-import './generation/hsphere.js';
-import './generation/sphere.js';
-import './generation/cyl.js';
-import './generation/hcyl.js';
-import './generation/pyramid.js';
-import './generation/hpyramid.js';
-import './generation/gen.js';
-
-import './region/gmask.js';
-import './region/set.js';
-import './region/replace.js';
-import './region/move.js';
-import './region/stack.js';
-import './region/rotate.js';
-import './region/flip.js';
-import './region/wall.js';
-import './region/smooth.js';
-import './region/faces.js';
-// TODO: Implement hollow
-import './region/line.js';
-
-import './navigation/navwand.js';
-import './navigation/up.js';
-import './navigation/unstuck.js';
-import './navigation/jumpto.js';
-import './navigation/thru.js';
-// TODO: Implement ascend and descend
-// TODO: Implement ceil
-
-import './tool/tool.js';
-
-import './brush/brush.js';
-import './brush/mask.js';
-import './brush/tracemask.js';
-import './brush/size.js';
-import './brush/range.js';
-import './brush/material.js';
-
-import './history/undo.js';
-import './history/redo.js';
-import './history/clearhistory.js';
-import { Expression } from '@modules/expression.js';
-import { TicksPerSecond } from 'mojang-minecraft';
-import { RawText } from '@modules/rawtext.js';
-import { error, log, warn } from '@library/utils/console.js';
-
-Server.command.prefix = COMMAND_PREFIX;
-let _printToActionBar = false;
-
-for (const name in commandList) {
-    const command = commandList[name];
-    
-    Server.command.register(command[0], (data, args) => {
-        let toActionBar = _printToActionBar;
-        _printToActionBar = false;
+export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
+    commandList.set(registerInformation.name, [registerInformation, callback]);
+    Server.command.register(registerInformation, (data: BeforeChatEvent, args: Map<string, any>) => {
         const player = data.sender;
         if (!hasSession(player.name)) {
             data.cancel = false;
             return;
         }
-        
-        const timer = new Timer();
-        const errHandler = (e: any) => {
-            const history = getSession(data.sender).getHistory();
-            if (history.isRecording()) {
-                history.cancel();
-            }
-            const errMsg = e.message ? `${e.name}: ${e.message}` : e;
-            error(`Command '${data.message}' failed for '${data.sender.name}' with msg: ${errMsg}`);
-            printerr(errMsg, data.sender, toActionBar);
-            if (e.stack) {
-                printerr(e.stack, data.sender, false);
-            }
-        }
-        const onFinish = (msg: string|RawText) => {
-            const time = timer.end();
-            log(`Time taken to execute: ${time}ms (${time/1000.0} secs)`);
-            print(msg, player, toActionBar);
-        }
+        let toActionBar = getSession(player).usingItem;
+        args.set('_using_item', getSession(player).usingItem);
 
-        try {
-            timer.start();
-            log(`Processing command '${data.message}' for '${data.sender.name}'`);
-            const msg = command[1](getSession(player), player, args);
-            
-            if (msg instanceof Promise) {
-                msg.then(onFinish).catch(errHandler);
-            } else {
-                onFinish(msg);
+        const thread = new Thread();
+        thread.start(function* (msg, player, args) {
+            const timer = new Timer();
+            try {
+                timer.start();
+                contentLog.log(`Processing command '${msg}' for '${player.name}'`);
+                let result: string | RawText;
+                if (callback.constructor.name == 'GeneratorFunction') {
+                    result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
+                } else {
+                    result = callback(getSession(player), player, args) as string | RawText;
+                }
+                const time = timer.end();
+                contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                print(result, player, toActionBar);
             }
-        } catch (e) {
-            errHandler(e);
-        }
+            catch (e) {
+                const errMsg = e.message ? `${e.name}: ${e.message}` : e;
+                contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                printerr(errMsg, player, toActionBar);
+                if (e.stack) {
+                    printerr(e.stack, player, false);
+                }
+            }
+        }, data.message, data.sender, args);
+
+        return thread;
     });
 }
 
-export function printToActionBar() {
-    _printToActionBar = true;
+export function getCommandFunc(command: string) {
+    return commandList.get(command)[1];
+}
+
+export function getCommandInfo(command: string) {
+    return commandList.get(command)[0];
 }
