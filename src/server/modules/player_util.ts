@@ -11,7 +11,7 @@ class PlayerHandler {
     constructor() {
         Server.on('playerChangeDimension', ev => {
             // Teleport the inventory stasher with the player
-            contentLog.log(`"${ev.player.name}" has travelled to "${ev.dimension.id}"`);
+            contentLog.debug(`"${ev.player.name}" has travelled to "${ev.dimension.id}"`);
             const stasherName = 'wedit:stasher_for_' + ev.player.name;
             Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, ev.player);
         });

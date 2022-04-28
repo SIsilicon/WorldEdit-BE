@@ -1,4 +1,7 @@
+import { StructureLoadOptions } from "../structure/structureBuilder.js";
 import { BlockLocation } from "mojang-minecraft";
+import { Vector } from "./vector.js";
+import { contentLog } from "@notbeer-api";
 
 /**
  * Gives the volume of a space defined by two corners.
@@ -32,6 +35,24 @@ export function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLoca
         max.z = Math.max(block.z, max.z);
     }
     return [min, max];
+}
+
+export function regionTransformedBounds(start: BlockLocation, end: BlockLocation, origin: Vector, options: StructureLoadOptions) {
+    const rotation = options.rotation ?? 0;
+    const flip = options.flip ?? 'none';
+    
+    let dir_sc = Vector.ONE;
+    if (flip.includes('x')) {
+        dir_sc.z *= -1;
+    }
+    if (flip.includes('z')) {
+        dir_sc.x *= -1;
+    }
+
+    let vecA = Vector.sub(start, origin).rotate(rotation).mul(dir_sc).add(origin);
+    let vecB = Vector.sub(end, origin).rotate(rotation).mul(dir_sc).add(origin);
+
+    return [vecA.min(vecB).toBlock(), vecA.max(vecB).toBlock()];
 }
 
 /**

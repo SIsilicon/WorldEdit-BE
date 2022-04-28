@@ -2,7 +2,7 @@ import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { RawText } from '@notbeer-api';
-import { Regions } from '@modules/regions.js';
+import { Server } from '@notbeer-api';
 import { Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';

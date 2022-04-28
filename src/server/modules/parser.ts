@@ -1,4 +1,4 @@
-import { commandSyntaxError } from '@notbeer-api';
+import { commandSyntaxError, contentLog } from '@notbeer-api';
 import { Token, Tokenizr, ParsingError } from './extern/tokenizr.js';
 
 export type parsedBlock = {
@@ -53,7 +53,7 @@ export function tokenize(input: string) {
                 idx: -1,
                 start: err.pos,
                 end: err.pos + 1,
-                stack: Error().stack
+                stack: contentLog.stack()
             };
             throw error;
         }
@@ -73,7 +73,7 @@ export function throwTokenError(token: Token): never {
         idx: -1,
         start: token.pos,
         end: token.pos + token.text.length,
-        stack: Error().stack
+        stack: contentLog.stack()
     };
     throw err;
 }

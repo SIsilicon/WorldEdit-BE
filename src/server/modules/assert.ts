@@ -1,8 +1,7 @@
 import { Player, BlockLocation, Dimension } from 'mojang-minecraft';
 import { Server, Vector, RawText } from '@notbeer-api';
-import { Regions } from './regions.js';
 import { PlayerSession } from '../sessions.js';
-import { canPlaceBlock, printDebug } from '../util.js';
+import { canPlaceBlock } from '../util.js';
 import { History } from './history.js';
 
 function assertPermission(player: Player, perm: string) {
@@ -23,8 +22,8 @@ function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: BlockLoca
     }
 }
 
-function assertClipboard(player: Player) {
-    if (!Regions.has('clipboard', player)) {
+function assertClipboard(session: PlayerSession) {
+    if (!session.clipboard) {
         throw RawText.translate('commands.generic.wedit:noClipboard');
     }
 }

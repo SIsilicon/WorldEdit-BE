@@ -6,22 +6,26 @@ function date() {
 class Console {
     
     log(...msg) {
-        console.log(date(), ...msg);
+        console.warn('[LOG]', date(), ...msg);
     }
     
     warn(...msg) {
-        console.warn(date(), ...msg);
+        console.warn('[WARN]', date(), ...msg);
     }
 
     error(...msg) {
-        console.error(date(), ...msg);
+        console.error('[ERROR]', date(), ...msg);
         if (msg[0]?.stack) {
             console.error(msg[0].stack);
         }
     }
     
+    debug(...msg) {
+        console.warn('[DEBUG]', date(), ...msg);
+    }   
+
     stack() {
-        warn(new Error().stack);
+        return new Error().stack.split('\n').splice(1).join('\n');
     }
 }
 

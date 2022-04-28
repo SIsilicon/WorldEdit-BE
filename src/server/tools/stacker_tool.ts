@@ -1,6 +1,5 @@
 import { Cardinal } from '@modules/directions.js';
 import { Mask } from '@modules/mask.js';
-import { Regions } from '@modules/regions.js';
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
@@ -25,20 +24,21 @@ class StackerTool extends Tool {
         }
         const history = session.getHistory();
         const record = history.record();
+        const tempStack = session.createRegion(true);
         try {
             history.addUndoStructure(record, start, end, 'any');
             
-            Regions.save('tempStack', loc, loc, player);
+            tempStack.save(loc, loc, dim);
             for (const pos of start.blocksBetween(end)) {
-                Regions.load('tempStack', pos, player);
+                tempStack.load(pos, dim);
             }
-            Regions.delete('tempStack', player);
-            
             history.addRedoStructure(record, start, end, 'any');
             history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;
+        } finally {
+            session.deleteRegion(tempStack);
         }
     }
     

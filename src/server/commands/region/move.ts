@@ -5,7 +5,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js'
 import { Cardinal } from '@modules/directions.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@notbeer-api';
-import { Regions } from '@modules/regions.js';
+import { Server } from '@notbeer-api';
 
 const registerInformation = {
     name: 'move',
@@ -39,16 +39,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const history = session.getHistory();
     const record = history.record();
+    const temp = session.createRegion(false);
     try {
-
         history.addUndoStructure(record, start, end, 'any');
         history.addUndoStructure(record, movedStart, movedEnd, 'any');    
         
-        Regions.save('tempMove', start, end, builder);
+        temp.save(start, end, dim);
         var count = yield* set(session, new Pattern('air'));
-        Regions.load('tempMove', movedStart, builder);
-        count += Regions.getBlockCount('tempMove', builder);
-        Regions.delete('tempMove', builder);
+        temp.load(movedStart, dim);
+        count += temp.getBlockCount();
         
         history.addRedoStructure(record, start, end, 'any');
         history.addRedoStructure(record, movedStart, movedEnd, 'any');
@@ -56,6 +55,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     } catch (e) {
         history.cancel(record);
         throw e;
+    } finally {
+        session.deleteRegion(temp);
     }
     
     return RawText.translate('commands.wedit:move.explain').with(count);

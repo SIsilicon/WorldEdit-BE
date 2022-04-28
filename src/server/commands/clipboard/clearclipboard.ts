@@ -1,4 +1,4 @@
-import { Regions } from '@modules/regions.js';
+import { Server } from '@notbeer-api';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
@@ -8,8 +8,10 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-    if (Regions.delete('clipboard', builder)) {
+    if (!session.clipboard) {
         throw 'commands.generic.wedit:commandFail';
     }
+    session.deleteRegion(session.clipboard);
+    session.clipboard = null;
     return 'commands.wedit:clearclipboard.explain';
 });

@@ -1,7 +1,6 @@
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText, regionSize } from '@notbeer-api';
-import { Regions } from '@modules/regions.js';
+import { RawText, regionSize, regionVolume } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { registerCommand } from '../register_commands.js';
 
@@ -27,6 +26,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get('count');
     const [start, end] = session.getSelectionRange();
+    const dim = builder.dimension;
     const size = regionSize(start, end);
     
     const dir = args.get('offset').getDirection(builder).mul(size);
@@ -44,19 +44,21 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const history = session.getHistory();
     const record = history.record();
+    const tempStack = session.createRegion(false);
     try {
-        Regions.save('tempStack', start, end, builder);
+        tempStack.save(start, end, dim);
         for (const load of loads) {
             history.addUndoStructure(record, load[0], load[1], 'any');
-            Regions.load('tempStack', load[0], builder);
+            tempStack.load(load[0], dim);
             history.addRedoStructure(record, load[0], load[1], 'any');
-            count += Regions.getBlockCount('tempStack', builder);
+            count += regionVolume(load[0], load[1]);
         }
-        Regions.delete('tempStack', builder);
         history.commit(record);
     } catch (e) {
         history.cancel(record);
         throw e;
+    } finally {
+        session.deleteRegion(tempStack);
     }
     
     return RawText.translate('commands.wedit:stack.explain').with(count);

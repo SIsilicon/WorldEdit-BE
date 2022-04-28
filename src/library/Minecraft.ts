@@ -1,19 +1,22 @@
-import { contentLog, RawText } from './utils/index';
-export * from './utils/index';
+import { contentLog, RawText } from './utils/index.js';
+export * from './utils/index.js';
 
 import { world } from 'mojang-minecraft';
 import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
+import { Structure } from "./structure/structureBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
 
 export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
 export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
+export { StructureSaveOptions, StructureLoadOptions } from "./structure/structureBuilder.js";
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;
     public player = Player;
     public command = Command;
+    public structure = Structure;
     //public structure = Structure;
     constructor() {
         super();
@@ -110,9 +113,13 @@ class ServerBuild extends ServerBuilder {
                             .printError(data.sender);
                         }
                     } else {
-                        RawText.text(e).printError(data.sender);
-                        if (e.stack) {
-                            RawText.text(e.stack).printError(data.sender);
+                        if (e instanceof RawText) {
+                            e.printError(data.sender);
+                        } else {
+                            RawText.text(e).printError(data.sender);
+                            if (e.stack) {
+                                RawText.text(e.stack).printError(data.sender);
+                            }
                         }
                     }
                 }

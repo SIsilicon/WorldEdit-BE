@@ -1,13 +1,8 @@
-import { set } from '../region/set.js';
 import { registerCommand } from '../register_commands.js';
-import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { assertClipboard } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { Pattern } from '@modules/pattern.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@notbeer-api';
-import { Regions } from '@modules/regions.js';
-import { Vector } from '@notbeer-api';
-;
+import { contentLog, RawText, Vector } from '@notbeer-api';
+import { transformSelection } from './transform_func.js';
 
 const registerInformation = {
     name: 'flip',
@@ -31,67 +26,35 @@ const registerInformation = {
     ]
 };
 
+const flipBits = { 0b00: 'none', 0b01: 'x', 0b10: 'z', 0b11: 'xz' } as {[key: number]: 'none'|'x'|'z'|'xz'};
+
 registerCommand(registerInformation, function* (session, builder, args) {
     const dir: Vector = args.get('direction').getDirection(builder);
     if (dir.y != 0) {
-        throw RawText.translate('commands.wedit:flip.not-lateral');
+        throw 'commands.wedit:flip.notLateral';
     }
     
     let blockCount = 0;
+    // TODO: Support stacking rotations and flips
     if (args.has('c')) {
-        assertClipboard(builder);
-        const [start, end] = Regions.getBounds('clipboard', builder);
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.add(Regions.getOrigin('clipboard', builder), start);
-        
-        Regions.flip('clipboard', dir, center, builder);
-        blockCount = Regions.getBlockCount('clipboard', builder);
-    } else {
-        assertCuboidSelection(session);
-        const history = session.getHistory();
-        const record = history.record();
-        try {
-            const [start, end] = session.getSelectionRange();
-            const dim = builder.dimension;
-            assertCanBuildWithin(dim, start, end);
-            
-            const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
-            
-            Regions.save('tempFlip', start, end, builder);
-            Regions.flip('tempFlip', dir, center, builder);
-            blockCount = Regions.getBlockCount('tempFlip', builder);
-            
-            const [newStart, newEnd] = Regions.getBounds('tempFlip', builder);
-            history.addUndoStructure(record, start, end, 'any');
-            history.addUndoStructure(record, newStart, newEnd, 'any');
-            
-            try {
-                assertCanBuildWithin(dim, newStart, newEnd);
-            } catch (e) {
-                Regions.delete('tempFlip', builder);
-                throw e;
+        assertClipboard(session);
+        const clipboardTrans = session.clipboardTransform;
+        if (!args.has('o')) {
+            if (Math.abs(dir.x)) {
+                clipboardTrans.relative.x *= -1;
+            } else if (Math.abs(dir.z)) {
+                clipboardTrans.relative.z *= -1;
             }
-            
-            set(session, new Pattern('air'));
-            if (Regions.load('tempFlip', newStart, builder)) {
-                Regions.delete('tempFlip', builder);
-                throw RawText.translate('commands.generic.wedit:commandFail');
-            }
-            Regions.delete('tempFlip', builder);
-            
-            if (args.has('s')) {
-                history.recordSelection(record, session);
-                session.setSelectionPoint(0, newStart);
-                session.setSelectionPoint(1, newEnd);
-                history.recordSelection(record, session);
-            }
-            
-            history.addRedoStructure(record, newStart, newEnd, 'any');
-            history.addRedoStructure(record, start, end, 'any');
-            history.commit(record);    
-        } catch (e) {
-            history.cancel(record);
-            throw e;
         }
+
+        let dirBits = (clipboardTrans.flip.includes('z') ? 2 : 0) + (clipboardTrans.flip.includes('x') ? 1 : 0);
+        dirBits ^= 0b10 * Math.abs(dir.x);
+        dirBits ^= 0b01 * Math.abs(dir.z);
+        clipboardTrans.flip = flipBits[dirBits] as typeof clipboardTrans.flip;
+        blockCount = session.clipboard.getBlockCount();
+    } else {
+        yield* transformSelection(session, builder, args, {flip: flipBits[2 * Math.abs(dir.x) + Math.abs(dir.z)]});
+        blockCount = session.getSelectedBlockCount();
     }
     
     return RawText.translate('commands.wedit:flip.explain').with(blockCount);

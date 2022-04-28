@@ -5,3 +5,4 @@ export * from './multithreading.js';
 export * from './rawtext.js';
 export * from './scheduling.js';
 export * from './vector.js';
+export * from './uniqueId.js';

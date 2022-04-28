@@ -1,8 +1,8 @@
 import { Player, BlockLocation, Location, BeforeChatEvent } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../../@types/build/classes/CommandBuilder";
-import { RawText } from "../../utils/rawtext.js";
 import { Player as playerHandler } from "./playerBuilder.js";
+import { contentLog, RawText } from "../../utils/index.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -26,7 +26,7 @@ export class CommandPosition implements CustomArgType {
             if(!args) {
                 const err: commandSyntaxError = {
                     isSyntaxError: true,
-                    stack: Error().stack,
+                    stack: contentLog.stack(),
                     idx: -1
                 };
                 throw err;
@@ -326,7 +326,7 @@ export class CommandBuilder {
                 if(!processed && hasNamedSubCmd && !unnamedSubs.length) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
-                        stack: Error().stack,
+                        stack: contentLog.stack(),
                         idx: i
                     };
                     throw err;
@@ -389,7 +389,7 @@ export class CommandBuilder {
                 if(!argDef) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
-                        stack: Error().stack,
+                        stack: contentLog.stack(),
                         idx: i
                     };
                     throw err;
@@ -416,7 +416,7 @@ export class CommandBuilder {
                         // Required arguments not specified
                         const err: commandSyntaxError = {
                             isSyntaxError: true,
-                            stack: Error().stack,
+                            stack: contentLog.stack(),
                             idx: -1
                         };
                         throw err;
