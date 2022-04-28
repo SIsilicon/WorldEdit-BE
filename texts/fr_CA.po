@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French, Canada\n"
 "Language: fr_CA\n"
-"PO-Revision-Date: 2022-04-03 22:27\n"
+"PO-Revision-Date: 2022-04-28 14:19\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -381,6 +381,9 @@ msgstr "Brush unbound from your current item."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Cleared clipboard."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Clear your editing history"
