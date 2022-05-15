@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-15 13:24\n"
+"PO-Revision-Date: 2022-05-15 14:20\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -86,7 +86,7 @@ msgid "item.wedit:far_selection_button"
 msgstr "Палка дальнего выбора территории"
 
 msgid "item.wedit:navigation_button"
-msgstr "Палка телепортации"
+msgstr "Навигационный жезл"
 
 msgid "item.wedit:stacker_button"
 msgstr "Наращивающий инструмент"
@@ -689,10 +689,10 @@ msgid "commands.wedit:wand.explain"
 msgstr "Присесть и нажать на блок: выбрать точку #1; Нажмите на блок без приседания: выбрать точку #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "Команды WorldEdit"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "Получить версию WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "Версия WorldEdit: %s"
@@ -707,10 +707,10 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "Как играть: Быстрый Старт для WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Лицензия"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "Обучение: WorldEdit лицензия"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Добро пожаловать! Это пародия оригинального мода WorldEdit для Minecraft: Java Edition. Этот аддон поможет вам изменить свой мир прямо в Minecraft."
@@ -719,10 +719,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перед чем-либо еще..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "По умолчанию игрокам не разрешается использовать WorldEdit. Только те, у кого есть разрешение worldedit, могут использовать его функции. Чтобы дать себе разрешение, введите §e/tag @s add worldedit§r в чате. После этого у вас должен быть доступ ко всем командам WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aПодсказка:§r§a Вы также можете дать разрешение другим игрокам, сменив §e@s§r§a на имя игрока. Вам нужно окружить его кавычками, если в нём есть пробел. Например: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Куда пойти"
@@ -731,7 +731,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aПримечание:§r§a В командах этого дополнения используется точка с запятой (;) вместо косой черты (/). В будущем Mojang может добавить в Minecraft реальную поддержку пользовательских команд.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "Добраться из точки А до точки В иногда может быть трудным. К счастью, это аддон поставляет инструмент известный как Навигационный жезл. Чтобы получить один, введите команду §e;navwand§r. Как только у вас появится этот предмет, вы сможете телепортироваться в любое место на которое вы смотрите. Хотите попасть на другую сторону стены или потолка? Используйте жезл в присяде! Застрял в блоке? Используя жезл вы сможете выбраться!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aСовет:§r§a Если вы не хотите использовать навигационную палочку, эти действия также можно выполнить с помощью команд §e;jumpto к§r§a, §e;thru§r§a и §e;unstuck."
@@ -761,7 +761,7 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. Достаньте средство выбора масок в своем инвентаре и используйте его на песчанике. Установите блок по вашему выбору в качестве шаблона и используйте «Заполение». Весь песчаник теперь должен быть заменен этим блоком."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Повторите свой выбор вверх, введя команду §e;stack 4 up§r§7."
