@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-15 11:06\n"
+"PO-Revision-Date: 2022-05-15 12:14\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -161,10 +161,10 @@ msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
 msgid "worldedit.config.editTool"
-msgstr "Выберите элемент для настройки."
+msgstr "Выберите предмет для настройки."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Возьмите элемент для привязки."
+msgstr "Возьмите предмет для привязки."
 
 msgid "worldedit.config.choose.brush"
 msgstr "Выберите, какую кисть создать."
@@ -371,19 +371,19 @@ msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Максимально допустимый радиус кисти: %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Эта кисть не требует материала для работы."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Кисть не связана с вашим текущим предметом."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Очистить буфер обмена"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Буфер обмена очищен."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Очистите историю редактирования"
@@ -422,13 +422,13 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "Ваш выбор теперь будет виден."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Развернуть выделенную область"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Расширьте выделение территории вертикали до границ мира"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "Регион расширен на %s блоков."
 
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
@@ -458,10 +458,10 @@ msgid "commands.wedit:help.header"
 msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "Установите первую позицию выбора в позицию блока, на который вы смотрите"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "Установите вторую позицию выбора в позицию блока, на который вы смотрите"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Сгенерировать пустую пирамиду"
@@ -470,13 +470,13 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Вставить выделенную область"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "Регион вставлен."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Вжух!"
