@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-15 14:20\n"
+"PO-Revision-Date: 2022-05-15 15:20\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -773,7 +773,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Игра с кистями"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. Возьмите любую лопату и поставьте булыжник; вам понадобится это для кисти."
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. Воспользуйтесь пунктом «Настройки WorldEdit». На панели быстрого доступа должно появиться меню, включающее «Настройки кисти». Выберите предмет, затем выберите лопату для привязки. Сделайте его сферической кистью радиуса 3 и узором из булыжника. Подтвердите настройки и выйдите из меню."
@@ -782,10 +782,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Сделайте так, чтобы кисть воздействовала только на траву с помощью §e;mask grass§r§7 держа её в руках. Теперь используйте кисть, чтобы сделать дорожку из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Выключите кисть с помощью команды §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Что сейчас?"
