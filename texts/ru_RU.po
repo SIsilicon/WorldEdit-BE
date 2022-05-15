@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-15 12:14\n"
+"PO-Revision-Date: 2022-05-15 13:24\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -497,13 +497,13 @@ msgid "commands.wedit:line.invalidType"
 msgstr "this command only works with cuboid selections"
 
 msgid "commands.wedit:limit.description"
-msgstr "Set the number of blocks you can change per action"
+msgstr "Установить количество блоков, которые вы можете изменить за действие"
 
 msgid "commands.wedit:limit.set"
 msgstr "Block change limit set to %s."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Your maximum allowable limit is %s."
+msgstr "Ваш максимально допустимый лимит - %s."
 
 msgid "commands.wedit:mask.description"
 msgstr "Установите, на какие блоки может воздействовать кисть, если они есть"
@@ -575,13 +575,13 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode"
+msgstr "Сменить режим выделения"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "Выделите два угла кубоида"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "Режим быстрого выделения кубоидов"
 
 msgid "commands.wedit:sel.extend"
 msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
@@ -605,7 +605,7 @@ msgid "commands.wedit:stack.explain"
 msgstr "Создано %s блоков из стопки."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Сглаживание поверхности внутри выделенного региона"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Сгенерировать сферу"
@@ -626,13 +626,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Установите, на каких блоках можно использовать кисть"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
+msgstr "Палка выделения привязана к %s."
 
 msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
+msgstr "Навигационная палочка привязана к %s."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "Палочка дальнего выделения привязана к %s."
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
