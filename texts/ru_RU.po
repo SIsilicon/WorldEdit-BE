@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-04-28 14:19\n"
+"PO-Revision-Date: 2022-05-15 11:06\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -56,10 +56,10 @@ msgid "item.wedit:selection_wall"
 msgstr "Выбор Стены"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Выбор Контура"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Нарисовать линию"
 
 msgid "item.wedit:config_button"
 msgstr "Настройки WorldEdit"
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Настройки Кисти"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Настройки инструмента"
 
 msgid "item.wedit:sphere_button"
 msgstr "Сферовая Кисть"
@@ -77,19 +77,19 @@ msgid "item.wedit:cylinder_button"
 msgstr "Целиндровая Кисть"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Сглазивающая кисть"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Палка выбора территории"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Палка дальнего выбора территории"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Палка телепортации"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Наращивающий инструмент"
 
 msgid "item.wedit:one_button"
 msgstr "Один"
@@ -116,16 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "Назад"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Преведущий"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Следующий"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Удалить"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Создать новый инструмент"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Учитывать существа в Заметки §aВключено§r"
@@ -161,82 +161,82 @@ msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Выберите элемент для настройки."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Возьмите элемент для привязки."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Выберите, какую кисть создать."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Выберите диапазон инструмента."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Выберите размер кисти."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Выберите высоту кисти."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Выберите гладкость кисти."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Сделайте узор и необязательную маску для кисти."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Сделайте необязательную маску для инструмента."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Сделайте необязательную маску для кисти."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Всё верно?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Влияет на: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Создает: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Размер: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Высота: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Гладкость: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Диапазон: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Кисть настроена."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Кисть настроена и добавлена в инвентарь."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Отмена настройки кисти."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Инструмент настроен."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Инструмент настроен и добавлен в ваш инвентарь."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Отменена настройка инструмента."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Товар несвязан."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
@@ -254,31 +254,31 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Вторая точка поставлена на %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Начал выбор в %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Расширенный выбор, чтобы охватить %1 (%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Предмет должен находиться в руке."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Вы не можете привязывать к этому типу предметов."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Этот предмет не привязан к какому-либо инструменту."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "У вас нет разрешения на использование этого предмета."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Инструмент на этом предмете не может быть удален или заменен."
 
 msgid "worldedit.permission.granted"
 msgstr "§eВам предоставлены права WorldEdit. Откройте (Настройки > Как играть > Быстрый старт) для получения руководства.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -317,52 +317,52 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "Число (%1) слишком маленькое! Самое маленькое допустимое число (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Слишком много блоков!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Выполните §e%s§7, удерживая предмет, чтобы отвязать его.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Сферическая форма кисти установлена (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Цилиндрическая форма кисти установлена (%1 by %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Сглаживающая форма кисти установлена (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Сглаживающая форма кисти установлена (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Установите тип удерживаемой кисти"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Отвязать кисть от текущего предмета"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Создать сферическую кисть"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Создать цилиндрическую кисть"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Создать кисть для сглаживания рельефа"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Маска кисти установлена."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Маска кисти отключена."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Материалы кисти установлены."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Диапазон кисти установлен."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "Размер кисти установлен."
 
 msgid "commands.wedit:brush.tracemask.set"
 msgstr "Trace mask set."
