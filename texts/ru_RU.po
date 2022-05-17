@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-15 15:20\n"
+"PO-Revision-Date: 2022-05-17 10:32\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -365,10 +365,10 @@ msgid "commands.wedit:brush.size.set"
 msgstr "Размер кисти установлен."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "Маска установлена."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "Маска отключена."
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "Максимально допустимый радиус кисти: %s"
@@ -392,10 +392,10 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "История очищена."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Сократить выделенный регион"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "Регион сдвинут на %s блоков."
 
 msgid "commands.wedit:copy.description"
 msgstr "Скопируйте регион в заметки"
@@ -431,7 +431,7 @@ msgid "commands.wedit:expand.explain"
 msgstr "Регион расширен на %s блоков."
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Создание контура в вашем регионе"
 
 msgid "commands.wedit:flip.description"
 msgstr "Переверните постройку которую вы выбрали"
@@ -470,13 +470,13 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
 
 msgid "commands.wedit:inset.description"
-msgstr "Вставить выделенную область"
+msgstr "Inset the selection area"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Регион вставлен."
+msgstr "Region inset."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Вжух!"
@@ -491,16 +491,16 @@ msgid "commands.wedit:kit.explain"
 msgstr "Кит получен."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Создать линию между первой и второй точками выбора региона"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "данная команда работает только с кубовидными регионами"
 
 msgid "commands.wedit:limit.description"
 msgstr "Установить количество блоков, которые вы можете изменить за действие"
 
 msgid "commands.wedit:limit.set"
-msgstr "Block change limit set to %s."
+msgstr "Лимит изменения блока установлен на %s."
 
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Ваш максимально допустимый лимит - %s."
@@ -572,7 +572,7 @@ msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
+msgstr "Кубоид: нажмите во время приседа на точку 1, и в обычном режиме на точку 2"
 
 msgid "commands.wedit:sel.description"
 msgstr "Сменить режим выделения"
@@ -584,16 +584,16 @@ msgid "commands.wedit:sel.description.extend"
 msgstr "Режим быстрого выделения кубоидов"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+msgstr "Расширение: нажмите во время приседа для стартовой точки, нажмите без приседа, чтобы продлить"
 
 msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "Сдвинуть выделенный регион"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "Регион сдвинут."
 
 msgid "commands.wedit:size.description"
 msgstr "Установить размер кисти"
@@ -635,28 +635,28 @@ msgid "commands.wedit:tool.bind.farwand"
 msgstr "Палочка дальнего выделения привязана к %s."
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "Инструмент Стакер привязан к %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "Получить все виды инструментов"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "Инструмент для выделения, но может быть доступен дальше"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "Инструмент для выделения территории"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "Навигационный инструмент"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "Стакер блоков"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "Отменить привязку инструмента"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Инструмент отвязан от предмета в вашей руке."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Выйти из блоков"
@@ -752,13 +752,13 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Сделайте небольшой выбор для работы и подготовьте свой комплект с помощью §e;kit§r. Мы собираемся попробовать некоторые функции, которые может предложить WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. Поставьте камень, используйте на нем средство выбора шаблона, а затем используйте «Заполнение». У вас должен получится кубоид из камня."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. Используйте средство выбора блоков в воздухе (игроки на мобильных устройствах должны долго тапнуть) и снова используйте «Заполнение», чтобы очистить камень."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. Поместите песчаник и стекло, используйте средство выбора блоков на песчанике, присядьте и используйте его на стекле, чтобы добавить к своему шаблону. Используйте «Заполнение», и у вас должна получиться смесь песчаника и стекла."
 
 msgid "howtoplay.wedit:quick_start.text.13"
 msgstr "§r4. Достаньте средство выбора масок в своем инвентаре и используйте его на песчанике. Установите блок по вашему выбору в качестве шаблона и используйте «Заполение». Весь песчаник теперь должен быть заменен этим блоком."
