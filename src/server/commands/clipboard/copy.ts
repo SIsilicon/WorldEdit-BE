@@ -1,7 +1,9 @@
+import { FAST_MODE } from '@config.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { RawText, Vector } from '@notbeer-api';
-import { MinecraftBlockTypes } from 'mojang-minecraft';
+import { BlockLocation, MinecraftBlockTypes } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 
@@ -28,7 +30,7 @@ const registerInformation = {
  * @param session The session whose player is running this command
  * @param args The arguments that change how the copying will happen
  */
-export function copy(session: PlayerSession, args = new Map<string, any>()) {
+export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string, boolean> {
     assertCuboidSelection(session);
     const player = session.getPlayer();
     const dimension = player.dimension;
@@ -43,17 +45,44 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
         session.deleteRegion(session.clipboard);
     }
     
-    session.clipboard = session.createRegion(true);
+    session.clipboard = session.createRegion(!FAST_MODE);
     session.clipboardTransform = {
-        rotation: 0,
-        flip: 'none',
+        rotation: Vector.ZERO,
+        flip: Vector.ONE,
         originalLoc: Vector.add(start, end).mul(0.5),
         relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
     }
 
     let error = false;
+
     if (session.clipboard.isAccurate) {
-        // TODO
+        const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
+        const filter = mask || !includeAir;
+        const options = {
+            includeEntities,
+            loc: new BlockLocation(0, 0, 0),
+            dim: dimension
+        };
+        
+        yield 'Copying blocks...';
+        const blocks = start.blocksBetween(end);
+        let i = 0;
+        for (const block of blocks) {
+            const relLoc = Vector.sub(block, start).toBlock();
+            if (filter) {
+                let wasAir = dimension.getBlock(block).id == 'minecraft:air';
+                let isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
+                if (includeAir && mask && !wasAir && isAir) {
+                    options.loc = block;
+                    session.clipboard.setBlock(relLoc, airBlock, options);
+                    continue;
+                } else if (!includeAir && isAir) {
+                    continue;
+                }
+            }
+            error ||= session.clipboard.setBlock(relLoc, dimension.getBlock(block), options);
+            yield i++ / blocks.length;
+        }
     } else {
         // Create a temporary copy since we'll be adding void/air blocks to the selection.
         let tempUsed = !includeAir || mask;
@@ -74,7 +103,7 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
                 }
             }
         }
-        error = session.clipboard.save(start, end, dimension, {includeEntities: includeEntities});
+        error = session.clipboard.save(start, end, dimension, {includeEntities});
         if (tempUsed) {
             temp.load(start, dimension);
             session.deleteRegion(temp);
@@ -84,9 +113,14 @@ export function copy(session: PlayerSession, args = new Map<string, any>()) {
     return error;
 }
 
-registerCommand(registerInformation, function (session, builder, args) {
-    if (copy(session, args)) {
-        throw RawText.translate('commands.generic.wedit:commandFail');
+registerCommand(registerInformation, function* (session, builder, args) {
+    const job = Jobs.startJob(builder, 1);
+    try {
+        if (yield* Jobs.perform(job, copy(session, args))) {
+            throw RawText.translate('commands.generic.wedit:commandFail');
+        }
+    } finally {
+        Jobs.finishJob(job);
     }
     return RawText.translate('commands.wedit:copy.explain').with(`${session.getSelectedBlockCount()}`);
 });

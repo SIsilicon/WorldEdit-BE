@@ -1,7 +1,9 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText, Vector } from '@notbeer-api';
+import { contentLog, RawText, Vector } from '@notbeer-api';
+import { CuboidShape } from 'server/shapes/cuboid.js';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 
@@ -18,23 +20,20 @@ const registerInformation = {
 };
 
 /**
+ * Set a region of blocks regardless of the current global mask
  * @return number of blocks set
  */
-export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask): Generator<void> {
-    let count = 0;
-    const dim = session.getPlayer().dimension;
-    for (const blockLoc of session.getBlocksSelected()) {
-        if (mask && !mask.matchesBlock(blockLoc, dim)) {
-            continue; 
-        }
-        
-        if (pattern.setBlock(blockLoc, dim)) {
-            continue;
-        }
-        count++;
-        yield;
+export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number, number> {
+    const globalMask = session.globalMask;
+    let changed = 0;
+    try {
+        session.globalMask = null;
+        const [shape, loc] = session.getSelectionShape();
+        changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory});
+    } finally {
+        session.globalMask = globalMask;
     }
-    return count;
+    return changed;
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -45,26 +44,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
-
-    const history = session.getHistory();
-    const record = history.record();
-    try {
-        if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
-            const [pos1, pos2] = session.getSelectionPoints();
-            var start = Vector.min(pos1, pos2).toBlock();
-            var end = Vector.max(pos1, pos2).toBlock();
-            history.addUndoStructure(record, start, end, 'any');
-        }
-        
-        var count = yield* set(session, pattern);
-        
-        history.recordSelection(record, session);
-        history.addRedoStructure(record, start, end, (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') ? 'any' : []);
-        history.commit(record);
-    } catch (e) {
-        history.cancel(record);
-        throw e;
-    }
-
+    
+    const job = Jobs.startJob(builder, 2);
+    const count = yield* Jobs.perform(job, set(session, pattern, null, true));
+    Jobs.finishJob(job);
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 });

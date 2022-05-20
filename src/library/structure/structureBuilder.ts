@@ -82,10 +82,16 @@ class StructureManager {
             const flip = options.flip ?? 'none';
                         
             if (struct.subRegions) {
-                const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.toBlock(), Vector.ZERO, options);
+                const rotation = new Vector(0, options.rotation ?? 0, 0);
+                const flip = options.flip ?? 'none';
+                let dir_sc = Vector.ONE;
+                if (flip.includes('x')) dir_sc.z *= -1;
+                if (flip.includes('z')) dir_sc.x *= -1;
+            
+                const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
                 let success = false;
                 for (const sub of struct.subRegions) {
-                    const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, options);
+                    const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, rotation, dir_sc);
                     const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
                     
                     try {

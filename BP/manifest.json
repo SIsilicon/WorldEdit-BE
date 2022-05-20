@@ -11,8 +11,8 @@
 		],
 		"min_engine_version": [
 			1,
-			18,
-			10
+			19,
+			0
 		]
 	},
 	"modules": [
@@ -28,7 +28,8 @@
 		},
 		{
 			"description": "scripts",
-			"type": "javascript",
+			"type": "script",
+			"language": "javascript",
 			"uuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
 			"version": [
 				1,
@@ -71,10 +72,10 @@
 		"license": "GPL-3.0-or-later",
 		"generated_with": {
 			"bridge": [
-				"2.2.5"
+				"2.2.9"
 			],
 			"dash": [
-				"0.8.3"
+				"0.8.11"
 			]
 		}
 	}

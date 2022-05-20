@@ -1,34 +1,42 @@
+import { FAST_MODE } from '@config.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText, regionCenter, regionTransformedBounds, StructureLoadOptions, Vector } from '@notbeer-api';
+import { RegionLoadOptions } from '@modules/region_buffer.js';
+import { RawText, regionTransformedBounds, Vector } from '@notbeer-api';
 import { Player } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
 import { set } from './set.js';
 
-export function* transformSelection(session: PlayerSession, builder: Player, args: Map<string, any>, options: StructureLoadOptions): Generator<void> {
+// TODO: fix the bounds sometimes not encompassing the new geometry
+export function* transformSelection(session: PlayerSession, builder: Player, args: Map<string, any>, options: RegionLoadOptions): Generator<number | string> {
     assertCuboidSelection(session);
     const history = session.getHistory();
     const record = history.record();
-    const temp = session.createRegion(true);
+    const temp = session.createRegion(!FAST_MODE);
     try {
         const [start, end] = session.getSelectionRange();
         const dim = builder.dimension;
         assertCanBuildWithin(dim, start, end);
         
         const center = Vector.from(start).add(end).mul(0.5);
-        const origin = args.has('o') ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
-        temp.save(start, end, dim);
+        const origin = args.has('o') ? Vector.ZERO : center.sub(builder.location).floor();
+        yield 'Gettings blocks...';
+        yield* temp.saveProgressive(start, end, dim);
         
-        let [newStart, newEnd] = regionTransformedBounds(start, end, center.sub(origin), options);
-                
+        let [newStart, newEnd] = regionTransformedBounds(
+            start, end, center.sub(origin),
+            options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE
+        );
+        
         history.addUndoStructure(record, start, end, 'any');
         history.addUndoStructure(record, newStart, newEnd, 'any');
-
+        
         assertCanBuildWithin(dim, newStart, newEnd);
 
-        yield* set(session, new Pattern('air'));
-        if (temp.load(newStart, dim, options)) {
-            throw RawText.translate('commands.generic.wedit:commandFail');
+        yield* set(session, new Pattern('air'), null, false);
+        yield 'Transforming blocks...';
+        if (yield* temp.loadProgressive(newStart, dim, options)) {
+            throw 'commands.generic.wedit:commandFail';
         }
         
         if (args.has('s')) {

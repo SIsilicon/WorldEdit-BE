@@ -43,7 +43,6 @@ export class SmoothBrush extends Brush {
     
     public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
         const point = loc.offset(-this.size, -this.size, -this.size);
-        const job = Jobs.startJob(session.getPlayer(), 2 + 2 * this.iterations);
-        yield* smooth(session, this.iterations, this.shape, point, this.mask, mask, job);
+        yield* smooth(session, this.iterations, this.shape, point, this.mask, mask);
     }
 }

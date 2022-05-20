@@ -1,4 +1,5 @@
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
+import { Jobs } from '@modules/jobs.js';
 import { RawText } from '@notbeer-api';
 import { Vector } from '@notbeer-api';
 import { CuboidShape } from '../../shapes/cuboid.js';
@@ -25,12 +26,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    let count = 0;
-    let [start, end] = session.getSelectionRange();
-    if (session.selectionMode == 'cuboid') {
-        const size = Vector.sub(end, start).add(Vector.ONE);
-        count = yield* new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {wall: true});
-    }
+    let [shape, loc] = session.getSelectionShape();
+    const job = Jobs.startJob(builder, 2);
+    const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {wall: true}));
+    Jobs.finishJob(job);
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 });

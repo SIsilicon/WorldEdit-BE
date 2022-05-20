@@ -26,7 +26,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let pasteOriginal = args.has('o');
     let pasteContent = !args.has('n');
     
-    const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, session.clipboardTransform);
+    const rotation = session.clipboardTransform.rotation;
+    const flip = session.clipboardTransform.flip;
+    const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
     const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
     let pasteStart: Vector;
@@ -36,8 +38,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         let loc = PlayerUtil.getBlockLocation(builder);
         pasteStart = Vector.add(loc, session.clipboardTransform.relative);
     }
-    contentLog.debug(session.clipboardTransform.originalLoc, Vector.from(session.clipboard.getSize()), size);
-    pasteStart = pasteStart.sub(size.mul(0.25));
+    pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
     let pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE));
     
     const history = session.getHistory();

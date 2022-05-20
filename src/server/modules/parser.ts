@@ -1,4 +1,5 @@
 import { commandSyntaxError, contentLog } from '@notbeer-api';
+import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { Token, Tokenizr, ParsingError } from './extern/tokenizr.js';
 
 export type parsedBlock = {
@@ -101,7 +102,8 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     }
 }
 
-export function parseBlock(tokens: Tokens): parsedBlock {
+export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): parsedBlock|string {
+    let typeToken = tokens.curr();
     const block: parsedBlock = {
         id: tokens.curr().value,
         data: -1,
@@ -113,7 +115,11 @@ export function parseBlock(tokens: Tokens): parsedBlock {
         if (!block.id.includes(':')) {
             block.id = 'minecraft:' + block.id;
         }
-        return block;
+        // TODO: Test against custom blocks
+        if (!MinecraftBlockTypes.get(block.id)) {
+            throwTokenError(typeToken);
+        }
+        return typeOnly ? block.id : block;
     }
     
     while (token = tokens.peek()) {
@@ -126,7 +132,12 @@ export function parseBlock(tokens: Tokens): parsedBlock {
                         if (block.id.includes(':') || block.data != -1) throwTokenError(peek);
                         block.id += ':' + peek.value;
                         token = tokens.next();
+                        typeToken = mergeTokens(typeToken, token, input);
+                        if (typeOnly)
+                            return finish();
                     } else if (peek.type == 'number') {
+                        if (typeOnly)
+                            return finish();
                         if (block.data != -1)
                             throwTokenError(peek);
                         block.data = peek.value;
@@ -141,6 +152,8 @@ export function parseBlock(tokens: Tokens): parsedBlock {
                 break;
             case 'bracket':
                 if (token.value == '[') {
+                    if (typeOnly)
+                        return finish();
                     if (block.states != null)
                         throwTokenError(token);
                     token = tokens.next();
@@ -167,7 +180,7 @@ export function parseBlockStates(tokens: Tokens): parsedBlock['states'] {
         blockDataName = null;
         blockDataValue = null;
     }
-
+    // TODO: Test state names and values are valid
     let token: Token;
     while (token = tokens.next()) {
         switch (token.type) {

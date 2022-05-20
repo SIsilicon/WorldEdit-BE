@@ -27,7 +27,7 @@ export abstract class Brush {
     * @param session The session that's using this brush
     * @param mask An optional mask to decide where the brush can affect the world
     */
-    public abstract apply(loc: BlockLocation, session: PlayerSession, mask?: Mask): Generator<void, void>;
+    public abstract apply(loc: BlockLocation, session: PlayerSession, mask?: Mask): Generator<unknown, void>;
 
     public assertSizeInRange(size: number) {
         if (size > MAX_BRUSH_RADIUS) {

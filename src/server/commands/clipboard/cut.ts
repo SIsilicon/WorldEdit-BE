@@ -6,6 +6,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js'
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@notbeer-api';
+import { Jobs } from '@modules/jobs.js';
 
 const registerInformation = {
     name: 'cut',
@@ -36,11 +37,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const history = session.getHistory();
     const record = history.record();
+    const job = Jobs.startJob(builder, 2);
     try {
         history.recordSelection(record, session);
         history.addUndoStructure(record, start, end, 'any');
         
-        if (copy(session, args)) {
+        if (yield* Jobs.perform(job, copy(session, args), false)) {
             throw RawText.translate('commands.generic.wedit:commandFail');
         }
     
@@ -48,7 +50,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         let mask: Mask = args.has('m') ? args.get('m-mask') : undefined;
         let includeEntities: boolean = args.get('_using_item') ? session.includeEntities : args.has('e');
     
-        yield* set(session, pattern, mask);
+        yield* Jobs.perform(job, set(session, pattern, mask, false), false);
         if (includeEntities) {
             for (const block of start.blocksBetween(end)) {
                 for (const entity of dim.getEntitiesAtBlockLocation(block)) {
@@ -64,6 +66,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     } catch (e) {
         history.cancel(record);
         throw e;
+    } finally {
+        Jobs.finishJob(job)
     }
     
     return RawText.translate('commands.wedit:cut.explain').with(`${session.getSelectedBlockCount()}`);

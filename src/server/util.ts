@@ -109,29 +109,6 @@ export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
 }
 
 /**
- * Places a block in the location of a dimension
- */
-export function placeBlock(block: parsedBlock, loc: BlockLocation, dim: Dimension) {
-    let command = block.id;
-    if (block.states && block.states.size != 0) {
-        command += '['
-        let i = 0;
-        for (const state of block.states.entries()) {
-            command += `"${state[0]}":`;
-            command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
-            if (i < block.states.size - 1) {
-                command += ',';
-            }
-            i++;
-        }
-        command += ']'
-    } else if (block.data != -1) {
-        command += ` ${block.data}`;
-    }
-    return Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dim).error;
-}
-
-/**
  * Converts a location object to a string.
  * @param loc The object to convert
  * @param pretty Whether the function should include brackets and commas in the string. Set to false if you're using this in a command.

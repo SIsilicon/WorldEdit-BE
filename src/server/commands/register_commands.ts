@@ -3,7 +3,7 @@ import { getSession, hasSession, PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
 import { BeforeChatEvent, Player } from 'mojang-minecraft';
 
-type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<void, RawText | string> | RawText | string;
+type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<unknown, RawText | string> | RawText | string;
 
 const commandList = new Map<string, [CommandInfo, commandFunc]>();
 

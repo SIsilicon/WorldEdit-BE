@@ -1,3 +1,4 @@
+import { Jobs } from '@modules/jobs.js';
 import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { RawText } from '@notbeer-api';
@@ -28,8 +29,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let size: number = args.get('size');
 
     const loc = PlayerUtil.getBlockLocation(builder);
+    const job = Jobs.startJob(builder, 2);
     const pyramidShape = new PyramidShape(size);
-    const count = yield* pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const count = yield* Jobs.perform(job, pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow}));
+    Jobs.finishJob(job);
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
 });

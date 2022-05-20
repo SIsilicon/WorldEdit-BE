@@ -37,22 +37,23 @@ export function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLoca
     return [min, max];
 }
 
-export function regionTransformedBounds(start: BlockLocation, end: BlockLocation, origin: Vector, options: StructureLoadOptions) {
-    const rotation = options.rotation ?? 0;
-    const flip = options.flip ?? 'none';
+export function regionTransformedBounds(start: BlockLocation, end: BlockLocation, origin: Vector, rotate: Vector, flip: Vector) {
+    const corners = [
+        new Vector(start.x, start.y, start.z),
+        new Vector(start.x, start.y, end.z),
+        new Vector(start.x, end.y, start.z),
+        new Vector(start.x, end.y, end.z),
+        new Vector(end.x, start.y, start.z),
+        new Vector(end.x, start.y, end.z),
+        new Vector(end.x, end.y, start.z),
+        new Vector(end.x, end.y, end.z),
+    ].map(vec => vec.sub(origin).rotateY(rotate.y).rotateX(rotate.x).rotateZ(rotate.z).mul(flip).add(origin));
     
-    let dir_sc = Vector.ONE;
-    if (flip.includes('x')) {
-        dir_sc.z *= -1;
-    }
-    if (flip.includes('z')) {
-        dir_sc.x *= -1;
-    }
+    let [min, max] = [Vector.INF, Vector.NEG_INF];
+    corners.forEach(vec => min = min.min(vec));
+    corners.forEach(vec => max = max.max(vec));
 
-    let vecA = Vector.sub(start, origin).rotate(rotation).mul(dir_sc).add(origin);
-    let vecB = Vector.sub(end, origin).rotate(rotation).mul(dir_sc).add(origin);
-
-    return [vecA.min(vecB).toBlock(), vecA.max(vecB).toBlock()];
+    return [min.toBlock(), max.toBlock()];
 }
 
 /**

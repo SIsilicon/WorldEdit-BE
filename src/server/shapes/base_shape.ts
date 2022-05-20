@@ -2,17 +2,21 @@ import { assertCanBuildWithin } from '@modules/assert.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { Vector } from '@notbeer-api';
+import { contentLog, Server, Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
 
 export type shapeGenOptions = {
     hollow?: boolean,
-    wall?: boolean
+    wall?: boolean,
+    recordHistory?: boolean
 };
 
-export type shapeGenVars = {[k: string]: any};
+export type shapeGenVars = {
+    isSolidCuboid?: boolean,
+    [k: string]: any
+};
 
 /**
  * A base shape class for generating blocks in a variety of formations.
@@ -23,7 +27,7 @@ export abstract class Shape {
     * Shapes used in a brush may handle history recording differently from other cases.
     */
     public usedInBrush = false;
-    
+
     private genVars: shapeGenVars;
     
     /**
@@ -64,7 +68,7 @@ export abstract class Shape {
     * @param session The session that's using this shape
     * @param options A group of options that can change how the shape is generated
     */
-    public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<void, number> {
+    public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string, number> {
         const [min, max] = this.getRegion(loc);
         const player = session.getPlayer();
         const dimension = player.dimension;
@@ -79,54 +83,72 @@ export abstract class Shape {
         const blocksAffected = [];
         mask = mask ?? new Mask();
         
-        const job = this.usedInBrush ? -1 : Jobs.startJob(player, 2);
-        const history = session.getHistory();
-        const record = history.record(this.usedInBrush);
+        const history = (options?.recordHistory ?? true) ? session.getHistory() : null;
+        const record = history?.record(this.usedInBrush);
         try {
+            let count = 0;
             if (canGenerate) {
                 this.genVars = {};
                 this.prepGeneration(this.genVars, options);
-                
+
                 // TODO: Localize
-                Jobs.nextStep(job, 'Calculating shape...');
-                let progress = 0;
-                const blocks = min.blocksBetween(max);
-                for (const block of blocks) {
-                    yield;
-                    if (!session.globalMask.matchesBlock(block, dimension) || !mask.matchesBlock(block, dimension)) {
-                        continue;
+                let activeMask = mask;
+                activeMask = !activeMask ? session.globalMask : (session.globalMask ? mask.intersect(session.globalMask) : activeMask);
+                const patternInCommand = pattern.getPatternInCommand();
+                if (this.genVars.isSolidCuboid && patternInCommand && (!activeMask || activeMask.empty())) {
+                    contentLog.debug('Using /fill command(s).');
+                    const size = Vector.sub(max, min).add(1);
+                    const fillMax = 32;
+                    history?.addUndoStructure(record, min, max, 'any');
+
+                    yield 'Generating blocks...';
+                    for (let z = 0; z < size.z; z += fillMax)
+                    for (let y = 0; y < size.y; y += fillMax)
+                    for (let x = 0; x < size.x; x += fillMax) {
+                        const subStart = Vector.add(min, [x, y, z]);
+                        const subEnd = Vector.min(
+                            new Vector(x, y, z).add(fillMax), size
+                        ).add(min).sub(Vector.ONE);
+                        Server.runCommand(`fill ${subStart.print()} ${subEnd.print()} ${patternInCommand}`);
+                        
+                        const subSize = subEnd.sub(subStart).add(1);
+                        count += subSize.x * subSize.y * subSize.z;
+                        yield count / (size.x * size.y * size.z);
                     }
-                    
-                    if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
-                        blocksAffected.push(block);
+                    history?.addRedoStructure(record, min, max, 'any');    
+                } else {
+                    let progress = 0;
+                    const blocks = min.blocksBetween(max);
+                    yield 'Calculating shape...';
+                    for (const block of blocks) {
+                        if (!activeMask.matchesBlock(block, dimension)) {
+                            continue;
+                        }
+                        
+                        if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
+                            blocksAffected.push(block);
+                        }
+                        yield ++progress / blocks.length;
                     }
-                    // TODO: Localize
-                    Jobs.setProgress(job, ++progress / blocks.length);
+
+                    progress = 0;
+                    yield 'Generating blocks...';
+                    history?.addUndoStructure(record, min, max, blocksAffected);
+                    for (const block of blocksAffected) {
+                        if (pattern.setBlock(block, dimension)) {
+                            count++;
+                        }
+                        yield ++progress / blocksAffected.length;
+                    }
+                    history?.addRedoStructure(record, min, max, blocksAffected);
                 }
             }
             
-            Jobs.nextStep(job, 'Generating blocks...');
-            let count = 0;
-            if (canGenerate) {
-                let progress = 0;
-                history.addUndoStructure(record, min, max, blocksAffected);
-                for (const block of blocksAffected) {
-                    yield;
-                    if (!pattern.setBlock(block, dimension)) {
-                        count++;
-                    }
-                    Jobs.setProgress(job, ++progress / blocksAffected.length);
-                }
-                history.addRedoStructure(record, min, max, blocksAffected);
-            }
-            
-            history.commit(record);
+            history?.commit(record);
             return count;
         } catch(e) {
-            history.cancel(record);
+            history?.cancel(record);
             throw e;
-        } finally {
-            Jobs.finishJob(job);
         }
     }
 }

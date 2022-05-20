@@ -11,8 +11,8 @@
 		],
 		"min_engine_version": [
 			1,
-			18,
-			10
+			19,
+			0
 		]
 	},
 	"modules": [
@@ -33,10 +33,10 @@
 		"license": "GPL-3.0-or-later",
 		"generated_with": {
 			"bridge": [
-				"2.2.5"
+				"2.2.9"
 			],
 			"dash": [
-				"0.8.3"
+				"0.8.11"
 			]
 		}
 	}

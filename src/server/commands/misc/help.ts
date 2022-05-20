@@ -8,20 +8,21 @@ const registerInformation = {
     description: 'commands.help.description',
     usage: [
         {
-            subName: '_command',
-            args: [
-                {
-                    name: 'command',
-                    type: 'CommandName'
-                }
-            ] 
-        }, {
             subName: '_page',
             args: [
                 {
                     name: 'page',
                     type: 'int',
                     default: 1
+                }
+            ] 
+        },
+        {
+            subName: '_command',
+            args: [
+                {
+                    name: 'command',
+                    type: 'CommandName'
                 }
             ] 
         }

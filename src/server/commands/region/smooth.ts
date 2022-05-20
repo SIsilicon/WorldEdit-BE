@@ -35,14 +35,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
-    let count = 0;
-    let [start, end] = session.getSelectionRange();
-    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
-        const size = Vector.sub(end, start).add(Vector.ONE);
-        const shape = new CuboidShape(size.x, size.y, size.z);
-        const job = Jobs.startJob(builder, 2 + args.get('iterations') * 2)
-        count = yield* smooth(session, args.get('iterations'), shape, start, args.get('mask'), null, job);
-    }
+    const [shape, loc] = session.getSelectionShape();
+    const job = Jobs.startJob(builder, 2 + args.get('iterations') * 2);
+    const count = yield* Jobs.perform(job, smooth(session, args.get('iterations'), shape, loc, args.get('mask'), null));
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 });

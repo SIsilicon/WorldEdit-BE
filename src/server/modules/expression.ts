@@ -28,8 +28,8 @@ export class Expression implements CustomArgType {
     }
     
     compile() {
-        printDebug(this.root.toJS());
-        return new Function('x', 'y', 'z', 'return ' + this.root.toJS());
+        printDebug(this.root.compile());
+        return new Function('x', 'y', 'z', 'return ' + this.root.compile());
     }
         
     static parseArgs(args: Array<string>, index = 0) {
@@ -171,7 +171,7 @@ abstract class ExpressionNode implements AstNode {
     
     constructor(public readonly token: Token) {}
     
-    abstract toJS(): string;
+    abstract compile(): string;
 
     postProcess() {}
 }
@@ -187,7 +187,7 @@ class NumberExpression extends ExpressionNode {
         this.value = token.value;
     }
     
-    toJS(): string {
+    compile(): string {
         return this.value.toString();
     }
 }
@@ -203,7 +203,7 @@ class VariableExpression extends ExpressionNode {
         this.id = token.value;
     }
     
-    toJS(): string {
+    compile(): string {
         return this.id;
     }
 
@@ -227,11 +227,11 @@ class FunctionExpression extends ExpressionNode {
         this.id = name;
     }
     
-    toJS(): string {
+    compile(): string {
         let js = this.id + '(';
         let addComma = false;
         for (const node of this.nodes) {
-            js += (addComma ? ',' : '') + node.toJS();
+            js += (addComma ? ',' : '') + node.compile();
             addComma = true;
         }
         return js + ')';
@@ -283,15 +283,15 @@ class BinaryOperator extends ExpressionNode {
         }
     }
 
-    toJS(): string {
+    compile(): string {
         if (this.opType.startsWith('^')) {
-            let expr = `Math.pow(${this.nodes[0].toJS()},${this.nodes[1].toJS()})`;
+            let expr = `Math.pow(${this.nodes[0].compile()},${this.nodes[1].compile()})`;
             if (this.opType.endsWith('=')) {
-                return this.nodes[0].toJS() + '=' + expr;
+                return this.nodes[0].compile() + '=' + expr;
             }
             return expr;
         } else {
-            return `(${this.nodes[0].toJS()}${this.opType}${this.nodes[1].toJS()})`;
+            return `(${this.nodes[0].compile()}${this.opType}${this.nodes[1].compile()})`;
         }
     }
 }

@@ -3,6 +3,8 @@ import { assertClipboard } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
 import { contentLog, RawText, Vector } from '@notbeer-api';
 import { transformSelection } from './transform_func.js';
+import { FAST_MODE } from '@config.js';
+import { Jobs } from '@modules/jobs.js';
 
 const registerInformation = {
     name: 'flip',
@@ -26,34 +28,45 @@ const registerInformation = {
     ]
 };
 
-const flipBits = { 0b00: 'none', 0b01: 'x', 0b10: 'z', 0b11: 'xz' } as {[key: number]: 'none'|'x'|'z'|'xz'};
+const flipBits = {
+    0b000: 'none', 0b001: 'x', 0b010: 'z', 0b011: 'xz',
+    0b100: 'y', 0b101: 'xy', 0b110: 'yz', 0b111: 'xyz'
+} as {[key: number]: 'none'|'x'|'z'|'xz'|'y'|'xy'|'yz'|'xyz'};
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const dir: Vector = args.get('direction').getDirection(builder);
-    if (dir.y != 0) {
-        throw 'commands.wedit:flip.notLateral';
-    }
-    
+    const flip = Vector.ONE;
+    if (dir.x) flip.x *= -1;
+    if (dir.y) flip.y *= -1;
+    if (dir.z) flip.z *= -1;    
+
     let blockCount = 0;
     // TODO: Support stacking rotations and flips
     if (args.has('c')) {
         assertClipboard(session);
-        const clipboardTrans = session.clipboardTransform;
+        if (dir.y != 0 && !session.clipboard.isAccurate) {
+            throw 'commands.wedit:flip.notLateral';
+        }
+
+        const clipTrans = session.clipboardTransform;
         if (!args.has('o')) {
             if (Math.abs(dir.x)) {
-                clipboardTrans.relative.x *= -1;
+                clipTrans.relative.x *= -1;
             } else if (Math.abs(dir.z)) {
-                clipboardTrans.relative.z *= -1;
+                clipTrans.relative.z *= -1;
             }
         }
 
-        let dirBits = (clipboardTrans.flip.includes('z') ? 2 : 0) + (clipboardTrans.flip.includes('x') ? 1 : 0);
-        dirBits ^= 0b10 * Math.abs(dir.x);
-        dirBits ^= 0b01 * Math.abs(dir.z);
-        clipboardTrans.flip = flipBits[dirBits] as typeof clipboardTrans.flip;
+        clipTrans.flip = clipTrans.flip.mul(flip);
         blockCount = session.clipboard.getBlockCount();
     } else {
-        yield* transformSelection(session, builder, args, {flip: flipBits[2 * Math.abs(dir.x) + Math.abs(dir.z)]});
+        if (dir.y != 0 && FAST_MODE) {
+            throw 'commands.wedit:flip.notLateral';
+        }
+        
+        const job = Jobs.startJob(builder, 3);
+        yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
+        Jobs.finishJob(job);
         blockCount = session.getSelectedBlockCount();
     }
     

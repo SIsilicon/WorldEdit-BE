@@ -5,7 +5,7 @@ import { PlayerSession } from '../../sessions.js';
 import { Shape } from '../../shapes/base_shape.js';
 import { getWorldMaxY, getWorldMinY } from '../../util.js';
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask, job: number) {
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask): Generator<number|string, number> {
     const range = shape.getRegion(loc);
     range[0].y = Math.max(getWorldMinY(session.getPlayer()), range[0].y);
     range[1].y = Math.min(getWorldMaxY(session.getPlayer()), range[1].y);
@@ -29,15 +29,14 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         return arr;
     }
 
-    function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<void> {
+    function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<number|string> {
         let count = 0;
         let size = arr.length * arr[0].length;
-        Jobs.nextStep(job, jobMsg);
+        yield jobMsg;
         for (let x = 0; x < arr.length; x++) {
             for (let z = 0; z < arr[x].length; z++) {
                 arr[x][z] = func(x, z);
-                Jobs.setProgress(job, ++count / size);
-                yield;
+                yield ++count / size;
             }
         }
     }
@@ -142,7 +141,6 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         throw e;
     } finally {
         session.deleteRegion(tempBlock);
-        Jobs.finishJob(job);
     }
 
     return count;

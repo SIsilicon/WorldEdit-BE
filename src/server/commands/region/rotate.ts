@@ -1,7 +1,9 @@
 import { registerCommand } from '../register_commands.js';
-import { contentLog, RawText } from '@notbeer-api';
+import { contentLog, RawText, Vector } from '@notbeer-api';
 import { assertClipboard } from '@modules/assert.js';
 import { transformSelection } from './transform_func.js';
+import { FAST_MODE } from '@config.js';
+import { Jobs } from '@modules/jobs.js';
 
 const registerInformation = {
     name: 'rotate',
@@ -20,24 +22,46 @@ const registerInformation = {
         {
             name: 'rotate',
             type: 'int'
+        },
+        {
+            name: 'rotateX',
+            type: 'int',
+            default: 0
+        },
+        {
+            name: 'rotateZ',
+            type: 'int',
+            default: 0
         }
     ]
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    if ((Math.abs(args.get('rotate')) / 90) % 1 != 0) {
-        throw RawText.translate('commands.wedit:rotate.not-ninety').with(args.get('rotate'));
-    }
     let blockCount = 0;
+    const rotation = new Vector(args.get('rotateX'), args.get('rotate'), args.get('rotateZ'));
+    function assertValidFastArgs () {
+        if ((Math.abs(rotation.y) / 90) % 1 != 0) {
+            throw RawText.translate('commands.wedit:rotate.not-ninety').with(args.get('rotate'));
+        } else if (rotation.x || rotation.z) {
+            throw RawText.translate('commands.wedit:rotate.y-only');
+        }
+    }
+    
     if (args.has('c')) {
         assertClipboard(session);
+        if (!session.clipboard.isAccurate) assertValidFastArgs();
+
         if (!args.has('o')) {
-            session.clipboardTransform.relative = session.clipboardTransform.relative.rotate(args.get('rotate'))
+            session.clipboardTransform.relative = session.clipboardTransform.relative.rotateY(args.get('rotate'))
         }
-        session.clipboardTransform.rotation += args.get('rotate');
+        session.clipboardTransform.rotation = session.clipboardTransform.rotation.add(rotation);
         blockCount = session.clipboard.getBlockCount();
     } else {
-        yield* transformSelection(session, builder, args, {rotation: args.get('rotate')});
+        if (FAST_MODE) assertValidFastArgs();
+
+        const job = Jobs.startJob(builder, 3);
+        yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
+        Jobs.finishJob(job);
         blockCount = session.getSelectedBlockCount();
     }
 

@@ -25,9 +25,8 @@ const registerInformation = {
 function* getAffectedBlocks(session: PlayerSession, mask: Mask): Generator<void, BlockLocation[]> {
     let blocks: BlockLocation[] = [];
     const dim = session.getPlayer().dimension;
-    const selectedBlocks = session.getBlocksSelected();
     let i = 0;
-    for (const blockLoc of selectedBlocks) {
+    for (const blockLoc of session.getBlocksSelected()) {
         if (mask.matchesBlock(blockLoc, dim)) {
             blocks.push(blockLoc);
         }
@@ -47,37 +46,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
     const job = Jobs.startJob(builder, 2);
-    const history = session.getHistory();
-    const record = history.record();
-    try {
-        const affectedBlocks = yield* getAffectedBlocks(session, mask);
-        
-        if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
-            const [pos1, pos2] = session.getSelectionPoints();
-            var start = Vector.min(pos1, pos2).toBlock();
-            var end = Vector.max(pos1, pos2).toBlock();
-            history.addUndoStructure(record, start, end, affectedBlocks);
-        }
-        
-        var i = 0;
-        var count = 0;
-        const dim = builder.dimension;
-        for (const blockLoc of affectedBlocks) {
-            if (!pattern.setBlock(blockLoc, dim)) {
-                count++;
-            }
-            yield;
-        }
-        
-        history.recordSelection(record, session);
-        history.addRedoStructure(record, start, end, affectedBlocks);
-        history.commit(record);
-    } catch (e) {
-        history.cancel(record);
-        throw e;
-    } finally {
-        Jobs.finishJob(job);
-    }
+    const [shape, loc] = session.getSelectionShape();
+    const count = yield* Jobs.perform(job, shape.generate(loc, pattern, mask, session));
+    Jobs.finishJob(job);
 
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
 });

@@ -1,4 +1,4 @@
-import { Server, RawText } from '@notbeer-api';
+import { Server, RawText, contentLog } from '@notbeer-api';
 import { Player } from 'mojang-minecraft';
 
 let jobId = 0;
@@ -20,7 +20,7 @@ class JobHandler {
         });
     }
 
-    startJob(player: Player, steps: number) {
+    public startJob(player: Player, steps: number) {
         this.jobs.set(++jobId, {
             stepCount: steps,
             step: -1,
@@ -31,7 +31,7 @@ class JobHandler {
         return jobId;
     }
     
-    nextStep(jobId: number, message: string) {
+    public nextStep(jobId: number, message: string) {
         if (this.jobs.has(jobId)) {
             const job = this.jobs.get(jobId);
             job.step++;
@@ -40,17 +40,39 @@ class JobHandler {
         }
     }
 
-    setProgress(jobId: number, percent: number) {
+    public setProgress(jobId: number, percent: number) {
         if (this.jobs.has(jobId)) {
             this.jobs.get(jobId).percent = percent;
         }
     }
+
+    public* perform<T, TReturn>(jobId: number, func: Generator<T, TReturn>, finishOnError=true): Generator<T, TReturn> {
+        let val: IteratorResult<T, TReturn>;
+        while (!val?.done) {
+            try {
+                val = func.next();
+            } catch (err) {
+                if (finishOnError) {
+                    this.finishJob(jobId);
+                }
+                throw err;
+            }
+            if (typeof val.value == 'number') {
+                this.setProgress(jobId, val.value);
+            } else if (typeof val.value == 'string') {
+                this.nextStep(jobId, val.value);
+            }
+            yield;
+        }
+        return val.value;
+    }
     
-    finishJob(jobId: number) {
+    public finishJob(jobId: number) {
         if (this.jobs.has(jobId)) {
             const job = this.jobs.get(jobId);
             job.percent = 1;
             job.step = job.stepCount - 1;
+            job.message = 'Finished!'; // TODO: Localize
 
             this.printJobs();
             this.jobs.delete(jobId);
@@ -75,7 +97,7 @@ class JobHandler {
                 if (text) {
                     text.append('text', '\n');
                 }
-    
+                
                 let bar = '';
                 for (let i = 0; i < 20; i++) {
                     bar += i / 20 <= percent ? '█' : '▒';
@@ -87,7 +109,7 @@ class JobHandler {
                 if (progress.length > 1) {
                     text.append('text', `Job ${++i}: `);
                 }
-                text.append('translate', message).append('text', `\n${bar} ${(percent * 100).toFixed(2)}%`)
+                text.append('translate', message).append('text', `\n${bar} ${(percent * 100).toFixed(2)}%`);
             }
             Server.runCommand(`titleraw @s actionbar ${text.toString()}`, player);
         }

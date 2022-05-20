@@ -11,6 +11,8 @@ import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { RegionBuffer } from '@modules/region_buffer.js';
+import { Shape } from './shapes/base_shape.js';
+import { CuboidShape } from './shapes/cuboid.js';
 
 // TODO: Add other selection modes
 export const selectModes = ['cuboid', 'extend'] as const;
@@ -77,8 +79,8 @@ export class PlayerSession {
     public clipboardTransform = {
         originalLoc: Vector.ZERO,
         relative: Vector.ZERO,
-        rotation: 0,
-        flip: 'none' as 'none'|'x'|'z'|'xz'
+        rotation: Vector.ZERO,
+        flip: Vector.ONE
     }
 
     private player: Player;
@@ -183,18 +185,25 @@ export class PlayerSession {
     /**
     * @return The blocks within the current selection
     */
-    public getBlocksSelected() {
+    public *getBlocksSelected() {
         let points = 0;
         for (const point of this.selectionPoints) {
             if (point) points++;
         }
         if (points == 0 || points == 1)
-            return [];
+            return;
 
         if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
             const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]);
             const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]);
-            return min.toBlock().blocksBetween(max.toBlock());
+            
+            for (let z = min.z; z <= max.z; z++) {
+                for (let y = min.y; y <= max.y; y++) {
+                    for (let x = min.x; x <= max.x; x++) {
+                        yield new BlockLocation(x, y, z);
+                    }        
+                }    
+            }
         }
     }
     
@@ -220,6 +229,19 @@ export class PlayerSession {
             return regionBounds([pos1, pos2]);
         }
         return null;
+    }
+    
+    /**
+     * Get the shape of the current
+     * @returns 
+     */
+    public getSelectionShape(): [Shape, BlockLocation] {
+        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
+            const range = this.getSelectionRange();
+            const size = Vector.sub(range[1], range[0]).add(1);
+            return [new CuboidShape(size.x, size.y, size.z), range[0]];
+        }
+        return;
     }
     
     /**

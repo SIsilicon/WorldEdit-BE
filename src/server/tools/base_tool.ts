@@ -11,7 +11,7 @@ export abstract class Tool {
     /**
     * The function that's called when the tool is being used.
     */
-    readonly use: (self: Tool, player: Player, session: PlayerSession) => void | Generator<void, void>;
+    readonly use: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
     /**
     * The function that's called when the tool is being used on a block.
     */
