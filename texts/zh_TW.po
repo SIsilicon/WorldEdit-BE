@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-04-28 14:19\n"
+"PO-Revision-Date: 2022-05-22 00:06\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -403,6 +403,12 @@ msgstr "複製目前所選中的區域到剪貼板上"
 msgid "commands.wedit:copy.explain"
 msgstr "已複製 %s 個方塊"
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
 
@@ -411,6 +417,9 @@ msgstr "已剪下 %s 個方塊"
 
 msgid "commands.wedit:cyl.description"
 msgstr "生成一個圓柱體"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "設定你所選中的區域的可見度"
