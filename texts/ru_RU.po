@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-17 10:32\n"
+"PO-Revision-Date: 2022-05-22 00:06\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -403,6 +403,12 @@ msgstr "Скопируйте регион в заметки"
 msgid "commands.wedit:copy.explain"
 msgstr "Скопировано %s блоков."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Удалите текущий выбор и поместите его в заметки"
 
@@ -411,6 +417,9 @@ msgstr "Вырезано %s блоков."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Сгенерируйте цилиндр"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Переключить видимость вашего выбора"
