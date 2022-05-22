@@ -27,6 +27,9 @@ import './selection/shift.js';
 import './selection/outset.js';
 import './selection/inset.js';
 
+import './selection/count.js';
+import './selection/distr.js';
+
 import './clipboard/cut.js';
 import './clipboard/copy.js';
 import './clipboard/paste.js';

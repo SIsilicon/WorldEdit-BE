@@ -1,4 +1,4 @@
-import { contentLog, generateId, regionSize, regionTransformedBounds, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
+import { contentLog, generateId, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
 import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
 
 export interface RegionLoadOptions {
@@ -14,6 +14,7 @@ export class RegionBuffer {
 
     private size = new BlockLocation(0, 0, 0);
     private blocks = new Map<string, BlockPermutation|[string, BlockPermutation]>();
+    private blockCount = 0;
     private subId = 0;
 
     constructor(isAccurate = false) {
@@ -43,10 +44,12 @@ export class RegionBuffer {
                 iterate(blocks[i]);
                 yield i / blocks.length;
             }
+            this.blockCount = blocks.length;
         } else {
             if (Server.structure.save(this.id, start, end, dim, options)) {
                 return true;
             }
+            this.blockCount = regionVolume(start, end);
         }
         this.size = regionSize(start, end);
         return false;
@@ -152,11 +155,15 @@ export class RegionBuffer {
     }
 
     getBlockCount() {
-        return this.size.x * this.size.y * this.size.z;
+        return this.blockCount;
     }
 
     getBlock() {
 
+    }
+
+    getBlocks() {
+        return Array.from(this.blocks.values());
     }
 
     setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {

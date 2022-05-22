@@ -23,7 +23,7 @@ export class Mask implements CustomArgType {
         if (this.empty()) {
             return true;
         }
-        return this.compiledFunc(null, loc, dimension);
+        return this.compiledFunc(null, loc, dimension) as boolean;
     };
 
     clear() {
