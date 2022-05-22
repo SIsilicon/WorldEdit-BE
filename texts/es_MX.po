@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-04-28 14:19\n"
+"PO-Revision-Date: 2022-05-22 00:06\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -403,6 +403,12 @@ msgstr "Copy the current selection to the clipboard"
 msgid "commands.wedit:copy.explain"
 msgstr "Copied %s blocks."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
 
@@ -411,6 +417,9 @@ msgstr "Cut %s blocks."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Generate a cylinder"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Toggle your selection's visibility"
