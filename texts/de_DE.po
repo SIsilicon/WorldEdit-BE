@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-04-28 19:39\n"
+"PO-Revision-Date: 2022-05-22 00:07\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -403,6 +403,12 @@ msgstr "Aktuelle Auswahl in die Zwischenablage kopieren"
 msgid "commands.wedit:copy.explain"
 msgstr "%s Blöcke wurden kopiert."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Entfernen Sie Ihre aktuelle Auswahl und legen Sie sie in die Zwischenablage"
 
@@ -411,6 +417,9 @@ msgstr "%s Blöcke ausschneiden."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Zylinder generieren"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Sichtbarkeit der Auswahl ein-/ausschalten"
