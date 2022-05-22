@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-28 14:18\n"
+"PO-Revision-Date: 2022-05-22 00:07\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -403,6 +403,12 @@ msgstr "Copia la selección actual al portapapeles"
 msgid "commands.wedit:copy.explain"
 msgstr "%s bloques copiados."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Elimina la selección actual y lo coloca en el portapapeles"
 
@@ -411,6 +417,9 @@ msgstr "%s bloques copiados."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Genera un cilindro"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Cambia la visibilidad de tu selección"
