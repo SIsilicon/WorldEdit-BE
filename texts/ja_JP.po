@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-05-22 01:07\n"
+"PO-Revision-Date: 2022-05-25 22:29\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -379,6 +379,12 @@ msgstr "このブラシには材料が必要ありません。"
 msgid "commands.wedit:brush.unbind"
 msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
 
@@ -421,6 +427,12 @@ msgstr "円柱を生成する"
 msgid "commands.wedit:distr.description"
 msgstr "選択範囲内にブロックが何種類あるか計算する"
 
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
 msgid "commands.wedit:drawsel.description"
 msgstr "選択範囲の表示を切り替える"
 
@@ -439,8 +451,29 @@ msgstr "選択範囲を高度限界まで垂直方向に広げる"
 msgid "commands.wedit:expand.explain"
 msgstr "範囲が %s ブロックに拡大しました。"
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "選択範囲の輪郭線を生成する"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "選択範囲を反転する"
@@ -459,6 +492,9 @@ msgstr "共通マスクを無効にしました。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "共通マスクを設定しました。"
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "空洞の円柱を生成する"
@@ -568,6 +604,18 @@ msgstr "やり直す必要はありません。"
 msgid "commands.wedit:replace.description"
 msgstr "選択範囲内の特定のブロックを他のブロックに置き換える"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "選択範囲を回転する"
 
@@ -606,6 +654,12 @@ msgstr "範囲を移動しました。"
 
 msgid "commands.wedit:size.description"
 msgstr "ブラシのサイズを設定する"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "現在の選択範囲の内容を繰り返す"
