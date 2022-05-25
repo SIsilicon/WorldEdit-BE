@@ -56,6 +56,21 @@ import './region/faces.js';
 // TODO: Implement hollow
 import './region/line.js';
 
+import './utilities/fill.js';
+import './utilities/fillr.js';
+import './utilities/removeabove.js';
+import './utilities/removebelow.js';
+import './utilities/removenear.js';
+import './utilities/replacenear.js';
+import './utilities/drain.js';
+import './utilities/fixwater.js';
+import './utilities/fixlava.js';
+import './utilities/snow.js';
+import './utilities/thaw.js';
+import './utilities/green.js';
+import './utilities/extinguish.js';
+import './utilities/butcher.js';
+
 import './navigation/navwand.js';
 import './navigation/up.js';
 import './navigation/unstuck.js';

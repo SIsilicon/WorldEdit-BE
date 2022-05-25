@@ -25,7 +25,7 @@ export class CylinderShape extends Shape {
             x / (this.radii[0] + 0.5),
             z / (this.radii[1] + 0.5)
         ];
-        return (lX*lX + lZ*lZ > 1.0) ? null : <[number, number]>[0, this.height-1];
+        return (lX*lX + lZ*lZ > 1.0) ? null : <[number, number]>[-this.height/2, this.height-1-this.height/2];
     }
     
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {

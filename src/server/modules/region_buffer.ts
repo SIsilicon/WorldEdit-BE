@@ -1,5 +1,6 @@
 import { contentLog, generateId, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
 import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
+import { locToString, stringToLoc } from "../util.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector,
@@ -36,7 +37,7 @@ export class RegionBuffer {
                 const relLoc = Vector.sub(blockLoc, min).toBlock();
                 let id = this.id + '_' + this.subId++;
                 Server.structure.save(id, blockLoc, blockLoc, dim);
-                this.blocks.set(this.locToString(relLoc), [id, dim.getBlock(blockLoc).permutation.clone()]);
+                this.blocks.set(locToString(relLoc), [id, dim.getBlock(blockLoc).permutation.clone()]);
             }
             
             if (blocks == 'all') blocks = start.blocksBetween(end);
@@ -122,7 +123,7 @@ export class RegionBuffer {
             
             let i = 0;
             for (const [key, block] of this.blocks.entries()) {
-                let blockLoc = this.stringToLoc(key);
+                let blockLoc = stringToLoc(key);
                 if (shouldTransform) {
                     blockLoc = Vector.from(blockLoc)
                         .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
@@ -168,7 +169,7 @@ export class RegionBuffer {
 
     setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
         let error = false;
-        const key = this.locToString(loc)
+        const key = locToString(loc)
 
         if (this.blocks.has(key) && Array.isArray(this.blocks.get(key))) {
             Server.structure.delete((this.blocks.get(key) as [string, BlockPermutation])[0]);
@@ -202,14 +203,6 @@ export class RegionBuffer {
             Server.structure.delete(this.id);
         }
         contentLog.debug('deleted structure', this.id);
-    }
-
-    private locToString(loc: BlockLocation) {
-        return `${loc.x}_${loc.y}_${loc.z}`;
-    }
-
-    private stringToLoc(loc: string) {
-        return new BlockLocation(...loc.split('_').map(str => Number.parseInt(str)) as [number, number, number])
     }
 
     private transformMapping(mapping: {[key: string|number]: Vector}, state: string|number, rotate: Vector, flip: Vector): string {

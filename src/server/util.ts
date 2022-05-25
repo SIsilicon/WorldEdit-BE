@@ -120,3 +120,18 @@ export function printLocation(loc: BlockLocation | Location, pretty = true) {
     else
         return `${loc.x} ${loc.y} ${loc.z}`;
 }
+
+/**
+ * Converts loc to a string
+ */
+export function locToString(loc: BlockLocation) {
+    return `${loc.x}_${loc.y}_${loc.z}`;
+}
+
+/**
+ * Converts string to a BlockLocation
+ */
+export function stringToLoc(loc: string) {
+    return new BlockLocation(...loc.split('_').map(str => Number.parseInt(str)) as [number, number, number])
+}
+

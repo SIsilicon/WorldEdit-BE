@@ -121,6 +121,8 @@ export abstract class Shape {
                     const blocks = min.blocksBetween(max);
                     yield 'Calculating shape...';
                     for (const block of blocks) {
+                        yield ++progress / blocks.length;
+                        
                         if (!activeMask.matchesBlock(block, dimension)) {
                             continue;
                         }
@@ -128,7 +130,6 @@ export abstract class Shape {
                         if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
                             blocksAffected.push(block);
                         }
-                        yield ++progress / blocks.length;
                     }
 
                     progress = 0;
