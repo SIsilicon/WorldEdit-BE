@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-22 00:06\n"
+"PO-Revision-Date: 2022-05-25 22:28\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -379,6 +379,12 @@ msgstr "Эта кисть не требует материала для рабо
 msgid "commands.wedit:brush.unbind"
 msgstr "Кисть не связана с вашим текущим предметом."
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
 
@@ -421,6 +427,12 @@ msgstr "Сгенерируйте цилиндр"
 msgid "commands.wedit:distr.description"
 msgstr "Analyse the amount of different blocks in the selection"
 
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
 msgid "commands.wedit:drawsel.description"
 msgstr "Переключить видимость вашего выбора"
 
@@ -439,8 +451,29 @@ msgstr "Расширьте выделение территории вертик�
 msgid "commands.wedit:expand.explain"
 msgstr "Регион расширен на %s блоков."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "Создание контура в вашем регионе"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "Переверните постройку которую вы выбрали"
@@ -459,6 +492,9 @@ msgstr "Глобальная маска выключена."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Сгенерировать пустой целиндр"
@@ -568,6 +604,18 @@ msgstr "Ничего не осталось для повторения."
 msgid "commands.wedit:replace.description"
 msgstr "Заменить определенные блоки в выделении другими блоками"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "Повернуть блоки в выделении"
 
@@ -606,6 +654,12 @@ msgstr "Регион сдвинут."
 
 msgid "commands.wedit:size.description"
 msgstr "Установить размер кисти"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Повторить содержимое текущего выделения"
