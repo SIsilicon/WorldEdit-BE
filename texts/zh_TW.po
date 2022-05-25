@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-05-22 00:06\n"
+"PO-Revision-Date: 2022-05-25 22:28\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -379,6 +379,12 @@ msgstr "This brush does not require a material to work."
 msgid "commands.wedit:brush.unbind"
 msgstr "Brush unbound from your current item."
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
 
@@ -421,6 +427,12 @@ msgstr "生成一個圓柱體"
 msgid "commands.wedit:distr.description"
 msgstr "Analyse the amount of different blocks in the selection"
 
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
 msgid "commands.wedit:drawsel.description"
 msgstr "設定你所選中的區域的可見度"
 
@@ -439,8 +451,29 @@ msgstr "Vertically expand your selection to world height limits"
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "翻轉所選中的區域"
@@ -459,6 +492,9 @@ msgstr "Global mask disabled."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "生成一個空心的圓柱體"
@@ -568,6 +604,18 @@ msgstr "沒有可重做的操作"
 msgid "commands.wedit:replace.description"
 msgstr "Replace certain blocks in the selection with other blocks"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "順轉已選中的區域"
 
@@ -606,6 +654,12 @@ msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Repeat the contents of the current selection"
