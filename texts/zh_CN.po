@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-05-22 00:06\n"
+"PO-Revision-Date: 2022-05-25 22:28\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -379,6 +379,12 @@ msgstr "此笔刷不需要材料来运作。"
 msgid "commands.wedit:brush.unbind"
 msgstr "笔刷已从您选择的物品上解绑。"
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空您的剪贴板"
 
@@ -421,6 +427,12 @@ msgstr "生成一个圆柱体"
 msgid "commands.wedit:distr.description"
 msgstr "Analyse the amount of different blocks in the selection"
 
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
 msgid "commands.wedit:drawsel.description"
 msgstr "切换您的选区的可见性"
 
@@ -439,8 +451,29 @@ msgstr "垂直拓展你的选区直到它到达世界高度限制。"
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "基于您的选区生成轮廓"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "翻转选区"
@@ -459,6 +492,9 @@ msgstr "已禁用默认被取代方块"
 
 msgid "commands.wedit:gmask.set"
 msgstr "已设置默认被取代的方块。"
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "生成一个空心圆柱体"
@@ -568,6 +604,18 @@ msgstr "没有可以还原的步骤"
 msgid "commands.wedit:replace.description"
 msgstr "将选区中确定的方块替换为其它方块"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "旋转选区"
 
@@ -606,6 +654,12 @@ msgstr "区域已移动。"
 
 msgid "commands.wedit:size.description"
 msgstr "设置笔刷的尺寸"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "重复当前选区的内容"
