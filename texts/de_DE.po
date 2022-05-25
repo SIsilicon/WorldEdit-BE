@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-05-22 02:05\n"
+"PO-Revision-Date: 2022-05-25 22:29\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -379,6 +379,12 @@ msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
 msgid "commands.wedit:brush.unbind"
 msgstr "Pinsel vom aktuellen Item entfernt."
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Zwischenablage leeren"
 
@@ -421,6 +427,12 @@ msgstr "Zylinder generieren"
 msgid "commands.wedit:distr.description"
 msgstr "Die Anzahl der verschiedenen Blöcke in der Auswahl analysieren"
 
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
 msgid "commands.wedit:drawsel.description"
 msgstr "Sichtbarkeit der Auswahl ein-/ausschalten"
 
@@ -439,8 +451,29 @@ msgstr "Vertikale Erweiterung Ihrer Auswahl auf maximale Bauhöhe"
 msgid "commands.wedit:expand.explain"
 msgstr "Region um %s Blöcke erweitert."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "Eine Kontur aus Ihrer Auswahl generieren"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "Auswahl spiegeln"
@@ -459,6 +492,9 @@ msgstr "Globale Maske deaktiviert."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Globale Maske gesetzt."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Hohlen Zylinder generieren"
@@ -568,6 +604,18 @@ msgstr "Keine Bearbeitung zum Wiederholen verfügbar."
 msgid "commands.wedit:replace.description"
 msgstr "Ersetzen Sie bestimmte Blöcke in der Auswahl durch andere Blöcke"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "Auswahl drehen"
 
@@ -606,6 +654,12 @@ msgstr "Region verschoben."
 
 msgid "commands.wedit:size.description"
 msgstr "Größe eines Pinsels festlegen"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Wiederholen Sie den Inhalt der aktuellen Auswahl"
