@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-05-25 22:28\n"
+"PO-Revision-Date: 2022-05-26 00:34\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Configurações do Pincel"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Configurações de Ferramenta"
 
 msgid "item.wedit:sphere_button"
 msgstr "Pincel de Esfera"
@@ -80,16 +80,16 @@ msgid "item.wedit:smooth_button"
 msgstr "Pincel Suave"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Varinha de Seleção"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Varinha de Seleção Distante"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Varinha de Navegação"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Ferramenta de Empilhamento"
 
 msgid "item.wedit:one_button"
 msgstr "Um"
@@ -116,16 +116,16 @@ msgid "item.wedit:cancel_button"
 msgstr "Voltar"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Anterior"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Próximo"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Remover"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Criar Ferramenta"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Incluir Entidades na área de transferência: §aAtivado§r"
