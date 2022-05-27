@@ -47,6 +47,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         
         const blocks: Block[] = [];
         const blockLocs: BlockLocation[] = [];
+        const affectedBlockRange: [BlockLocation, BlockLocation] = [null, null];
         const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
         const rayTraceOptions = new BlockRaycastOptions();
@@ -68,6 +69,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 if (block) {
                     blocks.push(block);
                     blockLocs.push(block.location);
+                    
+                    if (affectedBlockRange[0]) {
+                        affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).toBlock();
+                        affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).toBlock();
+                    } else {
+                        affectedBlockRange[0] = block.location;
+                        affectedBlockRange[1] = block.location;
+                    }
                 }
             } catch {}
 
@@ -80,24 +89,26 @@ registerCommand(registerInformation, function* (session, builder, args) {
         let changed = 0;
         i = 0;
 
-        history.addUndoStructure(record, range[0], range[1], blockLocs);
-        const air = MinecraftBlockTypes.air.createDefaultBlockPermutation();
-        const water = MinecraftBlockTypes.water.createDefaultBlockPermutation();
+        if (blocks.length) {
+            history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+            const air = MinecraftBlockTypes.air.createDefaultBlockPermutation();
+            const water = MinecraftBlockTypes.water.createDefaultBlockPermutation();
 
-        for (const block of blocks) {
-            if (block.id == 'minecraft:ice') {
-                block.setPermutation(water);
-                changed++;
-            } else if (block.id == 'minecraft:snow_layer') {
-                block.setPermutation(air);
-                changed++;
+            for (const block of blocks) {
+                if (block.id == 'minecraft:ice') {
+                    block.setPermutation(water);
+                    changed++;
+                } else if (block.id == 'minecraft:snow_layer') {
+                    block.setPermutation(air);
+                    changed++;
+                }
+
+                Jobs.setProgress(job, i++ / blocks.length);
+                yield;
             }
-
-            Jobs.setProgress(job, i++ / blocks.length);
-            yield;
+            history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
         }
-        history.addRedoStructure(record, range[0], range[1], blockLocs);
-
+        
         return RawText.translate('commands.blocks.wedit:changed').with(`${changed}`);
     } catch (err) {
         history.cancel(record);
