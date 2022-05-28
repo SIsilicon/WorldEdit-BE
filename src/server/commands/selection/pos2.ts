@@ -19,19 +19,20 @@ const registerInformation = {
 };
 
 export function setPos2(session: PlayerSession, loc: BlockLocation) {
-    const prevPoints = session.getSelectionPoints();
-    session.setSelectionPoint(1, loc);
+    const prevPoints = session.selection.points;
+    session.selection.set(1, loc);
     
-    if (session.getSelectionPoints().some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
+    if (session.selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
-        if (session.getSelectedBlockCount() == 0) {
-            translate = `worldedit.selection.${session.selectionMode}.secondary`;
+        const blockCount = session.selection.getBlockCount();
+        if (!blockCount) {
+            translate = `worldedit.selection.${session.selection.mode}.secondary`;
         } else {
-            translate = `worldedit.selection.${session.selectionMode}.secondaryArea`;
+            translate = `worldedit.selection.${session.selection.mode}.secondaryArea`;
         }
         return RawText.translate(translate)
-            .with(printLocation(session.getSelectionPoints()[1]))
-            .with(`${session.getSelectedBlockCount()}`);    
+            .with(printLocation(session.selection.points[1]))
+            .with(`${blockCount}`);    
     }
     return '';
 }

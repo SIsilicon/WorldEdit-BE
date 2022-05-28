@@ -8,8 +8,8 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-    session.drawSelection = !session.drawSelection;
-    if (session.drawSelection) {
+    session.selection.visible = !session.selection.visible;
+    if (session.selection.visible) {
         return RawText.translate('commands.wedit:drawsel.enabled');
     } else {
         return RawText.translate('commands.wedit:drawsel.disabled');;

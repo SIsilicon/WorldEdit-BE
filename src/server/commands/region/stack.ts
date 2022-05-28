@@ -25,7 +25,7 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get('count');
-    const [start, end] = session.getSelectionRange();
+    const [start, end] = session.selection.getRange();
     const dim = builder.dimension;
     const size = regionSize(start, end);
     

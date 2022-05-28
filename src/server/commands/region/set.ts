@@ -3,7 +3,7 @@ import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { contentLog, RawText, Vector } from '@notbeer-api';
-import { CuboidShape } from 'server/shapes/cuboid.js';
+import { CuboidShape } from '../../shapes/cuboid.js';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
 
@@ -28,7 +28,7 @@ export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, reco
     let changed = 0;
     try {
         session.globalMask = null;
-        const [shape, loc] = session.getSelectionShape();
+        const [shape, loc] = session.selection.getShape();
         changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory});
     } finally {
         session.globalMask = globalMask;
@@ -38,14 +38,14 @@ export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, reco
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
     if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    const job = Jobs.startJob(session, 2, session.getSelectionRange());
+    const job = Jobs.startJob(session, 2, session.selection.getRange());
     const count = yield* Jobs.perform(job, set(session, pattern, null, true));
     Jobs.finishJob(job);
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

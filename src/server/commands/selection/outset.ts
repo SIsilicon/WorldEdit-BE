@@ -22,7 +22,7 @@ const registerInformation = {
 
 registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
-    let points = session.getSelectionPoints().map(block => Vector.from(block));
+    let points = session.selection.points.map(block => Vector.from(block));
     let dir = points[1].sub(points[0]);
     dir.x = Math.sign(dir.x) * (args.has('v') ? 0 : 1);
     dir.y = Math.sign(dir.y) * (args.has('h') ? 0 : 1);
@@ -31,9 +31,9 @@ registerCommand(registerInformation, function (session, builder, args) {
     points[0] = points[0].sub(dir.mul(args.get('amount')));
     points[1] = points[1].add(dir.mul(args.get('amount')));
     
-    session.clearSelectionPoints()
-    session.setSelectionPoint(0, points[0].toBlock());
-    session.setSelectionPoint(1, points[1].toBlock());
+    session.selection.clear()
+    session.selection.set(0, points[0].toBlock());
+    session.selection.set(1, points[1].toBlock());
 
     return 'commands.wedit:outset.explain';
 });

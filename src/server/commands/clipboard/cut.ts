@@ -33,7 +33,7 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const dim = builder.dimension;
-    const [start, end] = session.getSelectionRange();
+    const [start, end] = session.selection.getRange();
     assertCanBuildWithin(dim, start, end);
     
     const history = session.getHistory();
@@ -71,5 +71,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         Jobs.finishJob(job)
     }
     
-    return RawText.translate('commands.wedit:cut.explain').with(`${session.getSelectedBlockCount()}`);
+    return RawText.translate('commands.wedit:cut.explain').with(`${session.selection.getBlockCount()}`);
 });

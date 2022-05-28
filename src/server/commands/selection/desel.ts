@@ -1,5 +1,4 @@
-import { Server } from '@notbeer-api';
-import { selectModes } from '../../sessions.js';
+import { selectModes } from '@modules/selection.js';
 import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
@@ -25,21 +24,21 @@ const registerInformation = {
 registerCommand(registerInformation, function (session, builder, args) {
     try {
         if (args.has('cuboid')) {
-            session.selectionMode = 'cuboid';
+            session.selection.mode = 'cuboid';
             return 'commands.wedit:sel.cuboid';
         } else if (args.has('extend')) {
-            session.selectionMode = 'extend';
+            session.selection.mode = 'extend';
             return 'commands.wedit:sel.extend';
         } else {
-            session.clearSelectionPoints();
+            session.selection.clear();
             return 'commands.wedit:sel.clear';
         }
     } finally {
         if (args.has('d')) {
-            for (const selectionMode of selectModes) {
-                builder.removeTag(`wedit:defaultTag_${selectionMode}`);
+            for (const mode of selectModes) {
+                builder.removeTag(`wedit:defaultTag_${mode}`);
             }
-            builder.addTag(`wedit:defaultTag_${session.selectionMode}`);
+            builder.addTag(`wedit:defaultTag_${session.selection.mode}`);
         }
     }
 });

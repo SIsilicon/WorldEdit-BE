@@ -1,7 +1,5 @@
-import { StructureLoadOptions } from "../structure/structureBuilder.js";
 import { BlockLocation } from "mojang-minecraft";
 import { Vector } from "./vector.js";
-import { contentLog } from "@notbeer-api";
 
 /**
  * Gives the volume of a space defined by two corners.

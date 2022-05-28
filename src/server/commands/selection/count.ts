@@ -22,12 +22,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const mask = args.get('mask') as Mask;
     const dimension = builder.dimension;
     
-    const total = session.getSelectedBlockCount();
-    const job = Jobs.startJob(session, 1, session.getSelectionRange());
+    const total = session.selection.getBlockCount();
+    const job = Jobs.startJob(session, 1, session.selection.getRange());
     try {
         let i = 0;
         Jobs.nextStep(job, 'Counting blocks...');
-        for (const block of session.getBlocksSelected()) {
+        for (const block of session.selection.getBlocks()) {
             count += mask.matchesBlock(block, dimension) ? 1 : 0;
             Jobs.setProgress(job, ++i / total);
             yield;

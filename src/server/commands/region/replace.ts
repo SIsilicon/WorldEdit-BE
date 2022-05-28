@@ -26,7 +26,7 @@ function* getAffectedBlocks(session: PlayerSession, mask: Mask): Generator<void,
     let blocks: BlockLocation[] = [];
     const dim = session.getPlayer().dimension;
     let i = 0;
-    for (const blockLoc of session.getBlocksSelected()) {
+    for (const blockLoc of session.selection.getBlocks()) {
         if (mask.matchesBlock(blockLoc, dim)) {
             blocks.push(blockLoc);
         }
@@ -37,7 +37,7 @@ function* getAffectedBlocks(session: PlayerSession, mask: Mask): Generator<void,
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
+    assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
     if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
@@ -45,8 +45,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const mask = args.get('_using_item') ?  session.globalMask : args.get('mask');
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    const job = Jobs.startJob(session, 2, session.getSelectionRange());
-    const [shape, loc] = session.getSelectionShape();
+    const job = Jobs.startJob(session, 2, session.selection.getRange());
+    const [shape, loc] = session.selection.getShape();
     const count = yield* Jobs.perform(job, shape.generate(loc, pattern, mask, session));
     Jobs.finishJob(job);
 

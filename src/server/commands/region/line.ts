@@ -94,8 +94,8 @@ function* bresenham3d(p1: Vector, p2: Vector): Generator<void, Vector[]> {
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.selectionMode != 'cuboid') {
+    assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+    if (session.selection.mode != 'cuboid') {
         throw 'commands.wedit:line.invalidType';
     }
     if (args.get('_using_item') && session.globalPattern.empty()) {
@@ -105,9 +105,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const dim = builder.dimension;
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    if (session.selectionMode == 'cuboid') {
-        var [pos1, pos2] = session.getSelectionPoints();
-        var [start, end] = session.getSelectionRange();
+    if (session.selection.mode == 'cuboid') {
+        var [pos1, pos2] = session.selection.points;
+        var [start, end] = session.selection.getRange();
     }
     
     const history = session.getHistory();

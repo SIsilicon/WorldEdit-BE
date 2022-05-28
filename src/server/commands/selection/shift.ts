@@ -22,12 +22,12 @@ const registerInformation = {
 
 registerCommand(registerInformation, function (session, builder, args) {
     assertSelection(session);
-    let points = session.getSelectionPoints().map(block => Vector.from(block));
+    let points = session.selection.points.map(block => Vector.from(block));
     const dir = (args.get('direction') as Cardinal).getDirection(builder).mul(args.get('amount'));
 
-    session.clearSelectionPoints()
+    session.selection.clear();
     points.forEach((point, idx) => {
-        session.setSelectionPoint(idx ? 1 : 0, point.add(dir).toBlock());
+        session.selection.set(idx ? 1 : 0, point.add(dir).toBlock());
     });
 
     return 'commands.wedit:shift.explain';

@@ -55,9 +55,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
         
         if (setSelection) {
-            session.selectionMode = session.selectionMode == 'extend' ? 'extend' : 'cuboid';
-            session.setSelectionPoint(0, pasteStart.toBlock());
-            session.setSelectionPoint(1, pasteEnd.toBlock());
+            session.selection.mode = session.selection.mode == 'extend' ? 'extend' : 'cuboid';
+            session.selection.set(0, pasteStart.toBlock());
+            session.selection.set(1, pasteEnd.toBlock());
             history.recordSelection(record, session);
         }
         

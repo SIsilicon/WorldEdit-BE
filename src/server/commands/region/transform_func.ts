@@ -14,7 +14,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
     const record = history.record();
     const temp = session.createRegion(!FAST_MODE);
     try {
-        const [start, end] = session.getSelectionRange();
+        const [start, end] = session.selection.getRange();
         const dim = builder.dimension;
         assertCanBuildWithin(dim, start, end);
         
@@ -41,8 +41,8 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         
         if (args.has('s')) {
             history.recordSelection(record, session);
-            session.setSelectionPoint(0, newStart);
-            session.setSelectionPoint(1, newEnd);
+            session.selection.set(0, newStart);
+            session.selection.set(1, newEnd);
             history.recordSelection(record, session);
         }
 

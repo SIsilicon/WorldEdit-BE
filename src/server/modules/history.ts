@@ -1,9 +1,10 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from 'mojang-minecraft';
 import { assertCanBuildWithin } from './assert.js';
 import { canPlaceBlock } from '../util.js';
-import { PlayerSession, selectMode } from '../sessions.js';
+import { PlayerSession } from '../sessions.js';
 import { Vector, regionVolume, Server } from '@notbeer-api';
 import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from '@config.js';
+import { selectMode } from './selection.js';
 
 type historyEntry = {
     name: string,
@@ -130,15 +131,15 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         if (point.selection == 'none') {
             point.selection = {
-                type: session.selectionMode,
-                points: session.getSelectionPoints()
+                type: session.selection.mode,
+                points: session.selection.points
             }
         } else if ('points' in point.selection) {
             point.selection = [
                 point.selection,
                 {
-                    type: session.selectionMode,
-                    points: session.getSelectionPoints()
+                    type: session.selection.mode,
+                    points: session.selection.points
                 }
             ]
         } else {
@@ -170,9 +171,9 @@ export class History {
             selection = <selectionEntry>this.selectionHistory[this.historyIdx];
         }
         if (selection) {
-            session.selectionMode = selection.type;
+            session.selection.mode = selection.type;
             for (let i = 0; i < selection.points.length; i++) {
-                session.setSelectionPoint(i == 0 ? 0 : 1, selection.points[i]);
+                session.selection.set(i == 0 ? 0 : 1, selection.points[i]);
             }
         }
         this.historyIdx--;
@@ -205,9 +206,9 @@ export class History {
             selection = <selectionEntry>this.selectionHistory[this.historyIdx];
         }
         if (selection) {
-            session.selectionMode = selection.type;
+            session.selection.mode = selection.type;
             for (let i = 0; i < selection.points.length; i++) {
-                session.setSelectionPoint(i == 0 ? 0 : 1, selection.points[i]);
+                session.selection.set(i == 0 ? 0 : 1, selection.points[i]);
             }
         }
 

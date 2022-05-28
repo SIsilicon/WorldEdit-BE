@@ -30,7 +30,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const dir = args.get('offset').getDirection(builder).mul(args.get('amount'));
     const dim = builder.dimension;
     
-    const [start, end] = session.getSelectionRange();
+    const [start, end] = session.selection.getRange();
     const movedStart = start.offset(dir.x, dir.y, dir.z);
     const movedEnd = end.offset(dir.x, dir.y, dir.z);
     

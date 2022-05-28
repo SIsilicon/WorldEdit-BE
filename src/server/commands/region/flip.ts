@@ -67,7 +67,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
         yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
         Jobs.finishJob(job);
-        blockCount = session.getSelectedBlockCount();
+        blockCount = session.selection.getBlockCount();
     }
     
     return RawText.translate('commands.wedit:flip.explain').with(blockCount);

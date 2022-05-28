@@ -34,7 +34,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     assertCuboidSelection(session);
     const player = session.getPlayer();
     const dimension = player.dimension;
-    const [start, end] = session.getSelectionRange();
+    const [start, end] = session.selection.getRange();
     assertCanBuildWithin(dimension, start, end);
     
     let includeEntities: boolean = args.get('_using_item') ? session.includeEntities : args.has('e');
@@ -114,7 +114,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const job = Jobs.startJob(session, 1, session.getSelectionRange());
+    const job = Jobs.startJob(session, 1, session.selection.getRange());
     try {
         if (yield* Jobs.perform(job, copy(session, args))) {
             throw RawText.translate('commands.generic.wedit:commandFail');
@@ -122,5 +122,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
     } finally {
         Jobs.finishJob(job);
     }
-    return RawText.translate('commands.wedit:copy.explain').with(`${session.getSelectedBlockCount()}`);
+    return RawText.translate('commands.wedit:copy.explain').with(`${session.selection.getBlockCount()}`);
 });

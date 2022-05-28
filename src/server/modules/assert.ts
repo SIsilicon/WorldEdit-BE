@@ -29,13 +29,13 @@ function assertClipboard(session: PlayerSession) {
 }
 
 function assertSelection(session: PlayerSession) {
-    if (session.getSelectedBlockCount() == 0) {
+    if (session.selection.getBlockCount() == 0) {
         throw RawText.translate('commands.generic.wedit:noSelection');
     }
 }
 
 function assertCuboidSelection(session: PlayerSession) {
-    if (session.getSelectedBlockCount() == 0 || (session.selectionMode != 'cuboid' && session.selectionMode != 'extend')) {
+    if (session.selection.getBlockCount() == 0 || !session.selection.isCuboid()) {
         throw RawText.translate('commands.generic.wedit:noCuboidSelection');
     }
 }

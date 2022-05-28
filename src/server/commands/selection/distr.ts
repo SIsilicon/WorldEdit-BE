@@ -51,13 +51,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }        
         } else {
             assertSelection(session);
-            total = session.getSelectedBlockCount();
+            total = session.selection.getBlockCount();
             const dimension = builder.dimension;
             
-            job = Jobs.startJob(session, 1, session.getSelectionRange());
+            job = Jobs.startJob(session, 1, session.selection.getRange());
             Jobs.nextStep(job, 'Analysing blocks...');
             
-            for (const loc of session.getBlocksSelected()) {
+            for (const loc of session.selection.getBlocks()) {
                 processBlock(dimension.getBlock(loc).permutation);
                 yield;
             }
