@@ -95,7 +95,7 @@ export class History {
 
     addUndoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | 'any' = 'any') {
         const point = this.historyPoints.get(historyPoint);
-        point.blocksChanged += regionVolume(start, end);
+        point.blocksChanged += blocks == 'any' ? regionVolume(start, end) : blocks.length;
         // We test the change limit here,
         if (point.blocksChanged > this.session.changeLimit) {
             throw 'commands.generic.wedit:blockLimit';

@@ -30,7 +30,7 @@ export function* floodFill<T extends FloodFillContext>(start: BlockLocation, siz
     const result: Map<string, boolean> = new Map();
 
     function isInside(loc: BlockLocation, ctx: T) {
-        if (result.has(locToString(loc)) || Vector.sub(loc, start).length > size) {
+        if (result.has(locToString(loc)) || Vector.sub(loc, start).length > size+0.5) {
             return false;
         }
         return true;

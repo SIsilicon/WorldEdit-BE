@@ -27,13 +27,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const size = (args.get('size') - 1) * 2 + 1;
     const height: number = args.get('height') == -1 ? getWorldMaxY(builder) - Math.floor(builder.location.y) + 1 : args.get('height');
-    const origin = Vector.from(builder.location).floor().sub([size/2, 0, size/2]).ceil();
+    const origin = Vector.from(builder.location).floor().sub([size/2, 0, size/2]).ceil().toBlock();
     
     const shape = new CuboidShape(size, height, size);
     const sessionMask = session.globalMask;
     try {
         session.globalMask = null;
-        const count = yield* shape.generate(origin.toBlock(), new Pattern('air'), null, session);
+        const count = yield* shape.generate(origin, new Pattern('air'), null, session);
         return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
     } finally {
         session.globalMask = sessionMask;

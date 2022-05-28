@@ -59,7 +59,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     } else {
         if (FAST_MODE) assertValidFastArgs();
 
-        const job = Jobs.startJob(builder, 3);
+        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
         yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
         Jobs.finishJob(job);
         blockCount = session.getSelectedBlockCount();

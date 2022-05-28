@@ -38,7 +38,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     range[0].y = Math.max(range[0].y, getWorldMinY(builder));
     range[1].y = Math.min(range[1].y, getWorldMaxY(builder));
     
-    const job = Jobs.startJob(builder, 2);
+    const job = Jobs.startJob(session, 2, range);
     const history = session.getHistory();
     const record = history.record();
     try {

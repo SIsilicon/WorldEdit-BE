@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    const job = Jobs.startJob(builder, 2);
+    const job = Jobs.startJob(session, 2, session.getSelectionRange());
     const count = yield* Jobs.perform(job, set(session, pattern, null, true));
     Jobs.finishJob(job);
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

@@ -1,6 +1,7 @@
 import { Jobs } from '@modules/jobs.js';
 import { RawText, regionBounds, Vector } from '@notbeer-api';
 import { BlockLocation, MinecraftBlockTypes } from 'mojang-minecraft';
+import { SphereShape } from '../../shapes/sphere.js';
 import { registerCommand } from '../register_commands.js';
 import { fluidLookPositions, waterMatch } from './drain.js';
 import { floodFill } from './floodfill_func.js';
@@ -36,9 +37,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw 'commands.wedit:fixWater.noWater';
     }
 
-    const job = Jobs.startJob(builder, 1);
+    const job = Jobs.startJob(session, 1, new SphereShape(args.get('radius')).getRegion(fixwaterStart));
     Jobs.nextStep(job, 'Calculating and Fixing water...');
-    const blocks = yield* floodFill(fixwaterStart, args.get('radius')+0.5, dimension, (ctx, dir) => {
+    const blocks = yield* floodFill(fixwaterStart, args.get('radius'), dimension, (ctx, dir) => {
         const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
         if (!block.id.match(waterMatch)) return false;
         return true;

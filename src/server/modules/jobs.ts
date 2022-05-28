@@ -1,5 +1,6 @@
-import { Server, RawText, contentLog } from '@notbeer-api';
-import { Player } from 'mojang-minecraft';
+import { Server, RawText, contentLog, addTickingArea, removeTickingArea } from '@notbeer-api';
+import { BlockLocation, Player } from 'mojang-minecraft';
+import { PlayerSession } from 'server/sessions';
 
 let jobId = 0;
 
@@ -9,6 +10,7 @@ interface job {
     player: Player,
     message: string,
     percent: number,
+    area: string
 };
 
 class JobHandler {
@@ -20,13 +22,18 @@ class JobHandler {
         });
     }
 
-    public startJob(player: Player, steps: number) {
+    public startJob(session: PlayerSession, steps: number, area: [BlockLocation, BlockLocation]) {
+        const areaName = 'wedit:job_' + jobId;
+        if (!area || !addTickingArea(...area, session.getPlayer().dimension, areaName, true)) {
+            contentLog.warn('A ticking area could not be created for job #', jobId);
+        }
         this.jobs.set(++jobId, {
             stepCount: steps,
             step: -1,
-            player: player,
+            player: session.getPlayer(),
             message: '',
-            percent: 0
+            percent: 0,
+            area: areaName
         });
         return jobId;
     }
@@ -73,6 +80,7 @@ class JobHandler {
             job.percent = 1;
             job.step = job.stepCount - 1;
             job.message = 'Finished!'; // TODO: Localize
+            removeTickingArea(job.area);
 
             this.printJobs();
             this.jobs.delete(jobId);

@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const mask = args.get('_using_item') ?  session.globalMask : args.get('mask');
     const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    const job = Jobs.startJob(builder, 2);
+    const job = Jobs.startJob(session, 2, session.getSelectionRange());
     const [shape, loc] = session.getSelectionShape();
     const count = yield* Jobs.perform(job, shape.generate(loc, pattern, mask, session));
     Jobs.finishJob(job);

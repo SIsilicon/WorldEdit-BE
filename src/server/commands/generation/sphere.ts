@@ -75,8 +75,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? radii[1] : 0, 0);
     
-    const job = Jobs.startJob(builder, 2);
     const sphereShape = new SphereShape(...radii);
+    const job = Jobs.startJob(session, 2, sphereShape.getRegion(loc));
     const count = yield* Jobs.perform(job, sphereShape.generate(loc, pattern, null, session, {'hollow': isHollow}));
     Jobs.finishJob(job);
 

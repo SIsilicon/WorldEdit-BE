@@ -29,8 +29,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let size: number = args.get('size');
 
     const loc = PlayerUtil.getBlockLocation(builder);
-    const job = Jobs.startJob(builder, 2);
     const pyramidShape = new PyramidShape(size);
+    const job = Jobs.startJob(session, 2, pyramidShape.getRegion(loc));
     const count = yield* Jobs.perform(job, pyramidShape.generate(loc, pattern, null, session, {'hollow': isHollow}));
     Jobs.finishJob(job);
 

@@ -1,8 +1,8 @@
 import './util.js';
 import './commands/command_list.js';
 
-import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
-import { Server } from '@notbeer-api';
+import { Player, world } from 'mojang-minecraft';
+import { listTickingAreas, removeTickingArea, Server } from '@notbeer-api';
 import { print, printDebug, printLog } from './util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { PlayerUtil } from '@modules/player_util.js';
@@ -16,6 +16,12 @@ Server.on('ready', ev => {
     // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
     printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;
+
+    for (const area of listTickingAreas()) {
+        if (area.startsWith('wedit:')) {
+            removeTickingArea(area);
+        }
+    }
 });
 
 Server.on('playerJoin', ev => {

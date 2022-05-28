@@ -1,7 +1,8 @@
 import { Cardinal } from '@modules/directions.js';
 import { Jobs } from '@modules/jobs.js';
 import { Pattern } from '@modules/pattern.js';
-import { contentLog, RawText, regionBounds, Vector } from '@notbeer-api';
+import { RawText, regionBounds, Vector } from '@notbeer-api';
+import { SphereShape } from '../../shapes/sphere.js';
 import { registerCommand } from '../register_commands.js';
 import { floodFill, FloodFillContext } from './floodfill_func.js';
 
@@ -44,10 +45,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pattern: Pattern = args.get('pattern');
     const depth: number = args.get('depth');
     const startBlock = Vector.from(builder.location).toBlock();
-    const job = Jobs.startJob(builder, 1);
+    const job = Jobs.startJob(session, 1, new SphereShape(args.get('radius')).getRegion(startBlock));
     
     Jobs.nextStep(job, 'Calculating and Generating blocks...');
-    const blocks = yield* floodFill<fillContext>(startBlock, args.get('radius')+0.5, dimension, (ctx, dir) => {
+    const blocks = yield* floodFill<fillContext>(startBlock, args.get('radius'), dimension, (ctx, dir) => {
         const dotDir = fillDir.dot(dir);
         
         if (dotDir < 0) return false;

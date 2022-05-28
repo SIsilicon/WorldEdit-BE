@@ -114,7 +114,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const job = Jobs.startJob(builder, 1);
+    const job = Jobs.startJob(session, 1, session.getSelectionRange());
     try {
         if (yield* Jobs.perform(job, copy(session, args))) {
             throw RawText.translate('commands.generic.wedit:commandFail');

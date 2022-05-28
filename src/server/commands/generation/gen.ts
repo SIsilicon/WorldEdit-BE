@@ -32,9 +32,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let isHollow = args.has('h');
     
-    const job = Jobs.startJob(builder, 2);
+    const loc = Vector.min(start, end).toBlock()
     const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get('expr'));
-    const count = yield* Jobs.perform(job, exprShape.generate(Vector.min(start, end).toBlock(), pattern, null, session, {'hollow': isHollow}));
+    const job = Jobs.startJob(session, 2, exprShape.getRegion(loc));
+    const count = yield* Jobs.perform(job, exprShape.generate(loc, pattern, null, session, {'hollow': isHollow}));
     Jobs.finishJob(job);
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);

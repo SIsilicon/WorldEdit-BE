@@ -1,8 +1,7 @@
-import { Cardinal } from '@modules/directions.js';
 import { Jobs } from '@modules/jobs.js';
-import { Pattern } from '@modules/pattern.js';
-import { contentLog, RawText, regionBounds, Vector } from '@notbeer-api';
+import { RawText, regionBounds, Vector } from '@notbeer-api';
 import { BlockLocation, MinecraftBlockTypes } from 'mojang-minecraft';
+import { SphereShape } from '../../shapes/sphere.js';
 import { registerCommand } from '../register_commands.js';
 import { floodFill } from './floodfill_func.js';
 
@@ -64,9 +63,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw 'commands.wedit:drain.noFluid';
     }
 
-    const job = Jobs.startJob(builder, 1);
+    const job = Jobs.startJob(session, 1, new SphereShape(args.get('radius')).getRegion(drainStart));
     Jobs.nextStep(job, 'Calculating and Draining blocks...');
-    const blocks = yield* floodFill(drainStart, args.get('radius')+0.5, dimension, (ctx, dir) => {
+    const blocks = yield* floodFill(drainStart, args.get('radius'), dimension, (ctx, dir) => {
         const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
 
         if (!block.id.match(fluidMatch)) return drainWaterLogged && block.isWaterlogged;

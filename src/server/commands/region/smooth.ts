@@ -36,7 +36,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
     
     const [shape, loc] = session.getSelectionShape();
-    const job = Jobs.startJob(builder, 2 + args.get('iterations') * 2);
+    const job = Jobs.startJob(session, 2 + args.get('iterations') * 2, session.getSelectionRange());
     const count = yield* Jobs.perform(job, smooth(session, args.get('iterations'), shape, loc, args.get('mask'), null));
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);

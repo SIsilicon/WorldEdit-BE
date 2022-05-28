@@ -22,10 +22,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let total: number;
     let counts: Map<string, number> = new Map();
     const getStates = args.has('d');
-    const job = Jobs.startJob(builder, 1);
+    let job: number;
     
     try {
-        Jobs.nextStep(job, 'Analysing blocks...');
         let i = 0;
         const processBlock = (block: BlockPermutation) => {
             let id = block.type.id;
@@ -42,6 +41,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
             assertClipboard(session);
             total = session.clipboard.getBlockCount();
             const clipboard = session.clipboard;
+            
+            job = Jobs.startJob(session, 1, null);
+            Jobs.nextStep(job, 'Analysing blocks...');
+            
             for (const block of clipboard.getBlocks()) {
                 processBlock(Array.isArray(block) ? block[1] : block);
                 yield;
@@ -50,6 +53,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
             assertSelection(session);
             total = session.getSelectedBlockCount();
             const dimension = builder.dimension;
+            
+            job = Jobs.startJob(session, 1, session.getSelectionRange());
+            Jobs.nextStep(job, 'Analysing blocks...');
+            
             for (const loc of session.getBlocksSelected()) {
                 processBlock(dimension.getBlock(loc).permutation);
                 yield;

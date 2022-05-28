@@ -7,6 +7,7 @@ import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
 import { RawText } from '@notbeer-api';
 import { Jobs } from '@modules/jobs.js';
+import { BlockLocation } from 'mojang-minecraft';
 
 const registerInformation = {
     name: 'cut',
@@ -37,7 +38,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
     const history = session.getHistory();
     const record = history.record();
-    const job = Jobs.startJob(builder, 2);
+    const job = Jobs.startJob(session, 2, [start, end]);
     try {
         history.recordSelection(record, session);
         history.addUndoStructure(record, start, end, 'any');

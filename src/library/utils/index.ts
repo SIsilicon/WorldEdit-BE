@@ -6,3 +6,4 @@ export * from './rawtext.js';
 export * from './scheduling.js';
 export * from './vector.js';
 export * from './uniqueId.js';
+export * from './tickingarea.js';
