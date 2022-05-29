@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-05-25 22:29\n"
+"PO-Revision-Date: 2022-05-29 01:19\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -258,6 +258,12 @@ msgstr "Selección iniciada en %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Selección extendida para abarcar %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "Un objeto debe estar en tu mano principal."
@@ -640,8 +646,14 @@ msgstr "Selecciona dos esquinas del cubo"
 msgid "commands.wedit:sel.description.extend"
 msgstr "Modo de selección rápida de cubos"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "Extender: presiona mientras te agachas para el punto de partida, presiona sin agacharte para extender"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Llena la selección con un patrón de bloque"
