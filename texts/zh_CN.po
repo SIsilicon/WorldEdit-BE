@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-05-25 22:28\n"
+"PO-Revision-Date: 2022-05-29 01:18\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -258,6 +258,12 @@ msgstr "在 %1 (%2) 之间创建选区。"
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "选区已扩展至 %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "一个物品必须放在您的主手位"
@@ -640,8 +646,14 @@ msgstr "选择一个立方体的两个对角。"
 msgid "commands.wedit:sel.description.extend"
 msgstr "快速立方体选区模式"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "扩展：在潜行时点击以获取起点，不潜行时点击即可扩展"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
