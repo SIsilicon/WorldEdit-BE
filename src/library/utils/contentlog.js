@@ -1,3 +1,4 @@
+import { DEBUG } from "@config.js";
 
 function date() {
     return `[${new Date().toLocaleTimeString()}]`
@@ -21,7 +22,9 @@ class Console {
     }
     
     debug(...msg) {
-        console.warn('[DEBUG]', date(), ...msg);
+        if (DEBUG) {
+            console.warn('[DEBUG]', date(), ...msg);
+        }
     }   
 
     stack() {

@@ -1,5 +1,4 @@
-import { CustomArgType, commandSyntaxError } from '@notbeer-api';
-import { printDebug } from '../util.js';
+import { CustomArgType, commandSyntaxError, contentLog } from '@notbeer-api';
 import { Token } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, AstNode, processOps } from './parser.js';
 
@@ -28,7 +27,7 @@ export class Expression implements CustomArgType {
     }
     
     compile() {
-        printDebug(this.root.compile());
+        contentLog.debug(this.root.compile());
         return new Function('x', 'y', 'z', 'return ' + this.root.compile());
     }
         

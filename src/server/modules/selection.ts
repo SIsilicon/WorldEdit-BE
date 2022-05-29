@@ -4,6 +4,9 @@ import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { getWorldMaxY, getWorldMinY } from "../util.js";
+import { DRAW_SELECTION } from "@config.js";
+
+// TODO: Add other selection modes
 
 export const selectModes = ['cuboid', 'extend', 'sphere'] as const;
 export type selectMode = typeof selectModes[number];
@@ -11,7 +14,7 @@ export type selectMode = typeof selectModes[number];
 export class Selection {
     private _mode: selectMode = 'cuboid';
     private _points: BlockLocation[] = [];
-    private _visible: boolean = true;
+    private _visible: boolean = DRAW_SELECTION;
     
     private player: Player;
     private drawPoints: Vector[] = [];

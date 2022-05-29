@@ -1,7 +1,6 @@
-import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
-import { getWorldMaxY, getWorldMinY, printDebug, printLog } from './util.js';
-import { Server, Vector, setTickTimeout, regionVolume, generateId, regionBounds } from '@notbeer-api';
-import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
+import { Player, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
+import { Server, Vector, setTickTimeout, contentLog } from '@notbeer-api';
+import { TICKS_TO_DELETE_SESSION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
 import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
@@ -11,11 +10,7 @@ import { Pattern } from '@modules/pattern.js';
 import { PlayerUtil } from '@modules/player_util.js';
 import { SettingsHotbar } from '@modules/settings_hotbar.js';
 import { RegionBuffer } from '@modules/region_buffer.js';
-import { Shape } from './shapes/base_shape.js';
-import { CuboidShape } from './shapes/cuboid.js';
 import { Selection, selectMode } from '@modules/selection.js';
-
-// TODO: Add other selection modes
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -267,8 +262,8 @@ export function getSession(player: Player): PlayerSession {
             pendingDeletion.delete(name);
         }
         playerSessions.set(name, session ?? new PlayerSession(player));
-        printDebug(playerSessions.get(name)?.getPlayer()?.name);
-        printDebug(`new Session?: ${!session}`);
+        contentLog.debug(playerSessions.get(name)?.getPlayer()?.name);
+        contentLog.debug(`new Session?: ${!session}`);
     }
     return playerSessions.get(name);
 }
@@ -295,7 +290,7 @@ setTickTimeout(() => {
             if (session[0] < 0) {
                 session[1].delete();
                 pendingDeletion.delete(player);
-                printLog(`${player}'s session has been deleted.`);
+                contentLog.log(`${player}'s session has been deleted.`);
             }
         }
         

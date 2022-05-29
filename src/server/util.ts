@@ -1,41 +1,6 @@
-import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
-import { CONTENT_LOG, DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
-import { Server, RawText, contentLog } from '@notbeer-api';
-import { parsedBlock } from './modules/parser.js';
-
-/**
- * Prints a message or object to chat for debugging.
- * @remark Doesn't do anything if {DEBUG} is disabled.
- * @param data The data to be printed to chat.
- */
-export function printDebug(...data: any[]) {
-    if (!DEBUG) {
-        return;
-    }
-
-    let msg = '';
-    data.forEach(data => {
-        if (data instanceof BlockLocation || data instanceof Location) {
-            msg += ' ' + printLocation(<BlockLocation> data);
-        } else {
-            msg += ` ${data}`;
-        }
-    });
-    
-    Server.broadcast('[DEBUG] ' + msg);
-}
-
-/**
- * Prints a message to content log.
- * @param data The data to be printed.
- */
-export function printLog(...data: any[]) {
-    if (!CONTENT_LOG) {
-        return;
-    }
-    
-    contentLog.log(...data);
-}
+import { BlockLocation, Dimension, Location, Player } from 'mojang-minecraft';
+import { PRINT_TO_ACTION_BAR } from '../config.js';
+import { Server, RawText } from '@notbeer-api';
 
 /**
  * Sends a message to a player through either chat or the action bar.

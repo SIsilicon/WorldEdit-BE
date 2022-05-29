@@ -1,8 +1,5 @@
-// Enables `printDebug` messages to chat.
+// Enables debug messages to content logs.
 export const DEBUG: boolean = true;
-
-// Enables `printLog` messages to content logs.
-export const CONTENT_LOG: boolean = true;
 
 // What character(s) to use to define the beginning of custom commands.
 export const COMMAND_PREFIX: string = ';';
