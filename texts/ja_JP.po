@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-05-25 23:32\n"
+"PO-Revision-Date: 2022-05-29 01:19\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -258,6 +258,12 @@ msgstr "%1 (%2) で選択を開始しました。"
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "%1 (%2) を含む範囲を拡張しました。"
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "アイテムをメインハンドに持ってください。"
@@ -640,8 +646,14 @@ msgstr "直方体の2つの角を設定する"
 msgid "commands.wedit:sel.description.extend"
 msgstr "高速な直方体の選択モード"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
