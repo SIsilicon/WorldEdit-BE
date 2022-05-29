@@ -1,4 +1,4 @@
-import { RawText, Server } from '@notbeer-api';
+import { RawText } from '@notbeer-api';
 import { EntityQueryOptions } from 'mojang-minecraft';
 import { registerCommand } from '../register_commands.js';
 

@@ -14,7 +14,7 @@ const registerInformation = {
         {
             name: 'size',
             type: 'int',
-            range: [1, null] as [number, null],
+            range: [1, null] as [number, null]
         },
         {
             name: 'height',
