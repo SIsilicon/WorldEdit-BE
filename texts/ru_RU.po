@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-05-29 01:18\n"
+"PO-Revision-Date: 2022-05-29 16:07\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
@@ -80,10 +80,10 @@ msgid "item.wedit:smooth_button"
 msgstr "Сглазивающая кисть"
 
 msgid "item.wedit:selection_button"
-msgstr "Палка выбора территории"
+msgstr "Жезл выбора территории"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Палка дальнего выбора территории"
+msgstr "Жезл дальнего выбора территории"
 
 msgid "item.wedit:navigation_button"
 msgstr "Навигационный жезл"
@@ -701,7 +701,7 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Установите, на каких блоках можно использовать кисть"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Палка выделения привязана к %s."
+msgstr "Жезл выделения привязана к %s."
 
 msgid "commands.wedit:tool.bind.navwand"
 msgstr "Навигационная палочка привязана к %s."
