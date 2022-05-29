@@ -13,5 +13,5 @@ registerCommand(registerInformation, function (session, builder, args) {
     if (!hit) {
         throw 'commands.wedit:jumpto.none';
     }
-    return setPos1(session, hit);
+    return setPos1(session.selection, hit);
 });

@@ -16,6 +16,9 @@ const registerInformation = {
             subName: 'extend'
         },
         {
+            subName: 'sphere'
+        },
+        {
             subName: '_nothing'
         }
     ]
@@ -29,6 +32,9 @@ registerCommand(registerInformation, function (session, builder, args) {
         } else if (args.has('extend')) {
             session.selection.mode = 'extend';
             return 'commands.wedit:sel.extend';
+        } else if (args.has('sphere')) {
+            session.selection.mode = 'sphere';
+            return 'commands.wedit:sel.sphere';
         } else {
             session.selection.clear();
             return 'commands.wedit:sel.clear';

@@ -61,6 +61,21 @@ export abstract class Shape {
     protected abstract inShape(relLoc: BlockLocation, genVars: shapeGenVars): boolean;
     
     /**
+     * Returns blocks that are in the shape.
+     */
+    public* getBlocks(loc: BlockLocation): Generator<BlockLocation> {
+        const range = this.getRegion(loc);
+        this.genVars = {};
+        this.prepGeneration(this.genVars);
+        
+        for (const block of range[0].blocksBetween(range[1])) {
+            if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
+                yield block;
+            }
+        }
+    }
+
+    /**
     * Generates a block formation at a certain location.
     * @param loc The location the shape will be generated at
     * @param pattern The pattern that the shape will be made with

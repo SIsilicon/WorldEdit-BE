@@ -1,10 +1,11 @@
 import { regionBounds, regionVolume, Server, Vector } from "@notbeer-api";
 import { BlockLocation, Player } from "mojang-minecraft";
+import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { getWorldMaxY, getWorldMinY } from "../util.js";
 
-export const selectModes = ['cuboid', 'extend'] as const;
+export const selectModes = ['cuboid', 'extend', 'sphere'] as const;
 export type selectMode = typeof selectModes[number];
 
 export class Selection {
@@ -33,18 +34,20 @@ export class Selection {
             this._points.length = index + 1;
         }
         
-        if (this._mode == 'cuboid') {
+        if (index == 0 && this._mode != 'cuboid') {
+            this._points = [loc, loc.offset(0, 0, 0)];
+        } else if (this._mode == 'cuboid') {
             this._points[index] = loc;
             if (this._mode != 'cuboid') {
                 this._points.length = 1;
             }
         } else if (this._mode == 'extend') {
-            if (index == 0) {
-                this._points = [loc, loc.offset(0, 0, 0)];
-            } else {
-                this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).toBlock();
-                this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).toBlock();
-            }
+            this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).toBlock();
+            this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).toBlock();
+        } else if (this._mode == 'sphere') {
+            const vec = Vector.sub(new BlockLocation(loc.x, loc.y, loc.z), this._points[0]);
+            const radius = Math.round(vec.length);
+            this._points[1] = vec.normalized().mul(radius).add(this._points[0]).toBlock();
         }
 
 
@@ -62,40 +65,45 @@ export class Selection {
     }
     
     /**
-    * @return The blocks within the current selection
-    */
-    public *getBlocks() {
-        let points = 0;
-        for (const point of this._points) {
-            if (point) points++;
-        }
-        if (points == 0 || points == 1)
-            return;
+     * Get the shape of the current selection
+     * @returns 
+     */
+    public getShape(): [Shape, BlockLocation] {
+        if (!this.isValid()) return null;
 
         if (this.isCuboid()) {
-            const min = Vector.min(this._points[0], this._points[1]);
-            const max = Vector.max(this._points[0], this._points[1]);
-            
-            for (let z = min.z; z <= max.z; z++) {
-                for (let y = min.y; y <= max.y; y++) {
-                    for (let x = min.x; x <= max.x; x++) {
-                        yield new BlockLocation(x, y, z);
-                    }        
-                }    
-            }
+            const [start, end] = regionBounds(this._points);
+            const size = Vector.sub(end, start).add(1);
+            return [new CuboidShape(size.x, size.y, size.z), start];
+        } else if (this._mode == 'sphere') {
+            const center = this._points[0];
+            const radius = Vector.sub(this._points[1], this._points[0]).length;
+            return [new SphereShape(radius), center];
         }
     }
+        
+    /**
+    * @return The blocks within the current selection
+    */
+    public* getBlocks() {
+        if (!this.isValid()) return;
+
+        const [shape, loc] = this.getShape();
+        yield* shape.getBlocks(loc);
+    }
     
+    /**
+     * Returns the exact or approximate number of blocks the selection encompasses.
+     * @returns 
+     */
     public getBlockCount() {
-        let points = 0;
-        for (const point of this._points) {
-            if (point) points++;
-        }
-        if (points == 0 || points == 1)
-            return 0;
+        if (!this.isValid()) return 0;
 
         if (this.isCuboid()) {
             return regionVolume(this._points[0], this._points[1]);
+        } else if (this._mode == 'sphere') {
+            const radius = Vector.sub(this._points[1], this._points[0]).length;
+            return Math.round((4/3) * Math.PI * Math.pow(radius, 3));
         }
     }
     
@@ -103,28 +111,23 @@ export class Selection {
     * @return The minimum and maximum points of the selection
     */
     public getRange(): [BlockLocation, BlockLocation] {
-        if (this.isCuboid()) {
-            const [pos1, pos2] = this._points.slice(0, 2);
-            return regionBounds([pos1, pos2]);
+        const [shape, loc] = this.getShape();
+        if (shape) {
+            return shape.getRegion(loc);            
         }
         return null;
     }
     
-    /**
-     * Get the shape of the current
-     * @returns 
-     */
-    public getShape(): [Shape, BlockLocation] {
-        if (this.isCuboid()) {
-            const range = this.getRange();
-            const size = Vector.sub(range[1], range[0]).add(1);
-            return [new CuboidShape(size.x, size.y, size.z), range[0]];
-        }
-        return;
-    }
-    
     public isCuboid(): boolean {
         return this._mode == 'cuboid' || this._mode == 'extend';
+    }
+
+    public isValid() {
+        let points = 0;
+        for (const point of this._points) {
+            if (point) points++;
+        }
+        return points != 0 && points != 1;
     }
 
     public draw(): void {
@@ -144,7 +147,13 @@ export class Selection {
     }
     
     public set mode(value: selectMode) {
+        const wasCuboid = this.isCuboid();
         this._mode = value;
+        
+        if (!this.isCuboid || wasCuboid != this.isCuboid()) {
+            this.clear();
+        }
+        this.updateDrawSelection();
     }
     
     public get points() {
@@ -161,11 +170,9 @@ export class Selection {
     
     private updateDrawSelection() {
         this.drawPoints.length = 0;
+        if (!this.isValid()) return;
         
         if (this.isCuboid()) {
-            if (this._points.length != 2 || this._points[0] === undefined) {
-                return;
-            }
             const min = Vector.min(this._points[0], this._points[1]).add(Vector.ZERO);
             const max = Vector.max(this._points[0], this._points[1]).add(Vector.ONE);
 
@@ -195,6 +202,23 @@ export class Selection {
                 }
             }
             this.drawPoints = corners.concat(edgePoints);
+        } else if (this._mode == 'sphere') {
+            const axes: [typeof Vector.prototype.rotateX, Vector][] = [
+                [Vector.prototype.rotateX, new Vector(0, 1, 0)],
+                [Vector.prototype.rotateY, new Vector(1, 0, 0)],
+                [Vector.prototype.rotateZ, new Vector(0, 1, 0)]
+            ];
+            const loc = this._points[0];
+            const radius = Vector.sub(this._points[1], loc).length + 0.5;
+            const resolution = Math.min(radius * 2*Math.PI, 72);
+
+            for (const [rotateBy, vec] of axes) {
+                for (let i = 0; i < 1; i += 1 / resolution) {
+                    let point: Vector = rotateBy.call(vec, i * 360);
+                    point = point.mul(radius).add(loc).add(0.5);
+                    this.drawPoints.push(point);
+                }
+            }
         }
         
         // A slight offset is made since exact integers snap the particles to the center of blocks.
@@ -204,5 +228,4 @@ export class Selection {
         }
         this.drawTimer = 0;
     }
-    
 }

@@ -2,7 +2,8 @@ import { printLocation } from '../../util.js';
 import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
-import { RawText, CommandPosition } from '@notbeer-api';
+import { RawText, CommandPosition, Vector } from '@notbeer-api';
+import { Selection } from '@modules/selection.js';
 
 const registerInformation = {
     name: 'pos2',
@@ -18,25 +19,30 @@ const registerInformation = {
     aliases: ['2']
 };
 
-export function setPos2(session: PlayerSession, loc: BlockLocation) {
-    const prevPoints = session.selection.points;
-    session.selection.set(1, loc);
+export function setPos2(selection: Selection, loc: BlockLocation) {
+    const prevPoints = selection.points;
+    selection.set(1, loc);
     
-    if (session.selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
+    if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
-        const blockCount = session.selection.getBlockCount();
+        const blockCount = selection.getBlockCount();
         if (!blockCount) {
-            translate = `worldedit.selection.${session.selection.mode}.secondary`;
+            translate = `worldedit.selection.${selection.mode}.secondary`;
         } else {
-            translate = `worldedit.selection.${session.selection.mode}.secondaryArea`;
+            translate = `worldedit.selection.${selection.mode}.secondaryArea`;
         }
+        let sub = printLocation(selection.points[0]);
+        if (selection.mode == 'sphere') {
+            sub = `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`;
+        }
+
         return RawText.translate(translate)
-            .with(printLocation(session.selection.points[1]))
-            .with(`${blockCount}`);    
+            .with(sub)
+            .with(`${blockCount}`);
     }
     return '';
 }
 
 registerCommand(registerInformation, function (session, builder, args) {
-    return setPos2(session, args.get('coordinates').relativeTo(builder, true));
+    return setPos2(session.selection, args.get('coordinates').relativeTo(builder, true));
 });
