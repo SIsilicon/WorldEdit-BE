@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-05-29 01:19\n"
+"PO-Revision-Date: 2022-05-29 03:30\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -260,10 +260,10 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "%1 (%2) を含む範囲を拡張しました。"
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "半径を %1 に設定しました。"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "半径を %1 (~%2) に設定しました。"
 
 msgid "worldedit.tool.noItem"
 msgstr "アイテムをメインハンドに持ってください。"
