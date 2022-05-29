@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-05-25 22:28\n"
+"PO-Revision-Date: 2022-05-29 01:19\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -258,6 +258,12 @@ msgstr "Started selection at %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Extended selection to encompass %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "An item must be in your main hand."
@@ -640,8 +646,14 @@ msgstr "Select two corners of a cuboid"
 msgid "commands.wedit:sel.description.extend"
 msgstr "Fast cuboid selection mode"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Fill the selection with a block pattern"
