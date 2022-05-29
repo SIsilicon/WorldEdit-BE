@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-05-25 22:28\n"
+"PO-Revision-Date: 2022-05-29 01:19\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -258,6 +258,12 @@ msgstr "Begynte valg ved %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Utvidet utvalg for å inkludere %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "En gjenstand må være i hovedhånden din."
@@ -640,8 +646,14 @@ msgstr "Velg to gjørner av en kube"
 msgid "commands.wedit:sel.description.extend"
 msgstr "Hurtig kube valgs-modus"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "Utvid: trykk mens du sniker for et startpunkt, trykk igjen uten å snike for å utvide"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Fyll utvalget med et blokkmønster"
