@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-05-29 01:18\n"
+"PO-Revision-Date: 2022-05-30 17:06\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -489,6 +489,9 @@ msgstr "翻转了 %s 个方块。"
 
 msgid "commands.wedit:flip.notLateral"
 msgstr "不能向上或向下翻转！"
+
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
 
 msgid "commands.wedit:gmask.description"
 msgstr "设置默认被取代方块"
