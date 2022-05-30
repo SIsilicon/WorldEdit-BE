@@ -126,6 +126,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
                         block.setPermutation(perm);
                         if (heightProp.value != prevHeight) changed++;
                     }
+                } else if (block.id == 'minecraft:ice') {
+                    // pass
                 } else if (canSnowOn(block)) {
                     dimension.getBlock(block.location.offset(0, 1, 0)).setPermutation(snowLayer);
                     changed++;
