@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
-"PO-Revision-Date: 2022-05-29 01:18\n"
+"PO-Revision-Date: 2022-05-30 17:06\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -489,6 +489,9 @@ msgstr "Flipped %s blocks."
 
 msgid "commands.wedit:flip.notLateral"
 msgstr "Cannot flip up or down!"
+
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
