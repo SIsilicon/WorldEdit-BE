@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-05-29 01:18\n"
+"PO-Revision-Date: 2022-05-30 17:06\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -489,6 +489,9 @@ msgstr "已翻轉 %s 個方塊"
 
 msgid "commands.wedit:flip.notLateral"
 msgstr "不能往上或往下翻轉！"
+
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
