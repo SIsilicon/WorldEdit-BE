@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-05-30 17:06\n"
+"PO-Revision-Date: 2022-05-31 21:46\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -260,10 +260,10 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Selección extendida para abarcar %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Radio establecido en %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Radio establecido en %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "Un objeto debe estar en tu mano principal."
@@ -386,16 +386,16 @@ msgid "commands.wedit:brush.unbind"
 msgstr "Desvinculaste el pincel de su ítem."
 
 msgid "commands.wedit:butcher.description"
-msgstr "Kill nearby entities."
+msgstr "Mata a las entidades cercanas."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "Matar %s entidades."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Borra el portapapeles"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Portapapeles borrado."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Borra tu historial de edición"
@@ -416,10 +416,10 @@ msgid "commands.wedit:copy.explain"
 msgstr "%s bloques copiados."
 
 msgid "commands.wedit:count.description"
-msgstr "Count the number of blocks that match a mask"
+msgstr "Contar el número de bloques que coinciden con una máscara"
 
 msgid "commands.wedit:count.explain"
-msgstr "Found %s blocks."
+msgstr "Fundar %s bloques."
 
 msgid "commands.wedit:cut.description"
 msgstr "Elimina la selección actual y lo coloca en el portapapeles"
@@ -431,13 +431,13 @@ msgid "commands.wedit:cyl.description"
 msgstr "Genera un cilindro"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Analizar la cantidad de diferentes bloques en la selección"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Drenar los fluidos cercanos"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Necesitas estar cerca de un poco de agua o lava para drenar."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Cambia la visibilidad de tu selección"
@@ -458,22 +458,22 @@ msgid "commands.wedit:expand.explain"
 msgstr "La región se ha expandido %s bloques."
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Extinguir el fuego cercano"
 
 msgid "commands.wedit:faces.description"
 msgstr "Genera un contorno a partir de tu selección"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Llenar un área con ciertos bloques"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Llenar recursivamente un área con ciertos bloques"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Fabricante cercano bloques de lava que fluyen bloques fuente"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Necesitas estar cerca de un poco de lava para arreglar."
 
 msgid "commands.wedit:fixwater.description"
 msgstr "Make nearby flowing water blocks source blocks"
