@@ -16,7 +16,7 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-    session.globalMask = args.get('mask').clone();
+    session.globalMask = Mask.clone(args.get('mask'));
     if (!args.get('mask').empty()) {
         return RawText.translate('commands.wedit:gmask.set');
     } else {

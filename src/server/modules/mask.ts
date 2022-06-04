@@ -64,7 +64,7 @@ export class Mask implements CustomArgType {
         } else if (!this.condition) {
             node = mask.condition;
         } else {
-            new IntersectMask(null);
+            node = new IntersectMask(null);
             node.nodes = [this.condition, mask.condition];
         }
 
