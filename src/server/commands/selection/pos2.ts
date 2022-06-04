@@ -1,7 +1,6 @@
 import { printLocation } from '../../util.js';
 import { registerCommand } from '../register_commands.js';
 import { BlockLocation } from 'mojang-minecraft';
-import { PlayerSession } from '../../sessions.js';
 import { RawText, CommandPosition, Vector } from '@notbeer-api';
 import { Selection } from '@modules/selection.js';
 
@@ -31,7 +30,7 @@ export function setPos2(selection: Selection, loc: BlockLocation) {
         } else {
             translate = `worldedit.selection.${selection.mode}.secondaryArea`;
         }
-        let sub = printLocation(selection.points[0]);
+        let sub = printLocation(selection.points[1]);
         if (selection.mode == 'sphere') {
             sub = `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`;
         }
