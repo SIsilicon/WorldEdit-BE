@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-05-30 17:06\n"
+"PO-Revision-Date: 2022-06-04 21:47\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -260,10 +260,10 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Utvidet utvalg for å inkludere %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Radius satt til %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Radius satt til %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "En gjenstand må være i hovedhånden din."
@@ -386,16 +386,16 @@ msgid "commands.wedit:brush.unbind"
 msgstr "Pensel ubundet fra din nåværende gjenstand."
 
 msgid "commands.wedit:butcher.description"
-msgstr "Kill nearby entities."
+msgstr "Drep enheter i nærheten."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "Drepte %s enheter."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Tøm utklippstavlen"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Tømte utklippstavlen."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Fjerner din redigeringshistorikk"
@@ -416,10 +416,10 @@ msgid "commands.wedit:copy.explain"
 msgstr "Kopierte %s blokker."
 
 msgid "commands.wedit:count.description"
-msgstr "Count the number of blocks that match a mask"
+msgstr "Tell antall blokker som passer til en maske"
 
 msgid "commands.wedit:count.explain"
-msgstr "Found %s blocks."
+msgstr "Fant %s blokker."
 
 msgid "commands.wedit:cut.description"
 msgstr "Fjern ditt nåværende utvalg og plasser det på utklippstavlen"
@@ -431,13 +431,13 @@ msgid "commands.wedit:cyl.description"
 msgstr "Generer en sylinder"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Analyser mengden av forskjellige blokker i utvalget"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Drener væske i nærheten"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Du må være i nærheten av vann eller lava for å drenere."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Slå av/på utvalgets synlighet"
@@ -458,28 +458,28 @@ msgid "commands.wedit:expand.explain"
 msgstr "Region utvidet %s blokker."
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Slukk brann i nærheten"
 
 msgid "commands.wedit:faces.description"
 msgstr "Generer en omrisse fra ditt utvalg"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Fyll et område med visse blokker"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Regelmessig fyll et område med visse blokker"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Omgjør nærligende strømmende lavablokker til lavakilder"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Du må være i nærheten av lava for å fikse."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Omgjør nærligende strømmende vannblokker til vannkilder"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "You need to be close to some water to fix."
+msgstr "Du må være i nærheten av vann for å fikse."
 
 msgid "commands.wedit:flip.description"
 msgstr "Vend utvalget"
@@ -491,7 +491,7 @@ msgid "commands.wedit:flip.notLateral"
 msgstr "Kan ikke snu opp eller ned!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "Generer hvilken som helst form i utvalget ditt"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Sett global maske"
@@ -503,7 +503,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Globalmaske satt."
 
 msgid "commands.wedit:green.description"
-msgstr "Turn nearby dirt into grass"
+msgstr "Omgjør nærliggende jord om til gress"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Generer en hul sylinder"
@@ -614,16 +614,16 @@ msgid "commands.wedit:replace.description"
 msgstr "Erstatt visse blokker i utvalget med andre blokker"
 
 msgid "commands.wedit:removeabove.description"
-msgstr "Remove blocks above you"
+msgstr "Fjern blokker over deg"
 
 msgid "commands.wedit:removebelow.description"
-msgstr "Remove blocks below you"
+msgstr "Fjern blokker under deg"
 
 msgid "commands.wedit:removenear.description"
-msgstr "Remove nearby blocks"
+msgstr "Fjern blokker i nærheten"
 
 msgid "commands.wedit:replacenear.description"
-msgstr "Replace nearby blocks with other blocks"
+msgstr "Erstatt blokker i nærheten med andre blokker"
 
 msgid "commands.wedit:rotate.description"
 msgstr "Roter utvalget"
@@ -650,13 +650,13 @@ msgid "commands.wedit:sel.description.extend"
 msgstr "Hurtig kube valgs-modus"
 
 msgid "commands.wedit:sel.description.sphere"
-msgstr "Select a sphere"
+msgstr "Velg en sfære"
 
 msgid "commands.wedit:sel.extend"
 msgstr "Utvid: trykk mens du sniker for et startpunkt, trykk igjen uten å snike for å utvide"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
+msgstr "Sfære-velger: trykk mens du sniker for midten, trykk uten å snike for å angi radiusen"
 
 msgid "commands.wedit:set.description"
 msgstr "Fyll utvalget med et blokkmønster"
@@ -671,10 +671,10 @@ msgid "commands.wedit:size.description"
 msgstr "Sett størrelsen av et pensel"
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "Simuler snø i området"
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "Smelt snø og is som er utsatt for himmelen"
 
 msgid "commands.wedit:stack.description"
 msgstr "Gjenta innholdet til det nåværende utvalget"
