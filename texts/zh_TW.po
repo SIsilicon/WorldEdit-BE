@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-05-30 17:06\n"
+"PO-Revision-Date: 2022-06-06 10:31\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (@iSiliconS)。"
@@ -53,13 +53,13 @@ msgid "item.wedit:selection_fill"
 msgstr "填滿選中的區域"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "選擇牆"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "選擇輪廓"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "畫線"
 
 msgid "item.wedit:config_button"
 msgstr "WorldEdit 設定"
@@ -77,19 +77,19 @@ msgid "item.wedit:cylinder_button"
 msgstr "圓柱體畫筆"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "平滑的刷子"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "區域選擇工具"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "遠程區域選擇工具"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "導航工具"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "堆垛機工具"
 
 msgid "item.wedit:one_button"
 msgstr "一"
