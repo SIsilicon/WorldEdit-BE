@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-06-07 06:36\n"
+"PO-Revision-Date: 2022-06-07 07:34\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -335,7 +335,7 @@ msgid "commands.wedit:brush.bind.cylinder"
 msgstr "已裝載柱型筆刷 (%1，被 %2) 。"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "配備平滑刷 (%1 x %2x)。"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選) 。"
@@ -356,7 +356,7 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "已設定刷子遮罩。"
 
 msgid "commands.wedit:brush.mask.disabled"
 msgstr "已停用刷子遮罩。"
@@ -365,13 +365,13 @@ msgid "commands.wedit:brush.material.set"
 msgstr "Brush material set."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "已設定刷子範圍。"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "已設定刷子大小。"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "已設定痕跡遮罩"
 
 msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "已停用痕跡遮罩。"
@@ -392,10 +392,10 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Killed %s entities."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "清除您的剪貼簿"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "清除剪貼簿。"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "清除你的歷史編輯記錄"
@@ -404,10 +404,10 @@ msgid "commands.wedit.clearhistory.explain"
 msgstr "已清除歷史編輯記錄"
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "收縮選擇區域"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "區域承包了 %s 個區塊。"
 
 msgid "commands.wedit:copy.description"
 msgstr "複製目前所選中的區域到剪貼板上"
@@ -419,7 +419,7 @@ msgid "commands.wedit:count.description"
 msgstr "Count the number of blocks that match a mask"
 
 msgid "commands.wedit:count.explain"
-msgstr "Found %s blocks."
+msgstr "已尋找 %s 個方塊。"
 
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
@@ -449,13 +449,13 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "你所選中的區域已設定為可見"
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "擴張選擇區域"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "將您的選擇垂直擴展到世界高度限制"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "區域擴展了 %s 個方塊。"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguish nearby fires"
@@ -497,10 +497,10 @@ msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "已停用全域遮罩。"
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "已設定全域遮罩。"
 
 msgid "commands.wedit:green.description"
 msgstr "Turn nearby dirt into grass"
@@ -524,7 +524,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "生成一個空心的球體"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "插入選擇區域"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "傳送你到你視線中方塊的頂端"
@@ -650,7 +650,7 @@ msgid "commands.wedit:sel.description.extend"
 msgstr "Fast cuboid selection mode"
 
 msgid "commands.wedit:sel.description.sphere"
-msgstr "Select a sphere"
+msgstr "選擇一個球體"
 
 msgid "commands.wedit:sel.extend"
 msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
@@ -662,13 +662,13 @@ msgid "commands.wedit:set.description"
 msgstr "用填充方塊來填滿選中的區域"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "轉移選擇區域"
 
 msgid "commands.wedit:shift.explain"
 msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "設定刷子的大小"
 
 msgid "commands.wedit:snow.description"
 msgstr "Simulate snow in the area"
@@ -701,16 +701,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "在你前面沒有找到可傳送的位置。"
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Set what kind of blocks a brush can be used on"
+msgstr "設置刷子可以用在什麼樣的塊上"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
+msgstr "選取魔法棒工具已綁定至 %s。"
 
 msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
+msgstr "導航魔法棒工具已綁定至 %s。"
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "遠端選擇棒綁定到 %s。"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
@@ -770,7 +770,7 @@ msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit commands"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "取得WorldEdit 版本"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit 版本: %s"
@@ -785,7 +785,7 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "遊戲說明: WorldEdit的快速開始"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "授權"
 
 msgid "howtoplay.wedit:license.title"
 msgstr "How to Play: WorldEdit License"
@@ -797,19 +797,19 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "默認情況下，不允許玩家使用 WorldEdit。 只有那些帶有 worldedit 權限的人才能使用它的功能。 要授予自己權限，請在聊天中輸入 §e/tag @s add worldedit§r。 您現在應該可以訪問每個 WorldEdit 命令。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§a提示：§r§a 你也可以通過將 §e@s§r§a 更改為玩家的名字來授予其他玩家權限。 如果其中有空格，則需要將其括在引號中。 例如：§e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "前往地方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§aNotice:§r§a The commands provided by this addon use a semicolon (;) instead of a forward slash (/). In the future, Mojang might add actual custom commands support to Minecraft.§r"
+msgstr "§l§a注意：§r§a 此插件提供的命令使用分號 (;) 而不是正斜杠 (/)。 將來，Mojang 可能會為 Minecraft 添加實際的自定義命令支持。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "從 A 點到 B 點有時會很麻煩。 幸運的是，這個插件帶有所謂的導航棒。 要獲得一個，請輸入命令 §e;navwand§r。 擁有此物品後，只需與它互動即可傳送到您正在查看的位置。 想爬到牆或天花板的另一邊？ 在潛行時使用魔杖直接穿過它！ 卡在一個街區？ 使用魔杖會讓你擺脫困境！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a提示:§r§a 如果你不想使用導航工具，這些動作也可透過命令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成§r。"
