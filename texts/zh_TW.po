@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-06-06 11:27\n"
+"PO-Revision-Date: 2022-06-07 06:36\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -329,16 +329,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7運行 §e%s§7，同時按住該物品以解開它。§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "已裝載球型筆刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "已裝載柱型筆刷 (%1，被 %2) 。"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "Smooth brush equipped (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選) 。"
 
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
@@ -359,7 +359,7 @@ msgid "commands.wedit:brush.mask.set"
 msgstr "Brush mask set."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "已停用刷子遮罩。"
 
 msgid "commands.wedit:brush.material.set"
 msgstr "Brush material set."
@@ -374,7 +374,7 @@ msgid "commands.wedit:brush.tracemask.set"
 msgstr "Trace mask set."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "已停用痕跡遮罩。"
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "Maximum allowed brush radius: %s"
@@ -383,7 +383,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "This brush does not require a material to work."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "已解除您手持的物品與刷子之間的綁定。"
 
 msgid "commands.wedit:butcher.description"
 msgstr "Kill nearby entities."
