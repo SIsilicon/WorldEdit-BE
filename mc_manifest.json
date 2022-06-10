@@ -9,7 +9,7 @@
         "bp_uuid": "3cdb2ddf-662e-4f8f-a0a1-1293b91ccb2f",
 		"rp_uuid": "e304a4eb-f0a0-4979-ac17-7b0f46a555c8",
 		
-        "version": [0, 6, 0],
+        "version": [0, 6, 1],
 		"min_engine_version": [1, 19, 0]
 	},
 	"bp_modules": [
