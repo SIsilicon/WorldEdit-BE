@@ -2,12 +2,14 @@ import './util.js';
 import './commands/command_list.js';
 
 import { Player, world } from 'mojang-minecraft';
-import { contentLog, listTickingAreas, removeTickingArea, Server } from '@notbeer-api';
+import { contentLog, listTickingAreas, removeTickingArea, Server, configuration } from '@notbeer-api';
 import { print } from './util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
 import { PlayerUtil } from '@modules/player_util.js';
+import { ASYNC_TIME_BUDGET } from '@config.js';
 
 Server.setMaxListeners(256);
+configuration.multiThreadingTimeBudget = ASYNC_TIME_BUDGET;
 let activeBuilders: Player[] = [];
 
 let ready = false;

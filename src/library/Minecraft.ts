@@ -11,6 +11,7 @@ import { ServerBuilder } from "./build/classes/serverBuilder.js";
 export { CustomArgType, CommandPosition } from './build/classes/commandBuilder.js';
 export { commandSyntaxError, registerInformation as CommandInfo } from './@types/build/classes/CommandBuilder';
 export { StructureSaveOptions, StructureLoadOptions } from "./structure/structureBuilder.js";
+export { configuration } from "./build/configurations.js";
 
 class ServerBuild extends ServerBuilder {
     public entity = Entity;

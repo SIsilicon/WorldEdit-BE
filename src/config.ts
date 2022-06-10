@@ -44,7 +44,7 @@ export const MAX_CHANGE_LIMIT: number = -1;
 
 // How long an async operation will run until giving Minecraft a chance to run.
 // The higher the value, the faster the operation, but the slower Minecraft takes to run.
-export const ASYNC_TIME_BUDGET: number = 1000;
+export const ASYNC_TIME_BUDGET: number = 200;
 
 // Whether the addon should use simpler methods to run operations faster.
 // This comes with the drawback of more limited capabilities.
