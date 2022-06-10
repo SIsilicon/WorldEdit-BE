@@ -19,7 +19,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         assertCanBuildWithin(dim, start, end);
         
         const center = Vector.from(start).add(end).mul(0.5);
-        const origin = args.has('o') ? Vector.ZERO : center.sub(builder.location).floor();
+        const origin = args.has('o') ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
         yield 'Gettings blocks...';
         yield* temp.saveProgressive(start, end, dim);
         
@@ -45,7 +45,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
             session.selection.set(1, newEnd);
             history.recordSelection(record, session);
         }
-
+        
         history.addRedoStructure(record, newStart, newEnd, 'any');
         history.addRedoStructure(record, start, end, 'any');
         history.commit(record);

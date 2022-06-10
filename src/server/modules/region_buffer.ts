@@ -188,7 +188,8 @@ export class RegionBuffer {
             error = Server.structure.save(id, block.location, block.location, block.dimension, options);
             this.blocks.set(key, [id, block.permutation.clone()]);
         }
-        this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock()
+        this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock();
+        this.blockCount = this.blocks.size;
         return error;
     }
 
