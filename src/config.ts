@@ -30,7 +30,7 @@ export const WAND_ITEM: string = 'minecraft:wooden_axe';
 export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
 
 // THe distance the navwand, among other tools and commands, traces for a block of interest.
-export const NAV_WAND_DISTANCE: number = 64;
+export const NAV_WAND_DISTANCE: number = 128;
 
 // The maximum brush radius allowed.
 export const MAX_BRUSH_RADIUS: number = 6;
@@ -44,7 +44,7 @@ export const MAX_CHANGE_LIMIT: number = -1;
 
 // How long an async operation will run until giving Minecraft a chance to run.
 // The higher the value, the faster the operation, but the slower Minecraft takes to run.
-export const ASYNC_TIME_BUDGET: number = 400;
+export const ASYNC_TIME_BUDGET: number = 1000;
 
 // Whether the addon should use simpler methods to run operations faster.
 // This comes with the drawback of more limited capabilities.
