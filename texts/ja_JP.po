@@ -385,7 +385,7 @@ msgstr "クリップボードを消去する"
 msgid "commands.wedit:clearhistory.description"
 msgstr "編集履歴を消去する"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "履歴を消去しました。"
 
 msgid "commands.wedit:contract.description"

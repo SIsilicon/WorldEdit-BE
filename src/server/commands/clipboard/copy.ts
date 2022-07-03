@@ -2,7 +2,7 @@ import { FAST_MODE } from '@config.js';
 import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
-import { RawText, Vector } from '@notbeer-api';
+import { iterateChunk, RawText, regionIterateBlocks, regionVolume, Vector } from '@notbeer-api';
 import { BlockLocation, MinecraftBlockTypes } from 'mojang-minecraft';
 import { PlayerSession } from '../../sessions.js';
 import { registerCommand } from '../register_commands.js';
@@ -65,9 +65,9 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
         };
         
         yield 'Copying blocks...';
-        const blocks = start.blocksBetween(end);
+        const volume = regionVolume(start, end);
         let i = 0;
-        for (const block of blocks) {
+        for (const block of regionIterateBlocks(start, end)) {
             const relLoc = Vector.sub(block, start).toBlock();
             if (filter) {
                 let wasAir = dimension.getBlock(block).id == 'minecraft:air';
@@ -81,7 +81,8 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
                 }
             }
             error ||= session.clipboard.setBlock(relLoc, dimension.getBlock(block), options);
-            yield i++ / blocks.length;
+            if (iterateChunk()) yield i / volume;
+            i++;
         }
     } else {
         // Create a temporary copy since we'll be adding void/air blocks to the selection.
@@ -93,7 +94,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
             const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
             const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
             
-            for (const block of start.blocksBetween(end)) {
+            for (const block of regionIterateBlocks(start, end)) {
                 let wasAir = dimension.getBlock(block).id == 'minecraft:air';
                 let isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
                 if (includeAir && mask && !wasAir && isAir) {

@@ -1,4 +1,4 @@
-import { contentLog, generateId, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
+import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
 import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
 import { locToString, stringToLoc } from "../util.js";
 
@@ -40,10 +40,19 @@ export class RegionBuffer {
                 this.blocks.set(locToString(relLoc), [id, dim.getBlock(blockLoc).permutation.clone()]);
             }
             
-            if (blocks == 'all') blocks = start.blocksBetween(end);
-            for (let i = 0; i < blocks.length; i++) {
-                iterate(blocks[i]);
-                yield i / blocks.length;
+            if (blocks == 'all') {
+                const volume = regionVolume(start, end);
+                let i = 0;
+                for (const block of regionIterateBlocks(start, end)) {
+                    iterate(block);
+                    if (iterateChunk()) yield i / volume;
+                    i++;
+                }
+            } else {
+                for (let i = 0; i < blocks.length; i++) {
+                    iterate(blocks[i]);
+                    if (iterateChunk()) yield i / blocks.length;
+                }
             }
             this.blockCount = blocks.length;
         } else {
@@ -129,7 +138,7 @@ export class RegionBuffer {
                         .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
                         .mul(rotFlip[1]).sub(bounds[0]).toBlock();
                 }
-
+                
                 blockLoc = blockLoc.offset(loc.x, loc.y, loc.z)
                 if (block instanceof BlockPermutation) {
                     dim.getBlock(blockLoc).setPermutation(transform(block));
@@ -137,7 +146,8 @@ export class RegionBuffer {
                     Server.structure.load(block[0], blockLoc, dim);
                     dim.getBlock(blockLoc).setPermutation(transform(block[1]));
                 }
-                yield i++ / this.blocks.size;
+                if (iterateChunk()) yield i / this.blocks.size;
+                i++;
             }
         } else {
             const loadOptions: StructureLoadOptions = {

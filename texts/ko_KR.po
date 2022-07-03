@@ -385,7 +385,7 @@ msgstr "클립보드를 지웁니다."
 msgid "commands.wedit:clearhistory.description"
 msgstr "편집 기록 지우기"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "기록이 지워졌습니다."
 
 msgid "commands.wedit:contract.description"

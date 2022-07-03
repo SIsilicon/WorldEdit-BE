@@ -49,7 +49,7 @@ export class History {
             selection: 'none',
 
             blocksChanged: 0,
-            brush: brush
+            brush
         } as historyPoint;
         this.historyPoints.set(++historyPointId, historyPoint);
         return historyPointId;
@@ -82,10 +82,11 @@ export class History {
     }
 
     cancel(historyPoint: number) {
+        if (!this.historyPoints.has(historyPoint)) return;
+
         const point = this.historyPoints.get(historyPoint);
         this.historyPoints.delete(historyPoint);
-
-        const player = this.session.getPlayer();
+        
         for (const struct of point.undo) {
             Server.structure.delete(struct.name);
         }
@@ -262,7 +263,8 @@ export class History {
             if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
                 throw new Error('Failed to save history!');
             }
-
+            
+            // TODO: Get history precise recording working again
             // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
             if (recordBlocks) {
                 var loc = Vector.min(start, end).toBlock();

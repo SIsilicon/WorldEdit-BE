@@ -385,7 +385,7 @@ msgstr "Vymazat schránku"
 msgid "commands.wedit:clearhistory.description"
 msgstr "Vymazat vaši historii úprav"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "Historie vymazána."
 
 msgid "commands.wedit:contract.description"

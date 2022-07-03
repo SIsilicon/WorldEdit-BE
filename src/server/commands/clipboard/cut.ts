@@ -1,4 +1,4 @@
-import { Server } from '@notbeer-api';
+import { regionIterateBlocks, Server } from '@notbeer-api';
 import { copy } from './copy.js';
 import { set } from '../region/set.js';
 import { registerCommand } from '../register_commands.js';
@@ -53,7 +53,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     
         yield* Jobs.perform(job, set(session, pattern, mask, false), false);
         if (includeEntities) {
-            for (const block of start.blocksBetween(end)) {
+            for (const block of regionIterateBlocks(start, end)) {
                 for (const entity of dim.getEntitiesAtBlockLocation(block)) {
                     entity.nameTag = 'wedit:marked_for_deletion';
                 }

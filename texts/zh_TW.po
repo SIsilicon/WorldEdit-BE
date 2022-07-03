@@ -385,7 +385,7 @@ msgstr "Clear your clipboard"
 msgid "commands.wedit:clearhistory.description"
 msgstr "清除你的歷史編輯記錄"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "已清除歷史編輯記錄"
 
 msgid "commands.wedit:contract.description"

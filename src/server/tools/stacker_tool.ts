@@ -1,5 +1,6 @@
 import { Cardinal } from '@modules/directions.js';
 import { Mask } from '@modules/mask.js';
+import { regionIterateBlocks } from '@notbeer-api';
 import { BlockLocation, Player } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { Tool } from './base_tool.js';
@@ -29,7 +30,7 @@ class StackerTool extends Tool {
             history.addUndoStructure(record, start, end, 'any');
             
             tempStack.save(loc, loc, dim);
-            for (const pos of start.blocksBetween(end)) {
+            for (const pos of regionIterateBlocks(start, end)) {
                 tempStack.load(pos, dim);
             }
             history.addRedoStructure(record, start, end, 'any');

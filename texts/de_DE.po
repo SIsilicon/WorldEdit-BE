@@ -385,7 +385,7 @@ msgstr "Zwischenablage leeren"
 msgid "commands.wedit:clearhistory.description"
 msgstr "Editierverlauf löschen"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "Verlauf gelöscht."
 
 msgid "commands.wedit:contract.description"

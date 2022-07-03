@@ -2,7 +2,7 @@ import { assertCanBuildWithin } from '@modules/assert.js';
 import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
 import { Pattern } from '@modules/pattern.js';
-import { contentLog, Server, Vector } from '@notbeer-api';
+import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Server, Vector } from '@notbeer-api';
 import { BlockLocation } from 'mojang-minecraft';
 import { PlayerSession } from '../sessions.js';
 import { getWorldMinY, getWorldMaxY } from '../util.js';
@@ -68,7 +68,7 @@ export abstract class Shape {
         this.genVars = {};
         this.prepGeneration(this.genVars);
         
-        for (const block of range[0].blocksBetween(range[1])) {
+        for (const block of regionIterateBlocks(...range)) {
             if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
                 yield block;
             }
@@ -133,10 +133,11 @@ export abstract class Shape {
                     history?.addRedoStructure(record, min, max, 'any');    
                 } else {
                     let progress = 0;
-                    const blocks = min.blocksBetween(max);
+                    const volume = regionVolume(min, max)
                     yield 'Calculating shape...';
-                    for (const block of blocks) {
-                        yield ++progress / blocks.length;
+                    for (const block of regionIterateBlocks(min, max)) {
+                        if (iterateChunk()) yield progress / volume;
+                        progress++;
                         
                         if (!activeMask.matchesBlock(block, dimension)) {
                             continue;
@@ -154,7 +155,8 @@ export abstract class Shape {
                         if (pattern.setBlock(block, dimension)) {
                             count++;
                         }
-                        yield ++progress / blocksAffected.length;
+                        if (iterateChunk()) yield progress / blocksAffected.length;
+                        progress++;
                     }
                     history?.addRedoStructure(record, min, max, blocksAffected);
                 }

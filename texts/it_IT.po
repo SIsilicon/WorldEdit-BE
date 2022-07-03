@@ -385,7 +385,7 @@ msgstr "Pulisci gli appunti"
 msgid "commands.wedit:clearhistory.description"
 msgstr "Cancella la cronologia delle modifiche"
 
-msgid "commands.wedit.clearhistory.explain"
+msgid "commands.wedit:clearhistory.explain"
 msgstr "Cronologia cancellata."
 
 msgid "commands.wedit:contract.description"
