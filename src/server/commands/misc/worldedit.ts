@@ -1,6 +1,6 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { registerCommand } from '../register_commands.js';
 import { VERSION } from '@config.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'worldedit',
@@ -13,9 +13,9 @@ const registerInformation = {
     aliases: ['we']
 };
 
-commandList['worldedit'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     if (args.has('version')) {
         return RawText.translate('commands.wedit:worldedit.version').with(VERSION);
     }
     return '';
-}];
+});

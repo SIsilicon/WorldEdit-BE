@@ -1,10 +1,9 @@
 import { BlockLocation } from 'mojang-minecraft';
-import { Mask } from '@modules/mask.js';
-import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
 import { PlayerSession } from '../sessions.js';
 import { Brush } from './base_brush.js';
 import { CylinderShape } from '../shapes/cylinder.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
 
 /**
  * This brush creates cylinder shaped patterns in the world.
@@ -41,7 +40,7 @@ export class CylinderBrush extends Brush {
         this.pattern = value;
     }
     
-    public apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
-        this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
+    public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+        yield* this.shape.generate(loc, this.pattern, mask, session, {'hollow': this.hollow});
     }
 }

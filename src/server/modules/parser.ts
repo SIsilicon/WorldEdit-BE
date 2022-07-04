@@ -1,4 +1,5 @@
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
+import { commandSyntaxError, contentLog } from '@notbeer-api';
+import { MinecraftBlockTypes } from 'mojang-minecraft';
 import { Token, Tokenizr, ParsingError } from './extern/tokenizr.js';
 
 export type parsedBlock = {
@@ -10,6 +11,7 @@ export type parsedBlock = {
 export interface AstNode {
     prec: number,
     opCount: number,
+    rightAssoc?: boolean,
     nodes: AstNode[],
     token: Token
 }
@@ -19,44 +21,26 @@ const lexer = new Tokenizr();
     /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
+    lexer.rule(/[~#%^=*+-/|:!&,]/, (ctx, match) => {
+        ctx.accept('misc');
+    });
+    lexer.rule(/\s+/, (ctx, match) => {
+        ctx.accept('space');
+    });
+    lexer.rule(/[\[\]\(\)\<\>\{\}]/, (ctx, match) => {
+        ctx.accept('bracket');
+    });
     lexer.rule(/(true|false)/, (ctx, match) => {
         ctx.accept('boolean', match[0] == 'true' ? true : false);
     });
     lexer.rule(/[a-zA-Z_][a-zA-Z0-9_]*/, (ctx, match) => {
         ctx.accept('id');
     });
+    lexer.rule(/[0-9]+(\.[0-9]+)*/, (ctx, match) => {
+        ctx.accept('number', parseFloat(match[0]));
+    });
     lexer.rule(/[0-9]+/, (ctx, match) => {
         ctx.accept('number', parseInt(match[0]));
-    });
-    lexer.rule(/\s+/, (ctx, match) => {
-        ctx.accept('space');
-    });
-    lexer.rule(/!/, (ctx, match) => {
-        ctx.accept('exclamation');
-    });
-    lexer.rule(/:/, (ctx, match) => {
-        ctx.accept('colon');
-    });
-    lexer.rule(/,/, (ctx, match) => {
-        ctx.accept('comma');
-    });
-    lexer.rule(/[\[\]\(\)\<\>\{\}]/, (ctx, match) => {
-        ctx.accept('bracket');
-    });
-    lexer.rule(/#/, (ctx, match) => {
-        ctx.accept('hash');
-    });
-    lexer.rule(/%/, (ctx, match) => {
-        ctx.accept('percent');
-    });
-    lexer.rule(/\^/, (ctx, match) => {
-        ctx.accept('caret');
-    });
-    lexer.rule(/=/, (ctx, match) => {
-        ctx.accept('equal');
-    });
-    lexer.rule(/\*/, (ctx, match) => {
-        ctx.accept('star');
     });
 }
 
@@ -70,7 +54,7 @@ export function tokenize(input: string) {
                 idx: -1,
                 start: err.pos,
                 end: err.pos + 1,
-                stack: Error().stack
+                stack: contentLog.stack()
             };
             throw error;
         }
@@ -90,7 +74,7 @@ export function throwTokenError(token: Token): never {
         idx: -1,
         start: token.pos,
         end: token.pos + token.text.length,
-        stack: Error().stack
+        stack: contentLog.stack()
     };
     throw err;
 }
@@ -98,7 +82,7 @@ export function throwTokenError(token: Token): never {
 export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     while (ops.length) {
         const op2 = ops.slice(-1)[0];
-        if (op && op.prec > op2.prec) {
+        if (op && (op.prec > op2.prec || op.prec == op2.prec && op2.rightAssoc)) {
             break;
         }
         
@@ -108,7 +92,7 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
         
         ops.pop(); // <= op2
         for (let i = 0; i < op2.opCount; i++) {
-            op2.nodes.push(out.pop());
+            op2.nodes.unshift(out.pop());
         }
         out.push(op2);
     }
@@ -118,7 +102,8 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     }
 }
 
-export function parseBlock(tokens: Tokens): parsedBlock {
+export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): parsedBlock|string {
+    let typeToken = tokens.curr();
     const block: parsedBlock = {
         id: tokens.curr().value,
         data: -1,
@@ -130,30 +115,45 @@ export function parseBlock(tokens: Tokens): parsedBlock {
         if (!block.id.includes(':')) {
             block.id = 'minecraft:' + block.id;
         }
-        return block;
+        // TODO: Test against custom blocks
+        if (!MinecraftBlockTypes.get(block.id)) {
+            throwTokenError(typeToken);
+        }
+        return typeOnly ? block.id : block;
     }
     
     while (token = tokens.peek()) {
         switch (token.type) {
-            case 'colon':
-                token = tokens.next();
-                const peek = tokens.peek();
-                if (peek.type == 'id') {
-                    if (block.id.includes(':') || block.data != -1) throwTokenError(peek);
-                    block.id += ':' + peek.value;
+            case 'misc':
+                if (token.value == ':') {
                     token = tokens.next();
-                } else if (peek.type == 'number') {
-                    if (block.data != -1)
+                    const peek = tokens.peek();
+                    if (peek.type == 'id') {
+                        if (block.id.includes(':') || block.data != -1) throwTokenError(peek);
+                        block.id += ':' + peek.value;
+                        token = tokens.next();
+                        typeToken = mergeTokens(typeToken, token, input);
+                        if (typeOnly)
+                            return finish();
+                    } else if (peek.type == 'number') {
+                        if (typeOnly)
+                            return finish();
+                        if (block.data != -1)
+                            throwTokenError(peek);
+                        block.data = peek.value;
+                        token = tokens.next();
+                        return finish();
+                    } else {
                         throwTokenError(peek);
-                    block.data = peek.value;
-                    token = tokens.next();
-                    return finish();
+                    }
                 } else {
-                    throwTokenError(peek);
+                    return finish();
                 }
                 break;
             case 'bracket':
                 if (token.value == '[') {
+                    if (typeOnly)
+                        return finish();
                     if (block.states != null)
                         throwTokenError(token);
                     token = tokens.next();
@@ -180,7 +180,7 @@ export function parseBlockStates(tokens: Tokens): parsedBlock['states'] {
         blockDataName = null;
         blockDataValue = null;
     }
-
+    // TODO: Test state names and values are valid
     let token: Token;
     while (token = tokens.next()) {
         switch (token.type) {
@@ -197,17 +197,20 @@ export function parseBlockStates(tokens: Tokens): parsedBlock['states'] {
                     blockDataName = token.value;
                 }
                 break;
-            case 'equal':
-                if (expectingBlockValue) {
+            case 'misc':
+                if (token.value == '=') {
+                    if (expectingBlockValue) {
+                        throwTokenError(token);
+                    }
+                    expectingBlockValue = true;
+                } else if (token.value == ',') {
+                    if (blockDataValue == null) {
+                        throwTokenError(token);
+                    }
+                    pushDataTag();
+                } else {
                     throwTokenError(token);
                 }
-                expectingBlockValue = true;
-                break;
-            case 'comma':
-                if (blockDataValue == null) {
-                    throwTokenError(token);
-                }
-                pushDataTag();
                 break;
             case 'bracket':
                 if (token.value != ']' || token.value == ']' && blockDataValue == null) {

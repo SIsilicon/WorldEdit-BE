@@ -1,13 +1,8 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { assertClipboard, assertCanBuildWithin } from '@modules/assert.js';
-import { getSession } from '../../sessions.js';
-
-import { Regions } from '@modules/regions.js';
+import { assertClipboard, assertCanBuildWithin } from '@modules/assert';
 import { PlayerUtil } from '@modules/player_util.js';
-import { Vector } from '@modules/vector.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { contentLog, RawText, regionSize, regionTransformedBounds, Vector } from '@notbeer-api';
+import { BlockLocation } from 'mojang-minecraft';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'paste',
@@ -24,46 +19,56 @@ const registerInformation = {
     ]
 };
 
-commandList['paste'] = [registerInformation, (session, builder, args) => {
-    assertClipboard(builder);
+registerCommand(registerInformation, function* (session, builder, args) {
+    assertClipboard(session);
     
     let setSelection = args.has('s') || args.has('n');
     let pasteOriginal = args.has('o');
     let pasteContent = !args.has('n');
     
-    let pasteStart: BlockLocation;
+    const rotation = session.clipboardTransform.rotation;
+    const flip = session.clipboardTransform.flip;
+    const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+    const size = Vector.from(regionSize(bounds[0], bounds[1]));
+
+    let pasteStart: Vector;
     if (pasteOriginal) {
-        pasteStart = Regions.getPosition('clipboard', builder);
+        pasteStart = session.clipboardTransform.originalLoc;
     } else {
         let loc = PlayerUtil.getBlockLocation(builder);
-        pasteStart = Vector.sub(loc, Regions.getOrigin('clipboard', builder)).toBlock();
+        pasteStart = Vector.add(loc, session.clipboardTransform.relative);
     }
-    let pasteEnd = Vector.add(pasteStart, Vector.sub(Regions.getSize('clipboard', builder), Vector.ONE)).toBlock();
+    pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
+    let pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE));
     
     const history = session.getHistory();
-    history.record();
-    
-    if (pasteContent) {
-        assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
-        
-        history.addUndoStructure(pasteStart, pasteEnd, 'any');
-        if (Regions.load('clipboard', pasteStart, builder)) {
-            throw RawText.translate('commands.generic.wedit:commandFail');
+    const record = history.record();
+    try {
+        if (pasteContent) {
+            assertCanBuildWithin(builder.dimension, pasteStart.toBlock(), pasteEnd.toBlock());
+            
+            history.addUndoStructure(record, pasteStart.toBlock(), pasteEnd.toBlock(), 'any');
+            if (session.clipboard.load(pasteStart.toBlock(), builder.dimension, session.clipboardTransform)) {
+                throw RawText.translate('commands.generic.wedit:commandFail');
+            }
+            history.addRedoStructure(record, pasteStart.toBlock(), pasteEnd.toBlock(), 'any');
         }
-        history.addRedoStructure(pasteStart, pasteEnd, 'any');
+        
+        if (setSelection) {
+            session.selection.mode = session.selection.mode == 'extend' ? 'extend' : 'cuboid';
+            session.selection.set(0, pasteStart.toBlock());
+            session.selection.set(1, pasteEnd.toBlock());
+            history.recordSelection(record, session);
+        }
+        
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
     }
-    
-    if (setSelection) {
-        session.selectionMode = session.selectionMode == 'extend' ? 'extend' : 'cuboid';
-        session.setSelectionPoint(0, pasteStart);
-        session.setSelectionPoint(1, pasteEnd);
-        history.recordSelection(session);
-    }
-    
-    history.commit();
     
     if (pasteContent) {
-        return RawText.translate('commands.wedit:paste.explain').with(`${Regions.getBlockCount('clipboard', builder)}`);
+        return RawText.translate('commands.wedit:paste.explain').with(`${session.clipboard.getBlockCount()}`);
     }
     return '';
-}];
+});

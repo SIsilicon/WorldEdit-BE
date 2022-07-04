@@ -1,9 +1,5 @@
 import { Player } from 'mojang-minecraft';
-import { PlayerUtil } from './player_util.js';
-import { RawText } from '@modules/rawtext.js';
-import { Vector } from '@modules/vector.js';
-import { CustomArgType } from '@library/build/classes/commandBuilder.js';
-import { printDebug } from '../util.js';
+import { RawText, Vector, CustomArgType } from '@notbeer-api';
 
 const directions = ['up', 'down', 'left', 'right', 'forward', 'back', 'north', 'south', 'east', 'west', 'me'];
 const dirAliases = ['u', 'd', 'l', 'r', 'f', 'b', 'n', 's', 'e', 'w', 'm'];

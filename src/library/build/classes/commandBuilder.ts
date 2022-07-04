@@ -1,8 +1,8 @@
-import { BeforeChatEvent, Player, BlockLocation, Location } from "mojang-minecraft";
+import { Player, BlockLocation, Location, BeforeChatEvent } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "@library/@types/build/classes/CommandBuilder";
-import { RawText } from "@modules/rawtext.js";
-import { Server } from "../../Minecraft.js";
+import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../../@types/build/classes/CommandBuilder";
+import { Player as playerHandler } from "./playerBuilder.js";
+import { contentLog, RawText } from "../../utils/index.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -26,7 +26,7 @@ export class CommandPosition implements CustomArgType {
             if(!args) {
                 const err: commandSyntaxError = {
                     isSyntaxError: true,
-                    stack: Error().stack,
+                    stack: contentLog.stack(),
                     idx: -1
                 };
                 throw err;
@@ -96,7 +96,7 @@ export class CommandBuilder {
     *  server.broadcast('Pong!', data.sender.nameTag);
     * });
     */
-    register(register: registerInformation, callback: (data: BeforeChatEvent, args: Map<string, any>) => void): void {
+    register(register: registerInformation, callback: storedRegisterInformation['callback']): void {
         this._registrationInformation.push({
             name: register.name.toLowerCase(),
             aliases: register.aliases ? register.aliases.map(v => v.toLowerCase()) : null,
@@ -171,7 +171,7 @@ export class CommandBuilder {
                 
                 if('subName' in arg) {
                     hasSubCommand = true;
-                    if (player && !Server.player.hasPermission(player, arg.permission)) {
+                    if (player && !playerHandler.hasPermission(player, arg.permission)) {
                         return;
                     }
                     accumulate(text, arg.args, arg.subName);
@@ -205,7 +205,7 @@ export class CommandBuilder {
             }
         }
         
-        if (player && !Server.player.hasPermission(player, register.permission)) {
+        if (player && !playerHandler.hasPermission(player, register.permission)) {
             return [];
         }
         
@@ -269,7 +269,7 @@ export class CommandBuilder {
                 if(!cmdBaseInfo) throw RawText.translate('commands.generic.unknown').with(args[idx]);
                 idx++;
                 result.set(def.name, cmdBaseInfo.name);
-            } else if(def.type == 'any') {
+            } else if(def.type == 'string') {
                 result.set(def.name, args[idx++]);
             } else if(self.customArgTypes.has(def.type)) {
                 try {
@@ -326,7 +326,7 @@ export class CommandBuilder {
                 if(!processed && hasNamedSubCmd && !unnamedSubs.length) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
-                        stack: Error().stack,
+                        stack: contentLog.stack(),
                         idx: i
                     };
                     throw err;
@@ -389,7 +389,7 @@ export class CommandBuilder {
                 if(!argDef) {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
-                        stack: Error().stack,
+                        stack: contentLog.stack(),
                         idx: i
                     };
                     throw err;
@@ -416,7 +416,7 @@ export class CommandBuilder {
                         // Required arguments not specified
                         const err: commandSyntaxError = {
                             isSyntaxError: true,
-                            stack: Error().stack,
+                            stack: contentLog.stack(),
                             idx: -1
                         };
                         throw err;
@@ -430,6 +430,18 @@ export class CommandBuilder {
         
         processList(0, argDefs, result);
         return result;
+    }
+
+    callCommand(player: Player, command: string, args: Array<string> = []) {
+        const registration = this.getRegistration(command);
+        if (!playerHandler.hasPermission(player, registration.permission)) {
+            throw 'commands.generic.wedit:noPermission';
+        }
+        return registration.callback(<BeforeChatEvent> {
+            cancel: true,
+            sender: player,
+            message: `;${command} ${args.join(' ')}`
+        }, this.parseArgs(command, args));
     }
 };
 export const Command = new CommandBuilder();

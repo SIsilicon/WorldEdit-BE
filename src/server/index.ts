@@ -1,30 +1,38 @@
 import './util.js';
-import './commands/register_commands.js';
+import './commands/command_list.js';
 
-import { Player, world, PlayerInventoryComponentContainer } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { print, printDebug, printLog } from './util.js';
-import { PlayerUtil } from '@modules/player_util.js';
+import { Player, world } from 'mojang-minecraft';
+import { contentLog, listTickingAreas, removeTickingArea, Server, configuration } from '@notbeer-api';
+import { print } from './util.js';
 import { getSession, PlayerSession, removeSession } from './sessions.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { ASYNC_TIME_BUDGET } from '@config.js';
 
 Server.setMaxListeners(256);
+configuration.multiThreadingTimeBudget = ASYNC_TIME_BUDGET;
 let activeBuilders: Player[] = [];
 
 let ready = false;
 Server.on('ready', ev => {
     Server.runCommand(`gamerule showtags false`);
     // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
-    printDebug(`World has been loaded in ${ev.loadTime} ticks!`);
+    contentLog.debug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;
+
+    for (const area of listTickingAreas()) {
+        if (area.startsWith('wedit:')) {
+            removeTickingArea(area);
+        }
+    }
 });
 
 Server.on('playerJoin', ev => {
-    printDebug(`player ${ev.player.name} joined.`);
+    contentLog.debug(`player ${ev.player.name} joined.`);
     makeBuilder(ev.player);
 });
 
 Server.on('playerLeave', ev => {
-    printDebug(`player ${ev.playerName} left.`);
+    contentLog.debug(`player ${ev.playerName} left.`);
     removeBuilder(ev.playerName);
 });
 
@@ -48,7 +56,7 @@ Server.on('tick', ev => {
         try {
             let name = activeBuilders[i].name;
         } catch {
-            printDebug('A builder no longer exists!');
+            contentLog.debug('A builder no longer exists!');
             activeBuilders.splice(i, 1);
         }
         
@@ -58,7 +66,7 @@ Server.on('tick', ev => {
             session = getSession(builder);
         } else {
             removeBuilder(builder.name);
-            printLog(`${builder.name} has been revoked of their worldedit permissions.`);
+            contentLog.log(`${builder.name} has been revoked of their worldedit permissions.`);
             print('worldedit.permission.revoked', builder);
             continue;
         }
@@ -69,15 +77,7 @@ function makeBuilder(player: Player) {
     if (hasWorldEdit(player)) {
         getSession(player);
         activeBuilders.push(player);
-        
-        // remove any stray tags to prevent accidental item activation.
-        for (const tag of player.getTags()) {
-            if (tag.startsWith('wedit:')) {
-                player.removeTag(tag);
-            }
-        }
-        
-        printLog(`${player.name} has been given worldedit permissions.`);
+        contentLog.log(`${player.name} has been given worldedit permissions.`);
         return false;
     }
     
@@ -98,7 +98,7 @@ function removeBuilder(player: string) {
     } while (i != -1);
     
     removeSession(player);
-    printDebug('Removed player from world edit!');
+    contentLog.debug('Removed player from world edit!');
 }
 
 function hasWorldEdit(player: Player) {

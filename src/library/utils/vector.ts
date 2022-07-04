@@ -1,5 +1,4 @@
-import { BlockLocation, Location } from 'mojang-minecraft';
-import { Vector as MCVector } from 'mojang-minecraft'
+import { BlockLocation, Location, Vector as MCVector } from 'mojang-minecraft';
 
 type anyVec = BlockLocation|Location|Vector|MCVector|[number, number, number];
 type anyLoc = BlockLocation|Location;
@@ -9,8 +8,10 @@ export class Vector {
     
     static get ZERO() {return new Vector(0, 0, 0);}
     static get ONE() {return new Vector(1, 1, 1);}
+    static get INF() {return new Vector(Infinity, Infinity, Infinity);}
+    static get NEG_INF() {return new Vector(-Infinity, -Infinity, -Infinity);}
     
-    static from(loc: anyLoc|[number, number, number]) {
+    static from(loc: anyVec) {
         if (Array.isArray(loc)) {
             return new Vector(...loc);
         }
@@ -82,14 +83,22 @@ export class Vector {
         return this.x == v.x && this.y == v.y && this.z == v.z;
     }
 
-    add(v: anyVec) {
-        v = Vector.ensureVector(v);
-        return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
+    add(v: anyVec|number) {
+        if (typeof v == 'number') {
+            return new Vector(this.x + v, this.y + v, this.z + v);
+        } else {
+            v = Vector.ensureVector(v);
+            return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
+        }
     }
     
-    sub(v: anyVec) {
-        v = Vector.ensureVector(v);
-        return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
+    sub(v: anyVec|number) {
+        if (typeof v == 'number') {
+            return new Vector(this.x - v, this.y - v, this.z - v);
+        } else {
+            v = Vector.ensureVector(v);
+            return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
+        }
     }
     
     mul(v: anyVec|number) {
@@ -101,7 +110,24 @@ export class Vector {
         }
     }
     
-    rotate(rot: number, org: anyVec = Vector.ZERO) {
+    rotateX(rot: number, org: anyVec = Vector.ZERO) {
+        if (!rot) return this.clone();
+        org = Vector.ensureVector(org);
+        let y = this.y - org.y;
+        let z = this.z - org.z;
+        
+        let ang = rot * (Math.PI/180);
+        let cos = Math.cos(ang);
+        let sin = Math.sin(ang);
+        return new Vector(
+            this.x,
+            Math.round(10000*(y * cos - z * sin))/10000 + org.y,
+            Math.round(10000*(y * sin + z * cos))/10000 + org.z
+        );
+    }
+    
+    rotateY(rot: number, org: anyVec = Vector.ZERO) {
+        if (!rot) return this.clone();
         org = Vector.ensureVector(org);
         let x = this.x - org.x;
         let z = this.z - org.z;
@@ -114,7 +140,23 @@ export class Vector {
             Math.round(10000*(x * sin + z * cos))/10000 + org.z
         );
     }
-    
+
+    rotateZ(rot: number, org: anyVec = Vector.ZERO) {
+        if (!rot) return this.clone();
+        org = Vector.ensureVector(org);
+        let x = this.x - org.x;
+        let y = this.y - org.y;
+        
+        let ang = rot * (Math.PI/180);
+        let cos = Math.cos(ang);
+        let sin = Math.sin(ang);
+        return new Vector(
+            Math.round(10000*(x * cos - y * sin))/10000 + org.x,
+            Math.round(10000*(x * sin + y * cos))/10000 + org.y,
+            this.z
+        );
+    }
+
     min(v: anyVec) {
         v = Vector.ensureVector(v);
         return new Vector(
@@ -170,6 +212,11 @@ export class Vector {
         let vec = new Vector(...this.vals);
         vec.length = 1;
         return vec;
+    }
+    
+    dot(v: anyVec) {
+        v = Vector.ensureVector(v);
+        return this.x * v.x + this.y * v.y + this.z * v.z;
     }
     
     print() {

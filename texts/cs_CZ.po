@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "Vymazat vaši historii úprav"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "Historie vymazána."
 
 msgid "commands.wedit:contract.description"
 msgstr "Contract the selection area"

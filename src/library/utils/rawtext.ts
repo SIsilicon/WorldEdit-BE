@@ -1,3 +1,4 @@
+import { Player, world } from "mojang-minecraft";
 
 type textElement = {
     text: string
@@ -77,6 +78,27 @@ export class RawText {
     }
 
     public toString(): string {
-        return JSON.stringify(this);
+        const optimized: rawTextElement[] = [];
+        for (const element of this.rawtext) {
+            if ('text' in element && optimized.length && 'text' in optimized[optimized.length - 1]) {
+                (optimized[optimized.length - 1] as textElement).text += element.text;
+            } else {
+                optimized.push(element);
+            }
+        }
+
+        const temp = this.rawtext;
+        this.rawtext = optimized;
+        const json = JSON.stringify(this);
+        this.rawtext = temp;
+        return json;
+    }
+
+    print(player: Player) {
+        player.runCommand(`tellraw @s ${this.toString()}`);
+    }
+
+    printError(player: Player) {
+        this.prepend('text', '§c').print(player);
     }
 }

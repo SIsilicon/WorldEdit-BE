@@ -1,14 +1,10 @@
-import { PlayerSession } from '../../sessions.js';
-import { Pattern } from '@modules/pattern.js';
-import { set } from '../region/set.js';
-import { commandList } from '../command_list.js';
-import { regionCenter } from '../../util.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
+import { registerCommand } from '../register_commands.js';
+import { assertClipboard } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { RawText } from '@modules/rawtext.js';
-import { Regions } from '@modules/regions.js';
+import { contentLog, RawText, Vector } from '@notbeer-api';
+import { transformSelection } from './transform_func.js';
+import { FAST_MODE } from '@config.js';
+import { Jobs } from '@modules/jobs.js';
 
 const registerInformation = {
     name: 'flip',
@@ -32,64 +28,47 @@ const registerInformation = {
     ]
 };
 
-commandList['flip'] = [registerInformation, (session, builder, args) => {
+const flipBits = {
+    0b000: 'none', 0b001: 'x', 0b010: 'z', 0b011: 'xz',
+    0b100: 'y', 0b101: 'xy', 0b110: 'yz', 0b111: 'xyz'
+} as {[key: number]: 'none'|'x'|'z'|'xz'|'y'|'xy'|'yz'|'xyz'};
+
+registerCommand(registerInformation, function* (session, builder, args) {
     const dir: Vector = args.get('direction').getDirection(builder);
-    if (dir.y != 0) {
-        throw RawText.translate('commands.wedit:flip.not-lateral');
-    }
-    
+    const flip = Vector.ONE;
+    if (dir.x) flip.x *= -1;
+    if (dir.y) flip.y *= -1;
+    if (dir.z) flip.z *= -1;    
+
     let blockCount = 0;
+    // TODO: Support stacking rotations and flips
     if (args.has('c')) {
-        assertClipboard(builder);
-        const [start, end] = Regions.getBounds('clipboard', builder);
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.add(Regions.getOrigin('clipboard', builder), start);
-        
-        Regions.flip('clipboard', dir, center, builder);
-        blockCount = Regions.getBlockCount('clipboard', builder);
+        assertClipboard(session);
+        if (dir.y != 0 && !session.clipboard.isAccurate) {
+            throw 'commands.wedit:flip.notLateral';
+        }
+
+        const clipTrans = session.clipboardTransform;
+        if (!args.has('o')) {
+            if (Math.abs(dir.x)) {
+                clipTrans.relative.x *= -1;
+            } else if (Math.abs(dir.z)) {
+                clipTrans.relative.z *= -1;
+            }
+        }
+
+        clipTrans.flip = clipTrans.flip.mul(flip);
+        blockCount = session.clipboard.getBlockCount();
     } else {
-        assertCuboidSelection(session);
-        const history = session.getHistory();
-        history.record();
-    
-        const [start, end] = session.getSelectionRange();
-        const dim = builder.dimension;
-        assertCanBuildWithin(dim, start, end);
-        
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
-        
-        Regions.save('tempFlip', start, end, builder);
-        Regions.flip('tempFlip', dir, center, builder);
-        blockCount = Regions.getBlockCount('tempFlip', builder);
-        
-        const [newStart, newEnd] = Regions.getBounds('tempFlip', builder);
-        history.addUndoStructure(start, end, 'any');
-        history.addUndoStructure(newStart, newEnd, 'any');
-        
-        try {
-            assertCanBuildWithin(dim, newStart, newEnd);
-        } catch (e) {
-            Regions.delete('tempFlip', builder);
-            throw e;
+        if (dir.y != 0 && FAST_MODE) {
+            throw 'commands.wedit:flip.notLateral';
         }
         
-        set(session, new Pattern('air'));
-        if (Regions.load('tempFlip', newStart, builder)) {
-            Regions.delete('tempFlip', builder);
-            throw RawText.translate('commands.generic.wedit:commandFail');
-        }
-        Regions.delete('tempFlip', builder);
-        
-        if (args.has('s')) {
-            history.recordSelection(session);
-            session.setSelectionPoint(0, newStart);
-            session.setSelectionPoint(1, newEnd);
-            history.recordSelection(session);
-        }
-        
-        history.addRedoStructure(newStart, newEnd, 'any');
-        history.addRedoStructure(start, end, 'any');
-        history.commit();
+        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
+        yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
+        Jobs.finishJob(job);
+        blockCount = session.selection.getBlockCount();
     }
     
     return RawText.translate('commands.wedit:flip.explain').with(blockCount);
-}];
+});

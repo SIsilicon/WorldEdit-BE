@@ -1,9 +1,9 @@
 import { TickEvent, BeforeItemUseEvent, Player, BeforeItemUseOnEvent } from 'mojang-minecraft';
-import { Server, setTickTimeout } from '@library/Minecraft.js';
+import { Server, setTickTimeout } from '@notbeer-api';
 import { PlayerUtil } from './player_util.js';
 import { Pattern } from './pattern.js';
 import { Mask } from './mask.js';
-import { RawText } from './rawtext.js';
+import { RawText } from '@notbeer-api';
 import { PlayerSession } from '../sessions.js';
 import { print, printerr } from '../util.js';
 import { SphereBrush } from '../brushes/sphere_brush.js';

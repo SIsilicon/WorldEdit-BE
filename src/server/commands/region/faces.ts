@@ -1,12 +1,9 @@
-import { PlayerSession } from '../../sessions.js';
-import { printDebug } from '../../util.js';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { Pattern } from '@modules/pattern.js';
-import { Mask } from '@modules/mask.js';
+import { Jobs } from '@modules/jobs.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
 import { CuboidShape } from '../../shapes/cuboid.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'faces',
@@ -20,21 +17,19 @@ const registerInformation = {
     ]
 };
 
-commandList['faces'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.usingItem && session.globalPattern.empty()) {
+    assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    let count = 0;
-    let [start, end] = session.getSelectionRange();
-    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
-        const size = Vector.sub(end, start).add(Vector.ONE);
-        count = new CuboidShape(size.x, size.y, size.z).generate(start, pattern, null, session, {hollow: true});
-    }
+    let [shape, loc] = session.selection.getShape();
+    const job = Jobs.startJob(session, 2, session.selection.getRange());
+    const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {hollow: true}));
+    Jobs.finishJob(job);
     
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

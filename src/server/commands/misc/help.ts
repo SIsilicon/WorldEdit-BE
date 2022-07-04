@@ -1,7 +1,6 @@
-import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
-import { print } from '../../util.js';
-import { RawText } from '@modules/rawtext.js';
+import { Server } from '@notbeer-api';
+import { getCommandInfo, registerCommand } from '../register_commands.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'help',
@@ -9,14 +8,6 @@ const registerInformation = {
     description: 'commands.help.description',
     usage: [
         {
-            subName: '_command',
-            args: [
-                {
-                    name: 'command',
-                    type: 'CommandName'
-                }
-            ] 
-        }, {
             subName: '_page',
             args: [
                 {
@@ -25,12 +16,21 @@ const registerInformation = {
                     default: 1
                 }
             ] 
+        },
+        {
+            subName: '_command',
+            args: [
+                {
+                    name: 'command',
+                    type: 'CommandName'
+                }
+            ] 
         }
     ],
     aliases: ['?']
 };
 
-commandList['help'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     const cmdList = Server.command.getAllRegistation();
     
     // Show a page of the list of available WorldEdit commands
@@ -75,7 +75,7 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
         return msg;
     }
     
-    const cmdInfo = commandList[args.get('command')][0];
+    const cmdInfo = getCommandInfo(args.get('command'));
     
     let info = RawText.text('\n§e');
     if (cmdInfo.aliases) {
@@ -95,4 +95,4 @@ commandList['help'] = [registerInformation, (session, builder, args) => {
     info.append('translate', 'commands.generic.usage').with(usages);
     
     return info;
-}];
+});

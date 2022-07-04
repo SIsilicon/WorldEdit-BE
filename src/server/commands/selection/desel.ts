@@ -1,4 +1,5 @@
-import { commandList } from '../command_list.js';
+import { selectModes } from '@modules/selection.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'sel',
@@ -6,10 +7,16 @@ const registerInformation = {
     aliases: ['deselect', 'desel'],
     usage: [
         {
+            flag: 'd'
+        },
+        {
             subName: 'cuboid'
         },
         {
             subName: 'extend'
+        },
+        {
+            subName: 'sphere'
         },
         {
             subName: '_nothing'
@@ -17,15 +24,27 @@ const registerInformation = {
     ]
 };
 
-commandList['sel'] = [registerInformation, (session, builder, args) => {
-    if (args.has('cuboid')) {
-        session.selectionMode = 'cuboid';
-        return 'commands.wedit:sel.cuboid';
-    } else if (args.has('extend')) {
-        session.selectionMode = 'extend';
-        return 'commands.wedit:sel.extend';
-    } else {
-        session.clearSelectionPoints();
-        return 'commands.wedit:sel.clear';
+registerCommand(registerInformation, function (session, builder, args) {
+    try {
+        if (args.has('cuboid')) {
+            session.selection.mode = 'cuboid';
+            return 'commands.wedit:sel.cuboid';
+        } else if (args.has('extend')) {
+            session.selection.mode = 'extend';
+            return 'commands.wedit:sel.extend';
+        } else if (args.has('sphere')) {
+            session.selection.mode = 'sphere';
+            return 'commands.wedit:sel.sphere';
+        } else {
+            session.selection.clear();
+            return 'commands.wedit:sel.clear';
+        }
+    } finally {
+        if (args.has('d')) {
+            for (const mode of selectModes) {
+                builder.removeTag(`wedit:defaultTag_${mode}`);
+            }
+            builder.addTag(`wedit:defaultTag_${session.selection.mode}`);
+        }
     }
-}];
+});

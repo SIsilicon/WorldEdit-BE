@@ -1,12 +1,10 @@
 import { Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { Mask } from '@modules/mask.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { assertPermission } from '@modules/assert.js';
+import { Server } from '@notbeer-api';
 import { PlayerSession } from '../../sessions.js';
-import { printDebug } from '../../util.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { registerCommand } from '../register_commands.js';
+import { assertPermission } from '@modules/assert.js';
+import { Mask } from '@modules/mask.js';
+import { RawText } from '@notbeer-api';
 
 const registerInformation = {
     name: 'tool',
@@ -82,7 +80,7 @@ const farwand_command = (session: PlayerSession, builder: Player, args: Map<stri
     return RawText.translate('commands.wedit:tool.bind.farwand').with(heldItemName(builder));
 };
 
-commandList['tool'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has('stacker')) {
         msg = stack_command(session, builder, args);
@@ -97,4 +95,4 @@ commandList['tool'] = [registerInformation, (session, builder, args) => {
         return 'commands.wedit:tool.unbind';
     }
     return msg.append('text', '\n').append('translate', 'commands.generic.wedit:unbindInfo').with(';tool none');
-}];
+});

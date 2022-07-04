@@ -1,8 +1,5 @@
-// Enables `printDebug` messages to chat.
+// Enables debug messages to content logs.
 export const DEBUG: boolean = true;
-
-// Enables `printLog` messages to content logs.
-export const CONTENT_LOG: boolean = false;
 
 // What character(s) to use to define the beginning of custom commands.
 export const COMMAND_PREFIX: string = ';';
@@ -16,7 +13,7 @@ export const DRAW_SELECTION: boolean = true;
 // 0 - DISABLED    - Undo and redo will be disabled.
 // 1 - FAST     - The cuboid region of each operation will be recorded.
 // 2 - ACCURATE    - Individual blocks in each operation will be recorded.
-export const HISTORY_MODE: 0|1|2 = 2; // How to handle general undo and redo
+export const HISTORY_MODE: 0|1|2 = 1; // How to handle general undo and redo
 export const BRUSH_HISTORY_MODE: 0|1|2 = 1; // How to handle brush undo and redo
 
 // How long until a previously active builder's session gets deleted.
@@ -33,7 +30,7 @@ export const WAND_ITEM: string = 'minecraft:wooden_axe';
 export const NAV_WAND_ITEM: string = 'minecraft:ender_pearl';
 
 // THe distance the navwand, among other tools and commands, traces for a block of interest.
-export const NAV_WAND_DISTANCE: number = 64;
+export const NAV_WAND_DISTANCE: number = 128;
 
 // The maximum brush radius allowed.
 export const MAX_BRUSH_RADIUS: number = 6;
@@ -45,5 +42,13 @@ export const DEFAULT_CHANGE_LIMIT: number = -1;
 // Bypassed with "worldedit.limit.unlimited" permission.
 export const MAX_CHANGE_LIMIT: number = -1;
 
+// How long an async operation will run until giving Minecraft a chance to run.
+// The higher the value, the faster the operation, but the slower Minecraft takes to run.
+export const ASYNC_TIME_BUDGET: number = 200;
+
+// Whether the addon should use simpler methods to run operations faster.
+// This comes with the drawback of more limited capabilities.
+export const FAST_MODE: boolean = false;
+
 // The version of WorldEdit (do not change)
-export const VERSION: string = '0.5.0';
+export const VERSION: string = '0.6.2';

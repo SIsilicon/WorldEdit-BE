@@ -1,73 +1,6 @@
-import { BlockLocation, Dimension, Location, Player, world } from 'mojang-minecraft';
-import { CONTENT_LOG, DEBUG, PRINT_TO_ACTION_BAR } from '../config.js';
-import { Server } from '@library/Minecraft.js';
-import { RawText } from '@modules/rawtext.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { parsedBlock } from '@modules/parser.js';
-
-const logPending: string[] = [];
-let logMsg = '';
-world.events.entityCreate.subscribe(ev => {
-    if (ev.entity.id == 'wedit:console_log' && logMsg) {
-        ev.entity.triggerEvent('wedit:despawn');
-        const msg = logMsg;
-        logMsg = '';
-        throw '[INFO] ' + msg;
-    }
-});
-
-/**
- * Prints a message or object to chat for debugging.
- * @remark Doesn't do anything if {DEBUG} is disabled.
- * @param data The data to be printed to chat.
- */
-export function printDebug(...data: any[]) {
-    if (!DEBUG) {
-        return;
-    }
-
-    let msg = '';
-    data.forEach(data => {
-        if (data instanceof BlockLocation || data instanceof Location) {
-            msg += ' ' + printLocation(<BlockLocation> data);
-        } else {
-            msg += ` ${data}`;
-        }
-    });
-    
-    Server.broadcast('[DEBUG] ' + msg);
-}
-
-/**
- * Prints a message to content log.
- * @param data The data to be printed.
- */
-export function printLog(...data: any[]) {
-    if (!CONTENT_LOG) {
-        return;
-    }
-    
-    let msg = '';
-    data.forEach(data => {
-        if (data instanceof BlockLocation || data instanceof Location) {
-            msg += ' ' + printLocation(<BlockLocation> data);
-        } else {
-            msg += ` ${data}`;
-        }
-    });
-    
-    try {
-        while (logPending.length) {
-            logMsg = logPending.shift();
-            world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-        }
-        logMsg = msg;
-        world.getDimension('overworld').runCommand(`summon wedit:console_log`);
-    } catch {
-        logPending.push(logMsg);
-        logMsg = '';
-    }
-}
+import { BlockLocation, Dimension, Location, Player } from 'mojang-minecraft';
+import { PRINT_TO_ACTION_BAR } from '../config.js';
+import { Server, RawText } from '@notbeer-api';
 
 /**
  * Sends a message to a player through either chat or the action bar.
@@ -99,19 +32,20 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
     print(msg.prepend('text', '§c'), player, toActionBar);
 }
 
-const worldY = {
-    'overworld': [-64, 319],
-    'nether': [0, 127],
-    'the end': [0, 255],
-    '': [0, 0]
-};
+const worldY = new Map<string, [number, number]>([
+    ['minecraft:overworld', [-64, 319]],
+    ['minecraft:nether', [0, 127]],
+    ['minecraft:the_end', [0, 255]],
+    ['', [0, 0]]
+]);
+
 /**
  * Gets the minimum Y level of the dimension a player is in.
  * @param player The player whose dimension we're testing
  * @return The minimum Y level of the dimension the player is in
  */
 export function getWorldMinY(player: Player) {
-    return worldY[PlayerUtil.getDimensionName(player)][0];
+    return worldY.get(player.dimension.id)[0];
 }
 
 /**
@@ -120,7 +54,7 @@ export function getWorldMinY(player: Player) {
  * @return The maximum Y level of the dimension the player is in
  */
 export function getWorldMaxY(player: Player) {
-    return worldY[PlayerUtil.getDimensionName(player)][1];
+    return worldY.get(player.dimension.id)[1];
 }
 
 /**
@@ -140,29 +74,6 @@ export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
 }
 
 /**
- * Places a block in the location of a dimension
- */
-export function placeBlock(block: parsedBlock, loc: BlockLocation, dim: Dimension) {
-    let command = block.id;
-    if (block.states && block.states.size != 0) {
-        command += '['
-        let i = 0;
-        for (const state of block.states.entries()) {
-            command += `"${state[0]}":`;
-            command += typeof state[1] == 'string' ? `"${state[1]}"` : `${state[1]}`;
-            if (i < block.states.size - 1) {
-                command += ',';
-            }
-            i++;
-        }
-        command += ']'
-    } else if (block.data != -1) {
-        command += ` ${block.data}`;
-    }
-    return Server.runCommand(`setblock ${printLocation(loc, false)} ${command}`, dim).error;
-}
-
-/**
  * Converts a location object to a string.
  * @param loc The object to convert
  * @param pretty Whether the function should include brackets and commas in the string. Set to false if you're using this in a command.
@@ -176,63 +87,16 @@ export function printLocation(loc: BlockLocation | Location, pretty = true) {
 }
 
 /**
- * Gives the volume of a space defined by two corners.
- * @param start The first location
- * @param end The second location
- * @return The volume of the space between start and end
+ * Converts loc to a string
  */
-export function regionVolume(start: BlockLocation, end: BlockLocation) {
-    const size = regionSize(start, end);
-    return size.x * size.y * size.z;
+export function locToString(loc: BlockLocation) {
+    return `${loc.x}_${loc.y}_${loc.z}`;
 }
 
 /**
- * Calculates the minimum and maximum of a set of block locations
- * @param blocks The set of blocks
- * @return The minimum and maximum
+ * Converts string to a BlockLocation
  */
-export function regionBounds(blocks: BlockLocation[]): [BlockLocation, BlockLocation] {
-    let min: BlockLocation;
-    let max: BlockLocation;
-    for (const block of blocks) {
-        if (!min) {
-            min = new BlockLocation(block.x, block.y, block.z);
-            max = new BlockLocation(block.x, block.y, block.z);
-        }
-        min.x = Math.min(block.x, min.x);
-        min.y = Math.min(block.y, min.y);
-        min.z = Math.min(block.z, min.z);
-        max.x = Math.max(block.x, max.x);
-        max.y = Math.max(block.y, max.y);
-        max.z = Math.max(block.z, max.z);
-    }
-    return [min, max];
+export function stringToLoc(loc: string) {
+    return new BlockLocation(...loc.split('_').map(str => Number.parseInt(str)) as [number, number, number])
 }
 
-/**
- * Gives the center of a space defined by two corners.
- * @param start The first location
- * @param end The second location
- * @return The center of the space between start and end
- */
-export function regionCenter(start: BlockLocation, end: BlockLocation): BlockLocation {
-    return new BlockLocation(
-        Math.floor(start.x + (end.x - start.x) * 0.5),
-        Math.floor(start.y + (end.y - start.y) * 0.5),
-        Math.floor(start.z + (end.z - start.z) * 0.5)
-    );
-}
-
-/**
- * Gets the size of a region across its three axis.
- * @param start The first corner of the region
- * @param end The second corner of the region
- * @return The size of the region
- */
-export function regionSize(start: BlockLocation, end: BlockLocation) {
-    return new BlockLocation(
-        Math.abs(start.x - end.x) + 1,
-        Math.abs(start.y - end.y) + 1,
-        Math.abs(start.z - end.z) + 1
-    );
-}

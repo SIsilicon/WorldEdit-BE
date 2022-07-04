@@ -1,27 +1,22 @@
-import { Player, BlockLocation, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
-import { History } from '@modules/history.js';
-import { getWorldMaxY, getWorldMinY, printDebug, printLog, regionVolume } from './util.js';
-import { Server, setTickTimeout } from '@library/Minecraft.js';
-import { Pattern } from '@modules/pattern.js';
-import { Regions } from '@modules/regions.js';
-import { Vector } from '@modules/vector.js';
-import { SettingsHotbar } from '@modules/settings_hotbar.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
-import { TICKS_TO_DELETE_SESSION, DRAW_SELECTION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
+import { Player, TickEvent, BeforeItemUseEvent } from 'mojang-minecraft';
+import { Server, Vector, setTickTimeout, contentLog } from '@notbeer-api';
+import { TICKS_TO_DELETE_SESSION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from '../config.js';
 
 import { Tools } from './tools/tool_manager.js';
 import './tools/register_tools.js';
-
-// TODO: Add other selection modes
-export type selectMode = 'cuboid' | 'extend';
+import { History } from '@modules/history.js';
+import { Mask } from '@modules/mask.js';
+import { Pattern } from '@modules/pattern.js';
+import { PlayerUtil } from '@modules/player_util.js';
+import { SettingsHotbar } from '@modules/settings_hotbar.js';
+import { RegionBuffer } from '@modules/region_buffer.js';
+import { Selection, selectMode } from '@modules/selection.js';
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
-PlayerUtil.on('playerChangeDimension', (player) => {
-    playerSessions.get(player.name)?.clearSelectionPoints();
+Server.on('playerChangeDimension', ev => {
+    playerSessions.get(ev.player.name)?.selection.clear();
 });
 
 /**
@@ -67,28 +62,42 @@ export class PlayerSession {
     * Is null when the UI isn't active.
     */
     public settingsHotbar: SettingsHotbar;
-    
-    private currentTick = 0;
+
+    /**
+     * The clipboard region created by the player.
+     */
+    public clipboard: RegionBuffer;
+    /**
+     * The transformation properties currently on the clipboard
+     */
+    public clipboardTransform = {
+        originalLoc: Vector.ZERO,
+        relative: Vector.ZERO,
+        rotation: Vector.ZERO,
+        flip: Vector.ONE
+    }
+
+    public selection: Selection;
 
     private player: Player;
     private history: History;
-    private selectionPoints: BlockLocation[];
-
-    private _selectionMode: selectMode = 'cuboid';
-    private _drawSelection = DRAW_SELECTION;
-    
-    private drawPoints: Vector[] = [];
-    private drawTimer: number = 0;
-    
+    private regions = new Map<string, RegionBuffer>();
+        
     constructor(player: Player) {
         this.player = player;
-        this.history = new History(this.player);
-        this.selectionPoints = [];
+        this.history = new History(this);
+        this.selection = new Selection(player);
         
         this.bindTool('selection_wand', WAND_ITEM);
         this.bindTool('navigation_wand', NAV_WAND_ITEM);
         if (PlayerUtil.isHotbarStashed(player)) {
             this.enterSettings();
+        }
+
+        for (const tag of player.getTags()) {
+            if (tag.startsWith('wedit:defaultTag_')) {
+                this.selection.mode = tag.split('_', 2)[1] as selectMode;
+            }
         }
     }
     
@@ -111,98 +120,7 @@ export class PlayerSession {
     */
     reassignPlayer(player: Player) {
         this.player = player;
-        this.history.reassignPlayer(player);
-    }
-    
-    /**
-    * Sets either the first or second selection point of a selection.
-    * @remarks This will eventially be revamped once multiple selection modes are implemented.
-    * @param index The first or second selection point
-    * @param loc The location the selection point is being made
-    */
-    public setSelectionPoint(index: 0|1, loc: BlockLocation): void {
-        if (index > 0 && this.selectionPoints.length == 0 && this.selectionMode != 'cuboid') {
-        throw RawText.translate('worldedit.selection.noPrimary');
-        }
-        if (this.selectionPoints.length <= index) {
-            this.selectionPoints.length = index + 1;
-        }
-        
-        if (this.selectionMode == 'cuboid') {
-            this.selectionPoints[index] = loc;
-            if (this.selectionMode != 'cuboid') {
-                this.selectionPoints.length = 1;
-            }
-        } else if (this.selectionMode == 'extend') {
-            if (index == 0) {
-                this.selectionPoints = [loc, loc.offset(0, 0, 0)];
-            } else {
-                this.selectionPoints[0] = Vector.min(this.selectionPoints[0], this.selectionPoints[1]).min(loc).toBlock();
-                this.selectionPoints[1] = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).max(loc).toBlock();
-            }
-        }
-
-
-        const [min, max] = [getWorldMinY(this.player), getWorldMaxY(this.player)];
-        this.selectionPoints.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
-        this.updateDrawSelection();
-    }
-    
-    /**
-    * @return An array of selection points
-    */
-    public getSelectionPoints() {
-        return this.selectionPoints.slice();
-    }
-    
-    /**
-    * Clears the selection points that have been made.
-    */
-    public clearSelectionPoints() {
-        this.selectionPoints = [];
-        this.updateDrawSelection();
-    }
-    
-    /**
-    * @return The blocks within the current selection
-    */
-    public getBlocksSelected() {
-        let points = 0;
-        for (const point of this.selectionPoints) {
-            if (point) points++;
-        }
-        if (points == 0 || points == 1)
-            return [];
-
-        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
-            const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]);
-            const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]);
-            return min.toBlock().blocksBetween(max.toBlock());
-        }
-    }
-    
-    public getSelectedBlockCount() {
-        let points = 0;
-        for (const point of this.selectionPoints) {
-            if (point) points++;
-        }
-        if (points == 0 || points == 1)
-            return 0;
-
-        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
-            return regionVolume(this.selectionPoints[0], this.selectionPoints[1]);
-        }
-    }
-    
-    /**
-    * @return The minimum and maximum points of the selection
-    */
-    public getSelectionRange(): [BlockLocation, BlockLocation] {
-        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
-            const [pos1, pos2] = this.selectionPoints.slice(0, 2);
-            return [Vector.min(pos1, pos2).toBlock(), Vector.max(pos1, pos2).toBlock()];
-        }
-        return null;
+        this.selection = new Selection(player);
     }
     
     /**
@@ -295,61 +213,27 @@ export class PlayerSession {
         this.settingsHotbar = null;
     }
     
+    public createRegion(isAccurate: boolean) {
+        const buffer = new RegionBuffer(isAccurate);
+        this.regions.set(buffer.id, buffer);
+        return buffer;
+    }
+
+    public deleteRegion(buffer: RegionBuffer) {
+        this.regions.delete(buffer.id);
+    }
+
     delete() {
-        Regions.deletePlayer(this.player);
+        for (const region of this.regions.values()) {
+            region.delete();
+        }
+        this.regions.clear();
         Tools.deleteBindings(this.player);
+        this.history.delete();
         this.history = null;
     }
     
-    private updateDrawSelection() {
-        this.drawPoints.length = 0;
-        
-        if (this.selectionMode == 'cuboid' || this.selectionMode == 'extend') {
-            if (this.selectionPoints.length != 2 || this.selectionPoints[0] === undefined) {
-                return;
-            }
-            const min = Vector.min(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ZERO);
-            const max = Vector.max(this.selectionPoints[0], this.selectionPoints[1]).add(Vector.ONE);
-
-            const corners = [
-                new Vector(min.x, min.y, min.z),
-                new Vector(max.x, min.y, min.z),
-                new Vector(min.x, max.y, min.z),
-                new Vector(max.x, max.y, min.z),
-                new Vector(min.x, min.y, max.z),
-                new Vector(max.x, min.y, max.z),
-                new Vector(min.x, max.y, max.z),
-                new Vector(max.x, max.y, max.z)
-            ];
-
-            const edgeData: [number, number][]= [
-                [0, 1], [2, 3], [4, 5], [6, 7],
-                [0, 2], [1, 3], [4, 6], [5, 7],
-                [0, 4], [1, 5], [2, 6], [3, 7]
-            ];
-            const edgePoints: Vector[] = [];
-            for (const edge of edgeData) {
-                const [a, b] = [corners[edge[0]], corners[edge[1]]];
-                const pointCount = Math.min(Math.floor(b.sub(a).length), 16);
-                for (let i = 1; i < pointCount; i++) {
-                    let t = i / pointCount;
-                    edgePoints.push(a.lerp(b, t));
-                }
-            }
-            this.drawPoints = corners.concat(edgePoints);
-        }
-        
-        // A slight offset is made since exact integers snap the particles to the center of blocks.
-        for (const point of this.drawPoints) {
-            point.x += 0.001;
-            point.z += 0.001;
-        }
-        this.drawTimer = 0;
-    }
-    
     onTick(tick: TickEvent) {
-        this.currentTick = tick.currentTick;
-        
         // Process settingsHotbar
         if (this.settingsHotbar) {
             this.settingsHotbar.onTick(tick);
@@ -358,57 +242,13 @@ export class PlayerSession {
         }
         
         // Draw Selection
-        if (!this.drawSelection) return;
-        if (this.drawTimer <= 0) {
-            this.drawTimer = 10;
-            const dimension = this.player.dimension;
-            for (const point of this.drawPoints) {
-                Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
-            }
-        }
-        this.drawTimer--;
+        this.selection?.draw();
     }
     
     onItemUse(ev: BeforeItemUseEvent) {
         if (this.settingsHotbar) {
             this.settingsHotbar.onItemUse(ev);
         }
-    }
-    
-    /**
-    * Getter selectionMode
-    * @return {selectMode}
-    */
-    public get selectionMode(): selectMode  {
-        return this._selectionMode;
-    }
-
-    /**
-    * Setter selectionMode
-    * @param {selectMode} value
-    */
-    public set selectionMode(value: selectMode) {
-        if (!(['cuboid', 'extend'].includes(this.selectionMode) && ['cuboid', 'extend'].includes(value))) {
-            this.clearSelectionPoints();
-        }
-        this._selectionMode = value;
-    }
-    
-    /**
-    * Getter drawSelection
-    * @return {boolean}
-    */
-    public get drawSelection(): boolean  {
-        return this._drawSelection;
-    }
-
-    /**
-    * Setter drawSelection
-    * @param {boolean} value
-    */
-    public set drawSelection(value: boolean) {
-        this._drawSelection = value;
-        this.drawTimer = 0;
     }
 }
 
@@ -422,8 +262,8 @@ export function getSession(player: Player): PlayerSession {
             pendingDeletion.delete(name);
         }
         playerSessions.set(name, session ?? new PlayerSession(player));
-        printDebug(playerSessions.get(name)?.getPlayer()?.name);
-        printDebug(`new Session?: ${!session}`);
+        contentLog.debug(playerSessions.get(name)?.getPlayer()?.name);
+        contentLog.debug(`new Session?: ${!session}`);
     }
     return playerSessions.get(name);
 }
@@ -431,7 +271,7 @@ export function getSession(player: Player): PlayerSession {
 export function removeSession(player: string) {
     if (!playerSessions.has(player)) return;
 
-    playerSessions.get(player).clearSelectionPoints();
+    playerSessions.get(player).selection.clear();
     playerSessions.get(player).globalPattern.clear();
     pendingDeletion.set(player, [TICKS_TO_DELETE_SESSION, playerSessions.get(player)]);
     playerSessions.delete(player);
@@ -450,7 +290,7 @@ setTickTimeout(() => {
             if (session[0] < 0) {
                 session[1].delete();
                 pendingDeletion.delete(player);
-                printLog(`${player}'s session has been deleted.`);
+                contentLog.log(`${player}'s session has been deleted.`);
             }
         }
         

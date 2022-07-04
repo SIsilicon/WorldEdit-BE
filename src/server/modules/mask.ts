@@ -1,13 +1,13 @@
-import { BlockLocation, BlockPermutation, IBlockProperty, Dimension } from 'mojang-minecraft';
-import { commandSyntaxError } from '@library/@types/build/classes/CommandBuilder';
-import { CustomArgType } from '@library/build/classes/commandBuilder.js';
-import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation } from '../util.js';
+import { BlockLocation, BlockPermutation, IBlockProperty, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from 'mojang-minecraft';
+import { CustomArgType, commandSyntaxError, contentLog } from '@notbeer-api';
 import { Token, Tokenizr } from './extern/tokenizr.js';
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock } from './parser.js';
 
+type AnyBlockProperty = StringBlockProperty | BoolBlockProperty | IntBlockProperty;
+
 export class Mask implements CustomArgType {
     private condition: MaskNode;
+    private compiledFunc: Function;
     private stringObj = '';
 
     constructor(mask: string = '') {
@@ -15,6 +15,7 @@ export class Mask implements CustomArgType {
             const obj = Mask.parseArgs([mask]).result;
             this.condition = obj.condition;
             this.stringObj = obj.stringObj;
+            this.compile();
         }
     }
 
@@ -22,12 +23,13 @@ export class Mask implements CustomArgType {
         if (this.empty()) {
             return true;
         }
-        return this.condition.matchesBlock(loc, dimension);
+        return this.compiledFunc(null, loc, dimension) as boolean;
     };
 
     clear() {
         this.condition = null;
         this.stringObj = '';
+        this.compiledFunc = null;
     }
     
     empty() {
@@ -36,7 +38,7 @@ export class Mask implements CustomArgType {
     
     addBlock(block: BlockPermutation) {
         const states: parsedBlock['states'] = new Map();
-        block.getAllProperties().forEach(state => {
+        block.getAllProperties().forEach((state: AnyBlockProperty) => {
             if (!state.name.startsWith('wall_connection_type') && !state.name.startsWith('liquid_depth')) {
                 states.set(state.name, state.value);
             }
@@ -52,6 +54,7 @@ export class Mask implements CustomArgType {
             states: states
         }));
         this.stringObj = '(picked)';
+        this.compile();
     }
     
     intersect(mask: Mask) {
@@ -61,12 +64,13 @@ export class Mask implements CustomArgType {
         } else if (!this.condition) {
             node = mask.condition;
         } else {
-            new IntersectMask(null);
+            node = new IntersectMask(null);
             node.nodes = [this.condition, mask.condition];
         }
 
         const intersect = new Mask();
-        intersect.condition =  node;
+        intersect.condition = node;
+        intersect.compile();
         return intersect;
     }
 
@@ -93,6 +97,13 @@ export class Mask implements CustomArgType {
         return text;
     }
     
+    private compile() {
+        contentLog.debug('compiling', this.stringObj, 'to', this.condition?.compile());
+        if (this.condition) {
+            this.compiledFunc = new Function('ctx', 'loc', 'dim', this.condition.compile());
+        }
+    }
+
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
         if (!input) {
@@ -113,13 +124,12 @@ export class Mask implements CustomArgType {
             
             while (token = tokens.next()) {
                 if (token.type == 'id') {
-                    let block = parseBlock(tokens);
-                    out.push(new BlockMask(nodeToken(), block));
-                } else if (token.type == 'comma') {
+                    out.push(new BlockMask(nodeToken(), parseBlock(tokens, input, false) as parsedBlock));
+                } else if (token.value == ',') {
                     processOps(out, ops, new ChainMask(token));
                 } else if (token.type == 'space') {
                     processOps(out, ops, new IntersectMask(token));
-                } else if (token.type == 'exclamation') {
+                } else if (token.value == '!') {
                     processOps(out, ops, new NegateMask(token));
                 } else if (token.type == 'bracket') {
                     if (token.value == '<') {
@@ -138,7 +148,7 @@ export class Mask implements CustomArgType {
                     } else {
                         throwTokenError(token);
                     }
-                } else if (token.type == 'hash') {
+                } else if (token.value == '#') {
                     const t = tokens.next();
                     if (t.value == 'existing') {
                         out.push(new ExistingMask(nodeToken()));
@@ -153,13 +163,13 @@ export class Mask implements CustomArgType {
                     } else {
                         throwTokenError(t);
                     }
-                } else if (token.type == 'percent') {
+                } else if (token.value == '%') {
                     const num = tokens.next();
                     if (num.type != 'number') {
                         throwTokenError(num);
                     }
                     out.push(new PercentMask(nodeToken(), num.value / 100));
-                } else if (token.type == 'caret') {
+                } else if (token.value == '^') {
                     let states: parsedBlock['states'];
                     let strict = false;
                     let t = tokens.next();
@@ -170,7 +180,7 @@ export class Mask implements CustomArgType {
                             throwTokenError(t);
                         }
                         states = parseBlockStates(tokens);
-                    } else if (token.value == '[') {
+                    } else if (t.value == '[') {
                         states = parseBlockStates(tokens);
                     } else {
                         throwTokenError(t);
@@ -220,10 +230,11 @@ export class Mask implements CustomArgType {
         const mask = new Mask();
         mask.stringObj = args[index];
         mask.condition = out;
+        mask.compile();
         
         return {result: mask, argIndex: index+1};
     }
-    
+
     static clone(original: Mask) {
         const mask = new Mask();
         mask.condition = original.condition;
@@ -243,7 +254,7 @@ abstract class MaskNode implements AstNode {
     
     constructor(public readonly token: Token) {}
     
-    abstract matchesBlock(loc: BlockLocation, dim: Dimension): boolean;
+    abstract compile(): string;
     
     postProcess() {}
 }
@@ -256,31 +267,19 @@ class BlockMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        if (this.block.data == -1) {
-            const block = dim.getBlock(loc).permutation;
-            if (block.type.id != this.block.id) {
-                return false;
-            }
-            if (!this.block.states) {
-                return true;
-            }
-            
-            const properties = block.getAllProperties();
-            let states_passed = 0;
-            for (const state of this.block.states) {
-                const prop = <IBlockProperty> properties.find(value => {
-                    return value.name == state[0];
-                });
-                if (prop && prop.value == state[1]) {
-                    states_passed++;
+    compile() {
+        if (this.block.data != -1) {
+            return `try { dim.runCommand(\`testforblock \${loc.x} \${loc.y} \${loc.z} ${this.block.id} ${this.block.data}\`); return true } catch { return false }`
+        } else {
+            let result = `let block = dim.getBlock(loc).permutation;`;
+            result += `\nif (block.type.id != '${this.block.id}') return false;`
+            if (this.block.states) {
+                for (const [state, val] of this.block.states.entries()) {
+                    result += `\nif (block.getProperty('${state}').value != ${typeof val == 'string' ? `'${val}'` : val}) return false;`;
                 }
             }
-            return states_passed == this.block.states.size;
-        } else {
-            let command = `testforblock ${printLocation(loc, false)} ${this.block.id}`;
-            command += ' ' + this.block.data;
-            return !Server.runCommand(command, dim).error;
+            result += '\nreturn true;'
+            return result;
         }
     }
 }
@@ -293,22 +292,17 @@ class StateMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        const block = dim.getBlock(loc).permutation;
-        
-        const properties = block.getAllProperties();
-        let states_passed = 0;
-        for (const state of this.states) {
-            const prop = <IBlockProperty> properties.find(value => {
-                return value.name == state[0];
-            });
-            if (this.strict && prop && prop.value == state[1]) {
-                states_passed++;
-            } else if (!this.strict && (!prop || prop.value == state[1])) {
-                states_passed++;
-            } 
+    compile() {
+        let result = 'const block = dim.getBlock(loc).permutation;\nlet states_passed = 0;\nlet prop;';
+        for (const [state, val] of this.states.entries()) {
+            result += `\nprop = block.getProperty('${state}');`;
+            if (this.strict) {
+                result += `\nif (prop && prop.value == ${typeof val == 'string' ? `'${val}'` : val}) states_passed++;`
+            } else {
+                result += `\nif (!prop || prop.value == ${typeof val == 'string' ? `'${val}'` : val}) states_passed++;`
+            }
         }
-        return states_passed == this.states.size;
+        return result + `\nreturn states_passed == ${this.states.size};`;
     }
 }
 
@@ -316,15 +310,11 @@ class SurfaceMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return !dim.isEmpty(loc) && (
-            dim.isEmpty(loc.offset(0, 1, 0)) ||
-            dim.isEmpty(loc.offset(0, -1, 0)) ||
-            dim.isEmpty(loc.offset(-1, 0, 0)) ||
-            dim.isEmpty(loc.offset(1, 0, 0)) ||
-            dim.isEmpty(loc.offset(0, 0, -1)) ||
-            dim.isEmpty(loc.offset(0, 0, 1))
-        );
+    compile() {
+        return `return !dim.isEmpty(loc) && (
+dim.isEmpty(loc.offset(0, 1, 0)) || dim.isEmpty(loc.offset(0, -1, 0)) ||
+dim.isEmpty(loc.offset(-1, 0, 0)) || dim.isEmpty(loc.offset(1, 0, 0)) ||
+dim.isEmpty(loc.offset(0, 0, -1)) || dim.isEmpty(loc.offset(0, 0, 1)));`;
     }
 }
 
@@ -332,8 +322,8 @@ class ExistingMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return !dim.isEmpty(loc);
+    compile() {
+        return 'return !dim.isEmpty(loc);';
     }
 }
 
@@ -345,8 +335,8 @@ class TagMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return dim.getBlock(loc).hasTag(this.tag);
+    compile() {
+        return `return dim.getBlock(loc).hasTag('${this.tag}');`;
     }
 }
 
@@ -358,8 +348,8 @@ class PercentMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return Math.random() < this.percent;
+    compile() {
+        return `return Math.random() < ${this.percent};`;
     }
 }
 
@@ -367,15 +357,17 @@ class ChainMask extends MaskNode {
     readonly prec = 3;
     readonly opCount = 2;
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        for (const mask of this.nodes) {
-            if (mask.matchesBlock(loc, dim)) {
-                return true;
-            }
+    compile() {
+        if (this.nodes.length == 1) {
+            return this.nodes[0].compile();
         }
-        return false;
+        let result = '';
+        for (const mask of this.nodes) {
+            result += `\nif ((() => {\n${mask.compile()}\n})()) return true;`
+        }
+        return result.substring(1) + '\nreturn false;';
     }
-    
+
     postProcess() {
         super.postProcess();
         
@@ -400,15 +392,17 @@ class IntersectMask extends MaskNode {
     readonly prec = 1;
     readonly opCount = 2;
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        for (const mask of this.nodes) {
-            if (!mask.matchesBlock(loc, dim)) {
-                return false;
-            }
+    compile() {
+        if (this.nodes.length == 1) {
+            return this.nodes[0].compile();
         }
-        return true;
+        let result = '';
+        for (const mask of this.nodes) {
+            result += `\nif (!(() => {\n${mask.compile()}\n})()) return false;`
+        }
+        return result.substring(1) + '\nreturn true;';
     }
-    
+
     postProcess() {
         super.postProcess();
         
@@ -433,8 +427,8 @@ class NegateMask extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return !this.nodes[0].matchesBlock(loc, dim);
+    compile() {
+        return `return !(() => {\n${this.nodes[0].compile()}\n})();`;
     }
 }
 
@@ -447,9 +441,13 @@ class OffsetMask extends MaskNode {
         super(token);
     }
     
-    matchesBlock(loc: BlockLocation, dim: Dimension) {
-        return this.nodes[0].matchesBlock(loc.offset(this.x, this.y, this.z), dim);
+    compile() {
+        return `return ((loc) => {\n${this.nodes[0].compile()}\n})(loc.offset(${this.x}, ${this.y}, ${this.z}));`;
     }
+
+    // matchesBlock(loc: BlockLocation, dim: Dimension) {
+    //     return this.nodes[0].matchesBlock(loc.offset(this.x, this.y, this.z), dim);
+    // }
     
     postProcess() {
         while (this.nodes[0] instanceof OffsetMask) {

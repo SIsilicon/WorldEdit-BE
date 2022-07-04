@@ -1,1 +1,4 @@
 diagnostic.disable.mcfunction.syntax.unknown=true
+diagnostic.disable.minecraft.language.comment.invalid=true
+diagnostic.disable.minecraft.manifest.version.minimum=true
+diagnostic.disable.minecraft.manifest.module.missing=true

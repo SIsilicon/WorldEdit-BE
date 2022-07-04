@@ -1,9 +1,9 @@
-import { BlockLocation } from 'mojang-minecraft';
+import { Jobs } from '@modules/jobs.js';
 import { Pattern } from '@modules/pattern.js';
-import { RawText } from '@modules/rawtext.js';
-import { CylinderShape } from '../../shapes/cylinder.js';
 import { PlayerUtil } from '@modules/player_util.js';
-import { commandList } from '../command_list.js';
+import { RawText } from '@notbeer-api';
+import { CylinderShape } from '../../shapes/cylinder.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'cyl',
@@ -53,7 +53,7 @@ const registerInformation = {
     ]
 };
 
-commandList['cyl'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     let pattern: Pattern = args.get('pattern');
     let radii: [number, number];
     let height: number = args.get('height');
@@ -68,7 +68,9 @@ commandList['cyl'] = [registerInformation, (session, builder, args) => {
     const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? height/2 : 0, 0);
     
     const cylShape = new CylinderShape(height, ...<[number, number]>radii);
-    const count = cylShape.generate(loc, pattern, null, session, {'hollow': isHollow});
+    const job = Jobs.startJob(session, 2, cylShape.getRegion(loc));
+    const count = yield* Jobs.perform(job, cylShape.generate(loc, pattern, null, session, {'hollow': isHollow}));
+    Jobs.finishJob(job);
 
     return RawText.translate('commands.blocks.wedit:created').with(`${count}`);
-}];
+});

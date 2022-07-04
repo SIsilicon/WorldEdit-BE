@@ -1,12 +1,11 @@
-import { PlayerSession } from '../../sessions.js';
-import { printDebug } from '../../util.js';
 import { assertSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { Pattern } from '@modules/pattern.js';
+import { Jobs } from '@modules/jobs.js';
 import { Mask } from '@modules/mask.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { Pattern } from '@modules/pattern.js';
+import { contentLog, RawText, Vector } from '@notbeer-api';
+import { CuboidShape } from '../../shapes/cuboid.js';
+import { PlayerSession } from '../../sessions.js';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'set',
@@ -21,49 +20,33 @@ const registerInformation = {
 };
 
 /**
+ * Set a region of blocks regardless of the current global mask
  * @return number of blocks set
  */
-export function set(session: PlayerSession, pattern: Pattern, mask?: Mask) {
-    let count = 0;
-    const dim = session.getPlayer().dimension;
-    for (const blockLoc of session.getBlocksSelected()) {
-        // printDebug(`${mask} - ${mask?.matchesBlock(blockLoc, dim)}`);
-        if (mask && !mask.matchesBlock(blockLoc, dim)) {
-            continue; 
-        }
-        
-        if (pattern.setBlock(blockLoc, dim)) {
-            continue;
-        }
-        count++;
+export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number, number> {
+    const globalMask = session.globalMask;
+    let changed = 0;
+    try {
+        session.globalMask = null;
+        const [shape, loc] = session.selection.getShape();
+        changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory});
+    } finally {
+        session.globalMask = globalMask;
     }
-    return count;
+    return changed;
 }
 
-commandList['set'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    assertCanBuildWithin(builder.dimension, ...session.getSelectionRange());
-    if (session.usingItem && session.globalPattern.empty()) {
+    assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+    if (args.get('_using_item') && session.globalPattern.empty()) {
         throw RawText.translate('worldEdit.selectionFill.noPattern');
     }
     
-    const pattern = session.usingItem ? session.globalPattern : args.get('pattern');
-
-    const history = session.getHistory();
-    history.record();
-
-    if (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') {
-        const [pos1, pos2] = session.getSelectionPoints();
-        var start = Vector.min(pos1, pos2).toBlock();
-        var end = Vector.max(pos1, pos2).toBlock();
-        history.addUndoStructure(start, end, 'any');
-    }
+    const pattern = args.get('_using_item') ? session.globalPattern : args.get('pattern');
     
-    const count = set(session, pattern);
-    
-    history.recordSelection(session);
-    history.addRedoStructure(start, end, (session.selectionMode == 'cuboid' || session.selectionMode == 'extend') ? 'any' : []);
-    history.commit();
-
+    const job = Jobs.startJob(session, 2, session.selection.getRange());
+    const count = yield* Jobs.perform(job, set(session, pattern, null, true));
+    Jobs.finishJob(job);
     return RawText.translate('commands.blocks.wedit:changed').with(`${count}`);
-}];
+});

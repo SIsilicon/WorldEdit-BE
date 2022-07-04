@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "Cancella la cronologia delle modifiche"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "Cronologia cancellata."
 
 msgid "commands.wedit:contract.description"
 msgstr "Contrai l'area di selezione"

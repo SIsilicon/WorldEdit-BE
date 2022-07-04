@@ -1,116 +1,57 @@
-import { Server } from '@library/Minecraft.js';
-import { commandList, commandFunc } from './command_list.js';
-import { getSession, hasSession } from '../sessions.js';
-import { Mask } from '@modules/mask.js';
-import { Pattern } from '@modules/pattern.js';
-import { Cardinal } from '@modules/directions.js';
-import { print, printerr, printDebug, printLog } from '../util.js';
-import { COMMAND_PREFIX } from '@config.js';
+import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from '@notbeer-api';
+import { getSession, hasSession, PlayerSession } from '../sessions.js';
+import { print, printerr } from '../util.js';
+import { BeforeChatEvent, Player } from 'mojang-minecraft';
 
-Server.command.addCustomArgType('Mask', Mask);
-Server.command.addCustomArgType('Pattern', Pattern);
-Server.command.addCustomArgType('Direction', Cardinal);
+type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<unknown, RawText | string> | RawText | string;
 
-import './misc/help.js';
-import './misc/worldedit.js';
-import './misc/limit.js';
-import './misc/kit.js';
+const commandList = new Map<string, [CommandInfo, commandFunc]>();
 
-import './selection/pos1.js';
-import './selection/pos2.js';
-import './selection/hpos1.js';
-import './selection/hpos2.js';
-import './selection/drawsel.js';
-import './selection/desel.js';
-import './selection/wand.js';
-import './selection/contract.js';
-import './selection/expand.js';
-import './selection/shift.js';
-import './selection/outset.js';
-import './selection/inset.js';
-
-import './clipboard/cut.js';
-import './clipboard/copy.js';
-import './clipboard/paste.js';
-import './clipboard/clearclipboard.js';
-
-import './generation/hsphere.js';
-import './generation/sphere.js';
-import './generation/cyl.js';
-import './generation/hcyl.js';
-import './generation/pyramid.js';
-import './generation/hpyramid.js';
-
-import './region/gmask.js';
-import './region/set.js';
-import './region/replace.js';
-import './region/move.js';
-import './region/stack.js';
-import './region/rotate.js';
-import './region/flip.js';
-import './region/wall.js';
-import './region/smooth.js';
-import './region/faces.js';
-// TODO: Implement hollow
-import './region/line.js';
-
-import './navigation/navwand.js';
-import './navigation/up.js';
-import './navigation/unstuck.js';
-import './navigation/jumpto.js';
-import './navigation/thru.js';
-// TODO: Implement ascend and descend
-// TODO: Implement ceil
-
-import './tool/tool.js';
-
-import './brush/brush.js';
-import './brush/mask.js';
-import './brush/tracemask.js';
-import './brush/size.js';
-import './brush/range.js';
-import './brush/material.js';
-
-import './history/undo.js';
-import './history/redo.js';
-import './history/clearhistory.js';
-
-Server.command.prefix = COMMAND_PREFIX;
-let _printToActionBar = false;
-
-for (const name in commandList) {
-    const command = commandList[name];
-    Server.command.register(command[0], (data, args) => {
-        let toActionBar = _printToActionBar;
-        _printToActionBar = false;
+export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
+    commandList.set(registerInformation.name, [registerInformation, callback]);
+    Server.command.register(registerInformation, (data: BeforeChatEvent, args: Map<string, any>) => {
         const player = data.sender;
         if (!hasSession(player.name)) {
             data.cancel = false;
             return;
         }
-        
-        try {
-            const start = new Date().getTime();
-            printLog(`Processing command '${data.message}' for '${data.sender.name}'`);
-            const msg = command[1](getSession(player), player, args);
-            const time = new Date().getTime() - start;
-            printLog(`Time taken to execute: ${time}ms (${time/1000.0} secs)`);
-            print(msg, player, toActionBar);
-        } catch (e) {
-            const history = getSession(data.sender).getHistory();
-            if (history.isRecording()) {
-                history.cancel();
+        let toActionBar = getSession(player).usingItem;
+        args.set('_using_item', getSession(player).usingItem);
+
+        const thread = new Thread();
+        thread.start(function* (msg, player, args) {
+            const timer = new Timer();
+            try {
+                timer.start();
+                contentLog.log(`Processing command '${msg}' for '${player.name}'`);
+                let result: string | RawText;
+                if (callback.constructor.name == 'GeneratorFunction') {
+                    result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
+                } else {
+                    result = callback(getSession(player), player, args) as string | RawText;
+                }
+                const time = timer.end();
+                contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                print(result, player, toActionBar);
             }
-            const errMsg = e.message ? `${e.name}: ${e.message}` : e;
-            printLog(`Command '${data.message}' failed for '${data.sender.name}' with msg: ${errMsg}`);
-            printerr(errMsg, data.sender, toActionBar);
-            if (e.stack) {
-                printerr(e.stack, data.sender, false);
+            catch (e) {
+                const errMsg = e.message ? `${e.name}: ${e.message}` : e;
+                contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                printerr(errMsg, player, toActionBar);
+                if (e.stack) {
+                    printerr(e.stack, player, false);
+                }
             }
-        }
+        }, data.message, data.sender, args);
+
+        return thread;
     });
 }
 
-export function printToActionBar() {
-    _printToActionBar = true;
+export function getCommandFunc(command: string) {
+    return commandList.get(command)[1];
+}
+
+export function getCommandInfo(command: string) {
+    return commandList.get(command)[0];
 }

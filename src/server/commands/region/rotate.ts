@@ -1,13 +1,9 @@
-import { PlayerSession } from '../../sessions.js';
-import { Pattern } from '@modules/pattern.js';
-import { set } from '../region/set.js';
-import { commandList } from '../command_list.js';
-import { regionCenter } from '../../util.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { assertClipboard, assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { RawText } from '@modules/rawtext.js';
-import { Regions } from '@modules/regions.js';
+import { registerCommand } from '../register_commands.js';
+import { contentLog, RawText, Vector } from '@notbeer-api';
+import { assertClipboard } from '@modules/assert.js';
+import { transformSelection } from './transform_func.js';
+import { FAST_MODE } from '@config.js';
+import { Jobs } from '@modules/jobs.js';
 
 const registerInformation = {
     name: 'rotate',
@@ -26,67 +22,48 @@ const registerInformation = {
         {
             name: 'rotate',
             type: 'int'
+        },
+        {
+            name: 'rotateX',
+            type: 'int',
+            default: 0
+        },
+        {
+            name: 'rotateZ',
+            type: 'int',
+            default: 0
         }
     ]
 };
 
-commandList['rotate'] = [registerInformation, (session, builder, args) => {
-    if ((Math.abs(args.get('rotate')) / 90) % 1 != 0) {
-        throw RawText.translate('commands.wedit:rotate.not-ninety').with(args.get('rotate'));
-    }
-    
+registerCommand(registerInformation, function* (session, builder, args) {
     let blockCount = 0;
-    if (args.has('c')) {
-        assertClipboard(builder);
-        const [start, end] = Regions.getBounds('clipboard', builder);
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.add(Regions.getOrigin('clipboard', builder), start);
-        
-        Regions.rotate('clipboard', args.get('rotate'), center, builder);
-        blockCount = Regions.getBlockCount('clipboard', builder);
-    } else {
-        assertCuboidSelection(session);
-        const history = session.getHistory();
-        history.record();
-    
-        const [start, end] = session.getSelectionRange();
-        const dim = builder.dimension;
-        assertCanBuildWithin(dim, start, end);
-        
-        const center = args.has('o') ? Vector.from(start).lerp(end, 0.5) : Vector.from(PlayerUtil.getBlockLocation(builder));
-        
-        Regions.save('tempRotate', start, end, builder);
-        Regions.rotate('tempRotate', args.get('rotate'), center, builder);
-        blockCount = Regions.getBlockCount('tempRotate', builder);
-        
-        const [newStart, newEnd] = Regions.getBounds('tempRotate', builder);
-        history.addUndoStructure(start, end, 'any');
-        history.addUndoStructure(newStart, newEnd, 'any');
-        
-        try {
-            assertCanBuildWithin(dim, newStart, newEnd);
-        } catch (e) {
-            Regions.delete('tempRotate', builder);
-            throw e;
+    const rotation = new Vector(args.get('rotateX'), args.get('rotate'), args.get('rotateZ'));
+    function assertValidFastArgs () {
+        if ((Math.abs(rotation.y) / 90) % 1 != 0) {
+            throw RawText.translate('commands.wedit:rotate.not-ninety').with(args.get('rotate'));
+        } else if (rotation.x || rotation.z) {
+            throw RawText.translate('commands.wedit:rotate.y-only');
         }
-        
-        set(session, new Pattern('air'));
-        if (Regions.load('tempRotate', newStart, builder)) {
-            Regions.delete('tempRotate', builder);
-            throw RawText.translate('commands.generic.wedit:commandFail');
-        }
-        Regions.delete('tempRotate', builder);
-        
-        if (args.has('s')) {
-            history.recordSelection(session);
-            session.setSelectionPoint(0, newStart);
-            session.setSelectionPoint(1, newEnd);
-            history.recordSelection(session);
-        }
-        
-        history.addRedoStructure(newStart, newEnd, 'any');
-        history.addRedoStructure(start, end, 'any');
-        history.commit();
     }
     
+    if (args.has('c')) {
+        assertClipboard(session);
+        if (!session.clipboard.isAccurate) assertValidFastArgs();
+
+        if (!args.has('o')) {
+            session.clipboardTransform.relative = session.clipboardTransform.relative.rotateY(args.get('rotate'))
+        }
+        session.clipboardTransform.rotation = session.clipboardTransform.rotation.add(rotation);
+        blockCount = session.clipboard.getBlockCount();
+    } else {
+        if (FAST_MODE) assertValidFastArgs();
+
+        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
+        yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
+        Jobs.finishJob(job);
+        blockCount = session.selection.getBlockCount();
+    }
+
     return RawText.translate('commands.wedit:rotate.explain').with(blockCount);
-}];
+});

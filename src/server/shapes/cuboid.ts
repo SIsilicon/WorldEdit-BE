@@ -24,6 +24,10 @@ export class CuboidShape extends Shape {
         genVars.isHollow = options?.hollow ?? false;
         genVars.isWall = options?.wall ?? false;
         genVars.end = this.size.map(v => v - 1);
+
+        if (!genVars.isHollow && !genVars.isWall) {
+            genVars.isSolidCuboid = true;
+        }
     }
     
     protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {

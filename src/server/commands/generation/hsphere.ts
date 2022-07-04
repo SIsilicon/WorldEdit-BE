@@ -1,5 +1,5 @@
-import { Server } from '@library/Minecraft.js';
-import { commandList } from '../command_list.js';
+import { Server } from '@notbeer-api';
+import { getCommandFunc, registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'hsphere',
@@ -54,7 +54,7 @@ const registerInformation = {
     ]
 };
 
-commandList['hsphere'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     args.set('h', true);
-    return commandList['sphere'][1](session, builder, args);
-}];
+    return yield* getCommandFunc('sphere')(session, builder, args) as any;
+});

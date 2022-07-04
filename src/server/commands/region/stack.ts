@@ -1,14 +1,8 @@
-import { Player, BlockLocation } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { regionSize, printDebug } from '../../util.js';
+import { assertCuboidSelection, assertCanBuildWithin } from '@modules/assert.js';
 import { Cardinal } from '@modules/directions.js';
-import { Pattern } from '@modules/pattern.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { RawText } from '@modules/rawtext.js';
-import { Regions } from '@modules/regions.js';
-import { assertCanBuildWithin, assertCuboidSelection } from '@modules/assert.js';
-import { set } from './set.js';
-import { commandList } from '../command_list.js';
+import { RawText, regionSize, regionVolume } from '@notbeer-api';
+import { BlockLocation } from 'mojang-minecraft';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'stack',
@@ -28,10 +22,11 @@ const registerInformation = {
     ]
 };
 
-commandList['stack'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get('count');
-    const [start, end] = session.getSelectionRange();
+    const [start, end] = session.selection.getRange();
+    const dim = builder.dimension;
     const size = regionSize(start, end);
     
     const dir = args.get('offset').getDirection(builder).mul(size);
@@ -48,16 +43,23 @@ commandList['stack'] = [registerInformation, (session, builder, args) => {
     }
     
     const history = session.getHistory();
-    history.record();
-    Regions.save('tempStack', start, end, builder);
-    for (const load of loads) {
-        history.addUndoStructure(load[0], load[1], 'any');
-        Regions.load('tempStack', load[0], builder);
-        history.addRedoStructure(load[0], load[1], 'any');
-        count += Regions.getBlockCount('tempStack', builder);
+    const record = history.record();
+    const tempStack = session.createRegion(false);
+    try {
+        tempStack.save(start, end, dim);
+        for (const load of loads) {
+            history.addUndoStructure(record, load[0], load[1], 'any');
+            tempStack.load(load[0], dim);
+            history.addRedoStructure(record, load[0], load[1], 'any');
+            count += regionVolume(load[0], load[1]);
+        }
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
+    } finally {
+        session.deleteRegion(tempStack);
     }
-    Regions.delete('tempStack', builder);
-    history.commit();
     
     return RawText.translate('commands.wedit:stack.explain').with(count);
-}];
+});

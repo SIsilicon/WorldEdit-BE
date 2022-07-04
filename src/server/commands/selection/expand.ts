@@ -1,12 +1,10 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
-import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
-import { printDebug } from '../../util.js';
+import { Cardinal } from '@modules/directions.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 // TODO: Support multiple directions at once (contract too)
-
 const registerInformation = {
     name: 'expand',
     description: 'commands.wedit:expand.description',
@@ -58,9 +56,9 @@ const registerInformation = {
     ]
 };
 
-commandList['expand'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
-    let points = session.getSelectionPoints().map(block => Vector.from(block));
+    let points = session.selection.points.map(block => Vector.from(block));
     
     if (args.has('vert')) {
         var dir = new Vector(0, 1, 0);
@@ -85,11 +83,11 @@ commandList['expand'] = [registerInformation, (session, builder, args) => {
     points[minPoint] = points[minPoint].sub(dir.mul(side1));
     points[maxPoint] = points[maxPoint].add(dir.mul(side2));
 
-    const beforeVol = session.getSelectedBlockCount();
-    session.clearSelectionPoints()
-    session.setSelectionPoint(0, points[0].toBlock());
-    session.setSelectionPoint(1, points[1].toBlock());
-    const afterVol = session.getSelectedBlockCount();
+    const beforeVol = session.selection.getBlockCount();
+    session.selection.clear()
+    session.selection.set(0, points[0].toBlock());
+    session.selection.set(1, points[1].toBlock());
+    const afterVol = session.selection.getBlockCount();
 
     return RawText.translate('commands.wedit:expand.explain').with(afterVol - beforeVol);
-}];
+});

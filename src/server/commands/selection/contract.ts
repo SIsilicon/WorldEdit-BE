@@ -1,8 +1,8 @@
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
-import { Cardinal } from '@modules/directions.js';
 import { assertCuboidSelection } from '@modules/assert.js';
-import { Vector } from '@modules/vector.js';
+import { Cardinal } from '@modules/directions.js';
+import { RawText } from '@notbeer-api';
+import { Vector } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'contract',
@@ -44,9 +44,9 @@ const registerInformation = {
     ]
 };
 
-commandList['contract'] = [registerInformation, (session, builder, args) => {
+registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
-    let points = session.getSelectionPoints().map(block => Vector.from(block));
+    let points = session.selection.points.map(block => Vector.from(block));
     const dir = (args.get('direction') as Cardinal).getDirection(builder);
     
     let dirIdx: 0|1|2 = 0;
@@ -70,11 +70,11 @@ commandList['contract'] = [registerInformation, (session, builder, args) => {
     points[minPoint] = points[minPoint].add(dir.mul(side1));
     points[maxPoint] = points[maxPoint].sub(dir.mul(side2));
 
-    const beforeVol = session.getSelectedBlockCount();
-    session.clearSelectionPoints()
-    session.setSelectionPoint(0, points[0].toBlock());
-    session.setSelectionPoint(1, points[1].toBlock());
-    const afterVol = session.getSelectedBlockCount();
+    const beforeVol = session.selection.getBlockCount();
+    session.selection.clear()
+    session.selection.set(0, points[0].toBlock());
+    session.selection.set(1, points[1].toBlock());
+    const afterVol = session.selection.getBlockCount();
 
     return RawText.translate('commands.wedit:contract.explain').with(beforeVol - afterVol);
-}];
+});

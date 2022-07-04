@@ -1,11 +1,9 @@
-import { BlockLocation, Player } from 'mojang-minecraft';
-import { Server } from '@library/Minecraft.js';
-import { printDebug, printLocation } from '../../util.js';
-import { PlayerUtil } from '@modules/player_util.js';
-import { CommandPosition } from '@library/build/classes/commandBuilder.js';
-import { commandList } from '../command_list.js';
-import { RawText } from '@modules/rawtext.js';
+import { BlockLocation } from 'mojang-minecraft';
+import { printLocation } from '../../util.js';
+import { registerCommand } from '../register_commands.js';
 import { PlayerSession } from '../../sessions.js';
+import { RawText, CommandPosition, Vector } from '@notbeer-api';
+import { Selection } from '@modules/selection.js';
 
 const registerInformation = {
     name: 'pos1',
@@ -21,24 +19,30 @@ const registerInformation = {
     aliases: ['1']
 };
 
-export function setPos1(session: PlayerSession, loc: BlockLocation) {
-    const prevPoints = session.getSelectionPoints();
-    session.setSelectionPoint(0, loc);
+export function setPos1(selection: Selection, loc: BlockLocation) {
+    const prevPoints = selection.points;
+    selection.set(0, loc);
 
-    if (session.getSelectionPoints().some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
+    if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
-        if (session.getSelectedBlockCount() == 0) {
-            translate = `worldedit.selection.${session.selectionMode}.primary`;
+        const blockCount = selection.getBlockCount();
+        if (!blockCount) {
+            translate = `worldedit.selection.${selection.mode}.primary`;
         } else {
-            translate = `worldedit.selection.${session.selectionMode}.primaryArea`;
+            translate = `worldedit.selection.${selection.mode}.primaryArea`;
         }
+        let sub = printLocation(selection.points[0]);
+        if (selection.mode == 'sphere') {
+            sub = `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`;
+        }
+
         return RawText.translate(translate)
-            .with(printLocation(session.getSelectionPoints()[0]))
-            .with(`${session.getSelectedBlockCount()}`);
+            .with(sub)
+            .with(`${blockCount}`);
     }
     return '';
 }
 
-commandList['pos1'] = [registerInformation, (session, builder, args) => {
-    return setPos1(session, args.get('coordinates').relativeTo(builder, true));
-}];
+registerCommand(registerInformation, function (session, builder, args) {
+    return setPos1(session.selection, args.get('coordinates').relativeTo(builder, true));
+});

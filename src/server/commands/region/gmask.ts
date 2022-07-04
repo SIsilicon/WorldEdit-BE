@@ -1,6 +1,6 @@
-import { commandList } from '../command_list.js';
 import { Mask } from '@modules/mask.js';
-import { RawText } from '@modules/rawtext.js';
+import { RawText } from '@notbeer-api';
+import { registerCommand } from '../register_commands.js';
 
 const registerInformation = {
     name: 'gmask',
@@ -15,11 +15,11 @@ const registerInformation = {
     ]
 };
 
-commandList['gmask'] = [registerInformation, (session, builder, args) => {
-    session.globalMask = args.get('mask');
+registerCommand(registerInformation, function (session, builder, args) {
+    session.globalMask = Mask.clone(args.get('mask'));
     if (!args.get('mask').empty()) {
         return RawText.translate('commands.wedit:gmask.set');
     } else {
         return RawText.translate('commands.wedit:gmask.disabled');
     }
-}];
+});

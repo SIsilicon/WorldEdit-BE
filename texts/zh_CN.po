@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "清除您的编辑记录"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "历史记录已被清空。"
 
 msgid "commands.wedit:contract.description"
 msgstr "收缩选区。"
