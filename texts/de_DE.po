@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-07-03 22:18\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -68,7 +68,7 @@ msgid "item.wedit:brush_config_button"
 msgstr "Pinseleinstellungen"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Werkzeugeinstellungen"
 
 msgid "item.wedit:sphere_button"
 msgstr "Kugelpinsel"
@@ -80,16 +80,16 @@ msgid "item.wedit:smooth_button"
 msgstr "Glatter Pinsel"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Auswahl-Stab"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Weiter Auswahl-Stab"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Navigations-Stab"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Stacker-Werkzeug"
 
 msgid "item.wedit:one_button"
 msgstr "Eins"
@@ -122,10 +122,10 @@ msgid "item.wedit:next_button"
 msgstr "Weiter"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Löschen"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Neues Werkzeug erstellen"
 
 msgid "item.wedit:inc_entities_on_button"
 msgstr "Entitäten in die Zwischenablage einbeziehen: §aAktiviert§r"
@@ -161,82 +161,82 @@ msgid "worldedit.maskPicker.set"
 msgstr "Setze Maske auf Block: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Wählen Sie ein Item zum Einrichten."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Halten Sie ein zu bindendes Item."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Wählen Sie, welche Art von Pinsel gemacht werden soll."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Wählen Sie die Art des Werkzeugs aus."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Wählen Sie den Bereich des Werkzeugs."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Wählen Sie die Größe des Pinsels."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Wählen Sie die gewünschte Höhe des Pinsels."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Wählen Sie die Glätte des Pinsels."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Erstellen Sie eine optionale Maske für das Werkzeug."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Erstellen Sie eine optionale Maske für den Pinsel."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Ist das in Ordnung?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Sind Sie sicher, dass Sie dieses Item entbinden möchten?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Betroffen: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Erstellt: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Größe: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Höhe: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Glätte: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Reichweite: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Pinsel konfiguriert."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Pinsel konfiguriert und zu Ihrem Inventar hinzugefügt."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Pinselkonfigurierung abgebrochen."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Werkzeug konfiguriert."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Werkzeug konfiguriert und deinem Inventar hinzugefügt."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Werkzeugkonfigurierung abgebrochen."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Item entbunden."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Erste Auswahl wurde noch nicht getroffen."
@@ -254,10 +254,16 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Auswahl gestartet bei %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Auswahl erweitert, um %1 zu umfassen (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius gesetzt auf %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius gesetzt auf %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "Ein Item muss in Ihrer Haupthand sein."
@@ -317,22 +323,22 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "Die Zahl (%1) ist zu klein! Sie muss mindestens (%2) sein."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Zu viele Blöcke!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Benutzen Sie §e%s§7 während Sie das Item halten, um es zu entbinden.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Kugelförmiger Pinsel ausgerüstet (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Zylinderförmiger Pinsel ausgerüstet (%1 mal %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Glättungspinsel ausgerüstet (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Glättungspinsel ausgerüstet (%1 x %2x mit Filter)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
@@ -350,37 +356,46 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Geländeglättungspinsel erstellen"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Pinselmaske gesetzt."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Pinselmaske deaktiviert."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Pinselmaterial gesetzt."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Pinselbereich festgelegt."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "Pinselgröße festgelegt."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "Trace-Maske gesetzt."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "Trace-Maske deaktiviert."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Maximal zulässiger Pinselradius: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Pinsel vom aktuellen Item entfernt."
+
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Zwischenablage leeren"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Zwischenablage geleert."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Editierverlauf löschen"
@@ -389,7 +404,7 @@ msgid "commands.wedit:clearhistory.explain"
 msgstr "Verlauf gelöscht."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Auswahlbereich verarbeiten"
 
 msgid "commands.wedit:contract.explain"
 msgstr "Region hat %s Blöcke festgelegt."
@@ -400,6 +415,12 @@ msgstr "Aktuelle Auswahl in die Zwischenablage kopieren"
 msgid "commands.wedit:copy.explain"
 msgstr "%s Blöcke wurden kopiert."
 
+msgid "commands.wedit:count.description"
+msgstr "Zählt die Anzahl der Blöcke, die einer Maske entsprechen"
+
+msgid "commands.wedit:count.explain"
+msgstr "%s Blöcke gefunden."
+
 msgid "commands.wedit:cut.description"
 msgstr "Entfernen Sie Ihre aktuelle Auswahl und legen Sie sie in die Zwischenablage"
 
@@ -408,6 +429,15 @@ msgstr "%s Blöcke ausschneiden."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Zylinder generieren"
+
+msgid "commands.wedit:distr.description"
+msgstr "Die Anzahl der verschiedenen Blöcke in der Auswahl analysieren"
+
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Sichtbarkeit der Auswahl ein-/ausschalten"
@@ -419,16 +449,37 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "Ihre Auswahl wird nun sichtbar sein."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Selektionsbereich erweitern"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Vertikale Erweiterung Ihrer Auswahl auf maximale Bauhöhe"
 
 msgid "commands.wedit:expand.explain"
 msgstr "Region um %s Blöcke erweitert."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Feuer in der Nähe löschen"
+
 msgid "commands.wedit:faces.description"
 msgstr "Eine Kontur aus Ihrer Auswahl generieren"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "Auswahl spiegeln"
@@ -439,6 +490,9 @@ msgstr "%s Blöcke gespiegelt."
 msgid "commands.wedit:flip.notLateral"
 msgstr "Kann nicht nach oben oder unten spiegeln!"
 
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
+
 msgid "commands.wedit:gmask.description"
 msgstr "Globale Maske festlegen"
 
@@ -448,6 +502,9 @@ msgstr "Globale Maske deaktiviert."
 msgid "commands.wedit:gmask.set"
 msgstr "Globale Maske gesetzt."
 
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
+
 msgid "commands.wedit:hcyl.description"
 msgstr "Hohlen Zylinder generieren"
 
@@ -455,10 +512,10 @@ msgid "commands.wedit:help.header"
 msgstr "--- Hilfeseite %1 von %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "Setze die erste Position Ihrer Auswahl auf die Position des Blocks, den Sie sehen"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "Setze die zweite Position Ihrer Auswahl auf die Position des Blocks, den Sie sehen"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Hohle Pyramide generieren"
@@ -467,7 +524,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Hohle Kugel generieren"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Einfügen des Auswahlbereichs"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleportiert Sie auf den Block, den Sie anschauen"
@@ -491,16 +548,16 @@ msgid "commands.wedit:line.description"
 msgstr "Erstellen Sie eine Linie zwischen Ihren ersten und zweiten Auswahlpunkten"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "dieser Befehl funktioniert nur mit quaderförmigen Auswahlen"
 
 msgid "commands.wedit:limit.description"
-msgstr "Set the number of blocks you can change per action"
+msgstr "Legen Sie die Anzahl der Blöcke fest, die pro Aktion geändert werden können"
 
 msgid "commands.wedit:limit.set"
-msgstr "Block change limit set to %s."
+msgstr "Blockveränderungslimit auf %s gesetzt."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Your maximum allowable limit is %s."
+msgstr "Ihr maximal zulässiges Limit ist %s."
 
 msgid "commands.wedit:mask.description"
 msgstr "Legen Sie fest, welche Art von Blöcken ein Pinsel beeinflussen kann, falls es welche gibt"
@@ -521,7 +578,7 @@ msgid "commands.wedit:navwand.explain"
 msgstr "Schleichen und Item benutzen: durch Wände gehen; Verwende Item ohne zu schleichen: Springe zu Standort"
 
 msgid "commands.wedit:outset.description"
-msgstr "Outset the selection area"
+msgstr "Auswahlliste starten"
 
 msgid "commands.wedit:outset.explain"
 msgstr "Beginn der Region."
@@ -556,6 +613,18 @@ msgstr "Keine Bearbeitung zum Wiederholen verfügbar."
 msgid "commands.wedit:replace.description"
 msgstr "Ersetzen Sie bestimmte Blöcke in der Auswahl durch andere Blöcke"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "Auswahl drehen"
 
@@ -575,25 +644,37 @@ msgid "commands.wedit:sel.description"
 msgstr "Auswahlmodus ändern"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "Wählen Sie zwei Ecken eines Quaders"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "Schneller Quader-Auswahlmodus"
+
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
 
 msgid "commands.wedit:sel.extend"
 msgstr "Erweitern: Tippen Sie während des Schleichens für einen Startpunkt, tippen Sie ohne Schleichen um zu erweitern"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "Auswahlbereich verschieben"
 
 msgid "commands.wedit:shift.explain"
 msgstr "Region verschoben."
 
 msgid "commands.wedit:size.description"
 msgstr "Größe eines Pinsels festlegen"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Wiederholen Sie den Inhalt der aktuellen Auswahl"
@@ -623,22 +704,22 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
+msgstr "Auswahlstab an %s gebunden."
 
 msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
+msgstr "Navigationsstab an %s gebunden."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "Fernauswahl-Stab an %s gebunden."
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "Stapelwerkzeug an %s gebunden."
 
 msgid "commands.wedit:tool.description"
 msgstr "Holen Sie sich alle Arten von Tools"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "Auswahlwerkzeug, aber mit größerer Reichweite"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "Auswahlwerkzeug"
@@ -653,7 +734,7 @@ msgid "commands.wedit:tool.description.none"
 msgstr "Gehaltenes Wekzeug entfernen"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Werkzeug vom aktuellen Item entfernt."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Aus Blöcken wegbewegen"
@@ -704,10 +785,10 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "So wird gespielt: Schnellstart zu WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Lizenz"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "So wird gespielt: WorldEdit Lizenz"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Willkommen! Dies ist ein Port der ursprünglichen WorldEdit Mod für Minecraft: Java Edition. Dieses Addon wird Ihnen helfen, Ihre Welt innerhalb von Minecraft zu gestalten."
@@ -728,7 +809,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aHinweis:§r§a Die von diesem Addon bereitgestellten Befehle verwenden ein Semikolon (;) anstelle eines Schrägstrichs (/). In Zukunft könnte Mojang tatsächlich Unterstützung für benutzerdefinierte Befehle zu Minecraft hinzufügen.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "Von Punkt A zu Punkt B zu kommen kann manchmal schwer sein. Zum Glück kommt dieses Addon mit dem so genannten Navigations-Stab. Um einen zu bekommen, können Sie entweder einen Kompass in Ihrem Inventar haben oder den Befehl §e;navwand§r eingeben. Sobald Sie diesen Gegenstand haben, interagieren Sie einfach mit ihm, um an den Ort teleportiert zu werden, an dem Sie sich gerade befinden. Möchten Sie auf der anderen Seite einer Wand oder Decke stehen? Benutzen Sie den Stab beim Schleichen um durch sie zu gehen! Stecken Sie in einem Block? Mit dem Stab können Sie sich herausteleportieren!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aTipp:§r§a Wenn Sie den Navigationsstab nicht benutzen möchten, können diese Aktionen auch mit den Befehlen §e;jumpto§r§a, §e;thru§a und §e;unstuck§r§a gemacht werden §r§r."
@@ -749,16 +830,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Machen Sie eine bescheidene Auswahlmit der Sie arbeiten können und machen Sie ihr Kit mit §e;kit§r bereit. Wir werden einige der Features von WorldEdit ausprobieren."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. Platzieren Sie Stein, benutzen Sie den Muster-Wähler und benutzen Sie dann \"Auswahl füllen\". Ein Quader aus Stein sollte hergestellt werden."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. Benutzen Sie die Musterauswahl in der Luft (Handyspieler müssen den Bildschirm gedrückt halten) und verwenden Sie erneut \"Auswahl füllen\" um den Stein zu löschen."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. Platzieren Sie Sandstein und Glas, benutzen Sie den Muster-Wähler auf dem Sandstein, und schleichen und verwenden Sie es auf dem Glas, um Ihr Muster hinzuzufügen. Verwenden Sie \"Auswahl füllen\" und Sie sollten eine Mischung aus Sandstein und Glas haben."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. Nehmen Sie das Maskenauswahl-Werkzeug in Ihrem Inventar und benutzen Sie es auf dem Sandstein. Setzen Sie einen Block Ihrer Wahl als Ihr Muster und verwenden Sie \"Auswahl füllen\". Alle Sandsteine sollten nun durch diesen Block ersetzt werden."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Wiederholen Sie Ihre Auswahl nach oben, indem Sie den Befehl §e;stack 4 up§r§7 eintippen."

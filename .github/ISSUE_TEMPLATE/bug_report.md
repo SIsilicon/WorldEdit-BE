@@ -1,11 +1,12 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: '[BUG] (Title Here)'
-labels: ''
+title: "[BUG] (Title Here)"
+labels: bug
 assignees: ''
 
 ---
+
 <!--
 When reporting a bug, please do the following:
 1. Check the https://github.com/SIsilicon/WorldEdit-BE/issues to see if your bug was already reported. If not continue with the steps.

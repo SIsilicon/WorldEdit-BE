@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-07-03 22:18\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -259,6 +259,12 @@ msgstr "Iniziata la selezione a %1 (%2)."
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Selezione estesa per comprendere %1 (%2)."
 
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
+
 msgid "worldedit.tool.noItem"
 msgstr "Un oggetto deve essere nella tua mano principale."
 
@@ -379,8 +385,17 @@ msgstr "Questo pennello non richiede un materiale da lavorare."
 msgid "commands.wedit:brush.unbind"
 msgstr "Pennello scollegato dall'oggetto corrente."
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Pulisci gli appunti"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Cleared clipboard."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Cancella la cronologia delle modifiche"
@@ -400,6 +415,12 @@ msgstr "Copia la selezione corrente negli appunti"
 msgid "commands.wedit:copy.explain"
 msgstr "Copiati %s blocchi."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Rimuovi la selezione corrente e posizionala negli appunti"
 
@@ -408,6 +429,15 @@ msgstr "Taglia %s blocchi."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Genera un cilindro"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
+
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Attiva/disattiva la visibilità della tua selezione"
@@ -427,8 +457,29 @@ msgstr "Vertically expand your selection to world height limits"
 msgid "commands.wedit:expand.explain"
 msgstr "Regione espansa di %s blocchi."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "Genera un contorno dalla tua selezione"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "Capovolgi la selezione"
@@ -439,6 +490,9 @@ msgstr "Capovolti %s blocchi."
 msgid "commands.wedit:flip.notLateral"
 msgstr "Non è possibile capovolgere su o giù!"
 
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
+
 msgid "commands.wedit:gmask.description"
 msgstr "Imposta la maschera globale"
 
@@ -447,6 +501,9 @@ msgstr "Maschera globale disabilitata."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Maschera globale impostata."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Genera un cilindro cavo"
@@ -556,6 +613,18 @@ msgstr "Nulla resta da rifare."
 msgid "commands.wedit:replace.description"
 msgstr "Sostituisci determinati blocchi nella selezione con altri blocchi"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "Ruota la selezione"
 
@@ -580,8 +649,14 @@ msgstr "Seleziona due angoli di un cuboid"
 msgid "commands.wedit:sel.description.extend"
 msgstr "Modalità selezione cuboid veloce"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "Estendere: tocca mentre sei abbassato per un punto di partenza, tocca senza abbassarti per estendere"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Riempi la selezione col campione di un blocco"
@@ -594,6 +669,12 @@ msgstr "Regione spostata."
 
 msgid "commands.wedit:size.description"
 msgstr "Imposta la dimensione di un pennello"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Ripetere il contenuto della selezione corrente"

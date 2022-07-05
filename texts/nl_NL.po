@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-04-03 22:26\n"
+"PO-Revision-Date: 2022-07-03 22:18\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Een in-beta mod van de originele java mod en meer! Mod door SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Kopieer"
@@ -29,40 +29,40 @@ msgid "item.wedit:undo_button"
 msgstr "Ongedaan maken"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Opnieuw doen"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Rotate Clockwise"
+msgstr "Roteer klokmee"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Rotate Counter-Clockwise"
+msgstr "Draai tegen de klok in"
 
 msgid "item.wedit:flip_button"
-msgstr "Flip"
+msgstr "Omdraaien"
 
 msgid "item.wedit:pattern_picker"
-msgstr "Pattern Picker"
+msgstr "Patroonkiezer"
 
 msgid "item.wedit:mask_picker"
 msgstr "Mask Picker"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Spawn glas blok"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Vul selectie"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Muur selectie"
 
 msgid "item.wedit:selection_outline"
 msgstr "Outline Selection"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Teken lijn"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit instellingen"
 
 msgid "item.wedit:brush_config_button"
 msgstr "Brush Settings"
@@ -80,7 +80,7 @@ msgid "item.wedit:smooth_button"
 msgstr "Smooth Brush"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Selectie muur"
 
 msgid "item.wedit:far_selection_button"
 msgstr "Far Selection Wand"
@@ -92,37 +92,37 @@ msgid "item.wedit:stacker_button"
 msgstr "Stacker Tool"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Een"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Twee"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Drie"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Vier"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Vijf"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Zes"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Oké"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Terug"
 
 msgid "item.wedit:prev_button"
 msgstr "Previous"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Volgende"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Verwijder"
 
 msgid "item.wedit:new_brush_button"
 msgstr "Create New Tool"
@@ -143,7 +143,7 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Kan geen blokken hier plaatsen."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
@@ -161,10 +161,10 @@ msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Kies een item voor set up."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Hou een item vast om te verbinden."
 
 msgid "worldedit.config.choose.brush"
 msgstr "Choose what kind of brush to make."
@@ -251,7 +251,7 @@ msgid "worldedit.selection.cuboid.secondary"
 msgstr "Second position set to %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "2e positie ingesteld op %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Started selection at %1 (%2)."
@@ -259,38 +259,44 @@ msgstr "Started selection at %1 (%2)."
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Extended selection to encompass %1 (%2)."
 
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
+
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Een item moet in je normale hand zijn."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Je kan dit item niet verbinden."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Dit item is niet verbonden met een hulpmiddel."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Je hebt geen toestemming om dit item te gebruiken."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Dit hulpmiddel op dit item kan niet worden verwijderd of herplaatst."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eJe hebt WorldEdit permissie ontvangen. Ga naar (instellingen > Hoe kan je spelen > Snelle start) voor een uitleg.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eJe WorldEdit permissie is verwijderd.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blokken zijn veranderd."
 
 msgid "commands.blocks.wedit:created"
 msgstr "%s blocks have been created."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Gefaald om deze commando uit te voeren."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Maak een selectie eerst."
 
 msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' is an invalid direction argument!"
@@ -299,25 +305,25 @@ msgid "commands.generic.wedit:invalidFlag"
 msgstr "Unexpected flag: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Je klemboord is leeg. Kopieer of knip een regio eerst."
 
 msgid "commands.generic.wedit:noCuboidSelection"
 msgstr "Make a cuboid selection first."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Je hebt geen permissie om deze commando uit te voeren."
 
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Cannot modify unloaded chunks!"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Het nummer (%1) is te groot! Het moet maximaal (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
 msgstr "The number (%1) is too small! It must be at least (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Te veel blokken!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
@@ -379,8 +385,17 @@ msgstr "This brush does not require a material to work."
 msgid "commands.wedit:brush.unbind"
 msgstr "Brush unbound from your current item."
 
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Cleared clipboard."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Clear your editing history"
@@ -400,6 +415,12 @@ msgstr "Copy the current selection to the clipboard"
 msgid "commands.wedit:copy.explain"
 msgstr "Copied %s blocks."
 
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
 
@@ -408,6 +429,15 @@ msgstr "Cut %s blocks."
 
 msgid "commands.wedit:cyl.description"
 msgstr "Generate a cylinder"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
+
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Toggle your selection's visibility"
@@ -427,8 +457,29 @@ msgstr "Vertically expand your selection to world height limits"
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
 msgstr "Flip the selection"
@@ -439,6 +490,9 @@ msgstr "Flipped %s blocks."
 msgid "commands.wedit:flip.notLateral"
 msgstr "Cannot flip up or down!"
 
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
+
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
 
@@ -447,6 +501,9 @@ msgstr "Global mask disabled."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Generate a hollow cylinder"
@@ -556,6 +613,18 @@ msgstr "Nothing left to redo."
 msgid "commands.wedit:replace.description"
 msgstr "Replace certain blocks in the selection with other blocks"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
 msgid "commands.wedit:rotate.description"
 msgstr "Rotate the selection"
 
@@ -580,8 +649,14 @@ msgstr "Select two corners of a cuboid"
 msgid "commands.wedit:sel.description.extend"
 msgstr "Fast cuboid selection mode"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
 msgid "commands.wedit:sel.extend"
 msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Fill the selection with a block pattern"
@@ -594,6 +669,12 @@ msgstr "Region shifted."
 
 msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
 
 msgid "commands.wedit:stack.description"
 msgstr "Repeat the contents of the current selection"

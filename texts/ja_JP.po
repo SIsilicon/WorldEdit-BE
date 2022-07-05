@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-04-04 01:52\n"
+"PO-Revision-Date: 2022-07-03 22:18\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -259,6 +259,12 @@ msgstr "%1 (%2) で選択を開始しました。"
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "%1 (%2) を含む範囲を拡張しました。"
 
+msgid "worldedit.selection.sphere.primary"
+msgstr "半径を %1 に設定しました。"
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "半径を %1 (~%2) に設定しました。"
+
 msgid "worldedit.tool.noItem"
 msgstr "アイテムをメインハンドに持ってください。"
 
@@ -379,8 +385,17 @@ msgstr "このブラシには材料が必要ありません。"
 msgid "commands.wedit:brush.unbind"
 msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
 
+msgid "commands.wedit:butcher.description"
+msgstr "近くのエンティティをキルする。"
+
+msgid "commands.wedit:butcher.explain"
+msgstr "%s 体のエンティティをキルしました。"
+
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "クリップボードを消去しました。"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "編集履歴を消去する"
@@ -400,6 +415,12 @@ msgstr "現在の選択範囲をクリップボードにコピーする"
 msgid "commands.wedit:copy.explain"
 msgstr "%s 個のブロックをコピーしました。"
 
+msgid "commands.wedit:count.description"
+msgstr "マスクに一致するブロックの数を数える"
+
+msgid "commands.wedit:count.explain"
+msgstr "%s 個のブロックが見つかりました。"
+
 msgid "commands.wedit:cut.description"
 msgstr "現在の選択範囲を削除してクリップボードにコピーする"
 
@@ -408,6 +429,15 @@ msgstr "%s 個のブロックをカットしました。"
 
 msgid "commands.wedit:cyl.description"
 msgstr "円柱を生成する"
+
+msgid "commands.wedit:distr.description"
+msgstr "選択範囲内にブロックが何種類あるか計算する"
+
+msgid "commands.wedit:drain.description"
+msgstr "近くの液体ブロックを消滅させる"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "水か溶岩の近くで実行してください。"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "選択範囲の表示を切り替える"
@@ -427,8 +457,29 @@ msgstr "選択範囲を高度限界まで垂直方向に広げる"
 msgid "commands.wedit:expand.explain"
 msgstr "範囲が %s ブロックに拡大しました。"
 
+msgid "commands.wedit:extinguish.description"
+msgstr "近くの火を消す"
+
 msgid "commands.wedit:faces.description"
 msgstr "選択範囲の輪郭線を生成する"
+
+msgid "commands.wedit:fill.description"
+msgstr "特定のブロックで範囲を埋める"
+
+msgid "commands.wedit:fillr.description"
+msgstr "特定のブロックで範囲を反復的に埋める"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "近くの溶岩流ブロックを溶岩源ブロックにする"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "溶岩の近くで実行してください。"
+
+msgid "commands.wedit:fixwater.description"
+msgstr "近くの水流ブロックを水源ブロックにする"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "水の近くで実行してください。"
 
 msgid "commands.wedit:flip.description"
 msgstr "選択範囲を反転する"
@@ -439,6 +490,9 @@ msgstr "%s 個のブロックを反転しました。"
 msgid "commands.wedit:flip.notLateral"
 msgstr "上下の反転はできません！"
 
+msgid "commands.wedit:gen.description"
+msgstr "範囲内に任意の種類の図形を生成する"
+
 msgid "commands.wedit:gmask.description"
 msgstr "共通マスクを設定する"
 
@@ -447,6 +501,9 @@ msgstr "共通マスクを無効にしました。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "共通マスクを設定しました。"
+
+msgid "commands.wedit:green.description"
+msgstr "近くの土ブロックを草ブロックに変える"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "空洞の円柱を生成する"
@@ -556,6 +613,18 @@ msgstr "やり直す必要はありません。"
 msgid "commands.wedit:replace.description"
 msgstr "選択範囲内の特定のブロックを他のブロックに置き換える"
 
+msgid "commands.wedit:removeabove.description"
+msgstr "自身の上にあるブロックを削除する"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "自身の下にあるブロックを削除する"
+
+msgid "commands.wedit:removenear.description"
+msgstr "近くのブロックを削除する"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "近くのブロックを他のブロックに置き換える"
+
 msgid "commands.wedit:rotate.description"
 msgstr "選択範囲を回転する"
 
@@ -580,8 +649,14 @@ msgstr "直方体の2つの角を設定する"
 msgid "commands.wedit:sel.description.extend"
 msgstr "高速な直方体の選択モード"
 
+msgid "commands.wedit:sel.description.sphere"
+msgstr "球体を選択する"
+
 msgid "commands.wedit:sel.extend"
 msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "球体の選択: スニーク中にタップして中心を決め、スニークせずにタップして半径を設定します"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
@@ -594,6 +669,12 @@ msgstr "範囲を移動しました。"
 
 msgid "commands.wedit:size.description"
 msgstr "ブラシのサイズを設定する"
+
+msgid "commands.wedit:snow.description"
+msgstr "領域内に降雪をシミュレートする"
+
+msgid "commands.wedit:thaw.description"
+msgstr "日光にさらされる雪と氷ブロックを消滅させる"
 
 msgid "commands.wedit:stack.description"
 msgstr "現在の選択範囲の内容を繰り返す"
