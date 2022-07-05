@@ -14,14 +14,14 @@ body:
   attributes:
     label: Current behaviour
     description: A concise description of what you're experiencing.
-  validation:
+  validations:
     required: true
 
 - type: textarea
   attributes:
     label: Expected behaviour
     description: A concise description of what you expected to happen.
-  validation:
+  validations:
     required: true
 
 - type: textarea
@@ -33,7 +33,7 @@ body:
       2. Use '....'
       3. Type '...'
       4. See error
-  validation:
+  validations:
     required: false
 
 - type: textarea
@@ -43,26 +43,26 @@ body:
       If applicable, paste content logs from Minecraft here.
       You enable them at "Settings > Creator"; both file and gui.
       You can copy them from "Settings > Creator > Content Log History".
-  validation:
+  validations:
     required: false
 
 - type: textarea
   attributes:
     label: Minecraft version
     description: The version of Minecraft you're running
-  validation:
+  validations:
     required: true
 
 - type: textarea
   attributes:
     label: Device and operating system
     description: What device Minecraft was running on. In the case of a server, the device/service the server is running on.
-  validation:
+  validations:
     required: false
 
 - type: textarea
   attributes:
     label: Additional info
     description: Links, images, or other stuff that's relevant to the bug.
-  validation:
+  validations:
     required: false
