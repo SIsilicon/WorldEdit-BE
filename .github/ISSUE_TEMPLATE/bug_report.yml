@@ -46,17 +46,18 @@ body:
   validations:
     required: false
 
-- type: textarea
+- type: input
   attributes:
     label: Minecraft version
-    description: The version of Minecraft you're running
+    placeholder: eg: 1.19.2
   validations:
     required: true
 
-- type: textarea
+- type: input
   attributes:
     label: Device and operating system
     description: What device Minecraft was running on. In the case of a server, the device/service the server is running on.
+    placeholder: eg: Windows 11
   validations:
     required: false
 
