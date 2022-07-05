@@ -3,7 +3,7 @@ description: Suggest an idea for this project
 labels: enhancement
 
 body:
-- type: checkbox
+- type: checkboxes
   attributes:
     label: Is there an existing issue for this?
     description: Please search to see if an issue already exists for the bug you encountered.
@@ -15,26 +15,26 @@ body:
   attributes:
     label: Problem
     description: Your current experience with the addon's features, or the lack thereof.
-  validation:
+  validations:
     required: true
 
 - type: textarea
   attributes:
     label: Proposed Solution
     description: A possible solution to improve your experience.
-  validation:
+  validations:
     required: true
 
 - type: textarea
   attributes:
     label: Alternatives
     description: What you can currently do as a workaround to your problem.
-  validation:
+  validations:
     required: false
 
 - type: textarea
   attributes:
     label: Additional info
     description: Links, images, or other stuff that's relevant to the feature request.
-  validation:
+  validations:
     required: false
