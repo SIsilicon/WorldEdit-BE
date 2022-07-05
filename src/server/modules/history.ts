@@ -25,7 +25,7 @@ type historyPoint = {
     brush: boolean;
 };
 
-let historyId = Date.now();
+let historyId = 0;
 let historyPointId = 0;
 
 export class History {
