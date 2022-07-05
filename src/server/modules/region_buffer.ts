@@ -85,6 +85,7 @@ export class RegionBuffer {
             if (shouldTransform) {
                 transform = block => {
                     let newBlock = block.clone();
+                    const blockName = newBlock.type.id;
                     const attachement = newBlock.getProperty('attachement') as StringBlockProperty;
                     const direction = newBlock.getProperty('direction') as IntBlockProperty;
                     const doorHingeBit = newBlock.getProperty('door_hinge_bit') as BoolBlockProperty;
@@ -112,7 +113,8 @@ export class RegionBuffer {
                         const state = this.transformMapping(mappings.facingDirectionMap, facingDir.value, ...rotFlip);
                         facingDir.value = parseInt(state);
                     } else if (direction) {
-                        const state = this.transformMapping(mappings.directionMap, direction.value, ...rotFlip);
+                        const mapping = blockName.includes('powered_repeater') || blockName.includes('powered_comparator') ? mappings.redstoneMap : mappings.directionMap;
+                        const state = this.transformMapping(mapping, direction.value, ...rotFlip);
                         direction.value = parseInt(state);
                     } else if (groundSignDir) {
                         const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir.value, ...rotFlip);
@@ -239,6 +241,12 @@ const mappings = {
     topSlotMap: { // upside_down_bit
         false: new Vector(0, 1, 0),
         true : new Vector(0,-1, 0),
+    },
+    redstoneMap: {
+        0: new Vector( 0, 0,-1),
+        1: new Vector( 1, 0, 0),
+        2: new Vector( 0, 0, 1),
+        3: new Vector(-1, 0, 0)
     },
     directionMap: { // direction
         0: new Vector( 1, 0, 0),
