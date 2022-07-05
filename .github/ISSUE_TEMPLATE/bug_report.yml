@@ -2,7 +2,7 @@ name: Bug report
 description: Create a report on any bug you've experienced with the addon
 
 body:
-- type: checkbox
+- type: checkboxes
   attributes:
     label: Is there an existing issue for this?
     description: Please search to see if an issue already exists for the bug you encountered.
