@@ -1,0 +1,77 @@
+name: Bug report
+description: Create a report on any bug you've experienced with the addon
+
+<!--
+When reporting a bug, please do the following:
+1. Check the https://github.com/SIsilicon/WorldEdit-BE/issues to see if your bug was already reported. If not continue with the steps.
+2. In Minecraft, enable content log file and gui in `Settings > Creator`.
+3. Reproduce the bug and go to `Setting > Creator > Content Log History` and copy the logs, if any.
+4. Fill in every category below, especially those marked "REQUIRED". The one's that are optional, you may remove if you don't use them.
+5. Submit!
+-->
+
+body:
+- type: checkbox
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the bug you encountered.
+    options:
+    - label: I have searched the existing issues
+      required: true 
+
+- type: textarea
+  attributes:
+    label: Current behaviour
+    description: A concise description of what you're experiencing.
+  validation:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Expected behaviour
+    description: A concise description of what you expected to happen.
+  validation:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Steps to reproduce
+    description: What to do to consistently reproduce what you're experiencing.
+    placeholder: |
+      1. Go to '...'
+      2. Use '....'
+      3. Type '...'
+      4. See error
+  validation:
+    required: false
+
+- type: textarea
+  attributes:
+    label: Content logs
+    description: |
+      If applicable, paste content logs from Minecraft here.
+      You enable them at "Settings > Creator"; both file and gui.
+      You can copy them from "Settings > Creator > Content Log History".
+  validation:
+    required: false
+
+- type: textarea
+  attributes:
+    label: Minecraft version
+    description: The version of Minecraft you're running
+  validation:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Device and operating system
+    description: What device Minecraft was running on. In the case of a server, the device/service the server is running on.
+  validation:
+    required: false
+
+- type: textarea
+  attributes:
+    label: Additional info
+    description: Links, images, or other stuff that's relevant to the bug.
+  validation:
+    required: false
