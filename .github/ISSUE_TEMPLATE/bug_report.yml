@@ -49,7 +49,7 @@ body:
 - type: input
   attributes:
     label: Minecraft version
-    placeholder: eg: 1.19.2
+    placeholder: eg- 1.19.2
   validations:
     required: true
 
@@ -57,7 +57,7 @@ body:
   attributes:
     label: Device and operating system
     description: What device Minecraft was running on. In the case of a server, the device/service the server is running on.
-    placeholder: eg: Windows 11
+    placeholder: eg- Windows 11
   validations:
     required: false
 
