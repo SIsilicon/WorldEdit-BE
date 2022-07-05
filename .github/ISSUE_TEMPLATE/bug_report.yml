@@ -1,5 +1,6 @@
 name: Bug report
 description: Create a report on any bug you've experienced with the addon
+labels: bug
 
 body:
 - type: checkboxes
