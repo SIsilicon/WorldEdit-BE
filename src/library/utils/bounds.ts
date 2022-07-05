@@ -81,3 +81,26 @@ export function regionSize(start: BlockLocation, end: BlockLocation) {
         Math.abs(start.z - end.z) + 1
     );
 }
+
+/**
+ * Generates blocks that exist between `start` and `end`
+ * @param start 
+ * @param end 
+ */
+export function* regionIterateBlocks(start: BlockLocation, end: BlockLocation) {
+    const [min, max] = regionBounds([start, end]).map(block => Vector.from(block));
+    const size = regionSize(start, end);
+    const maxSize = 32;
+
+    for (let z = 0; z < size.z; z += maxSize)
+    for (let y = 0; y < size.y; y += maxSize)
+    for (let x = 0; x < size.x; x += maxSize) {
+        const subStart = min.add([x, y, z]).toBlock();
+        const subEnd = Vector.min(
+            new Vector(x, y, z).add(maxSize), size
+        ).add(min).sub(Vector.ONE).toBlock();
+
+        for (const block of subStart.blocksBetween(subEnd))
+            yield block;
+    }    
+}

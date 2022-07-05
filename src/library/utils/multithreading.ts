@@ -79,4 +79,14 @@ const listener = function() {
     }
 };
 
-export { Thread };
+let iterCount: number = 0;
+function iterateChunk() {
+    if (iterCount++ > 16) {
+        iterCount = 0;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export { Thread, iterateChunk };
