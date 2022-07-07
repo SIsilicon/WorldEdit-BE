@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-07-07 10:55\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java模組的開發中端口并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "清除你的歷史編輯記錄"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "已清除歷史編輯記錄"
+msgstr "History cleared."
 
 msgid "commands.wedit:contract.description"
 msgstr "收縮選擇區域"
@@ -758,7 +758,7 @@ msgid "commands.wedit:up.explain"
 msgstr "嗖！"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "從您的選擇中生成一堵牆"
 
 msgid "commands.wedit:wand.description"
 msgstr "給自己一個區域選擇工具"
@@ -767,7 +767,7 @@ msgid "commands.wedit:wand.explain"
 msgstr "潛行和點擊方塊：選擇位置 #1；不潛行和點擊方塊：選擇位置 #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "WorldEdit 指令"
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "取得WorldEdit 版本"
@@ -788,10 +788,10 @@ msgid "howtoplay.wedit:license"
 msgstr "授權"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "怎麼玩：WorldEdit 許可證"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
+msgstr "歡迎！ 這是 Minecraft: Java 版的原始 WorldEdit 模組的移植版。 這個插件將幫助你在 Minecraft 中塑造你的世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在任何東西之前..."
@@ -815,43 +815,43 @@ msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a提示:§r§a 如果你不想使用導航工具，這些動作也可透過命令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成§r。"
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Making Selections"
+msgstr "做出選擇"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by using the wand on a block at that corner while sneaking. You mark the second point by using it on a block §lwithout§r sneaking. If done correctly, you should see a highlight of your selection."
+msgstr "與原始 mod 一樣，您使用所謂的選擇棒輕鬆標記您的世界區域以進行各種操作。 要獲得一把，請拿起一把木斧，或輸入命令 §e;wand§r。 WorldEdit 中的選擇默認為長方體。 要進行選擇，您需要標記這個長方體的兩個角。 您可以在潛行時使用魔杖在該角落的塊上標記第一個角落。 您可以通過在§l沒有§r潛行的情況下在塊上使用它來標記第二點。 如果操作正確，您應該會看到您選擇的亮點。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
+msgstr "如果沒有方塊讓你標記一個角落，比如高空，你也可以使用命令 §e;pos1§r 或 §e;pos2§r 分別標記第一個和第二個角，作為你的位置 目前正在站立。這與您在站立§l上§r的位置不同。"
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Doing stuff with your selection"
+msgstr "用你的選擇做事"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
+msgstr "使用 §e;kit§r 進行適當大小的選擇並準備好您的套件。 我們將嘗試 WorldEdit 提供的一些功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. 放下石頭，在其上使用圖案採摘器，然後使用“填充選擇”。 應該製作一塊石頭。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. 在空中使用圖案採摘器(移動玩家必須握住屏幕)，然後再次使用“填充選擇”清除石頭。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. 將砂岩和玻璃放下，在砂岩上使用圖案採摘器，然後潛行在玻璃上使用並將其添加到圖案中。 使用“填充選擇”，您應該混合砂岩和玻璃。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. 取出庫存中的面具拾取器，然後在砂岩上使用它。 將您選擇的方塊設置為圖案，並使用“填充選擇”。 現在，應將所有砂岩替換為那個方塊。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. Repeat your selection upwards by typing the command §e;stack 4 up§r§7."
+msgstr "§75. 通過鍵入命令 §e;stack 4 up§r§7 向上重複您的選擇。"
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "If you want to you can undo everthing by using the undo item until you can't undo any further."
+msgstr "如果您願意，您可以使用撤消項撤消所有操作，直到您無法進一步撤消為止。"
 
 msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "用畫筆來遊玩"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. 拿一把任意類型的鏟子，把圓石放下； 你需要它來刷刷。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 使用「WorldEdit 設置」物品。 您的快捷欄中應該會出現一個菜單，其中包括「刷子設置」。 選擇物品，然後選擇要綁定的鏟子。 使它成為半徑為 3 的球刷和圓石圖案。 確認設置並退出菜單。"
