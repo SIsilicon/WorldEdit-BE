@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-07-08 02:10\n"
+"PO-Revision-Date: 2022-07-08 03:47\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке порт оригинального мода Java и многое другое! Создатель аддона SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -872,5 +872,5 @@ msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "Чтобы узнать больше об этом дополнении, вы можете перейти к его онлайн-документации здесь: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Майнкрафт"
+msgstr "Minecraft"
 
