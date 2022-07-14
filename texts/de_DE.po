@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-07-14 13:49\n"
+"PO-Revision-Date: 2022-07-14 14:58\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -434,10 +434,10 @@ msgid "commands.wedit:distr.description"
 msgstr "Die Anzahl der verschiedenen Blöcke in der Auswahl analysieren"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Flüssigkeiten in der Nähe absaugen"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Du musst dich in der Nähe von Wasser oder Lava befinden, um es abzusaugen."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Sichtbarkeit der Auswahl ein-/ausschalten"
@@ -464,19 +464,19 @@ msgid "commands.wedit:faces.description"
 msgstr "Eine Kontur aus Ihrer Auswahl generieren"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Einen Bereich mit bestimmten Blöcken füllen"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Rekursiv einen Bereich mit bestimmten Blöcken füllen"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Blöcke in der Nähe von fließendem Lava zu Quellblöcken machen"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Du musst nah an Lava sein, um es zu reparieren."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Blöcke in der Nähe von fließendem Wasser zu Quellblöcken machen"
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "Du musst nah an Wasser sein, um es zu reparieren."
@@ -656,7 +656,7 @@ msgid "commands.wedit:sel.extend"
 msgstr "Erweitern: Tippen Sie während des Schleichens für einen Startpunkt, tippen Sie ohne Schleichen um zu erweitern"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
+msgstr "Kugelselektor: Tippen Sie beim Schleichen auf den Mittelpunkt, tippen Sie ohne Schleichen auf den Radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
@@ -671,10 +671,10 @@ msgid "commands.wedit:size.description"
 msgstr "Größe eines Pinsels festlegen"
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "Schnee in der Region simulieren"
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "Schnee und Eis, das dem Himmel ausgesetzt ist, schmelzen"
 
 msgid "commands.wedit:stack.description"
 msgstr "Wiederholen Sie den Inhalt der aktuellen Auswahl"
