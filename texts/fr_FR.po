@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-07-17 04:18\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -392,16 +392,16 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Killed %s entities."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Effacer le presse-papiers"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Presse-papiers effacé."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Clear your editing history"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "Historique effacé."
 
 msgid "commands.wedit:contract.description"
 msgstr "Contract the selection area"
