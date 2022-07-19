@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-07-19 00:41\n"
+"PO-Revision-Date: 2022-07-19 01:45\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -263,10 +263,10 @@ msgid "worldedit.selection.sphere.primary"
 msgstr "Rayon défini à %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Rayon défini a %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Un objet doit être dans votre main principale."
 
 msgid "worldedit.tool.cantBind"
 msgstr "Vous ne pouvez pas vous lier à ce type d'élément."
@@ -278,13 +278,13 @@ msgid "worldedit.tool.noPerm"
 msgstr "Vous n'avez pas la permission d'utiliser cet élément."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "L'outil sur cet objet ne peut être supprimé ni remplacé."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eVous avez reçu les autorisations WorldEdit. Allez dans (Paramètres > Comment jouer > Démarrage rapide) pour un guide.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eVos permissions WorldEdit ont été supprimées.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocs ont été changés."
@@ -329,10 +329,10 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Exécutez §e%s§7 tout en tenant l'objet pour le délier.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Pinceau de type sphère équipé (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Pinceau de type cylindre équipé (%1 par %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "Smooth brush equipped (%1 x %2x)."
