@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-07-17 04:18\n"
+"PO-Revision-Date: 2022-07-19 00:41\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -89,7 +89,7 @@ msgid "item.wedit:navigation_button"
 msgstr "Baguette de navigation"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Outil d'empilage"
 
 msgid "item.wedit:one_button"
 msgstr "Un"
@@ -182,28 +182,28 @@ msgid "worldedit.config.selectHeight.brush"
 msgstr "Choisissez la hauteur du pinceau."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Choisir la douceur du pinceau."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Créer un motif et un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Créer un masque optionnel pour l'outil."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Créer un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Est-ce correct ?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Êtes-vous sûr de vouloir dissocier cet élément ?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Affecte : %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Créé : %s"
 
 msgid "worldedit.config.radius"
 msgstr "Taille : %s"
@@ -215,7 +215,7 @@ msgid "worldedit.config.smooth"
 msgstr "Lissage : %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Portée : %s"
 
 msgid "worldedit.config.set.brush"
 msgstr "Pinceau configuré."
@@ -236,7 +236,7 @@ msgid "worldedit.config.cancel.tool"
 msgstr "Configuration de l'outil annulée."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Élément dissocié."
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La première sélection n'a pas encore été faite."
@@ -248,19 +248,19 @@ msgid "worldedit.selection.cuboid.primaryArea"
 msgstr "Première position définie sur %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Deuxième position définie à %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Deuxième position définie à %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Sélection débutée à %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Sélection étendue pour englober %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Rayon défini à %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius set to %1 (~%2)."
