@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-07-12 15:34\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -44,52 +44,52 @@ msgid "item.wedit:pattern_picker"
 msgstr "Pemilih Pola"
 
 msgid "item.wedit:mask_picker"
-msgstr "Mask Picker"
+msgstr "Pemetik Topeng"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Spawn Glass Block"
+msgstr "Munculkan Blok Kaca"
 
 msgid "item.wedit:selection_fill"
-msgstr "Fill Selection"
+msgstr "Isi Pilihan"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Pemilihan Tembok"
 
 msgid "item.wedit:selection_outline"
-msgstr "Outline Selection"
+msgstr "Pemilihan Tepian"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Gambar Garis"
 
 msgid "item.wedit:config_button"
 msgstr "Pengaturan WorldEdit"
 
 msgid "item.wedit:brush_config_button"
-msgstr "Brush Settings"
+msgstr "Pengaturan Kuas"
 
 msgid "item.wedit:tool_config_button"
-msgstr "Tool Settings"
+msgstr "Pengaturan Alat"
 
 msgid "item.wedit:sphere_button"
-msgstr "Sphere Brush"
+msgstr "Kuas Bola"
 
 msgid "item.wedit:cylinder_button"
-msgstr "Cylinder Brush"
+msgstr "Kuas Silinder"
 
 msgid "item.wedit:smooth_button"
-msgstr "Smooth Brush"
+msgstr "Kuas Lembut"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Pilihan Tongkat "
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Tongkat Pilihan Jauh"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Tongkat Navigasi"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Alat Penumpuk"
 
 msgid "item.wedit:one_button"
 msgstr "Satu"
@@ -116,28 +116,28 @@ msgid "item.wedit:cancel_button"
 msgstr "Kembali"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Sebelumnya"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Selanjutnya"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Hapus"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Buat Alat Baru"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Mengandung Entitas di Papan Klip: §aDiaktifkan§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Mengandung Entitas di Papan Klip: §4Dinonaktifkan§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Mengandung Udara di Papan Klip: §aDiaktifkan§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Mengandung Udara di Papan Klip: §4Dinonaktifkan§r"
 
 msgid "item.wedit:blank"
 msgstr " "
@@ -146,85 +146,85 @@ msgid "worldedit.spawnGlass.error"
 msgstr "Tidak bisa menaruh blok disini."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Kamu perlu menentukan blok untuk menyetel pilihan!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "Ditambahkan blok ke pola: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Atur pola ke blok: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "Ditambahkan blok ke mask: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Atur mask ke blok: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Pilih item untuk menyetel."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Pegang item untuk diikat."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Pilih kuas untuk membuat."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Pilih alat untuk membuat."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Pilih jangkauan dari alat."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Pilih ukuran kuas."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Pilih ketinggian kuas."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Pilih kehalusan kuasnya."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Buat pola dan mask opsional untuk kuasnya."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Buat mask opsional untuk alatnya."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Buat mask opsional untuk kuasnya."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Apakah ini Oke?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Apakah kamu yakin untuk mengikat item ini?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Mempengaruhi: %s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Menciptakan: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Ukuran: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Tinggi: %s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Kehalusan: %s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Jangkauan: %s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Kuas dikonfigurasi."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Kuas dikonfigurasi dan ditambahkan ke inventorimu."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Konfigurasi kuas dibatalkan."
 
 msgid "worldedit.config.set.tool"
 msgstr "Tool configured."
@@ -377,79 +377,79 @@ msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Maksimum radius kuas yang diperbolehkan: %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Kuas ini tidak membutuhkan material untuk bekerja."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Kuas tidak terikat dari item Anda saat ini."
 
 msgid "commands.wedit:butcher.description"
-msgstr "Kill nearby entities."
+msgstr "Bunuh entitas disekitar."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "Membunuh %s entitas."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Bersihkan papan klipmu"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Papan klip dibersikan."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Bersihkan riwayat pengeditanmu"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "Riwayat dibersihkan."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Kontrak area seleksi"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "Wilayah dikontrak %s blok."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Salin pilihan saat ini ke papan klip"
 
 msgid "commands.wedit:copy.explain"
-msgstr "Copied %s blocks."
+msgstr "%s blok disalin."
 
 msgid "commands.wedit:count.description"
-msgstr "Count the number of blocks that match a mask"
+msgstr "Hitung berapa banyak blok yang cocok dengan mask"
 
 msgid "commands.wedit:count.explain"
-msgstr "Found %s blocks."
+msgstr "%s blok ditemukan."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Hapus pilihanmu saat ini dan letakkan di papan klip"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "Potong %s blok."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Hasilkan silinder"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Analisis jumlah dari blok yang berbeda dalam pemilihan"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Kuras cairan di dekatnya"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Kamu perlu mendekat ke air atau lava untuk menguras."
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Alihkan visibilitas pilihanmu"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Seleksimu tidak akan lagi muncul."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Seleksimu sekarang akan muncul."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Perluas area pilihan"
 
 msgid "commands.wedit:expand.description.vert"
 msgstr "Vertically expand your selection to world height limits"
