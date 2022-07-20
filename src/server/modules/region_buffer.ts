@@ -96,6 +96,8 @@ export class RegionBuffer {
                     const topSlotBit = newBlock.getProperty('top_slot_bit') as BoolBlockProperty;
                     const upsideDownBit = newBlock.getProperty('upside_down_bit') as BoolBlockProperty;
                     const weirdoDir = newBlock.getProperty('weirdo_direction') as IntBlockProperty;
+                    const torchFacingDir = newBlock.getProperty('torch_facing_direction') as StringBlockProperty;
+                    const leverDir = newBlock.getProperty('lever_direction') as StringBlockProperty;
 
                     if (upsideDownBit && openBit && direction) {
                         const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit.value}_${openBit.value}_${direction.value}`, ...rotFlip) as string).split('_');
@@ -119,6 +121,12 @@ export class RegionBuffer {
                     } else if (groundSignDir) {
                         const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir.value, ...rotFlip);
                         groundSignDir.value = parseInt(state);
+                    } else if (torchFacingDir) {
+                        const state = this.transformMapping(mappings.torchMap, torchFacingDir.value, ...rotFlip);
+                        torchFacingDir.value = state;
+                    } else if (leverDir) {
+                        const state = this.transformMapping(mappings.leverMap, leverDir.value, ...rotFlip);
+                        leverDir.value = state.replace('0', '');
                     } else if (pillarAxis) {
                         const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis.value + '_0', ...rotFlip);
                         pillarAxis.value = state[0];
@@ -297,6 +305,27 @@ const mappings = {
         true_1 : new Vector( 1,-1, 0),
         true_2 : new Vector( 0,-1,-1),
         true_3 : new Vector( 0,-1, 1)
+    },
+    torchMap: { // torch_facing_direction
+        north: new Vector( 0, 0, 1),
+        east : new Vector(-1, 0, 0),
+        south: new Vector( 0, 0,-1),
+        west : new Vector( 1, 0, 0),
+        top  : new Vector( 0, 1, 0)
+    },
+    leverMap: { // lever_direction
+        north            : new Vector(  0,  0,  1),
+        east             : new Vector( -1,  0,  0),
+        south            : new Vector(  0,  0, -1),
+        west             : new Vector(  1,  0,  0),
+        up_north_south   : new Vector(  0,  1, .5),
+        up_north_south0  : new Vector(  0,  1,-.5),
+        up_east_west     : new Vector( .5,  1,  0),
+        up_east_west0    : new Vector(-.5,  1,  0),
+        down_north_south : new Vector(  0, -1, .5),
+        down_north_south0: new Vector(  0, -1,-.5),
+        down_east_west   : new Vector( .5, -1,  0),
+        down_east_west0  : new Vector(-.5, -1,  0),
     },
     doorMap: { // door_hinge_bit - direction
         false_0: new Vector( 1, 0, 0.5),
