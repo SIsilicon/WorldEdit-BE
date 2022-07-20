@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-07-08 03:47\n"
+"PO-Revision-Date: 2022-07-20 00:50\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке на пародию оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
+msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -263,7 +263,7 @@ msgid "worldedit.selection.sphere.primary"
 msgstr "Радиус установлен на %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Установлен радиус %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "Предмет должен находиться в руке."
@@ -389,7 +389,7 @@ msgid "commands.wedit:butcher.description"
 msgstr "Убить ближайшие объекты."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "Убито %s сущностей."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
@@ -434,7 +434,7 @@ msgid "commands.wedit:distr.description"
 msgstr "Анализ количества различных блоков в выборке"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Высушить ближайшие жидкости"
 
 msgid "commands.wedit:drain.noFluid"
 msgstr "Вам нужно быть рядом с водой или лавой, чтобы высыхать."
@@ -476,7 +476,7 @@ msgid "commands.wedit:fixlava.noLava"
 msgstr "Вам нужно быть рядом с лавой для исправления проблемы."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Превратить ближайшие потоки воды в цельный блоки воды"
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "Вам нужно быть рядом с водой или лавой, чтобы высыхать."
@@ -491,7 +491,7 @@ msgid "commands.wedit:flip.notLateral"
 msgstr "Невозможно перевернуть верх или вниз!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "Сгенерировать любую фигуру в выделенной области"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Поставьте глобальную маску"
@@ -614,7 +614,7 @@ msgid "commands.wedit:replace.description"
 msgstr "Заменить определенные блоки в выделении другими блоками"
 
 msgid "commands.wedit:removeabove.description"
-msgstr "Remove blocks above you"
+msgstr "Удалить блоки над вами"
 
 msgid "commands.wedit:removebelow.description"
 msgstr "Удалить блоки под вами"
