@@ -12,3 +12,5 @@ BP/scripts/*
 *.stfolder
 */texts/*
 !*/texts/AUTO_GENERATED
+RP/manifest.json
+BP/manifest.json
