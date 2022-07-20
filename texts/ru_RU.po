@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-07-20 00:50\n"
+"PO-Revision-Date: 2022-07-20 01:56\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -524,13 +524,13 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Вставить область выделения"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "Вставка региона."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Вжух!"
@@ -578,7 +578,7 @@ msgid "commands.wedit:navwand.explain"
 msgstr "Присесть и использовать предмет: проходить сквозь стены; Используйте вещь без кнопки присесть: телепортироваться на блок"
 
 msgid "commands.wedit:outset.description"
-msgstr "Outset the selection area"
+msgstr "Открыть область выделения"
 
 msgid "commands.wedit:outset.explain"
 msgstr "Начало региона."
