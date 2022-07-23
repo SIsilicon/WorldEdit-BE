@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-07-23 23:43\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -161,22 +161,22 @@ msgid "worldedit.maskPicker.set"
 msgstr "Definir máscara para bloco: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Escolha um item para configurar."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Segure um item para liga-lo á"
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Escolha um tipo de pincel para fazer"
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Escolha um tipo de ferramenta para fazer "
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Escolha o alcance da ferramenta "
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Escolha o tamanho do pincel"
 
 msgid "worldedit.config.selectHeight.brush"
 msgstr "Choose the height of the brush."
@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "Limpa seu histórico de edição"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "Histórico limpo."
+msgstr "History cleared."
 
 msgid "commands.wedit:contract.description"
 msgstr "Contract the selection area"
