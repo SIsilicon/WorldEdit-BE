@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-07-27 17:34\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -80,28 +80,28 @@ msgid "item.wedit:smooth_button"
 msgstr "Пензель згладжування"
 
 msgid "item.wedit:selection_button"
-msgstr "Selection Wand"
+msgstr "Вибіркова паличка"
 
 msgid "item.wedit:far_selection_button"
-msgstr "Far Selection Wand"
+msgstr "Паличка далекого вибору"
 
 msgid "item.wedit:navigation_button"
-msgstr "Navigation Wand"
+msgstr "Навігаційна паличка"
 
 msgid "item.wedit:stacker_button"
-msgstr "Stacker Tool"
+msgstr "Інструмент укладальник"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Один"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Два"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Три"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Чотири"
 
 msgid "item.wedit:five_button"
 msgstr "Five"
