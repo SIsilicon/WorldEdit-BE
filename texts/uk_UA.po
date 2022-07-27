@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-07-27 17:34\n"
+"PO-Revision-Date: 2022-07-27 18:57\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -104,184 +104,184 @@ msgid "item.wedit:four_button"
 msgstr "Чотири"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "П'ять"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Шість"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Добре"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Назад"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Попередній"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Наступне"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Видалити"
 
 msgid "item.wedit:new_brush_button"
-msgstr "Create New Tool"
+msgstr "Створити новий інструмент"
 
 msgid "item.wedit:inc_entities_on_button"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Включити сутності в буфер обміну: §aУвімкнено§r"
 
 msgid "item.wedit:inc_entities_off_button"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Включити сутності в буфер обміну: §4Disabled§r"
 
 msgid "item.wedit:inc_air_on_button"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Включити повітря в буфер обміну: §aEnabled§r"
 
 msgid "item.wedit:inc_air_off_button"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Включити повітря в буфер обміну: §4Disabled§r"
 
 msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Не можна розмістити тут блок."
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "You need to specify a block to set the selection to!"
+msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Added block to pattern: "
+msgstr "До шаблону додано блок: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Встановити шаблон для блокування: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Added block to mask: "
+msgstr "До шаблону додано блок: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Встановити шаблон для блокування: "
 
 msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
+msgstr "Виберіть елемент для налаштування."
 
 msgid "worldedit.config.chooseItem"
-msgstr "Hold an item to bind to."
+msgstr "Утримуйте предмет для прив’язки."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Choose what kind of brush to make."
+msgstr "Виберіть, яку кисть зробити."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Choose what kind of tool to make."
+msgstr "Виберіть, який інструмент виготовити."
 
 msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
+msgstr "Виберіть діапазон інструменту."
 
 msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
+msgstr "Виберіть розмір кисті."
 
 msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
+msgstr "Виберіть висоту кисті."
 
 msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
+msgstr "Виберіть гладкість кисті."
 
 msgid "worldedit.config.paternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Зробіть візерунок і за бажанням маску для пензля."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "Зробіть необов’язкову маску для засобу."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Зробіть додаткову маску для кисті."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Чи це добре?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Ви впевнені, що бажаєте відв’язати цей елемент?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Впливає:%s"
 
 msgid "worldedit.config.creates"
-msgstr "Creates: %s"
+msgstr "Створює: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Розмір: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Височина:%s"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Гладкість:%s"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
+msgstr "Діапазон:%s"
 
 msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
+msgstr "Кисть налаштована."
 
 msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
+msgstr "Кисть налаштовано та додано до вашого інвентарю."
 
 msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
+msgstr "Налаштування пензля скасовано."
 
 msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
+msgstr "Кисть налаштована."
 
 msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
+msgstr "Інструмент налаштовано та додано до вашого інвентарю."
 
 msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
+msgstr "Налаштування інструменту скасовано."
 
 msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Елемент від'єднано."
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "Перший вибір ще не зроблено."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Перша позиція встановлена ​​на%s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Перша позиція встановлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Друга позиція встановлена ​​на%s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Друга позиція встановлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Вибір розпочато на %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Розширений вибір для охоплення %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Радіус встановлено на %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Радіус встановлено на %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "У головній руці має бути предмет."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Ви не можете прив'язатись до такого типу предмета."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Цей елемент не пов'язаний з жодним інструментом."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "У вас немає дозволу виконувати цю дію."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Інструмент для цього елемента не може бути видалений або замінений."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eYou були надані WorldEdit дозволи.Перейдіть до (Налаштування > Як грати > Швидкий старт), щоб отримати посібник.§r"
 
 msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
