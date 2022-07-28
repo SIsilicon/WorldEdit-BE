@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-07-28 13:25\n"
+"PO-Revision-Date: 2022-07-28 14:48\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -668,37 +668,37 @@ msgid "commands.wedit:shift.explain"
 msgstr "Регіон змістився."
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Встановити розмір пензля"
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "Імітація снігу на області"
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "Розтопити сніг і лід, виставлені на небо"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Повторити вміст поточного виділення"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "Створено %s блоків зі стопки."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Згладжування поверхні в межах виділення"
 
 msgid "commands.wedit:sphere.description"
-msgstr "Generate a sphere"
+msgstr "Згенерувати сферу"
 
 msgid "commands.wedit:thru.description"
-msgstr "Teleport through any wall you look at"
+msgstr "Телепортуйтеся через будь-яку стіну, на яку ви дивитеся"
 
 msgid "commands.wedit:thru.explain"
-msgstr "Whoosh!"
+msgstr "Ух!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "Не навпроти у стіну або обличчям до неї, щоб пройти."
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "Перед вами не знайдено вільного місця."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Встановіть тип блоків, на яких можна використовувати пензель"
