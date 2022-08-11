@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-08-11 02:24\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -401,7 +401,7 @@ msgid "commands.wedit:clearhistory.description"
 msgstr "清除您的编辑记录"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "历史记录已被清空。"
+msgstr "History cleared."
 
 msgid "commands.wedit:contract.description"
 msgstr "收缩选区。"
