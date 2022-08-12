@@ -37,12 +37,15 @@ jobs:
         with:
           python-version: '3.x'
       
-      - name: Install tsc
-        run: npm install -g typescript
+      - name: Install tsc and eslint
+        run: npm install -g typescript eslint
       
       - name: Install polib
         run: pip install polib
-      
+
+      - name: Test eslint
+        run: eslint "./src/**"
+
       - name: Run build script (${{ matrix.target }})
         run: python build.py --clean --target ${{ matrix.target }}
       
