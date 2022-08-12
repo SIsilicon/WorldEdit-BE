@@ -1,4 +1,4 @@
-import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";

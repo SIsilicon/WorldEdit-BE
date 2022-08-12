@@ -1,6 +1,6 @@
 import { registerCommand } from "../register_commands.js";
 import { ExpressionShape } from "../../shapes/expression.js";
-import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText, Vector, regionSize } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
