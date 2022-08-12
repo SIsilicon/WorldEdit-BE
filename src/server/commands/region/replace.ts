@@ -1,6 +1,6 @@
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
-import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertSelection } from "@modules/assert.js";
 import { RawText } from "@notbeer-api";
 
 const registerInformation = {

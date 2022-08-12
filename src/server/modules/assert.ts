@@ -1,4 +1,4 @@
-import { Player, BlockLocation, Dimension } from "mojang-minecraft";
+import { Player, BlockLocation } from "mojang-minecraft";
 import { Server, Vector, RawText } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { canPlaceBlock } from "../util.js";
