@@ -38,7 +38,7 @@ jobs:
           python-version: '3.x'
       
       - name: Install tsc and eslint
-        run: npm install -g typescript eslint
+        run: npm install -g typescript eslint @typescript-eslint/eslint-plugin@latest
       
       - name: Install polib
         run: pip install polib
