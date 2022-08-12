@@ -1,6 +1,6 @@
-import { BlockLocation, Dimension, Location, Player } from 'mojang-minecraft';
-import { PRINT_TO_ACTION_BAR } from '../config.js';
-import { Server, RawText } from '@notbeer-api';
+import { BlockLocation, Dimension, Location, Player } from "mojang-minecraft";
+import { PRINT_TO_ACTION_BAR } from "../config.js";
+import { Server, RawText } from "@notbeer-api";
 
 /**
  * Sends a message to a player through either chat or the action bar.
@@ -9,16 +9,16 @@ import { Server, RawText } from '@notbeer-api';
  * @param toActionBar If true the message goes to the player's action bar; otherwise it goes to chat
  */
 export function print(msg: string | RawText, player: Player, toActionBar = false) {
-    if (typeof msg == 'string') {
-        msg = <RawText> RawText.translate(msg);
-    }
-    let command: string;
-    if (toActionBar && PRINT_TO_ACTION_BAR) {
-        command = `titleraw @s actionbar ${msg.toString()}`;
-    } else {
-        command = `tellraw @s ${msg.toString()}`;
-    }
-    Server.runCommand(command, player);
+  if (typeof msg == "string") {
+    msg = <RawText> RawText.translate(msg);
+  }
+  let command: string;
+  if (toActionBar && PRINT_TO_ACTION_BAR) {
+    command = `titleraw @s actionbar ${msg.toString()}`;
+  } else {
+    command = `tellraw @s ${msg.toString()}`;
+  }
+  Server.runCommand(command, player);
 }
 
 /**
@@ -26,17 +26,17 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
  * @see {print}
  */
 export function printerr(msg: string | RawText, player: Player, toActionBar = false) {
-    if (!(msg instanceof RawText)) {
-        msg = <RawText> RawText.translate(msg);
-    }
-    print(msg.prepend('text', '§c'), player, toActionBar);
+  if (!(msg instanceof RawText)) {
+    msg = <RawText> RawText.translate(msg);
+  }
+  print(msg.prepend("text", "§c"), player, toActionBar);
 }
 
 const worldY = new Map<string, [number, number]>([
-    ['minecraft:overworld', [-64, 319]],
-    ['minecraft:nether', [0, 127]],
-    ['minecraft:the_end', [0, 255]],
-    ['', [0, 0]]
+  ["minecraft:overworld", [-64, 319]],
+  ["minecraft:nether", [0, 127]],
+  ["minecraft:the_end", [0, 255]],
+  ["", [0, 0]]
 ]);
 
 /**
@@ -45,7 +45,7 @@ const worldY = new Map<string, [number, number]>([
  * @return The minimum Y level of the dimension the player is in
  */
 export function getWorldMinY(player: Player) {
-    return worldY.get(player.dimension.id)[0];
+  return worldY.get(player.dimension.id)[0];
 }
 
 /**
@@ -54,7 +54,7 @@ export function getWorldMinY(player: Player) {
  * @return The maximum Y level of the dimension the player is in
  */
 export function getWorldMaxY(player: Player) {
-    return worldY.get(player.dimension.id)[1];
+  return worldY.get(player.dimension.id)[1];
 }
 
 /**
@@ -64,13 +64,13 @@ export function getWorldMaxY(player: Player) {
  * @return Whether a block can be placed
  */
 export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
-    const locString = printLocation(loc, false);
-    let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
-    if (!error) {
-        error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
-        Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
-    }
-    return !error;
+  const locString = printLocation(loc, false);
+  let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
+  if (!error) {
+    error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
+    Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+  }
+  return !error;
 }
 
 /**
@@ -80,23 +80,23 @@ export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
  * @return A string representation of the location
  */
 export function printLocation(loc: BlockLocation | Location, pretty = true) {
-    if (pretty)
-        return `(${loc.x}, ${loc.y}, ${loc.z})`;
-    else
-        return `${loc.x} ${loc.y} ${loc.z}`;
+  if (pretty)
+    return `(${loc.x}, ${loc.y}, ${loc.z})`;
+  else
+    return `${loc.x} ${loc.y} ${loc.z}`;
 }
 
 /**
  * Converts loc to a string
  */
 export function locToString(loc: BlockLocation) {
-    return `${loc.x}_${loc.y}_${loc.z}`;
+  return `${loc.x}_${loc.y}_${loc.z}`;
 }
 
 /**
  * Converts string to a BlockLocation
  */
 export function stringToLoc(loc: string) {
-    return new BlockLocation(...loc.split('_').map(str => Number.parseInt(str)) as [number, number, number])
+  return new BlockLocation(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
 }
 

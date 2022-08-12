@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Thread } from "@notbeer-api";
-import { BeforeChatEvent, Player, Location } from "mojang-minecraft";
+import { BeforeChatEvent } from "mojang-minecraft";
 
 export type range = [number | null, number | null];
 
@@ -23,8 +24,8 @@ export interface commandSubDef {
 
 export type commandArgList = Array<commandArg | commandFlag | commandSubDef>;
 
-export interface argParseResult {
-    result: any,
+export interface argParseResult<T> {
+    result: T,
     argIndex: number
 }
 
@@ -44,5 +45,5 @@ export interface registerInformation {
     aliases?: Array<string>
 }
 export interface storedRegisterInformation extends registerInformation {
-    callback: (data: BeforeChatEvent, args: Map<string, any>) => Thread
+    callback: (data: BeforeChatEvent, args: Map<string, any>) => Thread<any[]>
 }

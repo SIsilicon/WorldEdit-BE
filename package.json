@@ -1,0 +1,17 @@
+{
+    "name": "worldedit",
+    "author": {
+        "name": "SIsilicon",
+        "email": "sisilicon28@gmail.com",
+        "url": "https://twitter.com/IsiliconS"
+    },
+    "bugs": {
+        "url": "https://github.com/SIsilicon/WorldEdit-BE/issues"
+    },
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.33.0",
+        "@typescript-eslint/parser": "^5.33.0",
+        "eslint": "^8.21.0"
+    }
+}
