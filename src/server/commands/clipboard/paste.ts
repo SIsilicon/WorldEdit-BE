@@ -1,6 +1,8 @@
 import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
+import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
+import { BlockLocation } from "mojang-minecraft";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -18,7 +20,7 @@ const registerInformation = {
   ]
 };
 
-registerCommand(registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
   assertClipboard(session);
 
   const setSelection = args.has("s") || args.has("n");
@@ -30,7 +32,7 @@ registerCommand(registerInformation, function (session, builder, args) {
   const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
   const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
-  let pasteStart: Vector;
+  let pasteStart: Vector | BlockLocation;
   if (pasteOriginal) {
     pasteStart = session.clipboardTransform.originalLoc;
   } else {
@@ -38,25 +40,29 @@ registerCommand(registerInformation, function (session, builder, args) {
     pasteStart = Vector.add(loc, session.clipboardTransform.relative);
   }
   pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
-  const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE));
+  const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).toBlock();
+  pasteStart = pasteStart.toBlock();
 
   const history = session.getHistory();
   const record = history.record();
+  const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
   try {
     if (pasteContent) {
-      assertCanBuildWithin(builder.dimension, pasteStart.toBlock(), pasteEnd.toBlock());
+      assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
+      history.addUndoStructure(record, pasteStart, pasteEnd, "any");
 
-      history.addUndoStructure(record, pasteStart.toBlock(), pasteEnd.toBlock(), "any");
-      if (session.clipboard.load(pasteStart.toBlock(), builder.dimension, session.clipboardTransform)) {
+      Jobs.nextStep(job, "Pasting blocks...");
+      if (yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, session.clipboardTransform))) {
         throw RawText.translate("commands.generic.wedit:commandFail");
       }
-      history.addRedoStructure(record, pasteStart.toBlock(), pasteEnd.toBlock(), "any");
+
+      history.addRedoStructure(record, pasteStart, pasteEnd, "any");
     }
 
     if (setSelection) {
       session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
-      session.selection.set(0, pasteStart.toBlock());
-      session.selection.set(1, pasteEnd.toBlock());
+      session.selection.set(0, pasteStart);
+      session.selection.set(1, pasteEnd);
       history.recordSelection(record, session);
     }
 
@@ -64,6 +70,8 @@ registerCommand(registerInformation, function (session, builder, args) {
   } catch (e) {
     history.cancel(record);
     throw e;
+  } finally {
+    Jobs.finishJob(job);
   }
 
   if (pasteContent) {

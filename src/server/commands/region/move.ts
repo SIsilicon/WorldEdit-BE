@@ -4,7 +4,8 @@ import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { RawText, regionBounds } from "@notbeer-api";
+import { Jobs } from "@modules/jobs.js";
 
 const registerInformation = {
   name: "move",
@@ -39,14 +40,18 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const history = session.getHistory();
   const record = history.record();
   const temp = session.createRegion(false);
+  const job = Jobs.startJob(session, 3, regionBounds([start, end, movedStart, movedEnd]));
   let count: number;
   try {
     history.addUndoStructure(record, start, end, "any");
     history.addUndoStructure(record, movedStart, movedEnd, "any");
 
-    temp.save(start, end, dim);
-    count = yield* set(session, new Pattern("air"));
-    temp.load(movedStart, dim);
+    Jobs.nextStep(job, "Copying blocks...");
+    yield* Jobs.perform(job, temp.saveProgressive(start, end, dim), false);
+    Jobs.nextStep(job, "Removing blocks...");
+    count = yield* Jobs.perform(job, set(session, new Pattern("air")), false);
+    Jobs.nextStep(job, "Pasting blocks...");
+    yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);
     count += temp.getBlockCount();
 
     history.addRedoStructure(record, start, end, "any");
@@ -57,6 +62,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     throw e;
   } finally {
     session.deleteRegion(temp);
+    Jobs.finishJob(job);
   }
 
   return RawText.translate("commands.wedit:move.explain").with(count);

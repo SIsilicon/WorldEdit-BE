@@ -1,6 +1,7 @@
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
-import { RawText, regionSize, regionVolume } from "@notbeer-api";
+import { Jobs } from "@modules/jobs.js";
+import { RawText, regionBounds, regionSize, regionVolume } from "@notbeer-api";
 import { BlockLocation } from "mojang-minecraft";
 import { registerCommand } from "../register_commands.js";
 
@@ -22,7 +23,7 @@ const registerInformation = {
   ]
 };
 
-registerCommand(registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
   assertCuboidSelection(session);
   const amount = args.get("count");
   const [start, end] = session.selection.getRange();
@@ -35,21 +36,27 @@ registerCommand(registerInformation, function (session, builder, args) {
   let count = 0;
 
   const loads: [BlockLocation, BlockLocation][] = [];
+  const points: BlockLocation[] = [];
   for (let i = 0; i < amount; i++) {
-    assertCanBuildWithin(builder.dimension, loadStart, loadEnd);
     loads.push([loadStart, loadEnd]);
+    points.push(loadStart, loadEnd);
     loadStart = loadStart.offset(dir.x, dir.y, dir.z);
     loadEnd = loadEnd.offset(dir.x, dir.y, dir.z);
   }
+  const stackRegion = regionBounds(points);
+  assertCanBuildWithin(builder.dimension, stackRegion[0], stackRegion[1]);
 
   const history = session.getHistory();
   const record = history.record();
   const tempStack = session.createRegion(false);
+  const job = Jobs.startJob(session, loads.length + 1, stackRegion);
   try {
-    tempStack.save(start, end, dim);
+    Jobs.nextStep(job, "Copying blocks...");
+    yield* Jobs.perform(job, tempStack.saveProgressive(start, end, dim), false);
     for (const load of loads) {
+      Jobs.nextStep(job, "Pasting blocks...");
       history.addUndoStructure(record, load[0], load[1], "any");
-      tempStack.load(load[0], dim);
+      yield* Jobs.perform(job, tempStack.loadProgressive(load[0], dim), false);
       history.addRedoStructure(record, load[0], load[1], "any");
       count += regionVolume(load[0], load[1]);
     }
@@ -59,6 +66,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     throw e;
   } finally {
     session.deleteRegion(tempStack);
+    Jobs.finishJob(job);
   }
 
   return RawText.translate("commands.wedit:stack.explain").with(count);

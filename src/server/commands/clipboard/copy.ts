@@ -76,8 +76,10 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
         if (includeAir && mask && !wasAir && isAir) {
           options.loc = block;
           session.clipboard.setBlock(relLoc, airBlock, options);
+          i++;
           continue;
         } else if (!includeAir && isAir) {
+          i++;
           continue;
         }
       }
