@@ -10,14 +10,20 @@ function assertPermission(player: Player, perm: string) {
   }
 }
 
-function assertCanBuildWithin(dim: Dimension, min: BlockLocation, max: BlockLocation) {
+const sawOutsideWorldErr: Player[] = [];
+function assertCanBuildWithin(player: Player, min: BlockLocation, max: BlockLocation) {
   const minChunk = Vector.from(min).mul(1/16).floor().mul(16);
   const maxChunk = Vector.from(max).mul(1/16).ceil().mul(16);
 
   for (let z = minChunk.z; z < maxChunk.z; z += 16)
     for (let x = minChunk.x; x < maxChunk.x; x += 16) {
-      if (!canPlaceBlock(new BlockLocation(x, 0, z), dim)) {
-        throw RawText.translate("commands.generic.wedit:outsideWorld");
+      if (!canPlaceBlock(new BlockLocation(x, 0, z), player.dimension)) {
+        if (sawOutsideWorldErr.includes(player)) {
+          throw RawText.translate("commands.generic.wedit:outsideWorld");
+        } else {
+          sawOutsideWorldErr.push(player);
+          throw RawText.translate("commands.generic.wedit:outsideWorld.detail").with("\n");
+        }
       }
     }
 }

@@ -37,7 +37,7 @@ export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, reco
 
 registerCommand(registerInformation, function* (session, builder, args) {
   assertSelection(session);
-  assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+  assertCanBuildWithin(builder, ...session.selection.getRange());
   if (args.get("_using_item") && session.globalPattern.empty()) {
     throw RawText.translate("worldEdit.selectionFill.noPattern");
   }

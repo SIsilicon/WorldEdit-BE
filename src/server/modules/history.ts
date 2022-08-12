@@ -154,11 +154,12 @@ export class History {
       return true;
     }
 
-    const dim = this.session.getPlayer().dimension;
+    const player = this.session.getPlayer();
+    const dim = player.dimension;
     for (const region of this.undoStructures[this.historyIdx]) {
       const pos = region.location;
       const size = Server.structure.getSize(region.name);
-      assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
     }
 
     for (const region of this.undoStructures[this.historyIdx]) {
@@ -188,11 +189,12 @@ export class History {
       return true;
     }
 
-    const dim = this.session.getPlayer().dimension;
+    const player = this.session.getPlayer();
+    const dim = player.dimension;
     for (const region of this.redoStructures[this.historyIdx + 1]) {
       const pos = region.location;
       const size = Server.structure.getSize(region.name);
-      assertCanBuildWithin(dim, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
     }
 
     this.historyIdx++;

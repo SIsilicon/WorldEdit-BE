@@ -34,8 +34,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const movedStart = start.offset(dir.x, dir.y, dir.z);
   const movedEnd = end.offset(dir.x, dir.y, dir.z);
 
-  assertCanBuildWithin(dim, start, end);
-  assertCanBuildWithin(dim, movedStart, movedEnd);
+  assertCanBuildWithin(builder, start, end);
+  assertCanBuildWithin(builder, movedStart, movedEnd);
 
   const history = session.getHistory();
   const record = history.record();

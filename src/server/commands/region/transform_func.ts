@@ -17,7 +17,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
   try {
     const [start, end] = session.selection.getRange();
     const dim = builder.dimension;
-    assertCanBuildWithin(dim, start, end);
+    assertCanBuildWithin(builder, start, end);
 
     const center = Vector.from(start).add(end).mul(0.5);
     const origin = args.has("o") ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
@@ -32,7 +32,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
     history.addUndoStructure(record, start, end, "any");
     history.addUndoStructure(record, newStart, newEnd, "any");
 
-    assertCanBuildWithin(dim, newStart, newEnd);
+    assertCanBuildWithin(builder, newStart, newEnd);
 
     yield* set(session, new Pattern("air"), null, false);
     yield "Transforming blocks...";

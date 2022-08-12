@@ -33,7 +33,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   assertCuboidSelection(session);
   const dim = builder.dimension;
   const [start, end] = session.selection.getRange();
-  assertCanBuildWithin(dim, start, end);
+  assertCanBuildWithin(builder, start, end);
 
   const history = session.getHistory();
   const record = history.record();

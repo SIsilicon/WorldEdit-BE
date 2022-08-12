@@ -25,7 +25,6 @@ const registerInformation = {
 
 registerCommand(registerInformation, function* (session, builder, args) {
   assertCuboidSelection(session);
-  assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
 
   const [start, end] = session.selection.points;
 

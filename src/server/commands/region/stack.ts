@@ -44,7 +44,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     loadEnd = loadEnd.offset(dir.x, dir.y, dir.z);
   }
   const stackRegion = regionBounds(points);
-  assertCanBuildWithin(builder.dimension, stackRegion[0], stackRegion[1]);
+  assertCanBuildWithin(builder, stackRegion[0], stackRegion[1]);
 
   const history = session.getHistory();
   const record = history.record();

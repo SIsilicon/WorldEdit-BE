@@ -94,7 +94,7 @@ export abstract class Shape {
       max.y = Math.min(maxY, max.y);
       const canGenerate = max.y >= min.y;
 
-      assertCanBuildWithin(dimension, min, max);
+      assertCanBuildWithin(player, min, max);
       const blocksAffected = [];
       mask = mask ?? new Mask();
 

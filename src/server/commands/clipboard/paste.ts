@@ -48,7 +48,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
   try {
     if (pasteContent) {
-      assertCanBuildWithin(builder.dimension, pasteStart, pasteEnd);
+      assertCanBuildWithin(builder, pasteStart, pasteEnd);
       history.addUndoStructure(record, pasteStart, pasteEnd, "any");
 
       Jobs.nextStep(job, "Pasting blocks...");

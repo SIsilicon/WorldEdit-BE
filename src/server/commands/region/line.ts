@@ -95,7 +95,7 @@ function* bresenham3d(p1: Vector, p2: Vector): Generator<void, Vector[]> {
 
 registerCommand(registerInformation, function* (session, builder, args) {
   assertCuboidSelection(session);
-  assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+  assertCanBuildWithin(builder, ...session.selection.getRange());
   if (session.selection.mode != "cuboid") {
     throw "commands.wedit:line.invalidType";
   }

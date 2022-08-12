@@ -26,7 +26,7 @@ const registerInformation = {
 
 registerCommand(registerInformation, function* (session, builder, args) {
   assertSelection(session);
-  assertCanBuildWithin(builder.dimension, ...session.selection.getRange());
+  assertCanBuildWithin(builder, ...session.selection.getRange());
 
   const [shape, loc] = session.selection.getShape();
   const job = Jobs.startJob(session, 2 + args.get("iterations") * 2, session.selection.getRange());

@@ -36,7 +36,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
   const player = session.getPlayer();
   const dimension = player.dimension;
   const [start, end] = session.selection.getRange();
-  assertCanBuildWithin(dimension, start, end);
+  assertCanBuildWithin(player, start, end);
 
   const includeEntities: boolean = args.get("_using_item") ? session.includeEntities : args.has("e");
   const includeAir: boolean = args.get("_using_item") ? session.includeAir : !args.has("a");
