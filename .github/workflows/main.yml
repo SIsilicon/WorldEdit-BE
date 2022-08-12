@@ -31,14 +31,15 @@ jobs:
       
       - uses: montudor/action-zip@v1
       - uses: actions/setup-node@v1
+      - uses: bahmutov/npm-install@v1
         with:
           node-version: 12
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
       
-      - name: Install tsc and eslint
-        run: npm install
+      - name: Install npm indendencies
+        run: npm t
       
       - name: Install polib
         run: pip install polib
