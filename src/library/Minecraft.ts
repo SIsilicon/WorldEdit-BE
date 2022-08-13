@@ -18,24 +18,24 @@ class ServerBuild extends ServerBuilder {
   public player = Player;
   public command = Command;
   public structure = Structure;
-  //public structure = Structure;
+
   constructor() {
     super();
     this._buildEvent();
   }
   /**
-    * @private
-    */
+   * @private
+   */
   private _buildEvent() {
     world.events.beforeChat.subscribe(data => {
       const date = new Date();
       /**
-            * Emit to 'beforeMessage' event listener
-            */
+       * Emit to 'beforeMessage' event listener
+       */
       this.emit("beforeMessage", data);
       /**
-            * This is for the command builder and a emitter
-            */
+       * This is for the command builder and a emitter
+       */
       // CHANGES HERE
       if(!data.message.startsWith(this.command.prefix)) return;
       data.cancel = true;
@@ -86,8 +86,8 @@ class ServerBuild extends ServerBuilder {
         if(!(element.name == command || element.aliases?.includes(command))) continue;
 
         /**
-                * Registration callback
-                */
+         * Registration callback
+         */
         try {
           if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
             throw "commands.generic.wedit:noPermission";
@@ -125,8 +125,8 @@ class ServerBuild extends ServerBuilder {
           }
         }
         /**
-                * Emit to 'customCommand' event listener
-                */
+         * Emit to 'customCommand' event listener
+         */
         this.emit("customCommand", {
           registration: element,
           data,
@@ -137,29 +137,29 @@ class ServerBuild extends ServerBuilder {
       }
     });
     /**
-        * Emit to 'beforeExplosion' event listener
-        */
+     * Emit to 'beforeExplosion' event listener
+     */
     world.events.beforeExplosion.subscribe(data => this.emit("beforeExplosion", data));
     /**
-        * Emit to 'beforePistonActivate' event listener
-        */
+     * Emit to 'beforePistonActivate' event listener
+     */
     world.events.beforePistonActivate.subscribe(data => this.emit("beforePistonActivate", data));
     /**
-        * Emit to 'blockExplode' event listener
-        */
+     * Emit to 'blockExplode' event listener
+     */
     world.events.blockExplode.subscribe(data => this.emit("blockExplode", data));
     /**
-        * Emit to 'beforeExplosion' event listener
-        */
+     * Emit to 'beforeExplosion' event listener
+     */
     world.events.explosion.subscribe(data => this.emit("explosion", data));
     /**
-        * Emit to 'pistonActivate' event listener
-        */
+     * Emit to 'pistonActivate' event listener
+     */
     world.events.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
 
     /**
-        * Emit to 'beforeItemUse' event listener
-        */
+     * Emit to 'beforeItemUse' event listener
+     */
     world.events.beforeItemUse.subscribe(data => this.emit("beforeItemUse", data));
 
     /**
@@ -168,48 +168,44 @@ class ServerBuild extends ServerBuilder {
     world.events.beforeItemUseOn.subscribe(data => this.emit("beforeItemUseOn", data));
 
     /**
-        * Emit to 'messageCreate' event listener
-        */
+     * Emit to 'messageCreate' event listener
+     */
     world.events.chat.subscribe(data => this.emit("messageCreate", data));
     /**
-        * Emit to 'entityEffected' event listener
-        */
+     * Emit to 'entityEffected' event listener
+     */
     world.events.effectAdd.subscribe(data => this.emit("entityEffected", data));
     /**
-        * Emit to 'weatherChange' event listener
-        */
+     * Emit to 'weatherChange' event listener
+     */
     world.events.weatherChange.subscribe(data => this.emit("weatherChange", data));
     /**
-        * Emit to 'entityCreate' event listener
-        */
+     * Emit to 'entityCreate' event listener
+     */
     world.events.entityCreate.subscribe(data => this.emit("entityCreate", data));
     /**
-        * Emit to 'playerJoin' event listener
-        */
+     * Emit to 'playerJoin' event listener
+     */
     world.events.playerJoin.subscribe(data => this.emit("playerJoin", data));
     /**
-        * Emit to 'playerLeave' event listener
-        */
+     * Emit to 'playerLeave' event listener
+     */
     world.events.playerLeave.subscribe(data => this.emit("playerLeave", data));
 
     let worldLoaded = false, tickCount = 0;
-    const playerDimensions = new Map<string, [boolean, string]>();
+    const playerDimensions = new Map<string, string>();
     world.events.tick.subscribe((data) => {
       tickCount++;
       if(!this.runCommand("testfor @a").error && !worldLoaded) {
         /**
-                * Emit to 'ready' event listener
-                */
+         * Emit to 'ready' event listener
+         */
         this.emit("ready", { loadTime: tickCount });
         worldLoaded = true;
       }
 
-      for (const entry of playerDimensions) {
-        entry[1][0] = false;
-      }
-
       for (const player of world.getPlayers()) {
-        const oldDimension = playerDimensions.get(player.name)?.[1];
+        const oldDimension = playerDimensions.get(player.name);
         const newDimension = player.dimension.id;
 
         if (oldDimension && oldDimension != newDimension) {
@@ -218,11 +214,12 @@ class ServerBuild extends ServerBuilder {
             dimension: player.dimension
           });
         }
+        playerDimensions.set(player.name, newDimension);
       }
 
       /**
-            * Emit to 'tick' event listener
-            */
+       * Emit to 'tick' event listener
+       */
       this.emit("tick", data);
     });
   }

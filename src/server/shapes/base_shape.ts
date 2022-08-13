@@ -116,6 +116,7 @@ export abstract class Shape {
             const fillMax = 32;
             history?.addUndoStructure(record, min, max, "any");
 
+            yield "Calculating shape...";
             yield "Generating blocks...";
             for (let z = 0; z < size.z; z += fillMax)
               for (let y = 0; y < size.y; y += fillMax)
@@ -124,7 +125,7 @@ export abstract class Shape {
                   const subEnd = Vector.min(
                     new Vector(x, y, z).add(fillMax), size
                   ).add(min).sub(Vector.ONE);
-                  Server.runCommand(`fill ${subStart.print()} ${subEnd.print()} ${patternInCommand}`);
+                  Server.runCommand(`fill ${subStart.print()} ${subEnd.print()} ${patternInCommand}`, dimension);
 
                   const subSize = subEnd.sub(subStart).add(1);
                   count += subSize.x * subSize.y * subSize.z;

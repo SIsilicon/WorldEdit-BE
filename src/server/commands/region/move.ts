@@ -48,7 +48,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     Jobs.nextStep(job, "Copying blocks...");
     yield* Jobs.perform(job, temp.saveProgressive(start, end, dim), false);
-    Jobs.nextStep(job, "Removing blocks...");
     count = yield* Jobs.perform(job, set(session, new Pattern("air")), false);
     Jobs.nextStep(job, "Pasting blocks...");
     yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);

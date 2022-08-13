@@ -16,6 +16,7 @@ const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
 Server.on("playerChangeDimension", ev => {
+  contentLog.debug(ev.player.name, "has travelled to", ev.dimension.id);
   playerSessions.get(ev.player.name)?.selection.clear();
 });
 
