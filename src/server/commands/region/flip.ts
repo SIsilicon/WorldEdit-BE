@@ -15,7 +15,7 @@ const registerInformation = {
       flag: "o"
     },
     {
-      flag: "c"
+      flag: "w"
     },
     {
       flag: "s"
@@ -37,7 +37,16 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   let blockCount = 0;
   // TODO: Support stacking rotations and flips
-  if (args.has("c")) {
+  if (args.has("w")) {
+    if (dir.y != 0 && FAST_MODE) {
+      throw "commands.wedit:flip.notLateral";
+    }
+
+    const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
+    yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
+    Jobs.finishJob(job);
+    blockCount = session.selection.getBlockCount();
+  } else {
     assertClipboard(session);
     if (dir.y != 0 && !session.clipboard.isAccurate) {
       throw "commands.wedit:flip.notLateral";
@@ -54,15 +63,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     clipTrans.flip = clipTrans.flip.mul(flip);
     blockCount = session.clipboard.getBlockCount();
-  } else {
-    if (dir.y != 0 && FAST_MODE) {
-      throw "commands.wedit:flip.notLateral";
-    }
-
-    const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
-    yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
-    Jobs.finishJob(job);
-    blockCount = session.selection.getBlockCount();
   }
 
   return RawText.translate("commands.wedit:flip.explain").with(blockCount);

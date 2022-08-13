@@ -14,7 +14,7 @@ const registerInformation = {
       flag: "o"
     },
     {
-      flag: "c"
+      flag: "w"
     },
     {
       flag: "s"
@@ -47,7 +47,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
   }
 
-  if (args.has("c")) {
+  if (args.has("w")) {
+    if (FAST_MODE) assertValidFastArgs();
+
+    const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
+    yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
+    Jobs.finishJob(job);
+    blockCount = session.selection.getBlockCount();
+  } else {
     assertClipboard(session);
     if (!session.clipboard.isAccurate) assertValidFastArgs();
 
@@ -56,13 +63,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     session.clipboardTransform.rotation = session.clipboardTransform.rotation.add(rotation);
     blockCount = session.clipboard.getBlockCount();
-  } else {
-    if (FAST_MODE) assertValidFastArgs();
-
-    const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
-    yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
-    Jobs.finishJob(job);
-    blockCount = session.selection.getBlockCount();
   }
 
   return RawText.translate("commands.wedit:rotate.explain").with(blockCount);

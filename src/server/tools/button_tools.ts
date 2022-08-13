@@ -54,7 +54,7 @@ class RotateCWTool extends Tool {
 
   use = function (self: Tool, player: Player, session: PlayerSession) {
     session.usingItem = true;
-    const args = ["90", "-s"];
+    const args = ["90", "-sw"];
     if (player.isSneaking) {
       args.push("-o");
     }
@@ -69,7 +69,7 @@ class RotateCCWTool extends Tool {
 
   use = function (self: Tool, player: Player, session: PlayerSession) {
     session.usingItem = true;
-    const args = ["-90", "-s"];
+    const args = ["-90", "-sw"];
     if (player.isSneaking) {
       args.push("-o");
     }
@@ -84,7 +84,7 @@ class FlipTool extends Tool {
 
   use = function (self: Tool, player: Player, session: PlayerSession) {
     session.usingItem = true;
-    const args = ["-s"];
+    const args = ["-sw"];
     if (player.isSneaking) {
       args.push("-o");
     }
