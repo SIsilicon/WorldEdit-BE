@@ -15,10 +15,18 @@ export function addTickingArea(start: BlockLocation, end: BlockLocation, dimensi
 export function removeTickingArea(name: string) {
   try {
     world.getDimension("overworld").runCommand(`tickingarea remove ${name}`);
-    return true;
   } catch (err) {
-    return false;
+    try {
+      world.getDimension("nether").runCommand(`tickingarea remove ${name}`);
+    } catch (err) {
+      try {
+        world.getDimension("the_end").runCommand(`tickingarea remove ${name}`);
+      } catch (error) {
+        return false;
+      }
+    }
   }
+  return true;
 }
 
 export function listTickingAreas(dimension?: Dimension) {
