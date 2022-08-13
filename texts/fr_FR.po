@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-07-19 01:45\n"
+"PO-Revision-Date: 2022-08-13 02:34\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -315,6 +315,10 @@ msgstr "Vous n'avez pas la permission d'exécuter cette commande."
 
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Impossible de modifier les chunks non chargés!"
+
+# %s is a placeholder for the newline character (\n)
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Le nombre (%1) est trop grand ! Il doit être au plus (%2)."
