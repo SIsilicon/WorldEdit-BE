@@ -30,19 +30,19 @@ jobs:
       - uses: actions/checkout@v2
       
       - uses: montudor/action-zip@v1
-      - uses: actions/setup-node@v1
+      - uses: bahmutov/npm-install@v1
         with:
           node-version: 12
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
       
-      - name: Install tsc
-        run: npm install -g typescript
-      
       - name: Install polib
         run: pip install polib
-      
+
+      - name: Test eslint
+        run: npx eslint "./src/**"
+
       - name: Run build script (${{ matrix.target }})
         run: python build.py --clean --target ${{ matrix.target }}
       

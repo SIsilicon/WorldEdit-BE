@@ -1,4 +1,5 @@
-import { world } from 'mojang-minecraft';
+/* eslint-disable @typescript-eslint/ban-types */
+import { world } from "mojang-minecraft";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
@@ -12,12 +13,12 @@ let tickTimeoutID = 0, tickIntervalID = 0;
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickTimeout(handler: string | Function, timeout?: number, ...args: any[]): number {
-    const tickTimeout = { callback: handler, tick: timeout, args };
-    tickTimeoutID++;
-    tickTimeoutMap.set(tickTimeoutID, tickTimeout);
-    return tickTimeoutID;
-};
+function setTickTimeout(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+  const tickTimeout = { callback: handler, tick: timeout, args };
+  tickTimeoutID++;
+  tickTimeoutMap.set(tickTimeoutID, tickTimeout);
+  return tickTimeoutID;
+}
 /**
  * Delay executing a function, REPEATEDLY
  * @typedef
@@ -26,81 +27,81 @@ function setTickTimeout(handler: string | Function, timeout?: number, ...args: a
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickInterval(handler: string | Function, timeout?: number, ...args: any[]): number {
-    const tickInterval = { callback: handler, tick: timeout, args };
-    tickIntervalID++;
-    tickIntervalMap.set(tickIntervalID, tickInterval);
-    return tickIntervalID;
-};
+function setTickInterval(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+  const tickInterval = { callback: handler, tick: timeout, args };
+  tickIntervalID++;
+  tickIntervalMap.set(tickIntervalID, tickInterval);
+  return tickIntervalID;
+}
 /**
  * Delete a clearTickTimeout
  * @typedef
  * @param {number} handle Index you want to delete
  */
 function clearTickTimeout(handle: number): void {
-    tickTimeoutMap.delete(handle);
-};
+  tickTimeoutMap.delete(handle);
+}
 /**
  * Delete a clearTickInterval
  * @typedef
  * @param {number} handle Index you want to delete
  */
 function clearTickInterval(handle: number): void {
-    tickIntervalMap.delete(handle);
-};
+  tickIntervalMap.delete(handle);
+}
 
 let totalTick = 0;
 world.events.tick.subscribe(() => {
-    totalTick++;
-    for(const [ID, tickTimeout] of tickTimeoutMap) {
-        tickTimeout.tick--;
-        if(tickTimeout.tick <= 0) {
-            tickTimeout.callback(...tickTimeout.args);
-            tickTimeoutMap.delete(ID);
-        };
-    };
-    for(const [, tickInterval] of tickIntervalMap) {
-        if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
-    };
+  totalTick++;
+  for(const [ID, tickTimeout] of tickTimeoutMap) {
+    tickTimeout.tick--;
+    if(tickTimeout.tick <= 0) {
+      tickTimeout.callback(...tickTimeout.args);
+      tickTimeoutMap.delete(ID);
+    }
+  }
+  for(const [, tickInterval] of tickIntervalMap) {
+    if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
+  }
 });
 
 function sleep(ticks: number) {
-    return new Promise(resolve => setTickTimeout(resolve, ticks));
+  return new Promise(resolve => setTickTimeout(resolve, ticks));
 }
 
 
 class Timer {
-    private time = Date.now();
-    private isActive = false;
+  private time = Date.now();
+  private isActive = false;
 
-    start() {
-        if (!this.isActive) {
-            this.time = Date.now();
-            this.isActive = true;
-        }
+  start() {
+    if (!this.isActive) {
+      this.time = Date.now();
+      this.isActive = true;
     }
+  }
 
-    getTime() {
-        if (this.isActive) {
-            return Date.now() - this.time;
-        }
+  getTime() {
+    if (this.isActive) {
+      return Date.now() - this.time;
     }
+  }
 
-    end() {
-        if (this.isActive) {
-            this.isActive = false;
-            return Date.now() - this.time;
-        }
+  end() {
+    if (this.isActive) {
+      this.isActive = false;
+      return Date.now() - this.time;
     }
+  }
 }
 
 /**
  * Creates a timer and starts it.
  */
 function startTime() {
-    const timer = new Timer();
-    timer.start();
-    return timer;
+  const timer = new Timer();
+  timer.start();
+  return timer;
 }
 
 export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, sleep, startTime, Timer };

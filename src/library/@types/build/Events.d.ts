@@ -1,23 +1,23 @@
-import { 
-    BeforeChatEvent,
-    BeforeExplosionEvent,
-    BeforePistonActivateEvent, 
-    BlockExplodeEvent,
-    BeforeItemUseEvent,
-    BeforeItemUseOnEvent,
-    ChatEvent,
-    TickEvent,
-    PlayerJoinEvent,
-    PlayerLeaveEvent,
-    EffectAddEvent,
-    EntityCreateEvent,
-    ExplosionEvent,
-    PistonActivateEvent,
-    WeatherChangeEvent, 
-    Player,
-    Dimension
+import {
+  BeforeChatEvent,
+  BeforeExplosionEvent,
+  BeforePistonActivateEvent,
+  BlockExplodeEvent,
+  BeforeItemUseEvent,
+  BeforeItemUseOnEvent,
+  ChatEvent,
+  TickEvent,
+  PlayerJoinEvent,
+  PlayerLeaveEvent,
+  EffectAddEvent,
+  EntityCreateEvent,
+  ExplosionEvent,
+  PistonActivateEvent,
+  WeatherChangeEvent,
+  Player,
+  Dimension
 } from "mojang-minecraft";
-import { registerInformation } from './classes/CommandBuilder';
+import { registerInformation } from "./classes/CommandBuilder";
 
 export interface EventList {
     beforeMessage: [BeforeChatEvent],

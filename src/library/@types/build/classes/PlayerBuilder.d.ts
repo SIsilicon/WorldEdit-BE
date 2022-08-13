@@ -7,7 +7,7 @@ export interface banDataObj {
     unbanTime: number,
     reason: string,
     bannedBy: string
-} 
+}
 
 export interface getPlayerAtPosReturn {
     list: Array<Entity> | null,

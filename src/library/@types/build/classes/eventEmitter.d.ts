@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EventList } from "../Events";
 
 export interface EventEmitterConstructor {
@@ -15,7 +17,7 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Emit data for an event type
     * @param eventName Event you are firing
@@ -23,25 +25,25 @@ export interface EventEmitterTypes {
     */
     emit<K extends keyof EventList>(eventName: K, ...args: EventList[K]): boolean;
     emit<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, ...args: any[]): boolean;
-    
-    eventNames(): Array<String>;
- 
-    getMaxListeners(): Number;
- 
+
+    eventNames(): Array<string>;
+
+    getMaxListeners(): number;
+
     /**
     * Get count of event(s)
     * @param eventName Event name you want to find the count for
     */
     listenerCount<K extends keyof EventList>(eventName?: K): number;
     listenerCount<S extends string | symbol>(eventName?: Exclude<S, keyof EventList>): number;
- 
+
     /**
     * All event functions that are listening
     * @param eventName Event name you want to find all the listeners on
     */
     listeners<K extends keyof EventList>(eventName: K): Array<Function>;
     listeners<S extends string | symbol>(eventName: Exclude<S, keyof EventList>): Array<Function>;
- 
+
     /**
     * Turn off an event
     * @param eventName Event you want to stop listening for
@@ -52,7 +54,7 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
-    
+
     /**
     * Listen for an event
     * @param eventName Event you want to listen for
@@ -63,7 +65,7 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Listen for an event, ONCE
     * @param eventName Event you want to listen for
@@ -74,7 +76,7 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Listen for an event. This will execute the listener before any other previous ones
     * @param eventName Event you want to listen for
@@ -85,7 +87,7 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Listen for an event, ONCE. This will execute the listener before any other previous ones
     * @param eventName Event you want to listen for only ONCE
@@ -96,13 +98,13 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Remove type of listeners
     * @param eventName Listener to remove
     */
     removeAllListeners(eventName?: string): void;
- 
+
     /**
     * Turn off an event
     * @param eventName Event you want to stop listening for
@@ -114,13 +116,13 @@ export interface EventEmitterTypes {
     eventName: Exclude<S, keyof EventList>,
     listener: (...args: any[]) => void,
     ): this;
- 
+
     /**
     * Increase or decrease listener count
     * @param number New max listener count
     */
     setMaxListeners(number: number): void;
- 
+
     /**
     * All event functions
     * @param eventName Event name you want to find all the listeners on, including emitter.once()
