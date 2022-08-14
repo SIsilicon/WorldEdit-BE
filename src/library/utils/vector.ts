@@ -1,6 +1,10 @@
-import { BlockLocation, Location, Vector as MCVector } from "mojang-minecraft";
+import { BlockLocation, Location } from "mojang-minecraft";
 
-type anyVec = BlockLocation|Location|Vector|MCVector|[number, number, number];
+type anyVec = {
+  x: number,
+  y: number,
+  z: number
+} | [number, number, number];
 
 export class Vector {
   private vals: [number, number, number] = [0, 0, 0];
@@ -17,29 +21,20 @@ export class Vector {
     return new Vector(loc.x, loc.y, loc.z);
   }
 
-  private static ensureVector(v: anyVec): Vector {
-    if (v instanceof Location || v instanceof BlockLocation || v instanceof MCVector) {
-      return Vector.from(v);
-    } else if (Array.isArray(v)) {
-      return new Vector(...<[number, number, number]>v);
-    }
-    return v;
-  }
-
   static add(a: anyVec, b: anyVec) {
-    return Vector.ensureVector(a).add(b);
+    return Vector.from(a).add(b);
   }
 
   static sub(a: anyVec, b: anyVec) {
-    return Vector.ensureVector(a).sub(b);
+    return Vector.from(a).sub(b);
   }
 
   static min(a: anyVec, b: anyVec) {
-    return Vector.ensureVector(a).min(b);
+    return Vector.from(a).min(b);
   }
 
   static max(a: anyVec, b: anyVec) {
-    return Vector.ensureVector(a).max(b);
+    return Vector.from(a).max(b);
   }
 
   constructor(x: number, y: number, z: number) {
@@ -79,7 +74,7 @@ export class Vector {
   }
 
   equals(v: anyVec) {
-    v = Vector.ensureVector(v);
+    v = Vector.from(v);
     return this.x == v.x && this.y == v.y && this.z == v.z;
   }
 
@@ -87,7 +82,7 @@ export class Vector {
     if (typeof v == "number") {
       return new Vector(this.x + v, this.y + v, this.z + v);
     } else {
-      v = Vector.ensureVector(v);
+      v = Vector.from(v);
       return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
     }
   }
@@ -96,7 +91,7 @@ export class Vector {
     if (typeof v == "number") {
       return new Vector(this.x - v, this.y - v, this.z - v);
     } else {
-      v = Vector.ensureVector(v);
+      v = Vector.from(v);
       return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
     }
   }
@@ -105,14 +100,14 @@ export class Vector {
     if (typeof v == "number") {
       return new Vector(this.x * v, this.y * v, this.z * v);
     } else {
-      v = Vector.ensureVector(v);
+      v = Vector.from(v);
       return new Vector(this.x * v.x, this.y * v.y, this.z * v.z);
     }
   }
 
   rotateX(rot: number, org: anyVec = Vector.ZERO) {
     if (!rot) return this.clone();
-    org = Vector.ensureVector(org);
+    org = Vector.from(org);
     const y = this.y - org.y;
     const z = this.z - org.z;
 
@@ -128,7 +123,7 @@ export class Vector {
 
   rotateY(rot: number, org: anyVec = Vector.ZERO) {
     if (!rot) return this.clone();
-    org = Vector.ensureVector(org);
+    org = Vector.from(org);
     const x = this.x - org.x;
     const z = this.z - org.z;
 
@@ -143,7 +138,7 @@ export class Vector {
 
   rotateZ(rot: number, org: anyVec = Vector.ZERO) {
     if (!rot) return this.clone();
-    org = Vector.ensureVector(org);
+    org = Vector.from(org);
     const x = this.x - org.x;
     const y = this.y - org.y;
 
@@ -158,7 +153,7 @@ export class Vector {
   }
 
   min(v: anyVec) {
-    v = Vector.ensureVector(v);
+    v = Vector.from(v);
     return new Vector(
       Math.min(this.x, v.x),
       Math.min(this.y, v.y),
@@ -167,7 +162,7 @@ export class Vector {
   }
 
   max(v: anyVec) {
-    v = Vector.ensureVector(v);
+    v = Vector.from(v);
     return new Vector(
       Math.max(this.x, v.x),
       Math.max(this.y, v.y),
@@ -192,7 +187,7 @@ export class Vector {
   }
 
   lerp(v: anyVec, t: number) {
-    v = Vector.ensureVector(v);
+    v = Vector.from(v);
     return new Vector(
       (1 - t) * this.x + t * v.x,
       (1 - t) * this.y + t * v.y,
@@ -215,7 +210,7 @@ export class Vector {
   }
 
   dot(v: anyVec) {
-    v = Vector.ensureVector(v);
+    v = Vector.from(v);
     return this.x * v.x + this.y * v.y + this.z * v.z;
   }
 

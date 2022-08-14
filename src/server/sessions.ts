@@ -16,7 +16,6 @@ const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
 Server.on("playerChangeDimension", ev => {
-  contentLog.debug(ev.player.name, "has travelled to", ev.dimension.id);
   playerSessions.get(ev.player.name)?.selection.clear();
 });
 
@@ -51,7 +50,7 @@ export class PlayerSession {
   /**
     * Whether the copy and cut items should include air in the clipboard.
     */
-  public includeAir = true;
+  public includeAir = false;
 
   /**
      * The amount of blocks that can be changed in one operation.

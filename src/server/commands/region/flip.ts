@@ -36,7 +36,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
   if (dir.z) flip.z *= -1;
 
   let blockCount = 0;
-  // TODO: Support stacking rotations and flips
   if (args.has("w")) {
     if (dir.y != 0 && FAST_MODE) {
       throw "commands.wedit:flip.notLateral";

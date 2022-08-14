@@ -2,7 +2,7 @@ import { FAST_MODE } from "@config.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
-import { iterateChunk, RawText, regionIterateBlocks, regionVolume, Vector } from "@notbeer-api";
+import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
 import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
@@ -59,34 +59,20 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
   if (session.clipboard.isAccurate) {
     const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
     const filter = mask || !includeAir;
-    const options = {
-      includeEntities,
-      loc: new BlockLocation(0, 0, 0),
-      dim: dimension
-    };
 
     yield "Copying blocks...";
-    const volume = regionVolume(start, end);
-    let i = 0;
-    for (const block of regionIterateBlocks(start, end)) {
-      const relLoc = Vector.sub(block, start).toBlock();
-      if (filter) {
-        const wasAir = dimension.getBlock(block).id == "minecraft:air";
-        const isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
-        if (includeAir && mask && !wasAir && isAir) {
-          options.loc = block;
-          session.clipboard.setBlock(relLoc, airBlock, options);
-          i++;
-          continue;
-        } else if (!includeAir && isAir) {
-          i++;
-          continue;
-        }
+    const blocks = (loc: BlockLocation) => {
+      const wasAir = dimension.getBlock(loc).id == "minecraft:air";
+      const isAir = wasAir || (mask ? !mask.matchesBlock(loc, dimension) : false);
+      if (includeAir && mask && !wasAir && isAir) {
+        return airBlock;
+      } else if (!includeAir && isAir) {
+        return false;
       }
-      error ||= session.clipboard.setBlock(relLoc, dimension.getBlock(block), options);
-      if (iterateChunk()) yield i / volume;
-      i++;
-    }
+      return true;
+    };
+    error = yield* session.clipboard.saveProgressive(start, end, dimension, { includeEntities }, filter ? blocks : "all");
+
   } else {
     // Create a temporary copy since we'll be adding void/air blocks to the selection.
     const tempUsed = !includeAir || mask;

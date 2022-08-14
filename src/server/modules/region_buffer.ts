@@ -1,5 +1,5 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
+import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
 import { locToString, stringToLoc } from "../util.js";
 
 export interface RegionLoadOptions {
@@ -7,7 +7,8 @@ export interface RegionLoadOptions {
     flip?: Vector
 }
 
-// TODO: Record entities
+type blockList = BlockLocation[] | ((loc: BlockLocation) => boolean | BlockPermutation) | "all"
+
 export class RegionBuffer {
 
   readonly isAccurate: boolean;
@@ -17,6 +18,7 @@ export class RegionBuffer {
   private blocks = new Map<string, BlockPermutation|[string, BlockPermutation]>();
   private blockCount = 0;
   private subId = 0;
+  private savedEntities = false;
 
   constructor(isAccurate = false) {
     this.isAccurate = isAccurate;
@@ -24,43 +26,66 @@ export class RegionBuffer {
     contentLog.debug("creating structure", this.id);
   }
 
-  public save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: BlockLocation[]|"all" = "all") {
+  public save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
     const save = this.saveProgressive(start, end, dim, options, blocks);
     while (!save.next().done) continue;
     return save.next().value as boolean;
   }
 
-  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: BlockLocation[]|"all" = "all"): Generator<number, boolean> {
+  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number, boolean> {
     if (this.isAccurate) {
       const min = Vector.min(start, end);
       const iterate = (blockLoc: BlockLocation) => {
         const relLoc = Vector.sub(blockLoc, min).toBlock();
         const id = this.id + "_" + this.subId++;
-        Server.structure.save(id, blockLoc, blockLoc, dim);
+        this.saveBlockAsStruct(id, blockLoc, dim);
         this.blocks.set(locToString(relLoc), [id, dim.getBlock(blockLoc).permutation.clone()]);
       };
 
-      if (blocks == "all") {
+      let count = 0;
+      const isFilter = typeof blocks == "function";
+      if (blocks == "all" || isFilter) {
         const volume = regionVolume(start, end);
         let i = 0;
         for (const block of regionIterateBlocks(start, end)) {
-          iterate(block);
+          if (!isFilter) {
+            iterate(block);
+            count++;
+          } else {
+            const filtered = blocks(block);
+            if (typeof filtered != "boolean") {
+              const relLoc = Vector.sub(block, min).toBlock();
+              this.blocks.set(locToString(relLoc), filtered);
+              count++;
+            } else if (filtered) {
+              iterate(block);
+              count++;
+            }
+          }
           if (iterateChunk()) yield i / volume;
           i++;
         }
-      } else {
+      } else if (Array.isArray(blocks)) {
         for (let i = 0; i < blocks.length; i++) {
           iterate(blocks[i]);
           if (iterateChunk()) yield i / blocks.length;
         }
+        count = blocks.length;
       }
-      this.blockCount = blocks.length;
+      this.blockCount = count;
+      if (options.includeEntities) {
+        Server.structure.save(this.id, start, end, dim, {
+          includeBlocks: false,
+          includeEntities: true
+        });
+      }
     } else {
       if (Server.structure.save(this.id, start, end, dim, options)) {
         return true;
       }
       this.blockCount = regionVolume(start, end);
     }
+    this.savedEntities = options.includeEntities;
     this.size = regionSize(start, end);
     return false;
   }
@@ -153,12 +178,36 @@ export class RegionBuffer {
         if (block instanceof BlockPermutation) {
           dim.getBlock(blockLoc).setPermutation(transform(block));
         } else {
-          Server.structure.load(block[0], blockLoc, dim);
+          this.loadBlockFromStruct(block[0], blockLoc, dim);
           dim.getBlock(blockLoc).setPermutation(transform(block[1]));
         }
         if (iterateChunk()) yield i / this.blocks.size;
         i++;
       }
+
+      if (this.savedEntities) {
+        const onEntityload = (ev: EntityCreateEvent) => {
+          if (shouldTransform) {
+            // FIXME: Not properly aligned
+            let entityLoc = ev.entity.location;
+            let entityFacing = Vector.from(ev.entity.viewVector).add(entityLoc).toLocation();
+
+            entityLoc = Vector.from(entityLoc).sub(loc)
+              .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+            entityFacing = Vector.from(entityFacing).sub(loc)
+              .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+
+            ev.entity.teleportFacing(entityLoc, dim, entityFacing);
+          }
+        };
+
+        Server.on("entityCreate", onEntityload);
+        Server.structure.load(this.id, loc, dim);
+        Server.off("entityCreate", onEntityload);
+      }
+
     } else {
       const loadOptions: StructureLoadOptions = {
         rotation: rotFlip[0].y,
@@ -171,30 +220,30 @@ export class RegionBuffer {
     }
   }
 
-  getSize() {
+  public getSize() {
     return this.size;
   }
 
-  getBlockCount() {
+  public getBlockCount() {
     return this.blockCount;
   }
 
   // TODO: Implement
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  getBlock() {
+  public getBlock() {
 
   }
 
-  getBlocks() {
+  public getBlocks() {
     return Array.from(this.blocks.values());
   }
 
-  setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
+  public setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
     let error = false;
     const key = locToString(loc);
 
     if (this.blocks.has(key) && Array.isArray(this.blocks.get(key))) {
-      Server.structure.delete((this.blocks.get(key) as [string, BlockPermutation])[0]);
+      this.deleteBlockStruct((this.blocks.get(key) as [string, BlockPermutation])[0]);
     }
 
     if (block instanceof BlockPermutation) {
@@ -215,16 +264,15 @@ export class RegionBuffer {
     return error;
   }
 
-  delete() {
+  public delete() {
     if (this.isAccurate) {
       for (const block of this.blocks.values()) {
         if (!(block instanceof BlockPermutation)) {
-          Server.structure.delete(block[0]);
+          this.deleteBlockStruct(block[0]);
         }
       }
-    } else {
-      Server.structure.delete(this.id);
     }
+    Server.structure.delete(this.id);
     contentLog.debug("deleted structure", this.id);
   }
 
@@ -244,6 +292,20 @@ export class RegionBuffer {
     }
 
     return closestState;
+  }
+
+  private saveBlockAsStruct(id: string, loc: BlockLocation, dim: Dimension) {
+    const locStr = `${loc.x} ${loc.y} ${loc.z}`;
+    Server.runCommand(`structure save ${id} ${locStr} ${locStr} false memory`, dim);
+  }
+
+  private loadBlockFromStruct(id: string, loc: BlockLocation, dim: Dimension) {
+    const locStr = `${loc.x} ${loc.y} ${loc.z}`;
+    return Server.runCommand(`structure load ${id} ${locStr}`, dim).error;
+  }
+
+  private deleteBlockStruct(id: string) {
+    return Server.runCommand(`structure load ${id}`);
   }
 }
 
