@@ -16,14 +16,14 @@ First you must download the mcaddon file. You can find one in the [release secti
 And that's it! Your world is ready for WorldEdit.
 
 ### Aternos server
-To properly add this addon to the server, you first need to upload an already existing world with the required experimental features enabled. You must then install the addon separately in the server's `packs` folder. Read more about how aternos handles addons and experimental features [here](https://support.aternos.org/hc/en-us/articles/360042095232-Installing-Addons-Minecraft-Bedrock-Edition-) and [here](https://support.aternos.org/hc/en-us/articles/4407553257873-Enabling-experimental-gameplay-Minecraft-Bedrock-Edition-).
+To properly add this addon to the server, you first need to upload an already existing world with the required experimental features enabled (Do NOT add the addon to the world directly). You must then install the addon separately in the server's `packs` folder. Read more about how aternos handles addons and experimental features [here](https://support.aternos.org/hc/en-us/articles/360042095232-Installing-Addons-Minecraft-Bedrock-Edition-) and [here](https://support.aternos.org/hc/en-us/articles/4407553257873-Enabling-experimental-gameplay-Minecraft-Bedrock-Edition-).
 
 ## Features
 <!--![Clipboard](docs/Clipboard.jpg)![Generation](docs/Generation.jpg)-->
 WorldEdit currently has the following features.
 - Clipboard manipulation (Cut, Copy, Paste)
 - Masking blocks from certain actions
-- Maniuplating cuboid region selections
+- Maniuplating region selections
 - Navigation commands and the Navigation Wand
 - Generating shapes
 - Multiblock patterns
@@ -35,7 +35,6 @@ These features will be added in the near future.
 - More brushes and tools
 - More selection shapes
 - More selection operations
-- Generate custom shapes
 - Manipulate biome data
 - Basically, Java Parity
 
@@ -64,7 +63,7 @@ This addon is under the [GPLv3 license](LICENSE.txt). This means that you:
 You also don't HAVE to credit me, but it would be great if you did to help support my work! 😁
 
 ## Special Thanks
-The backbone of this addon's code is notbeer's [GameTest API Wrapper](https://github.com/notbeer/Gametest-API-Wrapper).
+The backbone of this addon's code is a heavily modified version of notbeer's [GameTest API Wrapper](https://github.com/notbeer/Gametest-API-Wrapper).
 
 And thanks to the original creator of the WorldEdit mod "sk89q" and [EngineHub](https://enginehub.org/) as a whole. They developed and excellent mod, and I'm just simply making a version of it work on bedrock. They're the real heroes. :) 
 
