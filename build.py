@@ -102,10 +102,10 @@ if args.target != 'debug':
                 zip.write(filePath, arcname / Path(filePath).relative_to(dirname))
     
     if args.target == 'release':
-        with ZipFile(f'builds/{build_pack_name}.mcaddon', 'w') as zip:
+        with ZipFile(f'builds/{build_pack_name}.{args.version}.mcaddon', 'w') as zip:
             zipWriteDir(zip, f'builds/{build_pack_name}BP', f'{build_pack_name}BP')
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')
-    elif args.target == 'server':
-        with ZipFile(f'builds/{build_pack_name}.Server.zip', 'w') as zip:
+    elif args.target == 'release_server':
+        with ZipFile(f'builds/{build_pack_name}.server.zip', 'w') as zip:
             zipWriteDir(zip, f'builds/{build_pack_name}BP', f'{build_pack_name}BP')
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')
