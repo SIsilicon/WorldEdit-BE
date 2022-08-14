@@ -51,4 +51,4 @@ export const ASYNC_TIME_BUDGET = 200;
 export const FAST_MODE = false;
 
 // The version of WorldEdit (do not change)
-export const VERSION = "0.6.3";
+export const VERSION = "0.6.4";
