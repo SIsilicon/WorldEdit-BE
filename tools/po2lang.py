@@ -1,5 +1,5 @@
 import glob, re, polib
-import os
+import sys, os
 from itertools import chain
 
 import argparse
@@ -21,7 +21,7 @@ def convert_file(in_path, out_path):
         if entry.msgid != "" and not(entry.msgid != 'pack.description' and 'BP' in out_path):
             string = entry.msgstr.replace('\\"', '"')
             if '\n' in string:
-                print('new line!')
+                sys.exit(f'\033[0;31mNew line detected in translation string "{entry.msgid}" in file "{in_path}"!\033[0m')
             newlines.append(f'{entry.msgid}={string}\n')
             
             if 'BP' in out_path:
