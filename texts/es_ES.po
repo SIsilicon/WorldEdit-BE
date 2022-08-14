@@ -11,19 +11,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-08-13 02:34\n"
 
 msgid "pack.description"
-msgstr "¡Un addon en desarrollo del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
-msgstr "Copiar"
+msgstr "Copy"
 
 msgid "item.wedit:cut_button"
-msgstr "Cortar"
+msgstr "Cut"
 
 msgid "item.wedit:paste_button"
-msgstr "Pegar"
+msgstr "Paste"
 
 msgid "item.wedit:undo_button"
 msgstr "Desh acer"
@@ -315,6 +315,10 @@ msgstr "No tienes los permisos necesarios para ejecutar este comando."
 
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "¡No se pueden modificar los chunks descargados!"
+
+# %s is a placeholder for the newline character (\n)
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "El número (%1) es demasiado grande! Debe ser como máximo (%2)."

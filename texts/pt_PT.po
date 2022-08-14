@@ -11,25 +11,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2022-07-03 22:18\n"
+"PO-Revision-Date: 2022-08-13 02:34\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copiar"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Cortar"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Colar"
 
 msgid "item.wedit:undo_button"
-msgstr "Undo"
+msgstr "Desfazer"
 
 msgid "item.wedit:redo_button"
-msgstr "Redo"
+msgstr "Refazer"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "Rotate Clockwise"
@@ -59,10 +59,10 @@ msgid "item.wedit:selection_outline"
 msgstr "Outline Selection"
 
 msgid "item.wedit:draw_line"
-msgstr "Draw Line"
+msgstr "Desenhar Linha"
 
 msgid "item.wedit:config_button"
-msgstr "WorldEdit Settings"
+msgstr "Definições do WorldEdit"
 
 msgid "item.wedit:brush_config_button"
 msgstr "Brush Settings"
@@ -92,37 +92,37 @@ msgid "item.wedit:stacker_button"
 msgstr "Stacker Tool"
 
 msgid "item.wedit:one_button"
-msgstr "One"
+msgstr "Um"
 
 msgid "item.wedit:two_button"
-msgstr "Two"
+msgstr "Dois"
 
 msgid "item.wedit:three_button"
-msgstr "Three"
+msgstr "Três"
 
 msgid "item.wedit:four_button"
-msgstr "Four"
+msgstr "Quatro"
 
 msgid "item.wedit:five_button"
-msgstr "Five"
+msgstr "Cinco"
 
 msgid "item.wedit:six_button"
-msgstr "Six"
+msgstr "Seis"
 
 msgid "item.wedit:confirm_button"
-msgstr "Ok"
+msgstr "Confirmar"
 
 msgid "item.wedit:cancel_button"
-msgstr "Back"
+msgstr "Voltar"
 
 msgid "item.wedit:prev_button"
-msgstr "Previous"
+msgstr "Anterior"
 
 msgid "item.wedit:next_button"
-msgstr "Next"
+msgstr "Próximo"
 
 msgid "item.wedit:delete_button"
-msgstr "Delete"
+msgstr "Apagar"
 
 msgid "item.wedit:new_brush_button"
 msgstr "Create New Tool"
@@ -143,7 +143,7 @@ msgid "item.wedit:blank"
 msgstr " "
 
 msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
+msgstr "Não é possível colocar o bloco aqui."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
@@ -200,16 +200,16 @@ msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
 
 msgid "worldedit.config.affects"
-msgstr "Affects: %s"
+msgstr "Afeta: %s"
 
 msgid "worldedit.config.creates"
 msgstr "Creates: %s"
 
 msgid "worldedit.config.radius"
-msgstr "Size: %s"
+msgstr "Tamanho: %s"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Altura: %s"
 
 msgid "worldedit.config.smooth"
 msgstr "Smoothness: %s"
@@ -242,16 +242,16 @@ msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "Primeira posição definida em %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Primeira posição definida em %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Segunda posição definida em %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Segunda posição definida em %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Started selection at %1 (%2)."
@@ -260,10 +260,10 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Extended selection to encompass %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Raio definido para %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Raio definido para %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "An item must be in your main hand."
@@ -316,6 +316,10 @@ msgstr "You don't have the permission to execute this command."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Cannot modify unloaded chunks!"
 
+# %s is a placeholder for the newline character (\n)
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+
 msgid "commands.generic.wedit:tooBig"
 msgstr "The number (%1) is too big! It must be at most (%2)."
 
@@ -323,7 +327,7 @@ msgid "commands.generic.wedit:tooSmall"
 msgstr "The number (%1) is too small! It must be at least (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Demasiados blocos!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
@@ -785,7 +789,7 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "How to Play: Quick Start to WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Licença"
 
 msgid "howtoplay.wedit:license.title"
 msgstr "How to Play: WorldEdit License"
@@ -794,7 +798,7 @@ msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Welcome! This is a port of the original WorldEdit mod for Minecraft: Java Edition. This addon will help you shape your world right inside Minecraft."
 
 msgid "howtoplay.wedit:quick_start.header.1"
-msgstr "Before Anything Else..,"
+msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
@@ -866,7 +870,7 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Disable the brush with §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "What now?"
+msgstr "E agora?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "To learn more about this addon, you can go to its online documentation here: §ehttps://worldedit-be-docs.readthedocs.io§r"
