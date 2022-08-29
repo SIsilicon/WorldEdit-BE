@@ -76,7 +76,8 @@ import "./navigation/up.js";
 import "./navigation/unstuck.js";
 import "./navigation/jumpto.js";
 import "./navigation/thru.js";
-// TODO: Implement ascend and descend
+import "./navigation/ascend.js";
+import "./navigation/descend.js";
 // TODO: Implement ceil
 
 import "./tool/tool.js";
