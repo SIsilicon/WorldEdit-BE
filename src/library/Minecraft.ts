@@ -191,7 +191,10 @@ class ServerBuild extends ServerBuilder {
      * Emit to 'playerLeave' event listener
      */
     world.events.playerLeave.subscribe(data => this.emit("playerLeave", data));
-
+    /**
+     * Emit to 'blockBreak' event listener
+     */
+    world.events.blockBreak.subscribe(data => this.emit("blockBreak", data));
     let worldLoaded = false, tickCount = 0;
     const playerDimensions = new Map<string, string>();
     world.events.tick.subscribe((data) => {

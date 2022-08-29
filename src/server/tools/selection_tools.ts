@@ -1,8 +1,9 @@
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, BlockPermutation, EntityInventoryComponent, Player } from "mojang-minecraft";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Server } from "@notbeer-api";
+import { WAND_ITEM } from "../../config.js"
 
 class SelectionTool extends Tool {
   permission = "worldedit.selection.pos";
@@ -13,6 +14,17 @@ class SelectionTool extends Tool {
     );
     session.usingItem = false;
   };
+  breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation, brokenBlockPermutation: BlockPermutation) {
+    session.usingItem = true;
+    let comp = player.getComponent("inventory") as EntityInventoryComponent
+    if (comp.container.getItem(player.selectedSlot) == null) return
+    if (comp.container.getItem(player.selectedSlot).id != WAND_ITEM) return
+    
+    if (brokenBlockPermutation.type.id == 'minecraft:air') return
+    player.dimension.getBlock(loc).setPermutation(brokenBlockPermutation)
+    Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`])
+    session.usingItem = false;
+  }
 }
 Tools.register(SelectionTool, "selection_wand");
 

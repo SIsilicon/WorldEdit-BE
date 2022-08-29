@@ -858,7 +858,7 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster."
 "Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
