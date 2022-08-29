@@ -1,4 +1,4 @@
-import { BlockLocation, BlockPermutation, Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "mojang-minecraft";
 import { PlayerSession } from "../sessions.js";
 import { Server, Thread } from "@notbeer-api";
 import { print, printerr } from "../util.js";
@@ -17,10 +17,6 @@ export abstract class Tool {
     */
   readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) => void;
   /**
-    * The function that's called when the tool has broken a block.
-    */
-  readonly breakOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation, brokenpermutation: BlockPermutation) => void;
-  /**
      * The permission required for the tool to be used.
      */
   readonly permission: string;
@@ -37,13 +33,12 @@ export abstract class Tool {
   }
 
   private useOnTick = 0;
-  private breakOnTick = 0;
   private lastUse = Date.now();
 
-  process(session: PlayerSession, tick: number, loc?: BlockLocation, brokenBlockPermutation?: BlockPermutation): boolean {
+  process(session: PlayerSession, tick: number, loc?: BlockLocation): boolean {
     const player = session.getPlayer();
 
-    if (!loc && !this.use || loc && !this.useOn || brokenBlockPermutation && !this.breakOn) {
+    if (!loc && !this.use || loc && !this.useOn) {
       return false;
     }
 
@@ -69,17 +64,12 @@ export abstract class Tool {
               if (self.use.constructor.name == "GeneratorFunction") {
                 yield* self.use(self, player, session) as Generator<void, void>;
               } else {
-                self.use(self, player, session) as void;
+                                self.use(self, player, session) as void;
               }
             }
-          } else if (!brokenBlockPermutation) {
+          } else {
             self.useOnTick = tick;
             self.useOn(self, player, session, loc);
-          }
-          else
-          {
-            self.breakOnTick = tick;
-            self.breakOn(self, player, session, loc, brokenBlockPermutation);
           }
         }
       } catch(e) {

@@ -1,7 +1,7 @@
 import "./util.js";
 import "./commands/command_list.js";
 
-import { Player, world, BlockLocation, EntityInventoryComponent } from "mojang-minecraft";
+import { Player, world } from "mojang-minecraft";
 import { contentLog, listTickingAreas, removeTickingArea, Server, configuration } from "@notbeer-api";
 import { print } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
