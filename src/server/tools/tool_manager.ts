@@ -2,6 +2,7 @@ import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, BlockBreakEvent, 
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession } from "../sessions.js";
+import { ENABLE_BLOCK_BREAK } from "@config.js"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -29,12 +30,14 @@ class ToolBuilder {
       }
       this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
     });
-    Server.on("blockBreak", ev => {
-      if (ev.player.id != "minecraft:player") {
-        return;
-      }
-      this.onBlockBreak(ev.item, ev.player, ev, ev.block.location);
-    });
+    if (ENABLE_BLOCK_BREAK) {
+      Server.on("blockBreak", ev => {
+        if (ev.player.id != "minecraft:player") {
+          return;
+        }
+        this.onBlockBreak(ev.item, ev.player, ev, ev.block.location);
+      });
+    }
     Server.on("tick", ev => {
       this.currentTick = ev.currentTick;
     });
@@ -161,6 +164,7 @@ class ToolBuilder {
       return;
     }
     
+    player.dimension.getBlock(loc).setPermutation(ev.brokenBlockPermutation)
     tool.process(getSession(player), this.currentTick, loc, ev.brokenBlockPermutation);
   }
 
