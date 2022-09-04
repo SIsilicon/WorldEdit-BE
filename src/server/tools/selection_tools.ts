@@ -1,4 +1,4 @@
-import { BlockLocation, BlockPermutation, EntityInventoryComponent, Player } from "mojang-minecraft";
+import { BlockLocation, BlockPermutation, Player } from "mojang-minecraft";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
@@ -16,12 +16,12 @@ class SelectionTool extends Tool {
   breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation, brokenBlockPermutation: BlockPermutation) {
     session.usingItem = true;
 
-    if (brokenBlockPermutation.type.id == 'minecraft:air') return
-    player.dimension.getBlock(loc).setPermutation(brokenBlockPermutation)
-    Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`])
+    if (brokenBlockPermutation.type.id == "minecraft:air") return;
+    player.dimension.getBlock(loc).setPermutation(brokenBlockPermutation);
+    Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
 
     session.usingItem = false;
-  }
+  };
 }
 Tools.register(SelectionTool, "selection_wand");
 

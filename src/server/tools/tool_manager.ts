@@ -2,7 +2,7 @@ import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, BlockBreakEvent, 
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession } from "../sessions.js";
-import { ENABLE_BLOCK_BREAK } from "@config.js"
+import { ENABLE_BLOCK_BREAK } from "@config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -150,10 +150,10 @@ class ToolBuilder {
       return;
     }
 
-    let comp = player.getComponent("inventory") as EntityInventoryComponent
-    if (comp.container.getItem(player.selectedSlot) == null) return
-    item = comp.container.getItem(player.selectedSlot)
-    
+    const comp = player.getComponent("inventory") as EntityInventoryComponent;
+    if (comp.container.getItem(player.selectedSlot) == null) return;
+    item = comp.container.getItem(player.selectedSlot);
+
     const key = `${item.id}/${item.data}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
@@ -163,8 +163,8 @@ class ToolBuilder {
     } else {
       return;
     }
-    
-    player.dimension.getBlock(loc).setPermutation(ev.brokenBlockPermutation)
+
+    player.dimension.getBlock(loc).setPermutation(ev.brokenBlockPermutation);
     tool.process(getSession(player), this.currentTick, loc, ev.brokenBlockPermutation);
   }
 
