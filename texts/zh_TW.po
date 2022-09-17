@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-08-13 02:34\n"
+"PO-Revision-Date: 2022-09-17 21:22\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -318,7 +318,7 @@ msgstr "不能修改未加載的區塊！"
 
 # %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+msgstr "無法修改未卸載的區塊！%s增加模擬距離，也無法添加正在操作的滴答區域。"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "數值(%1)太大了！它的最大是(%2)。"
@@ -480,7 +480,7 @@ msgid "commands.wedit:fixlava.noLava"
 msgstr "你需要靠近一些熔岩以修復"
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "讓附近的流動水成為原方塊"
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "你需要更靠近一些水以修復"
@@ -519,7 +519,7 @@ msgid "commands.wedit:hpos1.description"
 msgstr "把你選擇的第一個位置切換到你正在看著的方塊的位置"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "把你選擇的第二個位置切換到你正在看著的方塊的位置"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一個空心的錐體"
@@ -703,6 +703,18 @@ msgstr "在你前面沒有找到牆壁。"
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "在你前面沒有找到可傳送的位置。"
+
+msgid "commands.wedit:ascend.description"
+msgstr "Go up a floor"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "No free spot above you found."
+
+msgid "commands.wedit:descend.description"
+msgstr "Go down a floor"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "設置刷子可以用在什麼樣的塊上"
