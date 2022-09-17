@@ -1,6 +1,9 @@
 // Enables debug messages to content logs.
 export const DEBUG = true;
 
+// Enables to use Block Break to set pos1.
+export const ENABLE_BLOCK_BREAK = true;
+
 // What character(s) to use to define the beginning of custom commands.
 export const COMMAND_PREFIX = ";";
 

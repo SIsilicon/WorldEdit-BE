@@ -1,7 +1,8 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent } from "mojang-minecraft";
+import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, BlockBreakEvent, EntityInventoryComponent } from "mojang-minecraft";
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession } from "../sessions.js";
+import { ENABLE_BLOCK_BREAK } from "@config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -29,6 +30,14 @@ class ToolBuilder {
       }
       this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
     });
+    if (ENABLE_BLOCK_BREAK) {
+      Server.on("blockBreak", ev => {
+        if (ev.player.id != "minecraft:player") {
+          return;
+        }
+        this.onBlockBreak(ev.item, ev.player, ev, ev.block.location);
+      });
+    }
     Server.on("tick", ev => {
       this.currentTick = ev.currentTick;
     });
@@ -134,6 +143,29 @@ class ToolBuilder {
 
     tool.process(getSession(player), this.currentTick, loc);
     ev.cancel = true;
+  }
+
+  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakEvent, loc?: BlockLocation) {
+    if (this.disabled.includes(player.name)) {
+      return;
+    }
+
+    const comp = player.getComponent("inventory") as EntityInventoryComponent;
+    if (comp.container.getItem(player.selectedSlot) == null) return;
+    item = comp.container.getItem(player.selectedSlot);
+
+    const key = `${item.id}/${item.data}`;
+    let tool: Tool;
+    if (this.bindings.get(player.name)?.has(key)) {
+      tool = this.bindings.get(player.name).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else {
+      return;
+    }
+
+    player.dimension.getBlock(loc).setPermutation(ev.brokenBlockPermutation);
+    tool.process(getSession(player), this.currentTick, loc, ev.brokenBlockPermutation);
   }
 
   private createPlayerBindingMap(player: Player) {
