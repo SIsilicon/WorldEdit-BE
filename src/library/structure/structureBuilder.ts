@@ -9,7 +9,8 @@ interface StructureMeta {
 
 export interface StructureSaveOptions {
     includeEntities?: boolean,
-    includeBlocks?: boolean
+    includeBlocks?: boolean,
+    saveToDisk?: boolean
 }
 
 export interface StructureLoadOptions {
@@ -29,6 +30,7 @@ class StructureManager {
 
     const includeEntities = options.includeEntities ?? false;
     const includeBlocks = options.includeBlocks ?? true;
+    const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
 
     if (size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z) {
       const subStructs: [string, Vector, Vector][] = [];
@@ -42,7 +44,7 @@ class StructureManager {
             const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
 
             try {
-              dim.runCommand(`structure save ${name + subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} memory ${includeBlocks}`);
+              dim.runCommand(`structure save ${name + subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`);
               subStructs.push([
                 subName,
                 new Vector(x, y, z),
@@ -66,7 +68,7 @@ class StructureManager {
       const endStr = max.print();
 
       try {
-        dim.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} memory ${includeBlocks}`);
+        dim.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`);
         this.structures.set(name, {
           size: size
         });

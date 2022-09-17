@@ -92,5 +92,7 @@ import "./history/undo.js";
 import "./history/redo.js";
 import "./history/clearhistory.js";
 
+import "./structure/export.js";
+
 import { COMMAND_PREFIX } from "@config.js";
 Server.command.prefix = COMMAND_PREFIX;
