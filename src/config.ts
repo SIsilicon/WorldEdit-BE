@@ -44,11 +44,11 @@ export const MAX_CHANGE_LIMIT = -1;
 
 // How long an async operation will run until giving Minecraft a chance to run.
 // The higher the value, the faster the operation, but the slower Minecraft takes to run.
-export const ASYNC_TIME_BUDGET = 200;
+export const ASYNC_TIME_BUDGET = 150;
 
 // Whether the addon should use simpler methods to run operations faster.
 // This comes with the drawback of more limited capabilities.
 export const FAST_MODE = false;
 
 // The version of WorldEdit (do not change)
-export const VERSION = "0.6.4";
+export const VERSION = "0.7.0.1 [BETA]";
