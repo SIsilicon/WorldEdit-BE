@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-08-14 19:47\n"
+"PO-Revision-Date: 2022-09-17 21:22\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -703,6 +703,18 @@ msgstr "Nicht gegen oder mit Blick auf eine Wand, um durchzugehen."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Keine freie Stelle vor Ihnen gefunden."
+
+msgid "commands.wedit:ascend.description"
+msgstr "Go up a floor"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "No free spot above you found."
+
+msgid "commands.wedit:descend.description"
+msgstr "Go down a floor"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
