@@ -11,6 +11,9 @@ class SelectionTool extends Tool {
       [`${loc.x}`, `${loc.y}`, `${loc.z}`]
     );
   };
+  breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+    Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
+  };
 }
 Tools.register(SelectionTool, "selection_wand");
 

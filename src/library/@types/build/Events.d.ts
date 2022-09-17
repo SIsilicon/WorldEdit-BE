@@ -15,7 +15,8 @@ import {
   PistonActivateEvent,
   WeatherChangeEvent,
   Player,
-  Dimension
+  Dimension,
+  BlockBreakEvent
 } from "mojang-minecraft";
 import { registerInformation } from "./classes/CommandBuilder";
 
@@ -27,6 +28,7 @@ export interface EventList {
     messageCreate: [ChatEvent],
     BeforeItemUse: [BeforeItemUseEvent],
     BeforeItemUseOn: [BeforeItemUseOnEvent],
+    blockBreak: [BlockBreakEvent],
     tick: [TickEvent],
     entityEffected: [EffectAddEvent],
     entityCreate: [EntityCreateEvent],

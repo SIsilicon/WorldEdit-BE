@@ -35,6 +35,9 @@ export const NAV_WAND_DISTANCE = 128;
 // The maximum brush radius allowed.
 export const MAX_BRUSH_RADIUS = 6;
 
+// Whether to break blocks instead of use and sneaking them to mark the first position (;pos1, ;hpos1).
+export const USE_BLOCK_BREAKING = true;
+
 // The default amount of blocks that can be "potentially" affected within a single operation.
 export const DEFAULT_CHANGE_LIMIT = -1;
 

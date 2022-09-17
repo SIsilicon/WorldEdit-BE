@@ -1,8 +1,8 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world } from "mojang-minecraft";
+import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "mojang-minecraft";
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
-import { PlayerUtil } from "@modules/player_util.js";
+import { USE_BLOCK_BREAKING } from "@config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -40,6 +40,16 @@ class ToolBuilder {
         this.onItemTick(item, player, ev.currentTick);
       }
     });
+
+    if (USE_BLOCK_BREAKING) {
+      Server.on("blockBreak", ev => {
+        const item = Server.player.getHeldItem(ev.player);
+        if (!item) {
+          return;
+        }
+        this.onBlockBreak(item, ev.player, ev);
+      });
+    }
   }
 
   register(toolClass: toolConstruct, name: string, item?: string) {
@@ -160,6 +170,31 @@ class ToolBuilder {
 
     tool.process(getSession(player), this.currentTick, loc);
     ev.cancel = true;
+  }
+
+  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakEvent) {
+    if (this.disabled.includes(player.name)) {
+      return;
+    }
+
+    const comp = player.getComponent("inventory") as EntityInventoryComponent;
+    if (comp.container.getItem(player.selectedSlot) == null) return;
+    item = comp.container.getItem(player.selectedSlot);
+
+    const key = `${item.id}/${item.data}`;
+    let tool: Tool;
+    if (this.bindings.get(player.name)?.has(key)) {
+      tool = this.bindings.get(player.name).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else {
+      return;
+    }
+
+    const processed = tool.process(getSession(player), this.currentTick, ev.block.location, ev.brokenBlockPermutation);
+    if (processed) {
+      player.dimension.getBlock(ev.block.location).setPermutation(ev.brokenBlockPermutation);
+    }
   }
 
   private createPlayerBindingMap(player: Player) {
