@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-08-13 09:37\n"
+"PO-Revision-Date: 2022-09-17 21:22\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -703,6 +703,18 @@ msgstr "Не навпроти у стіну або обличчям до неї,
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Перед вами не знайдено вільного місця."
+
+msgid "commands.wedit:ascend.description"
+msgstr "Go up a floor"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "No free spot above you found."
+
+msgid "commands.wedit:descend.description"
+msgstr "Go down a floor"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Встановіть тип блоків, на яких можна використовувати пензель"
