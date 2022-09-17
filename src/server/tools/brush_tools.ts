@@ -6,6 +6,7 @@ import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
+import { Selection } from "@modules/selection.js";
 
 class BrushTool extends Tool {
   public brush: Brush;
@@ -22,6 +23,20 @@ class BrushTool extends Tool {
       throw "commands.wedit:jumpto.none";
     }
     yield* self.brush.apply(hit, session, self.mask);
+  };
+
+  tick = function (self: BrushTool, player: Player, session: PlayerSession, tick: number) {
+    if (tick % 3 != 0) {
+      return;
+    }
+
+    const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
+    if (hit) {
+      const selection = new Selection(player);
+      selection.mode = "extend";
+      selection.set(0, hit);
+      selection.draw();
+    }
   };
 
   constructor(brush: Brush, mask?: Mask) {

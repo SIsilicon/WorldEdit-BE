@@ -16,15 +16,17 @@ export abstract class Tool {
     * The function that's called when the tool is being used on a block.
     */
   readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) => void;
+
+  readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => void;
   /**
-     * The permission required for the tool to be used.
-     */
+    * The permission required for the tool to be used.
+    */
   readonly permission: string;
 
   /**
-     * @internal
-     * The type of the tool; is set on bind, from registration information
-     */
+    * @internal
+    * The type of the tool; is set on bind, from registration information
+    */
   type: string;
 
   private currentPlayer: Player;
@@ -52,6 +54,7 @@ export abstract class Tool {
 
     new Thread().start(function* (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
       self.currentPlayer = player;
+      session.usingItem = true;
       try {
         if (!Server.player.hasPermission(player, self.permission)) {
           throw "worldedit.tool.noPerm";
@@ -64,7 +67,7 @@ export abstract class Tool {
               if (self.use.constructor.name == "GeneratorFunction") {
                 yield* self.use(self, player, session) as Generator<void, void>;
               } else {
-                                self.use(self, player, session) as void;
+                self.use(self, player, session) as void;
               }
             }
           } else {
@@ -74,6 +77,8 @@ export abstract class Tool {
         }
       } catch(e) {
         onFail(e);
+      } finally {
+        session.usingItem = false;
       }
       self.currentPlayer = null;
     }, this, player, session, loc);

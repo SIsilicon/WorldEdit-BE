@@ -1,7 +1,8 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent } from "mojang-minecraft";
+import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world } from "mojang-minecraft";
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
-import { getSession } from "../sessions.js";
+import { getSession, hasSession } from "../sessions.js";
+import { PlayerUtil } from "@modules/player_util.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -31,6 +32,13 @@ class ToolBuilder {
     });
     Server.on("tick", ev => {
       this.currentTick = ev.currentTick;
+      for (const player of world.getPlayers()) {
+        const item = Server.player.getHeldItem(player);
+        if (!item) {
+          return;
+        }
+        this.onItemTick(item, player, ev.currentTick);
+      }
     });
   }
 
@@ -117,8 +125,26 @@ class ToolBuilder {
     }
   }
 
+  private onItemTick(item: ItemStack, player: Player, tick: number) {
+    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
+      return;
+    }
+
+    const key = `${item.id}/${item.data}`;
+    let tool: Tool;
+    if (this.bindings.get(player.name)?.has(key)) {
+      tool = this.bindings.get(player.name).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else {
+      return;
+    }
+
+    tool.tick?.(tool, player, getSession(player), tick);
+  }
+
   private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: BlockLocation) {
-    if (this.disabled.includes(player.name)) {
+    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
       return;
     }
 
