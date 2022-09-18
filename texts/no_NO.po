@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-18 20:01\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -705,16 +705,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "Ingen tomme områder funnet foran deg."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "Gå opp en etasje"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "Ingen ledig plass ble funnet over deg."
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "Gå ned en etasje"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "Ingen ledig plass funnet under deg."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Angi hva slags blokker et pensel kan bli brukt på"
@@ -870,7 +870,7 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster."
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
 "Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
