@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-18 00:37\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -705,16 +705,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "1階分上に行く"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "上に空間を見つけられませんでした。"
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "1階分下に行く"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "下に空間を見つけられませんでした。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
