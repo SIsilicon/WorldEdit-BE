@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-18 00:37\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -705,16 +705,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "在你前面沒有找到可傳送的位置。"
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "上一層"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "沒有找到您上面的空閒位置。"
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "下一層"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "沒有找到您下方的空閒位置。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "設置刷子可以用在什麼樣的塊上"
