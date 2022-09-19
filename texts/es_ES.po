@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-19 18:27\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "item.wedit:copy_button"
 msgstr "Copy"
@@ -318,7 +318,7 @@ msgstr "¡No se pueden modificar los chunks descargados!"
 
 # %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+msgstr "¡No se pueden modificar los chunks descargados!%sAumenta tu distancia de simulación, o añade áreas de marca donde estás operando."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "El número (%1) es demasiado grande! Debe ser como máximo (%2)."
@@ -705,16 +705,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "No se ha encontrado ningún espacio libre por delante."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "Sube un piso"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "No se ha encontrado ningún espacio libre por encima."
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "Sube un piso"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "No se ha encontrado ningún espacio libre por encima."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Establece que tipo de bloques puede usar el pincel"
