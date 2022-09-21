@@ -11,22 +11,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-09-19 18:27\n"
+"PO-Revision-Date: 2022-09-21 17:15\n"
 
 msgid "pack.description"
-msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
+msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
 
 msgid "item.wedit:copy_button"
-msgstr "Copy"
+msgstr "Copia"
 
 msgid "item.wedit:cut_button"
-msgstr "Cut"
+msgstr "Corte"
 
 msgid "item.wedit:paste_button"
-msgstr "Paste"
+msgstr "Pega"
 
 msgid "item.wedit:undo_button"
-msgstr "Desh acer"
+msgstr "Rehace"
 
 msgid "item.wedit:redo_button"
 msgstr "Rehacer"
