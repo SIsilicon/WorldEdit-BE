@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-25 20:11\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -316,9 +316,8 @@ msgstr "您没有执行此命令的权限。"
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "无法修改已卸载的数据块!%s增加您的模拟距离, 或添加您正在操作的数据区域."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
@@ -461,6 +460,15 @@ msgstr "垂直拓展你的选区直到它到达世界高度限制。"
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
 
@@ -530,6 +538,12 @@ msgstr "生成一个空心球体"
 msgid "commands.wedit:inset.description"
 msgstr "收缩选区。"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至面对着的方块的顶部"
 
@@ -593,6 +607,9 @@ msgstr "将您的剪切板粘贴至这个世界"
 msgid "commands.wedit:paste.explain"
 msgstr "已粘贴%s个方块"
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "将您的选区的第一个点设置为指定的或当前的位置"
 
@@ -637,6 +654,9 @@ msgstr "已旋转%s个方块。"
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'不是一个90°的倍数！"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
