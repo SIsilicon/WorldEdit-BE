@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-25 20:11\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -316,9 +316,8 @@ msgstr "У вас не достаточно прав чтобы использо
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Не возможно модифицировать не загруженные чанки!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
@@ -461,6 +460,15 @@ msgstr "Расширьте выделение территории вертик�
 msgid "commands.wedit:expand.explain"
 msgstr "Регион расширен на %s блоков."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасить огонь поблизости"
 
@@ -530,6 +538,12 @@ msgstr "Сгенерировать пустую сферу"
 msgid "commands.wedit:inset.description"
 msgstr "Вставить область выделения"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
 
@@ -593,6 +607,9 @@ msgstr "Вставьте данные из заметок в мир"
 msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоков."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Установите первую позицию вашего выбора в указанную или текущую позицию"
 
@@ -637,6 +654,9 @@ msgstr "Повернуто %s блоков."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "%s не является приращением 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
