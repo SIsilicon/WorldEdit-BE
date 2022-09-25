@@ -2,6 +2,7 @@ import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
+import { Player } from "library/build/classes/playerBuilder.js";
 import { BlockLocation } from "mojang-minecraft";
 import { registerCommand } from "../register_commands.js";
 
@@ -34,6 +35,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   let pasteStart: Vector | BlockLocation;
   if (pasteOriginal) {
+    if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) {
+      throw "commands.wedit:paste.noOriginal";
+    }
     pasteStart = session.clipboardTransform.originalLoc;
   } else {
     const loc = PlayerUtil.getBlockLocation(builder);

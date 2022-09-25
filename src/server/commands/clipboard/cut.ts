@@ -70,5 +70,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
     Jobs.finishJob(job);
   }
 
-  return RawText.translate("commands.wedit:cut.explain").with(`${session.selection.getBlockCount()}`);
+  return RawText.translate("commands.wedit:cut.explain").with(`${session.clipboard.getBlockCount()}`);
 });

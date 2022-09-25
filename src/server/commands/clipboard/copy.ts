@@ -3,6 +3,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
+import { EntityBuilder } from "library/build/classes/entityBuilder.js";
 import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
@@ -51,6 +52,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     rotation: Vector.ZERO,
     flip: Vector.ONE,
     originalLoc: Vector.add(start, end).mul(0.5),
+    originalDim: player.dimension.id,
     relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
   };
 
@@ -112,5 +114,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     Jobs.finishJob(job);
   }
-  return RawText.translate("commands.wedit:copy.explain").with(`${session.selection.getBlockCount()}`);
+  return RawText.translate("commands.wedit:copy.explain").with(`${session.clipboard.getBlockCount()}`);
 });

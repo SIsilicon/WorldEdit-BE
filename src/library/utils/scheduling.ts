@@ -13,7 +13,7 @@ let tickTimeoutID = 0, tickIntervalID = 0;
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickTimeout(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+function setTickTimeout(handler: string | Function, timeout = 1, ...args: unknown[]): number {
   const tickTimeout = { callback: handler, tick: timeout, args };
   tickTimeoutID++;
   tickTimeoutMap.set(tickTimeoutID, tickTimeout);
@@ -27,7 +27,7 @@ function setTickTimeout(handler: string | Function, timeout?: number, ...args: u
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickInterval(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+function setTickInterval(handler: string | Function, timeout = 1, ...args: unknown[]): number {
   const tickInterval = { callback: handler, tick: timeout, args };
   tickIntervalID++;
   tickIntervalMap.set(tickIntervalID, tickInterval);

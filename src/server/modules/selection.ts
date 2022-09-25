@@ -1,5 +1,5 @@
 import { regionBounds, regionVolume, Server, Vector } from "@notbeer-api";
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, MolangVariableMap, Player } from "mojang-minecraft";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
@@ -139,7 +139,8 @@ export class Selection {
       this.drawTimer = 10;
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
-        Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
+        dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
+        // Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
       }
     }
     this.drawTimer--;

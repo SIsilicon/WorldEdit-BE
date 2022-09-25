@@ -19,6 +19,7 @@ export class RegionBuffer {
   private blockCount = 0;
   private subId = 0;
   private savedEntities = false;
+  private imported = "";
 
   constructor(isAccurate = false) {
     this.isAccurate = isAccurate;
@@ -85,6 +86,7 @@ export class RegionBuffer {
       }
       this.blockCount = regionVolume(start, end);
     }
+    this.imported = "";
     this.savedEntities = options.includeEntities;
     this.size = regionSize(start, end);
     return false;
@@ -216,7 +218,7 @@ export class RegionBuffer {
       if (options.flip?.z == -1) loadOptions.flip = "x";
       if (options.flip?.x == -1) loadOptions.flip += "z";
       yield 1;
-      return Server.structure.load(this.id, loc, dim, loadOptions);
+      return Server.structure.load(this.imported || this.id, loc, dim, loadOptions);
     }
   }
 
@@ -262,6 +264,12 @@ export class RegionBuffer {
     this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock();
     this.blockCount = this.blocks.size;
     return error;
+  }
+
+  public import(structure: string, size: BlockLocation) {
+    this.imported = structure;
+    this.size = size;
+    this.blockCount = size.x * size.y * size.z;
   }
 
   public delete() {

@@ -79,38 +79,36 @@ class StructureManager {
   }
 
   load(name: string, location: BlockLocation, dim: Dimension, options: StructureLoadOptions = {}) {
+    const loadPos = Vector.from(location);
+    let rot = (options.rotation ?? 0);
+    rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+    const flip = options.flip ?? "none";
+
     const struct = this.structures.get(name);
-    if (struct) {
-      const loadPos = Vector.from(location);
-      let rot = (options.rotation ?? 0);
-      rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+    if (struct?.subRegions) {
+      const rotation = new Vector(0, options.rotation ?? 0, 0);
       const flip = options.flip ?? "none";
+      const dir_sc = Vector.ONE;
+      if (flip.includes("x")) dir_sc.z *= -1;
+      if (flip.includes("z")) dir_sc.x *= -1;
 
-      if (struct.subRegions) {
-        const rotation = new Vector(0, options.rotation ?? 0, 0);
-        const flip = options.flip ?? "none";
-        const dir_sc = Vector.ONE;
-        if (flip.includes("x")) dir_sc.z *= -1;
-        if (flip.includes("z")) dir_sc.x *= -1;
+      const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
+      let success = false;
+      for (const sub of struct.subRegions) {
+        const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, rotation, dir_sc);
+        const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
 
-        const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
-        let success = false;
-        for (const sub of struct.subRegions) {
-          const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, rotation, dir_sc);
-          const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
-
-          try {
-            dim.runCommand(`structure load ${name + sub[0]} ${subLoad.print()} ${rot}_degrees ${flip}`);
-            success = true;
-          } catch {}
-        }
-        return !success;
-      } else {
         try {
-          dim.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`);
-          return false;
+          dim.runCommand(`structure load ${name + sub[0]} ${subLoad.print()} ${rot}_degrees ${flip}`);
+          success = true;
         } catch {}
       }
+      return !success;
+    } else {
+      try {
+        dim.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`);
+        return false;
+      } catch {}
     }
     return true;
   }
