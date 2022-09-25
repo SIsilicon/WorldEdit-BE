@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-09-21 17:15\n"
+"PO-Revision-Date: 2022-09-25 20:11\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -316,9 +316,8 @@ msgstr "No tienes los permisos necesarios para ejecutar este comando."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "¡No se pueden modificar los chunks descargados!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "¡No se pueden modificar los chunks descargados!%sAumenta tu distancia de simulación, o añade áreas de marca donde estás operando."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "El número (%1) es demasiado grande! Debe ser como máximo (%2)."
@@ -461,6 +460,15 @@ msgstr "Expande verticalmente tu selección hasta los límites de altura del mun
 msgid "commands.wedit:expand.explain"
 msgstr "La región se ha expandido %s bloques."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguir el fuego cercano"
 
@@ -530,6 +538,12 @@ msgstr "Genera una esfera hueca"
 msgid "commands.wedit:inset.description"
 msgstr "Inserta el área seleccionada"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Te teletransporta a la parte superior del bloque al que estás mirando"
 
@@ -593,6 +607,9 @@ msgstr "Pega lo que hay en el portapapeles"
 msgid "commands.wedit:paste.explain"
 msgstr "%s bloques pegados."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Establece la primera posición de tu selección a la posición especificada o actual"
 
@@ -637,6 +654,9 @@ msgstr "%s bloques rotados."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "¡'%s' no es un incremento de 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Selección borrada."
