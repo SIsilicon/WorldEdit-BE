@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-09-18 01:36\n"
+"PO-Revision-Date: 2022-09-25 20:11\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -316,9 +316,8 @@ msgstr "이 명령을 실행할 수 있는 권한이 없습니다."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "더 많은 청크 로딩이 필요합니다! %s 이것은 당신의 시뮬레이션 거리를 높이거나 당신이 권한이 있을 때 tickingarea 명령어를 사용해서 해결할수 있습니다."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
@@ -461,6 +460,15 @@ msgstr "Vertically expand your selection to world height limits"
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguish nearby fires"
 
@@ -530,6 +538,12 @@ msgstr "속이 빈 구체를 생성합니다."
 msgid "commands.wedit:inset.description"
 msgstr "Inset the selection area"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "보고 있는 블록의 꼭대기로 순간이동합니다"
 
@@ -593,6 +607,9 @@ msgstr "클립보드를 월드에 붙여넣기"
 msgid "commands.wedit:paste.explain"
 msgstr "%s 블럭을 붙여넣었습니다."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "선택 영역의 첫 번째 위치를 지정 위치 또는 현재 위치로 설정합니다."
 
@@ -637,6 +654,9 @@ msgstr "%s 블록을 회전했습니다."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'은 90°의 증분이 아닙니다!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
