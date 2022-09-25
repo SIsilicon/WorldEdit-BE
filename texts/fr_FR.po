@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-09-25 20:11\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -316,9 +316,8 @@ msgstr "Vous n'avez pas la permission d'exécuter cette commande."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Impossible de modifier les chunks non chargés!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Le nombre (%1) est trop grand ! Il doit être au plus (%2)."
@@ -461,6 +460,15 @@ msgstr "Élargir verticalement votre sélection aux limites de hauteur du monde"
 msgid "commands.wedit:expand.explain"
 msgstr "Région étendue de %s blocs."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguish nearby fires"
 
@@ -530,6 +538,12 @@ msgstr "Générer une sphère creuse"
 msgid "commands.wedit:inset.description"
 msgstr "Inset the selection area"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Vous téléporte au sommet du bloc que vous regardez"
 
@@ -593,6 +607,9 @@ msgstr "Colle le presse-papier dans le monde"
 msgid "commands.wedit:paste.explain"
 msgstr "%s blocs collés."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Définir la première position de votre sélection à la position spécifiée ou actuelle"
 
@@ -637,6 +654,9 @@ msgstr "%s blocs tournés."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' is not an increment of 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Sélection effacée."
