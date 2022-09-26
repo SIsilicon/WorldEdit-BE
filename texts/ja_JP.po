@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-09-25 23:45\n"
+"PO-Revision-Date: 2022-09-26 01:05\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -467,7 +467,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s をエクスポートしました。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§e注意: この構造物を他のワールドで使用するには、外部用に抽出できる WorldEdit の PC/Webアプリが必要です。§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "近くの火を消す"
@@ -539,10 +539,10 @@ msgid "commands.wedit:inset.description"
 msgstr "選択範囲を挿入する"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "クリップボードに構造物をインポートする"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s をインポートし、クリップボードにコピーしました。"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "見ているブロックの上にテレポートする"
@@ -608,7 +608,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "%s 個のブロックをペーストしました。"
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "元の位置にクリップボードを貼り付けることはできません。"
 
 msgid "commands.wedit:pos1.description"
 msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
@@ -656,7 +656,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' は90°の倍数ではありません！"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Y軸のみ回転できます!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
