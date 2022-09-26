@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-09-25 20:11\n"
+"PO-Revision-Date: 2022-09-26 01:05\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -317,7 +317,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eПорада: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
@@ -461,13 +461,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "Регіон розширено на %s блоків."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Експортує виділення для подальшого використання."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s експортовано."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§eПримітка: щоб використовувати цю структуру в інших світах, необхідна комп’ютерна/веб-програма WorldEdit, щоб розпакувати її для зовнішнього використання.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасити пожежі поблизу"
@@ -539,10 +539,10 @@ msgid "commands.wedit:inset.description"
 msgstr "Вставити область виділення"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Імпортує структуру в буфер обміну."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s імпортовано та встановлено у ваш буфер обміну."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортує вас у верхню частину блоку, на який ви дивитесь"
@@ -608,7 +608,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоків."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "Не вдається вставити буфер обміну в початкове місце."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Встановіть першу позицію вашого виділення на вказану або поточну позицію"
@@ -656,7 +656,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' не є кроком 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Обертати можна тільки вздовж осі Y!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
