@@ -11,19 +11,7 @@ import { ASYNC_TIME_BUDGET } from "@config.js";
 Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = ASYNC_TIME_BUDGET;
 const activeBuilders: Player[] = [];
-/*
-const tag = ["text_sign"];
-const prop = ["button_pressed_bit", "open_bit", "candles", "growth", "attached_bit", "redstone_signal", "coral_color",
-  "repeater_delay", "age_bit", "item_frame_map_bit", "hanging"];
-const block = ["piston_arm_collision", "hanging_roots"];
 
-for (const block of MinecraftBlockTypes.getAllBlockTypes().reverse()) {
-  const perm = block.createDefaultBlockPermutation();
-  const tags = perm.getTags();
-  const properties = perm.getAllProperties().map(prop => prop.name);
-  contentLog.debug(block.id, "tags:", tags, "properties:", properties);
-}
-*/
 let ready = false;
 Server.on("ready", ev => {
   Server.runCommand("gamerule showtags false");

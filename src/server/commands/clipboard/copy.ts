@@ -3,7 +3,6 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
-import { EntityBuilder } from "library/build/classes/entityBuilder.js";
 import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";

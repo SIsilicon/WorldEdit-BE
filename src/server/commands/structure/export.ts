@@ -52,8 +52,6 @@ function processError(struct_name: string, err: boolean) {
   }
 }
 
-// TODO: Modify app for renamed structures
-
 const users: Player[] = [];
 registerCommand(registerInformation, function (session, builder, args) {
   assertCuboidSelection(session);

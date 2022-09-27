@@ -1,4 +1,4 @@
-import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Vector } from "@notbeer-api";
+import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
 import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
 import { locToString, stringToLoc } from "../util.js";
 
@@ -217,6 +217,8 @@ export class RegionBuffer {
       };
       if (options.flip?.z == -1) loadOptions.flip = "x";
       if (options.flip?.x == -1) loadOptions.flip += "z";
+      if (loadOptions.flip as string == "nonez") loadOptions.flip = "z";
+      if (this.imported) loadOptions.importedSize = Vector.from(this.size);
       yield 1;
       return Server.structure.load(this.imported || this.id, loc, dim, loadOptions);
     }
@@ -273,15 +275,19 @@ export class RegionBuffer {
   }
 
   public delete() {
-    if (this.isAccurate) {
-      for (const block of this.blocks.values()) {
-        if (!(block instanceof BlockPermutation)) {
-          this.deleteBlockStruct(block[0]);
+    const thread = new Thread();
+    thread.start(function* (self: RegionBuffer) {
+      if (self.isAccurate) {
+        for (const block of self.blocks.values()) {
+          if (!(block instanceof BlockPermutation)) {
+            self.deleteBlockStruct(block[0]);
+            yield;
+          }
         }
       }
-    }
-    Server.structure.delete(this.id);
-    contentLog.debug("deleted structure", this.id);
+      Server.structure.delete(self.id);
+      contentLog.debug("deleted structure", self.id);
+    }, this);
   }
 
   private transformMapping(mapping: {[key: string|number]: Vector}, state: string|number, rotate: Vector, flip: Vector): string {
