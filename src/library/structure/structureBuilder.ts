@@ -1,21 +1,28 @@
 /* eslint-disable no-empty */
-import { regionSize, regionTransformedBounds, Vector } from "../utils/index.js";
+import { contentLog, regionSize, regionTransformedBounds, Vector } from "../utils/index.js";
 import { BlockLocation, Dimension, world } from "mojang-minecraft";
 
+interface SubStructure {
+  name: string,
+  start: Vector,
+  end: Vector
+}
+
 interface StructureMeta {
-    subRegions?: [string, Vector, Vector][]; // name suffix, offset, end
-    size: Vector;
+  subRegions?: SubStructure[],
+  size: Vector
 }
 
 export interface StructureSaveOptions {
-    includeEntities?: boolean,
-    includeBlocks?: boolean,
-    saveToDisk?: boolean
+  includeEntities?: boolean,
+  includeBlocks?: boolean,
+  saveToDisk?: boolean
 }
 
 export interface StructureLoadOptions {
-    rotation?: number,
-    flip?: "none"|"x"|"z"|"xz"
+  rotation?: number,
+  flip?: "none"|"x"|"z"|"xz",
+  importedSize?: Vector
 }
 
 class StructureManager {
@@ -32,31 +39,24 @@ class StructureManager {
     const includeBlocks = options.includeBlocks ?? true;
     const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
 
-    if (size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z) {
-      const subStructs: [string, Vector, Vector][] = [];
-      for (let z = 0; z < size.z; z += this.MAX_SIZE.z)
-        for (let y = 0; y < size.y; y += this.MAX_SIZE.y)
-          for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
-            const subStart = min.add([x, y, z]);
-            const subEnd = Vector.min(
-              new Vector(x, y, z).add(this.MAX_SIZE), size
-            ).add(min).sub(Vector.ONE);
-            const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
+    if (this.beyondMaxSize(size)) {
+      const subStructs = this.getSubStructs(start, end);
+      for (const sub of subStructs) {
+        const subStart = min.add(sub.start);
+        const subEnd = min.add(sub.end);
+        const subName = name + sub.name;
 
-            try {
-              dim.runCommand(`structure save ${name + subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`);
-              subStructs.push([
-                subName,
-                new Vector(x, y, z),
-                subEnd.sub(min).add(Vector.ONE)
-              ]);
-            } catch {
-              for (const sub of subStructs) {
-                try { dim.runCommand(`structure delete ${name + sub[0]}`); } catch {}
-              }
-              return true;
-            }
+        try {
+          contentLog.debug(name);
+          contentLog.debug(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`);
+          dim.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`);
+        } catch {
+          for (const sub of subStructs) {
+            try { dim.runCommand(`structure delete ${name + sub.name}`); } catch {}
           }
+          return true;
+        }
+      }
 
       this.structures.set(name, {
         subRegions: subStructs,
@@ -85,21 +85,25 @@ class StructureManager {
     const flip = options.flip ?? "none";
 
     const struct = this.structures.get(name);
-    if (struct?.subRegions) {
+    if (struct?.subRegions || this.beyondMaxSize(options.importedSize ?? Vector.ZERO)) {
+      const size = options.importedSize ?? struct.size;
       const rotation = new Vector(0, options.rotation ?? 0, 0);
       const flip = options.flip ?? "none";
       const dir_sc = Vector.ONE;
       if (flip.includes("x")) dir_sc.z *= -1;
       if (flip.includes("z")) dir_sc.x *= -1;
 
-      const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
+      const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
       let success = false;
-      for (const sub of struct.subRegions) {
-        const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, rotation, dir_sc);
+      const subStructs = options.importedSize ?
+        this.getSubStructs(location, Vector.add(location, options.importedSize).toBlock()) :
+        struct.subRegions;
+      for (const sub of subStructs) {
+        const subBounds = regionTransformedBounds(sub.start.toBlock(), sub.end.toBlock(), Vector.ZERO, rotation, dir_sc);
         const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
 
         try {
-          dim.runCommand(`structure load ${name + sub[0]} ${subLoad.print()} ${rot}_degrees ${flip}`);
+          dim.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`);
           success = true;
         } catch {}
       }
@@ -125,7 +129,7 @@ class StructureManager {
       if (struct.subRegions) {
         for (const sub of struct.subRegions) {
           try {
-            dim.runCommand(`structure delete ${name}_${sub[0]}_${sub[1]}_${sub[2]}`);
+            dim.runCommand(`structure delete ${name}${sub.name}`);
           } catch {
             error = true;
           }
@@ -145,6 +149,29 @@ class StructureManager {
 
   getSize(name: string) {
     return this.structures.get(name).size.toBlock();
+  }
+
+  private beyondMaxSize(size: Vector) {
+    return size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z;
+  }
+
+  private getSubStructs(start: BlockLocation, end: BlockLocation) {
+    const size = regionSize(start, end);
+    const subStructs: SubStructure[] = [];
+    for (let z = 0; z < size.z; z += this.MAX_SIZE.z)
+      for (let y = 0; y < size.y; y += this.MAX_SIZE.y)
+        for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
+          const subStart = new Vector(x, y, z);
+          const subEnd = Vector.min(subStart.add(this.MAX_SIZE).sub(1), size.offset(-1, -1, -1));
+          const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
+
+          subStructs.push({
+            name: subName,
+            start: subStart,
+            end: subEnd
+          });
+        }
+    return subStructs;
   }
 }
 
