@@ -4,6 +4,7 @@ import { Brush } from "./base_brush.js";
 import { CylinderShape } from "../shapes/cylinder.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
+import { Selection } from "@modules/selection.js";
 
 /**
  * This brush creates cylinder shaped patterns in the world.
@@ -13,6 +14,7 @@ export class CylinderBrush extends Brush {
   private pattern: Pattern;
   private height: number;
   private hollow: boolean;
+  private radius: number;
 
   /**
     * @param radius The radius of the cylinders
@@ -28,12 +30,14 @@ export class CylinderBrush extends Brush {
     this.height = height;
     this.pattern = pattern;
     this.hollow = hollow;
+    this.radius = radius;
   }
 
   public resize(value: number) {
     this.assertSizeInRange(value);
     this.shape = new CylinderShape(this.height, value);
     this.shape.usedInBrush = true;
+    this.radius = value;
   }
 
   public paintWith(value: Pattern) {
@@ -42,5 +46,13 @@ export class CylinderBrush extends Brush {
 
   public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
     yield* this.shape.generate(loc, this.pattern, mask, session, {"hollow": this.hollow});
+  }
+
+  // TODO: Support cylinder shape
+  public updateOutline(selection: Selection, loc: BlockLocation): void {
+    const region = this.shape.getRegion(loc);
+    selection.mode = "cuboid";
+    selection.set(0, region[0]);
+    selection.set(1, region[1]);
   }
 }

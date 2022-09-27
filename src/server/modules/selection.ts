@@ -1,4 +1,4 @@
-import { regionBounds, regionVolume, Server, Vector } from "@notbeer-api";
+import { regionBounds, regionVolume, Vector } from "@notbeer-api";
 import { BlockLocation, MolangVariableMap, Player } from "mojang-minecraft";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
@@ -7,18 +7,20 @@ import { getWorldMaxY, getWorldMinY } from "../util.js";
 import { DRAW_SELECTION } from "@config.js";
 
 // TODO: Add other selection modes
-
-export const selectModes = ["cuboid", "extend", "sphere"] as const;
+export const selectModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
 export type selectMode = typeof selectModes[number];
+
+const drawFrequency = 400; // in Milliseconds
 
 export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
   private _visible: boolean = DRAW_SELECTION;
+  private _resetDrawCounterOnChange = true;
 
   private player: Player;
   private drawPoints: Vector[] = [];
-  private drawTimer = 0;
+  private lastDraw = 0;
 
   constructor(player: Player) {
     this.player = player;
@@ -135,15 +137,14 @@ export class Selection {
 
   public draw(): void {
     if (!this._visible) return;
-    if (this.drawTimer <= 0) {
-      this.drawTimer = 10;
+    if (Date.now() > this.lastDraw + drawFrequency) {
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
         dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
         // Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
       }
+      this.lastDraw = Date.now();
     }
-    this.drawTimer--;
   }
 
   public get mode(): selectMode {
@@ -170,6 +171,14 @@ export class Selection {
 
   public set visible(value: boolean) {
     this._visible = value;
+  }
+
+  public get resetDrawCounterOnChange(): boolean {
+    return this._resetDrawCounterOnChange;
+  }
+
+  public set resetDrawCounterOnChange(value: boolean) {
+    this._resetDrawCounterOnChange = value;
   }
 
   private updateDrawSelection() {
@@ -230,6 +239,8 @@ export class Selection {
       point.x += 0.001;
       point.z += 0.001;
     }
-    this.drawTimer = 0;
+    if (this._resetDrawCounterOnChange) {
+      this.lastDraw = Date.now() - drawFrequency;
+    }
   }
 }

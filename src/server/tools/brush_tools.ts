@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "mojang-minecraft";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Brush } from "../brushes/base_brush.js";
@@ -17,6 +17,8 @@ class BrushTool extends Tool {
 
   permission = "worldedit.brush";
 
+  private outlines = new Map<PlayerSession, {selection: Selection, lastHit: BlockLocation}>();
+
   use = function* (self: BrushTool, player: Player, session: PlayerSession) {
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
     if (!hit) {
@@ -25,17 +27,23 @@ class BrushTool extends Tool {
     yield* self.brush.apply(hit, session, self.mask);
   };
 
-  tick = function (self: BrushTool, player: Player, session: PlayerSession, tick: number) {
-    if (tick % 3 != 0) {
-      return;
-    }
-
+  tick = function (self: BrushTool, player: Player, session: PlayerSession) {
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
     if (hit) {
-      const selection = new Selection(player);
-      selection.mode = "extend";
-      selection.set(0, hit);
+      if (!self.outlines.has(session)) {
+        const selection = new Selection(player);
+        selection.resetDrawCounterOnChange = false;
+        self.outlines.set(session, {selection, lastHit: hit});
+      }
+
+      const { selection, lastHit } = self.outlines.get(session);
+      if (lastHit && !lastHit.equals(hit)) {
+        selection.resetDrawCounterOnChange = true;
+      }
+      self.brush.updateOutline(selection, hit);
+      selection.resetDrawCounterOnChange = false;
       selection.draw();
+      self.outlines.get(session).lastHit = hit;
     }
   };
 

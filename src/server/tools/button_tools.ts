@@ -37,13 +37,22 @@ class PasteTool extends CommandButton {
   command = ["paste", "-s"];
   permission = "worldedit.clipboard.paste";
 
+  outlines = new Map<PlayerSession, Selection>();
+
   use = function (self: CommandButton, player: Player, session: PlayerSession) {
     Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
   };
 
-  tick = function (self: Tool, player: Player, session: PlayerSession, tick: number) {
-    if (tick % 5 != 0 || !session.clipboard) {
+  tick = function (self: PasteTool, player: Player, session: PlayerSession, tick: number) {
+    if (!session.clipboard) {
       return;
+    }
+
+    if (!self.outlines.has(session)) {
+      const selection = new Selection(player);
+      selection.resetDrawCounterOnChange = false;
+      selection.mode = "cuboid";
+      self.outlines.set(session, selection);
     }
 
     const rotation = session.clipboardTransform.rotation;
@@ -55,8 +64,7 @@ class PasteTool extends CommandButton {
     const pasteStart = Vector.add(loc, session.clipboardTransform.relative).sub(size.mul(0.5).sub(1));
     const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).toBlock();
 
-    const selection = new Selection(player);
-    selection.mode = "cuboid";
+    const selection = self.outlines.get(session);
     selection.set(0, pasteStart.toBlock());
     selection.set(1, pasteEnd);
     selection.draw();
