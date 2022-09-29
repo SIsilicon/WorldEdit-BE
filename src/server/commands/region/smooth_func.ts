@@ -60,7 +60,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     let h: BlockLocation;
 
     for (h = new BlockLocation(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
-      if (!dim.getBlock(h).isEmpty && heightMask.matchesBlock(h, dim)) {
+      if (dim.getBlock(h).id != "minecraft:air" && heightMask.matchesBlock(h, dim)) {
         break;
       }
     }
@@ -111,10 +111,10 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
       if (heightDiff >= 0.5) {
         for (let h = new BlockLocation(x + range[0].x, maxY, z + range[0].z); h.y >= minY; h.y--) {
           const newH = new BlockLocation(h.x, Math.max(h.y - heightDiff, minY - 1), h.z);
-          if (dim.isEmpty(newH) || mask.matchesBlock(newH, dim)) {
+          if (dim.getBlock(newH).type.id == "minecraft:air" || mask.matchesBlock(newH, dim)) {
             tempBlock.save(newH, newH, dim);
           }
-          if (dim.isEmpty(h) || mask.matchesBlock(h, dim)) {
+          if (dim.getBlock(h).type.id == "minecraft:air" || mask.matchesBlock(h, dim)) {
             tempBlock.load(h, dim);
           }
           count++;
@@ -122,10 +122,10 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
       } else if (heightDiff <= -0.5) {
         for (let h = new BlockLocation(x + range[0].x, minY, z + range[0].z); h.y <= maxY; h.y++) {
           const newH = new BlockLocation(h.x, Math.min(h.y - heightDiff, maxY + 1), h.z);
-          if (dim.isEmpty(newH) || mask.matchesBlock(newH, dim)) {
+          if (dim.getBlock(newH).id == "minecraft:air" || mask.matchesBlock(newH, dim)) {
             tempBlock.save(newH, newH, dim);
           }
-          if (dim.isEmpty(h) || mask.matchesBlock(h, dim)) {
+          if (dim.getBlock(h).id == "minecraft:air" || mask.matchesBlock(h, dim)) {
             tempBlock.load(h, dim);
           }
           count++;

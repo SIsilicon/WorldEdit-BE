@@ -18,6 +18,8 @@ export interface EventEmitterTypes {
     listener: (...args: any[]) => void,
     ): this;
 
+    shutdown(): this;
+
     /**
     * Emit data for an event type
     * @param eventName Event you are firing

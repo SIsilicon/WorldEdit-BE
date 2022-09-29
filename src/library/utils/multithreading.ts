@@ -90,4 +90,9 @@ function iterateChunk() {
   }
 }
 
-export { Thread, iterateChunk };
+function shutdownThreads() {
+  threads.length = 0;
+  world.events.tick.unsubscribe(listener);
+}
+
+export { Thread, iterateChunk, shutdownThreads };

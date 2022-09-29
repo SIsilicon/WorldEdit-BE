@@ -8,7 +8,7 @@ class NavigationTool extends Tool {
   permission = "worldedit.navigation";
 
   use = function (self: Tool, player: Player) {
-    if (!player.dimension.isEmpty(PlayerUtil.getBlockLocation(player).offset(0, 1, 0))) {
+    if (player.dimension.getBlock(PlayerUtil.getBlockLocation(player).offset(0, 1, 0)).type.id != "minecraft:air") {
       Server.command.callCommand(player, "unstuck", []);
     } else if (player.isSneaking) {
       Server.command.callCommand(player, "thru", []);

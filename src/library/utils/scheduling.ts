@@ -70,6 +70,12 @@ function sleep(ticks: number) {
 }
 
 
+function shutdownTimers() {
+  tickTimeoutMap.clear();
+  tickIntervalMap.clear();
+}
+
+
 class Timer {
   private time = Date.now();
   private isActive = false;
@@ -104,4 +110,4 @@ function startTime() {
   return timer;
 }
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, sleep, startTime, Timer };
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, Timer };

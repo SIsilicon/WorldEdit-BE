@@ -15,7 +15,8 @@ registerCommand(registerInformation, function (session, builder) {
   const blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
   do {
-    if (dimension.isEmpty(blockLoc) && dimension.isEmpty(blockLoc.offset(0, 1, 0))) {
+    if (dimension.getBlock(blockLoc).id == "minecraft:air" &&
+        dimension.getBlock(blockLoc.offset(0, 1, 0)).id == "minecraft:air") {
       break;
     }
   }

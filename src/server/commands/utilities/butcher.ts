@@ -89,10 +89,11 @@ registerCommand(registerInformation, function (session, builder, args) {
   }
 
   let entityCount = 0;
-  const entityQuery = new EntityQueryOptions();
-  entityQuery.excludeTypes = ["minecraft:player"];
-  entityQuery.location = builder.location;
-  entityQuery.maxDistance = radius;
+  const entityQuery: EntityQueryOptions = {
+    excludeTypes: ["minecraft:player"],
+    location: builder.location,
+    maxDistance: radius
+  };
   for (const entity of dimension.getEntities(entityQuery)) {
     let matches = false;
 

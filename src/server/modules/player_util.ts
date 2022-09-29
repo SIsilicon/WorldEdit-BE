@@ -1,4 +1,4 @@
-import { Player, Entity, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from "mojang-minecraft";
+import { Player, Entity, BlockLocation, EntityInventoryComponent } from "mojang-minecraft";
 import { Server, contentLog } from "@notbeer-api";
 import { Mask } from "./mask.js";
 import { NAV_WAND_DISTANCE } from "@config.js";
@@ -27,9 +27,7 @@ class PlayerHandler {
     let hasItem = Server.runCommand(`clear @s ${item} 0 ${data}`, player).error;
     if (this.isHotbarStashed(player) && !hasItem) {
       let stasher: Entity;
-      const query = new EntityQueryOptions();
-      query.name = "wedit:stasher_for_" + player.name;
-      for (const entity of player.dimension.getEntities(query)) {
+      for (const entity of player.dimension.getEntities({ name: "wedit:stasher_for_" + player.name })) {
         stasher = entity;
       }
 
@@ -112,7 +110,7 @@ class PlayerHandler {
 
       if (mask && mask.matchesBlock(point, dim)) {
         return point;
-      } else if (!mask && !dim.isEmpty(point)) {
+      } else if (!mask && dim.getBlock(point).id != "minecraft:air") {
         return point;
       } else if (range && range > 0 && i >= range) {
         return point;
@@ -152,9 +150,7 @@ class PlayerHandler {
     Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
     Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
 
-    const query = new EntityQueryOptions();
-    query.name = stasherName;
-    for (const entity of player.dimension.getEntities(query)) {
+    for (const entity of player.dimension.getEntities({ name: stasherName })) {
       stasher = entity;
     }
 
