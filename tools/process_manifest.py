@@ -3,7 +3,6 @@ import glob, os, shutil, json, argparse
 
 parser = argparse.ArgumentParser(description='Build manifest files from \'mc_manifest.json\'.')
 parser.add_argument('--target', choices=['release', 'debug', 'release_server'], default='debug', help='Whether to build the addon in debug or release mode or for servers.')
-parser.add_argument('--version', choices=['1.18', 'latest'], default='latest', help='The version of Minecraft to build for.')
 args = parser.parse_args()
 
 bp_manifest = {}
@@ -56,13 +55,6 @@ if args.target != 'release_server':
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'
     rp_manifest['header']['name'] += ' [DEBUG]'
-
-if args.version == '1.18':
-    bp_manifest['header']['min_engine_version'] = [1, 18, 10]
-    bp_manifest['modules'][1]['type'] = 'javascript'
-    del bp_manifest['modules'][1]['language']
-
-    rp_manifest['header']['min_engine_version'] = [1, 18, 10]
 
 # export behaviour and resource manifests
 with open('BP/manifest.json', 'w') as file:
