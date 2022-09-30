@@ -222,6 +222,7 @@ export class PlayerSession {
   }
 
   public deleteRegion(buffer: RegionBuffer) {
+    buffer.delete();
     this.regions.delete(buffer.id);
   }
 

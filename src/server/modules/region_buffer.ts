@@ -275,6 +275,7 @@ export class RegionBuffer {
             yield;
           }
         }
+        self.blocks.clear();
       }
       Server.structure.delete(self.id);
       contentLog.debug("deleted structure", self.id);

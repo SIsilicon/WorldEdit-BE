@@ -132,7 +132,7 @@ class ServerBuild extends ServerBuilder {
          */
         try {
           if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
-            throw "commands.generic.wedit:noPermission";
+            throw RawText.translate("commands.generic.wedit:noPermission");
           }
           element.callback(data, Command.parseArgs(command, args));
         } catch(e) {
