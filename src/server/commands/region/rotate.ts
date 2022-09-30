@@ -41,9 +41,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const rotation = new Vector(args.get("rotateX"), args.get("rotate"), args.get("rotateZ"));
   function assertValidFastArgs () {
     if ((Math.abs(rotation.y) / 90) % 1 != 0) {
-      throw RawText.translate("commands.wedit:rotate.not-ninety").with(args.get("rotate"));
+      throw RawText.translate("commands.wedit:rotate.notNinety").with(args.get("rotate"));
     } else if (rotation.x || rotation.z) {
-      throw RawText.translate("commands.wedit:rotate.y-only");
+      throw RawText.translate("commands.wedit:rotate.yOnly");
     }
   }
 

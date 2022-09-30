@@ -112,5 +112,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     Jobs.finishJob(job);
   }
-  return RawText.translate("commands.wedit:copy.explain").with(`${session.selection.getBlockCount()}`);
+  return RawText.translate("commands.wedit:copy.explain").with(`${session.clipboard.getBlockCount()}`);
 });

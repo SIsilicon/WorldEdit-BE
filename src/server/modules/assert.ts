@@ -1,7 +1,7 @@
 import { Player, BlockLocation } from "mojang-minecraft";
-import { Server, Vector, RawText } from "@notbeer-api";
+import { Server, Vector, RawText, setTickTimeout } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { canPlaceBlock } from "../util.js";
+import { canPlaceBlock, print } from "../util.js";
 import { History } from "./history.js";
 
 function assertPermission(player: Player, perm: string) {
@@ -18,12 +18,11 @@ function assertCanBuildWithin(player: Player, min: BlockLocation, max: BlockLoca
   for (let z = minChunk.z; z < maxChunk.z; z += 16)
     for (let x = minChunk.x; x < maxChunk.x; x += 16) {
       if (!canPlaceBlock(new BlockLocation(x, 0, z), player.dimension)) {
-        if (sawOutsideWorldErr.includes(player)) {
-          throw RawText.translate("commands.generic.wedit:outsideWorld");
-        } else {
+        if (!sawOutsideWorldErr.includes(player)) {
           sawOutsideWorldErr.push(player);
-          throw RawText.translate("commands.generic.wedit:outsideWorld.detail").with("\n");
+          setTickTimeout(() => print("commands.generic.wedit:outsideWorld.detail", player, false));
         }
+        throw RawText.translate("commands.generic.wedit:outsideWorld");
       }
     }
 }
