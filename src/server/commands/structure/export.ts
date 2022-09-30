@@ -2,7 +2,7 @@
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionCenter, regionSize, Server, setTickTimeout, Vector} from "@notbeer-api";
-import { Location, Player } from "mojang-minecraft";
+import { Location, Player } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {

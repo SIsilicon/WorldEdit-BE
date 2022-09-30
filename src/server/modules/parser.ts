@@ -1,5 +1,5 @@
 import { commandSyntaxError, contentLog } from "@notbeer-api";
-import { MinecraftBlockTypes } from "mojang-minecraft";
+import { MinecraftBlockTypes } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {

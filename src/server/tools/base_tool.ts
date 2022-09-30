@@ -1,4 +1,4 @@
-import { BlockLocation, BlockPermutation, Player } from "mojang-minecraft";
+import { BlockLocation, BlockPermutation, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Server, Thread } from "@notbeer-api";
 import { print, printerr } from "../util.js";

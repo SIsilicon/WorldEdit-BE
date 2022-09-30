@@ -1,5 +1,5 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
+import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
 import { locToString, stringToLoc } from "../util.js";
 
 export interface RegionLoadOptions {
@@ -284,7 +284,10 @@ export class RegionBuffer {
             yield;
           }
         }
+        self.blocks.clear();
       }
+      self.size = new BlockLocation(0, 0, 0);
+      self.blockCount = 0;
       Server.structure.delete(self.id);
       contentLog.debug("deleted structure", self.id);
     }, this);

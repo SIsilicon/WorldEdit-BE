@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BlockLocation, Player, world } from "mojang-minecraft";
+import { BlockLocation, Player, world } from "@minecraft/server";
 import { contentLog, regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";

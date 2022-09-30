@@ -1,6 +1,6 @@
 import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { RawText, CommandPosition, Vector } from "@notbeer-api";
 import { Selection } from "@modules/selection.js";
 

@@ -2,7 +2,7 @@
 import { PlayerUtil } from "@modules/player_util.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { RawText, Server, Vector } from "@notbeer-api";
-import { EntityCreateEvent, Location, Player } from "mojang-minecraft";
+import { EntityCreateEvent, Location, Player } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -25,7 +25,7 @@ function readMetaData(name: string, player: Player) {
 
   let data: string;
   const onSpawn = (ev: EntityCreateEvent) => {
-    if (ev.entity.id == "wedit:struct_meta") {
+    if (ev.entity.typeId == "wedit:struct_meta") {
       data = ev.entity.nameTag;
       ev.entity.teleport(new Location(player.location.x, -1024, player.location.z), player.dimension, 0, 0);
       ev.entity.kill();

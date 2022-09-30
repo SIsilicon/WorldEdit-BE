@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 
 type textElement = {
     text: string
@@ -95,7 +95,11 @@ export class RawText {
   }
 
   print(player: Player) {
-    player.runCommand(`tellraw @s ${this.toString()}`);
+    try {
+      player.runCommand(`tellraw @s ${this.toString()}`);
+    } catch {
+      return;
+    }
   }
 
   printError(player: Player) {

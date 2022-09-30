@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
@@ -70,6 +70,12 @@ function sleep(ticks: number) {
 }
 
 
+function shutdownTimers() {
+  tickTimeoutMap.clear();
+  tickIntervalMap.clear();
+}
+
+
 class Timer {
   private time = Date.now();
   private isActive = false;
@@ -104,4 +110,4 @@ function startTime() {
   return timer;
 }
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, sleep, startTime, Timer };
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, Timer };

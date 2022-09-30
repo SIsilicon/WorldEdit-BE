@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockRaycastOptions, IntBlockProperty, Location, MinecraftBlockTypes, Vector as MCVector } from "mojang-minecraft";
+import { Block, BlockLocation, BlockRaycastOptions, IntBlockProperty, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
 import { getWorldMaxY, getWorldMinY } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -115,10 +115,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
       const ice = MinecraftBlockTypes.ice.createDefaultBlockPermutation();
 
       for (const block of blocks) {
-        if (block.id.match(waterMatch)) {
+        if (block.typeId.match(waterMatch)) {
           block.setPermutation(ice);
           changed++;
-        } else if (block.id == "minecraft:snow_layer") {
+        } else if (block.typeId == "minecraft:snow_layer") {
           if (args.has("s") && Math.random() < 0.4) {
             const perm = block.permutation.clone();
             const heightProp = perm.getProperty("height") as IntBlockProperty;
@@ -127,7 +127,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             block.setPermutation(perm);
             if (heightProp.value != prevHeight) changed++;
           }
-        } else if (block.id == "minecraft:ice") {
+        } else if (block.typeId == "minecraft:ice") {
           // pass
         } else if (canSnowOn(block)) {
           dimension.getBlock(block.location.offset(0, 1, 0)).setPermutation(snowLayer);

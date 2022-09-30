@@ -1,7 +1,49 @@
+import { world, system, PlayerJoinEvent } from "@minecraft/server";
+import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
+import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
+
+// eslint-disable-next-line prefer-const
+let _server: ServerBuild;
+
+system.events.beforeWatchdogTerminate.subscribe(ev => {
+  if (ev.terminateReason == "hang") {
+    ev.cancel = true;
+    shutdownTimers();
+    shutdownThreads();
+    if (_server) {
+      _server.shutdown();
+    }
+
+    const players = Array.from(world.getPlayers());
+    if (players.length == 0) {
+      const event = (ev: PlayerJoinEvent) => {
+        world.events.playerJoin.unsubscribe(event);
+        // eslint-disable-next-line prefer-const
+        let intervalId: number;
+        const everyTick = function (player: typeof ev.player) {
+          if (player.velocity.length() > 0.0) {
+            try {
+              player.runCommand(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+              clearTickInterval(intervalId);
+            } catch {
+              return;
+            }
+          }
+        };
+        intervalId = setTickInterval(everyTick, 1, ev.player);
+      };
+      world.events.playerJoin.subscribe(event);
+    } else {
+      for (const player of players) {
+        RawText.translate("script.watchdog.error.hang").print(player);
+      }
+    }
+  }
+});
+
 export * from "./utils/index.js";
 
-import { world } from "mojang-minecraft";
 import { Entity } from "./build/classes/entityBuilder.js";
 import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
@@ -90,7 +132,7 @@ class ServerBuild extends ServerBuilder {
          */
         try {
           if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
-            throw "commands.generic.wedit:noPermission";
+            throw RawText.translate("commands.generic.wedit:noPermission");
           }
           element.callback(data, Command.parseArgs(command, args));
         } catch(e) {
@@ -228,7 +270,6 @@ class ServerBuild extends ServerBuilder {
   }
 
 }
-/**
- * Import this constructor
- */
-export const Server = new ServerBuild();
+
+_server = new ServerBuild();
+export const Server = _server;

@@ -1,5 +1,5 @@
 import { configuration } from "../build/configurations.js";
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import { contentLog } from "./contentlog.js";
 
 const threads: Thread<unknown[]>[] = [];
@@ -90,4 +90,9 @@ function iterateChunk() {
   }
 }
 
-export { Thread, iterateChunk };
+function shutdownThreads() {
+  threads.length = 0;
+  world.events.tick.unsubscribe(listener);
+}
+
+export { Thread, iterateChunk, shutdownThreads };

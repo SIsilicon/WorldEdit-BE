@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 import { Server } from "./serverBuilder.js";
 import { getItemCountReturn } from "../../@types/build/classes/PlayerBuilder.js";
 

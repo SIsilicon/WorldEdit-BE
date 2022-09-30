@@ -1,4 +1,4 @@
-import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "mojang-minecraft";
+import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock } from "./parser.js";

@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { SphereBrush } from "../../brushes/sphere_brush.js";
 import { CylinderBrush } from "../../brushes/cylinder_brush.js";

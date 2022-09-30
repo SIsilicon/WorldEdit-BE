@@ -1,4 +1,4 @@
-import { BlockLocation, Dimension, Location, Player } from "mojang-minecraft";
+import { BlockLocation, Dimension, Location, Player } from "@minecraft/server";
 import { PRINT_TO_ACTION_BAR } from "../config.js";
 import { Server, RawText } from "@notbeer-api";
 

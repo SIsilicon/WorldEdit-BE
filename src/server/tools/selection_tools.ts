@@ -1,4 +1,4 @@
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";

@@ -1,5 +1,5 @@
 import { Server, RawText, contentLog, addTickingArea, removeTickingArea } from "@notbeer-api";
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "@minecraft/server";
 import { PlayerSession } from "server/sessions";
 
 let jobId = 0;

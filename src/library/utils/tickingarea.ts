@@ -1,5 +1,5 @@
 import { Vector } from "@notbeer-api";
-import { BlockLocation, Dimension, world } from "mojang-minecraft";
+import { BlockLocation, Dimension, world } from "@minecraft/server";
 
 export function addTickingArea(start: BlockLocation, end: BlockLocation, dimension: Dimension, name: string, preload = false) {
   try {

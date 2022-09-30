@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 
 export class CylinderShape extends Shape {
   private radii: [number, number] = [0, 0];

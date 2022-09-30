@@ -1,4 +1,4 @@
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Brush } from "./base_brush.js";
 import { CylinderShape } from "../shapes/cylinder.js";

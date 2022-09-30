@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 
 export class PyramidShape extends Shape {
   private size: number;

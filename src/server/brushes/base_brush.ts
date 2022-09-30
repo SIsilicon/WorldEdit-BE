@@ -1,4 +1,4 @@
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { MAX_BRUSH_RADIUS } from "@config.js";
 import { Mask } from "@modules/mask.js";
