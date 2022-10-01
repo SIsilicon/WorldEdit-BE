@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-09-25 20:11\n"
+"PO-Revision-Date: 2022-10-01 02:51\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "複製"
