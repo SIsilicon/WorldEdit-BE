@@ -100,7 +100,10 @@ export class Mask implements CustomArgType {
   private compile() {
     contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
     if (this.condition) {
-      this.compiledFunc = new Function("ctx", "loc", "dim", this.condition.compile()) as typeof this.compiledFunc;
+      this.compiledFunc = new Function("ctx", "loc", "dim",
+        "const isEmpty = (loc) => dim.getBlock(loc).id == 'minecraft:air';" +
+        this.condition.compile()
+      ) as typeof this.compiledFunc;
     }
   }
 
@@ -313,10 +316,10 @@ class SurfaceMask extends MaskNode {
   readonly opCount = 0;
 
   compile() {
-    return `return !dim.isEmpty(loc) && (
-dim.isEmpty(loc.offset(0, 1, 0)) || dim.isEmpty(loc.offset(0, -1, 0)) ||
-dim.isEmpty(loc.offset(-1, 0, 0)) || dim.isEmpty(loc.offset(1, 0, 0)) ||
-dim.isEmpty(loc.offset(0, 0, -1)) || dim.isEmpty(loc.offset(0, 0, 1)));`;
+    return `return !isEmpty(loc) && (
+isEmpty(loc.offset(0, 1, 0)) || isEmpty(loc.offset(0, -1, 0)) ||
+isEmpty(loc.offset(-1, 0, 0)) || isEmpty(loc.offset(1, 0, 0)) ||
+isEmpty(loc.offset(0, 0, -1)) || isEmpty(loc.offset(0, 0, 1)));`;
   }
 }
 
@@ -325,7 +328,7 @@ class ExistingMask extends MaskNode {
   readonly opCount = 0;
 
   compile() {
-    return "return !dim.isEmpty(loc);";
+    return "return !isEmpty(loc);";
   }
 }
 
