@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-10-01 02:52\n"
+"PO-Revision-Date: 2022-10-01 04:07\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit のスクリプトが停止しました! §r/reload§c でリセットしてください (他のスクリプトもリセットされます)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
