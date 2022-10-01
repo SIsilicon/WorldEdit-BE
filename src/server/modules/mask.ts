@@ -101,7 +101,7 @@ export class Mask implements CustomArgType {
     contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
     if (this.condition) {
       this.compiledFunc = new Function("ctx", "loc", "dim",
-        "let isEmpty = (loc) => {dim.getBlock(loc).typeId == 'minecraft:air'};" +
+        "let isEmpty = (loc) => dim.getBlock(loc).typeId == 'minecraft:air';" +
         this.condition.compile()
       ) as typeof this.compiledFunc;
     }
