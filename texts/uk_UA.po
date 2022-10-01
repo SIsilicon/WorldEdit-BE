@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-10-01 02:52\n"
+"PO-Revision-Date: 2022-10-01 09:27\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх за допомогою §r/reload§c (інші скрипти також скинуться).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Копіювати"
