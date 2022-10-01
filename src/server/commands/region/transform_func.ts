@@ -13,7 +13,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
   assertCuboidSelection(session);
   const history = session.getHistory();
   const record = history.record();
-  const temp = session.createRegion(!FAST_MODE);
+  const temp = session.createRegion(!FAST_MODE && !session.performanceMode);
   try {
     const [start, end] = session.selection.getRange();
     const dim = builder.dimension;

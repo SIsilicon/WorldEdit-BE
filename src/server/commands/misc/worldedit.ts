@@ -8,6 +8,9 @@ const registerInformation = {
   usage: [
     {
       subName: "version"
+    },
+    {
+      subName: "perf"
     }
   ],
   aliases: ["we"]
@@ -16,6 +19,9 @@ const registerInformation = {
 registerCommand(registerInformation, function (session, builder, args) {
   if (args.has("version")) {
     return RawText.translate("commands.wedit:worldedit.version").with(VERSION);
+  } else if (args.has("perf")) {
+    session.performanceMode = !session.performanceMode;
+    return RawText.translate(`commands.wedit:worldedit.perf.${session.performanceMode ? "enabled" : "disabled"}`);
   }
   return "";
 });

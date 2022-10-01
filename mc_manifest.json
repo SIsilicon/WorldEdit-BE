@@ -25,10 +25,10 @@
 			"language": "javascript",
 			"uuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
 			"version": [ 1, 0, 0 ],
-			"entry": "scripts/server/index.js",
-			"capabilities": [ "script_eval" ]
+			"entry": "scripts/server/index.js"
 		}
 	],
+	"bp_capabilities": [ "script_eval" ],
     "rp_modules": [
 		{
 			"type": "resources",

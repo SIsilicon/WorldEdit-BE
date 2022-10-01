@@ -116,7 +116,7 @@ export class RegionBuffer {
           const attachement = newBlock.getProperty("attachement") as StringBlockProperty;
           const direction = newBlock.getProperty("direction") as IntBlockProperty;
           const doorHingeBit = newBlock.getProperty("door_hinge_bit") as BoolBlockProperty;
-          const facingDir = newBlock.getProperty("facing_direction") as IntBlockProperty;
+          const facingDir = newBlock.getProperty("facing_direction") as StringBlockProperty;
           const groundSignDir = newBlock.getProperty("ground_sign_direction") as IntBlockProperty;
           const openBit = newBlock.getProperty("open_bit") as BoolBlockProperty;
           const pillarAxis = newBlock.getProperty("pillar_axis") as StringBlockProperty;
@@ -140,7 +140,7 @@ export class RegionBuffer {
             [attachement.value, direction.value] = [states[0], parseInt(states[1])];
           } else if (facingDir) {
             const state = this.transformMapping(mappings.facingDirectionMap, facingDir.value, ...rotFlip);
-            facingDir.value = parseInt(state);
+            facingDir.value = state;
           } else if (direction) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
             const state = this.transformMapping(mapping, direction.value, ...rotFlip);
@@ -295,6 +295,10 @@ export class RegionBuffer {
 
   private transformMapping(mapping: {[key: string|number]: Vector}, state: string|number, rotate: Vector, flip: Vector): string {
     let vec = mapping[state];
+    if (!vec) {
+      contentLog.debug(`Can't map state "${state}".`);
+      return typeof(state) == "string" ? state : state.toString();
+    }
     vec = vec.rotateY(rotate.y).rotateX(rotate.x).rotateZ(rotate.z);
     vec = vec.mul(flip);
 
@@ -344,12 +348,12 @@ const mappings = {
     3: new Vector( 0, 0,-1)
   },
   facingDirectionMap: { // facing_direction
-    0: new Vector( 0,-1, 0),
-    1: new Vector( 0, 1, 0),
-    2: new Vector( 0, 0,-1),
-    3: new Vector( 0, 0, 1),
-    4: new Vector(-1, 0, 0),
-    5: new Vector( 1, 0, 0)
+    down : new Vector( 0,-1, 0),
+    up   : new Vector( 0, 1, 0),
+    south: new Vector( 0, 0,-1),
+    north: new Vector( 0, 0, 1),
+    east : new Vector(-1, 0, 0),
+    west : new Vector( 1, 0, 0)
   },
   pillarAxisMap: { // pillar_axis
     x_0: new Vector( 1, 0, 0),

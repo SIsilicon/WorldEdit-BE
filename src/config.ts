@@ -10,12 +10,6 @@ export const MAX_HISTORY_SIZE = 25;
 // Whether a player's selection is drawn by default.
 export const DRAW_SELECTION = true;
 
-// 0 - DISABLED - Undo and redo will be disabled.
-// 1 - FAST     - The cuboid region of each operation will be recorded.
-// 2 - ACCURATE - Individual blocks in each operation will be recorded.
-export const HISTORY_MODE: 0|1|2 = 1; // How to handle general undo and redo
-export const BRUSH_HISTORY_MODE: 0|1|2 = 1; // How to handle brush undo and redo
-
 // How long until a previously active builder's session gets deleted.
 // This includes their undo redo history.
 export const TICKS_TO_DELETE_SESSION = 12000; // 10 minutes

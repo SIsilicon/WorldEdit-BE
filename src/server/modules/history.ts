@@ -1,9 +1,9 @@
-import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
+import { BlockLocation } from "@minecraft/server";
 import { assertCanBuildWithin } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
 import { Vector, regionVolume, Server } from "@notbeer-api";
-import { MAX_HISTORY_SIZE, HISTORY_MODE, BRUSH_HISTORY_MODE } from "@config.js";
+import { MAX_HISTORY_SIZE } from "@config.js";
 import { selectMode } from "./selection.js";
 
 type historyEntry = {
@@ -58,9 +58,6 @@ export class History {
   commit(historyPoint: number) {
     const point = this.historyPoints.get(historyPoint);
     this.historyPoints.delete(historyPoint);
-    if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
-      return;
-    }
 
     this.historyIdx++;
     for (let i = this.historyIdx; i < this.undoStructures.length; i++) {
@@ -103,10 +100,6 @@ export class History {
       throw "commands.generic.wedit:blockLimit";
     }
 
-    if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
-      return;
-    }
-
     const structName = this.processRegion(historyPoint, start, end, blocks);
     point.undo.push({
       "name": structName,
@@ -117,9 +110,6 @@ export class History {
   addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
     const point = this.historyPoints.get(historyPoint);
     this.assertRecording();
-    if (point.brush && !BRUSH_HISTORY_MODE || !point.brush && !HISTORY_MODE) {
-      return;
-    }
 
     const structName = this.processRegion(historyPoint, start, end, blocks);
     point.redo.push({
@@ -246,20 +236,18 @@ export class History {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private processRegion(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any") {
-    const tempRegion = "tempHistoryVoid";
-    const point = this.historyPoints.get(historyPoint);
     let structName: string;
-    const recordBlocks = Array.isArray(blocks) && (point.brush && BRUSH_HISTORY_MODE == 2 || !point.brush && HISTORY_MODE == 2);
     const player = this.session.getPlayer();
     const dim = player.dimension;
-    let loc: BlockLocation;
 
     const finish = () => {
-      if (recordBlocks) {
-        Server.structure.load(tempRegion, loc, dim);
-        Server.structure.delete(tempRegion);
-      }
+      // if (recordBlocks) {
+      //   Server.structure.load(tempRegion, loc, dim);
+      //   Server.structure.delete(tempRegion);
+      // }
+      return;
     };
 
     try {
@@ -269,19 +257,19 @@ export class History {
 
       // TODO: Get history precise recording working again
       // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
-      if (recordBlocks) {
-        loc = Vector.min(start, end).toBlock();
-        const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
-        Server.structure.save(tempRegion, start, end, dim);
-        let index = 0;
-        for (const block of start.blocksBetween(end)) {
-          if (blocks[index]?.equals(block)) {
-            index++;
-          } else {
-            dim.getBlock(block).setPermutation(voidBlock);
-          }
-        }
-      }
+      // if (recordBlocks) {
+      //   loc = Vector.min(start, end).toBlock();
+      //   const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
+      //   Server.structure.save(tempRegion, start, end, dim);
+      //   let index = 0;
+      //   for (const block of start.blocksBetween(end)) {
+      //     if (blocks[index]?.equals(block)) {
+      //       index++;
+      //     } else {
+      //       dim.getBlock(block).setPermutation(voidBlock);
+      //     }
+      //   }
+      // }
 
       structName = "wedit:history_" + (historyId++).toString(16);
       if (Server.structure.save(structName, start, end, dim)) {

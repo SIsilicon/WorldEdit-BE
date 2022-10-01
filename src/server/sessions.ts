@@ -61,6 +61,11 @@ export class PlayerSession {
   public includeAir = false;
 
   /**
+   * Whether the session should run in performance mode.
+   */
+  public performanceMode = false;
+
+  /**
    * The amount of blocks that can be changed in one operation.
    */
   public changeLimit = DEFAULT_CHANGE_LIMIT == -1 ? Infinity : DEFAULT_CHANGE_LIMIT;
