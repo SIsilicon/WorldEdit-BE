@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-09-25 20:11\n"
+"PO-Revision-Date: 2022-10-01 02:52\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copia"
