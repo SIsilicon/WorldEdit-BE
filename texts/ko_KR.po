@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-10-01 02:52\n"
+"PO-Revision-Date: 2022-10-02 20:40\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -807,6 +807,15 @@ msgstr "웅크리고 블록을 상호작용: 지점 #1 선택, 웅크리지 않�
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit 명령어들"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "WorldEdit의 버전을 가져옵니다."
