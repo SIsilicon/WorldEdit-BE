@@ -87,6 +87,7 @@ export abstract class Shape {
       const [min, max] = this.getRegion(loc);
       const player = session.getPlayer();
       const dimension = player.dimension;
+      pattern.playerSession = session;
 
       const minY = getWorldMinY(player);
       min.y = Math.max(minY, min.y);

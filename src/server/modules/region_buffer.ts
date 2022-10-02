@@ -232,10 +232,17 @@ export class RegionBuffer {
     return this.blockCount;
   }
 
-  // TODO: Implement
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public getBlock() {
+  public getBlock(loc: BlockLocation) {
+    if (!this.isAccurate) {
+      return null;
+    }
 
+    const block = this.blocks.get(locToString(loc));
+    if (Array.isArray(block)) {
+      return block[1];
+    } else if (block) {
+      return block;
+    }
   }
 
   public getBlocks() {

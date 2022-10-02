@@ -21,7 +21,7 @@ const lexer = new Tokenizr();
   /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
-  lexer.rule(/[~#%^=*+-/|:!&,]/, (ctx) => {
+  lexer.rule(/[~#%^=*+-/|:!&,@]/, (ctx) => {
     ctx.accept("misc");
   });
   lexer.rule(/\s+/, (ctx) => {
@@ -225,6 +225,36 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
       throwTokenError(token);
     }
   }
+}
+
+export function parseNumberList(tokens: Tokens, length: number): number[] {
+  const array: number[] = [];
+  let token: Token;
+  let lastNumber: Token;
+  // eslint-disable-next-line no-cond-assign
+  while (token = tokens.next()) {
+    if (token.type == "number") {
+      if (lastNumber) {
+        throwTokenError(token);
+      }
+      lastNumber = token;
+    } else if (token.value == ",") {
+      if (!lastNumber || array.length == length - 1) {
+        throwTokenError(token);
+      }
+      array.push(lastNumber.value);
+      lastNumber = null;
+    } else if (token.value == "]") {
+      if (!lastNumber || array.length != length - 1) {
+        throwTokenError(token);
+      }
+      array.push(lastNumber.value);
+      break;
+    } else {
+      throwTokenError(token);
+    }
+  }
+  return array;
 }
 
 class Tokens {
