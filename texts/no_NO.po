@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-10-01 02:51\n"
+"PO-Revision-Date: 2022-10-02 20:40\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -807,6 +807,15 @@ msgstr "Snik og trykk på blokk: velg pos #1; trykk blokk uten snik: vel pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit kommandoer"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Få WorldEdit versjon"
