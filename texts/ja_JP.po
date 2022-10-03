@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-10-02 20:40\n"
+"PO-Revision-Date: 2022-10-03 00:12\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -809,7 +809,7 @@ msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit のコマンド"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "現在のセッションのパフォーマンス優先モードを切り替える"
 
 msgid "commands.wedit:worldedit.perf.enabled"
 msgstr "Performance mode enabled."
