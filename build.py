@@ -70,7 +70,7 @@ if not args.package_only:
         subprocess.call(['tsc', '-b'], shell=True)
 
     # Set debug mode
-    regExpSub('DEBUG =(.+);', f'DEBUG = {"false" if args.target == "release" else "true"};', 'BP/scripts/config.js')
+    regExpSub('debug:(.+),', f'debug: {"false" if args.target == "release" else "true"},', 'BP/scripts/config.js')
 
     # Remap absolute imports
     subprocess.call([sys.executable, 'tools/remap_imports.py'])

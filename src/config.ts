@@ -1,51 +1,69 @@
-// Enables debug messages to content logs.
-export const DEBUG = true;
-
-// What character(s) to use to define the beginning of custom commands.
-export const COMMAND_PREFIX = ";";
-
-// How many operations can be recorded in a player's history.
-export const MAX_HISTORY_SIZE = 25;
-
-// Whether a player's selection is drawn by default.
-export const DRAW_SELECTION = true;
-
-// How long until a previously active builder's session gets deleted.
-// This includes their undo redo history.
-export const TICKS_TO_DELETE_SESSION = 12000; // 10 minutes
-
-// Whether commands executed by items print their messages to the action bar or the chat.
-export const PRINT_TO_ACTION_BAR = true;
-
-// The default item used for marking selection wand.
-export const WAND_ITEM = "minecraft:wooden_axe";
-
-// The default item used for the navigation wand.
-export const NAV_WAND_ITEM = "minecraft:ender_pearl";
-
-// THe distance the navwand, among other tools and commands, traces for a block of interest.
-export const NAV_WAND_DISTANCE = 128;
-
-// The maximum brush radius allowed.
-export const MAX_BRUSH_RADIUS = 6;
-
-// Whether to break blocks instead of use and sneaking them to mark the first position (;pos1, ;hpos1).
-export const USE_BLOCK_BREAKING = true;
-
-// The default amount of blocks that can be "potentially" affected within a single operation.
-export const DEFAULT_CHANGE_LIMIT = -1;
-
-// The absolute change limit that can be set from the ;limit command.
-// Bypassed with "worldedit.limit.unlimited" permission.
-export const MAX_CHANGE_LIMIT = -1;
-
-// How long an async operation will run until giving Minecraft a chance to run.
-// The higher the value, the faster the operation, but the slower Minecraft takes to run.
-export const ASYNC_TIME_BUDGET = 150;
-
-// Whether the addon should use simpler methods to run operations faster.
-// This comes with the drawback of more limited capabilities.
-export const FAST_MODE = false;
+export default {
+  /**
+   * Enables debug messages to content logs.
+   */
+  debug: true,
+  /**
+   * What character(s) to use to define the beginning of custom commands.
+   */
+  commandPrefix: ";",
+  /**
+   * Whether the addon should use simpler methods to run operations faster.
+   * This comes with the drawback of more limited capabilities.
+   */
+  fastMode: false,
+  /**
+   * How many operations can be recorded in a player's history.
+   */
+  maxHistorySize: 25,
+  /**
+   * Whether a player's selection is drawn by default.
+   */
+  drawSelection: true,
+  /**
+   * How long until a previously active builder's session gets deleted.
+   * This includes their undo redo history.
+   */
+  ticksToDeleteSession: 12000, // 10 minutes
+  /**
+   * Whether commands executed by items print their messages to the action bar or the chat.
+   */
+  printToActionBar: true,
+  /**
+   * The default item used for marking selection wand.
+   */
+  wandItem: "minecraft:wooden_axe",
+  /**
+   * The default item used for the navigation wand.
+   */
+  navWandItem: "minecraft:ender_pearl",
+  /**
+   * The distance the navigation wand, among other tools and commands, traces for a block of interest.
+   */
+  navWandDistance: 128,
+  /**
+   * The maximum brush radius allowed.
+   */
+  maxBrushRadius: 6,
+  /**
+   * Whether to break blocks, instead of interacting with them while sneaking, to mark the first position (;pos1, ;hpos1).
+   */
+  useBlockBreaking: true,
+  /**
+   * The default amount of blocks that can be "potentially" affected within a single operation.
+   */
+  defaultChangeLimit: -1,
+  /**
+   * The absolute change limit that can be set from the ;limit command.
+   * Bypassed with "worldedit.limit.unlimited" permission.
+   */
+  maxChangeLimit: -1,
+  /**
+   * How long an async operation will run until giving Minecraft a chance to run.
+   * The higher the value, the faster the operation, but the slower Minecraft takes to run.
+   */
+  asyncTimeBudget: 150
+} as const;
 
 // The version of WorldEdit (do not change)
 export const VERSION = "0.7.0.1 [BETA]";
