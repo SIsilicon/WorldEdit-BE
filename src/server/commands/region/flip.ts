@@ -3,8 +3,8 @@ import { assertClipboard } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
-import { FAST_MODE } from "@config.js";
 import { Jobs } from "@modules/jobs.js";
+import config from "@config.js";
 
 const registerInformation = {
   name: "flip",
@@ -37,7 +37,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   let blockCount = 0;
   if (args.has("w")) {
-    if (dir.y != 0 && (FAST_MODE || session.performanceMode)) {
+    if (dir.y != 0 && (config.fastMode || session.performanceMode)) {
       throw "commands.wedit:flip.notLateral";
     }
 

@@ -1,7 +1,7 @@
 import { Player, Entity, BlockLocation, EntityInventoryComponent } from "@minecraft/server";
 import { Server, contentLog } from "@notbeer-api";
 import { Mask } from "./mask.js";
-import { NAV_WAND_DISTANCE } from "@config.js";
+import config from "@config.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
@@ -101,7 +101,7 @@ class PlayerHandler {
     const start = player.headLocation;
     const dir = player.viewVector;
     const dim = player.dimension;
-    for (let i = 0; i < NAV_WAND_DISTANCE; i += 0.2) {
+    for (let i = 0; i < config.navWandDistance; i += 0.2) {
       const point = new BlockLocation(
         Math.floor(start.x + dir.x * i),
         Math.floor(start.y + dir.y * i),

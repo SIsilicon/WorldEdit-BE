@@ -1,4 +1,3 @@
-import { FAST_MODE } from "@config.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 import { RegionLoadOptions } from "@modules/region_buffer.js";
@@ -6,6 +5,7 @@ import { regionTransformedBounds, Vector } from "@notbeer-api";
 import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { set } from "./set.js";
+import config from "@config.js";
 
 // TODO: fix the bounds sometimes not encompassing the new geometry
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +13,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
   assertCuboidSelection(session);
   const history = session.getHistory();
   const record = history.record();
-  const temp = session.createRegion(!FAST_MODE && !session.performanceMode);
+  const temp = session.createRegion(!config.fastMode && !session.performanceMode);
   try {
     const [start, end] = session.selection.getRange();
     const dim = builder.dimension;

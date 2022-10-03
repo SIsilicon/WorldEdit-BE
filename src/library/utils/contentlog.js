@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { DEBUG } from "@config.js";
+import config from "@config.js";
 
 function date() {
   return `[${new Date().toLocaleTimeString()}]`;
@@ -23,7 +23,7 @@ class Console {
   }
 
   debug(...msg) {
-    if (DEBUG) {
+    if (config.debug) {
       console.warn("[DEBUG]", date(), ...msg);
     }
   }

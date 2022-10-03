@@ -1,6 +1,6 @@
 import { BlockLocation, Dimension, Location, Player } from "@minecraft/server";
-import { PRINT_TO_ACTION_BAR } from "../config.js";
 import { Server, RawText } from "@notbeer-api";
+import config from "@config.js";
 
 /**
  * Sends a message to a player through either chat or the action bar.
@@ -13,7 +13,7 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
     msg = <RawText> RawText.translate(msg);
   }
   let command: string;
-  if (toActionBar && PRINT_TO_ACTION_BAR) {
+  if (toActionBar && config.printToActionBar) {
     command = `titleraw @s actionbar ${msg.toString()}`;
   } else {
     command = `tellraw @s ${msg.toString()}`;
@@ -99,4 +99,9 @@ export function locToString(loc: BlockLocation) {
 export function stringToLoc(loc: string) {
   return new BlockLocation(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
 }
-
+/**
+ * Wraps `num` between 0 and `range` exclusive
+ */
+export function wrap(range: number, num: number) {
+  return num >= 0 ? num % range : (num % range + range) % range;
+}

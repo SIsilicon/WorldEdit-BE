@@ -1,6 +1,6 @@
 import { Player, BeforeItemUseEvent } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
-import { TICKS_TO_DELETE_SESSION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from "../config.js";
+import config from "@config.js";
 
 import { Tools } from "./tools/tool_manager.js";
 import "./tools/register_tools.js";
@@ -68,7 +68,7 @@ export class PlayerSession {
   /**
    * The amount of blocks that can be changed in one operation.
    */
-  public changeLimit = DEFAULT_CHANGE_LIMIT == -1 ? Infinity : DEFAULT_CHANGE_LIMIT;
+  public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
 
   /**
    * Handles the settings UI created from the config item.
@@ -101,8 +101,8 @@ export class PlayerSession {
     this.history = new History(this);
     this.selection = new Selection(player);
 
-    this.bindTool("selection_wand", WAND_ITEM);
-    this.bindTool("navigation_wand", NAV_WAND_ITEM);
+    this.bindTool("selection_wand", config.wandItem);
+    this.bindTool("navigation_wand", config.navWandItem);
     if (PlayerUtil.isHotbarStashed(player)) {
       this.enterSettings();
     }
@@ -289,7 +289,7 @@ export function removeSession(player: string) {
 
   playerSessions.get(player).selection.clear();
   playerSessions.get(player).globalPattern.clear();
-  pendingDeletion.set(player, [TICKS_TO_DELETE_SESSION, playerSessions.get(player)]);
+  pendingDeletion.set(player, [config.ticksToDeleteSession, playerSessions.get(player)]);
   playerSessions.delete(player);
 }
 

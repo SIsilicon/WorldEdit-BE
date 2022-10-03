@@ -6,15 +6,15 @@ import { contentLog, listTickingAreas, removeTickingArea, Server, configuration 
 import { print } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { ASYNC_TIME_BUDGET } from "@config.js";
+import config from "@config.js";
 
 Server.setMaxListeners(256);
-configuration.multiThreadingTimeBudget = ASYNC_TIME_BUDGET;
+configuration.multiThreadingTimeBudget = config.asyncTimeBudget;
 const activeBuilders: Player[] = [];
 
 let ready = false;
 Server.on("ready", ev => {
-  Server.runCommand("gamerule showtags false");
+  // Server.runCommand("gamerule showtags false");
   // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
   contentLog.debug(`World has been loaded in ${ev.loadTime} ticks!`);
   ready = true;

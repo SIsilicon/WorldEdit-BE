@@ -4,7 +4,7 @@ import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { getWorldMaxY, getWorldMinY } from "../util.js";
-import { DRAW_SELECTION } from "@config.js";
+import config from "@config.js";
 
 // TODO: Add other selection modes
 export const selectModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
@@ -15,7 +15,7 @@ const drawFrequency = 400; // in Milliseconds
 export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
-  private _visible: boolean = DRAW_SELECTION;
+  private _visible: boolean = config.drawSelection;
   private _resetDrawCounterOnChange = true;
 
   private player: Player;
@@ -27,10 +27,10 @@ export class Selection {
   }
 
   /**
-    * Sets either the first or second selection point of a selection.
-    * @param index The first or second selection point
-    * @param loc The location the selection point is being made
-    */
+   * Sets either the first or second selection point of a selection.
+   * @param index The first or second selection point
+   * @param loc The location the selection point is being made
+   */
   public set(index: 0|1, loc: BlockLocation): void {
     if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
       throw "worldedit.selection.noPrimary";
@@ -62,17 +62,17 @@ export class Selection {
   }
 
   /**
-    * Clears the selection points that have been made.
-    */
+   * Clears the selection points that have been made.
+   */
   public clear() {
     this._points = [];
     this.updateDrawSelection();
   }
 
   /**
-     * Get the shape of the current selection
-     * @returns
-     */
+   * Get the shape of the current selection
+   * @returns
+   */
   public getShape(): [Shape, BlockLocation] {
     if (!this.isValid()) return null;
 
@@ -88,8 +88,8 @@ export class Selection {
   }
 
   /**
-    * @return The blocks within the current selection
-    */
+   * @return The blocks within the current selection
+   */
   public* getBlocks() {
     if (!this.isValid()) return;
 
@@ -98,9 +98,9 @@ export class Selection {
   }
 
   /**
-     * Returns the exact or approximate number of blocks the selection encompasses.
-     * @returns
-     */
+   * Returns the exact or approximate number of blocks the selection encompasses.
+   * @returns
+   */
   public getBlockCount() {
     if (!this.isValid()) return 0;
 
@@ -113,8 +113,8 @@ export class Selection {
   }
 
   /**
-    * @return The minimum and maximum points of the selection
-    */
+   * @return The minimum and maximum points of the selection
+   */
   public getRange(): [BlockLocation, BlockLocation] {
     const [shape, loc] = this.getShape();
     if (shape) {

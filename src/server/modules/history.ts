@@ -3,8 +3,8 @@ import { assertCanBuildWithin } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
 import { Vector, regionVolume, Server } from "@notbeer-api";
-import { MAX_HISTORY_SIZE } from "@config.js";
 import { selectMode } from "./selection.js";
+import config from "@config.js";
 
 type historyEntry = {
     name: string,
@@ -69,7 +69,7 @@ export class History {
     this.redoStructures[this.historyIdx] = point.redo;
     this.selectionHistory[this.historyIdx] = point.selection;
 
-    while (this.historyIdx > MAX_HISTORY_SIZE - 1) {
+    while (this.historyIdx > config.maxHistorySize - 1) {
       this.deleteHistoryRegions(0);
       this.undoStructures.shift();
       this.redoStructures.shift();

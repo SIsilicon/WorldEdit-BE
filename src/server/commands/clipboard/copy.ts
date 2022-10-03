@@ -1,4 +1,3 @@
-import { FAST_MODE } from "@config.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
@@ -6,6 +5,7 @@ import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
 import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
+import config from "@config.js";
 
 const registerInformation = {
   name: "copy",
@@ -46,7 +46,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     session.deleteRegion(session.clipboard);
   }
 
-  session.clipboard = session.createRegion(!FAST_MODE && !session.performanceMode);
+  session.clipboard = session.createRegion(!config.fastMode && !session.performanceMode);
   session.clipboardTransform = {
     rotation: Vector.ZERO,
     flip: Vector.ONE,
