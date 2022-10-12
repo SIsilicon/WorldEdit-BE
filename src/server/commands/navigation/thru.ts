@@ -1,9 +1,8 @@
 import { BlockLocation } from "@minecraft/server";
-import { Server } from "@notbeer-api";
-import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 import { Cardinal } from "@modules/directions.js";
 import { PlayerUtil } from "@modules/player_util.js";
+import { contentLog } from "@notbeer-api";
 
 const registerInformation = {
   name: "thru",
@@ -36,7 +35,7 @@ registerCommand(registerInformation, function (session, builder) {
   }
 
   if (canGoThrough) {
-    Server.runCommand(`tp @s ${printLocation(testLoc, false)}`, builder);
+    builder.teleport(testLoc, dimension, builder.rotation.x, builder.rotation.y);
     return "commands.wedit:thru.explain";
   } else {
     throw "commands.wedit:thru.obstructed";

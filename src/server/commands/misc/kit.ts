@@ -32,7 +32,7 @@ registerCommand(registerInformation, function (session, builder) {
   ];
 
   for (const item of items) {
-    if (Server.runCommand(`clear @s ${item} -1 0`, builder).error) {
+    if (Server.player.getItemCount(builder, item).length == 0) {
       Server.runCommand(`give @s ${item}`, builder);
     }
   }

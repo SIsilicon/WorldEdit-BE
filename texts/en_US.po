@@ -119,8 +119,6 @@ msgstr " "
 
 # WORLDEDIT TOOLS
 
-msgid "worldedit.spawnGlass.error"
-msgstr "Can't place block here."
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
 

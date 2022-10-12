@@ -1,7 +1,9 @@
-import { Server, RawText, contentLog, addTickingArea, removeTickingArea } from "@notbeer-api";
+import { Server, RawText, contentLog } from "@notbeer-api";
 import { BlockLocation, Player } from "@minecraft/server";
 import { PlayerSession } from "server/sessions";
+import { addTickingArea, removeTickingArea } from "server/util";
 
+// eslint-disable-next-line prefer-const
 let jobId = 0;
 
 interface job {
@@ -22,9 +24,9 @@ class JobHandler {
     });
   }
 
-  public startJob(session: PlayerSession, steps: number, area: [BlockLocation, BlockLocation]) {
+  public async startJob(session: PlayerSession, steps: number, area: [BlockLocation, BlockLocation]) {
     const areaName = "wedit:job_" + jobId;
-    if (!area || !addTickingArea(...area, session.getPlayer().dimension, areaName, true)) {
+    if (!area || await addTickingArea(areaName, session.getPlayer().dimension, ...area)) {
       contentLog.warn("A ticking area could not be created for job #", jobId);
     }
     this.jobs.set(++jobId, {
@@ -53,11 +55,13 @@ class JobHandler {
     }
   }
 
-  public* perform<T, TReturn>(jobId: number, func: Generator<T, TReturn>, finishOnError=true): Generator<T, TReturn> {
+  public* perform<T, TReturn>(jobId: number, func: Generator<T, TReturn>, finishOnError=true): Generator<T | Promise<unknown>, TReturn> {
     let val: IteratorResult<T, TReturn>;
+    let lastPromise: unknown;
     while (!val?.done) {
       try {
-        val = func.next();
+        val = func.next(lastPromise);
+        lastPromise = undefined;
       } catch (err) {
         if (finishOnError) {
           this.finishJob(jobId);
@@ -68,6 +72,8 @@ class JobHandler {
         this.setProgress(jobId, val.value);
       } else if (typeof val.value == "string") {
         this.nextStep(jobId, val.value);
+      } else if (val.value instanceof Promise) {
+        lastPromise = yield val.value;
       }
       yield;
     }

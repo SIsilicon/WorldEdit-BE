@@ -24,7 +24,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
   const [shape, loc] = session.selection.getShape();
-  const job = Jobs.startJob(session, 2, shape.getRegion(loc));
+  const job = (yield Jobs.startJob(session, 2, shape.getRegion(loc))) as number;
   const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {wall: true}));
   Jobs.finishJob(job);
 

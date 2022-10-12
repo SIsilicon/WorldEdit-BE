@@ -42,7 +42,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       total = session.clipboard.getBlockCount();
       const clipboard = session.clipboard;
 
-      job = Jobs.startJob(session, 1, null);
+      job = (yield Jobs.startJob(session, 1, null)) as number;
       Jobs.nextStep(job, "Analysing blocks...");
 
       for (const block of clipboard.getBlocks()) {
@@ -54,7 +54,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       total = session.selection.getBlockCount();
       const dimension = builder.dimension;
 
-      job = Jobs.startJob(session, 1, session.selection.getRange());
+      job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
       Jobs.nextStep(job, "Analysing blocks...");
 
       for (const loc of session.selection.getBlocks()) {

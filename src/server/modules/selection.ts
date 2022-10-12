@@ -3,7 +3,7 @@ import { BlockLocation, MolangVariableMap, Player } from "@minecraft/server";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
-import { getWorldMaxY, getWorldMinY } from "../util.js";
+import { getWorldHeightLimits } from "../util.js";
 import config from "@config.js";
 
 // TODO: Add other selection modes
@@ -16,7 +16,6 @@ export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
   private _visible: boolean = config.drawSelection;
-  private _resetDrawCounterOnChange = true;
 
   private player: Player;
   private drawPoints: Vector[] = [];
@@ -35,6 +34,8 @@ export class Selection {
     if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
       throw "worldedit.selection.noPrimary";
     }
+
+    const lastPoints = this._points.map(v => v);
     if (this._points.length <= index) {
       this._points.length = index + 1;
     }
@@ -55,18 +56,22 @@ export class Selection {
       this._points[1] = vec.normalized().mul(radius).add(this._points[0]).toBlock();
     }
 
-
-    const [min, max] = [getWorldMinY(this.player), getWorldMaxY(this.player)];
+    const [min, max] = getWorldHeightLimits(this.player.dimension);
     this._points.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
-    this.updateDrawSelection();
+
+    if (this._points.length != lastPoints.length || this._points.some((v, i) => !v.equals(lastPoints[i]))) {
+      this.updateDrawSelection();
+    }
   }
 
   /**
    * Clears the selection points that have been made.
    */
   public clear() {
-    this._points = [];
-    this.updateDrawSelection();
+    if (this._points.length) {
+      this._points = [];
+      this.updateDrawSelection();
+    }
   }
 
   /**
@@ -141,10 +146,14 @@ export class Selection {
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
         dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
-        // Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
       }
       this.lastDraw = Date.now();
     }
+  }
+
+  public forceDraw(): void {
+    this.lastDraw = Date.now() - drawFrequency - 10;
+    this.draw();
   }
 
   public get mode(): selectMode {
@@ -171,14 +180,6 @@ export class Selection {
 
   public set visible(value: boolean) {
     this._visible = value;
-  }
-
-  public get resetDrawCounterOnChange(): boolean {
-    return this._resetDrawCounterOnChange;
-  }
-
-  public set resetDrawCounterOnChange(value: boolean) {
-    this._resetDrawCounterOnChange = value;
   }
 
   private updateDrawSelection() {
@@ -232,15 +233,6 @@ export class Selection {
           this.drawPoints.push(point);
         }
       }
-    }
-
-    // A slight offset is made since exact integers snap the particles to the center of blocks.
-    for (const point of this.drawPoints) {
-      point.x += 0.001;
-      point.z += 0.001;
-    }
-    if (this._resetDrawCounterOnChange) {
-      this.lastDraw = Date.now() - drawFrequency;
     }
   }
 }

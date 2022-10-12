@@ -41,7 +41,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       throw "commands.wedit:flip.notLateral";
     }
 
-    const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
+    const job = (yield Jobs.startJob(session, 3, null)) as number; // TODO: Add ticking area
     yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
     Jobs.finishJob(job);
     blockCount = session.selection.getBlockCount();

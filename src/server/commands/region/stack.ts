@@ -49,15 +49,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const history = session.getHistory();
   const record = history.record();
   const tempStack = session.createRegion(false);
-  const job = Jobs.startJob(session, loads.length + 1, stackRegion);
+  const job = (yield Jobs.startJob(session, loads.length + 1, stackRegion)) as number;
   try {
     Jobs.nextStep(job, "Copying blocks...");
     yield* Jobs.perform(job, tempStack.saveProgressive(start, end, dim), false);
     for (const load of loads) {
       Jobs.nextStep(job, "Pasting blocks...");
-      history.addUndoStructure(record, load[0], load[1], "any");
+      yield history.addUndoStructure(record, load[0], load[1], "any");
       yield* Jobs.perform(job, tempStack.loadProgressive(load[0], dim), false);
-      history.addRedoStructure(record, load[0], load[1], "any");
+      yield history.addRedoStructure(record, load[0], load[1], "any");
       count += regionVolume(load[0], load[1]);
     }
     history.commit(record);

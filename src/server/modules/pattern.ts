@@ -1,5 +1,5 @@
 import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, contentLog, Vector } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, contentLog, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock, parseNumberList } from "./parser.js";
@@ -74,7 +74,6 @@ export class Pattern implements CustomArgType {
 
     this.block.nodes.push(new BlockPattern(null, {
       id: block.type.id,
-      data: -1,
       states: states
     }));
     this.stringObj = "(picked)";
@@ -124,9 +123,7 @@ export class Pattern implements CustomArgType {
     if (!blockData) return;
 
     let command = blockData.id;
-    if (blockData.data != -1) {
-      command += " " + blockData.data;
-    } else if (blockData.states?.size) {
+    if (blockData.states?.size) {
       command += "[";
       let i = 0;
       for (const [state, val] of blockData.states.entries()) {
@@ -310,18 +307,14 @@ class BlockPattern extends PatternNode {
   }
 
   compile() {
-    if (this.block.data != -1) {
-      return `dim.runCommand(\`setblock \${loc.x} \${loc.y} \${loc.z} ${this.block.id} ${this.block.data}\`);`;
-    } else {
-      let result = `let block = ctx.mcBlocks.get('${this.block.id}').createDefaultBlockPermutation();`;
-      if (this.block.states) {
-        for (const [state, val] of this.block.states.entries()) {
-          result += `\nblock.getProperty('${state}').value = ${typeof val == "string" ? `'${val}'` : val};`;
-        }
+    let result = `let block = ctx.mcBlocks.get('${this.block.id}').createDefaultBlockPermutation();`;
+    if (this.block.states) {
+      for (const [state, val] of this.block.states.entries()) {
+        result += `\nblock.getProperty('${state}').value = ${typeof val == "string" ? `'${val}'` : val};`;
       }
-      result += "\ndim.getBlock(loc).setPermutation(block);";
-      return result;
     }
+    result += "\ndim.getBlock(loc).setPermutation(block);";
+    return result;
   }
 }
 
@@ -428,8 +421,9 @@ class HandPattern extends PatternNode {
 if (player) {
   const slot = player.selectedSlot;
   const item = player.getComponent("minecraft:inventory").container.getItem(slot);
-  if (item) {
-    dim.runCommand(\`setblock \${loc.x} \${loc.y} \${loc.z} \${item.typeId} \${item.data}\`);
+  if (item && ctx.mcBlocks.get(item.typeId)) {
+    const block = ctx.server.block.dataValueToPermutation(item.typeId, item.data);
+    dim.getBlock(loc).setPermutation(block);
   }
 }
 `;
@@ -519,6 +513,7 @@ class ChainPattern extends PatternNode {
 const patternContext = {
   mcBlocks: MinecraftBlockTypes,
   session: null as PlayerSession,
+  server: Server,
   print: contentLog.debug,
   BlockLocation: BlockLocation
 };

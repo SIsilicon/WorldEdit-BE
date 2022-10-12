@@ -1,5 +1,4 @@
 import * as Minecraft from "@minecraft/server";
-import { Server } from "./serverBuilder.js";
 import { getItemCountReturn } from "../../@types/build/classes/PlayerBuilder.js";
 
 type Player = Minecraft.Player;
@@ -39,11 +38,11 @@ export class PlayerBuilder {
     return included;
   }
   /**
-    * Look if player is in the game
-    * @param {string} player Player you are looking for
-    * @returns {boolean}
-    * @example PlayerBuilder.find('notbeer');
-    */
+   * Look if player is in the game
+   * @param {string} player Player you are looking for
+   * @returns {boolean}
+   * @example PlayerBuilder.find('notbeer');
+   */
   find(player: string): boolean {
     const players = this.list();
     return !!players.find(p => {
@@ -51,52 +50,46 @@ export class PlayerBuilder {
     });
   }
   /**
-    * Get list of players in game
-    * @returns {Array<string>}
-    * @example PlayerBuilder.list();
-    */
+   * Get list of players in game
+   * @returns {Array<string>}
+   * @example PlayerBuilder.list();
+   */
   list(): Array<Player> {
     return Array.from(Minecraft.world.getPlayers()) as Array<Player>;
   }
   /**
-    * Get the amount on a specific items player(s) has
-    * @param {Player} [player] Player you are searching
-    * @param {string} itemIdentifier Item you are looking for
-    * @param {number} [itemData] Item data you are looking for
-    * @returns {Array<getItemCountReturn>}
-    */
+   * Get the player's inventory container
+   * @param {Player} [player] Player of interest
+   * @returns {InventoryComponentContainer}
+   */
+  getInventory(player: Player) {
+    return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container;
+  }
+  /**
+   * Get the amount on a specific items player(s) has
+   * @param {Player} [player] Player you are searching
+   * @param {string} itemIdentifier Item you are looking for
+   * @param {number} [itemData] Item data you are looking for
+   * @returns {Array<getItemCountReturn>}
+   */
   getItemCount(player: Player, itemIdentifier: string, itemData?: number): Array<getItemCountReturn> {
     const itemCount: Array<getItemCountReturn> = [];
-    const data = Server.runCommand(`clear @s ${itemIdentifier} ${itemData ? itemData : "0"} 0`, player);
-    if(data.error) return itemCount;
-    data.playerTest.forEach(element => {
-      const count = parseInt(element.match(/(?<=.*?\().+?(?=\))/)[0]);
-      const player = element.match(/^.*(?= \(\d+\))/)[0];
-      itemCount.push({ player, count });
-    });
-    return itemCount ? itemCount : [];
+    const inventory = this.getInventory(player);
+    for (let slot = 0; slot < inventory.size; slot++) {
+      const item = inventory.getItem(slot);
+      if (item?.typeId == itemIdentifier && (itemData == undefined || item?.data == itemData)) {
+        itemCount.push({ count: item.amount, slot });
+      }
+    }
+    return itemCount;
   }
   /**
-     * Get the current item in the player's main hand
-     * @param {Player} [player] Player you are searching
-     * @returns {?ItemStack}
-     */
-  getHeldItem(player: Player) {
-    return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container.getItem(player.selectedSlot);
-  }
-  /**
-    * Get players score on a specific objective
-    * @param {Player} player Requirements for the entity
-    * @param {string} objective Objective name you want to search
-    * @param {number} [minimum] Minumum score you are looking for
-    * @param {number} [maximum] Maximum score you are looking for
-    * @returns {number}
-    * @example PlayerBuilder.getScore('Money', 'notbeer', { minimum: 0 });
+    * Get the current item in the player's main hand
+    * @param {Player} [player] Player you are searching
+    * @returns {?ItemStack}
     */
-  getScore(player: Player, objective: string, { minimum, maximum }: { minimum?: number, maximum?: number } = {}): number {
-    const data = Server.runCommand(`scoreboard players test @s ${objective} ${minimum ? minimum : "*"} ${maximum ? maximum : "*"}`, player);
-    if(data.error) return;
-    return parseInt(data.statusMessage.match(/-?\d+/)[0]);
+  getHeldItem(player: Player) {
+    return this.getInventory(player).getItem(player.selectedSlot);
   }
 }
 export const Player = new PlayerBuilder();

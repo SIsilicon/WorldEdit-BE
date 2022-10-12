@@ -1,7 +1,7 @@
 import { Pattern } from "@modules/pattern.js";
 import { RawText, Vector } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
-import { getWorldMaxY } from "../../util.js";
+import { getWorldHeightLimits } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -26,7 +26,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const size = (args.get("size") - 1) * 2 + 1;
-  const height: number = args.get("height") == -1 ? getWorldMaxY(builder) - Math.floor(builder.location.y) + 1 : args.get("height");
+  const height: number = args.get("height") == -1 ? getWorldHeightLimits(builder.dimension)[1] - Math.floor(builder.location.y) + 1 : args.get("height");
   const origin = Vector.from(builder.location).floor().sub([size/2, 0, size/2]).ceil().toBlock();
 
   const shape = new CuboidShape(size, height, size);

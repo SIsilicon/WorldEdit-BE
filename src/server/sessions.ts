@@ -217,7 +217,8 @@ export class PlayerSession {
    * Triggers the hotbar setting menu to appear.
    */
   public enterSettings() {
-    this.settingsHotbar = new SettingsHotbar(this);
+    Server.uiForms.show("$configMenu", this.player);
+    // this.settingsHotbar = new SettingsHotbar(this);
   }
 
   /**

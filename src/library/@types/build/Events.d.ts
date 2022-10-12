@@ -16,7 +16,8 @@ import {
   WeatherChangeEvent,
   Player,
   Dimension,
-  BlockBreakEvent
+  BlockBreakEvent,
+  WorldInitializeEvent
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
@@ -39,7 +40,8 @@ export interface EventList {
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
     customCommand: [customCommand],
-    playerChangeDimension: [playerChangeDimension]
+    playerChangeDimension: [playerChangeDimension],
+    worldInitialize: [WorldInitializeEvent]
 }
 interface ready {
     readonly loadTime: number

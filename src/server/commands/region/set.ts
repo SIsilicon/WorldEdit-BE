@@ -22,7 +22,7 @@ const registerInformation = {
  * Set a region of blocks regardless of the current global mask
  * @return number of blocks set
  */
-export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number, number> {
+export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number | Promise<unknown>, number> {
   const globalMask = session.globalMask;
   let changed = 0;
   try {
@@ -44,7 +44,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
-  const job = Jobs.startJob(session, 2, session.selection.getRange());
+  const job = (yield Jobs.startJob(session, 2, session.selection.getRange())) as number;
   const count = yield* Jobs.perform(job, set(session, pattern, null, true));
   Jobs.finishJob(job);
   return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);

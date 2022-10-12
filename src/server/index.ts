@@ -1,8 +1,9 @@
 import "./util.js";
+import "./ui/index.js";
 import "./commands/command_list.js";
 
-import { Player, world } from "@minecraft/server";
-import { contentLog, listTickingAreas, removeTickingArea, Server, configuration } from "@notbeer-api";
+import { DynamicPropertiesDefinition, Player, world } from "@minecraft/server";
+import { contentLog, Server, configuration } from "@notbeer-api";
 import { print } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
@@ -12,18 +13,27 @@ Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = config.asyncTimeBudget;
 const activeBuilders: Player[] = [];
 
+Server.on("worldInitialize", ev => {
+  try {
+    const def = new DynamicPropertiesDefinition();
+    def.defineString("wedit_ticking_areas", 500);
+    ev.propertyRegistry.registerWorldDynamicProperties(def);
+    contentLog.debug("Initialized dynamic properties");
+  } catch (e) { contentLog.error(e); }
+});
+
 let ready = false;
 Server.on("ready", ev => {
-  // Server.runCommand("gamerule showtags false");
-  // Server.runCommand(`gamerule sendcommandfeedback ${DEBUG}`);
   contentLog.debug(`World has been loaded in ${ev.loadTime} ticks!`);
   ready = true;
+});
 
-  for (const area of listTickingAreas()) {
-    if (area.startsWith("wedit:")) {
-      removeTickingArea(area);
-    }
-  }
+// Don't know what this does, but will leave it just in case.
+world.events.messageReceive.subscribe(ev => {
+  contentLog.debug("Hello");
+  contentLog.debug("id: ", ev.id);
+  contentLog.debug("sourceType: ", ev.sourceType);
+  contentLog.debug("message: ", ev.message);
 });
 
 Server.on("playerJoin", ev => {
@@ -36,11 +46,12 @@ Server.on("playerLeave", ev => {
   removeBuilder(ev.playerName);
 });
 
+let executed = false;
+
 Server.on("tick", () => {
   if (!ready) return;
 
-  for (const entity of world.getPlayers()) {
-    const player = entity as Player;
+  for (const player of world.getPlayers()) {
     if (!activeBuilders.includes(player)) {
       if (PlayerUtil.isHotbarStashed(player)) {
         PlayerUtil.restoreHotbar(player);
@@ -49,6 +60,11 @@ Server.on("tick", () => {
         print("worldedit.permission.granted", player);
         continue;
       }
+    }
+
+    if (config.debug && player.isSneaking && !executed) {
+      executed = true;
+      // fillMap(PlayerUtil.getBlockLocation(player));
     }
   }
 

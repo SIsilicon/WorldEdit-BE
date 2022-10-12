@@ -1,10 +1,9 @@
-import { commandSyntaxError, contentLog } from "@notbeer-api";
+import { commandSyntaxError, contentLog, Server } from "@notbeer-api";
 import { MinecraftBlockTypes } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {
     id: string,
-    data: number,
     states: Map<string, string|number|boolean>
 }
 
@@ -107,7 +106,6 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
   let typeToken = tokens.curr();
   const block: parsedBlock = {
     id: tokens.curr().value,
-    data: -1,
     states: null
   };
   let token: Token;
@@ -131,7 +129,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
         token = tokens.next();
         const peek = tokens.peek();
         if (peek.type == "id") {
-          if (block.id.includes(":") || block.data != -1) throwTokenError(peek);
+          if (block.id.includes(":") || block.states) throwTokenError(peek);
           block.id += ":" + peek.value;
           token = tokens.next();
           typeToken = mergeTokens(typeToken, token, input);
@@ -140,9 +138,9 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
         } else if (peek.type == "number") {
           if (typeOnly)
             return finish();
-          if (block.data != -1)
+          if (block.states)
             throwTokenError(peek);
-          block.data = peek.value;
+          block.states = new Map(Object.entries(Server.block.dataValueToStates(block.id, peek.value)));
           token = tokens.next();
           return finish();
         } else {

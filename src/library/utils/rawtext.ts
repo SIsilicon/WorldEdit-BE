@@ -1,4 +1,5 @@
 import { Player } from "@minecraft/server";
+import { Server } from "@notbeer-api";
 
 type textElement = {
     text: string
@@ -96,7 +97,7 @@ export class RawText {
 
   print(player: Player) {
     try {
-      player.runCommand(`tellraw @s ${this.toString()}`);
+      Server.runCommand(`tellraw @s ${this.toString()}`, player);
     } catch {
       return;
     }

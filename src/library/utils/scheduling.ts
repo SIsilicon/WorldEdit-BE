@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { world } from "@minecraft/server";
+import { system } from "@minecraft/server";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
@@ -51,7 +51,7 @@ function clearTickInterval(handle: number): void {
 }
 
 let totalTick = 0;
-world.events.tick.subscribe(() => {
+system.run(function tick() {
   totalTick++;
   for(const [ID, tickTimeout] of tickTimeoutMap) {
     tickTimeout.tick--;
@@ -63,6 +63,7 @@ world.events.tick.subscribe(() => {
   for(const [, tickInterval] of tickIntervalMap) {
     if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
   }
+  system.run(tick);
 });
 
 function sleep(ticks: number) {

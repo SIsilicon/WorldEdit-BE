@@ -68,7 +68,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? height/2 : 0, 0);
 
   const cylShape = new CylinderShape(height, ...<[number, number]>radii);
-  const job = Jobs.startJob(session, 2, cylShape.getRegion(loc));
+  const job = (yield Jobs.startJob(session, 2, cylShape.getRegion(loc))) as number;
   const count = yield* Jobs.perform(job, cylShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
   Jobs.finishJob(job);
 

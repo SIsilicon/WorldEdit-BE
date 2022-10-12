@@ -32,17 +32,16 @@ class BrushTool extends Tool {
     if (hit) {
       if (!self.outlines.has(session)) {
         const selection = new Selection(player);
-        selection.resetDrawCounterOnChange = false;
         self.outlines.set(session, {selection, lastHit: hit});
       }
 
       const { selection, lastHit } = self.outlines.get(session);
-      if (lastHit && !lastHit.equals(hit)) {
-        selection.resetDrawCounterOnChange = true;
-      }
       self.brush.updateOutline(selection, hit);
-      selection.resetDrawCounterOnChange = false;
-      selection.draw();
+      if (lastHit && !lastHit.equals(hit)) {
+        selection.forceDraw();
+      } else {
+        selection.draw();
+      }
       self.outlines.get(session).lastHit = hit;
     }
   };

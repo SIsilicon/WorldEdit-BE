@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "wedit:selection_draw",
 			"basic_render_parameters": {
-				"material": "particles_alpha",
+				"material": "particles_blend",
 				"texture": "textures/particle/particles"
 			}
 		},

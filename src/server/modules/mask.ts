@@ -50,7 +50,6 @@ export class Mask implements CustomArgType {
 
     this.condition.nodes.push(new BlockMask(null, {
       id: block.type.id,
-      data: -1,
       states: states
     }));
     this.stringObj = "(picked)";
@@ -243,6 +242,7 @@ export class Mask implements CustomArgType {
     const mask = new Mask();
     mask.condition = original.condition;
     mask.stringObj = original.stringObj;
+    mask.compile();
     return mask;
   }
 
@@ -273,19 +273,15 @@ class BlockMask extends MaskNode {
   }
 
   compile() {
-    if (this.block.data != -1) {
-      return `try { dim.runCommand(\`testforblock \${loc.x} \${loc.y} \${loc.z} ${this.block.id} ${this.block.data}\`); return true } catch { return false }`;
-    } else {
-      let result = "let block = dim.getBlock(loc).permutation;";
-      result += `\nif (block.type.id != '${this.block.id}') return false;`;
-      if (this.block.states) {
-        for (const [state, val] of this.block.states.entries()) {
-          result += `\nif (block.getProperty('${state}').value != ${typeof val == "string" ? `'${val}'` : val}) return false;`;
-        }
+    let result = "let block = dim.getBlock(loc).permutation;";
+    result += `\nif (block.type.id != '${this.block.id}') return false;`;
+    if (this.block.states) {
+      for (const [state, val] of this.block.states.entries()) {
+        result += `\nif (block.getProperty('${state}').value != ${typeof val == "string" ? `'${val}'` : val}) return false;`;
       }
-      result += "\nreturn true;";
-      return result;
     }
+    result += "\nreturn true;";
+    return result;
   }
 }
 

@@ -37,10 +37,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const job = Jobs.startJob(session, 2, [start, end]);
+  const job = (yield Jobs.startJob(session, 2, [start, end])) as number;
   try {
     history.recordSelection(record, session);
-    history.addUndoStructure(record, start, end, "any");
+    yield history.addUndoStructure(record, start, end, "any");
 
     if (yield* Jobs.perform(job, copy(session, args), false)) {
       throw RawText.translate("commands.generic.wedit:commandFail");
@@ -61,7 +61,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       Server.runCommand("kill @e[name=wedit:marked_for_deletion]", dim);
     }
 
-    history.addRedoStructure(record, start, end, "any");
+    yield history.addRedoStructure(record, start, end, "any");
     history.commit(record);
   } catch (e) {
     history.cancel(record);

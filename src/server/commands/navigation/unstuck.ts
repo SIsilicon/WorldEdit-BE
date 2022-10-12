@@ -1,7 +1,5 @@
-import { Server } from "@notbeer-api";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
-import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -23,6 +21,6 @@ registerCommand(registerInformation, function (session, builder) {
   // eslint-disable-next-line no-cond-assign
   while (blockLoc.y += 1);
 
-  Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
+  builder.teleport(blockLoc, dimension, builder.rotation.x, builder.rotation.y);
   return RawText.translate("commands.wedit:unstuck.explain");
 });

@@ -50,7 +50,6 @@ class PasteTool extends CommandButton {
 
     if (!self.outlines.has(session)) {
       const selection = new Selection(player);
-      selection.resetDrawCounterOnChange = false;
       selection.mode = "cuboid";
       self.outlines.set(session, selection);
     }
@@ -125,9 +124,7 @@ Tools.register(FlipTool, "flip", "wedit:flip_button");
 
 class SpawnGlassTool extends Tool {
   use = function (self: Tool, player: Player) {
-    if (Server.runCommand(`execute "${player.nameTag}" ~~~ setblock ~~~ glass`).error) {
-      throw RawText.translate("worldedit.spawnGlass.error");
-    }
+    Server.runCommand("setblock ~~~ glass", player);
   };
 }
 Tools.register(SpawnGlassTool, "spawn_glass", "wedit:spawn_glass");

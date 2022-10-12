@@ -1,13 +1,20 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
 import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
-import { locToString, stringToLoc } from "../util.js";
+import { blockHasNBTData, locToString, stringToLoc } from "../util.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector,
     flip?: Vector
 }
 
+type blockData = BlockPermutation|[string, BlockPermutation]
+
 type blockList = BlockLocation[] | ((loc: BlockLocation) => boolean | BlockPermutation) | "all"
+
+interface transformContext {
+  blockData: blockData
+  sampleBlock: (loc: BlockLocation) => blockData
+}
 
 export class RegionBuffer {
 
@@ -15,7 +22,7 @@ export class RegionBuffer {
   readonly id: string;
 
   private size = new BlockLocation(0, 0, 0);
-  private blocks = new Map<string, BlockPermutation|[string, BlockPermutation]>();
+  private blocks = new Map<string, blockData>();
   private blockCount = 0;
   private subId = 0;
   private savedEntities = false;
@@ -27,20 +34,34 @@ export class RegionBuffer {
     contentLog.debug("creating structure", this.id);
   }
 
-  public save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
+  public async save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
     const save = this.saveProgressive(start, end, dim, options, blocks);
-    while (!save.next().done) continue;
-    return save.next().value as boolean;
+    let val: IteratorResult<number | Promise<unknown>, boolean>;
+    let lastPromise: unknown;
+    while (!val?.done) {
+      val = save.next(lastPromise);
+      lastPromise = undefined;
+      if (val.value instanceof Promise) {
+        lastPromise = await val.value;
+      }
+    }
+    return val.value;
   }
 
-  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number, boolean> {
+  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number | Promise<unknown>, boolean> {
     if (this.isAccurate) {
       const min = Vector.min(start, end);
+      const promises: Promise<unknown>[] = [];
       const iterate = (blockLoc: BlockLocation) => {
         const relLoc = Vector.sub(blockLoc, min).toBlock();
-        const id = this.id + "_" + this.subId++;
-        this.saveBlockAsStruct(id, blockLoc, dim);
-        this.blocks.set(locToString(relLoc), [id, dim.getBlock(blockLoc).permutation.clone()]);
+        const block = dim.getBlock(blockLoc);
+        if (blockHasNBTData(block)) {
+          const id = this.id + "_" + this.subId++;
+          promises.push(this.saveBlockAsStruct(id, blockLoc, dim));
+          this.blocks.set(locToString(relLoc), [id, block.permutation.clone()]);
+        } else {
+          this.blocks.set(locToString(relLoc), block.permutation.clone());
+        }
       };
 
       let count = 0;
@@ -75,13 +96,16 @@ export class RegionBuffer {
       }
       this.blockCount = count;
       if (options.includeEntities) {
-        Server.structure.save(this.id, start, end, dim, {
+        promises.push(Server.structure.save(this.id, start, end, dim, {
           includeBlocks: false,
           includeEntities: true
-        });
+        }));
+      }
+      if (promises.length) {
+        yield Promise.all(promises);
       }
     } else {
-      if (Server.structure.save(this.id, start, end, dim, options)) {
+      if ((yield Server.structure.save(this.id, start, end, dim, options)) as boolean) {
         return true;
       }
       this.blockCount = regionVolume(start, end);
@@ -92,15 +116,24 @@ export class RegionBuffer {
     return false;
   }
 
-  public load(loc: BlockLocation, dim: Dimension, options?: RegionLoadOptions) {
+  public async load(loc: BlockLocation, dim: Dimension, options?: RegionLoadOptions) {
     const load = this.loadProgressive(loc, dim, options);
-    while (!load.next().done) continue;
-    return load.next().value as boolean;
+    let val: IteratorResult<number | Promise<unknown>, void>;
+    let lastPromise: unknown;
+    while (!val?.done) {
+      val = load.next(lastPromise);
+      lastPromise = undefined;
+      if (val.value instanceof Promise) {
+        lastPromise = await val.value;
+      }
+    }
+    return val.value;
   }
 
-  public* loadProgressive(loc: BlockLocation, dim: Dimension, options: RegionLoadOptions = {}): Generator<number, boolean> {
+  public* loadProgressive(loc: BlockLocation, dim: Dimension, options: RegionLoadOptions = {}): Generator<number | Promise<unknown>, void> {
     const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
     if (this.isAccurate) {
+      const promises: Promise<unknown>[] = [];
       const bounds = regionTransformedBounds(
         new BlockLocation(0, 0, 0),
         Vector.sub(this.size, [1,1,1]).toBlock(),
@@ -180,7 +213,7 @@ export class RegionBuffer {
         if (block instanceof BlockPermutation) {
           dim.getBlock(blockLoc).setPermutation(transform(block));
         } else {
-          this.loadBlockFromStruct(block[0], blockLoc, dim);
+          promises.push(this.loadBlockFromStruct(block[0], blockLoc, dim));
           dim.getBlock(blockLoc).setPermutation(transform(block[1]));
         }
         if (iterateChunk()) yield i / this.blocks.size;
@@ -205,9 +238,16 @@ export class RegionBuffer {
           }
         };
 
-        Server.on("entityCreate", onEntityload);
-        Server.structure.load(this.id, loc, dim);
-        Server.off("entityCreate", onEntityload);
+        Server.flushCommands().then(() => {
+          Server.on("entityCreate", onEntityload);
+          Server.structure.load(this.id, loc, dim).then(() => {
+            Server.off("entityCreate", onEntityload);
+          });
+        });
+
+        if (promises.length) {
+          yield Promise.all(promises);
+        }
       }
 
     } else {
@@ -220,8 +260,68 @@ export class RegionBuffer {
       if (loadOptions.flip as string == "nonez") loadOptions.flip = "z";
       if (this.imported) loadOptions.importedSize = Vector.from(this.size);
       yield 1;
-      return Server.structure.load(this.imported || this.id, loc, dim, loadOptions);
+      yield Server.structure.load(this.imported || this.id, loc, dim, loadOptions);
     }
+  }
+
+  /**
+   * @param func
+   * @returns
+   */
+  public* warp(func: (loc: BlockLocation, ctx: transformContext) => blockData): Generator<number, null> {
+    if (!this.isAccurate) {
+      return;
+    }
+
+    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const output = new Map();
+    const volume = regionVolume(...region);
+    const sampleBlock = (loc: BlockLocation) => this.blocks.get(locToString(loc));
+
+    let i = 0;
+    for (const coord of regionIterateBlocks(...region)) {
+      const block = func(coord, {
+        blockData: this.blocks.get(locToString(coord)),
+        sampleBlock
+      });
+      if (block) {
+        output.set(locToString(coord), block);
+      }
+      yield ++i / volume;
+    }
+
+    this.blocks = output;
+    this.blockCount = this.blocks.size;
+  }
+
+  public* create(start: BlockLocation, end: BlockLocation, func: (loc: BlockLocation) => Block | BlockPermutation): Generator<number | Promise<unknown>, null> {
+    if (!this.isAccurate || !this.size.equals(new BlockLocation(0, 0, 0))) {
+      return;
+    }
+
+    this.size = regionSize(start, end);
+    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const volume = regionVolume(...region);
+
+    let i = 0;
+    const promises = [];
+    for (const coord of regionIterateBlocks(...region)) {
+      const block = func(coord);
+      if (block) {
+        if (block instanceof Block && blockHasNBTData(block)) {
+          const id = this.id + "_" + this.subId++;
+          promises.push(this.saveBlockAsStruct(id, block.location, block.dimension));
+          this.blocks.set(locToString(coord), [id, block.permutation.clone()]);
+        } else {
+          this.blocks.set(locToString(coord), block instanceof Block ? block.permutation.clone() : block);
+        }
+      }
+      yield ++i / volume;
+    }
+    if (promises.length) {
+      yield Promise.all(promises);
+    }
+    this.blockCount = this.blocks.size;
   }
 
   public getSize() {
@@ -250,7 +350,7 @@ export class RegionBuffer {
   }
 
   public setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
-    let error = false;
+    let error: Promise<boolean>;
     const key = locToString(loc);
 
     if (this.blocks.has(key) && Array.isArray(this.blocks.get(key))) {
@@ -272,7 +372,7 @@ export class RegionBuffer {
     }
     this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock();
     this.blockCount = this.blocks.size;
-    return error;
+    return error ?? Promise.resolve(false);
   }
 
   public import(structure: string, size: BlockLocation) {
@@ -285,17 +385,21 @@ export class RegionBuffer {
     const thread = new Thread();
     thread.start(function* (self: RegionBuffer) {
       if (self.isAccurate) {
+        const promises = [];
         for (const block of self.blocks.values()) {
           if (!(block instanceof BlockPermutation)) {
-            self.deleteBlockStruct(block[0]);
+            promises.push(self.deleteBlockStruct(block[0]));
             yield;
           }
+        }
+        if (promises.length) {
+          yield Promise.all(promises);
         }
         self.blocks.clear();
       }
       self.size = new BlockLocation(0, 0, 0);
       self.blockCount = 0;
-      Server.structure.delete(self.id);
+      yield Server.structure.delete(self.id);
       contentLog.debug("deleted structure", self.id);
     }, this);
   }
@@ -324,12 +428,12 @@ export class RegionBuffer {
 
   private saveBlockAsStruct(id: string, loc: BlockLocation, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
-    Server.runCommand(`structure save ${id} ${locStr} ${locStr} false memory`, dim);
+    return Server.runCommand(`structure save ${id} ${locStr} ${locStr} false memory`, dim);
   }
 
   private loadBlockFromStruct(id: string, loc: BlockLocation, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
-    return Server.runCommand(`structure load ${id} ${locStr}`, dim).error;
+    return Server.runCommand(`structure load ${id} ${locStr}`, dim);
   }
 
   private deleteBlockStruct(id: string) {

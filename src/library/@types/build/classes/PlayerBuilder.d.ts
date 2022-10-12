@@ -14,6 +14,6 @@ export interface getPlayerAtPosReturn {
     error: boolean
 }
 export interface getItemCountReturn {
-    player: string,
-    count: number
+    count: number,
+    slot: number
 }

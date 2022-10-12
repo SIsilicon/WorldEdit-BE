@@ -1,27 +1,37 @@
 import { configuration } from "../build/configurations.js";
-import { world } from "@minecraft/server";
+import { system } from "@minecraft/server";
 import { contentLog } from "./contentlog.js";
+import { setTickTimeout, sleep } from "./scheduling.js";
+
+let threadId = 1;
 
 const threads: Thread<unknown[]>[] = [];
+const promiseData = new Map<Thread<unknown[]>, unknown>();
+const waitForPromise = { waitingForPromise: true } as const;
+
+class ErrorPackage {
+  constructor(public err: unknown) {}
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class Thread<T extends any[]> {
-  private task: Generator<void>;
+  public readonly id: number;
 
+  private task: Generator<unknown>;
   private active = false;
   private valid = true;
 
-  start(task: (...args: T) => Generator<void>, ...args: T) {
+  constructor() {
+    this.id = ++threadId;
+  }
+
+  start(task: (...args: T) => Generator<unknown>, ...args: T) {
     if (!this.valid) {
       return;
     }
 
     this.task = task(...args);
     threads.unshift(this);
-    if (!subscribed) {
-      subscribed = true;
-      world.events.tick.subscribe(listener);
-    }
     this.active = true;
     this.valid = false;
 
@@ -30,7 +40,7 @@ class Thread<T extends any[]> {
     }
   }
 
-  join() {
+  async join() {
     if (this.valid || !this.active) {
       return;
     }
@@ -38,21 +48,36 @@ class Thread<T extends any[]> {
     if (threads.includes(this)) {
       threads.splice(threads.indexOf(this), 1);
     }
-    if (subscribed && threads.length === 0) {
-      subscribed = false;
-      world.events.tick.unsubscribe(listener);
-    }
     this.active = false;
 
-    while (!this.task.next().done) {
-      continue;
+    while (Object.is(promiseData.get(this), waitForPromise)) {
+      await sleep(1);
+    }
+
+    let promiseRes = promiseData.get(this);
+    promiseData.delete(this);
+    let next = promiseRes instanceof ErrorPackage ?
+      this.task.throw(promiseRes.err) :
+      this.task.next(promiseRes);
+    while (!next.done) {
+      if (next.value instanceof Promise) {
+        try {
+          promiseRes = await next.value;
+        } catch (err) {
+          promiseRes = new ErrorPackage(err);
+        }
+      }
+      next = promiseRes instanceof ErrorPackage ?
+        this.task.throw(promiseRes.err) :
+        this.task.next(promiseRes);
+      promiseRes = undefined;
     }
   }
 
   /**
-     * @internal
-     * @returns The generator task
-     */
+   * @internal
+   * @returns The generator task
+   */
   getTask() {
     return this.task;
   }
@@ -60,25 +85,44 @@ class Thread<T extends any[]> {
   isActive() {
     return this.active;
   }
+
+  toString() {
+    return `[thread #${this.id}]`;
+  }
 }
 
-let subscribed = false;
-const listener = function() {
+system.run(async function args() {
   const ms = Date.now();
   while (Date.now() - ms < configuration.multiThreadingTimeBudget && threads.length) {
     const thread = threads.pop();
     try {
-      if (thread.getTask().next().done) {
+      const promiseRes = promiseData.get(thread);
+      if (Object.is(promiseRes, waitForPromise)) {
+        setTickTimeout(() => threads.unshift(thread));
+        continue;
+      }
+      promiseData.delete(thread);
+      const next = promiseRes instanceof ErrorPackage ?
+        thread.getTask().throw(promiseRes.err) :
+        thread.getTask().next(promiseRes);
+      if (next.done) {
         thread.join();
         continue;
+      } else if (next.value instanceof Promise) {
+        promiseData.set(thread, waitForPromise);
+        next.value.then(result => promiseData.set(thread, result))
+          .catch(err => promiseData.set(thread, new ErrorPackage(err)));
       }
       threads.unshift(thread);
     } catch (e) {
       contentLog.error(e);
+      thread.getTask().throw(e);
       thread.join();
     }
   }
-};
+
+  system.run(args);
+});
 
 let iterCount = 0;
 function iterateChunk() {
@@ -92,7 +136,6 @@ function iterateChunk() {
 
 function shutdownThreads() {
   threads.length = 0;
-  world.events.tick.unsubscribe(listener);
 }
 
 export { Thread, iterateChunk, shutdownThreads };

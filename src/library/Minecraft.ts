@@ -1,4 +1,4 @@
-import { world, system, PlayerJoinEvent } from "@minecraft/server";
+import { world, system, PlayerJoinEvent, TickEvent } from "@minecraft/server";
 import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
@@ -23,12 +23,8 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
         let intervalId: number;
         const everyTick = function (player: typeof ev.player) {
           if (player.velocity.length() > 0.0) {
-            try {
-              player.runCommand(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
-              clearTickInterval(intervalId);
-            } catch {
-              return;
-            }
+            const result = player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+            result.then(() => clearTickInterval(intervalId));
           }
         };
         intervalId = setTickInterval(everyTick, 1, ev.player);
@@ -49,16 +45,21 @@ import { Player } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { Structure } from "./structure/structureBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
+import { UIForms } from "./build/classes/uiFormBuilder.js";
+import { Block } from "./build/classes/blockBuilder.js";
 
 export { CustomArgType, CommandPosition } from "./build/classes/commandBuilder.js";
 export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/build/classes/CommandBuilder";
 export { StructureSaveOptions, StructureLoadOptions } from "./structure/structureBuilder.js";
+export { Database } from "./build/classes/databaseBuilder.js";
 export { configuration } from "./build/configurations.js";
 
 class ServerBuild extends ServerBuilder {
   public entity = Entity;
+  public block = Block;
   public player = Player;
   public command = Command;
+  public uiForms = UIForms;
   public structure = Structure;
 
   constructor() {
@@ -93,7 +94,8 @@ class ServerBuild extends ServerBuilder {
       const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
       if(!getCommand) {
         data.cancel = true;
-        return this.runCommand(`tellraw @s {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`, data.sender);
+        RawText.translate("commands.generic.unknown").with(`§f${command}§c`).printError(data.sender);
+        return;
       }
 
       const args: Array<string> = [];
@@ -128,8 +130,8 @@ class ServerBuild extends ServerBuilder {
         if(!(element.name == command || element.aliases?.includes(command))) continue;
 
         /**
-         * Registration callback
-         */
+      * Registration callback
+      */
         try {
           if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
             throw RawText.translate("commands.generic.wedit:noPermission");
@@ -167,8 +169,8 @@ class ServerBuild extends ServerBuilder {
           }
         }
         /**
-         * Emit to 'customCommand' event listener
-         */
+      * Emit to 'customCommand' event listener
+      */
         this.emit("customCommand", {
           registration: element,
           data,
@@ -205,8 +207,8 @@ class ServerBuild extends ServerBuilder {
     world.events.beforeItemUse.subscribe(data => this.emit("beforeItemUse", data));
 
     /**
-        * Emit to 'beforeItemUseOm' event listener
-        */
+     * Emit to 'beforeItemUseOm' event listener
+     */
     world.events.beforeItemUseOn.subscribe(data => this.emit("beforeItemUseOn", data));
 
     /**
@@ -237,17 +239,29 @@ class ServerBuild extends ServerBuilder {
      * Emit to 'blockBreak' event listener
      */
     world.events.blockBreak.subscribe(data => this.emit("blockBreak", data));
+    /**
+     * Emit to 'worldInitialize' event listener
+     */
+    world.events.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
+
     let worldLoaded = false, tickCount = 0;
     const playerDimensions = new Map<string, string>();
-    world.events.tick.subscribe((data) => {
+
+    const tick = (data: TickEvent) => {
       tickCount++;
-      if(!this.runCommand("testfor @a").error && !worldLoaded) {
-        /**
-         * Emit to 'ready' event listener
-         */
-        this.emit("ready", { loadTime: tickCount });
-        worldLoaded = true;
-      }
+      this.runCommand("testfor @a").then(result => {
+        if(!result.error && !worldLoaded) {
+          /**
+           * Emit to 'ready' event listener
+           */
+          try {
+            this.emit("ready", { loadTime: tickCount });
+          } catch (e) {
+            contentLog.error(e);
+          }
+          worldLoaded = true;
+        }
+      });
 
       for (const player of world.getPlayers()) {
         const oldDimension = playerDimensions.get(player.name);
@@ -262,11 +276,10 @@ class ServerBuild extends ServerBuilder {
         playerDimensions.set(player.name, newDimension);
       }
 
-      /**
-       * Emit to 'tick' event listener
-       */
       this.emit("tick", data);
-    });
+      system.run(tick);
+    };
+    system.run(tick);
   }
 
 }

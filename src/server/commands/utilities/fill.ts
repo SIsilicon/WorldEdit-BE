@@ -46,7 +46,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   pattern.playerSession = session;
   const depth: number = args.get("depth");
   const startBlock = Vector.from(builder.location).toBlock();
-  const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock));
+  const job = (yield Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock))) as number;
 
   Jobs.nextStep(job, "Calculating and Generating blocks...");
   const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), dimension, (ctx, dir) => {
@@ -67,14 +67,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const history = session.getHistory();
     const record = history.record();
     try {
-      history.addUndoStructure(record, min, max, blocks);
+      yield history.addUndoStructure(record, min, max, blocks);
       let i = 0;
       for (const block of blocks) {
         pattern.setBlock(block, builder.dimension);
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }
-      history.addRedoStructure(record, min, max, blocks);
+      yield history.addRedoStructure(record, min, max, blocks);
       history.commit(record);
     } catch (err) {
       history.cancel(record);

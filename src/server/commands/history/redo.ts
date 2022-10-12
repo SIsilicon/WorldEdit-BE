@@ -16,13 +16,13 @@ const registerInformation = {
   ]
 };
 
-registerCommand(registerInformation, function (session, builder, args) {
+registerCommand(registerInformation, function* (session, builder, args) {
   const times = args.get("times") as number;
   const history = session.getHistory();
   let i: number;
   assertHistoryNotRecording(history);
   for(i = 0; i < times; i++) {
-    if (history.redo(session)) {
+    if ((yield history.redo(session)) as boolean) {
       break;
     }
   }

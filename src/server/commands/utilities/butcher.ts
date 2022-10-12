@@ -110,7 +110,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     if (matches) {
       try {
         entity.kill();
-        //Server.runCommand('tp ~ -520 ~', entity);
+        //Server.runCommandAsync('tp ~ -520 ~', entity);
         entityCount++;
       // eslint-disable-next-line no-empty
       } catch {}

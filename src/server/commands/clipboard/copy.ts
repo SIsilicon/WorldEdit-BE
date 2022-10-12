@@ -31,7 +31,7 @@ const registerInformation = {
  * @param args The arguments that change how the copying will happen
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string, boolean> {
+export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string | Promise<unknown>, boolean> {
   assertCuboidSelection(session);
   const player = session.getPlayer();
   const dimension = player.dimension;
@@ -79,7 +79,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     const tempUsed = !includeAir || mask;
     const temp = session.createRegion(false);
     if (tempUsed) {
-      temp.save(start, end, dimension);
+      yield temp.save(start, end, dimension);
 
       const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
       const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
@@ -94,7 +94,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
         }
       }
     }
-    error = session.clipboard.save(start, end, dimension, {includeEntities});
+    error = (yield session.clipboard.save(start, end, dimension, {includeEntities})) as boolean;
     if (tempUsed) {
       temp.load(start, dimension);
       session.deleteRegion(temp);
@@ -105,7 +105,8 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  const job = Jobs.startJob(session, 1, session.selection.getRange());
+  assertCuboidSelection(session);
+  const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
   try {
     if (yield* Jobs.perform(job, copy(session, args))) {
       throw RawText.translate("commands.generic.wedit:commandFail");

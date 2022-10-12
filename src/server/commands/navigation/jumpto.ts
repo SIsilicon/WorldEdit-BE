@@ -1,7 +1,5 @@
-import { Server } from "@notbeer-api";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
-import { printLocation } from "../../util.js";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -13,9 +11,10 @@ const registerInformation = {
 
 registerCommand(registerInformation, function (session, builder) {
   const hit = PlayerUtil.traceForBlock(builder);
-  if (!hit || Server.runCommand(`tp @s ${printLocation(hit, false)}`, builder).error) {
+  if (!hit) {
     throw RawText.translate("commands.wedit:jumpto.none");
   }
+  builder.teleport(hit, builder.dimension, builder.rotation.x, builder.rotation.y);
   getCommandFunc("unstuck")(session, builder, new Map());
   return RawText.translate("commands.wedit:jumpto.explain");
 });

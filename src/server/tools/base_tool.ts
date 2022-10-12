@@ -15,7 +15,7 @@ export abstract class Tool {
   /**
    * The function that's called when the tool is being used on a block.
    */
-  readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) => void;
+  readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) => void | Generator<unknown>;
   /**
    * The function that's called every tick the tool is held.
    */
@@ -79,7 +79,11 @@ export abstract class Tool {
             }
           } else if (!brokenBlock) {
             self.useOnTick = tick;
-            self.useOn(self, player, session, loc);
+            if (self.useOn.constructor.name == "GeneratorFunction") {
+              yield* self.useOn(self, player, session, loc) as Generator<void, void>;
+            } else {
+              self.useOn(self, player, session, loc) as void;
+            }
           } else {
             self.breakOn(self, player, session, loc, brokenBlock);
           }

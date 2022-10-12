@@ -2,7 +2,7 @@ import { BlockLocation } from "@minecraft/server";
 import { assertCanBuildWithin } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
-import { Vector, regionVolume, Server } from "@notbeer-api";
+import { Vector, regionVolume, Server, contentLog } from "@notbeer-api";
 import { selectMode } from "./selection.js";
 import config from "@config.js";
 
@@ -92,7 +92,8 @@ export class History {
     }
   }
 
-  addUndoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
+  async addUndoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
+    // contentLog.debug("adding undo structure");
     const point = this.historyPoints.get(historyPoint);
     point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
     // We test the change limit here,
@@ -100,18 +101,19 @@ export class History {
       throw "commands.generic.wedit:blockLimit";
     }
 
-    const structName = this.processRegion(historyPoint, start, end, blocks);
+    const structName = await this.processRegion(historyPoint, start, end, blocks);
     point.undo.push({
       "name": structName,
       "location": Vector.min(start, end).toBlock()
     });
+    // contentLog.debug("added undo structure");
   }
 
-  addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
+  async addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
     const point = this.historyPoints.get(historyPoint);
     this.assertRecording();
 
-    const structName = this.processRegion(historyPoint, start, end, blocks);
+    const structName = await this.processRegion(historyPoint, start, end, blocks);
     point.redo.push({
       "name": structName,
       "location": Vector.min(start, end).toBlock()
@@ -138,7 +140,7 @@ export class History {
     }
   }
 
-  undo(session: PlayerSession) {
+  async undo(session: PlayerSession) {
     this.assertNotRecording();
     if (this.historyIdx <= -1) {
       return true;
@@ -153,7 +155,7 @@ export class History {
     }
 
     for (const region of this.undoStructures[this.historyIdx]) {
-      Server.structure.load(region.name, region.location, dim);
+      await Server.structure.load(region.name, region.location, dim);
     }
 
     let selection: selectionEntry;
@@ -173,7 +175,7 @@ export class History {
     return false;
   }
 
-  redo(session: PlayerSession) {
+  async redo(session: PlayerSession) {
     this.assertNotRecording();
     if (this.historyIdx >= this.redoStructures.length - 1) {
       return true;
@@ -189,7 +191,7 @@ export class History {
 
     this.historyIdx++;
     for (const region of this.redoStructures[this.historyIdx]) {
-      Server.structure.load(region.name, region.location, dim);
+      await Server.structure.load(region.name, region.location, dim);
     }
 
     let selection: selectionEntry;
@@ -237,7 +239,7 @@ export class History {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private processRegion(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any") {
+  private async processRegion(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any") {
     let structName: string;
     const player = this.session.getPlayer();
     const dim = player.dimension;
@@ -272,7 +274,7 @@ export class History {
       // }
 
       structName = "wedit:history_" + (historyId++).toString(16);
-      if (Server.structure.save(structName, start, end, dim)) {
+      if (await Server.structure.save(structName, start, end, dim)) {
         finish();
         this.cancel(historyPoint);
         throw new Error("Failed to save history!");

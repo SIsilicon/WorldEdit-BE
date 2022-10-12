@@ -1,33 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { world, ScoreboardObjective } from "@minecraft/server";
 import { Server } from "../classes/serverBuilder.js";
 
-export default class Database {
-  [x: string]: any;
-  constructor(table: string) {
-    if(!table) throw "[Database] constructor(): Error - Provide a table name";
-    Server.runCommand("scoreboard objectives add GAMETEST_DB dummy");
-    this.table = table;
-    this._createTable();
-  }
-  /**
-  * @private
-  */
-  private _createTable() {
-    if(this._getTable()) return;
-    const json = { GAMETEST_DB_TABLE: this.table };
-    return Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
-  }
-  /**
-  * @private
-  */
-  private _getTable() {
-    const data = Server.runCommand("scoreboard players list");
-    if(data.error) return;
-    const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0];
-    const player = objectiveUsers.replace(/\\"/g, "\"").match(new RegExp(`({"GAMETEST_DB_TABLE":"${this.table}".*?}+(?=,\\s)|{"GAMETEST_DB_TABLE":"${this.table}".*?}+$)`));
-    if(player) return JSON.parse(player[0]);
-    else throw `[Database]: Error - Table "${this.table}" doesn't exist, please restart the world to possibly fix this issue`;
-  }
+let objective: ScoreboardObjective;
+try {
+  objective = world.scoreboard.getObjective("GAMETEST_DB");
+} catch {
+  objective = world.scoreboard.addObjective("GAMETEST_DB", "");
+}
+
+export class Database {
+  private data: {[key: string]: any} = null;
+  private opened = false;
+
+  constructor(private name: string) {}
+
   /**
   * Save a value or update a value in the Database under a key
   * @param {string} Key The key you want to save the value as
@@ -35,11 +22,7 @@ export default class Database {
   * @example Database.set('Test Key', 'Test Value');
   */
   set(key: string, value: any): void {
-    const json = this._getTable();
-    if(typeof value === "string") value = value.replace(/"/g, "'");
-    Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
-    Object.assign(json, { [key]: value });
-    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+    this.data[key] = value;
   }
   /**
   * Get the value of the key
@@ -48,8 +31,7 @@ export default class Database {
   * @example Database.get('Test Key');
   */
   get(key: string): any {
-    const json = this._getTable();
-    return json[key];
+    return this.data[key];
   }
   /**
   * Check if the key exists in the table
@@ -58,7 +40,7 @@ export default class Database {
   * @example Database.has('Test Key');
   */
   has(key: string): boolean {
-    return this.keys().includes(key);
+    return key in this.data;
   }
   /**
   * Delete the key from the table
@@ -66,22 +48,37 @@ export default class Database {
   * @returns {boolean}
   * @example Database.delete('Test Key');
   */
-  delete(key: string): boolean {
-    const json = this._getTable();
-    Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
-    const status = delete json[key];
-    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
-    return status;
+  delete(key: string): void {
+    delete this.data[key];
   }
   /**
   * Clear everything in the table
   * @example Database.clear()
   */
   clear(): void {
-    let json = this._getTable();
-    Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
-    json = { GAMETEST_DB_TABLE: this.table };
-    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+    this.data = {};
+  }
+  /**
+   * Load the table from the scoreboard data.
+   * @example Database.load()
+   */
+  load(): void {
+    for (const table of objective.getParticipants()) {
+      const name = table.displayName;
+      if (name.startsWith(`{"DB_TABLE":"${this.name}"`)) {
+        this.data = JSON.parse(name);
+        return;
+      }
+    }
+    this.data = {};
+    this.opened = true;
+  }
+  /**
+   * Save all changes to the table.
+   * @example Database.save()
+   */
+  save(): void {
+    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(this.data))} GAMETEST_DB 0`);
   }
   /**
   * Get all the keys in the table
@@ -89,9 +86,7 @@ export default class Database {
   * @example Database.keys();
   */
   keys(): Array<string> {
-    const json = this._getTable();
-    delete json["GAMETEST_DB_TABLE"];
-    return Object.keys(json);
+    return Object.keys(this.data);
   }
   /**
   * Get all the values in the table
@@ -99,19 +94,7 @@ export default class Database {
   * @example Database.values();
   */
   values(): Array<any> {
-    const json = this._getTable();
-    delete json["GAMETEST_DB_TABLE"];
-    return Object.values(json);
-  }
-  /**
-  * Gets all the keys and values
-  * @returns {any}
-  * @example Database.getCollection();
-  */
-  getCollection(): any {
-    const json = this._getTable();
-    delete json["GAMETEST_DB_TABLE"];
-    return json;
+    return Object.values(this.data);
   }
   /**
   * Check if all the keys exists in the table
@@ -203,14 +186,5 @@ export default class Database {
     const values = this.values();
     return values.sort(() => Math.random() - Math.random()).slice(0, Math.abs(amount));
   }
-  //TODO: Add callback functions for db
-  /*
-  findValue(callbackfn, args) {
-    const json = this.getCollection();
-    if(typeof args !== 'undefined') callbackfn = callbackfn.bind(args);
-    for(const key in json) if(callbackfn(key, json[key], json)) return json[key];
-    return undefined;
-  };
-  */
 }
 

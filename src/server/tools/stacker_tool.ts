@@ -11,7 +11,7 @@ class StackerTool extends Tool {
   public mask: Mask;
 
   permission = "worldedit.region.stack";
-  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+  useOn = function* (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
     const dim = player.dimension;
     const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
     const start = loc.offset(dir.x, dir.y, dir.z);
@@ -27,13 +27,13 @@ class StackerTool extends Tool {
     const record = history.record();
     const tempStack = session.createRegion(true);
     try {
-      history.addUndoStructure(record, start, end, "any");
+      yield history.addUndoStructure(record, start, end, "any");
 
-      tempStack.save(loc, loc, dim);
+      yield tempStack.save(loc, loc, dim);
       for (const pos of regionIterateBlocks(start, end)) {
         tempStack.load(pos, dim);
       }
-      history.addRedoStructure(record, start, end, "any");
+      yield history.addRedoStructure(record, start, end, "any");
       history.commit(record);
     } catch (e) {
       history.cancel(record);
