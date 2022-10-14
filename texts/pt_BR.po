@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-10-02 20:40\n"
+"PO-Revision-Date: 2022-10-14 16:07\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -144,9 +144,6 @@ msgstr "Incluir ar na área de transferência: §4Desativado§r"
 
 msgid "item.wedit:blank"
 msgstr " "
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Não é possível colocar blocos aqui."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Você precisa especificar um bloco para definir a seleção!"
