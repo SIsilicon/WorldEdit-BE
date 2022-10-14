@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-10-02 20:40\n"
+"PO-Revision-Date: 2022-10-14 16:07\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -144,9 +144,6 @@ msgstr "Incluye aire en el portapapeles: §4Desactivado§r"
 
 msgid "item.wedit:blank"
 msgstr " "
-
-msgid "worldedit.spawnGlass.error"
-msgstr "No puedes colocar un bloque aquí."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "¡Necesitas especificar un bloque para establecer la selección!"
