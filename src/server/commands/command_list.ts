@@ -96,5 +96,5 @@ import "./history/clearhistory.js";
 import "./structure/export.js";
 import "./structure/import.js";
 
-import config from "@config.js";
+import config from "config.js";
 Server.command.prefix = config.commandPrefix;

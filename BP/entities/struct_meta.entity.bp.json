@@ -7,6 +7,11 @@
 			"is_spawnable": false,
 			"is_experimental": false
 		},
+		"component_groups": {
+			"wedit:despawned": {
+				"minecraft:instant_despawn": {}
+			}
+		},
 		"components": {
 			"minecraft:persistent": {},
 			"minecraft:physics": {
@@ -39,6 +44,15 @@
                 "allow_name_tag_renaming": false,
                 "always_show": false
             }
+		},
+		"events": {
+			"wedit:despawn": {
+				"add": {
+					"component_groups": [
+						"wedit:despawned"
+					]
+				}
+			}
 		}
 	}
 }

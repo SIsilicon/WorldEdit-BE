@@ -13,7 +13,6 @@
         
         "baseUrl": "./src",
         "paths": {
-            "@config.js": ["config.js"],
             "@modules/*": ["server/modules/*"],
             "@notbeer-api": ["library/Minecraft.js"]
         }

@@ -246,8 +246,7 @@ class ServerBuild extends ServerBuilder {
 
     let worldLoaded = false, tickCount = 0;
     const playerDimensions = new Map<string, string>();
-
-    const tick = (data: TickEvent) => {
+    world.events.tick.subscribe((ev: TickEvent) => {
       tickCount++;
       this.runCommand("testfor @a").then(result => {
         if(!result.error && !worldLoaded) {
@@ -276,10 +275,8 @@ class ServerBuild extends ServerBuilder {
         playerDimensions.set(player.name, newDimension);
       }
 
-      this.emit("tick", data);
-      system.run(tick);
-    };
-    system.run(tick);
+      this.emit("tick", ev);
+    });
   }
 
 }

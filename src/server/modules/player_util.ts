@@ -1,7 +1,7 @@
 import { Player, Entity, BlockLocation, EntityInventoryComponent } from "@minecraft/server";
 import { Server, contentLog } from "@notbeer-api";
 import { Mask } from "./mask.js";
-import config from "@config.js";
+import config from "config.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.

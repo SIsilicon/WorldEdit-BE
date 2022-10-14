@@ -1,7 +1,7 @@
 import { Server } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { RawText } from "@notbeer-api";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "wand",

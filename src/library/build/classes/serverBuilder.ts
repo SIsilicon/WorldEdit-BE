@@ -54,6 +54,9 @@ export class ServerBuilder extends EventEmitter {
    * Any attempts at running commands while flushing will be queued.
    */
   async flushCommands() {
+    if (this.commandQueue) {
+      return;
+    }
     this.flushingCommands = true;
     await Promise.all(this.commandQueue);
     this.flushingCommands = false;

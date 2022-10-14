@@ -3,7 +3,7 @@ import { RawText, Vector } from "@notbeer-api";
 import { assertClipboard } from "@modules/assert.js";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "rotate",

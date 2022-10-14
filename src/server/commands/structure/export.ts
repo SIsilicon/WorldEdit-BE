@@ -1,8 +1,8 @@
 
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionCenter, regionSize, Server, setTickTimeout, Vector, contentLog } from "@notbeer-api";
-import { Location, Player, world, MinecraftBlockTypes } from "@minecraft/server";
+import { contentLog, RawText, regionCenter, regionSize, Server, Vector } from "@notbeer-api";
+import { Player } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -26,87 +26,76 @@ function writeMetaData(name: string, data: string, player: Player) {
   }
 
   const dimension = player.dimension;
-  const blockLoc = PlayerUtil.getBlockLocation(player);
+  let blockLoc = PlayerUtil.getBlockLocation(player);
+  blockLoc.y = 2048;
+  while (dimension.getEntitiesAtBlockLocation(blockLoc).length) {
+    blockLoc = blockLoc.offset(0, 1, 0);
+  }
   const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
   entity.nameTag = data;
 
-  const err = Server.structure.save(name, blockLoc, blockLoc, dimension, {
+  return Server.structure.save(name, blockLoc, blockLoc, dimension, {
     saveToDisk: true,
     includeBlocks: false,
     includeEntities: true
+  }).then(err => {
+    entity.triggerEvent("wedit:despawn");
+    return err;
   });
-  entity.teleport(new Location(player.location.x, -1024, player.location.z), dimension, 0, 0);
-  setTickTimeout(() => entity.kill());
-
-  return err;
 }
 
-function processError(struct_name: string, err: boolean) {
-  if (err) {
+const users: Player[] = [];
+registerCommand(registerInformation, function* (session, builder, args) {
+  assertCuboidSelection(session);
+  const range = session.selection.getRange();
+  const dimension = builder.dimension;
+  assertCanBuildWithin(builder, ...range);
+
+  let struct_name: string = args.get("name");
+  if (!struct_name.includes(":")) {
+    struct_name = "wedit:" + struct_name;
+  }
+  const [namespace, struct] = struct_name.split(":") as [string, string];
+  const promises: Promise<boolean>[] = [];
+
+  Server.flushCommands();
+  Server.runCommand("scoreboard objectives add wedit:exports dummy");
+  promises.push(Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).then(result => result.error));
+
+  promises.push(Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {
+    saveToDisk: true,
+    includeEntities: args.has("e")
+  }));
+
+  const size = regionSize(...range);
+  const playerPos = PlayerUtil.getBlockLocation(builder);
+  const relative = Vector.sub(regionCenter(...range), playerPos);
+
+  promises.push(writeMetaData(namespace + ":weditstructmeta_" + struct,
+    JSON.stringify({
+      size: { x: size.x, y: size.y, z: size.z },
+      relative: { x: relative.x, y: relative.y, z: relative.z },
+      exporter: builder.name
+    }),
+    builder
+  ));
+  promises.push(writeMetaData("weditstructref_" + struct, struct_name, builder));
+
+  const errors = (yield Promise.all(promises)) as boolean[];
+  if (errors.some(v => v)) {
     const [namespace, name] = struct_name.split(":") as [string, string];
     Server.structure.delete(namespace + ":weditstructexport_" + name);
     Server.structure.delete(namespace + ":weditstructmeta_" + name);
     Server.structure.delete("weditstructref_" + name);
     Server.runCommand(`scoreboard players reset ${struct_name} wedit:exports`);
+    contentLog.debug("error here!");
     throw "commands.generic.wedit:commandFail";
   }
-}
 
-const users: Player[] = [];
-registerCommand(registerInformation, function (session, builder, args) {
-  assertCuboidSelection(session);
-  try {
-    const block = builder.dimension.getBlock(session.selection.points[0]);
-    block.setPermutation(block.permutation);
-    return "Success!";
-  } catch (e) {
-    return "Failed! " + e;
+  let message = RawText.translate("commands.wedit:export.explain").with(args.get("name"));
+  if (!users.includes(builder)) {
+    message = message.append("text", "\n").append("translate", "commands.wedit:export.otherWorlds");
+    users.push(builder);
   }
-
-  return "";
-
-  // FIXME
-  // const range = session.selection.getRange();
-  // const dimension = builder.dimension;
-  // assertCanBuildWithin(builder, ...range);
-
-  // let name: string = args.get("name");
-  // if (!name.includes(":")) {
-  //   name = "wedit:" + name;
-  // }
-  // const [namespace, struct] = name.split(":") as [string, string];
-
-  // Server.runCommand("scoreboard objectives add wedit:exports dummy");
-  // Server.runCommand(`scoreboard players set ${name} wedit:exports 1`);
-
-  // error ||= await Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {
-  //   saveToDisk: true,
-  //   includeEntities: args.has("e")
-  // });
-  // processError(name, error);
-
-  // const size = regionSize(...range);
-  // const playerPos = PlayerUtil.getBlockLocation(builder);
-  // const relative = Vector.sub(regionCenter(...range), playerPos);
-
-  // error ||= writeMetaData(namespace + ":weditstructmeta_" + struct,
-  //   JSON.stringify({
-  //     size: { x: size.x, y: size.y, z: size.z },
-  //     relative: { x: relative.x, y: relative.y, z: relative.z },
-  //     exporter: builder.name
-  //   }),
-  //   builder
-  // );
-  // processError(name, error);
-
-  // error ||= writeMetaData("weditstructref_" + struct, name, builder);
-  // processError(name, error);
-
-  // let message = RawText.translate("commands.wedit:export.explain").with(args.get("name"));
-  // if (!users.includes(builder)) {
-  //   message = message.append("text", "\n").append("translate", "commands.wedit:export.otherWorlds");
-  //   users.push(builder);
-  // }
-  // return message;
-  return "";
+  return message;
 });

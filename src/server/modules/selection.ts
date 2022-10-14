@@ -4,7 +4,7 @@ import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { getWorldHeightLimits } from "../util.js";
-import config from "@config.js";
+import config from "config.js";
 
 // TODO: Add other selection modes
 export const selectModes = ["cuboid", "extend", "sphere", "cylinder"] as const;

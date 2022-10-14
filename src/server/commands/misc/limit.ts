@@ -1,7 +1,7 @@
 import { registerCommand } from "../register_commands.js";
 import { Server } from "@notbeer-api";
 import { RawText } from "@notbeer-api";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "limit",

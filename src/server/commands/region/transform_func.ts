@@ -5,7 +5,7 @@ import { regionTransformedBounds, Vector } from "@notbeer-api";
 import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { set } from "./set.js";
-import config from "@config.js";
+import config from "config.js";
 
 // TODO: fix the bounds sometimes not encompassing the new geometry
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

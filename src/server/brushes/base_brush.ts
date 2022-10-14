@@ -4,7 +4,7 @@ import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText } from "@notbeer-api";
 import { Selection } from "@modules/selection.js";
-import config from "@config.js";
+import config from "config.js";
 
 /**
  * This class is the base for all brush types available in WorldEdit.

@@ -5,7 +5,7 @@ import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
 import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "copy",

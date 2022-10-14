@@ -1,6 +1,6 @@
 import { Block, BlockLocation, Dimension, Location, Player, world } from "@minecraft/server";
 import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea } from "@notbeer-api";
-import config from "@config.js";
+import config from "config.js";
 
 /**
  * Sends a message to a player through either chat or the action bar.
@@ -189,6 +189,7 @@ export function locToString(loc: BlockLocation) {
 export function stringToLoc(loc: string) {
   return new BlockLocation(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
 }
+
 /**
  * Wraps `num` between 0 and `range` exclusive
  */

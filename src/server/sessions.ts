@@ -1,9 +1,9 @@
 import { Player, BeforeItemUseEvent } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
-import config from "@config.js";
+import config from "config.js";
 
-import { Tools } from "./tools/tool_manager.js";
 import "./tools/register_tools.js";
+import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";

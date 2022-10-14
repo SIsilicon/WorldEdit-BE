@@ -1,10 +1,10 @@
 import { BlockLocation } from "@minecraft/server";
+import { Vector, regionVolume, Server } from "@notbeer-api";
 import { assertCanBuildWithin } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
-import { Vector, regionVolume, Server, contentLog } from "@notbeer-api";
 import { selectMode } from "./selection.js";
-import config from "@config.js";
+import config from "config.js";
 
 type historyEntry = {
     name: string,

@@ -1,6 +1,6 @@
 import { Server } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "kit",

@@ -4,7 +4,7 @@ import { Cardinal } from "@modules/directions.js";
 import { RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
-import config from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "flip",

@@ -2,7 +2,7 @@ import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world, BlockBreak
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
-import config from "@config.js";
+import config from "config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
