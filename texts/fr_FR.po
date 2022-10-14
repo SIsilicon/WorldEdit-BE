@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-10-02 20:40\n"
+"PO-Revision-Date: 2022-10-14 16:07\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -144,9 +144,6 @@ msgstr "Inclure l'air dans le presse-papier: §4Désactivé§r"
 
 msgid "item.wedit:blank"
 msgstr " "
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Impossible de placer un bloc ici."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Vous devez spécifier un bloc pour définir la sélection !"
