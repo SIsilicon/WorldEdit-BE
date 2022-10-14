@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-10-02 20:40\n"
+"PO-Revision-Date: 2022-10-14 16:07\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -144,9 +144,6 @@ msgstr "Zahrnout vzduch do schránky: §4Zakázáno§r"
 
 msgid "item.wedit:blank"
 msgstr " "
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Zde nelze položit blok."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Musíte zadat blok, na který chcete nastavit výběr!"
