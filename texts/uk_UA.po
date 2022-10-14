@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-10-02 21:38\n"
+"PO-Revision-Date: 2022-10-14 16:07\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -144,9 +144,6 @@ msgstr "Включити повітря в буфер обміну: §4Disabled�
 
 msgid "item.wedit:blank"
 msgstr " "
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Не можна розмістити тут блок."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
