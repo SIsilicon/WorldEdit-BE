@@ -1,7 +1,7 @@
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { RawText } from "@notbeer-api";
 import { Vector } from "@notbeer-api";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {

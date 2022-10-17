@@ -23,7 +23,7 @@ registerCommand(registerInformation, function (session, builder, args) {
   let blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
   for (let i = 0; i < height; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
-    if (dimension.getBlock(blockLoc.offset(0, 2, 0)).id != "minecraft:air") {
+    if (dimension.getBlock(blockLoc.offset(0, 2, 0)).typeId != "minecraft:air") {
       break;
     }
   }

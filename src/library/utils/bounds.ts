@@ -1,4 +1,4 @@
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { Vector } from "./vector.js";
 
 /**

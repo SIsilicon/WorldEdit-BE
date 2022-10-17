@@ -1,6 +1,6 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "mojang-minecraft";
-import { locToString, print, stringToLoc } from "../util.js";
+import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
+import { locToString, stringToLoc } from "../util.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector,

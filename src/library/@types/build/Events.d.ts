@@ -16,7 +16,7 @@ import {
   WeatherChangeEvent,
   Player,
   Dimension
-} from "mojang-minecraft";
+} from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
 export interface EventList {

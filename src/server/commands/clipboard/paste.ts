@@ -2,7 +2,7 @@ import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {

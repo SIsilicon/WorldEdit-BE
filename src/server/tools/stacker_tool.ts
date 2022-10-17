@@ -1,7 +1,7 @@
 import { Cardinal } from "@modules/directions.js";
 import { Mask } from "@modules/mask.js";
 import { regionIterateBlocks } from "@notbeer-api";
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";

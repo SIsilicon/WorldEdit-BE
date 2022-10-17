@@ -1,6 +1,6 @@
 /* eslint-disable no-empty */
 import { regionSize, regionTransformedBounds, Vector } from "../utils/index.js";
-import { BlockLocation, Dimension, world } from "mojang-minecraft";
+import { BlockLocation, Dimension, world } from "@minecraft/server";
 
 interface StructureMeta {
     subRegions?: [string, Vector, Vector][]; // name suffix, offset, end

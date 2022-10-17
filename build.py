@@ -43,8 +43,8 @@ if not args.package_only:
     
     if args.watch:
         print('syncing com.mojang folder...')
-        subprocess.call([sys.executable, 'tools/sync2com-mojang.py'], stdout=subprocess.DEVNULL)
         subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL)
+        subprocess.call([sys.executable, 'tools/sync2com-mojang.py', f'--dest={args.watch}'], stdout=subprocess.DEVNULL)
 
         print('Watch mode: press control-C to stop.')
         tsc = subprocess.Popen('tsc -w', shell=True)

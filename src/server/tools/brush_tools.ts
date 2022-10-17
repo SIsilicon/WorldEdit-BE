@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Brush } from "../brushes/base_brush.js";

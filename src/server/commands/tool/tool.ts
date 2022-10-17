@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
@@ -52,7 +52,7 @@ const registerInformation = {
 // TODO: Add delete tree tool
 
 function heldItemName(player: Player) {
-  const name = Server.player.getHeldItem(player).id;
+  const name = Server.player.getHeldItem(player).typeId;
   return name.replace("minecraft:", "");
 }
 

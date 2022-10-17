@@ -1,4 +1,4 @@
-import { Player, BlockLocation } from "mojang-minecraft";
+import { Player, BlockLocation } from "@minecraft/server";
 import { Server, Vector, RawText, setTickTimeout } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { canPlaceBlock, print } from "../util.js";

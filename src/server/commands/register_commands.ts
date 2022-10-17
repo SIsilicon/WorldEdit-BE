@@ -1,7 +1,7 @@
 import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from "@notbeer-api";
 import { getSession, hasSession, PlayerSession } from "../sessions.js";
 import { print, printerr } from "../util.js";
-import { BeforeChatEvent, Player } from "mojang-minecraft";
+import { BeforeChatEvent, Player } from "@minecraft/server";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<unknown, RawText | string> | RawText | string;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Thread } from "@notbeer-api";
-import { BeforeChatEvent } from "mojang-minecraft";
+import { BeforeChatEvent } from "@minecraft/server";
 
 export type range = [number | null, number | null];
 

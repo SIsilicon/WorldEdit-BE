@@ -1,5 +1,5 @@
 import { RawText } from "@notbeer-api";
-import { MinecraftBlockTypes, BlockPermutation, BlockLocation, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "mojang-minecraft";
+import { MinecraftBlockTypes, BlockPermutation, BlockLocation, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";

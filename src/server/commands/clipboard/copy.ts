@@ -3,7 +3,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 
@@ -62,7 +62,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 
     yield "Copying blocks...";
     const blocks = (loc: BlockLocation) => {
-      const wasAir = dimension.getBlock(loc).id == "minecraft:air";
+      const wasAir = dimension.getBlock(loc).typeId == "minecraft:air";
       const isAir = wasAir || (mask ? !mask.matchesBlock(loc, dimension) : false);
       if (includeAir && mask && !wasAir && isAir) {
         return airBlock;
@@ -84,7 +84,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
       const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
 
       for (const block of regionIterateBlocks(start, end)) {
-        const wasAir = dimension.getBlock(block).id == "minecraft:air";
+        const wasAir = dimension.getBlock(block).typeId == "minecraft:air";
         const isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
         if (includeAir && mask && !wasAir && isAir) {
           dimension.getBlock(block).setPermutation(airBlock);

@@ -16,6 +16,6 @@
     },
     "dependencies": {
         "typescript": "^4.7.4",
-        "@types/mojang-minecraft": "^0.1.7"
+        "@minecraft/server": "^1.0.0-beta.11940b23"
     }
 }

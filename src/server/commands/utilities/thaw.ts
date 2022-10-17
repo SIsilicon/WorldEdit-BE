@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockRaycastOptions, Location, MinecraftBlockTypes, Vector as MCVector } from "mojang-minecraft";
+import { Block, BlockLocation, BlockRaycastOptions, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
 import { getWorldMaxY, getWorldMinY } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -95,10 +95,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
       const water = MinecraftBlockTypes.water.createDefaultBlockPermutation();
 
       for (const block of blocks) {
-        if (block.id == "minecraft:ice") {
+        if (block.typeId == "minecraft:ice") {
           block.setPermutation(water);
           changed++;
-        } else if (block.id == "minecraft:snow_layer") {
+        } else if (block.typeId == "minecraft:snow_layer") {
           block.setPermutation(air);
           changed++;
         }

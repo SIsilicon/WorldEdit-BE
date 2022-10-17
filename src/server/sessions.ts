@@ -1,4 +1,4 @@
-import { Player, BeforeItemUseEvent } from "mojang-minecraft";
+import { Player, BeforeItemUseEvent } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
 import { TICKS_TO_DELETE_SESSION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from "../config.js";
 
@@ -133,7 +133,7 @@ export class PlayerSession {
   public bindTool(tool: string, item: string|[string, number]|null, ...args: any[]) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -148,7 +148,7 @@ export class PlayerSession {
   public hasToolProperty(item: string|[string, number]|null, property: string) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -165,7 +165,7 @@ export class PlayerSession {
   public setToolProperty(item: string|[string, number]|null, property: string, value: any) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -179,7 +179,7 @@ export class PlayerSession {
   public hasTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -193,7 +193,7 @@ export class PlayerSession {
   public unbindTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -303,7 +303,7 @@ setTickTimeout(() => {
   });
 
   Server.prependListener("beforeItemUse", ev => {
-    if (ev.source.id == "minecraft:player") {
+    if (ev.source.typeId == "minecraft:player") {
       const name = (ev.source as Player).name;
       playerSessions.get(name)?.onItemUse(ev);
     }

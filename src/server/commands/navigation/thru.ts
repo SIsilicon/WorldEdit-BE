@@ -1,4 +1,4 @@
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
@@ -18,7 +18,7 @@ registerCommand(registerInformation, function (session, builder) {
   const dir = new Cardinal().getDirection(builder);
 
   function isSpaceEmpty(loc: BlockLocation) {
-    return dimension.getBlock(loc).id == "minecraft:air" && dimension.getBlock(loc.offset(0, 1, 0)).id == "minecraft:air";
+    return dimension.getBlock(loc).typeId == "minecraft:air" && dimension.getBlock(loc.offset(0, 1, 0)).typeId == "minecraft:air";
   }
 
   let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);

@@ -1,7 +1,7 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { RawText } from "@notbeer-api";
-import { BlockPermutation, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "mojang-minecraft";
+import { BlockPermutation, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {

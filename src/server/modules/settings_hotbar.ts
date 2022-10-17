@@ -1,4 +1,4 @@
-import { BeforeItemUseEvent, Player, BeforeItemUseOnEvent } from "mojang-minecraft";
+import { BeforeItemUseEvent, Player, BeforeItemUseOnEvent } from "@minecraft/server";
 import { Server, setTickTimeout } from "@notbeer-api";
 import { PlayerUtil } from "./player_util.js";
 import { Pattern } from "./pattern.js";
@@ -149,7 +149,7 @@ export class SettingsHotbar {
       tick: () => {
         const item = Server.player.getHeldItem(this.player);
         if (this.player.selectedSlot != 8 && item) {
-          this.currBindItem = [item.id, item.data];
+          this.currBindItem = [item.typeId, item.data];
           this.changeState("editTool");
         }
       }
@@ -428,7 +428,7 @@ export class SettingsHotbar {
   };
 
   private cancelItemUseOn = (ev: BeforeItemUseOnEvent) => {
-    if (ev.source.id == "minecraft:player" && (ev.source as Player).name == this.player.name) {
+    if (ev.source.typeId == "minecraft:player" && (ev.source as Player).name == this.player.name) {
       ev.cancel = true;
     }
   };
@@ -450,7 +450,7 @@ export class SettingsHotbar {
 
   onItemUse(ev: BeforeItemUseEvent) {
     if (ev.item) {
-      if (this.state?.input?.(ev.item.id, ev.item.data)) {
+      if (this.state?.input?.(ev.item.typeId, ev.item.data)) {
         ev.cancel = true;
       }
     }

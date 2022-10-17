@@ -1,4 +1,4 @@
-import { world, system, PlayerJoinEvent } from "mojang-minecraft";
+import { world, system, PlayerJoinEvent } from "@minecraft/server";
 import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";

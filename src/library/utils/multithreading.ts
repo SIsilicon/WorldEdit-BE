@@ -1,5 +1,5 @@
 import { configuration } from "../build/configurations.js";
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import { contentLog } from "./contentlog.js";
 
 const threads: Thread<unknown[]>[] = [];

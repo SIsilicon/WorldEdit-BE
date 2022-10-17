@@ -1,5 +1,5 @@
 import { Vector } from "@notbeer-api";
-import { BlockLocation, Dimension } from "mojang-minecraft";
+import { BlockLocation, Dimension } from "@minecraft/server";
 import { locToString, stringToLoc } from "../../util.js";
 
 const offsets = [

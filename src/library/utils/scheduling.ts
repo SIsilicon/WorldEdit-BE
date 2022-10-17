@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();

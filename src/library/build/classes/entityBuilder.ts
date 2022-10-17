@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 import { Server } from "./serverBuilder.js";
 import { getEntityAtPosReturn } from "../../@types/build/classes/EntityBuilder";
 
@@ -30,7 +30,7 @@ export class EntityBuilder {
     try {
       const entity = (dimension ?? Minecraft.world.getDimension("overworld")).getEntitiesAtBlockLocation(new Minecraft.BlockLocation(x, y, z));
       for(let i = 0; i < entity.length; i++)
-        if(ignoreType.includes(entity[i].id)) entity.splice(i, 1);
+        if(ignoreType.includes(entity[i].typeId)) entity.splice(i, 1);
       return { list: entity, error: false };
     } catch (err) {
       return { list: null, error: true };

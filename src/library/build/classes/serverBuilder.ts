@@ -1,4 +1,4 @@
-import { world, Player, Entity, Dimension } from "mojang-minecraft";
+import { world, Player, Entity, Dimension } from "@minecraft/server";
 import { EventEmitter } from "./eventEmitter.js";
 import { runCommandReturn } from "../../@types/build/classes/ServerBuilder";
 

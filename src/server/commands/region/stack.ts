@@ -2,7 +2,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, regionSize, regionVolume } from "@notbeer-api";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Player, BlockLocation, Location, BeforeChatEvent } from "mojang-minecraft";
+import { Player, BlockLocation, Location, BeforeChatEvent } from "@minecraft/server";
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../../@types/build/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";

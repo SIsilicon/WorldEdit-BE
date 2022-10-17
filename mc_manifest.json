@@ -9,8 +9,8 @@
         "bp_uuid": "3cdb2ddf-662e-4f8f-a0a1-1293b91ccb2f",
 		"rp_uuid": "e304a4eb-f0a0-4979-ac17-7b0f46a555c8",
 		
-        "version": [0, 6, 5],
-		"min_engine_version": [1, 19, 30]
+        "version": [0, 6, 6],
+		"min_engine_version": [1, 19, 40]
 	},
 	"bp_modules": [
 		{
@@ -28,6 +28,9 @@
 			"entry": "scripts/server/index.js"
 		}
 	],
+	"bp_capabilities": [
+		"script_eval"
+	],
     "rp_modules": [
 		{
 			"type": "resources",
@@ -37,7 +40,7 @@
 	],
 	"bp_dependencies": [
 		{
-			"module_name": "mojang-minecraft",
+			"module_name": "@minecraft/server",
 			"version": "1.0.0-beta"
 		}
 	],

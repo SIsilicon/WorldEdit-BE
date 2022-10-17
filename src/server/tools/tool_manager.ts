@@ -1,4 +1,4 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent } from "mojang-minecraft";
+import { Player, BlockLocation, ItemStack, BeforeItemUseEvent } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession } from "../sessions.js";
@@ -18,13 +18,13 @@ class ToolBuilder {
 
   constructor() {
     Server.on("beforeItemUse", ev => {
-      if (ev.source.id != "minecraft:player" || !ev.item) {
+      if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
       this.onItemUse(ev.item, ev.source as Player, ev);
     });
     Server.on("beforeItemUseOn", ev => {
-      if (ev.source.id != "minecraft:player" || !ev.item) {
+      if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
       this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
@@ -122,7 +122,7 @@ class ToolBuilder {
       return;
     }
 
-    const key = `${item.id}/${item.data}`;
+    const key = `${item.typeId}/${item.data}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);

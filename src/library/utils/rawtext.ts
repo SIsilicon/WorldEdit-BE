@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 
 type textElement = {
     text: string

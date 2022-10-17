@@ -1,5 +1,5 @@
 import { regionBounds, regionVolume, Server, Vector } from "@notbeer-api";
-import { BlockLocation, Player } from "mojang-minecraft";
+import { BlockLocation, Player } from "@minecraft/server";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";

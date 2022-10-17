@@ -3,7 +3,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Pattern } from "@modules/pattern.js";
 import { RegionLoadOptions } from "@modules/region_buffer.js";
 import { regionTransformedBounds, Vector } from "@notbeer-api";
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { set } from "./set.js";
 

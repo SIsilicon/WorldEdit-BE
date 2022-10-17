@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
