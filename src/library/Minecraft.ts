@@ -94,7 +94,7 @@ class ServerBuild extends ServerBuilder {
       const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
       if(!getCommand) {
         data.cancel = true;
-        RawText.translate("commands.generic.unknown").with(`§f${command}§c`).printError(data.sender);
+        RawText.translate("commands.generic.unknown").with(`${command}`).printError(data.sender);
         return;
       }
 
