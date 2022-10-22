@@ -11,8 +11,8 @@ const registerInformation = {
   description: "commands.wedit:import.description",
   usage: [
     {
-      "name": "name",
-      "type": "string"
+      name: "name",
+      type: "string"
     }
   ]
 };

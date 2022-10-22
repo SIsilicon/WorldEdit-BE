@@ -11,11 +11,11 @@ const registerInformation = {
   description: "commands.wedit:export.description",
   usage: [
     {
-      "flag": "e"
+      flag: "e"
     },
     {
-      "name": "name",
-      "type": "string"
+      name: "name",
+      type: "string"
     }
   ]
 };

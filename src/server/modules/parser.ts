@@ -1,5 +1,5 @@
-import { commandSyntaxError, contentLog, Server } from "@notbeer-api";
-import { MinecraftBlockTypes } from "@minecraft/server";
+import { commandSyntaxError, contentLog, RawText, Server } from "@notbeer-api";
+import { BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {
@@ -115,8 +115,25 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
       block.id = "minecraft:" + block.id;
     }
     // TODO: Test against custom blocks
-    if (!MinecraftBlockTypes.get(block.id)) {
+    const blockPerm = MinecraftBlockTypes.get(block.id)?.createDefaultBlockPermutation();
+    if (!blockPerm) {
       throwTokenError(typeToken);
+    }
+    if (blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
+      if (!block.states) {
+        block.states = new Map();
+      }
+      block.states.set("persistent_bit", true);
+    }
+    for (const [state, val] of block.states?.entries() ?? []) {
+      const property = blockPerm.getProperty(state) as IntBlockProperty | BoolBlockProperty | StringBlockProperty;
+      if (!property) {
+        throw RawText.translate("commands.blockstate.stateError").with(state).with(block.id);
+      } else if (typeof val != typeof property.value) {
+        throw RawText.translate("commands.blockstate.typeError").with(state);
+      } else if (!property.validValues.includes(val as never)) {
+        throw RawText.translate("commands.blockstate.valueError").with(state);
+      }
     }
     return typeOnly ? block.id : block;
   }
