@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-10-14 16:07\n"
+"PO-Revision-Date: 2022-10-28 06:43\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit's Skripte sind gestoppt! Setze sie mit §r/reload§c zurück (auch andere Skripte werden zurückgesetzt).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopieren"
@@ -317,7 +317,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Ungeladene Chunks können nicht verändert werden!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eTipp: Um weitere Chunks zu laden, erhöhen Sie Ihre Simulationsdistanz oder fügen Sie Ticking-Bereiche hinzu, in denen Sie aktiv sind.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Die Zahl (%1) ist zu groß! Sie muss höchstens (%2) sein."
@@ -461,13 +461,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "Region um %s Blöcke erweitert."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Exportiert die Auswahl für spätere Nutzung."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s wurde exportiert."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§eHinweis: Um diese Struktur in anderen Welten zu verwenden, muss die WorldEdit PC/Web App für externe Nutzung extrahiert werden.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Feuer in der Nähe löschen"
@@ -539,10 +539,10 @@ msgid "commands.wedit:inset.description"
 msgstr "Einfügen des Auswahlbereichs"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Importiert eine Struktur in die Zwischenablage."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s wurde importiert und in die Zwischenablage gesetzt."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleportiert Sie auf den Block, den Sie anschauen"
@@ -608,7 +608,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "%s Blöcke eingefügt."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "Kann die Zwischenablage nicht an ihrer ursprünglichen Position einfügen."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Setzen Sie die erste Position Ihrer Auswahl auf die angegebene oder aktuelle Position"
@@ -656,7 +656,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' ist keine Steigerung von 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Du kannst nur entlang der Y-Achse drehen!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Auswahl geleert."
@@ -806,13 +806,13 @@ msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit Befehle"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "Den Performance-Modus für die aktuelle Sitzung einschalten."
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "Performance-Modus aktiviert."
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "Performance-Modus deaktiviert."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "WorldEdit Version erhalten"
