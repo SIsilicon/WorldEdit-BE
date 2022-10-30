@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-10-14 16:07\n"
+"PO-Revision-Date: 2022-10-30 00:59\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cLos scripts de WorldEdit se han detenido! Reinicia con §r/reload§c (otros scripts también se reiniciarán).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -251,28 +251,28 @@ msgid "worldedit.selection.cuboid.secondary"
 msgstr "Segunda posición establecida en %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Segunda posición establecida en %1 (%2)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Iniciar selección en %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Extender el área seleccionada %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Radio establecido en %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Radio establecido en %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Un objeto debe estar en tu mano principal."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "No puedes vincularte a este tipo de objeto."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Este objeto no está vinculado a ninguna herramienta."
 
 msgid "worldedit.tool.noPerm"
 msgstr "No tienes permiso para usar este ítem."
@@ -281,31 +281,31 @@ msgid "worldedit.tool.fixedBind"
 msgstr "La herramienta de este elemento no puede ser removido o reemplazado."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eSe le han otorgado permisos de WorldEdit. Vaya a (Configuración > Cómo jugar > Inicio rápido) para obtener una guía.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eTus permisos de WorldEdit han sido eliminados.§r"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%s bloques han cambiado."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s bloques han sido creados."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Error al ejecutar este comando."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Primero haz una selección."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' es un argumento de dirección inválido!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Marca inesperada: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "El portapapeles está vacío. Copia o corta una región primero."
 
 msgid "commands.generic.wedit:noCuboidSelection"
 msgstr "Make a cuboid selection first."
