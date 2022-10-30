@@ -139,9 +139,6 @@ msgstr "Incluir Aire en portapapeles: §aActivado§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Incluir Aire en portapapeles: §aDesactivado§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "No se puede colocar el bloque aquí."
 

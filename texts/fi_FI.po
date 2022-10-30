@@ -139,9 +139,6 @@ msgstr "Sisällytä ilma leikepöydälle: §aEnabled§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Sisällytä ilma leikepöydälle: §4Disabled§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Kuutiota ei voi asettaa tähän."
 

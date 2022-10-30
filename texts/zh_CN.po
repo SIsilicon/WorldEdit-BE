@@ -139,9 +139,6 @@ msgstr "在剪贴板中包含空气：§a启用§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "在剪贴板中包含空气：§4禁用§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "不能在此处放置方块"
 

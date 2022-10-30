@@ -1,4 +1,4 @@
-import { RawText } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { EntityQueryOptions } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
@@ -91,7 +91,7 @@ registerCommand(registerInformation, function (session, builder, args) {
   let entityCount = 0;
   const entityQuery: EntityQueryOptions = {
     excludeTypes: ["minecraft:player"],
-    location: builder.location,
+    location: Vector.from(builder.location).toLocation(),
     maxDistance: radius
   };
   for (const entity of dimension.getEntities(entityQuery)) {

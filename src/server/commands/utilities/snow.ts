@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockRaycastOptions, IntBlockProperty, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { Block, BlockLocation, IntBlockProperty, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -29,10 +29,11 @@ const registerInformation = {
 };
 
 function canSnowOn(block: Block) {
-  const solidTest = new BlockRaycastOptions();
-  solidTest.includeLiquidBlocks = false;
-  solidTest.includePassableBlocks = false;
-  solidTest.maxDistance = 1.0;
+  const solidTest = {
+    includeLiquidBlocks: false,
+    includePassableBlocks: false,
+    maxDistance: 1.0
+  };
 
   const dimension = block.dimension;
   const location = Vector.from(block.location).add([0.5, 1.99, 0.5]);
@@ -70,10 +71,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const affectedBlockRange: [BlockLocation, BlockLocation] = [null, null];
     const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
-    const rayTraceOptions = new BlockRaycastOptions();
-    rayTraceOptions.includeLiquidBlocks = true;
-    rayTraceOptions.includePassableBlocks = true;
-    rayTraceOptions.maxDistance = height;
+    const rayTraceOptions = {
+      includeLiquidBlocks: true,
+      includePassableBlocks: true,
+      maxDistance: height
+    };
 
     for (let x = range[0].x; x <= range[1].x; x++)
       for (let z = range[0].z; z <= range[1].z; z++) {

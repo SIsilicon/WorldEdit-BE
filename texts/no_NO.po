@@ -139,9 +139,6 @@ msgstr "Inkluder luft i utklippstavlen: §aAktivert§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Inkluder luft i utklippstavlen: §4Deaktivert§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Kan ikke plassere blokken her."
 

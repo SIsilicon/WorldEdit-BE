@@ -139,9 +139,6 @@ msgstr "Включити повітря в буфер обміну: §aEnabled§
 msgid "item.wedit:inc_air_off_button"
 msgstr "Включити повітря в буфер обміну: §4Disabled§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Не можна розмістити тут блок."
 

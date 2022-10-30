@@ -82,17 +82,6 @@ class PlayerHandler {
   }
 
   /**
-   * Tells you whether the player's hotbar has been stashed in a temporary place.
-   * @param player The player being queried
-   * @return Whether the player's hotbar has been stashed
-   */
-  isHotbarStashed(player: Player) {
-    return Array.from(player.dimension.getEntities({
-      name: `wedit:stasher_for_${player.name}`
-    })).length != 0;
-  }
-
-  /**
    * Traces a block from the player's head in the direction they're looking,
    * @param player The player to trace for blocks from
    * @param range How far to trace for blocks
@@ -118,6 +107,17 @@ class PlayerHandler {
         return point;
       }
     }
+  }
+
+  /**
+   * Tells you whether the player's hotbar has been stashed in a temporary place.
+   * @param player The player being queried
+   * @return Whether the player's hotbar has been stashed
+   */
+  isHotbarStashed(player: Player) {
+    return Array.from(player.dimension.getEntities({
+      name: `wedit:stasher_for_${player.name}`
+    })).length != 0;
   }
 
   /**

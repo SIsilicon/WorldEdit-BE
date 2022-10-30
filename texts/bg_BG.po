@@ -139,9 +139,6 @@ msgstr "Include Air in Clipboard: §aEnabled§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Include Air in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Can't place block here."
 

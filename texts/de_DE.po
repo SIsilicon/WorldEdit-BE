@@ -139,9 +139,6 @@ msgstr "Luft in die Zwischenablage einbeziehen: §aAktiviert§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Luft in die Zwischenablage einbeziehen: §aDeaktiviert§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Block kann hier nicht platziert werden."
 

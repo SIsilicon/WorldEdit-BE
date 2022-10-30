@@ -1,12 +1,12 @@
-import "./ui/index.js";
-import "./commands/command_list.js";
-
 import { DynamicPropertiesDefinition, Player, world } from "@minecraft/server";
 import { contentLog, Server, configuration } from "@notbeer-api";
 import { print } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import config from "config.js";
+
+import "./commands/command_list.js";
+import "./ui/index.js";
 
 Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = config.asyncTimeBudget;

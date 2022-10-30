@@ -139,9 +139,6 @@ msgstr "클립보드에 공기 포함 §a켜짐§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "클립보드에 공기 포함 §4꺼짐§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "여기엔 블럭을 놓을수 없습니다."
 

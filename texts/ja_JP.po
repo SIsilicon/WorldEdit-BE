@@ -139,9 +139,6 @@ msgstr "クリップボードに空気を含める: §a有効§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "クリップボードに空気を含める: §a無効§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "ここにはブロックを置けません。"
 

@@ -139,9 +139,6 @@ msgstr "Учитывать воздух в Заметки §aВключено§r
 msgid "item.wedit:inc_air_off_button"
 msgstr "Учитывать воздух в Заметки §aВыключено§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Вы не можете поставить книжку сюда."
 

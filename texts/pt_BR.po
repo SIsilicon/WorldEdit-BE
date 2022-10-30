@@ -139,9 +139,6 @@ msgstr "Incluir ar na área de transferência: §aAtivado§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Incluir ar na área de transferência: §4Desativado§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Não é possível colocar blocos aqui."
 

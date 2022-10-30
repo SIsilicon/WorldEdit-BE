@@ -1,5 +1,6 @@
 import * as Minecraft from "@minecraft/server";
 import { getItemCountReturn } from "../../@types/build/classes/PlayerBuilder.js";
+import { Server } from "./serverBuilder.js";
 
 type Player = Minecraft.Player;
 
@@ -90,6 +91,74 @@ export class PlayerBuilder {
     */
   getHeldItem(player: Player) {
     return this.getInventory(player).getItem(player.selectedSlot);
+  }
+
+  /**
+   * Tells you whether the player's hotbar has been stashed in a temporary place.
+   * @param player The player being queried
+   * @return Whether the player's hotbar has been stashed
+   */
+  isHotbarStashed(player: Player) {
+    return Array.from(player.dimension.getEntities({
+      name: `wedit:stasher_for_${player.name}`
+    })).length != 0;
+  }
+
+  /**
+   * Stashes the player's hotbar in a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar has already been stashed; false otherwise
+   */
+  stashHotbar(player: Player) {
+    if (this.isHotbarStashed(player)) {
+      return true;
+    }
+
+    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Minecraft.BlockLocation(player.location.x, 512, player.location.z));
+    stasher.nameTag = "wedit:stasher_for_" + player.name;
+
+    const inv = (<Minecraft.EntityInventoryComponent> player.getComponent("inventory")).container;
+    const inv_stash = (<Minecraft.EntityInventoryComponent> stasher.getComponent("inventory")).container;
+    for (let i = 0; i < 9; i++) {
+      inv.transferItem(i, i, inv_stash);
+    }
+    return false;
+  }
+
+  /**
+   * Restores the player's hotbar from a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar hasn't been stashed yet; false otherwise
+   */
+  restoreHotbar(player: Player) {
+    let stasher: Minecraft.Entity;
+    const stasherName = "wedit:stasher_for_" + player.name;
+    Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+    Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+
+    for (const entity of player.dimension.getEntities({ name: stasherName })) {
+      stasher = entity;
+    }
+
+    if (stasher) {
+      const inv = (<Minecraft.EntityInventoryComponent> player.getComponent("inventory")).container;
+      const inv_stash = (<Minecraft.EntityInventoryComponent> stasher.getComponent("inventory")).container;
+      for (let i = 0; i < 9; i++) {
+        if (inv.getItem(i) && inv_stash.getItem(i)) {
+          inv.swapItems(i, i, inv_stash);
+        } else if (inv.getItem(i)) {
+          inv.transferItem(i, i, inv_stash);
+        } else {
+          inv_stash.transferItem(i, i, inv);
+        }
+      }
+      Server.runCommand(`tp @e[name="${stasherName}"] ~ ~ ~`, player);
+      stasher.triggerEvent("wedit:despawn");
+      stasher.nameTag = "despawned";
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 export const Player = new PlayerBuilder();

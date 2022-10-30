@@ -139,9 +139,6 @@ msgstr "Includi aria nella copia: §aAbilitato§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Includi aria nella copia: §4Disabilitato§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Impossibile posizionare il blocco qui."
 

@@ -11,6 +11,7 @@ import { PlayerUtil } from "@modules/player_util.js";
 import { SettingsHotbar } from "@modules/settings_hotbar.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
+import { ConfigContext } from "./ui/types.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -217,7 +218,9 @@ export class PlayerSession {
    * Triggers the hotbar setting menu to appear.
    */
   public enterSettings() {
-    Server.uiForms.show("$configMenu", this.player);
+    Server.uiForms.show<ConfigContext>("$configMenu", this.player, {
+      session: this
+    });
     // this.settingsHotbar = new SettingsHotbar(this);
   }
 

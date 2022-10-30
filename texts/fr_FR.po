@@ -139,9 +139,6 @@ msgstr "Inclure l'air dans le presse-papier : §aActivé§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Inclure l'air dans le presse-papier: §4Désactivé§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Impossible de placer un bloc ici."
 

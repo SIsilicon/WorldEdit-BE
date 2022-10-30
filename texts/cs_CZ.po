@@ -139,9 +139,6 @@ msgstr "Zahrnout vzduch do schránky: §aPovoleno§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Zahrnout vzduch do schránky: §4Zakázáno§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Zde nelze položit blok."
 

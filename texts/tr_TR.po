@@ -139,9 +139,6 @@ msgstr "Panoya Hava Ekle: §aEnabled§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Panoya Hava Ekle: §4Disabled§r"
 
-msgid "item.wedit:blank"
-msgstr " "
-
 msgid "worldedit.spawnGlass.error"
 msgstr "Blok buraya yerleştirilemiyor"
 

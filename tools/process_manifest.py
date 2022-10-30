@@ -51,6 +51,11 @@ if args.target != 'release_server':
         'uuid': rp_manifest['header']['uuid'],
         'version': rp_manifest['header']['version']
     })
+    ## TODO: Test RP dependency
+    # rp_manifest['dependencies'].append({
+    #     'uuid': bp_manifest['header']['uuid'],
+    #     'version': bp_manifest['header']['version']
+    # })
 
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'
