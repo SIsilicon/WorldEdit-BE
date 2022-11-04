@@ -13,12 +13,15 @@ if args.dest == 'release':
 elif args.dest == 'preview':
     com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
 elif args.dest == 'server':
-    com_mojang = os.path.expandvars('C:\\Minecraft Servers\\1.19.1')
+    com_mojang = os.path.expandvars('C:\\Minecraft Servers\\1.19.50')
 
 pack_folder = 'WorldEdit'
 
 behaviour_pack = com_mojang + f'\\development_behavior_packs\\{pack_folder} BP'
 resource_pack = com_mojang + f'\\development_resource_packs\\{pack_folder} RP'
+if args.dest == 'server':
+    behaviour_pack = com_mojang + f'\\behavior_packs\\{pack_folder} BP'
+    resource_pack = com_mojang + f'\\resource_packs\\{pack_folder} RP'
 
 def sync_file(path, from_root, to_root):
     from_file = Path(path).relative_to(from_root)

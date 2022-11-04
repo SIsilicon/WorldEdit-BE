@@ -19,7 +19,7 @@ export abstract class Tool {
   /**
    * The function that's called every tick the tool is held.
    */
-  readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => void;
+  readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => Generator<unknown>;
   /**
    * The function that's called when the tool has broken a block.
    */

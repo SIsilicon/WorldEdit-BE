@@ -1,5 +1,5 @@
 import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, contentLog } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock } from "./parser.js";
 
@@ -96,8 +96,12 @@ export class Mask implements CustomArgType {
     return text;
   }
 
+  getSource() {
+    return this.stringObj;
+  }
+
   private compile() {
-    contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
+    // contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
     if (this.condition) {
       this.compiledFunc = new Function("ctx", "loc", "dim",
         "let isEmpty = (loc) => dim.getBlock(loc).typeId == 'minecraft:air';" +

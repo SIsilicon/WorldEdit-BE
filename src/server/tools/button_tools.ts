@@ -43,7 +43,7 @@ class PasteTool extends CommandButton {
     Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
   };
 
-  tick = function (self: PasteTool, player: Player, session: PlayerSession, tick: number) {
+  tick = function* (self: PasteTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
     if (!session.clipboard) {
       return;
     }
@@ -67,6 +67,7 @@ class PasteTool extends CommandButton {
     selection.set(0, pasteStart.toBlock());
     selection.set(1, pasteEnd);
     selection.draw();
+    yield;
   };
 }
 Tools.register(PasteTool, "paste", "wedit:paste_button");

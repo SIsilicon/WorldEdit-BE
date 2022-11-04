@@ -112,6 +112,10 @@ export class Pattern implements CustomArgType {
     return text;
   }
 
+  getSource() {
+    return this.stringObj;
+  }
+
   getPatternInCommand() {
     let blockData: parsedBlock;
     if (this.block instanceof BlockPattern) {
@@ -139,7 +143,7 @@ export class Pattern implements CustomArgType {
   }
 
   private compile() {
-    contentLog.debug("compiling", this.stringObj, "to", this.block.compile());
+    // contentLog.debug("compiling", this.stringObj, "to", this.block.compile());
     if (this.block) {
       this.compiledFunc = new Function("ctx", "loc", "dim", this.block.compile()) as typeof this.compiledFunc;
     }

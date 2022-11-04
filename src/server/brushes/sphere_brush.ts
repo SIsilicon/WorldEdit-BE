@@ -10,6 +10,8 @@ import { Selection } from "@modules/selection.js";
  * This brush creates sphere shaped patterns in the world.
  */
 export class SphereBrush extends Brush {
+  public readonly id = "sphere_brush";
+
   private shape: SphereShape;
   private pattern: Pattern;
   private hollow: boolean;
@@ -37,8 +39,20 @@ export class SphereBrush extends Brush {
     this.radius = value;
   }
 
+  public getSize(): number {
+    return this.radius;
+  }
+
   public paintWith(value: Pattern) {
     this.pattern = value;
+  }
+
+  public getPattern(): Pattern {
+    return this.pattern;
+  }
+
+  public isHollow(): boolean {
+    return this.hollow;
   }
 
   public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
@@ -48,6 +62,6 @@ export class SphereBrush extends Brush {
   public updateOutline(selection: Selection, loc: BlockLocation): void {
     selection.mode = "sphere";
     selection.set(0, loc);
-    selection.set(1, loc.offset(0, 0, this.radius + 0.5));
+    selection.set(1, loc.offset(0, 0, this.radius));
   }
 }

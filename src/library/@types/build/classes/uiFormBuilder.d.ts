@@ -15,7 +15,7 @@ interface Slider<T extends {}> extends BaseInput<T> {
   type: "slider"
   min: DynamicElem<T, number>
   max: DynamicElem<T, number>
-  step: DynamicElem<T, number>
+  step?: DynamicElem<T, number>
   default?: DynamicElem<T, number>
 }
 
@@ -45,12 +45,6 @@ interface Button<T extends {}> {
   action: UIAction<T, void>
 }
 
-interface HotbarItem<T extends {}> {
-  item: DynamicElem<T, string>
-  dataValue?: DynamicElem<T, number>
-  action: UIAction<T, void>
-}
-
 interface BaseForm<T extends {}> {
   /** The title of the UI form */
   title: DynamicElem<T, string>,
@@ -74,16 +68,11 @@ interface ActionForm<T extends {}> extends BaseForm<T> {
 }
 
 interface ModalForm<T extends {}> extends BaseForm<T> {
-  inputs: {[key: UIFormName]: Input<T>},
+  inputs: DynamicElem<T, {[key: UIFormName]: Input<T>}>,
   submit: SubmitAction<T>
 }
 
-interface HotbarForm<T extends{}> extends BaseForm<T> {
-  items: DynamicElem<T, {[key in 0|1|2|3|4|5|6|7]?: HotbarItem<T>}>
-  tick?: UIAction<T, void>
-}
-
-type Form<T extends {}> = MessageForm<T> | ActionForm<T> | ModalForm<T> | HotbarForm<T>
+type Form<T extends {}> = MessageForm<T> | ActionForm<T> | ModalForm<T>
 type FormData = ActionFormData | MessageFormData | ModalFormData
 
 interface MenuContext<T extends {}> {
@@ -93,4 +82,4 @@ interface MenuContext<T extends {}> {
   returnto(menu: UIFormName): void
 }
 
-export { Form, FormData, UIAction, DynamicElem, MessageForm, ActionForm, HotbarForm, HotbarItem, SubmitAction, ModalForm, UIFormName, MenuContext };
+export { Form, FormData, UIAction, DynamicElem, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext };

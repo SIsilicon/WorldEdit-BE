@@ -196,3 +196,18 @@ export function stringToLoc(loc: string) {
 export function wrap(range: number, num: number) {
   return num >= 0 ? num % range : (num % range + range) % range;
 }
+
+/**
+ * Tests if two array are equal to each other
+ * @param a First array
+ * @param b Second array
+ * @param compare A function to test if two values from the arrays are equal. Should return true if so.
+ */
+export function arraysEqual<T>(a: T[], b: T[], compare: (a: T, b: T) => boolean) {
+  if (a.length != b.length) return false;
+  return !a.some((valA, i) => {
+    const valB = b[i];
+    if (!!valA != !!valB) return true;
+    return !compare(valA, valB);
+  });
+}

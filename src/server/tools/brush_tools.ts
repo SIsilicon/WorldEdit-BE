@@ -27,8 +27,12 @@ class BrushTool extends Tool {
     yield* self.brush.apply(hit, session, self.mask);
   };
 
-  tick = function (self: BrushTool, player: Player, session: PlayerSession) {
+  tick = function* (self: BrushTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
+    if (tick % 3 != 0) return;
+
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
+    yield;
+
     if (hit) {
       if (!self.outlines.has(session)) {
         const selection = new Selection(player);
@@ -43,6 +47,7 @@ class BrushTool extends Tool {
         selection.draw();
       }
       self.outlines.get(session).lastHit = hit;
+      yield;
     }
   };
 

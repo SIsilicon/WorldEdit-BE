@@ -154,7 +154,6 @@ export abstract class Shape {
             progress = 0;
             yield "Generating blocks...";
             yield history?.addUndoStructure(record, min, max, blocksAffected);
-            // contentLog.debug("continuing");
             for (const block of blocksAffected) {
               if (pattern.setBlock(block, dimension)) {
                 count++;

@@ -11,7 +11,7 @@
                 "frame": "0"
             },
             "minecraft:display_name": {
-                "value": "worldedit.config.clipboard.incAir.on"
+                "value": "item.wedit:include_air_on"
             },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {

@@ -10,6 +10,8 @@ import { Selection } from "@modules/selection.js";
  * This brush creates cylinder shaped patterns in the world.
  */
 export class CylinderBrush extends Brush {
+  public readonly id = "cylinder_brush";
+
   private shape: CylinderShape;
   private pattern: Pattern;
   private height: number;
@@ -40,8 +42,24 @@ export class CylinderBrush extends Brush {
     this.radius = value;
   }
 
+  public getSize() {
+    return this.radius;
+  }
+
+  public getHeight() {
+    return this.height;
+  }
+
+  public isHollow() {
+    return this.hollow;
+  }
+
   public paintWith(value: Pattern) {
     this.pattern = value;
+  }
+
+  public getPattern(): Pattern {
+    return this.pattern;
   }
 
   public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {

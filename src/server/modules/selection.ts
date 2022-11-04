@@ -3,7 +3,7 @@ import { BlockLocation, MolangVariableMap, Player } from "@minecraft/server";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
-import { getWorldHeightLimits } from "../util.js";
+import { arraysEqual, getWorldHeightLimits } from "../util.js";
 import config from "config.js";
 
 // TODO: Add other selection modes
@@ -16,6 +16,9 @@ export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
   private _visible: boolean = config.drawSelection;
+
+  private modeLastDraw: selectMode = this._mode;
+  private pointsLastDraw: BlockLocation[] = [];
 
   private player: Player;
   private drawPoints: Vector[] = [];
@@ -35,7 +38,6 @@ export class Selection {
       throw "worldedit.selection.noPrimary";
     }
 
-    const lastPoints = this._points.map(v => v);
     if (this._points.length <= index) {
       this._points.length = index + 1;
     }
@@ -58,10 +60,6 @@ export class Selection {
 
     const [min, max] = getWorldHeightLimits(this.player.dimension);
     this._points.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
-
-    if (this._points.length != lastPoints.length || this._points.some((v, i) => !v.equals(lastPoints[i]))) {
-      this.updateDrawSelection();
-    }
   }
 
   /**
@@ -70,7 +68,6 @@ export class Selection {
   public clear() {
     if (this._points.length) {
       this._points = [];
-      this.updateDrawSelection();
     }
   }
 
@@ -143,6 +140,11 @@ export class Selection {
   public draw(): void {
     if (!this._visible) return;
     if (Date.now() > this.lastDraw + drawFrequency) {
+      if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
+        this.updatePoints();
+        this.modeLastDraw = this._mode;
+        this.pointsLastDraw = this._points.map(v => v);
+      }
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
         dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
@@ -161,13 +163,13 @@ export class Selection {
   }
 
   public set mode(value: selectMode) {
+    if (this._mode == value) return;
+
     const wasCuboid = this.isCuboid();
     this._mode = value;
-
     if (!this.isCuboid || wasCuboid != this.isCuboid()) {
       this.clear();
     }
-    this.updateDrawSelection();
   }
 
   public get points() {
@@ -182,7 +184,7 @@ export class Selection {
     this._visible = value;
   }
 
-  private updateDrawSelection() {
+  private updatePoints() {
     this.drawPoints.length = 0;
     if (!this.isValid()) return;
 
@@ -224,7 +226,7 @@ export class Selection {
       ];
       const loc = this._points[0];
       const radius = Vector.sub(this._points[1], loc).length + 0.5;
-      const resolution = Math.min(radius * 2*Math.PI, 72);
+      const resolution = Math.min(radius * 2*Math.PI, 36);
 
       for (const [rotateBy, vec] of axes) {
         for (let i = 0; i < 1; i += 1 / resolution) {

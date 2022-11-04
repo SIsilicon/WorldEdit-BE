@@ -1,5 +1,5 @@
 import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "@minecraft/server";
-import { Server } from "@notbeer-api";
+import { contentLog, Server, sleep, Thread } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
 import config from "config.js";
@@ -30,16 +30,27 @@ class ToolBuilder {
       }
       this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
     });
+
     Server.on("tick", ev => {
       this.currentTick = ev.currentTick;
-      for (const player of world.getPlayers()) {
-        const item = Server.player.getHeldItem(player);
-        if (!item) {
-          return;
-        }
-        this.onItemTick(item, player, ev.currentTick);
-      }
     });
+
+    new Thread().start(function* (self: ToolBuilder) {
+      while (true) {
+        for (const player of world.getPlayers()) {
+          try {
+            const item = Server.player.getHeldItem(player);
+            if (!item) {
+              return;
+            }
+            yield* self.onItemTick(item, player, self.currentTick);
+          } catch (err) {
+            contentLog.error(err);
+          }
+        }
+        yield sleep(1);
+      }
+    }, this);
 
     if (config.useBlockBreaking) {
       Server.on("blockBreak", ev => {
@@ -98,6 +109,15 @@ class ToolBuilder {
     }
   }
 
+  getBindingType(itemId: string, itemData: number, player: Player) {
+    if (itemId) {
+      const tool = this.bindings.get(player.name)?.get(`${itemId}/${itemData}`) || this.fixedBindings.get(itemId + "/0");
+      return tool?.type ?? "";
+    } else {
+      return "";
+    }
+  }
+
   getBoundItems(player: Player, type?: RegExp|string) {
     const tools = this.bindings.get(player.name);
     return tools ? Array.from(tools.entries())
@@ -115,6 +135,16 @@ class ToolBuilder {
       }
     }
     return false;
+  }
+
+  getProperty<T>(itemId: string, itemData: number, player: Player, prop: string) {
+    if (itemId) {
+      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
+      if (tool && prop in tool) {
+        return tool[prop] as T;
+      }
+    }
+    return null as T;
   }
 
   hasProperty(itemId: string, itemData: number, player: Player, prop: string) {
@@ -135,7 +165,7 @@ class ToolBuilder {
     }
   }
 
-  private onItemTick(item: ItemStack, player: Player, tick: number) {
+  private *onItemTick(item: ItemStack, player: Player, tick: number) {
     if (this.disabled.includes(player.name) || !hasSession(player.name)) {
       return;
     }
@@ -150,7 +180,8 @@ class ToolBuilder {
       return;
     }
 
-    tool.tick?.(tool, player, getSession(player), tick);
+    const gen = tool.tick?.(tool, player, getSession(player), tick);
+    if (gen) yield* gen;
   }
 
   private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: BlockLocation) {

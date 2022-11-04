@@ -2,13 +2,12 @@ import { Player, BeforeItemUseEvent } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
 import config from "config.js";
 
-import "./tools/register_tools.js";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { SettingsHotbar } from "@modules/settings_hotbar.js";
+import { SettingsHotbar } from "@modules/hotbar_ui.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
 import { ConfigContext } from "./ui/types.js";
@@ -257,9 +256,10 @@ export class PlayerSession {
     // Process settingsHotbar
     if (this.settingsHotbar) {
       this.settingsHotbar.onTick();
-    } else if (PlayerUtil.isHotbarStashed(this.player)) {
-      this.enterSettings();
     }
+    // else if (PlayerUtil.isHotbarStashed(this.player)) {
+    //   this.enterSettings();
+    // }
 
     // Draw Selection
     this.selection?.draw();

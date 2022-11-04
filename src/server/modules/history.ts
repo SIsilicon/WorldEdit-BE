@@ -106,7 +106,6 @@ export class History {
       "name": structName,
       "location": Vector.min(start, end).toBlock()
     });
-    // contentLog.debug("added undo structure");
   }
 
   async addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {

@@ -10,6 +10,8 @@ import { Selection } from "@modules/selection.js";
  * This smooths the terrain in the world.
  */
 export class SmoothBrush extends Brush {
+  public readonly id = "smooth_brush";
+
   private shape: CuboidShape;
   private size: number;
   private iterations: number;
@@ -34,6 +36,18 @@ export class SmoothBrush extends Brush {
     this.shape = new CuboidShape(value*2+1, value*2+1, value*2+1);
     this.size = value;
     this.shape.usedInBrush = true;
+  }
+
+  public getSize() {
+    return this.size;
+  }
+
+  public getIterations() {
+    return this.iterations;
+  }
+
+  public getHeightMask() {
+    return this.mask;
   }
 
   public paintWith() {

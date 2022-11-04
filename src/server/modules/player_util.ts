@@ -92,12 +92,16 @@ class PlayerHandler {
     const start = player.headLocation;
     const dir = player.viewVector;
     const dim = player.dimension;
+
+    let prevPoint = new BlockLocation(Infinity, Infinity, Infinity);
     for (let i = 0; i < config.navWandDistance; i += 0.2) {
       const point = new BlockLocation(
         Math.floor(start.x + dir.x * i),
         Math.floor(start.y + dir.y * i),
         Math.floor(start.z + dir.z * i)
       );
+      if (prevPoint.equals(point)) continue;
+      prevPoint = point;
 
       if (mask && mask.matchesBlock(point, dim)) {
         return point;

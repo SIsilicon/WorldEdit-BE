@@ -15,4 +15,4 @@ BP/scripts/*
 RP/manifest.json
 BP/manifest.json
 node_modules
-.vscode/launch.json
+.vscode/*

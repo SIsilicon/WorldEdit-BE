@@ -6,6 +6,7 @@ import { PlayerUtil } from "@modules/player_util.js";
 import config from "config.js";
 
 import "./commands/command_list.js";
+import "./tools/register_tools.js";
 import "./ui/index.js";
 
 Server.setMaxListeners(256);

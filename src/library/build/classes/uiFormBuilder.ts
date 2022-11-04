@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { MessageFormData, MessageFormResponse, ActionFormData, ActionFormResponse, ModalFormData, ModalFormResponse, FormCancelationReason, FormResponse } from "@minecraft/server-ui";
-import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem, HotbarForm, HotbarItem } from "../../@types/build/classes/uiFormBuilder";
-import { BeforeItemUseEvent, Player, TickEvent } from "@minecraft/server";
-import { Server, setTickTimeout } from "@notbeer-api";
+import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem } from "../../@types/build/classes/uiFormBuilder";
+import { Player } from "@minecraft/server";
+import { setTickTimeout, contentLog } from "@notbeer-api";
 
 abstract class UIForm<T extends {}> {
   private readonly form: Form<T>;
@@ -15,15 +15,17 @@ abstract class UIForm<T extends {}> {
 
   protected abstract build(form: Form<T>, resEl: <S>(elem: DynamicElem<T, S>) => S): FormData;
 
-  public abstract enter(player: Player, ctx: MenuContext<T>): void;
+  public abstract enter(player: Player, ctx: MenuContextType<T>): void;
 
-  public abstract exit(player: Player, ctx: MenuContext<T>): void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public exit(player: Player, ctx: MenuContextType<T>) { /**/ }
 
   protected handleCancel(response: FormResponse, player: Player, ctx: MenuContext<T>) {
     if (response.canceled) {
       if (response.cancelationReason == FormCancelationReason.userBusy) {
         setTickTimeout(() => this.enter(player, ctx));
       } else {
+        ctx.goto(null);
         this.cancelAction(ctx, player);
       }
       return true;
@@ -52,7 +54,7 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
   constructor(form: MessageForm<T>) {
     super(form);
     this.action1 = form.button1.action;
-    this.action2 = form.button2.action;
+    this.action2 = form.button2?.action;
   }
 
   protected build(form: MessageForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S) {
@@ -71,16 +73,13 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
       if (this.handleCancel(response, player, ctx)) {
         return;
       }
-      if (response.selection == 0) {
+      ctx.goto(null);
+      if (response.selection == 1) {
         this.action1(ctx, player);
-      } else if (response.selection == 1) {
-        this.action2(ctx, player);
+      } else if (response.selection == 0) {
+        (this.action2 ?? this.action1)(ctx, player);
       }
     });
-  }
-
-  exit() {
-    return;
   }
 }
 
@@ -109,12 +108,9 @@ class ActionUIForm<T extends {}> extends UIForm<T> {
       if (this.handleCancel(response, player, ctx)) {
         return;
       }
+      ctx.goto(null);
       actions[response.selection]?.(ctx, player);
     });
-  }
-
-  exit() {
-    return;
   }
 }
 
@@ -132,8 +128,9 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
     const formData = new ModalFormData();
     formData.title(resEl(form.title));
 
-    for (const id in form.inputs) {
-      const input = form.inputs[id as UIFormName];
+    const formInputs = resEl(form.inputs);
+    for (const id in formInputs) {
+      const input = formInputs[id as UIFormName];
 
       if (input.type == "dropdown") {
         formData.dropdown(
@@ -143,7 +140,7 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
       } else if (input.type == "slider") {
         formData.slider(
           resEl(input.name), resEl(input.min), resEl(input.max),
-          resEl(input.step), resEl(input.default)
+          resEl(input.step ?? 1), resEl(input.default)
         );
       } else if (input.type == "textField") {
         formData.textField(
@@ -171,90 +168,16 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
       for (const i in response.formValues) {
         inputs[inputNames[i]] = response.formValues[i];
       }
+      ctx.goto(null);
       this.submit(ctx, player, inputs);
     });
-  }
-
-  exit() {
-    return;
-  }
-}
-
-type EventContext = MenuContext<{
-  __useEvent__: (ev: BeforeItemUseEvent) => void
-  __tickEvent__: (ev: TickEvent) => void
-}>
-
-class HotbarUIForm<T extends {}> extends UIForm<T> {
-  private items: { name: string, data: number, action: UIAction<T, void> }[] = [];
-  private readonly tick: UIAction<T, void>;
-
-  constructor(form: HotbarForm<T>) {
-    super(form);
-    this.tick = form.tick;
-  }
-
-  protected build(form: HotbarForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S) {
-    this.items = [];
-    const formItems = resEl(form.items);
-    for (let i = 0; i < 8; i++) {
-      const itemData: HotbarItem<T> = formItems[i as keyof HotbarForm<T>["items"]] ?? { item: "wedit:blank" };
-      this.items.push({
-        name: resEl(itemData.item),
-        data: resEl(itemData.dataValue ?? 0),
-        action: itemData.action
-      });
-    }
-    this.items.push({ name: "wedit:cancel_button", data: 0, action: this.cancelAction });
-    return null as FormData;
-  }
-
-  enter(player: Player, ctx: MenuContext<T>) {
-    Server.player.stashHotbar(player);
-    this.buildFormData(player, ctx);
-    const items = this.items;
-
-    for (let i = 0; i < this.items.length; i++) {
-      const item = items[i];
-      Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item.name} 1 ${item.data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`, player);
-    }
-
-    const addEventCtx = () => {
-      const eventCtx = ctx as unknown as EventContext;
-      eventCtx.setData("__useEvent__", beforeItemUse);
-      eventCtx.setData("__tickEvent__", tick);
-    };
-
-    const beforeItemUse = (ev: BeforeItemUseEvent) => {
-      if (ev.source != player) return;
-      ev.cancel = true;
-
-      const slot = player.selectedSlot;
-      if (items[slot].name == "wedit:blank") return;
-
-      addEventCtx();
-      items[slot].action?.(ctx, player);
-    };
-    Server.prependListener("beforeItemUse", beforeItemUse);
-
-    const tick = () => {
-      addEventCtx();
-      this.tick(ctx, player);
-    };
-    Server.prependListener("tick", tick);
-  }
-
-  exit(player: Player, ctx: MenuContext<T>) {
-    const eventCtx = ctx as unknown as EventContext;
-    Server.off("beforeItemUse", eventCtx.getData("__useEvent__"));
-    Server.off("tick", eventCtx.getData("__tickEvent__"));
-    Server.player.restoreHotbar(player);
   }
 }
 
 class MenuContext<T extends {}> implements MenuContextType<T> {
   private stack: string[] = [];
   private data: T = {} as T;
+  private currentForm: UIForm<T>;
 
   constructor(private player: Player) {}
 
@@ -267,8 +190,13 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
   }
 
   goto(menu: UIFormName) {
-    this.stack.push(menu);
-    UIForms.goto(menu, this.player, this);
+    if (menu) {
+      this.stack.push(menu);
+    }
+    if (this.stack.length >= 64) {
+      throw Error("UI Stack overflow!");
+    }
+    this.currentForm = UIForms.goto(menu, this.player, this);
   }
 
   returnto(menu: UIFormName) {
@@ -277,13 +205,14 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
     while (popped = this.stack.pop()) {
       if (popped == menu) {
         this.goto(menu);
-        break;
+        return;
       }
     }
+    this.goto(null);
   }
 }
 
-export class UIFormBuilder {
+class UIFormBuilder {
 
   private forms = new Map<UIFormName, UIForm<{}>>();
   private active = new Map<Player, UIForm<{}>>();
@@ -294,14 +223,15 @@ export class UIFormBuilder {
    * @param form The layout of the UI form
    */
   register<T extends {}>(name: UIFormName, form: Form<T>) {
+    if (this.forms.has(name)) {
+      throw `UIForm by the name ${name} has already been registered.`;
+    }
     if ("button1" in form) {
       this.forms.set(name, new MessageUIForm(form));
     } else if ("buttons" in form) {
       this.forms.set(name, new ActionUIForm(form));
     } else if ("inputs" in form) {
       this.forms.set(name, new ModalUIForm(form));
-    } else if ("items" in form) {
-      this.forms.set(name, new HotbarUIForm(form));
     }
   }
 
@@ -324,12 +254,12 @@ export class UIFormBuilder {
 
   /**
    * Go from one UI form to another.
-   * Should only be used within UI form element functions!
+   * @internal
    * @param name The name of the UI form to go to
    * @param player The player to display the UI form to
    * @param ctx The context to be passed to the UI form
    */
-  goto(name: UIFormName, player: Player, ctx: MenuContext<{}>) {
+  goto(name: UIFormName, player: Player, ctx: MenuContextType<{}>) {
     if (this.active.has(player)) {
       this.active.get(player).exit(player, ctx);
       this.active.delete(player);
@@ -338,16 +268,35 @@ export class UIFormBuilder {
     if (!name) {
       return;
     } else if (this.forms.has(name)) {
+      contentLog.debug("UI going to", name, "for", player.name);
       const form = this.forms.get(name);
       this.active.set(player, form);
       form.enter(player, ctx);
+      return form;
     } else {
       throw new TypeError(`Menu "${name}" has not been registered!`);
     }
   }
 
-  displayingUI(player: Player) {
-    return this.active.has(player);
+  /**
+   * @param player The player being tested
+   * @param ui The name of the UI to test for, if you want to be specific
+   * @returns Whether the UI, or any at all is being displayed.
+   */
+  displayingUI(player: Player, ui?: UIFormName) {
+    if (this.active.has(player)) {
+      if (ui) {
+        const form = this.active.get(player);
+        for (const registered of this.forms.values()) {
+          if (registered == form) {
+            return true;
+          }
+        }
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 }
 
