@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-10-14 16:07\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -64,36 +64,6 @@ msgstr "Выбор Контура"
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
 
-msgid "worldedit.config.mainMenu"
-msgstr "Настройки WorldEdit"
-
-msgid "worldedit.config.brushes"
-msgstr "Настройки Кисти"
-
-msgid "worldedit.config.tools"
-msgstr "Настройки инструмента"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Сферовая Кисть"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Целиндровая Кисть"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Сглазивающая кисть"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Жезл выбора территории"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Жезл дальнего выбора территории"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Навигационный жезл"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Наращивающий инструмент"
-
 msgid "item.wedit:one_button"
 msgstr "Один"
 
@@ -112,23 +82,17 @@ msgstr "Пять"
 msgid "item.wedit:six_button"
 msgstr "Шесть"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Создать новый инструмент"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "Учитывать существа в Заметки §aВключено§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "Учитывать существа в Заметки §aВыключено§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "Учитывать воздух в Заметки §aВключено§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "Учитывать воздух в Заметки §aВыключено§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Вы не можете поставить книжку сюда."
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Вам нужно указать блок, чтобы установить выбор!"
@@ -145,6 +109,74 @@ msgstr "Добавлен блок для Маски: "
 msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -167,19 +199,39 @@ msgstr "Сделайте необязательную маску для кист
 msgid "worldedit.config.confirm"
 msgstr "Всё верно?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
+
 msgid "worldedit.config.radius"
-msgstr "Размер"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "Высота"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Гладкость"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Диапазон"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
 
