@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-10-14 16:07\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "Een in-beta mod van de originele java mod en meer! Mod door SIsilicon (§l§b@iSiliconS§r)."
@@ -64,36 +64,6 @@ msgstr "Outline Selection"
 msgid "item.wedit:draw_line"
 msgstr "Teken lijn"
 
-msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit instellingen"
-
-msgid "worldedit.config.brushes"
-msgstr "Brush Settings"
-
-msgid "worldedit.config.tools"
-msgstr "Tool Settings"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Selectie muur"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
-
 msgid "item.wedit:one_button"
 msgstr "Een"
 
@@ -112,23 +82,17 @@ msgstr "Vijf"
 msgid "item.wedit:six_button"
 msgstr "Zes"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Create New Tool"
-
-msgid "item.wedit:inc_entities_on_button"
+msgid "item.wedit:include_entities_on"
 msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
+msgid "item.wedit:include_entities_off"
 msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_air_on_button"
+msgid "item.wedit:include_air_on"
 msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_off_button"
+msgid "item.wedit:include_air_off"
 msgstr "Include Air in Clipboard: §4Disabled§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Kan geen blokken hier plaatsen."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
@@ -145,6 +109,74 @@ msgstr "Added block to mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hou een item vast om te verbinden."
@@ -167,8 +199,12 @@ msgstr "Make an optional mask for the brush."
 msgid "worldedit.config.confirm"
 msgstr "Is this Ok?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
+
 msgid "worldedit.config.radius"
 msgstr "Size"
 
@@ -180,6 +216,22 @@ msgstr "Smoothness"
 
 msgid "worldedit.config.range"
 msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 
