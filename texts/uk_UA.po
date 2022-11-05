@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх за допомогою §r/reload§c (інші скрипти також скинуться).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Копіювати"
@@ -61,36 +64,6 @@ msgstr "Контурний вибір"
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
 
-msgid "worldedit.config.mainMenu"
-msgstr "Налаштування редактора світу"
-
-msgid "worldedit.config.brushes"
-msgstr "Налаштування пензля"
-
-msgid "worldedit.config.tools"
-msgstr "Налаштування інструменту"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Сферичний пензель"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Циліндричний пензель"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Пензель згладжування"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Вибіркова паличка"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Паличка далекого вибору"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Навігаційна паличка"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Інструмент укладальник"
-
 msgid "item.wedit:one_button"
 msgstr "Один"
 
@@ -109,23 +82,17 @@ msgstr "П'ять"
 msgid "item.wedit:six_button"
 msgstr "Шість"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Створити новий інструмент"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "Включити сутності в буфер обміну: §aУвімкнено§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "Включити сутності в буфер обміну: §4Disabled§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "Включити повітря в буфер обміну: §aEnabled§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "Включити повітря в буфер обміну: §4Disabled§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Не можна розмістити тут блок."
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
@@ -142,6 +109,74 @@ msgstr "До шаблону додано блок: "
 msgid "worldedit.maskPicker.set"
 msgstr "Встановити шаблон для блокування: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Утримуйте предмет для прив’язки."
@@ -164,19 +199,39 @@ msgstr "Зробіть додаткову маску для кисті."
 msgid "worldedit.config.confirm"
 msgstr "Чи це добре?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей елемент?"
+
 msgid "worldedit.config.radius"
-msgstr "Розмір"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "Височина"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Гладкість"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Діапазон"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "Перший вибір ще не зроблено."
 
@@ -255,9 +310,8 @@ msgstr "Ви не маєте дозволу на виконання цієї к�
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Неможливо змінити незавантажені чанки!%sЗбільште дистанцію симуляції або додайте зони, де ви працюєте."
+msgstr "§eПорада: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
@@ -400,6 +454,15 @@ msgstr "Розширте виділені території вертикаль�
 msgid "commands.wedit:expand.explain"
 msgstr "Регіон розширено на %s блоків."
 
+msgid "commands.wedit:export.description"
+msgstr "Експортує виділення для подальшого використання."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s експортовано."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eПримітка: щоб використовувати цю структуру в інших світах, необхідна комп’ютерна/веб-програма WorldEdit, щоб розпакувати її для зовнішнього використання.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасити пожежі поблизу"
 
@@ -469,6 +532,12 @@ msgstr "Згенерувати порожню сферу"
 msgid "commands.wedit:inset.description"
 msgstr "Вставити область виділення"
 
+msgid "commands.wedit:import.description"
+msgstr "Імпортує структуру в буфер обміну."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s імпортовано та встановлено у ваш буфер обміну."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортує вас у верхню частину блоку, на який ви дивитесь"
 
@@ -532,6 +601,9 @@ msgstr "Вставити буфер обміну у світ"
 msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоків."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Не вдається вставити буфер обміну в початкове місце."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Встановіть першу позицію вашого виділення на вказану або поточну позицію"
 
@@ -576,6 +648,9 @@ msgstr "Повернуто %s блоків."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' не є кроком 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "Обертати можна тільки вздовж осі Y!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
@@ -644,16 +719,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "Перед вами не знайдено вільного місця."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "Піднятися на поверх"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "Вільного місця над вами не знайдено."
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "Спуститися на поверх"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "Вільного місця під вами не знайдено."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Встановіть тип блоків, на яких можна використовувати пензель"
@@ -723,6 +798,15 @@ msgstr "Підкрадіться та торкніться блоку: вибр�
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Команди WorldEdit"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Перемикнути режим продуктивності для поточного сеансу."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Режим продуктивності ввімкнено."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Режим продуктивності вимкнено."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Отримати версію WorldEdit"

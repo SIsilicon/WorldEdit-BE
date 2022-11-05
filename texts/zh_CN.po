@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -61,36 +64,6 @@ msgstr "填充选区表面"
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
-msgid "worldedit.config.mainMenu"
-msgstr "创世神设置"
-
-msgid "worldedit.config.brushes"
-msgstr "笔刷设置"
-
-msgid "worldedit.config.tools"
-msgstr "工具设置"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "球形笔刷"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "圆柱形笔刷"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "平滑笔刷"
-
-msgid "worldedit.config.tool.selection"
-msgstr "选择器"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "远程选择器"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "传送器"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "堆叠器"
-
 msgid "item.wedit:one_button"
 msgstr "一"
 
@@ -109,23 +82,17 @@ msgstr "五"
 msgid "item.wedit:six_button"
 msgstr "六"
 
-msgid "item.wedit:new_tool_button"
-msgstr "新建工具"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "在剪贴板中包含实体：§a启用§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "在剪贴板中包含实体：§a禁用§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "在剪贴板中包含空气：§a启用§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "在剪贴板中包含空气：§4禁用§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "不能在此处放置方块"
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "您需要指定一个方块来设置选区！"
@@ -142,6 +109,74 @@ msgstr "已添加的取代方块： "
 msgid "worldedit.maskPicker.set"
 msgstr "将取代方块设为： "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -164,19 +199,39 @@ msgstr "选择笔刷的平滑度"
 msgid "worldedit.config.confirm"
 msgstr "确定设置成这样吗？"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "你确定要解除该物品的绑定吗？"
+
 msgid "worldedit.config.radius"
-msgstr "尺寸"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "高度"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "平滑度"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "范围"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
 
@@ -255,9 +310,8 @@ msgstr "您没有执行此命令的权限。"
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "无法修改已卸载的数据块!%s增加您的模拟距离, 或添加您正在操作的数据区域."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
@@ -400,6 +454,15 @@ msgstr "垂直拓展你的选区直到它到达世界高度限制。"
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
 
@@ -469,6 +532,12 @@ msgstr "生成一个空心球体"
 msgid "commands.wedit:inset.description"
 msgstr "收缩选区。"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至面对着的方块的顶部"
 
@@ -532,6 +601,9 @@ msgstr "将您的剪切板粘贴至这个世界"
 msgid "commands.wedit:paste.explain"
 msgstr "已粘贴%s个方块"
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "将您的选区的第一个点设置为指定的或当前的位置"
 
@@ -576,6 +648,9 @@ msgstr "已旋转%s个方块。"
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'不是一个90°的倍数！"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -723,6 +798,15 @@ msgstr "潜行并点击方块：选定点#1; 不潜行，直接点击方块：�
 
 msgid "commands.wedit:worldedit.description"
 msgstr "创世神命令"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "获取当前创世神版本"

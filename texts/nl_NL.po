@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "Een in-beta mod van de originele java mod en meer! Mod door SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopieer"
@@ -61,36 +64,6 @@ msgstr "Outline Selection"
 msgid "item.wedit:draw_line"
 msgstr "Teken lijn"
 
-msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit instellingen"
-
-msgid "worldedit.config.brushes"
-msgstr "Brush Settings"
-
-msgid "worldedit.config.tools"
-msgstr "Tool Settings"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Selectie muur"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
-
 msgid "item.wedit:one_button"
 msgstr "Een"
 
@@ -109,23 +82,17 @@ msgstr "Vijf"
 msgid "item.wedit:six_button"
 msgstr "Zes"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Create New Tool"
-
-msgid "item.wedit:inc_entities_on_button"
+msgid "item.wedit:include_entities_on"
 msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
+msgid "item.wedit:include_entities_off"
 msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_air_on_button"
+msgid "item.wedit:include_air_on"
 msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_off_button"
+msgid "item.wedit:include_air_off"
 msgstr "Include Air in Clipboard: §4Disabled§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Kan geen blokken hier plaatsen."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
@@ -142,6 +109,74 @@ msgstr "Added block to mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hou een item vast om te verbinden."
@@ -164,8 +199,12 @@ msgstr "Make an optional mask for the brush."
 msgid "worldedit.config.confirm"
 msgstr "Is this Ok?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
+
 msgid "worldedit.config.radius"
 msgstr "Size"
 
@@ -177,6 +216,22 @@ msgstr "Smoothness"
 
 msgid "worldedit.config.range"
 msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 
@@ -255,9 +310,8 @@ msgstr "Je hebt geen permissie om deze commando uit te voeren."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Cannot modify unloaded chunks!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Cannot modify unloaded chunks!%sIncrease your simulation distance, or add ticking areas where you're operating."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Het nummer (%1) is te groot! Het moet maximaal (%2)."
@@ -400,6 +454,15 @@ msgstr "Vertically expand your selection to world height limits"
 msgid "commands.wedit:expand.explain"
 msgstr "Region expanded %s blocks."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguish nearby fires"
 
@@ -469,6 +532,12 @@ msgstr "Generate a hollow sphere"
 msgid "commands.wedit:inset.description"
 msgstr "Inset the selection area"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleport you to the top of the block you're looking at"
 
@@ -532,6 +601,9 @@ msgstr "Paste your clipboard into the world"
 msgid "commands.wedit:paste.explain"
 msgstr "Pasted %s blocks."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
 
@@ -576,6 +648,9 @@ msgstr "Rotated %s blocks."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' is not an increment of 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Selection cleared."
@@ -723,6 +798,15 @@ msgstr "Sneak and tap block: select pos #1; Tap block without sneak: select pos 
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Get WorldEdit version"

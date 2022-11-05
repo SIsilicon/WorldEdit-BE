@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit のスクリプトが停止しました! §r/reload§c でリセットしてください (他のスクリプトもリセットされます)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
@@ -61,36 +64,6 @@ msgstr "範囲の輪郭線を生成"
 msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
-msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit の設定"
-
-msgid "worldedit.config.brushes"
-msgstr "ブラシの設定"
-
-msgid "worldedit.config.tools"
-msgstr "ツールの設定"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "球体ブラシ"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "円柱ブラシ"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "スムーズブラシ"
-
-msgid "worldedit.config.tool.selection"
-msgstr "選択用の杖"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "遠距離選択用の杖"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "案内用の杖"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "スタッカーツール"
-
 msgid "item.wedit:one_button"
 msgstr "1"
 
@@ -109,23 +82,17 @@ msgstr "5"
 msgid "item.wedit:six_button"
 msgstr "6"
 
-msgid "item.wedit:new_tool_button"
-msgstr "新規ツールを作成"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "クリップボードにエンティティを含める: §a有効§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "クリップボードにエンティティを含める: §a無効§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "クリップボードに空気を含める: §a有効§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "クリップボードに空気を含める: §a無効§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "ここにはブロックを置けません。"
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
@@ -142,6 +109,74 @@ msgstr "ブロックをマスクに追加: "
 msgid "worldedit.maskPicker.set"
 msgstr "マスクをブロックに設定: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -164,19 +199,39 @@ msgstr "ブラシのマスクを任意で作成してください。"
 msgid "worldedit.config.confirm"
 msgstr "これでよろしいですか？"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "本当に紐づけを解除しますか？"
+
 msgid "worldedit.config.radius"
-msgstr "サイズ"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "高さ"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "滑らかさ"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "範囲"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
 
@@ -255,9 +310,8 @@ msgstr "このコマンドを実行する権限がありません。"
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "読み込まれていないチャンクは変更できません！"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "読み込まれていないチャンクは変更できません！%sシミュレーション距離を上げるか、変更したい箇所にティック領域を設定してください。"
+msgstr "§eヒント: 遠いチャンクを読み込むには、シミュレーション距離を上げるか、変更したい箇所にティック領域を設定してください。§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "数 (%1) は大きすぎます! 最大 (%2) でなければなりません。"
@@ -400,6 +454,15 @@ msgstr "選択範囲を高度限界まで垂直方向に広げる"
 msgid "commands.wedit:expand.explain"
 msgstr "範囲が %s ブロックに拡大しました。"
 
+msgid "commands.wedit:export.description"
+msgstr "選択範囲をエクスポートして、別の用途に使えるようにする"
+
+msgid "commands.wedit:export.explain"
+msgstr "%s をエクスポートしました。"
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§e注意: この構造物を他のワールドで使用するには、外部用に抽出できる WorldEdit の PC/Webアプリが必要です。§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "近くの火を消す"
 
@@ -469,6 +532,12 @@ msgstr "空洞の球体を生成する"
 msgid "commands.wedit:inset.description"
 msgstr "選択範囲を挿入する"
 
+msgid "commands.wedit:import.description"
+msgstr "クリップボードに構造物をインポートする"
+
+msgid "commands.wedit:import.explain"
+msgstr "%s をインポートし、クリップボードにコピーしました。"
+
 msgid "commands.wedit:jumpto.description"
 msgstr "見ているブロックの上にテレポートする"
 
@@ -532,6 +601,9 @@ msgstr "クリップボードをワールドに貼り付ける"
 msgid "commands.wedit:paste.explain"
 msgstr "%s 個のブロックをペーストしました。"
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "元の位置にクリップボードを貼り付けることはできません。"
+
 msgid "commands.wedit:pos1.description"
 msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
 
@@ -576,6 +648,9 @@ msgstr "%s 個のブロックを回転しました。"
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' は90°の倍数ではありません！"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "Y軸のみ回転できます!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
@@ -644,16 +719,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "1階分上に行く"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "上に空間を見つけられませんでした。"
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "1階分下に行く"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "下に空間を見つけられませんでした。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
@@ -723,6 +798,15 @@ msgstr "スニークしながらブロックをタップして最初の位置を
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit のコマンド"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "現在のセッションのパフォーマンス優先モードを切り替える。"
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "パフォーマンス優先モードを有効にしました。"
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "パフォーマンス優先モードを無効にしました。"
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "WorldEdit のバージョンを取得する"

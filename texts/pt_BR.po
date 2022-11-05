@@ -11,10 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-09-17 21:22\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -61,36 +64,6 @@ msgstr "Seleção de Contorno"
 msgid "item.wedit:draw_line"
 msgstr "Linha de Desenho"
 
-msgid "worldedit.config.mainMenu"
-msgstr "Configurações do WorldEdit"
-
-msgid "worldedit.config.brushes"
-msgstr "Configurações do Pincel"
-
-msgid "worldedit.config.tools"
-msgstr "Configurações de Ferramenta"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Pincel de Esfera"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Pincel de Cilindro"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Pincel Suave"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Varinha de Seleção"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Varinha de Seleção Distante"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Varinha de Navegação"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Ferramenta de Empilhamento"
-
 msgid "item.wedit:one_button"
 msgstr "Um"
 
@@ -109,23 +82,17 @@ msgstr "Cinco"
 msgid "item.wedit:six_button"
 msgstr "Seis"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Criar Ferramenta"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "Incluir Entidades na área de transferência: §aAtivado§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "Incluir entidades na área de transferência: §4Desativado§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "Incluir ar na área de transferência: §aAtivado§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "Incluir ar na área de transferência: §4Desativado§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Não é possível colocar blocos aqui."
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Você precisa especificar um bloco para definir a seleção!"
@@ -142,6 +109,74 @@ msgstr "Bloco adicionado à máscara: "
 msgid "worldedit.maskPicker.set"
 msgstr "Definir máscara para bloco: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Segure um item para liga-lo á"
@@ -164,19 +199,39 @@ msgstr "Faça uma máscara opcional para o pincel."
 msgid "worldedit.config.confirm"
 msgstr "Isto está correto?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Tem certeza de que quer soltar esse objeto?"
+
 msgid "worldedit.config.radius"
-msgstr "Tamanho"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "Altura"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Suavidade"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Alcance"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "A primeira seleção ainda não foi feita."
 
@@ -255,9 +310,8 @@ msgstr "Você não tem permissão para executar este comando."
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Não é possível modificar chunks descarregados!"
 
-# %s is a placeholder for the newline character (\n)
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "Não modifique chuncks não carregadas!%s Aumente sua renderização, ou de um tempo para as áreas em que você está operando."
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "O número (%1) é muito grande! Deve ser no máximo (%2)."
@@ -400,6 +454,15 @@ msgstr "Expanda verticalmente a sua seleção para os limites de altura do mundo
 msgid "commands.wedit:expand.explain"
 msgstr "Região expandiu %s blocos."
 
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+
 msgid "commands.wedit:extinguish.description"
 msgstr "Apagar fogo próximo"
 
@@ -469,6 +532,12 @@ msgstr "Gera uma esfera vazia"
 msgid "commands.wedit:inset.description"
 msgstr "Desfazer a seleção de área"
 
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
 msgid "commands.wedit:jumpto.description"
 msgstr "Teletransporta você para o topo do bloco que você está olhando"
 
@@ -532,6 +601,9 @@ msgstr "Cole sua área de transferência no mundo"
 msgid "commands.wedit:paste.explain"
 msgstr "Colou %s blocos."
 
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
 msgid "commands.wedit:pos1.description"
 msgstr "Define a primeira posição da sua seleção para a posição especificada ou atual"
 
@@ -576,6 +648,9 @@ msgstr "Rotacionou %s blocos."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' não é um incremento de 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Seleção limpa."
@@ -723,6 +798,15 @@ msgstr "Agachar e bater em um bloco: seleciona a posição #1; Bater em um bloco
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit commands"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Get WorldEdit version"
