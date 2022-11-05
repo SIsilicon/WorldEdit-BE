@@ -28,7 +28,7 @@ class BrushTool extends Tool {
   };
 
   tick = function* (self: BrushTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
-    if (tick % 3 != 0) return;
+    if (tick % 2 != 0 || !session.drawOutlines) return;
 
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
     yield;

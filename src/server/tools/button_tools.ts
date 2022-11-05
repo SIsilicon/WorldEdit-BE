@@ -44,7 +44,7 @@ class PasteTool extends CommandButton {
   };
 
   tick = function* (self: PasteTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
-    if (!session.clipboard) {
+    if (!session.clipboard || !session.drawOutlines) {
       return;
     }
 
@@ -53,7 +53,6 @@ class PasteTool extends CommandButton {
       selection.mode = "cuboid";
       self.outlines.set(session, selection);
     }
-
     const rotation = session.clipboardTransform.rotation;
     const flip = session.clipboardTransform.flip;
     const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);

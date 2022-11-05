@@ -94,7 +94,7 @@ class PlayerHandler {
     const dim = player.dimension;
 
     let prevPoint = new BlockLocation(Infinity, Infinity, Infinity);
-    for (let i = 0; i < config.navWandDistance; i += 0.2) {
+    for (let i = 0; i < config.traceDistance; i += 0.2) {
       const point = new BlockLocation(
         Math.floor(start.x + dir.x * i),
         Math.floor(start.y + dir.y * i),

@@ -197,7 +197,7 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
     blockDataName = null;
     blockDataValue = null;
   }
-  // TODO: Test state names and values are valid
+
   let token: Token;
   // eslint-disable-next-line no-cond-assign
   while (token = tokens.next()) {

@@ -17,9 +17,9 @@ export default {
    */
   maxHistorySize: 25,
   /**
-   * Whether a player's selection is drawn by default.
+   * Whether a player's outlines are drawn by default. Outlines include selections, brush influence and paste location
    */
-  drawSelection: true,
+  drawOutlines: true,
   /**
    * How long until a previously active builder's session gets deleted.
    * This includes their undo redo history.
@@ -40,7 +40,7 @@ export default {
   /**
    * The distance the navigation wand, among other tools and commands, traces for a block of interest.
    */
-  navWandDistance: 128,
+  traceDistance: 128,
   /**
    * The maximum brush radius allowed.
    */
@@ -66,4 +66,4 @@ export default {
 } as const;
 
 // The version of WorldEdit (do not change)
-export const VERSION = "0.7.0.3 [BETA]";
+export const VERSION = "0.7.0.4 [BETA]";

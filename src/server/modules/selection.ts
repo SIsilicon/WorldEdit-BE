@@ -15,7 +15,7 @@ const drawFrequency = 400; // in Milliseconds
 export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
-  private _visible: boolean = config.drawSelection;
+  private _visible: boolean = config.drawOutlines;
 
   private modeLastDraw: selectMode = this._mode;
   private pointsLastDraw: BlockLocation[] = [];

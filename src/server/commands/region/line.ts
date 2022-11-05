@@ -117,7 +117,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
   let count: number;
   try {
     const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.toBlock());
-    // TODO: sort line blocks as if it came from regionIterateBlocks.
     yield history.addUndoStructure(record, start, end);
     count = 0;
     for (const point of points) {

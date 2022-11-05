@@ -59,77 +59,8 @@
         "cancel": {
             "textures": "textures/ui/cancel"
         },
-        "delete": {
-            "textures": "textures/ui/icon_trash"
-        },
-        "arrow_left": {
-            "textures": "textures/ui/arrow_left"
-        },
-        "arrow_right": {
-            "textures": "textures/ui/arrow_right"
-        },
-        "plus": {
-            "textures": "textures/ui/color_plus"
-        },
         "blank": {
             "textures": "textures/ui/blank"
-        },
-        "brush_config": {
-            "textures": "textures/ui/brush_config"
-        },
-        "tool_config": {
-            "textures": "textures/ui/tool_config"
-        },
-        "cylinder_brush": {
-            "textures": "textures/ui/cylinder_brush"
-        },
-        "sphere_brush": {
-            "textures": "textures/ui/sphere_brush"
-        },
-        "smooth_brush": {
-            "textures": "textures/ui/smooth_brush"
-        },
-        "selection_wand": {
-            "textures": "textures/ui/selection_wand"
-        },
-        "far_selection_wand": {
-            "textures": "textures/ui/far_selection_wand"
-        },
-        "navigation_wand": {
-            "textures": "textures/ui/navigation_wand"
-        },
-        "stacker_wand": {
-            "textures": "textures/ui/stacker_wand"
-        },
-        "number_one": {
-            "textures": "textures/ui/one"
-        },
-        "number_two": {
-            "textures": "textures/ui/two"
-        },
-        "number_three": {
-            "textures": "textures/ui/three"
-        },
-        "number_four": {
-            "textures": "textures/ui/four"
-        },
-        "number_five": {
-            "textures": "textures/ui/five"
-        },
-        "number_six": {
-            "textures": "textures/ui/six"
-        },
-        "include_entities_on": {
-            "textures": "textures/ui/include_entities_on"
-        },
-        "include_entities_off": {
-            "textures": "textures/ui/include_entities_off"
-        },
-        "include_air_on": {
-            "textures": "textures/ui/include_air_on"
-        },
-        "include_air_off": {
-            "textures": "textures/ui/include_air_off"
         }
     }
 }

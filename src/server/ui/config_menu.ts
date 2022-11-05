@@ -118,6 +118,7 @@ Server.uiForms.register<ConfigContext>("$configMenu", {
   cancel: () => null
 });
 
+// TODO: Add draw outlines
 Server.uiForms.register<ConfigContext>("$generalOptions", {
   title: "%worldedit.config.general",
   inputs: {
@@ -217,7 +218,7 @@ Server.uiForms.register<ConfigContext>("$editTool_stacker_wand", {
     $range: {
       type: "slider",
       name: "%worldedit.config.range",
-      min: 1, max: config.navWandDistance,
+      min: 1, max: config.traceDistance,
       default: (ctx, player) => ctx.getData("creatingTool") ? 5 : getToolProperty(ctx, player, "range") as number,
     },
     ...maskInput,
@@ -443,6 +444,7 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
   cancel: ctx => ctx.returnto("$tools")
 });
 
+// TODO: Test if required fields are present
 Server.uiForms.register<ConfigContext>("$confirmToolBind", {
   title: "%worldedit.config.confirm",
   message: "%worldedit.config.confirm.create",

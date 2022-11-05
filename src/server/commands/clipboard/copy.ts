@@ -1,7 +1,7 @@
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
-import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
@@ -73,32 +73,8 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
       return true;
     };
     error = yield* session.clipboard.saveProgressive(start, end, dimension, { includeEntities }, filter ? blocks : "all");
-
   } else {
-    // Create a temporary copy since we'll be adding void/air blocks to the selection.
-    const tempUsed = !includeAir || mask;
-    const temp = session.createRegion(false);
-    if (tempUsed) {
-      yield temp.save(start, end, dimension);
-
-      const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
-      const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
-
-      for (const block of regionIterateBlocks(start, end)) {
-        const wasAir = dimension.getBlock(block).typeId == "minecraft:air";
-        const isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
-        if (includeAir && mask && !wasAir && isAir) {
-          dimension.getBlock(block).setPermutation(airBlock);
-        } else if (!includeAir && isAir) {
-          dimension.getBlock(block).setPermutation(voidBlock);
-        }
-      }
-    }
     error = (yield session.clipboard.save(start, end, dimension, {includeEntities})) as boolean;
-    if (tempUsed) {
-      temp.load(start, dimension);
-      session.deleteRegion(temp);
-    }
   }
 
   return error;

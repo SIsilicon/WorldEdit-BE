@@ -88,10 +88,13 @@ export class PlayerSession {
   private history: History;
   private regions = new Map<string, RegionBuffer>();
 
+  private _drawOutlines: boolean;
+
   constructor(player: Player) {
     this.player = player;
     this.history = new History(this);
     this.selection = new Selection(player);
+    this.drawOutlines = config.drawOutlines;
 
     this.bindTool("selection_wand", config.wandItem);
     this.bindTool("navigation_wand", config.navWandItem);
@@ -104,6 +107,15 @@ export class PlayerSession {
         this.selection.mode = tag.split("_", 2)[1] as selectMode;
       }
     }
+  }
+
+  public set drawOutlines(val: boolean) {
+    this._drawOutlines = val;
+    this.selection.visible = val;
+  }
+
+  public get drawOutlines() {
+    return this._drawOutlines;
   }
 
   /**
