@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-10-16 00:16\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -64,36 +64,6 @@ msgstr "Omriss valg"
 msgid "item.wedit:draw_line"
 msgstr "Tegn linje"
 
-msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit innstillinger"
-
-msgid "worldedit.config.brushes"
-msgstr "Børste-innstillinger"
-
-msgid "worldedit.config.tools"
-msgstr "Verktøy innstillinger"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "Kulepensel"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "Sylinderpensel"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "Jevnbørste"
-
-msgid "worldedit.config.tool.selection"
-msgstr "Utvalgstav"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "Fjern utvalgstav"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "Navigeringsstav"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "Stable-verktøy"
-
 msgid "item.wedit:one_button"
 msgstr "En"
 
@@ -112,23 +82,17 @@ msgstr "Fem"
 msgid "item.wedit:six_button"
 msgstr "Seks"
 
-msgid "item.wedit:new_tool_button"
-msgstr "Lag nytt verktøy"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "Inkluder enheter i utklippstavlen: §aAktivert§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "Inkluder enheter i utklippstavlen: §4Deaktivert§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "Inkluder luft i utklippstavlen: §aAktivert§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "Inkluder luft i utklippstavlen: §4Deaktivert§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "Kan ikke plassere blokken her."
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -145,6 +109,74 @@ msgstr "La til blokk til masken: "
 msgid "worldedit.maskPicker.set"
 msgstr "Sett maske til blokk: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
@@ -167,19 +199,39 @@ msgstr "Lag en valgfri maske for penselet."
 msgid "worldedit.config.confirm"
 msgstr "Er dette ok?"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
+
 msgid "worldedit.config.radius"
-msgstr "Størrelse"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "Høyde"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Glatthey"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Rekkevidde"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
 
@@ -841,7 +893,8 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster. Bekreft instillingene og lukk menyen."
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
+"Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
