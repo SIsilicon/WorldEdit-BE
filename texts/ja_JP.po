@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-05 22:46\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "作るアイテムの種類を選択してください。"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "ブラシのパターンと任意でマスクを作成してください。"
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "ツールのマスクを任意で作成してください。"
