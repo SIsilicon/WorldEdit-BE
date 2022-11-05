@@ -187,7 +187,7 @@ msgstr "Scegli che tipo di pennello fare."
 msgid "worldedit.config.choose.tool"
 msgstr "Scegli che tipo di strumento fare."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Crea un motivo e una maschera opzionale per il pennello."
 
 msgid "worldedit.config.mask.tool"

@@ -187,7 +187,7 @@ msgstr "选择要制作的笔刷类型。"
 msgid "worldedit.config.choose.tool"
 msgstr "选择用于制作的工具类型"
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "设定笔刷的填充方块和取代方块"
 
 msgid "worldedit.config.mask.tool"

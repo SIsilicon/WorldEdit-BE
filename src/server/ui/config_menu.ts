@@ -143,8 +143,8 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
       options: [
         "%worldedit.selectionMode.cuboid",
         "%worldedit.selectionMode.extend",
-        "%worldedit.selectionMode.sphere",
-        "%worldedit.selectionMode.cylinder"
+        "%worldedit.selectionMode.sphere"
+        // "%worldedit.selectionMode.cylinder"
       ],
       default: ctx => selectionModes.indexOf(ctx.getData("session").selection.mode)
     }

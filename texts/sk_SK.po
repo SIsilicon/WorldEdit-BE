@@ -152,7 +152,7 @@ msgstr "Choose what kind of brush to make."
 msgid "worldedit.config.choose.tool"
 msgstr "Choose what kind of tool to make."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"

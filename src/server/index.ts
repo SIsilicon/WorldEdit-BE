@@ -38,6 +38,7 @@ world.events.messageReceive.subscribe(ev => {
 
 Server.on("playerJoin", ev => {
   contentLog.debug(`player ${ev.player.name} joined.`);
+  if (!ready) return;
   makeBuilder(ev.player);
 });
 

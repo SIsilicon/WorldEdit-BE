@@ -187,7 +187,7 @@ msgstr "Выберите, какую кисть создать."
 msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Сделайте узор и необязательную маску для кисти."
 
 msgid "worldedit.config.mask.tool"

@@ -51,7 +51,7 @@ HotbarUI.register<ConfigContext>("$pickMask", {
 });
 
 HotbarUI.register<ConfigContext>("$pickPatternMask", {
-  title: ctx => "worldedit.config.patternMask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+  title: ctx => "%worldedit.config.patternMask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
   items: {
     3: {
       item: "wedit:pattern_picker",

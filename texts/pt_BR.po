@@ -187,7 +187,7 @@ msgstr "Escolha um tipo de pincel para fazer"
 msgid "worldedit.config.choose.tool"
 msgstr "Escolha um tipo de ferramenta para fazer "
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Faça um padrão e uma máscara opcional para o pincel."
 
 msgid "worldedit.config.mask.tool"

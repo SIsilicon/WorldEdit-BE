@@ -187,7 +187,7 @@ msgstr "Velg hva slags pensel som skal lages."
 msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
 
 msgid "worldedit.config.mask.tool"

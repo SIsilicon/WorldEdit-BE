@@ -187,7 +187,7 @@ msgstr "어떤 형태의 브러쉬를 만들 것인지 선택하세요."
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "브러시에 사용할 패턴과 마스크(옵션) 를 선택하세요."
 
 msgid "worldedit.config.mask.tool"

@@ -187,7 +187,7 @@ msgstr "Ne tür bir fırça yapacağınızı seçin."
 msgid "worldedit.config.choose.tool"
 msgstr "Ne tür bir araç yapacağınızı seçin."
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"

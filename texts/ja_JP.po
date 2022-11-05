@@ -187,7 +187,7 @@ msgstr "作るブラシの種類を選択してください。"
 msgid "worldedit.config.choose.tool"
 msgstr "作るアイテムの種類を選択してください。"
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
 
 msgid "worldedit.config.mask.tool"

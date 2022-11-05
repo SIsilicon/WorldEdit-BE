@@ -1,4 +1,4 @@
-import { BlockLocation, Player } from "@minecraft/server";
+import { BlockLocation, Player, system } from "@minecraft/server";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Brush } from "../brushes/base_brush.js";
@@ -18,6 +18,8 @@ class BrushTool extends Tool {
   permission = "worldedit.brush";
 
   private outlines = new Map<PlayerSession, {selection: Selection, lastHit: BlockLocation}>();
+  private prevTick = system.currentTick;
+  private ticksToUpdate = 0;
 
   use = function* (self: BrushTool, player: Player, session: PlayerSession) {
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
@@ -28,8 +30,11 @@ class BrushTool extends Tool {
   };
 
   tick = function* (self: BrushTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
-    if (tick % 2 != 0 || !session.drawOutlines) return;
+    this.ticksToUpdate -= tick - this.prevTick;
+    this.prevTick = tick;
+    if (this.ticksToUpdate > 0 || !session.drawOutlines) return;
 
+    this.ticksToUpdate = 3;
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
     yield;
 

@@ -187,7 +187,7 @@ msgstr "選擇要製作什麼樣的畫筆。"
 msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
 
-msgid "worldedit.config.paternMask.brush"
+msgid "worldedit.config.patternMask.brush"
 msgstr "為筆刷製作樣式和覆蓋設定。"
 
 msgid "worldedit.config.mask.tool"

@@ -40,9 +40,7 @@ class ToolBuilder {
         for (const player of world.getPlayers()) {
           try {
             const item = Server.player.getHeldItem(player);
-            if (!item) {
-              return;
-            }
+            if (!item) continue;
             yield* self.onItemTick(item, player, self.currentTick);
           } catch (err) {
             contentLog.error(err);
