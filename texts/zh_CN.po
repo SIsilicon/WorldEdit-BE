@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-05 22:46\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "选择用于制作的工具类型"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "设定笔刷的填充方块和取代方块"
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
