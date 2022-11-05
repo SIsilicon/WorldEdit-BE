@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-05 22:46\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Сделайте узор и необязательную маску для кисти."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Сделайте необязательную маску для инструмента."
