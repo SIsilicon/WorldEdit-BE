@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-05 22:46\n"
+"PO-Revision-Date: 2022-11-05 23:42\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -83,16 +83,16 @@ msgid "item.wedit:six_button"
 msgstr "Шість"
 
 msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "Включити сутності в буфер обміну: §aУвімкнено§r"
 
 msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "Включити сутності в буфер обміну: §4Вимкнено§r"
 
 msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "Включити повітря в буфер обміну: §aУвімкнено§r"
 
 msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "Включити повітря в буфер обміну: §4Вимкнено§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
@@ -110,73 +110,73 @@ msgid "worldedit.maskPicker.set"
 msgstr "Встановити шаблон для блокування: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Налаштування WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Пензлі"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Інструменти"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Основні"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Включити сутності в буфер обміну"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Включити повітря в буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Режим продуктивності"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Режим виділення"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Створити новий інструмент"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Створити новий пензель"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Кубоподібний"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Розширений"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Циліндр"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Немає властивостей інструменту"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Цей інструмент не має властивостей для зміни."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Паличка виділення"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Паличка далекого вибору"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Навігаційна паличка"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Інструмент укладальник"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Сферичний пензель"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Циліндричний пензель"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Пензель для згладжування"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Утримуйте предмет для прив’язки."
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент виготовити."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Зробити візерунок та за бажанням маску для пензля."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Зробіть необов’язкову маску для засобу."
@@ -200,37 +200,37 @@ msgid "worldedit.config.confirm"
 msgstr "Чи це добре?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Вас влаштовує налаштування, які ви зробили?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей елемент?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Розмір"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Висота"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Згладжування"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Діапазон"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Візерунок"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Маска"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Порожнистий"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Маска висоти"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Використовувати вибір блоку"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Перший вибір ще не зроблено."
