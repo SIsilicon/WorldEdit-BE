@@ -1,4 +1,4 @@
-import { selectModes } from "@modules/selection.js";
+import { selectionModes } from "@modules/selection.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -41,7 +41,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     }
   } finally {
     if (args.has("d")) {
-      for (const mode of selectModes) {
+      for (const mode of selectionModes) {
         builder.removeTag(`wedit:defaultTag_${mode}`);
       }
       builder.addTag(`wedit:defaultTag_${session.selection.mode}`);

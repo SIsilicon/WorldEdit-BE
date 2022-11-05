@@ -109,22 +109,7 @@ msgstr "П'ять"
 msgid "item.wedit:six_button"
 msgstr "Шість"
 
-msgid "item.wedit:confirm_button"
-msgstr "Добре"
-
-msgid "item.wedit:cancel_button"
-msgstr "Назад"
-
-msgid "item.wedit:prev_button"
-msgstr "Попередній"
-
-msgid "item.wedit:next_button"
-msgstr "Наступне"
-
-msgid "item.wedit:delete_button"
-msgstr "Видалити"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Створити новий інструмент"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "До шаблону додано блок: "
 msgid "worldedit.maskPicker.set"
 msgstr "Встановити шаблон для блокування: "
 
-msgid "worldedit.config.editTool"
-msgstr "Виберіть елемент для налаштування."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Утримуйте предмет для прив’язки."
@@ -168,18 +151,6 @@ msgstr "Виберіть, яку кисть зробити."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент виготовити."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Виберіть діапазон інструменту."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Виберіть розмір кисті."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Виберіть висоту кисті."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Виберіть гладкість кисті."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Зробіть візерунок і за бажанням маску для пензля."
@@ -195,46 +166,17 @@ msgstr "Чи це добре?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей елемент?"
-
-msgid "worldedit.config.affects"
-msgstr "Впливає:%s"
-
-msgid "worldedit.config.creates"
-msgstr "Створює: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Розмір: %s"
+msgstr "Розмір"
 
 msgid "worldedit.config.height"
-msgstr "Височина:%s"
+msgstr "Височина"
 
 msgid "worldedit.config.smooth"
-msgstr "Гладкість:%s"
+msgstr "Гладкість"
 
 msgid "worldedit.config.range"
-msgstr "Діапазон:%s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Кисть налаштована."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Кисть налаштовано та додано до вашого інвентарю."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Налаштування пензля скасовано."
-
-msgid "worldedit.config.set.tool"
-msgstr "Кисть налаштована."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Інструмент налаштовано та додано до вашого інвентарю."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Налаштування інструменту скасовано."
-
-msgid "worldedit.config.unbind"
-msgstr "Елемент від'єднано."
-
+msgstr "Діапазон"
 msgid "worldedit.selection.noPrimary"
 msgstr "Перший вибір ще не зроблено."
 

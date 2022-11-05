@@ -7,8 +7,8 @@ import { arraysEqual, getWorldHeightLimits } from "../util.js";
 import config from "config.js";
 
 // TODO: Add other selection modes
-export const selectModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
-export type selectMode = typeof selectModes[number];
+export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
+export type selectMode = typeof selectionModes[number];
 
 const drawFrequency = 400; // in Milliseconds
 

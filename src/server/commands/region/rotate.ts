@@ -48,7 +48,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   }
 
   if (args.has("w")) {
-    if (config.fastMode || session.performanceMode) assertValidFastArgs();
+    if (config.performanceMode || session.performanceMode) assertValidFastArgs();
 
     const job = (yield Jobs.startJob(session, 3, null)) as number; // TODO: Add ticking area
     yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));

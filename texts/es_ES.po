@@ -109,22 +109,7 @@ msgstr "Cinco"
 msgid "item.wedit:six_button"
 msgstr "Seis"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-
-msgid "item.wedit:cancel_button"
-msgstr "Volver"
-
-msgid "item.wedit:prev_button"
-msgstr "Previo"
-
-msgid "item.wedit:next_button"
-msgstr "Siguiente"
-
-msgid "item.wedit:delete_button"
-msgstr "Borrar"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Crear nueva herramienta"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "Bloque añadido a la máscara: "
 msgid "worldedit.maskPicker.set"
 msgstr "Establecer máscara a bloquear: "
 
-msgid "worldedit.config.editTool"
-msgstr "Elija un elemento a configurar."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantén un elemento al que enlazar."
@@ -168,18 +151,6 @@ msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Elige que tipo de pincel quieres crear."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Elija el rango de la herramienta."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Elegir el tamaño del pincel"
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Elegir el tamaño del pincel."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Elige la suavidad del pincel."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Haz un patrón y una máscara opcional para el pincel."
@@ -195,46 +166,17 @@ msgstr "¿Esto es correcto?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea borrar este elemento?"
-
-msgid "worldedit.config.affects"
-msgstr "Afecta: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Crear: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Tamaño: %s"
+msgstr "Tamaño"
 
 msgid "worldedit.config.height"
-msgstr "Altura: %s"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Suavidad: %s"
+msgstr "Suavidad"
 
 msgid "worldedit.config.range"
-msgstr "Rango: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Pincel configurado."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Pincel configurado y añadido a tu inventario."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Configuración del pincel cancelada."
-
-msgid "worldedit.config.set.tool"
-msgstr "Herramienta configurada."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Herramienta configurada y añadida a tu inventario."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Configuración de la herramienta cancelada."
-
-msgid "worldedit.config.unbind"
-msgstr "Objeto desvinculado."
-
+msgstr "Rango"
 msgid "worldedit.selection.noPrimary"
 msgstr "La primera selección aún no se ha hecho."
 

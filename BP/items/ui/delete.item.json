@@ -10,6 +10,9 @@
                 "texture": "delete",
                 "frame": "0"
             },
+            "minecraft:display_name": {
+                "value": "gui.delete"
+            },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {
                 "on_use": {

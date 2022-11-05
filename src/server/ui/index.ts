@@ -1,2 +1,2 @@
-import "./hotbarMenus.js";
-import "./configMenu.js";
+import "./hotbar_menus.js";
+import "./config_menu.js";

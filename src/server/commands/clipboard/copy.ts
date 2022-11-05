@@ -46,7 +46,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     session.deleteRegion(session.clipboard);
   }
 
-  session.clipboard = session.createRegion(!config.fastMode && !session.performanceMode);
+  session.clipboard = session.createRegion(!config.performanceMode && !session.performanceMode);
   session.clipboardTransform = {
     rotation: Vector.ZERO,
     flip: Vector.ONE,

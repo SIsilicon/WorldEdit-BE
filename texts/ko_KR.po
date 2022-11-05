@@ -109,22 +109,7 @@ msgstr "오"
 msgid "item.wedit:six_button"
 msgstr "육"
 
-msgid "item.wedit:confirm_button"
-msgstr "확인"
-
-msgid "item.wedit:cancel_button"
-msgstr "취소"
-
-msgid "item.wedit:prev_button"
-msgstr "이전으로 되돌리기"
-
-msgid "item.wedit:next_button"
-msgstr "다음으로 되돌리기"
-
-msgid "item.wedit:delete_button"
-msgstr "삭제"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "새로운 도구 만들기"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "마스크를 블록으로 추가: "
 msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
-msgid "worldedit.config.editTool"
-msgstr "선택할 아이템을 고르세요."
 
 msgid "worldedit.config.chooseItem"
 msgstr "바인딩할 아이템을 들고 있으세요."
@@ -168,18 +151,6 @@ msgstr "어떤 형태의 브러쉬를 만들 것인지 선택하세요."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "도구의 범위를 선택하세요."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "브러쉬의 크기를 선택하세요."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "브러쉬의 높이를 선택하세요."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
@@ -195,46 +166,17 @@ msgstr "이것으로 정하시겠습니까?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
-
-msgid "worldedit.config.affects"
-msgstr "Affects: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Creates: %s"
-
 msgid "worldedit.config.radius"
-msgstr "크기: %s"
+msgstr "크기"
 
 msgid "worldedit.config.height"
-msgstr "높이: %s"
+msgstr "높이"
 
 msgid "worldedit.config.smooth"
-msgstr "부드러운 정도: %s"
+msgstr "부드러운 정도"
 
 msgid "worldedit.config.range"
-msgstr "범위: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
-
-msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
-
-msgid "worldedit.config.unbind"
-msgstr "Item unbound."
-
+msgstr "범위"
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
 

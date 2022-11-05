@@ -1,16 +1,14 @@
-import { Player, BeforeItemUseEvent } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
-import config from "config.js";
-
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { SettingsHotbar } from "@modules/hotbar_ui.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
 import { ConfigContext } from "./ui/types.js";
+import config from "config.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -71,12 +69,6 @@ export class PlayerSession {
   public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
 
   /**
-   * Handles the settings UI created from the config item.
-   * Is null when the UI isn't active.
-   */
-  public settingsHotbar: SettingsHotbar;
-
-  /**
    * The clipboard region created by the player.
    */
   public clipboard: RegionBuffer;
@@ -104,7 +96,7 @@ export class PlayerSession {
     this.bindTool("selection_wand", config.wandItem);
     this.bindTool("navigation_wand", config.navWandItem);
     if (PlayerUtil.isHotbarStashed(player)) {
-      this.enterSettings();
+      PlayerUtil.restoreHotbar(player);
     }
 
     for (const tag of player.getTags()) {
@@ -223,14 +215,6 @@ export class PlayerSession {
     // this.settingsHotbar = new SettingsHotbar(this);
   }
 
-  /**
-   * Triggers the hotbar settings menu to disappear.
-   */
-  public exitSettings() {
-    this.settingsHotbar.exit();
-    this.settingsHotbar = null;
-  }
-
   public createRegion(isAccurate: boolean) {
     const buffer = new RegionBuffer(isAccurate);
     this.regions.set(buffer.id, buffer);
@@ -253,22 +237,8 @@ export class PlayerSession {
   }
 
   onTick() {
-    // Process settingsHotbar
-    if (this.settingsHotbar) {
-      this.settingsHotbar.onTick();
-    }
-    // else if (PlayerUtil.isHotbarStashed(this.player)) {
-    //   this.enterSettings();
-    // }
-
     // Draw Selection
     this.selection?.draw();
-  }
-
-  onItemUse(ev: BeforeItemUseEvent) {
-    if (this.settingsHotbar) {
-      this.settingsHotbar.onItemUse(ev);
-    }
   }
 }
 
@@ -316,13 +286,6 @@ setTickTimeout(() => {
 
     for (const session of playerSessions.values()) {
       session.onTick();
-    }
-  });
-
-  Server.prependListener("beforeItemUse", ev => {
-    if (ev.source.typeId == "minecraft:player") {
-      const name = (ev.source as Player).name;
-      playerSessions.get(name)?.onItemUse(ev);
     }
   });
 }, 1);

@@ -10,6 +10,9 @@
                 "texture": "arrow_left",
                 "frame": "0"
             },
+            "minecraft:display_name": {
+                "value": "gui.previous"
+            },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {
                 "on_use": {

@@ -109,22 +109,7 @@ msgstr "Beş"
 msgid "item.wedit:six_button"
 msgstr "Altı"
 
-msgid "item.wedit:confirm_button"
-msgstr "Tamam"
-
-msgid "item.wedit:cancel_button"
-msgstr "Geri"
-
-msgid "item.wedit:prev_button"
-msgstr "Öncesi"
-
-msgid "item.wedit:next_button"
-msgstr "Sonraki"
-
-msgid "item.wedit:delete_button"
-msgstr "Sil"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Yeni Araç Oluştur"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "Maskeye blok eklendi: "
 msgid "worldedit.maskPicker.set"
 msgstr "Engellenecek maskeyi ayarlayın: "
 
-msgid "worldedit.config.editTool"
-msgstr "Ayarlamak için bir öğe seçin."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Bağlanacak bir öğeyi tutun."
@@ -168,18 +151,6 @@ msgstr "Ne tür bir fırça yapacağınızı seçin."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Ne tür bir araç yapacağınızı seçin."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Fırçanın boyutunu seçin."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
@@ -195,46 +166,17 @@ msgstr "Is this Ok?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
-
-msgid "worldedit.config.affects"
-msgstr "Affects: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Creates: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Boyut: %s"
+msgstr "Boyut"
 
 msgid "worldedit.config.height"
-msgstr "Height: %s"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
-
-msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
-
-msgid "worldedit.config.unbind"
-msgstr "Item unbound."
-
+msgstr "Range"
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 

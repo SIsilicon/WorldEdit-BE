@@ -109,22 +109,7 @@ msgstr "Пять"
 msgid "item.wedit:six_button"
 msgstr "Шесть"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ок"
-
-msgid "item.wedit:cancel_button"
-msgstr "Назад"
-
-msgid "item.wedit:prev_button"
-msgstr "Преведущий"
-
-msgid "item.wedit:next_button"
-msgstr "Следующий"
-
-msgid "item.wedit:delete_button"
-msgstr "Удалить"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Создать новый инструмент"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "Добавлен блок для Маски: "
 msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
-msgid "worldedit.config.editTool"
-msgstr "Выберите предмет для настройки."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -168,18 +151,6 @@ msgstr "Выберите, какую кисть создать."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Выберите диапазон инструмента."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Выберите размер кисти."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Выберите высоту кисти."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Выберите гладкость кисти."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Сделайте узор и необязательную маску для кисти."
@@ -195,46 +166,17 @@ msgstr "Всё верно?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
-
-msgid "worldedit.config.affects"
-msgstr "Влияет на: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Создает: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Размер: %s"
+msgstr "Размер"
 
 msgid "worldedit.config.height"
-msgstr "Высота: %s"
+msgstr "Высота"
 
 msgid "worldedit.config.smooth"
-msgstr "Гладкость: %s"
+msgstr "Гладкость"
 
 msgid "worldedit.config.range"
-msgstr "Диапазон: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Кисть настроена."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Кисть настроена и добавлена в инвентарь."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Отмена настройки кисти."
-
-msgid "worldedit.config.set.tool"
-msgstr "Инструмент настроен."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Инструмент настроен и добавлен в ваш инвентарь."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Отменена настройка инструмента."
-
-msgid "worldedit.config.unbind"
-msgstr "Товар несвязан."
-
+msgstr "Диапазон"
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
 

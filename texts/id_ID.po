@@ -109,22 +109,7 @@ msgstr "Lima"
 msgid "item.wedit:six_button"
 msgstr "Enam"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-
-msgid "item.wedit:cancel_button"
-msgstr "Kembali"
-
-msgid "item.wedit:prev_button"
-msgstr "Sebelumnya"
-
-msgid "item.wedit:next_button"
-msgstr "Selanjutnya"
-
-msgid "item.wedit:delete_button"
-msgstr "Hapus"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Buat Alat Baru"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -157,8 +142,6 @@ msgstr "Ditambahkan blok ke mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Atur mask ke blok: "
 
-msgid "worldedit.config.editTool"
-msgstr "Pilih item untuk menyetel."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Pegang item untuk diikat."
@@ -168,18 +151,6 @@ msgstr "Pilih kuas untuk membuat."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Pilih alat untuk membuat."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Pilih jangkauan dari alat."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Pilih ukuran kuas."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Pilih ketinggian kuas."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Pilih kehalusan kuasnya."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Buat pola dan mask opsional untuk kuasnya."
@@ -195,46 +166,17 @@ msgstr "Apakah ini Oke?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Apakah kamu yakin untuk mengikat item ini?"
-
-msgid "worldedit.config.affects"
-msgstr "Mempengaruhi: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Menciptakan: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Ukuran: %s"
+msgstr "Ukuran"
 
 msgid "worldedit.config.height"
-msgstr "Tinggi: %s"
+msgstr "Tinggi"
 
 msgid "worldedit.config.smooth"
-msgstr "Kehalusan: %s"
+msgstr "Kehalusan"
 
 msgid "worldedit.config.range"
-msgstr "Jangkauan: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Kuas dikonfigurasi."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Kuas dikonfigurasi dan ditambahkan ke inventorimu."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Konfigurasi kuas dibatalkan."
-
-msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
-
-msgid "worldedit.config.unbind"
-msgstr "Item unbound."
-
+msgstr "Jangkauan"
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 

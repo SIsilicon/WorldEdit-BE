@@ -11,7 +11,7 @@ export default {
    * Whether the addon should use simpler methods to run operations faster.
    * This comes with the drawback of more limited capabilities.
    */
-  fastMode: false,
+  performanceMode: false,
   /**
    * How many operations can be recorded in a player's history.
    */

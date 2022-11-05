@@ -5,7 +5,7 @@ import { Server } from "@notbeer-api";
 import { ConfigContext } from "./types";
 
 HotbarUI.register<ConfigContext>("$chooseItem", {
-  title: "Hold an item to use as a tool.",
+  title: "%worldedit.config.chooseItem",
   items: {
     0: { item: "minecraft:air", action: null }, 1: { item: "minecraft:air", action: null },
     2: { item: "minecraft:air", action: null }, 3: { item: "minecraft:air", action: null },

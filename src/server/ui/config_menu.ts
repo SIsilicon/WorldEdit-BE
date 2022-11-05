@@ -9,6 +9,7 @@ import { SphereBrush } from "../brushes/sphere_brush.js";
 import { CylinderBrush } from "../brushes/cylinder_brush.js";
 import { SmoothBrush } from "../brushes/smooth_brush.js";
 import { Tools } from "../tools/tool_manager.js";
+import { selectionModes } from "@modules/selection.js";
 import { ConfigContext, ToolTypes } from "./types.js";
 import config from "config.js";
 
@@ -20,7 +21,7 @@ const toolsWithProperties: ToolTypes[] = [];
 const usePickerInput: ModalFormInput = {
   $usePicker: {
     type: "toggle",
-    name: "Use Block Picker",
+    name: "%worldedit.config.usePicker",
     default: (ctx, player) => (getToolProperty(ctx, player, "mask") as Mask)?.getSource() == "(picked)"
   }
 };
@@ -28,17 +29,17 @@ const usePickerInput: ModalFormInput = {
 const brushSizeInput: ModalFormInput = {
   $size: {
     type: "slider",
-    name: "Size",
+    name: "%worldedit.config.radius",
     min: 1, max: config.maxBrushRadius,
     default: (ctx, player) => ctx.getData("creatingTool") ? 3 : (getToolProperty(ctx, player, "brush") as Brush).getSize()
   }
 };
 
-const brushMaskInput: ModalFormInput = {
+const maskInput: ModalFormInput = {
   $mask: {
     type: "textField",
-    name: "Mask",
-    placeholder: "Blocks that can be affected (optional)",
+    name: "%worldedit.config.mask",
+    placeholder: "Eg: air %gametest.optionalPrefix",
     default: (ctx, player) => {
       if (ctx.getData("creatingTool")) return "";
       return (getToolProperty(ctx, player, "mask") as Mask)?.getSource() ?? "";
@@ -49,8 +50,8 @@ const brushMaskInput: ModalFormInput = {
 const brushPatternInput: ModalFormInput = {
   $pattern: {
     type: "textField",
-    name: "Pattern",
-    placeholder: "Blocks that will be created",
+    name: "%worldedit.config.pattern",
+    placeholder: "Eg: stone,dirt",
     default: (ctx, player) => {
       if (ctx.getData("creatingTool")) return "";
       return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().getSource();
@@ -70,7 +71,7 @@ function displayItem(item: [string, number]) {
 }
 
 function editToolTitle(ctx: MenuConfigCtx) {
-  return "Editing: " + displayItem(ctx.getData("currentItem"));
+  return "%accessibility.textbox.editing : " + displayItem(ctx.getData("currentItem"));
 }
 
 function getToolProperty(ctx: MenuConfigCtx, player: Player, prop: string) {
@@ -93,9 +94,9 @@ Server.uiForms.register<ConfigContext>("$configMenu", {
   title: "%worldedit.config.mainMenu",
   buttons: [
     {
-      text: "%worldedit.config.clipboard",
-      icon: "textures/items/paste",
-      action: ctx => ctx.goto("$clipboardOptions")
+      text: "%worldedit.config.general",
+      icon: "textures/ui/gear",
+      action: ctx => ctx.goto("$generalOptions")
     },
     {
       text: "%worldedit.config.tools",
@@ -117,24 +118,42 @@ Server.uiForms.register<ConfigContext>("$configMenu", {
   cancel: () => null
 });
 
-Server.uiForms.register<ConfigContext>("$clipboardOptions", {
-  title: "%worldedit.config.clipboard",
+Server.uiForms.register<ConfigContext>("$generalOptions", {
+  title: "%worldedit.config.general",
   inputs: {
     $includeEntities: {
-      name: "Copy Entities",
+      name: "%worldedit.config.general.includeEntities",
       type: "toggle",
       default: ctx => ctx.getData("session").includeEntities
     },
     $includeAir: {
-      name: "Copy Air",
+      name: "%worldedit.config.general.includeAir",
       type: "toggle",
       default: ctx => ctx.getData("session").includeAir
+    },
+    $perfMode: {
+      name: "%worldedit.config.general.perfMode",
+      type: "toggle",
+      default: ctx => ctx.getData("session").performanceMode || config.performanceMode
+    },
+    $selectionMode: {
+      name: "%worldedit.config.general.selectMode",
+      type: "dropdown",
+      options: [
+        "%worldedit.selectionMode.cuboid",
+        "%worldedit.selectionMode.extend",
+        "%worldedit.selectionMode.sphere",
+        "%worldedit.selectionMode.cylinder"
+      ],
+      default: ctx => selectionModes.indexOf(ctx.getData("session").selection.mode)
     }
   },
   submit: (ctx, _, input) => {
     const session = ctx.getData("session");
     session.includeAir = input.$includeAir as boolean;
     session.includeEntities = input.$includeEntities as boolean;
+    session.performanceMode = input.$perfMode as boolean;
+    session.selection.mode = selectionModes[input.$selectionMode as number];
     ctx.returnto("$configMenu");
   },
   cancel: ctx => ctx.returnto("$configMenu")
@@ -162,7 +181,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
       });
     }
     buttons.push({
-      text: (ctx: MenuConfigCtx) => ctx.getData("editingBrush") ? "Create new brush" : "Create new tool",
+      text: (ctx: MenuConfigCtx) => "%worldedit.config.new" + (ctx.getData("editingBrush") ? "Brush" : "Tool"),
       action: (ctx: MenuConfigCtx, player: Player) => {
         HotbarUI.goto("$chooseItem", player, ctx);
       }
@@ -181,11 +200,11 @@ Server.uiForms.register<ConfigContext>("$tools", {
 });
 
 Server.uiForms.register<ConfigContext>("$toolNoConfig", {
-  title: "No Tool Properties",
-  message: "This tool has no properties to change." + "\n\n",
+  title: "%worldedit.config.tool.noProps",
+  message: "%worldedit.config.tool.noProps.detail " + "\n\n\n",
   buttons: [
     {
-      text: "Ok",
+      text: "%dr.button.ok",
       action: ctx => ctx.returnto("$tools")
     }
   ],
@@ -197,26 +216,12 @@ Server.uiForms.register<ConfigContext>("$editTool_stacker_wand", {
   inputs: {
     $range: {
       type: "slider",
-      name: "Range",
+      name: "%worldedit.config.range",
       min: 1, max: config.navWandDistance,
       default: (ctx, player) => ctx.getData("creatingTool") ? 5 : getToolProperty(ctx, player, "range") as number,
     },
-    $mask: {
-      type: "textField",
-      name: "Mask",
-      placeholder: "What kind of blocks can be stacked through",
-      default: (ctx, player) => {
-        if (ctx.getData("creatingTool")) {
-          return "air,water";
-        }
-        return (getToolProperty(ctx, player, "mask") as Mask).getSource();
-      }
-    },
-    $usePicker: {
-      type: "toggle",
-      name: "Use Block Picker",
-      default: (ctx, player) => (getToolProperty(ctx, player, "mask") as Mask)?.getSource() == "(picked)"
-    }
+    ...maskInput,
+    ...usePickerInput
   },
   submit: (ctx, player, input) => {
     if (input.$usePicker) {
@@ -242,10 +247,10 @@ Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
   inputs: {
     ...brushSizeInput,
     ...brushPatternInput,
-    ...brushMaskInput,
+    ...maskInput,
     $hollow: {
       type: "toggle",
-      name: "Hollow",
+      name: "%worldedit.config.hollow",
       default: (ctx, player) => !ctx.getData("creatingTool") ?
         (getToolProperty(ctx, player, "brush") as SphereBrush).isHollow() :
         false
@@ -283,15 +288,15 @@ Server.uiForms.register<ConfigContext>("$editTool_cylinder_brush", {
     ...brushSizeInput,
     $height: {
       type: "slider",
-      name: "Height",
+      name: "%worldedit.config.height",
       min: 1, max: config.maxBrushRadius * 2,
       default: (ctx, player) => ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as CylinderBrush).getHeight()
     },
     ...brushPatternInput,
-    ...brushMaskInput,
+    ...maskInput,
     $hollow: {
       type: "toggle",
-      name: "Hollow",
+      name: "%worldedit.config.hollow",
       default: (ctx, player) => !ctx.getData("creatingTool") ?
         (getToolProperty(ctx, player, "brush") as CylinderBrush).isHollow() :
         false
@@ -326,17 +331,17 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
   title: editToolTitle,
   inputs: {
     ...brushSizeInput,
-    ...brushMaskInput,
+    ...maskInput,
     $iterations: {
       type: "slider",
-      name: "Smoothness",
+      name: "%worldedit.config.smooth",
       min: 1, max: 6,
       default: (ctx, player) => ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as SmoothBrush).getIterations()
     },
     $heightMask: {
       type: "textField",
-      name: "Mask",
-      placeholder: "Blocks that are part of height map",
+      name: "%worldedit.config.mask.height",
+      placeholder: "Eg: grass,stone %gametest.optionalPrefix",
       default: (ctx, player) => {
         if (ctx.getData("creatingTool")) return "";
         return (getToolProperty(ctx, player, "brush") as SmoothBrush).getHeightMask()?.getSource() ?? "";
@@ -369,10 +374,10 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
 });
 
 Server.uiForms.register<ConfigContext>("$selectToolType", {
-  title: "Select the type of tool to bind to,",
+  title: "%worldedit.config.choose.tool",
   buttons: [
     {
-      text: "Selection Wand",
+      text: "%worldedit.config.tool.selection",
       icon: "textures/ui/selection_wand",
       action: ctx => {
         ctx.setData("creatingTool", "selection_wand");
@@ -380,7 +385,7 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
       }
     },
     {
-      text: "Far Selection Wand",
+      text: "%worldedit.config.tool.far_selection",
       icon: "textures/ui/far_selection_wand",
       action: ctx => {
         ctx.setData("creatingTool", "far_selection_wand");
@@ -388,7 +393,7 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
       }
     },
     {
-      text: "Navigation Wand",
+      text: "%worldedit.config.tool.navigation",
       icon: "textures/ui/navigation_wand",
       action: ctx => {
         ctx.setData("creatingTool", "navigation_wand");
@@ -396,7 +401,7 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
       }
     },
     {
-      text: "Stacker Wand",
+      text: "%worldedit.config.tool.stacker",
       icon: "textures/ui/stacker_wand",
       action: ctx => {
         ctx.setData("creatingTool", "stacker_wand");
@@ -408,10 +413,10 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
 });
 
 Server.uiForms.register<ConfigContext>("$selectBrushType", {
-  title: "Select the type of brush to bind to,",
+  title: "%worldedit.config.choose.brush",
   buttons: [
     {
-      text: "Sphere Brush",
+      text: "%worldedit.config.brush.sphere",
       icon: "textures/ui/sphere_brush",
       action: ctx => {
         ctx.setData("creatingTool", "sphere_brush");
@@ -419,7 +424,7 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
       }
     },
     {
-      text: "Cylinder Brush",
+      text: "%worldedit.config.brush.cylinder",
       icon: "textures/ui/cylinder_brush",
       action: ctx => {
         ctx.setData("creatingTool", "cylinder_brush");
@@ -427,7 +432,7 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
       }
     },
     {
-      text: "Smooth Brush",
+      text: "%worldedit.config.brush.smooth",
       icon: "textures/ui/smooth_brush",
       action: ctx => {
         ctx.setData("creatingTool", "smooth_brush");
@@ -439,10 +444,10 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
 });
 
 Server.uiForms.register<ConfigContext>("$confirmToolBind", {
-  title: "Bind tool?",
-  message: (ctx, player) => `Are you sure you want to bind "${getToolType(ctx, player)}" to "${ctx.getData("currentItem")[0]}?"`,
+  title: "%worldedit.config.confirm",
+  message: "%worldedit.config.confirm.create",
   button1: {
-    text: "Yes",
+    text: "%dr.button.ok",
     action: (ctx, player) => {
       const session = ctx.getData("session");
       const toolType = getToolType(ctx, player);
@@ -466,26 +471,24 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
     }
   },
   button2: {
-    text: "No",
+    text: "%gui.cancel",
     action: ctx => ctx.returnto("$tools")
   },
   cancel: ctx => ctx.returnto("$tools")
 });
 
 Server.uiForms.register<ConfigContext>("$confirmDelete", {
-  title: "Delete tool(s)?",
+  title: "%worldedit.config.confirm",
   message: ctx => {
     const deleting = ctx.getData("deletingTools");
-    let message = deleting.length == 1 ?
-      "Are you sure you want to unbind this item?" :
-      "Are you sure you want to unbind these items?";
+    let message = "%worldedit.config.confirm.delete";
     for (const item of deleting) {
       message += `\n${displayItem(item)}`;
     }
     return message;
   },
   button1: {
-    text: "Yes",
+    text: "%dr.button.ok",
     action: ctx => {
       const session = ctx.getData("session");
       for (const item of ctx.getData("deletingTools")) {
@@ -495,14 +498,14 @@ Server.uiForms.register<ConfigContext>("$confirmDelete", {
     }
   },
   button2: {
-    text: "No",
+    text: "%gui.cancel",
     action: ctx => ctx.returnto("$tools")
   },
   cancel: ctx => ctx.returnto("$tools")
 });
 
 Server.uiForms.register<ConfigContext>("$deleteTools", {
-  title: "Select tools to delete.",
+  title: "%gui.delete",
   inputs: (ctx, player) => {
     const toggles: ModalFormInput = {};
     for (const tool of getTools(player, ctx.getData("editingBrush"))) {

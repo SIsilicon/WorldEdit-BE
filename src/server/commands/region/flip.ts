@@ -37,7 +37,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   let blockCount = 0;
   if (args.has("w")) {
-    if (dir.y != 0 && (config.fastMode || session.performanceMode)) {
+    if (dir.y != 0 && (config.performanceMode || session.performanceMode)) {
       throw "commands.wedit:flip.notLateral";
     }
 
