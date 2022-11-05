@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-05 22:46\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "為筆刷製作樣式和覆蓋設定。"
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "為該工具製作一個正常覆蓋。"
