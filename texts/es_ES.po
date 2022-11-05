@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-05 22:46\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Haz un patrón y una máscara opcional para el pincel."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Haga una máscara opcional para la herramienta."
