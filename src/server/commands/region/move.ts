@@ -40,11 +40,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const history = session.getHistory();
   const record = history.record();
   const temp = session.createRegion(false);
-  const job = Jobs.startJob(session, 3, regionBounds([start, end, movedStart, movedEnd]));
+  const job = (yield Jobs.startJob(session, 3, regionBounds([start, end, movedStart, movedEnd]))) as number;
   let count: number;
   try {
-    history.addUndoStructure(record, start, end, "any");
-    history.addUndoStructure(record, movedStart, movedEnd, "any");
+    yield history.addUndoStructure(record, start, end, "any");
+    yield history.addUndoStructure(record, movedStart, movedEnd, "any");
 
     Jobs.nextStep(job, "Copying blocks...");
     yield* Jobs.perform(job, temp.saveProgressive(start, end, dim), false);
@@ -53,8 +53,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);
     count += temp.getBlockCount();
 
-    history.addRedoStructure(record, start, end, "any");
-    history.addRedoStructure(record, movedStart, movedEnd, "any");
+    yield history.addRedoStructure(record, start, end, "any");
+    yield history.addRedoStructure(record, movedStart, movedEnd, "any");
     history.commit(record);
   } catch (e) {
     history.cancel(record);

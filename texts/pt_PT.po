@@ -64,34 +64,34 @@ msgstr "Outline Selection"
 msgid "item.wedit:draw_line"
 msgstr "Desenhar Linha"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "Definições do WorldEdit"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "Brush Settings"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "Tool Settings"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "Sphere Brush"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "Cylinder Brush"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "Smooth Brush"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "Selection Wand"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "Far Selection Wand"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "Navigation Wand"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "Stacker Tool"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "Cinco"
 msgid "item.wedit:six_button"
 msgstr "Seis"
 
-msgid "item.wedit:confirm_button"
-msgstr "Confirmar"
-
-msgid "item.wedit:cancel_button"
-msgstr "Voltar"
-
-msgid "item.wedit:prev_button"
-msgstr "Anterior"
-
-msgid "item.wedit:next_button"
-msgstr "Próximo"
-
-msgid "item.wedit:delete_button"
-msgstr "Apagar"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Create New Tool"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "Include Air in Clipboard: §aEnabled§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Include Air in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "Não é possível colocar o bloco aqui."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "You need to specify a block to set the selection to!"
@@ -160,8 +145,6 @@ msgstr "Added block to mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
-msgid "worldedit.config.editTool"
-msgstr "Choose an item to set up."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold an item to bind to."
@@ -171,18 +154,6 @@ msgstr "Choose what kind of brush to make."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Choose what kind of tool to make."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Choose the range of the tool."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Choose the size of the brush."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Choose the height of the brush."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choose the smoothness of the brush."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
@@ -198,46 +169,17 @@ msgstr "Is this Ok?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
-
-msgid "worldedit.config.affects"
-msgstr "Afeta: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Creates: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Tamanho: %s"
+msgstr "Tamanho"
 
 msgid "worldedit.config.height"
-msgstr "Altura: %s"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness: %s"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Range: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Brush configured."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Brush configured and added to your inventory."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Cancelled brush configuring."
-
-msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Cancelled tool configuring."
-
-msgid "worldedit.config.unbind"
-msgstr "Item unbound."
-
+msgstr "Range"
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
 

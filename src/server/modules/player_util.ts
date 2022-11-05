@@ -1,7 +1,7 @@
-import { Player, Entity, BlockLocation, EntityInventoryComponent, EntityQueryOptions } from "mojang-minecraft";
+import { Player, Entity, BlockLocation, EntityInventoryComponent } from "@minecraft/server";
 import { Server, contentLog } from "@notbeer-api";
 import { Mask } from "./mask.js";
-import { NAV_WAND_DISTANCE } from "@config.js";
+import config from "config.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
@@ -18,18 +18,16 @@ class PlayerHandler {
   }
 
   /**
-    * Tells you whether the player has an item.
-    * @param player The player being tested
-    * @param item The item being tested for
-    * @return True if the player has the item; false otherwise
-    */
-  hasItem(player: Player, item: string, data = -1) {
-    let hasItem = Server.runCommand(`clear @s ${item} 0 ${data}`, player).error;
+   * Tells you whether the player has an item.
+   * @param player The player being tested
+   * @param item The item being tested for
+   * @return True if the player has the item; false otherwise
+   */
+  hasItem(player: Player, item: string, data?: number) {
+    let hasItem = Server.player.getItemCount(player, item, data).length != 0;
     if (this.isHotbarStashed(player) && !hasItem) {
       let stasher: Entity;
-      const query = new EntityQueryOptions();
-      query.name = "wedit:stasher_for_" + player.name;
-      for (const entity of player.dimension.getEntities(query)) {
+      for (const entity of player.dimension.getEntities({ name: "wedit:stasher_for_" + player.name })) {
         stasher = entity;
       }
 
@@ -37,7 +35,7 @@ class PlayerHandler {
         const inv_stash = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
         for (let i = 0; i < 9; i++) {
           const stashed = inv_stash.getItem(i);
-          if (stashed && stashed.id == item && (stashed.data == data || data < 0)) {
+          if (stashed && stashed.typeId == item && (stashed.data == data || data < 0)) {
             hasItem = true;
             break;
           }
@@ -48,16 +46,16 @@ class PlayerHandler {
   }
 
   /**
-    * Replaces an item stack in the player's inventory with another item.
-    * @remark This does not check the player's armor slots nor offhand.
-    * @param player The player being affected
-    * @param item The item being replaced
-    * @param sub The new item being replaced with
-    */
+   * Replaces an item stack in the player's inventory with another item.
+   * @remark This does not check the player's armor slots nor offhand.
+   * @param player The player being affected
+   * @param item The item being replaced
+   * @param sub The new item being replaced with
+   */
   replaceItem(player: Player, item: string, sub: string, locked = false) {
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;
     for (let i = 0; i < inv.size; i++) {
-      if (inv.getItem(i)?.id === item) {
+      if (inv.getItem(i)?.typeId === item) {
         const slotType = i > 8 ? "slot.inventory" : "slot.hotbar";
         const slotId = i > 8 ? i - 9 : i;
         let command = `replaceitem entity @s ${slotType} ${slotId} ${sub}`;
@@ -71,10 +69,10 @@ class PlayerHandler {
   }
 
   /**
-    * Gives the player's location in the form of {mojang-minecraft.BlockLocation}.
-    * @param player The player being queried
-    * @return The block location of the player
-    */
+   * Gives the player's location in the form of {@minecraft/server.BlockLocation}.
+   * @param player The player being queried
+   * @return The block location of the player
+   */
   getBlockLocation(player: Player) {
     return new BlockLocation(
       Math.floor(player.location.x),
@@ -84,35 +82,30 @@ class PlayerHandler {
   }
 
   /**
-    * Tells you whether the player's hotbar has been stashed in a temporary place.
-    * @param player The player being queried
-    * @return Whether the player's hotbar has been stashed
-    */
-  isHotbarStashed(player: Player) {
-    return !Server.runCommand(`testfor @e[name="wedit:stasher_for_${player.name}"]`).error;
-  }
-
-  /**
-     * Traces a block from the player's head in the direction they're looking,
-     * @param player The player to trace for blocks from
-     * @param range How far to trace for blocks
-     * @param mask What kind of blocks the ray can hit
-     * @return The location of the block the ray hits or reached its range at; null otherwise
-     */
+   * Traces a block from the player's head in the direction they're looking,
+   * @param player The player to trace for blocks from
+   * @param range How far to trace for blocks
+   * @param mask What kind of blocks the ray can hit
+   * @return The location of the block the ray hits or reached its range at; null otherwise
+   */
   traceForBlock(player: Player, range?: number, mask?: Mask) {
     const start = player.headLocation;
     const dir = player.viewVector;
     const dim = player.dimension;
-    for (let i = 0; i < NAV_WAND_DISTANCE; i += 0.2) {
+
+    let prevPoint = new BlockLocation(Infinity, Infinity, Infinity);
+    for (let i = 0; i < config.navWandDistance; i += 0.2) {
       const point = new BlockLocation(
         Math.floor(start.x + dir.x * i),
         Math.floor(start.y + dir.y * i),
         Math.floor(start.z + dir.z * i)
       );
+      if (prevPoint.equals(point)) continue;
+      prevPoint = point;
 
       if (mask && mask.matchesBlock(point, dim)) {
         return point;
-      } else if (!mask && !dim.isEmpty(point)) {
+      } else if (!mask && dim.getBlock(point).typeId != "minecraft:air") {
         return point;
       } else if (range && range > 0 && i >= range) {
         return point;
@@ -121,10 +114,21 @@ class PlayerHandler {
   }
 
   /**
-    * Stashes the player's hotbar in a temporary entity.
-    * @param player The player being affected
-    * @return True if the player's hotbar has already been stashed; false otherwise
-    */
+   * Tells you whether the player's hotbar has been stashed in a temporary place.
+   * @param player The player being queried
+   * @return Whether the player's hotbar has been stashed
+   */
+  isHotbarStashed(player: Player) {
+    return Array.from(player.dimension.getEntities({
+      name: `wedit:stasher_for_${player.name}`
+    })).length != 0;
+  }
+
+  /**
+   * Stashes the player's hotbar in a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar has already been stashed; false otherwise
+   */
   stashHotbar(player: Player) {
     if (this.isHotbarStashed(player)) {
       return true;
@@ -142,19 +146,17 @@ class PlayerHandler {
   }
 
   /**
-    * Restores the player's hotbar from a temporary entity.
-    * @param player The player being affected
-    * @return True if the player's hotbar hasn't been stashed yet; false otherwise
-    */
+   * Restores the player's hotbar from a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar hasn't been stashed yet; false otherwise
+   */
   restoreHotbar(player: Player) {
     let stasher: Entity;
     const stasherName = "wedit:stasher_for_" + player.name;
     Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
     Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
 
-    const query = new EntityQueryOptions();
-    query.name = stasherName;
-    for (const entity of player.dimension.getEntities(query)) {
+    for (const entity of player.dimension.getEntities({ name: stasherName })) {
       stasher = entity;
     }
 

@@ -1,6 +1,6 @@
 import { Server } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { WAND_ITEM } from "@config.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "kit",
@@ -11,7 +11,7 @@ const registerInformation = {
 registerCommand(registerInformation, function (session, builder) {
   const items = [
     // HOTBAR ITEMS
-    WAND_ITEM,
+    config.wandItem,
     "wedit:selection_fill",
     "wedit:pattern_picker",
     "wedit:copy_button",
@@ -32,11 +32,11 @@ registerCommand(registerInformation, function (session, builder) {
   ];
 
   for (const item of items) {
-    if (Server.runCommand(`clear @s ${item} -1 0`, builder).error) {
+    if (Server.player.getItemCount(builder, item).length == 0) {
       Server.runCommand(`give @s ${item}`, builder);
     }
   }
-  session.bindTool("selection_wand", WAND_ITEM);
+  session.bindTool("selection_wand", config.wandItem);
 
   return "commands.wedit:kit.explain";
 });

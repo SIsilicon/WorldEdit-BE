@@ -64,34 +64,34 @@ msgstr "Pemilihan Tepian"
 msgid "item.wedit:draw_line"
 msgstr "Gambar Garis"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "Pengaturan WorldEdit"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "Pengaturan Kuas"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "Pengaturan Alat"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "Kuas Bola"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "Kuas Silinder"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "Kuas Lembut"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "Pilihan Tongkat "
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "Tongkat Pilihan Jauh"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "Tongkat Navigasi"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "Alat Penumpuk"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "Lima"
 msgid "item.wedit:six_button"
 msgstr "Enam"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-
-msgid "item.wedit:cancel_button"
-msgstr "Kembali"
-
-msgid "item.wedit:prev_button"
-msgstr "Sebelumnya"
-
-msgid "item.wedit:next_button"
-msgstr "Selanjutnya"
-
-msgid "item.wedit:delete_button"
-msgstr "Hapus"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Buat Alat Baru"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "Mengandung Udara di Papan Klip: §aDiaktifkan§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Mengandung Udara di Papan Klip: §4Dinonaktifkan§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "Tidak bisa menaruh blok disini."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Kamu perlu menentukan blok untuk menyetel pilihan!"
@@ -160,8 +145,6 @@ msgstr "Ditambahkan blok ke mask: "
 msgid "worldedit.maskPicker.set"
 msgstr "Atur mask ke blok: "
 
-msgid "worldedit.config.editTool"
-msgstr "Pilih item untuk menyetel."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Pegang item untuk diikat."
@@ -171,18 +154,6 @@ msgstr "Pilih kuas untuk membuat."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Pilih alat untuk membuat."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Pilih jangkauan dari alat."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Pilih ukuran kuas."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Pilih ketinggian kuas."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Pilih kehalusan kuasnya."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Buat pola dan mask opsional untuk kuasnya."
@@ -198,45 +169,17 @@ msgstr "Apakah ini Oke?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Apakah kamu yakin untuk mengikat item ini?"
-
-msgid "worldedit.config.affects"
-msgstr "Mempengaruhi: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Menciptakan: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Ukuran: %s"
+msgstr "Ukuran"
 
 msgid "worldedit.config.height"
-msgstr "Tinggi: %s"
+msgstr "Tinggi"
 
 msgid "worldedit.config.smooth"
-msgstr "Kehalusan: %s"
+msgstr "Kehalusan"
 
 msgid "worldedit.config.range"
-msgstr "Jangkauan: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Kuas dikonfigurasi."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Kuas dikonfigurasi dan ditambahkan ke inventorimu."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Konfigurasi kuas dibatalkan."
-
-msgid "worldedit.config.set.tool"
-msgstr "Tool configured."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Tool configured and added to your inventory."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Konfigurasi alat dibatalkan."
-
-msgid "worldedit.config.unbind"
-msgstr "Item unbound."
+msgstr "Jangkauan"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."

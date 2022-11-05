@@ -14,5 +14,9 @@
         "@typescript-eslint/parser": "^5.33.0",
         "eslint": "^8.21.0",
         "typescript": "^4.7.4"
+    },
+    "dependencies": {
+        "@minecraft/server": "^1.1.0-beta.11950b22",
+        "@minecraft/server-ui": "^1.0.0-beta.11950b22"
     }
 }

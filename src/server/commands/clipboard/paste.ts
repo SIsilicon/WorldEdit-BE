@@ -2,7 +2,7 @@ import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -34,6 +34,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   let pasteStart: Vector | BlockLocation;
   if (pasteOriginal) {
+    if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) {
+      throw "commands.wedit:paste.noOriginal";
+    }
     pasteStart = session.clipboardTransform.originalLoc;
   } else {
     const loc = PlayerUtil.getBlockLocation(builder);
@@ -45,18 +48,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
+  const job = (yield Jobs.startJob(session, 1, [pasteStart, pasteEnd])) as number;
   try {
     if (pasteContent) {
       assertCanBuildWithin(builder, pasteStart, pasteEnd);
-      history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+      yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
 
       Jobs.nextStep(job, "Pasting blocks...");
-      if (yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, session.clipboardTransform))) {
-        throw RawText.translate("commands.generic.wedit:commandFail");
-      }
-
-      history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+      yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, session.clipboardTransform));
+      yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
     }
 
     if (setSelection) {

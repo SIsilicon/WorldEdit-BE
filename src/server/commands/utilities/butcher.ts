@@ -1,5 +1,5 @@
-import { RawText } from "@notbeer-api";
-import { EntityQueryOptions } from "mojang-minecraft";
+import { RawText, Vector } from "@notbeer-api";
+import { EntityQueryOptions } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -89,27 +89,28 @@ registerCommand(registerInformation, function (session, builder, args) {
   }
 
   let entityCount = 0;
-  const entityQuery = new EntityQueryOptions();
-  entityQuery.excludeTypes = ["minecraft:player"];
-  entityQuery.location = builder.location;
-  entityQuery.maxDistance = radius;
+  const entityQuery: EntityQueryOptions = {
+    excludeTypes: ["minecraft:player"],
+    location: Vector.from(builder.location).toLocation(),
+    maxDistance: radius
+  };
   for (const entity of dimension.getEntities(entityQuery)) {
     let matches = false;
 
     if (allOff) matches = true;
-    else if (flags.g && entity.id.match(/golem/)) matches = true;
+    else if (flags.g && entity.typeId.match(/golem/)) matches = true;
     else if (flags.t && entity.nameTag) matches = true;
-    else if (flags.r && entity.id == "minecraft:armor_stand") matches = true;
-    else if (flags.n && entity.id.match(/(villager)|(wandering_trader)|(npc)/)) matches = true;
+    else if (flags.r && entity.typeId == "minecraft:armor_stand") matches = true;
+    else if (flags.n && entity.typeId.match(/(villager)|(wandering_trader)|(npc)/)) matches = true;
     else if (flags.p && entity.hasComponent("minecraft:is_tamed")) matches = true;
-    else if (flags.a && animals.includes(entity.id)) matches = true;
-    else if (flags.b && ambientMobs.includes(entity.id)) matches = true;
-    else if (flags.w && waterMobs.includes(entity.id)) matches = true;
+    else if (flags.a && animals.includes(entity.typeId)) matches = true;
+    else if (flags.b && ambientMobs.includes(entity.typeId)) matches = true;
+    else if (flags.w && waterMobs.includes(entity.typeId)) matches = true;
 
     if (matches) {
       try {
         entity.kill();
-        //Server.runCommand('tp ~ -520 ~', entity);
+        //Server.runCommandAsync('tp ~ -520 ~', entity);
         entityCount++;
       // eslint-disable-next-line no-empty
       } catch {}

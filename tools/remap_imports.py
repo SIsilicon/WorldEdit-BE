@@ -13,7 +13,7 @@ with open('tsconfig.json') as file:
     baseurl = tsconfig['compilerOptions']['baseUrl']
     paths = tsconfig['compilerOptions']['paths']
 
-regex = re.compile(r"import\s+{.+}\s+from\s['|\"](.+)['|\"]");
+regex = re.compile(r"import\s+.+\s+from\s['|\"](.+)['|\"]");
 def modify_file(path):
     modified = False
     with open(path, 'r') as file:

@@ -10,6 +10,9 @@
                 "texture": "include_air_off",
                 "frame": "0"
             },
+            "minecraft:display_name": {
+                "value": "item.wedit:include_air_off"
+            },
             "minecraft:max_stack_size": 1,
             "minecraft:on_use": {
                 "on_use": {

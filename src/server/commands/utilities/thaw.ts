@@ -1,7 +1,7 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockRaycastOptions, Location, MinecraftBlockTypes, Vector as MCVector } from "mojang-minecraft";
-import { getWorldMaxY, getWorldMinY } from "../../util.js";
+import { Block, BlockLocation, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
 
@@ -34,10 +34,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const shape = new CylinderShape(height, radius);
   const range = shape.getRegion(origin);
-  range[0].y = Math.max(range[0].y, getWorldMinY(builder));
-  range[1].y = Math.min(range[1].y, getWorldMaxY(builder));
+  const heightLimits = getWorldHeightLimits(dimension);
+  range[0].y = Math.max(range[0].y, heightLimits[0]);
+  range[1].y = Math.min(range[1].y, heightLimits[1]);
 
-  const job = Jobs.startJob(session, 2, range);
+  const job = (yield Jobs.startJob(session, 2, range)) as number;
   const history = session.getHistory();
   const record = history.record();
   try {
@@ -49,10 +50,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const affectedBlockRange: [BlockLocation, BlockLocation] = [null, null];
     const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
-    const rayTraceOptions = new BlockRaycastOptions();
-    rayTraceOptions.includeLiquidBlocks = true;
-    rayTraceOptions.includePassableBlocks = true;
-    rayTraceOptions.maxDistance = height;
+    const rayTraceOptions = {
+      includeLiquidBlocks: true,
+      includePassableBlocks: true,
+      maxDistance: height
+    };
 
     for (let x = range[0].x; x <= range[1].x; x++)
       for (let z = range[0].z; z <= range[1].z; z++) {
@@ -90,15 +92,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
     i = 0;
 
     if (blocks.length) {
-      history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+      yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
       const air = MinecraftBlockTypes.air.createDefaultBlockPermutation();
       const water = MinecraftBlockTypes.water.createDefaultBlockPermutation();
 
       for (const block of blocks) {
-        if (block.id == "minecraft:ice") {
+        if (block.typeId == "minecraft:ice") {
           block.setPermutation(water);
           changed++;
-        } else if (block.id == "minecraft:snow_layer") {
+        } else if (block.typeId == "minecraft:snow_layer") {
           block.setPermutation(air);
           changed++;
         }
@@ -106,7 +108,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }
-      history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+      yield history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
     }
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${changed}`);

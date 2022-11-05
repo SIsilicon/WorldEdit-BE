@@ -1,4 +1,4 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { RawText, Vector, CustomArgType } from "@notbeer-api";
 
 const directions = ["up", "down", "left", "right", "forward", "back", "north", "south", "east", "west", "me"];

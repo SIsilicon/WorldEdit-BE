@@ -1,7 +1,7 @@
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { BlockLocation, Location, Player } from "mojang-minecraft";
+import { BlockLocation, Location, Player } from "@minecraft/server";
 
 const registerInformation = {
   name: "ascend",
@@ -27,9 +27,9 @@ function ascend(builder: Player) {
 
     let invalid = false;
 
-    if (dimension.getBlock(floor).isEmpty) invalid = true;
-    if (!dimension.getBlock(legs).isEmpty) invalid = true;
-    if (!dimension.getBlock(head).isEmpty) invalid = true;
+    if (dimension.getBlock(floor).typeId == "minecraft:air") invalid = true;
+    if (dimension.getBlock(legs).typeId != "minecraft:air") invalid = true;
+    if (dimension.getBlock(head).typeId != "minecraft:air") invalid = true;
 
     if (!invalid) {
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { world } from "mojang-minecraft";
+import { system } from "@minecraft/server";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
@@ -13,7 +13,7 @@ let tickTimeoutID = 0, tickIntervalID = 0;
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickTimeout(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+function setTickTimeout(handler: string | Function, timeout = 1, ...args: unknown[]): number {
   const tickTimeout = { callback: handler, tick: timeout, args };
   tickTimeoutID++;
   tickTimeoutMap.set(tickTimeoutID, tickTimeout);
@@ -27,7 +27,7 @@ function setTickTimeout(handler: string | Function, timeout?: number, ...args: u
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickInterval(handler: string | Function, timeout?: number, ...args: unknown[]): number {
+function setTickInterval(handler: string | Function, timeout = 1, ...args: unknown[]): number {
   const tickInterval = { callback: handler, tick: timeout, args };
   tickIntervalID++;
   tickIntervalMap.set(tickIntervalID, tickInterval);
@@ -51,7 +51,7 @@ function clearTickInterval(handle: number): void {
 }
 
 let totalTick = 0;
-world.events.tick.subscribe(() => {
+system.run(function tick() {
   totalTick++;
   for(const [ID, tickTimeout] of tickTimeoutMap) {
     tickTimeout.tick--;
@@ -63,10 +63,17 @@ world.events.tick.subscribe(() => {
   for(const [, tickInterval] of tickIntervalMap) {
     if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
   }
+  system.run(tick);
 });
 
 function sleep(ticks: number) {
   return new Promise(resolve => setTickTimeout(resolve, ticks));
+}
+
+
+function shutdownTimers() {
+  tickTimeoutMap.clear();
+  tickIntervalMap.clear();
 }
 
 
@@ -104,4 +111,4 @@ function startTime() {
   return timer;
 }
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, sleep, startTime, Timer };
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, Timer };

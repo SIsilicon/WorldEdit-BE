@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const origin = Vector.from(builder.location).floor().sub(size / 2).ceil().toBlock();
 
   const shape = new CuboidShape(size, size, size);
-  const job = Jobs.startJob(session, 2, shape.getRegion(origin));
+  const job = (yield Jobs.startJob(session, 2, shape.getRegion(origin))) as number;
   const sessionMask = session.globalMask;
   try {
     session.globalMask = null;

@@ -1,4 +1,5 @@
-import { Player } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
+import { Server } from "@notbeer-api";
 
 type textElement = {
     text: string
@@ -95,7 +96,11 @@ export class RawText {
   }
 
   print(player: Player) {
-    player.runCommand(`tellraw @s ${this.toString()}`);
+    try {
+      Server.runCommand(`tellraw @s ${this.toString()}`, player);
+    } catch {
+      return;
+    }
   }
 
   printError(player: Player) {

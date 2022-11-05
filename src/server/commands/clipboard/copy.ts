@@ -1,11 +1,11 @@
-import { FAST_MODE } from "@config.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "copy",
@@ -31,7 +31,7 @@ const registerInformation = {
  * @param args The arguments that change how the copying will happen
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string, boolean> {
+export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string | Promise<unknown>, boolean> {
   assertCuboidSelection(session);
   const player = session.getPlayer();
   const dimension = player.dimension;
@@ -46,11 +46,12 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     session.deleteRegion(session.clipboard);
   }
 
-  session.clipboard = session.createRegion(!FAST_MODE);
+  session.clipboard = session.createRegion(!config.performanceMode && !session.performanceMode);
   session.clipboardTransform = {
     rotation: Vector.ZERO,
     flip: Vector.ONE,
     originalLoc: Vector.add(start, end).mul(0.5),
+    originalDim: player.dimension.id,
     relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
   };
 
@@ -62,7 +63,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 
     yield "Copying blocks...";
     const blocks = (loc: BlockLocation) => {
-      const wasAir = dimension.getBlock(loc).id == "minecraft:air";
+      const wasAir = dimension.getBlock(loc).typeId == "minecraft:air";
       const isAir = wasAir || (mask ? !mask.matchesBlock(loc, dimension) : false);
       if (includeAir && mask && !wasAir && isAir) {
         return airBlock;
@@ -78,13 +79,13 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
     const tempUsed = !includeAir || mask;
     const temp = session.createRegion(false);
     if (tempUsed) {
-      temp.save(start, end, dimension);
+      yield temp.save(start, end, dimension);
 
       const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
       const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
 
       for (const block of regionIterateBlocks(start, end)) {
-        const wasAir = dimension.getBlock(block).id == "minecraft:air";
+        const wasAir = dimension.getBlock(block).typeId == "minecraft:air";
         const isAir = wasAir || (mask ? !mask.matchesBlock(block, dimension) : false);
         if (includeAir && mask && !wasAir && isAir) {
           dimension.getBlock(block).setPermutation(airBlock);
@@ -93,7 +94,7 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
         }
       }
     }
-    error = session.clipboard.save(start, end, dimension, {includeEntities});
+    error = (yield session.clipboard.save(start, end, dimension, {includeEntities})) as boolean;
     if (tempUsed) {
       temp.load(start, dimension);
       session.deleteRegion(temp);
@@ -104,7 +105,8 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  const job = Jobs.startJob(session, 1, session.selection.getRange());
+  assertCuboidSelection(session);
+  const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
   try {
     if (yield* Jobs.perform(job, copy(session, args))) {
       throw RawText.translate("commands.generic.wedit:commandFail");
@@ -112,5 +114,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     Jobs.finishJob(job);
   }
-  return RawText.translate("commands.wedit:copy.explain").with(`${session.selection.getBlockCount()}`);
+  return RawText.translate("commands.wedit:copy.explain").with(`${session.clipboard.getBlockCount()}`);
 });

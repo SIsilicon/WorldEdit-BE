@@ -64,34 +64,34 @@ msgstr "테두리 도구"
 msgid "item.wedit:draw_line"
 msgstr "선 그리기 도구"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "WorldEdit 설정"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "브러쉬 설정"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "도구 설정"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "구 브러쉬"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "원기둥 브러쉬"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "다듬기 브러쉬"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "선택 도구"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "선택 도구"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "네비게이션 도구"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "스태커 도구"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "오"
 msgid "item.wedit:six_button"
 msgstr "육"
 
-msgid "item.wedit:confirm_button"
-msgstr "확인"
-
-msgid "item.wedit:cancel_button"
-msgstr "취소"
-
-msgid "item.wedit:prev_button"
-msgstr "이전으로 되돌리기"
-
-msgid "item.wedit:next_button"
-msgstr "다음으로 되돌리기"
-
-msgid "item.wedit:delete_button"
-msgstr "삭제"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "새로운 도구 만들기"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "클립보드에 공기 포함 §a켜짐§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "클립보드에 공기 포함 §4꺼짐§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "여기엔 블럭을 놓을수 없습니다."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -160,8 +145,6 @@ msgstr "마스크를 블록으로 추가: "
 msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
-msgid "worldedit.config.editTool"
-msgstr "선택할 아이템을 고르세요."
 
 msgid "worldedit.config.chooseItem"
 msgstr "들려고 하는 아이템을 들고 있으세요."
@@ -171,18 +154,6 @@ msgstr "어떤 형태의 브러쉬를 만들 것인지 선택하세요."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "도구의 범위를 선택하세요."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "브러쉬의 크기를 선택하세요."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "브러쉬의 높이를 선택하세요."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "브러쉬의 부드럽게 할 정도를 선택합니다."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "브러시에 사용할 패턴과 마스크(옵션) 를 선택하세요."
@@ -199,44 +170,17 @@ msgstr "이것으로 정하시겠습니까?"
 msgid "worldedit.config.confirm.delete"
 msgstr "정말로 이 아이템을 삭제하시겠어요?"
 
-msgid "worldedit.config.affects"
-msgstr "영향: %s"
-
-msgid "worldedit.config.creates"
-msgstr "생성: %s"
-
 msgid "worldedit.config.radius"
-msgstr "크기: %s"
+msgstr "크기"
 
 msgid "worldedit.config.height"
-msgstr "높이: %s"
+msgstr "높이"
 
 msgid "worldedit.config.smooth"
-msgstr "부드러운 정도: %s"
+msgstr "부드러운 정도"
 
 msgid "worldedit.config.range"
-msgstr "범위: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "브러쉬가 구성됨"
-
-msgid "worldedit.config.setGive.brush"
-msgstr "브러쉬 구성과 함께 당신의 인벤토리에 추가하였습니다."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "브러쉬 구성을 취소했습니다."
-
-msgid "worldedit.config.set.tool"
-msgstr "도구가 구성됨"
-
-msgid "worldedit.config.setGive.tool"
-msgstr "도구 구성과 함께 당신의 인벤토리에 추가하였습니다."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "도구 구성을 취소했습니다."
-
-msgid "worldedit.config.unbind"
-msgstr "아이템을 버림."
+msgstr "범위"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."

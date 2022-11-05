@@ -1,38 +1,43 @@
-import { regionBounds, regionVolume, Server, Vector } from "@notbeer-api";
-import { BlockLocation, Player } from "mojang-minecraft";
+import { regionBounds, regionVolume, Vector } from "@notbeer-api";
+import { BlockLocation, MolangVariableMap, Player } from "@minecraft/server";
 import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
 import { CuboidShape } from "../shapes/cuboid.js";
-import { getWorldMaxY, getWorldMinY } from "../util.js";
-import { DRAW_SELECTION } from "@config.js";
+import { arraysEqual, getWorldHeightLimits } from "../util.js";
+import config from "config.js";
 
 // TODO: Add other selection modes
+export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
+export type selectMode = typeof selectionModes[number];
 
-export const selectModes = ["cuboid", "extend", "sphere"] as const;
-export type selectMode = typeof selectModes[number];
+const drawFrequency = 400; // in Milliseconds
 
 export class Selection {
   private _mode: selectMode = "cuboid";
   private _points: BlockLocation[] = [];
-  private _visible: boolean = DRAW_SELECTION;
+  private _visible: boolean = config.drawSelection;
+
+  private modeLastDraw: selectMode = this._mode;
+  private pointsLastDraw: BlockLocation[] = [];
 
   private player: Player;
   private drawPoints: Vector[] = [];
-  private drawTimer = 0;
+  private lastDraw = 0;
 
   constructor(player: Player) {
     this.player = player;
   }
 
   /**
-    * Sets either the first or second selection point of a selection.
-    * @param index The first or second selection point
-    * @param loc The location the selection point is being made
-    */
+   * Sets either the first or second selection point of a selection.
+   * @param index The first or second selection point
+   * @param loc The location the selection point is being made
+   */
   public set(index: 0|1, loc: BlockLocation): void {
     if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
       throw "worldedit.selection.noPrimary";
     }
+
     if (this._points.length <= index) {
       this._points.length = index + 1;
     }
@@ -53,24 +58,23 @@ export class Selection {
       this._points[1] = vec.normalized().mul(radius).add(this._points[0]).toBlock();
     }
 
-
-    const [min, max] = [getWorldMinY(this.player), getWorldMaxY(this.player)];
+    const [min, max] = getWorldHeightLimits(this.player.dimension);
     this._points.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
-    this.updateDrawSelection();
   }
 
   /**
-    * Clears the selection points that have been made.
-    */
+   * Clears the selection points that have been made.
+   */
   public clear() {
-    this._points = [];
-    this.updateDrawSelection();
+    if (this._points.length) {
+      this._points = [];
+    }
   }
 
   /**
-     * Get the shape of the current selection
-     * @returns
-     */
+   * Get the shape of the current selection
+   * @returns
+   */
   public getShape(): [Shape, BlockLocation] {
     if (!this.isValid()) return null;
 
@@ -86,8 +90,8 @@ export class Selection {
   }
 
   /**
-    * @return The blocks within the current selection
-    */
+   * @return The blocks within the current selection
+   */
   public* getBlocks() {
     if (!this.isValid()) return;
 
@@ -96,9 +100,9 @@ export class Selection {
   }
 
   /**
-     * Returns the exact or approximate number of blocks the selection encompasses.
-     * @returns
-     */
+   * Returns the exact or approximate number of blocks the selection encompasses.
+   * @returns
+   */
   public getBlockCount() {
     if (!this.isValid()) return 0;
 
@@ -111,8 +115,8 @@ export class Selection {
   }
 
   /**
-    * @return The minimum and maximum points of the selection
-    */
+   * @return The minimum and maximum points of the selection
+   */
   public getRange(): [BlockLocation, BlockLocation] {
     const [shape, loc] = this.getShape();
     if (shape) {
@@ -135,14 +139,23 @@ export class Selection {
 
   public draw(): void {
     if (!this._visible) return;
-    if (this.drawTimer <= 0) {
-      this.drawTimer = 10;
+    if (Date.now() > this.lastDraw + drawFrequency) {
+      if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
+        this.updatePoints();
+        this.modeLastDraw = this._mode;
+        this.pointsLastDraw = this._points.map(v => v);
+      }
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
-        Server.runCommand(`particle wedit:selection_draw ${point.print()}`, dimension);
+        dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
       }
+      this.lastDraw = Date.now();
     }
-    this.drawTimer--;
+  }
+
+  public forceDraw(): void {
+    this.lastDraw = Date.now() - drawFrequency - 10;
+    this.draw();
   }
 
   public get mode(): selectMode {
@@ -150,13 +163,13 @@ export class Selection {
   }
 
   public set mode(value: selectMode) {
+    if (this._mode == value) return;
+
     const wasCuboid = this.isCuboid();
     this._mode = value;
-
     if (!this.isCuboid || wasCuboid != this.isCuboid()) {
       this.clear();
     }
-    this.updateDrawSelection();
   }
 
   public get points() {
@@ -171,7 +184,7 @@ export class Selection {
     this._visible = value;
   }
 
-  private updateDrawSelection() {
+  private updatePoints() {
     this.drawPoints.length = 0;
     if (!this.isValid()) return;
 
@@ -213,7 +226,7 @@ export class Selection {
       ];
       const loc = this._points[0];
       const radius = Vector.sub(this._points[1], loc).length + 0.5;
-      const resolution = Math.min(radius * 2*Math.PI, 72);
+      const resolution = Math.min(radius * 2*Math.PI, 36);
 
       for (const [rotateBy, vec] of axes) {
         for (let i = 0; i < 1; i += 1 / resolution) {
@@ -223,12 +236,5 @@ export class Selection {
         }
       }
     }
-
-    // A slight offset is made since exact integers snap the particles to the center of blocks.
-    for (const point of this.drawPoints) {
-      point.x += 0.001;
-      point.z += 0.001;
-    }
-    this.drawTimer = 0;
   }
 }

@@ -64,34 +64,34 @@ msgstr "Selección exterior"
 msgid "item.wedit:draw_line"
 msgstr "Dibujar línea"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "Configuración del WorldEdit"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "Ajustes de Pincel"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "Ajustes de herramienta"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "Pincel esférico"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "Pincel cilíndrico"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "Cepillo suave"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "Varita de Selección"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "Varita de selección lejana"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "Varita de navegación"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Acumuladora"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "Cinco"
 msgid "item.wedit:six_button"
 msgstr "Seis"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-
-msgid "item.wedit:cancel_button"
-msgstr "Volver"
-
-msgid "item.wedit:prev_button"
-msgstr "Previo"
-
-msgid "item.wedit:next_button"
-msgstr "Siguiente"
-
-msgid "item.wedit:delete_button"
-msgstr "Borrar"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Crear nueva herramienta"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "Incluye aire en el portapapeles: §aActivado§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Incluye aire en el portapapeles: §4Desactivado§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "No puedes colocar un bloque aquí."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "¡Necesitas especificar un bloque para establecer la selección!"
@@ -160,8 +145,6 @@ msgstr "Bloque añadido a la máscara: "
 msgid "worldedit.maskPicker.set"
 msgstr "Establecer máscara a bloquear: "
 
-msgid "worldedit.config.editTool"
-msgstr "Elija un elemento a configurar."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantén un elemento al que enlazar."
@@ -171,18 +154,6 @@ msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Elige que tipo de pincel quieres crear."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Elija el rango de la herramienta."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Elegir el tamaño del pincel"
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Elegir el tamaño del pincel."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Elige la suavidad del pincel."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Haz un patrón y una máscara opcional para el pincel."
@@ -198,46 +169,17 @@ msgstr "¿Esto es correcto?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea borrar este elemento?"
-
-msgid "worldedit.config.affects"
-msgstr "Afecta: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Crear: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Tamaño: %s"
+msgstr "Tamaño"
 
 msgid "worldedit.config.height"
-msgstr "Altura: %s"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Suavidad: %s"
+msgstr "Suavidad"
 
 msgid "worldedit.config.range"
-msgstr "Rango: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Pincel configurado."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Pincel configurado y añadido a tu inventario."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Configuración del pincel cancelada."
-
-msgid "worldedit.config.set.tool"
-msgstr "Herramienta configurada."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Herramienta configurada y añadida a tu inventario."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Configuración de la herramienta cancelada."
-
-msgid "worldedit.config.unbind"
-msgstr "Objeto desvinculado."
-
+msgstr "Rango"
 msgid "worldedit.selection.noPrimary"
 msgstr "La primera selección aún no se ha hecho."
 

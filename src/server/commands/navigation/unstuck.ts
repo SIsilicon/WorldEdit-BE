@@ -1,7 +1,5 @@
-import { Server } from "@notbeer-api";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
-import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -15,13 +13,14 @@ registerCommand(registerInformation, function (session, builder) {
   const blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
   do {
-    if (dimension.isEmpty(blockLoc) && dimension.isEmpty(blockLoc.offset(0, 1, 0))) {
+    if (dimension.getBlock(blockLoc).typeId == "minecraft:air" &&
+        dimension.getBlock(blockLoc.offset(0, 1, 0)).typeId == "minecraft:air") {
       break;
     }
   }
   // eslint-disable-next-line no-cond-assign
   while (blockLoc.y += 1);
 
-  Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
+  builder.teleport(blockLoc, dimension, builder.rotation.x, builder.rotation.y);
   return RawText.translate("commands.wedit:unstuck.explain");
 });

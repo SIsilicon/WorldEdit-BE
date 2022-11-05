@@ -64,34 +64,34 @@ msgstr "填充选区表面"
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "创世神设置"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "笔刷设置"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "工具设置"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "球形笔刷"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "圆柱形笔刷"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "平滑笔刷"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "选择器"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "远程选择器"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "传送器"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "堆叠器"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "五"
 msgid "item.wedit:six_button"
 msgstr "六"
 
-msgid "item.wedit:confirm_button"
-msgstr "确定"
-
-msgid "item.wedit:cancel_button"
-msgstr "返回"
-
-msgid "item.wedit:prev_button"
-msgstr "上一页"
-
-msgid "item.wedit:next_button"
-msgstr "下一页"
-
-msgid "item.wedit:delete_button"
-msgstr "删除"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "新建工具"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "在剪贴板中包含空气：§a启用§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "在剪贴板中包含空气：§4禁用§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "不能在此处放置方块"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "您需要指定一个方块来设置选区！"
@@ -160,8 +145,6 @@ msgstr "已添加的取代方块： "
 msgid "worldedit.maskPicker.set"
 msgstr "将取代方块设为： "
 
-msgid "worldedit.config.editTool"
-msgstr "选择一个物品进行设置"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -171,18 +154,6 @@ msgstr "选择要制作的笔刷类型。"
 
 msgid "worldedit.config.choose.tool"
 msgstr "选择用于制作的工具类型"
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "选择工具的范围"
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "选择笔刷的尺寸。"
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "选择笔刷的高度。"
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "选择笔刷的平滑度。"
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "设定笔刷的填充方块和取代方块"
@@ -198,46 +169,17 @@ msgstr "确定设置成这样吗？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "你确定要解除该物品的绑定吗？"
-
-msgid "worldedit.config.affects"
-msgstr "被取代的方块：%s"
-
-msgid "worldedit.config.creates"
-msgstr "用于填充的方块：%s"
-
 msgid "worldedit.config.radius"
-msgstr "尺寸：%s"
+msgstr "尺寸"
 
 msgid "worldedit.config.height"
-msgstr "高度:%s"
+msgstr "高度"
 
 msgid "worldedit.config.smooth"
-msgstr "平滑度： %s"
+msgstr "平滑度"
 
 msgid "worldedit.config.range"
-msgstr "范围:%s"
-
-msgid "worldedit.config.set.brush"
-msgstr "笔刷已设定。"
-
-msgid "worldedit.config.setGive.brush"
-msgstr "设定好的笔刷已加入您的物品栏。"
-
-msgid "worldedit.config.cancel.brush"
-msgstr "笔刷配置已被取消"
-
-msgid "worldedit.config.set.tool"
-msgstr "工具已设定。"
-
-msgid "worldedit.config.setGive.tool"
-msgstr "设定好的工具已加入您的物品栏。"
-
-msgid "worldedit.config.cancel.tool"
-msgstr "工具的设置已被取消。"
-
-msgid "worldedit.config.unbind"
-msgstr "物品已被解除绑定。"
-
+msgstr "范围"
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
 

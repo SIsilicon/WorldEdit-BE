@@ -1,10 +1,9 @@
-import { commandSyntaxError, contentLog } from "@notbeer-api";
-import { MinecraftBlockTypes } from "mojang-minecraft";
+import { commandSyntaxError, contentLog, RawText, Server } from "@notbeer-api";
+import { BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {
     id: string,
-    data: number,
     states: Map<string, string|number|boolean>
 }
 
@@ -21,7 +20,7 @@ const lexer = new Tokenizr();
   /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
-  lexer.rule(/[~#%^=*+-/|:!&,]/, (ctx) => {
+  lexer.rule(/[~#%^=*+-/|:!&,@]/, (ctx) => {
     ctx.accept("misc");
   });
   lexer.rule(/\s+/, (ctx) => {
@@ -107,7 +106,6 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
   let typeToken = tokens.curr();
   const block: parsedBlock = {
     id: tokens.curr().value,
-    data: -1,
     states: null
   };
   let token: Token;
@@ -117,8 +115,25 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
       block.id = "minecraft:" + block.id;
     }
     // TODO: Test against custom blocks
-    if (!MinecraftBlockTypes.get(block.id)) {
+    const blockPerm = MinecraftBlockTypes.get(block.id)?.createDefaultBlockPermutation();
+    if (!blockPerm) {
       throwTokenError(typeToken);
+    }
+    if (blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
+      if (!block.states) {
+        block.states = new Map();
+      }
+      block.states.set("persistent_bit", true);
+    }
+    for (const [state, val] of block.states?.entries() ?? []) {
+      const property = blockPerm.getProperty(state) as IntBlockProperty | BoolBlockProperty | StringBlockProperty;
+      if (!property) {
+        throw RawText.translate("commands.blockstate.stateError").with(state).with(block.id);
+      } else if (typeof val != typeof property.value) {
+        throw RawText.translate("commands.blockstate.typeError").with(state);
+      } else if (!property.validValues.includes(val as never)) {
+        throw RawText.translate("commands.blockstate.valueError").with(state);
+      }
     }
     return typeOnly ? block.id : block;
   }
@@ -131,7 +146,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
         token = tokens.next();
         const peek = tokens.peek();
         if (peek.type == "id") {
-          if (block.id.includes(":") || block.data != -1) throwTokenError(peek);
+          if (block.id.includes(":") || block.states) throwTokenError(peek);
           block.id += ":" + peek.value;
           token = tokens.next();
           typeToken = mergeTokens(typeToken, token, input);
@@ -140,9 +155,9 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
         } else if (peek.type == "number") {
           if (typeOnly)
             return finish();
-          if (block.data != -1)
+          if (block.states)
             throwTokenError(peek);
-          block.data = peek.value;
+          block.states = new Map(Object.entries(Server.block.dataValueToStates(block.id, peek.value)));
           token = tokens.next();
           return finish();
         } else {
@@ -225,6 +240,36 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
       throwTokenError(token);
     }
   }
+}
+
+export function parseNumberList(tokens: Tokens, length: number): number[] {
+  const array: number[] = [];
+  let token: Token;
+  let lastNumber: Token;
+  // eslint-disable-next-line no-cond-assign
+  while (token = tokens.next()) {
+    if (token.type == "number") {
+      if (lastNumber) {
+        throwTokenError(token);
+      }
+      lastNumber = token;
+    } else if (token.value == ",") {
+      if (!lastNumber || array.length == length - 1) {
+        throwTokenError(token);
+      }
+      array.push(lastNumber.value);
+      lastNumber = null;
+    } else if (token.value == "]") {
+      if (!lastNumber || array.length != length - 1) {
+        throwTokenError(token);
+      }
+      array.push(lastNumber.value);
+      break;
+    } else {
+      throwTokenError(token);
+    }
+  }
+  return array;
 }
 
 class Tokens {

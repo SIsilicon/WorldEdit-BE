@@ -1,4 +1,4 @@
-import { Entity } from "mojang-minecraft";
+import { Entity } from "@minecraft/server";
 
 export interface getEntityAtPosReturn {
     list: Array<Entity> | null,

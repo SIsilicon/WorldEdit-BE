@@ -15,8 +15,10 @@ import {
   PistonActivateEvent,
   WeatherChangeEvent,
   Player,
-  Dimension
-} from "mojang-minecraft";
+  Dimension,
+  BlockBreakEvent,
+  WorldInitializeEvent
+} from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
 export interface EventList {
@@ -27,6 +29,7 @@ export interface EventList {
     messageCreate: [ChatEvent],
     BeforeItemUse: [BeforeItemUseEvent],
     BeforeItemUseOn: [BeforeItemUseOnEvent],
+    blockBreak: [BlockBreakEvent],
     tick: [TickEvent],
     entityEffected: [EffectAddEvent],
     entityCreate: [EntityCreateEvent],
@@ -37,7 +40,8 @@ export interface EventList {
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
     customCommand: [customCommand],
-    playerChangeDimension: [playerChangeDimension]
+    playerChangeDimension: [playerChangeDimension],
+    worldInitialize: [WorldInitializeEvent]
 }
 interface ready {
     readonly loadTime: number

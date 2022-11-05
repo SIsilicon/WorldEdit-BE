@@ -2,9 +2,9 @@ import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Server, Vector } from "@notbeer-api";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
-import { getWorldMinY, getWorldMaxY } from "../util.js";
+import { getWorldHeightLimits } from "../util.js";
 
 export type shapeGenOptions = {
     hollow?: boolean,
@@ -83,14 +83,14 @@ export abstract class Shape {
     * @param session The session that's using this shape
     * @param options A group of options that can change how the shape is generated
     */
-    public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string, number> {
+    public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string | Promise<unknown>, number> {
       const [min, max] = this.getRegion(loc);
       const player = session.getPlayer();
       const dimension = player.dimension;
+      pattern.playerSession = session;
 
-      const minY = getWorldMinY(player);
+      const [minY, maxY] = getWorldHeightLimits(dimension);
       min.y = Math.max(minY, min.y);
-      const maxY = getWorldMaxY(player);
       max.y = Math.min(maxY, max.y);
       const canGenerate = max.y >= min.y;
 
@@ -110,7 +110,9 @@ export abstract class Shape {
           let activeMask = mask;
           activeMask = !activeMask ? session.globalMask : (session.globalMask ? mask.intersect(session.globalMask) : activeMask);
           const patternInCommand = pattern.getPatternInCommand();
-          if (this.genVars.isSolidCuboid && patternInCommand && (!activeMask || activeMask.empty())) {
+          // Temporarily disabled until API for mass blocks setting is available
+          // eslint-disable-next-line no-constant-condition
+          if (false && this.genVars.isSolidCuboid && patternInCommand && (!activeMask || activeMask.empty())) {
             contentLog.debug("Using /fill command(s).");
             const size = Vector.sub(max, min).add(1);
             const fillMax = 32;
@@ -151,7 +153,7 @@ export abstract class Shape {
 
             progress = 0;
             yield "Generating blocks...";
-            history?.addUndoStructure(record, min, max, blocksAffected);
+            yield history?.addUndoStructure(record, min, max, blocksAffected);
             for (const block of blocksAffected) {
               if (pattern.setBlock(block, dimension)) {
                 count++;
@@ -159,7 +161,7 @@ export abstract class Shape {
               if (iterateChunk()) yield progress / blocksAffected.length;
               progress++;
             }
-            history?.addRedoStructure(record, min, max, blocksAffected);
+            yield history?.addRedoStructure(record, min, max, blocksAffected);
           }
         }
 

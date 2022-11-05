@@ -1,7 +1,7 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { RawText } from "@notbeer-api";
-import { BlockPermutation, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "mojang-minecraft";
+import { BlockPermutation, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -42,7 +42,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       total = session.clipboard.getBlockCount();
       const clipboard = session.clipboard;
 
-      job = Jobs.startJob(session, 1, null);
+      job = (yield Jobs.startJob(session, 1, null)) as number;
       Jobs.nextStep(job, "Analysing blocks...");
 
       for (const block of clipboard.getBlocks()) {
@@ -54,7 +54,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       total = session.selection.getBlockCount();
       const dimension = builder.dimension;
 
-      job = Jobs.startJob(session, 1, session.selection.getRange());
+      job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
       Jobs.nextStep(job, "Analysing blocks...");
 
       for (const loc of session.selection.getBlocks()) {

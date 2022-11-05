@@ -1,8 +1,8 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, BlockBreakEvent, EntityInventoryComponent } from "mojang-minecraft";
-import { Server } from "@notbeer-api";
+import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "@minecraft/server";
+import { contentLog, Server, sleep, Thread } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
-import { getSession } from "../sessions.js";
-import { ENABLE_BLOCK_BREAK } from "@config.js";
+import { getSession, hasSession } from "../sessions.js";
+import config from "config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -19,28 +19,48 @@ class ToolBuilder {
 
   constructor() {
     Server.on("beforeItemUse", ev => {
-      if (ev.source.id != "minecraft:player" || !ev.item) {
+      if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
       this.onItemUse(ev.item, ev.source as Player, ev);
     });
     Server.on("beforeItemUseOn", ev => {
-      if (ev.source.id != "minecraft:player" || !ev.item) {
+      if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
       this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
     });
-    if (ENABLE_BLOCK_BREAK) {
-      Server.on("blockBreak", ev => {
-        if (ev.player.id != "minecraft:player") {
-          return;
-        }
-        this.onBlockBreak(ev.item, ev.player, ev, ev.block.location);
-      });
-    }
+
     Server.on("tick", ev => {
       this.currentTick = ev.currentTick;
     });
+
+    new Thread().start(function* (self: ToolBuilder) {
+      while (true) {
+        for (const player of world.getPlayers()) {
+          try {
+            const item = Server.player.getHeldItem(player);
+            if (!item) {
+              return;
+            }
+            yield* self.onItemTick(item, player, self.currentTick);
+          } catch (err) {
+            contentLog.error(err);
+          }
+        }
+        yield sleep(1);
+      }
+    }, this);
+
+    if (config.useBlockBreaking) {
+      Server.on("blockBreak", ev => {
+        const item = Server.player.getHeldItem(ev.player);
+        if (!item) {
+          return;
+        }
+        this.onBlockBreak(item, ev.player, ev);
+      });
+    }
   }
 
   register(toolClass: toolConstruct, name: string, item?: string) {
@@ -89,6 +109,15 @@ class ToolBuilder {
     }
   }
 
+  getBindingType(itemId: string, itemData: number, player: Player) {
+    if (itemId) {
+      const tool = this.bindings.get(player.name)?.get(`${itemId}/${itemData}`) || this.fixedBindings.get(itemId + "/0");
+      return tool?.type ?? "";
+    } else {
+      return "";
+    }
+  }
+
   getBoundItems(player: Player, type?: RegExp|string) {
     const tools = this.bindings.get(player.name);
     return tools ? Array.from(tools.entries())
@@ -106,6 +135,16 @@ class ToolBuilder {
       }
     }
     return false;
+  }
+
+  getProperty<T>(itemId: string, itemData: number, player: Player, prop: string) {
+    if (itemId) {
+      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
+      if (tool && prop in tool) {
+        return tool[prop] as T;
+      }
+    }
+    return null as T;
   }
 
   hasProperty(itemId: string, itemData: number, player: Player, prop: string) {
@@ -126,12 +165,31 @@ class ToolBuilder {
     }
   }
 
-  private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: BlockLocation) {
-    if (this.disabled.includes(player.name)) {
+  private *onItemTick(item: ItemStack, player: Player, tick: number) {
+    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
       return;
     }
 
-    const key = `${item.id}/${item.data}`;
+    const key = `${item.typeId}/${item.data}`;
+    let tool: Tool;
+    if (this.bindings.get(player.name)?.has(key)) {
+      tool = this.bindings.get(player.name).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else {
+      return;
+    }
+
+    const gen = tool.tick?.(tool, player, getSession(player), tick);
+    if (gen) yield* gen;
+  }
+
+  private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: BlockLocation) {
+    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
+      return;
+    }
+
+    const key = `${item.typeId}/${item.data}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);
@@ -145,7 +203,7 @@ class ToolBuilder {
     ev.cancel = true;
   }
 
-  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakEvent, loc?: BlockLocation) {
+  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakEvent) {
     if (this.disabled.includes(player.name)) {
       return;
     }
@@ -154,7 +212,7 @@ class ToolBuilder {
     if (comp.container.getItem(player.selectedSlot) == null) return;
     item = comp.container.getItem(player.selectedSlot);
 
-    const key = `${item.id}/${item.data}`;
+    const key = `${item.typeId}/${item.data}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);
@@ -164,8 +222,10 @@ class ToolBuilder {
       return;
     }
 
-    player.dimension.getBlock(loc).setPermutation(ev.brokenBlockPermutation);
-    tool.process(getSession(player), this.currentTick, loc, ev.brokenBlockPermutation);
+    const processed = tool.process(getSession(player), this.currentTick, ev.block.location, ev.brokenBlockPermutation);
+    if (processed) {
+      player.dimension.getBlock(ev.block.location).setPermutation(ev.brokenBlockPermutation);
+    }
   }
 
   private createPlayerBindingMap(player: Player) {

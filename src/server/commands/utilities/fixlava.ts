@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { fluidLookPositions, lavaMatch } from "./drain.js";
@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   for (const offset of fluidLookPositions) {
     const loc = playerBlock.offset(offset.x, offset.y, offset.z);
     const block = dimension.getBlock(loc);
-    if (block.id.match(lavaMatch)) {
+    if (block.typeId.match(lavaMatch)) {
       fixlavaStart = loc;
       break;
     }
@@ -37,11 +37,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
     throw "commands.wedit:fixlava.noLava";
   }
 
-  const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixlavaStart));
+  const job = (yield Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixlavaStart))) as number;
   Jobs.nextStep(job, "Calculating and Fixing lava...");
   const blocks = yield* floodFill(fixlavaStart, args.get("radius"), dimension, (ctx, dir) => {
     const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
-    if (!block.id.match(lavaMatch)) return false;
+    if (!block.typeId.match(lavaMatch)) return false;
     return true;
   });
 
@@ -52,7 +52,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const record = history.record();
     const lava = MinecraftBlockTypes.lava.createDefaultBlockPermutation();
     try {
-      history.addUndoStructure(record, min, max, blocks);
+      yield history.addUndoStructure(record, min, max, blocks);
       let i = 0;
       for (const loc of blocks) {
         const block = dimension.getBlock(loc);
@@ -60,7 +60,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }
-      history.addRedoStructure(record, min, max, blocks);
+      yield history.addRedoStructure(record, min, max, blocks);
       history.commit(record);
     } catch (err) {
       history.cancel(record);

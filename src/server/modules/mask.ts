@@ -1,5 +1,5 @@
-import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from "mojang-minecraft";
-import { CustomArgType, commandSyntaxError, contentLog } from "@notbeer-api";
+import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from "@minecraft/server";
+import { CustomArgType, commandSyntaxError } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock } from "./parser.js";
 
@@ -50,7 +50,6 @@ export class Mask implements CustomArgType {
 
     this.condition.nodes.push(new BlockMask(null, {
       id: block.type.id,
-      data: -1,
       states: states
     }));
     this.stringObj = "(picked)";
@@ -97,10 +96,17 @@ export class Mask implements CustomArgType {
     return text;
   }
 
+  getSource() {
+    return this.stringObj;
+  }
+
   private compile() {
-    contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
+    // contentLog.debug("compiling", this.stringObj, "to", this.condition?.compile());
     if (this.condition) {
-      this.compiledFunc = new Function("ctx", "loc", "dim", this.condition.compile()) as typeof this.compiledFunc;
+      this.compiledFunc = new Function("ctx", "loc", "dim",
+        "let isEmpty = (loc) => dim.getBlock(loc).typeId == 'minecraft:air';" +
+        this.condition.compile()
+      ) as typeof this.compiledFunc;
     }
   }
 
@@ -240,6 +246,7 @@ export class Mask implements CustomArgType {
     const mask = new Mask();
     mask.condition = original.condition;
     mask.stringObj = original.stringObj;
+    mask.compile();
     return mask;
   }
 
@@ -270,19 +277,15 @@ class BlockMask extends MaskNode {
   }
 
   compile() {
-    if (this.block.data != -1) {
-      return `try { dim.runCommand(\`testforblock \${loc.x} \${loc.y} \${loc.z} ${this.block.id} ${this.block.data}\`); return true } catch { return false }`;
-    } else {
-      let result = "let block = dim.getBlock(loc).permutation;";
-      result += `\nif (block.type.id != '${this.block.id}') return false;`;
-      if (this.block.states) {
-        for (const [state, val] of this.block.states.entries()) {
-          result += `\nif (block.getProperty('${state}').value != ${typeof val == "string" ? `'${val}'` : val}) return false;`;
-        }
+    let result = "let block = dim.getBlock(loc).permutation;";
+    result += `\nif (block.type.id != '${this.block.id}') return false;`;
+    if (this.block.states) {
+      for (const [state, val] of this.block.states.entries()) {
+        result += `\nif (block.getProperty('${state}').value != ${typeof val == "string" ? `'${val}'` : val}) return false;`;
       }
-      result += "\nreturn true;";
-      return result;
     }
+    result += "\nreturn true;";
+    return result;
   }
 }
 
@@ -313,10 +316,11 @@ class SurfaceMask extends MaskNode {
   readonly opCount = 0;
 
   compile() {
-    return `return !dim.isEmpty(loc) && (
-dim.isEmpty(loc.offset(0, 1, 0)) || dim.isEmpty(loc.offset(0, -1, 0)) ||
-dim.isEmpty(loc.offset(-1, 0, 0)) || dim.isEmpty(loc.offset(1, 0, 0)) ||
-dim.isEmpty(loc.offset(0, 0, -1)) || dim.isEmpty(loc.offset(0, 0, 1)));`;
+    return `
+    return !isEmpty(loc) && (
+isEmpty(loc.offset(0, 1, 0)) || isEmpty(loc.offset(0, -1, 0)) ||
+isEmpty(loc.offset(-1, 0, 0)) || isEmpty(loc.offset(1, 0, 0)) ||
+isEmpty(loc.offset(0, 0, -1)) || isEmpty(loc.offset(0, 0, 1)));`;
   }
 }
 
@@ -325,7 +329,7 @@ class ExistingMask extends MaskNode {
   readonly opCount = 0;
 
   compile() {
-    return "return !dim.isEmpty(loc);";
+    return "return !isEmpty(loc);";
   }
 }
 

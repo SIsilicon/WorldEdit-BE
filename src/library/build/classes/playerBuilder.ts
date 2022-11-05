@@ -1,6 +1,6 @@
-import * as Minecraft from "mojang-minecraft";
-import { Server } from "./serverBuilder.js";
+import * as Minecraft from "@minecraft/server";
 import { getItemCountReturn } from "../../@types/build/classes/PlayerBuilder.js";
+import { Server } from "./serverBuilder.js";
 
 type Player = Minecraft.Player;
 
@@ -39,11 +39,11 @@ export class PlayerBuilder {
     return included;
   }
   /**
-    * Look if player is in the game
-    * @param {string} player Player you are looking for
-    * @returns {boolean}
-    * @example PlayerBuilder.find('notbeer');
-    */
+   * Look if player is in the game
+   * @param {string} player Player you are looking for
+   * @returns {boolean}
+   * @example PlayerBuilder.find('notbeer');
+   */
   find(player: string): boolean {
     const players = this.list();
     return !!players.find(p => {
@@ -51,52 +51,114 @@ export class PlayerBuilder {
     });
   }
   /**
-    * Get list of players in game
-    * @returns {Array<string>}
-    * @example PlayerBuilder.list();
-    */
+   * Get list of players in game
+   * @returns {Array<string>}
+   * @example PlayerBuilder.list();
+   */
   list(): Array<Player> {
     return Array.from(Minecraft.world.getPlayers()) as Array<Player>;
   }
   /**
-    * Get the amount on a specific items player(s) has
-    * @param {Player} [player] Player you are searching
-    * @param {string} itemIdentifier Item you are looking for
-    * @param {number} [itemData] Item data you are looking for
-    * @returns {Array<getItemCountReturn>}
-    */
+   * Get the player's inventory container
+   * @param {Player} [player] Player of interest
+   * @returns {InventoryComponentContainer}
+   */
+  getInventory(player: Player) {
+    return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container;
+  }
+  /**
+   * Get the amount on a specific items player(s) has
+   * @param {Player} [player] Player you are searching
+   * @param {string} itemIdentifier Item you are looking for
+   * @param {number} [itemData] Item data you are looking for
+   * @returns {Array<getItemCountReturn>}
+   */
   getItemCount(player: Player, itemIdentifier: string, itemData?: number): Array<getItemCountReturn> {
     const itemCount: Array<getItemCountReturn> = [];
-    const data = Server.runCommand(`clear @s ${itemIdentifier} ${itemData ? itemData : "0"} 0`, player);
-    if(data.error) return itemCount;
-    data.playerTest.forEach(element => {
-      const count = parseInt(element.match(/(?<=.*?\().+?(?=\))/)[0]);
-      const player = element.match(/^.*(?= \(\d+\))/)[0];
-      itemCount.push({ player, count });
-    });
-    return itemCount ? itemCount : [];
+    const inventory = this.getInventory(player);
+    for (let slot = 0; slot < inventory.size; slot++) {
+      const item = inventory.getItem(slot);
+      if (item?.typeId == itemIdentifier && (itemData == undefined || item?.data == itemData)) {
+        itemCount.push({ count: item.amount, slot });
+      }
+    }
+    return itemCount;
   }
   /**
-     * Get the current item in the player's main hand
-     * @param {Player} [player] Player you are searching
-     * @returns {?ItemStack}
-     */
-  getHeldItem(player: Player) {
-    return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container.getItem(player.selectedSlot);
-  }
-  /**
-    * Get players score on a specific objective
-    * @param {Player} player Requirements for the entity
-    * @param {string} objective Objective name you want to search
-    * @param {number} [minimum] Minumum score you are looking for
-    * @param {number} [maximum] Maximum score you are looking for
-    * @returns {number}
-    * @example PlayerBuilder.getScore('Money', 'notbeer', { minimum: 0 });
+    * Get the current item in the player's main hand
+    * @param {Player} [player] Player you are searching
+    * @returns {?ItemStack}
     */
-  getScore(player: Player, objective: string, { minimum, maximum }: { minimum?: number, maximum?: number } = {}): number {
-    const data = Server.runCommand(`scoreboard players test @s ${objective} ${minimum ? minimum : "*"} ${maximum ? maximum : "*"}`, player);
-    if(data.error) return;
-    return parseInt(data.statusMessage.match(/-?\d+/)[0]);
+  getHeldItem(player: Player) {
+    return this.getInventory(player).getItem(player.selectedSlot);
+  }
+
+  /**
+   * Tells you whether the player's hotbar has been stashed in a temporary place.
+   * @param player The player being queried
+   * @return Whether the player's hotbar has been stashed
+   */
+  isHotbarStashed(player: Player) {
+    return Array.from(player.dimension.getEntities({
+      name: `wedit:stasher_for_${player.name}`
+    })).length != 0;
+  }
+
+  /**
+   * Stashes the player's hotbar in a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar has already been stashed; false otherwise
+   */
+  stashHotbar(player: Player) {
+    if (this.isHotbarStashed(player)) {
+      return true;
+    }
+
+    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Minecraft.BlockLocation(player.location.x, 512, player.location.z));
+    stasher.nameTag = "wedit:stasher_for_" + player.name;
+
+    const inv = (<Minecraft.EntityInventoryComponent> player.getComponent("inventory")).container;
+    const inv_stash = (<Minecraft.EntityInventoryComponent> stasher.getComponent("inventory")).container;
+    for (let i = 0; i < 9; i++) {
+      inv.transferItem(i, i, inv_stash);
+    }
+    return false;
+  }
+
+  /**
+   * Restores the player's hotbar from a temporary entity.
+   * @param player The player being affected
+   * @return True if the player's hotbar hasn't been stashed yet; false otherwise
+   */
+  restoreHotbar(player: Player) {
+    let stasher: Minecraft.Entity;
+    const stasherName = "wedit:stasher_for_" + player.name;
+    Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+    Server.runCommand(`tp @e[name="${stasherName}"] ~ 512 ~`, player);
+
+    for (const entity of player.dimension.getEntities({ name: stasherName })) {
+      stasher = entity;
+    }
+
+    if (stasher) {
+      const inv = (<Minecraft.EntityInventoryComponent> player.getComponent("inventory")).container;
+      const inv_stash = (<Minecraft.EntityInventoryComponent> stasher.getComponent("inventory")).container;
+      for (let i = 0; i < 9; i++) {
+        if (inv.getItem(i) && inv_stash.getItem(i)) {
+          inv.swapItems(i, i, inv_stash);
+        } else if (inv.getItem(i)) {
+          inv.transferItem(i, i, inv_stash);
+        } else {
+          inv_stash.transferItem(i, i, inv);
+        }
+      }
+      Server.runCommand(`tp @e[name="${stasherName}"] ~ ~ ~`, player);
+      stasher.triggerEvent("wedit:despawn");
+      stasher.nameTag = "despawned";
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 export const Player = new PlayerBuilder();

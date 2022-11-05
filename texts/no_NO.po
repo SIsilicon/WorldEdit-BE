@@ -64,34 +64,34 @@ msgstr "Omriss valg"
 msgid "item.wedit:draw_line"
 msgstr "Tegn linje"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "WorldEdit innstillinger"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "Børste-innstillinger"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "Verktøy innstillinger"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "Kulepensel"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "Sylinderpensel"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "Jevnbørste"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "Utvalgstav"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "Fjern utvalgstav"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "Navigeringsstav"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "Stable-verktøy"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "Fem"
 msgid "item.wedit:six_button"
 msgstr "Seks"
 
-msgid "item.wedit:confirm_button"
-msgstr "Ok"
-
-msgid "item.wedit:cancel_button"
-msgstr "Tilbake"
-
-msgid "item.wedit:prev_button"
-msgstr "Forrige"
-
-msgid "item.wedit:next_button"
-msgstr "Neste"
-
-msgid "item.wedit:delete_button"
-msgstr "Slett"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Lag nytt verktøy"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "Inkluder luft i utklippstavlen: §aAktivert§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Inkluder luft i utklippstavlen: §4Deaktivert§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "Kan ikke plassere blokken her."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -160,8 +145,6 @@ msgstr "La til blokk til masken: "
 msgid "worldedit.maskPicker.set"
 msgstr "Sett maske til blokk: "
 
-msgid "worldedit.config.editTool"
-msgstr "Velg en gjenstand å konfigurere."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
@@ -171,18 +154,6 @@ msgstr "Velg hva slags pensel som skal lages."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Velg rekkevidden til verktøyet."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Velg størrelsen av penselet."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Velg høyden til penselet."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Velg glattheten på penselet."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
@@ -198,46 +169,17 @@ msgstr "Er dette ok?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
-
-msgid "worldedit.config.affects"
-msgstr "Påvirker: %s"
-
-msgid "worldedit.config.creates"
-msgstr "Opretter: %s"
-
 msgid "worldedit.config.radius"
-msgstr "Størrelse: %s"
+msgstr "Størrelse"
 
 msgid "worldedit.config.height"
-msgstr "Høyde: %s"
+msgstr "Høyde"
 
 msgid "worldedit.config.smooth"
-msgstr "Glatthey: %s"
+msgstr "Glatthey"
 
 msgid "worldedit.config.range"
-msgstr "Rekkevidde: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Pensel konfigurert."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Pensel konfigurert og lagt til inventaret ditt."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Avbrutt pensel-konfigurering."
-
-msgid "worldedit.config.set.tool"
-msgstr "Verktøy konfigurert."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Verktøy konfigurert og lagt til inventaret ditt."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Avbrutt verktøy-konfigurering."
-
-msgid "worldedit.config.unbind"
-msgstr "Fjernet binding fra gjenstanden."
-
+msgstr "Rekkevidde"
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
 
@@ -899,8 +841,7 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
-"Bekreft instillingene og lukk menyen."
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster. Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."

@@ -1,4 +1,4 @@
-import { BlockLocation, Location } from "mojang-minecraft";
+import { BlockLocation, Location } from "@minecraft/server";
 
 type anyVec = {
   x: number,

@@ -10,6 +10,9 @@
                 "texture": "blank",
                 "frame": "0"
             },
+            "minecraft:display_name": {
+                "value": " "
+            },
             "minecraft:max_stack_size": 1
         }
     }

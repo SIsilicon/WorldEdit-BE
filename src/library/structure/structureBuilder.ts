@@ -1,20 +1,29 @@
 /* eslint-disable no-empty */
 import { regionSize, regionTransformedBounds, Vector } from "../utils/index.js";
-import { BlockLocation, Dimension, world } from "mojang-minecraft";
+import { BlockLocation, Dimension, world } from "@minecraft/server";
+import { Server } from "@notbeer-api";
+
+interface SubStructure {
+  name: string,
+  start: Vector,
+  end: Vector
+}
 
 interface StructureMeta {
-    subRegions?: [string, Vector, Vector][]; // name suffix, offset, end
-    size: Vector;
+  subRegions?: SubStructure[],
+  size: Vector
 }
 
 export interface StructureSaveOptions {
-    includeEntities?: boolean,
-    includeBlocks?: boolean
+  includeEntities?: boolean,
+  includeBlocks?: boolean,
+  saveToDisk?: boolean
 }
 
 export interface StructureLoadOptions {
-    rotation?: number,
-    flip?: "none"|"x"|"z"|"xz"
+  rotation?: number,
+  flip?: "none"|"x"|"z"|"xz",
+  importedSize?: Vector
 }
 
 class StructureManager {
@@ -29,88 +38,77 @@ class StructureManager {
 
     const includeEntities = options.includeEntities ?? false;
     const includeBlocks = options.includeBlocks ?? true;
+    const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
 
-    if (size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z) {
-      const subStructs: [string, Vector, Vector][] = [];
-      for (let z = 0; z < size.z; z += this.MAX_SIZE.z)
-        for (let y = 0; y < size.y; y += this.MAX_SIZE.y)
-          for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
-            const subStart = min.add([x, y, z]);
-            const subEnd = Vector.min(
-              new Vector(x, y, z).add(this.MAX_SIZE), size
-            ).add(min).sub(Vector.ONE);
-            const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
+    if (this.beyondMaxSize(size)) {
+      const promises = [];
+      const subStructs = this.getSubStructs(start, end);
+      for (const sub of subStructs) {
+        const subStart = min.add(sub.start);
+        const subEnd = min.add(sub.end);
+        const subName = name + sub.name;
+        promises.push(Server.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`, dim));
+      }
 
-            try {
-              dim.runCommand(`structure save ${name + subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} memory ${includeBlocks}`);
-              subStructs.push([
-                subName,
-                new Vector(x, y, z),
-                subEnd.sub(min).add(Vector.ONE)
-              ]);
-            } catch {
-              for (const sub of subStructs) {
-                try { dim.runCommand(`structure delete ${name + sub[0]}`); } catch {}
-              }
-              return true;
-            }
+      return Promise.all(promises).then(result => {
+        if (result.some(res => res.error)) {
+          for (const sub of subStructs) {
+            Server.runCommand(`structure delete ${name + sub.name}`, dim);
           }
-
-      this.structures.set(name, {
-        subRegions: subStructs,
-        size: size
+          return true;
+        } else {
+          this.structures.set(name, {
+            subRegions: subStructs,
+            size: size
+          });
+          return false;
+        }
       });
-      return false;
     } else {
       const startStr = min.print();
       const endStr = max.print();
 
-      try {
-        dim.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} memory ${includeBlocks}`);
+      return Server.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).then(result => {
+        if (result.error) {
+          return true;
+        }
         this.structures.set(name, {
           size: size
         });
         return false;
-      } catch {}
+      });
     }
-    return true;
   }
 
   load(name: string, location: BlockLocation, dim: Dimension, options: StructureLoadOptions = {}) {
+    const loadPos = Vector.from(location);
+    let rot = (options.rotation ?? 0);
+    rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+    const flip = options.flip ?? "none";
+
     const struct = this.structures.get(name);
-    if (struct) {
-      const loadPos = Vector.from(location);
-      let rot = (options.rotation ?? 0);
-      rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+    if (struct?.subRegions || this.beyondMaxSize(options.importedSize ?? Vector.ZERO)) {
+      const size = options.importedSize ?? struct.size;
+      const rotation = new Vector(0, options.rotation ?? 0, 0);
       const flip = options.flip ?? "none";
+      const dir_sc = Vector.ONE;
+      if (flip.includes("x")) dir_sc.z *= -1;
+      if (flip.includes("z")) dir_sc.x *= -1;
 
-      if (struct.subRegions) {
-        const rotation = new Vector(0, options.rotation ?? 0, 0);
-        const flip = options.flip ?? "none";
-        const dir_sc = Vector.ONE;
-        if (flip.includes("x")) dir_sc.z *= -1;
-        if (flip.includes("z")) dir_sc.x *= -1;
-
-        const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), struct.size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
-        let success = false;
-        for (const sub of struct.subRegions) {
-          const subBounds = regionTransformedBounds(sub[1].toBlock(), sub[2].toBlock(), Vector.ZERO, rotation, dir_sc);
-          const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
-
-          try {
-            dim.runCommand(`structure load ${name + sub[0]} ${subLoad.print()} ${rot}_degrees ${flip}`);
-            success = true;
-          } catch {}
-        }
-        return !success;
-      } else {
-        try {
-          dim.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`);
-          return false;
-        } catch {}
+      const bounds = regionTransformedBounds(new BlockLocation(0, 0, 0), size.sub(1).toBlock(), Vector.ZERO, rotation, dir_sc);
+      const promises = [];
+      const subStructs = options.importedSize ?
+        this.getSubStructs(location, Vector.add(location, options.importedSize).toBlock()) :
+        struct.subRegions;
+      for (const sub of subStructs) {
+        const subBounds = regionTransformedBounds(sub.start.toBlock(), sub.end.toBlock(), Vector.ZERO, rotation, dir_sc);
+        const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
+        promises.push(Server.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`, dim));
       }
+      return Promise.all(promises).then(result => result.some(res => res.error));
+    } else {
+      return Server.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`, dim).then(result => result.error);
     }
-    return true;
   }
 
   has(name: string) {
@@ -121,30 +119,56 @@ class StructureManager {
     const struct = this.structures.get(name);
     const dim = world.getDimension("overworld");
     if (struct) {
-      let error = false;
       if (struct.subRegions) {
+        const promises = [];
         for (const sub of struct.subRegions) {
-          try {
-            dim.runCommand(`structure delete ${name}_${sub[0]}_${sub[1]}_${sub[2]}`);
-          } catch {
-            error = true;
+          promises.push(Server.runCommand(`structure delete ${name}${sub.name}`, dim));
+        }
+        return Promise.all(promises).then(result => {
+          if (result.some(res => res.error)) {
+            return true;
           }
-        }
+          this.structures.delete(name);
+          return false;
+        });
       } else {
-        try {
-          dim.runCommand(`structure delete ${name}`);
-        } catch {
-          error = true;
-        }
+        return Server.runCommand(`structure delete ${name}`, dim).then(result => {
+          if (result.error) {
+            return true;
+          }
+          this.structures.delete(name);
+          return false;
+        });
       }
-      this.structures.delete(name);
-      return error;
     }
-    return true;
+    return Promise.resolve(true);
   }
 
   getSize(name: string) {
     return this.structures.get(name).size.toBlock();
+  }
+
+  private beyondMaxSize(size: Vector) {
+    return size.x > this.MAX_SIZE.x || size.y > this.MAX_SIZE.y || size.z > this.MAX_SIZE.z;
+  }
+
+  private getSubStructs(start: BlockLocation, end: BlockLocation) {
+    const size = regionSize(start, end);
+    const subStructs: SubStructure[] = [];
+    for (let z = 0; z < size.z; z += this.MAX_SIZE.z)
+      for (let y = 0; y < size.y; y += this.MAX_SIZE.y)
+        for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
+          const subStart = new Vector(x, y, z);
+          const subEnd = Vector.min(subStart.add(this.MAX_SIZE).sub(1), size.offset(-1, -1, -1));
+          const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
+
+          subStructs.push({
+            name: subName,
+            start: subStart,
+            end: subEnd
+          });
+        }
+    return subStructs;
   }
 }
 

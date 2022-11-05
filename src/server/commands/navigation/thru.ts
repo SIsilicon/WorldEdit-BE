@@ -1,9 +1,8 @@
-import { BlockLocation } from "mojang-minecraft";
-import { Server } from "@notbeer-api";
-import { printLocation } from "../../util.js";
+import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Cardinal } from "@modules/directions.js";
 import { PlayerUtil } from "@modules/player_util.js";
+import { contentLog } from "@notbeer-api";
 
 const registerInformation = {
   name: "thru",
@@ -18,7 +17,7 @@ registerCommand(registerInformation, function (session, builder) {
   const dir = new Cardinal().getDirection(builder);
 
   function isSpaceEmpty(loc: BlockLocation) {
-    return dimension.getBlock(loc).isEmpty && dimension.getBlock(loc.offset(0, 1, 0)).isEmpty;
+    return dimension.getBlock(loc).typeId == "minecraft:air" && dimension.getBlock(loc.offset(0, 1, 0)).typeId == "minecraft:air";
   }
 
   let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);
@@ -36,7 +35,7 @@ registerCommand(registerInformation, function (session, builder) {
   }
 
   if (canGoThrough) {
-    Server.runCommand(`tp @s ${printLocation(testLoc, false)}`, builder);
+    builder.teleport(testLoc, dimension, builder.rotation.x, builder.rotation.y);
     return "commands.wedit:thru.explain";
   } else {
     throw "commands.wedit:thru.obstructed";

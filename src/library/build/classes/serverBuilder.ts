@@ -1,8 +1,12 @@
-import { world, Player, Entity, Dimension } from "mojang-minecraft";
+import { world, Player, Entity, Dimension } from "@minecraft/server";
 import { EventEmitter } from "./eventEmitter.js";
 import { runCommandReturn } from "../../@types/build/classes/ServerBuilder";
+import { sleep } from "@notbeer-api";
 
 export class ServerBuilder extends EventEmitter {
+  private commandQueue: Promise<runCommandReturn>[] = [];
+  private flushingCommands = false;
+
   /**
     * Force shuts down the server
     * @example ServerBuilder.close()
@@ -17,47 +21,45 @@ export class ServerBuilder extends EventEmitter {
     crash();
   }
   /**
-    * Broadcast a message in chat
-    * @param {string} text Message you want to broadcast in chat
-    * @param {string} [player] Player you want to broadcast to
-    * @returns {runCommandReturn}
-    * @example ServerBuilder.broadcast('Hello World!');
-    */
-  broadcast(text: string, player?: string): runCommandReturn {
-    return this.runCommand(`tellraw ${player ? `"${player}"` : "@a"} {"rawtext":[{"text":${JSON.stringify(text)}}]}`);
-  }
-  /**
     * Run a command in game
     * @param command The command you want to run
-    * @returns {runCommandReturn}
+    * @returns {Promise<runCommandReturn>}
     * @example ServerBuilder.runCommand('say Hello World!');
     */
-  runCommand(command: string, target?: Dimension|Player|Entity): runCommandReturn {
+  runCommand(command: string, target?: Dimension|Player|Entity): Promise<runCommandReturn> {
     try {
-      return { error: false, ...(target ?? world.getDimension("overworld")).runCommand(command) };
-    } catch(error) {
-      return { error: true };
+      if (this.flushingCommands) {
+        throw "queue";
+      }
+      const promise = (target ?? world.getDimension("overworld")).runCommandAsync(command)
+        .then(result => { return { error: false, ...result }; })
+        .catch(result => { return { error: true, successCount: 0, ...result }; })
+        .finally(() => this.commandQueue.splice(this.commandQueue.indexOf(promise), 1));
+      this.commandQueue.push(promise);
+      return promise;
+    } catch (e) {
+      if (typeof e == "string" && e.includes("queue")) {
+        return (async () => {
+          await sleep(1);
+          return await this.runCommand(command, target);
+        })();
+      } else {
+        return Promise.resolve({ error: true, successCount: 0 });
+      }
     }
   }
-  //TODO: Improve this
+
   /**
-    * Run an array of commands
-    * @param {Array<string>} commands Put '%' before your commands. It will make it so it only executes if all the commands thta came before it executed successfully!
-    * @returns {{ error: boolean }}
-    * @example runCommands([
-    * 'clear "notbeer" diamond 0 0',
-    * '%say notbeer has a Diamond!'
-    * ]);
-    */
-  runCommands(commands: Array<string>): { error: boolean } {
-    const conditionalRegex = /^%/;
-    if(conditionalRegex.test(commands[0])) throw "[Server]: runCommands(): Error - First command in the Array CANNOT be Conditional";
-    let error = false;
-    commands.forEach(cmd => {
-      if(error && conditionalRegex.test(cmd)) return;
-      error = this.runCommand(cmd.replace(conditionalRegex, "")).error;
-    });
-    return { error: error };
+   * Flushes all pending commands in the current tick.
+   * Any attempts at running commands while flushing will be queued.
+   */
+  async flushCommands() {
+    if (this.commandQueue) {
+      return;
+    }
+    this.flushingCommands = true;
+    await Promise.all(this.commandQueue);
+    this.flushingCommands = false;
   }
 }
 export const Server = new ServerBuilder();

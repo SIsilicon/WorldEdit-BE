@@ -1,7 +1,7 @@
-import { NAV_WAND_ITEM } from "@config.js";
 import { Server } from "@notbeer-api";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import config from "config.js";
 
 const registerInformation = {
   name: "navwand",
@@ -10,7 +10,7 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder) {
-  Server.runCommand(`give @s ${NAV_WAND_ITEM}`, builder);
-  session.bindTool("navigation_wand", NAV_WAND_ITEM);
+  Server.runCommand(`give @s ${config.navWandItem}`, builder);
+  session.bindTool("navigation_wand", config.navWandItem);
   return RawText.translate("commands.wedit:navwand.explain");
 });

@@ -64,34 +64,34 @@ msgstr "Sélection des contours"
 msgid "item.wedit:draw_line"
 msgstr "Tracer une ligne"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "Réglages WorldEdit"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "Réglages du pinceau"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "Paramètres de l'outil"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "Pinceau sphérique"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "Pinceau cylindrique"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "Pinceau doux"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "Baguette de sélection"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "Baguette de sélection de distance"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "Baguette de navigation"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "Outil d'empilage"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "Cinq"
 msgid "item.wedit:six_button"
 msgstr "Six"
 
-msgid "item.wedit:confirm_button"
-msgstr "Confirmer"
-
-msgid "item.wedit:cancel_button"
-msgstr "Retour"
-
-msgid "item.wedit:prev_button"
-msgstr "Précédent"
-
-msgid "item.wedit:next_button"
-msgstr "Suivant"
-
-msgid "item.wedit:delete_button"
-msgstr "Supprimer"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "Créer un nouvel outil"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "Inclure l'air dans le presse-papier : §aActivé§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "Inclure l'air dans le presse-papier: §4Désactivé§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "Impossible de placer un bloc ici."
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Vous devez spécifier un bloc pour définir la sélection !"
@@ -160,8 +145,6 @@ msgstr "Bloc ajouté au masque : "
 msgid "worldedit.maskPicker.set"
 msgstr "Définir le masque sur le bloc: "
 
-msgid "worldedit.config.editTool"
-msgstr "Choisissez un élément à configurer."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
@@ -171,18 +154,6 @@ msgstr "Choisissez le type de pinceau à créer."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Choisissez quel type d'outil à créer."
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "Choisissez la gamme de l'outil."
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "Choisissez la taille du pinceau."
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "Choisissez la hauteur du pinceau."
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "Choisir la douceur du pinceau."
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "Créer un motif et un masque optionnel pour le pinceau."
@@ -198,46 +169,17 @@ msgstr "Est-ce correct ?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Êtes-vous sûr de vouloir dissocier cet élément ?"
-
-msgid "worldedit.config.affects"
-msgstr "Affecte : %s"
-
-msgid "worldedit.config.creates"
-msgstr "Créé : %s"
-
 msgid "worldedit.config.radius"
-msgstr "Taille : %s"
+msgstr "Taille "
 
 msgid "worldedit.config.height"
-msgstr "Hauteur : %s"
+msgstr "Hauteur "
 
 msgid "worldedit.config.smooth"
-msgstr "Lissage : %s"
+msgstr "Lissage "
 
 msgid "worldedit.config.range"
-msgstr "Portée : %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "Pinceau configuré."
-
-msgid "worldedit.config.setGive.brush"
-msgstr "Pinceau configuré et ajouté à votre inventaire."
-
-msgid "worldedit.config.cancel.brush"
-msgstr "Configuration du pinceau annulée."
-
-msgid "worldedit.config.set.tool"
-msgstr "Outil configuré."
-
-msgid "worldedit.config.setGive.tool"
-msgstr "Outil configuré et ajouté à votre inventaire."
-
-msgid "worldedit.config.cancel.tool"
-msgstr "Configuration de l'outil annulée."
-
-msgid "worldedit.config.unbind"
-msgstr "Élément dissocié."
-
+msgstr "Portée "
 msgid "worldedit.selection.noPrimary"
 msgstr "La première sélection n'a pas encore été faite."
 

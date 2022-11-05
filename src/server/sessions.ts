@@ -1,16 +1,14 @@
-import { Player, BeforeItemUseEvent } from "mojang-minecraft";
+import { Player } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
-import { TICKS_TO_DELETE_SESSION, WAND_ITEM, NAV_WAND_ITEM, DEFAULT_CHANGE_LIMIT } from "../config.js";
-
 import { Tools } from "./tools/tool_manager.js";
-import "./tools/register_tools.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { SettingsHotbar } from "@modules/settings_hotbar.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
+import { ConfigContext } from "./ui/types.js";
+import config from "config.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -19,59 +17,66 @@ Server.on("playerChangeDimension", ev => {
   playerSessions.get(ev.player.name)?.selection.clear();
 });
 
+interface regionTransform {
+  originalLoc?: Vector,
+  originalDim?: string,
+  relative: Vector,
+  rotation: Vector,
+  flip: Vector
+}
+
 /**
  * Represents a WorldEdit user's current session with the addon.
  * It manages their selections, operation history, and other things related to WorldEdit per player.
  */
 export class PlayerSession {
   /**
-    * Is true while a WorldEdit command is being called from an item; false otherwise.
-    * @readonly
-    */
+   * Is true while a WorldEdit command is being called from an item; false otherwise.
+   * @readonly
+   */
   public usingItem = false;
 
   /**
-    * A pattern created by the pattern picker
-    * It's used by custom commands that are called from items.
-    */
+   * A pattern created by the pattern picker
+   * It's used by custom commands that are called from items.
+   */
   public globalPattern = new Pattern();
 
   /**
-    * A global mask created by the mask picker and ;gmask.
-    * It's used by various commands and operation that are affected by masks such as the ;cyl command and brushes in combination of their own masks.
-    */
+   * A global mask created by the mask picker and ;gmask.
+   * It's used by various commands and operation that are affected by masks such as the ;cyl command and brushes in combination of their own masks.
+   */
   public globalMask = new Mask();
 
   /**
-    * Whether the copy and cut items should include entities in the clipboard.
-    */
+   * Whether the copy and cut items should include entities in the clipboard.
+   */
   public includeEntities = false;
 
   /**
-    * Whether the copy and cut items should include air in the clipboard.
-    */
+   * Whether the copy and cut items should include air in the clipboard.
+   */
   public includeAir = false;
 
   /**
-     * The amount of blocks that can be changed in one operation.
-     */
-  public changeLimit = DEFAULT_CHANGE_LIMIT == -1 ? Infinity : DEFAULT_CHANGE_LIMIT;
+   * Whether the session should run in performance mode.
+   */
+  public performanceMode = false;
 
   /**
-    * Handles the settings UI created from the config item.
-    * Is null when the UI isn't active.
-    */
-  public settingsHotbar: SettingsHotbar;
+   * The amount of blocks that can be changed in one operation.
+   */
+  public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
 
   /**
-     * The clipboard region created by the player.
-     */
+   * The clipboard region created by the player.
+   */
   public clipboard: RegionBuffer;
+
   /**
-     * The transformation properties currently on the clipboard
-     */
-  public clipboardTransform = {
-    originalLoc: Vector.ZERO,
+   * The transformation properties currently on the clipboard
+   */
+  public clipboardTransform: regionTransform = {
     relative: Vector.ZERO,
     rotation: Vector.ZERO,
     flip: Vector.ONE
@@ -88,10 +93,10 @@ export class PlayerSession {
     this.history = new History(this);
     this.selection = new Selection(player);
 
-    this.bindTool("selection_wand", WAND_ITEM);
-    this.bindTool("navigation_wand", NAV_WAND_ITEM);
+    this.bindTool("selection_wand", config.wandItem);
+    this.bindTool("navigation_wand", config.navWandItem);
     if (PlayerUtil.isHotbarStashed(player)) {
-      this.enterSettings();
+      PlayerUtil.restoreHotbar(player);
     }
 
     for (const tag of player.getTags()) {
@@ -102,38 +107,38 @@ export class PlayerSession {
   }
 
   /**
-    * @return The player that this session handles
-    */
+   * @return The player that this session handles
+   */
   public getPlayer() {
     return this.player;
   }
 
   /**
-    * @return The history handler that this session uses
-    */
+   * @return The history handler that this session uses
+   */
   public getHistory() {
     return this.history;
   }
 
   /**
-    * @internal
-    */
+   * @internal
+   */
   reassignPlayer(player: Player) {
     this.player = player;
     this.selection = new Selection(player);
   }
 
   /**
-    * Binds a new tool to this session.
-    * @param tool The id of the tool being made
-    * @param item The id of the item to bind to (null defaults to held item)
-    * @param args Optional parameters the tool uses during its construction.
-    */
+   * Binds a new tool to this session.
+   * @param tool The id of the tool being made
+   * @param item The id of the item to bind to (null defaults to held item)
+   * @param args Optional parameters the tool uses during its construction.
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public bindTool(tool: string, item: string|[string, number]|null, ...args: any[]) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -141,14 +146,14 @@ export class PlayerSession {
   }
 
   /**
-    * Tests for a property of a tool in the session's player's main hand.
-    * @param item The id of the item with the tool to test (null defaults to held item)
-    * @param property The name of the tool's property
-    */
+   * Tests for a property of a tool in the session's player's main hand.
+   * @param item The id of the item with the tool to test (null defaults to held item)
+   * @param property The name of the tool's property
+   */
   public hasToolProperty(item: string|[string, number]|null, property: string) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -156,16 +161,16 @@ export class PlayerSession {
   }
 
   /**
-    * Sets a property of a tool in the session's player's main hand.
-    * @param item The id of the item with the tool to set the property of (null defaults to held item)
-    * @param property The name of the tool's property
-    * @param value The new value of the tool's property
-    */
+   * Sets a property of a tool in the session's player's main hand.
+   * @param item The id of the item with the tool to set the property of (null defaults to held item)
+   * @param property The name of the tool's property
+   * @param value The new value of the tool's property
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public setToolProperty(item: string|[string, number]|null, property: string, value: any) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -173,13 +178,13 @@ export class PlayerSession {
   }
 
   /**
-    * @param item The id of the item to test (null defaults to held item)
-    * @return Whether the session has a tool binded to the player's hand.
-    */
+   * @param item The id of the item to test (null defaults to held item)
+   * @return Whether the session has a tool binded to the player's hand.
+   */
   public hasTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -187,13 +192,13 @@ export class PlayerSession {
   }
 
   /**
-    * @param item The id of the item to unbinf from (null defaults to held item)
-    * Unbinds a tool from this session's player's hand.
-    */
+   * @param item The id of the item to unbinf from (null defaults to held item)
+   * Unbinds a tool from this session's player's hand.
+   */
   public unbindTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.id, stack.data];
+      item = [stack.typeId, stack.data];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -201,18 +206,13 @@ export class PlayerSession {
   }
 
   /**
-    * Triggers the hotbar setting menu to appear.
-    */
+   * Triggers the hotbar setting menu to appear.
+   */
   public enterSettings() {
-    this.settingsHotbar = new SettingsHotbar(this);
-  }
-
-  /**
-    * Triggers the hotbar settings menu to disappear.
-    */
-  public exitSettings() {
-    this.settingsHotbar.exit();
-    this.settingsHotbar = null;
+    Server.uiForms.show<ConfigContext>("$configMenu", this.player, {
+      session: this
+    });
+    // this.settingsHotbar = new SettingsHotbar(this);
   }
 
   public createRegion(isAccurate: boolean) {
@@ -222,6 +222,7 @@ export class PlayerSession {
   }
 
   public deleteRegion(buffer: RegionBuffer) {
+    buffer.delete();
     this.regions.delete(buffer.id);
   }
 
@@ -236,21 +237,8 @@ export class PlayerSession {
   }
 
   onTick() {
-    // Process settingsHotbar
-    if (this.settingsHotbar) {
-      this.settingsHotbar.onTick();
-    } else if (PlayerUtil.isHotbarStashed(this.player)) {
-      this.enterSettings();
-    }
-
     // Draw Selection
     this.selection?.draw();
-  }
-
-  onItemUse(ev: BeforeItemUseEvent) {
-    if (this.settingsHotbar) {
-      this.settingsHotbar.onItemUse(ev);
-    }
   }
 }
 
@@ -275,7 +263,7 @@ export function removeSession(player: string) {
 
   playerSessions.get(player).selection.clear();
   playerSessions.get(player).globalPattern.clear();
-  pendingDeletion.set(player, [TICKS_TO_DELETE_SESSION, playerSessions.get(player)]);
+  pendingDeletion.set(player, [config.ticksToDeleteSession, playerSessions.get(player)]);
   playerSessions.delete(player);
 }
 
@@ -298,13 +286,6 @@ setTickTimeout(() => {
 
     for (const session of playerSessions.values()) {
       session.onTick();
-    }
-  });
-
-  Server.prependListener("beforeItemUse", ev => {
-    if (ev.source.id == "minecraft:player") {
-      const name = (ev.source as Player).name;
-      playerSessions.get(name)?.onItemUse(ev);
     }
   });
 }, 1);

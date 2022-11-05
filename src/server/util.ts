@@ -1,6 +1,6 @@
-import { BlockLocation, Dimension, Location, Player } from "mojang-minecraft";
-import { PRINT_TO_ACTION_BAR } from "../config.js";
-import { Server, RawText } from "@notbeer-api";
+import { Block, BlockLocation, Dimension, Location, Player, world } from "@minecraft/server";
+import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea } from "@notbeer-api";
+import config from "config.js";
 
 /**
  * Sends a message to a player through either chat or the action bar.
@@ -13,7 +13,7 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
     msg = <RawText> RawText.translate(msg);
   }
   let command: string;
-  if (toActionBar && PRINT_TO_ACTION_BAR) {
+  if (toActionBar && config.printToActionBar) {
     command = `titleraw @s actionbar ${msg.toString()}`;
   } else {
     command = `tellraw @s ${msg.toString()}`;
@@ -32,29 +32,45 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
   print(msg.prepend("text", "§c"), player, toActionBar);
 }
 
-const worldY = new Map<string, [number, number]>([
-  ["minecraft:overworld", [-64, 319]],
-  ["minecraft:nether", [0, 127]],
-  ["minecraft:the_end", [0, 255]],
-  ["", [0, 0]]
-]);
+const worldY = new Map<Dimension, [number, number]>();
+function findHeightLimits(dim: Dimension) {
+  const limits: [number, number] = [null, null];
 
-/**
- * Gets the minimum Y level of the dimension a player is in.
- * @param player The player whose dimension we're testing
- * @return The minimum Y level of the dimension the player is in
- */
-export function getWorldMinY(player: Player) {
-  return worldY.get(player.dimension.id)[0];
+  for (const p of world.getPlayers()) {
+    if (p.dimension != dim) {
+      continue;
+    }
+
+    for (let i = -512; i <= 512; i += 16) {
+      const canPlace = canPlaceBlock(new BlockLocation(p.location.x, i, p.location.z), dim);
+      if (limits[0] == null) {
+        if (canPlace) {
+          limits[0] = i;
+        }
+      } else if (limits[1] == null) {
+        if (!canPlace) {
+          limits[1] = i - 1;
+        }
+      }
+    }
+    break;
+  }
+
+  if (limits[0] != null && limits[1] != null) {
+    worldY.set(dim, limits);
+  }
 }
 
 /**
- * Gets the maximum Y level of the dimension a player is in.
- * @param player The player whose dimension we're testing
- * @return The maximum Y level of the dimension the player is in
+ * Gets the minimum and maximum Y levels of a dimension.
+ * @param dim The dimension we're querying.
+ * @return The minimum and maximum Y levels.
  */
-export function getWorldMaxY(player: Player) {
-  return worldY.get(player.dimension.id)[1];
+export function getWorldHeightLimits(dim: Dimension) {
+  if (!worldY.has(dim)) {
+    findHeightLimits(dim);
+  }
+  return worldY.get(dim) ?? [ -512, 511 ];
 }
 
 /**
@@ -64,14 +80,88 @@ export function getWorldMaxY(player: Player) {
  * @return Whether a block can be placed
  */
 export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
-  const locString = printLocation(loc, false);
-  let error = Server.runCommand(`structure save canPlaceHere ${locString} ${locString} false memory`, dim).error;
-  if (!error) {
-    error = Server.runCommand(`structure load canPlaceHere ${locString}`, dim).error;
-    Server.runCommand(`structure delete canPlaceHere ${locString}`, dim);
+  try {
+    const block = dim.getBlock(loc);
+    block.setPermutation(block.permutation);
+    return true;
+  } catch {
+    return false;
   }
-  return !error;
 }
+
+export function blockHasNBTData(block: Block) {
+  const components = [
+    "minecraft:inventory",
+    "minecraft:sign",
+    "minecraft:piston",
+    "minecraft:recordPlayer",
+    "minecraft:waterContainer",
+    "minecraft:lavaContainer",
+    "minecraft:snowContainer",
+    "minecraft:potionContainer"
+  ];
+  const nbt_blocks = [
+    "minecraft:undyed_shulker_box", "minecraft:shulker_box",
+    "minecraft:furnace", "minecraft:lit_furnace",
+    "minecraft:blast_furnace", "minecraft:lit_blast_furnace",
+    "minecraft:smoker", "minecraft:lit_smoker",
+    "minecraft:bee_nest", "minecraft:beehive",
+    "minecraft:frame", "minecraft:glow_frame",
+    "minecraft:command_block", "minecraft:chain_command_block",
+    "minecraft:repeating_command_block", "minecraft:structure_block",
+    "minecraft:barrel", "minecraft:dispenser",
+    "minecraft:dropper", "minecraft:hopper",
+    "minecraft:lectern", "minecraft:flower_pot",
+    "minecraft:noteblock", "minecraft:mob_spawner",
+    "minecraft:standing_banner", "minecraft:wall_banner",
+    "minecraft:skull",
+    "minecraft:brewing_stand",
+    "minecraft:snow_layer",
+    "minecraft:end_gateway", // TEST
+    "minecraft:beacon",
+  ];
+  return components.some(component => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
+}
+
+function getTickingAreas() {
+  return (world.getDynamicProperty("wedit_ticking_areas") as string)?.split(",") ?? [];
+}
+
+function setTickingAreas(tickingAreas: string[]) {
+  world.setDynamicProperty("wedit_ticking_areas", tickingAreas.join(","));
+}
+
+export async function addTickingArea(name: string, dim: Dimension, start: BlockLocation, end: BlockLocation) {
+  const tickingAreas = getTickingAreas();
+  if (tickingAreas.length >= 10) {
+    return true;
+  }
+  if (!await addTickArea(start, end, dim, name, true)) {
+    tickingAreas.push(name);
+    setTickingAreas(tickingAreas);
+    return false;
+  }
+  return true;
+}
+
+export async function removeTickingArea(name: string) {
+  const tickingAreas = getTickingAreas();
+  if (!tickingAreas.includes(name)) {
+    return true;
+  }
+  if(!await removeTickArea(name)) {
+    setTickingAreas(tickingAreas.splice(tickingAreas.indexOf(name)));
+    return false;
+  }
+  return true;
+}
+
+Server.on("ready", () => {
+  for (const tickingArea of getTickingAreas()) {
+    removeTickArea(tickingArea);
+  }
+  setTickingAreas([]);
+});
 
 /**
  * Converts a location object to a string.
@@ -100,3 +190,24 @@ export function stringToLoc(loc: string) {
   return new BlockLocation(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
 }
 
+/**
+ * Wraps `num` between 0 and `range` exclusive
+ */
+export function wrap(range: number, num: number) {
+  return num >= 0 ? num % range : (num % range + range) % range;
+}
+
+/**
+ * Tests if two array are equal to each other
+ * @param a First array
+ * @param b Second array
+ * @param compare A function to test if two values from the arrays are equal. Should return true if so.
+ */
+export function arraysEqual<T>(a: T[], b: T[], compare: (a: T, b: T) => boolean) {
+  if (a.length != b.length) return false;
+  return !a.some((valA, i) => {
+    const valB = b[i];
+    if (!!valA != !!valB) return true;
+    return !compare(valA, valB);
+  });
+}

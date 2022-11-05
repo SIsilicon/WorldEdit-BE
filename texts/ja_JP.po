@@ -64,34 +64,34 @@ msgstr "範囲の輪郭線を生成"
 msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
-msgid "item.wedit:config_button"
+msgid "worldedit.config.mainMenu"
 msgstr "WorldEdit の設定"
 
-msgid "item.wedit:brush_config_button"
+msgid "worldedit.config.brushes"
 msgstr "ブラシの設定"
 
-msgid "item.wedit:tool_config_button"
+msgid "worldedit.config.tools"
 msgstr "ツールの設定"
 
-msgid "item.wedit:sphere_button"
+msgid "worldedit.config.brush.sphere"
 msgstr "球体ブラシ"
 
-msgid "item.wedit:cylinder_button"
+msgid "worldedit.config.brush.cylinder"
 msgstr "円柱ブラシ"
 
-msgid "item.wedit:smooth_button"
+msgid "worldedit.config.brush.smooth"
 msgstr "スムーズブラシ"
 
-msgid "item.wedit:selection_button"
+msgid "worldedit.config.tool.selection"
 msgstr "選択用の杖"
 
-msgid "item.wedit:far_selection_button"
+msgid "worldedit.config.tool.far_selection"
 msgstr "遠距離選択用の杖"
 
-msgid "item.wedit:navigation_button"
+msgid "worldedit.config.tool.navigation"
 msgstr "案内用の杖"
 
-msgid "item.wedit:stacker_button"
+msgid "worldedit.config.tool.stacker"
 msgstr "スタッカーツール"
 
 msgid "item.wedit:one_button"
@@ -112,22 +112,7 @@ msgstr "5"
 msgid "item.wedit:six_button"
 msgstr "6"
 
-msgid "item.wedit:confirm_button"
-msgstr "OK"
-
-msgid "item.wedit:cancel_button"
-msgstr "戻る"
-
-msgid "item.wedit:prev_button"
-msgstr "戻る"
-
-msgid "item.wedit:next_button"
-msgstr "次へ"
-
-msgid "item.wedit:delete_button"
-msgstr "削除"
-
-msgid "item.wedit:new_brush_button"
+msgid "item.wedit:new_tool_button"
 msgstr "新規ツールを作成"
 
 msgid "item.wedit:inc_entities_on_button"
@@ -142,8 +127,8 @@ msgstr "クリップボードに空気を含める: §a有効§r"
 msgid "item.wedit:inc_air_off_button"
 msgstr "クリップボードに空気を含める: §a無効§r"
 
-msgid "item.wedit:blank"
-msgstr " "
+msgid "worldedit.spawnGlass.error"
+msgstr "ここにはブロックを置けません。"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
@@ -160,8 +145,6 @@ msgstr "ブロックをマスクに追加: "
 msgid "worldedit.maskPicker.set"
 msgstr "マスクをブロックに設定: "
 
-msgid "worldedit.config.editTool"
-msgstr "設定するアイテムを選択してください。"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -171,18 +154,6 @@ msgstr "作るブラシの種類を選択してください。"
 
 msgid "worldedit.config.choose.tool"
 msgstr "作るアイテムの種類を選択してください。"
-
-msgid "worldedit.config.selectRange.tool"
-msgstr "ツールの範囲を選択してください。"
-
-msgid "worldedit.config.selectRadius.brush"
-msgstr "ブラシのサイズを選択してください。"
-
-msgid "worldedit.config.selectHeight.brush"
-msgstr "ブラシの高さを選択してください。"
-
-msgid "worldedit.config.selectSmooth.brush"
-msgstr "ブラシの滑らかさを選択してください。"
 
 msgid "worldedit.config.paternMask.brush"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
@@ -198,46 +169,17 @@ msgstr "これでよろしいですか？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "本当に紐づけを解除しますか？"
-
-msgid "worldedit.config.affects"
-msgstr "影響: %s"
-
-msgid "worldedit.config.creates"
-msgstr "作成: %s"
-
 msgid "worldedit.config.radius"
-msgstr "サイズ: %s"
+msgstr "サイズ"
 
 msgid "worldedit.config.height"
-msgstr "高さ: %s"
+msgstr "高さ"
 
 msgid "worldedit.config.smooth"
-msgstr "滑らかさ: %s"
+msgstr "滑らかさ"
 
 msgid "worldedit.config.range"
-msgstr "範囲: %s"
-
-msgid "worldedit.config.set.brush"
-msgstr "ブラシを設定しました。"
-
-msgid "worldedit.config.setGive.brush"
-msgstr "ブラシを設定し、インベントリに追加しました。"
-
-msgid "worldedit.config.cancel.brush"
-msgstr "ブラシの設定をキャンセルしました。"
-
-msgid "worldedit.config.set.tool"
-msgstr "ツールを設定しました。"
-
-msgid "worldedit.config.setGive.tool"
-msgstr "ツールを設定し、インベントリに追加しました。"
-
-msgid "worldedit.config.cancel.tool"
-msgstr "ツールの設定をキャンセルしました。"
-
-msgid "worldedit.config.unbind"
-msgstr "紐づけが解除されました。"
-
+msgstr "範囲"
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
 

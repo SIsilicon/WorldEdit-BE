@@ -1,4 +1,4 @@
-import { Entity } from "mojang-minecraft";
+import { Entity } from "@minecraft/server";
 
 export interface banDataObj {
     bannedPlayer: string,
@@ -14,6 +14,6 @@ export interface getPlayerAtPosReturn {
     error: boolean
 }
 export interface getItemCountReturn {
-    player: string,
-    count: number
+    count: number,
+    slot: number
 }
