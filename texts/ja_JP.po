@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-10-14 16:07\n"
+"PO-Revision-Date: 2022-11-05 15:42\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -64,36 +64,6 @@ msgstr "範囲の輪郭線を生成"
 msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
-msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit の設定"
-
-msgid "worldedit.config.brushes"
-msgstr "ブラシの設定"
-
-msgid "worldedit.config.tools"
-msgstr "ツールの設定"
-
-msgid "worldedit.config.brush.sphere"
-msgstr "球体ブラシ"
-
-msgid "worldedit.config.brush.cylinder"
-msgstr "円柱ブラシ"
-
-msgid "worldedit.config.brush.smooth"
-msgstr "スムーズブラシ"
-
-msgid "worldedit.config.tool.selection"
-msgstr "選択用の杖"
-
-msgid "worldedit.config.tool.far_selection"
-msgstr "遠距離選択用の杖"
-
-msgid "worldedit.config.tool.navigation"
-msgstr "案内用の杖"
-
-msgid "worldedit.config.tool.stacker"
-msgstr "スタッカーツール"
-
 msgid "item.wedit:one_button"
 msgstr "1"
 
@@ -112,23 +82,17 @@ msgstr "5"
 msgid "item.wedit:six_button"
 msgstr "6"
 
-msgid "item.wedit:new_tool_button"
-msgstr "新規ツールを作成"
+msgid "item.wedit:include_entities_on"
+msgstr "Include Entities in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_entities_on_button"
-msgstr "クリップボードにエンティティを含める: §a有効§r"
+msgid "item.wedit:include_entities_off"
+msgstr "Include Entities in Clipboard: §4Disabled§r"
 
-msgid "item.wedit:inc_entities_off_button"
-msgstr "クリップボードにエンティティを含める: §a無効§r"
+msgid "item.wedit:include_air_on"
+msgstr "Include Air in Clipboard: §aEnabled§r"
 
-msgid "item.wedit:inc_air_on_button"
-msgstr "クリップボードに空気を含める: §a有効§r"
-
-msgid "item.wedit:inc_air_off_button"
-msgstr "クリップボードに空気を含める: §a無効§r"
-
-msgid "worldedit.spawnGlass.error"
-msgstr "ここにはブロックを置けません。"
+msgid "item.wedit:include_air_off"
+msgstr "Include Air in Clipboard: §4Disabled§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
@@ -145,6 +109,74 @@ msgstr "ブロックをマスクに追加: "
 msgid "worldedit.maskPicker.set"
 msgstr "マスクをブロックに設定: "
 
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -167,19 +199,39 @@ msgstr "ブラシのマスクを任意で作成してください。"
 msgid "worldedit.config.confirm"
 msgstr "これでよろしいですか？"
 
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
 msgid "worldedit.config.confirm.delete"
 msgstr "本当に紐づけを解除しますか？"
+
 msgid "worldedit.config.radius"
-msgstr "サイズ"
+msgstr "Size"
 
 msgid "worldedit.config.height"
-msgstr "高さ"
+msgstr "Height"
 
 msgid "worldedit.config.smooth"
-msgstr "滑らかさ"
+msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "範囲"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
 
