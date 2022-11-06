@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-11-05 22:46\n"
+"PO-Revision-Date: 2022-11-06 05:26\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit 的腳本已停止！ 使用 §r/reload§c 重置它們(其他腳本也會重置)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "複製"
@@ -32,7 +32,7 @@ msgid "item.wedit:undo_button"
 msgstr "重做"
 
 msgid "item.wedit:redo_button"
-msgstr "重來"
+msgstr "復原"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "順時針旋轉"
@@ -83,16 +83,16 @@ msgid "item.wedit:six_button"
 msgstr "六"
 
 msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "把生物包括在剪貼板中: §a開啟§r"
 
 msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "把生物包括到剪貼板中: §4關閉§r"
 
 msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "把空氣包括在剪貼板中: §a開啟§r"
 
 msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "在剪貼板中包含空氣：§4已禁用§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "你需要選擇填充選中的區域的方塊！"
@@ -110,73 +110,73 @@ msgid "worldedit.maskPicker.set"
 msgstr "已設定以下方塊為取代方塊: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit 設定"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "畫筆"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "工具"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "一般"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "在剪貼板中包含實體"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "在剪貼板中包含空氣"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "表演模式"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "選擇模式"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "創建新工具"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "創建新畫筆"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "長方體"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "延長"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "球體"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "圓柱"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "無工具屬性"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "此工具沒有要更改的屬性。"
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "選擇棒"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "遠程選擇棒"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "導航棒"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "堆疊工具"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "球體畫筆"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "圓柱體畫筆"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "平滑畫筆"
 
 msgid "worldedit.config.chooseItem"
 msgstr "握著要綁定的物件"
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "請設定畫筆的填充方塊(必選) 和取代方塊(可選)。"
 
 msgid "worldedit.config.mask.tool"
 msgstr "為該工具製作一個正常覆蓋。"
@@ -200,37 +200,37 @@ msgid "worldedit.config.confirm"
 msgstr "這樣可以嗎?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "你對你所做的設置好嗎？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "您確定要取消綁定此項目嗎？"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "大小"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "高度"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "平滑度"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "範圍"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "圖案"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "遮罩"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "空洞"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "高度遮罩"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "使用方塊選擇器"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "第一個位置還沒設置。"
@@ -311,7 +311,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "不能修改未加載的區塊！"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§e提示：要加載更多方塊，增加模擬距離，或在您正在操作的地方添加常載入區域。§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "數值(%1)太大了！它的最大是(%2)。"
@@ -455,13 +455,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "區域擴展了 %s 個方塊。"
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "導出選擇以供以後使用。"
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s 已導出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§e注意：要在其他世界中使用此結構，需要 WorldEdit PC/Web 應用程序將其提取出來以供外部使用。§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "已熄滅附近的火焰"
@@ -533,10 +533,10 @@ msgid "commands.wedit:inset.description"
 msgstr "插入選擇區域"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "將結構導入剪貼板。"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s 已被導入並設置到您的剪貼板。"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "傳送你到你視線中方塊的頂端"
@@ -602,7 +602,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "已貼上 %s 個方塊"
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "無法將剪貼板粘貼到其原始位置。"
 
 msgid "commands.wedit:pos1.description"
 msgstr "設定你所選中的區域的第一個位置到指定或目前的位置"
@@ -650,7 +650,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "「%s」不是 90° 的增量！"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "您只能沿 Y 軸旋轉！"
 
 msgid "commands.wedit:sel.clear"
 msgstr "已清除所選擇的區域"
@@ -800,13 +800,13 @@ msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit 指令"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "切換當前會話的性能模式。"
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "性能模式已啟用。"
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "性能模式已禁用。"
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "取得WorldEdit 版本"
