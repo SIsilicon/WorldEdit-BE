@@ -2,6 +2,8 @@ from pathlib import Path
 import glob, os, shutil
 import argparse
 
+SERVER_LOCATION = 'C:\\Minecraft Servers\\1.19.50'
+
 parser = argparse.ArgumentParser(description='Syncs the project folder\'s data with Minecraft (Windows 10/11 only).\nNote: Will only sync CHANGED files in watch mode.')
 parser.add_argument('--watch', '-w', action='store_true', help='Whether to watch for file changes.')
 parser.add_argument('--init', choices=['False', 'True'], default='True', help='Whether to initially sync com.mojang before watching file changes.')
@@ -13,7 +15,7 @@ if args.dest == 'release':
 elif args.dest == 'preview':
     com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
 elif args.dest == 'server':
-    com_mojang = os.path.expandvars('C:\\Minecraft Servers\\1.19.50')
+    com_mojang = os.path.expandvars(SERVER_LOCATION)
 
 pack_folder = 'WorldEdit'
 
