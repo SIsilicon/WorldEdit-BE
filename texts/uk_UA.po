@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-05 23:42\n"
+"PO-Revision-Date: 2022-11-07 09:32\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -311,19 +311,19 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eПорада: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
+msgstr "§eПідказка: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "Число (%1) замале! Він має бути не менше (%2)."
+msgstr "Число (%1) замале! Воно має бути не менше (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "Забагато блоків!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Запустіть §e%s§7, утримуючи елемент, щоб розв’язати його.§r"
+msgstr "§7Запустіть §e%s§7, утримуючи предмет, щоб розв’язати його.§r"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферична форма пензля встановлено (%s)."
@@ -335,13 +335,13 @@ msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "Гладкий пензель встановлено (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Гладкий пензель встановлено (%1 x %2x за допомогою фільтра)."
+msgstr "Гладка форма пензля встановлено (%1 x %2x за допомогою фільтра)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Встановіть тип кисті, яку тримаєте"
+msgstr "Встановити тип пензля, який тримаєте"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Від’єднати пов’язаний пензель від поточного елемента"
+msgstr "Від’єднати пов’язаний пензель від поточного предмета"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "Створити сферичний пензель"
@@ -353,10 +353,10 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Створити пензель для згладжування ландшафту"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Маска пензля встановлено."
+msgstr "Маску пензля встановлено."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Маска пензля вимкнено."
+msgstr "Маску пензля вимкнено."
 
 msgid "commands.wedit:brush.material.set"
 msgstr "Матеріали пензля встановлено."
@@ -368,10 +368,10 @@ msgid "commands.wedit:brush.size.set"
 msgstr "Розмір пензля встановлено."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Маску відстеження встановлено."
+msgstr "Маску встановлено."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Маску відстеження вимкнено."
+msgstr "Маску вимкнено."
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "Максимально допустимий радіус пензля: %s"
@@ -380,7 +380,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Для роботи цього пензля не потрібен матеріал."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Пензель не прив’язаний до поточного елемента."
+msgstr "Пензель не прив’язаний до поточного предмета."
 
 msgid "commands.wedit:butcher.description"
 msgstr "Вбити поблизу об'єкти."
@@ -584,7 +584,7 @@ msgid "commands.wedit:move.explain"
 msgstr "Переміщено %s блоків."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Видайте собі навігаційну паличку"
+msgstr "Видає навігаційну паличку"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "Підкрастись і використовувати предмет: проходити крізь стіни; Використовуйте предмет без підкрадання: перейти до місця"
