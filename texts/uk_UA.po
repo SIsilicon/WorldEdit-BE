@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-07 09:32\n"
+"PO-Revision-Date: 2022-11-08 21:36\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -29,10 +29,10 @@ msgid "item.wedit:paste_button"
 msgstr "Вставити"
 
 msgid "item.wedit:undo_button"
-msgstr "Назад"
+msgstr "Скасувати дію"
 
 msgid "item.wedit:redo_button"
-msgstr "Вперед"
+msgstr "Відновити дію"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "Повернути за годинниковою стрілкою"
@@ -167,7 +167,7 @@ msgid "worldedit.config.tool.navigation"
 msgstr "Навігаційна паличка"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Інструмент укладальник"
+msgstr "Укладальник"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Сферичний пензель"
@@ -179,10 +179,10 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Пензель для згладжування"
 
 msgid "worldedit.config.chooseItem"
-msgstr "Утримуйте предмет для прив’язки."
+msgstr "Візьміть предмет для прив’язки."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Виберіть, яку кисть зробити."
+msgstr "Виберіть, який пензель створити."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент виготовити."
@@ -776,7 +776,7 @@ msgid "commands.wedit:undo.description"
 msgstr "Скасувати певну кількість дій"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Скасовано %s доступних змін."
+msgstr "Скасовано %s доступних дій."
 
 msgid "commands.wedit:undo.none"
 msgstr "Не залишилося нічого для скасування."
