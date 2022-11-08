@@ -34,7 +34,7 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
         }
         const time = timer.end();
         contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
-        print(result, player, toActionBar);
+        if (result) print(result, player, toActionBar);
       }
       catch (e) {
         const errMsg = e.message ? `${e.name}: ${e.message}` : e;
