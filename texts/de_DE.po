@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-11-08 17:12\n"
+"PO-Revision-Date: 2022-11-08 18:11\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -173,10 +173,10 @@ msgid "worldedit.config.brush.sphere"
 msgstr "Sphärenpinsel"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Zylinder Pinsel"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Glatter Pinsel"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Item."
@@ -200,22 +200,22 @@ msgid "worldedit.config.confirm"
 msgstr "Ist das in Ordnung?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Sind Sie mit dem Setup in Ordnung?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Sind Sie sicher, dass Sie dieses Item entbinden möchten?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Größe"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Höhe"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Glätte"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Bereich"
 
 msgid "worldedit.config.pattern"
 msgstr "Muster"
