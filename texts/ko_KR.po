@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-11-17 12:52\n"
+"PO-Revision-Date: 2022-11-17 15:51\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -143,40 +143,40 @@ msgid "worldedit.selectionMode.cuboid"
 msgstr "직육면체"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "확장"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "구"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "원기둥"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "도구 설정 없음"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "이 도구에는 변경할 속성이 없습니다."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "선택 도구"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "장거리 선택 도구"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "순간이동 도구"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "늘리기 도구"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "구 브러쉬"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "원기둥 브러쉬"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "다듬기 브러쉬"
 
 msgid "worldedit.config.chooseItem"
 msgstr "들려고 하는 아이템을 들고 있으세요."
@@ -188,7 +188,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
 
 msgid "worldedit.config.mask.tool"
 msgstr "브러쉬에 사용할 마스크(옵션) 을 선택합니다."
@@ -200,37 +200,37 @@ msgid "worldedit.config.confirm"
 msgstr "이것으로 정하시겠습니까?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "당신이 만든 설정은 괜찮습니까?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "정말로 이 아이템을 삭제하시겠어요?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "크기"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "높이"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "부드러운 정도"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "범위"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "패턴"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "마스크"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "빈 구"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "높이 마스크"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "블록 선택 도구 사용하기"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
@@ -251,7 +251,7 @@ msgid "worldedit.selection.extend.primaryArea"
 msgstr "선택 시작 지점 %1 선택됨. (%2)"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "%1 (%2)을 포함하도록 선택이 확장되었습니다."
 
 msgid "worldedit.selection.sphere.primary"
 msgstr "범위가 %1로 설정되었습니다."
@@ -263,16 +263,16 @@ msgid "worldedit.tool.noItem"
 msgstr "당신의 손에 아이템이 있어야 합니다."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "이 아이템에는 바인딩할 수 없습니다."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "이 아이템은 도구에 바인딩되어 있지 않습니다."
 
 msgid "worldedit.tool.noPerm"
 msgstr "이것을 사용할 권한이 없습니다."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "이 아이템의 도구는 제거하거나 교체할 수 없습니다."
 
 msgid "worldedit.permission.granted"
 msgstr "§eWorldEdit 권한이 부여되었습니다. (설정 > 게임 방법 > 빠른 시작)에서 안내를 받으실 수 있습니다.§r"
@@ -311,7 +311,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 Ticking area를 추가하십시오."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
