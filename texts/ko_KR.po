@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-11-05 22:46\n"
+"PO-Revision-Date: 2022-11-17 12:52\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§c월드에딧 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 스크립트도 다시 불러와질것입니다.).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -83,16 +83,16 @@ msgid "item.wedit:six_button"
 msgstr "육"
 
 msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
+msgstr "클립보드 안에 엔티티 포함: §a켜짐§r"
 
 msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
+msgstr "클립보드 안에 엔티티 포함: §4꺼짐§r"
 
 msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
+msgstr "클립보드 안에 빈 공간 포함: §a켜짐§r"
 
 msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
+msgstr "클립보드 안에 빈 공간 포함: §4꺼짐§r"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -110,37 +110,37 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "월드에딧 설정"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "브러쉬"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "도구들"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "기본"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "클립보드 안에 엔티티 포함"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "클립보드 안에 빈 공간 포함"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "성능 모드"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "선택 모드"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "새로운 도구 제작"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "새로운 브러쉬 제작"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "직육면체"
 
 msgid "worldedit.selectionMode.extend"
 msgstr "Extend"
