@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-11-06 03:44\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -64,36 +64,6 @@ msgstr "範囲の輪郭線を生成"
 msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
-msgid "item.wedit:one_button"
-msgstr "1"
-
-msgid "item.wedit:two_button"
-msgstr "2"
-
-msgid "item.wedit:three_button"
-msgstr "3"
-
-msgid "item.wedit:four_button"
-msgstr "4"
-
-msgid "item.wedit:five_button"
-msgstr "5"
-
-msgid "item.wedit:six_button"
-msgstr "6"
-
-msgid "item.wedit:include_entities_on"
-msgstr "クリップボードにエンティティを含める: §a有効§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "クリップボードにエンティティを含める: §a無効§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "クリップボードに空気を含める: §a有効§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "クリップボードに空気を含める: §a無効§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
 
@@ -129,6 +99,9 @@ msgstr "クリップボードに空気を含める"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "パフォーマンス優先モード"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "選択モード"
@@ -247,6 +220,12 @@ msgstr "2番目の位置を %s に設定しました。"
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "2番目の位置を %1 (%2) に設定しました。"
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "%1 (%2) で選択を開始しました。"
 
@@ -324,6 +303,15 @@ msgstr "ブロックが多すぎます！"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを解除します。§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "球体のブラシをセットしました (%s) 。"
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s をエクスポートしました。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§e注意: この構造物を他のワールドで使用するには、外部用に抽出できる WorldEdit の PC/Webアプリが必要です。§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "近くの火を消す"
@@ -658,11 +646,17 @@ msgstr "選択を消去しました。"
 msgid "commands.wedit:sel.cuboid"
 msgstr "直方体: スニークしながらタップして地点1、スニークせずにタップして地点2を作成する"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "選択モードを変更する"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "直方体の2つの角を設定する"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "高速な直方体の選択モード"
@@ -678,6 +672,12 @@ msgstr "球体の選択: スニーク中にタップして中心を決め、ス�
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "選択範囲をシフトする"
