@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-11-26 11:00\n"
+"PO-Revision-Date: 2022-11-26 11:59\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -98,58 +98,58 @@ msgid "worldedit.config.general.includeAir"
 msgstr "Inclure l'air dans le presse-papiers"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Mode performance"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Dessiner les contours"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Mode de sélection"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Créer un nouvel outil"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Créer une nouvelle brosse"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Cuboïde"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Prolonger"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Sphère"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cylindre"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "L'outil n'a pas de propriétés définies"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Cet outil n'a pas de propriétés à modifier."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Outil de sélection"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Outil de sélection à distance"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Outil de navigation"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Outil d'empilage"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Brosse sphérique"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Brosse cylindrique"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Brosse douce"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Choisissez quel type d'outil à créer."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Créer un motif et un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Créer un masque optionnel pour l'outil."
@@ -173,37 +173,37 @@ msgid "worldedit.config.confirm"
 msgstr "Est-ce correct ?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Êtes-vous d'accord avec votre configuration ?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Êtes-vous sûr de vouloir dissocier cet élément ?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Taille"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Hauteur"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Lissage"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Écart"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Motif"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Masque"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Creux"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Masque de hauteur"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Utiliser le sélecteur de blocs"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La première sélection n'a pas encore été faite."
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Deuxième position définie à %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Démarrage d'une nouvelle sélection cylindrique à %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Rayon défini à %1/%2 blocs (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Sélection débutée à %1 (%2)."
@@ -290,7 +290,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Impossible de modifier les chunks non chargés!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eAstuce : Pour charger plus de tronçons, augmentez votre distance de simulation ou ajoutez des zones persistantes là où vous opérez.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Le nombre (%1) est trop grand ! Il doit être au plus (%2)."
@@ -305,13 +305,13 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Exécutez §e%s§7 tout en tenant l'objet pour le délier.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Biome en ligne de mire : %s"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Biome à votre position: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Biomes dans votre sélection : %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Pinceau de type sphère équipé (%s)."
@@ -320,40 +320,40 @@ msgid "commands.wedit:brush.bind.cylinder"
 msgstr "Pinceau de type cylindre équipé (%1 par %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Brosse lisse équipée (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Brosse lisse équipée (%1 x %2x avec filtre)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Définir le type de brosse tenue"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Délier une brosse liée à votre objet actuel"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Créer une brosse sphérique"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Créer une brosse cylindrique"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Créer une brosse de lissage du terrain"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Masque de brosse défini."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Masque de brosse désactivé."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Matériau de la brosse défini."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Plage de la brosse définie."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "Taille de la brosse définie."
 
 msgid "commands.wedit:brush.tracemask.set"
 msgstr "Trace mask set."
