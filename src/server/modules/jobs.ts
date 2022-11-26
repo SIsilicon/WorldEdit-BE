@@ -51,7 +51,7 @@ class JobHandler {
 
   public setProgress(jobId: number, percent: number) {
     if (this.jobs.has(jobId)) {
-      this.jobs.get(jobId).percent = percent;
+      this.jobs.get(jobId).percent = Math.max(Math.min(percent, 1), 0);
     }
   }
 

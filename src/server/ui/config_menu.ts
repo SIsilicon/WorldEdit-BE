@@ -118,7 +118,6 @@ Server.uiForms.register<ConfigContext>("$configMenu", {
   cancel: () => null
 });
 
-// TODO: Add draw outlines
 Server.uiForms.register<ConfigContext>("$generalOptions", {
   title: "%worldedit.config.general",
   inputs: {
@@ -137,14 +136,19 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
       type: "toggle",
       default: ctx => ctx.getData("session").performanceMode || config.performanceMode
     },
+    $drawOutlines: {
+      name: "%worldedit.config.general.drawOutlines",
+      type: "toggle",
+      default: ctx => ctx.getData("session").drawOutlines
+    },
     $selectionMode: {
       name: "%worldedit.config.general.selectMode",
       type: "dropdown",
       options: [
         "%worldedit.selectionMode.cuboid",
         "%worldedit.selectionMode.extend",
-        "%worldedit.selectionMode.sphere"
-        // "%worldedit.selectionMode.cylinder"
+        "%worldedit.selectionMode.sphere",
+        "%worldedit.selectionMode.cylinder"
       ],
       default: ctx => selectionModes.indexOf(ctx.getData("session").selection.mode)
     }
@@ -154,6 +158,7 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
     session.includeAir = input.$includeAir as boolean;
     session.includeEntities = input.$includeEntities as boolean;
     session.performanceMode = input.$perfMode as boolean;
+    session.drawOutlines = input.$drawOutlines as boolean;
     session.selection.mode = selectionModes[input.$selectionMode as number];
     ctx.returnto("$configMenu");
   },

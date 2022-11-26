@@ -4,6 +4,8 @@ import { BlockLocation } from "@minecraft/server";
 export class CuboidShape extends Shape {
   private size: [number, number, number] = [0, 0, 0];
 
+  protected customHollow = true;
+
   constructor(length: number, width: number, depth: number) {
     super();
     this.size = [length, width, depth];
@@ -32,14 +34,14 @@ export class CuboidShape extends Shape {
 
   protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
     const end = genVars.end;
-    if (genVars.isHollow &&
-            relLoc.x > 0 && relLoc.x < end[0] &&
-            relLoc.y > 0 && relLoc.y < end[1] &&
-            relLoc.z > 0 && relLoc.z < end[2]) {
+    if (genVars.isWall &&
+      relLoc.x > 0 && relLoc.x < end[0] &&
+      relLoc.z > 0 && relLoc.z < end[2]) {
       return false;
-    } else if (genVars.isWall &&
-            relLoc.x > 0 && relLoc.x < end[0] &&
-            relLoc.z > 0 && relLoc.z < end[2]) {
+    } else if (genVars.isHollow &&
+      relLoc.x > 0 && relLoc.x < end[0] &&
+      relLoc.y > 0 && relLoc.y < end[1] &&
+      relLoc.z > 0 && relLoc.z < end[2]) {
       return false;
     }
 

@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://test.gd" type="Script" id=1]
+[ext_resource path="res://ui/open_world.gd" type="Script" id=2]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="AutoProcess" type="CheckButton" parent="VBox"]
+unique_name_in_owner = true
+margin_left = 401.0
+margin_top = 269.0
+margin_right = 623.0
+margin_bottom = 307.0
+hint_tooltip = "Automatically process worlds when exiting them from the world."
+size_flags_horizontal = 4
+text = "Auto world processing"
+
+[node name="Button" type="Button" parent="VBox"]
+margin_left = 460.0
+margin_top = 311.0
+margin_right = 564.0
+margin_bottom = 331.0
+size_flags_horizontal = 4
+text = "Process World"
+
+[node name="ChooseWorld" type="WindowDialog" parent="."]
+margin_left = 186.0
+margin_top = 66.0
+margin_right = 880.0
+margin_bottom = 527.0
+popup_exclusive = true
+window_title = "Choose World"
+resizable = true
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChooseWorld"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_constants/separation = 10
+
+[node name="PreviewWorlds" type="CheckButton" parent="ChooseWorld/VBoxContainer"]
+margin_right = 179.0
+margin_bottom = 38.0
+hint_tooltip = "When enabled lists your Minecraft Preview worlds instead of your main ones."
+size_flags_horizontal = 0
+text = "Preview Worlds"
+
+[node name="Scroll" type="ScrollContainer" parent="ChooseWorld/VBoxContainer"]
+margin_top = 48.0
+margin_right = 674.0
+margin_bottom = 407.0
+size_flags_vertical = 3
+
+[node name="WorldList" type="VBoxContainer" parent="ChooseWorld/VBoxContainer/Scroll"]
+unique_name_in_owner = true
+margin_right = 674.0
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="ChooseWorld/VBoxContainer"]
+margin_top = 417.0
+margin_right = 674.0
+margin_bottom = 441.0
+
+[node name="WorldPath" type="LineEdit" parent="ChooseWorld/VBoxContainer/HBox"]
+unique_name_in_owner = true
+margin_right = 562.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="ProcessWorld" type="Button" parent="ChooseWorld/VBoxContainer/HBox"]
+unique_name_in_owner = true
+margin_left = 566.0
+margin_right = 674.0
+margin_bottom = 24.0
+text = "Process World!"
+
+[node name="ConfirmProcessDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -99.0
+margin_top = -31.0
+margin_right = 101.0
+margin_bottom = 39.0
+popup_exclusive = true
+window_title = "Confirm Processing..."
+
+[node name="NoProcessDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -138.5
+margin_top = -29.0
+margin_right = 138.5
+margin_bottom = 29.0
+popup_exclusive = true
+window_title = "Nothing Here."
+dialog_text = "There is nothing in this world to process."
+
+[connection signal="toggled" from="VBox/AutoProcess" to="." method="_on_AutoProcess_toggled"]
+[connection signal="pressed" from="VBox/Button" to="." method="_on_Button_pressed"]
+[connection signal="about_to_show" from="ChooseWorld" to="ChooseWorld" method="_on_WindowDialog_about_to_show"]
+[connection signal="toggled" from="ChooseWorld/VBoxContainer/PreviewWorlds" to="ChooseWorld" method="_on_PreviewWorlds_toggled"]
+[connection signal="text_changed" from="ChooseWorld/VBoxContainer/HBox/WorldPath" to="ChooseWorld" method="_on_WorldPath_text_changed"]
+[connection signal="pressed" from="ChooseWorld/VBoxContainer/HBox/ProcessWorld" to="ChooseWorld" method="_on_ProcessWorld_pressed"]
+[connection signal="confirmed" from="ConfirmProcessDialog" to="." method="_on_ConfirmProcessDialog_confirmed"]

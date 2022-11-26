@@ -4,6 +4,8 @@ import { BlockLocation } from "@minecraft/server";
 export class PyramidShape extends Shape {
   private size: number;
 
+  protected customHollow = true;
+
   constructor(size: number) {
     super();
     this.size = size;

@@ -1,9 +1,10 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
 import { BlockLocation, MolangVariableMap, Player } from "@minecraft/server";
-import { SphereShape } from "../shapes/sphere.js";
 import { Shape } from "../shapes/base_shape.js";
+import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";
-import { arraysEqual, getWorldHeightLimits } from "../util.js";
+import { CylinderShape } from "../shapes/cylinder.js";
+import { arraysEqual, getWorldHeightLimits, snap } from "../util.js";
 import config from "config.js";
 
 // TODO: Add other selection modes
@@ -53,9 +54,17 @@ export class Selection {
       this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).toBlock();
       this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).toBlock();
     } else if (this._mode == "sphere") {
-      const vec = Vector.sub(new BlockLocation(loc.x, loc.y, loc.z), this._points[0]);
-      const radius = Math.round(vec.length);
-      this._points[1] = vec.normalized().mul(radius).add(this._points[0]).toBlock();
+      const radius = Math.round(Vector.sub(loc, this._points[0]).length);
+      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).toBlock();
+    } else if (this._mode == "cylinder") {
+      const prevVec = Vector.sub(this._points[1], this._points[0]).mul([1, 0, 1]);
+      const vec = Vector.sub(loc, this._points[0]).mul([1, 0, 1]);
+      const min = Vector.min(this._points[0], this._points[1]).min(loc);
+      const max = Vector.max(this._points[0], this._points[1]).max(loc);
+      const radius = Math.round(Math.max(vec.length, prevVec.length));
+      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).toBlock();
+      this._points[0].y = min.y;
+      this._points[1].y = max.y;
     }
 
     const [min, max] = getWorldHeightLimits(this.player.dimension);
@@ -86,6 +95,11 @@ export class Selection {
       const center = this._points[0];
       const radius = Vector.sub(this._points[1], this._points[0]).length;
       return [new SphereShape(radius), center];
+    } else if (this._mode == "cylinder") {
+      const center = this._points[0];
+      const vec = Vector.sub(this._points[1], this._points[0]);
+      const height = Math.abs(vec.y) + 1;
+      return [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
     }
   }
 
@@ -111,6 +125,11 @@ export class Selection {
     } else if (this._mode == "sphere") {
       const radius = Vector.sub(this._points[1], this._points[0]).length;
       return Math.round((4/3) * Math.PI * Math.pow(radius, 3));
+    } else if (this._mode == "cylinder") {
+      const vec = Vector.sub(this._points[1], this._points[0]);
+      const height = Math.abs(vec.y) + 1;
+      const radius = Math.round(vec.mul([1, 0, 1]).length) + 0.5;
+      return Math.ceil(Math.pow(radius, 2) * Math.PI * height);
     }
   }
 
@@ -143,7 +162,7 @@ export class Selection {
       if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
         this.updatePoints();
         this.modeLastDraw = this._mode;
-        this.pointsLastDraw = this._points.map(v => v);
+        this.pointsLastDraw = this.points;
       }
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
@@ -167,13 +186,13 @@ export class Selection {
 
     const wasCuboid = this.isCuboid();
     this._mode = value;
-    if (!this.isCuboid || wasCuboid != this.isCuboid()) {
+    if (!this.isCuboid() || wasCuboid != this.isCuboid()) {
       this.clear();
     }
   }
 
   public get points() {
-    return this._points.slice();
+    return this._points.map(v => v.offset(0, 0, 0));
   }
 
   public get visible(): boolean {
@@ -211,9 +230,9 @@ export class Selection {
       const edgePoints: Vector[] = [];
       for (const edge of edgeData) {
         const [a, b] = [corners[edge[0]], corners[edge[1]]];
-        const pointCount = Math.min(Math.floor(b.sub(a).length), 16);
-        for (let i = 1; i < pointCount; i++) {
-          const t = i / pointCount;
+        const resolution = Math.min(Math.floor(b.sub(a).length), 16);
+        for (let i = 1; i < resolution; i++) {
+          const t = i / resolution;
           edgePoints.push(a.lerp(b, t));
         }
       }
@@ -226,13 +245,46 @@ export class Selection {
       ];
       const loc = this._points[0];
       const radius = Vector.sub(this._points[1], loc).length + 0.5;
-      const resolution = Math.min(radius * 2*Math.PI, 36);
+      const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
 
       for (const [rotateBy, vec] of axes) {
-        for (let i = 0; i < 1; i += 1 / resolution) {
-          let point: Vector = rotateBy.call(vec, i * 360);
+        for (let i = 0; i < resolution; i++) {
+          let point: Vector = rotateBy.call(vec, i / resolution * 360);
           point = point.mul(radius).add(loc).add(0.5);
           this.drawPoints.push(point);
+        }
+      }
+    } else if (this._mode == "cylinder") {
+      const offset = new Vector(0.5, 0, 0.5);
+      const [pointA, pointB] = [this._points[0], this._points[1]];
+
+      const diff = Vector.sub(pointB, pointA);
+      const radius = diff.mul([1, 0, 1]).length + 0.5;
+      const height = Math.abs(diff.y) + 1;
+
+      const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
+      const vec = new Vector(1, 0, 0);
+
+      for (let i = 0; i < resolution; i++) {
+        let point = vec.rotateY(i / resolution * 360);
+        point = point.mul(radius).add(pointA).add(offset);
+        this.drawPoints.push(point);
+        this.drawPoints.push(point.add([0, height, 0]));
+      }
+
+      const corners = [
+        new Vector(1, 0, 0), new Vector(-1, 0, 0),
+        new Vector(0, 0, 1), new Vector(0, 0, -1)
+      ];
+      for (const corner of corners) {
+        const [a, b] = [
+          corner.mul(radius).add(pointA).add(offset),
+          corner.mul(radius).add(pointA).add(offset).add([0, height, 0])
+        ];
+        const resolution = Math.min(Math.floor(b.sub(a).length), 16);
+        for (let i = 1; i < resolution; i++) {
+          const t = i / resolution;
+          this.drawPoints.push(a.lerp(b, t));
         }
       }
     }
