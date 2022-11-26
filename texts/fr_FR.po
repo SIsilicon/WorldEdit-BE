@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-11-05 22:46\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -64,36 +64,6 @@ msgstr "Sélection des contours"
 msgid "item.wedit:draw_line"
 msgstr "Tracer une ligne"
 
-msgid "item.wedit:one_button"
-msgstr "Un"
-
-msgid "item.wedit:two_button"
-msgstr "Deux"
-
-msgid "item.wedit:three_button"
-msgstr "Trois"
-
-msgid "item.wedit:four_button"
-msgstr "Quatre"
-
-msgid "item.wedit:five_button"
-msgstr "Cinq"
-
-msgid "item.wedit:six_button"
-msgstr "Six"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Vous devez spécifier un bloc pour définir la sélection !"
 
@@ -129,6 +99,9 @@ msgstr "Include Air in Clipboard"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Performance Mode"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Selection Mode"
@@ -247,6 +220,12 @@ msgstr "Deuxième position définie à %s."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Deuxième position définie à %1 (%2)."
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Sélection débutée à %1 (%2)."
 
@@ -324,6 +303,15 @@ msgstr "Trop de blocs!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Exécutez §e%s§7 tout en tenant l'objet pour le délier.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Pinceau de type sphère équipé (%s)."
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s has been exported."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguish nearby fires"
@@ -658,11 +646,17 @@ msgstr "Sélection effacée."
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: tap while sneaking for point 1, tap without sneaking for point 2"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "Change selection mode"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Select two corners of a cuboid"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Fast cuboid selection mode"
@@ -678,6 +672,12 @@ msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking
 
 msgid "commands.wedit:set.description"
 msgstr "Fill the selection with a block pattern"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Shift the selection area"
