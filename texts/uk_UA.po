@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-09 00:19\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -64,36 +64,6 @@ msgstr "Контурний вибір"
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
 
-msgid "item.wedit:one_button"
-msgstr "Один"
-
-msgid "item.wedit:two_button"
-msgstr "Два"
-
-msgid "item.wedit:three_button"
-msgstr "Три"
-
-msgid "item.wedit:four_button"
-msgstr "Чотири"
-
-msgid "item.wedit:five_button"
-msgstr "П'ять"
-
-msgid "item.wedit:six_button"
-msgstr "Шість"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Включити сутності в буфер обміну: §aУвімкнено§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Включити сутності в буфер обміну: §4Вимкнено§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Включити повітря в буфер обміну: §aУвімкнено§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Включити повітря в буфер обміну: §4Вимкнено§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
 
@@ -129,6 +99,9 @@ msgstr "Включити повітря в буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Режим продуктивності"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим виділення"
@@ -247,6 +220,12 @@ msgstr "Друга позиція встановлена ​​на %s."
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Друга позиція встановлена ​​на %1 (%2)."
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Виділення почато на %1 (%2)."
 
@@ -324,6 +303,15 @@ msgstr "Забагато блоків!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Запустіть §e%s§7, утримуючи предмет, щоб розв’язати його.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферична форма пензля встановлено (%s)."
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s експортовано."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eПримітка: щоб використовувати цю структуру в інших світах, необхідна комп’ютерна/веб-програма WorldEdit, щоб розпакувати її для зовнішнього використання.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасити вогонь поблизу"
@@ -658,11 +646,17 @@ msgstr "Виділення очищено."
 msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоїд: нажміть під час присяду до точки 1, та нажміть у звичайному положенні до точки 2"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Виділити два кути кубоїда"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Режим швидкого виділення кубоїда"
@@ -678,6 +672,12 @@ msgstr "Селектор сфер: нажміть під час присяду �
 
 msgid "commands.wedit:set.description"
 msgstr "Заповнити виділення вибраним блоком"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Зсунути область виділення"
