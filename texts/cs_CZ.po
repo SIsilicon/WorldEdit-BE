@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-11-26 13:17\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cSkripty WorldEditu byly zastaveny! Obnovte je pomocí §r/reload§c (jiné skripty se také resetují).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopírovat"
@@ -56,7 +56,7 @@ msgid "item.wedit:selection_fill"
 msgstr "Vyplnit výběr"
 
 msgid "item.wedit:selection_wall"
-msgstr "Wall Selection"
+msgstr "Výběr stěny"
 
 msgid "item.wedit:selection_outline"
 msgstr "Ohraničení výběru"
@@ -80,25 +80,25 @@ msgid "worldedit.maskPicker.set"
 msgstr "Nastavit masku na blok: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Nastavení WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Štětce"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Nástroje"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Obecné"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Zahrnout entity do schránky"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Zahrnout vzduch ve schránce"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Výkonnostní režim"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
@@ -167,10 +167,10 @@ msgid "worldedit.config.mask.tool"
 msgstr "Make an optional mask for the tool."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "Vytvořit nepovinnou masku pro štětec."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Je tohle správně?"
 
 msgid "worldedit.config.confirm.create"
 msgstr "Are you ok with the setup you made?"
