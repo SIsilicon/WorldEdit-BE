@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-11-06 05:26\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -64,36 +64,6 @@ msgstr "外圍選擇"
 msgid "item.wedit:draw_line"
 msgstr "畫線"
 
-msgid "item.wedit:one_button"
-msgstr "一"
-
-msgid "item.wedit:two_button"
-msgstr "二"
-
-msgid "item.wedit:three_button"
-msgstr "三"
-
-msgid "item.wedit:four_button"
-msgstr "四"
-
-msgid "item.wedit:five_button"
-msgstr "五"
-
-msgid "item.wedit:six_button"
-msgstr "六"
-
-msgid "item.wedit:include_entities_on"
-msgstr "把生物包括在剪貼板中: §a開啟§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "把生物包括到剪貼板中: §4關閉§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "把空氣包括在剪貼板中: §a開啟§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "在剪貼板中包含空氣：§4已禁用§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "你需要選擇填充選中的區域的方塊！"
 
@@ -129,6 +99,9 @@ msgstr "在剪貼板中包含空氣"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "表演模式"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "選擇模式"
@@ -247,6 +220,12 @@ msgstr "第二個位置已設定至 %s。"
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二個位置已設定至 %1 (%2)。"
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "在 %1 (%2) 開始選擇。"
 
@@ -324,6 +303,15 @@ msgstr "方塊過多！"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7運行 §e%s§7，同時按住該物品以解開它。§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已裝載球型筆刷 (%s)。"
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s 已導出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§e注意：要在其他世界中使用此結構，需要 WorldEdit PC/Web 應用程序將其提取出來以供外部使用。§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "已熄滅附近的火焰"
@@ -658,11 +646,17 @@ msgstr "已清除所選擇的區域"
 msgid "commands.wedit:sel.cuboid"
 msgstr "長方體：潛行時輕按第 1 點，不潛行輕按第 2 點"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "更改選擇模式"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "選擇長方體的兩個角"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "快速長方體選擇模式"
@@ -678,6 +672,12 @@ msgstr "圓形選擇器: 蹲下時點擊屏幕以設置中心點, 不蹲下點�
 
 msgid "commands.wedit:set.description"
 msgstr "用填充方塊來填滿選中的區域"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "轉移選擇區域"
