@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-11-26 11:00\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cLes scripts WorldEdit ont été interrompus ! Réinitialisez-les avec §r/reload§c (les autres scripts seront aussi réinitialisés).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copier"
@@ -80,22 +80,22 @@ msgid "worldedit.maskPicker.set"
 msgstr "Définir le masque sur le bloc: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Configuration de WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Brosses"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Outils"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Général"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Inclure les entités dans le presse-papiers"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Inclure l'air dans le presse-papiers"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Performance Mode"
