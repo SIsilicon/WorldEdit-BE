@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-03 06:35\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -80,70 +80,70 @@ msgid "worldedit.maskPicker.set"
 msgstr "Set mask to block: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Ajustes de WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Brocha"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Herramientas"
 
 msgid "worldedit.config.general"
 msgstr "General"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Incluir entidades en el portapapeles"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Incluir aire en el portapapeles"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Modo de rendimiento"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Dibujar líneas"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Modo de selección"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Crear nueva herramienta"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Crear nueva brocha"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Cuboide"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Extender"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Esfera"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cilindro"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Sin propiedades de herramienta"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Esta herramienta no tiene propiedades que cambiar."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Varita de selección avanzada"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Varita de Navegación"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Herramienta Apiladora"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Brocha de Esfera"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Cylinder Brush"
