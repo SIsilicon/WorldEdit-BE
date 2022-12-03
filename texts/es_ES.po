@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-03 03:26\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -83,7 +83,7 @@ msgid "worldedit.config.mainMenu"
 msgstr "WorldEdit Settings"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Brocha"
 
 msgid "worldedit.config.tools"
 msgstr "Tools"
