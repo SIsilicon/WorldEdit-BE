@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-05 21:57\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit sitt skript har stoppet! Start dem på nytt med §r/reload§c (andre skripet vil oså starte på nytt).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopier"
@@ -80,76 +80,76 @@ msgid "worldedit.maskPicker.set"
 msgstr "Sett maske til blokk: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit-innstillinger"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Pensler"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Verktøy"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Generell"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Inkluder enheter i utklippstavlen"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Inkluder luft i utklippstavlen"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Ytelsemodus"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Tegn omriss"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Utvalgsmodus"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Lag et nytt verktøy"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Lag et nytt pensel"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Kube"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Utvid"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Kule"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Syllinder"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Ingen verktøysegenskaper"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Dette verktøyet har ingen egenskaper å endre på."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Utvalgsstav"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Langdistanse-utvalgsstav"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Navigeringsstav"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Stable-verktøy"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Kulepensel"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Syllinderpensel"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Jevnbørste"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Lag et mønster og valgfri maske for penselet."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Lag en valgfri maske for verktøyet."
@@ -173,37 +173,37 @@ msgid "worldedit.config.confirm"
 msgstr "Er dette ok?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Er du fornøyd med oppsettet du har laget?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Størrelse"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Høyde"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Glatthet"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Område"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Mønster"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Maske"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Hul"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Høyde-maske"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Bruk blokkvelger"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Andre posisjon satt til %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Startet et nytt sylindrisk utvalg ved %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Radius satt til %1/%2 blokker (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Begynte valg ved %1 (%2)."
@@ -290,7 +290,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Kan ikke endre ubelastede deler!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eTips: For å laste flere deler, øk simuleringsavstanden, eller legg til selvoppdaterende områder der du arbeider.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Tallet (%1) er for stort! Det må være maksimalt (%2)."
@@ -305,13 +305,13 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Kjør §e%s§7 mens du holder gjenstanden for å fjerne bindingen.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Biom ved synspunkt-linje: %s"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Biom ved din posisjon: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Biomer i ditt utvalg: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kulepensel-form valgt (%s)."
@@ -443,13 +443,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "Region utvidet %s blokker."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Eksporterer utvalget for senere bruk."
 
 msgid "commands.wedit:export.explain"
 msgstr "%s har blitt eksportert."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eMerk: For å bruke eksporterte strukturer i andre verdener, er WorldEdit applikasjonen nødvendig for å pakke ut til ekstern bruk.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Slukk brann i nærheten"
@@ -521,10 +521,10 @@ msgid "commands.wedit:inset.description"
 msgstr "Sett in utvalgsområdet"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Importerer en struktur til utklippstavlen."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s har blitt importert og satt på utklippstavlen."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleporter deg til toppen av blokken du ser på"
@@ -590,7 +590,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "Limte inn %s blokker."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "Kan ikke lime inn utklippstavlen til sin opprinnelige posisjon."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Angi den første posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
@@ -638,7 +638,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' er ikke et interval av 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Du kan kun rotere langs Y-aksen!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
@@ -647,7 +647,7 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Kube: trykk mens du sniker for punkt 1, trykk uten sniking for punkt 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Sylinder-velger: Trykk mens du sniker for midten, trykk uten å snike for å utvide radius og høyde"
 
 msgid "commands.wedit:sel.description"
 msgstr "Endre utvalgs-modus"
@@ -656,7 +656,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "Velg to gjørner av en kube"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Velg en syllinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Hurtig kube valgs-modus"
@@ -674,7 +674,7 @@ msgid "commands.wedit:set.description"
 msgstr "Fyll utvalget med et blokkmønster"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Biomer ble endret for omtrent %s blokker."
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
@@ -893,7 +893,8 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster. Bekreft instillingene og lukk menyen."
+msgstr "§72. Bruk \"WorldEdit Settings\" gjenstanden. En meny i verktøylinnjen din skal komme frem som inkluderer \"Brush Settings\". Velg gjenstanden, velg deretter spaden som den skal bindes til. Gjør det til et kulepensel med radius 3, og et brostein mønster.\n"
+"Bekreft instillingene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
