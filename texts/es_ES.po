@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-12-03 03:26\n"
+"PO-Revision-Date: 2022-12-09 19:48\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -80,19 +80,19 @@ msgid "worldedit.maskPicker.set"
 msgstr "Establecer máscara a bloquear: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Opciones de WorldEdit"
 
 msgid "worldedit.config.brushes"
 msgstr "Brocha"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Herramientas"
 
 msgid "worldedit.config.general"
 msgstr "General"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Incluír entidades en el porta-papeles"
 
 msgid "worldedit.config.general.includeAir"
 msgstr "Include Air in Clipboard"
