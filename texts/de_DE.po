@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2022-12-15 11:35\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -101,7 +101,7 @@ msgid "worldedit.config.general.perfMode"
 msgstr "Leistungsmodus"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Umrisse zeichnen"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Auswahlmodus"
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Wählen Sie die Art des Werkzeugs aus."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Erstellen Sie eine optionale Maske für das Werkzeug."
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Starte eine neue zylindrische Auswahl bei %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Radius auf %1/%2 Blöcke gesetzt (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Auswahl gestartet bei %1 (%2)."
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eIhre WorldEdit-Berechtigungen wurden entfernt.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "Fehler beim Speichern des Verlaufspunktes!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "Fehler beim Laden des Verlaufspunktes!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "Die Geschichte wird noch aufgezeichnet!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s Blöcke wurden geändert."
@@ -314,16 +314,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Benutzen Sie §e%s§7 während Sie das Item halten, um es zu entbinden.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Biom am Sichtpunkt: %s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Holen Sie sich die Arten von Biomen in Ihrer Auswahl"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Biome an deiner Position: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Biome in Ihrer Auswahl: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kugelförmiger Pinsel ausgerüstet (%s)."
@@ -461,7 +461,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s wurde exportiert."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eHinweis: Um exportierte Strukturen in anderen Welten zu verwenden, muss die WorldEdit App für externe Nutzung extrahiert werden.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Feuer in der Nähe löschen"
@@ -659,7 +659,7 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Rechteckig: Tippen Sie während des Schleichens auf Punkt 1, tippen Sie ohne Schleichen für Punkt 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Zylinder Auswahl: Tippen Sie beim Schleichen für das Zentrum auf ohne Schleichen um Radius und Höhe zu vergrößern"
 
 msgid "commands.wedit:sel.description"
 msgstr "Auswahlmodus ändern"
@@ -668,7 +668,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "Wählen Sie zwei Ecken eines Quaders"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Zylinder auswählen"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Schneller Quader-Auswahlmodus"
@@ -686,13 +686,13 @@ msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Biome wurden für ungefähr %s Blöcke geändert."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "Ändere die Biome in deiner Auswahl"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eHinweis: Du musst die Welt mit der WorldEdit App verarbeiten, damit die Biomänderungen angewendet werden können. §r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Auswahlbereich verschieben"
@@ -908,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Nehmen Sie sich eine Schaufel jeder Art und platzieren Sie Pflasterstein; Sie benötigen Ihn für den Pinsel."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Benutze den \"WorldEdit Einstellungen\" Artikel. Ein Menü sollte inklusive \"Pinseleinstellungen\" erscheinen. Wählen Sie diese Schaltfläche aus und erstellen Sie dann einen neuen Pinsel, wie es die Schnittstelle angibt. Machen Sie es zu einem Kugelpinsel mit Radius 3 und einem Pflasterstein-Muster. Bestätigen Sie die Einstellungen und verlassen Sie das Menü."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Zielen Sie auf den Boden nicht in Ihrer Nähe und interagieren Sie mit der Schaufel (jetzt Pinsel) um Bruchsteinsphären zu platzieren."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. Gib die Pinseleinstellungen erneut ein, um die Pinselmaske auf das Gras zu setzen. Benutze jetzt den Pinsel, um einen Pflasterstein zu erstellen."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "§r5. Lösche den Pinsel aus dem Menü, um ihn zu deaktivieren."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Was jetzt?"
