@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -259,6 +259,15 @@ msgstr "§eHai ricevuto i permessi WorldEdit. Vai a (Impostazioni > Come giocare
 msgid "worldedit.permission.revoked"
 msgstr "§eLe tue autorizzazioni WorldEdit sono state rimosse.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocchi sono stati modificati."
 
@@ -306,6 +315,9 @@ msgstr "§7Esegui §e%s§7 tenendo premuto l'oggetto per scollegarlo.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +688,9 @@ msgstr "Riempi la selezione col campione di un blocco"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Prendi una pala di qualsiasi tipo, e posiziona della cobblestone; ne avrete bisogno per il pennello."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Usa l'elemento \"Impostazioni WorldEdit\". Un menu nella tua hotbar dovrebbe apparire includendo \"Impostazioni pennello\". Selezionare l'elemento, quindi selezionare la pala a cui collegarlo. Rendilo un pennello a sfera di raggio 3, e un motivo a ciottoli. Confermare le impostazioni ed uscire dal menu."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Mira a terra non vicino a te e interagisci con la pala (ora penello) per posizionare sfere di ciottoli."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Rendilo in modo che il pennello influisca solo sull'erba con §e;mask grass§r§7 mentre lo tieni in mano. Usa il pennello ora per fare un percorso di ciottoli."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disabilita il pennello con §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "E ora?"
