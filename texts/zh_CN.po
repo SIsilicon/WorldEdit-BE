@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-12-11 01:52\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -259,6 +259,15 @@ msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > �
 msgid "worldedit.permission.revoked"
 msgstr "§e您的创世神权限已被移除§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
 
@@ -306,6 +315,9 @@ msgstr "在手持该物品的情况下，通过§7执行§e%s§7来解绑。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +688,9 @@ msgstr "用选择好的填充方块填充选区"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 获取任意类型的铲子，然后放置一个圆石（你待会需要用它来设置笔刷）。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. 使用“创世神设置”道具。物品栏中应该会出现一个包含“笔刷设置”的菜单。选择菜单中的选项，然后选择要绑定到的铲子类型。制作一个半径为3格的球形笔刷且以圆石为填充物。最后确认设置并退出菜单。"
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 在手持笔刷的时候用 §e;mask grass§r§7 命令来让笔刷只影响草方块。现在用笔刷在草地上画一条圆石铺成的路。"
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. 使用 §e;br none §r来禁用笔刷。"
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "现在该做什么？"
