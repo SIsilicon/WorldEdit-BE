@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-11-27 05:32\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -259,6 +259,15 @@ msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び�
 msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit の権限が削除されました。§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 個のブロックが変更されました。"
 
@@ -306,6 +315,9 @@ msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを�
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "見ているバイオーム: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "現在地のバイオーム: %s"
@@ -676,6 +688,9 @@ msgstr "選択範囲をブロックパターンで塗りつぶす"
 msgid "commands.wedit:setbiome.changed"
 msgstr "約 %s ブロックのバイオームが変更されました。"
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§e注意: バイオームの変更を適用するには、WorldEdit アプリでワールドを処理してください。§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 任意のシャベルを取得し、丸石を設置します。 ブラシに必要な工程です。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. 「WorldEdit の設定」 アイテムを使用してください。ホットバーに「ブラシの設定」を含むメニューが表示されます。ブラシの設定を選択し、紐付けるシャベルを選択します。 半径 3 の球体ブラシを丸石のパターンで作成してください。設定を確認し、メニューを終了します。"
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 離れた地面に向かってシャベル (ブラシになったもの) を使い、丸石の球体を設置します。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. ブラシを持ちながらコマンド §e;mask grass§r §7を入力して、ブラシが草ブロックにのみ影響を与えるようにします。それからブラシを使って、丸石の道を作ってください。"
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. §e;br none§r でブラシを無効にします。"
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "さて、どうする？"
