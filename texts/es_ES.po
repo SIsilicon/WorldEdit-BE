@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2022-12-15 18:05\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -95,25 +95,25 @@ msgid "worldedit.config.general.includeEntities"
 msgstr "Incluír entidades en el porta-papeles"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Incluir aire en portapapele"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Modo Rendimiento"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Dibujar lineas salientes"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Modo de selección"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Crear nueva herramienta"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Crear un Nuevo Foro"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Cuboide"
 
 msgid "worldedit.selectionMode.extend"
 msgstr "Extend"
