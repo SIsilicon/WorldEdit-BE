@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
-msgstr "Порт оригінальну моду Java та багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
 msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх за допомогою §r/reload§c (інші скрипти також скинуться).§r"
@@ -29,10 +29,10 @@ msgid "item.wedit:paste_button"
 msgstr "Вставити"
 
 msgid "item.wedit:undo_button"
-msgstr "Назад"
+msgstr "Скасувати дію"
 
 msgid "item.wedit:redo_button"
-msgstr "Вперед"
+msgstr "Відновити дію"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "Повернути за годинниковою стрілкою"
@@ -53,7 +53,7 @@ msgid "item.wedit:spawn_glass"
 msgstr "Створити скляний блок"
 
 msgid "item.wedit:selection_fill"
-msgstr "Заповнити вибраним"
+msgstr "Заповнити виділення"
 
 msgid "item.wedit:selection_wall"
 msgstr "Вибір стіни"
@@ -64,36 +64,6 @@ msgstr "Контурний вибір"
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
 
-msgid "item.wedit:one_button"
-msgstr "Один"
-
-msgid "item.wedit:two_button"
-msgstr "Два"
-
-msgid "item.wedit:three_button"
-msgstr "Три"
-
-msgid "item.wedit:four_button"
-msgstr "Чотири"
-
-msgid "item.wedit:five_button"
-msgstr "П'ять"
-
-msgid "item.wedit:six_button"
-msgstr "Шість"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
 
@@ -101,157 +71,166 @@ msgid "worldedit.patternPicker.add"
 msgstr "До шаблону додано блок: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Встановити шаблон для блокування: "
+msgstr "Вибрати блок для шаблону: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "До шаблону додано блок: "
+msgstr "Додано блок до маски: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Встановити шаблон для блокування: "
+msgstr "Встановити маску для блоку: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Налаштування WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Пензлі"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Інструменти"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Основні"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Включити сутності в буфер обміну"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Включити повітря в буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Режим продуктивності"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Режим виділення"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Створити новий інструмент"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Створити новий пензель"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Кубоподібний"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Розширений"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Циліндр"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Немає властивостей інструменту"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Цей інструмент не має властивостей для зміни."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Паличка виділення"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Паличка далекого виділення"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Навігаційна паличка"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Укладальник"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Сферичний пензель"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Циліндричний пензель"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Пензель для згладжування"
 
 msgid "worldedit.config.chooseItem"
-msgstr "Утримуйте предмет для прив’язки."
+msgstr "Візьміть предмет для прив’язки."
 
 msgid "worldedit.config.choose.brush"
-msgstr "Виберіть, яку кисть зробити."
+msgstr "Виберіть, який пензель створити."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Виберіть, який інструмент виготовити."
+msgstr "Виберіть, який інструмент зробити."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Зробіть візерунок і за бажанням маску для пензля."
+msgstr "Створити шаблон та за бажанням маску для пензля."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Зробіть необов’язкову маску для засобу."
+msgstr "Зробити необов’язкову маску для інструмента."
 
 msgid "worldedit.config.mask.brush"
-msgstr "Зробіть додаткову маску для кисті."
+msgstr "Зробити додаткову маску для пензля."
 
 msgid "worldedit.config.confirm"
-msgstr "Чи це добре?"
+msgstr "Все добре?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Вас влаштовує налаштування, які ви зробили?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Ви впевнені, що бажаєте відв’язати цей елемент?"
+msgstr "Ви впевнені, що бажаєте відв’язати цей предмет?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Розмір"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Висота"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Згладжування"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Діапазон"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Шаблон"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Маска"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Порожньо"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Висота маски"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Використовувати вибір блоку"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "Перший вибір ще не зроблено."
+msgstr "Перше виділення ще не зроблено."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "Перша позиція встановлена ​​на%s."
+msgstr "Перша позиція встановлена ​​на %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
 msgstr "Перша позиція встановлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Друга позиція встановлена ​​на%s."
+msgstr "Друга позиція встановлена ​​на %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Друга позиція встановлена ​​на %1 (%2)."
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Вибір розпочато на %1 (%2)."
+msgstr "Виділення почато на %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Розширений вибір для охоплення %1 (%2)."
+msgstr "Розширене виділення для охоплення %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
 msgstr "Радіус встановлено на %1."
@@ -260,25 +239,25 @@ msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Радіус встановлено на %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "У головній руці має бути предмет."
+msgstr "Предмет має бути у вашій руці."
 
 msgid "worldedit.tool.cantBind"
-msgstr "Ви не можете прив'язатись до такого типу предмета."
+msgstr "Ви не можете прив'язати до такого типу предмета."
 
 msgid "worldedit.tool.noBind"
-msgstr "Цей елемент не пов'язаний з жодним інструментом."
+msgstr "Цей предмет не прив’язаний з жодним інструментом."
 
 msgid "worldedit.tool.noPerm"
-msgstr "У вас немає дозволу виконувати цю дію."
+msgstr "У вас немає дозволу виконати цю дію."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "Інструмент для цього елемента не може бути видалений або замінений."
+msgstr "Інструмент на цьому предметі не можна видалити або замінити."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou були надані WorldEdit дозволи.Перейдіть до (Налаштування > Як грати > Швидкий старт), щоб отримати посібник.§r"
+msgstr "§eВам були надані дозволи WorldEdit. Перейдіть до (Налаштування > Як грати > Швидкий старт), щоб отримати посібник.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eВаші права доступу до WorldEdit видалено.§r"
+msgstr "§eВаші дозволи WorldEdit видалено.§r"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоків було змінено."
@@ -290,7 +269,7 @@ msgid "commands.generic.wedit:commandFail"
 msgstr "Не вдалося виконати цю команду."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Спочатку зробіть вибір."
+msgstr "Спочатку виберіть точки."
 
 msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' є недійсним аргументом напрямку!"
@@ -311,19 +290,28 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eПорада: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
+msgstr "§eПідказка: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "Число (%1) замале! Він має бути не менше (%2)."
+msgstr "Число (%1) замале! Воно має бути не менше (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "Забагато блоків!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Запустіть §e%s§7, утримуючи елемент, щоб розв’язати його.§r"
+msgstr "§7Запустіть §e%s§7, утримуючи предмет, щоб розв’язати його.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферична форма пензля встановлено (%s)."
@@ -335,13 +323,13 @@ msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "Гладкий пензель встановлено (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Гладкий пензель встановлено (%1 x %2x за допомогою фільтра)."
+msgstr "Гладка форма пензля встановлено (%1 x %2x за допомогою фільтра)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Встановіть тип кисті, яку тримаєте"
+msgstr "Встановити тип пензля, який тримаєте"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Від’єднати пов’язаний пензель від поточного елемента"
+msgstr "Від’єднати пов’язаний пензель від поточного предмета"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "Створити сферичний пензель"
@@ -353,10 +341,10 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Створити пензель для згладжування ландшафту"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Маска пензля встановлено."
+msgstr "Маску пензля встановлено."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Маска пензля вимкнено."
+msgstr "Маску пензля вимкнено."
 
 msgid "commands.wedit:brush.material.set"
 msgstr "Матеріали пензля встановлено."
@@ -368,10 +356,10 @@ msgid "commands.wedit:brush.size.set"
 msgstr "Розмір пензля встановлено."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Маску відстеження встановлено."
+msgstr "Маску встановлено."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Маску відстеження вимкнено."
+msgstr "Маску вимкнено."
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "Максимально допустимий радіус пензля: %s"
@@ -380,7 +368,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Для роботи цього пензля не потрібен матеріал."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Пензель не прив’язаний до поточного елемента."
+msgstr "Пензель не прив’язаний до поточного предмета."
 
 msgid "commands.wedit:butcher.description"
 msgstr "Вбити поблизу об'єкти."
@@ -437,34 +425,34 @@ msgid "commands.wedit:drain.noFluid"
 msgstr "Вам потрібно бути близько до води або лави, щоб висушити."
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Перемкнути видимість свого вибору"
+msgstr "Перемкнути видимість свого виділення"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Ваш вибір більше не буде видно."
+msgstr "Ваше виділення більше не буде видно."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Ваш вибір тепер буде видно."
+msgstr "Ваше виділення тепер буде видно."
 
 msgid "commands.wedit:expand.description"
-msgstr "Розвернути виділену область"
+msgstr "Розгорнути виділену область"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Розширте виділені території вертикально до світових меж висоти"
+msgstr "Розширити виділені території вертикально до меж світу"
 
 msgid "commands.wedit:expand.explain"
 msgstr "Регіон розширено на %s блоків."
 
 msgid "commands.wedit:export.description"
-msgstr "Експортує виділення для подальшого використання."
+msgstr "Експортувати виділення для подальшого використання."
 
 msgid "commands.wedit:export.explain"
 msgstr "%s експортовано."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eПримітка: щоб використовувати цю структуру в інших світах, необхідна комп’ютерна/веб-програма WorldEdit, щоб розпакувати її для зовнішнього використання.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Погасити пожежі поблизу"
+msgstr "Погасити вогонь поблизу"
 
 msgid "commands.wedit:faces.description"
 msgstr "Створити контур у вашому регіоні"
@@ -473,22 +461,22 @@ msgid "commands.wedit:fill.description"
 msgstr "Заповнити область певними блоками"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Рекурсивне заповнення області певними блоками"
+msgstr "Рекурсивно заповнити область певними блоками"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Зробити сусідні блоки лави джерелом"
+msgstr "Зробити сусідні блоки лави блоками джерела"
 
 msgid "commands.wedit:fixlava.noLava"
 msgstr "Вам потрібно бути близько до лави, щоб виправити."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Зробити сусідні блоки текучої води в повні блоки води"
+msgstr "Зробити сусідні блоки води в повні блоки води"
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "Вам потрібно бути близько до води, щоб виправити."
 
 msgid "commands.wedit:flip.description"
-msgstr "Перевернути виділення"
+msgstr "Перевернути блоки у виділенні"
 
 msgid "commands.wedit:flip.explain"
 msgstr "Перевернуто %s блоків."
@@ -509,19 +497,19 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальну маску встановлено."
 
 msgid "commands.wedit:green.description"
-msgstr "Перетворити довколишню землю на траву"
+msgstr "Перетворити землю поблизу на траву"
 
 msgid "commands.wedit:hcyl.description"
 msgstr "Згенерувати порожній циліндр"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Показано сторінку довідки %1 з %2 (;help <page>) ---"
+msgstr "--- Сторінка довідки %1 з %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Встановіть першу позицію вашого виділення на позицію блоку, який стоїть перед вами"
+msgstr "Встановити першу позицію вашого виділення на позицію блоку, який стоїть перед вами"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Встановіть другу позицію вашого виділення на позицію блоку, який стоїть перед вами"
+msgstr "Встановити другу позицію вашого виділення на позицію блоку, який стоїть перед вами"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "Згенерувати порожню піраміду"
@@ -533,16 +521,16 @@ msgid "commands.wedit:inset.description"
 msgstr "Вставити область виділення"
 
 msgid "commands.wedit:import.description"
-msgstr "Імпортує структуру в буфер обміну."
+msgstr "Імпортувати структуру в буфер обміну."
 
 msgid "commands.wedit:import.explain"
 msgstr "%s імпортовано та встановлено у ваш буфер обміну."
 
 msgid "commands.wedit:jumpto.description"
-msgstr "Телепортує вас у верхню частину блоку, на який ви дивитесь"
+msgstr "Телепортувати себе у верхню частину блоку, на який я дивлюсь"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Вставка регіону."
+msgstr "Регіон вставлено."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "Бац!"
@@ -551,7 +539,7 @@ msgid "commands.wedit:jumpto.none"
 msgstr "Блоку не видно (або занадто далеко)!"
 
 msgid "commands.wedit:kit.description"
-msgstr "Видайте собі набір елементів для стандартних функцій WorldEdit"
+msgstr "Видати собі набір предметів для стандартних функцій WorldEdit"
 
 msgid "commands.wedit:kit.explain"
 msgstr "Набір видано."
@@ -563,19 +551,19 @@ msgid "commands.wedit:line.invalidType"
 msgstr "ця команда працює лише з виділеннями прямокутної форми"
 
 msgid "commands.wedit:limit.description"
-msgstr "Встановіть кількість блоків, які можна змінити за дію"
+msgstr "Встановити кількість блоків, які можна змінити за дію"
 
 msgid "commands.wedit:limit.set"
 msgstr "Обмеження зміни блоку встановлено на %s."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Ваш максимальний ліміт становить %s."
+msgstr "Ваше максимальне обмеження становить %s."
 
 msgid "commands.wedit:mask.description"
-msgstr "Встановіть тип блоків, на які пензель може впливати, якщо такі є"
+msgstr "Встановити тип блоків, на які пензель може впливати, якщо такі є"
 
 msgid "commands.wedit:material.description"
-msgstr "Встановіть, які блоки має створювати пензель"
+msgstr "Встановити, які блоки має створювати пензель"
 
 msgid "commands.wedit:move.description"
 msgstr "Перемістити виділення в певному напрямку"
@@ -584,10 +572,10 @@ msgid "commands.wedit:move.explain"
 msgstr "Переміщено %s блоків."
 
 msgid "commands.wedit:navwand.description"
-msgstr "Видайте собі навігаційну паличку"
+msgstr "Видає навігаційну паличку"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "Підкрастись і використовувати предмет: проходити крізь стіни; Використовуйте предмет без підкрадання: перейти до місця"
+msgstr "Присісти та використовувати предмет: проходити крізь стіни; Використовуйте предмет без присідання: перейти до місця"
 
 msgid "commands.wedit:outset.description"
 msgstr "Визначити область виділення"
@@ -596,37 +584,37 @@ msgid "commands.wedit:outset.explain"
 msgstr "Початок регіону."
 
 msgid "commands.wedit:paste.description"
-msgstr "Вставити буфер обміну у світ"
+msgstr "Вставити дані з буфер обміну у світ"
 
 msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоків."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Не вдається вставити буфер обміну в початкове місце."
+msgstr "Не вдається вставити дані з буфер обміну в початкове місце."
 
 msgid "commands.wedit:pos1.description"
-msgstr "Встановіть першу позицію вашого виділення на вказану або поточну позицію"
+msgstr "Встановити першу позицію вашого виділення на вказану або поточну позицію"
 
 msgid "commands.wedit:pos2.description"
-msgstr "Встановіть другу позицію вашого виділення на вказану або поточну позицію"
+msgstr "Встановити другу позицію вашого виділення на вказану або поточну позицію"
 
 msgid "commands.wedit:pyramid.description"
 msgstr "Згенерувати піраміду"
 
 msgid "commands.wedit:range.description"
-msgstr "Встановіть, з якої відстані можна використовувати пензель"
+msgstr "Встановити, з якої відстані можна використовувати пензель"
 
 msgid "commands.wedit:redo.description"
-msgstr "Повторити певну кількість дій"
+msgstr "Відновити певну кількість дій"
 
 msgid "commands.wedit:redo.explain"
-msgstr "Повторено %s доступних змін."
+msgstr "Відновлено %s доступних дій."
 
 msgid "commands.wedit:redo.none"
-msgstr "Не залишилося нічого переробляти."
+msgstr "Нічого відновлювати."
 
 msgid "commands.wedit:replace.description"
-msgstr "Замінити певні блоки у виділені з іншими блоками"
+msgstr "Замінити певні блоки у виділенні з іншими блоками"
 
 msgid "commands.wedit:removeabove.description"
 msgstr "Видалити блоки над собою"
@@ -635,19 +623,19 @@ msgid "commands.wedit:removebelow.description"
 msgstr "Видалити блоки під собою"
 
 msgid "commands.wedit:removenear.description"
-msgstr "Видалити поблизу блоки"
+msgstr "Видалити блоки поблизу"
 
 msgid "commands.wedit:replacenear.description"
-msgstr "Замінити поблизу блоки іншими блоками"
+msgstr "Замінити блоки поблизу з іншими блоками"
 
 msgid "commands.wedit:rotate.description"
-msgstr "Повернути виділення"
+msgstr "Повернути блоки у виділенні"
 
 msgid "commands.wedit:rotate.explain"
 msgstr "Повернуто %s блоків."
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s' не є кроком 90°!"
+msgstr "'%s' не є приростом 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Обертати можна тільки вздовж осі Y!"
@@ -656,40 +644,52 @@ msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Кубоїд: торкніться крадькома до точки 1, торкніться без крадькома до точки 2"
+msgstr "Кубоїд: нажміть під час присяду до точки 1, та нажміть у звичайному положенні до точки 2"
+
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
 
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Виділити два кути прямокутного паралелепіпеда"
+msgstr "Виділити два кути кубоїда"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Режим швидкого виділення прямокутної форми"
+msgstr "Режим швидкого виділення кубоїда"
 
 msgid "commands.wedit:sel.description.sphere"
-msgstr "Виберіть сферу"
+msgstr "Вибрати сферу"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Розширити: торкніться, підкрадаючись до початкової точки, торкніться, не підкрадаючись, щоб розширити"
+msgstr "Розширення: нажміть, підкрадаючись до початкової точки, та нажміть, не підкрадаючись, щоб розширити"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Селектор сфер: торкніться, підкрадаючись до центру, торкайтеся, не підкрадаючись, щоб встановити радіус"
+msgstr "Селектор сфер: нажміть під час присяду в центр екрана, та нажміть, не підкрадаючись, щоб встановити радіус"
 
 msgid "commands.wedit:set.description"
-msgstr "Заповніть виділення шаблоном блоку"
+msgstr "Заповнити виділення вибраним блоком"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Зсунути область виділення"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Регіон змістився."
+msgstr "Регіон зміщено."
 
 msgid "commands.wedit:size.description"
 msgstr "Встановити розмір пензля"
 
 msgid "commands.wedit:snow.description"
-msgstr "Імітація снігу на області"
+msgstr "Імітація снігу в області"
 
 msgid "commands.wedit:thaw.description"
 msgstr "Розтопити сніг і лід, виставлені на небо"
@@ -707,49 +707,49 @@ msgid "commands.wedit:sphere.description"
 msgstr "Згенерувати сферу"
 
 msgid "commands.wedit:thru.description"
-msgstr "Телепортуйтеся через будь-яку стіну, на яку ви дивитеся"
+msgstr "Телепортуватися через будь-яку стіну, на яку я дивлюся"
 
 msgid "commands.wedit:thru.explain"
 msgstr "Ух!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Не навпроти у стіну або обличчям до неї, щоб пройти."
+msgstr "Не до стіни або обличчям до неї, щоб пройти."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Перед вами не знайдено вільного місця."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Піднятися на поверх"
+msgstr "Піднятися вверх"
 
 msgid "commands.wedit:ascend.obstructed"
 msgstr "Вільного місця над вами не знайдено."
 
 msgid "commands.wedit:descend.description"
-msgstr "Спуститися на поверх"
+msgstr "Спуститися вниз"
 
 msgid "commands.wedit:descend.obstructed"
 msgstr "Вільного місця під вами не знайдено."
 
 msgid "commands.wedit:tracemask.description"
-msgstr "Встановіть тип блоків, на яких можна використовувати пензель"
+msgstr "Встановити тип блоків, на яких можна використовувати пензель"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Паличка вибору прив’язана до %s."
+msgstr "Паличка виділення прив’язана до %s."
 
 msgid "commands.wedit:tool.bind.navwand"
 msgstr "Навігаційна паличка прив’язана до %s."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Далека вибрана паличка прив’язана до %s."
+msgstr "Паличка далекого виділення прив’язана до %s."
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Інструмент укладача прив’язаний до %s."
+msgstr "Укладальник прив’язаний до %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Отримати всілякі інструменти"
+msgstr "Отримати всі види інструментів"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Інструмент виділення, але можна досягти й далі"
+msgstr "Інструмент виділення, але може бути доступний далі"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "Інструмент виділення"
@@ -758,16 +758,16 @@ msgid "commands.wedit:tool.description.navwand"
 msgstr "Навігаційна паличка"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Інструмент укладальника блоків"
+msgstr "Укладальник блоків"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Від'єднати прив'язку інструмента"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Інструмент від’єднано від поточного елемента."
+msgstr "Інструмент від’єднано від поточного предмета."
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Вийдіть з блоків"
+msgstr "Вийти з блоків"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "Ось так!"
@@ -776,10 +776,10 @@ msgid "commands.wedit:undo.description"
 msgstr "Скасувати певну кількість дій"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Скасовано %s доступних змін."
+msgstr "Скасовано %s доступних дій."
 
 msgid "commands.wedit:undo.none"
-msgstr "Не залишилося нічого для скасування."
+msgstr "Нічого скасовувати."
 
 msgid "commands.wedit:up.description"
 msgstr "Перемістити вгору на певну кількість блоків"
@@ -788,13 +788,13 @@ msgid "commands.wedit:up.explain"
 msgstr "Ух!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Згенерувати стіну з вашого вибору"
+msgstr "Згенерувати стіну у виборі"
 
 msgid "commands.wedit:wand.description"
-msgstr "Видайте собі сокиру для виділення"
+msgstr "Видати собі паличку виділення"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Підкрадіться та торкніться блоку: вибрати позицію №1; Торкніться блоку без підкрадання: вибрати позицію №2"
+msgstr "Присядьте та нажміть на блок: вибрати позицію №1; Нажміть на блок без присідання: вибрати позицію №2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Команди WorldEdit"
@@ -821,7 +821,7 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "Швидкий старт"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "Як грати: Швидкий старт WorldEdit"
+msgstr "Як грати: Швидкий старт для WorldEdit"
 
 msgid "howtoplay.wedit:license"
 msgstr "Ліцензія"
@@ -836,55 +836,55 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перш ніж усе інше..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "За замовчуванням гравцям заборонено використовувати WorldEdit. Лише ті, хто позначив дозвіл worldedit, можуть використовувати його функції. Щоб надати собі дозвіл, введіть §e/tag @s add worldedit§r у чаті. Тепер ви повинні мати доступ до кожної команди WorldEdit."
+msgstr "За замовчуванням у гравців немає дозволу використовувати WorldEdit. Лише ті, хто позначив дозвіл worldedit, можуть використовувати його функції. Щоб надати собі дозвіл, введіть §e/tag @s add worldedit§r у чаті. Тепер ви будете мати доступ до кожної команди WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aПідказка:§r§a Ви також можете надати іншим гравцям дозвіл, змінивши §e@s§r§a на ім'я гравця. Вам потрібно буде взяти його ім'я в лапки, якщо в ньому є пробіл. Наприклад: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Відвідування місць"
+msgstr "З чого ж почати"
 
 msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aПримітка:§r§a Команди, надані цим доповненням, використовують крапку з комою (;) замість косої риски (/). У майбутньому Mojang може додати фактичну підтримку спеціальних команд у Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Дістатися з пункту А в пункт Б іноді буває складно. На щастя, це доповнення постачається з так званою Навігаційна паличка. Щоб отримати його, введіть команду §e;navwand§r. Отримавши цей предмет, просто взаємодійте з ним, щоб телепортуватись у те місце, на яке ви дивитесь. Хочете потрапити по інший бік стіни чи стелі? Використовуйте паличку, підкрадаючись, щоб пройти наскрізь! Застрягли в блоці? Використовуючи паличку, ви вибратесь!"
+msgstr "Дістатися з пункту А в пункт Б іноді буває складно. На щастя, це доповнення постачає інструмент з так званою Навігаційною паличкою. Щоб отримати її, введіть команду §e;navwand§r. Отримавши цей предмет, просто взаємодійте з ним, щоб телепортуватись у те місце, на яке ви дивитесь. Хочете потрапити по інший бік стіни чи стелі? Використовуйте паличку, підкрадаючись, щоб пройти наскрізь! Застрягли в блоці? Використовуючи паличку, ви зможете вибратись!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aПідказка:§r§a Якщо ви не бажаєте використовувати навігаційну паличку, ці дії також можна виконати за допомогою команд §e;jumpto§r§a, §e;thru§r§a та §e;unstuck§r§a також§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
-msgstr "Зробити виділення"
+msgstr "Створення виділення"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Як і в оригінальної модифікації, ви використовуєте те, що називається Selection Wand, щоб легко позначати регіони вашого світу для різних операцій. Щоб отримати його, візьміть дерев’яну сокиру або введіть команду §e;wand§r. Виділення у WorldEdit за замовчуванням мають форму куба. Щоб зробити виділення, потрібно позначити два кути цього паралелепіпеда. Ви позначаєте перший кут, використовуючи паличку на блоці в цьому куті під час підкрадання. Ви позначаєте другу точку, використовуючи її на блоці §lбез§r підкрадання. Якщо все зроблено правильно, ви повинні побачити виділення."
+msgstr "Як і в оригінальної модифікації, ви використовуєте те, що називається паличка виділення, щоб легко позначати регіони вашого світу для різних операцій. Щоб отримати її, візьміть дерев’яну сокиру або введіть команду §e;wand§r. Виділення у WorldEdit за замовчуванням мають форму куба. Щоб зробити виділення, потрібно позначити два кути цього паралелепіпеда. Ви позначаєте перший кут, використовуючи паличку на блоці в цьому куті під час підкрадання. Ви позначаєте другу точку, використовуючи її на блоці §lбез§r підкрадання. Якщо все зроблено правильно, ви повинні побачити виділення."
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "Якщо у вас немає блоку, яким можна позначити кут, наприклад, високо в повітрі, ви також можете використати команди §e;pos1§r або §e;pos2§r, щоб позначити перший і другий кути відповідно як положення, яке ви зараз перебуваєте. Це не те саме, що ви стоїте."
+msgstr "Якщо у вас немає блоку, яким можна позначити кут, наприклад, високо в повітрі, ви також можете використати команди §e;pos1§r або §e;pos2§r, щоб позначити перший і другий кути відповідно як позицію, де ви зараз перебуваєте. Це не те саме, що ви стоїте."
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Робимо речі за вашим вибором"
+msgstr "Робимо речі з вашим виділенням"
 
 msgid "howtoplay.wedit:quick_start.text.9"
-msgstr "Зробіть вибір невеликого розміру для роботи та підготуйте свій комплект із §e;kit§r. Ми спробуємо деякі функції, які пропонує WorldEdit."
+msgstr "Зробіть виділення невеликого розміру для роботи та підготуйте свій комплект з §e;kit§r. Ми спробуємо деякі функції, які пропонує WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Поставте камінь, скористайтеся інструментом вибору шаблону, а потім скористайтеся функцією «Заливка виділення». З каменю треба зробити прямокутну форму."
+msgstr "§71. Поставте камінь, скористайтеся інструментом «Вибір шаблону», а потім скористайтеся «Заповнити виділення». З каменю треба зробити прямокутну форму."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Використовуйте інструмент вибору візерунків у повітрі (гравці на мобільних пристроях повинні тримати ним екран) і знову використовуйте «Заповнити вибраним», щоб очистити камінь."
+msgstr "§r2. Використовуйте інструмент «Вибір шаблону» у повітрі (гравці на мобільних пристроях повинні довго нажати) і знову скористайтеся «Заповнити виділення», щоб очистити камінь."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Поставте піщаник і скло, скористайтеся інструментом вибору візерунка на піску, а потім присядьте та використовуйте його на склі, щоб додати свій візерунок. Скористайтеся функцією «Заливка виділення», і ви повинні отримати суміш пісковику та скла."
+msgstr "§73. Поставте піщаник і скло, скористайтеся інструментом «Вибір шаблону» на піщанику, а потім присядьте та використовуйте його на склі, щоб додати свій шаблон. Скористайтеся «Заповнити виділення», і ви отримаєте суміш піщаника та скла."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Візьміть засіб вибору маски зі свого інвентарю та використайте його на пісковику. Встановіть блок на виділення як шаблон і скористайтеся функцією «Заповнити вибраним». Весь пісковик тепер має бути замінений на цей блок."
+msgstr "§r4. Візьміть «Вибір маски» зі свого інвентарю та використайте його на піщанику. Встановіть блок на виділення як шаблон і скористайтеся «Заповнити виділення». Весь піщаник тепер має бути замінений на цей блок."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Повторіть свій вибір угору, ввівши команду §e;stack 4 up§r§7."
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "Якщо ви хочете, ви можете скасувати будь-що за допомогою елемента скасування, доки ви не зможете скасувати більше."
+msgstr "Якщо ви хочете, ви можете скасувати будь-що за допомогою предмета «Скасувати дію», доки ви не зможете скасувати більше."
 
 msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Гра з пензлями"
@@ -893,22 +893,22 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Візьміть будь-яку лопату і поставте кругляк; він вам знадобиться для пензля."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Використовуйте пункт «Налаштування WorldEdit». На панелі швидкого доступу має з’явитися меню з «Налаштуваннями пензля». Виберіть предмет, а потім виберіть лопату, до якої потрібно прив’язатися. Зробіть це сферичним пензлем радіуса 3 і малюнком кругляку. Підтвердьте налаштування та вийдіть з меню."
+msgstr "§72. Використовуйте пункт «Налаштування WorldEdit». На панелі швидкого доступу має з’явитися меню «Налаштування пензля». Виберіть предмет, а потім виберіть лопату, до якої потрібно прив’язати. Створіть його сферичним пензлем радіуса 3 і шаблоном кругляку. Підтвердьте налаштування та вийдіть з меню."
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Цільтесь в землю неподалік від вас і взаємодійте з лопатою (тепер пензлем), щоб розмістити кругляк."
+msgstr "§r3. Цільтесь в землю неподалік від вас і взаємодійте з лопатою (тепер пензлем), щоб розмістити сферу з кругляку."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Зробіть так, щоб пензель впливав лише на траву за допомогою §e;mask grass§r§7, утримуючи її. Використовуйте пензлик, щоб зробити доріжку з кругляку."
+msgstr "§74. Зробіть так, щоб пензель впливав лише на траву за допомогою §e;mask grass§r§7, взявши її в руки. Використовуйте пензлик, щоб зробити доріжку з кругляку."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Вимкнути пензель за допомогою §e;br none§r."
+msgstr "§r5. Вимкніть пензель за допомогою §e;br none§r."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Що зараз?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "Щоб дізнатися більше про цю модифікацію, ви можете перейти до його онлайн-документації тут: §ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "Щоб дізнатися більше про цю модифікацію, ви можете перейти до онлайн-документації тут: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"

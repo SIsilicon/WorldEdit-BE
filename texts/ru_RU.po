@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -64,36 +64,6 @@ msgstr "Выбор Контура"
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
 
-msgid "item.wedit:one_button"
-msgstr "Один"
-
-msgid "item.wedit:two_button"
-msgstr "Два"
-
-msgid "item.wedit:three_button"
-msgstr "Три"
-
-msgid "item.wedit:four_button"
-msgstr "Четыре"
-
-msgid "item.wedit:five_button"
-msgstr "Пять"
-
-msgid "item.wedit:six_button"
-msgstr "Шесть"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Вам нужно указать блок, чтобы установить выбор!"
 
@@ -129,6 +99,9 @@ msgstr "Include Air in Clipboard"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Performance Mode"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Selection Mode"
@@ -188,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Сделайте узор и необязательную маску для кисти."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Сделайте необязательную маску для инструмента."
@@ -246,6 +219,12 @@ msgstr "Вторая точка поставлена на %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Вторая точка поставлена на %1 (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Начал выбор в %1 (%2)."
@@ -324,6 +303,15 @@ msgstr "Слишком много блоков!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Выполните §e%s§7, удерживая предмет, чтобы отвязать его.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферическая форма кисти установлена (%s)."
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s has been exported."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасить огонь поблизости"
@@ -658,11 +646,17 @@ msgstr "Выделение очищено."
 msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоид: нажмите во время приседа на точку 1, и в обычном режиме на точку 2"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "Сменить режим выделения"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Выделите два угла кубоида"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Режим быстрого выделения кубоидов"
@@ -678,6 +672,12 @@ msgstr "Сфера селектор: коснитесь во время подк
 
 msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Сдвинуть выделенный регион"

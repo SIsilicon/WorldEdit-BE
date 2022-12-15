@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -64,36 +64,6 @@ msgstr "Konturenauswahl"
 msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
 
-msgid "item.wedit:one_button"
-msgstr "Eins"
-
-msgid "item.wedit:two_button"
-msgstr "Zwei"
-
-msgid "item.wedit:three_button"
-msgstr "Drei"
-
-msgid "item.wedit:four_button"
-msgstr "Vier"
-
-msgid "item.wedit:five_button"
-msgstr "Fünf"
-
-msgid "item.wedit:six_button"
-msgstr "Sechs"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Sie müssen einen Block angeben, auf den die Auswahl gesetzt werden soll!"
 
@@ -110,73 +80,76 @@ msgid "worldedit.maskPicker.set"
 msgstr "Setze Maske auf Block: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit Einstellungen"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Pinsel"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Werkzeuge"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Allgemein"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Entitäten in die Zwischenablage einbeziehen"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Luft in Zwischenablage einbeziehen"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Leistungsmodus"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Auswahlmodus"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Neues Werkzeug erstellen"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Neuen Pinsel erstellen"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Quader"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Erweitern"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Sphäre"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Zylinder"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Keine Werkzeugeigenschaften"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Dieses Werkzeug hat keine Eigenschaften zu ändern."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Auswahl-Stab"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Fernauswahl-Stab"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Navigations-Stab"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Stapelwerkzeug"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Sphärenpinsel"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Zylinder Pinsel"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Glatter Pinsel"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Item."
@@ -188,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Wählen Sie die Art des Werkzeugs aus."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Erstellen Sie eine optionale Maske für das Werkzeug."
@@ -200,37 +173,37 @@ msgid "worldedit.config.confirm"
 msgstr "Ist das in Ordnung?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Sind Sie mit dem Setup in Ordnung?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Sind Sie sicher, dass Sie dieses Item entbinden möchten?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Größe"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Höhe"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Glätte"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Bereich"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Muster"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Maske"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Hohlraum"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Höhen-Maske"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Blockauswahl verwenden"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Erste Auswahl wurde noch nicht getroffen."
@@ -246,6 +219,12 @@ msgstr "Zweite Position auf %s gesetzt."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Zweite Position auf %1 gesetzt (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Auswahl gestartet bei %1 (%2)."
@@ -324,6 +303,15 @@ msgstr "Zu viele Blöcke!"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Benutzen Sie §e%s§7 während Sie das Item halten, um es zu entbinden.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kugelförmiger Pinsel ausgerüstet (%s)."
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s wurde exportiert."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eHinweis: Um diese Struktur in anderen Welten zu verwenden, muss die WorldEdit PC/Web App für externe Nutzung extrahiert werden.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Feuer in der Nähe löschen"
@@ -658,11 +646,17 @@ msgstr "Auswahl geleert."
 msgid "commands.wedit:sel.cuboid"
 msgstr "Rechteckig: Tippen Sie während des Schleichens auf Punkt 1, tippen Sie ohne Schleichen für Punkt 2"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "Auswahlmodus ändern"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Wählen Sie zwei Ecken eines Quaders"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Schneller Quader-Auswahlmodus"
@@ -678,6 +672,12 @@ msgstr "Kugelselektor: Tippen Sie beim Schleichen auf den Mittelpunkt, tippen Si
 
 msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Auswahlbereich verschieben"

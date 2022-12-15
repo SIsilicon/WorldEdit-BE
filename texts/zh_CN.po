@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-11-05 15:42\n"
+"PO-Revision-Date: 2022-11-26 01:40\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -64,36 +64,6 @@ msgstr "填充选区表面"
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
-msgid "item.wedit:one_button"
-msgstr "一"
-
-msgid "item.wedit:two_button"
-msgstr "二"
-
-msgid "item.wedit:three_button"
-msgstr "三"
-
-msgid "item.wedit:four_button"
-msgstr "四"
-
-msgid "item.wedit:five_button"
-msgstr "五"
-
-msgid "item.wedit:six_button"
-msgstr "六"
-
-msgid "item.wedit:include_entities_on"
-msgstr "Include Entities in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_entities_off"
-msgstr "Include Entities in Clipboard: §4Disabled§r"
-
-msgid "item.wedit:include_air_on"
-msgstr "Include Air in Clipboard: §aEnabled§r"
-
-msgid "item.wedit:include_air_off"
-msgstr "Include Air in Clipboard: §4Disabled§r"
-
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "您需要指定一个方块来设置选区！"
 
@@ -129,6 +99,9 @@ msgstr "Include Air in Clipboard"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Performance Mode"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Selection Mode"
@@ -188,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "选择用于制作的工具类型"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "设定笔刷的填充方块和取代方块"
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
@@ -246,6 +219,12 @@ msgstr "第二个点设定为 %s。"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "在 %1 (%2) 之间创建选区。"
@@ -324,6 +303,15 @@ msgstr "设定的方块过多！"
 
 msgid "commands.generic.wedit:unbindInfo"
 msgstr "在手持该物品的情况下，通过§7执行§e%s§7来解绑。§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已装载球形笔刷 (%s)。"
@@ -461,7 +449,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s has been exported."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use this structure in other worlds, the WorldEdit PC/Web app is required to extract it for external use.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
@@ -658,11 +646,17 @@ msgstr "选区已清除"
 msgid "commands.wedit:sel.cuboid"
 msgstr "扩展：在潜行时点击以设置第一点，不潜行时点击以设置第二点。"
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "选择一个立方体的两个对角。"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "快速立方体选区模式"
@@ -678,6 +672,12 @@ msgstr "球体选择器：在潜行时使用选定中心，非潜行时使用即
 
 msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "移动选区"
