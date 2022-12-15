@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-26 13:17\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -259,6 +259,15 @@ msgstr "§eВам були надані дозволи WorldEdit. Перейді
 msgid "worldedit.permission.revoked"
 msgstr "§eВаші дозволи WorldEdit видалено.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоків було змінено."
 
@@ -306,6 +315,9 @@ msgstr "§7Запустіть §e%s§7, утримуючи предмет, що�
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Біом у точці прямої видимості: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Біом на якому ви є: %s"
@@ -676,6 +688,9 @@ msgstr "Заповнити виділення вибраним блоком"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Біоми змінено приблизно для %s блоків."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eУвага: вам потрібно обробити світ за допомогою програми WorldEdit, щоб зміни біома застосувалися.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Візьміть будь-яку лопату і поставте кругляк; він вам знадобиться для пензля."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Використовуйте пункт «Налаштування WorldEdit». На панелі швидкого доступу має з’явитися меню «Налаштування пензля». Виберіть предмет, а потім виберіть лопату, до якої потрібно прив’язати. Створіть його сферичним пензлем радіуса 3 і шаблоном кругляку. Підтвердьте налаштування та вийдіть з меню."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цільтесь в землю неподалік від вас і взаємодійте з лопатою (тепер пензлем), щоб розмістити сферу з кругляку."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Зробіть так, щоб пензель впливав лише на траву за допомогою §e;mask grass§r§7, взявши її в руки. Використовуйте пензлик, щоб зробити доріжку з кругляку."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Вимкніть пензель за допомогою §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Що зараз?"
