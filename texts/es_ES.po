@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-12-15 18:05\n"
+"PO-Revision-Date: 2022-12-15 19:02\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -116,25 +116,25 @@ msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboide"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Extender"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Esfera"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cilindro"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "No hay propiedades de herramienta"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "La herramienta no tiene propiedades para establecer."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Varita de selección lejana"
 
 msgid "worldedit.config.tool.navigation"
 msgstr "Navigation Wand"
