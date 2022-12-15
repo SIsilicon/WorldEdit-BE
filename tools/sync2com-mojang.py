@@ -21,9 +21,6 @@ pack_folder = 'WorldEdit'
 
 behaviour_pack = com_mojang + f'\\development_behavior_packs\\{pack_folder} BP'
 resource_pack = com_mojang + f'\\development_resource_packs\\{pack_folder} RP'
-if args.dest == 'server':
-    behaviour_pack = com_mojang + f'\\behavior_packs\\{pack_folder} BP'
-    resource_pack = com_mojang + f'\\resource_packs\\{pack_folder} RP'
 
 def sync_file(path, from_root, to_root):
     from_file = Path(path).relative_to(from_root)
