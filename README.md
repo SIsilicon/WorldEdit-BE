@@ -28,13 +28,15 @@ WorldEdit currently has the following features.
 - Multiblock patterns
 - Undo and Redo
 - Brushes for painting/affecting blocks
+- Manipulating biomes
+- Exporting and imports structures
 
 ## Planned
 These features will be added in the near future.
 - More brushes and tools
 - More selection shapes
 - More selection operations
-- Manipulate biome data
+- Palletes
 - Basically, Java Parity
 
 ## Documentation
