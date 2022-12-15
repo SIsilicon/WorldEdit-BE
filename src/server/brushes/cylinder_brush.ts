@@ -66,11 +66,10 @@ export class CylinderBrush extends Brush {
     yield* this.shape.generate(loc, this.pattern, mask, session, {"hollow": this.hollow});
   }
 
-  // TODO: Support cylinder shape
   public updateOutline(selection: Selection, loc: BlockLocation): void {
     const region = this.shape.getRegion(loc);
-    selection.mode = "cuboid";
-    selection.set(0, region[0]);
-    selection.set(1, region[1]);
+    selection.mode = "cylinder";
+    selection.set(0, new BlockLocation(loc.x, region[0].y, loc.z));
+    selection.set(1, new BlockLocation(loc.x + this.radius, region[1].y, loc.z));
   }
 }
