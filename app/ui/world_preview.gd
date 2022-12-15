@@ -1,10 +1,12 @@
 tool
+class_name WorldPreviewButton
 extends Control
 
 export(String, DIR, GLOBAL) var world_path: String setget set_world_path
 
 onready var is_ready := true
 
+var world: MCWorld
 
 func set_world_path(val: String) -> void:
 	if val == world_path:
@@ -14,18 +16,16 @@ func set_world_path(val: String) -> void:
 	if not is_ready:
 		yield(self, "ready")
 	
-	var image := Image.new()
-	image.load(world_path.plus_file("world_icon.jpeg"))
-	var texture := ImageTexture.new()
-	texture.create_from_image(image)
-	$"%Image".texture = texture
+	world = MCWorld.new(world_path)
 	
-	var file := File.new()
-	file.open(world_path.plus_file("levelname.txt"), File.READ)
-	var levelname := file.get_as_text()
-	file.close()
+	$"%Image".texture = world.get_image()
+	$"%Name".text = world.get_name()
+	$"%Folder".text = world.path.get_file()
 	
-	$"%Name".text = levelname
+	var modified_time := Time.get_date_dict_from_unix_time(File.new().get_modified_time(world.path))
+	$"%Date".text = "%s/%s/%s" % [modified_time.month, modified_time.day, modified_time.year]
+	
+	$"%Preview".visible = world.path.begins_with(Global.COM_MOJANG[1])
 
 
 func _truncate_string(string: String, length: int) -> String:

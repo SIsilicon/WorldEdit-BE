@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://menus/worlds.gd" type="Script" id=1]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=2]
+[ext_resource path="res://ui/panel.svg" type="Texture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 3.0
+margin_bottom = 3.0
+
+[node name="Worlds" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 8
+script = ExtResource( 1 )
+
+[node name="AspectRatio" type="AspectRatioContainer" parent="."]
+margin_top = 8.0
+margin_right = 1024.0
+margin_bottom = 600.0
+alignment_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="AspectRatio"]
+margin_left = 216.0
+margin_right = 808.0
+margin_bottom = 592.0
+
+[node name="OpenFolder" type="Button" parent="AspectRatio/VBox"]
+margin_right = 592.0
+margin_bottom = 41.0
+text = "Open World Folder"
+
+[node name="SearchBar" type="LineEdit" parent="AspectRatio/VBox"]
+margin_top = 45.0
+margin_right = 592.0
+margin_bottom = 93.0
+placeholder_text = "Search for world"
+caret_blink = true
+
+[node name="Panel" type="PanelContainer" parent="AspectRatio/VBox"]
+margin_top = 97.0
+margin_right = 592.0
+margin_bottom = 592.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Scroll" type="ScrollContainer" parent="AspectRatio/VBox/Panel"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 589.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="WorldsList" type="VBoxContainer" parent="AspectRatio/VBox/Panel/Scroll"]
+unique_name_in_owner = true
+margin_right = 586.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="SelectFolder" type="Node" parent="."]
+script = ExtResource( 2 )
+title = "Select a world folder to process  "
+
+[connection signal="pressed" from="AspectRatio/VBox/OpenFolder" to="." method="_on_OpenFolder_pressed"]
+[connection signal="text_entered" from="AspectRatio/VBox/SearchBar" to="." method="_on_SearchBar_text_entered"]
+[connection signal="folder_selected" from="SelectFolder" to="." method="_on_SelectFolder_folder_selected"]

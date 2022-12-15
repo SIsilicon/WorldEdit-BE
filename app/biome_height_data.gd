@@ -13,6 +13,7 @@ var _height_data = []
 var _biome_data = []
 # var _biome_pallete_data = []
 
+# warning-ignore:shadowed_variable
 func _init(x: int, z: int, dimension = 0) -> void:
 	coord.x = x
 	coord.y = z
@@ -20,7 +21,9 @@ func _init(x: int, z: int, dimension = 0) -> void:
 
 
 func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
+# warning-ignore:narrowing_conversion
 	var key = _to_int32(coord.x)
+# warning-ignore:narrowing_conversion
 	key.append_array(_to_int32(coord.y))
 	if dimension:
 		key.append_array(_to_int32(dimension))
@@ -50,6 +53,7 @@ func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 #			_biome_pallete_data.append(null)
 			continue
 		
+# warning-ignore:unused_variable
 		var bit_0 = header & 0b00000001
 		var bits_per_entry = (header & 0b11111110) >> 1
 		
@@ -93,8 +97,10 @@ func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 	_is_valid = true
 
 
-func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
+func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> int:
+# warning-ignore:narrowing_conversion
 	var key = _to_int32(coord.x)
+# warning-ignore:narrowing_conversion
 	key.append_array(_to_int32(coord.y))
 	if dimension:
 		key.append_array(_to_int32(dimension))
@@ -121,6 +127,7 @@ func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 			pallete = [biomes]
 		
 		if pallete.size() > 1:
+# warning-ignore:narrowing_conversion
 			var bits_per_entry: int = nearest_po2(log(nearest_po2(pallete.size())) / log(2))
 			buffer.put_u8((bits_per_entry << 1) + 1)
 			
@@ -160,6 +167,9 @@ func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 	leveldb.store_data(key, buffer.data_array)
 	if mutex:
 		mutex.unlock()
+	
+	# TODO: Implement leveldb.get_last_error()
+	return OK
 
 
 func get_height(x: int, z: int) -> int:
@@ -184,6 +194,7 @@ func set_biome(x: int, y: int, z: int, biome: int) -> void:
 	if y < min_height or y >= height_limit:
 		return
 	
+# warning-ignore:integer_division
 	var y_idx := floor((y - min_height) / 16)
 	var biomes = _biome_data[y_idx]
 	
@@ -210,6 +221,7 @@ func set_biome_subchunk(y: int, biome: int) -> void:
 	if y < min_height or y >= height_limit:
 		return
 	
+# warning-ignore:integer_division
 	var y_idx := floor((y - min_height) / 16)
 	_biome_data[y_idx] = biome
 
@@ -224,12 +236,18 @@ func xyz_to_idx(x: int, y: int, z: int) -> int:
 
 
 func y_to_lookup(y: int) -> Array:
+# warning-ignore:narrowing_conversion
 	y = min(y, height_limit - 1)
+# warning-ignore:integer_division
 	var sub_data = _biome_data[floor((y - min_height) / 16)]
 	while sub_data == null and y >= min_height:
+# warning-ignore:integer_division
+# warning-ignore:narrowing_conversion
+# warning-ignore:integer_division
 		y = floor(y / 16) * 16 - 1
 		sub_data = _biome_data[floor((y - min_height) / 16)]
 	
+# warning-ignore:integer_division
 	return [y, sub_data, floor((y - min_height) / 16)]
 
 

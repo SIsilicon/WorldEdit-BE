@@ -14,13 +14,45 @@ var _is_open := false
 var _scoreboard: Scoreboard
 var _biome_height_data: Dictionary
 
+# TODO: Cache world image and name
+
 var path: String
 
 func _init(path: String) -> void:
 	self.path = path
 
 
+func get_image() -> ImageTexture:
+	var image := Image.new()
+	image.load(path.plus_file("world_icon.jpeg"))
+	var texture := ImageTexture.new()
+	texture.create_from_image(image)
+	return texture
+
+
+func get_name() -> String:
+	var file := File.new()
+	file.open(path.plus_file("levelname.txt"), File.READ)
+	var levelname := file.get_as_text()
+	file.close()
+	return levelname
+
+
+func rename(new_name: String) -> void:
+	var file := File.new()
+	file.open(path.plus_file("levelname.txt"), File.WRITE)
+	file.store_string(new_name)
+	file.close()
+
+
+func get_modified_time() -> int:
+	return File.new().get_modified_time(path.plus_file("world_icon.jpeg"))
+
+
 func open() -> int:
+	if _is_open:
+		return ERR_FILE_ALREADY_IN_USE
+	
 	_leveldb = LevelDB.new()
 	var file := File.new()
 	
@@ -41,14 +73,18 @@ func is_open() -> bool:
 	return _is_open
 
 
-func save() -> void:
+func save() -> int:
+	var success := 1
 	if _scoreboard:
-		store_nbt("scoreboard", _scoreboard._nbt)
+		success &= int(store_nbt("scoreboard", _scoreboard._nbt) == OK)
 	for data in _biome_height_data:
-		(_biome_height_data[data] as BiomeHeightData).save_to_db(_leveldb)
+		success &= int((_biome_height_data[data] as BiomeHeightData).save_to_db(_leveldb) == OK)
+	return OK if success else ERR_DATABASE_CANT_WRITE
 
 
 func close() -> void:
+	if not _is_open:
+		return
 	_biome_height_data.clear()
 	_leveldb.close()
 	_scoreboard = null
@@ -66,12 +102,14 @@ func get_db_entry(key: PoolByteArray) -> PoolByteArray:
 	return _leveldb.get_data(key)
 
 
-func store_db_entry(key: PoolByteArray, value: PoolByteArray) -> void:
+func store_db_entry(key: PoolByteArray, value: PoolByteArray) -> int:
 	_leveldb.store_data(key, value)
+	return OK
 
 
-func delete_db_entry(key: PoolByteArray) -> void:
+func delete_db_entry(key: PoolByteArray) -> int:
 	_leveldb.delete_data(key)
+	return OK
 
 
 func get_nbt(key: String) -> NBT.CompoundTag:
@@ -83,11 +121,13 @@ func get_nbt(key: String) -> NBT.CompoundTag:
 	stream.data_array = nbt
 	return NBT.parse(stream)
 
+## TODO: Implement leveldb.get_last_error()
 
-func store_nbt(key: String, nbt: NBT.CompoundTag) -> void:
+func store_nbt(key: String, nbt: NBT.CompoundTag) -> int:
 	var stream := StreamPeerBuffer.new()
 	NBT.write(stream, nbt)
 	_leveldb.store_data(key.to_ascii(), stream.data_array)
+	return OK
 
 
 func iterate_db(function: FuncRef, data = []) -> void:
@@ -157,6 +197,7 @@ class Scoreboard:
 		
 		var objectives: Array = _nbt.tags.get("Objectives", {"tags": []}).tags
 		objectives.erase(objective._nbt)
+
 
 
 class ScoreboardObjective:

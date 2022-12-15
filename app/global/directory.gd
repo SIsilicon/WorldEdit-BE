@@ -1,20 +1,17 @@
 extends Node
 
 
-func remove(path: String) -> int:
-	var dir := Directory.new()
+func remove(path: String, dir := Directory.new()) -> int:
 	dir.open(path.get_base_dir())
 	return _modify_dir(dir, path, "", "remove")
 
 
-func copy(from: String, to: String) -> int:
-	var dir := Directory.new()
+func copy(from: String, to: String, dir := Directory.new()) -> int:
 	dir.open(from.get_base_dir())
 	return _modify_dir(dir, from, to, "copy")
 
 
-func replace(original: String, with: String) -> int:
-	var dir := Directory.new()
+func replace(original: String, with: String, dir := Directory.new()) -> int:
 	dir.open(original.get_base_dir())
 	
 	var err := _modify_dir(dir, original, "", "remove")
@@ -25,9 +22,8 @@ func replace(original: String, with: String) -> int:
 	return _modify_dir(dir, with, original, "copy")
 
 
-func get_content(path: String) -> Array:
+func get_content(path: String, dir := Directory.new()) -> Array:
 	var children := []
-	var dir := Directory.new()
 	dir.open(path)
 	
 	dir.list_dir_begin(true, true)
