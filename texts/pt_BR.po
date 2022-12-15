@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2022-12-15 21:59\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -59,13 +59,13 @@ msgid "item.wedit:selection_wall"
 msgstr "Seleção de Parede"
 
 msgid "item.wedit:selection_outline"
-msgstr "Seleção de Contorno"
+msgstr "Selecione o Contorno"
 
 msgid "item.wedit:draw_line"
-msgstr "Linha de Desenho"
+msgstr "Desenhar uma linha"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "Você precisa especificar um bloco para definir a seleção!"
+msgstr "Você precisa especificar um bloco para seleciona-ló!"
 
 msgid "worldedit.patternPicker.add"
 msgstr "Bloco adicionado ao padrão: "
@@ -80,43 +80,43 @@ msgid "worldedit.maskPicker.set"
 msgstr "Definir máscara para bloco: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Configurações do World Edit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Pincéis"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Ferramentas"
 
 msgid "worldedit.config.general"
 msgstr "General"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Incluir entidades na área de transferência"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Incluir blocos de ar na área de transferência"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Modo de desempenho"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Modo de seleção"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Criar nova ferramenta"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Criar pincel novo"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Cuboide"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Estender"
 
 msgid "worldedit.selectionMode.sphere"
 msgstr "Sphere"
