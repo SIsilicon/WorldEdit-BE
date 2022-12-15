@@ -208,6 +208,13 @@ msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to P
 msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 # WORLDEDIT COMMANDS
 
 msgid "commands.blocks.wedit:changed"

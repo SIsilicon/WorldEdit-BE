@@ -2,11 +2,14 @@ import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from "@notbee
 import { getSession, hasSession, PlayerSession } from "../sessions.js";
 import { print, printerr } from "../util.js";
 import { BeforeChatEvent, Player } from "@minecraft/server";
+import { UnloadedChunksError } from "@modules/assert.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<unknown, RawText | string> | RawText | string;
 
 const commandList = new Map<string, [CommandInfo, commandFunc]>();
+
+const sawOutsideWorldErr: Player[] = [];
 
 export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
   commandList.set(registerInformation.name, [registerInformation, callback]);
@@ -37,10 +40,16 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
         if (result) print(result, player, toActionBar);
       }
       catch (e) {
-        const errMsg = e.message ? `${e.name}: ${e.message}` : e;
+        const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
         contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
         printerr(errMsg, player, toActionBar);
-        if (e.stack) {
+
+        if (e instanceof UnloadedChunksError) {
+          if (!sawOutsideWorldErr.includes(player)) {
+            sawOutsideWorldErr.push(player);
+            print("commands.generic.wedit:outsideWorld.detail", player, false);
+          }
+        } else if (e.stack) {
           printerr(e.stack, player, false);
         }
       }

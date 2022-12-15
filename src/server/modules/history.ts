@@ -1,29 +1,31 @@
-import { BlockLocation } from "@minecraft/server";
-import { Vector, regionVolume, Server } from "@notbeer-api";
-import { assertCanBuildWithin } from "./assert.js";
-import { canPlaceBlock } from "../util.js";
+import { BlockLocation, Dimension } from "@minecraft/server";
+import { Vector, regionVolume, Server, regionSize } from "@notbeer-api";
+import { assertCanBuildWithin, UnloadedChunksError } from "./assert.js";
+import { addTickingArea, canPlaceBlock, removeTickingArea } from "../util.js";
 import { PlayerSession } from "../sessions.js";
 import { selectMode } from "./selection.js";
 import config from "config.js";
 
 type historyEntry = {
-    name: string,
+    name: string
+    dimension: Dimension
     location: BlockLocation
-};
+    size: BlockLocation
+}
 
 type selectionEntry = {
-    type: selectMode,
+    type: selectMode
     points: BlockLocation[]
-};
+}
 
 type historyPoint = {
-    undo: historyEntry[];
-    redo: historyEntry[];
-    selection: [selectionEntry, selectionEntry] | selectionEntry | "none";
+    undo: historyEntry[]
+    redo: historyEntry[]
+    selection: [selectionEntry, selectionEntry] | selectionEntry | "none"
 
-    blocksChanged: number;
-    brush: boolean;
-};
+    blocksChanged: number
+    brush: boolean
+}
 
 let historyId = 0;
 let historyPointId = 0;
@@ -103,8 +105,10 @@ export class History {
 
     const structName = await this.processRegion(historyPoint, start, end, blocks);
     point.undo.push({
-      "name": structName,
-      "location": Vector.min(start, end).toBlock()
+      name: structName,
+      dimension: this.session.getPlayer().dimension,
+      location: Vector.min(start, end).toBlock(),
+      size: regionSize(start, end)
     });
   }
 
@@ -114,8 +118,10 @@ export class History {
 
     const structName = await this.processRegion(historyPoint, start, end, blocks);
     point.redo.push({
-      "name": structName,
-      "location": Vector.min(start, end).toBlock()
+      name: structName,
+      dimension: this.session.getPlayer().dimension,
+      location: Vector.min(start, end).toBlock(),
+      size: regionSize(start, end)
     });
   }
 
@@ -154,7 +160,15 @@ export class History {
     }
 
     for (const region of this.undoStructures[this.historyIdx]) {
-      await Server.structure.load(region.name, region.location, dim);
+      const tickingArea = "wedit:history_" + this.historyIdx;
+      try {
+        addTickingArea(tickingArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        if (await Server.structure.load(region.name, region.location, dim)) {
+          throw new UnloadedChunksError("worldedit.error.loadHistory");
+        }
+      } finally {
+        removeTickingArea("wedit:history_" + this.historyIdx);
+      }
     }
 
     let selection: selectionEntry;
@@ -190,7 +204,15 @@ export class History {
 
     this.historyIdx++;
     for (const region of this.redoStructures[this.historyIdx]) {
-      await Server.structure.load(region.name, region.location, dim);
+      const tickingArea = "wedit:history_" + this.historyIdx;
+      try {
+        addTickingArea(tickingArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        if (await Server.structure.load(region.name, region.location, dim)) {
+          throw new UnloadedChunksError("worldedit.error.loadHistory");
+        }
+      } finally {
+        removeTickingArea("wedit:history_" + this.historyIdx);
+      }
     }
 
     let selection: selectionEntry;
@@ -253,7 +275,7 @@ export class History {
 
     try {
       if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
-        throw new Error("Failed to save history!");
+        throw new UnloadedChunksError("worldedit.error.saveHistory");
       }
 
       // TODO: Get history precise recording working again
@@ -276,7 +298,7 @@ export class History {
       if (await Server.structure.save(structName, start, end, dim)) {
         finish();
         this.cancel(historyPoint);
-        throw new Error("Failed to save history!");
+        throw new UnloadedChunksError("worldedit.error.saveHistory");
       }
     } catch (err) {
       finish();
