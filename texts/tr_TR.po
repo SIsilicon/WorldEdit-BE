@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -259,6 +259,15 @@ msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to P
 msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocks have been changed."
 
@@ -306,6 +315,9 @@ msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +688,9 @@ msgstr "Fill the selection with a block pattern"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "What now?"
