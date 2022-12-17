@@ -318,4 +318,4 @@ func _compress(path: String, output: String) -> void:
 		"-DestinationPath", ProjectSettings.globalize_path(path + ".zip")
 	])
 	dir.rename(path + ".zip", output)
-
+	dir.remove(path)

@@ -1,16 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://menus/worlds.gd" type="Script" id=1]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=2]
-[ext_resource path="res://ui/panel.svg" type="Texture" id=3]
-
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 12, 12 )
-margin_left = 3.0
-margin_right = 3.0
-margin_top = 3.0
-margin_bottom = 3.0
 
 [node name="Worlds" type="MarginContainer"]
 anchor_right = 1.0
@@ -47,7 +38,6 @@ margin_right = 592.0
 margin_bottom = 592.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
 
 [node name="Scroll" type="ScrollContainer" parent="AspectRatio/VBox/Panel"]
 margin_left = 3.0

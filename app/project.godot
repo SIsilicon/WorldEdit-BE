@@ -45,12 +45,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Minecraft Bedrock WorldEdit"
-config/description="A helper app for WorldEdit: Bedrock Edition."
+config/description="WorldEdit companion app"
 run/main_scene="res://Main.tscn"
 run/low_processor_mode=true
 boot_splash/show_image=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

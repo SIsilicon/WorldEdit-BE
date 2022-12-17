@@ -18,8 +18,8 @@ var _biome_height_data: Dictionary
 
 var path: String
 
-func _init(path: String) -> void:
-	self.path = path
+func _init(world_path: String) -> void:
+	path = world_path
 
 
 func get_image() -> ImageTexture:
@@ -140,6 +140,8 @@ func iterate_db(function: FuncRef, data = []) -> void:
 func get_biome(dimension: String, loc: Vector3) -> int:
 	var key := "%s,%s,%s" % [dimension, floor(loc.x / 16), floor(loc.z / 16)]
 	if not _biome_height_data.has(key):
+		# warning-ignore:narrowing_conversion
+		# warning-ignore:narrowing_conversion
 		var data := BiomeHeightData.new(floor(loc.x / 16), floor(loc.z / 16), _dimesnion2id(dimension))
 		if dimension == "minecraft:overworld":
 			data.min_height = -64
@@ -151,6 +153,8 @@ func get_biome(dimension: String, loc: Vector3) -> int:
 func set_biome(dimension: String, loc: Vector3, biome: int) -> void:
 	var key := "%s,%s,%s" % [dimension, floor(loc.x / 16), floor(loc.z / 16)]
 	if not _biome_height_data.has(key):
+		# warning-ignore:narrowing_conversion
+		# warning-ignore:narrowing_conversion
 		var data := BiomeHeightData.new(floor(loc.x / 16), floor(loc.z / 16), _dimesnion2id(dimension))
 		if dimension == "minecraft:overworld":
 			data.min_height = -64

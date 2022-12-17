@@ -30,7 +30,10 @@ func set_world_path(val: String) -> void:
 
 func _truncate_string(string: String, length: int) -> String:
 	if string.length() > length:
+		# warning-ignore:integer_division
 		var left := floor(length/2)
 		var right := length - left
+		# warning-ignore:narrowing_conversion
+		# warning-ignore:narrowing_conversion
 		return string.left(left - 1) + "..." + string.right(string.length() - right - 2)
 	return string

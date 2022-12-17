@@ -27,7 +27,7 @@ func open(world: MCWorld) -> void:
 	popup_centered()
 	
 	$"%Loading".show()
-	details_text.hide()
+#	details_text.hide()
 	process_button.disabled = true
 	_check_task = Global.start_task(_processor, "check_for_changes", world)
 

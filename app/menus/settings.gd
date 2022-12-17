@@ -17,3 +17,7 @@ func _on_Docs_pressed() -> void:
 
 func _on_Licenses_pressed() -> void:
 	OS.shell_open("https://github.com/SIsilicon/WorldEdit-BE/blob/master/COPYRIGHTS.txt")
+
+
+func _on_Donation_pressed() -> void:
+	OS.shell_open("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN")

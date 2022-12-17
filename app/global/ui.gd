@@ -1,20 +1,20 @@
 extends Node
 
 
-var popup: Popup
+var _popup: Popup
 
 
 func _ready() -> void:
 	$Panel.hide()
 
 
-func set_popup(popup: Popup) -> void:
-	if self.popup && self.popup != popup:
+func set_popup(new_popup: Popup) -> void:
+	if is_instance_valid(_popup) and new_popup != _popup:
 		_on_popup_hide()
 	
-	self.popup = popup
-	add_child(popup)
-	popup.connect("hide", self, "_on_popup_hide")
+	_popup = new_popup
+	add_child(_popup)
+	_popup.connect("hide", self, "_on_popup_hide")
 	$Panel.show()
 
 
@@ -27,7 +27,7 @@ func should_grab_focus(event: InputEvent) -> bool:
 
 
 func _on_popup_hide() -> void:
-	if popup.get_parent() == self:
-		remove_child(popup)
-		popup.disconnect("hide", self, "_on_popup_hide")
+	if _popup.get_parent() == self:
+		remove_child(_popup)
+		_popup.disconnect("hide", self, "_on_popup_hide")
 	$Panel.hide()

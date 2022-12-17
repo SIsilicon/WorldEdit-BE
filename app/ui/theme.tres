@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=43 format=2]
+[gd_resource type="Theme" load_steps=42 format=2]
 
 [ext_resource path="res://ui/button.svg" type="Texture" id=1]
 [ext_resource path="res://ui/fonts/notosans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
@@ -116,12 +116,8 @@ margin_right = 8.0
 margin_top = 14.0
 margin_bottom = 14.0
 
-[sub_resource type="StreamTexture" id=29]
-flags = 4
-load_path = "res://.import/panel_dark.svg-a196e6522a89b2909948b56138746150.stex"
-
 [sub_resource type="StyleBoxTexture" id=1]
-texture = SubResource( 29 )
+texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 12, 12 )
 margin_left = 3.0
 margin_right = 3.0

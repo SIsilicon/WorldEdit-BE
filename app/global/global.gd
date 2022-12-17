@@ -19,7 +19,7 @@ func _physics_process(_delta) -> void:
 
 
 func start_task(obj: Object, method: String, arg, priority := Thread.PRIORITY_LOW) -> String:
-	if OS.is_debug_build():
+	if OS.is_debug_build() and false:
 		debug_id += 1
 		var result = obj.call(method, arg)
 		call_deferred("emit_signal", "task_finished", str(debug_id), result)

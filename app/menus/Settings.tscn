@@ -36,6 +36,14 @@ margin_right = 594.0
 margin_bottom = 140.0
 text = "Visit Copyrights Page"
 
+[node name="Donation" type="Button" parent="PanelContainer/VBoxContainer"]
+modulate = Color( 0.32549, 0.478431, 1, 1 )
+margin_top = 144.0
+margin_right = 594.0
+margin_bottom = 185.0
+text = "Donate to Creator [PayPal]"
+
 [connection signal="toggled" from="PanelContainer/VBoxContainer/AutoProcess" to="." method="_on_AutoProcess_toggled"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Docs" to="." method="_on_Docs_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Licenses" to="." method="_on_Licenses_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Donation" to="." method="_on_Donation_pressed"]
