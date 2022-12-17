@@ -67,7 +67,7 @@ gdscript/warnings/return_value_discarded=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/native_dialogs/plugin.cfg", "res://addons/silicon.util.gdnative_helper/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot_icon/plugin.cfg", "res://addons/native_dialogs/plugin.cfg", "res://addons/silicon.util.gdnative_helper/plugin.cfg" )
 
 [gui]
 

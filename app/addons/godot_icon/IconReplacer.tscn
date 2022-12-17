@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_icon/IconReplacer.gd" type="Script" id=1]
+
+[node name="IconReplacer" type="ConfirmationDialog"]
+margin_right = 350.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 480, 320 )
+window_title = "Choose executable & icon"
+resizable = true
+dialog_hide_on_ok = false
+script = ExtResource( 1 )
+
+[node name="ChooseExecutableDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 488.0
+margin_bottom = 444.0
+rect_min_size = Vector2( 480, 320 )
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.exe; Windows executables" )
+
+[node name="ChooseIconDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 488.0
+margin_bottom = 444.0
+rect_min_size = Vector2( 480, 320 )
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.ico; Windows icon files" )
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 488.0
+margin_bottom = 444.0
+
+[node name="ChooseExecutable" type="Button" parent="Buttons"]
+margin_right = 480.0
+margin_bottom = 20.0
+text = "Choose executable"
+clip_text = true
+
+[node name="ChooseIcon" type="Button" parent="Buttons"]
+margin_top = 24.0
+margin_right = 480.0
+margin_bottom = 44.0
+text = "Choose icon"
+
+[node name="Images" type="GridContainer" parent="Buttons"]
+margin_right = 40.0
+margin_bottom = 40.0
+columns = 2
+
+[node name="Errors" type="Label" parent="Buttons"]
+margin_right = 40.0
+margin_bottom = 14.0
