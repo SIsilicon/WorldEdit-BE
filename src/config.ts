@@ -66,4 +66,4 @@ export default {
 } as const;
 
 // The version of WorldEdit (do not change)
-export const VERSION = "0.7.0.5 [BETA]";
+export const VERSION = "0.7.0";
