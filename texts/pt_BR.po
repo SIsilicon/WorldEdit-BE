@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-12-22 15:26\n"
+"PO-Revision-Date: 2022-12-22 16:25\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -698,7 +698,7 @@ msgid "commands.wedit:shift.description"
 msgstr "Mudar a área selecionada"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "Região alterada."
 
 msgid "commands.wedit:size.description"
 msgstr "Define o tamanho de um pincel"
@@ -737,13 +737,13 @@ msgid "commands.wedit:ascend.description"
 msgstr "Subir um andar"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "Sem espaço livre acima de você encontrado."
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "Descer um andar"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "Sem espaço livre abaixo de você encontrado."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
@@ -761,25 +761,25 @@ msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "Obter todos os tipos de ferramentas"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "Ferramenta de seleção, mas pode alcançar mais longe"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "Selection tool"
+msgstr "Ferramenta de seleção"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "Navigation tool"
+msgstr "Ferramenta de navegação"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "Block stacker tool"
+msgstr "Ferramenta de empilhar blocos"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "Desvincular ferramenta segurada"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Ferramenta desvinculada do seu item atual."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "Saia de dentro dos blocos"
@@ -812,19 +812,19 @@ msgid "commands.wedit:wand.explain"
 msgstr "Agachar e bater em um bloco: seleciona a posição #1; Bater em um bloco sem agachar: seleciona a posição #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "Comandos do WorldEdit"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "Habilitar modo desempenho para a sessão atual."
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "Modo desempenho ativado."
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "Modo desempenho desativado."
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "Obter versão do WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "WorldEdit versão: %s"
@@ -839,10 +839,10 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "Como Jogar: Início rápido para o WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "License"
+msgstr "Licença"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "How to Play: WorldEdit License"
+msgstr "Como Jogar: Licença do WorldEdit"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Bem-vindo! Esta é uma adaptação do mod original WorldEdit para Minecraft: Java Edition. Esta extensão irá ajudá-lo a moldar seu mundo de dentro do Minecraft."
@@ -914,10 +914,10 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Mire no chão longe de você e interaja com a pá (agora pincel) para colocar as esferas de pedregulho."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. Digite as configurações de pincel novamente para definir a máscara para o pincel para `grass`. Use o pincel agora para fazer um caminho de pedregulho."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "Exclua o pincel pelas opções para desativá-lo."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "E agora?"
