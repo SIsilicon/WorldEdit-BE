@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-12-22 19:15\n"
+"PO-Revision-Date: 2022-12-22 20:17\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -47,7 +47,7 @@ msgid "item.wedit:pattern_picker"
 msgstr "Selecionador de Padrões"
 
 msgid "item.wedit:mask_picker"
-msgstr "Selecionador de Máscaras"
+msgstr "Seletor de Máscaras"
 
 msgid "item.wedit:spawn_glass"
 msgstr "Spawnar Bloco de Vidro"
@@ -152,7 +152,7 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Pincel liso(suave)"
 
 msgid "worldedit.config.chooseItem"
-msgstr "Segure um item para conectar."
+msgstr "Segure um item para vincular."
 
 msgid "worldedit.config.choose.brush"
 msgstr "Escolha que tipo de pincel fazer."
@@ -173,10 +173,10 @@ msgid "worldedit.config.confirm"
 msgstr "Isto está certo?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Você está ok com o setup que você fez?"
+msgstr "Você está de acordo com as configurações que você fez?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Tem certeza de que quer desconectar esse objeto?"
+msgstr "Tem certeza de que quer desvincular esse objeto?"
 
 msgid "worldedit.config.radius"
 msgstr "Tamanho"
@@ -242,10 +242,10 @@ msgid "worldedit.tool.noItem"
 msgstr "Um item deve estar na sua mão principal."
 
 msgid "worldedit.tool.cantBind"
-msgstr "Você não pode conectar esse tipo de item."
+msgstr "Você não pode vincular essa categoria de item."
 
 msgid "worldedit.tool.noBind"
-msgstr "Este item não está conectado em nenhuma ferramenta."
+msgstr "Este item não está vinculado em nenhuma ferramenta."
 
 msgid "worldedit.tool.noPerm"
 msgstr "Você não tem permissão para usar esse item."
@@ -311,7 +311,7 @@ msgid "commands.generic.wedit:blockLimit"
 msgstr "Muitos blocos!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Execute §e%s§7 enquanto segura o item para desconecta-lo.§r"
+msgstr "§7Execute §e%s§7 enquanto segura o ‘item’ para o desvincular. §r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Bioma na linha de visão: %s"
@@ -341,7 +341,7 @@ msgid "commands.wedit:brush.description"
 msgstr "Selecionar o tipo de pincel que está segurando"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Desconectar um pincel conectado do seu item atual"
+msgstr "Desconectar um pincel vinculado do seu item atual"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "Criar um pincel esférico"
@@ -380,7 +380,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Este pincel não requer um material para funcionar."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Pincel desconectado do seu item atual."
+msgstr "Pincel desvinculado do seu item atual."
 
 msgid "commands.wedit:butcher.description"
 msgstr "Matar entidades próximas."
@@ -863,7 +863,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aAviso:§r§a Os comandos fornecidos por esta extensão usam ponto e vírgula (;) em vez de uma barra (/). No futuro, talvez a Mojang possa adicionar suporte a comandos personalizados ao Minecraft.§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "Ir do ponto A ao ponto B às vezes pode ser complicado. Felizmente, este add-on vem com o que é conhecido como uma Varinha de Navegação. Para pegar uma, você pode ter uma bússola no seu inventário ou digitar o comando §e;navwand§r. Assim que você tiver este item, basta apenas interagir com ele para ser teleportado para o local em que você está olhando. Quer ir do outro lado de uma parede ou teto? Use a varinha enquanto estiver agachado para passar por ela! Preso em um bloco? Usar a varinha vai te desprender!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§aDica:§r§a se você não quiser usar a varinha de navegação, essas ações também podem ser feitas com os comandos §e;jumpto§a, §e;thru§a e §e;unstuck§r§a também§r."
@@ -884,16 +884,16 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Faça uma seleção de tamanho modesto para trabalhar e prepare o seu kit com §e;kit§r. Nós vamos tentar alguns dos recursos que o WorldEdit tem a oferecer."
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+msgstr "§71. Coloque um bloco de pedra, use o Seletor de Padrões nela e então use o \"Preenchimento de Seleção\". Um grande cubo de pedra deve aparecer."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. Use o Seletor de Padrões no ar (jogadores em dispositivos móveis devem segurar a tela com ele) e use o \"Preenchimento de Seleção\" novamente para remover a pedra."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. Coloque arenito e vidro, use o Seletor de Padrões no arenito, agache e use-o no vidro para adicionar ao seu padrão. Use \"Preenchimento de Seleção\" e você deve ter uma mistura de arenito e vidro."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "§r4. Pegue o Seletor de Máscara em seu inventário e use-o no arenito. Defina um bloco de sua escolha como seu padrão e use \"Preenchimento de Seleção\". Todas as pedras devem agora ser substituídas por esse bloco."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. Repita a sua seleção para cima digitando o comando §e;stack 4 up§r§7."
@@ -905,10 +905,10 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "Brincando com pincéis"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
+msgstr "1. Pegue uma pá de qualquer tipo, (preferencialmente de madeira) e coloque um bloco de pedregulho; você irá precisar dele para o pincel."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Use o item \"Configurações do WorldEdit\". Um menu deve aparecer incluindo \"Configurações do Pinez\". Selecione o botão e então crie um novo pincel conforme a tela instrui você. Faça um pincel de esfera de raio 3 e um padrão de pedregulho. Confirme as configurações e saia do menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Mire no chão longe de você e interaja com a pá (agora pincel) para colocar as esferas de pedregulho."
