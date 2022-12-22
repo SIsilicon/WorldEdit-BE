@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-12-22 04:28\n"
+"PO-Revision-Date: 2022-12-22 07:05\n"
 
 msgid "pack.description"
-msgstr "这是一个正在开发中的原 Java 版的创世神模组的基岩版移植！该附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "Chinese"
+msgstr "§c创世神的脚本已被停止！使用 §r/reload§c 重置这些脚本(其他脚本也会被重置)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -110,46 +110,46 @@ msgid "worldedit.config.newTool"
 msgstr "创建新工具"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "创建新笔刷"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "立方体"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "拓展"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "球体"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "圆柱体"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "没有工具属性"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "此工具没有要更改的属性"
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "选择器"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "远程选择器"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "传送器"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "堆叠器"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "球形笔刷"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "圆柱形笔刷"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "平滑笔刷"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "选择用于制作的工具类型"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "设定笔刷要填充的方块和要取代的方块"
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
@@ -173,37 +173,37 @@ msgid "worldedit.config.confirm"
 msgstr "确定设置成这样吗？"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "您确定要用这个设置吗？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "你确定要解除该物品的绑定吗？"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "大小"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "高度"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "平滑度"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "范围"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "填充"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "取代"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "下陷"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "高度蒙板"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "使用方块选择器"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "在 %s 开始一个新的圆柱体选区。"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "半径设置为 %1/%2 个方块 (~%3)。"
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "在 %1 (%2) 之间创建选区。"
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§e您的创世神权限已被移除§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "保存历史操作节点失败"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "加载历史操作节点失败"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "历史记录仍在进行！"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
@@ -299,7 +299,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§e提示: 要加载更多的区块, 请增加您的模拟距离, 或将您要设置的区域设为常加载区块。§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
@@ -314,16 +314,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "在手持该物品的情况下，通过§7执行§e%s§7来解绑。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "视野指向处的生态群系:%s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "检索您的选区中的群系类型"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "您当前坐标的生物群系为:%s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "您当前选区内的生物群系为:%s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已装载球形笔刷 (%s)。"
@@ -455,13 +455,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "导出选区以供之后使用。"
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s 已被导出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§e注: 要在其他世界上使用导出的结构, 创世神软件需要提取它以供外部使用。§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
@@ -533,10 +533,10 @@ msgid "commands.wedit:inset.description"
 msgstr "收缩选区。"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "导入一个结构到剪贴板。"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s 已被导入并设置为剪贴板。"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至面对着的方块的顶部"
@@ -602,7 +602,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "已粘贴%s个方块"
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "不能粘贴剪贴板到其初始位置。"
 
 msgid "commands.wedit:pos1.description"
 msgstr "将您的选区的第一个点设置为指定的或当前的位置"
@@ -650,7 +650,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'不是一个90°的倍数！"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "你只能沿Y轴旋转！"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -659,7 +659,7 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "扩展：在潜行时点击以设置第一点，不潜行时点击以设置第二点。"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "圆柱体选择器：在潜行时使用选定中心，非潜行时使用即可设置半径和高度"
 
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
@@ -668,7 +668,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "选择一个立方体的两个对角。"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "选择一个圆柱体"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "快速立方体选区模式"
@@ -686,13 +686,13 @@ msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "生物群系被修改了大约 %s 个方块。"
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "更改您的选区中的群系"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§e注意：您需要使用创世神应用程序处理世界才能应用生物群落的更改。§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "移动选区"
@@ -734,16 +734,16 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "未在您的前方发现有效空间。"
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "上升一层"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "在您的上方没有发现有效空间"
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "下降一层"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "No free spot under you found."
+msgstr "在您的下方没有发现有效空间"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
@@ -815,13 +815,13 @@ msgid "commands.wedit:worldedit.description"
 msgstr "创世神命令"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "为当前进程切换性能模式。"
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "启用性能模式。"
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "性能模式已禁用。"
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "获取当前创世神版本"
@@ -908,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 获取任意类型的铲子，然后放置一个圆石（你待会需要用它来设置笔刷）。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. 使用\"创世神工具\"物品。菜单应该显示\"笔刷设置\". 选择该按钮，然后创建一个新笔刷作为接口来指示您。 使它成为半径为3的球形笔刷和用圆石填充。确认设置并退出菜单。"
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. 再次进入笔刷设置然后将笔刷的取代方块设置为“草方块”。现在使用笔刷来制作一个圆石路径。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "§r5. 从菜单中删除这个笔刷来禁用它。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "现在该做什么？"
