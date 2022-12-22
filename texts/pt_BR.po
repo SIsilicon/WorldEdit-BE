@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-12-15 22:56\n"
+"PO-Revision-Date: 2022-12-22 15:26\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -89,7 +89,7 @@ msgid "worldedit.config.tools"
 msgstr "Ferramentas"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Geral"
 
 msgid "worldedit.config.general.includeEntities"
 msgstr "Incluir entidades na área de transferência"
@@ -704,10 +704,10 @@ msgid "commands.wedit:size.description"
 msgstr "Define o tamanho de um pincel"
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "Simular neve na área"
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "Derreter neve e gelo expostos ao céu"
 
 msgid "commands.wedit:stack.description"
 msgstr "Repete o conteúdo da seleção atual"
@@ -734,7 +734,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "Não foram encontrado lugares livres acima de onde você está."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "Subir um andar"
 
 msgid "commands.wedit:ascend.obstructed"
 msgstr "No free spot above you found."
