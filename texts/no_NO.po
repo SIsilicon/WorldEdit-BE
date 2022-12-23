@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2022-12-23 12:41\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eDin WorldEdit tillatelser har blitt fjernet.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "Kunne ikke lagre historikkpunktet!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "Kunne ikke laste historikkpunkt!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "Historikk blir fortsatt tatt opp!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blokker har blitt endret."
@@ -317,7 +317,7 @@ msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biom ved synspunkt-linje: %s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Hent de forskjellige typene biomer i utvalget ditt"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biom ved din posisjon: %s"
@@ -689,7 +689,7 @@ msgid "commands.wedit:setbiome.changed"
 msgstr "Biomer ble endret for omtrent %s blokker."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "Endre biomene i utvalget ditt"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eMerk: Du må behandle verdenen med WorldEdit applikasjonen for biomendringene til å gå i bruk.§r"
@@ -908,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Bruk \"WorldEdit innstillinger\"-gjenstanden. En meny vil komme opp som inkluderer \"penselinnstillinger\". Velg den knappen, deretter lag et nytt pensel som den ber deg om. Lag den som et kulepensel med radius 3, og et brostein-mønster. Bekreft instillengene og lukk menyen."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. Gå inn i penselinnstillingene igjen for å sette masken til penselet til `gress`. Bruk penselet nå til å lage en brosteinsti."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "§r5. Slett penselet fra menyen for å deaktivere den."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Hva nå?"
