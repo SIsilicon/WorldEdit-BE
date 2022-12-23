@@ -152,7 +152,7 @@ export abstract class Shape {
         } else {
           let progress = 0;
           const volume = regionVolume(min, max);
-          const inShapeFunc = this.customHollow ? this.inShape : this.inShapeHollow;
+          const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
           yield "Calculating shape...";
           for (const block of regionIterateBlocks(min, max)) {
             if (iterateChunk()) yield progress / volume;
@@ -162,7 +162,7 @@ export abstract class Shape {
               continue;
             }
 
-            if (inShapeFunc(Vector.sub(block, loc).toBlock(), this.genVars)) {
+            if (this[inShapeFunc](Vector.sub(block, loc).toBlock(), this.genVars)) {
               blocksAffected.push(block);
             }
           }

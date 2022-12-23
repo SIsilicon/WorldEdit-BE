@@ -218,5 +218,6 @@ margin_bottom = 94.0
 text = "Processing..."
 align = 1
 
+[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/TitleBar/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ProcessButton/MarginContainer/Process" to="." method="_on_Process_pressed"]

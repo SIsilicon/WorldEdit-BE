@@ -159,15 +159,15 @@ export class History {
       assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
     }
 
+    const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.undoStructures[this.historyIdx]) {
-      const tickingArea = "wedit:history_" + this.historyIdx;
       try {
-        addTickingArea(tickingArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
         if (await Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
       } finally {
-        removeTickingArea("wedit:history_" + this.historyIdx);
+        await removeTickingArea(tickArea);
       }
     }
 
@@ -203,15 +203,15 @@ export class History {
     }
 
     this.historyIdx++;
+    const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.redoStructures[this.historyIdx]) {
-      const tickingArea = "wedit:history_" + this.historyIdx;
       try {
-        addTickingArea(tickingArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
         if (await Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
       } finally {
-        removeTickingArea("wedit:history_" + this.historyIdx);
+        await removeTickingArea(tickArea);
       }
     }
 

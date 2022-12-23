@@ -50,6 +50,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const record = history.record();
   const tempStack = session.createRegion(false);
   const job = (yield Jobs.startJob(session, loads.length + 1, stackRegion)) as number;
+  // TODO: Optimize stack command
   try {
     Jobs.nextStep(job, "Copying blocks...");
     yield* Jobs.perform(job, tempStack.saveProgressive(start, end, dim), false);

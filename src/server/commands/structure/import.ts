@@ -55,7 +55,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
   }
 
   const [namespace, struct] = name.split(":") as [string, string];
-  const metadata = JSON.parse(yield readMetaData(namespace + ":weditstructmeta_" + struct, builder));
+  let metadata;
+  try {
+    metadata = JSON.parse(yield readMetaData(namespace + ":weditstructmeta_" + struct, builder));
+  } catch {
+    throw "commands.generic.wedit:commandFail";
+  }
 
   if (session.clipboard) {
     session.deleteRegion(session.clipboard);

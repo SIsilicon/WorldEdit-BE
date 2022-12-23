@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ui/worldedit_title.png" type="Texture" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://menus/Worlds.tscn" type="PackedScene" id=4]
 [ext_resource path="res://auto_processor.gd" type="Script" id=5]
 [ext_resource path="res://menus/Settings.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/native_dialogs/bin/native_dialog_message.gdns" type="Script" id=7]
 [ext_resource path="res://ui/twitter_logo.svg" type="Texture" id=8]
 [ext_resource path="res://ui/youtube_logo.svg" type="Texture" id=9]
 
@@ -170,11 +169,6 @@ menu_name = "Settings"
 
 [node name="AutoProcessor" type="Node" parent="."]
 script = ExtResource( 5 )
-
-[node name="NativeDialogMessage" type="Node" parent="AutoProcessor"]
-script = ExtResource( 7 )
-title = "WorldEdit"
-choice = 0
 
 [connection signal="pressed" from="MainUI/Menus/VBox/WorldsButton" to="." method="_on_WorldsButton_pressed"]
 [connection signal="pressed" from="MainUI/Menus/VBox/SettingsButton" to="." method="_on_SettingsButton_pressed"]

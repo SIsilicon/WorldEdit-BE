@@ -9,6 +9,8 @@ var _check_task: String
 var _process_task: String
 var _processor := preload("res://world_processor.gd").new()
 
+var _should_close_world := true
+
 onready var process_button := $"%Process"
 onready var details_text := $"%Details"
 
@@ -26,8 +28,14 @@ func open(world: MCWorld) -> void:
 	$"%WorldImage".texture = world.get_image()
 	popup_centered()
 	
+	_check_task = ""
+	_process_task = ""
+	_had_export_pack_created = false
+	_changes = {}
+	_should_close_world = true
+	
 	$"%Loading".show()
-#	details_text.hide()
+	details_text.hide()
 	process_button.disabled = true
 	_check_task = Global.start_task(_processor, "check_for_changes", world)
 
@@ -55,6 +63,7 @@ func _on_task_finished(id: String, result) -> void:
 		_changes = changes
 	
 	elif id == _process_task:
+		world.close()
 		progress_popup.popup_exclusive = false
 		if result != OK:
 			progress_popup.set_message("Failed to process world")
@@ -66,10 +75,13 @@ func _on_task_finished(id: String, result) -> void:
 
 
 func _on_popup_hide() -> void:
-	world.close()
+	if _should_close_world:
+		world.close()
+	Global.stop_task(_check_task)
 
 
 func _on_Process_pressed() -> void:
+	_should_close_world = false
 	UI.set_popup(progress_popup)
 	progress_popup.popup_centered()
 	progress_popup.popup_exclusive = true

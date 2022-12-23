@@ -1,14 +1,11 @@
 extends Node
 
-const NativeDialogs = preload("res://addons/native_dialogs/native_dialogs.gd")
-
 var world_check_thread := Thread.new()
 var world_check_mutex := Mutex.new()
 var world_check_locked := false setget set_world_check_locked
 var finish_world_check := false
 var world_processor := preload("res://world_processor.gd").new()
 
-onready var dialog := $NativeDialogMessage
 
 func _ready() -> void:
 	set_world_check_locked(not Appdata.get_appdata(Appdata.AUTO_PROCESS_WORLDS, false))
@@ -50,6 +47,9 @@ func _world_check_thread() -> void:
 		worlds.append_array(DirUtil.get_content(Global.COM_MOJANG[0].plus_file("minecraftWorlds")))
 		worlds.append_array(DirUtil.get_content(Global.COM_MOJANG[1].plus_file("minecraftWorlds")))
 		
+		if world_check_locked:
+			worlds.clear()
+		
 		for world_path in worlds:
 			var folder: String = world_path.get_file()
 			var image: String = world_path.plus_file("world_icon.jpeg")
@@ -69,14 +69,14 @@ func _world_check_thread() -> void:
 				if not changes.empty() and not changes.has("error"):
 					print_debug("Changes detected in %s." % folder)
 					
+					OS.window_minimized = false
+					OS.move_window_to_foreground()
 					if world_processor.apply_changes([world, changes]) != OK:
-						dialog.icon = NativeDialogs.MessageIcons.ERROR
-						dialog.text = "Failed to process world \"%s\"!" % world.get_name()
+						OS.alert("Failed to process world \"%s\"!" % world.get_name(), "Error!")
 					else:
-						dialog.icon = NativeDialogs.MessageIcons.INFO
-						dialog.text = "World \"%s\" has been processed!" % world.get_name()
-					dialog.show()
-					world.close()
+						OS.alert("World \"%s\" has been processed!" % world.get_name(), "Success!")
+				
+				world.close()
 		
 		yield(get_tree().create_timer(1.0), "timeout")
 
