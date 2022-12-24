@@ -13,6 +13,6 @@ const registerInformation = {
   aliases: ["calc", "eval", "evaluate", "solve"]
 };
 
-registerCommand(registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
   return args.get("expr").compile()().toString();
 });
