@@ -14,5 +14,5 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-  return args.get("expr").compile()().toString();
+  return `${args.get("expr").stringObj} = ${args.get("expr").compile()()}`;
 });
