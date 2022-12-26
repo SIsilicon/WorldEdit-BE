@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-12-26 00:56\n"
+"PO-Revision-Date: 2022-12-26 01:54\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -74,7 +74,7 @@ msgid "worldedit.patternPicker.set"
 msgstr "Setze Muster auf Block: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Block zur Maske hinzugefügt: "
+msgstr "Block hinzugefügt zu Maske: "
 
 msgid "worldedit.maskPicker.set"
 msgstr "Setze Maske auf Block: "
@@ -119,7 +119,7 @@ msgid "worldedit.selectionMode.extend"
 msgstr "Erweitern"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphäre"
+msgstr "Kugel"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Zylinder"
@@ -143,7 +143,7 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Stapelwerkzeug"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphärenpinsel"
+msgstr "Kugel Pinsel"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Zylinder Pinsel"
@@ -152,13 +152,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Glatter Pinsel"
 
 msgid "worldedit.config.chooseItem"
-msgstr "Halten Sie ein zu bindendes Item."
+msgstr "Halten Sie ein zu bindendes Objekt."
 
 msgid "worldedit.config.choose.brush"
 msgstr "Wählen Sie, welche Art von Pinsel gemacht werden soll."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Wählen Sie die Art des Werkzeugs aus."
+msgstr "Wählen Sie, welche Art von Werkzeug gemacht werden soll."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
@@ -173,10 +173,10 @@ msgid "worldedit.config.confirm"
 msgstr "Ist das in Ordnung?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Sind Sie mit dem Setup in Ordnung?"
+msgstr "Sind Sie mit Ihren Einstellungen einverstanden?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Sind Sie sicher, dass Sie dieses Item entbinden möchten?"
+msgstr "Sind Sie sicher, dass Sie diese Objektbindung lösen möchten?"
 
 msgid "worldedit.config.radius"
 msgstr "Größe"
@@ -239,19 +239,19 @@ msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius gesetzt auf %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "Ein Item muss in Ihrer Haupthand sein."
+msgstr "Ein Objekt muss in Ihrer Haupthand sein."
 
 msgid "worldedit.tool.cantBind"
 msgstr "Sie können dieses Item nicht binden."
 
 msgid "worldedit.tool.noBind"
-msgstr "Dieses Item ist noch nicht zu einem Werkzeug gebunden."
+msgstr "Dieses Objekt ist noch an kein Werkzeug gebunden."
 
 msgid "worldedit.tool.noPerm"
-msgstr "Sie haben nicht die Berechtigung, dieses Item zu verwenden."
+msgstr "Sie haben keine Berechtigung, dieses Objekt zu verwenden."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "Das Werkzeug auf diesem Item kann nicht entfernt oder ersetzt werden."
+msgstr "Das Werkzeug auf diesem Objekt kann nicht entfernt oder ersetzt werden."
 
 msgid "worldedit.permission.granted"
 msgstr "§eSie haben WorldEdit-Berechtigungen erhalten. Gehen Sie zu (Einstellungen > So wird gespielt > Schnellstart) für eine Anleitung.§R"
@@ -266,7 +266,7 @@ msgid "worldedit.error.loadHistory"
 msgstr "Fehler beim Laden des Verlaufspunktes!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "Die Geschichte wird noch aufgezeichnet!"
+msgstr "Verlauf wird noch immer aufgezeichnet!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s Blöcke wurden geändert."
@@ -284,16 +284,16 @@ msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' ist ein ungültiges Richtungsargument!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unerwartete Flagge: %s"
+msgstr "Unerwartete Sprungbefehl: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Ihre Zwischenablage ist leer. Kopieren oder schneiden Sie zuerst eine Region aus."
+msgstr "Ihre Zwischenablage ist leer. Kopieren oder schneiden Sie zuerst einen Bereich aus."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Wählen Sie zuerst eine quaderförmige Auswahl aus."
+msgstr "Wählen Sie zuerst einen quaderförmigen Bereich aus."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "Sie haben nicht die Berechtigung, diesen Befehl auszuführen."
+msgstr "Sie haben keine Berechtigung, diesen Befehl auszuführen."
 
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "Ungeladene Chunks können nicht verändert werden!"
