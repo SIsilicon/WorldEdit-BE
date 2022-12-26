@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2022-12-26 07:02\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
@@ -101,7 +101,7 @@ msgid "worldedit.config.general.perfMode"
 msgstr "성능 모드"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "개요 그리기"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "선택 모드"
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "두 번째 위치가 %1 (%2)로 설정되었습니다."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "%s에서 새 원통형 선택을 시작합니다."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "반지름이 %1/%2 블록(~%3)으로 설정되었습니다."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "선택 시작 지점 %1 선택됨. (%2)"
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit 권한이 제거되었습니다.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "기록 지점을 저장하는 데 실패함!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "기록 지점을 불러오는 데 실패함!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "기록이 아직 기록중임!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 블록이 바뀌었습니다."
@@ -320,22 +320,22 @@ msgid "commands.wedit:biomeinfo.description"
 msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "현재 위치의 바이옴 위치: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "선택한 영역의 바이옴: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "구형 브러시 장착됨 (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "실린더 모양 브러시 장착됨 (%1 by %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "부드러운 브러시 장착됨 (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "부드러운 브러시 장착됨 (%1 x %2x 사용)."
 
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
@@ -353,7 +353,7 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "지형 스무딩 브러쉬 생성"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "브러쉬 마스크 설정."
 
 msgid "commands.wedit:brush.mask.disabled"
 msgstr "붓 마스크가 꺼졌습니다."
@@ -362,25 +362,25 @@ msgid "commands.wedit:brush.material.set"
 msgstr "붓 재료가 설정되었습니다."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "브러쉬 범위 설정."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "Brush size set."
+msgstr "브러쉬 사이즈 설정."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "마스크 추적 설정."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "마스크 추적이 꺼졌습니다."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "최대 허용 브러시 반경: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "이 브러시는 작업하는 데 재료가 필요하지 않습니다."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "현재 항목에서 바인딩 해제되지 않은 브러시입니다."
 
 msgid "commands.wedit:butcher.description"
 msgstr "주변 엔티티를 죽입니다."
@@ -401,10 +401,10 @@ msgid "commands.wedit:clearhistory.explain"
 msgstr "기록 지워짐."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "선택 영역 축소"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "영역이 %s블록 수축됨."
 
 msgid "commands.wedit:copy.description"
 msgstr "현재 선택 항목을 클립보드에 복사합니다."
@@ -428,13 +428,13 @@ msgid "commands.wedit:cyl.description"
 msgstr "원기둥을 생성합니다"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "선택 영역에서 서로 다른 블록의 양 분석"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "근처 액체 배출"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "당신은 물이나 용암에 가까이 있어야 배수됩니다."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "선택 영역의 표시 여부를 전환합니다."
@@ -446,46 +446,46 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "이제 선택사항이 표시됩니다."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "선택 영역 확장"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "선택한 영역을 세계 한계까지 수직으로 확장시켜요."
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "영역이 %s블록 확장됨."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "나중에 사용할 수 있도록 선택 영역을 내보냅니다."
 
 msgid "commands.wedit:export.explain"
 msgstr "%s가 삭제되었습니다."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§e노트: 내보낸 구조를 다른 세계에서 사용하려면 WorldEdit앱에서 외부용으로 추출해야 합니다.§e"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "주변 불 삭제"
 
 msgid "commands.wedit:faces.description"
 msgstr "선택 항목에서 테두리를 생성합니다."
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "특정 블록들로 주변 지역을 채우기"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "특정 블록들로 영역을 다시 채우기"
 
 msgid "commands.wedit:fixlava.description"
 msgstr "근처에 흐르는 용암 블록을 원천 블록으로 만듭니다."
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "고치려면 용암에 가까이 있어야 합니다."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "근처에 흐르는 물 블록을 원천 블록으로 만듭니다."
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "You need to be close to some water to fix."
+msgstr "고치려면 물에 가까이 있어야 합니다."
 
 msgid "commands.wedit:flip.description"
 msgstr "선택사항을 뒤집습니다"
@@ -497,7 +497,7 @@ msgid "commands.wedit:flip.notLateral"
 msgstr "위아래로 뒤집을 수 없습니다!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "선택 항목에서 원하는 종류의 도형 생성합니다."
 
 msgid "commands.wedit:gmask.description"
 msgstr "글로벌 마스크 설정입니다."
@@ -518,10 +518,10 @@ msgid "commands.wedit:help.header"
 msgstr "--- 도움말 %1 / %2 페이지 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "선택 항목의 첫 번째 위치를 상대하는 블록의 위치로 설정합니다."
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "선택 항목의 두 번째 위치를 상대하는 블록의 위치로 설정합니다."
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "속이 빈 피라미드를 생성합니다."
@@ -530,19 +530,19 @@ msgid "commands.wedit:hsphere.description"
 msgstr "속이 빈 구체를 생성합니다."
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "선택 영역 삽입"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "구조물을 클립보드로 가져옵니다."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s을(를) 가져와 클립보드에 설정했습니다."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "보고 있는 블록의 꼭대기로 순간이동합니다"
 
 msgid "commands.wedit:inset.explain"
-msgstr "Region inset."
+msgstr "지역 삽입."
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "휙!"
@@ -560,13 +560,13 @@ msgid "commands.wedit:line.description"
 msgstr "첫 번째 선택 지점과 두 번째 선택 지점 사이에 선을 생성합니다."
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "이 명령어는 큐브 선택 항목에서만 작동합니다."
 
 msgid "commands.wedit:limit.description"
-msgstr "Set the number of blocks you can change per action"
+msgstr "작업당 변경할 수 있는 블록 수 설정"
 
 msgid "commands.wedit:limit.set"
-msgstr "Block change limit set to %s."
+msgstr "블록 변경 제한이 %s로 설정되었습니다."
 
 msgid "commands.wedit:limit.tooHigh"
 msgstr "허용된 최대치는 %s 입니다."
@@ -590,10 +590,10 @@ msgid "commands.wedit:navwand.explain"
 msgstr "웅크리고 아이템 사용: 벽 통과, 웅크리지 않고 아이템 사용: 바라보는 위치로 이동"
 
 msgid "commands.wedit:outset.description"
-msgstr "Outset the selection area"
+msgstr "선택 영역 시작"
 
 msgid "commands.wedit:outset.explain"
-msgstr "Region outset."
+msgstr "지역 시작."
 
 msgid "commands.wedit:paste.description"
 msgstr "클립보드를 월드에 붙여넣기"
@@ -602,7 +602,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "%s 블럭을 붙여넣었습니다."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "클립보드를 원래 위치에 붙여넣을 수 없네요."
 
 msgid "commands.wedit:pos1.description"
 msgstr "선택 영역의 첫 번째 위치를 지정 위치 또는 현재 위치로 설정합니다."
@@ -629,16 +629,16 @@ msgid "commands.wedit:replace.description"
 msgstr "선택 영역의 특정 블록을 다른 블록으로 바꿉니다."
 
 msgid "commands.wedit:removeabove.description"
-msgstr "Remove blocks above you"
+msgstr "플레이어 위에 있는 블록을 제거합니다."
 
 msgid "commands.wedit:removebelow.description"
-msgstr "Remove blocks below you"
+msgstr "플레이어 아래에 있는 블록을 제거합니다."
 
 msgid "commands.wedit:removenear.description"
 msgstr "주변 블록들을 삭제합니다."
 
 msgid "commands.wedit:replacenear.description"
-msgstr "Replace nearby blocks with other blocks"
+msgstr "주변 블록을 다른 블록으로 대체하기"
 
 msgid "commands.wedit:rotate.description"
 msgstr "선택 영역을 돌립니다."
@@ -650,7 +650,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'은 90°의 증분이 아닙니다!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Y축을 따라서만 회전할 수 있습니다!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
@@ -665,19 +665,19 @@ msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "정육면체의 두 모서리 선택"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "실린더 선택"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "고속 큐브 선택 모드"
 
 msgid "commands.wedit:sel.description.sphere"
 msgstr "구를 생성합니다."
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: tap while sneaking for a starting point, tap without sneaking to extend"
+msgstr "심화: 시작지점을 웅크리기 하며 탭하세요. 또한 확장하려면 웅크리지 않고 탭하세요."
 
 msgid "commands.wedit:sel.sphere"
 msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
@@ -686,16 +686,16 @@ msgid "commands.wedit:set.description"
 msgstr "블록 패턴으로 선택 영역을 채웁니다."
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "약 %s 블록에 대해 바이옴이 변경되었습니다."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "선택 영역에 있는 바이옴 변경"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§e노트: 바이옴 변경을 적용하려면 WorldEdit 앱으로 월드를 처리해야 합니다.§r"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "선택 영역 이동"
 
 msgid "commands.wedit:shift.explain"
 msgstr "지역 이동됨."
@@ -704,10 +704,10 @@ msgid "commands.wedit:size.description"
 msgstr "브러쉬의 사이즈를 선택합니다."
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "해당 지역의 눈 시뮬레이션하기"
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "하늘에 드러난 눈과 얼음을 녹이기"
 
 msgid "commands.wedit:stack.description"
 msgstr "현재 선택 영역의 내용을 반복합니다."
@@ -755,16 +755,16 @@ msgid "commands.wedit:tool.bind.navwand"
 msgstr "Navigation wand bound to %s."
 
 msgid "commands.wedit:tool.bind.farwand"
-msgstr "Far selection wand bound to %s."
+msgstr "거리 선택 막대가 %s에 바인딩됨"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
 
 msgid "commands.wedit:tool.description"
-msgstr "Get all sorts of tools"
+msgstr "모든 종류의 도구 가져오기"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "Selection tool, but can reach farther"
+msgstr "선택 도구, 그러나 더 멀리 도달할 수 있음"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "선택 도구"
@@ -776,7 +776,7 @@ msgid "commands.wedit:tool.description.stacker"
 msgstr "블럭 쌓기 도구"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "잡은 도구 바인딩 해제"
 
 msgid "commands.wedit:tool.unbind"
 msgstr "Tool unbound from your current item."
@@ -815,7 +815,7 @@ msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit 명령어들"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "현재 세션의 성능 모드를 전환합니다."
 
 msgid "commands.wedit:worldedit.perf.enabled"
 msgstr "성능모드가 켜짐."
@@ -863,7 +863,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a알림:§r§a 이 추가 명령어는 슬래시(/) 대신 세미콜론(;)을 사용합니다. 미래에는 Mojang이 마인크래프트에 실제 커스텀 명령어 지원을 추가할 수도 있습니다."
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "Getting from point A to point B can sometimes be a hassle. Luckily, this addon comes with what's known as a Navigation Wand. To get one, enter the command §e;navwand§r. Once you have this item, just interact with it to get teleported to the spot you are looking at. Want to get on the otherside of a wall or ceiling? Use the wand while sneaking to go right through it! Stuck in a block? Using the wand will get you unstuck!"
+msgstr "A 지점에서 B 지점으로 가는 것은 번거롭죠. 다행히도, 이 애드온은 Navigation Wand라고 알려진 도구가 제공됩니다. 도구를 얻으시려면 §e;navwand§r라는 명령어를 입력하세요. 이 도구가 있으면 도구를 이용하여 보고 있는 위치로 이동할 수 있어요. 벽이나 천장의 반대편으로 가고 싶나요? 웅크리기를 한 후 지팡이를 사용하여 통과하세요! 블록에 갇혔나요? 그 지팡이를 사용하면 나올 수 있어요!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "만약 당신이 이동 도구를 사용하고 싶지 않다면, 이러한 동작들은 또한 명령 §e;jumpto§r§a, §e;thru§r§a 및 §e;unstuck§r로도 사용할 수 있습니다."
@@ -887,13 +887,13 @@ msgid "howtoplay.wedit:quick_start.text.10"
 msgstr "§71. 돌을 내려놓고 그 위에 패턴 피커(Pattern Picker)를 사용한 다음 \"채우기 선택(Fill Selection)\"을 사용합니다. 그 후, 정육면체 모양의 돌을 만들어야 합니다."
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+msgstr "§r2. 공중에서 Pattern Picker를 사용하고(모바일 플레이어는 화면을 길게 눌러야 함) 다시 \"채우기 선택\"을 사용하여 돌을 치우세요."
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+msgstr "§73. 사암과 유리를 내려놓고, 사암에 Pattern Picker를 사용한 다음, 웅크리고 유리에 사용하여 패턴을 추가하세요. \"채움 선택\"을 사용하면 사암과 유리가 혼합되어 있어야 합니다."
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+msgstr "◦r4. 인벤토리에 있는 Mask Picker를 꺼내 사암에 사용하세요. 원하는 블록을 패턴으로 설정하고 \"Fill Selection\"을 사용합니다. 그러면, 모든 사암 블록이 해당 블록으로 교체됩니다."
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. §e;stack 4 up§r§7 명령을 입력하여 선택 항목을 위쪽으로 반복합니다."
@@ -908,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 어떤 종류든 삽을 들고, 조약돌을 설치하세요. 브러시를 쓸 때 필요할 것 입니다."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. \"World Edit 설정\" 항목을 사용하세요. \"브러시 설정\"을 포함한 메뉴가 있을 겁니다. 해당 버튼을 선택한 다음 인터페이스가 지시하는 대로 새 브러시를 만드세요. 반지름 3의 구형 브러시와 조약돌 무늬로 만들어보세요. 그 뒤, 설정을 확인하고 메뉴를 종료하세요."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 근처에 있지 않은 땅을 조준하고 삽(이젠 브러시지만)과 상호 작용하여 조약돌 구체를 배치합니다."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. 브러시 설정을 다시 입력하여 브러시의 마스크를 '잔디'로 설정하세요. 또한, 브러시를 사용하여 자갈길을 만드세요."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "§r5. 메뉴에서 브러시를 삭제하여 비활성화하세요."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "이제는?"
