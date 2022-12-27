@@ -21,5 +21,5 @@ registerCommand(registerInformation, function (session, builder, args) {
     return `${exprString} = ${expr.compile([])()}`;
   } catch (error) {
     throw RawText.translate("commands.wedit:calc.invalid").with(exprString);
-  }  
+  }
 });
