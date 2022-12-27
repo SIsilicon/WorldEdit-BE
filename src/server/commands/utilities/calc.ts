@@ -1,3 +1,4 @@
+import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -14,5 +15,11 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-  return `${args.get("expr").stringObj} = ${args.get("expr").compile()()}`;
+  const expr = args.get("expr");
+  const exprString = expr.stringObj;
+  try {
+    return `${exprString} = ${expr.compile([])()}`;
+  } catch (error) {
+    throw RawText.translate("commands.wedit:calc.invalid").with(exprString);
+  }  
 });
