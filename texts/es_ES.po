@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 19:02\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -80,61 +80,64 @@ msgid "worldedit.maskPicker.set"
 msgstr "Establecer máscara a bloquear: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Opciones de WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Brocha"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Herramientas"
 
 msgid "worldedit.config.general"
 msgstr "General"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Incluír entidades en el porta-papeles"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Incluir aire en portapapele"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Modo Rendimiento"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Dibujar lineas salientes"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Modo de selección"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Crear nueva herramienta"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Crear un Nuevo Foro"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Cuboide"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Extender"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Esfera"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cilindro"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "No hay propiedades de herramienta"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "La herramienta no tiene propiedades para establecer."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Varita de Selección"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Varita de selección lejana"
 
 msgid "worldedit.config.tool.navigation"
 msgstr "Navigation Wand"
@@ -259,6 +262,15 @@ msgstr "§eSe le han otorgado permisos de WorldEdit. Vaya a (Configuración > C�
 msgid "worldedit.permission.revoked"
 msgstr "§eTus permisos de WorldEdit han sido eliminados.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s bloques han cambiado."
 
@@ -306,6 +318,9 @@ msgstr "§7Ejecuta §e%s§7 mientras sostienes el objeto para desvincularlo.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +691,9 @@ msgstr "Llena la selección con un patrón de bloque"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +911,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Consigue una pala de cualquier tipo y coloca adoquín; lo necesitarás para el pincel."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Usa el elemento \"Ajustes de WorldEdit\". Debe aparecer un menú en tu barra del inventario incluyendo \"Ajustes del pincel\". Selecciona el ítem, luego selecciona la pala con la que unirte. Has una esfera con radio 3, y un patrón de adoquín. Confirme los ajustes y salga del menú."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Apunta al suelo lejos de tí e interactúa con la pala (ahora pincel) para colocar esferas de adoquín."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Haz que el pincel solo afecte la hierba con §e;mask grass§r§7 mientras lo tiene en la mano. Úsalo ahora para hacer un patrón de adoquín."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Desactiva el pincel con §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "¿Y ahora qué?"

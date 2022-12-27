@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -259,6 +259,15 @@ msgstr "§e你已獲得 WorldEdit 權限。前往 (設定 > 遊戲說明 > 快�
 msgid "worldedit.permission.revoked"
 msgstr "§e您的 WorldEdit 權限已被刪除。§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "已變更 %s 個方塊"
 
@@ -306,6 +315,9 @@ msgstr "§7運行 §e%s§7，同時按住該物品以解開它。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +688,9 @@ msgstr "用填充方塊來填滿選中的區域"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 拿一把任意類型的鏟子，把圓石放下； 你需要它來刷刷。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. 使用「WorldEdit 設置」物品。 您的快捷欄中應該會出現一個菜單，其中包括「刷子設置」。 選擇物品，然後選擇要綁定的鏟子。 使它成為半徑為 3 的球刷和圓石圖案。 確認設置並退出菜單。"
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. 瞄準不靠近您的地面並與鏟子 (現在是刷子) 互動以放置鵝卵石球體。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 使刷子只影響帶有§e的草；蒙版草§r§7，同時握住它。 現在使用刷子製作鵝卵石路徑。"
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. 使用 §e;br none§r 禁用畫筆。"
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "那麼現在呢？"
