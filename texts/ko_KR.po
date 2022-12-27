@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-12-27 06:40\n"
+"PO-Revision-Date: 2022-12-27 07:43\n"
 
 msgid "pack.description"
-msgstr "기존 Java 모드 등의 개발 중인 포트 제작자: SIsilicon (§l§b@iSiliconS§r)"
+msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
 
 msgid "script.watchdog.error.hang"
 msgstr "§c월드에딧 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 애드온, 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
@@ -83,7 +83,7 @@ msgid "worldedit.config.mainMenu"
 msgstr "월드에딧 설정"
 
 msgid "worldedit.config.brushes"
-msgstr "브러쉬"
+msgstr "브러시"
 
 msgid "worldedit.config.tools"
 msgstr "도구들"
@@ -110,7 +110,7 @@ msgid "worldedit.config.newTool"
 msgstr "새로운 도구 제작"
 
 msgid "worldedit.config.newBrush"
-msgstr "새로운 브러쉬 제작"
+msgstr "새로운 브러시 제작"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "정육면체"
@@ -143,19 +143,19 @@ msgid "worldedit.config.tool.stacker"
 msgstr "늘리기 도구"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "구 브러쉬"
+msgstr "구 브러시"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "원기둥 브러쉬"
+msgstr "원기둥 브러시"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "다듬기 브러쉬"
+msgstr "다듬기 브러시"
 
 msgid "worldedit.config.chooseItem"
-msgstr "들려고 하는 아이템을 들고 있으세요."
+msgstr "바인딩할 아이템을 들고 있으세요."
 
 msgid "worldedit.config.choose.brush"
-msgstr "어떤 형태의 브러쉬를 만들 것인지 선택하세요."
+msgstr "어떤 형태의 브러시를 만들 것인지 선택하세요."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
@@ -164,10 +164,10 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
 
 msgid "worldedit.config.mask.tool"
-msgstr "브러쉬에 사용할 마스크(옵션) 을 선택합니다."
+msgstr "브러시에 사용할 마스크(옵션) 을 선택합니다."
 
 msgid "worldedit.config.mask.brush"
-msgstr "브러쉬에 사용할 마스크(옵션) 을 선택합니다."
+msgstr "브러시에 사용할 마스크(옵션) 을 선택합니다."
 
 msgid "worldedit.config.confirm"
 msgstr "이것으로 정하시겠습니까?"
@@ -242,7 +242,7 @@ msgid "worldedit.tool.noItem"
 msgstr "당신의 손에 아이템이 있어야 합니다."
 
 msgid "worldedit.tool.cantBind"
-msgstr "이 아이템에는 바인딩할 수 없습니다."
+msgstr "이 아이템은 바인딩할 수 없습니다."
 
 msgid "worldedit.tool.noBind"
 msgstr "이 아이템은 도구에 바인딩되어 있지 않습니다."
@@ -299,7 +299,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 Ticking area를 추가하십시오."
+msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 Ticking area를 추가하세요."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
@@ -311,13 +311,13 @@ msgid "commands.generic.wedit:blockLimit"
 msgstr "블럭 수가 너무 많아요!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "아이템을 들고 §7§e%s§7을 실행하여, 바인딩 해제하세요.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "바라보고 있는 지점의 바이옴: %s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "선택한 바이옴의 종류를 검색하기"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "현재 위치의 바이옴 위치: %s"
@@ -335,7 +335,7 @@ msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "부드러운 브러시 장착됨 (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "부드러운 브러시 장착됨 (%1 x %2x 사용)."
+msgstr "부드러운 브러시 장착됨 (%1 x %2x 필터 사용)."
 
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
@@ -344,28 +344,28 @@ msgid "commands.wedit:brush.description.none"
 msgstr "현재 항목에서 바인딩된 브러시 바인딩 해제"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "구체 브러쉬 생성"
+msgstr "구 모양의 브러시 생성"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "원기둥 브러쉬 생성"
+msgstr "원기둥 브러시 생성"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "지형 스무딩 브러쉬 생성"
+msgstr "지형 스무딩 브러시 생성"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "브러쉬 마스크 설정."
+msgstr "브러시 마스크 설정."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "붓 마스크가 꺼졌습니다."
+msgstr "브러시 마스크(옵션)가 꺼졌습니다."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "붓 재료가 설정되었습니다."
+msgstr "브러시 재료가 설정되었습니다."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "브러쉬 범위 설정."
+msgstr "브러시 범위 설정."
 
 msgid "commands.wedit:brush.size.set"
-msgstr "브러쉬 사이즈 설정."
+msgstr "브러시 사이즈 설정."
 
 msgid "commands.wedit:brush.tracemask.set"
 msgstr "마스크 추적 설정."
@@ -413,7 +413,7 @@ msgid "commands.wedit:copy.explain"
 msgstr "%s 블록을 복사했습니다."
 
 msgid "commands.wedit:count.description"
-msgstr "Count the number of blocks that match a mask"
+msgstr "마스크와 일치하는 블록 수를 계산합니다"
 
 msgid "commands.wedit:count.explain"
 msgstr "%s 블럭들이 찾아짐."
@@ -614,7 +614,7 @@ msgid "commands.wedit:pyramid.description"
 msgstr "피라미드가 생성되었습니다."
 
 msgid "commands.wedit:range.description"
-msgstr "브러쉬를 사용할 수 있는 거리 설정"
+msgstr "브러시를 사용할 수 있는 거리 설정"
 
 msgid "commands.wedit:redo.description"
 msgstr "일정량의 작업 취소를 되돌립니다."
@@ -656,10 +656,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "정육면체: 점 1을 위해 웅크리기를 한 상태에서 누르고, 점 2를 위해 웅크리지 않고 탭하세요."
+msgstr "정육면체: 점 1을 위해 웅크리기를 한 상태에서 탭하고, 점 2를 위해 웅크리지 않고 탭하세요."
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "원기둥 선택기: 중심을 향해 웅크리기 한 상태에서 탭하고, 웅크리지 않고 탭하여 반경과 높이를 확장하세요."
 
 msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
@@ -680,7 +680,7 @@ msgid "commands.wedit:sel.extend"
 msgstr "심화: 시작지점을 웅크리기 하며 탭하세요. 또한 확장하려면 웅크리지 않고 탭하세요."
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
+msgstr "구체 선택기: 중심을 향해 웅크리기 한 상태에서 탭하고, 웅크리지 않고 탭하여 반경을 설정하세요."
 
 msgid "commands.wedit:set.description"
 msgstr "블록 패턴으로 선택 영역을 채웁니다."
@@ -701,7 +701,7 @@ msgid "commands.wedit:shift.explain"
 msgstr "지역 이동됨."
 
 msgid "commands.wedit:size.description"
-msgstr "브러쉬의 사이즈를 선택합니다."
+msgstr "브러시의 사이즈를 선택합니다"
 
 msgid "commands.wedit:snow.description"
 msgstr "해당 지역의 눈 시뮬레이션하기"
@@ -749,16 +749,16 @@ msgid "commands.wedit:tracemask.description"
 msgstr "브러시를 사용할 수 있는 블록 유형 설정"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "Selection wand bound to %s."
-
-msgid "commands.wedit:tool.bind.navwand"
-msgstr "Navigation wand bound to %s."
-
-msgid "commands.wedit:tool.bind.farwand"
 msgstr "거리 선택 막대가 %s에 바인딩됨"
 
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "거리 선택 막대가 %s에 바인딩됨"
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "장거리 선택 도구가 %s에 바인딩됨"
+
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "Stacker tool bound to %s."
+msgstr "늘리기 도구가 %s에 바인딩됨"
 
 msgid "commands.wedit:tool.description"
 msgstr "모든 종류의 도구 가져오기"
@@ -779,7 +779,7 @@ msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "현재 항목에서 해제된 도구입니다."
 
 msgid "commands.wedit:unstuck.description"
 msgstr "블록 밖으로 이동"
@@ -902,7 +902,7 @@ msgid "howtoplay.wedit:quick_start.text.15"
 msgstr "원하면 더 이상 실행 취소할 수 없을 때까지 실행 취소 항목을 사용하여 모든 작업을 실행 취소할 수 있습니다."
 
 msgid "howtoplay.wedit:quick_start.header.5"
-msgstr "브러쉬 사용법"
+msgstr "브러시 사용법"
 
 msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. 어떤 종류든 삽을 들고, 조약돌을 설치하세요. 브러시를 쓸 때 필요할 것 입니다."
