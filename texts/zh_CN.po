@@ -103,6 +103,9 @@ msgstr "性能模式"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "绘制轮廓"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "选择模式"
 

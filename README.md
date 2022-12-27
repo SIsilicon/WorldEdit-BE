@@ -7,7 +7,7 @@
 [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/M5uAkr9WU2)
 
 This is a Minecraft Bedrock addon port of the famous WorldEdit mod for Minecraft: Java Edition. The addon comes with custom commands to make building easier, and more fun! Not only are there commands, but also items to make it easier for anyone on any device to use this.
-__Please note that this addon is currently in its beta stage, and requires experimental features. To be on the safe side, make a backup of your world.__
+__Please note that this addon requires experimental features. To be on the safe side, make a backup of your world.__
 
 ## Installation
 ### Locally
@@ -19,7 +19,6 @@ And that's it! Your world is ready for WorldEdit.
 To properly add this addon to the server, you first need to upload an already existing world with the required experimental features enabled (Do NOT add the addon to the world directly). You must then install the addon separately in the server's `packs` folder. Read more about how aternos handles addons and experimental features [here](https://support.aternos.org/hc/en-us/articles/360042095232-Installing-Addons-Minecraft-Bedrock-Edition-) and [here](https://support.aternos.org/hc/en-us/articles/4407553257873-Enabling-experimental-gameplay-Minecraft-Bedrock-Edition-).
 
 ## Features
-<!--![Clipboard](docs/Clipboard.jpg)![Generation](docs/Generation.jpg)-->
 WorldEdit currently has the following features.
 - Clipboard manipulation (Cut, Copy, Paste)
 - Masking blocks from certain actions
@@ -29,13 +28,15 @@ WorldEdit currently has the following features.
 - Multiblock patterns
 - Undo and Redo
 - Brushes for painting/affecting blocks
+- Manipulating biomes
+- Exporting and imports structures
 
 ## Planned
 These features will be added in the near future.
 - More brushes and tools
 - More selection shapes
 - More selection operations
-- Manipulate biome data
+- Palletes
 - Basically, Java Parity
 
 ## Documentation
@@ -43,14 +44,8 @@ The addon comes with a quick start on how to use WorldEdit in `Settings > How to
 There's a more in-depth documentation over at the project's docs page: https://worldedit-be-docs.readthedocs.io
 
 ## Contribution
-### Bug Report
-If you've encountered a bug with the addon, please go [here](https://github.com/SIsilicon/WorldEdit-BE/issues/new?template=bug_report.md) submit one.
 
-### Feature Request
-The aim of this project is to replicate as many of the original WorldEdit features as possible, so if there's a feature you want that's in the original mod, it will likely be implemented anyway if possible.
-However, you can still propose features that _aren't_ in the original mod, so long as you can make a case for how useful it can be. Then the proposal will be considered.
-
-You submit proposals [here](https://github.com/SIsilicon/WorldEdit-BE/issues/new?template=feature_request.md). Make sure that a similar proposal has not been made already.
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 This addon is under the [GPLv3 license](LICENSE.txt). This means that you:

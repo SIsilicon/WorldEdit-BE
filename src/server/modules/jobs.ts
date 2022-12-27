@@ -51,29 +51,31 @@ class JobHandler {
 
   public setProgress(jobId: number, percent: number) {
     if (this.jobs.has(jobId)) {
-      this.jobs.get(jobId).percent = percent;
+      this.jobs.get(jobId).percent = Math.max(Math.min(percent, 1), 0);
     }
   }
 
   public* perform<T, TReturn>(jobId: number, func: Generator<T, TReturn>, finishOnError=true): Generator<T | Promise<unknown>, TReturn> {
     let val: IteratorResult<T, TReturn>;
     let lastPromise: unknown;
+    console.warn("starting");
     while (!val?.done) {
       try {
         val = func.next(lastPromise);
         lastPromise = undefined;
+        if (typeof val.value == "number") {
+          this.setProgress(jobId, val.value);
+        } else if (typeof val.value == "string") {
+          this.nextStep(jobId, val.value);
+        } else if (val.value instanceof Promise) {
+          lastPromise = yield val.value;
+        }
       } catch (err) {
+        console.warn(err, finishOnError, "hello");
         if (finishOnError) {
           this.finishJob(jobId);
         }
         throw err;
-      }
-      if (typeof val.value == "number") {
-        this.setProgress(jobId, val.value);
-      } else if (typeof val.value == "string") {
-        this.nextStep(jobId, val.value);
-      } else if (val.value instanceof Promise) {
-        lastPromise = yield val.value;
       }
       yield;
     }
@@ -101,7 +103,7 @@ class JobHandler {
         progresses.set(job.player, []);
       }
       const percent = (job.percent + job.step) / job.stepCount;
-      progresses.get(job.player).push([job.message, percent]);
+      progresses.get(job.player).push([job.message, Math.max(percent, 0)]);
     }
 
     for (const [player, progress] of progresses.entries()) {

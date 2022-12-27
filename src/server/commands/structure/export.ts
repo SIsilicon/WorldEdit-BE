@@ -2,7 +2,7 @@
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { contentLog, RawText, regionCenter, regionSize, Server, Vector } from "@notbeer-api";
-import { Player } from "@minecraft/server";
+import { Player, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -59,7 +59,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const promises: Promise<boolean>[] = [];
 
   Server.flushCommands();
-  Server.runCommand("scoreboard objectives add wedit:exports dummy");
+  world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
   promises.push(Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).then(result => result.error));
 
   promises.push(Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {

@@ -103,6 +103,9 @@ msgstr "Modo de rendimiento"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar líneas"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de selección"
 

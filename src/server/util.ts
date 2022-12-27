@@ -198,6 +198,15 @@ export function wrap(range: number, num: number) {
 }
 
 /**
+ * Snaps a number to the nearest interval
+ * @param num value to snap
+ * @param interval interval to snap to
+ */
+export function snap(num: number, interval: number) {
+  return Math.round(num / interval) * interval;
+}
+
+/**
  * Tests if two array are equal to each other
  * @param a First array
  * @param b Second array

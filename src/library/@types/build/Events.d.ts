@@ -37,14 +37,19 @@ export interface EventList {
     pistonActivate: [PistonActivateEvent],
     weatherChange: [WeatherChangeEvent],
     playerJoin: [PlayerJoinEvent],
+    playerLoaded: [PlayerLoadedEvent]
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
     customCommand: [customCommand],
     playerChangeDimension: [playerChangeDimension],
     worldInitialize: [WorldInitializeEvent]
 }
+
 interface ready {
     readonly loadTime: number
+}
+interface PlayerLoadedEvent {
+    readonly player: Player
 }
 interface playerChangeDimension {
     readonly player: Player,

@@ -105,7 +105,7 @@ export interface EventEmitterTypes {
     * Remove type of listeners
     * @param eventName Listener to remove
     */
-    removeAllListeners(eventName?: string): void;
+    removeAllListeners(eventName?: string | symbol): void;
 
     /**
     * Turn off an event

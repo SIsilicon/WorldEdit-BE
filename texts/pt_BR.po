@@ -103,6 +103,9 @@ msgstr "Modo de desempenho"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Desenhar um contorno"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de seleção"
 
@@ -161,7 +164,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Escolha que tipo de ferramenta fazer."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Faça um padrão e uma máscara opcional para o pincel."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Faça uma máscara opcional para a ferramenta."
@@ -324,6 +327,15 @@ msgstr "Bioma da sua posição: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomas na sua seleção: %s"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Pincel com forma esférica equipado (%s)."

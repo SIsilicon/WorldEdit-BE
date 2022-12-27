@@ -7,6 +7,8 @@ export class ExpressionShape extends Shape {
   private size: Vector;
   private expr: Expression;
 
+  protected customHollow = false;
+
   constructor(size: Vector, expr: Expression) {
     super();
     this.size = size;

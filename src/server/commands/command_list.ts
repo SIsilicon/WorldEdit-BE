@@ -3,11 +3,13 @@ import { Cardinal } from "@modules/directions.js";
 import { Expression } from "@modules/expression.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
+import { Biome } from "@modules/biome_data.js";
 
 Server.command.addCustomArgType("Mask", Mask);
 Server.command.addCustomArgType("Pattern", Pattern);
 Server.command.addCustomArgType("Direction", Cardinal);
 Server.command.addCustomArgType("Expression", Expression);
+Server.command.addCustomArgType("Biome", Biome);
 
 import "./misc/help.js";
 import "./misc/worldedit.js";
@@ -95,6 +97,9 @@ import "./history/clearhistory.js";
 
 import "./structure/export.js";
 import "./structure/import.js";
+
+import "./biome/biomeinfo.js";
+import "./biome/setbiome.js";
 
 import config from "config.js";
 Server.command.prefix = config.commandPrefix;

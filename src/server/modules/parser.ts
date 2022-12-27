@@ -114,7 +114,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
     if (!block.id.includes(":")) {
       block.id = "minecraft:" + block.id;
     }
-    // TODO: Test against custom blocks
+
     const blockPerm = MinecraftBlockTypes.get(block.id)?.createDefaultBlockPermutation();
     if (!blockPerm) {
       throwTokenError(typeToken);

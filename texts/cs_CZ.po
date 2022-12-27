@@ -103,6 +103,9 @@ msgstr "Výkonnostní režim"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Selection Mode"
 

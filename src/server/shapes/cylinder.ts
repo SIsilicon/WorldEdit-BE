@@ -5,6 +5,8 @@ export class CylinderShape extends Shape {
   private radii: [number, number] = [0, 0];
   private height: number;
 
+  protected customHollow = true;
+
   constructor(height: number, radiusX: number, radiusZ?: number) {
     super();
     this.height = height;

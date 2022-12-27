@@ -104,6 +104,9 @@ msgstr "Mode Performa"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Gambar Garis Pembatas"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Mode Seleksi"
 
@@ -227,6 +230,12 @@ msgstr "Memulai pemilihan silinder baru di %s."
 msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "Radius diatur ke %1/%2 blok (~%3)."
 
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Mulai seleksi pada %1 (%2)."
 
@@ -325,6 +334,15 @@ msgstr "Bioma di posisi Anda: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Bioma di seleksi Anda: %s"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Bentuk kuas Bulat dilengkapi (%s)."

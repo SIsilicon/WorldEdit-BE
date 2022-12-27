@@ -325,6 +325,15 @@ msgstr "현재 위치의 바이옴 위치: %s"
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "선택한 영역의 바이옴: %s"
 
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
+
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "구형 브러시 장착됨 (%s)."
 
@@ -661,6 +670,9 @@ msgstr "정육면체: 점 1을 위해 웅크리기를 한 상태에서 탭하고
 msgid "commands.wedit:sel.cyl"
 msgstr "원기둥 선택기: 중심을 향해 웅크리기 한 상태에서 탭하고, 웅크리지 않고 탭하여 반경과 높이를 확장하세요."
 
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
 msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
 
@@ -669,6 +681,9 @@ msgstr "정육면체의 두 모서리 선택"
 
 msgid "commands.wedit:sel.description.cyl"
 msgstr "실린더 선택"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "빠른 정육면체 선택 모드"

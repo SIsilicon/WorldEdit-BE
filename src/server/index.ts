@@ -36,10 +36,11 @@ world.events.messageReceive.subscribe(ev => {
   contentLog.debug("message: ", ev.message);
 });
 
-Server.on("playerJoin", ev => {
-  contentLog.debug(`player ${ev.player.name} joined.`);
-  if (!ready) return;
-  makeBuilder(ev.player);
+Server.on("playerLoaded", ev => {
+  contentLog.debug(`player ${ev.player.name} loaded.`);
+  if (ready) {
+    makeBuilder(ev.player);
+  }
 });
 
 Server.on("playerLeave", ev => {
@@ -77,6 +78,7 @@ Server.on("tick", () => {
     } catch {
       contentLog.debug("A builder no longer exists!");
       activeBuilders.splice(i, 1);
+      continue;
     }
 
     const builder = activeBuilders[i];

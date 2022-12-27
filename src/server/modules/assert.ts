@@ -1,8 +1,12 @@
 import { Player, BlockLocation } from "@minecraft/server";
-import { Server, Vector, RawText, setTickTimeout } from "@notbeer-api";
+import { Server, Vector, RawText } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { canPlaceBlock, print } from "../util.js";
+import { canPlaceBlock } from "../util.js";
 import { History } from "./history.js";
+
+class UnloadedChunksError extends Error {
+  name = "UnloadedChunksError";
+}
 
 function assertPermission(player: Player, perm: string) {
   if (!Server.player.hasPermission(player, perm)) {
@@ -10,7 +14,6 @@ function assertPermission(player: Player, perm: string) {
   }
 }
 
-const sawOutsideWorldErr: Player[] = [];
 function assertCanBuildWithin(player: Player, min: BlockLocation, max: BlockLocation) {
   const minChunk = Vector.from(min).mul(1/16).floor().mul(16);
   const maxChunk = Vector.from(max).mul(1/16).ceil().mul(16);
@@ -18,11 +21,7 @@ function assertCanBuildWithin(player: Player, min: BlockLocation, max: BlockLoca
   for (let z = minChunk.z; z < maxChunk.z; z += 16)
     for (let x = minChunk.x; x < maxChunk.x; x += 16) {
       if (!canPlaceBlock(new BlockLocation(x, 0, z), player.dimension)) {
-        if (!sawOutsideWorldErr.includes(player)) {
-          sawOutsideWorldErr.push(player);
-          setTickTimeout(() => print("commands.generic.wedit:outsideWorld.detail", player, false));
-        }
-        throw RawText.translate("commands.generic.wedit:outsideWorld");
+        throw new UnloadedChunksError("commands.generic.wedit:outsideWorld");
       }
     }
 }
@@ -45,11 +44,10 @@ function assertCuboidSelection(session: PlayerSession) {
   }
 }
 
-// TODO: Localize
 function assertHistoryNotRecording(history: History) {
   if (history.isRecording()) {
-    throw RawText.translate("History is still being recorded!");
+    throw RawText.translate("worldedit.error.stillRecording");
   }
 }
 
-export { assertCanBuildWithin, assertClipboard, assertCuboidSelection, assertHistoryNotRecording, assertPermission, assertSelection };
+export { UnloadedChunksError, assertCanBuildWithin, assertClipboard, assertCuboidSelection, assertHistoryNotRecording, assertPermission, assertSelection };

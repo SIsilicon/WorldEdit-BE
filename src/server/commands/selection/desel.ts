@@ -19,6 +19,9 @@ const registerInformation = {
       subName: "sphere"
     },
     {
+      subName: "cyl"
+    },
+    {
       subName: "_nothing"
     }
   ]
@@ -35,6 +38,9 @@ registerCommand(registerInformation, function (session, builder, args) {
     } else if (args.has("sphere")) {
       session.selection.mode = "sphere";
       return "commands.wedit:sel.sphere";
+    } else if (args.has("cyl")) {
+      session.selection.mode = "cylinder";
+      return "commands.wedit:sel.cyl";
     } else {
       session.selection.clear();
       return "commands.wedit:sel.clear";

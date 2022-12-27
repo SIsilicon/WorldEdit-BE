@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="12"
+   height="12"
+   viewBox="0 0 3.1749999 3.1749999"
+   version="1.1"
+   id="svg884"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="dark_button_hover.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview886"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="5.6872055"
+     inkscape:cx="32.265407"
+     inkscape:cy="10.637913"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs881" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <image
+       width="179.28166"
+       height="64.769997"
+       preserveAspectRatio="none"
+       xlink:href="../../../../../../Desktop/Screenshot%202022-12-10%20083643.png"
+       id="image831"
+       x="-177.37556"
+       y="-66.860435" />
+    <rect
+       style="fill:#58585a;fill-opacity:1;stroke:#262728;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4204"
+       width="3.1749988"
+       height="3.1749988"
+       x="1.8391075e-06"
+       y="5e-07" />
+    <path
+       id="rect9773"
+       style="fill:#313132;fill-opacity:1;stroke:#262728;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 2.6458335,5e-7 v 2.645833 H 5e-7 v 0.529167 h 2.645833 0.529167 V 2.6458335 5e-7 Z" />
+    <path
+       id="rect7802"
+       style="fill:#78787a;fill-opacity:0.51851851;stroke:#262728;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 5e-7,5e-7 v 0.529167 2.645833 h 0.529167 v -2.645833 h 2.645833 V 5e-7 h -2.645833 z" />
+  </g>
+</svg>

@@ -1,4 +1,4 @@
-import { world, system, PlayerJoinEvent, TickEvent } from "@minecraft/server";
+import { world, system, PlayerJoinEvent, TickEvent, Player } from "@minecraft/server";
 import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
@@ -41,7 +41,7 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
 export * from "./utils/index.js";
 
 import { Entity } from "./build/classes/entityBuilder.js";
-import { Player } from "./build/classes/playerBuilder.js";
+import { Player as PlayerBuilder } from "./build/classes/playerBuilder.js";
 import { Command } from "./build/classes/commandBuilder.js";
 import { Structure } from "./structure/structureBuilder.js";
 import { ServerBuilder } from "./build/classes/serverBuilder.js";
@@ -57,7 +57,7 @@ export { configuration } from "./build/configurations.js";
 class ServerBuild extends ServerBuilder {
   public entity = Entity;
   public block = Block;
-  public player = Player;
+  public player = PlayerBuilder;
   public command = Command;
   public uiForms = UIForms;
   public structure = Structure;
@@ -133,7 +133,7 @@ class ServerBuild extends ServerBuilder {
       * Registration callback
       */
         try {
-          if (element.permission && !Player.hasPermission(data.sender, element.permission)) {
+          if (element.permission && !this.player.hasPermission(data.sender, element.permission)) {
             throw RawText.translate("commands.generic.wedit:noPermission");
           }
           element.callback(data, Command.parseArgs(command, args));
@@ -228,14 +228,6 @@ class ServerBuild extends ServerBuilder {
      */
     world.events.entityCreate.subscribe(data => this.emit("entityCreate", data));
     /**
-     * Emit to 'playerJoin' event listener
-     */
-    world.events.playerJoin.subscribe(data => this.emit("playerJoin", data));
-    /**
-     * Emit to 'playerLeave' event listener
-     */
-    world.events.playerLeave.subscribe(data => this.emit("playerLeave", data));
-    /**
      * Emit to 'blockBreak' event listener
      */
     world.events.blockBreak.subscribe(data => this.emit("blockBreak", data));
@@ -245,6 +237,7 @@ class ServerBuild extends ServerBuilder {
     world.events.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
 
     let worldLoaded = false, tickCount = 0;
+    const loadingPlayers: Player[] = [];
     const playerDimensions = new Map<string, string>();
     world.events.tick.subscribe((ev: TickEvent) => {
       tickCount++;
@@ -275,7 +268,34 @@ class ServerBuild extends ServerBuilder {
         playerDimensions.set(player.name, newDimension);
       }
 
+      for (let i = loadingPlayers.length - 1; i >= 0; i--) {
+        const player = loadingPlayers[i];
+        if (player.velocity.length() > 0) {
+          loadingPlayers.splice(i, 1);
+          this.emit("playerLoaded", { player });
+        }
+      }
+
       this.emit("tick", ev);
+    });
+
+    /**
+     * Emit to 'playerJoin' event listener
+     */
+    world.events.playerJoin.subscribe(data => {
+      loadingPlayers.push(data.player);
+      this.emit("playerJoin", data);
+    });
+    /**
+     * Emit to 'playerLeave' event listener
+     */
+    world.events.playerLeave.subscribe(data => {
+      for (let i = loadingPlayers.length - 1; i >= 0; i--) {
+        if (loadingPlayers[i].name == data.playerName) {
+          loadingPlayers.splice(i, 1);
+        }
+      }
+      this.emit("playerLeave", data);
     });
   }
 

@@ -25,7 +25,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const [shape, loc] = session.selection.getShape();
   const job = (yield Jobs.startJob(session, 2, shape.getRegion(loc))) as number;
-  const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {wall: true}));
+  const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {wall: true, hollow: true}));
   Jobs.finishJob(job);
 
   return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);

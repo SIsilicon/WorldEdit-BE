@@ -103,6 +103,9 @@ msgstr "Ytelsemodus"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Tegn omriss"
 
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Utvalgsmodus"
 
@@ -161,7 +164,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Lag et mønster og valgfri maske for penselet."
+msgstr "Make a pattern and optional mask for the brush."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Lag en valgfri maske for verktøyet."

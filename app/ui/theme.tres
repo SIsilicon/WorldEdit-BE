@@ -1,0 +1,256 @@
+[gd_resource type="Theme" load_steps=42 format=2]
+
+[ext_resource path="res://ui/button.svg" type="Texture" id=1]
+[ext_resource path="res://ui/fonts/notosans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/panel.svg" type="Texture" id=3]
+[ext_resource path="res://ui/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://ui/button_pressed.svg" type="Texture" id=5]
+[ext_resource path="res://ui/button_hover.svg" type="Texture" id=6]
+[ext_resource path="res://ui/line_edit.svg" type="Texture" id=7]
+[ext_resource path="res://ui/dark_button_hover.svg" type="Texture" id=8]
+[ext_resource path="res://ui/dark_button.svg" type="Texture" id=9]
+[ext_resource path="res://ui/dark_button_pressed.svg" type="Texture" id=10]
+[ext_resource path="res://ui/check_off.svg" type="Texture" id=11]
+[ext_resource path="res://ui/check_on.svg" type="Texture" id=12]
+[ext_resource path="res://ui/green_button.svg" type="Texture" id=13]
+[ext_resource path="res://ui/green_button_pressed.svg" type="Texture" id=14]
+[ext_resource path="res://ui/green_button_hover.svg" type="Texture" id=15]
+[ext_resource path="res://ui/button_disabled.svg" type="Texture" id=16]
+[ext_resource path="res://ui/title_panel.svg" type="Texture" id=17]
+
+[sub_resource type="DynamicFont" id=34]
+size = 20
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxTexture" id=38]
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=16]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 7.0
+
+[sub_resource type="DynamicFont" id=12]
+size = 14
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 8.0
+margin_right = 8.0
+margin_top = 9.0
+margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 3.0
+margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 3.0
+margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id=35]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=36]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=37]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 7.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_left = 8.0
+margin_right = 8.0
+margin_top = 14.0
+margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 3.0
+margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id=32]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 6.0
+margin_right = 6.0
+margin_top = 6.0
+margin_bottom = 6.0
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 64, 64 )
+margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.945098, 0.945098, 0.945098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0.819608 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0, 0, 0.298039 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.945098, 0.945098, 0.945098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 0.52549 )
+
+[sub_resource type="StyleBoxTexture" id=22]
+texture = ExtResource( 1 )
+region_rect = Rect2( -6.845, -2.482, 77.232, 66.544 )
+margin_left = 4.0
+margin_right = 3.0
+margin_top = 5.0
+margin_bottom = 10.0
+
+[sub_resource type="Gradient" id=23]
+colors = PoolColorArray( 0.192157, 0.196078, 0.2, 1, 0.192157, 0.196078, 0.2, 1 )
+
+[sub_resource type="GradientTexture2D" id=24]
+flags = 4
+gradient = SubResource( 23 )
+width = 12
+height = 12
+
+[sub_resource type="StyleBoxTexture" id=25]
+texture = SubResource( 24 )
+region_rect = Rect2( 0, 0, 12, 12 )
+
+[resource]
+default_font = SubResource( 12 )
+BlackTitle/base_type = "Label"
+BlackTitle/colors/font_color = Color( 0, 0, 0, 1 )
+BlackTitle/fonts/font = SubResource( 34 )
+Button/colors/font_color = Color( 0, 0, 0, 1 )
+Button/colors/font_color_disabled = Color( 0, 0, 0, 0.2 )
+Button/colors/font_color_focus = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0.105882, 0.105882, 0.105882, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/styles/disabled = SubResource( 38 )
+Button/styles/focus = null
+Button/styles/hover = SubResource( 16 )
+Button/styles/normal = SubResource( 11 )
+Button/styles/pressed = SubResource( 17 )
+CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/fonts/font = SubResource( 12 )
+CheckButton/icons/off = ExtResource( 11 )
+CheckButton/icons/on = ExtResource( 12 )
+CheckButton/styles/disabled = SubResource( 26 )
+CheckButton/styles/focus = SubResource( 26 )
+CheckButton/styles/hover = SubResource( 26 )
+CheckButton/styles/hover_pressed = SubResource( 26 )
+CheckButton/styles/normal = SubResource( 26 )
+CheckButton/styles/pressed = SubResource( 26 )
+DarkButton/base_type = "Button"
+DarkButton/styles/hover = SubResource( 19 )
+DarkButton/styles/normal = SubResource( 26 )
+DarkButton/styles/pressed = SubResource( 27 )
+GreenButton/base_type = "Button"
+GreenButton/colors/font_color = Color( 1, 1, 1, 1 )
+GreenButton/colors/font_color_disabled = Color( 1, 1, 1, 0.498039 )
+GreenButton/colors/font_color_focus = Color( 1, 1, 1, 1 )
+GreenButton/colors/font_color_hover = Color( 1, 1, 1, 1 )
+GreenButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+GreenButton/constants/hseparation = 0
+GreenButton/fonts/font = SubResource( 34 )
+GreenButton/styles/disabled = SubResource( 38 )
+GreenButton/styles/focus = null
+GreenButton/styles/hover = SubResource( 35 )
+GreenButton/styles/normal = SubResource( 36 )
+GreenButton/styles/pressed = SubResource( 37 )
+Label/fonts/font = SubResource( 12 )
+LineEdit/styles/normal = SubResource( 18 )
+Panel/styles/panel = SubResource( 1 )
+PanelContainer/styles/panel = SubResource( 1 )
+PopupDialog/styles/panel = SubResource( 32 )
+TitlePanel/base_type = "Panel"
+TitlePanel/styles/panel = SubResource( 28 )
+TransparentButton/styles/hover = SubResource( 10 )
+TransparentButton/styles/normal = SubResource( 6 )
+TransparentButton/styles/pressed = SubResource( 8 )
+TransparentPanel/base_type = "Panel"
+TransparentPanel/styles/panel = SubResource( 13 )
+VScrollBar/styles/grabber = SubResource( 22 )
+VScrollBar/styles/grabber_highlight = SubResource( 22 )
+VScrollBar/styles/grabber_pressed = SubResource( 22 )
+VScrollBar/styles/scroll = SubResource( 25 )
+WindowDialog/styles/panel = SubResource( 32 )

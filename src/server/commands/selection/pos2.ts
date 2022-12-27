@@ -25,19 +25,27 @@ export function setPos2(selection: Selection, loc: BlockLocation) {
   if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
     let translate: string;
     const blockCount = selection.getBlockCount();
-    if (!blockCount) {
+    if (!blockCount && selection.isCuboid()) {
       translate = `worldedit.selection.${selection.mode}.secondary`;
     } else {
       translate = `worldedit.selection.${selection.mode}.secondaryArea`;
     }
-    let sub = printLocation(selection.points[1]);
+    let sub = [ printLocation(selection.points[1]) ];
     if (selection.mode == "sphere") {
-      sub = `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`;
+      sub = [ `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}` ];
+    } else if (selection.mode == "cylinder") {
+      const vec = Vector.sub(selection.points[1], selection.points[0]);
+      sub = [
+        `${Math.round(vec.mul([1, 0, 1]).length)}`,
+        `${Math.abs(vec.y) + 1}`
+      ];
     }
 
-    return RawText.translate(translate)
-      .with(sub)
-      .with(`${blockCount}`);
+    let result = RawText.translate(translate);
+    for (const s of sub) {
+      result = result.with(s);
+    }
+    return result.with(`${blockCount}`);
   }
   return "";
 }

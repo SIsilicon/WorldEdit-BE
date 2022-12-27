@@ -4,6 +4,8 @@ import { BlockLocation } from "@minecraft/server";
 export class SphereShape extends Shape {
   private radii: [number, number, number] = [0, 0, 0];
 
+  protected customHollow = true;
+
   constructor(radiusX: number, radiusY?: number, radiusZ?: number) {
     super();
     this.radii[0] = radiusX;
