@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-12-27 14:29\n"
+"PO-Revision-Date: 2022-12-27 15:30\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -299,7 +299,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 Ticking area를 추가하세요."
+msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 명령어를 이용하여 Ticking area를 추가하세요."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
@@ -324,15 +324,6 @@ msgstr "현재 위치의 바이옴 위치: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "선택한 영역의 바이옴: %s"
-
-msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
-
-msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
-
-msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "구형 브러시 장착됨 (%s)."
@@ -670,9 +661,6 @@ msgstr "정육면체: 점 1을 위해 웅크리기를 한 상태에서 탭하고
 msgid "commands.wedit:sel.cyl"
 msgstr "원기둥 선택기: 중심을 향해 웅크리기 한 상태에서 탭하고, 웅크리지 않고 탭하여 반경과 높이를 확장하세요."
 
-msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
-
 msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
 
@@ -681,9 +669,6 @@ msgstr "정육면체의 두 모서리 선택"
 
 msgid "commands.wedit:sel.description.cyl"
 msgstr "실린더 선택"
-
-msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "빠른 정육면체 선택 모드"
