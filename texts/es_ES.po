@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-12-15 19:02\n"
+"PO-Revision-Date: 2022-12-30 12:56\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -103,9 +103,6 @@ msgstr "Modo Rendimiento"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar lineas salientes"
 
-msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
-
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de selección"
 
@@ -143,10 +140,10 @@ msgid "worldedit.config.tool.navigation"
 msgstr "Navigation Wand"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Herramienta Acumuladora"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Brocha esférica"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Cylinder Brush"
