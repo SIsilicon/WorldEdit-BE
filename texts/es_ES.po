@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-12-30 12:56\n"
+"PO-Revision-Date: 2022-12-30 16:11\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -146,10 +146,10 @@ msgid "worldedit.config.brush.sphere"
 msgstr "Brocha esférica"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Brocha cilíndrica"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Brocha suavizante"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantén un elemento al que enlazar."
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Hacer un patrón y una máscara opcional para la brocha."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Haga una máscara opcional para la herramienta."
@@ -173,16 +173,16 @@ msgid "worldedit.config.confirm"
 msgstr "¿Esto es correcto?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "¿Estás seguro de la configuración que has hecho?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea borrar este elemento?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Tamaño"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
 msgstr "Smoothness"
