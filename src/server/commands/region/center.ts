@@ -35,7 +35,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const selection = {
     mode: session.selection.mode,
     points: session.selection.points
-  }
+  };
 
   let count;
   try {
