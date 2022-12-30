@@ -20,7 +20,7 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
   assertSelection(session);
   if (args.get("_using_item") && session.globalPattern.empty()) {
-      throw "worldEdit.selectionFill.noPattern";
+    throw "worldEdit.selectionFill.noPattern";
   }
 
   const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
