@@ -38,9 +38,10 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
   const [start, end] = session.selection.getRange();
   assertCanBuildWithin(player, start, end);
 
-  const includeEntities: boolean = args.get("_using_item") ? session.includeEntities : args.has("e");
-  const includeAir: boolean = args.get("_using_item") ? session.includeAir : !args.has("a");
-  const mask: Mask = args.has("m") ? args.get("m-mask") : undefined;
+  const usingItem = args.get("_using_item");
+  const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
+  const includeAir: boolean = usingItem ? session.includeAir : !args.has("a");
+  const mask: Mask = usingItem ? Mask.clone(session.globalMask) : (args.has("m") ? args.get("m-mask") : undefined);
 
   if (session.clipboard) {
     session.deleteRegion(session.clipboard);

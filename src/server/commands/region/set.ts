@@ -23,15 +23,8 @@ const registerInformation = {
  * @return number of blocks set
  */
 export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number | Promise<unknown>, number> {
-  const globalMask = session.globalMask;
-  let changed = 0;
-  try {
-    session.globalMask = null;
-    const [shape, loc] = session.selection.getShape();
-    changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory});
-  } finally {
-    session.globalMask = globalMask;
-  }
+  const [shape, loc] = session.selection.getShape();
+  const changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory, ignoreGlobalMask: true});
   return changed;
 }
 

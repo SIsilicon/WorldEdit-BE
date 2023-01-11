@@ -1,3 +1,4 @@
+import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText, Vector } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
@@ -30,12 +31,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const origin = Vector.from(builder.location).floor().sub([size/2, depth - 1, size/2]).ceil().toBlock();
 
   const shape = new CuboidShape(size, depth, size);
-  const sessionMask = session.globalMask;
-  try {
-    session.globalMask = null;
-    const count = yield* shape.generate(origin, new Pattern("air"), null, session);
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
-  } finally {
-    session.globalMask = sessionMask;
-  }
+  const job = (yield Jobs.startJob(session, 2, shape.getRegion(origin))) as number;
+  const count = yield* Jobs.perform(job, shape.generate(origin, new Pattern("air"), null, session, {ignoreGlobalMask: true}));
+  Jobs.finishJob(job);
+
+  return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });
