@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-12-27 15:30\n"
+"PO-Revision-Date: 2023-01-13 11:14\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
 
 msgid "script.watchdog.error.hang"
-msgstr "§c월드에딧 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 애드온, 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
+msgstr "§c월드에딧 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
