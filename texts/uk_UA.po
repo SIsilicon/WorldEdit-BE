@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 10:39\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -101,7 +101,7 @@ msgid "worldedit.config.general.perfMode"
 msgstr "Режим продуктивності"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Малювання контурів"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим виділення"
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Друга позиція встановлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Початок нового циліндричного виділення в %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Радіус встановлено на %1/%2 блоки (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Виділення почато на %1 (%2)."
@@ -258,6 +258,15 @@ msgstr "§eВам були надані дозволи WorldEdit. Перейді
 
 msgid "worldedit.permission.revoked"
 msgstr "§eВаші дозволи WorldEdit видалено.§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "Не вдалося зберегти точку історії!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Не вдалося завантажити точку історії!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "Історія ще записується!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоків було змінено."
@@ -305,13 +314,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Запустіть §e%s§7, утримуючи предмет, щоб розв’язати його.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Біом у точці прямої видимості: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Отримати типи біомів у вашому виділенні"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Біом на якому ви є: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Біоми у вашому виділенні: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферична форма пензля встановлено (%s)."
@@ -449,7 +461,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s експортовано."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eУвага: щоб використовувати експортовані структури в інших світах, програма WorldEdit повинна розпакувати їх для зовнішнього використання.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасити вогонь поблизу"
@@ -647,7 +659,7 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоїд: нажміть під час присяду до точки 1, та нажміть у звичайному положенні до точки 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Селектор циліндрів: натисніть, підкрадаючись до центру, натисніть, не підкрадаючись, щоб збільшити радіус і висоту"
 
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
@@ -656,7 +668,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "Виділити два кути кубоїда"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Вибір циліндру"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Режим швидкого виділення кубоїда"
@@ -674,10 +686,13 @@ msgid "commands.wedit:set.description"
 msgstr "Заповнити виділення вибраним блоком"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Біоми змінено приблизно для %s блоків."
+
+msgid "commands.wedit:setbiome.description"
+msgstr "Змінити біоми у вашому виділенні"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eУвага: вам потрібно обробити світ за допомогою програми WorldEdit, щоб зміни біома застосувалися.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Зсунути область виділення"
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Візьміть будь-яку лопату і поставте кругляк; він вам знадобиться для пензля."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Використовуйте пункт «Налаштування WorldEdit». На панелі швидкого доступу має з’явитися меню «Налаштування пензля». Виберіть предмет, а потім виберіть лопату, до якої потрібно прив’язати. Створіть його сферичним пензлем радіуса 3 і шаблоном кругляку. Підтвердьте налаштування та вийдіть з меню."
+msgstr "§72. Використовуйте пункт «Налаштування WorldEdit». Повинно з’явитися меню з «Налаштування пензля». Виберіть цю кнопку, а потім створіть новий пензель, як вас вказує інтерфейс. Зробіть це сферичним пензлем радіуса 3 і шаблоном кругляку. Підтвердьте налаштування та вийдіть з меню."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цільтесь в землю неподалік від вас і взаємодійте з лопатою (тепер пензлем), щоб розмістити сферу з кругляку."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Зробіть так, щоб пензель впливав лише на траву за допомогою §e;mask grass§r§7, взявши її в руки. Використовуйте пензлик, щоб зробити доріжку з кругляку."
+msgstr "§74. Знову увійдіть до «Налаштування пензля», щоб встановити для маски пензля значення «трава». Використовуйте пензлик, щоб зробити доріжку з кругляку."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Вимкніть пензель за допомогою §e;br none§r."
+msgstr "§r5. Видаліть пензель із меню, щоб вимкнути його."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Що зараз?"

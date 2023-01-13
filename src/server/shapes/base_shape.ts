@@ -9,7 +9,8 @@ import { getWorldHeightLimits } from "../util.js";
 export type shapeGenOptions = {
     hollow?: boolean,
     wall?: boolean,
-    recordHistory?: boolean
+    recordHistory?: boolean,
+    ignoreGlobalMask?: boolean
 };
 
 export type shapeGenVars = {
@@ -123,7 +124,8 @@ export abstract class Shape {
 
         // TODO: Localize
         let activeMask = mask;
-        activeMask = !activeMask ? session.globalMask : (session.globalMask ? mask.intersect(session.globalMask) : activeMask);
+        const globalMask = (options?.ignoreGlobalMask ?? false) ? new Mask() : session.globalMask;
+        activeMask = !activeMask ? globalMask : (globalMask ? mask.intersect(globalMask) : activeMask);
         const patternInCommand = pattern.getPatternInCommand();
         // Temporarily disabled until API for mass blocks setting is available
         // eslint-disable-next-line no-constant-condition
