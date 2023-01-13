@@ -46,9 +46,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
       throw RawText.translate("commands.generic.wedit:commandFail");
     }
 
+    const usingItem = args.get("_using_item");
     const pattern: Pattern = args.get("fill");
-    const mask: Mask = args.has("m") ? args.get("m-mask") : undefined;
-    const includeEntities: boolean = args.get("_using_item") ? session.includeEntities : args.has("e");
+    const mask: Mask = usingItem ? session.globalMask : (args.has("m") ? args.get("m-mask") : undefined);
+    const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
 
     yield* Jobs.perform(job, set(session, pattern, mask, false), false);
     if (includeEntities) {
