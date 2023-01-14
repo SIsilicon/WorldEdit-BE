@@ -228,7 +228,7 @@ export class PlayerSession {
   }
 
   public createRegion(isAccurate: boolean) {
-    const buffer = new RegionBuffer(isAccurate);
+    const buffer = new RegionBuffer(isAccurate && !config.performanceMode && !this.performanceMode);
     this.regions.set(buffer.id, buffer);
     return buffer;
   }

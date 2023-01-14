@@ -4,6 +4,7 @@ import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, regionSize, regionVolume } from "@notbeer-api";
 import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
+import { copy } from "../clipboard/copy.js";
 
 const registerInformation = {
   name: "stack",
@@ -11,6 +12,14 @@ const registerInformation = {
   description: "commands.wedit:stack.description",
   usage: [
     {
+      flag: "a"
+    }, {
+      flag: "e"
+    }, {
+      flag: "r"
+    }, {
+      flag: "s"
+    }, {
       name: "count",
       type: "int",
       range: [1, null] as [number, null],
@@ -19,6 +28,10 @@ const registerInformation = {
       name: "offset",
       type: "Direction",
       default: new Cardinal()
+    }, {
+      flag: "m",
+      name: "mask",
+      type: "Mask"
     }
   ]
 };
@@ -30,7 +43,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dim = builder.dimension;
   const size = regionSize(start, end);
 
-  const dir = args.get("offset").getDirection(builder).mul(size);
+  const dir = args.get("offset").getDirection(builder).mul(args.has("r") ? 1 : size);
   let loadStart = start.offset(dir.x, dir.y, dir.z);
   let loadEnd = end.offset(dir.x, dir.y, dir.z);
   let count = 0;
@@ -48,12 +61,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const tempStack = session.createRegion(false);
+  const tempStack = session.createRegion(true);
   const job = (yield Jobs.startJob(session, loads.length + 1, stackRegion)) as number;
 
   try {
-    Jobs.nextStep(job, "Copying blocks...");
-    yield* Jobs.perform(job, tempStack.saveProgressive(start, end, dim), false);
+    yield* Jobs.perform(job, copy(session, args, tempStack), false);
+
     yield history.addUndoStructure(record, ...stackRegion, "any");
     Jobs.nextStep(job, "Pasting blocks...");
     for (const load of loads) {
@@ -68,6 +81,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     session.deleteRegion(tempStack);
     Jobs.finishJob(job);
+  }
+
+  if (args.has("s")) {
+    session.selection.set(0, loads[loads.length - 1][0]);
+    session.selection.set(1, loads[loads.length - 1][1]);
   }
 
   return RawText.translate("commands.wedit:stack.explain").with(count);

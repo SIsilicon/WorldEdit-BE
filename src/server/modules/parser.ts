@@ -102,7 +102,7 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
   }
 }
 
-export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): parsedBlock|string {
+export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isMask = false): parsedBlock|string {
   let typeToken = tokens.curr();
   const block: parsedBlock = {
     id: tokens.curr().value,
@@ -119,7 +119,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean): pa
     if (!blockPerm) {
       throwTokenError(typeToken);
     }
-    if (blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
+    if (!isMask && blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
       if (!block.states) {
         block.states = new Map();
       }

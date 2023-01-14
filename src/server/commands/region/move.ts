@@ -1,11 +1,11 @@
 
-import { set } from "./set.js";
 import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText, regionBounds } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
+import { cut } from "../clipboard/cut.js";
 
 const registerInformation = {
   name: "move",
@@ -13,6 +13,12 @@ const registerInformation = {
   description: "commands.wedit:move.description",
   usage: [
     {
+      flag: "a"
+    }, {
+      flag: "e"
+    }, {
+      flag: "s"
+    }, {
       name: "amount",
       type: "int",
       default: 1,
@@ -21,6 +27,14 @@ const registerInformation = {
       name: "offset",
       type: "Direction",
       default: new Cardinal()
+    }, {
+      name: "replace",
+      type: "Pattern",
+      default: new Pattern("air")
+    }, {
+      flag: "m",
+      name: "mask",
+      type: "Mask"
     }
   ]
 };
@@ -39,19 +53,20 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const temp = session.createRegion(false);
-  const job = (yield Jobs.startJob(session, 3, regionBounds([start, end, movedStart, movedEnd]))) as number;
+  const temp = session.createRegion(true);
+  const job = (yield Jobs.startJob(session, 4, regionBounds([start, end, movedStart, movedEnd]))) as number;
   let count: number;
   try {
     yield history.addUndoStructure(record, start, end, "any");
     yield history.addUndoStructure(record, movedStart, movedEnd, "any");
 
-    Jobs.nextStep(job, "Copying blocks...");
-    yield* Jobs.perform(job, temp.saveProgressive(start, end, dim), false);
-    count = yield* Jobs.perform(job, set(session, new Pattern("air")), false);
+    if (yield* Jobs.perform(job, cut(session, args, args.get("replace"), temp), false)) {
+      throw RawText.translate("commands.generic.wedit:commandFail");
+    }
+    count = temp.getBlockCount();
+
     Jobs.nextStep(job, "Pasting blocks...");
     yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);
-    count += temp.getBlockCount();
 
     yield history.addRedoStructure(record, start, end, "any");
     yield history.addRedoStructure(record, movedStart, movedEnd, "any");
@@ -62,6 +77,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     session.deleteRegion(temp);
     Jobs.finishJob(job);
+  }
+
+  if (args.has("s")) {
+    session.selection.set(0, movedStart);
+    session.selection.set(1, movedEnd);
   }
 
   return RawText.translate("commands.wedit:move.explain").with(count);
