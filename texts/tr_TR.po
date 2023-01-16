@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2023-01-16 13:05\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit'in betikleri durdu! §r/reload§c ile sıfırlayın (diğer komut dosyaları da sıfırlanır).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopyala"
@@ -80,37 +80,37 @@ msgid "worldedit.maskPicker.set"
 msgstr "Engellenecek maskeyi ayarlayın: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit Ayarları"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Fırçalar"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Aletler"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Genel"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Varlıkları panoya dahil et"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Havayı Panoya Dahil et"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Performans modu"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Anahat çizin"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Seçim modu"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Yeni Araç Oluştur"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Yeni Fırça oluştur"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboid"
