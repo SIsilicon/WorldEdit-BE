@@ -1,4 +1,4 @@
-import { world, system, PlayerJoinEvent, TickEvent, Player } from "@minecraft/server";
+import { world, system, PlayerJoinEvent, TickEvent, Player, EntitySpawnEventSignal, PlayerSpawnEvent } from "@minecraft/server";
 import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
@@ -17,19 +17,29 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
 
     const players = Array.from(world.getPlayers());
     if (players.length == 0) {
-      const event = (ev: PlayerJoinEvent) => {
-        world.events.playerJoin.unsubscribe(event);
-        // eslint-disable-next-line prefer-const
-        let intervalId: number;
-        const everyTick = function (player: typeof ev.player) {
-          if (player.velocity.length() > 0.0) {
-            const result = player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
-            result.then(() => clearTickInterval(intervalId));
-          }
+      if (world.events.playerSpawn) {
+        const event = (ev: PlayerSpawnEvent) => {
+          if (!ev.initialSpawn) return;
+          world.events.playerSpawn.unsubscribe(event);
+          ev.player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
         };
-        intervalId = setTickInterval(everyTick, 1, ev.player);
-      };
-      world.events.playerJoin.subscribe(event);
+        world.events.playerSpawn.subscribe(event);
+      } else { // 1.19.50
+        const event = (ev: PlayerJoinEvent) => {
+          world.events.playerJoin.unsubscribe(event);
+          const player = (ev as unknown as PlayerSpawnEvent).player;
+          // eslint-disable-next-line prefer-const
+          let intervalId: number;
+          const everyTick = function (p: typeof player) {
+            if (p.velocity.length() > 0.0) {
+              const result = p.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+              result.then(() => clearTickInterval(intervalId));
+            }
+          };
+          intervalId = setTickInterval(everyTick, 1, player);
+        };
+        world.events.playerJoin.subscribe(event);
+      }
     } else {
       for (const player of players) {
         RawText.translate("script.watchdog.error.hang").print(player);
@@ -70,7 +80,9 @@ class ServerBuild extends ServerBuilder {
    * @private
    */
   private _buildEvent() {
-    world.events.beforeChat.subscribe(data => {
+    const events = world.events;
+
+    events.beforeChat.subscribe(data => {
       const date = new Date();
       /**
        * Emit to 'beforeMessage' event listener
@@ -183,63 +195,68 @@ class ServerBuild extends ServerBuilder {
     /**
      * Emit to 'beforeExplosion' event listener
      */
-    world.events.beforeExplosion.subscribe(data => this.emit("beforeExplosion", data));
+    events.beforeExplosion.subscribe(data => this.emit("beforeExplosion", data));
     /**
      * Emit to 'beforePistonActivate' event listener
      */
-    world.events.beforePistonActivate.subscribe(data => this.emit("beforePistonActivate", data));
+    events.beforePistonActivate.subscribe(data => this.emit("beforePistonActivate", data));
     /**
      * Emit to 'blockExplode' event listener
      */
-    world.events.blockExplode.subscribe(data => this.emit("blockExplode", data));
+    events.blockExplode.subscribe(data => this.emit("blockExplode", data));
     /**
      * Emit to 'beforeExplosion' event listener
      */
-    world.events.explosion.subscribe(data => this.emit("explosion", data));
+    events.explosion.subscribe(data => this.emit("explosion", data));
     /**
      * Emit to 'pistonActivate' event listener
      */
-    world.events.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
+    events.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
 
     /**
      * Emit to 'beforeItemUse' event listener
      */
-    world.events.beforeItemUse.subscribe(data => this.emit("beforeItemUse", data));
+    events.beforeItemUse.subscribe(data => this.emit("beforeItemUse", data));
 
     /**
      * Emit to 'beforeItemUseOm' event listener
      */
-    world.events.beforeItemUseOn.subscribe(data => this.emit("beforeItemUseOn", data));
+    events.beforeItemUseOn.subscribe(data => this.emit("beforeItemUseOn", data));
 
     /**
      * Emit to 'messageCreate' event listener
      */
-    world.events.chat.subscribe(data => this.emit("messageCreate", data));
+    events.chat.subscribe(data => this.emit("messageCreate", data));
     /**
      * Emit to 'entityEffected' event listener
      */
-    world.events.effectAdd.subscribe(data => this.emit("entityEffected", data));
+    events.effectAdd.subscribe(data => this.emit("entityEffected", data));
     /**
      * Emit to 'weatherChange' event listener
      */
-    world.events.weatherChange.subscribe(data => this.emit("weatherChange", data));
+    events.weatherChange.subscribe(data => this.emit("weatherChange", data));
     /**
      * Emit to 'entityCreate' event listener
      */
-    world.events.entityCreate.subscribe(data => this.emit("entityCreate", data));
+    if (events.entitySpawn) {
+      events.entitySpawn.subscribe(data => this.emit("entityCreate", data));
+    } else { // 1.19.50
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ((events as any).entityCreate as EntitySpawnEventSignal).subscribe(data => this.emit("entityCreate", data));
+    }
     /**
      * Emit to 'blockBreak' event listener
      */
-    world.events.blockBreak.subscribe(data => this.emit("blockBreak", data));
+    events.blockBreak.subscribe(data => this.emit("blockBreak", data));
     /**
      * Emit to 'worldInitialize' event listener
      */
-    world.events.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
+    events.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
 
     let worldLoaded = false, tickCount = 0;
     const loadingPlayers: Player[] = [];
     const playerDimensions = new Map<string, string>();
-    world.events.tick.subscribe((ev: TickEvent) => {
+    events.tick.subscribe((ev: TickEvent) => {
       tickCount++;
       this.runCommand("testfor @a").then(result => {
         if(!result.error && !worldLoaded) {
@@ -282,14 +299,24 @@ class ServerBuild extends ServerBuilder {
     /**
      * Emit to 'playerJoin' event listener
      */
-    world.events.playerJoin.subscribe(data => {
-      loadingPlayers.push(data.player);
-      this.emit("playerJoin", data);
-    });
+    if (events.playerSpawn) {
+      events.playerSpawn.subscribe(data => {
+        if (data.initialSpawn) {
+          loadingPlayers.push(data.player);
+          this.emit("playerJoin", data.player);
+        }
+      });
+    } else { // 1.19.50
+      events.playerJoin.subscribe(data => {
+        const player = (data as unknown as PlayerSpawnEvent).player;
+        loadingPlayers.push(player);
+        this.emit("playerJoin", player);
+      });
+    }
     /**
      * Emit to 'playerLeave' event listener
      */
-    world.events.playerLeave.subscribe(data => {
+    events.playerLeave.subscribe(data => {
       for (let i = loadingPlayers.length - 1; i >= 0; i--) {
         if (loadingPlayers[i].name == data.playerName) {
           loadingPlayers.splice(i, 1);

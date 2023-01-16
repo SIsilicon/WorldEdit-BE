@@ -1,4 +1,4 @@
-import { Block, BlockLocation, Dimension, Location, Player, world } from "@minecraft/server";
+import { Block, BlockLocation, Dimension, Entity, Location, Player, Vector3, world } from "@minecraft/server";
 import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea } from "@notbeer-api";
 import config from "config.js";
 
@@ -30,6 +30,11 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
     msg = <RawText> RawText.translate(msg);
   }
   print(msg.prepend("text", "§c"), player, toActionBar);
+}
+
+export function getViewVector(entity: Entity | Player): Vector3 {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return entity.viewDirection ?? (entity as any).viewVector;
 }
 
 const worldY = new Map<Dimension, [number, number]>();

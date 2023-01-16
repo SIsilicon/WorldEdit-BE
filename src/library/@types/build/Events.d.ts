@@ -7,17 +7,16 @@ import {
   BeforeItemUseOnEvent,
   ChatEvent,
   TickEvent,
-  PlayerJoinEvent,
   PlayerLeaveEvent,
   EffectAddEvent,
-  EntityCreateEvent,
   ExplosionEvent,
   PistonActivateEvent,
   WeatherChangeEvent,
   Player,
   Dimension,
   BlockBreakEvent,
-  WorldInitializeEvent
+  WorldInitializeEvent,
+  Entity
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
@@ -36,7 +35,7 @@ export interface EventList {
     explosion: [ExplosionEvent],
     pistonActivate: [PistonActivateEvent],
     weatherChange: [WeatherChangeEvent],
-    playerJoin: [PlayerJoinEvent],
+    playerJoin: [Player],
     playerLoaded: [PlayerLoadedEvent]
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
@@ -54,6 +53,12 @@ interface PlayerLoadedEvent {
 interface playerChangeDimension {
     readonly player: Player,
     readonly dimension: Dimension
+}
+export interface EntityCreateEvent { // Equivalent of EntitySpawnEvent (1.19.60+)
+    /**
+     * Entity that was spawned.
+     */
+    entity: Entity;
 }
 interface customCommand {
     registration: registerInformation,
