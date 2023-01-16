@@ -98,6 +98,8 @@ func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 
 
 func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> int:
+	if height_limit <= 0: return OK
+	
 # warning-ignore:narrowing_conversion
 	var key = _to_int32(coord.x)
 # warning-ignore:narrowing_conversion

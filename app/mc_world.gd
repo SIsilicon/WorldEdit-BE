@@ -160,7 +160,10 @@ func set_biome(dimension: String, loc: Vector3, biome: int) -> void:
 			data.min_height = -64
 		data.load_from_db(_leveldb)
 		_biome_height_data[key] = data
-	(_biome_height_data[key] as BiomeHeightData).set_biome(int(loc.x) % 16, int(loc.y), int(loc.z) % 16, biome)
+	
+	var data: BiomeHeightData = _biome_height_data[key]
+	if data.height_limit > 0:
+		data.set_biome(int(loc.x) % 16, int(loc.y), int(loc.z) % 16, biome)
 
 
 func _dimesnion2id(dimension: String) -> int:
