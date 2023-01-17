@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-01-13 11:14\n"
+"PO-Revision-Date: 2023-01-17 02:19\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
 
 msgid "script.watchdog.error.hang"
-msgstr "§c월드에딧 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
+msgstr "§cWorldEdit 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -80,7 +80,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "월드에딧 설정"
+msgstr "WorldEdit 설정"
 
 msgid "worldedit.config.brushes"
 msgstr "브러시"
@@ -836,13 +836,13 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "빠른 시작"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: WorldEdit 빠른 시작"
+msgstr "어떻게 플레이 하나요: WorldEdit 빠른 시작"
 
 msgid "howtoplay.wedit:license"
 msgstr "라이센스"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "어떻게 플레이 하나요: 월드에딧 라이센스"
+msgstr "어떻게 플레이 하나요: WorldEdit 라이센스"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "환영합니다! 이것은 원래 마인크래프트: 자바 에디션용 WorldEdit 모드의 포트입니다. 이 애드온은 마인크래프트 안에서 당신의 월드를 형성하는데 도움을 줄 것입니다."
