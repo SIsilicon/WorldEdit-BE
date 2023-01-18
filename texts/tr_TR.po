@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2023-01-18 13:29\n"
+"PO-Revision-Date: 2023-01-18 17:25\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -245,10 +245,10 @@ msgid "worldedit.tool.cantBind"
 msgstr "Bu tür bir öğeye bağlanamazsınız."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Bu öğe herhangi bir araca bağlı değildir."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Bu aracı kullanma yetkiniz bulunmamakta."
 
 msgid "worldedit.tool.fixedBind"
 msgstr "The tool on this item cannot be removed or replaced."
