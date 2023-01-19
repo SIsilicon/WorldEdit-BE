@@ -58,7 +58,6 @@ class JobHandler {
   public* perform<T, TReturn>(jobId: number, func: Generator<T, TReturn>, finishOnError=true): Generator<T | Promise<unknown>, TReturn> {
     let val: IteratorResult<T, TReturn>;
     let lastPromise: unknown;
-    console.warn("starting");
     while (!val?.done) {
       try {
         val = func.next(lastPromise);
@@ -71,7 +70,6 @@ class JobHandler {
           lastPromise = yield val.value;
         }
       } catch (err) {
-        console.warn(err, finishOnError, "hello");
         if (finishOnError) {
           this.finishJob(jobId);
         }

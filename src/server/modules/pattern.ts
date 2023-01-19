@@ -116,7 +116,7 @@ export class Pattern implements CustomArgType {
     return this.stringObj;
   }
 
-  getPatternInCommand() {
+  getBlockFill() {
     let blockData: parsedBlock;
     if (this.block instanceof BlockPattern) {
       blockData = this.block.block;
@@ -126,20 +126,13 @@ export class Pattern implements CustomArgType {
 
     if (!blockData) return;
 
-    let command = blockData.id;
-    if (blockData.states?.size) {
-      command += "[";
-      let i = 0;
+    const block = MinecraftBlockTypes.get(blockData.id).createDefaultBlockPermutation();
+    if (blockData.states) {
       for (const [state, val] of blockData.states.entries()) {
-        command += `"${state}":`;
-        command += typeof val == "string" ? `"${val}"` : `${val}`;
-        if (i++ < blockData.states.size - 1) {
-          command += ",";
-        }
+        (block.getProperty(state) as AnyBlockProperty).value = val;
       }
-      command += "]";
     }
-    return command;
+    return block;
   }
 
   private compile() {

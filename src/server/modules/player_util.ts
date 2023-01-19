@@ -2,6 +2,7 @@ import { Player, Entity, BlockLocation, EntityInventoryComponent } from "@minecr
 import { Server, contentLog } from "@notbeer-api";
 import { Mask } from "./mask.js";
 import config from "config.js";
+import { getViewVector } from "server/util.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
@@ -90,7 +91,7 @@ class PlayerHandler {
    */
   traceForBlock(player: Player, range?: number, mask?: Mask) {
     const start = player.headLocation;
-    const dir = player.viewVector;
+    const dir = getViewVector(player);
     const dim = player.dimension;
 
     let prevPoint = new BlockLocation(Infinity, Infinity, Infinity);

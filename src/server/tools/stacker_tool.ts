@@ -5,6 +5,7 @@ import { BlockLocation, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 class StackerTool extends Tool {
   public range: number;
@@ -25,7 +26,7 @@ class StackerTool extends Tool {
     }
     const history = session.getHistory();
     const record = history.record();
-    const tempStack = session.createRegion(true);
+    const tempStack = new RegionBuffer(true);
     try {
       yield history.addUndoStructure(record, start, end, "any");
 
@@ -39,7 +40,7 @@ class StackerTool extends Tool {
       history.cancel(record);
       throw e;
     } finally {
-      session.deleteRegion(tempStack);
+      tempStack.delete();
     }
   };
 

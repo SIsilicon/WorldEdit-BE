@@ -131,7 +131,7 @@ export class Mask implements CustomArgType {
       // eslint-disable-next-line no-cond-assign
       while (token = tokens.next()) {
         if (token.type == "id") {
-          out.push(new BlockMask(nodeToken(), parseBlock(tokens, input, false) as parsedBlock));
+          out.push(new BlockMask(nodeToken(), parseBlock(tokens, input, false, true) as parsedBlock));
         } else if (token.value == ",") {
           processOps(out, ops, new ChainMask(token));
         } else if (token.type == "space") {

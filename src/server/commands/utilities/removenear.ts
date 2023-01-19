@@ -28,13 +28,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const shape = new CuboidShape(size, size, size);
   const job = (yield Jobs.startJob(session, 2, shape.getRegion(origin))) as number;
-  const sessionMask = session.globalMask;
-  try {
-    session.globalMask = null;
-    const count = yield* Jobs.perform(job, shape.generate(origin, new Pattern("air"), args.get("mask"), session));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
-  } finally {
-    session.globalMask = sessionMask;
-    Jobs.finishJob(job);
-  }
+  const count = yield* Jobs.perform(job, shape.generate(origin, new Pattern("air"), args.get("mask"), session, {ignoreGlobalMask: true}));
+  Jobs.finishJob(job);
+
+  return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });
