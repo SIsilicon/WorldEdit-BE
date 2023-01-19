@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2023-01-18 18:27\n"
+"PO-Revision-Date: 2023-01-19 10:24\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -326,25 +326,25 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "Seçimindeki biyomlar: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Küre fırça şekli etkin (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Silindir fırça şekli etkin (%1 tarafından %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Pürüzsüz fırça etkin (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Pürüzsüz fırça donanımlı (%1 x %2x filtre kullanılarak)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Tutulan fırçanın türünü ayarlayın"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Geçerli öğenizden bağlı bir fırçayı ayırın"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Bir küre fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.cyl"
 msgstr "Create a cylinder brush"
