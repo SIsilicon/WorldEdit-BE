@@ -94,7 +94,7 @@ Server.on("tick", () => {
 });
 
 function makeBuilder(player: Player) {
-  if (hasWorldEdit(player)) {
+  if (hasWorldEdit(player) && !activeBuilders.includes(player)) {
     getSession(player);
     activeBuilders.push(player);
     contentLog.log(`${player.name} has been given worldedit permissions.`);

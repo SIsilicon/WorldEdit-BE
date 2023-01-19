@@ -2,9 +2,9 @@ extends Node
 
 signal task_finished(id, result)
 
-const COM_MOJANG = [
-	"C:/Users/rouje/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang",
-	"C:/Users/rouje/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang"
+var COM_MOJANG = [
+	"C:/Users/%s/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang" % OS.get_environment("USERNAME"),
+	"C:/Users/%s/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang" % OS.get_environment("USERNAME")
 ]
 const WORLDS_FOLDER = "/minecraftWorlds"
 

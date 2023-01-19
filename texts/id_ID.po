@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-25 16:23\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cSkrip WorldEdit telah berhenti! Mulai ulang dengan perintah §r/reload§c (Skrip lainnya akan mengatur ulang juga).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Salin"
@@ -80,76 +80,79 @@ msgid "worldedit.maskPicker.set"
 msgstr "Atur mask ke blok: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Pengaturan WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Kuas"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Peralatan"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Umum"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Sertakan Entitas di Papan Klip"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Sertakan Udara di Papan Klip"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Mode Performa"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Gambar Garis Pembatas"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Mode Seleksi"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Buat Alat Baru"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Buat Kuas Baru"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Berbentuk kubus"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Perluas"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Bola"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Silinder"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Tidak Ada Properti Alat"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Alat ini tidak memiliki properti untuk diubah."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Tongkat Seleksi"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Tongkat Pilihan Jauh"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Tongkat Navigasi"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Alat Penumpuk"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Kuas Bola"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Kuas Silinder"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Kuas Perhalus"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Pegang item untuk diikat."
@@ -161,7 +164,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Pilih alat untuk membuat."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Buat pola dan penutup opsional untuk kuas."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Buat mask opsional untuk alatnya."
@@ -173,52 +176,58 @@ msgid "worldedit.config.confirm"
 msgstr "Apakah ini Oke?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Apakah Anda yakin dengan pengaturan yang Anda buat?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Apakah kamu yakin untuk mengikat item ini?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Ukuran"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Tinggi"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Kehalusan"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Jarak"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Pola"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Penutup"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Kosong"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Penutup Tinggi"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Gunakan Pemilih Blok"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "Seleksi pertama belum dibuat."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Posisi pertama ditentukan ke %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "Posisi pertama diatur ke %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "Posisi kedua diatur ke %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "Posisi kedua diatur ke %1 (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Memulai pemilihan silinder baru di %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius diatur ke %1/%2 blok (~%3)."
 
 msgid "worldedit.selection.cylinder.primary"
 msgstr "Starting a new cylindrical selection at %s."
@@ -227,82 +236,103 @@ msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "Radius set to %1/%2 blocks (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "Mulai seleksi pada %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "Pilihan yang diperluas untuk mencakup %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Radius diatur ke %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Radius diatur ke %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Item harus ada di tangan utama Anda."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Anda tidak dapat mengikat ke item semacam ini."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Item ini tidak terikat pada alat apa pun."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Kau tidak mempunya izin untuk menggunakan item ini."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Alat pada item ini tidak dapat dihapus atau diganti."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eKamu telah diberikan izin WorldEdit. Pergi ke (Pengaturan > Cara bermain > Mulai cepat) untuk panduan.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eIzin WorldEdit Anda telah dihapus.§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "Gagal menyimpan di poin riwayat!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Gagal untuk memuat di poin riwayat!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "Riwayat masih dicatat!"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "Blok %s telah diubah."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%s blok telah dibuat."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Gagal menjalankan perintah ini."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Make a selection first."
+msgstr "Buat seleksi terlebih dahulu."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' adalah argumen direktori yang tidak valid!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Bendera tak terduga: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Papan Klip Anda kosong. Salin atau potong suatu wilayah terlebih dahulu."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Buat seleksi berbentuk kubus terlebih dahulu."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Anda tidak memiliki izin untuk menjalankan perintah ini."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Tidak dapat memodifikasi chunk yang tidak memuat!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eTip: Untuk memuat lebih banyak chunk, tingkatkan jarak simulasi, atau tambahkan area ticking di tempat Anda beroperasi.§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "Nomor (%1) terlalu besar! Itu harus paling banyak (%2)."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "Nomor (%1) terlalu kecil! Setidaknya harus (%2)."
 
 msgid "commands.generic.wedit:blockLimit"
-msgstr "Too many blocks!"
+msgstr "Terlalu banyak blok!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Lari §e%s§7 sambil memegang item untuk melepaskannya.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Bioma pada titik pandang: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Mengambil jenis bioma dalam seleksi Anda"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Bioma di posisi Anda: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Bioma di seleksi Anda: %s"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
@@ -314,37 +344,37 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomes in your selection: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Bentuk kuas Bulat dilengkapi (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Bentuk kuas silinder dilengkapi (%1 oleh %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Kuas halus dilengkapi (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Kuas halus dilengkapi (%1 x %2x Menggunakan filter)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Atur jenis Kuas yang dipegang"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Lepas ikatan kuas dari item Anda saat ini"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Buat kuas bola"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Buat kuas silinder"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Buat kuas penghalus dataran"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Kuas set penutup."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Kuas penutup dinonaktifkan."
 
 msgid "commands.wedit:brush.material.set"
 msgstr "Brush material set."
@@ -452,16 +482,16 @@ msgid "commands.wedit:export.otherWorlds"
 msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Padamkan api terdekat"
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Menghasilkan pembatas dari seleksi Anda"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Isi area dengan blok tertentu"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Secara rekursif mengisi area dengan blok tertentu"
 
 msgid "commands.wedit:fixlava.description"
 msgstr "Make nearby flowing lava blocks source blocks"
@@ -476,55 +506,55 @@ msgid "commands.wedit:fixwater.noWater"
 msgstr "You need to be close to some water to fix."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Membalikan seleksi"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "Membalikan blok %s."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Tidak dapat membalik ke atas atau ke bawah!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "Hasilkan bentuk apa pun dalam seleksi Anda"
 
 msgid "commands.wedit:gmask.description"
-msgstr "Set the global mask"
+msgstr "Atur penutup global"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "Global mask disabled."
+msgstr "Penutup global dinonaktifkan."
 
 msgid "commands.wedit:gmask.set"
-msgstr "Global mask set."
+msgstr "Set penutup global."
 
 msgid "commands.wedit:green.description"
-msgstr "Turn nearby dirt into grass"
+msgstr "Ubah tanah terdekat menjadi rumput"
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Generate a hollow cylinder"
+msgstr "Menghasilkan silinder berongga"
 
 msgid "commands.wedit:help.header"
-msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
+msgstr "--- Menampilkan halaman bantuan %1 dari %2 (;help <page>) ---"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "Set the first position of your selection to the position of the block you're facing"
+msgstr "Setel posisi pertama seleksi Anda ke posisi blok yang Anda hadapi"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "Set the second position of your selection to the position of the block you're facing"
+msgstr "Setel posisi kedua seleksi Anda ke posisi blok yang Anda hadapi"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "Generate a hollow pyramid"
+msgstr "Menghasilkan piramida berongga"
 
 msgid "commands.wedit:hsphere.description"
-msgstr "Generate a hollow sphere"
+msgstr "Menghasilkan bola berongga"
 
 msgid "commands.wedit:inset.description"
-msgstr "Inset the selection area"
+msgstr "Sisipkan area seleksi"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Impor struktur ke Papan Klip."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s telah diimpor dan disetel ke Papan Klip Anda."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Teleport you to the top of the block you're looking at"
@@ -675,6 +705,9 @@ msgstr "Fill the selection with a block pattern"
 
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
@@ -893,16 +926,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Get a shovel of any type, and place down cobblestone; you'll need it for the brush."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu in your hotbar should appear including \"Brush Settings\". Select the item, then select the shovel to bind to. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Aim at the ground not near you and interact with the shovel (now brush) to place cobblestone spheres."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Make it so the brush only affects grass with §e;mask grass§r§7 while holding it. Use the brush now to make a cobblestone path."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Disable the brush with §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "What now?"

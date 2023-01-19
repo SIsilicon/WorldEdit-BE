@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-11-26 01:40\n"
+"PO-Revision-Date: 2022-12-15 02:36\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -259,6 +259,15 @@ msgstr "§eВам предоставлены права WorldEdit. Открой�
 msgid "worldedit.permission.revoked"
 msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
 
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
 
@@ -306,6 +315,9 @@ msgstr "§7Выполните §e%s§7, удерживая предмет, чт�
 
 msgid "commands.wedit:biomeinfo.lineofsight"
 msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
 
 msgid "commands.wedit:biomeinfo.position"
 msgstr "Biome at your position: %s"
@@ -676,6 +688,9 @@ msgstr "Заполнить выделение выбраным блоком"
 msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
@@ -893,16 +908,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Возьмите любую лопату и поставьте булыжник; вам понадобится это для кисти."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Воспользуйтесь пунктом «Настройки WorldEdit». На панели быстрого доступа должно появиться меню, включающее «Настройки кисти». Выберите предмет, затем выберите лопату для привязки. Сделайте его сферической кистью радиуса 3 и узором из булыжника. Подтвердите настройки и выйдите из меню."
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Сделайте так, чтобы кисть воздействовала только на траву с помощью §e;mask grass§r§7 держа её в руках. Теперь используйте кисть, чтобы сделать дорожку из булыжника."
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Выключите кисть с помощью команды §e;br none§r."
+msgstr "§r5. Delete the brush from the menu to disable it."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Что сейчас?"

@@ -5,7 +5,6 @@ import { regionTransformedBounds, Vector } from "@notbeer-api";
 import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { set } from "./set.js";
-import config from "config.js";
 
 // TODO: fix the bounds sometimes not encompassing the new geometry
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +12,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
   assertCuboidSelection(session);
   const history = session.getHistory();
   const record = history.record();
-  const temp = session.createRegion(!config.performanceMode && !session.performanceMode);
+  const temp = session.createRegion(true);
   try {
     const [start, end] = session.selection.getRange();
     const dim = builder.dimension;

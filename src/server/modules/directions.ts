@@ -1,5 +1,6 @@
 import { Player } from "@minecraft/server";
 import { RawText, Vector, CustomArgType } from "@notbeer-api";
+import { getViewVector } from "server/util";
 
 const directions = ["up", "down", "left", "right", "forward", "back", "north", "south", "east", "west", "me"];
 const dirAliases = ["u", "d", "l", "r", "f", "b", "n", "s", "e", "w", "m"];
@@ -59,7 +60,7 @@ export class Cardinal implements CustomArgType {
     if (DIRECTIONS[dirChar]) {
       return DIRECTIONS[dirChar].clone();
     } else {
-      const dir = player.viewVector;
+      const dir = getViewVector(player);
       let cardinal = Vector.ZERO;
       const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
       if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {
