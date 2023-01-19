@@ -1,6 +1,7 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, EntityCreateEvent, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
-import { blockHasNBTData, locToString, stringToLoc } from "../util.js";
+import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
+import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
+import { EntityCreateEvent } from "library/@types/build/Events.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector,
@@ -225,7 +226,7 @@ export class RegionBuffer {
           if (shouldTransform) {
             // FIXME: Not properly aligned
             let entityLoc = ev.entity.location;
-            let entityFacing = Vector.from(ev.entity.viewVector).add(entityLoc).toLocation();
+            let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc).toLocation();
 
             entityLoc = Vector.from(entityLoc).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)

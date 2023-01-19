@@ -5,7 +5,7 @@ import { RawText, Vector } from "@notbeer-api";
 import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
-import config from "config.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation = {
   name: "copy",
@@ -25,13 +25,13 @@ const registerInformation = {
 };
 
 /**
- * Performs the ;copy command.
- * @remark This function is only exported so as to not duplicate code for the ;cut command.
+ * Copies a region into a buffer (session's clipboard by default). When performed in a job, takes 1 step to execute.
  * @param session The session whose player is running this command
  * @param args The arguments that change how the copying will happen
+ * @param buffer An optional buffer to place the copy in. Leaving it blank copies to the clipboard instead
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* copy(session: PlayerSession, args = new Map<string, any>()): Generator<number | string | Promise<unknown>, boolean> {
+export function* copy(session: PlayerSession, args: Map<string, any>, buffer: RegionBuffer = null): Generator<number | string | Promise<unknown>, boolean> {
   assertCuboidSelection(session);
   const player = session.getPlayer();
   const dimension = player.dimension;
@@ -43,22 +43,26 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
   const includeAir: boolean = usingItem ? session.includeAir : !args.has("a");
   const mask: Mask = usingItem ? Mask.clone(session.globalMask) : (args.has("m") ? args.get("m-mask") : undefined);
 
-  if (session.clipboard) {
-    session.deleteRegion(session.clipboard);
-  }
+  if (!buffer) {
+    if (session.clipboard) {
+      session.deleteRegion(session.clipboard);
+    }
 
-  session.clipboard = session.createRegion(!config.performanceMode && !session.performanceMode);
-  session.clipboardTransform = {
-    rotation: Vector.ZERO,
-    flip: Vector.ONE,
-    originalLoc: Vector.add(start, end).mul(0.5),
-    originalDim: player.dimension.id,
-    relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
-  };
+    session.clipboard = session.createRegion(true);
+    session.clipboardTransform = {
+      rotation: Vector.ZERO,
+      flip: Vector.ONE,
+      originalLoc: Vector.add(start, end).mul(0.5),
+      originalDim: player.dimension.id,
+      relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
+    };
+
+    buffer = session.clipboard;
+  }
 
   let error = false;
 
-  if (session.clipboard.isAccurate) {
+  if (buffer.isAccurate) {
     const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
     const filter = mask || !includeAir;
 
@@ -73,9 +77,9 @@ export function* copy(session: PlayerSession, args = new Map<string, any>()): Ge
       }
       return true;
     };
-    error = yield* session.clipboard.saveProgressive(start, end, dimension, { includeEntities }, filter ? blocks : "all");
+    error = yield* buffer.saveProgressive(start, end, dimension, { includeEntities }, filter ? blocks : "all");
   } else {
-    error = (yield session.clipboard.save(start, end, dimension, {includeEntities})) as boolean;
+    error = (yield buffer.save(start, end, dimension, {includeEntities})) as boolean;
   }
 
   return error;

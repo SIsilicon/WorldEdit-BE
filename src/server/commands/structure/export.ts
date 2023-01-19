@@ -1,7 +1,7 @@
 
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { contentLog, RawText, regionCenter, regionSize, Server, Vector } from "@notbeer-api";
+import { RawText, regionCenter, regionSize, Server, Vector } from "@notbeer-api";
 import { Player, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
@@ -88,7 +88,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     Server.structure.delete(namespace + ":weditstructmeta_" + name);
     Server.structure.delete("weditstructref_" + name);
     Server.runCommand(`scoreboard players reset ${struct_name} wedit:exports`);
-    contentLog.debug("error here!");
+
     throw "commands.generic.wedit:commandFail";
   }
 

@@ -1,7 +1,7 @@
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Server, Vector } from "@notbeer-api";
+import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Vector } from "@notbeer-api";
 import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits } from "../util.js";
@@ -126,31 +126,33 @@ export abstract class Shape {
         let activeMask = mask;
         const globalMask = (options?.ignoreGlobalMask ?? false) ? new Mask() : session.globalMask;
         activeMask = !activeMask ? globalMask : (globalMask ? mask.intersect(globalMask) : activeMask);
-        const patternInCommand = pattern.getPatternInCommand();
-        // Temporarily disabled until API for mass blocks setting is available
+        const patternInFill = pattern.getBlockFill();
+
         // eslint-disable-next-line no-constant-condition
-        if (false && this.genVars.isSolidCuboid && patternInCommand && (!activeMask || activeMask.empty())) {
-          contentLog.debug("Using /fill command(s).");
+        if (dimension.fillBlocks && this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
+          contentLog.debug("Using fillBlocks() method.");
           const size = Vector.sub(max, min).add(1);
           const fillMax = 32;
-          history?.addUndoStructure(record, min, max, "any");
+          yield history?.addUndoStructure(record, min, max, "any");
 
           yield "Calculating shape...";
           yield "Generating blocks...";
-          for (let z = 0; z < size.z; z += fillMax)
-            for (let y = 0; y < size.y; y += fillMax)
+          for (let z = 0; z < size.z; z += fillMax) {
+            for (let y = 0; y < size.y; y += fillMax) {
               for (let x = 0; x < size.x; x += fillMax) {
                 const subStart = Vector.add(min, [x, y, z]);
                 const subEnd = Vector.min(
                   new Vector(x, y, z).add(fillMax), size
                 ).add(min).sub(Vector.ONE);
-                Server.runCommand(`fill ${subStart.print()} ${subEnd.print()} ${patternInCommand}`, dimension);
+                dimension.fillBlocks(subStart.toBlock(), subEnd.toBlock(), patternInFill);
 
                 const subSize = subEnd.sub(subStart).add(1);
                 count += subSize.x * subSize.y * subSize.z;
                 yield count / (size.x * size.y * size.z);
               }
-          history?.addRedoStructure(record, min, max, "any");
+            }
+          }
+          yield history?.addRedoStructure(record, min, max, "any");
         } else {
           let progress = 0;
           const volume = regionVolume(min, max);

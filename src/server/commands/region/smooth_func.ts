@@ -3,6 +3,7 @@ import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { Shape } from "../../shapes/base_shape.js";
 import { getWorldHeightLimits } from "../../util.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 type map = (number | null)[][];
 
@@ -96,7 +97,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
   let count = 0;
   const history = session.getHistory();
   const record = history.record();
-  const warpBuffer = session.createRegion(true);
+  const warpBuffer = new RegionBuffer(true);
   try {
     yield history.addUndoStructure(record, range[0], range[1], "any");
 
@@ -127,7 +128,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     history.cancel(record);
     throw e;
   } finally {
-    session.deleteRegion(warpBuffer);
+    warpBuffer.delete();
   }
 
   return count;
