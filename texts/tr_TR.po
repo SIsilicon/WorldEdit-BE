@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2023-01-19 10:24\n"
+"PO-Revision-Date: 2023-01-19 18:18\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -347,7 +347,7 @@ msgid "commands.wedit:brush.description.sphere"
 msgstr "Bir küre fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Bir silindir fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
