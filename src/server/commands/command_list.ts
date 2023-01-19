@@ -57,6 +57,7 @@ import "./region/smooth.js";
 import "./region/faces.js";
 // TODO: Implement hollow
 import "./region/line.js";
+import "./region/center.js";
 
 import "./utilities/fill.js";
 import "./utilities/fillr.js";
@@ -72,6 +73,7 @@ import "./utilities/thaw.js";
 import "./utilities/green.js";
 import "./utilities/extinguish.js";
 import "./utilities/butcher.js";
+import "./utilities/calc.js";
 
 import "./navigation/navwand.js";
 import "./navigation/up.js";

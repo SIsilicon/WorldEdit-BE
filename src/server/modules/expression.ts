@@ -26,9 +26,9 @@ export class Expression implements CustomArgType {
     }
   }
 
-  compile() {
+  compile(variables = ["x", "y", "z"]) {
     contentLog.debug(this.root.compile());
-    return new Function("x", "y", "z", "return " + this.root.compile());
+    return new Function(...variables, "return " + this.root.compile());
   }
 
   static parseArgs(args: Array<string>, index = 0) {
