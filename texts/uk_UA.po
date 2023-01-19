@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-01-19 21:12\n"
+"PO-Revision-Date: 2023-01-19 22:15\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -389,13 +389,13 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Вбито %s об’єктів."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Обчислити математичний вираз."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' не вдалося розібрати як дійсний вираз."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Встановити центральний блок."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистити буфер обміну"
