@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-01-17 02:19\n"
+"PO-Revision-Date: 2023-01-19 21:12\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -387,6 +387,15 @@ msgstr "주변 엔티티를 죽입니다."
 
 msgid "commands.wedit:butcher.explain"
 msgstr "근처의 %s마리 엔티티를 죽였습니다."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "클립보드를 지웁니다."
