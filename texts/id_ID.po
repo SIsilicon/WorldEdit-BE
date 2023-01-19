@@ -11,13 +11,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2022-12-25 16:23\n"
+"PO-Revision-Date: 2023-01-19 21:12\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cSkrip WorldEdit telah berhenti! Mulai ulang dengan perintah §r/reload§c (Skrip lainnya akan mengatur ulang juga).§r"
+msgstr "§cSkrip WorldEdit telah berhenti! Mulai ulang dengan perintah\n"
+"§r/reload§c (Skrip lainnya akan mengatur ulang juga).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Salin"
@@ -102,9 +103,6 @@ msgstr "Mode Performa"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Gambar Garis Pembatas"
-
-msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Mode Seleksi"
@@ -229,12 +227,6 @@ msgstr "Memulai pemilihan silinder baru di %s."
 msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "Radius diatur ke %1/%2 blok (~%3)."
 
-msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
-
-msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
-
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Mulai seleksi pada %1 (%2)."
 
@@ -334,15 +326,6 @@ msgstr "Bioma di posisi Anda: %s"
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Bioma di seleksi Anda: %s"
 
-msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
-
-msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
-
-msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
-
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Bentuk kuas Bulat dilengkapi (%s)."
 
@@ -405,6 +388,15 @@ msgstr "Bunuh entitas disekitar."
 
 msgid "commands.wedit:butcher.explain"
 msgstr "Membunuh %s entitas."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Bersihkan papan klipmu"
