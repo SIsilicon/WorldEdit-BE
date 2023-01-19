@@ -35,7 +35,7 @@ export interface EventList {
     explosion: [ExplosionEvent],
     pistonActivate: [PistonActivateEvent],
     weatherChange: [WeatherChangeEvent],
-    playerJoin: [Player],
+    playerJoin: [PlayerJoinEvent],
     playerLoaded: [PlayerLoadedEvent]
     playerLeave: [PlayerLeaveEvent],
     ready: [ready],
@@ -50,6 +50,9 @@ interface ready {
 interface PlayerLoadedEvent {
     readonly player: Player
 }
+interface PlayerJoinEvent {
+    readonly playerName: string
+}
 interface playerChangeDimension {
     readonly player: Player,
     readonly dimension: Dimension
@@ -58,7 +61,7 @@ export interface EntityCreateEvent { // Equivalent of EntitySpawnEvent (1.19.60+
     /**
      * Entity that was spawned.
      */
-    entity: Entity;
+    readonly entity: Entity;
 }
 interface customCommand {
     registration: registerInformation,

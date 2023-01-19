@@ -302,15 +302,17 @@ class ServerBuild extends ServerBuilder {
     if (events.playerSpawn) {
       events.playerSpawn.subscribe(data => {
         if (data.initialSpawn) {
-          loadingPlayers.push(data.player);
-          this.emit("playerJoin", data.player);
+          this.emit("playerLoaded", data);
         }
+      });
+      events.playerJoin.subscribe(data => {
+        this.emit("playerJoin", { playerName: data.playerName });
       });
     } else { // 1.19.50
       events.playerJoin.subscribe(data => {
         const player = (data as unknown as PlayerSpawnEvent).player;
         loadingPlayers.push(player);
-        this.emit("playerJoin", player);
+        this.emit("playerJoin", { playerName: player.name });
       });
     }
     /**

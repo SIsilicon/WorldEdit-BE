@@ -129,29 +129,30 @@ export abstract class Shape {
         const patternInFill = pattern.getBlockFill();
 
         // eslint-disable-next-line no-constant-condition
-        const fillBlocks = dimension.fillBlocks;
-        if (fillBlocks && this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
+        if (dimension.fillBlocks && this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
           contentLog.debug("Using fillBlocks() method.");
           const size = Vector.sub(max, min).add(1);
           const fillMax = 32;
-          history?.addUndoStructure(record, min, max, "any");
+          yield history?.addUndoStructure(record, min, max, "any");
 
           yield "Calculating shape...";
           yield "Generating blocks...";
-          for (let z = 0; z < size.z; z += fillMax)
-            for (let y = 0; y < size.y; y += fillMax)
+          for (let z = 0; z < size.z; z += fillMax) {
+            for (let y = 0; y < size.y; y += fillMax) {
               for (let x = 0; x < size.x; x += fillMax) {
                 const subStart = Vector.add(min, [x, y, z]);
                 const subEnd = Vector.min(
                   new Vector(x, y, z).add(fillMax), size
                 ).add(min).sub(Vector.ONE);
-                fillBlocks(subStart.toBlock(), subEnd.toBlock(), patternInFill);
+                dimension.fillBlocks(subStart.toBlock(), subEnd.toBlock(), patternInFill);
 
                 const subSize = subEnd.sub(subStart).add(1);
                 count += subSize.x * subSize.y * subSize.z;
                 yield count / (size.x * size.y * size.z);
               }
-          history?.addRedoStructure(record, min, max, "any");
+            }
+          }
+          yield history?.addRedoStructure(record, min, max, "any");
         } else {
           let progress = 0;
           const volume = regionVolume(min, max);
