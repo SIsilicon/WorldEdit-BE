@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-01-20 18:00\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -398,13 +398,13 @@ msgid "commands.wedit:center.description"
 msgstr "Set the center block(s)."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Выберите ваш текущий или указанный чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Выбранные чанки: (%1, %2, %3) - (%4, %5, %6)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Выбран чанк: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
