@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2023-01-19 21:12\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit'in betikleri durdu! §r/reload§c ile sıfırlayın (diğer komut dosyaları da sıfırlanır).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopyala"
@@ -80,76 +80,76 @@ msgid "worldedit.maskPicker.set"
 msgstr "Engellenecek maskeyi ayarlayın: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "WorldEdit Ayarları"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Fırçalar"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Aletler"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Genel"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Varlıkları panoya dahil et"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Havayı Panoya Dahil et"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Performans modu"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Anahat çizin"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Seçim modu"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Yeni Araç Oluştur"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Yeni Fırça oluştur"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Küboid"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Uzat"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Küre"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Silindir"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Araç özelliği yok"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Bu aracın değiştirilecek özelliği yok "
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Seçim çubuğu"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Uzak seçim çubuğu"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Gezinme çubuğu"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "İstifleyici Aracı"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Küre Fırçası"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Silindir Fırça"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Pürüzsüz Fırça"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Bağlanacak bir öğeyi tutun."
@@ -161,193 +161,193 @@ msgid "worldedit.config.choose.tool"
 msgstr "Ne tür bir araç yapacağınızı seçin."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Fırça için bir desen ve isteğe bağlı maske yapın."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Make an optional mask for the tool."
+msgstr "İsteğe bağlı araç için maske yapın"
 
 msgid "worldedit.config.mask.brush"
-msgstr "Make an optional mask for the brush."
+msgstr "İsteğe bağlı fırça için maske yapın."
 
 msgid "worldedit.config.confirm"
-msgstr "Is this Ok?"
+msgstr "Bu iyi mi?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Yaptığın ayardan emin misin?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Are you sure you want to unbind this item?"
+msgstr "Bu eşyayı çözmek istediğinden emin misin?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Boyut"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Yükseklik"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Pürüzsüzlük"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Uzaklık"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Desen"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Maske"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Oyuk"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Yükseklik maskesi"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Blok seçici kullan"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "First selection has not been made yet."
+msgstr "İlk seçim daha yapılmadı."
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "First position set to %s."
+msgstr "İlk konum %s'ye ayarlandı."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "First position set to %1 (%2)."
+msgstr "İlk konum %1 (%2)'ye ayarlandı."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Second position set to %s."
+msgstr "İkinci konum %s'ye ayarlandı."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Second position set to %1 (%2)."
+msgstr "İkinci konum %1 (%2)'ye ayarlandı."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "%s konumunda yeni bir silindirik seçim başlatılıyor."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Yarıçap %1/%2 bloklara ayarlandı (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Started selection at %1 (%2)."
+msgstr "%1 (%2)'de seçim başlatıldı."
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "Extended selection to encompass %1 (%2)."
+msgstr "%1'i (%2) kapsayacak şekilde genişletilmiş seçim."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Radius set to %1."
+msgstr "Yarıçap %1 olarak ayarlandı."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Radius set to %1 (~%2)."
+msgstr "Yarıçap %1 (~%2) olarak ayarlandı"
 
 msgid "worldedit.tool.noItem"
-msgstr "An item must be in your main hand."
+msgstr "Bir eşya elinde olmalı."
 
 msgid "worldedit.tool.cantBind"
-msgstr "You cannot bind to this kind of item."
+msgstr "Bu tür bir öğeye bağlanamazsınız."
 
 msgid "worldedit.tool.noBind"
-msgstr "This item is not bound to any tool."
+msgstr "Bu öğe herhangi bir araca bağlı değildir."
 
 msgid "worldedit.tool.noPerm"
-msgstr "You don't have permission to use this item."
+msgstr "Bu aracı kullanma yetkiniz bulunmamakta."
 
 msgid "worldedit.tool.fixedBind"
-msgstr "The tool on this item cannot be removed or replaced."
+msgstr "Bu eşyadaki araç silinemez veya yer değiştirilemez."
 
 msgid "worldedit.permission.granted"
-msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
+msgstr "§eSize WorldEdit izinleri verildi. Kılavuz için (Ayarlar > Nasıl Oynanır > Hızlı Başlangıç) öğesine gidin.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eYour WorldEdit permissions have been removed.§r"
+msgstr "§eWorldEdit izinlerin silindi.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "Geçmiş noktası kaydedilemedi!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "Geçmiş noktası kaydedilemedi!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "Geçmiş noktası hala kaydediliyor!"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s blocks have been changed."
+msgstr "%sBloklar değişti."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s blocks have been created."
+msgstr "%sBloklar Yaratıldı."
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "Failed to execute this command."
+msgstr "Bu komutu yürütmekte hata oluştu."
 
 msgid "commands.generic.wedit:noSelection"
 msgstr "İlk önce bir seçim yapın."
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s' is an invalid direction argument!"
+msgstr "'%s' geçersiz bir yön bağımsız değişkenidir!"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "Unexpected flag: %s"
+msgstr "Beklenmeyen bayrak: %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "Your clipboard is empty. Copy or cut a region first."
+msgstr "Panon boş. Bir bölge kopyalayın veya kesin."
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "Make a cuboid selection first."
+msgstr "Önce Bir küboid seçimi yapın."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "You don't have the permission to execute this command."
+msgstr "Bu komutu çalıştırmak için izininiz yok."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Cannot modify unloaded chunks!"
+msgstr "Yüklenmeyen chunklar modifiye edilemez!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eTip: Daha fazla parça yüklemek için simülasyon mesafenizi artırın veya faaliyet gösterdiğiniz yerlere geçiş alanları ekleyin.§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "The number (%1) is too big! It must be at most (%2)."
+msgstr "(%1) Sayısı fazla büyük! En fazla (%2) olmalı."
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "The number (%1) is too small! It must be at least (%2)."
+msgstr "(%1) Sayısı fazla küçük! En az (%2) olmalı."
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "Çok fazla blok!"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7Run §e%s§7 while holding the item to unbind it.§r"
+msgstr "§7Öğeyi ayırmak için basılı tutarken §e%s§7'yi çalıştırın.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Görüş hattı noktasındaki biyom: %s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Seçiminizdeki biyom türlerini alın"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Pozisyonundaki biyomlar: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Seçimindeki biyomlar: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "Sphere brush shape equipped (%s)."
+msgstr "Küre fırça şekli etkin (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Silindir fırça şekli etkin (%1 tarafından %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "Smooth brush equipped (%1 x %2x)."
+msgstr "Pürüzsüz fırça etkin (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "Smooth brush equipped (%1 x %2x using filter)."
+msgstr "Pürüzsüz fırça donanımlı (%1 x %2x filtre kullanılarak)."
 
 msgid "commands.wedit:brush.description"
-msgstr "Set the type of a brush being held"
+msgstr "Tutulan fırçanın türünü ayarlayın"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "Unbind a bound brush from your current item"
+msgstr "Geçerli öğenizden bağlı bir fırçayı ayırın"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "Create a sphere brush"
+msgstr "Bir küre fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "Create a cylinder brush"
+msgstr "Bir silindir fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
@@ -387,6 +387,15 @@ msgstr "Kill nearby entities."
 
 msgid "commands.wedit:butcher.explain"
 msgstr "Killed %s entities."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"

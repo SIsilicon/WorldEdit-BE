@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2022-12-23 12:41\n"
+"PO-Revision-Date: 2023-01-19 21:12\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -103,9 +103,6 @@ msgstr "Ytelsemodus"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Tegn omriss"
 
-msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
-
 msgid "worldedit.config.general.selectMode"
 msgstr "Utvalgsmodus"
 
@@ -164,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Lag et mønster og valgfri maske for penselet."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Lag en valgfri maske for verktøyet."
@@ -390,6 +387,15 @@ msgstr "Drep enheter i nærheten."
 
 msgid "commands.wedit:butcher.explain"
 msgstr "Drepte %s enheter."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Tøm utklippstavlen"

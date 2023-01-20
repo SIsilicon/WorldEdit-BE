@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-12-15 02:36\n"
+"PO-Revision-Date: 2023-01-19 21:12\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -103,9 +103,6 @@ msgstr "Mode performance"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dessiner les contours"
 
-msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
-
 msgid "worldedit.config.general.selectMode"
 msgstr "Mode de sélection"
 
@@ -164,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Choisissez quel type d'outil à créer."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Créer un motif et un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Créer un masque optionnel pour l'outil."
@@ -390,6 +387,15 @@ msgstr "Kill nearby entities."
 
 msgid "commands.wedit:butcher.explain"
 msgstr "Killed %s entities."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Effacer le presse-papiers"
