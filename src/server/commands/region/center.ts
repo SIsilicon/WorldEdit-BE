@@ -1,8 +1,8 @@
 import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText } from "@notbeer-api";
-import { BlockLocation } from "@minecraft/server";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { CuboidShape } from "server/shapes/cuboid.js";
 
 const registerInformation = {
   name: "center",
@@ -26,33 +26,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
   const range = session.selection.getRange();
-  const center = [
-    (range[0].x + range[1].x) / 2,
-    (range[0].y + range[1].y) / 2,
-    (range[0].z + range[1].z) / 2
-  ];
+  const center = Vector.add(range[0], range[1]).mul(0.5);
+  const [start, end] = [center.floor().toBlock(), center.ceil().toBlock()];
 
-  const selection = {
-    mode: session.selection.mode,
-    points: session.selection.points
-  };
-
-  let count;
-  try {
-    session.selection.mode = "cuboid";
-    session.selection.set(0, new BlockLocation(...center.map(Math.floor)));
-    session.selection.set(1, new BlockLocation(...center.map(Math.ceil)));
-
-    const [shape, loc] = session.selection.getShape();
-    const job = (yield Jobs.startJob(session, 2, session.selection.getRange())) as number;
-    count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session));
-    Jobs.finishJob(job);
-
-  } finally {
-    session.selection.mode = selection.mode;
-    session.selection.set(0, selection.points[0]);
-    session.selection.set(1, selection.points[1]);
-  }
+  const shape = new CuboidShape(...Vector.sub(end, start).add(1).toArray());
+  const job = (yield Jobs.startJob(session, 2, [start, end])) as number;
+  const count = yield* Jobs.perform(job, shape.generate(start, pattern, null, session));
+  Jobs.finishJob(job);
 
   return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

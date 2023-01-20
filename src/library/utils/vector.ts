@@ -230,6 +230,10 @@ export class Vector {
     );
   }
 
+  toArray() {
+    return [this.x, this.y, this.z] as [number, number, number];
+  }
+
   *[Symbol.iterator] () {
     yield this.vals[0];
     yield this.vals[1];
