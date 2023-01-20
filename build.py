@@ -11,6 +11,9 @@ args = parser.parse_args()
 
 build_pack_name = 'WorldEdit'
 
+def handleError(err):
+    if err: exit(err)
+
 def regExpSub(regEx, replace, file):
     with open(file, 'r') as f:
         content = f.read()
@@ -67,17 +70,17 @@ if not args.package_only:
             exit()
     else:
         print('building scripts...')
-        subprocess.call(['tsc', '-b'], shell=True)
+        handleError(subprocess.call(['tsc', '-b'], shell=True))
 
     # Set debug mode
     regExpSub('debug:(.+),', f'debug: {"false" if args.target == "release" else "true"},', 'BP/scripts/config.js')
 
     # Remap absolute imports
-    subprocess.call([sys.executable, 'tools/remap_imports.py'])
+    handleError(subprocess.call([sys.executable, 'tools/remap_imports.py']))
     # Convert po to lang files
-    subprocess.call([sys.executable, 'tools/po2lang.py'])
+    handleError(subprocess.call([sys.executable, 'tools/po2lang.py']))
     # Build manifests
-    subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL)
+    handleError(subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL))
 
 if not os.path.isdir('builds'):
     os.makedirs('builds')

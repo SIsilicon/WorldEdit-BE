@@ -2,7 +2,6 @@ import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Cardinal } from "@modules/directions.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { contentLog } from "@notbeer-api";
 
 const registerInformation = {
   name: "thru",
