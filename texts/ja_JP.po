@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-01-20 05:01\n"
+"PO-Revision-Date: 2023-01-20 16:49\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -396,6 +396,15 @@ msgstr "'%s' は有効な式として解析できませんでした。"
 
 msgid "commands.wedit:center.description"
 msgstr "中央のブロックを設定する"
+
+msgid "commands.wedit:chunk.description"
+msgstr "Select your current, or specified chunk."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "Chunk selected: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
