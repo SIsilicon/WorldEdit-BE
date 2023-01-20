@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-01-19 22:15\n"
+"PO-Revision-Date: 2023-01-20 16:49\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -396,6 +396,15 @@ msgstr "'%s' не вдалося розібрати як дійсний вира
 
 msgid "commands.wedit:center.description"
 msgstr "Встановити центральний блок."
+
+msgid "commands.wedit:chunk.description"
+msgstr "Select your current, or specified chunk."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "Chunk selected: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистити буфер обміну"
