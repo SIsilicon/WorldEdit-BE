@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-01-19 21:12\n"
+"PO-Revision-Date: 2023-01-23 07:35\n"
 
 msgid "pack.description"
-msgstr "기존 Java 모드등의 복사본을 개발 중입니다! 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
+msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit 스크립트가 멈췄습니다! §r/reload§c로 스크립트를 다시 불러오세요! (다른 스크립트 그리고 행동 팩들도 다시 불러와집니다.).§r"
+msgstr "§cWorldEdit 스크립트가 중단되었습니다! §r/reload§c으로 스크립트를 다시 불러와주시기 바랍니다 (다른 스크립트 또는 행동 팩들 또한 다시 불러와집니다.).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -59,10 +59,10 @@ msgid "item.wedit:selection_wall"
 msgstr "벽 도구"
 
 msgid "item.wedit:selection_outline"
-msgstr "테두리 도구"
+msgstr "테두리 선택"
 
 msgid "item.wedit:draw_line"
-msgstr "선 그리기 도구"
+msgstr "선 그리기"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -80,22 +80,22 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit 설정"
+msgstr "WorldEdit BE 설정"
 
 msgid "worldedit.config.brushes"
 msgstr "브러시"
 
 msgid "worldedit.config.tools"
-msgstr "도구들"
+msgstr "도구"
 
 msgid "worldedit.config.general"
-msgstr "기본"
+msgstr "일반"
 
 msgid "worldedit.config.general.includeEntities"
 msgstr "클립보드 안에 엔티티 포함"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "클립보드 안에 빈 공간 포함"
+msgstr "클립보드 안에 비어있는 공간 포함"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "성능 모드"
@@ -104,7 +104,7 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "테두리 그리기"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "선택 모드"
+msgstr "모드 선택"
 
 msgid "worldedit.config.newTool"
 msgstr "새로운 도구 제작"
@@ -125,16 +125,16 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "원기둥"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "도구 속성 없음"
+msgstr "도구에 대한 속성이 없음"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "이 도구에는 변경할 속성이 없습니다."
+msgstr "이 도구는 변경할 수 있는 속성이 없습니다."
 
 msgid "worldedit.config.tool.selection"
-msgstr "선택 도구"
+msgstr "도구 선택"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "장거리 선택 도구"
+msgstr "장거리 도구 선택"
 
 msgid "worldedit.config.tool.navigation"
 msgstr "순간이동 도구"
@@ -155,7 +155,7 @@ msgid "worldedit.config.chooseItem"
 msgstr "바인딩할 아이템을 들고 있으세요."
 
 msgid "worldedit.config.choose.brush"
-msgstr "어떤 형태의 브러시를 만들 것인지 선택하세요."
+msgstr "어떤 형태의 브러시를 만들 것인지 선택해주십시오."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 도구를 만들지 선택하세요."
@@ -173,10 +173,10 @@ msgid "worldedit.config.confirm"
 msgstr "이것으로 정하시겠습니까?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "당신이 만든 설정은 괜찮습니까?"
+msgstr "이 설정을 적용하시겠습니까?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "정말로 이 아이템을 삭제하시겠어요?"
+msgstr "이 아이템을 정말로 삭제하시겠습니까?"
 
 msgid "worldedit.config.radius"
 msgstr "크기"
@@ -389,13 +389,22 @@ msgid "commands.wedit:butcher.explain"
 msgstr "근처의 %s마리 엔티티를 죽였습니다."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "수학적 표현을 평가합니다."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s'은(는) 유효한 식으로 분석할 수 없습니다."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "센터 블록을 설정합니다."
+
+msgid "commands.wedit:chunk.description"
+msgstr "현재 또는 지정된 청크를 선택합니다."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "청크 선택됨: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "청크 선택됨: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "클립보드를 지웁니다."
