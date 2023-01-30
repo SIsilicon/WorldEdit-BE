@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-01-30 12:51\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -389,22 +389,22 @@ msgid "commands.wedit:butcher.explain"
 msgstr "已杀死 %s 个实体。"
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "计算一个数学表达式。"
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s'不能被解析为一个有效表达式。"
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "设置中心的方块(可以多个)。"
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "选择您当前或指定的区块。"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "已选择的区块: (%1, %2, %3) - (%4, %5, %6)。"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "已选择的区块: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空您的剪贴板"
