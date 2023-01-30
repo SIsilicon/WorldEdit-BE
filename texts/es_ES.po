@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-01-30 18:01\n"
+"PO-Revision-Date: 2023-01-30 18:59\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -299,7 +299,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "¡No se pueden modificar los chunks descargados!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eConsejo: Para cargar más chunks, aumenta tu distancia de simulación, o añade áreas de marca en donde estés operando.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "El número (%1) es demasiado grande! Debe ser como máximo (%2)."
@@ -314,16 +314,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Ejecuta §e%s§7 mientras sostienes el objeto para desvincularlo.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Bioma en el punto de vista: %s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Recuperar los tipos de biomas en tu selección"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Bioma en tu posición: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Biomas en tu selección: %s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Forma de pincel esférico equipada (%s)."
@@ -389,22 +389,22 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Matar %s entidades."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Calcular una expresión matemática."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' no puede ser analizado como una expresión válida."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Establecer el/los bloque(s) central(es)."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Seleccionar tu actual, o chunk especifico."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Chunks seleccionados: (%1, %2, %3) - (%4, %5, %6)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Chunk seleccionado: (%1, %2, %3)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Borra el portapapeles"
@@ -473,13 +473,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "La región se ha expandido %s bloques."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Exporta la selección para su uso posterior."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s ha sido exportado."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eNota: Para usar estructuras exportadas en otros mundos, la app WorldEdit es necesaria para extraerla para su uso externo.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Extinguir el fuego cercano"
@@ -551,10 +551,10 @@ msgid "commands.wedit:inset.description"
 msgstr "Inserta el área seleccionada"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Importa una estructura al portapapeles."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s ha sido importado y establecido en tu portapapeles."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Te teletransporta a la parte superior del bloque al que estás mirando"
@@ -620,7 +620,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "%s bloques pegados."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "No se puede pegar el portapapeles en su ubicación original."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Establece la primera posición de tu selección a la posición especificada o actual"
@@ -668,7 +668,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "¡'%s' no es un incremento de 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "¡Solo puedes rotar a lo largo del eje Y!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Selección borrada."
@@ -677,7 +677,7 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Cubo: presiona mientras te agachas para punto 1, presiona sin agacharte para punto 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Selector de cilindros: toca mientras te agachas en el centro, toca sin agacharte para expandir el radio y altura"
 
 msgid "commands.wedit:sel.description"
 msgstr "Cambia el modo de selección"
@@ -686,7 +686,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "Selecciona dos esquinas del cubo"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Seleccione un cilindro"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Modo de selección rápida de cubos"
@@ -704,10 +704,10 @@ msgid "commands.wedit:set.description"
 msgstr "Llena la selección con un patrón de bloque"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Los biomas fueron cambiados por aproximadamente %s bloques."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "Cambia los biomas en tu selección"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
@@ -833,13 +833,13 @@ msgid "commands.wedit:worldedit.description"
 msgstr "Comandos de WorldEdit"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "Activa o desactiva el modo de rendimiento para la sesión actual."
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "Modo de rendimiento activado."
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "Modo de rendimiento desactivado."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Obtén la versión de WorldEdit"
