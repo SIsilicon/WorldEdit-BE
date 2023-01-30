@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-01-30 18:01\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
@@ -137,7 +137,7 @@ msgid "worldedit.config.tool.far_selection"
 msgstr "Varita de selección lejana"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Herramienta de navegación"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Acumuladora"
@@ -188,22 +188,22 @@ msgid "worldedit.config.smooth"
 msgstr "Smoothness"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Rango"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Patrón"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Máscara"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Hueco"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Máscara de altura"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Usar Selector de Bloque"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La primera selección aún no se ha hecho."
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Segunda posición establecida en %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Iniciando una nueva selección cilíndrica en %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Radio establecido a %1/%2 bloques (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Selección iniciada en %1 (%2)."
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eTus permisos de WorldEdit han sido eliminados.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "¡Error al guardar el historial!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "¡Error al cargar el historial!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "¡El historial todavía se está registrando!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s bloques han cambiado."
