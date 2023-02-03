@@ -163,7 +163,7 @@ export async function removeTickingArea(name: string, dim: Dimension) {
 
 Server.on("ready", () => {
   for (const tickingArea of getTickingAreas()) {
-    for (dim of ["overworld", "nether", "the_end"]) {
+    for (const dim of ["overworld", "nether", "the_end"]) {
       if (!removeTickArea(tickingArea, world.getDimension(dim))) break;
     }
   }
