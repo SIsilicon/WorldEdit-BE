@@ -149,12 +149,12 @@ export async function addTickingArea(name: string, dim: Dimension, start: BlockL
   return true;
 }
 
-export async function removeTickingArea(name: string) {
+export async function removeTickingArea(name: string, dim: Dimension) {
   const tickingAreas = getTickingAreas();
   if (!tickingAreas.includes(name)) {
     return true;
   }
-  if(!await removeTickArea(name)) {
+  if(!await removeTickArea(name, dim)) {
     setTickingAreas(tickingAreas.splice(tickingAreas.indexOf(name)));
     return false;
   }

@@ -211,7 +211,7 @@ export class History {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
       } finally {
-        await removeTickingArea(tickArea);
+        await removeTickingArea(tickArea, region.dimension);
       }
     }
 
