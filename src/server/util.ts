@@ -155,8 +155,7 @@ export async function removeTickingArea(name: string, dim: Dimension) {
     return true;
   }
   if(!await removeTickArea(name, dim)) {
-    tickingAreas.splice(tickingAreas.indexOf(name), 1);
-    setTickingAreas(tickingAreas);
+    setTickingAreas(tickingAreas.filter(tickingArea => tickingArea !== name));
     return false;
   }
   return true;
