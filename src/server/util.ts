@@ -162,7 +162,7 @@ export async function removeTickingArea(name: string, dim: Dimension) {
   return true;
 }
 
-Server.on("ready", async () => {
+const readyListener = async () => {
   for (const tickingArea of getTickingAreas()) {
     if (!tickingArea) continue;
     for (const dim of ["overworld", "nether", "the_end"]) {
@@ -170,7 +170,10 @@ Server.on("ready", async () => {
     }
   }
   setTickingAreas([]);
-});
+};
+if (!Server.listeners("ready").map(fn => fn.toString()).includes(readyListener.toString())) {
+  Server.on("ready", readyListener); 
+}
 
 /**
  * Converts a location object to a string.
