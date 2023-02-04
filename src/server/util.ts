@@ -155,16 +155,18 @@ export async function removeTickingArea(name: string, dim: Dimension) {
     return true;
   }
   if(!await removeTickArea(name, dim)) {
-    setTickingAreas(tickingAreas.splice(tickingAreas.indexOf(name)));
+    tickingAreas.splice(tickingAreas.indexOf(name), 1);
+    setTickingAreas(tickingAreas);
     return false;
   }
   return true;
 }
 
-Server.on("ready", () => {
+Server.on("ready", async () => {
   for (const tickingArea of getTickingAreas()) {
+    if (!tickingArea) continue;
     for (const dim of ["overworld", "nether", "the_end"]) {
-      if (!removeTickArea(tickingArea, world.getDimension(dim))) break;
+      if (!await removeTickArea(tickingArea, world.getDimension(dim))) break;
     }
   }
   setTickingAreas([]);
