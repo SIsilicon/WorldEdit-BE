@@ -170,7 +170,7 @@ const readyListener = async () => {
   }
   setTickingAreas([]);
 };
-if (!Server.listeners("ready").map(fn => fn.toString()).includes(readyListener.toString())) {
+if (!Server.listeners("ready").map(fn => `${fn}`).includes(`${readyListener}`)) {
   Server.on("ready", readyListener);
 }
 
