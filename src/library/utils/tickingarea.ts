@@ -7,7 +7,7 @@ export async function addTickingArea(start: BlockLocation, end: BlockLocation, d
   ).then(result => result.error);
 }
 
-export async function removeTickingArea(name: string) {
-  return Server.runCommand(`tickingarea remove ${name}`)
+export async function removeTickingArea(name: string, dimension: Dimension) {
+  return Server.runCommand(`tickingarea remove ${name}`, dimension)
     .then(result => result.error);
 }

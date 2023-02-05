@@ -149,24 +149,30 @@ export async function addTickingArea(name: string, dim: Dimension, start: BlockL
   return true;
 }
 
-export async function removeTickingArea(name: string) {
+export async function removeTickingArea(name: string, dim: Dimension) {
   const tickingAreas = getTickingAreas();
   if (!tickingAreas.includes(name)) {
     return true;
   }
-  if(!await removeTickArea(name)) {
-    setTickingAreas(tickingAreas.splice(tickingAreas.indexOf(name)));
+  if(!await removeTickArea(name, dim)) {
+    setTickingAreas(tickingAreas.filter(tickingArea => tickingArea !== name));
     return false;
   }
   return true;
 }
 
-Server.on("ready", () => {
+const readyListener = async () => {
   for (const tickingArea of getTickingAreas()) {
-    removeTickArea(tickingArea);
+    if (!tickingArea) continue;
+    for (const dim of ["overworld", "nether", "the_end"]) {
+      if (!await removeTickArea(tickingArea, world.getDimension(dim))) break;
+    }
   }
   setTickingAreas([]);
-});
+};
+if (!Server.listeners("ready").map(fn => `${fn}`).includes(`${readyListener}`)) {
+  Server.on("ready", readyListener);
+}
 
 /**
  * Converts a location object to a string.

@@ -1,5 +1,5 @@
 import { Server, RawText, contentLog } from "@notbeer-api";
-import { BlockLocation, Player } from "@minecraft/server";
+import { BlockLocation, Player, Dimension } from "@minecraft/server";
 import { PlayerSession } from "server/sessions";
 import { addTickingArea, removeTickingArea } from "server/util";
 
@@ -12,7 +12,8 @@ interface job {
     player: Player,
     message: string,
     percent: number,
-    area: string
+    area: string,
+    dimension: Dimension
 }
 
 class JobHandler {
@@ -35,7 +36,8 @@ class JobHandler {
       player: session.getPlayer(),
       message: "",
       percent: 0,
-      area: areaName
+      area: areaName,
+      dimension: session.getPlayer().dimension
     });
     return jobId;
   }
@@ -86,7 +88,7 @@ class JobHandler {
       job.percent = 1;
       job.step = job.stepCount - 1;
       job.message = "Finished!"; // TODO: Localize
-      removeTickingArea(job.area);
+      removeTickingArea(job.area, job.dimension);
 
       this.printJobs();
       this.jobs.delete(jobId);
