@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-01-20 20:30\n"
+"PO-Revision-Date: 2023-02-07 21:08\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -59,7 +59,7 @@ msgid "item.wedit:selection_wall"
 msgstr "Вибір стіни"
 
 msgid "item.wedit:selection_outline"
-msgstr "Контурний вибір"
+msgstr "Контур виділення"
 
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
@@ -71,13 +71,13 @@ msgid "worldedit.patternPicker.add"
 msgstr "До шаблону додано блок: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Вибрати блок для шаблону: "
+msgstr "Установити шаблон для блоку: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Додано блок до маски: "
+msgstr "До маски додано блок: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Встановити маску для блоку: "
+msgstr "Установити маску для блоку: "
 
 msgid "worldedit.config.mainMenu"
 msgstr "Налаштування WorldEdit"
@@ -89,7 +89,7 @@ msgid "worldedit.config.tools"
 msgstr "Інструменти"
 
 msgid "worldedit.config.general"
-msgstr "Основні"
+msgstr "Загальне"
 
 msgid "worldedit.config.general.includeEntities"
 msgstr "Включити сутності в буфер обміну"
@@ -158,7 +158,7 @@ msgid "worldedit.config.choose.brush"
 msgstr "Виберіть, який пензель створити."
 
 msgid "worldedit.config.choose.tool"
-msgstr "Виберіть, який інструмент зробити."
+msgstr "Виберіть, який інструмент створити."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Створити шаблон та за бажанням маску для пензля."
@@ -170,7 +170,7 @@ msgid "worldedit.config.mask.brush"
 msgstr "Зробити додаткову маску для пензля."
 
 msgid "worldedit.config.confirm"
-msgstr "Все добре?"
+msgstr "Усе добре?"
 
 msgid "worldedit.config.confirm.create"
 msgstr "Вас влаштовує налаштування, які ви зробили?"
@@ -257,7 +257,7 @@ msgid "worldedit.permission.granted"
 msgstr "§eВам були надані дозволи WorldEdit. Перейдіть до (Налаштування > Як грати > Швидкий старт), щоб отримати посібник.§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§eВаші дозволи WorldEdit видалено.§r"
+msgstr "§eВаші дозволи WorldEdit вилучено.§r"
 
 msgid "worldedit.error.saveHistory"
 msgstr "Не вдалося зберегти точку історії!"
@@ -269,16 +269,16 @@ msgid "worldedit.error.stillRecording"
 msgstr "Історія ще записується!"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s блоків було змінено."
+msgstr "%s блоків змінено."
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s блоків було створено."
+msgstr "%s блоків створено."
 
 msgid "commands.generic.wedit:commandFail"
 msgstr "Не вдалося виконати цю команду."
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "Спочатку виберіть точки."
+msgstr "Спочатку зробіть виділення."
 
 msgid "commands.generic.wedit:invalidDir"
 msgstr "'%s' є недійсним аргументом напрямку!"
@@ -299,7 +299,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eПідказка: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
+msgstr "§eПорада: щоб завантажити більше чанків, збільште відстань симуляції або додайте зони, де ви працюєте.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Виберіть поточний або вказаний чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Вибрані чанки: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Вибрані чанки: (%1) — (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Вибраний чанк: (%1, %2, %3)."
+msgstr "Вибраний чанк: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистити буфер обміну"
@@ -872,7 +872,7 @@ msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "За замовчуванням у гравців немає дозволу використовувати WorldEdit. Лише ті, хто позначив дозвіл worldedit, можуть використовувати його функції. Щоб надати собі дозвіл, введіть §e/tag @s add worldedit§r у чаті. Тепер ви будете мати доступ до кожної команди WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aПідказка:§r§a Ви також можете надати іншим гравцям дозвіл, змінивши §e@s§r§a на ім'я гравця. Вам потрібно буде взяти його ім'я в лапки, якщо в ньому є пробіл. Наприклад: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aПорада:§r§a ви також можете надати іншим гравцям дозвіл, змінивши §e@s§r§a на ім’я гравця. Вам потрібно буде взяти його ім’я в лапки, якщо в ньому є пробіл. Наприклад: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "З чого ж почати"
@@ -884,7 +884,7 @@ msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "Дістатися з пункту А в пункт Б іноді буває складно. На щастя, це доповнення постачає інструмент з так званою Навігаційною паличкою. Щоб отримати її, введіть команду §e;navwand§r. Отримавши цей предмет, просто взаємодійте з ним, щоб телепортуватись у те місце, на яке ви дивитесь. Хочете потрапити по інший бік стіни чи стелі? Використовуйте паличку, підкрадаючись, щоб пройти наскрізь! Застрягли в блоці? Використовуючи паличку, ви зможете вибратись!"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§aПідказка:§r§a Якщо ви не бажаєте використовувати навігаційну паличку, ці дії також можна виконати за допомогою команд §e;jumpto§r§a, §e;thru§r§a та §e;unstuck§r§a також§r."
+msgstr "§l§aПорада:§r§a Якщо ви не хочете використовувати навігаційну паличку, ці дії також можна виконати за допомогою команд §e;jumpto§r§a, §e;thru§r§a та §e;unstuck§r§a також§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Створення виділення"
