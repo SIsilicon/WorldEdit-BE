@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-01-20 18:00\n"
+"PO-Revision-Date: 2023-02-07 21:08\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Выберите ваш текущий или указанный чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Выбранные чанки: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Chunks selected: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Выбран чанк: (%1, %2, %3)."
+msgstr "Chunk selected: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
