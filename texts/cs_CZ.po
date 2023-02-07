@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-02-07 21:07\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (§l§b@iSiliconS§r)."
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Select your current, or specified chunk."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Chunks selected: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Chunk selected: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Vymazat schránku"
