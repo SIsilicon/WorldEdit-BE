@@ -20,9 +20,9 @@ export class CommandPosition implements CustomArgType {
   yRelative = true;
   zRelative = true;
 
-  static parseArgs(args: Array<string>, index: number) {
+  static parseArgs(args: Array<string>, index: number, is3d = true) {
     const pos = new CommandPosition();
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < (is3d ? 3 : 2); i++) {
       let arg = args[index];
       if(!args) {
         const err: commandSyntaxError = {
@@ -46,7 +46,7 @@ export class CommandPosition implements CustomArgType {
       if (i == 0) {
         pos.x = val;
         pos.xRelative = relative;
-      } else if(i == 1) {
+      } else if(i == 1 && is3d) {
         pos.y = val;
         pos.yRelative = relative;
       } else {
@@ -262,8 +262,12 @@ export class CommandBuilder {
 
         idx++;
         result.set(def.name, val);
+      } else if(def.type == "xz") {
+        const parse = CommandPosition.parseArgs(args, idx, false);
+        idx = parse.argIndex;
+        result.set(def.name, parse.result);
       } else if(def.type == "xyz") {
-        const parse = CommandPosition.parseArgs(args, idx);
+        const parse = CommandPosition.parseArgs(args, idx, true);
         idx = parse.argIndex;
         result.set(def.name, parse.result);
       } else if(def.type == "CommandName") {
