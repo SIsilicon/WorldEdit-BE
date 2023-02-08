@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-02-08 02:45\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "現在の、または指定されたチャンクを選択する"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "チャンクを選択しました: (%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "チャンクを選択しました: (%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
