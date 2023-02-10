@@ -1,11 +1,11 @@
 import { RawText } from "@notbeer-api";
-import { MinecraftBlockTypes, BlockPermutation, BlockLocation, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
+import { MinecraftBlockTypes, BlockPermutation, Vector3, Player, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 
 class PatternPickerTool extends Tool {
-  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     const dimension = player.dimension;
     let addedToPattern = false;
     const block = dimension.getBlock(loc).permutation.clone();
@@ -42,7 +42,7 @@ Tools.register(PatternPickerTool, "pattern_picker", "wedit:pattern_picker");
 
 class MaskPickerTool extends Tool {
   permission = "worldedit.global-mask";
-  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     const dimension = player.dimension;
     let addedToPattern = false;
     const block = dimension.getBlock(loc).permutation.clone();

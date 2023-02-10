@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { Block, Vector3, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -30,7 +30,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dimension = builder.dimension;
   const radius: number = args.get("size");
   const height: number = args.get("height") < 0 ? 4096 : (args.get("height") - 1) * 2 + 1;
-  const origin = Vector.from(builder.location).toBlock();
+  const origin = Vector.from(builder.location).floor();
 
   const shape = new CylinderShape(height, radius);
   const range = shape.getRegion(origin);
@@ -46,8 +46,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let i = 0;
 
     const blocks: Block[] = [];
-    const blockLocs: BlockLocation[] = [];
-    const affectedBlockRange: [BlockLocation, BlockLocation] = [null, null];
+    const blockLocs: Vector3[] = [];
+    const affectedBlockRange: [Vector3, Vector3] = [null, null];
     const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
     const rayTraceOptions = {
@@ -64,7 +64,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
           continue;
         }
 
-        const loc = new Location(x + 0.5, yRange[1] + 1.01, z + 0.5);
+        const loc = new Vector(x + 0.5, yRange[1] + 1.01, z + 0.5);
         try {
           const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions);
           if (block) {
@@ -72,8 +72,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
             blockLocs.push(block.location);
 
             if (affectedBlockRange[0]) {
-              affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).toBlock();
-              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).toBlock();
+              affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).floor();
+              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).floor();
             } else {
               affectedBlockRange[0] = block.location;
               affectedBlockRange[1] = block.location;

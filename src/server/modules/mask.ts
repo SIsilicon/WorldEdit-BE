@@ -1,5 +1,5 @@
-import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError } from "@notbeer-api";
+import { Vector3, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty } from "@minecraft/server";
+import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock } from "./parser.js";
 
@@ -7,7 +7,7 @@ type AnyBlockProperty = StringBlockProperty | BoolBlockProperty | IntBlockProper
 
 export class Mask implements CustomArgType {
   private condition: MaskNode;
-  private compiledFunc: (ctx: null, loc: BlockLocation, dim: Dimension) => boolean;
+  private compiledFunc: (ctx: null, loc: Vector, dim: Dimension) => boolean;
   private stringObj = "";
 
   constructor(mask = "") {
@@ -19,11 +19,11 @@ export class Mask implements CustomArgType {
     }
   }
 
-  matchesBlock(loc: BlockLocation, dimension: Dimension) {
+  matchesBlock(loc: Vector3, dimension: Dimension) {
     if (this.empty()) {
       return true;
     }
-    return this.compiledFunc(null, loc, dimension);
+    return this.compiledFunc(null, Vector.from(loc), dimension);
   }
 
   clear() {
@@ -451,7 +451,7 @@ class OffsetMask extends MaskNode {
     return `return ((loc) => {\n${this.nodes[0].compile()}\n})(loc.offset(${this.x}, ${this.y}, ${this.z}));`;
   }
 
-  // matchesBlock(loc: BlockLocation, dim: Dimension) {
+  // matchesBlock(loc: Vector3, dim: Dimension) {
   //     return this.nodes[0].matchesBlock(loc.offset(this.x, this.y, this.z), dim);
   // }
 

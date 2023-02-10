@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BlockLocation, Player, world } from "@minecraft/server";
+import { Vector3, Player, world } from "@minecraft/server";
 import { contentLog, regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
@@ -55,15 +55,15 @@ class PasteTool extends CommandButton {
     }
     const rotation = session.clipboardTransform.rotation;
     const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
     const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
     const loc = PlayerUtil.getBlockLocation(player);
     const pasteStart = Vector.add(loc, session.clipboardTransform.relative).sub(size.mul(0.5).sub(1));
-    const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).toBlock();
+    const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
 
     const selection = self.outlines.get(session);
-    selection.set(0, pasteStart.toBlock());
+    selection.set(0, pasteStart.floor());
     selection.set(1, pasteEnd);
     selection.draw();
     yield;

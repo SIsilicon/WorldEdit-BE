@@ -25,7 +25,7 @@
 // Dependencies
 import { TicksPerSecond } from "@minecraft/server";
 import { setTickTimeout, clearTickTimeout } from "@notbeer-api";
-import { EventEmitterTypes } from "library/@types/build/classes/eventEmitter";
+import { EventEmitterTypes } from "library/@types/classes/eventEmitter";
 
 // Auxilary declarations
 

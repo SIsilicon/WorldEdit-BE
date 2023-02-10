@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
+import { MinecraftBlockTypes } from "@minecraft/server";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { floodFill } from "./floodfill_func.js";
@@ -24,25 +24,25 @@ export const waterMatch = /minecraft:.*water/;
 export const lavaMatch = /minecraft:.*lava/;
 
 export const fluidLookPositions = [
-  new BlockLocation( 0, 0, 0),
-  new BlockLocation(-1, 0, 0),
-  new BlockLocation( 1, 0, 0),
-  new BlockLocation( 0, 0,-1),
-  new BlockLocation( 0, 0, 1),
-  new BlockLocation( 0,-1, 0),
-  new BlockLocation(-1,-1, 0),
-  new BlockLocation( 1,-1, 0),
-  new BlockLocation( 0,-1,-1),
-  new BlockLocation( 0,-1, 1)
+  new Vector( 0, 0, 0),
+  new Vector(-1, 0, 0),
+  new Vector( 1, 0, 0),
+  new Vector( 0, 0,-1),
+  new Vector( 0, 0, 1),
+  new Vector( 0,-1, 0),
+  new Vector(-1,-1, 0),
+  new Vector( 1,-1, 0),
+  new Vector( 0,-1,-1),
+  new Vector( 0,-1, 1)
 ];
 
 registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const dimension = builder.dimension;
-  const playerBlock = Vector.from(builder.location).toBlock();
+  const playerBlock = Vector.from(builder.location).floor();
   let fluidMatch: typeof waterMatch | typeof lavaMatch;
-  let drainStart: BlockLocation;
+  let drainStart: Vector;
   for (const offset of fluidLookPositions) {
     const loc = playerBlock.offset(offset.x, offset.y, offset.z);
     const block = dimension.getBlock(loc);

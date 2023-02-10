@@ -131,7 +131,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
         throw RawText.translate("commands.blockstate.stateError").with(state).with(block.id);
       } else if (typeof val != typeof property.value) {
         throw RawText.translate("commands.blockstate.typeError").with(state);
-      } else if (!property.validValues.includes(val as never)) {
+      } else if (!property.getValidValues().includes(val as never)) {
         throw RawText.translate("commands.blockstate.valueError").with(state);
       }
     }

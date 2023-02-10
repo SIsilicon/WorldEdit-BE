@@ -27,7 +27,7 @@ registerCommand(registerInformation, function (session, builder, args) {
 
   session.selection.clear();
   points.forEach((point, idx) => {
-    session.selection.set(idx ? 1 : 0, point.add(dir).toBlock());
+    session.selection.set(idx ? 1 : 0, point.add(dir).floor());
   });
 
   return "commands.wedit:shift.explain";

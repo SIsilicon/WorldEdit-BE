@@ -2,7 +2,6 @@ import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
-import { BlockLocation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -29,10 +28,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const rotation = session.clipboardTransform.rotation;
   const flip = session.clipboardTransform.flip;
-  const bounds = regionTransformedBounds(Vector.ZERO.toBlock(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+  const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
   const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
-  let pasteStart: Vector | BlockLocation;
+  let pasteStart: Vector;
   if (pasteOriginal) {
     if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) {
       throw "commands.wedit:paste.noOriginal";
@@ -43,8 +42,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     pasteStart = Vector.add(loc, session.clipboardTransform.relative);
   }
   pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
-  const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).toBlock();
-  pasteStart = pasteStart.toBlock();
+  const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
+  pasteStart = pasteStart.floor();
 
   const history = session.getHistory();
   const record = history.record();

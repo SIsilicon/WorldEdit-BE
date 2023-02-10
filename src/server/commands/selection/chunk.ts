@@ -1,6 +1,6 @@
 import { assertSelection } from "@modules/assert.js";
-import { RawText, CommandPosition } from "@notbeer-api";
-import { BlockLocation, Vector3 } from "@minecraft/server";
+import { RawText, CommandPosition, Vector } from "@notbeer-api";
+import { Vector3 } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { PlayerSession } from "server/sessions.js";
 import { getWorldHeightLimits } from "server/util.js";
@@ -32,8 +32,8 @@ function toChunk(loc: Vector3) {
 function setSelection(session: PlayerSession, chunks: [Vector3, Vector3]) {
   const heights = getWorldHeightLimits(session.getPlayer().dimension);
   session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
-  session.selection.set(0, new BlockLocation(chunks[0].x * 16, heights[0], chunks[0].z * 16));
-  session.selection.set(1, new BlockLocation(chunks[1].x * 16 + 15, heights[1], chunks[1].z * 16 + 15));
+  session.selection.set(0, new Vector(chunks[0].x * 16, heights[0], chunks[0].z * 16));
+  session.selection.set(1, new Vector(chunks[1].x * 16 + 15, heights[1], chunks[1].z * 16 + 15));
 }
 
 registerCommand(registerInformation, function (session, builder, args) {

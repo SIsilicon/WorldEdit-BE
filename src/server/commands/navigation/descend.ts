@@ -1,7 +1,7 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { BlockLocation, Location, Player } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 
 const registerInformation = {
   name: "descend",
@@ -21,9 +21,9 @@ function descend(builder: Player) {
   const dimension = builder.dimension;
 
   for (let i = location.y - 3; i >= -64; i--) {
-    const floor = new BlockLocation(location.x, i - 1, location.z);
-    const legs = new BlockLocation(location.x, i, location.z);
-    const head = new BlockLocation(location.x, i + 1, location.z);
+    const floor = new Vector(location.x, i - 1, location.z);
+    const legs = new Vector(location.x, i, location.z);
+    const head = new Vector(location.x, i + 1, location.z);
 
     let invalid = false;
 
@@ -33,7 +33,7 @@ function descend(builder: Player) {
 
     if (!invalid) {
 
-      builder.teleport(new Location(location.x, legs.y, location.z), dimension, 0, 0);
+      builder.teleport(new Vector(location.x, legs.y, location.z), dimension, 0, 0);
       return RawText.translate("commands.wedit:thru.explain");
     }
   }

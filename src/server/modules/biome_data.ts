@@ -1,6 +1,6 @@
-import { Dimension, BlockLocation, world, BeforeDataDrivenEntityTriggerEvent, Entity } from "@minecraft/server";
-import { commandSyntaxError, contentLog, CustomArgType, Database } from "@notbeer-api";
-import { EventEmitter } from "library/build/classes/eventEmitter.js";
+import { Dimension, Vector3, world, BeforeDataDrivenEntityTriggerEvent, Entity } from "@minecraft/server";
+import { commandSyntaxError, contentLog, CustomArgType, Database, Vector } from "@notbeer-api";
+import { EventEmitter } from "library/classes/eventEmitter.js";
 import { getWorldHeightLimits, locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
 
@@ -69,8 +69,8 @@ class BiomeChanges {
 
   constructor(public dimension: Dimension) {}
 
-  setBiome(loc: BlockLocation, biome: number) {
-    const subChunkCoord = locToString(new BlockLocation(
+  setBiome(loc: Vector3, biome: number) {
+    const subChunkCoord = locToString(new Vector(
       Math.floor(loc.x / 16), Math.floor(loc.y / 16), Math.floor(loc.z / 16)
     ));
 
@@ -78,7 +78,7 @@ class BiomeChanges {
       this.changes.set(subChunkCoord, new Map());
     }
     const subChunk = this.changes.get(subChunkCoord);
-    subChunk.set(this.locToId(new BlockLocation(wrap(16, loc.x), wrap(16, loc.y), wrap(16, loc.z))), biome);
+    subChunk.set(this.locToId(new Vector(wrap(16, loc.x), wrap(16, loc.y), wrap(16, loc.z))), biome);
 
     if (subChunk.size == 4096) {
       this.flush();
@@ -123,7 +123,7 @@ class BiomeChanges {
     this.changes.clear();
   }
 
-  private locToId(loc: BlockLocation) {
+  private locToId(loc: Vector3) {
     return loc.x + loc.y * 16 + loc.z * 256;
   }
 }
@@ -137,7 +137,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
     super();
   }
 
-  detect(dim: Dimension, loc: BlockLocation) {
+  detect(dim: Dimension, loc: Vector3) {
     return new Promise<number>((resolve, reject) => {
       try {
         if (!this.entityAvailable()) {
@@ -219,7 +219,7 @@ const detectorPool = new ResourcePool({
 
 const biomeScores = world.scoreboard.getObjective("wedit:biome") ?? world.scoreboard.addObjective("wedit:biome", "");
 
-async function getBiomeId(dim: Dimension, loc: BlockLocation) {
+async function getBiomeId(dim: Dimension, loc: Vector3) {
   const detector = await detectorPool.allocate();
   return await detector.detect(dim, loc);
 }

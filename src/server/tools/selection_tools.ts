@@ -1,4 +1,4 @@
-import { BlockLocation, Player } from "@minecraft/server";
+import { Vector3, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
@@ -6,12 +6,12 @@ import { Server } from "@notbeer-api";
 
 class SelectionTool extends Tool {
   permission = "worldedit.selection.pos";
-  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+  useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, player.isSneaking ? "pos1" : "pos2",
       [`${loc.x}`, `${loc.y}`, `${loc.z}`]
     );
   };
-  breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: BlockLocation) {
+  breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
   };
 }

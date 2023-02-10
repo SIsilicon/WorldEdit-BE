@@ -1,4 +1,4 @@
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -32,14 +32,14 @@ export abstract class Brush {
   * @param session The session that's using this brush
   * @param mask An optional mask to decide where the brush can affect the world
   */
-  public abstract apply(loc: BlockLocation, session: PlayerSession, mask?: Mask): Generator<unknown, void>;
+  public abstract apply(loc: Vector, session: PlayerSession, mask?: Mask): Generator<unknown, void>;
 
   /**
    * Updates the position of the outline
    * @param selection The selection object that will draw the outline
    * @param loc The location where the brush will affect
    */
-  public abstract updateOutline(selection: Selection, loc: BlockLocation): void;
+  public abstract updateOutline(selection: Selection, loc: Vector): void;
 
   public assertSizeInRange(size: number) {
     if (size > config.maxBrushRadius) {

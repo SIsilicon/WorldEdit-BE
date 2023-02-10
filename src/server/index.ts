@@ -48,8 +48,6 @@ Server.on("playerLeave", ev => {
   removeBuilder(ev.playerName);
 });
 
-let executed = false;
-
 Server.on("tick", () => {
   if (!ready) return;
 
@@ -62,11 +60,6 @@ Server.on("tick", () => {
         print("worldedit.permission.granted", player);
         continue;
       }
-    }
-
-    if (config.debug && player.isSneaking && !executed) {
-      executed = true;
-      // fillMap(PlayerUtil.getBlockLocation(player));
     }
   }
 

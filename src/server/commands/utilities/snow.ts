@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, BlockLocation, IntBlockProperty, Location, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { Block, Vector3, IntBlockProperty, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -37,11 +37,11 @@ function canSnowOn(block: Block) {
 
   const dimension = block.dimension;
   const location = Vector.from(block.location).add([0.5, 1.99, 0.5]);
-  let isBlocked = !!dimension.getBlockFromRay(location.toLocation(), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([-0.49, 0, 0]).toLocation(), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0.49, 0, 0]).toLocation(), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0,-0.49]).toLocation(), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0, 0.49]).toLocation(), MCVector.down, solidTest);
+  let isBlocked = !!dimension.getBlockFromRay(location, MCVector.down, solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([-0.49, 0, 0]), MCVector.down, solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0.49, 0, 0]), MCVector.down, solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0,-0.49]), MCVector.down, solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0, 0.49]), MCVector.down, solidTest);
   return isBlocked;
 }
 
@@ -51,7 +51,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dimension = builder.dimension;
   const radius: number = args.get("size");
   const height: number = args.get("height") < 0 ? 4096 : (args.get("height") - 1) * 2 + 1;
-  const origin = Vector.from(builder.location).toBlock();
+  const origin = Vector.from(builder.location).floor();
 
   const shape = new CylinderShape(height, radius);
   const range = shape.getRegion(origin);
@@ -67,8 +67,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let i = 0;
 
     const blocks: Block[] = [];
-    const blockLocs: BlockLocation[] = [];
-    const affectedBlockRange: [BlockLocation, BlockLocation] = [null, null];
+    const blockLocs: Vector3[] = [];
+    const affectedBlockRange: [Vector3, Vector3] = [null, null];
     const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
     const rayTraceOptions = {
@@ -85,7 +85,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
           continue;
         }
 
-        const loc = new Location(x + 0.5, yRange[1] + 1.01, z + 0.5);
+        const loc = new Vector(x + 0.5, yRange[1] + 1.01, z + 0.5);
         try {
           const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions);
           if (block) {
@@ -93,8 +93,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
             blockLocs.push(block.location);
 
             if (affectedBlockRange[0]) {
-              affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).toBlock();
-              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).toBlock();
+              affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).floor();
+              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).floor();
             } else {
               affectedBlockRange[0] = block.location;
               affectedBlockRange[1] = block.location;
@@ -133,7 +133,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         } else if (block.typeId == "minecraft:ice") {
           // pass
         } else if (canSnowOn(block)) {
-          dimension.getBlock(block.location.offset(0, 1, 0)).setPermutation(snowLayer);
+          dimension.getBlock(Vector.from(block.location).offset(0, 1, 0)).setPermutation(snowLayer);
           changed++;
         }
 

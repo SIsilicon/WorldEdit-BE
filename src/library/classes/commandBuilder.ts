@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Player, BlockLocation, Location, BeforeChatEvent } from "@minecraft/server";
+import { Player, Vector3, BeforeChatEvent } from "@minecraft/server";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../../@types/build/classes/CommandBuilder";
+import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
-import { contentLog, RawText } from "../../utils/index.js";
+import { contentLog, RawText } from "../utils/index.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -69,8 +69,8 @@ export class CommandPosition implements CustomArgType {
     return pos;
   }
 
-  relativeTo(player: Player, isBlockLoc = false): BlockLocation|Location {
-    const loc = isBlockLoc ? new BlockLocation(0, 0, 0) : new Location(0, 0, 0);
+  relativeTo(player: Player, isBlockLoc = false): Vector3 {
+    const loc = {x: 0, y: 0, z: 0};
     const x = this.x + (this.xRelative ? player.location.x : 0);
     const y = this.y + (this.yRelative ? player.location.y : 0);
     const z = this.z + (this.zRelative ? player.location.z : 0);

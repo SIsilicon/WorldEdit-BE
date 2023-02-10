@@ -46,16 +46,12 @@ with open('mc_manifest.json', 'r') as file:
     manifest = json.load(file)
     processJsonElement(manifest, bp_manifest, rp_manifest)
 
-if args.target != 'release_server':
-    bp_manifest['dependencies'].append({
-        'uuid': rp_manifest['header']['uuid'],
-        'version': rp_manifest['header']['version']
-    })
-    ## TODO: Test RP dependency
-    # rp_manifest['dependencies'].append({
-    #     'uuid': bp_manifest['header']['uuid'],
-    #     'version': bp_manifest['header']['version']
-    # })
+if not 'dependencies' in rp_manifest:
+    rp_manifest['dependencies'] = []
+rp_manifest['dependencies'].append({
+    'uuid': bp_manifest['header']['uuid'],
+    'version': bp_manifest['header']['version']
+})
 
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'

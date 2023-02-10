@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern: Pattern = args.get("pattern");
   pattern.playerSession = session;
   const depth: number = args.get("depth");
-  const startBlock = Vector.from(builder.location).toBlock();
+  const startBlock = Vector.from(builder.location).floor();
   const job = (yield Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock))) as number;
 
   Jobs.nextStep(job, "Calculating and Generating blocks...");

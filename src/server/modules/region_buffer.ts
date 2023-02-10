@@ -1,7 +1,7 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
+import { Block, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty, Vector3 } from "@minecraft/server";
 import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
-import { EntityCreateEvent } from "library/@types/build/Events.js";
+import { EntityCreateEvent } from "library/@types/Events.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector,
@@ -9,12 +9,11 @@ export interface RegionLoadOptions {
 }
 
 type blockData = BlockPermutation|[string, BlockPermutation]
-
-type blockList = BlockLocation[] | ((loc: BlockLocation) => boolean | BlockPermutation) | "all"
+type blockList = Vector3[] | ((loc: Vector3) => boolean | BlockPermutation) | "all"
 
 interface transformContext {
   blockData: blockData
-  sampleBlock: (loc: BlockLocation) => blockData
+  sampleBlock: (loc: Vector) => blockData
 }
 
 export class RegionBuffer {
@@ -22,7 +21,7 @@ export class RegionBuffer {
   readonly isAccurate: boolean;
   readonly id: string;
 
-  private size = new BlockLocation(0, 0, 0);
+  private size = Vector.ZERO;
   private blocks = new Map<string, blockData>();
   private blockCount = 0;
   private subId = 0;
@@ -35,7 +34,7 @@ export class RegionBuffer {
     contentLog.debug("creating structure", this.id);
   }
 
-  public async save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
+  public async save(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
     const save = this.saveProgressive(start, end, dim, options, blocks);
     let val: IteratorResult<number | Promise<unknown>, boolean>;
     let lastPromise: unknown;
@@ -49,12 +48,12 @@ export class RegionBuffer {
     return val.value;
   }
 
-  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number | Promise<unknown>, boolean> {
+  public* saveProgressive(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number | Promise<unknown>, boolean> {
     if (this.isAccurate) {
       const min = Vector.min(start, end);
       const promises: Promise<unknown>[] = [];
-      const iterate = (blockLoc: BlockLocation) => {
-        const relLoc = Vector.sub(blockLoc, min).toBlock();
+      const iterate = (blockLoc: Vector3) => {
+        const relLoc = Vector.sub(blockLoc, min).floor();
         const block = dim.getBlock(blockLoc);
         if (blockHasNBTData(block)) {
           const id = this.id + "_" + this.subId++;
@@ -77,7 +76,7 @@ export class RegionBuffer {
           } else {
             const filtered = blocks(block);
             if (typeof filtered != "boolean") {
-              const relLoc = Vector.sub(block, min).toBlock();
+              const relLoc = Vector.sub(block, min).floor();
               this.blocks.set(locToString(relLoc), filtered);
               count++;
             } else if (filtered) {
@@ -117,7 +116,7 @@ export class RegionBuffer {
     return false;
   }
 
-  public async load(loc: BlockLocation, dim: Dimension, options?: RegionLoadOptions) {
+  public async load(loc: Vector3, dim: Dimension, options?: RegionLoadOptions) {
     const load = this.loadProgressive(loc, dim, options);
     let val: IteratorResult<number | Promise<unknown>, void>;
     let lastPromise: unknown;
@@ -131,13 +130,13 @@ export class RegionBuffer {
     return val.value;
   }
 
-  public* loadProgressive(loc: BlockLocation, dim: Dimension, options: RegionLoadOptions = {}): Generator<number | Promise<unknown>, void> {
+  public* loadProgressive(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<number | Promise<unknown>, void> {
     const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
     if (this.isAccurate) {
       const promises: Promise<unknown>[] = [];
       const bounds = regionTransformedBounds(
-        new BlockLocation(0, 0, 0),
-        Vector.sub(this.size, [1,1,1]).toBlock(),
+        Vector.ZERO,
+        Vector.sub(this.size, [1,1,1]).floor(),
         Vector.ZERO, ...rotFlip
       );
       const shouldTransform = options.rotation || options.flip;
@@ -207,7 +206,7 @@ export class RegionBuffer {
         if (shouldTransform) {
           blockLoc = Vector.from(blockLoc)
             .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-            .mul(rotFlip[1]).sub(bounds[0]).toBlock();
+            .mul(rotFlip[1]).sub(bounds[0]).floor();
         }
 
         blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
@@ -226,14 +225,14 @@ export class RegionBuffer {
           if (shouldTransform) {
             // FIXME: Not properly aligned
             let entityLoc = ev.entity.location;
-            let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc).toLocation();
+            let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc);
 
             entityLoc = Vector.from(entityLoc).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc);
             entityFacing = Vector.from(entityFacing).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc);
 
             ev.entity.teleportFacing(entityLoc, dim, entityFacing);
           }
@@ -269,15 +268,15 @@ export class RegionBuffer {
    * @param func
    * @returns
    */
-  public* warp(func: (loc: BlockLocation, ctx: transformContext) => blockData): Generator<number, null> {
+  public* warp(func: (loc: Vector3, ctx: transformContext) => blockData): Generator<number, null> {
     if (!this.isAccurate) {
       return;
     }
 
-    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.sub(-1)];
     const output = new Map();
     const volume = regionVolume(...region);
-    const sampleBlock = (loc: BlockLocation) => this.blocks.get(locToString(loc));
+    const sampleBlock = (loc: Vector) => this.blocks.get(locToString(loc));
 
     let i = 0;
     for (const coord of regionIterateBlocks(...region)) {
@@ -295,13 +294,13 @@ export class RegionBuffer {
     this.blockCount = this.blocks.size;
   }
 
-  public* create(start: BlockLocation, end: BlockLocation, func: (loc: BlockLocation) => Block | BlockPermutation): Generator<number | Promise<unknown>, null> {
-    if (!this.isAccurate || !this.size.equals(new BlockLocation(0, 0, 0))) {
+  public* create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation): Generator<number | Promise<unknown>, null> {
+    if (!this.isAccurate || !this.size.equals(Vector.ZERO)) {
       return;
     }
 
     this.size = regionSize(start, end);
-    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.offset(-1, -1, -1)];
     const volume = regionVolume(...region);
 
     let i = 0;
@@ -333,7 +332,7 @@ export class RegionBuffer {
     return this.blockCount;
   }
 
-  public getBlock(loc: BlockLocation) {
+  public getBlock(loc: Vector) {
     if (!this.isAccurate) {
       return null;
     }
@@ -350,7 +349,7 @@ export class RegionBuffer {
     return Array.from(this.blocks.values());
   }
 
-  public setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
+  public setBlock(loc: Vector3, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: Vector, dim?: Dimension}) {
     let error: Promise<boolean>;
     const key = locToString(loc);
 
@@ -371,14 +370,14 @@ export class RegionBuffer {
       error = Server.structure.save(id, block.location, block.location, block.dimension, options);
       this.blocks.set(key, [id, block.permutation.clone()]);
     }
-    this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock();
+    this.size = Vector.max(this.size, Vector.from(loc).add(1)).floor();
     this.blockCount = this.blocks.size;
     return error ?? Promise.resolve(false);
   }
 
-  public import(structure: string, size: BlockLocation) {
+  public import(structure: string, size: Vector3) {
     this.imported = structure;
-    this.size = size;
+    this.size = Vector.from(size);
     this.blockCount = size.x * size.y * size.z;
   }
 
@@ -398,15 +397,15 @@ export class RegionBuffer {
         }
         self.blocks.clear();
       }
-      self.size = new BlockLocation(0, 0, 0);
+      self.size = Vector.ZERO;
       self.blockCount = 0;
       yield Server.structure.delete(self.id);
       contentLog.debug("deleted structure", self.id);
     }, this);
   }
 
-  private transformMapping(mapping: {[key: string|number]: Vector}, state: string|number, rotate: Vector, flip: Vector): string {
-    let vec = mapping[state];
+  private transformMapping(mapping: {[key: string|number]: Vector | [number, number, number]}, state: string|number, rotate: Vector, flip: Vector): string {
+    let vec = Vector.from(mapping[state]);
     if (!vec) {
       contentLog.debug(`Can't map state "${state}".`);
       return typeof(state) == "string" ? state : state.toString();
@@ -417,7 +416,7 @@ export class RegionBuffer {
     let closestState: string;
     let closestDot = -1000;
     for (const newState in mapping) {
-      const dot = mapping[newState].dot(vec);
+      const dot = Vector.from(mapping[newState]).dot(vec);
       if (dot > closestDot) {
         closestState = newState;
         closestDot = dot;
@@ -427,12 +426,12 @@ export class RegionBuffer {
     return closestState;
   }
 
-  private saveBlockAsStruct(id: string, loc: BlockLocation, dim: Dimension) {
+  private saveBlockAsStruct(id: string, loc: Vector3, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
     return Server.runCommand(`structure save ${id} ${locStr} ${locStr} false memory`, dim);
   }
 
-  private loadBlockFromStruct(id: string, loc: BlockLocation, dim: Dimension) {
+  private loadBlockFromStruct(id: string, loc: Vector3, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
     return Server.runCommand(`structure load ${id} ${locStr}`, dim);
   }

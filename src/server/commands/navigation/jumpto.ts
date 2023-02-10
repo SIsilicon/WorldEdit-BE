@@ -14,7 +14,7 @@ registerCommand(registerInformation, function (session, builder) {
   if (!hit) {
     throw RawText.translate("commands.wedit:jumpto.none");
   }
-  builder.teleport(hit, builder.dimension, builder.rotation.x, builder.rotation.y);
+  builder.teleport(hit, builder.dimension, builder.getRotation().x, builder.getRotation().y);
   getCommandFunc("unstuck")(session, builder, new Map());
   return RawText.translate("commands.wedit:jumpto.explain");
 });

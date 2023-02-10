@@ -2,7 +2,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
+import { Vector3, MinecraftBlockTypes } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
@@ -67,7 +67,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
     const filter = mask || !includeAir;
 
     yield "Copying blocks...";
-    const blocks = (loc: BlockLocation) => {
+    const blocks = (loc: Vector3) => {
       const wasAir = dimension.getBlock(loc).typeId == "minecraft:air";
       const isAir = wasAir || (mask ? !mask.matchesBlock(loc, dimension) : false);
       if (includeAir && mask && !wasAir && isAir) {

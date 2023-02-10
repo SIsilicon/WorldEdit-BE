@@ -1,4 +1,4 @@
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Brush } from "./base_brush.js";
 import { CuboidShape } from "../shapes/cuboid.js";
@@ -54,12 +54,12 @@ export class SmoothBrush extends Brush {
     throw "commands.generic.wedit:noBrushMaterial";
   }
 
-  public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+  public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
     const point = loc.offset(-this.size, -this.size, -this.size);
     yield* smooth(session, this.iterations, this.shape, point, this.mask, mask);
   }
 
-  public updateOutline(selection: Selection, loc: BlockLocation): void {
+  public updateOutline(selection: Selection, loc: Vector): void {
     const point = loc.offset(-this.size, -this.size, -this.size);
     selection.mode = "cuboid";
     selection.set(0, point);

@@ -1,5 +1,5 @@
-import { world, system, PlayerJoinEvent, TickEvent, Player, EntitySpawnEventSignal, PlayerSpawnEvent } from "@minecraft/server";
-import { clearTickInterval, setTickInterval, shutdownTimers } from "./utils/scheduling.js";
+import { world, system, PlayerSpawnEvent } from "@minecraft/server";
+import { shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
 
@@ -17,29 +17,12 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
 
     const players = Array.from(world.getPlayers());
     if (players.length == 0) {
-      if (world.events.playerSpawn) {
-        const event = (ev: PlayerSpawnEvent) => {
-          if (!ev.initialSpawn) return;
-          world.events.playerSpawn.unsubscribe(event);
-          ev.player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
-        };
-        world.events.playerSpawn.subscribe(event);
-      } else { // 1.19.50
-        const event = (ev: PlayerJoinEvent) => {
-          world.events.playerJoin.unsubscribe(event);
-          const player = (ev as unknown as PlayerSpawnEvent).player;
-          // eslint-disable-next-line prefer-const
-          let intervalId: number;
-          const everyTick = function (p: typeof player) {
-            if (p.velocity.length() > 0.0) {
-              const result = p.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
-              result.then(() => clearTickInterval(intervalId));
-            }
-          };
-          intervalId = setTickInterval(everyTick, 1, player);
-        };
-        world.events.playerJoin.subscribe(event);
-      }
+      const event = (ev: PlayerSpawnEvent) => {
+        if (!ev.initialSpawn) return;
+        world.events.playerSpawn.unsubscribe(event);
+        ev.player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+      };
+      world.events.playerSpawn.subscribe(event);
     } else {
       for (const player of players) {
         RawText.translate("script.watchdog.error.hang").print(player);
@@ -50,22 +33,20 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
 
 export * from "./utils/index.js";
 
-import { Entity } from "./build/classes/entityBuilder.js";
-import { Player as PlayerBuilder } from "./build/classes/playerBuilder.js";
-import { Command } from "./build/classes/commandBuilder.js";
-import { Structure } from "./structure/structureBuilder.js";
-import { ServerBuilder } from "./build/classes/serverBuilder.js";
-import { UIForms } from "./build/classes/uiFormBuilder.js";
-import { Block } from "./build/classes/blockBuilder.js";
+import { Player as PlayerBuilder } from "./classes/playerBuilder.js";
+import { Command } from "./classes/commandBuilder.js";
+import { Structure } from "./classes/structureBuilder.js";
+import { ServerBuilder } from "./classes/serverBuilder.js";
+import { UIForms } from "./classes/uiFormBuilder.js";
+import { Block } from "./classes/blockBuilder.js";
 
-export { CustomArgType, CommandPosition } from "./build/classes/commandBuilder.js";
-export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/build/classes/CommandBuilder";
-export { StructureSaveOptions, StructureLoadOptions } from "./structure/structureBuilder.js";
-export { Database } from "./build/classes/databaseBuilder.js";
-export { configuration } from "./build/configurations.js";
+export { CustomArgType, CommandPosition } from "./classes/commandBuilder.js";
+export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/classes/CommandBuilder";
+export { StructureSaveOptions, StructureLoadOptions } from "./classes/structureBuilder.js";
+export { Database } from "./classes/databaseBuilder.js";
+export { configuration } from "./configurations.js";
 
 class ServerBuild extends ServerBuilder {
-  public entity = Entity;
   public block = Block;
   public player = PlayerBuilder;
   public command = Command;
@@ -238,12 +219,7 @@ class ServerBuild extends ServerBuilder {
     /**
      * Emit to 'entityCreate' event listener
      */
-    if (events.entitySpawn) {
-      events.entitySpawn.subscribe(data => this.emit("entityCreate", data));
-    } else { // 1.19.50
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ((events as any).entityCreate as EntitySpawnEventSignal).subscribe(data => this.emit("entityCreate", data));
-    }
+    events.entitySpawn.subscribe(data => this.emit("entityCreate", data));
     /**
      * Emit to 'blockBreak' event listener
      */
@@ -253,10 +229,9 @@ class ServerBuild extends ServerBuilder {
      */
     events.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
 
-    let worldLoaded = false, tickCount = 0;
-    const loadingPlayers: Player[] = [];
+    let worldLoaded = false, tickCount = 0, prevTime = Date.now();
     const playerDimensions = new Map<string, string>();
-    events.tick.subscribe((ev: TickEvent) => {
+    const tickEvent = () => {
       tickCount++;
       this.runCommand("testfor @a").then(result => {
         if(!result.error && !worldLoaded) {
@@ -284,46 +259,34 @@ class ServerBuild extends ServerBuilder {
         }
         playerDimensions.set(player.name, newDimension);
       }
+      this.emit("tick", {
+        currentTick: tickCount,
+        deltaTime: Date.now() - prevTime
+      });
 
-      for (let i = loadingPlayers.length - 1; i >= 0; i--) {
-        const player = loadingPlayers[i];
-        if (player.velocity.length() > 0) {
-          loadingPlayers.splice(i, 1);
-          this.emit("playerLoaded", { player });
-        }
+      prevTime = Date.now();
+      system.run(tickEvent);
+    };
+    system.run(tickEvent);
+
+    /**
+     * Emit to 'playerSpawn' event listener
+     */
+    events.playerSpawn.subscribe(data => {
+      if (data.initialSpawn) {
+        this.emit("playerLoaded", data);
       }
-
-      this.emit("tick", ev);
     });
-
     /**
      * Emit to 'playerJoin' event listener
      */
-    if (events.playerSpawn) {
-      events.playerSpawn.subscribe(data => {
-        if (data.initialSpawn) {
-          this.emit("playerLoaded", data);
-        }
-      });
-      events.playerJoin.subscribe(data => {
-        this.emit("playerJoin", { playerName: data.playerName });
-      });
-    } else { // 1.19.50
-      events.playerJoin.subscribe(data => {
-        const player = (data as unknown as PlayerSpawnEvent).player;
-        loadingPlayers.push(player);
-        this.emit("playerJoin", { playerName: player.name });
-      });
-    }
+    events.playerJoin.subscribe(data => {
+      this.emit("playerJoin", { playerName: data.playerName });
+    });
     /**
      * Emit to 'playerLeave' event listener
      */
     events.playerLeave.subscribe(data => {
-      for (let i = loadingPlayers.length - 1; i >= 0; i--) {
-        if (loadingPlayers[i].name == data.playerName) {
-          loadingPlayers.splice(i, 1);
-        }
-      }
       this.emit("playerLeave", data);
     });
   }

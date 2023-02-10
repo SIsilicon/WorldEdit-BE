@@ -1,7 +1,7 @@
 import { Server, Vector } from "@notbeer-api";
-import { BlockLocation, Dimension } from "@minecraft/server";
+import { Vector3, Dimension } from "@minecraft/server";
 
-export async function addTickingArea(start: BlockLocation, end: BlockLocation, dimension: Dimension, name: string, preload = false) {
+export async function addTickingArea(start: Vector3, end: Vector3, dimension: Dimension, name: string, preload = false) {
   return Server.runCommand(
     `tickingarea add ${Vector.from(start).print()} ${Vector.from(end).print()} ${name} ${preload}`, dimension
   ).then(result => result.error);

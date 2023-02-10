@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
+import { MinecraftBlockTypes } from "@minecraft/server";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { fluidLookPositions, lavaMatch } from "./drain.js";
@@ -22,8 +22,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const dimension = builder.dimension;
-  const playerBlock = Vector.from(builder.location).toBlock();
-  let fixlavaStart: BlockLocation;
+  const playerBlock = Vector.from(builder.location).floor();
+  let fixlavaStart: Vector;
   for (const offset of fluidLookPositions) {
     const loc = playerBlock.offset(offset.x, offset.y, offset.z);
     const block = dimension.getBlock(loc);

@@ -1,5 +1,5 @@
 import { Server, RawText, contentLog } from "@notbeer-api";
-import { BlockLocation, Player } from "@minecraft/server";
+import { Vector3, Player } from "@minecraft/server";
 import { PlayerSession } from "server/sessions";
 import { addTickingArea, removeTickingArea } from "server/util";
 
@@ -24,7 +24,7 @@ class JobHandler {
     });
   }
 
-  public async startJob(session: PlayerSession, steps: number, area: [BlockLocation, BlockLocation]) {
+  public async startJob(session: PlayerSession, steps: number, area: [Vector3, Vector3]) {
     const areaName = "wedit:job_" + jobId;
     if (!area || await addTickingArea(areaName, session.getPlayer().dimension, ...area)) {
       contentLog.warn("A ticking area could not be created for job #", jobId);

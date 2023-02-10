@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 
 export class CuboidShape extends Shape {
   private size: [number, number, number] = [0, 0, 0];
@@ -11,8 +11,8 @@ export class CuboidShape extends Shape {
     this.size = [length, width, depth];
   }
 
-  public getRegion(loc: BlockLocation) {
-    return <[BlockLocation, BlockLocation]>[
+  public getRegion(loc: Vector) {
+    return <[Vector, Vector]>[
       loc,
       loc.offset(this.size[0]-1, this.size[1]-1, this.size[2]-1)
     ];
@@ -32,7 +32,7 @@ export class CuboidShape extends Shape {
     }
   }
 
-  protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
+  protected inShape(relLoc: Vector, genVars: shapeGenVars) {
     const end = genVars.end;
     if (genVars.isWall &&
       relLoc.x > 0 && relLoc.x < end[0] &&

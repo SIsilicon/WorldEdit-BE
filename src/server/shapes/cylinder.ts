@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 
 export class CylinderShape extends Shape {
   private radii: [number, number] = [0, 0];
@@ -14,9 +14,9 @@ export class CylinderShape extends Shape {
     this.radii[1] = radiusZ ?? this.radii[0];
   }
 
-  public getRegion(loc: BlockLocation) {
+  public getRegion(loc: Vector) {
     loc = loc.offset(0, -this.height/2, 0);
-    return <[BlockLocation, BlockLocation]>[
+    return <[Vector, Vector]>[
       loc.offset(-this.radii[0], 0, -this.radii[1]),
       loc.offset(this.radii[0], this.height-1, this.radii[1])
     ];
@@ -35,7 +35,7 @@ export class CylinderShape extends Shape {
     genVars.radiiOff = this.radii.map(v => v + 0.5);
   }
 
-  protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
+  protected inShape(relLoc: Vector, genVars: shapeGenVars) {
     if (genVars.isHollow) {
       const hLocal = [
         relLoc.x / (genVars.radiiOff[0] - 1.0),

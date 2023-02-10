@@ -1,5 +1,5 @@
-import { BlockLocation, MinecraftBlockTypes, BlockType, Dimension, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
-import { Vector } from "../../utils/vector";
+import { MinecraftBlockTypes, BlockType, Dimension, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
+import { Vector } from "../utils/vector";
 import { Server } from "./serverBuilder";
 
 // TODO: Update for the new 1.20 blocks
@@ -41,18 +41,18 @@ export const Block = new BlockBuilder();
  * Use the script debugger to immediately copy the output from your IDE (eg: Vscode).
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function fillDataMap(loc: BlockLocation, dim: Dimension) {
+async function fillDataMap(loc: Vector, dim: Dimension) {
   let printed = false;
   const data: {[key: string]: string} = {};
   const blocks = MinecraftBlockTypes.getAllBlockTypes();
-  const genGlass = (loc: BlockLocation) => {
+  const genGlass = (loc: Vector) => {
     const glass = MinecraftBlockTypes.glass.createDefaultBlockPermutation();
     for (const offset of [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]) {
-      dim.getBlock(loc.offset(offset[0], offset[1], offset[2])).setPermutation(glass);
+      dim.getBlock(loc.add([offset[0], offset[1], offset[2]])).setPermutation(glass);
     }
   };
 
-  const testBlocks = async (loc: BlockLocation) => {
+  const testBlocks = async (loc: Vector) => {
     genGlass(loc);
     let blockType: BlockType;
     // eslint-disable-next-line no-cond-assign
@@ -122,7 +122,7 @@ async function fillDataMap(loc: BlockLocation, dim: Dimension) {
 
   for (let x = 0; x <= 8; x += 2)
     for (let z = 0; z <= 8; z += 2) {
-      testBlocks(loc.offset(x, 0, z));
+      testBlocks(loc.add([x, 0, z]));
     }
 }
 

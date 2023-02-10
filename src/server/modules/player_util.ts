@@ -1,5 +1,5 @@
-import { Player, Entity, BlockLocation, EntityInventoryComponent } from "@minecraft/server";
-import { Server, contentLog } from "@notbeer-api";
+import { Player, Entity, EntityInventoryComponent } from "@minecraft/server";
+import { Server, contentLog, Vector } from "@notbeer-api";
 import { Mask } from "./mask.js";
 import config from "config.js";
 import { getViewVector } from "server/util.js";
@@ -24,8 +24,8 @@ class PlayerHandler {
    * @param item The item being tested for
    * @return True if the player has the item; false otherwise
    */
-  hasItem(player: Player, item: string, data?: number) {
-    let hasItem = Server.player.getItemCount(player, item, data).length != 0;
+  hasItem(player: Player, item: string) {
+    let hasItem = Server.player.getItemCount(player, item).length != 0;
     if (this.isHotbarStashed(player) && !hasItem) {
       let stasher: Entity;
       for (const entity of player.dimension.getEntities({ name: "wedit:stasher_for_" + player.name })) {
@@ -36,7 +36,7 @@ class PlayerHandler {
         const inv_stash = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
         for (let i = 0; i < 9; i++) {
           const stashed = inv_stash.getItem(i);
-          if (stashed && stashed.typeId == item && (stashed.data == data || data < 0)) {
+          if (stashed && stashed.typeId == item) {
             hasItem = true;
             break;
           }
@@ -47,6 +47,7 @@ class PlayerHandler {
   }
 
   /**
+   * @deprecated
    * Replaces an item stack in the player's inventory with another item.
    * @remark This does not check the player's armor slots nor offhand.
    * @param player The player being affected
@@ -61,7 +62,7 @@ class PlayerHandler {
         const slotId = i > 8 ? i - 9 : i;
         let command = `replaceitem entity @s ${slotType} ${slotId} ${sub}`;
         if (locked) {
-          command += ` ${inv.getItem(i).amount} ${inv.getItem(i).data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`;
+          command += ` ${inv.getItem(i).amount} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`;
         }
         Server.runCommand(command, player);
         break;
@@ -70,12 +71,12 @@ class PlayerHandler {
   }
 
   /**
-   * Gives the player's location in the form of {@minecraft/server.BlockLocation}.
+   * Gives the player's location in the form of {@minecraft/server.Vector3}.
    * @param player The player being queried
    * @return The block location of the player
    */
   getBlockLocation(player: Player) {
-    return new BlockLocation(
+    return new Vector(
       Math.floor(player.location.x),
       Math.floor(player.location.y),
       Math.floor(player.location.z)
@@ -90,13 +91,13 @@ class PlayerHandler {
    * @return The location of the block the ray hits or reached its range at; null otherwise
    */
   traceForBlock(player: Player, range?: number, mask?: Mask) {
-    const start = player.headLocation;
+    const start = player.getHeadLocation();
     const dir = getViewVector(player);
     const dim = player.dimension;
 
-    let prevPoint = new BlockLocation(Infinity, Infinity, Infinity);
+    let prevPoint = new Vector(Infinity, Infinity, Infinity);
     for (let i = 0; i < config.traceDistance; i += 0.2) {
-      const point = new BlockLocation(
+      const point = new Vector(
         Math.floor(start.x + dir.x * i),
         Math.floor(start.y + dir.y * i),
         Math.floor(start.z + dir.z * i)
@@ -135,7 +136,7 @@ class PlayerHandler {
       return true;
     }
 
-    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new BlockLocation(player.location.x, 512, player.location.z));
+    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, 512, player.location.z));
     stasher.nameTag = "wedit:stasher_for_" + player.name;
 
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;

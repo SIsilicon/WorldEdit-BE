@@ -1,6 +1,6 @@
 import { world, Player, Entity, Dimension } from "@minecraft/server";
 import { EventEmitter } from "./eventEmitter.js";
-import { runCommandReturn } from "../../@types/build/classes/ServerBuilder";
+import { runCommandReturn } from "../@types/classes/ServerBuilder";
 import { sleep } from "@notbeer-api";
 
 export class ServerBuilder extends EventEmitter {

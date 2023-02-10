@@ -1,4 +1,4 @@
-import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "@minecraft/server";
+import { Vector3, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, contentLog, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { Token } from "./extern/tokenizr.js";
@@ -8,7 +8,7 @@ type AnyBlockProperty = StringBlockProperty | BoolBlockProperty | IntBlockProper
 
 export class Pattern implements CustomArgType {
   private block: PatternNode;
-  private compiledFunc: (ctx: typeof patternContext, loc: BlockLocation, dim: Dimension) => void;
+  private compiledFunc: (ctx: typeof patternContext, loc: Vector3, dim: Dimension) => void;
   private stringObj = "";
 
   public playerSession: PlayerSession;
@@ -28,7 +28,7 @@ export class Pattern implements CustomArgType {
    * @param dimension
    * @returns True if the block at the location changed; false otherwise
    */
-  setBlock(loc: BlockLocation, dimension: Dimension) {
+  setBlock(loc: Vector3, dimension: Dimension) {
     try {
       patternContext.session = this.playerSession;
       const oldBlock = dimension.getBlock(loc).permutation;
@@ -201,7 +201,7 @@ export class Pattern implements CustomArgType {
               const array = parseNumberList(tokens, 3);
               offset = Vector.from(array as [number, number, number]);
             }
-            out.push(new ClipboardPattern(nodeToken(), offset.toBlock()));
+            out.push(new ClipboardPattern(nodeToken(), offset.floor()));
           } else if (t.value == "hand") {
             out.push(new HandPattern(nodeToken()));
           } else {
@@ -382,7 +382,7 @@ class ClipboardPattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
 
-  constructor(token: Token, public offset: BlockLocation) {
+  constructor(token: Token, public offset: Vector3) {
     super(token);
   }
 
@@ -395,7 +395,7 @@ if (clipboard?.isAccurate) {
   };
   const size = clipboard.getSize();
   const offset = ${zeroOffset ? "loc" : `loc.offset(${-this.offset.x}, ${-this.offset.y}, ${-this.offset.z})`};
-  const sampledLoc = new ctx.BlockLocation(w(size.x, offset.x), w(size.y, offset.y), w(size.z, offset.z));
+  const sampledLoc = new ctx.Vector(w(size.x, offset.x), w(size.y, offset.y), w(size.z, offset.z));
   const block = clipboard.getBlock(sampledLoc);
   if (block) {
     dim.getBlock(loc).setPermutation(block);
@@ -512,5 +512,5 @@ const patternContext = {
   session: null as PlayerSession,
   server: Server,
   print: contentLog.debug,
-  BlockLocation: BlockLocation
+  Vector
 };

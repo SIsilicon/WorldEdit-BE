@@ -1,5 +1,4 @@
 import { Server } from "@notbeer-api";
-import { Location } from "@minecraft/server";
 import { copy } from "./copy.js";
 import { set } from "../region/set.js";
 import { registerCommand } from "../register_commands.js";
@@ -55,8 +54,8 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
   yield* set(session, fill, mask, false);
   if (includeEntities) {
     const entityQuery = {
-      "location": new Location(start.x, start.y, start.z),
-      "volume": new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
+      location: start,
+      volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
     };
     for (const entity of dim.getEntities(entityQuery)) {
       entity.nameTag = "wedit:marked_for_deletion";

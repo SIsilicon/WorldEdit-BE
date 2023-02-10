@@ -1,4 +1,4 @@
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Brush } from "./base_brush.js";
 import { SphereShape } from "../shapes/sphere.js";
@@ -55,11 +55,11 @@ export class SphereBrush extends Brush {
     return this.hollow;
   }
 
-  public *apply(loc: BlockLocation, session: PlayerSession, mask?: Mask) {
+  public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
     yield* this.shape.generate(loc, this.pattern, mask, session, {"hollow": this.hollow});
   }
 
-  public updateOutline(selection: Selection, loc: BlockLocation): void {
+  public updateOutline(selection: Selection, loc: Vector): void {
     selection.mode = "sphere";
     selection.set(0, loc);
     selection.set(1, loc.offset(0, 0, this.radius));

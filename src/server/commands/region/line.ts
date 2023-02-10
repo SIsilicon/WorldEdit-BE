@@ -1,7 +1,6 @@
+import { Vector3 } from "@minecraft/server";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
-import { RawText } from "@notbeer-api";
-import { Vector } from "@notbeer-api";
-import { BlockLocation } from "@minecraft/server";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -106,7 +105,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dim = builder.dimension;
   const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
-  let pos1: BlockLocation, pos2: BlockLocation, start: BlockLocation, end: BlockLocation;
+  let pos1: Vector3, pos2: Vector3, start: Vector3, end: Vector3;
   if (session.selection.mode == "cuboid") {
     [pos1, pos2] = session.selection.points;
     [start, end] = session.selection.getRange();
@@ -116,7 +115,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const record = history.record();
   let count: number;
   try {
-    const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.toBlock());
+    const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
     yield history.addUndoStructure(record, start, end);
     count = 0;
     for (const point of points) {
