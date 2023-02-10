@@ -11,17 +11,7 @@
                 "frame": "0"
             },
             "minecraft:max_stack_size": 1,
-            "minecraft:liquid_clipped": true,
-            "minecraft:on_use": {
-                "on_use": {
-                    "event": "wedit:on_use"
-                }
-            }
-        },
-        "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "minecraft:liquid_clipped": true
         }
     }
 }
