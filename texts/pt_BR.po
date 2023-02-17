@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-02-07 18:25\n"
+"PO-Revision-Date: 2023-02-17 13:39\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -395,10 +395,10 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' could not be parsed as a valid expression."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Definir o(s) bloco(s) do centro."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Selecione seu pedaço atual, ou um pedaço específico."
 
 msgid "commands.wedit:chunk.selected-multiple"
 msgstr "Chunks selected: (%1) - (%2)."
