@@ -11,19 +11,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-02-17 13:39\n"
+"PO-Revision-Date: 2023-02-17 16:08\n"
 
 msgid "pack.description"
-msgstr "Uma adaptação em desenvolvimento do mod Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cOs scripts de WorldEdit pararam! Resete-os com §r/reload§c (outros scripts iram resetar também).§r"
+msgstr "§cOs scripts de WorldEdit pararam! Recarregue-os com §r/reload§c (outros scripts iram recarregar também).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
 
 msgid "item.wedit:cut_button"
-msgstr "Deletar"
+msgstr "Cortar"
 
 msgid "item.wedit:paste_button"
 msgstr "Colar"
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Selecione seu pedaço atual, ou um pedaço específico."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "Pedaços selecionados: (%1) _ (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "Pedaço selecionado: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Limpar sua área de transferência"
