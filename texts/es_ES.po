@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-02-07 18:25\n"
+"PO-Revision-Date: 2023-02-19 18:52\n"
 
 msgid "pack.description"
-msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r).o"
+msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
 msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
@@ -185,7 +185,7 @@ msgid "worldedit.config.height"
 msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Suavizado"
 
 msgid "worldedit.config.range"
 msgstr "Rango"
@@ -401,10 +401,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Seleccionar tu actual, o chunk especifico."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "Chunks seleccionados: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "Chunk seleccionado: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Borra el portapapeles"
@@ -710,7 +710,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "Cambia los biomas en tu selección"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eNota: Necesitas procesar el mundo con la app WorldEdit para que los cambios de bioma se apliquen"
 
 msgid "commands.wedit:shift.description"
 msgstr "Cambia el área de selección"
@@ -926,7 +926,7 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Consigue una pala de cualquier tipo y coloca adoquín; lo necesitarás para el pincel."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Usa el item \"Opciones de WorldEdit\". Debería de aparecer un menú, incluyendo el item \"Ajustes del pincel\". Selecciona ese botón, y crea un nuevo pincel mientras la interfaz te explica. Hazlo un pincel de esfera de 3 de radio, y un patrón de cobblestone. Confirma y sal del menú."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Apunta al suelo lejos de tí e interactúa con la pala (ahora pincel) para colocar esferas de adoquín."
