@@ -3,8 +3,8 @@ import subprocess, sys, os, shutil
 import argparse, re
 
 parser = argparse.ArgumentParser(description='Build and package the addon.')
-parser.add_argument('--watch', '-w', choices=['release', 'preview', 'server'], help='Whether to continually build and where to sync the project while editing it.')
-parser.add_argument('--target', choices=['release', 'debug', 'release_server'], default='debug', help='Whether to build the addon in debug or release mode.')
+parser.add_argument('--watch', '-w', choices=['stable', 'preview', 'server'], help='Whether to continually build and where to sync the project while editing it.')
+parser.add_argument('--target', choices=['release', 'debug', 'server'], default='debug', help='Whether to build the addon in debug or release mode.')
 parser.add_argument('--clean', '-c', action='store_true', help='Clean "BP/scripts" folder before building.')
 parser.add_argument('--package-only', '-p', action='store_true', help='Only package what\'s already there.')
 args = parser.parse_args()
@@ -44,9 +44,13 @@ if not args.package_only:
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
     
+    # Build manifests
+    handleError(subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL))
+
     if args.watch:
         print('syncing com.mojang folder...')
-        subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL)
+        watch_target = 'server' if args.watch == 'server' else 'debug'
+        subprocess.call([sys.executable, 'tools/process_config.py', f'--target={watch_target}'], stdout=subprocess.DEVNULL)
         subprocess.call([sys.executable, 'tools/sync2com-mojang.py', f'--dest={args.watch}'], stdout=subprocess.DEVNULL)
 
         print('Watch mode: press control-C to stop.')
@@ -55,6 +59,8 @@ if not args.package_only:
         remap_imports = subprocess.Popen([sys.executable, 'tools/remap_imports.py', '-w'], stdout=subprocess.DEVNULL)
         # Convert po to lang files
         po2lang = subprocess.Popen([sys.executable, 'tools/po2lang.py', '-w'], stdout=subprocess.DEVNULL)
+        # Build settings file
+        process_cfg = subprocess.Popen([sys.executable, 'tools/process_config.py', '-w', f'--target={watch_target}'], stdout=subprocess.DEVNULL)
         # Sync to com.mojang
         sync_mojang = subprocess.Popen([sys.executable, 'tools/sync2com-mojang.py', '-w', '--init=False', f'--dest={args.watch}'], stdout=subprocess.DEVNULL)
         
@@ -66,21 +72,24 @@ if not args.package_only:
             tsc.kill()
             remap_imports.kill()
             po2lang.kill()
+            process_cfg.kill()
             sync_mojang.kill()
             exit()
     else:
         print('building scripts...')
         handleError(subprocess.call(['tsc', '-b'], shell=True))
 
-    # Set debug mode
-    regExpSub('debug:(.+),', f'debug: {"false" if args.target == "release" else "true"},', 'BP/scripts/config.js')
-
     # Remap absolute imports
     handleError(subprocess.call([sys.executable, 'tools/remap_imports.py']))
     # Convert po to lang files
     handleError(subprocess.call([sys.executable, 'tools/po2lang.py']))
     # Build manifests
-    handleError(subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}'], stdout=subprocess.DEVNULL))
+    handleError(subprocess.call([sys.executable, 'tools/process_manifest.py', f'--target={args.target}']))
+    # Build settings files
+    handleError(subprocess.call([sys.executable, 'tools/process_config.py', f'--target={args.target}']))
+    if args.target == 'server':
+        handleError(subprocess.call([sys.executable, 'tools/process_config.py', '--generateConfigJSON']))
+
 
 if not os.path.isdir('builds'):
     os.makedirs('builds')
@@ -107,7 +116,7 @@ if args.target != 'debug':
         with ZipFile(f'builds/{build_pack_name}.mcaddon', 'w') as zip:
             zipWriteDir(zip, f'builds/{build_pack_name}BP', f'{build_pack_name}BP')
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')
-    elif args.target == 'release_server':
+    elif args.target == 'server':
         with ZipFile(f'builds/{build_pack_name}.server.zip', 'w') as zip:
             zipWriteDir(zip, f'builds/{build_pack_name}BP', f'{build_pack_name}BP')
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')

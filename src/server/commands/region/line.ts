@@ -1,5 +1,6 @@
 import { Vector3 } from "@minecraft/server";
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { Pattern } from "@modules/pattern.js";
 import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
@@ -103,7 +104,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   }
 
   const dim = builder.dimension;
-  const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+  const pattern: Pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
   let pos1: Vector3, pos2: Vector3, start: Vector3, end: Vector3;
   if (session.selection.mode == "cuboid") {
@@ -119,7 +120,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     yield history.addUndoStructure(record, start, end);
     count = 0;
     for (const point of points) {
-      if (session.globalMask.matchesBlock(point, dim) && !pattern.setBlock(point, dim)) {
+      const block = dim.getBlock(point);
+      if (session.globalMask.matchesBlock(block) && !pattern.setBlock(block)) {
         count++;
       }
       yield;

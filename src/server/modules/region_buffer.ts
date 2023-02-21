@@ -1,5 +1,5 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty, Vector3 } from "@minecraft/server";
+import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
 import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
 import { EntityCreateEvent } from "library/@types/Events.js";
 
@@ -144,57 +144,63 @@ export class RegionBuffer {
       let transform: (block: BlockPermutation) => BlockPermutation;
       if (shouldTransform) {
         transform = block => {
-          const newBlock = block.clone();
-          const blockName = newBlock.type.id;
-          const attachement = newBlock.getProperty("attachement") as StringBlockProperty;
-          const direction = newBlock.getProperty("direction") as IntBlockProperty;
-          const doorHingeBit = newBlock.getProperty("door_hinge_bit") as BoolBlockProperty;
-          const facingDir = newBlock.getProperty("facing_direction") as StringBlockProperty;
-          const groundSignDir = newBlock.getProperty("ground_sign_direction") as IntBlockProperty;
-          const openBit = newBlock.getProperty("open_bit") as BoolBlockProperty;
-          const pillarAxis = newBlock.getProperty("pillar_axis") as StringBlockProperty;
-          const topSlotBit = newBlock.getProperty("top_slot_bit") as BoolBlockProperty;
-          const upsideDownBit = newBlock.getProperty("upside_down_bit") as BoolBlockProperty;
-          const weirdoDir = newBlock.getProperty("weirdo_direction") as IntBlockProperty;
-          const torchFacingDir = newBlock.getProperty("torch_facing_direction") as StringBlockProperty;
-          const leverDir = newBlock.getProperty("lever_direction") as StringBlockProperty;
+          const blockName = block.type.id;
+          const attachement = block.getProperty("attachement") as string;
+          const direction = block.getProperty("direction") as number;
+          const doorHingeBit = block.getProperty("door_hinge_bit") as boolean;
+          const facingDir = block.getProperty("facing_direction") as string;
+          const groundSignDir = block.getProperty("ground_sign_direction") as number;
+          const openBit = block.getProperty("open_bit") as boolean;
+          const pillarAxis = block.getProperty("pillar_axis") as string;
+          const topSlotBit = block.getProperty("top_slot_bit") as boolean;
+          const upsideDownBit = block.getProperty("upside_down_bit") as boolean;
+          const weirdoDir = block.getProperty("weirdo_direction") as number;
+          const torchFacingDir = block.getProperty("torch_facing_direction") as string;
+          const leverDir = block.getProperty("lever_direction") as string;
+
+          const withProperties = (properties: Record<string, string | number | boolean>) => {
+            for (const prop in properties) {
+              block = block.withProperty(prop, properties[prop]);
+            }
+            return block;
+          };
 
           if (upsideDownBit && openBit && direction) {
-            const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit.value}_${openBit.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [upsideDownBit.value, openBit.value, direction.value] = [states[0] == "true", states[1] == "true", parseInt(states[2])];
+            const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit}_${openBit}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "upside_down_bit": states[0] == "true", "open_bit": states[1] == "true", "direction": parseInt(states[2]) });
           } else if (weirdoDir && upsideDownBit) {
-            const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit.value}_${weirdoDir.value}`, ...rotFlip) as string).split("_");
-            [upsideDownBit.value, weirdoDir.value] = [states[0] == "true", parseInt(states[1])];
+            const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit}_${weirdoDir}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "upside_down_bit": states[0] == "true", "weirdo_direction": parseInt(states[1]) });
           } else if (doorHingeBit && direction) {
-            const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [doorHingeBit.value, direction.value] = [states[0] == "true", parseInt(states[1])];
+            const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "door_hinge_bit": states[0] == "true", "direction": parseInt(states[1]) });
           } else if (attachement && direction) {
-            const states = (this.transformMapping(mappings.bellMap, `${attachement.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [attachement.value, direction.value] = [states[0], parseInt(states[1])];
+            const states = (this.transformMapping(mappings.bellMap, `${attachement}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
           } else if (facingDir) {
-            const state = this.transformMapping(mappings.facingDirectionMap, facingDir.value, ...rotFlip);
-            facingDir.value = state;
+            const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
+            block = block.withProperty("facing_direction", state);
           } else if (direction) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
-            const state = this.transformMapping(mapping, direction.value, ...rotFlip);
-            direction.value = parseInt(state);
+            const state = this.transformMapping(mapping, direction, ...rotFlip);
+            block = block.withProperty("direction", parseInt(state));
           } else if (groundSignDir) {
-            const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir.value, ...rotFlip);
-            groundSignDir.value = parseInt(state);
+            const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
+            block = block.withProperty("ground_sign_direction", parseInt(state));
           } else if (torchFacingDir) {
-            const state = this.transformMapping(mappings.torchMap, torchFacingDir.value, ...rotFlip);
-            torchFacingDir.value = state;
+            const state = this.transformMapping(mappings.torchMap, torchFacingDir, ...rotFlip);
+            block = block.withProperty("torch_facing_direction", state);
           } else if (leverDir) {
-            const state = this.transformMapping(mappings.leverMap, leverDir.value, ...rotFlip);
-            leverDir.value = state.replace("0", "");
+            const state = this.transformMapping(mappings.leverMap, leverDir, ...rotFlip);
+            block = block.withProperty("lever_direction", state.replace("0", ""));
           } else if (pillarAxis) {
-            const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis.value + "_0", ...rotFlip);
-            pillarAxis.value = state[0];
+            const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", ...rotFlip);
+            block = block.withProperty("pillar_axis", state[0]);
           } else if (topSlotBit) {
-            const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit.value), ...rotFlip);
-            topSlotBit.value = state == "true";
+            const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), ...rotFlip);
+            block = block.withProperty("top_slot_bit", state == "true");
           }
-          return newBlock;
+          return block;
         };
       } else {
         transform = block => block;

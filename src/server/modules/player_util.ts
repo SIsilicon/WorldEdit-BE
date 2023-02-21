@@ -105,9 +105,10 @@ class PlayerHandler {
       if (prevPoint.equals(point)) continue;
       prevPoint = point;
 
-      if (mask && mask.matchesBlock(point, dim)) {
+      const block = dim.getBlock(point);
+      if (mask && mask.matchesBlock(block)) {
         return point;
-      } else if (!mask && dim.getBlock(point).typeId != "minecraft:air") {
+      } else if (!mask && !block.isAir()) {
         return point;
       } else if (range && range > 0 && i >= range) {
         return point;

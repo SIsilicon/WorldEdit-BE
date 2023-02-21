@@ -49,8 +49,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const dotDir = fillDir.dot(dir);
 
     if (dotDir < 0) return false;
-    if (fillDir.dot(ctx.pos.offset(dir.x, dir.y, dir.z)) > depth-1) return false;
-    if (dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z)).typeId != "minecraft:air") return false;
+    if (fillDir.dot(ctx.pos.add(dir)) > depth-1) return false;
+    if (!dimension.getBlock(ctx.worldPos.add(dir)).isAir()) return false;
 
     return true;
   });
@@ -64,7 +64,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       yield history.addUndoStructure(record, min, max, blocks);
       let i = 0;
       for (const block of blocks) {
-        pattern.setBlock(block, builder.dimension);
+        pattern.setBlock(builder.dimension.getBlock(block));
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }

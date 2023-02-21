@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let i = 0;
     Jobs.nextStep(job, "Counting blocks...");
     for (const block of session.selection.getBlocks()) {
-      count += mask.matchesBlock(block, dimension) ? 1 : 0;
+      count += mask.matchesBlock(dimension.getBlock(block)) ? 1 : 0;
       Jobs.setProgress(job, ++i / total);
       yield;
     }

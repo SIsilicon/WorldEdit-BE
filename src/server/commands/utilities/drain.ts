@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, regionBounds, Vector } from "@notbeer-api";
-import { MinecraftBlockTypes } from "@minecraft/server";
+import { BlockPermutation } from "@minecraft/server";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { floodFill } from "./floodfill_func.js";
@@ -77,7 +77,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const history = session.getHistory();
     const record = history.record();
-    const air = MinecraftBlockTypes.air.createDefaultBlockPermutation();
+    const air = BlockPermutation.resolve("minecraft:air");
     try {
       yield history.addUndoStructure(record, min, max, blocks);
       let i = 0;

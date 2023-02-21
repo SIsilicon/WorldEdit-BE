@@ -1,8 +1,7 @@
-from pathlib import Path
-import glob, os, shutil, json, argparse
+import json, argparse
 
 parser = argparse.ArgumentParser(description='Build manifest files from \'mc_manifest.json\'.')
-parser.add_argument('--target', choices=['release', 'debug', 'release_server'], default='debug', help='Whether to build the addon in debug or release mode or for servers.')
+parser.add_argument('--target', choices=['release', 'debug', 'server'], default='debug', help='Whether to build the addon in debug or release mode or for servers.')
 args = parser.parse_args()
 
 bp_manifest = {}
@@ -30,7 +29,14 @@ def processJsonElement(element, bp_element, rp_element):
     if isinstance(element, dict):
         for [key, value] in element.items():
             if key.startswith('bp_'):
-                bp_element[key[3:]] = value
+                if key.startswith('bp_server_'):
+                    sub = bp_element[key[10:]]
+                    if isinstance(sub, list):
+                        bp_element[key[10:]] = sub + value
+                    elif isinstance(sub, dict):
+                        bp_element[key[10:]] = { **sub, **value }
+                else:
+                    bp_element[key[3:]] = value
             elif key.startswith('rp_'):
                 rp_element[key[3:]] = value
             else:
@@ -52,6 +58,9 @@ rp_manifest['dependencies'].append({
     'uuid': bp_manifest['header']['uuid'],
     'version': bp_manifest['header']['version']
 })
+
+bp_manifest['header']['version'] = manifest['header']['version'][:3]
+rp_manifest['header']['version'] = manifest['header']['version'][:3]
 
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'

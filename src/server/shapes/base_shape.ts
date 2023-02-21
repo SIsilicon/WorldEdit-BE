@@ -162,7 +162,7 @@ export abstract class Shape {
             if (iterateChunk()) yield progress / volume;
             progress++;
 
-            if (!activeMask.matchesBlock(block, dimension)) {
+            if (!activeMask.matchesBlock(dimension.getBlock(block))) {
               continue;
             }
 
@@ -175,7 +175,7 @@ export abstract class Shape {
           yield "Generating blocks...";
           yield history?.addUndoStructure(record, min, max, blocksAffected);
           for (const block of blocksAffected) {
-            if (pattern.setBlock(block, dimension)) {
+            if (pattern.setBlock(dimension.getBlock(block))) {
               count++;
             }
             if (iterateChunk()) yield progress / blocksAffected.length;

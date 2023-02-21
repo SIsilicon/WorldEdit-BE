@@ -1,5 +1,5 @@
 import { commandSyntaxError, contentLog, RawText, Server } from "@notbeer-api";
-import { BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
+import { BlockPermutation, BlockProperties } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {
@@ -102,6 +102,24 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
   }
 }
 
+export function blockPermutation2ParsedBlock(block: BlockPermutation) {
+  const states: parsedBlock["states"] = new Map();
+  Object.entries(block.getAllProperties()).forEach(([state, value]) => {
+    if (!state.startsWith("wall_connection_type") && !state.startsWith("liquid_depth")) {
+      states.set(state, value);
+    }
+  });
+
+  return {
+    id: block.type.id,
+    states
+  };
+}
+
+export function parsedBlock2BlockPermutation(block: parsedBlock) {
+  return BlockPermutation.resolve(block.id, Object.fromEntries(block.states?.entries() ?? []));
+}
+
 export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isMask = false): parsedBlock|string {
   let typeToken = tokens.curr();
   const block: parsedBlock = {
@@ -115,8 +133,12 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
       block.id = "minecraft:" + block.id;
     }
 
-    const blockPerm = MinecraftBlockTypes.get(block.id)?.createDefaultBlockPermutation();
-    if (!blockPerm) {
+    let blockPerm: BlockPermutation;
+    let blockProps: Record<string, string | number | boolean>;
+    try {
+      blockPerm = BlockPermutation.resolve(block.id);
+      blockProps = blockPerm.getAllProperties();
+    } catch {
       throwTokenError(typeToken);
     }
     if (!isMask && blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
@@ -125,13 +147,13 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
       }
       block.states.set("persistent_bit", true);
     }
+
     for (const [state, val] of block.states?.entries() ?? []) {
-      const property = blockPerm.getProperty(state) as IntBlockProperty | BoolBlockProperty | StringBlockProperty;
-      if (!property) {
+      if (!(state in blockProps)) {
         throw RawText.translate("commands.blockstate.stateError").with(state).with(block.id);
-      } else if (typeof val != typeof property.value) {
+      } else if (typeof val != typeof blockProps[state]) {
         throw RawText.translate("commands.blockstate.typeError").with(state);
-      } else if (!property.getValidValues().includes(val as never)) {
+      } else if (!BlockProperties.get(state).validValues.includes(val)) {
         throw RawText.translate("commands.blockstate.valueError").with(state);
       }
     }

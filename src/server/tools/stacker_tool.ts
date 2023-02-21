@@ -12,17 +12,17 @@ class StackerTool extends Tool {
   public mask: Mask;
 
   permission = "worldedit.region.stack";
-  useOn = function* (self: Tool, player: Player, session: PlayerSession, loc: Vector) {
+  useOn = function* (self: StackerTool, player: Player, session: PlayerSession, loc: Vector) {
     const dim = player.dimension;
     const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
     const start = loc.add(dir);
-    if (!this.mask.matchesBlock(start, dim)) {
+    if (!self.mask.matchesBlock(dim.getBlock(start))) {
       return;
     }
     let end = loc;
-    for (let i = 0; i < this.range; i++) {
+    for (let i = 0; i < self.range; i++) {
       end = end.add(dir);
-      if (!this.mask.matchesBlock(end.add(dir), dim)) break;
+      if (!self.mask.matchesBlock(dim.getBlock(end.add(dir)))) break;
     }
     const history = session.getHistory();
     const record = history.record();

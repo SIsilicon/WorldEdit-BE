@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, Vector3, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -93,8 +93,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     if (blocks.length) {
       yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
-      const air = MinecraftBlockTypes.air.createDefaultBlockPermutation();
-      const water = MinecraftBlockTypes.water.createDefaultBlockPermutation();
+      const air = BlockPermutation.resolve("minecraft:air");
+      const water = BlockPermutation.resolve("minecraft:water");
 
       for (const block of blocks) {
         if (block.typeId == "minecraft:ice") {

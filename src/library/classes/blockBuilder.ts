@@ -1,4 +1,4 @@
-import { MinecraftBlockTypes, BlockType, Dimension, BoolBlockProperty, StringBlockProperty, IntBlockProperty } from "@minecraft/server";
+import { MinecraftBlockTypes, BlockType, Dimension, BlockPermutation } from "@minecraft/server";
 import { Vector } from "../utils/vector";
 import { Server } from "./serverBuilder";
 
@@ -26,16 +26,13 @@ export class BlockBuilder {
     if (!block.startsWith("minecraft:")) {
       block = "minecraft:" + block;
     }
-    const perm = MinecraftBlockTypes.get(block).createDefaultBlockPermutation();
-    for (const [state, value] of Object.entries(this.dataValueToStates(block, data))) {
-      (perm.getProperty(state) as StringBlockProperty | BoolBlockProperty | IntBlockProperty).value = value;
-    }
-    return perm;
+    return BlockPermutation.resolve(block, this.dataValueToStates(block, data));
   }
 }
 export const Block = new BlockBuilder();
 
 /**
+ * @deprecated
  * Call this function to get the maps between data value and block states (dataToStates)
  * Results are in console log, not warning, so it won't show in content log gui.
  * Use the script debugger to immediately copy the output from your IDE (eg: Vscode).
@@ -46,7 +43,7 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
   const data: {[key: string]: string} = {};
   const blocks = MinecraftBlockTypes.getAllBlockTypes();
   const genGlass = (loc: Vector) => {
-    const glass = MinecraftBlockTypes.glass.createDefaultBlockPermutation();
+    const glass = BlockPermutation.resolve("minecraft:glass");
     for (const offset of [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]) {
       dim.getBlock(loc.add([offset[0], offset[1], offset[2]])).setPermutation(glass);
     }
@@ -57,8 +54,8 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
     let blockType: BlockType;
     // eslint-disable-next-line no-cond-assign
     while (blockType = blocks.pop()) {
-      const defaultPerm = blockType.createDefaultBlockPermutation();
-      if (!defaultPerm.getAllProperties().length) {
+      const defaultPerm = BlockPermutation.resolve(blockType.id);
+      if (!Object.keys(defaultPerm.getAllProperties()).length) {
         continue;
       }
 
@@ -72,15 +69,13 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
         }
         const block = dim.getBlock(loc);
 
-        if (block.typeId == "minecraft:air" && i == 0) {
+        if (block.isAir() && i == 0) {
           break;
         }
-        const props: {[key: string]: string|number|boolean} = {};
-        for (const prop of block.permutation.getAllProperties()) {
-          if (prop.name == "persistent_bit") {
-            props[prop.name] = true;
-          } else {
-            props[prop.name] = (prop as IntBlockProperty | BoolBlockProperty | StringBlockProperty).value;
+        const props = block.permutation.getAllProperties();
+        for (const name in props) {
+          if (name == "persistent_bit") {
+            props[name] = true;
           }
         }
         perms.push(props);
@@ -369,7 +364,6 @@ const dataToStates: {[key: string]: {[key: string]: string|number|boolean}[]} = 
   "minecraft:respawn_anchor": [{"respawn_anchor_charge":0},{"respawn_anchor_charge":1},{"respawn_anchor_charge":2},{"respawn_anchor_charge":3},{"respawn_anchor_charge":4}],
   "minecraft:sponge": [{"sponge_type":"dry"},{"sponge_type":"wet"}],
   "minecraft:red_candle": [{"candles":0,"lit":false},{"candles":1,"lit":false},{"candles":2,"lit":false},{"candles":3,"lit":false},{"candles":0,"lit":true},{"candles":1,"lit":true},{"candles":2,"lit":true},{"candles":3,"lit":true}],
-  "minecraft:wool": [{"color":"white"},{"color":"orange"},{"color":"magenta"},{"color":"light_blue"},{"color":"yellow"},{"color":"lime"},{"color":"pink"},{"color":"gray"},{"color":"silver"},{"color":"cyan"},{"color":"purple"},{"color":"blue"},{"color":"brown"},{"color":"green"},{"color":"red"},{"color":"black"}],
   "minecraft:concrete": [{"color":"white"},{"color":"orange"},{"color":"magenta"},{"color":"light_blue"},{"color":"yellow"},{"color":"lime"},{"color":"pink"},{"color":"gray"},{"color":"silver"},{"color":"cyan"},{"color":"purple"},{"color":"blue"},{"color":"brown"},{"color":"green"},{"color":"red"},{"color":"black"}],
   "minecraft:green_candle": [{"candles":0,"lit":false},{"candles":1,"lit":false},{"candles":2,"lit":false},{"candles":3,"lit":false},{"candles":0,"lit":true},{"candles":1,"lit":true},{"candles":2,"lit":true},{"candles":3,"lit":true}],
   "minecraft:stone": [{"stone_type":"stone"},{"stone_type":"granite"},{"stone_type":"granite_smooth"},{"stone_type":"diorite"},{"stone_type":"diorite_smooth"},{"stone_type":"andesite"},{"stone_type":"andesite_smooth"}],

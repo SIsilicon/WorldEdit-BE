@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, Vector3, IntBlockProperty, MinecraftBlockTypes, Vector as MCVector } from "@minecraft/server";
+import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -114,8 +114,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     if (blocks.length) {
       yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
-      const snowLayer = MinecraftBlockTypes.snowLayer.createDefaultBlockPermutation();
-      const ice = MinecraftBlockTypes.ice.createDefaultBlockPermutation();
+      const snowLayer = BlockPermutation.resolve("minecraft:snow_layer");
+      const ice = BlockPermutation.resolve("minecraft:ice");
 
       for (const block of blocks) {
         if (block.typeId.match(waterMatch)) {
@@ -123,12 +123,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
           changed++;
         } else if (block.typeId == "minecraft:snow_layer") {
           if (args.has("s") && Math.random() < 0.4) {
-            const perm = block.permutation.clone();
-            const heightProp = perm.getProperty("height") as IntBlockProperty;
-            const prevHeight = heightProp.value;
-            heightProp.value = Math.min(heightProp.value + 1, 7);
+            let perm = block.permutation;
+            const prevHeight = perm.getProperty("height") as number;
+            perm = perm.withProperty("height", Math.min(prevHeight + 1, 7));
             block.setPermutation(perm);
-            if (heightProp.value != prevHeight) changed++;
+            if (perm.getProperty("height") != prevHeight) changed++;
           }
         } else if (block.typeId == "minecraft:ice") {
           // pass
