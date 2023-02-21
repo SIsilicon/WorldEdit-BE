@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-02-08 02:45\n"
+"PO-Revision-Date: 2023-02-21 09:03\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -23,10 +23,10 @@ msgid "item.wedit:copy_button"
 msgstr "コピー"
 
 msgid "item.wedit:cut_button"
-msgstr "カット"
+msgstr "切り取り"
 
 msgid "item.wedit:paste_button"
-msgstr "ペースト"
+msgstr "貼り付け"
 
 msgid "item.wedit:undo_button"
 msgstr "元に戻す"
