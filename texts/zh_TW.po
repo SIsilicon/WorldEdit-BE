@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-02-25 10:04\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -224,7 +224,7 @@ msgid "worldedit.selection.cylinder.primary"
 msgstr "Starting a new cylindrical selection at %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "半徑被設為 %1 / %2 方塊 (~%3)"
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "在 %1 (%2) 開始選擇。"
@@ -260,10 +260,10 @@ msgid "worldedit.permission.revoked"
 msgstr "§e您的 WorldEdit 權限已被刪除。§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "錯誤: 儲存歷史記錄點失敗"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "錯誤: 載入歷史記錄點失敗"
 
 msgid "worldedit.error.stillRecording"
 msgstr "History is still being recorded!"
@@ -686,7 +686,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "選擇長方體的兩個角"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "選擇圓柱體"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "快速長方體選擇模式"
