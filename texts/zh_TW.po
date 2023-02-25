@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-02-25 10:04\n"
+"PO-Revision-Date: 2023-02-25 11:09\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -707,7 +707,7 @@ msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "更改選擇範圍內的生態域"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
