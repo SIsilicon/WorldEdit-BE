@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-06 06:33\n"
+"PO-Revision-Date: 2023-03-06 08:17\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -131,19 +131,19 @@ msgid "worldedit.config.tool.noProps.detail"
 msgstr "Этот инструмент не имеет свойств для изменения."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Инструмент для выделения территории"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Инструмент для выделения дальней территории"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Топорик навигации"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Инструмент \"Маркер\""
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Сферовая кисть"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Cylinder Brush"
