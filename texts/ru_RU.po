@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-03-06 06:33\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cСкрипты WorldEdit остановлены! Сбросьте их командой §r/reload§c (Другие скрипты тоже будут сброшены).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -80,55 +80,55 @@ msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Этот текст не имеет контекстной информации. Этот текст использован в en_US.po. Позиция в файле: 24"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Кисти"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Инструменты"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Основное"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Включить сущности в Буфер Обмена"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Включить air в Буфер Обмена"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Производительный режим"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Рисовать контуры"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Режим выделения"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Создать новый инструмент"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Создать новую кисть"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Куб"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Расширить"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Цилиндр"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Нет свойств у инструмента"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Этот инструмент не имеет свойств для изменения."
 
 msgid "worldedit.config.tool.selection"
 msgstr "Selection Wand"
