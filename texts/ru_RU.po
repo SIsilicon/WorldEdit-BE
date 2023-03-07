@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-06 08:17\n"
+"PO-Revision-Date: 2023-03-07 18:34\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -146,10 +146,10 @@ msgid "worldedit.config.brush.sphere"
 msgstr "Сферовая кисть"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Цилиндрическая кисть"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Сглаживающий кисть"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -161,7 +161,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Сделайте узор и дополнительную маску для кисти."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Сделайте необязательную маску для инструмента."
@@ -173,22 +173,22 @@ msgid "worldedit.config.confirm"
 msgstr "Всё верно?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Вы согласны с настройкой, которую вы сделали?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Размер"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Высота"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Гладкость"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Диапазон"
 
 msgid "worldedit.config.pattern"
 msgstr "Pattern"
