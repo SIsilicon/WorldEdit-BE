@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-08 06:13\n"
+"PO-Revision-Date: 2023-03-08 13:27\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -200,10 +200,10 @@ msgid "worldedit.config.hollow"
 msgstr "Полный"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Высота маски"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Используйте средство выбора блоков"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
@@ -221,10 +221,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Вторая точка поставлена на %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Запуск нового выбора цилиндрической формы%s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Радиус установлен на блоки %1/%2 (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Начал выбор в %1 (%2)."
