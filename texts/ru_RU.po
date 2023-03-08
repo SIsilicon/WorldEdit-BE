@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-07 18:34\n"
+"PO-Revision-Date: 2023-03-08 06:13\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -191,13 +191,13 @@ msgid "worldedit.config.range"
 msgstr "Диапазон"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Образец"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Маска"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Полный"
 
 msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
