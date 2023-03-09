@@ -1,5 +1,5 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
-import { MolangVariableMap, Player } from "@minecraft/server";
+import { MolangVariableMap, Player, system } from "@minecraft/server";
 import { Shape } from "../shapes/base_shape.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";
@@ -11,7 +11,7 @@ import config from "config.js";
 export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
 export type selectMode = typeof selectionModes[number];
 
-const drawFrequency = 400; // in Milliseconds
+const drawFrequency = 8; // in ticks
 
 export class Selection {
   private _mode: selectMode = "cuboid";
@@ -158,7 +158,7 @@ export class Selection {
 
   public draw(): void {
     if (!this._visible) return;
-    if (Date.now() > this.lastDraw + drawFrequency) {
+    if (system.currentTick > this.lastDraw + drawFrequency) {
       if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
         this.updatePoints();
         this.modeLastDraw = this._mode;
@@ -168,12 +168,12 @@ export class Selection {
       for (const point of this.drawPoints) {
         dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
       }
-      this.lastDraw = Date.now();
+      this.lastDraw = system.currentTick;
     }
   }
 
   public forceDraw(): void {
-    this.lastDraw = Date.now() - drawFrequency - 10;
+    this.lastDraw = 0;
     this.draw();
   }
 

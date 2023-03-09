@@ -52,7 +52,7 @@ export abstract class Tool {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFail = (e: any) => {
-      printerr(e.message ? `${e.name}: ${e.message}` : e, player, true);
+      printerr(e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e, player, true);
       if (e.stack) {
         printerr(e.stack, player, false);
       }

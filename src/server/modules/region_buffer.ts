@@ -2,10 +2,12 @@ import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, 
 import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
 import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
 import { EntityCreateEvent } from "library/@types/Events.js";
+import { Mask } from "./mask.js";
 
 export interface RegionLoadOptions {
-    rotation?: Vector,
+    rotation?: Vector
     flip?: Vector
+    mask?: Mask
 }
 
 type blockData = BlockPermutation|[string, BlockPermutation]
@@ -148,7 +150,7 @@ export class RegionBuffer {
           const attachement = block.getProperty("attachement") as string;
           const direction = block.getProperty("direction") as number;
           const doorHingeBit = block.getProperty("door_hinge_bit") as boolean;
-          const facingDir = block.getProperty("facing_direction") as string;
+          const facingDir = block.getProperty("facing_direction") as number;
           const groundSignDir = block.getProperty("ground_sign_direction") as number;
           const openBit = block.getProperty("open_bit") as boolean;
           const pillarAxis = block.getProperty("pillar_axis") as string;
@@ -179,7 +181,7 @@ export class RegionBuffer {
             block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
           } else if (facingDir) {
             const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
-            block = block.withProperty("facing_direction", state);
+            block = block.withProperty("facing_direction", parseInt(state));
           } else if (direction) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
             const state = this.transformMapping(mapping, direction, ...rotFlip);
@@ -216,11 +218,15 @@ export class RegionBuffer {
         }
 
         blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
+        const oldBlock = dim.getBlock(blockLoc);
+        if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
+
         if (block instanceof BlockPermutation) {
-          dim.getBlock(blockLoc).setPermutation(transform(block));
+          oldBlock.setPermutation(transform(block));
         } else {
-          promises.push(this.loadBlockFromStruct(block[0], blockLoc, dim));
-          dim.getBlock(blockLoc).setPermutation(transform(block[1]));
+          promises.push(this.loadBlockFromStruct(block[0], blockLoc, dim).then(() => {
+            oldBlock.setPermutation(transform(block[1]));
+          }));
         }
         if (iterateChunk()) yield i / this.blocks.size;
         i++;
@@ -465,12 +471,12 @@ const mappings = {
     3: new Vector( 0, 0,-1)
   },
   facingDirectionMap: { // facing_direction
-    down : new Vector( 0,-1, 0),
-    up   : new Vector( 0, 1, 0),
-    south: new Vector( 0, 0,-1),
-    north: new Vector( 0, 0, 1),
-    east : new Vector(-1, 0, 0),
-    west : new Vector( 1, 0, 0)
+    0: new Vector( 0,-1, 0),
+    1: new Vector( 0, 1, 0),
+    2: new Vector( 0, 0,-1),
+    3: new Vector( 0, 0, 1),
+    4: new Vector(-1, 0, 0),
+    5: new Vector( 1, 0, 0)
   },
   pillarAxisMap: { // pillar_axis
     x_0: new Vector( 1, 0, 0),

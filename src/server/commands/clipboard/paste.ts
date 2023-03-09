@@ -15,6 +15,10 @@ const registerInformation = {
       flag: "s"
     }, {
       flag: "n"
+    }, {
+      flag: "m",
+      name: "mask",
+      type: "Mask"
     }
   ]
 };
@@ -54,7 +58,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
 
       Jobs.nextStep(job, "Pasting blocks...");
-      yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, session.clipboardTransform));
+      yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") }));
       yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
     }
 
