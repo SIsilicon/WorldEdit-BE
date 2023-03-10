@@ -32,8 +32,8 @@ registerCommand(registerInformation, function (session, builder, args) {
   points[1] = points[1].add(dir.mul(args.get("amount")));
 
   session.selection.clear();
-  session.selection.set(0, points[0].toBlock());
-  session.selection.set(1, points[1].toBlock());
+  session.selection.set(0, points[0].floor());
+  session.selection.set(1, points[1].floor());
 
   return "commands.wedit:outset.explain";
 });

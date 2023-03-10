@@ -1,7 +1,6 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { Expression } from "@modules/expression.js";
-import { Vector } from "library/utils/vector.js";
 
 export class ExpressionShape extends Shape {
   private size: Vector;
@@ -15,8 +14,8 @@ export class ExpressionShape extends Shape {
     this.expr = expr;
   }
 
-  public getRegion(loc: BlockLocation) {
-    return <[BlockLocation, BlockLocation]>[
+  public getRegion(loc: Vector) {
+    return <[Vector, Vector]>[
       loc,
       loc.offset(this.size.x-1, this.size.y-1, this.size.z-1)
     ];
@@ -33,7 +32,7 @@ export class ExpressionShape extends Shape {
     genVars.func = this.expr.compile();
   }
 
-  protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
+  protected inShape(relLoc: Vector, genVars: shapeGenVars) {
 
     const getBlock = (offX: number, offY: number, offZ: number) => {
       const coords = [

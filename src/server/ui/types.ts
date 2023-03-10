@@ -1,7 +1,7 @@
 import { Player } from "@minecraft/server";
 import { Mask } from "@modules/mask";
 import { Pattern } from "@modules/pattern";
-import { MenuContext, UIFormName } from "library/@types/build/classes/uiFormBuilder";
+import { MenuContext, UIFormName } from "library/@types/classes/uiFormBuilder";
 import { Brush } from "server/brushes/base_brush";
 import { PlayerSession } from "server/sessions";
 

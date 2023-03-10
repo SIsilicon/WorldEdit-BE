@@ -10,17 +10,7 @@
                 "texture": "undo",
                 "frame": "0"
             },
-            "minecraft:max_stack_size": 1,
-            "minecraft:on_use": {
-                "on_use": {
-                    "event": "wedit:on_use"
-                }
-            }
-        },
-        "events": {
-            "wedit:on_use": {
-                "swing": {}
-            }
+            "minecraft:max_stack_size": 1
         }
     }
 }

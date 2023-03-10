@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const size = (args.get("size") - 1) * 2 + 1;
   const depth: number = args.get("depth") == -1 ? Math.floor(builder.location.y) - getWorldHeightLimits(builder.dimension)[0] + 1 : args.get("depth");
-  const origin = Vector.from(builder.location).floor().sub([size/2, depth - 1, size/2]).ceil().toBlock();
+  const origin = Vector.from(builder.location).floor().sub([size/2, depth - 1, size/2]).ceil().floor();
 
   const shape = new CuboidShape(size, depth, size);
   const job = (yield Jobs.startJob(session, 2, shape.getRegion(origin))) as number;

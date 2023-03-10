@@ -1,4 +1,4 @@
-import { BlockLocation, Dimension } from "@minecraft/server";
+import { Vector3, Dimension } from "@minecraft/server";
 import { Vector, regionVolume, Server, regionSize } from "@notbeer-api";
 import { assertCanBuildWithin, UnloadedChunksError } from "./assert.js";
 import { addTickingArea, canPlaceBlock, removeTickingArea } from "../util.js";
@@ -9,13 +9,13 @@ import config from "config.js";
 type historyEntry = {
     name: string
     dimension: Dimension
-    location: BlockLocation
-    size: BlockLocation
+    location: Vector3
+    size: Vector3
 }
 
 type selectionEntry = {
     type: selectMode
-    points: BlockLocation[]
+    points: Vector[]
 }
 
 type historyPoint = {
@@ -94,7 +94,7 @@ export class History {
     }
   }
 
-  async addUndoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
+  async addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
     // contentLog.debug("adding undo structure");
     const point = this.historyPoints.get(historyPoint);
     point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
@@ -107,12 +107,12 @@ export class History {
     point.undo.push({
       name: structName,
       dimension: this.session.getPlayer().dimension,
-      location: Vector.min(start, end).toBlock(),
+      location: Vector.min(start, end).floor(),
       size: regionSize(start, end)
     });
   }
 
-  async addRedoStructure(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any" = "any") {
+  async addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
     const point = this.historyPoints.get(historyPoint);
     this.assertRecording();
 
@@ -120,7 +120,7 @@ export class History {
     point.redo.push({
       name: structName,
       dimension: this.session.getPlayer().dimension,
-      location: Vector.min(start, end).toBlock(),
+      location: Vector.min(start, end).floor(),
       size: regionSize(start, end)
     });
   }
@@ -156,13 +156,13 @@ export class History {
     for (const region of this.undoStructures[this.historyIdx]) {
       const pos = region.location;
       const size = Server.structure.getSize(region.name);
-      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).floor());
     }
 
     const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.undoStructures[this.historyIdx]) {
       try {
-        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
         if (await Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
@@ -199,14 +199,14 @@ export class History {
     for (const region of this.redoStructures[this.historyIdx + 1]) {
       const pos = region.location;
       const size = Server.structure.getSize(region.name);
-      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).toBlock());
+      assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).floor());
     }
 
     this.historyIdx++;
     const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.redoStructures[this.historyIdx]) {
       try {
-        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).toBlock());
+        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
         if (await Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
@@ -260,7 +260,7 @@ export class History {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async processRegion(historyPoint: number, start: BlockLocation, end: BlockLocation, blocks: BlockLocation[] | "any") {
+  private async processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
     let structName: string;
     const player = this.session.getPlayer();
     const dim = player.dimension;
@@ -281,7 +281,7 @@ export class History {
       // TODO: Get history precise recording working again
       // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
       // if (recordBlocks) {
-      //   loc = Vector.min(start, end).toBlock();
+      //   loc = Vector.min(start, end).floor();
       //   const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
       //   Server.structure.save(tempRegion, start, end, dim);
       //   let index = 0;

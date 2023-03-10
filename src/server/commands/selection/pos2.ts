@@ -1,8 +1,8 @@
 import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
-import { BlockLocation } from "@minecraft/server";
 import { RawText, CommandPosition, Vector } from "@notbeer-api";
 import { Selection } from "@modules/selection.js";
+import { Vector3 } from "@minecraft/server";
 
 const registerInformation = {
   name: "pos2",
@@ -18,9 +18,9 @@ const registerInformation = {
   aliases: ["2"]
 };
 
-export function setPos2(selection: Selection, loc: BlockLocation) {
+export function setPos2(selection: Selection, loc: Vector3) {
   const prevPoints = selection.points;
-  selection.set(1, loc);
+  selection.set(1, Vector.from(loc));
 
   if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
     let translate: string;

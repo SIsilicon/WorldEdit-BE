@@ -1,13 +1,14 @@
 import { Mask } from "@modules/mask.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../../sessions.js";
 import { Shape } from "../../shapes/base_shape.js";
 import { getWorldHeightLimits } from "../../util.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
+import { Vector3 } from "@minecraft/server";
 
 type map = (number | null)[][];
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: BlockLocation, heightMask: Mask, mask: Mask): Generator<number|string|Promise<unknown>, number> {
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask: Mask): Generator<number|string|Promise<unknown>, number> {
   const range = shape.getRegion(loc);
   const player = session.getPlayer();
   const dim = player.dimension;
@@ -57,10 +58,10 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
 
     yRange[0] = Math.max(yRange[0] + loc.y, minY);
     yRange[1] = Math.min(yRange[1] + loc.y, maxY);
-    let h: BlockLocation;
+    let h: Vector3;
 
-    for (h = new BlockLocation(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
-      if (dim.getBlock(h).typeId != "minecraft:air" && heightMask.matchesBlock(h, dim)) {
+    for (h = new Vector(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
+      if (!dim.getBlock(h).isAir() && heightMask.matchesBlock(dim.getBlock(h))) {
         break;
       }
     }
@@ -103,17 +104,17 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
 
     yield "Calculating blocks...";
     yield* warpBuffer.create(range[0], range[1], loc => {
-      const canSmooth = (loc: BlockLocation) => {
-        const global = loc.offset(range[0].x, range[0].y, range[0].z);
-        return dim.getBlock(global).typeId == "minecraft:air" || mask.matchesBlock(global, dim);
+      const canSmooth = (loc: Vector3) => {
+        const global = Vector.add(loc, range[0]);
+        return dim.getBlock(global).isAir() || mask.matchesBlock(dim.getBlock(global));
       };
 
       if (canSmooth(loc)) {
         const heightDiff = getMap(map, loc.x, loc.z) - getMap(base, loc.x, loc.z);
-        const sampleLoc = loc.offset(0, -heightDiff, 0);
+        const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]);
         sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), warpBuffer.getSize().y - 1);
         if (canSmooth(sampleLoc)) {
-          return dim.getBlock(sampleLoc.offset(range[0].x, range[0].y, range[0].z));
+          return dim.getBlock(sampleLoc.add(range[0]));
         }
       }
     });

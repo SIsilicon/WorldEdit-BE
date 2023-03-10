@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern: Pattern = args.get("pattern");
   pattern.playerSession = session;
   const depth: number = args.get("depth");
-  const startBlock = Vector.from(builder.location).toBlock();
+  const startBlock = Vector.from(builder.location).floor();
   const job = (yield Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock))) as number;
 
   Jobs.nextStep(job, "Calculating and Generating blocks...");
@@ -54,8 +54,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     if (dotDir < 0) return false;
     if (dotDir == 0 && ctx.fillDown) return false;
-    if (fillDir.dot(ctx.pos.offset(dir.x, dir.y, dir.z)) > depth-1) return false;
-    if (dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z)).typeId != "minecraft:air") return false;
+    if (fillDir.dot(ctx.pos.add(dir)) > depth-1) return false;
+    if (!dimension.getBlock(ctx.worldPos.add(dir)).isAir()) return false;
 
     if (dotDir > 0) ctx.fillDown = true;
     return true;
@@ -70,7 +70,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       yield history.addUndoStructure(record, min, max, blocks);
       let i = 0;
       for (const block of blocks) {
-        pattern.setBlock(block, builder.dimension);
+        pattern.setBlock(builder.dimension.getBlock(block));
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }

@@ -1,0 +1,58 @@
+{
+    "commandPrefix": {
+        "description": "What character(s) to use to define the beginning of custom commands.",
+        "default": ";"
+    },
+    "performanceMode": {
+        "description": "Whether the addon should use simpler methods to run operations faster.\nThis comes with the drawback of more limited capabilities.",
+        "default": false
+    },
+    "maxHistorySize": {
+        "description": "How many operations can be recorded in a player's history.",
+        "default": 25
+    },
+    "drawOutlines": {
+        "description": "Whether a player's outlines are drawn by default. Outlines include selections, brush influence and paste location",
+        "default": true
+    },
+    "ticksToDeleteSession": {
+        "description": "How long (in ticks) until a previously active builder's session gets deleted.\nThis includes their undo/redo history.",
+        "default": 12000
+    },
+    "printToActionBar": {
+        "description": "Whether commands executed by items print their messages to the action bar or the chat.",
+        "default": true
+    },
+    "wandItem": {
+        "description": "The default item used for marking selection wand.",
+        "default": "minecraft:wooden_axe"
+    },
+    "navWandItem": {
+        "description": "The default item used for the navigation wand.",
+        "default": "minecraft:ender_pearl"
+    },
+    "traceDistance": {
+        "description": "The distance the navigation wand, among other tools and commands, traces for a block of interest.",
+        "default": 128
+    },
+    "maxBrushRadius": {
+        "description": "The maximum brush radius allowed.",
+        "default": 6
+    },
+    "useBlockBreaking": {
+        "description": "Whether to break blocks, instead of interacting with them while sneaking, to mark the first position (;pos1, ;hpos1).",
+        "default": true
+    },
+    "defaultChangeLimit": {
+        "description": "The default amount of blocks that can be \"potentially\" affected within a single operation.",
+        "default": -1
+    },
+    "maxChangeLimit": {
+        "description": "The absolute change limit that can be set from the ;limit command.\nBypassed with \"worldedit.limit.unlimited\" permission.",
+        "default": -1
+    },
+    "asyncTimeBudget": {
+        "description": "How long an async operation will run until giving Minecraft a chance to run.\nThe higher the value, the faster the operation, but the slower Minecraft takes to run.",
+        "default": 150
+    }
+}

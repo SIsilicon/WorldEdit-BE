@@ -1,10 +1,6 @@
-import { BlockLocation, Location } from "@minecraft/server";
+import { Vector3 } from "@minecraft/server";
 
-type anyVec = {
-  x: number,
-  y: number,
-  z: number
-} | [number, number, number];
+type anyVec = Vector3 | [number, number, number];
 
 export class Vector {
   private vals: [number, number, number] = [0, 0, 0];
@@ -76,6 +72,10 @@ export class Vector {
   equals(v: anyVec) {
     v = Vector.from(v);
     return this.x == v.x && this.y == v.y && this.z == v.z;
+  }
+
+  offset(x: number, y: number, z: number) {
+    return new Vector(this.x + x, this.y + y, this.z + z);
   }
 
   add(v: anyVec|number) {
@@ -216,18 +216,6 @@ export class Vector {
 
   print() {
     return `${this.x} ${this.y} ${this.z}`;
-  }
-
-  toLocation() {
-    return new Location(this.x, this.y, this.z);
-  }
-
-  toBlock() {
-    return new BlockLocation(
-      Math.floor(this.x),
-      Math.floor(this.y),
-      Math.floor(this.z)
-    );
   }
 
   toArray() {

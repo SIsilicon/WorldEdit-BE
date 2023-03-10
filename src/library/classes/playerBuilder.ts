@@ -1,5 +1,6 @@
 import * as Minecraft from "@minecraft/server";
-import { getItemCountReturn } from "../../@types/build/classes/PlayerBuilder.js";
+import { Vector } from "@notbeer-api";
+import { getItemCountReturn } from "../@types/classes/PlayerBuilder.js";
 import { Server } from "./serverBuilder.js";
 
 type Player = Minecraft.Player;
@@ -73,12 +74,12 @@ export class PlayerBuilder {
    * @param {number} [itemData] Item data you are looking for
    * @returns {Array<getItemCountReturn>}
    */
-  getItemCount(player: Player, itemIdentifier: string, itemData?: number): Array<getItemCountReturn> {
+  getItemCount(player: Player, itemIdentifier: string): Array<getItemCountReturn> {
     const itemCount: Array<getItemCountReturn> = [];
     const inventory = this.getInventory(player);
     for (let slot = 0; slot < inventory.size; slot++) {
       const item = inventory.getItem(slot);
-      if (item?.typeId == itemIdentifier && (itemData == undefined || item?.data == itemData)) {
+      if (item?.typeId == itemIdentifier) {
         itemCount.push({ count: item.amount, slot });
       }
     }
@@ -114,7 +115,7 @@ export class PlayerBuilder {
       return true;
     }
 
-    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Minecraft.BlockLocation(player.location.x, 512, player.location.z));
+    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, 512, player.location.z));
     stasher.nameTag = "wedit:stasher_for_" + player.name;
 
     const inv = (<Minecraft.EntityInventoryComponent> player.getComponent("inventory")).container;

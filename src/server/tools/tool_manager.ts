@@ -1,5 +1,5 @@
-import { Player, BlockLocation, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "@minecraft/server";
-import { contentLog, Server, sleep, Thread } from "@notbeer-api";
+import { Player, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "@minecraft/server";
+import { contentLog, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
 import config from "config.js";
@@ -28,7 +28,12 @@ class ToolBuilder {
       if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
-      this.onItemUse(ev.item, ev.source as Player, ev, ev.blockLocation);
+      // TODO: Fixed in 1.19.80
+      this.onItemUse(ev.item, ev.source as Player, ev, Vector.from(ev.source.getBlockFromViewDirection({
+        includePassableBlocks: true,
+        includeLiquidBlocks: false,
+        maxDistance: 10
+      })?.location));
     });
 
     Server.on("tick", ev => {
@@ -75,7 +80,7 @@ class ToolBuilder {
       const tool = new (this.tools.get(toolId))(...args);
       tool.type = toolId;
       this.createPlayerBindingMap(player);
-      this.bindings.get(player.name).set(`${itemId}/${itemData}`, tool);
+      this.bindings.get(player.name).set(`${itemId}/${0}`, tool);
       return tool;
     } else {
       throw "worldedit.tool.noItem";
@@ -88,7 +93,7 @@ class ToolBuilder {
         throw "worldedit.tool.fixedBind";
       }
       this.createPlayerBindingMap(player);
-      this.bindings.get(player.name).delete(`${itemId}/${itemData}`);
+      this.bindings.get(player.name).delete(`${itemId}/${0}`);
     } else {
       throw "worldedit.tool.noItem";
     }
@@ -101,7 +106,7 @@ class ToolBuilder {
 
   hasBinding(itemId: string, itemData: number, player: Player) {
     if (itemId) {
-      return this.bindings.get(player.name)?.has(`${itemId}/${itemData}`) || this.fixedBindings.has(itemId + "/0");
+      return this.bindings.get(player.name)?.has(`${itemId}/${0}`) || this.fixedBindings.has(itemId + "/0");
     } else {
       return false;
     }
@@ -109,7 +114,7 @@ class ToolBuilder {
 
   getBindingType(itemId: string, itemData: number, player: Player) {
     if (itemId) {
-      const tool = this.bindings.get(player.name)?.get(`${itemId}/${itemData}`) || this.fixedBindings.get(itemId + "/0");
+      const tool = this.bindings.get(player.name)?.get(`${itemId}/${0}`) || this.fixedBindings.get(itemId + "/0");
       return tool?.type ?? "";
     } else {
       return "";
@@ -126,7 +131,7 @@ class ToolBuilder {
 
   setProperty<T>(itemId: string, itemData: number, player: Player, prop: string, value: T) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
+      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
       if (tool && prop in tool) {
         tool[prop] = value;
         return true;
@@ -137,7 +142,7 @@ class ToolBuilder {
 
   getProperty<T>(itemId: string, itemData: number, player: Player, prop: string) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
+      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
       if (tool && prop in tool) {
         return tool[prop] as T;
       }
@@ -147,7 +152,7 @@ class ToolBuilder {
 
   hasProperty(itemId: string, itemData: number, player: Player, prop: string) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${itemData}`);
+      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
       if (tool && prop in tool) {
         return true;
       }
@@ -168,7 +173,7 @@ class ToolBuilder {
       return;
     }
 
-    const key = `${item.typeId}/${item.data}`;
+    const key = `${item.typeId}/${0}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);
@@ -182,12 +187,12 @@ class ToolBuilder {
     if (gen) yield* gen;
   }
 
-  private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: BlockLocation) {
+  private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: Vector) {
     if (this.disabled.includes(player.name) || !hasSession(player.name)) {
       return;
     }
 
-    const key = `${item.typeId}/${item.data}`;
+    const key = `${item.typeId}/${0}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);
@@ -210,7 +215,7 @@ class ToolBuilder {
     if (comp.container.getItem(player.selectedSlot) == null) return;
     item = comp.container.getItem(player.selectedSlot);
 
-    const key = `${item.typeId}/${item.data}`;
+    const key = `${item.typeId}/${0}`;
     let tool: Tool;
     if (this.bindings.get(player.name)?.has(key)) {
       tool = this.bindings.get(player.name).get(key);
@@ -220,7 +225,7 @@ class ToolBuilder {
       return;
     }
 
-    const processed = tool.process(getSession(player), this.currentTick, ev.block.location, ev.brokenBlockPermutation);
+    const processed = tool.process(getSession(player), this.currentTick, Vector.from(ev.block.location), ev.brokenBlockPermutation);
     if (processed) {
       player.dimension.getBlock(ev.block.location).setPermutation(ev.brokenBlockPermutation);
     }

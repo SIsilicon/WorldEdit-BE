@@ -1,42 +1,42 @@
 import { Vector } from "@notbeer-api";
-import { BlockLocation, Dimension } from "@minecraft/server";
+import { Vector3, Dimension } from "@minecraft/server";
 import { locToString, stringToLoc } from "../../util.js";
 
 const offsets = [
-  new BlockLocation(-1, 0, 0),
-  new BlockLocation( 1, 0, 0),
-  new BlockLocation( 0,-1, 0),
-  new BlockLocation( 0, 1, 0),
-  new BlockLocation( 0, 0,-1),
-  new BlockLocation( 0, 0, 1)
+  new Vector(-1, 0, 0),
+  new Vector( 1, 0, 0),
+  new Vector( 0,-1, 0),
+  new Vector( 0, 1, 0),
+  new Vector( 0, 0,-1),
+  new Vector( 0, 0, 1)
 ];
 
 export interface FloodFillContext {
-    pos: BlockLocation
-    worldPos: BlockLocation
+    pos: Vector
+    worldPos: Vector
 }
 
-export function* floodFill<T extends FloodFillContext>(start: BlockLocation, size: number, dimension: Dimension, spread: (ctx: T, dir: BlockLocation) => boolean): Generator<void> {
+export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, dimension: Dimension, spread: (ctx: T, dir: Vector3) => boolean): Generator<void> {
   const initialCtx = {
-    pos: new BlockLocation(0, 0, 0),
-    worldPos: start.offset(0, 0, 0)
+    pos: Vector.ZERO,
+    worldPos: Vector.from(start)
   } as T;
 
-  if (!spread({ ...initialCtx }, new BlockLocation(0, 0, 0))) {
+  if (!spread({ ...initialCtx }, Vector.ZERO)) {
     return [];
   }
 
-  const queue: [BlockLocation, T][] = [[start, initialCtx]];
+  const queue: [Vector, T][] = [[Vector.from(start), initialCtx]];
   const result: Map<string, boolean> = new Map();
 
-  function isInside(loc: BlockLocation) {
+  function isInside(loc: Vector3) {
     if (result.has(locToString(loc)) || Vector.sub(loc, start).length > size+0.5) {
       return false;
     }
     return true;
   }
 
-  function addNeighbor(block: BlockLocation, offset: BlockLocation, ctx: T) {
+  function addNeighbor(block: Vector, offset: Vector, ctx: T) {
     const neighbor = block.offset(offset.x, offset.y, offset.z);
     ctx.pos = neighbor.offset(-start.x, -start.y, -start.z);
     ctx.worldPos = neighbor;

@@ -2,7 +2,7 @@ import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js"
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText, Vector } from "@notbeer-api";
-import { BlockLocation, MinecraftBlockTypes } from "@minecraft/server";
+import { Vector3, BlockPermutation } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
@@ -63,16 +63,17 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
   let error = false;
 
   if (buffer.isAccurate) {
-    const airBlock = MinecraftBlockTypes.air.createDefaultBlockPermutation();
+    const airBlock = BlockPermutation.resolve("minecraft:air");
     const filter = mask || !includeAir;
 
     yield "Copying blocks...";
-    const blocks = (loc: BlockLocation) => {
-      const wasAir = dimension.getBlock(loc).typeId == "minecraft:air";
-      const isAir = wasAir || (mask ? !mask.matchesBlock(loc, dimension) : false);
-      if (includeAir && mask && !wasAir && isAir) {
+    const blocks = (loc: Vector3) => {
+      const block = dimension.getBlock(loc);
+      const isAir = block.isAir();
+      const willBeAir = isAir || (mask ? !mask.matchesBlock(block) : false);
+      if (includeAir && mask && !isAir && willBeAir) {
         return airBlock;
-      } else if (!includeAir && isAir) {
+      } else if (!includeAir && willBeAir) {
         return false;
       }
       return true;

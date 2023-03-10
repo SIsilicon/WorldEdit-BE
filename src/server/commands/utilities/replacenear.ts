@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const size = (args.get("size") - 1) * 2 + 1;
-  const origin = Vector.from(builder.location).floor().sub(size / 2).ceil().toBlock();
+  const origin = Vector.from(builder.location).floor().sub(size / 2).ceil().floor();
 
   const shape = new CuboidShape(size, size, size);
   const job = (yield Jobs.startJob(session, 2, shape.getRegion(origin))) as number;

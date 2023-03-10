@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 
 export class SphereShape extends Shape {
   private radii: [number, number, number] = [0, 0, 0];
@@ -13,8 +13,8 @@ export class SphereShape extends Shape {
     this.radii[2] = radiusZ ?? this.radii[1];
   }
 
-  public getRegion(loc: BlockLocation) {
-    return <[BlockLocation, BlockLocation]>[
+  public getRegion(loc: Vector) {
+    return <[Vector, Vector]>[
       loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]),
       loc.offset(this.radii[0], this.radii[1], this.radii[2])
     ];
@@ -30,7 +30,7 @@ export class SphereShape extends Shape {
     genVars.radiiOff = this.radii.map(v => v + 0.5);
   }
 
-  protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
+  protected inShape(relLoc: Vector, genVars: shapeGenVars) {
     if (genVars.isHollow) {
       const hLocal = [
         relLoc.x / (genVars.radiiOff[0] - 1.0),

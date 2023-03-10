@@ -3,7 +3,7 @@ import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { contentLog, Server } from "@notbeer-api";
-import { MenuContext, ModalForm } from "library/@types/build/classes/uiFormBuilder.js";
+import { MenuContext, ModalForm } from "library/@types/classes/uiFormBuilder.js";
 import { Brush } from "../brushes/base_brush.js";
 import { SphereBrush } from "../brushes/sphere_brush.js";
 import { CylinderBrush } from "../brushes/cylinder_brush.js";

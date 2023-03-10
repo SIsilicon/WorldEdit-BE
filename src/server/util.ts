@@ -1,5 +1,5 @@
-import { Block, BlockLocation, Dimension, Entity, Location, Player, Vector3, world } from "@minecraft/server";
-import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea } from "@notbeer-api";
+import { Block, Vector3, Dimension, Entity, Player, world } from "@minecraft/server";
+import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea, Vector } from "@notbeer-api";
 import config from "config.js";
 
 /**
@@ -33,8 +33,7 @@ export function printerr(msg: string | RawText, player: Player, toActionBar = fa
 }
 
 export function getViewVector(entity: Entity | Player): Vector3 {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return entity.viewDirection ?? (entity as any).viewVector;
+  return entity.getViewDirection();
 }
 
 const worldY = new Map<Dimension, [number, number]>();
@@ -47,7 +46,7 @@ function findHeightLimits(dim: Dimension) {
     }
 
     for (let i = -512; i <= 512; i += 16) {
-      const canPlace = canPlaceBlock(new BlockLocation(p.location.x, i, p.location.z), dim);
+      const canPlace = canPlaceBlock(new Vector(p.location.x, i, p.location.z), dim);
       if (limits[0] == null) {
         if (canPlace) {
           limits[0] = i;
@@ -84,7 +83,7 @@ export function getWorldHeightLimits(dim: Dimension) {
  * @param dim The dimension we are testing in
  * @return Whether a block can be placed
  */
-export function canPlaceBlock(loc: BlockLocation, dim: Dimension) {
+export function canPlaceBlock(loc: Vector3, dim: Dimension) {
   try {
     const block = dim.getBlock(loc);
     block.setPermutation(block.permutation);
@@ -136,7 +135,7 @@ function setTickingAreas(tickingAreas: string[]) {
   world.setDynamicProperty("wedit_ticking_areas", tickingAreas.join(","));
 }
 
-export async function addTickingArea(name: string, dim: Dimension, start: BlockLocation, end: BlockLocation) {
+export async function addTickingArea(name: string, dim: Dimension, start: Vector3, end: Vector3) {
   const tickingAreas = getTickingAreas();
   if (tickingAreas.length >= 10) {
     return true;
@@ -180,7 +179,7 @@ if (!Server.listeners("ready").map(fn => `${fn}`).includes(`${readyListener}`)) 
  * @param pretty Whether the function should include brackets and commas in the string. Set to false if you're using this in a command.
  * @return A string representation of the location
  */
-export function printLocation(loc: BlockLocation | Location, pretty = true) {
+export function printLocation(loc: Vector3, pretty = true) {
   if (pretty)
     return `(${loc.x}, ${loc.y}, ${loc.z})`;
   else
@@ -190,15 +189,15 @@ export function printLocation(loc: BlockLocation | Location, pretty = true) {
 /**
  * Converts loc to a string
  */
-export function locToString(loc: BlockLocation) {
+export function locToString(loc: Vector3) {
   return `${loc.x}_${loc.y}_${loc.z}`;
 }
 
 /**
- * Converts string to a BlockLocation
+ * Converts string to a Vector
  */
 export function stringToLoc(loc: string) {
-  return new BlockLocation(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
+  return new Vector(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
 }
 
 /**

@@ -1,4 +1,4 @@
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Cardinal } from "@modules/directions.js";
 import { PlayerUtil } from "@modules/player_util.js";
@@ -15,8 +15,8 @@ registerCommand(registerInformation, function (session, builder) {
 
   const dir = new Cardinal().getDirection(builder);
 
-  function isSpaceEmpty(loc: BlockLocation) {
-    return dimension.getBlock(loc).typeId == "minecraft:air" && dimension.getBlock(loc.offset(0, 1, 0)).typeId == "minecraft:air";
+  function isSpaceEmpty(loc: Vector) {
+    return dimension.getBlock(loc).isAir() && dimension.getBlock(loc.offset(0, 1, 0)).isAir();
   }
 
   let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);
@@ -34,7 +34,7 @@ registerCommand(registerInformation, function (session, builder) {
   }
 
   if (canGoThrough) {
-    builder.teleport(testLoc, dimension, builder.rotation.x, builder.rotation.y);
+    builder.teleport(testLoc.offset(0.5, 0, 0.5), dimension, builder.getRotation().x, builder.getRotation().y);
     return "commands.wedit:thru.explain";
   } else {
     throw "commands.wedit:thru.obstructed";

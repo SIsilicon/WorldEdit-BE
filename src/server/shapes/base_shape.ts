@@ -1,8 +1,8 @@
+import { Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Vector } from "@notbeer-api";
-import { BlockLocation } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits } from "../util.js";
 
@@ -38,7 +38,7 @@ export abstract class Shape {
   * @param loc The location of the shape
   * @return An array containing the minimum and maximum corners of the shape bounds
   */
-  public abstract getRegion(loc: BlockLocation): [BlockLocation, BlockLocation];
+  public abstract getRegion(loc: Vector3): [Vector, Vector];
 
   /**
    * Get the minimum and maximum y in a column of the shape.
@@ -61,29 +61,29 @@ export abstract class Shape {
   * @param genVars an object containing variables created in {prepGeneration}
   * @return True if a block should be generated; false otherwise
   */
-  protected abstract inShape(relLoc: BlockLocation, genVars: shapeGenVars): boolean;
+  protected abstract inShape(relLoc: Vector, genVars: shapeGenVars): boolean;
 
   /**
    * Returns blocks that are in the shape.
    */
-  public* getBlocks(loc: BlockLocation): Generator<BlockLocation> {
+  public* getBlocks(loc: Vector3): Generator<Vector3> {
     const range = this.getRegion(loc);
     this.genVars = {};
     this.prepGeneration(this.genVars);
 
     for (const block of regionIterateBlocks(...range)) {
-      if (this.inShape(Vector.sub(block, loc).toBlock(), this.genVars)) {
+      if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) {
         yield block;
       }
     }
   }
 
-  private inShapeHollow(relLoc: BlockLocation, genVars: shapeGenVars) {
+  private inShapeHollow(relLoc: Vector, genVars: shapeGenVars) {
     const block = this.inShape(relLoc, genVars);
     if (genVars.hollow && block) {
       let neighbourCount = 0;
-      for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]]) {
-        neighbourCount += this.inShape(relLoc.offset(...offset as [number, number, number]), genVars) ? 1 : 0;
+      for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
+        neighbourCount += this.inShape(relLoc.add(offset), genVars) ? 1 : 0;
       }
       return neighbourCount == 6 ? false : block;
     } else {
@@ -99,7 +99,7 @@ export abstract class Shape {
   * @param session The session that's using this shape
   * @param options A group of options that can change how the shape is generated
   */
-  public* generate(loc: BlockLocation, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string | Promise<unknown>, number> {
+  public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string | Promise<unknown>, number> {
     const [min, max] = this.getRegion(loc);
     const player = session.getPlayer();
     const dimension = player.dimension;
@@ -129,7 +129,7 @@ export abstract class Shape {
         const patternInFill = pattern.getBlockFill();
 
         // eslint-disable-next-line no-constant-condition
-        if (dimension.fillBlocks && this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
+        if (this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
           contentLog.debug("Using fillBlocks() method.");
           const size = Vector.sub(max, min).add(1);
           const fillMax = 32;
@@ -144,7 +144,7 @@ export abstract class Shape {
                 const subEnd = Vector.min(
                   new Vector(x, y, z).add(fillMax), size
                 ).add(min).sub(Vector.ONE);
-                dimension.fillBlocks(subStart.toBlock(), subEnd.toBlock(), patternInFill);
+                dimension.fillBlocks(subStart.floor(), subEnd.floor(), patternInFill);
 
                 const subSize = subEnd.sub(subStart).add(1);
                 count += subSize.x * subSize.y * subSize.z;
@@ -162,11 +162,11 @@ export abstract class Shape {
             if (iterateChunk()) yield progress / volume;
             progress++;
 
-            if (!activeMask.matchesBlock(block, dimension)) {
+            if (!activeMask.matchesBlock(dimension.getBlock(block))) {
               continue;
             }
 
-            if (this[inShapeFunc](Vector.sub(block, loc).toBlock(), this.genVars)) {
+            if (this[inShapeFunc](Vector.sub(block, loc).floor(), this.genVars)) {
               blocksAffected.push(block);
             }
           }
@@ -175,7 +175,7 @@ export abstract class Shape {
           yield "Generating blocks...";
           yield history?.addUndoStructure(record, min, max, blocksAffected);
           for (const block of blocksAffected) {
-            if (pattern.setBlock(block, dimension)) {
+            if (pattern.setBlock(dimension.getBlock(block))) {
               count++;
             }
             if (iterateChunk()) yield progress / blocksAffected.length;

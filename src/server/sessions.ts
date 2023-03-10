@@ -150,7 +150,7 @@ export class PlayerSession {
   public bindTool(tool: string, item: string|[string, number]|null, ...args: any[]) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, stack.data];
+      item = [stack.typeId, 0];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -165,7 +165,7 @@ export class PlayerSession {
   public hasToolProperty(item: string|[string, number]|null, property: string) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, stack.data];
+      item = [stack.typeId, 0];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -182,7 +182,7 @@ export class PlayerSession {
   public setToolProperty(item: string|[string, number]|null, property: string, value: any) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, stack.data];
+      item = [stack.typeId, 0];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -196,7 +196,7 @@ export class PlayerSession {
   public hasTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, stack.data];
+      item = [stack.typeId, 0];
     } else if (typeof item == "string") {
       item = [item, 0];
     }
@@ -210,7 +210,7 @@ export class PlayerSession {
   public unbindTool(item: string|[string, number]|null) {
     if (!item) {
       const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, stack.data];
+      item = [stack.typeId, 0];
     } else if (typeof item == "string") {
       item = [item, 0];
     }

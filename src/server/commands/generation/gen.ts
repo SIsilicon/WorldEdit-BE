@@ -31,7 +31,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern: Pattern = args.get("pattern");
   const isHollow = args.has("h");
 
-  const loc = Vector.min(start, end).toBlock();
+  const loc = Vector.min(start, end).floor();
   const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expr"));
   const job = (yield Jobs.startJob(session, 2, exprShape.getRegion(loc))) as number;
   const count = yield* Jobs.perform(job, exprShape.generate(loc, pattern, null, session, {"hollow": isHollow}));

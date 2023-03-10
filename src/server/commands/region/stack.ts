@@ -1,10 +1,10 @@
 import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, regionSize, regionVolume } from "@notbeer-api";
-import { BlockLocation } from "@minecraft/server";
+import { RawText, regionBounds, regionSize, regionVolume, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
+import { Vector3 } from "@minecraft/server";
 
 const registerInformation = {
   name: "stack",
@@ -48,8 +48,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
   let loadEnd = end.offset(dir.x, dir.y, dir.z);
   let count = 0;
 
-  const loads: [BlockLocation, BlockLocation][] = [];
-  const points: BlockLocation[] = [];
+  const loads: [Vector, Vector][] = [];
+  const points: Vector3[] = [];
   for (let i = 0; i < amount; i++) {
     loads.push([loadStart, loadEnd]);
     points.push(loadStart, loadEnd);
@@ -63,6 +63,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const record = history.record();
   const tempStack = session.createRegion(true);
   const job = (yield Jobs.startJob(session, loads.length + 1, stackRegion)) as number;
+
+  // TODO: Record selection
 
   try {
     yield* Jobs.perform(job, copy(session, args, tempStack), false);

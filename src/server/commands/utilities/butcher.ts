@@ -91,7 +91,7 @@ registerCommand(registerInformation, function (session, builder, args) {
   let entityCount = 0;
   const entityQuery: EntityQueryOptions = {
     excludeTypes: ["minecraft:player"],
-    location: Vector.from(builder.location).toLocation(),
+    location: Vector.from(builder.location),
     maxDistance: radius
   };
   for (const entity of dimension.getEntities(entityQuery)) {

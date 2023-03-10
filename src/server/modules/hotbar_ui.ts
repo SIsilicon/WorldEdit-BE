@@ -2,7 +2,7 @@
 import { BeforeItemUseEvent, Player, TickEvent } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerUtil } from "./player_util.js";
-import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/build/classes/uiFormBuilder.js";
+import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/classes/uiFormBuilder.js";
 import { print } from "server/util.js";
 
 interface HotbarItem<T extends {}> {

@@ -1,8 +1,7 @@
-import { Server } from "@notbeer-api";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
-import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
+import { MinecraftBlockTypes } from "@minecraft/server";
 
 const registerInformation = {
   name: "up",
@@ -23,12 +22,13 @@ registerCommand(registerInformation, function (session, builder, args) {
   let blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
   for (let i = 0; i < height; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
-    if (dimension.getBlock(blockLoc.offset(0, 2, 0)).typeId != "minecraft:air") {
+    if (!dimension.getBlock(blockLoc.offset(0, 2, 0)).isAir()) {
       break;
     }
   }
 
-  Server.runCommand(`tp @s ${printLocation(blockLoc, false)}`, builder);
-  Server.runCommand(`setblock ${printLocation(blockLoc.offset(0, -1, 0), false)} glass`, dimension);
+  const rot = builder.getRotation();
+  builder.teleport(blockLoc.offset(0.5, 0, 0.5), dimension, rot.x, rot.y);
+  dimension.getBlock(blockLoc.offset(0, -1, 0)).setType(MinecraftBlockTypes.glass);
   return RawText.translate("commands.wedit:up.explain");
 });

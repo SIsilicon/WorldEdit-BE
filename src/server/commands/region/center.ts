@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const range = session.selection.getRange();
   const center = Vector.add(range[0], range[1]).mul(0.5);
-  const [start, end] = [center.floor().toBlock(), center.ceil().toBlock()];
+  const [start, end] = [center.floor().floor(), center.ceil().floor()];
 
   const shape = new CuboidShape(...Vector.sub(end, start).add(1).toArray());
   const job = (yield Jobs.startJob(session, 2, [start, end])) as number;

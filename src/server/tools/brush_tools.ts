@@ -1,4 +1,4 @@
-import { BlockLocation, Player, system } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Brush } from "../brushes/base_brush.js";
@@ -7,6 +7,7 @@ import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { Selection } from "@modules/selection.js";
+import { Vector } from "@notbeer-api";
 
 class BrushTool extends Tool {
   public brush: Brush;
@@ -17,8 +18,8 @@ class BrushTool extends Tool {
 
   permission = "worldedit.brush";
 
-  private outlines = new Map<PlayerSession, {selection: Selection, lastHit: BlockLocation}>();
-  private prevTick = system.currentTick;
+  private outlines = new Map<PlayerSession, {selection: Selection, lastHit: Vector}>();
+  private prevTick = 0;
   private ticksToUpdate = 0;
 
   use = function* (self: BrushTool, player: Player, session: PlayerSession) {
@@ -37,7 +38,6 @@ class BrushTool extends Tool {
     this.ticksToUpdate = 3;
     const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
     yield;
-
     if (hit) {
       if (!self.outlines.has(session)) {
         const selection = new Selection(player);

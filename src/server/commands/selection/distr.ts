@@ -1,7 +1,7 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { RawText } from "@notbeer-api";
-import { BlockPermutation, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes, StringBlockProperty } from "@minecraft/server";
+import { BlockPermutation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -29,8 +29,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const processBlock = (block: BlockPermutation) => {
       let id = block.type.id;
       if (getStates) {
-        for (const state of block.getAllProperties() as (IntBlockProperty | BoolBlockProperty | StringBlockProperty)[]) {
-          id += `|${state.value}`;
+        for (const val of Object.values(block.getAllProperties())) {
+          id += `|${val}`;
         }
       }
       counts.set(id, (counts.get(id) ?? 0) + 1);
@@ -74,10 +74,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
       let i = 1;
       const blockData = block.split("|");
       const states: Map<string, string> = new Map();
-      const blockDefault = MinecraftBlockTypes.get(blockData[0]).createDefaultBlockPermutation();
-      for (const prop of blockDefault.getAllProperties() as (IntBlockProperty | BoolBlockProperty | StringBlockProperty)[]) {
-        if (blockData[i] && `${prop.value}` != blockData[i]) {
-          states.set(prop.name, blockData[i]);
+      const blockDefault = BlockPermutation.resolve(blockData[0]);
+      for (const [state, val] of Object.entries(blockDefault.getAllProperties())) {
+        if (blockData[i] && `${val}` != blockData[i]) {
+          states.set(state, blockData[i]);
         }
         i++;
       }

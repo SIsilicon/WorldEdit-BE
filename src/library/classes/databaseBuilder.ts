@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { world } from "@minecraft/server";
-import { Server } from "../classes/serverBuilder.js";
+import { Server } from "./serverBuilder.js";
 
 const objective = world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", "");
 

@@ -1,20 +1,21 @@
 import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
-import { Block, BlockLocation, BlockPermutation, BoolBlockProperty, Dimension, IntBlockProperty, StringBlockProperty } from "@minecraft/server";
+import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
 import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
-import { EntityCreateEvent } from "library/@types/build/Events.js";
+import { EntityCreateEvent } from "library/@types/Events.js";
+import { Mask } from "./mask.js";
 
 export interface RegionLoadOptions {
-    rotation?: Vector,
+    rotation?: Vector
     flip?: Vector
+    mask?: Mask
 }
 
 type blockData = BlockPermutation|[string, BlockPermutation]
-
-type blockList = BlockLocation[] | ((loc: BlockLocation) => boolean | BlockPermutation) | "all"
+type blockList = Vector3[] | ((loc: Vector3) => boolean | BlockPermutation) | "all"
 
 interface transformContext {
   blockData: blockData
-  sampleBlock: (loc: BlockLocation) => blockData
+  sampleBlock: (loc: Vector) => blockData
 }
 
 export class RegionBuffer {
@@ -22,7 +23,7 @@ export class RegionBuffer {
   readonly isAccurate: boolean;
   readonly id: string;
 
-  private size = new BlockLocation(0, 0, 0);
+  private size = Vector.ZERO;
   private blocks = new Map<string, blockData>();
   private blockCount = 0;
   private subId = 0;
@@ -35,7 +36,7 @@ export class RegionBuffer {
     contentLog.debug("creating structure", this.id);
   }
 
-  public async save(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
+  public async save(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
     const save = this.saveProgressive(start, end, dim, options, blocks);
     let val: IteratorResult<number | Promise<unknown>, boolean>;
     let lastPromise: unknown;
@@ -49,12 +50,12 @@ export class RegionBuffer {
     return val.value;
   }
 
-  public* saveProgressive(start: BlockLocation, end: BlockLocation, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number | Promise<unknown>, boolean> {
+  public* saveProgressive(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number | Promise<unknown>, boolean> {
     if (this.isAccurate) {
       const min = Vector.min(start, end);
       const promises: Promise<unknown>[] = [];
-      const iterate = (blockLoc: BlockLocation) => {
-        const relLoc = Vector.sub(blockLoc, min).toBlock();
+      const iterate = (blockLoc: Vector3) => {
+        const relLoc = Vector.sub(blockLoc, min).floor();
         const block = dim.getBlock(blockLoc);
         if (blockHasNBTData(block)) {
           const id = this.id + "_" + this.subId++;
@@ -77,7 +78,7 @@ export class RegionBuffer {
           } else {
             const filtered = blocks(block);
             if (typeof filtered != "boolean") {
-              const relLoc = Vector.sub(block, min).toBlock();
+              const relLoc = Vector.sub(block, min).floor();
               this.blocks.set(locToString(relLoc), filtered);
               count++;
             } else if (filtered) {
@@ -117,7 +118,7 @@ export class RegionBuffer {
     return false;
   }
 
-  public async load(loc: BlockLocation, dim: Dimension, options?: RegionLoadOptions) {
+  public async load(loc: Vector3, dim: Dimension, options?: RegionLoadOptions) {
     const load = this.loadProgressive(loc, dim, options);
     let val: IteratorResult<number | Promise<unknown>, void>;
     let lastPromise: unknown;
@@ -131,13 +132,13 @@ export class RegionBuffer {
     return val.value;
   }
 
-  public* loadProgressive(loc: BlockLocation, dim: Dimension, options: RegionLoadOptions = {}): Generator<number | Promise<unknown>, void> {
+  public* loadProgressive(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<number | Promise<unknown>, void> {
     const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
     if (this.isAccurate) {
       const promises: Promise<unknown>[] = [];
       const bounds = regionTransformedBounds(
-        new BlockLocation(0, 0, 0),
-        Vector.sub(this.size, [1,1,1]).toBlock(),
+        Vector.ZERO,
+        Vector.sub(this.size, [1,1,1]).floor(),
         Vector.ZERO, ...rotFlip
       );
       const shouldTransform = options.rotation || options.flip;
@@ -145,57 +146,63 @@ export class RegionBuffer {
       let transform: (block: BlockPermutation) => BlockPermutation;
       if (shouldTransform) {
         transform = block => {
-          const newBlock = block.clone();
-          const blockName = newBlock.type.id;
-          const attachement = newBlock.getProperty("attachement") as StringBlockProperty;
-          const direction = newBlock.getProperty("direction") as IntBlockProperty;
-          const doorHingeBit = newBlock.getProperty("door_hinge_bit") as BoolBlockProperty;
-          const facingDir = newBlock.getProperty("facing_direction") as StringBlockProperty;
-          const groundSignDir = newBlock.getProperty("ground_sign_direction") as IntBlockProperty;
-          const openBit = newBlock.getProperty("open_bit") as BoolBlockProperty;
-          const pillarAxis = newBlock.getProperty("pillar_axis") as StringBlockProperty;
-          const topSlotBit = newBlock.getProperty("top_slot_bit") as BoolBlockProperty;
-          const upsideDownBit = newBlock.getProperty("upside_down_bit") as BoolBlockProperty;
-          const weirdoDir = newBlock.getProperty("weirdo_direction") as IntBlockProperty;
-          const torchFacingDir = newBlock.getProperty("torch_facing_direction") as StringBlockProperty;
-          const leverDir = newBlock.getProperty("lever_direction") as StringBlockProperty;
+          const blockName = block.type.id;
+          const attachement = block.getProperty("attachement") as string;
+          const direction = block.getProperty("direction") as number;
+          const doorHingeBit = block.getProperty("door_hinge_bit") as boolean;
+          const facingDir = block.getProperty("facing_direction") as number;
+          const groundSignDir = block.getProperty("ground_sign_direction") as number;
+          const openBit = block.getProperty("open_bit") as boolean;
+          const pillarAxis = block.getProperty("pillar_axis") as string;
+          const topSlotBit = block.getProperty("top_slot_bit") as boolean;
+          const upsideDownBit = block.getProperty("upside_down_bit") as boolean;
+          const weirdoDir = block.getProperty("weirdo_direction") as number;
+          const torchFacingDir = block.getProperty("torch_facing_direction") as string;
+          const leverDir = block.getProperty("lever_direction") as string;
+
+          const withProperties = (properties: Record<string, string | number | boolean>) => {
+            for (const prop in properties) {
+              block = block.withProperty(prop, properties[prop]);
+            }
+            return block;
+          };
 
           if (upsideDownBit && openBit && direction) {
-            const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit.value}_${openBit.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [upsideDownBit.value, openBit.value, direction.value] = [states[0] == "true", states[1] == "true", parseInt(states[2])];
+            const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit}_${openBit}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "upside_down_bit": states[0] == "true", "open_bit": states[1] == "true", "direction": parseInt(states[2]) });
           } else if (weirdoDir && upsideDownBit) {
-            const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit.value}_${weirdoDir.value}`, ...rotFlip) as string).split("_");
-            [upsideDownBit.value, weirdoDir.value] = [states[0] == "true", parseInt(states[1])];
+            const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit}_${weirdoDir}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "upside_down_bit": states[0] == "true", "weirdo_direction": parseInt(states[1]) });
           } else if (doorHingeBit && direction) {
-            const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [doorHingeBit.value, direction.value] = [states[0] == "true", parseInt(states[1])];
+            const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "door_hinge_bit": states[0] == "true", "direction": parseInt(states[1]) });
           } else if (attachement && direction) {
-            const states = (this.transformMapping(mappings.bellMap, `${attachement.value}_${direction.value}`, ...rotFlip) as string).split("_");
-            [attachement.value, direction.value] = [states[0], parseInt(states[1])];
+            const states = (this.transformMapping(mappings.bellMap, `${attachement}_${direction}`, ...rotFlip) as string).split("_");
+            block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
           } else if (facingDir) {
-            const state = this.transformMapping(mappings.facingDirectionMap, facingDir.value, ...rotFlip);
-            facingDir.value = state;
+            const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
+            block = block.withProperty("facing_direction", parseInt(state));
           } else if (direction) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
-            const state = this.transformMapping(mapping, direction.value, ...rotFlip);
-            direction.value = parseInt(state);
+            const state = this.transformMapping(mapping, direction, ...rotFlip);
+            block = block.withProperty("direction", parseInt(state));
           } else if (groundSignDir) {
-            const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir.value, ...rotFlip);
-            groundSignDir.value = parseInt(state);
+            const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
+            block = block.withProperty("ground_sign_direction", parseInt(state));
           } else if (torchFacingDir) {
-            const state = this.transformMapping(mappings.torchMap, torchFacingDir.value, ...rotFlip);
-            torchFacingDir.value = state;
+            const state = this.transformMapping(mappings.torchMap, torchFacingDir, ...rotFlip);
+            block = block.withProperty("torch_facing_direction", state);
           } else if (leverDir) {
-            const state = this.transformMapping(mappings.leverMap, leverDir.value, ...rotFlip);
-            leverDir.value = state.replace("0", "");
+            const state = this.transformMapping(mappings.leverMap, leverDir, ...rotFlip);
+            block = block.withProperty("lever_direction", state.replace("0", ""));
           } else if (pillarAxis) {
-            const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis.value + "_0", ...rotFlip);
-            pillarAxis.value = state[0];
+            const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", ...rotFlip);
+            block = block.withProperty("pillar_axis", state[0]);
           } else if (topSlotBit) {
-            const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit.value), ...rotFlip);
-            topSlotBit.value = state == "true";
+            const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), ...rotFlip);
+            block = block.withProperty("top_slot_bit", state == "true");
           }
-          return newBlock;
+          return block;
         };
       } else {
         transform = block => block;
@@ -207,15 +214,19 @@ export class RegionBuffer {
         if (shouldTransform) {
           blockLoc = Vector.from(blockLoc)
             .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-            .mul(rotFlip[1]).sub(bounds[0]).toBlock();
+            .mul(rotFlip[1]).sub(bounds[0]).floor();
         }
 
         blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
+        const oldBlock = dim.getBlock(blockLoc);
+        if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
+
         if (block instanceof BlockPermutation) {
-          dim.getBlock(blockLoc).setPermutation(transform(block));
+          oldBlock.setPermutation(transform(block));
         } else {
-          promises.push(this.loadBlockFromStruct(block[0], blockLoc, dim));
-          dim.getBlock(blockLoc).setPermutation(transform(block[1]));
+          promises.push(this.loadBlockFromStruct(block[0], blockLoc, dim).then(() => {
+            oldBlock.setPermutation(transform(block[1]));
+          }));
         }
         if (iterateChunk()) yield i / this.blocks.size;
         i++;
@@ -226,14 +237,14 @@ export class RegionBuffer {
           if (shouldTransform) {
             // FIXME: Not properly aligned
             let entityLoc = ev.entity.location;
-            let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc).toLocation();
+            let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc);
 
             entityLoc = Vector.from(entityLoc).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc);
             entityFacing = Vector.from(entityFacing).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
-              .mul(rotFlip[1]).sub(bounds[0]).add(loc).toLocation();
+              .mul(rotFlip[1]).sub(bounds[0]).add(loc);
 
             ev.entity.teleportFacing(entityLoc, dim, entityFacing);
           }
@@ -269,15 +280,15 @@ export class RegionBuffer {
    * @param func
    * @returns
    */
-  public* warp(func: (loc: BlockLocation, ctx: transformContext) => blockData): Generator<number, null> {
+  public* warp(func: (loc: Vector3, ctx: transformContext) => blockData): Generator<number, null> {
     if (!this.isAccurate) {
       return;
     }
 
-    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.sub(-1)];
     const output = new Map();
     const volume = regionVolume(...region);
-    const sampleBlock = (loc: BlockLocation) => this.blocks.get(locToString(loc));
+    const sampleBlock = (loc: Vector) => this.blocks.get(locToString(loc));
 
     let i = 0;
     for (const coord of regionIterateBlocks(...region)) {
@@ -295,13 +306,13 @@ export class RegionBuffer {
     this.blockCount = this.blocks.size;
   }
 
-  public* create(start: BlockLocation, end: BlockLocation, func: (loc: BlockLocation) => Block | BlockPermutation): Generator<number | Promise<unknown>, null> {
-    if (!this.isAccurate || !this.size.equals(new BlockLocation(0, 0, 0))) {
+  public* create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation): Generator<number | Promise<unknown>, null> {
+    if (!this.isAccurate || !this.size.equals(Vector.ZERO)) {
       return;
     }
 
     this.size = regionSize(start, end);
-    const region: [BlockLocation, BlockLocation] = [Vector.ZERO.toBlock(), this.size.offset(-1, -1, -1)];
+    const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.offset(-1, -1, -1)];
     const volume = regionVolume(...region);
 
     let i = 0;
@@ -333,7 +344,7 @@ export class RegionBuffer {
     return this.blockCount;
   }
 
-  public getBlock(loc: BlockLocation) {
+  public getBlock(loc: Vector) {
     if (!this.isAccurate) {
       return null;
     }
@@ -350,7 +361,7 @@ export class RegionBuffer {
     return Array.from(this.blocks.values());
   }
 
-  public setBlock(loc: BlockLocation, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: BlockLocation, dim?: Dimension}) {
+  public setBlock(loc: Vector3, block: Block | BlockPermutation, options?: StructureSaveOptions & {loc?: Vector, dim?: Dimension}) {
     let error: Promise<boolean>;
     const key = locToString(loc);
 
@@ -371,14 +382,14 @@ export class RegionBuffer {
       error = Server.structure.save(id, block.location, block.location, block.dimension, options);
       this.blocks.set(key, [id, block.permutation.clone()]);
     }
-    this.size = Vector.max(this.size, Vector.from(loc).add(1)).toBlock();
+    this.size = Vector.max(this.size, Vector.from(loc).add(1)).floor();
     this.blockCount = this.blocks.size;
     return error ?? Promise.resolve(false);
   }
 
-  public import(structure: string, size: BlockLocation) {
+  public import(structure: string, size: Vector3) {
     this.imported = structure;
-    this.size = size;
+    this.size = Vector.from(size);
     this.blockCount = size.x * size.y * size.z;
   }
 
@@ -398,15 +409,15 @@ export class RegionBuffer {
         }
         self.blocks.clear();
       }
-      self.size = new BlockLocation(0, 0, 0);
+      self.size = Vector.ZERO;
       self.blockCount = 0;
       yield Server.structure.delete(self.id);
       contentLog.debug("deleted structure", self.id);
     }, this);
   }
 
-  private transformMapping(mapping: {[key: string|number]: Vector}, state: string|number, rotate: Vector, flip: Vector): string {
-    let vec = mapping[state];
+  private transformMapping(mapping: {[key: string|number]: Vector | [number, number, number]}, state: string|number, rotate: Vector, flip: Vector): string {
+    let vec = Vector.from(mapping[state]);
     if (!vec) {
       contentLog.debug(`Can't map state "${state}".`);
       return typeof(state) == "string" ? state : state.toString();
@@ -417,7 +428,7 @@ export class RegionBuffer {
     let closestState: string;
     let closestDot = -1000;
     for (const newState in mapping) {
-      const dot = mapping[newState].dot(vec);
+      const dot = Vector.from(mapping[newState]).dot(vec);
       if (dot > closestDot) {
         closestState = newState;
         closestDot = dot;
@@ -427,12 +438,12 @@ export class RegionBuffer {
     return closestState;
   }
 
-  private saveBlockAsStruct(id: string, loc: BlockLocation, dim: Dimension) {
+  private saveBlockAsStruct(id: string, loc: Vector3, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
     return Server.runCommand(`structure save ${id} ${locStr} ${locStr} false memory`, dim);
   }
 
-  private loadBlockFromStruct(id: string, loc: BlockLocation, dim: Dimension) {
+  private loadBlockFromStruct(id: string, loc: Vector3, dim: Dimension) {
     const locStr = `${loc.x} ${loc.y} ${loc.z}`;
     return Server.runCommand(`structure load ${id} ${locStr}`, dim);
   }
@@ -460,12 +471,12 @@ const mappings = {
     3: new Vector( 0, 0,-1)
   },
   facingDirectionMap: { // facing_direction
-    down : new Vector( 0,-1, 0),
-    up   : new Vector( 0, 1, 0),
-    south: new Vector( 0, 0,-1),
-    north: new Vector( 0, 0, 1),
-    east : new Vector(-1, 0, 0),
-    west : new Vector( 1, 0, 0)
+    0: new Vector( 0,-1, 0),
+    1: new Vector( 0, 1, 0),
+    2: new Vector( 0, 0,-1),
+    3: new Vector( 0, 0, 1),
+    4: new Vector(-1, 0, 0),
+    5: new Vector( 1, 0, 0)
   },
   pillarAxisMap: { // pillar_axis
     x_0: new Vector( 1, 0, 0),

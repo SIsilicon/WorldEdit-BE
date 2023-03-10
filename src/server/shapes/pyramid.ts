@@ -1,5 +1,5 @@
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
-import { BlockLocation } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 
 export class PyramidShape extends Shape {
   private size: number;
@@ -11,8 +11,8 @@ export class PyramidShape extends Shape {
     this.size = size;
   }
 
-  public getRegion(loc: BlockLocation) {
-    return <[BlockLocation, BlockLocation]>[
+  public getRegion(loc: Vector) {
+    return <[Vector, Vector]>[
       loc.offset(-this.size+1, 0, -this.size+1),
       loc.offset(this.size-1, this.size-1, this.size-1)
     ];
@@ -27,7 +27,7 @@ export class PyramidShape extends Shape {
     genVars.isHollow = options?.hollow ?? false;
   }
 
-  protected inShape(relLoc: BlockLocation, genVars: shapeGenVars) {
+  protected inShape(relLoc: Vector, genVars: shapeGenVars) {
     const latSize = this.size - relLoc.y - 0.5;
     const local = [
       relLoc.x,

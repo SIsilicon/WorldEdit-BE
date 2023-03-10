@@ -1,14 +1,12 @@
-import { BlockLocation, BlockPermutation, Dimension, StringBlockProperty, BoolBlockProperty, IntBlockProperty, MinecraftBlockTypes } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, contentLog, Vector, Server } from "@notbeer-api";
+import { Vector3, BlockPermutation, Block, BlockProperties } from "@minecraft/server";
+import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
+import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, parseBlockStates, AstNode, processOps, parsedBlock, parseNumberList } from "./parser.js";
-
-type AnyBlockProperty = StringBlockProperty | BoolBlockProperty | IntBlockProperty;
+import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation } from "./parser.js";
 
 export class Pattern implements CustomArgType {
   private block: PatternNode;
-  private compiledFunc: (ctx: typeof patternContext, loc: BlockLocation, dim: Dimension) => void;
   private stringObj = "";
 
   public playerSession: PlayerSession;
@@ -18,32 +16,19 @@ export class Pattern implements CustomArgType {
       const obj = Pattern.parseArgs([pattern]).result;
       this.block = obj.block;
       this.stringObj = obj.stringObj;
-      this.compile();
     }
   }
 
   /**
-   * Sets a block at a location in a dimension.
-   * @param loc
-   * @param dimension
-   * @returns True if the block at the location changed; false otherwise
+   * Replaces a block with this pattern
+   * @param block
+   * @returns True if the block changed; false otherwise
    */
-  setBlock(loc: BlockLocation, dimension: Dimension) {
+  setBlock(block: Block) {
     try {
-      patternContext.session = this.playerSession;
-      const oldBlock = dimension.getBlock(loc).permutation;
-      this.compiledFunc(patternContext, loc, dimension);
-      const newBlock = dimension.getBlock(loc).permutation;
-
-      if (oldBlock.type.id != newBlock.type.id) {
-        return true;
-      }
-      for (const state of oldBlock.getAllProperties() as AnyBlockProperty[]) {
-        if (state.value != (newBlock.getProperty(state.name) as AnyBlockProperty).value) {
-          return true;
-        }
-      }
-      return false;
+      const oldBlock = block.permutation;
+      block.setPermutation(this.block.getPermutation(block, this.playerSession));
+      return !oldBlock.matches(block.typeId, block.permutation.getAllProperties());
     } catch (err) {
       //contentLog.error(err);
       return false;
@@ -53,7 +38,6 @@ export class Pattern implements CustomArgType {
   clear() {
     this.block = null;
     this.stringObj = "";
-    this.compiledFunc = null;
   }
 
   empty() {
@@ -61,23 +45,12 @@ export class Pattern implements CustomArgType {
   }
 
   addBlock(block: BlockPermutation) {
-    const states: parsedBlock["states"] = new Map();
-    block.getAllProperties().forEach((state: AnyBlockProperty) => {
-      if (!state.name.startsWith("wall_connection_type") && !state.name.startsWith("liquid_depth")) {
-        states.set(state.name, state.value);
-      }
-    });
-
     if (this.block == null) {
       this.block = new ChainPattern(null);
     }
 
-    this.block.nodes.push(new BlockPattern(null, {
-      id: block.type.id,
-      states: states
-    }));
+    this.block.nodes.push(new BlockPattern(null, blockPermutation2ParsedBlock(block)));
     this.stringObj = "(picked)";
-    this.compile();
   }
 
   getBlockSummary() {
@@ -117,28 +90,10 @@ export class Pattern implements CustomArgType {
   }
 
   getBlockFill() {
-    let blockData: parsedBlock;
     if (this.block instanceof BlockPattern) {
-      blockData = this.block.block;
+      return parsedBlock2BlockPermutation(this.block.block);
     } else if (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern) {
-      blockData = this.block.nodes[0].block;
-    }
-
-    if (!blockData) return;
-
-    const block = MinecraftBlockTypes.get(blockData.id).createDefaultBlockPermutation();
-    if (blockData.states) {
-      for (const [state, val] of blockData.states.entries()) {
-        (block.getProperty(state) as AnyBlockProperty).value = val;
-      }
-    }
-    return block;
-  }
-
-  private compile() {
-    // contentLog.debug("compiling", this.stringObj, "to", this.block.compile());
-    if (this.block) {
-      this.compiledFunc = new Function("ctx", "loc", "dim", this.block.compile()) as typeof this.compiledFunc;
+      return parsedBlock2BlockPermutation(this.block.nodes[0].block);
     }
   }
 
@@ -201,7 +156,7 @@ export class Pattern implements CustomArgType {
               const array = parseNumberList(tokens, 3);
               offset = Vector.from(array as [number, number, number]);
             }
-            out.push(new ClipboardPattern(nodeToken(), offset.toBlock()));
+            out.push(new ClipboardPattern(nodeToken(), offset.floor()));
           } else if (t.value == "hand") {
             out.push(new HandPattern(nodeToken()));
           } else {
@@ -264,7 +219,6 @@ export class Pattern implements CustomArgType {
     const pattern = new Pattern();
     pattern.stringObj = args[index];
     pattern.block = out;
-    pattern.compile();
 
     return { result: pattern, argIndex: index + 1 };
   }
@@ -273,7 +227,6 @@ export class Pattern implements CustomArgType {
     const pattern = new Pattern();
     pattern.block = original.block;
     pattern.stringObj = original.stringObj;
-    pattern.compile();
     return pattern;
   }
 
@@ -284,56 +237,50 @@ export class Pattern implements CustomArgType {
 
 abstract class PatternNode implements AstNode {
   public nodes: PatternNode[] = [];
-    abstract readonly prec: number;
-    abstract readonly opCount: number;
+  abstract readonly prec: number;
+  abstract readonly opCount: number;
 
-    constructor(public readonly token: Token) { }
+  constructor(public readonly token: Token) { }
 
-    abstract compile(): string;
+  abstract getPermutation(block: Block, session: PlayerSession): BlockPermutation;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    postProcess() { }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  postProcess() { }
 }
 
 class BlockPattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
+  readonly permutation: BlockPermutation;
 
   constructor(token: Token, public block: parsedBlock) {
     super(token);
+    this.permutation = parsedBlock2BlockPermutation(block);
   }
 
-  compile() {
-    let result = `let block = ctx.mcBlocks.get('${this.block.id}').createDefaultBlockPermutation();`;
-    if (this.block.states) {
-      for (const [state, val] of this.block.states.entries()) {
-        result += `\nblock.getProperty('${state}').value = ${typeof val == "string" ? `'${val}'` : val};`;
-      }
-    }
-    result += "\ndim.getBlock(loc).setPermutation(block);";
-    return result;
+  getPermutation() {
+    return this.permutation;
   }
 }
 
 class TypePattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
+  readonly permutation: BlockPermutation;
+  readonly props: Record<string, string | number | boolean>;
 
   constructor(token: Token, public type: string) {
     super(token);
+    this.permutation = BlockPermutation.resolve(type);
+    this.props = this.permutation.getAllProperties();
   }
 
-  compile() {
-    let type = this.type;
-    if (!type.includes(":")) {
-      type = "minecraft:" + type;
-    }
-    return `let newBlock = ctx.mcBlocks.get('${type}').createDefaultBlockPermutation();
-let oldBlock = dim.getBlock(loc);
-oldBlock.permutation.getAllProperties().forEach(prop => {
-    newBlock.getProperty(prop.name).value = prop.value;
-})
-oldBlock.setPermutation(newBlock);`;
+  getPermutation(block: Block): BlockPermutation {
+    let permutation = this.permutation;
+    Object.entries(block.permutation.getAllProperties()).forEach(([state, val]) => {
+      if(state in this.props) permutation = permutation.withProperty(state, val);
+    });
+    return permutation;
   }
 }
 
@@ -345,36 +292,37 @@ class StatePattern extends PatternNode {
     super(token);
   }
 
-  compile() {
-    let result = "let newBlock = dim.getBlock(loc).permutation.clone();";
-    result += "\nlet oldBlock = dim.getBlock(loc);";
-    for (const [state, val] of this.states.entries()) {
-      result += `\nnewBlock.getProperty('${state}').value = ${typeof val == "string" ? `'${val}'` : val};`;
-    }
-    result += "\noldBlock.setPermutation(newBlock);";
-    return result;
+  getPermutation(block: Block) {
+    let permutation = block.permutation;
+    const props = permutation.getAllProperties();
+    Object.entries(this.states).forEach(([state, val]) => {
+      if (state in props) permutation = permutation.withProperty(state, val);
+    });
+    return permutation;
   }
 }
 
 class RandStatePattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
+  readonly permutation: BlockPermutation;
+  readonly props: Record<string, string | number | boolean>;
+  readonly validValues: Record<string, (string | number | boolean)[]>;
 
   constructor(token: Token, public block: string) {
     super(token);
+    this.permutation = BlockPermutation.resolve(block);
+    this.props = this.permutation.getAllProperties();
+    this.validValues = Object.fromEntries(Object.entries(this.props).map(([state]) => [state, BlockProperties.get(state).validValues]));
   }
 
-  compile() {
-    let type = this.block;
-    if (!type.includes(":")) {
-      type = "minecraft:" + type;
-    }
-
-    return `let block = ctx.mcBlocks.get('${type}').createDefaultBlockPermutation();
-block.getAllProperties().forEach(state => {
-    state.value = state.validValues[Math.floor(Math.random() * state.validValues.length)] ?? state.value;
-});
-dim.getBlock(loc).setPermutation(block);`;
+  getPermutation() {
+    let permutation = this.permutation;
+    Object.entries(this.props).forEach(([state, val]) => {
+      const validValues = this.validValues[state];
+      permutation = permutation.withProperty(state, validValues[Math.floor(Math.random() * validValues.length)] ?? val);
+    });
+    return permutation;
   }
 }
 
@@ -382,26 +330,18 @@ class ClipboardPattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
 
-  constructor(token: Token, public offset: BlockLocation) {
+  constructor(token: Token, public offset: Vector3) {
     super(token);
   }
 
-  compile() {
-    const zeroOffset = this.offset.x == 0 && this.offset.y == 0 && this.offset.z == 0;
-    return `const clipboard = ctx.session?.clipboard;
-if (clipboard?.isAccurate) {
-  const w = function (m, n) {
-    return n >= 0 ? n % m : (n % m + m) % m;
-  };
-  const size = clipboard.getSize();
-  const offset = ${zeroOffset ? "loc" : `loc.offset(${-this.offset.x}, ${-this.offset.y}, ${-this.offset.z})`};
-  const sampledLoc = new ctx.BlockLocation(w(size.x, offset.x), w(size.y, offset.y), w(size.z, offset.z));
-  const block = clipboard.getBlock(sampledLoc);
-  if (block) {
-    dim.getBlock(loc).setPermutation(block);
-  }
-}
-`;
+  getPermutation(block: Block, session: PlayerSession) {
+    const clipboard = session?.clipboard;
+    if (clipboard?.isAccurate) {
+      const size = clipboard.getSize();
+      const offset = Vector.sub(block.location, this.offset);
+      const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
+      return clipboard.getBlock(sampledLoc);
+    }
   }
 }
 
@@ -413,17 +353,18 @@ class HandPattern extends PatternNode {
     super(token);
   }
 
-  compile() {
-    return `const player = ctx.session?.getPlayer();
-if (player) {
-  const slot = player.selectedSlot;
-  const item = player.getComponent("minecraft:inventory").container.getItem(slot);
-  if (item && ctx.mcBlocks.get(item.typeId)) {
-    const block = ctx.server.block.dataValueToPermutation(item.typeId, item.data);
-    dim.getBlock(loc).setPermutation(block);
-  }
-}
-`;
+  getPermutation(_: Block, session: PlayerSession) {
+    const player = session?.getPlayer();
+    if (player) {
+      const item = Server.player.getHeldItem(player);
+      if (item) {
+        try {
+          return Server.block.dataValueToPermutation(item.typeId, 0);
+        } catch {
+          return null;
+        }
+      }
+    }
   }
 }
 
@@ -435,8 +376,8 @@ class PercentPattern extends PatternNode {
     super(token);
   }
 
-  compile() {
-    return "";
+  getPermutation() {
+    return null as BlockPermutation;
   }
 }
 
@@ -448,20 +389,19 @@ class ChainPattern extends PatternNode {
   private cumWeights: number[] = [];
   private weightTotal: number;
 
-  compile() {
+  getPermutation(block: Block, session: PlayerSession) {
     if (this.nodes.length == 1) {
-      return this.nodes[0].compile();
-    }
-
-    let result = "";
-    result += "let rand = " + (this.evenDistribution ? `Math.floor(Math.random() * ${this.nodes.length});\n` : `${this.weightTotal} * Math.random();\n`);
-    for (let i = 0; i < this.nodes.length; i++) {
-      if (i != 0) {
-        result += "else ";
+      return this.nodes[0].getPermutation(block, session);
+    } else if (this.evenDistribution) {
+      return this.nodes[Math.floor(Math.random() * this.nodes.length)].getPermutation(block, session);
+    } else {
+      const rand = Math.random() * this.weightTotal;
+      for (let i = 0; i < this.nodes.length; i++) {
+        if (this.cumWeights[i] >= rand) {
+          return this.nodes[i].getPermutation(block, session);
+        }
       }
-      result += `if (${this.evenDistribution ? `rand == ${i}`: `${this.cumWeights[i]} >= rand`}) {(() => {\n${this.nodes[i].compile()}\n})()}\n`;
     }
-    return result;
   }
 
   postProcess() {
@@ -506,11 +446,3 @@ class ChainPattern extends PatternNode {
     }
   }
 }
-
-const patternContext = {
-  mcBlocks: MinecraftBlockTypes,
-  session: null as PlayerSession,
-  server: Server,
-  print: contentLog.debug,
-  BlockLocation: BlockLocation
-};

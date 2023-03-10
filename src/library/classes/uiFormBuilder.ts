@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { MessageFormData, MessageFormResponse, ActionFormData, ActionFormResponse, ModalFormData, ModalFormResponse, FormCancelationReason, FormResponse } from "@minecraft/server-ui";
-import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem } from "../../@types/build/classes/uiFormBuilder";
+import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem } from "../@types/classes/uiFormBuilder";
 import { Player } from "@minecraft/server";
 import { setTickTimeout, contentLog } from "@notbeer-api";
 

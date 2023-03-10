@@ -52,7 +52,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
               const chunkMin = new Vector(subX, subY, subZ).mul(16).max(min);
               const chunkMax = new Vector(subX, subY, subZ).mul(16).add(15).min(max);
 
-              for (const block of regionIterateBlocks(chunkMin.toBlock(), chunkMax.toBlock())) {
+              for (const block of regionIterateBlocks(chunkMin.floor(), chunkMax.floor())) {
                 biomeChanges.setBiome(block, biome);
                 Jobs.setProgress(job, ++i / blockCount);
                 changeCount++;

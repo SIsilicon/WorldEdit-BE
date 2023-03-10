@@ -1,4 +1,4 @@
-import { configuration } from "../build/configurations.js";
+import { configuration } from "../configurations.js";
 import { system } from "@minecraft/server";
 import { contentLog } from "./contentlog.js";
 import { setTickTimeout, sleep } from "./scheduling.js";

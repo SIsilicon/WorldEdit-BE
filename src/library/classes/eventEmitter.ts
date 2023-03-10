@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EventEmitterConstructor, EventEmitterTypes } from "../../@types/build/classes/eventEmitter";
+import { EventEmitterConstructor, EventEmitterTypes } from "../@types/classes/eventEmitter";
 
 export const EventEmitter: EventEmitterConstructor = class Class implements EventEmitterTypes {
   private _listeners: any[] = [];

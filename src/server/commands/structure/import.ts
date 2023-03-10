@@ -67,7 +67,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   }
 
   session.clipboard = new RegionBuffer(false);
-  session.clipboard.import(namespace + ":weditstructexport_" + struct, Vector.from(metadata.size).toBlock());
+  session.clipboard.import(namespace + ":weditstructexport_" + struct, Vector.from(metadata.size).floor());
   session.clipboardTransform = {
     relative: Vector.from(metadata.relative),
     rotation: Vector.ZERO,

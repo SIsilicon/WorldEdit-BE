@@ -1,5 +1,5 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
-import { BlockLocation, MolangVariableMap, Player } from "@minecraft/server";
+import { MolangVariableMap, Player, system } from "@minecraft/server";
 import { Shape } from "../shapes/base_shape.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";
@@ -11,15 +11,15 @@ import config from "config.js";
 export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
 export type selectMode = typeof selectionModes[number];
 
-const drawFrequency = 400; // in Milliseconds
+const drawFrequency = 8; // in ticks
 
 export class Selection {
   private _mode: selectMode = "cuboid";
-  private _points: BlockLocation[] = [];
+  private _points: Vector[] = [];
   private _visible: boolean = config.drawOutlines;
 
   private modeLastDraw: selectMode = this._mode;
-  private pointsLastDraw: BlockLocation[] = [];
+  private pointsLastDraw: Vector[] = [];
 
   private player: Player;
   private drawPoints: Vector[] = [];
@@ -34,7 +34,7 @@ export class Selection {
    * @param index The first or second selection point
    * @param loc The location the selection point is being made
    */
-  public set(index: 0|1, loc: BlockLocation): void {
+  public set(index: 0|1, loc: Vector): void {
     if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
       throw "worldedit.selection.noPrimary";
     }
@@ -51,18 +51,18 @@ export class Selection {
         this._points.length = 1;
       }
     } else if (this._mode == "extend") {
-      this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).toBlock();
-      this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).toBlock();
+      this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).floor();
+      this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).floor();
     } else if (this._mode == "sphere") {
       const radius = Math.round(Vector.sub(loc, this._points[0]).length);
-      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).toBlock();
+      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).floor();
     } else if (this._mode == "cylinder") {
       const prevVec = Vector.sub(this._points[1], this._points[0]).mul([1, 0, 1]);
       const vec = Vector.sub(loc, this._points[0]).mul([1, 0, 1]);
       const min = Vector.min(this._points[0], this._points[1]).min(loc);
       const max = Vector.max(this._points[0], this._points[1]).max(loc);
       const radius = Math.round(Math.max(vec.length, prevVec.length));
-      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).toBlock();
+      this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).floor();
       this._points[0].y = min.y;
       this._points[1].y = max.y;
     }
@@ -84,13 +84,13 @@ export class Selection {
    * Get the shape of the current selection
    * @returns
    */
-  public getShape(): [Shape, BlockLocation] {
+  public getShape(): [Shape, Vector] {
     if (!this.isValid()) return null;
 
     if (this.isCuboid()) {
       const [start, end] = regionBounds(this._points);
       const size = Vector.sub(end, start).add(1);
-      return [new CuboidShape(size.x, size.y, size.z), start];
+      return [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
     } else if (this._mode == "sphere") {
       const center = this._points[0];
       const radius = Vector.sub(this._points[1], this._points[0]).length;
@@ -136,7 +136,7 @@ export class Selection {
   /**
    * @return The minimum and maximum points of the selection
    */
-  public getRange(): [BlockLocation, BlockLocation] {
+  public getRange(): [Vector, Vector] {
     const [shape, loc] = this.getShape();
     if (shape) {
       return shape.getRegion(loc);
@@ -158,7 +158,7 @@ export class Selection {
 
   public draw(): void {
     if (!this._visible) return;
-    if (Date.now() > this.lastDraw + drawFrequency) {
+    if (system.currentTick > this.lastDraw + drawFrequency) {
       if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
         this.updatePoints();
         this.modeLastDraw = this._mode;
@@ -166,14 +166,14 @@ export class Selection {
       }
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
-        dimension.spawnParticle("wedit:selection_draw", point.toLocation(), new MolangVariableMap());
+        dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
       }
-      this.lastDraw = Date.now();
+      this.lastDraw = system.currentTick;
     }
   }
 
   public forceDraw(): void {
-    this.lastDraw = Date.now() - drawFrequency - 10;
+    this.lastDraw = 0;
     this.draw();
   }
 
@@ -192,7 +192,7 @@ export class Selection {
   }
 
   public get points() {
-    return this._points.map(v => v.offset(0, 0, 0));
+    return this._points.map(v => v.clone());
   }
 
   public get visible(): boolean {
