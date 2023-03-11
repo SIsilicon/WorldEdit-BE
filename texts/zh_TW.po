@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-02-25 11:09\n"
+"PO-Revision-Date: 2023-03-11 13:44\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -392,19 +392,19 @@ msgid "commands.wedit:calc.description"
 msgstr "Evaluate a mathematical expression."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "無法解析「%s」為有效的表達式"
 
 msgid "commands.wedit:center.description"
 msgstr "Set the center block(s)."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "選擇此處或特定區塊"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "已選擇區塊: (%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "已選擇區塊: (%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清除您的剪貼簿"
