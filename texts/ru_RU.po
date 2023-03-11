@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-08 13:27\n"
+"PO-Revision-Date: 2023-03-11 18:46\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -260,13 +260,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "Не удалось сохранить точку истории!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "Не удалось загрузить точку истории!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "История всё ещё записывается!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
