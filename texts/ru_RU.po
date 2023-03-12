@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-12 05:45\n"
+"PO-Revision-Date: 2023-03-12 06:55\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -314,16 +314,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Выполните §e%s§7, удерживая предмет, чтобы отвязать его.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Биом в прямой точке видимости:%s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Извлеките типы биомов из выбранного вами списка"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Биом на вашей позиции:%s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Биомы в вашей выделенной области:%s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферическая форма кисти установлена (%s)."
@@ -389,22 +389,22 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Убито %s сущностей."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Оценка математического выражения."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' не удалось персонализировать как допустимое выражение."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Установить центральный блок(и)."
 
 msgid "commands.wedit:chunk.description"
 msgstr "Выберите ваш текущий или указанный чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "Выбраны куски: (%1)-(%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "Выбран кусок: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
