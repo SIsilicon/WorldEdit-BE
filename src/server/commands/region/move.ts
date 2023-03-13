@@ -70,6 +70,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     yield history.addRedoStructure(record, start, end, "any");
     yield history.addRedoStructure(record, movedStart, movedEnd, "any");
+
+    if (args.has("s")) {
+      history.recordSelection(record, session);
+      session.selection.set(0, movedStart);
+      session.selection.set(1, movedEnd);
+      history.recordSelection(record, session);
+    }
     history.commit(record);
   } catch (e) {
     history.cancel(record);
@@ -77,11 +84,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     session.deleteRegion(temp);
     Jobs.finishJob(job);
-  }
-
-  if (args.has("s")) {
-    session.selection.set(0, movedStart);
-    session.selection.set(1, movedEnd);
   }
 
   return RawText.translate("commands.wedit:move.explain").with(count);

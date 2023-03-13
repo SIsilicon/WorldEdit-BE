@@ -63,6 +63,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
 
     if (setSelection) {
+      history.recordSelection(record, session);
       session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
       session.selection.set(0, pasteStart);
       session.selection.set(1, pasteEnd);
