@@ -118,5 +118,6 @@ if args.target != 'debug':
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')
     elif args.target == 'server':
         with ZipFile(f'builds/{build_pack_name}.server.zip', 'w') as zip:
+            zip.write('builds/variables.json', 'variables.json')
             zipWriteDir(zip, f'builds/{build_pack_name}BP', f'{build_pack_name}BP')
             zipWriteDir(zip, f'builds/{build_pack_name}RP', f'{build_pack_name}RP')
