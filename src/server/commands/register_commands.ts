@@ -1,7 +1,7 @@
 import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from "@notbeer-api";
 import { getSession, hasSession, PlayerSession } from "../sessions.js";
 import { print, printerr } from "../util.js";
-import { BeforeChatEvent, Player } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import { UnloadedChunksError } from "@modules/assert.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,11 +14,9 @@ const sawOutsideWorldErr: Player[] = [];
 export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
   commandList.set(registerInformation.name, [registerInformation, callback]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Server.command.register(registerInformation, (data: BeforeChatEvent, args: Map<string, any>) => {
-    const player = data.sender;
+  Server.command.register(registerInformation, (player: Player, msg: string, args: Map<string, any>) => {
     if (!hasSession(player.name)) {
-      data.cancel = false;
-      return;
+      return undefined;
     }
     const toActionBar = getSession(player).usingItem;
     args.set("_using_item", getSession(player).usingItem);
@@ -53,7 +51,7 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
           printerr(e.stack, player, false);
         }
       }
-    }, data.message, data.sender, args);
+    }, msg, player, args);
 
     return thread;
   });

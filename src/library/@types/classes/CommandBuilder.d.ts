@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Thread } from "@notbeer-api";
-import { BeforeChatEvent } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 
 export type range = [number | null, number | null];
 
@@ -45,5 +45,5 @@ export interface registerInformation {
     aliases?: Array<string>
 }
 export interface storedRegisterInformation extends registerInformation {
-    callback: (data: BeforeChatEvent, args: Map<string, any>) => Thread<any[]>
+    callback: (player: Player, msg: string, args: Map<string, any>) => Thread<any[]>
 }

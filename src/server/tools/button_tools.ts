@@ -91,7 +91,7 @@ class RotateCWTool extends Tool {
     if (player.isSneaking) {
       args.push("-o");
     }
-    Server.command.callCommand(player, "rotate", args).join();
+    Server.command.callCommand(player, "rotate", args);
   };
 }
 Tools.register(RotateCWTool, "rotate_cw", "wedit:rotate_cw_button");

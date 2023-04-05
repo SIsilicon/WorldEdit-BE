@@ -64,7 +64,6 @@ class ServerBuild extends ServerBuilder {
     const events = world.events;
 
     events.beforeChat.subscribe(data => {
-      const date = new Date();
       /**
        * Emit to 'beforeMessage' event listener
        */
@@ -72,105 +71,12 @@ class ServerBuild extends ServerBuilder {
       /**
        * This is for the command builder and a emitter
        */
-      // CHANGES HERE
-      if(!data.message.startsWith(this.command.prefix)) return;
-      data.cancel = true;
       const msg = data.message;
-      data.message = data.message.substring(this.command.prefix.length);
-
-      function regexIndexOf(text: string, re: RegExp, index: number) {
-        const i = text.slice(index).search(re);
-        return i == -1 ? -1 : i + index;
-      }
-
-      const command = msg.split(/\s+/)[0].slice(1);
-      const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
-      if(!getCommand) {
-        data.cancel = true;
-        RawText.translate("commands.generic.unknown").with(`${command}`).printError(data.sender);
-        return;
-      }
-
-      const args: Array<string> = [];
-      const offsets: Array<number> = [];
-      let i = regexIndexOf(msg, /[^\s]/, this.command.prefix.length + command.length);
-      while(i < msg.length && i != -1) {
-        const quoted = msg[i] == "\"";
-
-        let idx: number;
-        if (quoted) {
-          i++;
-          idx = regexIndexOf(msg, /"/, i);
-        } else {
-          idx = regexIndexOf(msg, /\s/, i);
-        }
-
-        if (idx == -1) {
-          args.push(msg.slice(i));
-          // printDebug(i, msg.slice(i), 'end');
-          offsets.push(i);
-          break;
-        } else {
-          args.push(msg.slice(i, idx));
-          // printDebug(i, msg.slice(i, idx), idx);
-          offsets.push(i);
-          i = regexIndexOf(msg, /[^\s]/, idx + (quoted ? 1:0));
-          // printDebug('new i:', i);
-        }
-      }
-
-      for (const element of Command.getAllRegistation()) {
-        if(!(element.name == command || element.aliases?.includes(command))) continue;
-
-        /**
-      * Registration callback
-      */
-        try {
-          if (element.permission && !this.player.hasPermission(data.sender, element.permission)) {
-            throw RawText.translate("commands.generic.wedit:noPermission");
-          }
-          element.callback(data, Command.parseArgs(command, args));
-        } catch(e) {
-          if(e.isSyntaxError) {
-            contentLog.error(e.stack);
-            if(e.idx == -1 || e.idx >= args.length) {
-              RawText.translate("commands.generic.syntax")
-                .with(msg)
-                .with("")
-                .with("")
-                .printError(data.sender);
-            } else {
-              let start = offsets[e.idx];
-              if(e.start) start += e.start;
-              let end = start + args[e.idx].length;
-              if(e.end) end = start + e.end;
-              RawText.translate("commands.generic.syntax")
-                .with(msg.slice(0, start))
-                .with(msg.slice(start, end))
-                .with(msg.slice(end))
-                .printError(data.sender);
-            }
-          } else {
-            if (e instanceof RawText) {
-              e.printError(data.sender);
-            } else {
-              RawText.text(e).printError(data.sender);
-              if (e.stack) {
-                RawText.text(e.stack).printError(data.sender);
-              }
-            }
-          }
-        }
-        /**
-      * Emit to 'customCommand' event listener
-      */
-        this.emit("customCommand", {
-          registration: element,
-          data,
-          createdAt: date,
-          createdTimestamp: date.getTime()
-        });
-        break;
+      if(!msg.startsWith(this.command.prefix)) return;
+      data.cancel = true;
+      const command = msg.split(/\s+/)[0].slice(this.command.prefix.length);
+      if (this.command.callCommand(data.sender, command, msg.substring(msg.indexOf(command) + command.length).trim()) == undefined) {
+        data.cancel = false;
       }
     });
     /**

@@ -44,6 +44,17 @@ const registerInformation = {
       subName: "farwand",
       permission: "worldedit.farwand",
       description: "commands.wedit:tool.description.farwand"
+    },
+    {
+      subName: "cmd",
+      permission: "worldedit.tool.cmd",
+      description: "commands.wedit:tool.description.cmd",
+      args: [
+        {
+          name: "command",
+          type: "string"
+        }
+      ]
     }
   ]
 };
@@ -56,29 +67,34 @@ function heldItemName(player: Player) {
   return name.replace("minecraft:", "");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const stack_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-  assertPermission(builder, registerInformation.usage[0].permission);
+const stack_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+  assertPermission(builder, registerInformation.usage[1].permission);
   session.bindTool("stacker_wand", null, args.get("range"), args.get("mask"));
   return RawText.translate("commands.wedit:tool.bind.stacker").with(heldItemName(builder));
 };
 
 const selwand_command = (session: PlayerSession, builder: Player) => {
-  assertPermission(builder, registerInformation.usage[0].permission);
+  assertPermission(builder, registerInformation.usage[2].permission);
   session.bindTool("selection_wand", null);
   return RawText.translate("commands.wedit:tool.bind.selwand").with(heldItemName(builder));
 };
 
 const navwand_command = (session: PlayerSession, builder: Player) => {
-  assertPermission(builder, registerInformation.usage[0].permission);
+  assertPermission(builder, registerInformation.usage[3].permission);
   session.bindTool("navigation_wand", null);
   return RawText.translate("commands.wedit:tool.bind.navwand").with(heldItemName(builder));
 };
 
 const farwand_command = (session: PlayerSession, builder: Player) => {
-  assertPermission(builder, registerInformation.usage[0].permission);
+  assertPermission(builder, registerInformation.usage[4].permission);
   session.bindTool("far_selection_wand", null);
   return RawText.translate("commands.wedit:tool.bind.farwand").with(heldItemName(builder));
+};
+
+const cmd_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+  assertPermission(builder, registerInformation.usage[5].permission);
+  session.bindTool("command_wand", null, args.get("command"));
+  return RawText.translate("commands.wedit:tool.bind.stacker").with(heldItemName(builder));
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -91,6 +107,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     msg = navwand_command(session, builder);
   } else if (args.has("farwand")) {
     msg = farwand_command(session, builder);
+  } else if (args.has("cmd")) {
+    msg = cmd_command(session, builder, args);
   } else {
     session.unbindTool(null);
     return "commands.wedit:tool.unbind";
