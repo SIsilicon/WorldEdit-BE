@@ -143,7 +143,7 @@ class PlayerHandler {
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;
     const inv_stash = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
     for (let i = 0; i < 9; i++) {
-      inv.transferItem(i, i, inv_stash);
+      inv.transferItem(i, inv_stash);
     }
     return false;
   }
@@ -170,9 +170,9 @@ class PlayerHandler {
         if (inv.getItem(i) && inv_stash.getItem(i)) {
           inv.swapItems(i, i, inv_stash);
         } else if (inv.getItem(i)) {
-          inv.transferItem(i, i, inv_stash);
+          inv.transferItem(i, inv_stash);
         } else {
-          inv_stash.transferItem(i, i, inv);
+          inv_stash.transferItem(i, inv);
         }
       }
       Server.runCommand(`tp @e[name="${stasherName}"] ~ ~ ~`, player);

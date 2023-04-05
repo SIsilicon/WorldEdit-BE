@@ -52,11 +52,11 @@ with open('mc_manifest.json', 'r') as file:
     manifest = json.load(file)
     processJsonElement(manifest, bp_manifest, rp_manifest)
 
-if not 'dependencies' in rp_manifest:
-    rp_manifest['dependencies'] = []
-rp_manifest['dependencies'].append({
-    'uuid': bp_manifest['header']['uuid'],
-    'version': bp_manifest['header']['version']
+if not 'dependencies' in bp_manifest:
+    bp_manifest['dependencies'] = []
+bp_manifest['dependencies'].append({
+    'uuid': rp_manifest['header']['uuid'],
+    'version': rp_manifest['header']['version']
 })
 
 bp_manifest['header']['version'] = manifest['header']['version'][:3]

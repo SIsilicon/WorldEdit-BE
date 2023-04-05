@@ -28,12 +28,7 @@ class ToolBuilder {
       if (ev.source.typeId != "minecraft:player" || !ev.item) {
         return;
       }
-      // TODO: Fixed in 1.19.80
-      this.onItemUse(ev.item, ev.source as Player, ev, Vector.from(ev.source.getBlockFromViewDirection({
-        includePassableBlocks: true,
-        includeLiquidBlocks: false,
-        maxDistance: 10
-      })?.location));
+      this.onItemUse(ev.item, ev.source as Player, ev, Vector.from(ev.getBlockLocation()));
     });
 
     Server.on("tick", ev => {
