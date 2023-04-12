@@ -13,7 +13,9 @@
             "minecraft:max_stack_size": 1,
             "minecraft:liquid_clipped": true,
             "minecraft:on_use": {
-                "on_use": "empty"
+                "on_use": {
+                    "event": "empty"
+                }
             }
         }
     }
