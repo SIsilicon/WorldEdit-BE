@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-02-21 09:03\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -142,6 +142,9 @@ msgstr "案内用の杖"
 msgid "worldedit.config.tool.stacker"
 msgstr "スタッカーツール"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "球体ブラシ"
 
@@ -204,6 +207,12 @@ msgstr "高さマスク"
 
 msgid "worldedit.config.usePicker"
 msgstr "ブロック選択を使用する"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
@@ -792,6 +801,9 @@ msgstr "案内ツール"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "スタッカーツールをブロックする"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"
