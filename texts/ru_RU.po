@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-03-12 06:55\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -142,6 +142,9 @@ msgstr "Топорик навигации"
 msgid "worldedit.config.tool.stacker"
 msgstr "Инструмент \"Маркер\""
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Сферовая кисть"
 
@@ -204,6 +207,12 @@ msgstr "Высота маски"
 
 msgid "worldedit.config.usePicker"
 msgstr "Используйте средство выбора блоков"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
@@ -792,6 +801,9 @@ msgstr "Навигационный инструмент"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Стакер блоков"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Отменить привязку инструмента"
