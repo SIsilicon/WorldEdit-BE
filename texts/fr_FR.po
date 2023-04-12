@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -142,6 +142,9 @@ msgstr "Outil de navigation"
 msgid "worldedit.config.tool.stacker"
 msgstr "Outil d'empilage"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Brosse sphérique"
 
@@ -204,6 +207,12 @@ msgstr "Masque de hauteur"
 
 msgid "worldedit.config.usePicker"
 msgstr "Utiliser le sélecteur de blocs"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La première sélection n'a pas encore été faite."
@@ -401,10 +410,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Select your current, or specified chunk."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Chunks selected: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Chunk selected: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Effacer le presse-papiers"
@@ -792,6 +801,9 @@ msgstr "Outil de navigation"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"
