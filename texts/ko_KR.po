@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-02-09 05:54\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -80,7 +80,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit BE 설정"
+msgstr "WorldEdit 설정"
 
 msgid "worldedit.config.brushes"
 msgstr "브러시"
@@ -141,6 +141,9 @@ msgstr "순간이동 도구"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "늘리기 도구"
+
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "구 브러시"
@@ -204,6 +207,12 @@ msgstr "높이 마스크"
 
 msgid "worldedit.config.usePicker"
 msgstr "블록 선택 도구 사용하기"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
@@ -792,6 +801,9 @@ msgstr "네비게이션 도구"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "블럭 쌓기 도구"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"
