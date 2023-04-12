@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-03-11 13:44\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -142,6 +142,9 @@ msgstr "導航棒"
 msgid "worldedit.config.tool.stacker"
 msgstr "堆疊工具"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "球體畫筆"
 
@@ -204,6 +207,12 @@ msgstr "高度遮罩"
 
 msgid "worldedit.config.usePicker"
 msgstr "使用方塊選擇器"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "第一個位置還沒設置。"
@@ -792,6 +801,9 @@ msgstr "導航工具"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "方塊堆疊工具"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "放開握著的工具"
