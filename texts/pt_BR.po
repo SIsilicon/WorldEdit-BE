@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-03-27 02:13\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Varinha de navegação"
 msgid "worldedit.config.tool.stacker"
 msgstr "Ferramenta de stackar"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Pincel esférico"
 
@@ -204,6 +207,12 @@ msgstr "Altura da máscara"
 
 msgid "worldedit.config.usePicker"
 msgstr "Usar escolhedor de blocos"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "A primeira seleção ainda não foi feita."
@@ -794,6 +803,9 @@ msgstr "Ferramenta de navegação"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Ferramenta de empilhar blocos"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Desvincular ferramenta segurada"
