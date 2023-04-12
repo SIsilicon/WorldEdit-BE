@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Navigations-Stab"
 msgid "worldedit.config.tool.stacker"
 msgstr "Stapelwerkzeug"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Kugel Pinsel"
 
@@ -204,6 +207,12 @@ msgstr "Höhen-Maske"
 
 msgid "worldedit.config.usePicker"
 msgstr "Blockauswahl verwenden"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Erste Auswahl wurde noch nicht getroffen."
@@ -792,6 +801,9 @@ msgstr "Navigationswerkzeug"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Blockstapelwerkzeug"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Gehaltenes Wekzeug entfernen"
