@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Navigation Wand"
 msgid "worldedit.config.tool.stacker"
 msgstr "Stacker Tool"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Sphere Brush"
 
@@ -204,6 +207,12 @@ msgstr "Height Mask"
 
 msgid "worldedit.config.usePicker"
 msgstr "Use Block Picker"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
@@ -792,6 +801,9 @@ msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"
