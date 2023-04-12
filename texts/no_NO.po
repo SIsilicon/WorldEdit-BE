@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-04-12 03:30\n"
+"PO-Revision-Date: 2023-04-12 22:55\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -143,7 +143,7 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Stable-verktøy"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Kommandoverktøy"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Kulepensel"
@@ -209,10 +209,10 @@ msgid "worldedit.config.usePicker"
 msgstr "Bruk blokkvelger"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Kommando"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "Is WorldEdit Command"
+msgstr "Er WorldEdit-kommando"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
@@ -398,22 +398,22 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Drepte %s enheter."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Evaluer et matematisk uttrykk."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' kunne ikke analyseres som et gyldig uttrykk."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Angri midt-blokk(ene)."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Velg din gjeldene, eller spesifert del."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "Deler valgt: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "Del valgt: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Tøm utklippstavlen"
@@ -803,7 +803,7 @@ msgid "commands.wedit:tool.description.stacker"
 msgstr "Blokkstablingsverktøy"
 
 msgid "commands.wedit:tool.description.cmd"
-msgstr "Command exeution tool; both vanilla and worldedit"
+msgstr "Kommando bruksverktøy; både vanilla og worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"
