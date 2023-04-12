@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Varita de Navegación"
 msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Apiladora"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Brocha de Esfera"
 
@@ -204,6 +207,12 @@ msgstr "Height Mask"
 
 msgid "worldedit.config.usePicker"
 msgstr "Use Block Picker"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Primera selección no ha sido todavía hecha."
@@ -792,6 +801,9 @@ msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"
