@@ -29,7 +29,9 @@ class CommandTool extends Tool {
       Server.command.callCommand(player, self.command.substring(0, firstSpace).trim(), self.command.substring(firstSpace).trim());
       session.usingItem = usingItem;
     } else {
-      Server.runCommand(self.command, player);
+      if (player.isOp()) {
+        Server.runCommand(self.command, player);
+      }
     }
   };
 }
