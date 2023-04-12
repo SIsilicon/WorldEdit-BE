@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-04-12 13:07\n"
+"PO-Revision-Date: 2023-04-12 14:07\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -212,7 +212,7 @@ msgid "worldedit.config.command"
 msgstr "命令"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "是否为WorldEdit命令"
+msgstr "是否为创世神命令"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
@@ -803,7 +803,7 @@ msgid "commands.wedit:tool.description.stacker"
 msgstr "方块堆叠工具"
 
 msgid "commands.wedit:tool.description.cmd"
-msgstr "Command exeution tool; both vanilla and worldedit"
+msgstr "命令处理工具；适用于原版和创世神插件"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"
