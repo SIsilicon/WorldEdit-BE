@@ -248,6 +248,29 @@ Server.uiForms.register<ConfigContext>("$editTool_stacker_wand", {
 });
 toolsWithProperties.push("stacker_wand");
 
+Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
+  title: editToolTitle,
+  inputs: {
+    $command: {
+      type: "textField",
+      name: "%worldedit.config.command",
+      placeholder: "Enter here (without ; or /)",
+      default: (ctx, player) => ctx.getData("creatingTool") ? "" : getToolProperty(ctx, player, "command") as string
+    },
+    $worldeditCmd: {
+      type: "toggle",
+      name: "%worldedit.config.command.isWorldEdit",
+      default: (ctx, player) => ctx.getData("creatingTool") ? false : getToolProperty(ctx, player, "isCustom") as boolean
+    }
+  },
+  submit: (ctx, _, input) => {
+    ctx.setData("toolData", [(input.$worldEditCmd ? config.commandPrefix : "/") + input.$command as string]);
+    finishToolEdit(ctx);
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+toolsWithProperties.push("command_wand");
+
 Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
   title: editToolTitle,
   inputs: {
@@ -413,6 +436,14 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
         ctx.setData("creatingTool", "stacker_wand");
         ctx.goto("$editTool_stacker_wand");
       }
+    },
+    {
+      text: "%worldedit.config.tool.cmd",
+      icon: "textures/ui/command_wand",
+      action: ctx => {
+        ctx.setData("creatingTool", "command_wand");
+        ctx.goto("$editTool_command_wand");
+      }
     }
   ],
   cancel: ctx => ctx.returnto("$tools")
@@ -469,6 +500,8 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
         session.bindTool("selection_wand", item);
       } else if (toolType == "stacker_wand") {
         session.bindTool("stacker_wand", item, ...toolData);
+      } else if (toolType == "command_wand") {
+        session.bindTool("command_wand", item, ...toolData);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);
         Tools.setProperty(...item, player, "range", toolData[2]);

@@ -13,7 +13,12 @@
             "minecraft:display_name": {
                 "value": "gui.back"
             },
-            "minecraft:max_stack_size": 1
+            "minecraft:max_stack_size": 1,
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "empty"
+                }
+            }
         }
     }
 }
