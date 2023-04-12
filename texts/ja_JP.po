@@ -1,0 +1,948 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
+"X-Crowdin-File-ID: 9\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Japanese\n"
+"Language: ja_JP\n"
+"PO-Revision-Date: 2023-01-20 19:32\n"
+
+msgid "pack.description"
+msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit のスクリプトが停止しました! §r/reload§c でリセットしてください (他のスクリプトもリセットされます)。§r"
+
+msgid "item.wedit:copy_button"
+msgstr "コピー"
+
+msgid "item.wedit:cut_button"
+msgstr "カット"
+
+msgid "item.wedit:paste_button"
+msgstr "ペースト"
+
+msgid "item.wedit:undo_button"
+msgstr "元に戻す"
+
+msgid "item.wedit:redo_button"
+msgstr "やり直す"
+
+msgid "item.wedit:rotate_cw_button"
+msgstr "時計回りに回転"
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr "反時計回りに回転"
+
+msgid "item.wedit:flip_button"
+msgstr "反転"
+
+msgid "item.wedit:pattern_picker"
+msgstr "パターンピッカー"
+
+msgid "item.wedit:mask_picker"
+msgstr "マスクピッカー"
+
+msgid "item.wedit:spawn_glass"
+msgstr "ガラスブロックを生成"
+
+msgid "item.wedit:selection_fill"
+msgstr "範囲フィル"
+
+msgid "item.wedit:selection_wall"
+msgstr "壁の選択"
+
+msgid "item.wedit:selection_outline"
+msgstr "範囲の輪郭線を生成"
+
+msgid "item.wedit:draw_line"
+msgstr "線を引く"
+
+msgid "worldEdit.selectionFill.noPattern"
+msgstr "選択範囲を設定するにはブロックを指定してください！"
+
+msgid "worldedit.patternPicker.add"
+msgstr "ブロックをパターンに追加: "
+
+msgid "worldedit.patternPicker.set"
+msgstr "パターンをブロックに設定: "
+
+msgid "worldedit.maskPicker.add"
+msgstr "ブロックをマスクに追加: "
+
+msgid "worldedit.maskPicker.set"
+msgstr "マスクをブロックに設定: "
+
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit の設定"
+
+msgid "worldedit.config.brushes"
+msgstr "ブラシ"
+
+msgid "worldedit.config.tools"
+msgstr "ツール"
+
+msgid "worldedit.config.general"
+msgstr "一般"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "クリップボードにエンティティを含める"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "クリップボードに空気を含める"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "パフォーマンス優先モード"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "輪郭を描写"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "選択モード"
+
+msgid "worldedit.config.newTool"
+msgstr "新規ツールを作成"
+
+msgid "worldedit.config.newBrush"
+msgstr "新規ブラシを作成"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "立方体"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "拡張"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "球体"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "円柱"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "ツール設定なし"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "このツールには変更できる設定がありません。"
+
+msgid "worldedit.config.tool.selection"
+msgstr "選択用の杖"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "遠距離選択用の杖"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "案内用の杖"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "スタッカーツール"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "球体ブラシ"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "円柱ブラシ"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "スムーズブラシ"
+
+msgid "worldedit.config.chooseItem"
+msgstr "紐づけるアイテムを持ってください。"
+
+msgid "worldedit.config.choose.brush"
+msgstr "作るブラシの種類を選択してください。"
+
+msgid "worldedit.config.choose.tool"
+msgstr "作るアイテムの種類を選択してください。"
+
+msgid "worldedit.config.patternMask.brush"
+msgstr "ブラシのパターンと任意でマスクを作成してください。"
+
+msgid "worldedit.config.mask.tool"
+msgstr "ツールのマスクを任意で作成してください。"
+
+msgid "worldedit.config.mask.brush"
+msgstr "ブラシのマスクを任意で作成してください。"
+
+msgid "worldedit.config.confirm"
+msgstr "これでよろしいですか？"
+
+msgid "worldedit.config.confirm.create"
+msgstr "この設定でよろしいですか？"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "本当に紐づけを解除しますか？"
+
+msgid "worldedit.config.radius"
+msgstr "サイズ"
+
+msgid "worldedit.config.height"
+msgstr "高さ"
+
+msgid "worldedit.config.smooth"
+msgstr "滑らかさ"
+
+msgid "worldedit.config.range"
+msgstr "範囲"
+
+msgid "worldedit.config.pattern"
+msgstr "パターン"
+
+msgid "worldedit.config.mask"
+msgstr "マスク"
+
+msgid "worldedit.config.hollow"
+msgstr "空洞"
+
+msgid "worldedit.config.mask.height"
+msgstr "高さマスク"
+
+msgid "worldedit.config.usePicker"
+msgstr "ブロック選択を使用する"
+
+msgid "worldedit.selection.noPrimary"
+msgstr "最初の選択がまだ行われていません。"
+
+msgid "worldedit.selection.cuboid.primary"
+msgstr "最初の位置を %s に設定しました。"
+
+msgid "worldedit.selection.cuboid.primaryArea"
+msgstr "最初の位置を %1 (%2) に設定しました。"
+
+msgid "worldedit.selection.cuboid.secondary"
+msgstr "2番目の位置を %s に設定しました。"
+
+msgid "worldedit.selection.cuboid.secondaryArea"
+msgstr "2番目の位置を %1 (%2) に設定しました。"
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "%s から新しい円柱の選択を開始します。"
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "半径を %1/%2 ブロック (~%3) に設定しました。"
+
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "%1 (%2) で選択を開始しました。"
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "%1 (%2) を含む範囲を拡張しました。"
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "半径を %1 に設定しました。"
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "半径を %1 (~%2) に設定しました。"
+
+msgid "worldedit.tool.noItem"
+msgstr "アイテムをメインハンドに持ってください。"
+
+msgid "worldedit.tool.cantBind"
+msgstr "この種類のアイテムを紐づけることはできません。"
+
+msgid "worldedit.tool.noBind"
+msgstr "このアイテムはどのツールにも紐付けられていません。"
+
+msgid "worldedit.tool.noPerm"
+msgstr "このアイテムを使用する権限がありません。"
+
+msgid "worldedit.tool.fixedBind"
+msgstr "このアイテムのツールは削除または置き換えできません。"
+
+msgid "worldedit.permission.granted"
+msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び方 → クイックスタート) にガイドがあります。§r"
+
+msgid "worldedit.permission.revoked"
+msgstr "§eWorldEdit の権限が削除されました。§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "履歴ポイントの保存に失敗しました！"
+
+msgid "worldedit.error.loadHistory"
+msgstr "履歴ポイントの読み込みに失敗しました！"
+
+msgid "worldedit.error.stillRecording"
+msgstr "履歴はまだ記録中です！"
+
+msgid "commands.blocks.wedit:changed"
+msgstr "%s 個のブロックが変更されました。"
+
+msgid "commands.blocks.wedit:created"
+msgstr "%s 個のブロックが作成されました。"
+
+msgid "commands.generic.wedit:commandFail"
+msgstr "このコマンドは実行できませんでした。"
+
+msgid "commands.generic.wedit:noSelection"
+msgstr "先に選択してください。"
+
+msgid "commands.generic.wedit:invalidDir"
+msgstr "'%s' は不正な方向引数です！"
+
+msgid "commands.generic.wedit:invalidFlag"
+msgstr "予期しないフラグ: %s"
+
+msgid "commands.generic.wedit:noClipboard"
+msgstr "クリップボードは空です。最初に範囲をコピーまたはカットしてください。"
+
+msgid "commands.generic.wedit:noCuboidSelection"
+msgstr "先に立方体を選択してください。"
+
+msgid "commands.generic.wedit:noPermission"
+msgstr "このコマンドを実行する権限がありません。"
+
+msgid "commands.generic.wedit:outsideWorld"
+msgstr "読み込まれていないチャンクは変更できません！"
+
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "§eヒント: 遠いチャンクを読み込むには、シミュレーション距離を上げるか、変更したい箇所にティック領域を設定してください。§r"
+
+msgid "commands.generic.wedit:tooBig"
+msgstr "数 (%1) は大きすぎます! 最大 (%2) でなければなりません。"
+
+msgid "commands.generic.wedit:tooSmall"
+msgstr "数 (%1) は小さすぎます! 最小 (%2) でなければなりません。"
+
+msgid "commands.generic.wedit:blockLimit"
+msgstr "ブロックが多すぎます！"
+
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7アイテムを持ちながら §e%s§7 を実行して紐づけを解除します。§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "見ているバイオーム: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "選択範囲のバイオームを取得する"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "現在地のバイオーム: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "選択したバイオーム: %s"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "球体のブラシをセットしました (%s) 。"
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "円柱のブラシをセットしました (%1 x %2) 。"
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
+
+msgid "commands.wedit:brush.description"
+msgstr "持つブラシの種類を設定する"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "手持ちのブラシの紐づけを解除する"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "球体ブラシを生成する"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "円柱ブラシを生成する"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "地形をなだらかにするスムーズブラシを生成する"
+
+msgid "commands.wedit:brush.mask.set"
+msgstr "ブラシのマスクを設定しました。"
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "ブラシのマスクを無効にしました。"
+
+msgid "commands.wedit:brush.material.set"
+msgstr "ブラシの素材を設定しました。"
+
+msgid "commands.wedit:brush.range.set"
+msgstr "ブラシ範囲を設定しました。"
+
+msgid "commands.wedit:brush.size.set"
+msgstr "ブラシサイズを設定しました。"
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "トレースマスクを設定しました。"
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "トレースマスクを無効にしました。"
+
+msgid "commands.wedit:brush.tooLarge"
+msgstr "ブラシの最大半径: %s"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "このブラシには材料が必要ありません。"
+
+msgid "commands.wedit:brush.unbind"
+msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
+
+msgid "commands.wedit:butcher.description"
+msgstr "近くのエンティティをキルする。"
+
+msgid "commands.wedit:butcher.explain"
+msgstr "%s 体のエンティティをキルしました。"
+
+msgid "commands.wedit:calc.description"
+msgstr "数式を評価する"
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' は有効な式として解析できませんでした。"
+
+msgid "commands.wedit:center.description"
+msgstr "中央のブロックを設定する"
+
+msgid "commands.wedit:chunk.description"
+msgstr "現在の、または指定されたチャンクを選択する"
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "チャンクを選択しました: (%1, %2, %3) - (%4, %5, %6)"
+
+msgid "commands.wedit:chunk.selected"
+msgstr "チャンクを選択しました: (%1, %2, %3)"
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "クリップボードを消去する"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "クリップボードを消去しました。"
+
+msgid "commands.wedit:clearhistory.description"
+msgstr "編集履歴を消去する"
+
+msgid "commands.wedit:clearhistory.explain"
+msgstr "履歴を消去しました。"
+
+msgid "commands.wedit:contract.description"
+msgstr "選択範囲を縮小する"
+
+msgid "commands.wedit:contract.explain"
+msgstr "範囲が %s ブロックに収縮しました。"
+
+msgid "commands.wedit:copy.description"
+msgstr "現在の選択範囲をクリップボードにコピーする"
+
+msgid "commands.wedit:copy.explain"
+msgstr "%s 個のブロックをコピーしました。"
+
+msgid "commands.wedit:count.description"
+msgstr "マスクに一致するブロックの数を数える"
+
+msgid "commands.wedit:count.explain"
+msgstr "%s 個のブロックが見つかりました。"
+
+msgid "commands.wedit:cut.description"
+msgstr "現在の選択範囲を削除してクリップボードにコピーする"
+
+msgid "commands.wedit:cut.explain"
+msgstr "%s 個のブロックをカットしました。"
+
+msgid "commands.wedit:cyl.description"
+msgstr "円柱を生成する"
+
+msgid "commands.wedit:distr.description"
+msgstr "選択範囲内にブロックが何種類あるか計算する"
+
+msgid "commands.wedit:drain.description"
+msgstr "近くの液体ブロックを消滅させる"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "水か溶岩の近くで実行してください。"
+
+msgid "commands.wedit:drawsel.description"
+msgstr "選択範囲の表示を切り替える"
+
+msgid "commands.wedit:drawsel.disabled"
+msgstr "選択範囲は表示されません。"
+
+msgid "commands.wedit:drawsel.enabled"
+msgstr "選択範囲が表示されます。"
+
+msgid "commands.wedit:expand.description"
+msgstr "選択範囲を拡張する"
+
+msgid "commands.wedit:expand.description.vert"
+msgstr "選択範囲を高度限界まで垂直方向に広げる"
+
+msgid "commands.wedit:expand.explain"
+msgstr "範囲が %s ブロックに拡大しました。"
+
+msgid "commands.wedit:export.description"
+msgstr "選択範囲をエクスポートして、別の用途に使えるようにする"
+
+msgid "commands.wedit:export.explain"
+msgstr "%s をエクスポートしました。"
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§e注意: エクスポートした構造物を他のワールドで使用するには、外部用に抽出できる WorldEdit アプリが必要です。§r"
+
+msgid "commands.wedit:extinguish.description"
+msgstr "近くの火を消す"
+
+msgid "commands.wedit:faces.description"
+msgstr "選択範囲の輪郭線を生成する"
+
+msgid "commands.wedit:fill.description"
+msgstr "特定のブロックで範囲を埋める"
+
+msgid "commands.wedit:fillr.description"
+msgstr "特定のブロックで範囲を反復的に埋める"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "近くの溶岩流ブロックを溶岩源ブロックにする"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "溶岩の近くで実行してください。"
+
+msgid "commands.wedit:fixwater.description"
+msgstr "近くの水流ブロックを水源ブロックにする"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "水の近くで実行してください。"
+
+msgid "commands.wedit:flip.description"
+msgstr "選択範囲を反転する"
+
+msgid "commands.wedit:flip.explain"
+msgstr "%s 個のブロックを反転しました。"
+
+msgid "commands.wedit:flip.notLateral"
+msgstr "上下の反転はできません！"
+
+msgid "commands.wedit:gen.description"
+msgstr "範囲内に任意の種類の図形を生成する"
+
+msgid "commands.wedit:gmask.description"
+msgstr "共通マスクを設定する"
+
+msgid "commands.wedit:gmask.disabled"
+msgstr "共通マスクを無効にしました。"
+
+msgid "commands.wedit:gmask.set"
+msgstr "共通マスクを設定しました。"
+
+msgid "commands.wedit:green.description"
+msgstr "近くの土ブロックを草ブロックに変える"
+
+msgid "commands.wedit:hcyl.description"
+msgstr "空洞の円柱を生成する"
+
+msgid "commands.wedit:help.header"
+msgstr "--- ヘルプ ページの %1 ／ %2 ページを表示 (;help <ページ番号>) ---"
+
+msgid "commands.wedit:hpos1.description"
+msgstr "1つ目の選択地点を向いているブロックの位置に設定する"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "2つ目の選択地点を向いているブロックの位置に設定する"
+
+msgid "commands.wedit:hpyramid.description"
+msgstr "空洞のピラミッドを生成する"
+
+msgid "commands.wedit:hsphere.description"
+msgstr "空洞の球体を生成する"
+
+msgid "commands.wedit:inset.description"
+msgstr "選択範囲を挿入する"
+
+msgid "commands.wedit:import.description"
+msgstr "クリップボードに構造物をインポートする"
+
+msgid "commands.wedit:import.explain"
+msgstr "%s をインポートし、クリップボードにコピーしました。"
+
+msgid "commands.wedit:jumpto.description"
+msgstr "見ているブロックの上にテレポートする"
+
+msgid "commands.wedit:inset.explain"
+msgstr "範囲を挿入しました。"
+
+msgid "commands.wedit:jumpto.explain"
+msgstr "Poof!"
+
+msgid "commands.wedit:jumpto.none"
+msgstr "視界にブロックがありません (または遠すぎます)！"
+
+msgid "commands.wedit:kit.description"
+msgstr "自身に WorldEdit 機能を使うのに必要な各種アイテムを与える"
+
+msgid "commands.wedit:kit.explain"
+msgstr "アイテムを付与しました。"
+
+msgid "commands.wedit:line.description"
+msgstr "最初と2番目のポイントの間に線を生成する"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "このコマンドは直方体の選択でのみ動作します"
+
+msgid "commands.wedit:limit.description"
+msgstr "1操作ごとに変更できるブロックの数を設定する"
+
+msgid "commands.wedit:limit.set"
+msgstr "ブロックの変更上限を %s に設定しました。"
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "設定できる上限は %s までです。"
+
+msgid "commands.wedit:mask.description"
+msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
+
+msgid "commands.wedit:material.description"
+msgstr "ブラシのブロックの種類を設定する"
+
+msgid "commands.wedit:move.description"
+msgstr "選択範囲を特定の方向に移動する"
+
+msgid "commands.wedit:move.explain"
+msgstr "%s 個のブロックを移動しました。"
+
+msgid "commands.wedit:navwand.description"
+msgstr "自身に案内用の杖を付与する"
+
+msgid "commands.wedit:navwand.explain"
+msgstr "スニークしながらアイテムを使うと壁を通過します。スニークせずに使うとロケーションまで移動します。"
+
+msgid "commands.wedit:outset.description"
+msgstr "選択範囲を初期化する"
+
+msgid "commands.wedit:outset.explain"
+msgstr "範囲を初期化しました。"
+
+msgid "commands.wedit:paste.description"
+msgstr "クリップボードをワールドに貼り付ける"
+
+msgid "commands.wedit:paste.explain"
+msgstr "%s 個のブロックをペーストしました。"
+
+msgid "commands.wedit:paste.noOriginal"
+msgstr "元の位置にクリップボードを貼り付けることはできません。"
+
+msgid "commands.wedit:pos1.description"
+msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
+
+msgid "commands.wedit:pos2.description"
+msgstr "選択範囲の2番目の位置を、指定または現在の位置に設定する"
+
+msgid "commands.wedit:pyramid.description"
+msgstr "ピラミッドを生成する"
+
+msgid "commands.wedit:range.description"
+msgstr "ブラシの使用できる距離を設定する"
+
+msgid "commands.wedit:redo.description"
+msgstr "一定回数の操作をやり直す"
+
+msgid "commands.wedit:redo.explain"
+msgstr "%s 回の編集をやり直しました。"
+
+msgid "commands.wedit:redo.none"
+msgstr "やり直す必要はありません。"
+
+msgid "commands.wedit:replace.description"
+msgstr "選択範囲内の特定のブロックを他のブロックに置き換える"
+
+msgid "commands.wedit:removeabove.description"
+msgstr "自身の上にあるブロックを削除する"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "自身の下にあるブロックを削除する"
+
+msgid "commands.wedit:removenear.description"
+msgstr "近くのブロックを削除する"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "近くのブロックを他のブロックに置き換える"
+
+msgid "commands.wedit:rotate.description"
+msgstr "選択範囲を回転する"
+
+msgid "commands.wedit:rotate.explain"
+msgstr "%s 個のブロックを回転しました。"
+
+msgid "commands.wedit:rotate.notNinety"
+msgstr "'%s' は90°の倍数ではありません！"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "Y軸のみ回転できます!"
+
+msgid "commands.wedit:sel.clear"
+msgstr "選択を消去しました。"
+
+msgid "commands.wedit:sel.cuboid"
+msgstr "直方体: スニークしながらタップして地点1、スニークせずにタップして地点2を作成する"
+
+msgid "commands.wedit:sel.cyl"
+msgstr "円柱の選択: スニーク中にタップして中心を決め、スニークせずにタップして半径と高さを設定します"
+
+msgid "commands.wedit:sel.description"
+msgstr "選択モードを変更する"
+
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "直方体の2つの角を設定する"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "円柱を選択する"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "高速な直方体の選択モード"
+
+msgid "commands.wedit:sel.description.sphere"
+msgstr "球体を選択する"
+
+msgid "commands.wedit:sel.extend"
+msgstr "拡張: スニークしながらタップしてスタート地点を設定し、スニークせずにタップして拡張する"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "球体の選択: スニーク中にタップして中心を決め、スニークせずにタップして半径を設定します"
+
+msgid "commands.wedit:set.description"
+msgstr "選択範囲をブロックパターンで塗りつぶす"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "約 %s ブロックのバイオームが変更されました。"
+
+msgid "commands.wedit:setbiome.description"
+msgstr "選択範囲のバイオームを変更する"
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§e注意: バイオームの変更を適用するには、WorldEdit アプリでワールドを処理してください。§r"
+
+msgid "commands.wedit:shift.description"
+msgstr "選択範囲をシフトする"
+
+msgid "commands.wedit:shift.explain"
+msgstr "範囲を移動しました。"
+
+msgid "commands.wedit:size.description"
+msgstr "ブラシのサイズを設定する"
+
+msgid "commands.wedit:snow.description"
+msgstr "領域内に降雪をシミュレートする"
+
+msgid "commands.wedit:thaw.description"
+msgstr "日光にさらされる雪と氷ブロックを消滅させる"
+
+msgid "commands.wedit:stack.description"
+msgstr "現在の選択範囲の内容を繰り返す"
+
+msgid "commands.wedit:stack.explain"
+msgstr "%s 個のブロックをスタックから生成しました。"
+
+msgid "commands.wedit:smooth.description"
+msgstr "選択範囲の表面を滑らかにする"
+
+msgid "commands.wedit:sphere.description"
+msgstr "球体を生成する"
+
+msgid "commands.wedit:thru.description"
+msgstr "見ている壁を通してテレポートする"
+
+msgid "commands.wedit:thru.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:thru.none"
+msgstr "通過する壁に面していません。"
+
+msgid "commands.wedit:thru.obstructed"
+msgstr "前方にスペースが見つかりませんでした。"
+
+msgid "commands.wedit:ascend.description"
+msgstr "1階分上に行く"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "上に空間を見つけられませんでした。"
+
+msgid "commands.wedit:descend.description"
+msgstr "1階分下に行く"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "下に空間を見つけられませんでした。"
+
+msgid "commands.wedit:tracemask.description"
+msgstr "ブラシを使用できるブロックの種類を設定する"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "選択用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "案内用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "遠距離選択用の杖を %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "スタッカーツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.description"
+msgstr "すべての種類のツールを入手する"
+
+msgid "commands.wedit:tool.description.farwand"
+msgstr "遠くまで届く選択用の杖"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "選択ツール"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "案内ツール"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "スタッカーツールをブロックする"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "保持しているツールの紐づけを解除する"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "ツールと現在のアイテムの紐づけを解除しました。"
+
+msgid "commands.wedit:unstuck.description"
+msgstr "ブロックの外に移動する"
+
+msgid "commands.wedit:unstuck.explain"
+msgstr "There you go!"
+
+msgid "commands.wedit:undo.description"
+msgstr "一定回数の操作を元に戻す"
+
+msgid "commands.wedit:undo.explain"
+msgstr "%s 回の編集を元に戻しました。"
+
+msgid "commands.wedit:undo.none"
+msgstr "元に戻す必要はありません。"
+
+msgid "commands.wedit:up.description"
+msgstr "一定数のブロックを上に移動する"
+
+msgid "commands.wedit:up.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "選択範囲から壁を生成する"
+
+msgid "commands.wedit:wand.description"
+msgstr "自身に選択用の杖を付与する"
+
+msgid "commands.wedit:wand.explain"
+msgstr "スニークしながらブロックをタップして最初の位置を選択します。スニークせずにブロックをタップして2番目の位置を選択します。"
+
+msgid "commands.wedit:worldedit.description"
+msgstr "WorldEdit のコマンド"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "現在のセッションのパフォーマンス優先モードを切り替える。"
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "パフォーマンス優先モードを有効にしました。"
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "パフォーマンス優先モードを無効にしました。"
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "WorldEdit のバージョンを取得する"
+
+msgid "commands.wedit:worldedit.version"
+msgstr "WorldEdit のバージョン: %s"
+
+msgid "howtoplay.category.worldEdit"
+msgstr "WorldEdit"
+
+msgid "howtoplay.wedit:quick_start"
+msgstr "クイックスタート"
+
+msgid "howtoplay.wedit:quick_start.title"
+msgstr "遊び方: WorldEdit をクイックスタート"
+
+msgid "howtoplay.wedit:license"
+msgstr "ライセンス"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "遊び方: WorldEdit ライセンス"
+
+msgid "howtoplay.wedit:quick_start.text.1"
+msgstr "ようこそ！これは Minecraft: Java Edition のオリジナル WorldEdit モッドの移植版です。このアドオンは、Minecraft のワールドを形作るのに役立ちます。"
+
+msgid "howtoplay.wedit:quick_start.header.1"
+msgstr "何よりも先に…、"
+
+msgid "howtoplay.wedit:quick_start.text.2"
+msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。WorldEdit の権限者としてタグ付けされたプレイヤーのみが使用できます。 自身に権限を与えるには、チャットで §e/tag @s add worldedit§r を入力してください。これですべてのWorldEdit コマンドにアクセスできます。"
+
+msgid "howtoplay.wedit:quick_start.text.3"
+msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーに権限を与えることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add worldedit§r"
+
+msgid "howtoplay.wedit:quick_start.header.2"
+msgstr "場所の移動"
+
+msgid "howtoplay.wedit:quick_start.text.4"
+msgstr "§l§a注意:§r§a このアドオンが提供するコマンドは、スラッシュ (/) の代わりにセミコロン (;) を使用します。 将来、Mojang は Minecraft に実際のカスタムコマンドを追加するかもしれません。§r"
+
+msgid "howtoplay.wedit:quick_start.text.5"
+msgstr "A地点からB地点へ行くことが面倒なこともあるでしょう。幸いにも、このアドオンには「案内用の杖」というものが付いています。 取得するには、コマンド §e;navwand§r を入力してください。 アイテムを手に入れたら、使うだけで見ている場所にテレポートされます。 壁や天井の反対側に行きたいなら、スニークしながら杖を使えば通り抜けられます！ ブロックに埋まってしまったら、杖を使えば解放されます！"
+
+msgid "howtoplay.wedit:quick_start.text.6"
+msgstr "§l§a豆知識:§r§a 案内用の杖を使用しない場合は、コマンド §e;jumpto§r§a 、 §e;thru§r§a 、 §e;unstuck§r§a でも同様にアクションを実行できます。§r"
+
+msgid "howtoplay.wedit:quick_start.header.3"
+msgstr "選択する"
+
+msgid "howtoplay.wedit:quick_start.text.7"
+msgstr "元祖の Mod と同様、選択用の杖というアイテムを使用してさまざまな操作で簡単にワールドの領域をマークできます。 取得するには、木の斧を持つか、 §e;wand§r コマンドを入力します。 WorldEdit の選択範囲のデフォルトは立方体です。 選択するには、この立方体の2つの角をマークする必要があります。 スニークしながら角のブロックに杖を使って最初の角をマークします。 スニーク§lせずに§rブロックに杖を使って 2 番目の角をマークします。正しく行われた場合は、選択範囲がハイライトされます。"
+
+msgid "howtoplay.wedit:quick_start.text.8"
+msgstr "空高くにある場合など角にマークするブロックが見つからない場合は、コマンド §e;pos1§r と §e;pos2§r を使って、それぞれ最初と 2 番目の角を立っている位置でマークすることもできます。 立っている§l下の§rブロックではありません。"
+
+msgid "howtoplay.wedit:quick_start.header.4"
+msgstr "選択したものを操作する"
+
+msgid "howtoplay.wedit:quick_start.text.9"
+msgstr "操作する範囲を控えめのサイズで選択したら、 §e;kit§r コマンドでアイテムを準備します。 では、 WorldEdit が提供する機能をいくつか試してみましょう。"
+
+msgid "howtoplay.wedit:quick_start.text.10"
+msgstr "§71. 石を設置し、パターンピッカーを石に向けて使って「範囲フィル」を選びます。石の立方体が生成されます。"
+
+msgid "howtoplay.wedit:quick_start.text.11"
+msgstr "§r2. 空中でパターンピッカーを使って (モバイル版は画面を長押し) 、もう一度「範囲フィル」を選べば石が削除されます。"
+
+msgid "howtoplay.wedit:quick_start.text.12"
+msgstr "§73. 砂岩とガラスを置き、砂岩に向けてパターンピッカーを使い、次にスニークしながらガラスに向けて使えばパターンに追加されます。「範囲フィル」を使用すれば、砂岩とガラスのパターンが生成されます。"
+
+msgid "howtoplay.wedit:quick_start.text.13"
+msgstr "§r4. マスクピッカーをインベントリから取り出し、砂岩に向けて使用します。 好きなブロックをパターンとして設定し、「範囲フィル」を使います。すべての砂岩が選んだブロックに置き換わります。"
+
+msgid "howtoplay.wedit:quick_start.text.14"
+msgstr "§75. コマンド §e;stack 4 up§r §7を入力して、選択内容を上へ繰り返します。"
+
+msgid "howtoplay.wedit:quick_start.text.15"
+msgstr "元に戻すアイテムを使えば、制限回数に達するまではどの操作も元に戻すことができます。"
+
+msgid "howtoplay.wedit:quick_start.header.5"
+msgstr "ブラシで遊ぶ"
+
+msgid "howtoplay.wedit:quick_start.text.16"
+msgstr "1. 任意のシャベルを取得し、丸石を設置します。 ブラシに必要な工程です。"
+
+msgid "howtoplay.wedit:quick_start.text.17"
+msgstr "§72. 「WorldEdit の設定」 アイテムを使用してください。「ブラシの設定」を含むメニューが表示されます。ブラシの設定を選択し、表示に従って新しいブラシを作成します。半径 3 の球体ブラシを丸石のパターンで作成してください。設定を確認し、メニューを終了します。"
+
+msgid "howtoplay.wedit:quick_start.text.18"
+msgstr "§r3. 離れた地面に向かってシャベル (ブラシになったもの) を使い、丸石の球体を設置します。"
+
+msgid "howtoplay.wedit:quick_start.text.19"
+msgstr "§74. ブラシのマスクを「草」にするには、再度ブラシの設定を操作します。ブラシを使って、丸石の道を作ってみてください。"
+
+msgid "howtoplay.wedit:quick_start.text.20"
+msgstr "§r5. メニューからブラシを削除して無効にします。"
+
+msgid "howtoplay.wedit:quick_start.header.7"
+msgstr "さて、どうする？"
+
+msgid "howtoplay.wedit:quick_start.text.23"
+msgstr "このアドオンの詳細については、こちらのオンラインドキュメント (英語) を参照してください: §ehttps://worldedit-be-docs.readthedocs.io§r"
+
+msgid "howtoplay.category.minecraft"
+msgstr "Minecraft"
+

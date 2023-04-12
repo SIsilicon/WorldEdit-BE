@@ -1,0 +1,267 @@
+{
+  "namespace": "how_to_play",
+  "selector_stack_panel/how_to_play_selector_pane": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": [
+          {
+            "padding_00": {
+              "type": "panel",
+              "size": [0, 6]
+            }
+          },
+          {
+            "worldedit_category@how_to_play_common.topic_category": {
+              "$category": "worldEdit"
+            }
+          },
+          {
+            "wedit:quick_start_button@how_to_play.wedit:quick_start_button": {
+              "$toggle_group_forced_index": 71
+            }
+          },
+          {
+            "wedit:license_button@how_to_play.wedit:license_button": {
+              "$toggle_group_forced_index": 72
+            }
+          },
+          {
+            "minecraft_category@how_to_play_common.topic_category": {
+              "$category": "minecraft"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "section_content_panels/general_tips_sections": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": [
+          {
+            "wedit:quick_start_section@how_to_play.wedit:quick_start_section": {}
+          },
+          {
+            "wedit:license_section@how_to_play.wedit:license_section": {}
+          }
+        ]
+      }
+    ]
+  },
+  "wedit:quick_start_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:quick_start"
+  },
+  "wedit:quick_start_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:quick_start_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.1"
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.1"
+        }
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.2"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.3"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "header_2@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.2"
+        }
+      },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.4"
+        }
+      },
+      {
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.5"
+        }
+      },
+      {
+        "paragraph_6@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.6"
+        }
+      },
+      {
+        "padding_3@how_to_play_common.padding": {}
+      },
+      {
+        "header_3@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.3"
+        }
+      },
+      {
+        "paragraph_7@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.7"
+        }
+      },
+      {
+        "paragraph_8@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.8"
+        }
+      },
+      {
+        "padding_4@how_to_play_common.padding": {}
+      },
+      {
+        "header_4@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.4"
+        }
+      },
+      {
+        "paragraph_9@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.9"
+        }
+      },
+      {
+        "paragraph_10@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.10"
+        }
+      },
+      {
+        "paragraph_11@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.11"
+        }
+      },
+      {
+        "paragraph_12@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.12"
+        }
+      },
+      {
+        "paragraph_13@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.13"
+        }
+      },
+      {
+        "paragraph_14@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.14"
+        }
+      },
+      {
+        "paragraph_15@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.15"
+        }
+      },
+      {
+        "padding_5@how_to_play_common.padding": {}
+      },
+      {
+        "header_5@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.5"
+        }
+      },
+      {
+        "paragraph_16@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.16"
+        }
+      },
+      {
+        "paragraph_17@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.17"
+        }
+      },
+      {
+        "paragraph_18@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.18"
+        }
+      },
+      {
+        "paragraph_19@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.19"
+        }
+      },
+      {
+        "paragraph_20@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.20"
+        }
+      },
+      {
+        "padding_6@how_to_play_common.padding": {}
+      },
+      {
+        "header_7@how_to_play_common.header": {
+          "$text": "howtoplay.wedit:quick_start.header.7"
+        }
+      },
+      {
+        "paragraph_23@how_to_play_common.paragraph": {
+          "$text": "howtoplay.wedit:quick_start.text.23"
+        }
+      }
+    ]
+  },
+  "wedit:license_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "wedit:license"
+  },
+  "wedit:license_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "wedit:license_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "    WorldEdit: BE - A Minecraft addon port of the WorldEdit mod for Minecraft: Java Edition. Copyright (C) 2022  Roujel Williams"
+        }
+      },
+      {
+        "padding_0@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "    This  program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version."
+        }
+      },
+      {
+        "padding_1@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {}
+      },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "    You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."
+        }
+      }
+   ]
+  }
+}

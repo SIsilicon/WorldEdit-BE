@@ -1,0 +1,948 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
+"X-Crowdin-File-ID: 9\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"PO-Revision-Date: 2023-01-20 18:00\n"
+
+msgid "pack.description"
+msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+
+msgid "item.wedit:copy_button"
+msgstr "Скопировать"
+
+msgid "item.wedit:cut_button"
+msgstr "Вырезать"
+
+msgid "item.wedit:paste_button"
+msgstr "Вставить"
+
+msgid "item.wedit:undo_button"
+msgstr "Отменить"
+
+msgid "item.wedit:redo_button"
+msgstr "Переделать"
+
+msgid "item.wedit:rotate_cw_button"
+msgstr "Повернуть по часовой стрелке"
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr "Повернуть против часовой стрелки"
+
+msgid "item.wedit:flip_button"
+msgstr "Перевернуть"
+
+msgid "item.wedit:pattern_picker"
+msgstr "Выбор Шаблона"
+
+msgid "item.wedit:mask_picker"
+msgstr "Выбор Маски"
+
+msgid "item.wedit:spawn_glass"
+msgstr "Поставить Стеклянный Блок"
+
+msgid "item.wedit:selection_fill"
+msgstr "Заполнение"
+
+msgid "item.wedit:selection_wall"
+msgstr "Выбор Стены"
+
+msgid "item.wedit:selection_outline"
+msgstr "Выбор Контура"
+
+msgid "item.wedit:draw_line"
+msgstr "Нарисовать линию"
+
+msgid "worldEdit.selectionFill.noPattern"
+msgstr "Вам нужно указать блок, чтобы установить выбор!"
+
+msgid "worldedit.patternPicker.add"
+msgstr "Блок добавлен в шаблон: "
+
+msgid "worldedit.patternPicker.set"
+msgstr "Выбрать блок для шаблона: "
+
+msgid "worldedit.maskPicker.add"
+msgstr "Добавлен блок для Маски: "
+
+msgid "worldedit.maskPicker.set"
+msgstr "Поставить маску для блока: "
+
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
+
+msgid "worldedit.config.chooseItem"
+msgstr "Возьмите предмет для привязки."
+
+msgid "worldedit.config.choose.brush"
+msgstr "Выберите, какую кисть создать."
+
+msgid "worldedit.config.choose.tool"
+msgstr "Выберите, какой инструмент сделать."
+
+msgid "worldedit.config.patternMask.brush"
+msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.config.mask.tool"
+msgstr "Сделайте необязательную маску для инструмента."
+
+msgid "worldedit.config.mask.brush"
+msgstr "Сделайте необязательную маску для кисти."
+
+msgid "worldedit.config.confirm"
+msgstr "Всё верно?"
+
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
+
+msgid "worldedit.config.radius"
+msgstr "Size"
+
+msgid "worldedit.config.height"
+msgstr "Height"
+
+msgid "worldedit.config.smooth"
+msgstr "Smoothness"
+
+msgid "worldedit.config.range"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
+msgid "worldedit.selection.noPrimary"
+msgstr "Первая точка не была выбрана."
+
+msgid "worldedit.selection.cuboid.primary"
+msgstr "Первая точка поставлена на %s."
+
+msgid "worldedit.selection.cuboid.primaryArea"
+msgstr "Первая точка поставлена на %1 (%2)."
+
+msgid "worldedit.selection.cuboid.secondary"
+msgstr "Вторая точка поставлена на %s."
+
+msgid "worldedit.selection.cuboid.secondaryArea"
+msgstr "Вторая точка поставлена на %1 (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Начал выбор в %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Расширенный выбор, чтобы охватить %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Радиус установлен на %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Установлен радиус %1 (~%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "Предмет должен находиться в руке."
+
+msgid "worldedit.tool.cantBind"
+msgstr "Вы не можете привязывать к этому типу предметов."
+
+msgid "worldedit.tool.noBind"
+msgstr "Этот предмет не привязан к какому-либо инструменту."
+
+msgid "worldedit.tool.noPerm"
+msgstr "У вас нет разрешения на использование этого предмета."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "Инструмент на этом предмете не может быть удален или заменен."
+
+msgid "worldedit.permission.granted"
+msgstr "§eВам предоставлены права WorldEdit. Откройте (Настройки > Как играть > Быстрый старт) для получения руководства.§r"
+
+msgid "worldedit.permission.revoked"
+msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
+msgid "commands.blocks.wedit:changed"
+msgstr "%s блоки были изменины."
+
+msgid "commands.blocks.wedit:created"
+msgstr "%s блоки были созданы."
+
+msgid "commands.generic.wedit:commandFail"
+msgstr "Не удалось выполнить эту команду."
+
+msgid "commands.generic.wedit:noSelection"
+msgstr "Вначале выберите точки."
+
+msgid "commands.generic.wedit:invalidDir"
+msgstr "%s не правильный вариант поворота!"
+
+msgid "commands.generic.wedit:invalidFlag"
+msgstr "Не правильный флаг: %s"
+
+msgid "commands.generic.wedit:noClipboard"
+msgstr "Ваши заметки пусты. Вначале скопируйте или вырежьте регион."
+
+msgid "commands.generic.wedit:noCuboidSelection"
+msgstr "Для начала выберите прямоугольные точки."
+
+msgid "commands.generic.wedit:noPermission"
+msgstr "У вас не достаточно прав чтобы использовать эту команду."
+
+msgid "commands.generic.wedit:outsideWorld"
+msgstr "Не возможно модифицировать не загруженные чанки!"
+
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+
+msgid "commands.generic.wedit:tooBig"
+msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
+
+msgid "commands.generic.wedit:tooSmall"
+msgstr "Число (%1) слишком маленькое! Самое маленькое допустимое число (%2)."
+
+msgid "commands.generic.wedit:blockLimit"
+msgstr "Слишком много блоков!"
+
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Выполните §e%s§7, удерживая предмет, чтобы отвязать его.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Сферическая форма кисти установлена (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Цилиндрическая форма кисти установлена (%1 by %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Сглаживающая форма кисти установлена (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Сглаживающая форма кисти установлена (%1 x %2x using filter)."
+
+msgid "commands.wedit:brush.description"
+msgstr "Установите тип удерживаемой кисти"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Отвязать кисть от текущего предмета"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Создать сферическую кисть"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Создать цилиндрическую кисть"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Создать кисть для сглаживания рельефа"
+
+msgid "commands.wedit:brush.mask.set"
+msgstr "Маска кисти установлена."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Маска кисти отключена."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Материалы кисти установлены."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Диапазон кисти установлен."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Размер кисти установлен."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Маска установлена."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Маска отключена."
+
+msgid "commands.wedit:brush.tooLarge"
+msgstr "Максимально допустимый радиус кисти: %s"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "Эта кисть не требует материала для работы."
+
+msgid "commands.wedit:brush.unbind"
+msgstr "Кисть не связана с вашим текущим предметом."
+
+msgid "commands.wedit:butcher.description"
+msgstr "Убить ближайшие объекты."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Убито %s сущностей."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
+
+msgid "commands.wedit:chunk.description"
+msgstr "Выберите ваш текущий или указанный чанк."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "Выбранные чанки: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "Выбран чанк: (%1, %2, %3)."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Очистить буфер обмена"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Буфер обмена очищен."
+
+msgid "commands.wedit:clearhistory.description"
+msgstr "Очистите историю редактирования"
+
+msgid "commands.wedit:clearhistory.explain"
+msgstr "История очищена."
+
+msgid "commands.wedit:contract.description"
+msgstr "Сократить выделенный регион"
+
+msgid "commands.wedit:contract.explain"
+msgstr "Регион сдвинут на %s блоков."
+
+msgid "commands.wedit:copy.description"
+msgstr "Скопируйте регион в заметки"
+
+msgid "commands.wedit:copy.explain"
+msgstr "Скопировано %s блоков."
+
+msgid "commands.wedit:count.description"
+msgstr "Количество блоков, совпадающих с маской"
+
+msgid "commands.wedit:count.explain"
+msgstr "Перемещено %s блоков."
+
+msgid "commands.wedit:cut.description"
+msgstr "Удалите текущий выбор и поместите его в заметки"
+
+msgid "commands.wedit:cut.explain"
+msgstr "Вырезано %s блоков."
+
+msgid "commands.wedit:cyl.description"
+msgstr "Сгенерируйте цилиндр"
+
+msgid "commands.wedit:distr.description"
+msgstr "Анализ количества различных блоков в выборке"
+
+msgid "commands.wedit:drain.description"
+msgstr "Высушить ближайшие жидкости"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "Вам нужно быть рядом с водой или лавой, чтобы высыхать."
+
+msgid "commands.wedit:drawsel.description"
+msgstr "Переключить видимость вашего выбора"
+
+msgid "commands.wedit:drawsel.disabled"
+msgstr "Ваш выбор больше не будет виден."
+
+msgid "commands.wedit:drawsel.enabled"
+msgstr "Ваш выбор теперь будет виден."
+
+msgid "commands.wedit:expand.description"
+msgstr "Развернуть выделенную область"
+
+msgid "commands.wedit:expand.description.vert"
+msgstr "Расширьте выделение территории вертикали до границ мира"
+
+msgid "commands.wedit:expand.explain"
+msgstr "Регион расширен на %s блоков."
+
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+
+msgid "commands.wedit:extinguish.description"
+msgstr "Погасить огонь поблизости"
+
+msgid "commands.wedit:faces.description"
+msgstr "Создание контура в вашем регионе"
+
+msgid "commands.wedit:fill.description"
+msgstr "Заполнить область определенными блоками"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Заполнить область определенными блоками"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Сделать близлежащие блоки лавы блоками источника"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "Вам нужно быть рядом с лавой для исправления проблемы."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Превратить ближайшие потоки воды в цельный блоки воды"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "Вам нужно быть рядом с водой или лавой, чтобы высыхать."
+
+msgid "commands.wedit:flip.description"
+msgstr "Переверните постройку которую вы выбрали"
+
+msgid "commands.wedit:flip.explain"
+msgstr "Перевёрнуто %s блоков."
+
+msgid "commands.wedit:flip.notLateral"
+msgstr "Невозможно перевернуть верх или вниз!"
+
+msgid "commands.wedit:gen.description"
+msgstr "Сгенерировать любую фигуру в выделенной области"
+
+msgid "commands.wedit:gmask.description"
+msgstr "Поставьте глобальную маску"
+
+msgid "commands.wedit:gmask.disabled"
+msgstr "Глобальная маска выключена."
+
+msgid "commands.wedit:gmask.set"
+msgstr "Глобальная маска поставлена."
+
+msgid "commands.wedit:green.description"
+msgstr "Превратить близлежащую землю в траву"
+
+msgid "commands.wedit:hcyl.description"
+msgstr "Сгенерировать пустой целиндр"
+
+msgid "commands.wedit:help.header"
+msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
+
+msgid "commands.wedit:hpos1.description"
+msgstr "Установите первую позицию выбора в позицию блока, на который вы смотрите"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "Установите вторую позицию выбора в позицию блока, на который вы смотрите"
+
+msgid "commands.wedit:hpyramid.description"
+msgstr "Сгенерировать пустую пирамиду"
+
+msgid "commands.wedit:hsphere.description"
+msgstr "Сгенерировать пустую сферу"
+
+msgid "commands.wedit:inset.description"
+msgstr "Вставить область выделения"
+
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
+msgid "commands.wedit:jumpto.description"
+msgstr "Телепортирует вас на блок на который вы смотрите"
+
+msgid "commands.wedit:inset.explain"
+msgstr "Вставка региона."
+
+msgid "commands.wedit:jumpto.explain"
+msgstr "Вжух!"
+
+msgid "commands.wedit:jumpto.none"
+msgstr "Нет блока в поле зрения (или слишком далеко)!"
+
+msgid "commands.wedit:kit.description"
+msgstr "Дайте себе набор предметов для обычных функций WorldEdit"
+
+msgid "commands.wedit:kit.explain"
+msgstr "Кит получен."
+
+msgid "commands.wedit:line.description"
+msgstr "Создать линию между первой и второй точками выбора региона"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "данная команда работает только с кубовидными регионами"
+
+msgid "commands.wedit:limit.description"
+msgstr "Установить количество блоков, которые вы можете изменить за действие"
+
+msgid "commands.wedit:limit.set"
+msgstr "Лимит изменения блока установлен на %s."
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "Ваш максимально допустимый лимит - %s."
+
+msgid "commands.wedit:mask.description"
+msgstr "Установите, на какие блоки может воздействовать кисть, если они есть"
+
+msgid "commands.wedit:material.description"
+msgstr "Установите, какие блоки должна создавать кисть"
+
+msgid "commands.wedit:move.description"
+msgstr "Переместить выделение в определенном направлении"
+
+msgid "commands.wedit:move.explain"
+msgstr "Перемещено %s блоков."
+
+msgid "commands.wedit:navwand.description"
+msgstr "Дать себе Навигационную Палку"
+
+msgid "commands.wedit:navwand.explain"
+msgstr "Присесть и использовать предмет: проходить сквозь стены; Используйте вещь без кнопки присесть: телепортироваться на блок"
+
+msgid "commands.wedit:outset.description"
+msgstr "Открыть область выделения"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Начало региона."
+
+msgid "commands.wedit:paste.description"
+msgstr "Вставьте данные из заметок в мир"
+
+msgid "commands.wedit:paste.explain"
+msgstr "Вставлено %s блоков."
+
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
+msgid "commands.wedit:pos1.description"
+msgstr "Установите первую позицию вашего выбора в указанную или текущую позицию"
+
+msgid "commands.wedit:pos2.description"
+msgstr "Установите вторую позицию вашего выбора в указанную или текущую позицию"
+
+msgid "commands.wedit:pyramid.description"
+msgstr "Сгенерировать пирамиду"
+
+msgid "commands.wedit:range.description"
+msgstr "Настройте как далеко Кисть может быть использована"
+
+msgid "commands.wedit:redo.description"
+msgstr "Повторить определенное количество действий"
+
+msgid "commands.wedit:redo.explain"
+msgstr "Повторено %s доступных изменений."
+
+msgid "commands.wedit:redo.none"
+msgstr "Ничего не осталось для повторения."
+
+msgid "commands.wedit:replace.description"
+msgstr "Заменить определенные блоки в выделении другими блоками"
+
+msgid "commands.wedit:removeabove.description"
+msgstr "Удалить блоки над вами"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Удалить блоки под вами"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Удалить ближайшие блоки"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Заменить близлежащие блоки другими блоками"
+
+msgid "commands.wedit:rotate.description"
+msgstr "Повернуть блоки в выделении"
+
+msgid "commands.wedit:rotate.explain"
+msgstr "Повернуто %s блоков."
+
+msgid "commands.wedit:rotate.notNinety"
+msgstr "%s не является приращением 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
+
+msgid "commands.wedit:sel.clear"
+msgstr "Выделение очищено."
+
+msgid "commands.wedit:sel.cuboid"
+msgstr "Кубоид: нажмите во время приседа на точку 1, и в обычном режиме на точку 2"
+
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
+msgid "commands.wedit:sel.description"
+msgstr "Сменить режим выделения"
+
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "Выделите два угла кубоида"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "Режим быстрого выделения кубоидов"
+
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Выберите сферу"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Расширение: нажмите во время приседа для стартовой точки, нажмите без приседа, чтобы продлить"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Сфера селектор: коснитесь во время подкрадывания в центре экрана, нажмите без крадывания, чтобы установить радиус"
+
+msgid "commands.wedit:set.description"
+msgstr "Заполнить выделение выбраным блоком"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+
+msgid "commands.wedit:shift.description"
+msgstr "Сдвинуть выделенный регион"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Регион сдвинут."
+
+msgid "commands.wedit:size.description"
+msgstr "Установить размер кисти"
+
+msgid "commands.wedit:snow.description"
+msgstr "Имитация снега в области"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Снег и лед, подверженные небу"
+
+msgid "commands.wedit:stack.description"
+msgstr "Повторить содержимое текущего выделения"
+
+msgid "commands.wedit:stack.explain"
+msgstr "Создано %s блоков из стопки."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Сглаживание поверхности внутри выделенного региона"
+
+msgid "commands.wedit:sphere.description"
+msgstr "Сгенерировать сферу"
+
+msgid "commands.wedit:thru.description"
+msgstr "Телепортироваться сквозь любую стену на которую вы посмотрите"
+
+msgid "commands.wedit:thru.explain"
+msgstr "Вух!"
+
+msgid "commands.wedit:thru.none"
+msgstr "Не напротив или лицом к стене, чтобы пройти сквозь."
+
+msgid "commands.wedit:thru.obstructed"
+msgstr "Свободного места перед вами не найдено."
+
+msgid "commands.wedit:ascend.description"
+msgstr "Go up a floor"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "No free spot above you found."
+
+msgid "commands.wedit:descend.description"
+msgstr "Go down a floor"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "No free spot under you found."
+
+msgid "commands.wedit:tracemask.description"
+msgstr "Установите, на каких блоках можно использовать кисть"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Жезл выделения привязана к %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Навигационная палочка привязана к %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Палочка дальнего выделения привязана к %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Инструмент Стакер привязан к %s."
+
+msgid "commands.wedit:tool.description"
+msgstr "Получить все виды инструментов"
+
+msgid "commands.wedit:tool.description.farwand"
+msgstr "Инструмент для выделения, но может быть доступен дальше"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Инструмент для выделения территории"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Навигационный инструмент"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Стакер блоков"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Отменить привязку инструмента"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Инструмент отвязан от предмета в вашей руке."
+
+msgid "commands.wedit:unstuck.description"
+msgstr "Выйти из блоков"
+
+msgid "commands.wedit:unstuck.explain"
+msgstr "Ну вот!"
+
+msgid "commands.wedit:undo.description"
+msgstr "Отменить определенное количество действий"
+
+msgid "commands.wedit:undo.explain"
+msgstr "Отменено %s доступных действий."
+
+msgid "commands.wedit:undo.none"
+msgstr "Ничего не осталось для отмены."
+
+msgid "commands.wedit:up.description"
+msgstr "Переместиться вверх на определенное количество блоков"
+
+msgid "commands.wedit:up.explain"
+msgstr "Вух!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Сгенерировать стену в выборе"
+
+msgid "commands.wedit:wand.description"
+msgstr "Дай себе топор для выделения"
+
+msgid "commands.wedit:wand.explain"
+msgstr "Присесть и нажать на блок: выбрать точку #1; Нажмите на блок без приседания: выбрать точку #2"
+
+msgid "commands.wedit:worldedit.description"
+msgstr "Команды WorldEdit"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Получить версию WorldEdit"
+
+msgid "commands.wedit:worldedit.version"
+msgstr "Версия WorldEdit: %s"
+
+msgid "howtoplay.category.worldEdit"
+msgstr "WorldEdit"
+
+msgid "howtoplay.wedit:quick_start"
+msgstr "Быстрый Старт"
+
+msgid "howtoplay.wedit:quick_start.title"
+msgstr "Как играть: Быстрый Старт для WorldEdit"
+
+msgid "howtoplay.wedit:license"
+msgstr "Лицензия"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "Обучение: WorldEdit лицензия"
+
+msgid "howtoplay.wedit:quick_start.text.1"
+msgstr "Добро пожаловать! Это пародия оригинального мода WorldEdit для Minecraft: Java Edition. Этот аддон поможет вам изменить свой мир прямо в Minecraft."
+
+msgid "howtoplay.wedit:quick_start.header.1"
+msgstr "Перед чем-либо еще..,"
+
+msgid "howtoplay.wedit:quick_start.text.2"
+msgstr "По умолчанию игрокам не разрешается использовать WorldEdit. Только те, у кого есть разрешение worldedit, могут использовать его функции. Чтобы дать себе разрешение, введите §e/tag @s add worldedit§r в чате. После этого у вас должен быть доступ ко всем командам WorldEdit."
+
+msgid "howtoplay.wedit:quick_start.text.3"
+msgstr "§l§aПодсказка:§r§a Вы также можете дать разрешение другим игрокам, сменив §e@s§r§a на имя игрока. Вам нужно окружить его кавычками, если в нём есть пробел. Например: §e/tag \"Steve Wanderer\" add worldedit§r"
+
+msgid "howtoplay.wedit:quick_start.header.2"
+msgstr "Куда пойти"
+
+msgid "howtoplay.wedit:quick_start.text.4"
+msgstr "§l§aПримечание:§r§a В командах этого дополнения используется точка с запятой (;) вместо косой черты (/). В будущем Mojang может добавить в Minecraft реальную поддержку пользовательских команд.§r"
+
+msgid "howtoplay.wedit:quick_start.text.5"
+msgstr "Добраться из точки А до точки В иногда может быть трудным. К счастью, это аддон поставляет инструмент известный как Навигационный жезл. Чтобы получить один, введите команду §e;navwand§r. Как только у вас появится этот предмет, вы сможете телепортироваться в любое место на которое вы смотрите. Хотите попасть на другую сторону стены или потолка? Используйте жезл в присяде! Застрял в блоке? Используя жезл вы сможете выбраться!"
+
+msgid "howtoplay.wedit:quick_start.text.6"
+msgstr "§l§aСовет:§r§a Если вы не хотите использовать навигационную палочку, эти действия также можно выполнить с помощью команд §e;jumpto к§r§a, §e;thru§r§a и §e;unstuck."
+
+msgid "howtoplay.wedit:quick_start.header.3"
+msgstr "Делать Выделения"
+
+msgid "howtoplay.wedit:quick_start.text.7"
+msgstr "Как и в оригинальном моде, вы используете палочку выбора, чтобы легко отмечать области вашего мира для различных операций. Чтобы получить ее, возьмите деревянный топор или введите команду §e;wand§r. Выделения в WorldEdit по умолчанию имеют форму куба. Чтобы сделать выделение, вам нужно отметить два угла этого прямоугольного параллелепипеда. Вы отмечаете первый угол, используя палочку на блоке в этом углу, крадучись. Вы отмечаете вторую точку, используя ее на блоке §lбез §r крадучести. Если все сделано правильно, вы должны увидеть выделение вашего выбора."
+
+msgid "howtoplay.wedit:quick_start.text.8"
+msgstr "Если у вас нет блока, которым вы могли бы отметить угол, например высоко в воздухе, вы также можете использовать команды §e;pos1§r или §e;pos2§r, чтобы отметить первый и второй угол соответственно в качестве позиции, на который вы стоите."
+
+msgid "howtoplay.wedit:quick_start.header.4"
+msgstr "Делаем вещи с вашим выделением"
+
+msgid "howtoplay.wedit:quick_start.text.9"
+msgstr "Сделайте небольшой выбор для работы и подготовьте свой комплект с помощью §e;kit§r. Мы собираемся попробовать некоторые функции, которые может предложить WorldEdit."
+
+msgid "howtoplay.wedit:quick_start.text.10"
+msgstr "§71. Поставьте камень, используйте на нем средство выбора шаблона, а затем используйте «Заполнение». У вас должен получится кубоид из камня."
+
+msgid "howtoplay.wedit:quick_start.text.11"
+msgstr "§r2. Используйте средство выбора блоков в воздухе (игроки на мобильных устройствах должны долго тапнуть) и снова используйте «Заполнение», чтобы очистить камень."
+
+msgid "howtoplay.wedit:quick_start.text.12"
+msgstr "§73. Поместите песчаник и стекло, используйте средство выбора блоков на песчанике, присядьте и используйте его на стекле, чтобы добавить к своему шаблону. Используйте «Заполнение», и у вас должна получиться смесь песчаника и стекла."
+
+msgid "howtoplay.wedit:quick_start.text.13"
+msgstr "§r4. Достаньте средство выбора масок в своем инвентаре и используйте его на песчанике. Установите блок по вашему выбору в качестве шаблона и используйте «Заполение». Весь песчаник теперь должен быть заменен этим блоком."
+
+msgid "howtoplay.wedit:quick_start.text.14"
+msgstr "§75. Повторите свой выбор вверх, введя команду §e;stack 4 up§r§7."
+
+msgid "howtoplay.wedit:quick_start.text.15"
+msgstr "Если вы хотите, вы можете отменить всё, используя предмет отмены, пока вы не сможете отменить дальнейшие действия."
+
+msgid "howtoplay.wedit:quick_start.header.5"
+msgstr "Игра с кистями"
+
+msgid "howtoplay.wedit:quick_start.text.16"
+msgstr "1. Возьмите любую лопату и поставьте булыжник; вам понадобится это для кисти."
+
+msgid "howtoplay.wedit:quick_start.text.17"
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+
+msgid "howtoplay.wedit:quick_start.text.18"
+msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
+
+msgid "howtoplay.wedit:quick_start.text.19"
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+
+msgid "howtoplay.wedit:quick_start.text.20"
+msgstr "§r5. Delete the brush from the menu to disable it."
+
+msgid "howtoplay.wedit:quick_start.header.7"
+msgstr "Что сейчас?"
+
+msgid "howtoplay.wedit:quick_start.text.23"
+msgstr "Чтобы узнать больше об этом дополнении, вы можете перейти к его онлайн-документации здесь: §ehttps://worldedit-be-docs.readthedocs.io§r"
+
+msgid "howtoplay.category.minecraft"
+msgstr "Minecraft"
+

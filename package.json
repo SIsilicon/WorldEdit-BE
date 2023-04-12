@@ -1,0 +1,28 @@
+{
+    "name": "worldedit",
+    "author": {
+        "name": "SIsilicon",
+        "email": "sisilicon28@gmail.com",
+        "url": "https://twitter.com/IsiliconS"
+    },
+    "bugs": {
+        "url": "https://github.com/SIsilicon/WorldEdit-BE/issues"
+    },
+    "scripts": {
+        "watch": "python build.py --watch=stable",
+        "watch:preview": "python build.py --watch=preview",
+        "build:all": "python build.py --target=release --clean && python build.py --target=server"
+    },
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.33.0",
+        "@typescript-eslint/parser": "^5.33.0",
+        "eslint": "^8.21.0",
+        "typescript": "^4.7.4"
+    },
+    "dependencies": {
+        "@minecraft/server": "^1.2.0-beta.1.19.80-preview.23",
+        "@minecraft/server-admin": "^1.0.0-beta.1.19.70-preview.22",
+        "@minecraft/server-ui": "^1.0.0-beta.1.19.80-preview.23"
+    }
+}

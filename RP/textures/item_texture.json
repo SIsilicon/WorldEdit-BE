@@ -1,0 +1,66 @@
+{
+    "resource_pack_name": "wedit",
+    "texture_name": "atlas.items",
+    "texture_data": {
+        "copy": {
+            "textures": "textures/items/copy"
+        },
+        "cut": {
+            "textures": "textures/items/cut"
+        },
+        "paste": {
+            "textures": "textures/items/paste"
+        },
+        "undo": {
+            "textures": "textures/items/undo"
+        },
+        "redo": {
+            "textures": "textures/items/redo"
+        },
+        "rotate_cw": {
+            "textures": "textures/items/rotate_cw"
+        },
+        "rotate_ccw": {
+            "textures": "textures/items/rotate_ccw"
+        },
+        "flip": {
+            "textures": "textures/items/flip"
+        },
+        "eyedropper": {
+            "textures": "textures/items/eyedropper"
+        },
+        "maskdropper": {
+            "textures": "textures/items/maskdropper"
+        },
+        "spawn_glass": {
+            "textures": "textures/items/spawn_glass"
+        },
+        "selection_hollow": {
+            "textures": "textures/items/selection_hollow"
+        },
+        "selection_fill": {
+            "textures": "textures/items/selection_fill"
+        },
+        "selection_outline": {
+            "textures": "textures/items/selection_outline"
+        },
+        "selection_wall": {
+            "textures": "textures/items/selection_wall"
+        },
+        "draw_line": {
+            "textures": "textures/items/draw_line"
+        },
+        "config": {
+            "textures": "textures/ui/gear"
+        },
+        "confirm": {
+            "textures": "textures/ui/confirm"
+        },
+        "cancel": {
+            "textures": "textures/ui/cancel"
+        },
+        "blank": {
+            "textures": "textures/ui/blank"
+        }
+    }
+}

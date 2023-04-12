@@ -1,0 +1,948 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: it\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
+"X-Crowdin-File-ID: 9\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"PO-Revision-Date: 2023-01-20 16:49\n"
+
+msgid "pack.description"
+msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+
+msgid "item.wedit:copy_button"
+msgstr "Copia"
+
+msgid "item.wedit:cut_button"
+msgstr "Taglia"
+
+msgid "item.wedit:paste_button"
+msgstr "Incolla"
+
+msgid "item.wedit:undo_button"
+msgstr "Annulla"
+
+msgid "item.wedit:redo_button"
+msgstr "Ripeti"
+
+msgid "item.wedit:rotate_cw_button"
+msgstr "Ruota in senso orario"
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr "Ruota In senso antiorario"
+
+msgid "item.wedit:flip_button"
+msgstr "Ruota"
+
+msgid "item.wedit:pattern_picker"
+msgstr "Selettore modelli"
+
+msgid "item.wedit:mask_picker"
+msgstr "Selettore maschera"
+
+msgid "item.wedit:spawn_glass"
+msgstr "Genera Blocco Di Vetro"
+
+msgid "item.wedit:selection_fill"
+msgstr "Riempimento Selezione"
+
+msgid "item.wedit:selection_wall"
+msgstr "Muro area selezionata"
+
+msgid "item.wedit:selection_outline"
+msgstr "Profilo area selezionata"
+
+msgid "item.wedit:draw_line"
+msgstr "Traccia linea"
+
+msgid "worldEdit.selectionFill.noPattern"
+msgstr "Devi specificare un blocco su cui impostare la selezione!"
+
+msgid "worldedit.patternPicker.add"
+msgstr "Blocco aggiunto al modello: "
+
+msgid "worldedit.patternPicker.set"
+msgstr "Imposta il motivo sul blocco: "
+
+msgid "worldedit.maskPicker.add"
+msgstr "Aggiunto il blocco alla maschera: "
+
+msgid "worldedit.maskPicker.set"
+msgstr "Imposta la maschera al blocco: "
+
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit Settings"
+
+msgid "worldedit.config.brushes"
+msgstr "Brushes"
+
+msgid "worldedit.config.tools"
+msgstr "Tools"
+
+msgid "worldedit.config.general"
+msgstr "General"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Include Entities in Clipboard"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Include Air in Clipboard"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Performance Mode"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Draw Outlines"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Selection Mode"
+
+msgid "worldedit.config.newTool"
+msgstr "Create New Tool"
+
+msgid "worldedit.config.newBrush"
+msgstr "Create New Brush"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Cuboid"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Extend"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "No Tool Properties"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "This tool has no properties to change."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Selection Wand"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Far Selection Wand"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigation Wand"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stacker Tool"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Sphere Brush"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Cylinder Brush"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Smooth Brush"
+
+msgid "worldedit.config.chooseItem"
+msgstr "Tieni premuto un oggetto a cui collegare."
+
+msgid "worldedit.config.choose.brush"
+msgstr "Scegli che tipo di pennello fare."
+
+msgid "worldedit.config.choose.tool"
+msgstr "Scegli che tipo di strumento fare."
+
+msgid "worldedit.config.patternMask.brush"
+msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.config.mask.tool"
+msgstr "Crea una maschera opzionale per lo strumento."
+
+msgid "worldedit.config.mask.brush"
+msgstr "Crea una maschera opzionale per lo strumento."
+
+msgid "worldedit.config.confirm"
+msgstr "Così va bene?"
+
+msgid "worldedit.config.confirm.create"
+msgstr "Are you ok with the setup you made?"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "Sei sicuro di voler annullare l'associazione di questo oggetto?"
+
+msgid "worldedit.config.radius"
+msgstr "Size"
+
+msgid "worldedit.config.height"
+msgstr "Height"
+
+msgid "worldedit.config.smooth"
+msgstr "Smoothness"
+
+msgid "worldedit.config.range"
+msgstr "Range"
+
+msgid "worldedit.config.pattern"
+msgstr "Pattern"
+
+msgid "worldedit.config.mask"
+msgstr "Mask"
+
+msgid "worldedit.config.hollow"
+msgstr "Hollow"
+
+msgid "worldedit.config.mask.height"
+msgstr "Height Mask"
+
+msgid "worldedit.config.usePicker"
+msgstr "Use Block Picker"
+
+msgid "worldedit.selection.noPrimary"
+msgstr "La prima selezione non è ancora stata effettuata."
+
+msgid "worldedit.selection.cuboid.primary"
+msgstr "Prima posizione impostata a %s."
+
+msgid "worldedit.selection.cuboid.primaryArea"
+msgstr "Prima posizione impostata a %1 (%2)."
+
+msgid "worldedit.selection.cuboid.secondary"
+msgstr "Seconda posizione impostata a %s."
+
+msgid "worldedit.selection.cuboid.secondaryArea"
+msgstr "Seconda posizione impostata a %1 (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Starting a new cylindrical selection at %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius set to %1/%2 blocks (~%3)."
+
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Iniziata la selezione a %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Selezione estesa per comprendere %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius set to %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius set to %1 (~%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "Un oggetto deve essere nella tua mano principale."
+
+msgid "worldedit.tool.cantBind"
+msgstr "Non puoi associarti a questo tipo di oggetti."
+
+msgid "worldedit.tool.noBind"
+msgstr "Questo oggetto non è associato ad alcun strumento."
+
+msgid "worldedit.tool.noPerm"
+msgstr "Non disponi dei permessi per utilizzare questo oggetto."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "Lo strumento su questo oggetto non può essere rimosso o sostituito."
+
+msgid "worldedit.permission.granted"
+msgstr "§eHai ricevuto i permessi WorldEdit. Vai a (Impostazioni > Come giocare > Avvio rapido) per una guida.§r"
+
+msgid "worldedit.permission.revoked"
+msgstr "§eLe tue autorizzazioni WorldEdit sono state rimosse.§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "Failed to save history point!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Failed to load history point!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "History is still being recorded!"
+
+msgid "commands.blocks.wedit:changed"
+msgstr "%s blocchi sono stati modificati."
+
+msgid "commands.blocks.wedit:created"
+msgstr "%s blocchi sono stati creati."
+
+msgid "commands.generic.wedit:commandFail"
+msgstr "Esecuzione di questo comando fallita."
+
+msgid "commands.generic.wedit:noSelection"
+msgstr "Fai prima una selezione."
+
+msgid "commands.generic.wedit:invalidDir"
+msgstr "'%s' è un argomento di direzione non valido!"
+
+msgid "commands.generic.wedit:invalidFlag"
+msgstr "Flag inattesa: %s"
+
+msgid "commands.generic.wedit:noClipboard"
+msgstr "Il tuo registro di copia è vuoto. Copia o taglia prima una regione."
+
+msgid "commands.generic.wedit:noCuboidSelection"
+msgstr "Fai prima una selezione cuboide."
+
+msgid "commands.generic.wedit:noPermission"
+msgstr "Non hai i permessi per eseguire questo comando."
+
+msgid "commands.generic.wedit:outsideWorld"
+msgstr "Impossibile modificare i chunk non caricati!"
+
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+
+msgid "commands.generic.wedit:tooBig"
+msgstr "Il numero (%1) è troppo grande! Deve essere al massimo (%2)."
+
+msgid "commands.generic.wedit:tooSmall"
+msgstr "Il numero (%1) è troppo piccolo! Deve essere almeno (%2)."
+
+msgid "commands.generic.wedit:blockLimit"
+msgstr "Too many blocks!"
+
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Esegui §e%s§7 tenendo premuto l'oggetto per scollegarlo.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biome at line of sight point: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Retrieve the kinds of biomes in your selection"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biome at your position: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomes in your selection: %s"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Pennello a sfera equipaggiato (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Pennello a cilindro equipaggiato (%1 di %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Pennello liscio equipaggiato (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Spazzola liscia equipaggiata (%1 x %2x usando il filtro)."
+
+msgid "commands.wedit:brush.description"
+msgstr "Imposta il tipo di pennello da tenere"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Scollega il pennello collegato dal tuo oggetto corrente"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Crea un pennello a sfera"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Crea un pennello cilindro"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Crea un pennello levigante del terreno"
+
+msgid "commands.wedit:brush.mask.set"
+msgstr "Maschera pennello impostata."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Maschera pennello disabilitata."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Materiale pennello impostato."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Intervallo pennello impostato."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Dimensione pennello impostata."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Maschera di traccia impostata."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Maschera traccia disabilitata."
+
+msgid "commands.wedit:brush.tooLarge"
+msgstr "Raggio massimo pennello consentito: %s"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "Questo pennello non richiede un materiale da lavorare."
+
+msgid "commands.wedit:brush.unbind"
+msgstr "Pennello scollegato dall'oggetto corrente."
+
+msgid "commands.wedit:butcher.description"
+msgstr "Kill nearby entities."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Killed %s entities."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
+
+msgid "commands.wedit:chunk.description"
+msgstr "Select your current, or specified chunk."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "Chunk selected: (%1, %2, %3)."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Pulisci gli appunti"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Cleared clipboard."
+
+msgid "commands.wedit:clearhistory.description"
+msgstr "Cancella la cronologia delle modifiche"
+
+msgid "commands.wedit:clearhistory.explain"
+msgstr "History cleared."
+
+msgid "commands.wedit:contract.description"
+msgstr "Contrai l'area di selezione"
+
+msgid "commands.wedit:contract.explain"
+msgstr "Regione contratta %s blocchi."
+
+msgid "commands.wedit:copy.description"
+msgstr "Copia la selezione corrente negli appunti"
+
+msgid "commands.wedit:copy.explain"
+msgstr "Copiati %s blocchi."
+
+msgid "commands.wedit:count.description"
+msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.explain"
+msgstr "Found %s blocks."
+
+msgid "commands.wedit:cut.description"
+msgstr "Rimuovi la selezione corrente e posizionala negli appunti"
+
+msgid "commands.wedit:cut.explain"
+msgstr "Taglia %s blocchi."
+
+msgid "commands.wedit:cyl.description"
+msgstr "Genera un cilindro"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyse the amount of different blocks in the selection"
+
+msgid "commands.wedit:drain.description"
+msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "You need to be close to some water or lava to drain."
+
+msgid "commands.wedit:drawsel.description"
+msgstr "Attiva/disattiva la visibilità della tua selezione"
+
+msgid "commands.wedit:drawsel.disabled"
+msgstr "Le tue selezioni non saranno più visibili."
+
+msgid "commands.wedit:drawsel.enabled"
+msgstr "Le tue selezioni saranno ora visibili."
+
+msgid "commands.wedit:expand.description"
+msgstr "Espandi l'area di selezione"
+
+msgid "commands.wedit:expand.description.vert"
+msgstr "Vertically expand your selection to world height limits"
+
+msgid "commands.wedit:expand.explain"
+msgstr "Regione espansa di %s blocchi."
+
+msgid "commands.wedit:export.description"
+msgstr "Exports the selection for later use."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s has been exported."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+
+msgid "commands.wedit:extinguish.description"
+msgstr "Extinguish nearby fires"
+
+msgid "commands.wedit:faces.description"
+msgstr "Genera un contorno dalla tua selezione"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fill an area with certain blocks"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Recursively fill an area with certain blocks"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Make nearby flowing lava blocks source blocks"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "You need to be close to some lava to fix."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "You need to be close to some water to fix."
+
+msgid "commands.wedit:flip.description"
+msgstr "Capovolgi la selezione"
+
+msgid "commands.wedit:flip.explain"
+msgstr "Capovolti %s blocchi."
+
+msgid "commands.wedit:flip.notLateral"
+msgstr "Non è possibile capovolgere su o giù!"
+
+msgid "commands.wedit:gen.description"
+msgstr "Generate any kind of shape in your selection"
+
+msgid "commands.wedit:gmask.description"
+msgstr "Imposta la maschera globale"
+
+msgid "commands.wedit:gmask.disabled"
+msgstr "Maschera globale disabilitata."
+
+msgid "commands.wedit:gmask.set"
+msgstr "Maschera globale impostata."
+
+msgid "commands.wedit:green.description"
+msgstr "Turn nearby dirt into grass"
+
+msgid "commands.wedit:hcyl.description"
+msgstr "Genera un cilindro cavo"
+
+msgid "commands.wedit:help.header"
+msgstr "--- Mostrando la pagina di aiuto %1 di %2 (;help <page>) ---"
+
+msgid "commands.wedit:hpos1.description"
+msgstr "Imposta la prima posizione della tua selezione alla posizione del blocco che stai affrontando"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "Imposta la seconda posizione della tua selezione alla posizione del blocco che stai affrontando"
+
+msgid "commands.wedit:hpyramid.description"
+msgstr "Genera una piramide vuota"
+
+msgid "commands.wedit:hsphere.description"
+msgstr "Genera una sfera vuota"
+
+msgid "commands.wedit:inset.description"
+msgstr "Imposta l'area di selezione"
+
+msgid "commands.wedit:import.description"
+msgstr "Imports a structure to the clipboard."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s has been imported and set to your clipboard."
+
+msgid "commands.wedit:jumpto.description"
+msgstr "Teletrasportati in cima al blocco che stai guardando"
+
+msgid "commands.wedit:inset.explain"
+msgstr "Regione inserita."
+
+msgid "commands.wedit:jumpto.explain"
+msgstr "Poof!"
+
+msgid "commands.wedit:jumpto.none"
+msgstr "Nessun blocco in vista (o troppo lontano)!"
+
+msgid "commands.wedit:kit.description"
+msgstr "Dai a te stesso una serie di oggetti per fare le funzioni comuni di worldedit"
+
+msgid "commands.wedit:kit.explain"
+msgstr "Kit dato."
+
+msgid "commands.wedit:line.description"
+msgstr "Crea una linea tra il primo e il secondo punto di selezione"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "questo comando funziona solo con selezioni cuboidi"
+
+msgid "commands.wedit:limit.description"
+msgstr "Imposta il numero di blocchi che puoi cambiare per azione"
+
+msgid "commands.wedit:limit.set"
+msgstr "Limite di modifica del blocco impostato su %s."
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "Il tuo limite massimo consentito è %s."
+
+msgid "commands.wedit:mask.description"
+msgstr "Imposta quali tipo di blocchi un pennello può influenzare"
+
+msgid "commands.wedit:material.description"
+msgstr "Imposta il tipo di blocchi che un pennello dovrebbe fare"
+
+msgid "commands.wedit:move.description"
+msgstr "Sposta la selezione in una certa direzione"
+
+msgid "commands.wedit:move.explain"
+msgstr "Spostati %s blocchi."
+
+msgid "commands.wedit:navwand.description"
+msgstr "Datti una bacchetta di navigazione"
+
+msgid "commands.wedit:navwand.explain"
+msgstr "Abbassati e usa l'oggetto: passa attraverso i muri; Usa l'oggetto senza abbassarti: salta alla posizione"
+
+msgid "commands.wedit:outset.description"
+msgstr "Inizia l'area di selezione"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Inizio regione."
+
+msgid "commands.wedit:paste.description"
+msgstr "Incolla gli appunti nel mondo"
+
+msgid "commands.wedit:paste.explain"
+msgstr "Incollato %s blocchi."
+
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Can't paste the clipboard at its original location."
+
+msgid "commands.wedit:pos1.description"
+msgstr "Imposta la prima posizione della selezione alla posizione specificata o corrente"
+
+msgid "commands.wedit:pos2.description"
+msgstr "Imposta la seconda posizione della selezione alla posizione specificata o corrente"
+
+msgid "commands.wedit:pyramid.description"
+msgstr "Genera una piramide"
+
+msgid "commands.wedit:range.description"
+msgstr "Imposta quanto lontano può essere usato un pennello da"
+
+msgid "commands.wedit:redo.description"
+msgstr "Ripete una certa quantità di azioni"
+
+msgid "commands.wedit:redo.explain"
+msgstr "Rifatto %s modifiche disponibili."
+
+msgid "commands.wedit:redo.none"
+msgstr "Nulla resta da rifare."
+
+msgid "commands.wedit:replace.description"
+msgstr "Sostituisci determinati blocchi nella selezione con altri blocchi"
+
+msgid "commands.wedit:removeabove.description"
+msgstr "Remove blocks above you"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Remove blocks below you"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Remove nearby blocks"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Replace nearby blocks with other blocks"
+
+msgid "commands.wedit:rotate.description"
+msgstr "Ruota la selezione"
+
+msgid "commands.wedit:rotate.explain"
+msgstr "Ruotato %s blocchi."
+
+msgid "commands.wedit:rotate.notNinety"
+msgstr "'%s' non è un incremento di 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "You can only rotate along the Y axis!"
+
+msgid "commands.wedit:sel.clear"
+msgstr "Selezione cancellata."
+
+msgid "commands.wedit:sel.cuboid"
+msgstr "Cuboid: tocca mentre sei abbassato per il punto 1, tocca senza abbassarsi per il punto 2"
+
+msgid "commands.wedit:sel.cyl"
+msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+
+msgid "commands.wedit:sel.description"
+msgstr "Cambia modalità selezione"
+
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "Seleziona due angoli di un cuboid"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Select a cylinder"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "Modalità selezione cuboid veloce"
+
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Select a sphere"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Estendere: tocca mentre sei abbassato per un punto di partenza, tocca senza abbassarti per estendere"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
+
+msgid "commands.wedit:set.description"
+msgstr "Riempi la selezione col campione di un blocco"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomes were changed for approximately %s blocks."
+
+msgid "commands.wedit:setbiome.description"
+msgstr "Change the biomes in your selection"
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+
+msgid "commands.wedit:shift.description"
+msgstr "Sposta l'area di selezione"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Regione spostata."
+
+msgid "commands.wedit:size.description"
+msgstr "Imposta la dimensione di un pennello"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simulate snow in the area"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Melt snow and ice exposed to the sky"
+
+msgid "commands.wedit:stack.description"
+msgstr "Ripetere il contenuto della selezione corrente"
+
+msgid "commands.wedit:stack.explain"
+msgstr "Creati %s blocchi dalla pila."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Leviga la superficie all'interno della selezione"
+
+msgid "commands.wedit:sphere.description"
+msgstr "Genera una sfera"
+
+msgid "commands.wedit:thru.description"
+msgstr "Teletrasportati attraverso qualsiasi muro che guardi"
+
+msgid "commands.wedit:thru.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:thru.none"
+msgstr "Non contro o di fronte a un muro per passare attraverso."
+
+msgid "commands.wedit:thru.obstructed"
+msgstr "Nessun punto libero trovato davanti."
+
+msgid "commands.wedit:ascend.description"
+msgstr "Go up a floor"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "No free spot above you found."
+
+msgid "commands.wedit:descend.description"
+msgstr "Go down a floor"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "No free spot under you found."
+
+msgid "commands.wedit:tracemask.description"
+msgstr "Imposta quali tipo di blocchi un pennello può influenzare"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Selezione a bacchetta associata a %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigazione a bacchetta associata a %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Selezione lontana associata a %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Strumento impilatore associato a %s."
+
+msgid "commands.wedit:tool.description"
+msgstr "Ottieni tutti i tipi di strumenti"
+
+msgid "commands.wedit:tool.description.farwand"
+msgstr "Strumento di selezione, ma può arrivare più lontano"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Strumento di selezione"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Strumento di navigazione"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Strumento impilatore di blocchi"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Scollega lo strumento tenuto"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Strumento scollegato dall'oggetto corrente."
+
+msgid "commands.wedit:unstuck.description"
+msgstr "Sposta fuori dai blocchi"
+
+msgid "commands.wedit:unstuck.explain"
+msgstr "Ecco fatto!"
+
+msgid "commands.wedit:undo.description"
+msgstr "Annulla una certa quantità di azioni"
+
+msgid "commands.wedit:undo.explain"
+msgstr "Annulla %s modifiche disponibili."
+
+msgid "commands.wedit:undo.none"
+msgstr "Niente da annullare."
+
+msgid "commands.wedit:up.description"
+msgstr "Sposta su un certo numero di blocchi"
+
+msgid "commands.wedit:up.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Genera un muro dalla tua selezione"
+
+msgid "commands.wedit:wand.description"
+msgstr "Dai a te stesso una bacchetta di selezione"
+
+msgid "commands.wedit:wand.explain"
+msgstr "Abbassati e cliccaun blocco: seleziona pos #1; Tocca blocco senza abbassarti: seleziona pos #2"
+
+msgid "commands.wedit:worldedit.description"
+msgstr "Comandi WorldEdit"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Toggle performance mode for the current session."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Performance mode enabled."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Performance mode disabled."
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Ottieni la versione WorldEdit"
+
+msgid "commands.wedit:worldedit.version"
+msgstr "Versione WorldEdit: %s"
+
+msgid "howtoplay.category.worldEdit"
+msgstr "WorldEdit"
+
+msgid "howtoplay.wedit:quick_start"
+msgstr "Avvio Rapido"
+
+msgid "howtoplay.wedit:quick_start.title"
+msgstr "Come giocare: rapida introduzione a WorldEdit"
+
+msgid "howtoplay.wedit:license"
+msgstr "License"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "How to Play: WorldEdit License"
+
+msgid "howtoplay.wedit:quick_start.text.1"
+msgstr "Benvenuto! Questo è un porting della mod originale di WorldEdit per Minecraft: Java Edition. Questo addon ti aiuterà a modellare il tuo mondo all'interno di Minecraft."
+
+msgid "howtoplay.wedit:quick_start.header.1"
+msgstr "Prima di ogni altra cosa..,"
+
+msgid "howtoplay.wedit:quick_start.text.2"
+msgstr "Per impostazione predefinita, i giocatori non possono usare WorldEdit. Solo quelli etichettati con il permesso di worldedit possono usare le sue funzionalità. Per darti il permesso, inserisci §e/tag @s add worldedit§r in chat. Ora dovresti avere accesso ad ogni comando WorldEdit."
+
+msgid "howtoplay.wedit:quick_start.text.3"
+msgstr "§l§aSuggerimento:§r§a Puoi anche dare ad altri giocatori il permesso modificando §e@s§r§a col nome del giocatore. Dovrai scriverlo tra virgolette se ha uno spazio in esso. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+
+msgid "howtoplay.wedit:quick_start.header.2"
+msgstr "Luoghi in arrivo"
+
+msgid "howtoplay.wedit:quick_start.text.4"
+msgstr "§l§aNota:§r§a I comandi forniti da questo addon usano un punto e virgola (;) invece di uno slash (/). In futuro, Mojang potrebbe aggiungere il supporto dei comandi personalizzati a Minecraft.§r"
+
+msgid "howtoplay.wedit:quick_start.text.5"
+msgstr "Andare dal punto A al punto B può a volte essere un problema. Per fortuna, questo addon viene fornito con quello che è noto come una bacchetta di navigazione. Per ottenerne uno, inserisci il comando §e;navwand§r. Una volta che avete questo oggetto, basta interagire con esso per essere teletrasportato al punto che stai guardando. Vuoi ottenere sull'altro lato di una parete o soffitto? Usa la bacchetta mentre ti abbassi per passare attraverso di esso! Bloccato in un blocco? Usare la bacchetta ti farà sbloccare!"
+
+msgid "howtoplay.wedit:quick_start.text.6"
+msgstr "§l§aSuggerimento:§r§a Se non vuoi usare la bacchetta di navigazione, queste azioni possono essere fatte anche con i comandi §e;jumpto§r§a, §e;thru§r§a e §e;unstuck§r§a pure§r."
+
+msgid "howtoplay.wedit:quick_start.header.3"
+msgstr "Fai una Selezione"
+
+msgid "howtoplay.wedit:quick_start.text.7"
+msgstr "Come la mod originale, si utilizza quello che è noto come una bacchetta di selezione per contrassegnare facilmente le regioni del vostro mondo per varie operazioni. Per ottenerne uno, prendere un'ascia di legno, o inserire il comando §e;wand§r. Le selezioni in WorldEdit sono a forma di cuboid per impostazione predefinita. Per fare una selezione, è necessario contrassegnare i due angoli di questo cuboid. Si contrassegna il primo angolo utilizzando la bacchetta su un blocco in quell'angolo mentre sei abbassato. Marchi il secondo punto usandolo su un blocco §lsenza§r abbassarti. Se fatto correttamente, dovresti vedere un'evidenziazione della tua selezione."
+
+msgid "howtoplay.wedit:quick_start.text.8"
+msgstr "Se non c'è nessun blocco per segnare un angolo, come per esempio in aria, puoi anche usare i comandi §e;pos1§r o §e;pos2§r per contrassegnare rispettivamente il primo e il secondo angolo, come la posizione in cui ti trovi attualmente. Questa non è la stessa posizione §lsu§r cui ti trovi."
+
+msgid "howtoplay.wedit:quick_start.header.4"
+msgstr "Fare cose con la tua selezione"
+
+msgid "howtoplay.wedit:quick_start.text.9"
+msgstr "Crea una selezione di dimensioni modeste per lavorare e prepara il tuo kit con §e;kit§r. Stiamo provando alcune delle funzionalità che WorldEdit ha da offrire."
+
+msgid "howtoplay.wedit:quick_start.text.10"
+msgstr "§71. Place down stone, use the Pattern Picker on it and then use \"Fill Selection\". A cuboid of stone should be made."
+
+msgid "howtoplay.wedit:quick_start.text.11"
+msgstr "§r2. Use the Pattern Picker on the air (mobile players must hold the screen with it) and use \"Fill Selection\" again to clear the stone."
+
+msgid "howtoplay.wedit:quick_start.text.12"
+msgstr "§73. Place down sandstone and glass, use the Pattern Picker on the sandstone, and sneak and use it on the glass to add to your pattern. Use \"Fill Selection\" and you should have a mix of sandstone and glass."
+
+msgid "howtoplay.wedit:quick_start.text.13"
+msgstr "§r4. Take out the Mask Picker in your inventory and use it on the sandstone. Set a block of your choice as your pattern, and use \"Fill Selection\". All sandstone should now be replaced with that block."
+
+msgid "howtoplay.wedit:quick_start.text.14"
+msgstr "§75. Ripeti la tua selezione verso l'alto digitando il comando §e;stack 4 up§r§7."
+
+msgid "howtoplay.wedit:quick_start.text.15"
+msgstr "Se vuoi puoi annullare ogni cosa usando l'oggetto annullamento fino a quando non puoi annullare ulteriormente."
+
+msgid "howtoplay.wedit:quick_start.header.5"
+msgstr "Giocare con i pennelli"
+
+msgid "howtoplay.wedit:quick_start.text.16"
+msgstr "1. Prendi una pala di qualsiasi tipo, e posiziona della cobblestone; ne avrete bisogno per il pennello."
+
+msgid "howtoplay.wedit:quick_start.text.17"
+msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+
+msgid "howtoplay.wedit:quick_start.text.18"
+msgstr "§r3. Mira a terra non vicino a te e interagisci con la pala (ora penello) per posizionare sfere di ciottoli."
+
+msgid "howtoplay.wedit:quick_start.text.19"
+msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+
+msgid "howtoplay.wedit:quick_start.text.20"
+msgstr "§r5. Delete the brush from the menu to disable it."
+
+msgid "howtoplay.wedit:quick_start.header.7"
+msgstr "E ora?"
+
+msgid "howtoplay.wedit:quick_start.text.23"
+msgstr "Per saperne di più su questo addon, puoi andare alla sua documentazione online qui: §ehttps://worldedit-be-docs.readthedocs.io§r"
+
+msgid "howtoplay.category.minecraft"
+msgstr "Minecraft"
+

@@ -1,0 +1,58 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "wedit:struct_meta",
+			"is_summonable": true,
+			"is_spawnable": false,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"wedit:despawned": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+		"components": {
+			"minecraft:persistent": {},
+			"minecraft:physics": {
+				"has_collision": false,
+				"has_gravity": false
+			},
+			"minecraft:custom_hit_test": {
+				"hitboxes": [
+					{
+						"pivot": [
+							0,
+							100,
+							0
+						],
+						"width": 0,
+						"height": 0
+					}
+				]
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"deals_damage": false
+				}
+			},
+			"minecraft:collision_box": {
+				"width": 0.0001,
+				"height": 0.0001
+			},
+            "minecraft:nameable": {
+                "allow_name_tag_renaming": false,
+                "always_show": false
+            }
+		},
+		"events": {
+			"wedit:despawn": {
+				"add": {
+					"component_groups": [
+						"wedit:despawned"
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "ES2020",
+        "moduleResolution": "node",
+        "target": "ES2020",
+        "lib": ["ES2020", "DOM"],
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "outDir": "./BP/scripts",
+        "allowJs": true,
+        
+        "baseUrl": "./src",
+        "paths": {
+            "@modules/*": ["server/modules/*"],
+            "@notbeer-api": ["library/Minecraft.js"]
+        }
+    },
+    "include": [
+        "./src",
+        "./src/library/*"    
+    ]
+}

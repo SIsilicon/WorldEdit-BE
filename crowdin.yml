@@ -1,0 +1,9 @@
+"base_path": "."
+"preserve_hierarchy": true
+"commit_message": "[ci skip]"
+"files": [
+    {
+        "source": "/texts/en_US.po",
+        "translation": "/texts/%locale_with_underscore%.po"
+    }
+]

@@ -1,0 +1,948 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: worldedit-for-bedrock\n"
+"X-Crowdin-Project-ID: 492515\n"
+"X-Crowdin-Language: no\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
+"X-Crowdin-File-ID: 9\n"
+"Project-Id-Version: worldedit-for-bedrock\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Norwegian\n"
+"Language: no_NO\n"
+"PO-Revision-Date: 2023-01-20 16:49\n"
+
+msgid "pack.description"
+msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
+
+msgid "script.watchdog.error.hang"
+msgstr "§cWorldEdit sitt skript har stoppet! Start dem på nytt med §r/reload§c (andre skripet vil oså starte på nytt).§r"
+
+msgid "item.wedit:copy_button"
+msgstr "Kopier"
+
+msgid "item.wedit:cut_button"
+msgstr "Klipp"
+
+msgid "item.wedit:paste_button"
+msgstr "Lim"
+
+msgid "item.wedit:undo_button"
+msgstr "Angre"
+
+msgid "item.wedit:redo_button"
+msgstr "Gjenta"
+
+msgid "item.wedit:rotate_cw_button"
+msgstr "Roter med klokken"
+
+msgid "item.wedit:rotate_ccw_button"
+msgstr "Roter mot klokken"
+
+msgid "item.wedit:flip_button"
+msgstr "Vend"
+
+msgid "item.wedit:pattern_picker"
+msgstr "Mønster Velger"
+
+msgid "item.wedit:mask_picker"
+msgstr "Maske Velger"
+
+msgid "item.wedit:spawn_glass"
+msgstr "Fremkall Glassblokk"
+
+msgid "item.wedit:selection_fill"
+msgstr "Fyll Utvalg"
+
+msgid "item.wedit:selection_wall"
+msgstr "Vegg Utvalg"
+
+msgid "item.wedit:selection_outline"
+msgstr "Omriss Valg"
+
+msgid "item.wedit:draw_line"
+msgstr "Tegn Linje"
+
+msgid "worldEdit.selectionFill.noPattern"
+msgstr "Du må spesifisere en blokk for å sette valget til!"
+
+msgid "worldedit.patternPicker.add"
+msgstr "La til blokk i mønsteret: "
+
+msgid "worldedit.patternPicker.set"
+msgstr "Sett mønster til blokk: "
+
+msgid "worldedit.maskPicker.add"
+msgstr "La til blokk til masken: "
+
+msgid "worldedit.maskPicker.set"
+msgstr "Sett maske til blokk: "
+
+msgid "worldedit.config.mainMenu"
+msgstr "WorldEdit-innstillinger"
+
+msgid "worldedit.config.brushes"
+msgstr "Pensler"
+
+msgid "worldedit.config.tools"
+msgstr "Verktøy"
+
+msgid "worldedit.config.general"
+msgstr "Generell"
+
+msgid "worldedit.config.general.includeEntities"
+msgstr "Inkluder enheter i utklippstavlen"
+
+msgid "worldedit.config.general.includeAir"
+msgstr "Inkluder luft i utklippstavlen"
+
+msgid "worldedit.config.general.perfMode"
+msgstr "Ytelsemodus"
+
+msgid "worldedit.config.general.drawOutlines"
+msgstr "Tegn omriss"
+
+msgid "worldedit.config.general.selectMode"
+msgstr "Utvalgsmodus"
+
+msgid "worldedit.config.newTool"
+msgstr "Lag et nytt verktøy"
+
+msgid "worldedit.config.newBrush"
+msgstr "Lag et nytt pensel"
+
+msgid "worldedit.selectionMode.cuboid"
+msgstr "Kube"
+
+msgid "worldedit.selectionMode.extend"
+msgstr "Utvid"
+
+msgid "worldedit.selectionMode.sphere"
+msgstr "Kule"
+
+msgid "worldedit.selectionMode.cylinder"
+msgstr "Syllinder"
+
+msgid "worldedit.config.tool.noProps"
+msgstr "Ingen verktøysegenskaper"
+
+msgid "worldedit.config.tool.noProps.detail"
+msgstr "Dette verktøyet har ingen egenskaper å endre på."
+
+msgid "worldedit.config.tool.selection"
+msgstr "Utvalgsstav"
+
+msgid "worldedit.config.tool.far_selection"
+msgstr "Langdistanse-utvalgsstav"
+
+msgid "worldedit.config.tool.navigation"
+msgstr "Navigeringsstav"
+
+msgid "worldedit.config.tool.stacker"
+msgstr "Stable-verktøy"
+
+msgid "worldedit.config.brush.sphere"
+msgstr "Kulepensel"
+
+msgid "worldedit.config.brush.cylinder"
+msgstr "Syllinderpensel"
+
+msgid "worldedit.config.brush.smooth"
+msgstr "Jevnbørste"
+
+msgid "worldedit.config.chooseItem"
+msgstr "Hold en gjenstand å binde til."
+
+msgid "worldedit.config.choose.brush"
+msgstr "Velg hva slags pensel som skal lages."
+
+msgid "worldedit.config.choose.tool"
+msgstr "Velg hva slags verktøy som skal lages."
+
+msgid "worldedit.config.patternMask.brush"
+msgstr "Lag et mønster og valgfri maske for penselet."
+
+msgid "worldedit.config.mask.tool"
+msgstr "Lag en valgfri maske for verktøyet."
+
+msgid "worldedit.config.mask.brush"
+msgstr "Lag en valgfri maske for penselet."
+
+msgid "worldedit.config.confirm"
+msgstr "Er dette ok?"
+
+msgid "worldedit.config.confirm.create"
+msgstr "Er du fornøyd med oppsettet du har laget?"
+
+msgid "worldedit.config.confirm.delete"
+msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
+
+msgid "worldedit.config.radius"
+msgstr "Størrelse"
+
+msgid "worldedit.config.height"
+msgstr "Høyde"
+
+msgid "worldedit.config.smooth"
+msgstr "Glatthet"
+
+msgid "worldedit.config.range"
+msgstr "Område"
+
+msgid "worldedit.config.pattern"
+msgstr "Mønster"
+
+msgid "worldedit.config.mask"
+msgstr "Maske"
+
+msgid "worldedit.config.hollow"
+msgstr "Hul"
+
+msgid "worldedit.config.mask.height"
+msgstr "Høyde-maske"
+
+msgid "worldedit.config.usePicker"
+msgstr "Bruk blokkvelger"
+
+msgid "worldedit.selection.noPrimary"
+msgstr "Første valg har ikke blitt gjort ennå."
+
+msgid "worldedit.selection.cuboid.primary"
+msgstr "Første posisjon satt til %s."
+
+msgid "worldedit.selection.cuboid.primaryArea"
+msgstr "Første posisjon satt til %1 (%2)."
+
+msgid "worldedit.selection.cuboid.secondary"
+msgstr "Andre posisjon satt til %s."
+
+msgid "worldedit.selection.cuboid.secondaryArea"
+msgstr "Andre posisjon satt til %1 (%2)."
+
+msgid "worldedit.selection.cylinder.primary"
+msgstr "Startet et nytt sylindrisk utvalg ved %s."
+
+msgid "worldedit.selection.cylinder.secondaryArea"
+msgstr "Radius satt til %1/%2 blokker (~%3)."
+
+msgid "worldedit.selection.extend.primaryArea"
+msgstr "Begynte valg ved %1 (%2)."
+
+msgid "worldedit.selection.extend.secondaryArea"
+msgstr "Utvidet utvalg for å inkludere %1 (%2)."
+
+msgid "worldedit.selection.sphere.primary"
+msgstr "Radius satt til %1."
+
+msgid "worldedit.selection.sphere.secondaryArea"
+msgstr "Radius satt til %1 (~%2)."
+
+msgid "worldedit.tool.noItem"
+msgstr "En gjenstand må være i hovedhånden din."
+
+msgid "worldedit.tool.cantBind"
+msgstr "Du kan ikke binde deg selv til denne typen gjenstand."
+
+msgid "worldedit.tool.noBind"
+msgstr "Denne gjenstanden er ikke bundet til noen verktøy."
+
+msgid "worldedit.tool.noPerm"
+msgstr "Du har ikke tilgang til å bruke denne gjenstanden."
+
+msgid "worldedit.tool.fixedBind"
+msgstr "Verktøyet på denne gjenstanden kan ikke bli fjernet eller erstattet."
+
+msgid "worldedit.permission.granted"
+msgstr "§eDu har fått WorldEdit tillatelser. Gå til (Innstillinger > Hvordan Spill > Hurtigstart) for en veiledning.§r"
+
+msgid "worldedit.permission.revoked"
+msgstr "§eDin WorldEdit tillatelser har blitt fjernet.§r"
+
+msgid "worldedit.error.saveHistory"
+msgstr "Kunne ikke lagre historikkpunktet!"
+
+msgid "worldedit.error.loadHistory"
+msgstr "Kunne ikke laste historikkpunkt!"
+
+msgid "worldedit.error.stillRecording"
+msgstr "Historikk blir fortsatt tatt opp!"
+
+msgid "commands.blocks.wedit:changed"
+msgstr "%s blokker har blitt endret."
+
+msgid "commands.blocks.wedit:created"
+msgstr "%s blokker har blitt opprettet."
+
+msgid "commands.generic.wedit:commandFail"
+msgstr "Kunne ikke utføre denne kommandoen."
+
+msgid "commands.generic.wedit:noSelection"
+msgstr "Gjør et valg først."
+
+msgid "commands.generic.wedit:invalidDir"
+msgstr "'%s' er et ugyldig retning-argument!"
+
+msgid "commands.generic.wedit:invalidFlag"
+msgstr "Uventet flagg: %s"
+
+msgid "commands.generic.wedit:noClipboard"
+msgstr "Utklippstavlen er tom. Kopier eller klipp ut et område først."
+
+msgid "commands.generic.wedit:noCuboidSelection"
+msgstr "Gjør et kube valg først."
+
+msgid "commands.generic.wedit:noPermission"
+msgstr "Du har ikke tillatelse til å utføre denne kommandoen."
+
+msgid "commands.generic.wedit:outsideWorld"
+msgstr "Kan ikke endre ubelastede deler!"
+
+msgid "commands.generic.wedit:outsideWorld.detail"
+msgstr "§eTips: For å laste flere deler, øk simuleringsavstanden, eller legg til selvoppdaterende områder der du arbeider.§r"
+
+msgid "commands.generic.wedit:tooBig"
+msgstr "Tallet (%1) er for stort! Det må være maksimalt (%2)."
+
+msgid "commands.generic.wedit:tooSmall"
+msgstr "Tallet (%1) er for liten! Det må være minst (%2)."
+
+msgid "commands.generic.wedit:blockLimit"
+msgstr "For mange blokker!"
+
+msgid "commands.generic.wedit:unbindInfo"
+msgstr "§7Kjør §e%s§7 mens du holder gjenstanden for å fjerne bindingen.§r"
+
+msgid "commands.wedit:biomeinfo.lineofsight"
+msgstr "Biom ved synspunkt-linje: %s"
+
+msgid "commands.wedit:biomeinfo.description"
+msgstr "Hent de forskjellige typene biomer i utvalget ditt"
+
+msgid "commands.wedit:biomeinfo.position"
+msgstr "Biom ved din posisjon: %s"
+
+msgid "commands.wedit:biomeinfo.selection"
+msgstr "Biomer i ditt utvalg: %s"
+
+msgid "commands.wedit:brush.bind.sphere"
+msgstr "Kulepensel-form valgt (%s)."
+
+msgid "commands.wedit:brush.bind.cylinder"
+msgstr "Sylinderpensel-form valgt (%1 på %2)."
+
+msgid "commands.wedit:brush.bind.smooth.noFilter"
+msgstr "Jevnbørste valgt (%1 x %2x)."
+
+msgid "commands.wedit:brush.bind.smooth.filter"
+msgstr "Jevnbørste valgt (%1 x %2x med filter)."
+
+msgid "commands.wedit:brush.description"
+msgstr "Angi typen pensel som blir holdt"
+
+msgid "commands.wedit:brush.description.none"
+msgstr "Fjern bindingen fra en bindet pensel til din nåværende gjenstand"
+
+msgid "commands.wedit:brush.description.sphere"
+msgstr "Lag en kulepensel"
+
+msgid "commands.wedit:brush.description.cyl"
+msgstr "Lag en sylinderpensel"
+
+msgid "commands.wedit:brush.description.smooth"
+msgstr "Lag et terreng-utjevningspensel"
+
+msgid "commands.wedit:brush.mask.set"
+msgstr "Pensel-maske satt."
+
+msgid "commands.wedit:brush.mask.disabled"
+msgstr "Pensel-maske deaktivert."
+
+msgid "commands.wedit:brush.material.set"
+msgstr "Pensel-material satt."
+
+msgid "commands.wedit:brush.range.set"
+msgstr "Pensel-rekkevidde satt."
+
+msgid "commands.wedit:brush.size.set"
+msgstr "Pensel-størrelse satt."
+
+msgid "commands.wedit:brush.tracemask.set"
+msgstr "Spor-maske satt."
+
+msgid "commands.wedit:brush.tracemask.disabled"
+msgstr "Spor-maske deaktivert."
+
+msgid "commands.wedit:brush.tooLarge"
+msgstr "Maksimum tillat pensel-radius: %s"
+
+msgid "commands.wedit:brush.noMaterial"
+msgstr "Dette penselet trenger ikke et material for å fungere."
+
+msgid "commands.wedit:brush.unbind"
+msgstr "Pensel ubundet fra din nåværende gjenstand."
+
+msgid "commands.wedit:butcher.description"
+msgstr "Drep enheter i nærheten."
+
+msgid "commands.wedit:butcher.explain"
+msgstr "Drepte %s enheter."
+
+msgid "commands.wedit:calc.description"
+msgstr "Evaluate a mathematical expression."
+
+msgid "commands.wedit:calc.invalid"
+msgstr "'%s' could not be parsed as a valid expression."
+
+msgid "commands.wedit:center.description"
+msgstr "Set the center block(s)."
+
+msgid "commands.wedit:chunk.description"
+msgstr "Select your current, or specified chunk."
+
+msgid "commands.wedit:chunk.selected-multiple"
+msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+
+msgid "commands.wedit:chunk.selected"
+msgstr "Chunk selected: (%1, %2, %3)."
+
+msgid "commands.wedit:clearclipboard.description"
+msgstr "Tøm utklippstavlen"
+
+msgid "commands.wedit:clearclipboard.explain"
+msgstr "Tømte utklippstavlen."
+
+msgid "commands.wedit:clearhistory.description"
+msgstr "Fjerner din redigeringshistorikk"
+
+msgid "commands.wedit:clearhistory.explain"
+msgstr "Slettet historikken."
+
+msgid "commands.wedit:contract.description"
+msgstr "Minsk utvalgsområdet"
+
+msgid "commands.wedit:contract.explain"
+msgstr "Region minsket %s blokker."
+
+msgid "commands.wedit:copy.description"
+msgstr "Kopier gjeldende utvalg til utklippstavlen"
+
+msgid "commands.wedit:copy.explain"
+msgstr "Kopierte %s blokker."
+
+msgid "commands.wedit:count.description"
+msgstr "Tell antall blokker som passer til en maske"
+
+msgid "commands.wedit:count.explain"
+msgstr "Fant %s blokker."
+
+msgid "commands.wedit:cut.description"
+msgstr "Fjern ditt nåværende utvalg og plasser det på utklippstavlen"
+
+msgid "commands.wedit:cut.explain"
+msgstr "Klipp ut %s blokker."
+
+msgid "commands.wedit:cyl.description"
+msgstr "Generer en sylinder"
+
+msgid "commands.wedit:distr.description"
+msgstr "Analyser mengden av forskjellige blokker i utvalget"
+
+msgid "commands.wedit:drain.description"
+msgstr "Drener væske i nærheten"
+
+msgid "commands.wedit:drain.noFluid"
+msgstr "Du må være i nærheten av vann eller lava for å drenere."
+
+msgid "commands.wedit:drawsel.description"
+msgstr "Slå av/på utvalgets synlighet"
+
+msgid "commands.wedit:drawsel.disabled"
+msgstr "Dine valg vil ikke lenger være synlige."
+
+msgid "commands.wedit:drawsel.enabled"
+msgstr "Dine valg vil nå være synlige."
+
+msgid "commands.wedit:expand.description"
+msgstr "Utvid utvalgsområdet"
+
+msgid "commands.wedit:expand.description.vert"
+msgstr "Utvid utvalget ditt vertikalt til verdenshøyde"
+
+msgid "commands.wedit:expand.explain"
+msgstr "Region utvidet %s blokker."
+
+msgid "commands.wedit:export.description"
+msgstr "Eksporterer utvalget for senere bruk."
+
+msgid "commands.wedit:export.explain"
+msgstr "%s har blitt eksportert."
+
+msgid "commands.wedit:export.otherWorlds"
+msgstr "§eMerk: For å bruke eksporterte strukturer i andre verdener, er WorldEdit applikasjonen nødvendig for å pakke ut til ekstern bruk.§r"
+
+msgid "commands.wedit:extinguish.description"
+msgstr "Slukk brann i nærheten"
+
+msgid "commands.wedit:faces.description"
+msgstr "Generer en omrisse fra ditt utvalg"
+
+msgid "commands.wedit:fill.description"
+msgstr "Fyll et område med visse blokker"
+
+msgid "commands.wedit:fillr.description"
+msgstr "Regelmessig fyll et område med visse blokker"
+
+msgid "commands.wedit:fixlava.description"
+msgstr "Omgjør nærligende strømmende lavablokker til lavakilder"
+
+msgid "commands.wedit:fixlava.noLava"
+msgstr "Du må være i nærheten av lava for å fikse."
+
+msgid "commands.wedit:fixwater.description"
+msgstr "Omgjør nærligende strømmende vannblokker til vannkilder"
+
+msgid "commands.wedit:fixwater.noWater"
+msgstr "Du må være i nærheten av vann for å fikse."
+
+msgid "commands.wedit:flip.description"
+msgstr "Vend utvalget"
+
+msgid "commands.wedit:flip.explain"
+msgstr "Vendte %s blokker."
+
+msgid "commands.wedit:flip.notLateral"
+msgstr "Kan ikke snu opp eller ned!"
+
+msgid "commands.wedit:gen.description"
+msgstr "Generer hvilken som helst form i utvalget ditt"
+
+msgid "commands.wedit:gmask.description"
+msgstr "Sett global maske"
+
+msgid "commands.wedit:gmask.disabled"
+msgstr "Globalmaske deaktivert."
+
+msgid "commands.wedit:gmask.set"
+msgstr "Globalmaske satt."
+
+msgid "commands.wedit:green.description"
+msgstr "Omgjør nærliggende jord om til gress"
+
+msgid "commands.wedit:hcyl.description"
+msgstr "Generer en hul sylinder"
+
+msgid "commands.wedit:help.header"
+msgstr "--- Viser hjelpeside %1 av %2 (;help <page>) ---"
+
+msgid "commands.wedit:hpos1.description"
+msgstr "Angi den første posisjonen av utvalget ditt til posisjonen til blokken du ser på"
+
+msgid "commands.wedit:hpos2.description"
+msgstr "Angi den andre posisjonen av utvalget ditt til posisjonen til blokken du ser på"
+
+msgid "commands.wedit:hpyramid.description"
+msgstr "Generer en hul pyramide"
+
+msgid "commands.wedit:hsphere.description"
+msgstr "Generer et hul kule"
+
+msgid "commands.wedit:inset.description"
+msgstr "Sett in utvalgsområdet"
+
+msgid "commands.wedit:import.description"
+msgstr "Importerer en struktur til utklippstavlen."
+
+msgid "commands.wedit:import.explain"
+msgstr "%s har blitt importert og satt på utklippstavlen."
+
+msgid "commands.wedit:jumpto.description"
+msgstr "Teleporter deg til toppen av blokken du ser på"
+
+msgid "commands.wedit:inset.explain"
+msgstr "Region satt inn."
+
+msgid "commands.wedit:jumpto.explain"
+msgstr "Poff!"
+
+msgid "commands.wedit:jumpto.none"
+msgstr "Ingen blokk synlig (eller for langt)!"
+
+msgid "commands.wedit:kit.description"
+msgstr "Gi deg selv et sett med gjenstander som gjør vanlige worldedit funksjoner"
+
+msgid "commands.wedit:kit.explain"
+msgstr "Sett gitt."
+
+msgid "commands.wedit:line.description"
+msgstr "Opprett en linje mellom ditt første og andre valgspunkt"
+
+msgid "commands.wedit:line.invalidType"
+msgstr "denne kommandoen fungerer bare med kube-valg"
+
+msgid "commands.wedit:limit.description"
+msgstr "Angi antall blokker du kan endre per handling"
+
+msgid "commands.wedit:limit.set"
+msgstr "Grense for blokker endret satt til %s."
+
+msgid "commands.wedit:limit.tooHigh"
+msgstr "Maksimalt tillat grense er %s."
+
+msgid "commands.wedit:mask.description"
+msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
+
+msgid "commands.wedit:material.description"
+msgstr "Angi hva slags blokk en pensel skal lage"
+
+msgid "commands.wedit:move.description"
+msgstr "Flytt utvalget i en bestemt retning"
+
+msgid "commands.wedit:move.explain"
+msgstr "Flyttet %s blokker."
+
+msgid "commands.wedit:navwand.description"
+msgstr "Gi deg selv en navigeringsstav"
+
+msgid "commands.wedit:navwand.explain"
+msgstr "Snik og bruk gjenstand: gå gjennom vegger; Bruk gjenstanden uten sniking; hopp til sted"
+
+msgid "commands.wedit:outset.description"
+msgstr "Sett ut utvalgsområdet"
+
+msgid "commands.wedit:outset.explain"
+msgstr "Region satt ut."
+
+msgid "commands.wedit:paste.description"
+msgstr "Lim inn utklippstavlen din i verdenen"
+
+msgid "commands.wedit:paste.explain"
+msgstr "Limte inn %s blokker."
+
+msgid "commands.wedit:paste.noOriginal"
+msgstr "Kan ikke lime inn utklippstavlen til sin opprinnelige posisjon."
+
+msgid "commands.wedit:pos1.description"
+msgstr "Angi den første posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
+
+msgid "commands.wedit:pos2.description"
+msgstr "Angi den andre posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
+
+msgid "commands.wedit:pyramid.description"
+msgstr "Generer en pyramide"
+
+msgid "commands.wedit:range.description"
+msgstr "Angi hvor langt ifra et pensel kan bli brukt fra"
+
+msgid "commands.wedit:redo.description"
+msgstr "Gjenta en bestemte mengde handlinger"
+
+msgid "commands.wedit:redo.explain"
+msgstr "Gjorde om %s tilgjengelige redigeringer."
+
+msgid "commands.wedit:redo.none"
+msgstr "Ingenting igjen å gjøre om."
+
+msgid "commands.wedit:replace.description"
+msgstr "Erstatt visse blokker i utvalget med andre blokker"
+
+msgid "commands.wedit:removeabove.description"
+msgstr "Fjern blokker over deg"
+
+msgid "commands.wedit:removebelow.description"
+msgstr "Fjern blokker under deg"
+
+msgid "commands.wedit:removenear.description"
+msgstr "Fjern blokker i nærheten"
+
+msgid "commands.wedit:replacenear.description"
+msgstr "Erstatt blokker i nærheten med andre blokker"
+
+msgid "commands.wedit:rotate.description"
+msgstr "Roter utvalget"
+
+msgid "commands.wedit:rotate.explain"
+msgstr "Roterte %s blokker."
+
+msgid "commands.wedit:rotate.notNinety"
+msgstr "'%s' er ikke et interval av 90°!"
+
+msgid "commands.wedit:rotate.yOnly"
+msgstr "Du kan kun rotere langs Y-aksen!"
+
+msgid "commands.wedit:sel.clear"
+msgstr "Utvalg fjernet."
+
+msgid "commands.wedit:sel.cuboid"
+msgstr "Kube: trykk mens du sniker for punkt 1, trykk uten sniking for punkt 2"
+
+msgid "commands.wedit:sel.cyl"
+msgstr "Sylinder-velger: Trykk mens du sniker for midten, trykk uten å snike for å utvide radius og høyde"
+
+msgid "commands.wedit:sel.description"
+msgstr "Endre utvalgs-modus"
+
+msgid "commands.wedit:sel.description.cuboid"
+msgstr "Velg to gjørner av en kube"
+
+msgid "commands.wedit:sel.description.cyl"
+msgstr "Velg en syllinder"
+
+msgid "commands.wedit:sel.description.extend"
+msgstr "Hurtig kube valgs-modus"
+
+msgid "commands.wedit:sel.description.sphere"
+msgstr "Velg en sfære"
+
+msgid "commands.wedit:sel.extend"
+msgstr "Utvid: trykk mens du sniker for et startpunkt, trykk igjen uten å snike for å utvide"
+
+msgid "commands.wedit:sel.sphere"
+msgstr "Sfære-velger: trykk mens du sniker for midten, trykk uten å snike for å angi radiusen"
+
+msgid "commands.wedit:set.description"
+msgstr "Fyll utvalget med et blokkmønster"
+
+msgid "commands.wedit:setbiome.changed"
+msgstr "Biomer ble endret for omtrent %s blokker."
+
+msgid "commands.wedit:setbiome.description"
+msgstr "Endre biomene i utvalget ditt"
+
+msgid "commands.wedit:setbiome.warning"
+msgstr "§eMerk: Du må behandle verdenen med WorldEdit applikasjonen for biomendringene til å gå i bruk.§r"
+
+msgid "commands.wedit:shift.description"
+msgstr "Bytt utvalgsområdet"
+
+msgid "commands.wedit:shift.explain"
+msgstr "Region byttet."
+
+msgid "commands.wedit:size.description"
+msgstr "Sett størrelsen av et pensel"
+
+msgid "commands.wedit:snow.description"
+msgstr "Simuler snø i området"
+
+msgid "commands.wedit:thaw.description"
+msgstr "Smelt snø og is som er utsatt for himmelen"
+
+msgid "commands.wedit:stack.description"
+msgstr "Gjenta innholdet til det nåværende utvalget"
+
+msgid "commands.wedit:stack.explain"
+msgstr "Lagde %s blokker fra stabling."
+
+msgid "commands.wedit:smooth.description"
+msgstr "Jevn overflaten innenfor utvalget"
+
+msgid "commands.wedit:sphere.description"
+msgstr "Generer en kule"
+
+msgid "commands.wedit:thru.description"
+msgstr "Telerporten gjennom hvilken som helst vegg du ser på"
+
+msgid "commands.wedit:thru.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:thru.none"
+msgstr "Ikke mot eller vendt mot en vegg til å gå gjennom."
+
+msgid "commands.wedit:thru.obstructed"
+msgstr "Ingen tomme områder funnet foran deg."
+
+msgid "commands.wedit:ascend.description"
+msgstr "Gå opp en etasje"
+
+msgid "commands.wedit:ascend.obstructed"
+msgstr "Ingen ledig plass ble funnet over deg."
+
+msgid "commands.wedit:descend.description"
+msgstr "Gå ned en etasje"
+
+msgid "commands.wedit:descend.obstructed"
+msgstr "Ingen ledig plass funnet under deg."
+
+msgid "commands.wedit:tracemask.description"
+msgstr "Angi hva slags blokker et pensel kan bli brukt på"
+
+msgid "commands.wedit:tool.bind.selwand"
+msgstr "Utvalgsstav bundet til %s."
+
+msgid "commands.wedit:tool.bind.navwand"
+msgstr "Navigeringsstav bundet til %s."
+
+msgid "commands.wedit:tool.bind.farwand"
+msgstr "Fjern utvalgsstav bundet til %s."
+
+msgid "commands.wedit:tool.bind.stacker"
+msgstr "Stablingsverktøy bundet til %s."
+
+msgid "commands.wedit:tool.description"
+msgstr "Få alle typer verktøy"
+
+msgid "commands.wedit:tool.description.farwand"
+msgstr "Utvalgsverktøy, men kan nå lengre"
+
+msgid "commands.wedit:tool.description.selwand"
+msgstr "Utvalgsverktøy"
+
+msgid "commands.wedit:tool.description.navwand"
+msgstr "Navigeringsverktøy"
+
+msgid "commands.wedit:tool.description.stacker"
+msgstr "Blokkstablingsverktøy"
+
+msgid "commands.wedit:tool.description.none"
+msgstr "Fjern bindingen av verktøyet som blir holdt"
+
+msgid "commands.wedit:tool.unbind"
+msgstr "Verktøy ubundet fra ditt nåværende gjenstand."
+
+msgid "commands.wedit:unstuck.description"
+msgstr "Flytt ut av blokker"
+
+msgid "commands.wedit:unstuck.explain"
+msgstr "Slik skal det gjøres!"
+
+msgid "commands.wedit:undo.description"
+msgstr "Angret en bestemt mengde handlinger"
+
+msgid "commands.wedit:undo.explain"
+msgstr "Angret %s tilgjengelige redigeringer."
+
+msgid "commands.wedit:undo.none"
+msgstr "Ingenting igjen å angre."
+
+msgid "commands.wedit:up.description"
+msgstr "Flytt opp en viss mengde blokker"
+
+msgid "commands.wedit:up.explain"
+msgstr "Whoosh!"
+
+msgid "commands.wedit:wall.description"
+msgstr "Generer en vegg fra ditt utvalg"
+
+msgid "commands.wedit:wand.description"
+msgstr "Gi deg selv en utvalgsstav"
+
+msgid "commands.wedit:wand.explain"
+msgstr "Snik og trykk på blokk: velg pos #1; trykk blokk uten snik: vel pos #2"
+
+msgid "commands.wedit:worldedit.description"
+msgstr "WorldEdit kommandoer"
+
+msgid "commands.wedit:worldedit.description.perf"
+msgstr "Veksle ytelsesmodus for den gjeldende økten."
+
+msgid "commands.wedit:worldedit.perf.enabled"
+msgstr "Ytelsesmodus er aktivert."
+
+msgid "commands.wedit:worldedit.perf.disabled"
+msgstr "Ytelsesmodus er deaktivert."
+
+msgid "commands.wedit:worldedit.description.version"
+msgstr "Få WorldEdit versjon"
+
+msgid "commands.wedit:worldedit.version"
+msgstr "WorldEdit versjon: %s"
+
+msgid "howtoplay.category.worldEdit"
+msgstr "WorldEdit"
+
+msgid "howtoplay.wedit:quick_start"
+msgstr "Pang start"
+
+msgid "howtoplay.wedit:quick_start.title"
+msgstr "Slik spiller du: kjapp start til WorldEdit"
+
+msgid "howtoplay.wedit:license"
+msgstr "Lisens"
+
+msgid "howtoplay.wedit:license.title"
+msgstr "Slik spiller du: WorldEdit lisens"
+
+msgid "howtoplay.wedit:quick_start.text.1"
+msgstr "Velkommen! dette er en port til den opprinnelige WorldEdit modden for Minecraft: Java edition. Dette tillegget vil hjelpe deg med å forme verdenen din i Minecraft."
+
+msgid "howtoplay.wedit:quick_start.header.1"
+msgstr "Før alt annet..,"
+
+msgid "howtoplay.wedit:quick_start.text.2"
+msgstr "Som standr har spillere ikke tilgang til WorldEdit. Bare de som er markert med worldedit tillatelser kan bruke funksjonene. For å gi deg selv tilgang, skriv inn §e/tag @s add worldedit§r i chat. Du bør nå ha tilgang til alle WorldEdit kommandoene."
+
+msgid "howtoplay.wedit:quick_start.text.3"
+msgstr "§l§aTip:§r§a Du kan også gi andre spillere tillatelse ved å endre §e@s§r§a til spillerens navn. Du må sette det i sitater hvis det har et mellomrom i seg. F. eks: §e/tag \"Steve Wanderer\" add worldedit§r"
+
+msgid "howtoplay.wedit:quick_start.header.2"
+msgstr "Kommer seg"
+
+msgid "howtoplay.wedit:quick_start.text.4"
+msgstr "§l§aNotice:§r§a Kommandoene som er gitt av dette tillegget bruker semikolon(;) istedenfor en skråstrek fremover (/). I fremtiden kan Mojang legge til faktiske tilpassede kommandoer støtte til Minecraft.§r"
+
+msgid "howtoplay.wedit:quick_start.text.5"
+msgstr "Å komme seg fra punk A til punkt B kan noen ganger være irriterende. Heldigvis kommer dette tillegget med en kjent navigeringsstav. For å få en skriv inn kommandoen §e;navwand§r. Når du har denne gjenstanden er det bare å bruke den for å bli teleportert til stedet du ser på. Vil du komme deg til motsad side av en vegg eller tak? Bruk staven mens du sniker for å komme seg gjennom§! Sitter du fast i en blokk? Bruk staven for å komme deg løs!"
+
+msgid "howtoplay.wedit:quick_start.text.6"
+msgstr "§l§aTip:§r§a hvis du ikke vil bruke navigerinsstaven, kan disse handlingene også bli gjort med kommandoene §e;jumpto§r§a, §e;thru§r§a and §e;unstuck§r§a §r."
+
+msgid "howtoplay.wedit:quick_start.header.3"
+msgstr "Utføre valg"
+
+msgid "howtoplay.wedit:quick_start.text.7"
+msgstr "Som i den originale modden bruker du noe som kalles for en utvalgsstav for å lett markere områder av verdenen din for forskjellige operasjoner. For å få en, ta en treøks eller skriv inn kommandoen §e;wand§r. Utvalg i WorldEdit er kube-formede som standard. For å gjøre et valg må du selektere to hjørner av kuben. Du markerer det første hjørnet ved å bruke staven på en blokk i det gjørnet mens du sniker. Du marker det andre punktet ved å bruke det på en blokk §lwithout§r sniking. Hvis dette er gjort riktig bør du kunne se en fremvisning av ditt utvalg."
+
+msgid "howtoplay.wedit:quick_start.text.8"
+msgstr "Hvis det er ingen blokker å markere ett hjørne med, som for eksempel høyt i luften, kan du også bruke kommandoene §e;pos1§r for det første hjørnet, og §e;pos2§r for det andre punktet, denne kommandoen markerer punktet du står i på det tidspunktet. Dette er ikke den samme posisjonen som du står §lon§r."
+
+msgid "howtoplay.wedit:quick_start.header.4"
+msgstr "Gjør ting med ditt utvalg"
+
+msgid "howtoplay.wedit:quick_start.text.9"
+msgstr "Lag et lite utvalg for å jobbe med og klargjør settet ditt med §e;kit§r. Vi skal prøve noen av funksjonene WorldEdit har å tilby."
+
+msgid "howtoplay.wedit:quick_start.text.10"
+msgstr "§71. Plasser stein, bruk mønstervelgeren på steinen og bruk deretter \"Fyll utvalg\". En kube av stein burde bli laget."
+
+msgid "howtoplay.wedit:quick_start.text.11"
+msgstr "§r2. Bruk mønstervelgeren i luften (mobil-spillere må holde skjermen med den) og bruk \"Fyll utvalg\" igjen for å fjerne steinen."
+
+msgid "howtoplay.wedit:quick_start.text.12"
+msgstr "§73. Plasser sandstein og glass, bruk deretter mønstervelgeren på sandsteinen, snik og bruk det på glasset for å legge til mønsteret ditt. Bruk \"Fyll utvalg\" og du bør ha en blanding av sandstein og glass."
+
+msgid "howtoplay.wedit:quick_start.text.13"
+msgstr "§r4. Ta ut maskevelgeren fra inventaret ditt og bruk det på sandsteinen. Angi en blokk av ditt valg som mønsteret ditt og bruk \"Fyll utvalg\". All sandsteinen burde nå være erstattet av den blokken."
+
+msgid "howtoplay.wedit:quick_start.text.14"
+msgstr "§75. Gjenta utvalget ditt oppover ved å skrive inn kommandoen §e;stack 4 up§r§7."
+
+msgid "howtoplay.wedit:quick_start.text.15"
+msgstr "Hvis du vil, kan du angre alt ved å bruke angre-gjenstanden til du ikke kan angre lengre."
+
+msgid "howtoplay.wedit:quick_start.header.5"
+msgstr "Leking med penseler"
+
+msgid "howtoplay.wedit:quick_start.text.16"
+msgstr "1. Få en spade av hvilken som helst type, og plasser brostein ned; du vil trenge det for penselet."
+
+msgid "howtoplay.wedit:quick_start.text.17"
+msgstr "§72. Bruk \"WorldEdit innstillinger\"-gjenstanden. En meny vil komme opp som inkluderer \"penselinnstillinger\". Velg den knappen, deretter lag et nytt pensel som den ber deg om. Lag den som et kulepensel med radius 3, og et brostein-mønster. Bekreft instillengene og lukk menyen."
+
+msgid "howtoplay.wedit:quick_start.text.18"
+msgstr "§r3. Sikt på et sted på bakken som ikke er nærmt deg og bruk spaden (nå pensel) til å plassere brostein-kuler."
+
+msgid "howtoplay.wedit:quick_start.text.19"
+msgstr "§74. Gå inn i penselinnstillingene igjen for å sette masken til penselet til `gress`. Bruk penselet nå til å lage en brosteinsti."
+
+msgid "howtoplay.wedit:quick_start.text.20"
+msgstr "§r5. Slett penselet fra menyen for å deaktivere den."
+
+msgid "howtoplay.wedit:quick_start.header.7"
+msgstr "Hva nå?"
+
+msgid "howtoplay.wedit:quick_start.text.23"
+msgstr "For å lære mer om dett tillegget kan du gå til den nettbaserte documentationen her: §ehttps://worldedit-be-docs.readthedocs.io§r"
+
+msgid "howtoplay.category.minecraft"
+msgstr "Minecraft"
+
