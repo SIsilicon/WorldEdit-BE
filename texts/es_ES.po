@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-02-19 21:08\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Herramienta de navegación"
 msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Acumuladora"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Brocha esférica"
 
@@ -204,6 +207,12 @@ msgstr "Máscara de altura"
 
 msgid "worldedit.config.usePicker"
 msgstr "Usar Selector de Bloque"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La primera selección aún no se ha hecho."
@@ -792,6 +801,9 @@ msgstr "Herramienta de navegación"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Bloquear herramienta Stacker"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Desvincula la herramienta activa en el inventario"
