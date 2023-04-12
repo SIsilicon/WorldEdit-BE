@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-02-07 21:08\n"
+"PO-Revision-Date: 2023-04-12 03:30\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,9 @@ msgstr "Навігаційна паличка"
 msgid "worldedit.config.tool.stacker"
 msgstr "Укладальник"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Сферичний пензель"
 
@@ -204,6 +207,12 @@ msgstr "Висота маски"
 
 msgid "worldedit.config.usePicker"
 msgstr "Використовувати вибір блоку"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Перше виділення ще не зроблено."
@@ -792,6 +801,9 @@ msgstr "Навігаційна паличка"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Укладальник блоків"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Від'єднати прив'язку інструмента"
