@@ -304,7 +304,7 @@ export class CommandBuilder {
       let hasNamedSubCmd = false;
       flagDefs = new Map<string, commandFlag>(flagDefs);
 
-      function processFlagDefs(argDefs: commandArgList) {
+      function processFlagDefs(argDefs?: commandArgList) {
         argDefs?.forEach(argDef => {
           if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
             flagDefs.set(argDef.flag, argDef);
