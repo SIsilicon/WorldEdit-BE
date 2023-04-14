@@ -277,6 +277,10 @@ export class CommandBuilder {
         result.set(def.name, cmdBaseInfo.name);
       } else if (def.type == "string") {
         result.set(def.name, args[idx++]);
+      } else if (def.type == "string...") {
+        const str = args.slice(idx).join(" ");
+        result.set(def.name, str);
+        idx = args.length;
       } else if (self.customArgTypes.has(def.type)) {
         try {
           const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);

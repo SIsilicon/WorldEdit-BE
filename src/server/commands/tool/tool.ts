@@ -52,7 +52,7 @@ const registerInformation = {
       args: [
         {
           name: "command",
-          type: "string"
+          type: "string..."
         }
       ]
     }
