@@ -303,11 +303,17 @@ export class CommandBuilder {
       let defIdx = 0;
       let hasNamedSubCmd = false;
       flagDefs = new Map<string, commandFlag>(flagDefs);
-      argDefs?.forEach(argDef => {
-        if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
-          flagDefs.set(argDef.flag, argDef);
-        }
-      });
+
+      function processFlagDefs(argDefs: commandArgList) {
+        argDefs?.forEach(argDef => {
+          if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
+            flagDefs.set(argDef.flag, argDef);
+          } else if ("subName" in argDef && argDef.subName.startsWith("_")) {
+            processFlagDefs(argDef.args);
+          }
+        });
+      }
+      processFlagDefs(argDefs);
 
       function processSubCmd(idx: number, arg: string) {
         let processed = false;
