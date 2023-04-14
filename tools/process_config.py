@@ -46,7 +46,7 @@ def generateScript(isServer):
     return result
 
 def generateVariables():
-    result = '{\n'
+    result = []
     for name, data in settings.items():
         value = data["default"]
 
@@ -55,13 +55,13 @@ def generateVariables():
         elif type(value) is bool:
             value = "true" if value else "false"
         
-        result += '    /**\n'
+        var = '\n    /**\n'
         for line in data['description'].splitlines():
-            result += f'     * {line}\n'
-        result += '     */\n'
-        result += f'    "{name}": {value},\n'
-    result += '}'
-    return result
+            var += f'     * {line}\n'
+        var += '     */\n'
+        var += f'    "{name}": {value}'
+        result.append(var)
+    return '{' + ",".join(result) + '\n}'
 
 
 prevResult = ''
