@@ -294,11 +294,11 @@ export class CommandBuilder {
       return idx;
     }
 
-    function processList(currIdx: number, argDefs: commandArgList, result: Map<string, any>) {
+    function processList(currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) {
 
       let defIdx = 0;
       let hasNamedSubCmd = false;
-      const flagDefs = new Map<string, commandFlag>();
+      flagDefs = new Map<string, commandFlag>(flagDefs);
       argDefs?.forEach(argDef => {
         if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
           flagDefs.set(argDef.flag, argDef);
@@ -318,7 +318,7 @@ export class CommandBuilder {
             } else {
               hasNamedSubCmd = true;
               if (argDef.subName == arg) {
-                idx = processList(idx + 1, argDef.args, result);
+                idx = processList(idx + 1, argDef.args, result, flagDefs);
                 result.set(argDef.subName, true);
                 processed = true;
                 unnamedSubs = [];
@@ -343,7 +343,7 @@ export class CommandBuilder {
         for (const sub of unnamedSubs) {
           try {
             const subResult = new Map<string, any>();
-            idx = processList(i, sub.args, subResult);
+            idx = processList(i, sub.args, subResult, flagDefs);
             result.set(sub.subName, true);
             subResult.forEach((v, k) => result.set(k, v));
             break;
