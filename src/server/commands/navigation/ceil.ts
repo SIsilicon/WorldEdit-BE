@@ -4,25 +4,27 @@ import { registerCommand } from "../register_commands.js";
 import { MinecraftBlockTypes } from "@minecraft/server";
 
 const registerInformation = {
-  name: "up",
-  permission: "worldedit.navigation.up",
-  description: "commands.wedit:up.description",
+  name: "ceil",
+  permission: "worldedit.navigation.ceiling",
+  description: "commands.wedit:ceiling.description",
   usage: [
     {
-      name: "height",
+      name: "clearance",
       type: "int",
-      range: [0, null] as [number, null]
+      range: [0, null] as [number, null],
+      default: 0
     }
   ]
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-  const height = args.get("height") as number;
+  const clearance = args.get("clearance") as number;
 
   let blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
-  for (let i = 0; i < height; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
+  for (let i = 0;; i++, blockLoc = blockLoc.offset(0, 1, 0)) {
     if (!dimension.getBlock(blockLoc.offset(0, 2, 0)).isAir()) {
+      blockLoc = blockLoc.offset(0, clearance < i ? -clearance : -i, 0);
       break;
     }
   }

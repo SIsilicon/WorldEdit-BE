@@ -83,7 +83,7 @@ import "./navigation/jumpto.js";
 import "./navigation/thru.js";
 import "./navigation/ascend.js";
 import "./navigation/descend.js";
-// TODO: Implement ceil
+import "./navigation/ceil.js";
 
 import "./tool/tool.js";
 
