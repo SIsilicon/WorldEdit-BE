@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-04-12 04:32\n"
+"PO-Revision-Date: 2023-04-15 03:07\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -402,6 +402,9 @@ msgstr "数式を評価する"
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' は有効な式として解析できませんでした。"
+
+msgid "commands.wedit:ceiling.description"
+msgstr "Go to the ceiling."
 
 msgid "commands.wedit:center.description"
 msgstr "中央のブロックを設定する"
