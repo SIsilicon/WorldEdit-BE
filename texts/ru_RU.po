@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-04-12 03:30\n"
+"PO-Revision-Date: 2023-04-15 03:07\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -402,6 +402,9 @@ msgstr "Оценка математического выражения."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не удалось персонализировать как допустимое выражение."
+
+msgid "commands.wedit:ceiling.description"
+msgstr "Go to the ceiling."
 
 msgid "commands.wedit:center.description"
 msgstr "Установить центральный блок(и)."
