@@ -167,38 +167,38 @@ export class RegionBuffer {
             return block;
           };
 
-          if (upsideDownBit && openBit && direction) {
+          if (upsideDownBit != null && openBit != null && direction != null) {
             const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit}_${openBit}_${direction}`, ...rotFlip) as string).split("_");
             block = withProperties({ "upside_down_bit": states[0] == "true", "open_bit": states[1] == "true", "direction": parseInt(states[2]) });
-          } else if (weirdoDir && upsideDownBit) {
+          } else if (weirdoDir != null && upsideDownBit != null) {
             const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit}_${weirdoDir}`, ...rotFlip) as string).split("_");
             block = withProperties({ "upside_down_bit": states[0] == "true", "weirdo_direction": parseInt(states[1]) });
-          } else if (doorHingeBit && direction) {
+          } else if (doorHingeBit != null && direction != null) {
             const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, ...rotFlip) as string).split("_");
             block = withProperties({ "door_hinge_bit": states[0] == "true", "direction": parseInt(states[1]) });
-          } else if (attachement && direction) {
+          } else if (attachement != null && direction != null) {
             const states = (this.transformMapping(mappings.bellMap, `${attachement}_${direction}`, ...rotFlip) as string).split("_");
             block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
-          } else if (facingDir) {
+          } else if (facingDir != null) {
             const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
             block = block.withProperty("facing_direction", parseInt(state));
-          } else if (direction) {
+          } else if (direction != null) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
             const state = this.transformMapping(mapping, direction, ...rotFlip);
             block = block.withProperty("direction", parseInt(state));
-          } else if (groundSignDir) {
+          } else if (groundSignDir != null) {
             const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
             block = block.withProperty("ground_sign_direction", parseInt(state));
-          } else if (torchFacingDir) {
+          } else if (torchFacingDir != null) {
             const state = this.transformMapping(mappings.torchMap, torchFacingDir, ...rotFlip);
             block = block.withProperty("torch_facing_direction", state);
-          } else if (leverDir) {
+          } else if (leverDir != null) {
             const state = this.transformMapping(mappings.leverMap, leverDir, ...rotFlip);
             block = block.withProperty("lever_direction", state.replace("0", ""));
-          } else if (pillarAxis) {
+          } else if (pillarAxis != null) {
             const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", ...rotFlip);
             block = block.withProperty("pillar_axis", state[0]);
-          } else if (topSlotBit) {
+          } else if (topSlotBit != null) {
             const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), ...rotFlip);
             block = block.withProperty("top_slot_bit", state == "true");
           }
