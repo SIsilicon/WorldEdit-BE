@@ -352,7 +352,7 @@ export class CommandBuilder {
             result.set(sub.subName, true);
             subResult.forEach((v, k) => result.set(k, v));
             invalidFlags.forEach((f, i) => {
-              if (sub.args.map(argDef => argDef.flag).includes(f)) {
+              if (sub.args.map(argDef => "flag" in argDef ? argDef.flag : "").includes(f)) {
                 result.set(f, true);
                 invalidFlags[i] = "";
               }
