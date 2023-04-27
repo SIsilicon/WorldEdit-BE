@@ -302,6 +302,7 @@ export class CommandBuilder {
 
       let defIdx = 0;
       let hasNamedSubCmd = false;
+      let invalidFlags: string[] = [];
       flagDefs = new Map<string, commandFlag>(flagDefs);
 
       function processFlagDefs(argDefs?: commandArgList) {
@@ -356,6 +357,13 @@ export class CommandBuilder {
             idx = processList(i, sub.args, subResult, flagDefs);
             result.set(sub.subName, true);
             subResult.forEach((v, k) => result.set(k, v));
+            invalidFlags.forEach((f, i) => {
+              if (sub.args.map(argDef => argDef.flag).includes(f)) {
+                result.set(f, true);
+                invalidFlags[i] = "";
+              }
+            });
+            invalidFlags = invalidFlags.filter(f => f !== "");
             break;
           } catch (e) {
             fails.push(e);
@@ -387,7 +395,7 @@ export class CommandBuilder {
                 }, result);
               }
             } else {
-              throw RawText.translate("commands.generic.wedit:invalidFlag").with(f);
+              invalidFlags.push(f);
             }
           }
           continue;
@@ -440,6 +448,10 @@ export class CommandBuilder {
           }
         }
         defIdx++;
+      }
+
+      if (invalidFlags.length != 0) {
+        throw RawText.translate("commands.generic.wedit:invalidFlag").with(invalidFlags[0]);
       }
 
       return i;
