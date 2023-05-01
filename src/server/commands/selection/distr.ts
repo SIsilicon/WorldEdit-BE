@@ -29,7 +29,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const processBlock = (block: BlockPermutation) => {
       let id = block.type.id;
       if (getStates) {
-        for (const val of Object.values(block.getAllProperties())) {
+        for (const val of Object.values(block.getAllStates())) {
           id += `|${val}`;
         }
       }
@@ -75,7 +75,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       const blockData = block.split("|");
       const states: Map<string, string> = new Map();
       const blockDefault = BlockPermutation.resolve(blockData[0]);
-      for (const [state, val] of Object.entries(blockDefault.getAllProperties())) {
+      for (const [state, val] of Object.entries(blockDefault.getAllStates())) {
         if (blockData[i] && `${val}` != blockData[i]) {
           states.set(state, blockData[i]);
         }

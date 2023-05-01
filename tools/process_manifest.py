@@ -52,15 +52,18 @@ with open('mc_manifest.json', 'r') as file:
     manifest = json.load(file)
     processJsonElement(manifest, bp_manifest, rp_manifest)
 
+version = manifest['header']['version']
+if not type(version) is str:
+    version = version[:3]
+bp_manifest['header']['version'] = version
+rp_manifest['header']['version'] = version
+
 if not 'dependencies' in bp_manifest:
     bp_manifest['dependencies'] = []
 bp_manifest['dependencies'].append({
     'uuid': rp_manifest['header']['uuid'],
     'version': rp_manifest['header']['version']
 })
-
-bp_manifest['header']['version'] = manifest['header']['version'][:3]
-rp_manifest['header']['version'] = manifest['header']['version'][:3]
 
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'

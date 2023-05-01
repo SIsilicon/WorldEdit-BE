@@ -18,7 +18,7 @@ class PatternPickerTool extends Tool {
       session.globalPattern.addBlock(block);
     }
 
-    blockName += printBlockProperties(block);
+    blockName += printBlockStates(block);
     if (blockName.startsWith("minecraft:")) {
       blockName = blockName.slice("minecraft:".length);
     }
@@ -55,7 +55,7 @@ class MaskPickerTool extends Tool {
       session.globalMask.addBlock(block);
     }
 
-    blockName += printBlockProperties(block);
+    blockName += printBlockStates(block);
     if (blockName.startsWith("minecraft:")) {
       blockName = blockName.slice("minecraft:".length);
     }
@@ -77,9 +77,9 @@ class MaskPickerTool extends Tool {
 }
 Tools.register(MaskPickerTool, "mask_picker", "wedit:mask_picker");
 
-function printBlockProperties(block: BlockPermutation) {
+function printBlockStates(block: BlockPermutation) {
   let propString = "";
-  const properties = block.getAllProperties();
+  const properties = block.getAllStates();
   if (Object.keys(properties).length && block.type.id != "water" && block.type.id != "lava") {
     for (const prop in properties) {
       if (prop.startsWith("wall_connection_type") || prop.startsWith("liquid_depth")) {

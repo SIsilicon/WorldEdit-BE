@@ -268,7 +268,7 @@ class StateMask extends MaskNode {
   }
 
   matchesBlock(block: Block) {
-    const props = block.permutation.getAllProperties();
+    const props = block.permutation.getAllStates();
     let states_passed = 0;
     for (const [state, val] of this.states.entries()) {
       if (this.strict && state in props && val == props[state]) {

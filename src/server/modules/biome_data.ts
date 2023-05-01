@@ -1,4 +1,4 @@
-import { Dimension, Vector3, world, BeforeDataDrivenEntityTriggerEvent, Entity } from "@minecraft/server";
+import { Dimension, Vector3, world, Entity, DataDrivenEntityTriggerBeforeEvent } from "@minecraft/server";
 import { commandSyntaxError, contentLog, CustomArgType, Database, Vector } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
 import { getWorldHeightLimits, locToString, wrap } from "../util.js";
@@ -145,7 +145,10 @@ class BiomeDetector extends EventEmitter implements PooledResource {
           // contentLog.debug("entity created:", this.id);
         } else {
           this.entity.nameTag = "wedit:biome_update";
-          this.entity.teleport(loc, dim, 0, 0);
+          this.entity.teleport(loc, {
+            dimension: dim,
+            rotation: { x: 0, y: 0 }
+          });
           // contentLog.debug("entity tpd:", this.id);
         }
       } catch (err) {
@@ -155,16 +158,18 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         reject(err);
       }
 
-      events.set(this.entity, (ev: BeforeDataDrivenEntityTriggerEvent) => {
+      // TODO: Check that the biome commands still work
+      events.set(this.entity, (ev: DataDrivenEntityTriggerBeforeEvent) => {
         if (ev.id != "wedit:biome_update") return;
         try {
-          const biomeId = biomeScores.getScore(this.entity.scoreboard);
+          const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
           this.entity.nameTag = "";
           this.entity.teleport({
             x: this.entity.location.x,
             y: getWorldHeightLimits(dim)[0] - 10,
             z: this.entity.location.z,
-          }, dim, 0, 0);
+          }, { dimension: dim, rotation: { x: 0, y: 0 } });
+
           this.emit(readyEventSym);
           resolve(biomeId);
         } catch (err) {
@@ -224,8 +229,8 @@ async function getBiomeId(dim: Dimension, loc: Vector3) {
   return await detector.detect(dim, loc);
 }
 
-const events = new Map<Entity, (ev: BeforeDataDrivenEntityTriggerEvent) => void>();
-world.events.beforeDataDrivenEntityTriggerEvent.subscribe(ev => {
+const events = new Map<Entity, (ev: DataDrivenEntityTriggerBeforeEvent) => void>();
+world.beforeEvents.dataDrivenEntityTriggerEvent.subscribe(ev => {
   events.get(ev.entity)?.(ev);
 });
 

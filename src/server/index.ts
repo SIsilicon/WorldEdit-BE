@@ -28,14 +28,6 @@ Server.on("ready", ev => {
   ready = true;
 });
 
-// Don't know what this does, but will leave it just in case.
-world.events.messageReceive.subscribe(ev => {
-  contentLog.debug("Hello");
-  contentLog.debug("id: ", ev.id);
-  contentLog.debug("sourceType: ", ev.sourceType);
-  contentLog.debug("message: ", ev.message);
-});
-
 Server.on("playerLoaded", ev => {
   contentLog.debug(`player ${ev.player.name} loaded.`);
   if (ready) {

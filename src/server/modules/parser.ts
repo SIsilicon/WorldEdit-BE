@@ -1,5 +1,5 @@
 import { commandSyntaxError, contentLog, RawText, Server } from "@notbeer-api";
-import { BlockPermutation, BlockProperties } from "@minecraft/server";
+import { BlockPermutation, BlockStates } from "@minecraft/server";
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export type parsedBlock = {
@@ -104,7 +104,7 @@ export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
 
 export function blockPermutation2ParsedBlock(block: BlockPermutation) {
   const states: parsedBlock["states"] = new Map();
-  Object.entries(block.getAllProperties()).forEach(([state, value]) => {
+  Object.entries(block.getAllStates()).forEach(([state, value]) => {
     if (!state.startsWith("wall_connection_type") && !state.startsWith("liquid_depth")) {
       states.set(state, value);
     }
@@ -137,11 +137,11 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
     let blockProps: Record<string, string | number | boolean>;
     try {
       blockPerm = BlockPermutation.resolve(block.id);
-      blockProps = blockPerm.getAllProperties();
+      blockProps = blockPerm.getAllStates();
     } catch {
       throwTokenError(typeToken);
     }
-    if (!isMask && blockPerm.getProperty("persistent_bit") && !block.states?.has("persistent_bit")) {
+    if (!isMask && blockPerm.getState("persistent_bit") && !block.states?.has("persistent_bit")) {
       if (!block.states) {
         block.states = new Map();
       }
@@ -153,7 +153,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
         throw RawText.translate("commands.blockstate.stateError").with(state).with(block.id);
       } else if (typeof val != typeof blockProps[state]) {
         throw RawText.translate("commands.blockstate.typeError").with(state);
-      } else if (!BlockProperties.get(state).validValues.includes(val)) {
+      } else if (!BlockStates.get(state).validValues.includes(val)) {
         throw RawText.translate("commands.blockstate.valueError").with(state);
       }
     }

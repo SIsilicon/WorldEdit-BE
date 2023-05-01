@@ -1,49 +1,52 @@
 import {
-  BeforeChatEvent,
-  BeforeExplosionEvent,
-  BeforePistonActivateEvent,
-  BlockExplodeEvent,
-  BeforeItemUseEvent,
-  BeforeItemUseOnEvent,
-  ChatEvent,
-  TickEvent,
-  PlayerLeaveEvent,
-  EffectAddEvent,
-  ExplosionEvent,
-  PistonActivateEvent,
-  WeatherChangeEvent,
+  ChatSendBeforeEvent,
+  ExplosionBeforeEvent,
+  PistonActivateBeforeEvent,
+  BlockExplodeAfterEvent,
+  ItemUseBeforeEvent,
+  ItemUseOnBeforeEvent,
+  ChatSendAfterEvent,
   Player,
   Dimension,
-  BlockBreakEvent,
-  WorldInitializeEvent,
-  Entity
+  Entity,
+  BlockBreakAfterEvent,
+  EffectAddAfterEvent,
+  ExplosionAfterEvent,
+  PistonActivateAfterEvent,
+  WeatherChangeAfterEvent,
+  PlayerLeaveAfterEvent,
+  WorldInitializeAfterEvent
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
 export interface EventList {
-    beforeMessage: [BeforeChatEvent],
-    beforeExplosion: [BeforeExplosionEvent],
-    beforePistonActivate: [BeforePistonActivateEvent],
-    blockExplode: [BlockExplodeEvent],
-    messageCreate: [ChatEvent],
-    beforeItemUse: [BeforeItemUseEvent],
-    beforeItemUseOn: [BeforeItemUseOnEvent],
-    blockBreak: [BlockBreakEvent],
+    beforeMessage: [ChatSendBeforeEvent],
+    beforeExplosion: [ExplosionBeforeEvent],
+    beforePistonActivate: [PistonActivateBeforeEvent],
+    blockExplode: [BlockExplodeAfterEvent],
+    messageCreate: [ChatSendAfterEvent],
+    itemUseBefore: [ItemUseBeforeEvent],
+    itemUseOnBefore: [ItemUseOnBeforeEvent],
+    blockBreak: [BlockBreakAfterEvent],
     tick: [TickEvent],
-    entityEffected: [EffectAddEvent],
+    entityEffected: [EffectAddAfterEvent],
     entityCreate: [EntityCreateEvent],
-    explosion: [ExplosionEvent],
-    pistonActivate: [PistonActivateEvent],
-    weatherChange: [WeatherChangeEvent],
+    explosion: [ExplosionAfterEvent],
+    pistonActivate: [PistonActivateAfterEvent],
+    weatherChange: [WeatherChangeAfterEvent],
     playerJoin: [PlayerJoinEvent],
     playerLoaded: [PlayerLoadedEvent]
-    playerLeave: [PlayerLeaveEvent],
+    playerLeave: [PlayerLeaveAfterEvent],
     ready: [ready],
     customCommand: [customCommand],
     playerChangeDimension: [playerChangeDimension],
-    worldInitialize: [WorldInitializeEvent]
+    worldInitialize: [WorldInitializeAfterEvent]
 }
 
+interface TickEvent {
+    currentTick: number
+    deltaTime: number
+}
 interface ready {
     readonly loadTime: number
 }
@@ -65,7 +68,7 @@ export interface EntityCreateEvent { // Equivalent of EntitySpawnEvent (1.19.60+
 }
 interface customCommand {
     registration: registerInformation,
-    data: BeforeChatEvent,
+    data: ChatSendBeforeEvent,
     readonly createdAt: Date,
     readonly createdTimestamp: number
 }

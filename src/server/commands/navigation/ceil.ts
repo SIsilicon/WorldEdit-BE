@@ -31,7 +31,7 @@ registerCommand(registerInformation, function (session, builder, args) {
 
   const rot = builder.getRotation();
   const block = dimension.getBlock(blockLoc.offset(0, -1, 0));
-  builder.teleport(blockLoc.offset(0.5, 0, 0.5), dimension, rot.x, rot.y);
+  builder.teleport(blockLoc.offset(0.5, 0, 0.5), { dimension });
   if (block.isAir()) block.setType(MinecraftBlockTypes.glass);
   return RawText.translate("commands.wedit:up.explain");
 });

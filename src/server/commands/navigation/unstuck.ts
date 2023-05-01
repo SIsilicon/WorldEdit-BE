@@ -21,6 +21,6 @@ registerCommand(registerInformation, function (session, builder) {
   // eslint-disable-next-line no-cond-assign
   while (blockLoc.y += 1);
 
-  builder.teleport(blockLoc.offset(0.5, 0, 0.5), dimension, builder.getRotation().x, builder.getRotation().y);
+  builder.teleport(blockLoc.offset(0.5, 0, 0.5), { dimension });
   return RawText.translate("commands.wedit:unstuck.explain");
 });

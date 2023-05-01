@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Block, BlockProperties } from "@minecraft/server";
+import { Vector3, BlockPermutation, Block, BlockStates } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -28,7 +28,7 @@ export class Pattern implements CustomArgType {
     try {
       const oldBlock = block.permutation;
       block.setPermutation(this.block.getPermutation(block, this.playerSession));
-      return !oldBlock.matches(block.typeId, block.permutation.getAllProperties());
+      return !oldBlock.matches(block.typeId, block.permutation.getAllStates());
     } catch (err) {
       //contentLog.error(err);
       return false;
@@ -272,13 +272,13 @@ class TypePattern extends PatternNode {
   constructor(token: Token, public type: string) {
     super(token);
     this.permutation = BlockPermutation.resolve(type);
-    this.props = this.permutation.getAllProperties();
+    this.props = this.permutation.getAllStates();
   }
 
   getPermutation(block: Block): BlockPermutation {
     let permutation = this.permutation;
-    Object.entries(block.permutation.getAllProperties()).forEach(([state, val]) => {
-      if(state in this.props) permutation = permutation.withProperty(state, val);
+    Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
+      if(state in this.props) permutation = permutation.withState(state, val);
     });
     return permutation;
   }
@@ -294,9 +294,9 @@ class StatePattern extends PatternNode {
 
   getPermutation(block: Block) {
     let permutation = block.permutation;
-    const props = permutation.getAllProperties();
+    const props = permutation.getAllStates();
     Object.entries(this.states).forEach(([state, val]) => {
-      if (state in props) permutation = permutation.withProperty(state, val);
+      if (state in props) permutation = permutation.withState(state, val);
     });
     return permutation;
   }
@@ -312,15 +312,15 @@ class RandStatePattern extends PatternNode {
   constructor(token: Token, public block: string) {
     super(token);
     this.permutation = BlockPermutation.resolve(block);
-    this.props = this.permutation.getAllProperties();
-    this.validValues = Object.fromEntries(Object.entries(this.props).map(([state]) => [state, BlockProperties.get(state).validValues]));
+    this.props = this.permutation.getAllStates();
+    this.validValues = Object.fromEntries(Object.entries(this.props).map(([state]) => [state, BlockStates.get(state).validValues]));
   }
 
   getPermutation() {
     let permutation = this.permutation;
     Object.entries(this.props).forEach(([state, val]) => {
       const validValues = this.validValues[state];
-      permutation = permutation.withProperty(state, validValues[Math.floor(Math.random() * validValues.length)] ?? val);
+      permutation = permutation.withState(state, validValues[Math.floor(Math.random() * validValues.length)] ?? val);
     });
     return permutation;
   }

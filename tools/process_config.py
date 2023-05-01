@@ -87,7 +87,11 @@ with open('worldedit_settings.json', 'r') as file:
 with open('mc_manifest.json', 'r') as file:
     manifest = json.load(file)
     version = manifest['header']['version']
-    version_str = '.'.join(map(str, version)) + (' [BETA]' if len(version) > 3 else '')
+
+    if type(version) is str:
+        version_str = version
+    else:
+        version_str = '.'.join(map(str, version)) + (' [BETA]' if len(version) > 3 else '')\
 
 # Generate src/config.ts
 if args.generateConfigTS:

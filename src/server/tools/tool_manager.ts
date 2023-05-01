@@ -1,4 +1,4 @@
-import { Player, ItemStack, BeforeItemUseEvent, world, BlockBreakEvent, EntityInventoryComponent } from "@minecraft/server";
+import { Player, ItemStack, ItemUseBeforeEvent, world, BlockBreakAfterEvent, EntityInventoryComponent } from "@minecraft/server";
 import { contentLog, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
@@ -18,17 +18,17 @@ class ToolBuilder {
   private currentTick = 0;
 
   constructor() {
-    Server.on("beforeItemUse", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.item) {
+    Server.on("itemUseBefore", ev => {
+      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) {
         return;
       }
-      this.onItemUse(ev.item, ev.source as Player, ev);
+      this.onItemUse(ev.itemStack, ev.source as Player, ev);
     });
-    Server.on("beforeItemUseOn", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.item) {
+    Server.on("itemUseOnBefore", ev => {
+      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) {
         return;
       }
-      this.onItemUse(ev.item, ev.source as Player, ev, Vector.from(ev.getBlockLocation()));
+      this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
     });
 
     Server.on("tick", ev => {
@@ -182,7 +182,7 @@ class ToolBuilder {
     if (gen) yield* gen;
   }
 
-  private onItemUse(item: ItemStack, player: Player, ev: BeforeItemUseEvent, loc?: Vector) {
+  private onItemUse(item: ItemStack, player: Player, ev: ItemUseBeforeEvent, loc?: Vector) {
     if (this.disabled.includes(player.name) || !hasSession(player.name)) {
       return;
     }
@@ -201,7 +201,7 @@ class ToolBuilder {
     ev.cancel = true;
   }
 
-  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakEvent) {
+  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakAfterEvent) {
     if (this.disabled.includes(player.name)) {
       return;
     }

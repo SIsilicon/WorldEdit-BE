@@ -55,7 +55,7 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
     // eslint-disable-next-line no-cond-assign
     while (blockType = blocks.pop()) {
       const defaultPerm = BlockPermutation.resolve(blockType.id);
-      if (!Object.keys(defaultPerm.getAllProperties()).length) {
+      if (!Object.keys(defaultPerm.getAllStates()).length) {
         continue;
       }
 
@@ -72,7 +72,7 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
         if (block.isAir() && i == 0) {
           break;
         }
-        const props = block.permutation.getAllProperties();
+        const props = block.permutation.getAllStates();
         for (const name in props) {
           if (name == "persistent_bit") {
             props[name] = true;

@@ -90,7 +90,7 @@ export class CommandBuilder {
   /**
     * Register a command with a callback
     * @param {registerInformation} register An object of information needed to register the custom command
-    * @param {(data: BeforeChatEvent, args: Array<string>) => void}callback Code you want to execute when the command is executed
+    * @param {(data: ChatSendBeforeEvent, args: Array<string>) => void}callback Code you want to execute when the command is executed
     * @example import { Server } from "../../Minecraft";
     *  const server = new Server();
     *  server.commands.register({ name: 'ping' }, (data, args) => {

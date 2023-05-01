@@ -34,7 +34,7 @@ registerCommand(registerInformation, function (session, builder) {
   }
 
   if (canGoThrough) {
-    builder.teleport(testLoc.offset(0.5, 0, 0.5), dimension, builder.getRotation().x, builder.getRotation().y);
+    builder.teleport(testLoc.offset(0.5, 0, 0.5), { dimension });
     return "commands.wedit:thru.explain";
   } else {
     throw "commands.wedit:thru.obstructed";

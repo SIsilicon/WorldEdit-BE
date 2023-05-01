@@ -124,10 +124,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
         } else if (block.typeId == "minecraft:snow_layer") {
           if (args.has("s") && Math.random() < 0.4) {
             let perm = block.permutation;
-            const prevHeight = perm.getProperty("height") as number;
-            perm = perm.withProperty("height", Math.min(prevHeight + 1, 7));
+            const prevHeight = perm.getState("height") as number;
+            perm = perm.withState("height", Math.min(prevHeight + 1, 7));
             block.setPermutation(perm);
-            if (perm.getProperty("height") != prevHeight) changed++;
+            if (perm.getState("height") != prevHeight) changed++;
           }
         } else if (block.typeId == "minecraft:ice") {
           // pass

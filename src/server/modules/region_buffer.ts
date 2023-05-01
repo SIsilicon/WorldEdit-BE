@@ -147,22 +147,22 @@ export class RegionBuffer {
       if (shouldTransform) {
         transform = block => {
           const blockName = block.type.id;
-          const attachement = block.getProperty("attachement") as string;
-          const direction = block.getProperty("direction") as number;
-          const doorHingeBit = block.getProperty("door_hinge_bit") as boolean;
-          const facingDir = block.getProperty("facing_direction") as number;
-          const groundSignDir = block.getProperty("ground_sign_direction") as number;
-          const openBit = block.getProperty("open_bit") as boolean;
-          const pillarAxis = block.getProperty("pillar_axis") as string;
-          const topSlotBit = block.getProperty("top_slot_bit") as boolean;
-          const upsideDownBit = block.getProperty("upside_down_bit") as boolean;
-          const weirdoDir = block.getProperty("weirdo_direction") as number;
-          const torchFacingDir = block.getProperty("torch_facing_direction") as string;
-          const leverDir = block.getProperty("lever_direction") as string;
+          const attachement = block.getState("attachement") as string;
+          const direction = block.getState("direction") as number;
+          const doorHingeBit = block.getState("door_hinge_bit") as boolean;
+          const facingDir = block.getState("facing_direction") as number;
+          const groundSignDir = block.getState("ground_sign_direction") as number;
+          const openBit = block.getState("open_bit") as boolean;
+          const pillarAxis = block.getState("pillar_axis") as string;
+          const topSlotBit = block.getState("top_slot_bit") as boolean;
+          const upsideDownBit = block.getState("upside_down_bit") as boolean;
+          const weirdoDir = block.getState("weirdo_direction") as number;
+          const torchFacingDir = block.getState("torch_facing_direction") as string;
+          const leverDir = block.getState("lever_direction") as string;
 
           const withProperties = (properties: Record<string, string | number | boolean>) => {
             for (const prop in properties) {
-              block = block.withProperty(prop, properties[prop]);
+              block = block.withState(prop, properties[prop]);
             }
             return block;
           };
@@ -181,26 +181,26 @@ export class RegionBuffer {
             block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
           } else if (facingDir != null) {
             const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
-            block = block.withProperty("facing_direction", parseInt(state));
+            block = block.withState("facing_direction", parseInt(state));
           } else if (direction != null) {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
             const state = this.transformMapping(mapping, direction, ...rotFlip);
-            block = block.withProperty("direction", parseInt(state));
+            block = block.withState("direction", parseInt(state));
           } else if (groundSignDir != null) {
             const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
-            block = block.withProperty("ground_sign_direction", parseInt(state));
+            block = block.withState("ground_sign_direction", parseInt(state));
           } else if (torchFacingDir != null) {
             const state = this.transformMapping(mappings.torchMap, torchFacingDir, ...rotFlip);
-            block = block.withProperty("torch_facing_direction", state);
+            block = block.withState("torch_facing_direction", state);
           } else if (leverDir != null) {
             const state = this.transformMapping(mappings.leverMap, leverDir, ...rotFlip);
-            block = block.withProperty("lever_direction", state.replace("0", ""));
+            block = block.withState("lever_direction", state.replace("0", ""));
           } else if (pillarAxis != null) {
             const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", ...rotFlip);
-            block = block.withProperty("pillar_axis", state[0]);
+            block = block.withState("pillar_axis", state[0]);
           } else if (topSlotBit != null) {
             const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), ...rotFlip);
-            block = block.withProperty("top_slot_bit", state == "true");
+            block = block.withState("top_slot_bit", state == "true");
           }
           return block;
         };
@@ -245,8 +245,11 @@ export class RegionBuffer {
             entityFacing = Vector.from(entityFacing).sub(loc)
               .rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z)
               .mul(rotFlip[1]).sub(bounds[0]).add(loc);
-
-            ev.entity.teleportFacing(entityLoc, dim, entityFacing);
+            
+            ev.entity.teleport(entityLoc, {
+              dimension: dim,
+              facingLocation: entityFacing
+            });
           }
         };
 

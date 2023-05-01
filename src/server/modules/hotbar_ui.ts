@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { BeforeItemUseEvent, Player, TickEvent } from "@minecraft/server";
+import { ItemUseBeforeEvent, Player } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerUtil } from "./player_util.js";
 import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/classes/uiFormBuilder.js";
@@ -22,8 +22,8 @@ interface HotbarForm<T extends{}> {
 }
 
 type HotbarEventContext = MenuContext<{
-  __useEvent__: (ev: BeforeItemUseEvent) => void
-  __tickEvent__: (ev: TickEvent) => void
+  __useEvent__: (ev: ItemUseBeforeEvent) => void
+  __tickEvent__: (ev: {currentTick: number}) => void
 }>
 
 class HotbarUIForm<T extends {}> {
@@ -78,7 +78,7 @@ class HotbarUIForm<T extends {}> {
       Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item.name} 1 ${item.data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`, player);
     }
 
-    const beforeItemUse = (ev: BeforeItemUseEvent) => {
+    const itemUseBefore = (ev: ItemUseBeforeEvent) => {
       if (ev.source != player) return;
       ev.cancel = true;
 
@@ -87,7 +87,7 @@ class HotbarUIForm<T extends {}> {
 
       items[slot].action?.(ctx, player);
     };
-    Server.prependListener("beforeItemUse", beforeItemUse);
+    Server.prependListener("itemUseBefore", itemUseBefore);
 
     const tick = () => {
       this.tick?.(ctx, player);
@@ -95,7 +95,7 @@ class HotbarUIForm<T extends {}> {
     Server.prependListener("tick", tick);
 
     const eventCtx = ctx as unknown as HotbarEventContext;
-    eventCtx.setData("__useEvent__", beforeItemUse);
+    eventCtx.setData("__useEvent__", itemUseBefore);
     eventCtx.setData("__tickEvent__", tick);
     this.entered?.(ctx, player);
   }
@@ -103,7 +103,7 @@ class HotbarUIForm<T extends {}> {
   exit(player: Player, ctx: MenuContext<T>) {
     this.exiting?.(ctx, player);
     const eventCtx = ctx as unknown as HotbarEventContext;
-    Server.off("beforeItemUse", eventCtx.getData("__useEvent__"));
+    Server.off("itemUseBefore", eventCtx.getData("__useEvent__"));
     Server.off("tick", eventCtx.getData("__tickEvent__"));
     PlayerUtil.restoreHotbar(player);
   }
