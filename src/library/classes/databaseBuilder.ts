@@ -71,7 +71,7 @@ export class Database {
     if (table) {
       Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
     }
-    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify([this.name, this.data]))} GAMETEST_DB 0`).catch(e => console.warn(e));
+    Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify([this.name, this.data]))} GAMETEST_DB 0`);
   }
   /**
   * Get all the keys in the table

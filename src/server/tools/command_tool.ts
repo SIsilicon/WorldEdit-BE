@@ -30,7 +30,7 @@ class CommandTool extends Tool {
       session.usingItem = usingItem;
     } else {
       if (player.isOp()) {
-        Server.runCommand(self.command, player);
+        Server.queueCommand(self.command, player);
       }
     }
   };

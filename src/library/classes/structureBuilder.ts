@@ -41,42 +41,38 @@ class StructureManager {
     const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
 
     if (this.beyondMaxSize(size)) {
-      const promises = [];
+      let error = false;
       const subStructs = this.getSubStructs(start, end);
       for (const sub of subStructs) {
         const subStart = min.add(sub.start);
         const subEnd = min.add(sub.end);
         const subName = name + sub.name;
-        promises.push(Server.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`, dim));
+        error = Server.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).error || error;
+        if (error) break;
       }
 
-      return Promise.all(promises).then(result => {
-        if (result.some(res => res.error)) {
-          for (const sub of subStructs) {
-            Server.runCommand(`structure delete ${name + sub.name}`, dim);
-          }
-          return true;
-        } else {
-          this.structures.set(name, {
-            subRegions: subStructs,
-            size: size
-          });
-          return false;
+      if (error) {
+        for (const sub of subStructs) {
+          Server.queueCommand(`structure delete ${name + sub.name}`, dim);
         }
-      });
+        return true;
+      } else {
+        this.structures.set(name, {
+          subRegions: subStructs,
+          size: size
+        });
+        return false;
+      }
     } else {
       const startStr = min.print();
       const endStr = max.print();
 
-      return Server.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).then(result => {
-        if (result.error) {
-          return true;
-        }
-        this.structures.set(name, {
-          size: size
-        });
+      if (Server.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).error) {
+        return true;
+      } else {
+        this.structures.set(name, { size });
         return false;
-      });
+      }
     }
   }
 
@@ -96,18 +92,19 @@ class StructureManager {
       if (flip.includes("z")) dir_sc.x *= -1;
 
       const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), Vector.ZERO, rotation, dir_sc);
-      const promises = [];
+      let error = false;
       const subStructs = options.importedSize ?
         this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) :
         struct.subRegions;
       for (const sub of subStructs) {
         const subBounds = regionTransformedBounds(sub.start.floor(), sub.end.floor(), Vector.ZERO, rotation, dir_sc);
         const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
-        promises.push(Server.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`, dim));
+        error = Server.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`, dim).error || error;
+        if (error) break;
       }
-      return Promise.all(promises).then(result => result.some(res => res.error));
+      return error;
     } else {
-      return Server.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`, dim).then(result => result.error);
+      return Server.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`, dim).error;
     }
   }
 
@@ -120,28 +117,20 @@ class StructureManager {
     const dim = world.getDimension("overworld");
     if (struct) {
       if (struct.subRegions) {
-        const promises = [];
+        let error = false;
         for (const sub of struct.subRegions) {
-          promises.push(Server.runCommand(`structure delete ${name}${sub.name}`, dim));
+          error = Server.runCommand(`structure delete ${name}${sub.name}`, dim).error || error;
+          if (error) return true;
         }
-        return Promise.all(promises).then(result => {
-          if (result.some(res => res.error)) {
-            return true;
-          }
-          this.structures.delete(name);
-          return false;
-        });
       } else {
-        return Server.runCommand(`structure delete ${name}`, dim).then(result => {
-          if (result.error) {
-            return true;
-          }
-          this.structures.delete(name);
-          return false;
-        });
+        if (Server.runCommand(`structure delete ${name}`, dim).error) {
+          return true;
+        }
       }
+      this.structures.delete(name);
+      return false;
     }
-    return Promise.resolve(true);
+    return true;
   }
 
   getSize(name: string) {

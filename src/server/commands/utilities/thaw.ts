@@ -38,7 +38,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   range[0].y = Math.max(range[0].y, heightLimits[0]);
   range[1].y = Math.min(range[1].y, heightLimits[1]);
 
-  const job = (yield Jobs.startJob(session, 2, range)) as number;
+  const job = Jobs.startJob(session, 2, range);
   const history = session.getHistory();
   const record = history.record();
   try {
@@ -92,7 +92,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     i = 0;
 
     if (blocks.length) {
-      yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+      history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
       const air = BlockPermutation.resolve("minecraft:air");
       const water = BlockPermutation.resolve("minecraft:water");
 
@@ -108,7 +108,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }
-      yield history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+      history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
     }
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${changed}`);

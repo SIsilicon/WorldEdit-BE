@@ -117,7 +117,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   let count: number;
   try {
     const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
-    yield history.addUndoStructure(record, start, end);
+    history.addUndoStructure(record, start, end);
     count = 0;
     for (const point of points) {
       const block = dim.getBlock(point);
@@ -128,7 +128,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
 
     history.recordSelection(record, session);
-    yield history.addRedoStructure(record, start, end);
+    history.addRedoStructure(record, start, end);
     history.commit(record);
   } catch (e) {
     history.cancel(record);

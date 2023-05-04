@@ -30,25 +30,24 @@ function readMetaData(name: string, player: Player) {
   const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
   entity.nameTag = "__wedit__placeholder__";
 
-  return Server.structure.load(name, blockLoc, player.dimension).then(() => {
-    let data: string;
-    const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find(
-      entity => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__wedit__placeholder__"
-    );
-    if (imported) {
-      data = imported.nameTag;
-      imported.triggerEvent("wedit:despawn");
-    }
-    entity.triggerEvent("wedit:despawn");
-    return data;
-  });
+  Server.structure.load(name, blockLoc, player.dimension);
+  let data: string;
+  const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find(
+    entity => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__wedit__placeholder__"
+  );
+  if (imported) {
+    data = imported.nameTag;
+    imported.triggerEvent("wedit:despawn");
+  }
+  entity.triggerEvent("wedit:despawn");
+  return data;
 }
 
 // TODO Add proper error messages
-registerCommand(registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
   let name: string = args.get("name");
   if (!name.includes(":")) {
-    const ref = (yield readMetaData("weditstructref_" + name, builder)) as string;
+    const ref = readMetaData("weditstructref_" + name, builder);
     if (ref) {
       name = ref;
     }
@@ -57,7 +56,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const [namespace, struct] = name.split(":") as [string, string];
   let metadata;
   try {
-    metadata = JSON.parse(yield readMetaData(namespace + ":weditstructmeta_" + struct, builder));
+    metadata = JSON.parse(readMetaData(namespace + ":weditstructmeta_" + struct, builder));
   } catch {
     throw "commands.generic.wedit:commandFail";
   }

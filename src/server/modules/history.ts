@@ -94,7 +94,7 @@ export class History {
     }
   }
 
-  async addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+  addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
     // contentLog.debug("adding undo structure");
     const point = this.historyPoints.get(historyPoint);
     point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
@@ -103,7 +103,7 @@ export class History {
       throw "commands.generic.wedit:blockLimit";
     }
 
-    const structName = await this.processRegion(historyPoint, start, end, blocks);
+    const structName = this.processRegion(historyPoint, start, end, blocks);
     point.undo.push({
       name: structName,
       dimension: this.session.getPlayer().dimension,
@@ -112,11 +112,11 @@ export class History {
     });
   }
 
-  async addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+  addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
     const point = this.historyPoints.get(historyPoint);
     this.assertRecording();
 
-    const structName = await this.processRegion(historyPoint, start, end, blocks);
+    const structName = this.processRegion(historyPoint, start, end, blocks);
     point.redo.push({
       name: structName,
       dimension: this.session.getPlayer().dimension,
@@ -145,7 +145,7 @@ export class History {
     }
   }
 
-  async undo(session: PlayerSession) {
+  undo(session: PlayerSession) {
     this.assertNotRecording();
     if (this.historyIdx <= -1) {
       return true;
@@ -162,12 +162,12 @@ export class History {
     const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.undoStructures[this.historyIdx]) {
       try {
-        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
-        if (await Server.structure.load(region.name, region.location, dim)) {
+        addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
+        if (Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
       } finally {
-        await removeTickingArea(tickArea, region.dimension);
+        removeTickingArea(tickArea, region.dimension);
       }
     }
 
@@ -188,7 +188,7 @@ export class History {
     return false;
   }
 
-  async redo(session: PlayerSession) {
+  redo(session: PlayerSession) {
     this.assertNotRecording();
     if (this.historyIdx >= this.redoStructures.length - 1) {
       return true;
@@ -206,12 +206,12 @@ export class History {
     const tickArea = "wedit:history_" + this.historyIdx;
     for (const region of this.redoStructures[this.historyIdx]) {
       try {
-        await addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
-        if (await Server.structure.load(region.name, region.location, dim)) {
+        addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
+        if (Server.structure.load(region.name, region.location, dim)) {
           throw new UnloadedChunksError("worldedit.error.loadHistory");
         }
       } finally {
-        await removeTickingArea(tickArea, region.dimension);
+        removeTickingArea(tickArea, region.dimension);
       }
     }
 
@@ -260,7 +260,7 @@ export class History {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
+  private processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
     let structName: string;
     const player = this.session.getPlayer();
     const dim = player.dimension;
@@ -295,7 +295,7 @@ export class History {
       // }
 
       structName = "wedit:history_" + (historyId++).toString(16);
-      if (await Server.structure.save(structName, start, end, dim)) {
+      if (Server.structure.save(structName, start, end, dim)) {
         finish();
         this.cancel(historyPoint);
         throw new UnloadedChunksError("worldedit.error.saveHistory");

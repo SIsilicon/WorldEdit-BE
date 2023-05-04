@@ -186,6 +186,7 @@ class ResourcePool<T extends PooledResource> {
     return false;
   }
 
+  // TODO: Remove promises
   allocate() {
     this.log(2, "allocating new resource request");
     return new Promise<T>((resolve, reject) => {

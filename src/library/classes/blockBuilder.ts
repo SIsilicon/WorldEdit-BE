@@ -63,7 +63,7 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
       let lastPerm = "";
       let dupeCount = 1;
       for (let i = 0; i < 64; i++) {
-        const cmdResult = await Server.runCommand(`setblock ${Vector.from(loc).print()} ${blockType.id} ${i}`);
+        const cmdResult = await Server.queueCommand(`setblock ${Vector.from(loc).print()} ${blockType.id} ${i}`);
         if (cmdResult.error) {
           break;
         }

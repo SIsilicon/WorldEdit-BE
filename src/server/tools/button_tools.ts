@@ -124,7 +124,7 @@ Tools.register(FlipTool, "flip", "wedit:flip_button");
 
 class SpawnGlassTool extends Tool {
   use = function (self: Tool, player: Player) {
-    Server.runCommand("setblock ~~~ glass", player);
+    Server.queueCommand("setblock ~~~ glass", player);
   };
 }
 Tools.register(SpawnGlassTool, "spawn_glass", "wedit:spawn_glass");

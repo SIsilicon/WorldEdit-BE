@@ -25,9 +25,9 @@ class JobHandler {
     });
   }
 
-  public async startJob(session: PlayerSession, steps: number, area: [Vector3, Vector3]) {
+  public startJob(session: PlayerSession, steps: number, area: [Vector3, Vector3]) {
     const areaName = "wedit:job_" + jobId;
-    if (!area || await addTickingArea(areaName, session.getPlayer().dimension, ...area)) {
+    if (!area || addTickingArea(areaName, session.getPlayer().dimension, ...area)) {
       contentLog.warn("A ticking area could not be created for job #", jobId);
     }
     this.jobs.set(++jobId, {
@@ -127,7 +127,7 @@ class JobHandler {
         }
         text.append("translate", message).append("text", `\n${bar} ${(percent * 100).toFixed(2)}%`);
       }
-      Server.runCommand(`titleraw @s actionbar ${text.toString()}`, player);
+      Server.queueCommand(`titleraw @s actionbar ${text.toString()}`, player);
     }
   }
 }

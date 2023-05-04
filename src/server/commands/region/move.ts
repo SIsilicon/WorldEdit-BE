@@ -54,11 +54,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const history = session.getHistory();
   const record = history.record();
   const temp = session.createRegion(true);
-  const job = (yield Jobs.startJob(session, 4, regionBounds([start, end, movedStart, movedEnd]))) as number;
+  const job = Jobs.startJob(session, 4, regionBounds([start, end, movedStart, movedEnd]));
   let count: number;
   try {
-    yield history.addUndoStructure(record, start, end, "any");
-    yield history.addUndoStructure(record, movedStart, movedEnd, "any");
+    history.addUndoStructure(record, start, end, "any");
+    history.addUndoStructure(record, movedStart, movedEnd, "any");
 
     if (yield* Jobs.perform(job, cut(session, args, args.get("replace"), temp), false)) {
       throw RawText.translate("commands.generic.wedit:commandFail");
@@ -68,8 +68,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     Jobs.nextStep(job, "Pasting blocks...");
     yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);
 
-    yield history.addRedoStructure(record, start, end, "any");
-    yield history.addRedoStructure(record, movedStart, movedEnd, "any");
+    history.addRedoStructure(record, start, end, "any");
+    history.addRedoStructure(record, movedStart, movedEnd, "any");
 
     if (args.has("s")) {
       history.recordSelection(record, session);

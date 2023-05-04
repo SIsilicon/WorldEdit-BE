@@ -31,7 +31,7 @@ const registerInformation = {
  * @param buffer An optional buffer to place the copy in. Leaving it blank copies to the clipboard instead
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* copy(session: PlayerSession, args: Map<string, any>, buffer: RegionBuffer = null): Generator<number | string | Promise<unknown>, boolean> {
+export function* copy(session: PlayerSession, args: Map<string, any>, buffer: RegionBuffer = null): Generator<number | string, boolean> {
   assertCuboidSelection(session);
   const player = session.getPlayer();
   const dimension = player.dimension;
@@ -80,7 +80,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
     };
     error = yield* buffer.saveProgressive(start, end, dimension, { includeEntities }, filter ? blocks : "all");
   } else {
-    error = (yield buffer.save(start, end, dimension, {includeEntities})) as boolean;
+    error = buffer.save(start, end, dimension, {includeEntities});
   }
 
   return error;
@@ -88,7 +88,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
 
 registerCommand(registerInformation, function* (session, builder, args) {
   assertCuboidSelection(session);
-  const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
+  const job = Jobs.startJob(session, 1, session.selection.getRange());
   try {
     if (yield* Jobs.perform(job, copy(session, args))) {
       throw RawText.translate("commands.generic.wedit:commandFail");

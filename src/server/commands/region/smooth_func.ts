@@ -8,7 +8,7 @@ import { Vector3 } from "@minecraft/server";
 
 type map = (number | null)[][];
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask: Mask): Generator<number|string|Promise<unknown>, number> {
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask: Mask): Generator<number | string, number> {
   const range = shape.getRegion(loc);
   const player = session.getPlayer();
   const dim = player.dimension;
@@ -34,7 +34,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     return arr;
   }
 
-  function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<number | string | Promise<unknown>> {
+  function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<number | string> {
     let count = 0;
     const size = arr.length * arr[0].length;
     yield jobMsg;
@@ -100,7 +100,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
   const record = history.record();
   const warpBuffer = new RegionBuffer(true);
   try {
-    yield history.addUndoStructure(record, range[0], range[1], "any");
+    history.addUndoStructure(record, range[0], range[1], "any");
 
     yield "Calculating blocks...";
     yield* warpBuffer.create(range[0], range[1], loc => {
@@ -123,7 +123,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     yield* warpBuffer.loadProgressive(range[0], dim);
     count = warpBuffer.getBlockCount();
 
-    yield history.addRedoStructure(record, range[0], range[1], "any");
+    history.addRedoStructure(record, range[0], range[1], "any");
     history.commit(record);
   } catch (e) {
     history.cancel(record);

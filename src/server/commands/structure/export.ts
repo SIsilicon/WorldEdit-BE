@@ -34,18 +34,17 @@ function writeMetaData(name: string, data: string, player: Player) {
   const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
   entity.nameTag = data;
 
-  return Server.structure.save(name, blockLoc, blockLoc, dimension, {
+  const error = Server.structure.save(name, blockLoc, blockLoc, dimension, {
     saveToDisk: true,
     includeBlocks: false,
     includeEntities: true
-  }).then(err => {
-    entity.triggerEvent("wedit:despawn");
-    return err;
   });
+  entity.triggerEvent("wedit:despawn");
+  return error;
 }
 
 const users: Player[] = [];
-registerCommand(registerInformation, function* (session, builder, args) {
+registerCommand(registerInformation, function (session, builder, args) {
   assertCuboidSelection(session);
   const range = session.selection.getRange();
   const dimension = builder.dimension;
@@ -56,33 +55,30 @@ registerCommand(registerInformation, function* (session, builder, args) {
     struct_name = "wedit:" + struct_name;
   }
   const [namespace, struct] = struct_name.split(":") as [string, string];
-  const promises: Promise<boolean>[] = [];
 
-  Server.flushCommands();
-  world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
-  promises.push(Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).then(result => result.error));
+  try {
+    world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
+    if (Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).error) throw 0;
 
-  promises.push(Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {
-    saveToDisk: true,
-    includeEntities: args.has("e")
-  }));
+    if(Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {
+      saveToDisk: true,
+      includeEntities: args.has("e")
+    })) throw 0;
 
-  const size = regionSize(...range);
-  const playerPos = PlayerUtil.getBlockLocation(builder);
-  const relative = Vector.sub(regionCenter(...range), playerPos);
+    const size = regionSize(...range);
+    const playerPos = PlayerUtil.getBlockLocation(builder);
+    const relative = Vector.sub(regionCenter(...range), playerPos);
 
-  promises.push(writeMetaData(namespace + ":weditstructmeta_" + struct,
-    JSON.stringify({
-      size: { x: size.x, y: size.y, z: size.z },
-      relative: { x: relative.x, y: relative.y, z: relative.z },
-      exporter: builder.name
-    }),
-    builder
-  ));
-  promises.push(writeMetaData("weditstructref_" + struct, struct_name, builder));
-
-  const errors = (yield Promise.all(promises)) as boolean[];
-  if (errors.some(v => v)) {
+    if(writeMetaData(namespace + ":weditstructmeta_" + struct,
+      JSON.stringify({
+        size: { x: size.x, y: size.y, z: size.z },
+        relative: { x: relative.x, y: relative.y, z: relative.z },
+        exporter: builder.name
+      }),
+      builder
+    )) throw 0;
+    if (writeMetaData("weditstructref_" + struct, struct_name, builder)) throw 0;
+  } catch {
     const [namespace, name] = struct_name.split(":") as [string, string];
     Server.structure.delete(namespace + ":weditstructexport_" + name);
     Server.structure.delete(namespace + ":weditstructmeta_" + name);

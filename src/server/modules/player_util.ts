@@ -1,8 +1,8 @@
-import { Player, Entity, EntityInventoryComponent } from "@minecraft/server";
+import { Player, Entity, EntityInventoryComponent, ItemStack, ItemLockMode } from "@minecraft/server";
 import { Server, contentLog, Vector } from "@notbeer-api";
 import { Mask } from "./mask.js";
 import config from "config.js";
-import { getViewVector } from "server/util.js";
+import { getViewVector, getWorldHeightLimits } from "server/util.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
@@ -60,11 +60,10 @@ class PlayerHandler {
       if (inv.getItem(i)?.typeId === item) {
         const slotType = i > 8 ? "slot.inventory" : "slot.hotbar";
         const slotId = i > 8 ? i - 9 : i;
-        let command = `replaceitem entity @s ${slotType} ${slotId} ${sub}`;
-        if (locked) {
-          command += ` ${inv.getItem(i).amount} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`;
-        }
-        Server.runCommand(command, player);
+
+        const stack = new ItemStack(sub, inv.getItem(i).amount);
+        if (locked) stack.lockMode = ItemLockMode.slot;
+        inv.setItem(i, stack);
         break;
       }
     }
@@ -105,14 +104,18 @@ class PlayerHandler {
       if (prevPoint.equals(point)) continue;
       prevPoint = point;
 
-      const block = dim.getBlock(point);
-      if (mask && mask.matchesBlock(block)) {
-        return point;
-      } else if (!mask && !block.isAir()) {
-        return point;
-      } else if (range && range > 0 && i >= range) {
-        return point;
-      }
+      try {
+        const block = dim.getBlock(point);
+        if (!block) {
+          continue;
+        } else if (mask && mask.matchesBlock(block)) {
+          return point;
+        } else if (!mask && !block.isAir()) {
+          return point;
+        } else if (range && range > 0 && i >= range) {
+          return point;
+        }
+      } catch {}
     }
   }
 
@@ -137,7 +140,7 @@ class PlayerHandler {
       return true;
     }
 
-    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, 512, player.location.z));
+    const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, getWorldHeightLimits(player.dimension)[1], player.location.z));
     stasher.nameTag = "wedit:stasher_for_" + player.name;
 
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;

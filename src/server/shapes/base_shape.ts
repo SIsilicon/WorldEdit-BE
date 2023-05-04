@@ -99,7 +99,7 @@ export abstract class Shape {
   * @param session The session that's using this shape
   * @param options A group of options that can change how the shape is generated
   */
-  public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string | Promise<unknown>, number> {
+  public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string, number> {
     const [min, max] = this.getRegion(loc);
     const player = session.getPlayer();
     const dimension = player.dimension;
@@ -133,7 +133,7 @@ export abstract class Shape {
           contentLog.debug("Using fillBlocks() method.");
           const size = Vector.sub(max, min).add(1);
           const fillMax = 32;
-          yield history?.addUndoStructure(record, min, max, "any");
+          history?.addUndoStructure(record, min, max, "any");
 
           yield "Calculating shape...";
           yield "Generating blocks...";
@@ -152,7 +152,7 @@ export abstract class Shape {
               }
             }
           }
-          yield history?.addRedoStructure(record, min, max, "any");
+          history?.addRedoStructure(record, min, max, "any");
         } else {
           let progress = 0;
           const volume = regionVolume(min, max);
@@ -173,7 +173,7 @@ export abstract class Shape {
 
           progress = 0;
           yield "Generating blocks...";
-          yield history?.addUndoStructure(record, min, max, blocksAffected);
+          history?.addUndoStructure(record, min, max, blocksAffected);
           for (const block of blocksAffected) {
             if (pattern.setBlock(dimension.getBlock(block))) {
               count++;
@@ -181,7 +181,7 @@ export abstract class Shape {
             if (iterateChunk()) yield progress / blocksAffected.length;
             progress++;
           }
-          yield history?.addRedoStructure(record, min, max, blocksAffected);
+          history?.addRedoStructure(record, min, max, blocksAffected);
         }
       }
 

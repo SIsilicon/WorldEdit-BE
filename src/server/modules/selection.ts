@@ -166,7 +166,9 @@ export class Selection {
       }
       const dimension = this.player.dimension;
       for (const point of this.drawPoints) {
-        dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
+        try {
+          dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
+        } catch {}
       }
       this.lastDraw = system.currentTick;
     }

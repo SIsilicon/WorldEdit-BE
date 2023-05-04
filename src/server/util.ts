@@ -18,7 +18,7 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
   } else {
     command = `tellraw @s ${msg.toString()}`;
   }
-  Server.runCommand(command, player);
+  Server.queueCommand(command, player);
 }
 
 /**
@@ -53,7 +53,7 @@ function findHeightLimits(dim: Dimension) {
         }
       } else if (limits[1] == null) {
         if (!canPlace) {
-          limits[1] = i - 1;
+          limits[1] = i - 17;
         }
       }
     }
@@ -127,20 +127,20 @@ export function blockHasNBTData(block: Block) {
   return components.some(component => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
 }
 
-function getTickingAreas() {
+export function getTickingAreas() {
   return (world.getDynamicProperty("wedit_ticking_areas") as string)?.split(",") ?? [];
 }
 
-function setTickingAreas(tickingAreas: string[]) {
+export function setTickingAreas(tickingAreas: string[]) {
   world.setDynamicProperty("wedit_ticking_areas", tickingAreas.join(","));
 }
 
-export async function addTickingArea(name: string, dim: Dimension, start: Vector3, end: Vector3) {
+export function addTickingArea(name: string, dim: Dimension, start: Vector3, end: Vector3) {
   const tickingAreas = getTickingAreas();
   if (tickingAreas.length >= 10) {
     return true;
   }
-  if (!await addTickArea(start, end, dim, name, true)) {
+  if (!addTickArea(start, end, dim, name, true)) {
     tickingAreas.push(name);
     setTickingAreas(tickingAreas);
     return false;
@@ -148,29 +148,16 @@ export async function addTickingArea(name: string, dim: Dimension, start: Vector
   return true;
 }
 
-export async function removeTickingArea(name: string, dim: Dimension) {
+export function removeTickingArea(name: string, dim: Dimension) {
   const tickingAreas = getTickingAreas();
   if (!tickingAreas.includes(name)) {
     return true;
   }
-  if(!await removeTickArea(name, dim)) {
+  if(!removeTickArea(name, dim)) {
     setTickingAreas(tickingAreas.filter(tickingArea => tickingArea !== name));
     return false;
   }
   return true;
-}
-
-const readyListener = async () => {
-  for (const tickingArea of getTickingAreas()) {
-    if (!tickingArea) continue;
-    for (const dim of ["overworld", "nether", "the_end"]) {
-      if (!await removeTickArea(tickingArea, world.getDimension(dim))) break;
-    }
-  }
-  setTickingAreas([]);
-};
-if (!Server.listeners("ready").map(fn => `${fn}`).includes(`${readyListener}`)) {
-  Server.on("ready", readyListener);
 }
 
 /**

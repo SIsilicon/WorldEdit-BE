@@ -8,9 +8,9 @@ export class ServerBuilder extends EventEmitter {
   private flushingCommands = false;
 
   /**
-    * Force shuts down the server
-    * @example ServerBuilder.close()
-    */
+   * Force shuts down the server
+   * @example ServerBuilder.close()
+   */
   close(): void {
     function crash() {
       // eslint-disable-next-line no-constant-condition
@@ -20,13 +20,29 @@ export class ServerBuilder extends EventEmitter {
     }
     crash();
   }
+
   /**
-    * Run a command in game
-    * @param command The command you want to run
-    * @returns {Promise<runCommandReturn>}
-    * @example ServerBuilder.runCommand('say Hello World!');
-    */
-  runCommand(command: string, target?: Dimension|Player|Entity): Promise<runCommandReturn> {
+   * Run a command in game
+   * @param command The command you want to run
+   * @returns {runCommandReturn}
+   * @example ServerBuilder.runCommand('say Hello World!');
+   */
+  runCommand(command: string, target?: Dimension|Player|Entity): runCommandReturn {
+    try {
+      const successCount = (target ?? world.getDimension("overworld")).runCommand(command).successCount;
+      return { error: false, successCount };
+    } catch (e) {
+      return { error: true, successCount: 0 };
+    }
+  }
+
+  /**
+   * Queue a command in game
+   * @param command The command you want to run at some point
+   * @returns {Promise<runCommandReturn>}
+   * @example ServerBuilder.queueCommand('say Hello World!');
+   */
+  queueCommand(command: string, target?: Dimension|Player|Entity): Promise<runCommandReturn> {
     try {
       if (this.flushingCommands) {
         throw "queue";
@@ -41,7 +57,7 @@ export class ServerBuilder extends EventEmitter {
       if (typeof e == "string" && e.includes("queue")) {
         return (async () => {
           await sleep(1);
-          return await this.runCommand(command, target);
+          return await this.queueCommand(command, target);
         })();
       } else {
         return Promise.resolve({ error: true, successCount: 0 });

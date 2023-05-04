@@ -38,7 +38,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     let i = 0;
     const blockCount = session.selection.getBlockCount();
-    const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
+    const job = Jobs.startJob(session, 1, session.selection.getRange());
     try {
       Jobs.nextStep(job, "Setting biome data...");
       if (session.selection.isCuboid()) {

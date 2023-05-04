@@ -74,9 +74,9 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
         return;
       }
       ctx.goto(null);
-      if (response.selection == 1) {
+      if (response.selection == 0) {
         this.action1(ctx, player);
-      } else if (response.selection == 0) {
+      } else if (response.selection == 1) {
         (this.action2 ?? this.action1)(ctx, player);
       }
     });

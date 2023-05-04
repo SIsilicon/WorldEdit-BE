@@ -28,8 +28,8 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
       options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE
     );
 
-    yield history.addUndoStructure(record, start, end, "any");
-    yield history.addUndoStructure(record, newStart, newEnd, "any");
+    history.addUndoStructure(record, start, end, "any");
+    history.addUndoStructure(record, newStart, newEnd, "any");
 
     assertCanBuildWithin(builder, newStart, newEnd);
 
@@ -44,8 +44,8 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
       history.recordSelection(record, session);
     }
 
-    yield history.addRedoStructure(record, newStart, newEnd, "any");
-    yield history.addRedoStructure(record, start, end, "any");
+    history.addRedoStructure(record, newStart, newEnd, "any");
+    history.addRedoStructure(record, start, end, "any");
     history.commit(record);
   } catch (e) {
     history.cancel(record);

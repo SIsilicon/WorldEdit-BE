@@ -34,7 +34,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   } else {
     assertSelection(session);
-    const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
+    const job = Jobs.startJob(session, 1, session.selection.getRange());
     try {
       Jobs.nextStep(job, "Reading biome data...");
       const biomes = new Map<number, Biome>();

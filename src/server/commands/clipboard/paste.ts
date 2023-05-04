@@ -51,15 +51,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const job = (yield Jobs.startJob(session, 1, [pasteStart, pasteEnd])) as number;
+  const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
   try {
     if (pasteContent) {
       assertCanBuildWithin(builder, pasteStart, pasteEnd);
-      yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+      history.addUndoStructure(record, pasteStart, pasteEnd, "any");
 
       Jobs.nextStep(job, "Pasting blocks...");
       yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") }));
-      yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+      history.addRedoStructure(record, pasteStart, pasteEnd, "any");
     }
 
     if (setSelection) {

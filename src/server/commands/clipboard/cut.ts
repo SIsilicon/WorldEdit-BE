@@ -72,16 +72,16 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const history = session.getHistory();
   const record = history.record();
-  const job = (yield Jobs.startJob(session, 3, [start, end])) as number;
+  const job = Jobs.startJob(session, 3, [start, end]);
   try {
     history.recordSelection(record, session);
-    yield history.addUndoStructure(record, start, end, "any");
+    history.addUndoStructure(record, start, end, "any");
 
     if (yield* Jobs.perform(job, cut(session, args, args.get("fill")), false)) {
       throw RawText.translate("commands.generic.wedit:commandFail");
     }
 
-    yield history.addRedoStructure(record, start, end, "any");
+    history.addRedoStructure(record, start, end, "any");
     history.commit(record);
   } catch (e) {
     history.cancel(record);

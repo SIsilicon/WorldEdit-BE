@@ -30,7 +30,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const [start, end] = [center.floor().floor(), center.ceil().floor()];
 
   const shape = new CuboidShape(...Vector.sub(end, start).add(1).toArray());
-  const job = (yield Jobs.startJob(session, 2, [start, end])) as number;
+  const job = Jobs.startJob(session, 2, [start, end]);
   const count = yield* Jobs.perform(job, shape.generate(start, pattern, null, session));
   Jobs.finishJob(job);
 

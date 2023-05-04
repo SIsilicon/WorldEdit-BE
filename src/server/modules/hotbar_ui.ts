@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { ItemUseBeforeEvent, Player } from "@minecraft/server";
+import { ItemLockMode, ItemStack, ItemUseBeforeEvent, Player, system } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerUtil } from "./player_util.js";
 import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/classes/uiFormBuilder.js";
@@ -73,9 +73,11 @@ class HotbarUIForm<T extends {}> {
     const items = this.items;
 
     print(title, player);
+    const inventory = Server.player.getInventory(player);
     for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      Server.runCommand(`replaceitem entity @s slot.hotbar ${i} ${item.name} 1 ${item.data} {"minecraft:item_lock":{"mode":"lock_in_slot"}}`, player);
+      const item = new ItemStack(items[i].name);
+      item.lockMode = ItemLockMode.slot;
+      inventory.setItem(i, item);
     }
 
     const itemUseBefore = (ev: ItemUseBeforeEvent) => {
@@ -85,7 +87,7 @@ class HotbarUIForm<T extends {}> {
       const slot = player.selectedSlot;
       if (items[slot].name == "wedit:blank") return;
 
-      items[slot].action?.(ctx, player);
+      system.run(() => items[slot].action?.(ctx, player));
     };
     Server.prependListener("itemUseBefore", itemUseBefore);
 

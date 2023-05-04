@@ -20,7 +20,7 @@ system.events.beforeWatchdogTerminate.subscribe(ev => {
       const event = (ev: PlayerSpawnAfterEvent) => {
         if (!ev.initialSpawn) return;
         world.afterEvents.playerSpawn.unsubscribe(event);
-        ev.player.runCommandAsync(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+        ev.player.runCommand(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
       };
       world.afterEvents.playerSpawn.subscribe(event);
     } else {
@@ -140,19 +140,17 @@ class ServerBuild extends ServerBuilder {
     const playerDimensions = new Map<string, string>();
     const tickEvent = () => {
       tickCount++;
-      this.runCommand("testfor @a").then(result => {
-        if(!result.error && !worldLoaded) {
-          /**
-           * Emit to 'ready' event listener
-           */
-          try {
-            this.emit("ready", { loadTime: tickCount });
-          } catch (e) {
-            contentLog.error(e);
-          }
-          worldLoaded = true;
+      if (!this.runCommand("testfor @a").error && !worldLoaded) {
+        /**
+         * Emit to 'ready' event listener
+         */
+        try {
+          this.emit("ready", { loadTime: tickCount });
+        } catch (e) {
+          contentLog.error(e);
         }
-      });
+        worldLoaded = true;
+      }
 
       for (const player of world.getPlayers()) {
         const oldDimension = playerDimensions.get(player.name);

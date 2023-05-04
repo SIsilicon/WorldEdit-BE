@@ -97,7 +97,7 @@ export class RawText {
 
   print(player: Player) {
     try {
-      Server.runCommand(`tellraw @s ${this.toString()}`, player);
+      Server.queueCommand(`tellraw @s ${this.toString()}`, player);
     } catch {
       return;
     }

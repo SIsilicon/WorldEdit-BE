@@ -64,8 +64,8 @@ function displayItem(item: [string, number]) {
   if (result.startsWith("minecraft:")) {
     result = result.slice("minecraft:".length);
   }
-  if (item[1]) {
-    result += ":" + Number;
+  if (item[1] > 0) {
+    result += ":" + item[1];
   }
   return result;
 }
@@ -264,7 +264,7 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
     }
   },
   submit: (ctx, _, input) => {
-    ctx.setData("toolData", [(input.$worldEditCmd ? config.commandPrefix : "/") + input.$command as string]);
+    ctx.setData("toolData", [(input.$worldeditCmd ? config.commandPrefix : "/") + input.$command as string]);
     finishToolEdit(ctx);
   },
   cancel: ctx => ctx.returnto("$tools")
@@ -480,7 +480,6 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
   cancel: ctx => ctx.returnto("$tools")
 });
 
-// TODO: Test if required fields are present
 Server.uiForms.register<ConfigContext>("$confirmToolBind", {
   title: "%worldedit.config.confirm",
   message: "%worldedit.config.confirm.create",
@@ -501,6 +500,7 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
       } else if (toolType == "stacker_wand") {
         session.bindTool("stacker_wand", item, ...toolData);
       } else if (toolType == "command_wand") {
+        console.warn(...toolData);
         session.bindTool("command_wand", item, ...toolData);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);

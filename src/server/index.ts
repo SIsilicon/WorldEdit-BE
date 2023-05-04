@@ -1,6 +1,6 @@
-import { DynamicPropertiesDefinition, Player, world } from "@minecraft/server";
-import { contentLog, Server, configuration } from "@notbeer-api";
-import { print } from "./util.js";
+import { DynamicPropertiesDefinition, Player, system, world } from "@minecraft/server";
+import { contentLog, Server, configuration, removeTickingArea } from "@notbeer-api";
+import { getTickingAreas, print, setTickingAreas } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import config from "config.js";
@@ -19,6 +19,16 @@ Server.on("worldInitialize", ev => {
     def.defineString("wedit_ticking_areas", 500);
     ev.propertyRegistry.registerWorldDynamicProperties(def);
     contentLog.debug("Initialized dynamic properties");
+
+    system.run(() => {
+      for (const tickingArea of getTickingAreas()) {
+        if (!tickingArea) continue;
+        for (const dim of ["overworld", "nether", "the_end"]) {
+          if (!removeTickingArea(tickingArea, world.getDimension(dim))) break;
+        }
+      }
+      setTickingAreas([]);  
+    })
   } catch (e) { contentLog.error(e); }
 });
 

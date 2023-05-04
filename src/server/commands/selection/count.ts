@@ -23,7 +23,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dimension = builder.dimension;
 
   const total = session.selection.getBlockCount();
-  const job = (yield Jobs.startJob(session, 1, session.selection.getRange())) as number;
+  const job = Jobs.startJob(session, 1, session.selection.getRange());
   try {
     let i = 0;
     Jobs.nextStep(job, "Counting blocks...");

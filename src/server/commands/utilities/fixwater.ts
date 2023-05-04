@@ -37,7 +37,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     throw "commands.wedit:fixWater.noWater";
   }
 
-  const job = (yield Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixwaterStart))) as number;
+  const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixwaterStart));
   Jobs.nextStep(job, "Calculating and Fixing water...");
   const blocks = yield* floodFill(fixwaterStart, args.get("radius"), dimension, (ctx, dir) => {
     const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
@@ -52,7 +52,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const record = history.record();
     const water = BlockPermutation.resolve("minecraft:water");
     try {
-      yield history.addUndoStructure(record, min, max, blocks);
+      history.addUndoStructure(record, min, max, blocks);
       let i = 0;
       for (const loc of blocks) {
         const block = dimension.getBlock(loc);
@@ -60,7 +60,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         Jobs.setProgress(job, i++ / blocks.length);
         yield;
       }
-      yield history.addRedoStructure(record, min, max, blocks);
+      history.addRedoStructure(record, min, max, blocks);
       history.commit(record);
     } catch (err) {
       history.cancel(record);
