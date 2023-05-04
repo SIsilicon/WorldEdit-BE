@@ -11,7 +11,8 @@
     "scripts": {
         "watch": "python build.py --watch=stable",
         "watch:preview": "python build.py --watch=preview",
-        "build:all": "python build.py --target=release --clean && python build.py --target=server"
+        "build:all": "python build.py --target=release --clean && python build.py --target=server",
+        "build:beta": "python build.py --target=debug --clean"
     },
     "license": "GPL-3.0-or-later",
     "devDependencies": {
