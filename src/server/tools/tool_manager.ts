@@ -75,6 +75,7 @@ class ToolBuilder {
       const tool = new (this.tools.get(toolId))(...args);
       tool.type = toolId;
       this.createPlayerBindingMap(player);
+      this.bindings.get(player.name).get(`${itemId}/${0}`)?.delete();
       this.bindings.get(player.name).set(`${itemId}/${0}`, tool);
       return tool;
     } else {
@@ -88,6 +89,7 @@ class ToolBuilder {
         throw "worldedit.tool.fixedBind";
       }
       this.createPlayerBindingMap(player);
+      this.bindings.get(player.name).get(`${itemId}/${0}`)?.delete();
       this.bindings.get(player.name).delete(`${itemId}/${0}`);
     } else {
       throw "worldedit.tool.noItem";
@@ -95,6 +97,7 @@ class ToolBuilder {
   }
 
   deleteBindings(player: Player) {
+    this.bindings.get(player.name).forEach(v => v.delete());
     this.bindings.delete(player.name);
     this.setDisabled(player, false);
   }

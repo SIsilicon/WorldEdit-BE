@@ -40,7 +40,7 @@ class StackerTool extends Tool {
       history.cancel(record);
       throw e;
     } finally {
-      tempStack.delete();
+      tempStack.deref();
     }
   };
 

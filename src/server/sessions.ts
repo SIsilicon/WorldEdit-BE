@@ -234,13 +234,13 @@ export class PlayerSession {
   }
 
   public deleteRegion(buffer: RegionBuffer) {
-    buffer.delete();
+    buffer.deref();
     this.regions.delete(buffer.id);
   }
 
   delete() {
     for (const region of this.regions.values()) {
-      region.delete();
+      region.deref();
     }
     this.regions.clear();
     Tools.deleteBindings(this.player);

@@ -69,5 +69,10 @@ class BrushTool extends Tool {
   set material(value: Pattern) {
     this.brush.paintWith(value);
   }
+
+  delete() {
+    super.delete();
+    this.brush.delete();
+  }
 }
 Tools.register(BrushTool, "brush");

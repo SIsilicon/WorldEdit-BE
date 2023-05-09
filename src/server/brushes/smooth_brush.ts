@@ -51,7 +51,7 @@ export class SmoothBrush extends Brush {
   }
 
   public paintWith() {
-    throw "commands.generic.wedit:noBrushMaterial";
+    throw "commands.generic.wedit:noMaterial";
   }
 
   public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {

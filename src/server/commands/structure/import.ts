@@ -43,11 +43,9 @@ function readMetaData(name: string, player: Player) {
   return data;
 }
 
-// TODO Add proper error messages
-registerCommand(registerInformation, function (session, builder, args) {
-  let name: string = args.get("name");
+export function importStructure(name: string, player: Player) {
   if (!name.includes(":")) {
-    const ref = readMetaData("weditstructref_" + name, builder);
+    const ref = readMetaData("weditstructref_" + name, player);
     if (ref) {
       name = ref;
     }
@@ -56,22 +54,32 @@ registerCommand(registerInformation, function (session, builder, args) {
   const [namespace, struct] = name.split(":") as [string, string];
   let metadata;
   try {
-    metadata = JSON.parse(readMetaData(namespace + ":weditstructmeta_" + struct, builder));
+    metadata = JSON.parse(readMetaData(namespace + ":weditstructmeta_" + struct, player));
   } catch {
     throw "commands.generic.wedit:commandFail";
   }
 
+  const buffer = new RegionBuffer(false);
+  buffer.import(namespace + ":weditstructexport_" + struct, Vector.from(metadata.size).floor());
+  return { buffer, metadata };
+}
+
+// TODO Add proper error messages
+registerCommand(registerInformation, function (session, builder, args) {
+  let name: string = args.get("name");
+
+  const { buffer, metadata } = importStructure(name, builder);
+
   if (session.clipboard) {
     session.deleteRegion(session.clipboard);
   }
-
-  session.clipboard = new RegionBuffer(false);
-  session.clipboard.import(namespace + ":weditstructexport_" + struct, Vector.from(metadata.size).floor());
+  session.clipboard = buffer;
   session.clipboardTransform = {
     relative: Vector.from(metadata.relative),
     rotation: Vector.ZERO,
     flip: Vector.ONE,
   };
+
 
   return RawText.translate("commands.wedit:import.explain").with(args.get("name"));
 });

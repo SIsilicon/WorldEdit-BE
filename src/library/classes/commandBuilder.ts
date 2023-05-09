@@ -491,7 +491,7 @@ export class CommandBuilder {
       msg = args.join(" ");
     }
 
-    offsets.map(v => v + this.prefix.length + command.length + 1);
+    offsets.forEach((v, i) => { offsets[i] = v + this.prefix.length + command.length + 1; });
     msg = this.prefix + command + " " + msg;
 
     for (const element of Command.getAllRegistation()) {

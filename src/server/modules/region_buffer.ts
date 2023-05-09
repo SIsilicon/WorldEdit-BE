@@ -30,6 +30,8 @@ export class RegionBuffer {
   private savedEntities = false;
   private imported = "";
 
+  private refCount = 1;
+
   constructor(isAccurate = false) {
     this.isAccurate = isAccurate;
     this.id = "wedit:buffer_" + generateId();
@@ -215,6 +217,7 @@ export class RegionBuffer {
         if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
 
         if (block instanceof BlockPermutation) {
+          if (block.type.id == "minecraft:air") console.warn(blockLoc);
           oldBlock.setPermutation(transform(block));
         } else {
           this.loadBlockFromStruct(block[0], blockLoc, dim);
@@ -375,27 +378,14 @@ export class RegionBuffer {
     this.blockCount = size.x * size.y * size.z;
   }
 
-  public delete() {
-    const thread = new Thread();
-    thread.start(function* (self: RegionBuffer) {
-      if (self.isAccurate) {
-        const promises = [];
-        for (const block of self.blocks.values()) {
-          if (!(block instanceof BlockPermutation)) {
-            promises.push(self.deleteBlockStruct(block[0]));
-            yield;
-          }
-        }
-        if (promises.length) {
-          yield Promise.all(promises);
-        }
-        self.blocks.clear();
-      }
-      self.size = Vector.ZERO;
-      self.blockCount = 0;
-      yield Server.structure.delete(self.id);
-      contentLog.debug("deleted structure", self.id);
-    }, this);
+  public ref() {
+    this.refCount++;
+  }
+
+  public deref() {
+    if (--this.refCount < 1) {
+      this.delete();
+    }
   }
 
   private transformMapping(mapping: {[key: string|number]: Vector | [number, number, number]}, state: string|number, rotate: Vector, flip: Vector): string {
@@ -432,6 +422,29 @@ export class RegionBuffer {
 
   private deleteBlockStruct(id: string) {
     Server.queueCommand(`structure delete ${id}`);
+  }
+
+  private delete() {
+    const thread = new Thread();
+    thread.start(function* (self: RegionBuffer) {
+      if (self.isAccurate) {
+        const promises = [];
+        for (const block of self.blocks.values()) {
+          if (!(block instanceof BlockPermutation)) {
+            promises.push(self.deleteBlockStruct(block[0]));
+            yield;
+          }
+        }
+        if (promises.length) {
+          yield Promise.all(promises);
+        }
+        self.blocks.clear();
+      }
+      self.size = Vector.ZERO;
+      self.blockCount = 0;
+      yield Server.structure.delete(self.id);
+      contentLog.debug("deleted structure", self.id);
+    }, this);
   }
 }
 

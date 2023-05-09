@@ -27,7 +27,6 @@ function writeMetaData(name: string, data: string, player: Player) {
 
   const dimension = player.dimension;
   let blockLoc = PlayerUtil.getBlockLocation(player);
-  blockLoc.y = 2048;
   while (dimension.getEntitiesAtBlockLocation(blockLoc).length) {
     blockLoc = blockLoc.offset(0, 1, 0);
   }
@@ -58,12 +57,12 @@ registerCommand(registerInformation, function (session, builder, args) {
 
   try {
     world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
-    if (Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).error) throw 0;
+    if (Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).error) throw "Failed to save name to exports list";
 
     if(Server.structure.save(namespace + ":weditstructexport_" + struct, ...range, dimension, {
       saveToDisk: true,
       includeEntities: args.has("e")
-    })) throw 0;
+    })) throw "Failed to save structure";
 
     const size = regionSize(...range);
     const playerPos = PlayerUtil.getBlockLocation(builder);
@@ -76,15 +75,16 @@ registerCommand(registerInformation, function (session, builder, args) {
         exporter: builder.name
       }),
       builder
-    )) throw 0;
-    if (writeMetaData("weditstructref_" + struct, struct_name, builder)) throw 0;
-  } catch {
+    )) throw "Failed to save metadata";
+    if (writeMetaData("weditstructref_" + struct, struct_name, builder)) throw "Failed to save reference data";
+  } catch (e) {
     const [namespace, name] = struct_name.split(":") as [string, string];
     Server.structure.delete(namespace + ":weditstructexport_" + name);
     Server.structure.delete(namespace + ":weditstructmeta_" + name);
     Server.structure.delete("weditstructref_" + name);
     Server.runCommand(`scoreboard players reset ${struct_name} wedit:exports`);
 
+    console.error(e);
     throw "commands.generic.wedit:commandFail";
   }
 

@@ -97,4 +97,8 @@ export abstract class Tool {
     }, this, player, session, loc, brokenBlock);
     return true;
   }
+
+  delete() {
+    return;
+  }
 }

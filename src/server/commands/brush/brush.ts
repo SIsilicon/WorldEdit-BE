@@ -3,11 +3,14 @@ import { PlayerSession } from "../../sessions.js";
 import { SphereBrush } from "../../brushes/sphere_brush.js";
 import { CylinderBrush } from "../../brushes/cylinder_brush.js";
 import { SmoothBrush } from "../../brushes/smooth_brush.js";
-import { assertPermission } from "@modules/assert.js";
+import { assertClipboard, assertPermission } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { StructureBrush } from "server/brushes/structure_brush.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
+import { importStructure } from "../structure/import.js";
 
 const registerInformation = {
   name: "brush",
@@ -81,6 +84,32 @@ const registerInformation = {
           default: new Mask()
         }
       ]
+    },
+    {
+      subName: "struct",
+      permission: "worldedit.brush.struct",
+      description: "commands.wedit:brush.description.struct",
+      args: [
+        {
+          subName: "clipboard",
+          args: [
+            {
+              name: "mask",
+              type: "Mask",
+              default: new Mask()
+            }
+          ]
+        },
+        {
+          subName: "_default",
+          args: [
+            {
+              name: "structureName",
+              type: "string..."
+            }
+          ]
+        }
+      ]
     }
   ]
 };
@@ -125,6 +154,26 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
   return RawText.translate(msg).with(args.get("radius")).with(args.get("iterations"));
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const struct_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+  assertPermission(builder, registerInformation.usage[4].permission);
+
+  const clipboard = args.has("clipboard");
+  let struct: RegionBuffer | RegionBuffer[];
+  if (clipboard) {
+    assertClipboard(session);
+    struct = session.clipboard;
+  } else {
+    struct = (args.get("structureName") as string).split(" ").map(name => {
+      return importStructure(name, builder).buffer;
+    });
+  }
+
+  session.bindTool("brush", null, new StructureBrush(struct, args.get("mask")));
+  const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");
+  return RawText.translate(msg).with(args.get("structureName"));
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
   let msg: RawText;
   if (args.has("sphere")) {
@@ -133,6 +182,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     msg = cylinder_command(session, builder, args);
   } else if (args.has("smooth")) {
     msg = smooth_command(session, builder, args);
+  } else if (args.has("struct")) {
+    msg = struct_command(session, builder, args);
   } else {
     session.unbindTool(null);
     return "commands.wedit:brush.unbind";

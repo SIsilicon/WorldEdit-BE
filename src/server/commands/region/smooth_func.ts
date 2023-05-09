@@ -129,7 +129,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     history.cancel(record);
     throw e;
   } finally {
-    warpBuffer.delete();
+    warpBuffer.deref();
   }
 
   return count;

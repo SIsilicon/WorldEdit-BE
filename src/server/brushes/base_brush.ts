@@ -41,6 +41,10 @@ export abstract class Brush {
    */
   public abstract updateOutline(selection: Selection, loc: Vector): void;
 
+  public delete() {
+    return;
+  }
+
   public assertSizeInRange(size: number) {
     if (size > config.maxBrushRadius) {
       throw RawText.translate("commands.wedit:brush.tooLarge").with(config.maxBrushRadius.toString());
