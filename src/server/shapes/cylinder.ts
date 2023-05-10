@@ -15,7 +15,7 @@ export class CylinderShape extends Shape {
   }
 
   public getRegion(loc: Vector) {
-    loc = loc.offset(0, -this.height/2, 0);
+    loc = loc.offset(0, -this.height/2, 0).ceil();
     return <[Vector, Vector]>[
       loc.offset(-this.radii[0], 0, -this.radii[1]),
       loc.offset(this.radii[0], this.height-1, this.radii[1])

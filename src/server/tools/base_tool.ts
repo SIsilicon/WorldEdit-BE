@@ -28,6 +28,10 @@ export abstract class Tool {
    * The permission required for the tool to be used.
    */
   readonly permission: string;
+  /**
+   * Whether there should be some delay between item use to avoid rapid fire/
+   */
+  readonly noDelay: boolean = false;
 
   /**
    * @internal
@@ -66,7 +70,7 @@ export abstract class Tool {
           throw "worldedit.tool.noPerm";
         }
 
-        if (Date.now() - self.lastUse > 200) {
+        if (Date.now() - self.lastUse > 200 || self.noDelay) {
           self.lastUse = Date.now();
 
           if (!loc) {

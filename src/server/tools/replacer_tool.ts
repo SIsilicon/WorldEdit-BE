@@ -7,6 +7,7 @@ import { Pattern } from "@modules/pattern.js";
 class BlockReplacerTool extends Tool {
   public pattern: Pattern;
 
+  noDelay = true;
   permission = "worldedit.tool.repl";
   useOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
     if (player.isSneaking) {
