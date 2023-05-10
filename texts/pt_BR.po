@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-04-15 03:08\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -346,6 +346,12 @@ msgstr "Pincel suave equipado (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Pincel suave equipado (%1 x %2x usando filtro)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Selecionar o tipo de pincel que está segurando"
 
@@ -387,6 +393,9 @@ msgstr "Raio máximo permitido do pincel: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Este pincel não requer um material para funcionar."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Pincel desvinculado do seu item atual."
@@ -792,6 +801,12 @@ msgstr "Varinha de seleção distante vinculada a %s."
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Ferramenta de empilhar vinculada a %s."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "Obter todos os tipos de ferramentas"
 
@@ -809,6 +824,9 @@ msgstr "Ferramenta de empilhar blocos"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Desvincular ferramenta segurada"
