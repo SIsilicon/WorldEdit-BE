@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2023-04-15 03:07\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -346,6 +346,12 @@ msgstr "Smooth brush equipped (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
 
@@ -387,6 +393,9 @@ msgstr "Maximum allowed brush radius: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "This brush does not require a material to work."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Brush unbound from your current item."
@@ -790,6 +799,12 @@ msgstr "Far selection wand bound to %s."
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "Get all sorts of tools"
 
@@ -807,6 +822,9 @@ msgstr "Block stacker tool"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"
