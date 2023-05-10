@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-04-15 17:23\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -346,6 +346,12 @@ msgstr "Glättungspinsel ausgerüstet (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Glättungspinsel ausgerüstet (%1 x %2x mit Filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
 
@@ -387,6 +393,9 @@ msgstr "Maximal zulässiger Pinselradius: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Pinsel vom aktuellen Item entfernt."
@@ -790,6 +799,12 @@ msgstr "Fernauswahl-Stab an %s gebunden."
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stapelwerkzeug an %s gebunden."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "Holen Sie sich alle Arten von Tools"
 
@@ -807,6 +822,9 @@ msgstr "Blockstapelwerkzeug"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Befehlsausgabewerkzeug; sowohl Vanille als auch Worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Gehaltenes Wekzeug entfernen"
