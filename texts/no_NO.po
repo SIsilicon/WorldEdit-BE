@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-04-16 20:18\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -346,6 +346,12 @@ msgstr "Jevnbørste valgt (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Jevnbørste valgt (%1 x %2x med filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Angi typen pensel som blir holdt"
 
@@ -387,6 +393,9 @@ msgstr "Maksimum tillat pensel-radius: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Dette penselet trenger ikke et material for å fungere."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Pensel ubundet fra din nåværende gjenstand."
@@ -790,6 +799,12 @@ msgstr "Fjern utvalgsstav bundet til %s."
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stablingsverktøy bundet til %s."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "Få alle typer verktøy"
 
@@ -807,6 +822,9 @@ msgstr "Blokkstablingsverktøy"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Kommando bruksverktøy; både vanilla og worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"
