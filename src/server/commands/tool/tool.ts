@@ -55,6 +55,17 @@ const registerInformation = {
           type: "string..."
         }
       ]
+    },
+    {
+      subName: "repl",
+      permission: "worldedit.repl",
+      description: "commands.wedit:tool.description.repl",
+      args: [
+        {
+          name: "pattern",
+          type: "Pattern"
+        }
+      ]
     }
   ]
 };
@@ -94,7 +105,13 @@ const farwand_command = (session: PlayerSession, builder: Player) => {
 const cmd_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
   assertPermission(builder, registerInformation.usage[5].permission);
   session.bindTool("command_wand", null, args.get("command"));
-  return RawText.translate("commands.wedit:tool.bind.stacker").with(heldItemName(builder));
+  return RawText.translate("commands.wedit:tool.bind.cmd").with(heldItemName(builder));
+};
+
+const repl_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+  assertPermission(builder, registerInformation.usage[6].permission);
+  session.bindTool("replacer_wand", null, args.get("pattern"));
+  return RawText.translate("commands.wedit:tool.bind.repl").with(heldItemName(builder));
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -109,6 +126,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     msg = farwand_command(session, builder);
   } else if (args.has("cmd")) {
     msg = cmd_command(session, builder, args);
+  } else if (args.has("repl")) {
+    msg = repl_command(session, builder, args);
   } else {
     session.unbindTool(null);
     return "commands.wedit:tool.unbind";

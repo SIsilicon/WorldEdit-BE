@@ -8,19 +8,6 @@ class CommandTool extends Tool {
   public command: string;
   public isCustom = false;
 
-  constructor(command: string) {
-    super();
-    if (command.startsWith(";")) {
-      this.isCustom = true;
-      this.command = command.slice(1);
-    } else if (command.startsWith("/")) {
-      this.isCustom = false;
-      this.command = command.slice(1);
-    } else {
-      this.command = command;
-    }
-  }
-
   use = function (self: CommandTool, player: Player, session: PlayerSession) {
     if (self.isCustom) {
       const firstSpace = self.command.indexOf(" ");
@@ -34,5 +21,18 @@ class CommandTool extends Tool {
       }
     }
   };
+  
+  constructor(command: string) {
+    super();
+    if (command.startsWith(";")) {
+      this.isCustom = true;
+      this.command = command.slice(1);
+    } else if (command.startsWith("/")) {
+      this.isCustom = false;
+      this.command = command.slice(1);
+    } else {
+      this.command = command;
+    }
+  }
 }
 Tools.register(CommandTool, "command_wand");
