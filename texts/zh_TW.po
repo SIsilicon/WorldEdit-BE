@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-04-15 03:08\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -346,6 +346,12 @@ msgstr "配備平滑刷 (%1 x %2x)。"
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選) 。"
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "设置你正在握着的笔刷种类"
 
@@ -387,6 +393,9 @@ msgstr "被允许的笔刷最大范围: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "这个笔刷没有运作需要的材料"
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "已解除您手持的物品與刷子之間的綁定。"
@@ -790,6 +799,12 @@ msgstr "遠端選擇棒綁定到 %s。"
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "堆疊工具限制到 %s."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "獲得所有工具"
 
@@ -807,6 +822,9 @@ msgstr "方塊堆疊工具"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "放開握著的工具"
