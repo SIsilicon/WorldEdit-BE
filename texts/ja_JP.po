@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-04-15 04:14\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -346,6 +346,12 @@ msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
 
@@ -387,6 +393,9 @@ msgstr "ブラシの最大半径: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "このブラシには材料が必要ありません。"
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
@@ -790,6 +799,12 @@ msgstr "遠距離選択用の杖を %s にセットしました。"
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "スタッカーツールを %s にセットしました。"
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "すべての種類のツールを入手する"
 
@@ -807,6 +822,9 @@ msgstr "スタッカーツールをブロックする"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "バニラ・WorldEdit共用のコマンド実行ツール"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"
