@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-04-15 03:07\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -346,6 +346,12 @@ msgstr "Сглаживающая форма кисти установлена (%
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Сглаживающая форма кисти установлена (%1 x %2x using filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Установите тип удерживаемой кисти"
 
@@ -387,6 +393,9 @@ msgstr "Максимально допустимый радиус кисти: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Эта кисть не требует материала для работы."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Кисть не связана с вашим текущим предметом."
@@ -790,6 +799,12 @@ msgstr "Палочка дальнего выделения привязана к
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Инструмент Стакер привязан к %s."
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "Получить все виды инструментов"
 
@@ -807,6 +822,9 @@ msgstr "Стакер блоков"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Отменить привязку инструмента"
