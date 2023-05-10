@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-04-15 03:07\n"
+"PO-Revision-Date: 2023-05-10 00:44\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -346,6 +346,12 @@ msgstr "부드러운 브러시 장착됨 (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "부드러운 브러시 장착됨 (%1 x %2x 필터 사용)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
 
@@ -387,6 +393,9 @@ msgstr "최대 허용 브러시 반경: %s"
 
 msgid "commands.wedit:brush.noMaterial"
 msgstr "이 브러시는 작업하는 데 재료가 필요하지 않습니다."
+
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "현재 항목에서 바인딩 해제되지 않은 브러시입니다."
@@ -790,6 +799,12 @@ msgstr "장거리 선택 도구가 %s에 바인딩됨"
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "늘리기 도구가 %s에 바인딩됨"
 
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "모든 종류의 도구 가져오기"
 
@@ -807,6 +822,9 @@ msgstr "블럭 쌓기 도구"
 
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"
