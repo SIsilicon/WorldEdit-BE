@@ -186,6 +186,14 @@ export class Vector {
     );
   }
 
+  round() {
+    return new Vector(
+      Math.round(this.x),
+      Math.round(this.y),
+      Math.round(this.z)
+    );
+  }
+
   lerp(v: anyVec, t: number) {
     v = Vector.from(v);
     return new Vector(

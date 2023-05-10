@@ -502,7 +502,6 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
       } else if (toolType == "stacker_wand") {
         session.bindTool("stacker_wand", item, ...toolData);
       } else if (toolType == "command_wand") {
-        console.warn(...toolData);
         session.bindTool("command_wand", item, ...toolData);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);

@@ -217,7 +217,6 @@ export class RegionBuffer {
         if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
 
         if (block instanceof BlockPermutation) {
-          if (block.type.id == "minecraft:air") console.warn(blockLoc);
           oldBlock.setPermutation(transform(block));
         } else {
           this.loadBlockFromStruct(block[0], blockLoc, dim);

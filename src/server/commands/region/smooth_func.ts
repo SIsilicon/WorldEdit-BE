@@ -111,7 +111,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
 
       if (canSmooth(loc)) {
         const heightDiff = getMap(map, loc.x, loc.z) - getMap(base, loc.x, loc.z);
-        const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]);
+        const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
         sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), warpBuffer.getSize().y - 1);
         if (canSmooth(sampleLoc)) {
           return dim.getBlock(sampleLoc.add(range[0]));
