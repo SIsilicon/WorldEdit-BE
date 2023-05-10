@@ -21,7 +21,7 @@ class CommandTool extends Tool {
       }
     }
   };
-  
+
   constructor(command: string) {
     super();
     if (command.startsWith(";")) {

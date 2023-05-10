@@ -58,9 +58,6 @@ class PlayerHandler {
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;
     for (let i = 0; i < inv.size; i++) {
       if (inv.getItem(i)?.typeId === item) {
-        const slotType = i > 8 ? "slot.inventory" : "slot.hotbar";
-        const slotId = i > 8 ? i - 9 : i;
-
         const stack = new ItemStack(sub, inv.getItem(i).amount);
         if (locked) stack.lockMode = ItemLockMode.slot;
         inv.setItem(i, stack);
@@ -115,7 +112,7 @@ class PlayerHandler {
         } else if (range && range > 0 && i >= range) {
           return point;
         }
-      } catch {}
+      } catch { /* pass */ }
     }
   }
 

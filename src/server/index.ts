@@ -27,8 +27,8 @@ Server.on("worldInitialize", ev => {
           if (!removeTickingArea(tickingArea, world.getDimension(dim))) break;
         }
       }
-      setTickingAreas([]);  
-    })
+      setTickingAreas([]);
+    });
   } catch (e) { contentLog.error(e); }
 });
 

@@ -33,7 +33,7 @@ export class StructureBrush extends Brush {
     }
   }
 
-  public resize(value: number) {
+  public resize() {
     throw "commands.generic.wedit:noSize";
   }
 
@@ -49,7 +49,7 @@ export class StructureBrush extends Brush {
     throw "commands.generic.wedit:noMaterial";
   }
 
-  public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
+  public *apply(loc: Vector, session: PlayerSession) {
     const history = session.getHistory();
     const record = history.record();
     try {

@@ -66,7 +66,7 @@ export function importStructure(name: string, player: Player) {
 
 // TODO Add proper error messages
 registerCommand(registerInformation, function (session, builder, args) {
-  let name: string = args.get("name");
+  const name: string = args.get("name");
 
   const { buffer, metadata } = importStructure(name, builder);
 

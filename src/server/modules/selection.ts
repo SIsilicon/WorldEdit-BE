@@ -168,7 +168,7 @@ export class Selection {
       for (const point of this.drawPoints) {
         try {
           dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
-        } catch {}
+        } catch { /* pass */ }
       }
       this.lastDraw = system.currentTick;
     }
