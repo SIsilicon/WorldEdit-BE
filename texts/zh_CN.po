@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-05-10 13:28\n"
+"PO-Revision-Date: 2023-05-11 01:02\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -805,6 +805,9 @@ msgstr "命令工具已绑定为%s。"
 msgid "commands.wedit:tool.bind.repl"
 msgstr "方块重放工具已绑定为%s。"
 
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "Block cycler tool bound to %s."
+
 msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的工具"
 
@@ -825,6 +828,9 @@ msgstr "命令处理工具；适用于原版和创世神插件"
 
 msgid "commands.wedit:tool.description.repl"
 msgstr "方块重放工具"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "Block cycler tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"
