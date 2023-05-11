@@ -8,7 +8,7 @@ class BlockReplacerTool extends Tool {
   public pattern: Pattern;
 
   noDelay = true;
-  permission = "worldedit.tool.repl";
+  permission = "worldedit.repl";
   useOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
     if (player.isSneaking) {
       self.breakOn(self, player, session, loc);

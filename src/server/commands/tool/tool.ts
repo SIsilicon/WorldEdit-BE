@@ -66,6 +66,11 @@ const registerInformation = {
           type: "Pattern"
         }
       ]
+    },
+    {
+      subName: "cycler",
+      permission: "worldedit.cycler",
+      description: "commands.wedit:tool.description.cycler"
     }
   ]
 };
@@ -114,6 +119,12 @@ const repl_command = (session: PlayerSession, builder: Player, args: Map<string,
   return RawText.translate("commands.wedit:tool.bind.repl").with(heldItemName(builder));
 };
 
+const cycler_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+  assertPermission(builder, registerInformation.usage[7].permission);
+  session.bindTool("cycler_wand", null);
+  return RawText.translate("commands.wedit:tool.bind.cycler").with(heldItemName(builder));
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
   let msg: RawText;
   if (args.has("stacker")) {
@@ -128,6 +139,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     msg = cmd_command(session, builder, args);
   } else if (args.has("repl")) {
     msg = repl_command(session, builder, args);
+  } else if (args.has("cycler")) {
+    msg = cycler_command(session, builder, args);
   } else {
     session.unbindTool(null);
     return "commands.wedit:tool.unbind";
