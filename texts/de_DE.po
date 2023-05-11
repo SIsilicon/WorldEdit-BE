@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-05-11 01:02\n"
+"PO-Revision-Date: 2023-05-11 05:25\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -347,10 +347,10 @@ msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Glättungspinsel ausgerüstet (%1 x %2x mit Filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "Clipboard brush equipped."
+msgstr "Zwischenablagenpinsel ausgerüstet."
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Structure brush equipped."
+msgstr "Strukturenpinsel ausgerüstet."
 
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
@@ -395,7 +395,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Dieser Pinsel benötigt kein Material um zu funktionieren."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "Dieser Pinsel hat keine konfigurierbare Größe."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Pinsel vom aktuellen Item entfernt."
@@ -800,13 +800,13 @@ msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stapelwerkzeug an %s gebunden."
 
 msgid "commands.wedit:tool.bind.cmd"
-msgstr "Command tool bound to %s."
+msgstr "Befehlswerkzeug an %s gebunden."
 
 msgid "commands.wedit:tool.bind.repl"
-msgstr "Block replacer tool bound to %s."
+msgstr "Blockersatzwerkzeug an %s gebunden."
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "Blockwechselwerkzeug an %s gebunden."
 
 msgid "commands.wedit:tool.description"
 msgstr "Holen Sie sich alle Arten von Tools"
@@ -827,10 +827,10 @@ msgid "commands.wedit:tool.description.cmd"
 msgstr "Befehlsausgabewerkzeug; sowohl Vanille als auch Worldedit"
 
 msgid "commands.wedit:tool.description.repl"
-msgstr "Block replacer tool"
+msgstr "Blockersatzwerkzeug"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "Blockwechselwerkzeug"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Gehaltenes Wekzeug entfernen"
