@@ -119,7 +119,7 @@ const repl_command = (session: PlayerSession, builder: Player, args: Map<string,
   return RawText.translate("commands.wedit:tool.bind.repl").with(heldItemName(builder));
 };
 
-const cycler_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+const cycler_command = (session: PlayerSession, builder: Player) => {
   assertPermission(builder, registerInformation.usage[7].permission);
   session.bindTool("cycler_wand", null);
   return RawText.translate("commands.wedit:tool.bind.cycler").with(heldItemName(builder));
@@ -140,7 +140,7 @@ registerCommand(registerInformation, function (session, builder, args) {
   } else if (args.has("repl")) {
     msg = repl_command(session, builder, args);
   } else if (args.has("cycler")) {
-    msg = cycler_command(session, builder, args);
+    msg = cycler_command(session, builder);
   } else {
     session.unbindTool(null);
     return "commands.wedit:tool.unbind";

@@ -1,4 +1,4 @@
-import { Vector3, Player, BlockPermutation, BlockStates } from "@minecraft/server";
+import { Vector3, Player, BlockStates } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
@@ -6,7 +6,7 @@ import { print, wrap } from "server/util.js";
 
 class BlockCyclerTool extends Tool {
   private stateIndex = 0;
-  
+
   permission = "worldedit.cycler";
   useOn = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
     if (player.isSneaking) {
@@ -27,6 +27,7 @@ class BlockCyclerTool extends Tool {
     try {
       const states = Object.entries(permutation.getAllStates());
 
+      // eslint-disable-next-line prefer-const
       let [currState, currValue] = states[this.stateIndex % states.length];
       const validValues = BlockStates.get(currState).validValues;
       const currValueIndex = validValues.indexOf(currValue);
@@ -53,6 +54,6 @@ class BlockCyclerTool extends Tool {
       }
       print(texts.join("\n"), player, true);
     } catch { /* pass */ }
-  }
+  };
 }
 Tools.register(BlockCyclerTool, "cycler_wand");

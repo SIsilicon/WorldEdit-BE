@@ -13,7 +13,7 @@ import { selectionModes } from "@modules/selection.js";
 import { ConfigContext, ToolTypes } from "./types.js";
 import config from "config.js";
 
-// TODO: Add structure brush and block replacer tool 
+// TODO: Add structure brush and block replacer tool
 
 type MenuConfigCtx = MenuContext<ConfigContext>
 type ModalFormInput = ModalForm<ConfigContext>["inputs"]
