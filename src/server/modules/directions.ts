@@ -14,6 +14,8 @@ const DIRECTIONS: {[k: string]: Vector} = {
   "w": new Vector(-1, 0, 0)
 };
 
+export const directionVectors = Object.entries(DIRECTIONS);
+
 enum Dir {
     FORWARD, BACK, LEFT, RIGHT,
     NORTH, SOUTH, EAST, WEST,

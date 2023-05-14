@@ -46,6 +46,10 @@ export class Vector {
   get z() { return this.vals[2]; }
   set z(val: number) { this.vals[2] = val; }
 
+  get lengthSqr() {
+    return this.x*this.x + this.y*this.y + this.z*this.z;
+  }
+
   get length() {
     return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
   }

@@ -28,6 +28,12 @@ export class BlockBuilder {
     }
     return BlockPermutation.resolve(block, this.dataValueToStates(block, data));
   }
+
+  isAirOrFluid(block: BlockPermutation) {
+    if (!block) return true;
+    const type = block.type.id;
+    return type == "minecraft:air" || type == "minecraft:water" || type == "minecraft:lava";
+  }
 }
 export const Block = new BlockBuilder();
 

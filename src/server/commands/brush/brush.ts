@@ -11,6 +11,7 @@ import { registerCommand } from "../register_commands.js";
 import { StructureBrush } from "server/brushes/structure_brush.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { importStructure } from "../structure/import.js";
+import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
 
 const registerInformation = {
   name: "brush",
@@ -110,6 +111,33 @@ const registerInformation = {
           ]
         }
       ]
+    },
+    {
+      subName: "erode",
+      permission: "worldedit.brush.erode",
+      description: "commands.wedit:brush.description.erode",
+      args: [
+        {
+          subName: "_",
+          args: [{ name: "radius", type: "float", default: 3 }]
+        },
+        {
+          subName: "lift",
+          args: [{ name: "radius", type: "float", default: 3 }]
+        },
+        {
+          subName: "fill",
+          args: [{ name: "radius", type: "float", default: 3 }]
+        },
+        {
+          subName: "melt",
+          args: [{ name: "radius", type: "float", default: 3 }]
+        },
+        {
+          subName: "smooth",
+          args: [{ name: "radius", type: "float", default: 3 }]
+        }
+      ]
     }
   ]
 };
@@ -174,9 +202,25 @@ const struct_command = (session: PlayerSession, builder: Player, args: Map<strin
   return RawText.translate(msg).with(args.get("structureName"));
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const erode_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+  assertPermission(builder, registerInformation.usage[5].permission);
+
+  let type = ErosionType.DEFAULT;
+  if (args.has("lift")) type = ErosionType.LIFT;
+  else if (args.has("fill")) type = ErosionType.FILL;
+  else if (args.has("melt")) type = ErosionType.MELT;
+  else if (args.has("smooth")) type = ErosionType.SMOOTH;
+
+  session.bindTool("brush", null, new ErosionBrush(args.get("radius"), type));
+  return RawText.translate("commands.wedit:brush.bind.erode");
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
   let msg: RawText;
-  if (args.has("sphere")) {
+  if (args.has("erode")) {
+    msg = erode_command(session, builder, args);
+  } else if (args.has("sphere")) {
     msg = sphere_command(session, builder, args);
   } else if (args.has("cyl")) {
     msg = cylinder_command(session, builder, args);

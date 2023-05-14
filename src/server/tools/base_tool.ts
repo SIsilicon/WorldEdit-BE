@@ -1,4 +1,4 @@
-import { BlockPermutation, Player } from "@minecraft/server";
+import { BlockPermutation, Player, system } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Server, Thread } from "@notbeer-api";
 import { print, printerr } from "../util.js";
@@ -45,7 +45,7 @@ export abstract class Tool {
   }
 
   private useOnTick = 0;
-  private lastUse = Date.now();
+  private lastUse = system.currentTick;
 
   process(session: PlayerSession, tick: number, loc?: Vector, brokenBlock?: BlockPermutation): boolean {
     const player = session.getPlayer();
@@ -70,8 +70,8 @@ export abstract class Tool {
           throw "worldedit.tool.noPerm";
         }
 
-        if (Date.now() - self.lastUse > 200 || self.noDelay) {
-          self.lastUse = Date.now();
+        if (system.currentTick - self.lastUse > 4 || self.noDelay) {
+          self.lastUse = system.currentTick;
 
           if (!loc) {
             if (self.useOnTick != tick) {
