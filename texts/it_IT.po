@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2023-05-11 01:02\n"
+"PO-Revision-Date: 2023-05-14 03:34\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -352,6 +352,9 @@ msgstr "Clipboard brush equipped."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Imposta il tipo di pennello da tenere"
 
@@ -366,6 +369,12 @@ msgstr "Crea un pennello cilindro"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Crea un pennello levigante del terreno"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Maschera pennello impostata."
@@ -786,6 +795,12 @@ msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Imposta quali tipo di blocchi un pennello può influenzare"
+
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Selezione a bacchetta associata a %s."
