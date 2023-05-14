@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-05-11 05:25\n"
+"PO-Revision-Date: 2023-05-14 03:34\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -352,6 +352,9 @@ msgstr "Zwischenablagenpinsel ausgerüstet."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Strukturenpinsel ausgerüstet."
 
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
 
@@ -366,6 +369,12 @@ msgstr "Zylinderpinsel erstellen"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Geländeglättungspinsel erstellen"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pinselmaske gesetzt."
@@ -786,6 +795,12 @@ msgstr "Keine freie Stelle unter Ihnen gefunden."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
+
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Auswahlstab an %s gebunden."
