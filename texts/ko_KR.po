@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-05-11 01:02\n"
+"PO-Revision-Date: 2023-05-14 03:34\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -352,6 +352,9 @@ msgstr "Clipboard brush equipped."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
 
@@ -366,6 +369,12 @@ msgstr "원기둥 브러시 생성"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "지형 스무딩 브러시 생성"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "브러시 마스크 설정."
@@ -786,6 +795,12 @@ msgstr "빈 장소를 찾을 수 없습니다."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "브러시를 사용할 수 있는 블록 유형 설정"
+
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "거리 선택 막대가 %s에 바인딩됨"
