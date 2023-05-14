@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-05-11 01:02\n"
+"PO-Revision-Date: 2023-05-14 03:34\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -352,6 +352,9 @@ msgstr "クリップボードブラシを装備しました。"
 msgid "commands.wedit:brush.bind.struct"
 msgstr "ストラクチャーブラシを装備しました。"
 
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
 
@@ -366,6 +369,12 @@ msgstr "円柱ブラシを生成する"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "地形をなだらかにするスムーズブラシを生成する"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
@@ -786,6 +795,12 @@ msgstr "下に空間を見つけられませんでした。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
+
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "選択用の杖を %s にセットしました。"
