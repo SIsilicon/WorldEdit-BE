@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-05-11 01:02\n"
+"PO-Revision-Date: 2023-05-14 03:34\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -352,6 +352,9 @@ msgstr "Clipboard brush equipped."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped."
+
 msgid "commands.wedit:brush.description"
 msgstr "Selecionar o tipo de pincel que está segurando"
 
@@ -366,6 +369,12 @@ msgstr "Criar um pincel cilíndrico"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Criar um pincel de suavizar terreno"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Máscara do pincel selecionada."
@@ -788,6 +797,12 @@ msgstr "Sem espaço livre abaixo de você encontrado."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
+
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Varinha de seleção vinculada a %s."
