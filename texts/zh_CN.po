@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-05-14 04:49\n"
+"PO-Revision-Date: 2023-05-14 05:58\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -353,7 +353,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "已装载结构笔刷。"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped."
+msgstr "已装载冲蚀笔刷。"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
@@ -371,10 +371,10 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "创建一个平滑笔刷"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "创建一支可放置结构的笔刷"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "创建一支地形塑形笔刷"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "已设定笔刷替换的方块"
@@ -797,10 +797,10 @@ msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "已切换放置位置。"
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "切换用于不同WorldEdit操作的放置位置。"
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "选择器已绑定到 %s。"
