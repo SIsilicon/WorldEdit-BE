@@ -1,6 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
@@ -73,7 +72,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   else
     radii = [args.get("radiiX"), args.get("radiiY"), args.get("radiiZ")];
 
-  const loc = PlayerUtil.getBlockLocation(builder).offset(0, isRaised ? radii[1] : 0, 0);
+  const loc = session.getPlacementPosition().offset(0, isRaised ? radii[1] : 0, 0);
 
   const sphereShape = new SphereShape(...radii);
   const job = Jobs.startJob(session, 2, sphereShape.getRegion(loc));

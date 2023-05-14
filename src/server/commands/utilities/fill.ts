@@ -1,7 +1,7 @@
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, regionBounds, Vector } from "@notbeer-api";
+import { RawText, regionBounds } from "@notbeer-api";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { floodFill, FloodFillContext } from "./floodfill_func.js";
@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const pattern: Pattern = args.get("pattern");
   pattern.playerSession = session;
   const depth: number = args.get("depth");
-  const startBlock = Vector.from(builder.location).floor();
+  const startBlock = session.getPlacementPosition();
   const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock));
 
   Jobs.nextStep(job, "Calculating and Generating blocks...");

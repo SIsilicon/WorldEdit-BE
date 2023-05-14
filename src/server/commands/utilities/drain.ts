@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const dimension = builder.dimension;
-  const playerBlock = Vector.from(builder.location).floor();
+  const playerBlock = session.getPlacementPosition();
   let fluidMatch: typeof waterMatch | typeof lavaMatch;
   let drainStart: Vector;
   for (const offset of fluidLookPositions) {

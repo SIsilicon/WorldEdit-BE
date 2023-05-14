@@ -22,7 +22,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   // TODO: Assert Can Build within
 
   const dimension = builder.dimension;
-  const playerBlock = Vector.from(builder.location).floor();
+  const playerBlock = session.getPlacementPosition();
   let fixwaterStart: Vector;
   for (const offset of fluidLookPositions) {
     const loc = playerBlock.offset(offset.x, offset.y, offset.z);

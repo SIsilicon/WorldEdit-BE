@@ -87,6 +87,7 @@ export class PlayerSession {
   private player: Player;
   private history: History;
   private regions = new Map<string, RegionBuffer>();
+  private placementMode: "player" | "selection" = "player";
 
   private _drawOutlines: boolean;
 
@@ -138,6 +139,27 @@ export class PlayerSession {
   reassignPlayer(player: Player) {
     this.player = player;
     this.selection = new Selection(player);
+  }
+
+  /**
+   * Toggles the placement position between the player and first selection position
+   */
+  togglePlacementPosition() {
+    this.placementMode = this.placementMode == "player" ? "selection" : "player";
+  }
+
+  /**
+   * Get the position the player may use while excuting a command, such as ;fill and ;sphere
+   * @returns placement position
+   */
+  getPlacementPosition() {
+    if (this.placementMode == "player") {
+      return Vector.from(this.player.location).floor();
+    } else {
+      const point = this.selection.points[0];
+      if (!point) throw "";
+      return point;
+    }
   }
 
   /**

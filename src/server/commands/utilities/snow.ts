@@ -51,7 +51,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const dimension = builder.dimension;
   const radius: number = args.get("size");
   const height: number = args.get("height") < 0 ? 4096 : (args.get("height") - 1) * 2 + 1;
-  const origin = Vector.from(builder.location).floor();
+  const origin = session.getPlacementPosition();
 
   const shape = new CylinderShape(height, radius);
   const range = shape.getRegion(origin);

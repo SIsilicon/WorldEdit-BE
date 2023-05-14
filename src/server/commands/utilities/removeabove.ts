@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, Vector } from "@notbeer-api";
+import { RawText } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
 import { getWorldHeightLimits } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const size = (args.get("size") - 1) * 2 + 1;
   const height: number = args.get("height") == -1 ? getWorldHeightLimits(builder.dimension)[1] - Math.floor(builder.location.y) + 1 : args.get("height");
-  const origin = Vector.from(builder.location).floor().sub([size/2, 0, size/2]).ceil().floor();
+  const origin = session.getPlacementPosition().sub([size/2, 0, size/2]).ceil().floor();
 
   const shape = new CuboidShape(size, height, size);
   const job = Jobs.startJob(session, 2, shape.getRegion(origin));

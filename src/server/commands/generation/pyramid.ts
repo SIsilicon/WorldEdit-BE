@@ -1,6 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
 import { PyramidShape } from "../../shapes/pyramid.js";
 import { registerCommand } from "../register_commands.js";
@@ -28,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const isHollow = args.has("h");
   const size: number = args.get("size");
 
-  const loc = PlayerUtil.getBlockLocation(builder);
+  const loc = session.getPlacementPosition();
   const pyramidShape = new PyramidShape(size);
   const job = Jobs.startJob(session, 2, pyramidShape.getRegion(loc));
   const count = yield* Jobs.perform(job, pyramidShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
