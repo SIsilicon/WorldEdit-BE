@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-05-14 03:34\n"
+"PO-Revision-Date: 2023-05-15 14:48\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -422,7 +422,7 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' no puede ser analizado como una expresión válida."
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Go to the ceiling."
+msgstr "Ir al techo."
 
 msgid "commands.wedit:center.description"
 msgstr "Establecer el/los bloque(s) central(es)."
