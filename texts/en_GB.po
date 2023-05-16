@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
-"PO-Revision-Date: 2023-05-14 03:35\n"
+"PO-Revision-Date: 2023-05-16 03:27\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -353,7 +353,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped."
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
@@ -375,6 +378,9 @@ msgstr "Creates a brush that places structures"
 
 msgid "commands.wedit:brush.description.erode"
 msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Brush mask set."
