@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Block } from "@minecraft/server";
+import { Vector3, BlockPermutation } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock, BlockUnit } from "./block_parsing.js";

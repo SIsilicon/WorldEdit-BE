@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Block, BlockStates } from "@minecraft/server";
+import { Vector3, BlockPermutation, BlockStates } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";

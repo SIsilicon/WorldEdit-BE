@@ -1,4 +1,4 @@
-import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
+import { Vector3, Dimension, BlockPermutation } from "@minecraft/server";
 import { Vector, regionVolume, Server, regionSize } from "@notbeer-api";
 import { assertCanBuildWithin, UnloadedChunksError } from "./assert.js";
 import { addTickingArea, canPlaceBlock, removeTickingArea } from "../util.js";
@@ -377,7 +377,7 @@ class BlockChangeImpl implements BlockChanges {
       setPermutation: (perm: BlockPermutation) => this.setBlock(loc, perm),
       hasTag: perm.hasTag,
       isAir: perm.type.id == "minecraft:air" ? () => true : () => false
-    }
+    };
   }
 
   setBlock(loc: Vector3, block: BlockPermutation) {
