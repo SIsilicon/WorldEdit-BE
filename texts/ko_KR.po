@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-05-14 03:34\n"
+"PO-Revision-Date: 2023-05-16 03:27\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -353,7 +353,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped."
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
@@ -375,6 +378,9 @@ msgstr "Creates a brush that places structures"
 
 msgid "commands.wedit:brush.description.erode"
 msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "브러시 마스크 설정."
