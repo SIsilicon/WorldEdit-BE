@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-05-14 03:34\n"
+"PO-Revision-Date: 2023-05-16 03:27\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -353,7 +353,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Strukturenpinsel ausgerüstet."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped."
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
@@ -375,6 +378,9 @@ msgstr "Creates a brush that places structures"
 
 msgid "commands.wedit:brush.description.erode"
 msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pinselmaske gesetzt."
