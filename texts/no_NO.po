@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-05-16 03:27\n"
+"PO-Revision-Date: 2023-05-16 07:18\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -347,16 +347,16 @@ msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Jevnbørste valgt (%1 x %2x med filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "Clipboard brush equipped."
+msgstr "Utiklippstavlebørste aktivert."
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Structure brush equipped."
+msgstr "Strukturbørste aktivert."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "Eroderingsbørste aktivert (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "Overlappingsbørste aktivert (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Angi typen pensel som blir holdt"
@@ -374,13 +374,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Lag et terreng-utjevningspensel"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "Lager enn børste som plasserer strukturer"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "Lager en børste som formerer terrenget"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "Lager en børste som kan overlappe terreng"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pensel-maske satt."
@@ -410,7 +410,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Dette penselet trenger ikke et material for å fungere."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "Denne børste har ingen konfigurerbar størrelse."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Pensel ubundet fra din nåværende gjenstand."
@@ -803,10 +803,10 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Angi hva slags blokker et pensel kan bli brukt på"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "Vekslet plasseringspossisjon."
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "Veksler plasseringsposisjonen brukt i diverse WorldEdit operasjoner."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Utvalgsstav bundet til %s."
@@ -821,13 +821,13 @@ msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stablingsverktøy bundet til %s."
 
 msgid "commands.wedit:tool.bind.cmd"
-msgstr "Command tool bound to %s."
+msgstr "Kommandoverktøy bundet til %s."
 
 msgid "commands.wedit:tool.bind.repl"
-msgstr "Block replacer tool bound to %s."
+msgstr "Blokk erstatningsverktøy bundet til %s."
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "Blokk syklusverktøy bundet til %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Få alle typer verktøy"
@@ -848,10 +848,10 @@ msgid "commands.wedit:tool.description.cmd"
 msgstr "Kommando bruksverktøy; både vanilla og worldedit"
 
 msgid "commands.wedit:tool.description.repl"
-msgstr "Block replacer tool"
+msgstr "Blokk erstatningsverktøy"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "Blokk syklusverktøy"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"
