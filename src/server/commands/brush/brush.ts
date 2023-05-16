@@ -240,6 +240,7 @@ const erode_command = (session: PlayerSession, builder: Player, args: Map<string
   else if (args.has("smooth")) type = ErosionType.SMOOTH;
 
   session.bindTool("brush", null, new ErosionBrush(args.get("radius"), type));
+  session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
   return RawText.translate("commands.wedit:brush.bind.erode").with(args.get("radius"));
 };
 
@@ -252,6 +253,7 @@ const overlay_command = (session: PlayerSession, builder: Player, args: Map<stri
     args.get("pattern"),
     args.get("mask"),
   ));
+  session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
   return RawText.translate("commands.wedit:brush.bind.overlay").with(args.get("radius"));
 };
 
