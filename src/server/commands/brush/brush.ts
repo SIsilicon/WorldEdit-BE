@@ -12,6 +12,7 @@ import { StructureBrush } from "server/brushes/structure_brush.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { importStructure } from "../structure/import.js";
 import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
+import { OverlayBrush } from "server/brushes/overlay_brush.js";
 
 const registerInformation = {
   name: "brush",
@@ -138,6 +139,32 @@ const registerInformation = {
           args: [{ name: "radius", type: "float", default: 3 }]
         }
       ]
+    },
+    {
+      subName: "overlay",
+      permission: "worldedit.brush.overlay",
+      description: "commands.wedit:brush.description.overlay",
+      args: [
+        {
+          name: "pattern",
+          type: "Pattern"
+        },
+        {
+          name: "radius",
+          type: "float",
+          default: 3
+        },
+        {
+          name: "depth",
+          type: "int",
+          default: 1
+        },
+        {
+          name: "mask",
+          type: "Mask",
+          default: new Mask()
+        }
+      ]
     }
   ]
 };
@@ -213,7 +240,19 @@ const erode_command = (session: PlayerSession, builder: Player, args: Map<string
   else if (args.has("smooth")) type = ErosionType.SMOOTH;
 
   session.bindTool("brush", null, new ErosionBrush(args.get("radius"), type));
-  return RawText.translate("commands.wedit:brush.bind.erode");
+  return RawText.translate("commands.wedit:brush.bind.erode").with(args.get("radius"));
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const overlay_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+  assertPermission(builder, registerInformation.usage[1].permission);
+  session.bindTool("brush", null, new OverlayBrush(
+    args.get("radius"),
+    args.get("depth"),
+    args.get("pattern"),
+    args.get("mask"),
+  ));
+  return RawText.translate("commands.wedit:brush.bind.overlay").with(args.get("radius"));
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -228,6 +267,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     msg = smooth_command(session, builder, args);
   } else if (args.has("struct")) {
     msg = struct_command(session, builder, args);
+  } else if (args.has("overlay")) {
+    msg = overlay_command(session, builder, args);
   } else {
     session.unbindTool(null);
     return "commands.wedit:brush.unbind";

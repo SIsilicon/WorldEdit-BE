@@ -1,6 +1,6 @@
 import { CustomArgType, commandSyntaxError, contentLog } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, AstNode, processOps } from "./parser.js";
+import { tokenize, throwTokenError, mergeTokens, AstNode, processOps } from "./block_parsing.js";
 
 /*
 10: x++ x-- x!

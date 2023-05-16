@@ -3,9 +3,10 @@ import { PlayerSession } from "../sessions.js";
 import { Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
-import { BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
+import { BlockPermutation } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
+import { BlockChanges } from "@modules/history.js";
 
 class ErosionPreset {
   readonly erodeThreshold: number;
@@ -25,50 +26,11 @@ export enum ErosionType {
   DEFAULT, LIFT, FILL, MELT, SMOOTH
 }
 
-const air = BlockPermutation.resolve("minecraft:air");
-
-class BlockChange {
-  readonly dimension: Dimension;
-  private iteration = new Map<string, BlockPermutation>();
-  private changes = new Map<string, BlockPermutation>();
-
-  constructor(dim: Dimension) {
-    this.dimension = dim;
-  }
-
-  getBlock(loc: Vector3) {
-    const change = this.changes.get(this.vec2string(loc));
-    try {
-      return change ?? this.dimension.getBlock(loc).permutation ?? air;
-    } catch {
-      return air;
-    }
-  }
-
-  setBlock(loc: Vector3, block: BlockPermutation) {
-    this.iteration.set(this.vec2string(loc), block);
-  }
-
-  applyIteration() {
-    this.changes = new Map([...this.changes, ...this.iteration]);
-    this.iteration.clear();
-  }
-
-  *flush() {
-    let i = 0;
-    for (const [loc, block] of this.changes.entries()) {
-      const vec = loc.split("_").map(v => Number.parseFloat(v));
-      try {
-        this.dimension.getBlock({x: vec[0], y: vec[1], z: vec[2]}).setPermutation(block);
-      } catch { /* pass */ }
-      yield ++i;
-    }
-  }
-
-  private vec2string(vec: Vector3) {
-    return "" + vec.x + "_" + vec.y + "_" + vec.z;
-  }
-}
+const fluids = {
+  "minecraft:air": BlockPermutation.resolve("air"),
+  "minecraft:water": BlockPermutation.resolve("water"),
+  "minecraft:lava": BlockPermutation.resolve("lava")
+};
 
 /**
  * Shapes terrain in various ways
@@ -112,20 +74,16 @@ export class ErosionBrush extends Brush {
 
     const history = session.getHistory();
     const record = history.record();
-
+    const blockChanges = history.collectBlockChanges(record);
     try {
-      history.addUndoStructure(record, ...range);
-
-      const blockChange = new BlockChange(session.getPlayer().dimension);
       for (let i = 0; i < this.preset.erodeIterations; i++) {
-        yield* this.processErosion(range, this.preset.erodeThreshold, blockChange, activeMask);
+        yield* this.processErosion(range, this.preset.erodeThreshold, blockChanges, activeMask);
       }
       for (let i = 0; i < this.preset.fillIterations; i++) {
-        yield* this.processFill(range, this.preset.fillThreshold, blockChange, activeMask);
+        yield* this.processFill(range, this.preset.fillThreshold, blockChanges, activeMask);
       }
 
-      yield* blockChange.flush();
-      history.addRedoStructure(record, ...range);
+      yield* blockChanges.flush();
       history.commit(record);
     } catch (e) {
       history.cancel(record);
@@ -139,39 +97,60 @@ export class ErosionBrush extends Brush {
     selection.set(1, loc.offset(0, 0, this.radius));
   }
 
-  private *processErosion(range: [Vector, Vector], threshold: number, blockChange: BlockChange, mask?: Mask) {
+  private *processErosion(range: [Vector, Vector], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
     const centre = Vector.add(...range).mul(0.5);
     const r2 = (this.radius + 0.5) * (this.radius + 0.5);
     const isAirOrFluid = Server.block.isAirOrFluid;
 
     for (const loc of regionIterateBlocks(...range)) {
-      if (centre.sub(loc).lengthSqr > r2 || isAirOrFluid(blockChange.getBlock(loc)) || (mask && !mask.matchesBlock(blockChange.dimension.getBlock(loc)))) {
+      if (centre.sub(loc).lengthSqr > r2 || isAirOrFluid(blockChanges.getBlockPerm(loc)) || (mask && !mask.matchesBlock(blockChanges.dimension.getBlock(loc)))) {
         continue;
       }
 
       let count = 0;
+      const fluidTypes: [string, number][] = [];
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       for (const [_, dir] of directionVectors) {
-        if (isAirOrFluid(blockChange.getBlock(Vector.add(loc, dir)))) {
+        const block = blockChanges.getBlockPerm(Vector.add(loc, dir));
+        if (isAirOrFluid(block)) {
           count++;
+          let foundType = false;
+          for (let i = 0; i < fluidTypes.length; i++) {
+            if (fluidTypes[i][0] == block.type.id) {
+              fluidTypes[i][1]++;
+              foundType = true;
+              break;
+            }
+          }
+          if (!foundType) {
+            fluidTypes.push([block.type.id, 1]);
+          }
         }
       }
 
       if (count >= threshold) {
-        blockChange.setBlock(loc, air);
+        let maxCount = 0;
+        let maxBlock: string;
+        for (const [block, times] of fluidTypes) {
+          if (times > maxCount) {
+            maxCount = times;
+            maxBlock = block;
+          }
+        }
+        blockChanges.setBlock(loc, fluids[maxBlock as keyof typeof fluids]);
       }
       yield 0;
     }
-    blockChange.applyIteration();
+    blockChanges.applyIteration();
   }
 
-  private *processFill(range: [Vector, Vector], threshold: number, blockChange: BlockChange, mask?: Mask) {
+  private *processFill(range: [Vector, Vector], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
     const centre = Vector.add(...range).mul(0.5);
     const r2 = (this.radius + 0.5) * (this.radius + 0.5);
     const isAirOrFluid = Server.block.isAirOrFluid;
 
     for (const loc of regionIterateBlocks(...range)) {
-      if (centre.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChange.getBlock(loc))) {
+      if (centre.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
         continue;
       }
 
@@ -179,8 +158,8 @@ export class ErosionBrush extends Brush {
       const blockTypes: [BlockPermutation, number][] = [];
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       for (const [_, dir] of directionVectors) {
-        const block = blockChange.getBlock(Vector.add(loc, dir));
-        if (!isAirOrFluid(block) && (!mask || mask.matchesBlock(blockChange.dimension.getBlock(Vector.add(loc, dir))))) {
+        const block = blockChanges.getBlockPerm(Vector.add(loc, dir));
+        if (!isAirOrFluid(block) && (!mask || mask.matchesBlock(blockChanges.dimension.getBlock(Vector.add(loc, dir))))) {
           count++;
           let foundType = false;
           for (let i = 0; i < blockTypes.length; i++) {
@@ -205,11 +184,11 @@ export class ErosionBrush extends Brush {
             maxBlock = block;
           }
         }
-        blockChange.setBlock(loc, maxBlock);
+        blockChanges.setBlock(loc, maxBlock);
       }
       yield 0;
     }
-    blockChange.applyIteration();
+    blockChanges.applyIteration();
   }
 }
 

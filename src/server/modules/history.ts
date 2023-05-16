@@ -1,9 +1,10 @@
-import { Vector3, Dimension } from "@minecraft/server";
+import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
 import { Vector, regionVolume, Server, regionSize } from "@notbeer-api";
 import { assertCanBuildWithin, UnloadedChunksError } from "./assert.js";
 import { addTickingArea, canPlaceBlock, removeTickingArea } from "../util.js";
 import { PlayerSession } from "../sessions.js";
 import { selectMode } from "./selection.js";
+import { BlockUnit } from "./block_parsing.js";
 import config from "config.js";
 
 type historyEntry = {
@@ -23,9 +24,12 @@ type historyPoint = {
     redo: historyEntry[]
     selection: [selectionEntry, selectionEntry] | selectionEntry | "none"
 
+    blockChange: BlockChanges
     blocksChanged: number
     brush: boolean
 }
+
+const air = BlockPermutation.resolve("minecraft:air");
 
 let historyId = 0;
 let historyPointId = 0;
@@ -45,15 +49,17 @@ export class History {
   }
 
   record(brush = false) {
+    historyPointId++;
     const historyPoint = {
       undo: [] as historyEntry[],
       redo: [] as historyEntry[],
       selection: "none",
 
+      blockChange: new BlockChangeImpl(this.session.getPlayer().dimension, this, historyPointId),
       blocksChanged: 0,
       brush
     } as historyPoint;
-    this.historyPoints.set(++historyPointId, historyPoint);
+    this.historyPoints.set(historyPointId, historyPoint);
     return historyPointId;
   }
 
@@ -92,6 +98,10 @@ export class History {
     for (const struct of point.redo) {
       Server.structure.delete(struct.name);
     }
+  }
+
+  collectBlockChanges(historyPoint: number) {
+    return this.historyPoints.get(historyPoint)?.blockChange;
   }
 
   addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
@@ -320,5 +330,102 @@ export class History {
     if (this.isRecording()) {
       throw new Error("History was still being recorded!");
     }
+  }
+}
+
+export interface BlockChanges {
+  readonly dimension: Dimension;
+
+  getBlockPerm(loc: Vector3): BlockPermutation;
+  getBlock(loc: Vector3): BlockUnit;
+  setBlock(loc: Vector3, block: BlockPermutation): void;
+
+  applyIteration(): void;
+  flush(): Generator<number>;
+}
+
+class BlockChangeImpl implements BlockChanges {
+  readonly dimension: Dimension;
+  private iteration = new Map<string, BlockPermutation>();
+  private changes = new Map<string, BlockPermutation>();
+  private ranges: [Vector, Vector][] = [];
+  private history: History;
+  private record: number;
+
+  constructor(dim: Dimension, history: History, record: number) {
+    this.dimension = dim;
+    this.history = history;
+    this.record = record;
+  }
+
+  getBlockPerm(loc: Vector3) {
+    const change = this.changes.get(this.vec2string(loc));
+    try {
+      return change ?? this.dimension.getBlock(loc).permutation ?? air;
+    } catch {
+      return air;
+    }
+  }
+
+  getBlock(loc: Vector3) {
+    const perm = this.getBlockPerm(loc);
+    return {
+      typeId: perm.type.id,
+      permutation: perm,
+      location: loc,
+      dimension: this.dimension,
+      setPermutation: (perm: BlockPermutation) => this.setBlock(loc, perm),
+      hasTag: perm.hasTag,
+      isAir: perm.type.id == "minecraft:air" ? () => true : () => false
+    }
+  }
+
+  setBlock(loc: Vector3, block: BlockPermutation) {
+    this.iteration.set(this.vec2string(loc), block);
+    if (!this.ranges.length) {
+      this.ranges.push([Vector.from(loc), Vector.from(loc)]);
+    } else {
+      const [min, max] = this.ranges[0];
+      min.x = Math.min(min.x, loc.x);
+      min.y = Math.min(min.y, loc.y);
+      min.z = Math.min(min.z, loc.z);
+      max.x = Math.max(max.x, loc.x);
+      max.y = Math.max(max.y, loc.y);
+      max.z = Math.max(max.z, loc.z);
+    }
+  }
+
+  applyIteration() {
+    this.changes = new Map([...this.changes, ...this.iteration]);
+    this.iteration.clear();
+  }
+
+  getRegion() {
+    return this.ranges.map(v => [v[0], v[1]]);
+  }
+
+  *flush() {
+    for (const range of this.ranges) {
+      this.history.addUndoStructure(this.record, ...range);
+    }
+
+    let i = 0;
+    for (const [loc, block] of this.changes.entries()) {
+      const vec = loc.split("_").map(v => Number.parseFloat(v));
+      try {
+        this.dimension.getBlock({x: vec[0], y: vec[1], z: vec[2]}).setPermutation(block);
+      } catch { /* pass */ }
+      yield ++i;
+    }
+
+    for (const range of this.ranges) {
+      this.history.addRedoStructure(this.record, ...range);
+    }
+    this.ranges.length = 0;
+    this.changes.clear();
+  }
+
+  private vec2string(vec: Vector3) {
+    return "" + vec.x + "_" + vec.y + "_" + vec.z;
   }
 }

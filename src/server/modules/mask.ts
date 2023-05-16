@@ -1,7 +1,7 @@
 import { Vector3, BlockPermutation, Block } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock } from "./parser.js";
+import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock, BlockUnit } from "./block_parsing.js";
 
 export class Mask implements CustomArgType {
   private condition: MaskNode;
@@ -20,7 +20,7 @@ export class Mask implements CustomArgType {
    * @param block
    * @returns True if the block matches; false otherwise
    */
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     if (this.empty()) {
       return true;
     }
@@ -238,7 +238,7 @@ abstract class MaskNode implements AstNode {
 
     constructor(public readonly token: Token) {}
 
-    abstract matchesBlock(block: Block): boolean;
+    abstract matchesBlock(block: BlockUnit): boolean;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     postProcess() {}
@@ -254,7 +254,7 @@ class BlockMask extends MaskNode {
     this.states = Object.fromEntries(block.states?.entries() ?? []);
   }
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     return block.permutation.matches(this.block.id, this.states);
   }
 }
@@ -267,7 +267,7 @@ class StateMask extends MaskNode {
     super(token);
   }
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     const props = block.permutation.getAllStates();
     let states_passed = 0;
     for (const [state, val] of this.states.entries()) {
@@ -285,7 +285,7 @@ class SurfaceMask extends MaskNode {
   readonly prec = -1;
   readonly opCount = 0;
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     const loc = Vector.from(block.location);
     const dim = block.dimension;
     const isEmpty = (loc: Vector3) => {
@@ -304,7 +304,7 @@ class ExistingMask extends MaskNode {
   readonly prec = -1;
   readonly opCount = 0;
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     return !block.isAir();
   }
 }
@@ -317,7 +317,7 @@ class TagMask extends MaskNode {
     super(token);
   }
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     return block.hasTag(this.tag);
   }
 }
@@ -339,7 +339,7 @@ class ChainMask extends MaskNode {
   readonly prec = 3;
   readonly opCount = 2;
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     for (const mask of this.nodes) {
       if (mask.matchesBlock(block))
         return true;
@@ -371,7 +371,7 @@ class IntersectMask extends MaskNode {
   readonly prec = 1;
   readonly opCount = 2;
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     for (const mask of this.nodes) {
       if (!mask.matchesBlock(block))
         return false;
@@ -403,7 +403,7 @@ class NegateMask extends MaskNode {
   readonly prec = 2;
   readonly opCount = 1;
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     return !this.nodes[0].matchesBlock(block);
   }
 }
@@ -417,7 +417,7 @@ class OffsetMask extends MaskNode {
     super(token);
   }
 
-  matchesBlock(block: Block) {
+  matchesBlock(block: BlockUnit) {
     const loc = block.location;
     return this.nodes[0].matchesBlock(block.dimension.getBlock({
       x: loc.x + this.x,

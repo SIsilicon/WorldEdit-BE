@@ -3,7 +3,8 @@ import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api"
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation } from "./parser.js";
+import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation, BlockUnit } from "./block_parsing.js";
+
 
 export class Pattern implements CustomArgType {
   private block: PatternNode;
@@ -24,7 +25,7 @@ export class Pattern implements CustomArgType {
    * @param block
    * @returns True if the block changed; false otherwise
    */
-  setBlock(block: Block) {
+  setBlock(block: BlockUnit) {
     try {
       const oldBlock = block.permutation;
       block.setPermutation(this.block.getPermutation(block, this.playerSession));
@@ -242,7 +243,7 @@ abstract class PatternNode implements AstNode {
 
   constructor(public readonly token: Token) { }
 
-  abstract getPermutation(block: Block, session: PlayerSession): BlockPermutation;
+  abstract getPermutation(block: BlockUnit, session: PlayerSession): BlockPermutation;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   postProcess() { }
@@ -275,7 +276,7 @@ class TypePattern extends PatternNode {
     this.props = this.permutation.getAllStates();
   }
 
-  getPermutation(block: Block): BlockPermutation {
+  getPermutation(block: BlockUnit): BlockPermutation {
     let permutation = this.permutation;
     Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
       if(state in this.props) permutation = permutation.withState(state, val);
@@ -292,7 +293,7 @@ class StatePattern extends PatternNode {
     super(token);
   }
 
-  getPermutation(block: Block) {
+  getPermutation(block: BlockUnit) {
     let permutation = block.permutation;
     const props = permutation.getAllStates();
     Object.entries(this.states).forEach(([state, val]) => {
@@ -334,7 +335,7 @@ class ClipboardPattern extends PatternNode {
     super(token);
   }
 
-  getPermutation(block: Block, session: PlayerSession) {
+  getPermutation(block: BlockUnit, session: PlayerSession) {
     const clipboard = session?.clipboard;
     if (clipboard?.isAccurate) {
       const size = clipboard.getSize();
@@ -353,7 +354,7 @@ class HandPattern extends PatternNode {
     super(token);
   }
 
-  getPermutation(_: Block, session: PlayerSession) {
+  getPermutation(_: BlockUnit, session: PlayerSession) {
     const player = session?.getPlayer();
     if (player) {
       const item = Server.player.getHeldItem(player);
@@ -389,7 +390,7 @@ class ChainPattern extends PatternNode {
   private cumWeights: number[] = [];
   private weightTotal: number;
 
-  getPermutation(block: Block, session: PlayerSession) {
+  getPermutation(block: BlockUnit, session: PlayerSession) {
     if (this.nodes.length == 1) {
       return this.nodes[0].getPermutation(block, session);
     } else if (this.evenDistribution) {
