@@ -33,11 +33,11 @@
     },
     "traceDistance": {
         "description": "The distance the navigation wand, among other tools and commands, traces for a block of interest.",
-        "default": 128
+        "default": 256
     },
     "maxBrushRadius": {
         "description": "The maximum brush radius allowed.",
-        "default": 6
+        "default": 12
     },
     "useBlockBreaking": {
         "description": "Whether to break blocks, instead of interacting with them while sneaking, to mark the first position (;pos1, ;hpos1).",
