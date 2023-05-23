@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2023-05-16 03:27\n"
+"PO-Revision-Date: 2023-05-23 05:25\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -561,6 +561,12 @@ msgstr "Global mask disabled."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Establecer máscara global."
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "Turn nearby dirt into grass"
