@@ -76,9 +76,7 @@ class ServerBuild extends ServerBuilder {
       if(!msg.startsWith(this.command.prefix)) return;
       data.cancel = true;
       const command = msg.split(/\s+/)[0].slice(this.command.prefix.length);
-      if (this.command.callCommand(data.sender, command, msg.substring(msg.indexOf(command) + command.length).trim()) == undefined) {
-        data.cancel = false;
-      }
+      this.command.callCommand(data.sender, command, msg.substring(msg.indexOf(command) + command.length).trim());
     });
     /**
      * Emit to 'beforeExplosion' event listener

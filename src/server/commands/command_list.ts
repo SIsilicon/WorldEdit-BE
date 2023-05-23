@@ -46,6 +46,7 @@ import "./generation/hcyl.js";
 import "./generation/pyramid.js";
 import "./generation/hpyramid.js";
 import "./generation/gen.js";
+import "./generation/gradient.js";
 
 import "./region/gmask.js";
 import "./region/set.js";

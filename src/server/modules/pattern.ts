@@ -1,16 +1,18 @@
-import { Vector3, BlockPermutation, BlockStates } from "@minecraft/server";
+import { Vector3, BlockPermutation, BlockStates, Direction } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
 import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation, BlockUnit } from "./block_parsing.js";
+import { Cardinal } from "./directions.js";
 
 
 export class Pattern implements CustomArgType {
   private block: PatternNode;
   private stringObj = "";
 
-  public playerSession: PlayerSession;
+  private session: PlayerSession;
+  private range: [Vector, Vector];
 
   constructor(pattern = "") {
     if (pattern) {
@@ -18,6 +20,11 @@ export class Pattern implements CustomArgType {
       this.block = obj.block;
       this.stringObj = obj.stringObj;
     }
+  }
+
+  setContext(session: PlayerSession, range?: [Vector3, Vector3]) {
+    this.session = session;
+    this.range = [Vector.from(range[0]), Vector.from(range[1])];
   }
 
   /**
@@ -28,12 +35,16 @@ export class Pattern implements CustomArgType {
   setBlock(block: BlockUnit) {
     try {
       const oldBlock = block.permutation;
-      block.setPermutation(this.block.getPermutation(block, this.playerSession));
+      block.setPermutation(this.block.getPermutation(block, this.session, this.range));
       return !oldBlock.matches(block.typeId, block.permutation.getAllStates());
     } catch (err) {
       //contentLog.error(err);
       return false;
     }
+  }
+
+  getRootNode() {
+    return this.block;
   }
 
   clear() {
@@ -145,6 +156,19 @@ export class Pattern implements CustomArgType {
             throwTokenError(t);
           }
           out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
+        } else if (token.value == "$") {
+          const t = tokens.next();
+          let cardinal = new Cardinal(Cardinal.Dir.UP);
+          if (t.type != "id") {
+            throwTokenError(t);
+          }
+          if (tokens.peek().value == ".") {
+            tokens.next();
+            const d = tokens.next();
+            cardinal = Cardinal.parseArgs([d.value as string]).result;
+          }
+
+          out.push(new GradientPattern(nodeToken(), t.value, cardinal));
         } else if (token.value == "#") {
           const t = tokens.next();
           if (t.value == "clipboard") {
@@ -243,7 +267,7 @@ abstract class PatternNode implements AstNode {
 
   constructor(public readonly token: Token) { }
 
-  abstract getPermutation(block: BlockUnit, session: PlayerSession): BlockPermutation;
+  abstract getPermutation(block: BlockUnit, session: PlayerSession, range: [Vector, Vector]): BlockPermutation;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   postProcess() { }
@@ -369,6 +393,39 @@ class HandPattern extends PatternNode {
   }
 }
 
+class GradientPattern extends PatternNode {
+  readonly prec = -1;
+  readonly opCount = 0;
+
+  readonly axis: "x" | "y" | "z";
+  readonly invertCoords: boolean;
+
+  constructor(token: Token, public gradientId: string, public cardinal: Cardinal) {
+    super(token);
+    const dir = cardinal.getDirection();
+    const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
+    if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {
+      this.axis = "x";
+    } else if (absDir[1] > absDir[0] && absDir[1] > absDir[2]) {
+      this.axis = "y";
+    } else {
+      this.axis = "z";
+    }
+    this.invertCoords = dir[this.axis] < 0;
+  }
+
+  getPermutation(block: BlockUnit, session: PlayerSession, range: [Vector, Vector]) {
+    const gradient = session.getGradient(this.gradientId);
+    if (gradient) {
+      const unitCoords = Vector.sub(block.location, range[0]).div(range[1].sub(range[0]).max([1, 1, 1]));
+      const patternLength = gradient.patterns.length;
+      const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
+      const index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+      return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, session, range);
+    }
+  }
+}
+
 class PercentPattern extends PatternNode {
   readonly prec = 2;
   readonly opCount = 1;
@@ -390,16 +447,16 @@ class ChainPattern extends PatternNode {
   private cumWeights: number[] = [];
   private weightTotal: number;
 
-  getPermutation(block: BlockUnit, session: PlayerSession) {
+  getPermutation(block: BlockUnit, session: PlayerSession, range: [Vector, Vector]) {
     if (this.nodes.length == 1) {
-      return this.nodes[0].getPermutation(block, session);
+      return this.nodes[0].getPermutation(block, session, range);
     } else if (this.evenDistribution) {
-      return this.nodes[Math.floor(Math.random() * this.nodes.length)].getPermutation(block, session);
+      return this.nodes[Math.floor(Math.random() * this.nodes.length)].getPermutation(block, session, range);
     } else {
       const rand = Math.random() * this.weightTotal;
       for (let i = 0; i < this.nodes.length; i++) {
         if (this.cumWeights[i] >= rand) {
-          return this.nodes[i].getPermutation(block, session);
+          return this.nodes[i].getPermutation(block, session, range);
         }
       }
     }

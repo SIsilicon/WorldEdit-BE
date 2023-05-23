@@ -103,12 +103,12 @@ export abstract class Shape {
     const [min, max] = this.getRegion(loc);
     const player = session.getPlayer();
     const dimension = player.dimension;
-    pattern.playerSession = session;
 
     const [minY, maxY] = getWorldHeightLimits(dimension);
     min.y = Math.max(minY, min.y);
     max.y = Math.min(maxY, max.y);
     const canGenerate = max.y >= min.y;
+    pattern.setContext(session, [min, max]);
 
     assertCanBuildWithin(player, min, max);
     const blocksAffected = [];

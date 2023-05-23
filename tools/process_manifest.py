@@ -53,6 +53,9 @@ with open('mc_manifest.json', 'r') as file:
     processJsonElement(manifest, bp_manifest, rp_manifest)
 
 version = manifest['header']['version']
+bp_manifest['header']['name'] += ' ' + '.'.join(map(str, version))
+rp_manifest['header']['name'] += ' ' + '.'.join(map(str, version))
+
 if not type(version) is str:
     version = version[:3]
 bp_manifest['header']['version'] = version

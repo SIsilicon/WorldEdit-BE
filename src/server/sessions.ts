@@ -87,6 +87,7 @@ export class PlayerSession {
   private player: Player;
   private history: History;
   private regions = new Map<string, RegionBuffer>();
+  private gradients = new Map<string, {dither: number, patterns: Pattern[]}>();
   private placementMode: "player" | "selection" = "player";
 
   private _drawOutlines: boolean;
@@ -258,6 +259,14 @@ export class PlayerSession {
   public deleteRegion(buffer: RegionBuffer) {
     buffer.deref();
     this.regions.delete(buffer.id);
+  }
+
+  public createGradient(id: string, dither: number, patterns: Pattern[]) {
+    this.gradients.set(id, { dither, patterns });
+  }
+
+  public getGradient(id: string) {
+    return this.gradients.get(id);
   }
 
   delete() {

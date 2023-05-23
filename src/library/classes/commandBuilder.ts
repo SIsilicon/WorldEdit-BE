@@ -217,14 +217,18 @@ export class CommandBuilder {
   }
 
   parseArgs(comnand: string, args: Array<string>): Map<string, any> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
     const result = new Map<string, any>();
     const argDefs = this.getRegistration(comnand)?.usage;
     if (argDefs == undefined) return;
 
-    function processArg(idx: number, def: commandArg, result: Map<string, any>) {
-      if (def.type == "int") {
+    const processArg = (idx: number, def: commandArg, result: Map<string, any>) => {
+      let type = def.type;
+      let value: unknown;
+      if (type.endsWith("...")) {
+        type = type.replace("...", "");
+      }
+
+      if (type == "int") {
         if (!/^[-+]?(\d+)$/.test(args[idx])) {
           throw RawText.translate("commands.generic.num.invalid").with(args[idx]);
         }
@@ -242,8 +246,8 @@ export class CommandBuilder {
         }
 
         idx++;
-        result.set(def.name, val);
-      } else if (def.type == "float") {
+        value = val;
+      } else if (type == "float") {
         const val = parseFloat(args[idx]);
         if (val != val || isNaN(val)) {
           throw RawText.translate("commands.generic.num.invalid").with(args[idx]);
@@ -254,38 +258,34 @@ export class CommandBuilder {
           const greater = val > (def.range[1] ?? Infinity);
 
           if (less) {
-            throw RawText.translate("commands.generic.tooSmall").with(val).with(def.range[0]);
+            throw RawText.translate("commands.generic.wedit:tooSmall").with(val).with(def.range[0]);
           } else if (greater) {
-            throw RawText.translate("commands.generic.tooBig").with(val).with(def.range[1]);
+            throw RawText.translate("commands.generic.wedit:tooBig").with(val).with(def.range[1]);
           }
         }
 
         idx++;
-        result.set(def.name, val);
-      } else if (def.type == "xz") {
+        value = val;
+      } else if (type == "xz") {
         const parse = CommandPosition.parseArgs(args, idx, false);
         idx = parse.argIndex;
-        result.set(def.name, parse.result);
-      } else if (def.type == "xyz") {
+        value = parse.result;
+      } else if (type == "xyz") {
         const parse = CommandPosition.parseArgs(args, idx, true);
         idx = parse.argIndex;
-        result.set(def.name, parse.result);
-      } else if (def.type == "CommandName") {
-        const cmdBaseInfo = self.getRegistration(args[idx]);
+        value = parse.result;
+      } else if (type == "CommandName") {
+        const cmdBaseInfo = this.getRegistration(args[idx]);
         if (!cmdBaseInfo) throw RawText.translate("commands.generic.unknown").with(args[idx]);
         idx++;
-        result.set(def.name, cmdBaseInfo.name);
-      } else if (def.type == "string") {
-        result.set(def.name, args[idx++]);
-      } else if (def.type == "string...") {
-        const str = args.slice(idx).join(" ");
-        result.set(def.name, str);
-        idx = args.length;
-      } else if (self.customArgTypes.has(def.type)) {
+        value = cmdBaseInfo.name;
+      } else if (type == "string") {
+        value = args[idx++];
+      } else if (this.customArgTypes.has(type)) {
         try {
-          const parse = self.customArgTypes.get(def.type).parseArgs(args, idx);
+          const parse = this.customArgTypes.get(type).parseArgs(args, idx);
           idx = parse.argIndex;
-          result.set(def.name, parse.result);
+          value = parse.result;
         } catch (error) {
           if (error.isSyntaxError) {
             error.idx = idx;
@@ -293,12 +293,21 @@ export class CommandBuilder {
           throw error;
         }
       } else {
-        throw `Unknown argument type: ${def.type}`;
+        throw `Unknown argument type: ${type}`;
+      }
+
+      if (def.type.endsWith("...")) {
+        if (!result.has(def.name)) {
+          result.set(def.name, []);
+        }
+        (result.get(def.name) as Array<unknown>).push(value);
+      } else {
+        result.set(def.name, value);
       }
       return idx;
     }
 
-    function processList(currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) {
+    const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) => {
 
       let defIdx = 0;
       let hasNamedSubCmd = false;
@@ -398,12 +407,17 @@ export class CommandBuilder {
 
         // Leftover arguments
         if (!argDef) {
-          const err: commandSyntaxError = {
-            isSyntaxError: true,
-            stack: contentLog.stack(),
-            idx: i
-          };
-          throw err;
+          const lastArg = argDefs[argDefs.length - 1] as commandArg;
+          if (lastArg?.type?.endsWith("...")) {
+            argDef = lastArg;
+          } else {
+            const err: commandSyntaxError = {
+              isSyntaxError: true,
+              stack: contentLog.stack(),
+              idx: i
+            };
+            throw err;
+          }
         }
 
         if ("type" in argDef && !("flag" in argDef)) {

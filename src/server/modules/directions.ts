@@ -57,11 +57,11 @@ export class Cardinal implements CustomArgType {
     return cardinal;
   }
 
-  getDirection(player: Player) {
+  getDirection(player?: Player) {
     const dirChar = this.direction.charAt(0);
     if (DIRECTIONS[dirChar]) {
       return DIRECTIONS[dirChar].clone();
-    } else {
+    } else if (player) {
       const dir = getViewVector(player);
       let cardinal = Vector.ZERO;
       const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];

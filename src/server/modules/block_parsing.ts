@@ -30,7 +30,7 @@ const lexer = new Tokenizr();
   /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
-  lexer.rule(/[~#%^=*+-/|:!&,@]/, (ctx) => {
+  lexer.rule(/[~#%^=*+-/|:!&,@$\.]/, (ctx) => {
     ctx.accept("misc");
   });
   lexer.rule(/\s+/, (ctx) => {
