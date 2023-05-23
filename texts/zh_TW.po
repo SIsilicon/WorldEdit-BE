@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-05-16 03:27\n"
+"PO-Revision-Date: 2023-05-23 05:25\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -561,6 +561,12 @@ msgstr "已停用全域遮罩。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "已設定全域遮罩。"
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "把附近的泥土切換成草地"
