@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-05-16 03:27\n"
+"PO-Revision-Date: 2023-05-23 05:24\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -561,6 +561,12 @@ msgstr "共通マスクを無効にしました。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "共通マスクを設定しました。"
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
