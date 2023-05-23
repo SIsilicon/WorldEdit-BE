@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-05-23 05:25\n"
+"PO-Revision-Date: 2023-05-23 12:10\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -563,10 +563,10 @@ msgid "commands.wedit:gmask.set"
 msgstr "已设置默认被取代的方块。"
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "已创建渐变 %s。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "创建一个要在图案中使用的渐变。"
 
 msgid "commands.wedit:green.description"
 msgstr "将附近的泥土变成草地"
