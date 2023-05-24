@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-05-23 05:25\n"
+"PO-Revision-Date: 2023-05-24 23:19\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -374,13 +374,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Створити пензель для згладжування ландшафту"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "Створює пензель розміщення структур"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "Створює пензель формування рельєфу"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "Створює пензель накладання рельєфу"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маску пензля встановлено."
@@ -410,7 +410,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Для роботи цього пензля не потрібен матеріал."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "Розмір пензля не налаштовується."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Пензель не прив’язаний до поточного предмета."
@@ -563,10 +563,10 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальну маску встановлено."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "Створено градієнт: %s."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "Створити градієнт для використання у візерунках."
 
 msgid "commands.wedit:green.description"
 msgstr "Перетворити землю поблизу на траву"
@@ -827,13 +827,13 @@ msgid "commands.wedit:tool.bind.stacker"
 msgstr "Укладальник прив’язаний до %s."
 
 msgid "commands.wedit:tool.bind.cmd"
-msgstr "Command tool bound to %s."
+msgstr "Командний інструмент прив’язано до %s."
 
 msgid "commands.wedit:tool.bind.repl"
-msgstr "Block replacer tool bound to %s."
+msgstr "Інструмент заміни блоків прив’язано до %s."
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "Інструмент циклу блоків прив’язано до %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Отримати всі види інструментів"
@@ -854,10 +854,10 @@ msgid "commands.wedit:tool.description.cmd"
 msgstr "Інструмент виконання команд; як vanilla, так і worldedit"
 
 msgid "commands.wedit:tool.description.repl"
-msgstr "Block replacer tool"
+msgstr "Інструмент заміни блоків"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "Інструмент циклу блоків"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Від'єднати прив'язку інструмента"
