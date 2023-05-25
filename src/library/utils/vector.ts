@@ -108,7 +108,7 @@ export class Vector {
       return new Vector(this.x * v.x, this.y * v.y, this.z * v.z);
     }
   }
-  
+
   div(v: anyVec|number) {
     if (typeof v == "number") {
       return new Vector(this.x / v, this.y / v, this.z / v);

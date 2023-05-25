@@ -305,7 +305,7 @@ export class CommandBuilder {
         result.set(def.name, value);
       }
       return idx;
-    }
+    };
 
     const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) => {
 
@@ -451,7 +451,7 @@ export class CommandBuilder {
       }
 
       return i;
-    }
+    };
 
     processList(0, argDefs, result);
     return result;

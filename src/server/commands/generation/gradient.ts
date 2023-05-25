@@ -1,5 +1,5 @@
 import { RawText, regionSize } from "@notbeer-api";
-import { getCommandFunc, registerCommand } from "../register_commands.js";
+import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 import { Vector3 } from "@minecraft/server";

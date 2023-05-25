@@ -30,6 +30,7 @@ const lexer = new Tokenizr();
   /*lexer.rule(/'(.*)'/, (ctx, match) => {
         ctx.accept('string', match[1]);
     });*/
+  // eslint-disable-next-line no-useless-escape
   lexer.rule(/[~#%^=*+-/|:!&,@$\.]/, (ctx) => {
     ctx.accept("misc");
   });
