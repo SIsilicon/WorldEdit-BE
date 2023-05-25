@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-05-23 05:24\n"
+"PO-Revision-Date: 2023-05-25 09:57\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -143,7 +143,7 @@ msgid "worldedit.config.tool.stacker"
 msgstr "늘리기 도구"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "명령 툴"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "구 브러시"
@@ -209,7 +209,7 @@ msgid "worldedit.config.usePicker"
 msgstr "블록 선택 도구 사용하기"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "명령어"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Is WorldEdit Command"
