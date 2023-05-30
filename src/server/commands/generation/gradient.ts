@@ -25,7 +25,7 @@ const registerInformation = {
     {
       name: "patterns",
       type: "Pattern..."
-    },
+    }
   ]
 };
 
