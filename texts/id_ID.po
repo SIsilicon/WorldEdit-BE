@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2023-05-31 02:55\n"
+"PO-Revision-Date: 2023-05-31 04:17\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -68,16 +68,16 @@ msgid "worldEdit.selectionFill.noPattern"
 msgstr "Kamu perlu menentukan blok untuk menyetel pilihan!"
 
 msgid "worldedit.patternPicker.add"
-msgstr "Ditambahkan blok ke pola: "
+msgstr "Blok ditambahkan ke pola: "
 
 msgid "worldedit.patternPicker.set"
 msgstr "Atur pola ke blok: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "Ditambahkan blok ke mask: "
+msgstr "Blok ditambahkan ke masker: "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Atur mask ke blok: "
+msgstr "Atur masker ke blok: "
 
 msgid "worldedit.config.mainMenu"
 msgstr "Pengaturan WorldEdit"
@@ -119,7 +119,7 @@ msgid "worldedit.selectionMode.extend"
 msgstr "Perluas"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Bola"
+msgstr "Bulat"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Silinder"
@@ -146,7 +146,7 @@ msgid "worldedit.config.tool.cmd"
 msgstr "Alat perintah"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Kuas Bola"
+msgstr "Kuas Pembulat"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Kuas Silinder"
@@ -167,7 +167,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Buat pola dan penutup opsional untuk kuas."
 
 msgid "worldedit.config.mask.tool"
-msgstr "Buat mask opsional untuk alatnya."
+msgstr "Buat masker opsional untuk alatnya."
 
 msgid "worldedit.config.mask.brush"
 msgstr "Buat mask opsional untuk kuasnya."
