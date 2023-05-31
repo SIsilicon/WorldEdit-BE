@@ -195,9 +195,7 @@ export function wrap(range: number, num: number) {
 }
 
 /**
- * Snaps a number to the nearest interval
- * @param num value to snap
- * @param interval interval to snap to
+ * Snaps `num` to the nearest `interval`
  */
 export function snap(num: number, interval: number) {
   return Math.round(num / interval) * interval;
