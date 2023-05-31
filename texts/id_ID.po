@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2023-05-23 05:25\n"
+"PO-Revision-Date: 2023-05-31 02:55\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -143,7 +143,7 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Alat Penumpuk"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Alat perintah"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Kuas Bola"
@@ -209,7 +209,7 @@ msgid "worldedit.config.usePicker"
 msgstr "Gunakan Pemilih Blok"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Perintah"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Is WorldEdit Command"
