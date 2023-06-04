@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-05-24 23:19\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "Укладальник"
 msgid "worldedit.config.tool.cmd"
 msgstr "Командний інструмент"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Сферичний пензель"
 
@@ -153,6 +159,15 @@ msgstr "Циліндричний пензель"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Пензель для згладжування"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Візьміть предмет для прив’язки."
@@ -165,6 +180,9 @@ msgstr "Виберіть, який інструмент створити."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Створити шаблон та за бажанням маску для пензля."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Зробити необов’язкову маску для інструмента."
@@ -201,6 +219,12 @@ msgstr "Маска"
 
 msgid "worldedit.config.hollow"
 msgstr "Порожньо"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Висота маски"
