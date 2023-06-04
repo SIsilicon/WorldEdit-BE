@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2023-05-23 05:25\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "İstifleyici Aracı"
 msgid "worldedit.config.tool.cmd"
 msgstr "Command Tool"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Küre Fırçası"
 
@@ -153,6 +159,15 @@ msgstr "Silindir Fırça"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Pürüzsüz Fırça"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Bağlanacak bir öğeyi tutun."
@@ -165,6 +180,9 @@ msgstr "Ne tür bir araç yapacağınızı seçin."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Fırça için bir desen ve isteğe bağlı maske yapın."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "İsteğe bağlı araç için maske yapın"
@@ -201,6 +219,12 @@ msgstr "Maske"
 
 msgid "worldedit.config.hollow"
 msgstr "Oyuk"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Yükseklik maskesi"
