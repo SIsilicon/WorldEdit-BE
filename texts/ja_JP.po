@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-06-04 06:36\n"
+"PO-Revision-Date: 2023-06-04 07:45\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -149,7 +149,7 @@ msgid "worldedit.config.tool.repl"
 msgstr "ブロック置換ツール"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "ブロック循環ツール"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "球体ブラシ"
@@ -167,7 +167,7 @@ msgid "worldedit.config.brush.erode"
 msgstr "侵食ブラシ"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "オーバーレイブラシ"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "ツールのパターンを作成してください。"
 
 msgid "worldedit.config.mask.tool"
 msgstr "ツールのマスクを任意で作成してください。"
@@ -221,10 +221,10 @@ msgid "worldedit.config.hollow"
 msgstr "空洞"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "深さ"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "侵食のタイプ"
 
 msgid "worldedit.config.mask.height"
 msgstr "高さマスク"
@@ -377,10 +377,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "ストラクチャーブラシを装備しました。"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "侵食ブラシを装備しました (%s)。"
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "オーバーレイブラシを装備しました (%s)。"
 
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
@@ -398,13 +398,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "地形をなだらかにするスムーズブラシを生成する"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "構造物を配置するブラシを作成する"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "地形を整形するブラシを作成する"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "地形を覆わせるブラシを作成する"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
@@ -587,10 +587,10 @@ msgid "commands.wedit:gmask.set"
 msgstr "共通マスクを設定しました。"
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "グラデーション %s を作成しました。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "パターンで使用するグラデーションを作成する。"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
@@ -833,10 +833,10 @@ msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "配置位置を切り替えました。"
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "WorldEditでの操作で使用される配置位置を切り替える。"
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "選択用の杖を %s にセットしました。"
@@ -857,7 +857,7 @@ msgid "commands.wedit:tool.bind.repl"
 msgstr "置換ツールを %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "ブロック循環ツールを %s にセットしました。"
 
 msgid "commands.wedit:tool.description"
 msgstr "すべての種類のツールを入手する"
@@ -881,7 +881,7 @@ msgid "commands.wedit:tool.description.repl"
 msgstr "ブロック置換ツール"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "ブロック循環ツール"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"
