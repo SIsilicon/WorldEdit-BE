@@ -4,6 +4,8 @@ import { Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
 import { RegionBuffer, RegionLoadOptions } from "@modules/region_buffer.js";
+import { world } from "@minecraft/server";
+import { importStructure } from "server/commands/structure/import.js";
 
 /**
  * Pastes structures on use
@@ -18,12 +20,23 @@ export class StructureBrush extends Brush {
   private structIdx: number;
   private randomTransform = true;
 
+  public readonly imports: string[];
+
   /**
     * @param struct The structure being used
     * @param mask Determines what blocks in the world can get replaced by the structure
     */
-  constructor(struct: RegionBuffer | RegionBuffer[], mask: Mask) {
+  constructor(struct: RegionBuffer | RegionBuffer[] | string[], mask: Mask) {
     super();
+    
+    if (Array.isArray(struct) && typeof struct[0] == "string") {
+      this.imports = struct as string[];
+      struct = this.imports.map(name => {
+        return importStructure(name, world.getPlayers()[0]).buffer;
+      });
+    }
+    struct = struct as RegionBuffer[] | RegionBuffer;
+
     this.structs = Array.isArray(struct) ? struct : [struct];
     this.mask = mask;
     this.updateStructIdx();

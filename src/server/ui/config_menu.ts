@@ -12,6 +12,10 @@ import { Tools } from "../tools/tool_manager.js";
 import { selectionModes } from "@modules/selection.js";
 import { ConfigContext, ToolTypes } from "./types.js";
 import config from "config.js";
+import { StructureBrush } from "server/brushes/structure_brush.js";
+import { getSession } from "server/sessions.js";
+import { ErosionBrush } from "server/brushes/erosion_brush.js";
+import { OverlayBrush } from "server/brushes/overlay_brush.js";
 
 // TODO: Add structure brush and block replacer tool
 
@@ -273,6 +277,39 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
 });
 toolsWithProperties.push("command_wand");
 
+Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
+  title: editToolTitle,
+  inputs: {
+    $pattern: {
+      type: "textField",
+      name: "%worldedit.config.pattern",
+      placeholder: "Eg: stone,dirt",
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return "";
+        return (getToolProperty(ctx, player, "pattern") as Pattern).getSource();
+      }
+    },
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_replacer_wand",
+        onFinish: (ctx, _, _mask, pattern) => {
+          ctx.setData("toolData", [pattern]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickPattern", player, ctx);
+    } else {
+      ctx.setData("toolData", [new Pattern(input.$pattern as string)]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+toolsWithProperties.push("replacer_wand");
+
 Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
   title: editToolTitle,
   inputs: {
@@ -404,6 +441,101 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
   cancel: ctx => ctx.returnto("$tools")
 });
 
+Server.uiForms.register<ConfigContext>("$editTool_structure_brush", {
+  title: editToolTitle,
+  inputs: {
+    $structs: {
+      type: "textField",
+      name: "%worldedit.config.structures",
+      placeholder: "Leave blank for current clipboard",
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return "";
+        return (getToolProperty(ctx, player, "brush") as StructureBrush).imports?.join(" ") ?? "";
+      }
+    }
+  },
+  submit: (ctx, player, input) => {
+    ctx.setData("toolData", [new StructureBrush((input.$structs as string)?.split(" ") || getSession(player).clipboard, null), null, null, null]);
+    finishToolEdit(ctx);
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
+Server.uiForms.register<ConfigContext>("$editTool_erosion_brush", {
+  title: editToolTitle,
+  inputs: {
+    ...brushSizeInput,
+    $erosion: {
+      type: "dropdown",
+      name: "%worldedit.config.erosion",
+      options: ["Erode", "Lift", "Fill", "Melt", "Smooth"],
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return 0;
+        return (getToolProperty(ctx, player, "brush") as ErosionBrush).getType();
+      }
+    },
+    ...maskInput,
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_erosion_brush",
+        onFinish: (ctx, _, mask) => {
+          ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), mask, null, null]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickMask", player, ctx);
+    } else {
+      ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), new Mask(input.$mask as string), null, null]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
+Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
+  title: editToolTitle,
+  inputs: {
+    ...brushSizeInput,
+    ...brushPatternInput,
+    $depth: {
+      type: "slider",
+      name: "%worldedit.config.depth",
+      min: -10, max: 10,
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return 1;
+        return (getToolProperty(ctx, player, "brush") as OverlayBrush).getDepth();
+      }
+    },
+    ...maskInput,
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_overlay_brush",
+        onFinish: (ctx, _, mask, pattern) => {
+          ctx.setData("toolData", [
+            new OverlayBrush(input.$size as number, input.$depth as number, pattern, null),
+            mask, null, null
+          ]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickPatternMask", player, ctx);
+    } else {
+      ctx.setData("toolData", [
+        new OverlayBrush(input.$size as number, input.$depth as number, new Pattern(input.$pattern as string), null),
+        new Mask(input.$mask as string), null, null
+      ]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
 Server.uiForms.register<ConfigContext>("$selectToolType", {
   title: "%worldedit.config.choose.tool",
   buttons: [
@@ -446,6 +578,22 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
         ctx.setData("creatingTool", "command_wand");
         ctx.goto("$editTool_command_wand");
       }
+    },
+    {
+      text: "%worldedit.config.tool.repl",
+      icon: "textures/ui/replacer_wand",
+      action: ctx => {
+        ctx.setData("creatingTool", "replacer_wand");
+        ctx.goto("$editTool_replacer_wand");
+      }
+    },
+    {
+      text: "%worldedit.config.tool.cycle",
+      icon: "textures/ui/cycler_wand",
+      action: ctx => {
+        ctx.setData("creatingTool", "cycler_wand");
+        finishToolEdit(ctx);
+      }
     }
   ],
   cancel: ctx => ctx.returnto("$tools")
@@ -477,6 +625,30 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
         ctx.setData("creatingTool", "smooth_brush");
         ctx.goto("$editTool_smooth_brush");
       }
+    },
+    {
+      text: "%worldedit.config.brush.struct",
+      icon: "textures/ui/structure_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "structure_brush");
+        ctx.goto("$editTool_structure_brush");
+      }
+    },
+    {
+      text: "%worldedit.config.brush.erode",
+      icon: "textures/ui/erosion_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "erosion_brush");
+        ctx.goto("$editTool_erosion_brush");
+      }
+    },
+    {
+      text: "%worldedit.config.brush.overlay",
+      icon: "textures/ui/overlay_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "overlay_brush");
+        ctx.goto("$editTool_overlay_brush");
+      }
     }
   ],
   cancel: ctx => ctx.returnto("$tools")
@@ -503,6 +675,10 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
         session.bindTool("stacker_wand", item, ...toolData);
       } else if (toolType == "command_wand") {
         session.bindTool("command_wand", item, ...toolData);
+      } else if (toolType == "replacer_wand") {
+        session.bindTool("replacer_wand", item, ...toolData);
+      } else if (toolType == "cycler_wand") {
+        session.bindTool("cycler_wand", item);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);
         Tools.setProperty(...item, player, "range", toolData[2]);

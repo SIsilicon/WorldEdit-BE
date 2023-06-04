@@ -212,19 +212,13 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const struct_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
   assertPermission(builder, registerInformation.usage[4].permission);
-
   const clipboard = args.has("clipboard");
   let struct: RegionBuffer | RegionBuffer[];
   if (clipboard) {
     assertClipboard(session);
-    struct = session.clipboard;
-  } else {
-    struct = (args.get("structureName") as string).split(" ").map(name => {
-      return importStructure(name, builder).buffer;
-    });
   }
 
-  session.bindTool("brush", null, new StructureBrush(struct, args.get("mask")));
+  session.bindTool("brush", null, new StructureBrush(args.has("clipboard") ? session.clipboard : args.get("structureName") as string[], args.get("mask")));
   const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");
   return RawText.translate(msg).with(args.get("structureName"));
 };

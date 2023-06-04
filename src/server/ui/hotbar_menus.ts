@@ -82,3 +82,30 @@ HotbarUI.register<ConfigContext>("$pickPatternMask", {
   },
   cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
 });
+
+HotbarUI.register<ConfigContext>("$pickPattern", {
+  title: ctx => "%worldedit.config.pattern." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+  items: {
+    4: {
+      item: "wedit:pattern_picker",
+      action: () => { /**/ }
+    },
+    7: {
+      item: "wedit:confirm_button",
+      action: (ctx, player) => {
+        const session = ctx.getData("session");
+        ctx.getData("pickerData").onFinish(ctx, player, null, session.globalPattern);
+      }
+    }
+  },
+  entered: ctx => {
+    const session = ctx.getData("session");
+    ctx.setData("stashedPattern", session.globalPattern);
+    session.globalPattern = new Pattern();
+  },
+  exiting: ctx => {
+    const session = ctx.getData("session");
+    session.globalPattern = ctx.getData("stashedPattern");
+  },
+  cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+});
