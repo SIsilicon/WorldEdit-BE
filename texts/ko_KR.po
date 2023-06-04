@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-05-25 09:57\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -145,6 +145,12 @@ msgstr "늘리기 도구"
 msgid "worldedit.config.tool.cmd"
 msgstr "명령 툴"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "구 브러시"
 
@@ -153,6 +159,15 @@ msgstr "원기둥 브러시"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "다듬기 브러시"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "바인딩할 아이템을 들고 있으세요."
@@ -165,6 +180,9 @@ msgstr "어떤 도구를 만들지 선택하세요."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "브러시에 사용할 마스크(옵션) 을 선택합니다."
@@ -201,6 +219,12 @@ msgstr "마스크"
 
 msgid "worldedit.config.hollow"
 msgstr "빈 구"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "높이 마스크"
