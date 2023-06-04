@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-05-23 12:10\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -145,6 +145,12 @@ msgstr "堆叠器"
 msgid "worldedit.config.tool.cmd"
 msgstr "命令工具"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "球形笔刷"
 
@@ -153,6 +159,15 @@ msgstr "圆柱形笔刷"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "平滑笔刷"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -165,6 +180,9 @@ msgstr "选择用于制作的工具类型"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "设定笔刷要填充的方块和要取代的方块"
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
@@ -201,6 +219,12 @@ msgstr "取代"
 
 msgid "worldedit.config.hollow"
 msgstr "下陷"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "高度蒙板"
