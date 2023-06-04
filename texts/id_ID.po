@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2023-05-31 04:17\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "Alat Penumpuk"
 msgid "worldedit.config.tool.cmd"
 msgstr "Alat perintah"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Kuas Pembulat"
 
@@ -153,6 +159,15 @@ msgstr "Kuas Silinder"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Kuas Perhalus"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Pegang item untuk diikat."
@@ -165,6 +180,9 @@ msgstr "Pilih alat untuk membuat."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Buat pola dan penutup opsional untuk kuas."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Buat masker opsional untuk alatnya."
@@ -201,6 +219,12 @@ msgstr "Penutup"
 
 msgid "worldedit.config.hollow"
 msgstr "Kosong"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Penutup Tinggi"
