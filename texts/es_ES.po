@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-05-23 05:24\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "Herramienta Acumuladora"
 msgid "worldedit.config.tool.cmd"
 msgstr "Command Tool"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Brocha esférica"
 
@@ -153,6 +159,15 @@ msgstr "Brocha cilíndrica"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Brocha suavizante"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantén un elemento al que enlazar."
@@ -165,6 +180,9 @@ msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Hacer un patrón y una máscara opcional para la brocha."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Haga una máscara opcional para la herramienta."
@@ -201,6 +219,12 @@ msgstr "Máscara"
 
 msgid "worldedit.config.hollow"
 msgstr "Hueco"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Máscara de altura"
