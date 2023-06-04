@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-06-04 06:36\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -146,7 +146,7 @@ msgid "worldedit.config.tool.cmd"
 msgstr "コマンドツール"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "ブロック置換ツール"
 
 msgid "worldedit.config.tool.cycle"
 msgstr "Block Cycler Tool"
@@ -161,10 +161,10 @@ msgid "worldedit.config.brush.smooth"
 msgstr "スムーズブラシ"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "ストラクチャーブラシ"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "侵食ブラシ"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
