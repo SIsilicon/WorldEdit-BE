@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-05-23 05:24\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "Stapelwerkzeug"
 msgid "worldedit.config.tool.cmd"
 msgstr "Befehlswerkzeug"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Kugel Pinsel"
 
@@ -153,6 +159,15 @@ msgstr "Zylinder Pinsel"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Glatter Pinsel"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Objekt."
@@ -165,6 +180,9 @@ msgstr "Wählen Sie, welche Art von Werkzeug gemacht werden soll."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Erstellen Sie eine optionale Maske für das Werkzeug."
@@ -201,6 +219,12 @@ msgstr "Maske"
 
 msgid "worldedit.config.hollow"
 msgstr "Hohlraum"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
