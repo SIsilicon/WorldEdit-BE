@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2023-05-23 05:24\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -145,6 +145,12 @@ msgstr "Stacker Tool"
 msgid "worldedit.config.tool.cmd"
 msgstr "Command Tool"
 
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Sphere Brush"
 
@@ -153,6 +159,15 @@ msgstr "Cylinder Brush"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Smooth Brush"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Tieni premuto un oggetto a cui collegare."
@@ -165,6 +180,9 @@ msgstr "Scegli che tipo di strumento fare."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Crea una maschera opzionale per lo strumento."
@@ -201,6 +219,12 @@ msgstr "Mask"
 
 msgid "worldedit.config.hollow"
 msgstr "Hollow"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
