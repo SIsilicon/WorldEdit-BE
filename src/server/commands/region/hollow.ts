@@ -3,7 +3,6 @@ import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 import { Server, RawText, Vector } from "@notbeer-api";
 import { locToString, stringToLoc } from "server/util.js";
-import { Shape, shapeGenVars } from "server/shapes/base_shape.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
