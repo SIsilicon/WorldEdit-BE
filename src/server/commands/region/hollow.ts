@@ -3,6 +3,7 @@ import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 import { Server, RawText, Vector } from "@notbeer-api";
 import { locToString, stringToLoc } from "server/util.js";
+import { Shape, shapeGenVars } from "server/shapes/base_shape.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -24,10 +25,11 @@ const registerInformation = {
   ]
 };
 
-function* hollow(dim: Dimension, blocks: Generator<Vector3>, start: Vector3, end: Vector3, thickness: number) {
+function* hollow(dim: Dimension, blocks: Generator<Vector3>, outerBlocks: Generator<Vector3>, thickness: number): Generator<unknown, Set<string>> {
   const pointSet: Set<string> = new Set();
   for (const loc of blocks) {
     pointSet.add(locToString(loc));
+    yield;
   }
 
   const recurseDirections: Vector[] = [
@@ -39,8 +41,8 @@ function* hollow(dim: Dimension, blocks: Generator<Vector3>, start: Vector3, end
     new Vector(-1, 0, 0)
   ];
 
-  function* recurseHollow(origin: Vector): Generator {
-    const queue: Vector[] = [origin];
+  function* recurseHollow(origin: Vector3): Generator {
+    const queue: Vector3[] = [origin];
     while (queue.length != 0) {
       const loc = queue.shift();
       const locString = locToString(loc);
@@ -50,29 +52,14 @@ function* hollow(dim: Dimension, blocks: Generator<Vector3>, start: Vector3, end
       }
       pointSet.delete(locString);
       for (const recurseDirection of recurseDirections) {
-        queue.push(loc.add(recurseDirection));
+        queue.push(Vector.add(loc, recurseDirection));
       }
       yield;
     }
   }
 
-  for (let x = start.x; x <= end.x; x++) {
-    for (let y = start.y; y <= end.y; y++) {
-      yield* recurseHollow(new Vector(x, y, start.z));
-      yield* recurseHollow(new Vector(x, y, end.z));
-    }
-  }
-  for (let y = start.y; y <= end.y; y++) {
-    for (let z = start.z; z <= end.z; z++) {
-      yield* recurseHollow(new Vector(start.x, y, z));
-      yield* recurseHollow(new Vector(end.x, y, z));
-    }
-  }
-  for (let z = start.z; z <= end.z; z++) {
-    for (let x = start.x; x <= end.x; x++) {
-      yield* recurseHollow(new Vector(x, start.y, z));
-      yield* recurseHollow(new Vector(x, end.y, z));
-    }
+  for (const loc of outerBlocks) {
+    yield* recurseHollow(loc);
   }
 
   for (let i = 1; i <= thickness; i++) {
@@ -106,13 +93,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const thickness = args.get("thickness") as number;
 
   const blocks: Generator<Vector3> = session.selection.getBlocks();
+  const outerBlocks: Generator<Vector3> = session.selection.getBlocks({ hollow: true });
   const [start, end]: [Vector3, Vector3] = session.selection.getRange();
 
   const history = session.getHistory();
   const record = history.record();
   let count: number;
   try {
-    const pointSet = (yield* hollow(dim, blocks, start, end, thickness));
+    const pointSet = (yield* hollow(dim, blocks, outerBlocks, thickness));
     history.addUndoStructure(record, start, end);
     count = 0;
     for (const locString of pointSet) {
