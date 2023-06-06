@@ -105,24 +105,16 @@ export function blockHasNBTData(block: Block) {
     "minecraft:potionContainer"
   ];
   const nbt_blocks = [
-    "minecraft:undyed_shulker_box", "minecraft:shulker_box",
-    "minecraft:furnace", "minecraft:lit_furnace",
-    "minecraft:blast_furnace", "minecraft:lit_blast_furnace",
-    "minecraft:smoker", "minecraft:lit_smoker",
     "minecraft:bee_nest", "minecraft:beehive",
-    "minecraft:frame", "minecraft:glow_frame",
     "minecraft:command_block", "minecraft:chain_command_block",
     "minecraft:repeating_command_block", "minecraft:structure_block",
-    "minecraft:barrel", "minecraft:dispenser",
-    "minecraft:dropper", "minecraft:hopper",
-    "minecraft:lectern", "minecraft:flower_pot",
+    "minecraft:flower_pot",
     "minecraft:noteblock", "minecraft:mob_spawner",
     "minecraft:standing_banner", "minecraft:wall_banner",
     "minecraft:skull",
-    "minecraft:brewing_stand",
     "minecraft:snow_layer",
     "minecraft:end_gateway", // TEST
-    "minecraft:beacon",
+    "minecraft:beacon"
   ];
   return components.some(component => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
 }

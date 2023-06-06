@@ -17,8 +17,6 @@ import { getSession } from "server/sessions.js";
 import { ErosionBrush } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
 
-// TODO: Add structure brush and block replacer tool
-
 type MenuConfigCtx = MenuContext<ConfigContext>
 type ModalFormInput = ModalForm<ConfigContext>["inputs"]
 

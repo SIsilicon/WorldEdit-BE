@@ -2,8 +2,6 @@ import { MinecraftBlockTypes, BlockType, Dimension, BlockPermutation } from "@mi
 import { Vector } from "../utils/vector";
 import { Server } from "./serverBuilder";
 
-// TODO: Update for the new 1.20 blocks
-
 export class BlockBuilder {
   /**
    * Converts block data value to block states.

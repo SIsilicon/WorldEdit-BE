@@ -10,7 +10,6 @@ import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { StructureBrush } from "server/brushes/structure_brush.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
-import { importStructure } from "../structure/import.js";
 import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
 
@@ -213,12 +212,11 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
 const struct_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
   assertPermission(builder, registerInformation.usage[4].permission);
   const clipboard = args.has("clipboard");
-  let struct: RegionBuffer | RegionBuffer[];
   if (clipboard) {
     assertClipboard(session);
   }
 
-  session.bindTool("brush", null, new StructureBrush(args.has("clipboard") ? session.clipboard : args.get("structureName") as string[], args.get("mask")));
+  session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : args.get("structureName") as string[], args.get("mask")));
   const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");
   return RawText.translate(msg).with(args.get("structureName"));
 };

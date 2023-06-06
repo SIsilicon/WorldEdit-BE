@@ -19,6 +19,7 @@ export class StructureBrush extends Brush {
 
   private structIdx: number;
   private randomTransform = true;
+  private lastTransform: [number, Vector] = [0, new Vector(1, 1, 1)];
 
   public readonly imports: string[];
 
@@ -28,7 +29,7 @@ export class StructureBrush extends Brush {
     */
   constructor(struct: RegionBuffer | RegionBuffer[] | string[], mask: Mask) {
     super();
-    
+
     if (Array.isArray(struct) && typeof struct[0] == "string") {
       this.imports = struct as string[];
       struct = this.imports.map(name => {
@@ -70,8 +71,14 @@ export class StructureBrush extends Brush {
       const end = start.add(this.size);
       const options: RegionLoadOptions = { mask: this.mask };
       if (this.randomTransform) {
-        options.rotation = new Vector(0, [0, 90, 180, 270][Math.floor(Math.random() * 4)], 0);
-        options.flip = new Vector(Math.random() > 0.5 ? 1 : -1, 1, Math.random() > 0.5 ? 1 : -1);
+        let newTransform = this.lastTransform.slice() as typeof this.lastTransform;
+        while (newTransform[0] == this.lastTransform[0] && newTransform[1].equals(this.lastTransform[1])) {
+          newTransform[0] = [0, 90, 180, 270][Math.floor(Math.random() * 4)];
+          newTransform[1] = new Vector(Math.random() > 0.5 ? 1 : -1, 1, Math.random() > 0.5 ? 1 : -1);
+        }
+        options.rotation = new Vector(0, newTransform[0], 0);
+        options.flip = newTransform[1];
+        this.lastTransform = newTransform;
       }
 
       history.addUndoStructure(record, start, end);

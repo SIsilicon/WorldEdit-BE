@@ -32,7 +32,6 @@ function ascend(builder: Player) {
     if (!dimension.getBlock(head).isAir()) invalid = true;
 
     if (!invalid) {
-      // TODO: Check ascend and descend if we need rotation
       builder.teleport(new Vector(location.x + 0.5, legs.y, location.z + 0.5), { dimension });
       return RawText.translate("commands.wedit:thru.explain");
     }

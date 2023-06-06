@@ -64,8 +64,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const tempStack = session.createRegion(true);
   const job = Jobs.startJob(session, loads.length + 1, stackRegion);
 
-  // TODO: Record selection
-
   try {
     yield* Jobs.perform(job, copy(session, args, tempStack), false);
 
@@ -76,6 +74,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
       count += regionVolume(load[0], load[1]);
     }
     history.addRedoStructure(record, ...stackRegion, "any");
+
+    if (args.has("s")) {
+      history.recordSelection(record, session);
+      session.selection.set(0, loads[loads.length - 1][0]);
+      session.selection.set(1, loads[loads.length - 1][1]);
+      history.recordSelection(record, session);
+    }
+
     history.commit(record);
   } catch (e) {
     history.cancel(record);
@@ -83,11 +89,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
   } finally {
     session.deleteRegion(tempStack);
     Jobs.finishJob(job);
-  }
-
-  if (args.has("s")) {
-    session.selection.set(0, loads[loads.length - 1][0]);
-    session.selection.set(1, loads[loads.length - 1][1]);
   }
 
   return RawText.translate("commands.wedit:stack.explain").with(count);
