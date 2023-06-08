@@ -24,7 +24,8 @@ const registerInformation = {
     },
     {
       name: "patterns",
-      type: "Pattern..."
+      type: "Pattern...",
+      default: [new Pattern("stone")]
     }
   ]
 };
@@ -56,7 +57,7 @@ registerCommand(registerInformation, function (session, builder, args) {
       patterns.push(pattern);
     }
   } else {
-    patterns.push(...(args.get("patterns") ?? []));
+    patterns.push(...args.get("patterns"));
   }
 
   session.createGradient(args.get("id"), args.get("f-fade") ?? 1.0, patterns);
