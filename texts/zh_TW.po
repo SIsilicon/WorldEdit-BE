@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-06-09 02:22\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "請設定畫筆的填充方塊(必選) 和取代方塊(可選)。"
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "為工具繪畫圖案"
 
 msgid "worldedit.config.mask.tool"
 msgstr "為該工具製作一個正常覆蓋。"
@@ -221,7 +221,7 @@ msgid "worldedit.config.hollow"
 msgstr "空洞"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "深度"
 
 msgid "worldedit.config.erosion"
 msgstr "Erosion Type"
@@ -233,10 +233,10 @@ msgid "worldedit.config.usePicker"
 msgstr "使用方塊選擇器"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "指令"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "Is WorldEdit Command"
+msgstr "WorldEdit是指令嗎"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "第一個位置還沒設置。"
@@ -254,7 +254,7 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二個位置已設定至 %1 (%2)。"
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "正在建立於%s的新圓形選擇。"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "半徑被設為 %1 / %2 方塊 (~%3)"
@@ -299,7 +299,7 @@ msgid "worldedit.error.loadHistory"
 msgstr "錯誤: 載入歷史記錄點失敗"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "歷史仍在記錄中！"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "已變更 %s 個方塊"
@@ -347,16 +347,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7運行 §e%s§7，同時按住該物品以解開它。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "視線點內之生態域：%s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "檢索您選擇的生態域類別"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "你現在位置之生態域：%s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "你選取區域內的生態域：%s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已裝載球型筆刷 (%s)。"
@@ -371,16 +371,16 @@ msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選) 。"
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "Clipboard brush equipped."
+msgstr "已配備剪貼簿筆刷樣式。"
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Structure brush equipped."
+msgstr "已配備結構類型之筆刷。"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "已配備侵蝕類型之筆刷 (%s) 。"
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "已配備覆蓋類型之筆刷 (%s) 。"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置你正在握着的笔刷种类"
@@ -398,10 +398,10 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "制造一个地形顺滑笔"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "建立可放置結構的筆刷"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "製造一個可編輯地形形狀的筆刷"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Creates a terrain overlaying brush"
