@@ -1,0 +1,184 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.biome_detector.900": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 900" }
+        },
+
+        "animation.biome_detector.800": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 800" }
+        },
+
+        "animation.biome_detector.700": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 700" }
+        },
+
+        "animation.biome_detector.600": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 600" }
+        },
+
+        "animation.biome_detector.500": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 500" }
+        },
+
+        "animation.biome_detector.400": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 400" }
+        },
+
+        "animation.biome_detector.300": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 300" }
+        },
+
+        "animation.biome_detector.200": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 200" }
+        },
+
+        "animation.biome_detector.100": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 100" }
+        },
+
+        "animation.biome_detector.000": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 0" }
+        },
+
+        "animation.biome_detector.90": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 90" }
+        },
+
+        "animation.biome_detector.80": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 80" }
+        },
+
+        "animation.biome_detector.70": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 70" }
+        },
+
+        "animation.biome_detector.60": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 60" }
+        },
+
+        "animation.biome_detector.50": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 50" }
+        },
+
+        "animation.biome_detector.40": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 40" }
+        },
+
+        "animation.biome_detector.30": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 30" }
+        },
+
+        "animation.biome_detector.20": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 20" }
+        },
+
+        "animation.biome_detector.10": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 10" }
+        },
+
+        "animation.biome_detector.00": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 0" }
+        },
+
+        "animation.biome_detector.9": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 9" }
+        },
+
+        "animation.biome_detector.8": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 8" }
+        },
+
+        "animation.biome_detector.7": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 7" }
+        },
+
+        "animation.biome_detector.6": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 6" }
+        },
+
+        "animation.biome_detector.5": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 5" }
+        },
+
+        "animation.biome_detector.4": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 4" }
+        },
+
+        "animation.biome_detector.3": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 3" }
+        },
+
+        "animation.biome_detector.2": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 2" }
+        },
+
+        "animation.biome_detector.1": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 1" }
+        },
+
+        "animation.biome_detector.0": {
+            "animation_length": 1,
+            "anim_time_update": 1,
+            "timeline": { "1": "/scoreboard players add @s wedit:biome 0" }
+        }
+    }
+}
