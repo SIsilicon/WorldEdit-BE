@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-01-23 07:35\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
@@ -80,7 +80,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit BE 설정"
+msgstr "WorldEdit 설정"
 
 msgid "worldedit.config.brushes"
 msgstr "브러시"
@@ -142,6 +142,15 @@ msgstr "순간이동 도구"
 msgid "worldedit.config.tool.stacker"
 msgstr "늘리기 도구"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "명령 툴"
+
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "구 브러시"
 
@@ -150,6 +159,15 @@ msgstr "원기둥 브러시"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "다듬기 브러시"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "바인딩할 아이템을 들고 있으세요."
@@ -162,6 +180,9 @@ msgstr "어떤 도구를 만들지 선택하세요."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "브러시에 사용할 마스크(옵션) 을 선택합니다."
@@ -199,11 +220,23 @@ msgstr "마스크"
 msgid "worldedit.config.hollow"
 msgstr "빈 구"
 
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
+
 msgid "worldedit.config.mask.height"
 msgstr "높이 마스크"
 
 msgid "worldedit.config.usePicker"
 msgstr "블록 선택 도구 사용하기"
+
+msgid "worldedit.config.command"
+msgstr "명령어"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
@@ -337,6 +370,18 @@ msgstr "부드러운 브러시 장착됨 (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "부드러운 브러시 장착됨 (%1 x %2x 필터 사용)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
+
 msgid "commands.wedit:brush.description"
 msgstr "보유 중인 브러시 유형 설정"
 
@@ -351,6 +396,15 @@ msgstr "원기둥 브러시 생성"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "지형 스무딩 브러시 생성"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "브러시 마스크 설정."
@@ -379,6 +433,9 @@ msgstr "최대 허용 브러시 반경: %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "이 브러시는 작업하는 데 재료가 필요하지 않습니다."
 
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
+
 msgid "commands.wedit:brush.unbind"
 msgstr "현재 항목에서 바인딩 해제되지 않은 브러시입니다."
 
@@ -394,6 +451,9 @@ msgstr "수학적 표현을 평가합니다."
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s'은(는) 유효한 식으로 분석할 수 없습니다."
 
+msgid "commands.wedit:ceiling.description"
+msgstr "Go to the ceiling."
+
 msgid "commands.wedit:center.description"
 msgstr "센터 블록을 설정합니다."
 
@@ -401,10 +461,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "현재 또는 지정된 청크를 선택합니다."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "청크 선택됨: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "청크 선택됨: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "청크 선택됨: (%1, %2, %3)."
+msgstr "청크 선택됨: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "클립보드를 지웁니다."
@@ -525,6 +585,12 @@ msgstr "글로벌 마스크가 비활성화 되었습니다."
 
 msgid "commands.wedit:gmask.set"
 msgstr "글로벌 마스크가 생성되었습니다."
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "주변 흙블록을 잔디블록으로 변경합니다."
@@ -766,6 +832,12 @@ msgstr "빈 장소를 찾을 수 없습니다."
 msgid "commands.wedit:tracemask.description"
 msgstr "브러시를 사용할 수 있는 블록 유형 설정"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "거리 선택 막대가 %s에 바인딩됨"
 
@@ -777,6 +849,15 @@ msgstr "장거리 선택 도구가 %s에 바인딩됨"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "늘리기 도구가 %s에 바인딩됨"
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "Block cycler tool bound to %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "모든 종류의 도구 가져오기"
@@ -792,6 +873,15 @@ msgstr "네비게이션 도구"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "블럭 쌓기 도구"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "Block cycler tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"

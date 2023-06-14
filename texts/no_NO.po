@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,15 @@ msgstr "Navigeringsstav"
 msgid "worldedit.config.tool.stacker"
 msgstr "Stable-verktøy"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Kommandoverktøy"
+
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Kulepensel"
 
@@ -150,6 +159,15 @@ msgstr "Syllinderpensel"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Jevnbørste"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
@@ -162,6 +180,9 @@ msgstr "Velg hva slags verktøy som skal lages."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Lag en valgfri maske for verktøyet."
@@ -199,11 +220,23 @@ msgstr "Maske"
 msgid "worldedit.config.hollow"
 msgstr "Hul"
 
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
+
 msgid "worldedit.config.mask.height"
 msgstr "Høyde-maske"
 
 msgid "worldedit.config.usePicker"
 msgstr "Bruk blokkvelger"
+
+msgid "worldedit.config.command"
+msgstr "Kommando"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Er WorldEdit-kommando"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
@@ -337,6 +370,18 @@ msgstr "Jevnbørste valgt (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Jevnbørste valgt (%1 x %2x med filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Utiklippstavlebørste aktivert."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Strukturbørste aktivert."
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Eroderingsbørste aktivert (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlappingsbørste aktivert (%s)."
+
 msgid "commands.wedit:brush.description"
 msgstr "Angi typen pensel som blir holdt"
 
@@ -351,6 +396,15 @@ msgstr "Lag en sylinderpensel"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Lag et terreng-utjevningspensel"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Lager enn børste som plasserer strukturer"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Lager en børste som formerer terrenget"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Lager en børste som kan overlappe terreng"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pensel-maske satt."
@@ -379,6 +433,9 @@ msgstr "Maksimum tillat pensel-radius: %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Dette penselet trenger ikke et material for å fungere."
 
+msgid "commands.wedit:brush.noSize"
+msgstr "Denne børste har ingen konfigurerbar størrelse."
+
 msgid "commands.wedit:brush.unbind"
 msgstr "Pensel ubundet fra din nåværende gjenstand."
 
@@ -389,22 +446,25 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Drepte %s enheter."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Evaluer et matematisk uttrykk."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' kunne ikke analyseres som et gyldig uttrykk."
+
+msgid "commands.wedit:ceiling.description"
+msgstr "Gå til taket."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Angri midt-blokk(ene)."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Velg din gjeldene, eller spesifert del."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Deler valgt: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Del valgt: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Tøm utklippstavlen"
@@ -525,6 +585,12 @@ msgstr "Globalmaske deaktivert."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Globalmaske satt."
+
+msgid "commands.wedit:gradient.create"
+msgstr "Stigning %s lagd."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Lag en stigning til å bruke i mønster."
 
 msgid "commands.wedit:green.description"
 msgstr "Omgjør nærliggende jord om til gress"
@@ -766,6 +832,12 @@ msgstr "Ingen ledig plass funnet under deg."
 msgid "commands.wedit:tracemask.description"
 msgstr "Angi hva slags blokker et pensel kan bli brukt på"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Vekslet plasseringspossisjon."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Veksler plasseringsposisjonen brukt i diverse WorldEdit operasjoner."
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Utvalgsstav bundet til %s."
 
@@ -777,6 +849,15 @@ msgstr "Fjern utvalgsstav bundet til %s."
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stablingsverktøy bundet til %s."
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Kommandoverktøy bundet til %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Blokk erstatningsverktøy bundet til %s."
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "Blokk syklusverktøy bundet til %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Få alle typer verktøy"
@@ -792,6 +873,15 @@ msgstr "Navigeringsverktøy"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Blokkstablingsverktøy"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Kommando bruksverktøy; både vanilla og worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Blokk erstatningsverktøy"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "Blokk syklusverktøy"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"
