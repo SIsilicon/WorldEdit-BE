@@ -9,7 +9,6 @@ import { Pattern } from "@modules/pattern.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { StructureBrush } from "server/brushes/structure_brush.js";
-import { RegionBuffer } from "@modules/region_buffer.js";
 import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
 

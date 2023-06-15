@@ -162,7 +162,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         if (ev.id != "wedit:biome_update") return;
         try {
           const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
-          this.entity.triggerEvent("wedit:despawn")
+          this.entity.triggerEvent("wedit:despawn");
 
           this.emit(readyEventSym);
           resolve(biomeId);
