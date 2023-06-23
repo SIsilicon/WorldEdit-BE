@@ -22,7 +22,7 @@ abstract class UIForm<T extends {}> {
 
   protected handleCancel(response: FormResponse, player: Player, ctx: MenuContext<T>) {
     if (response.canceled) {
-      if (response.cancelationReason == FormCancelationReason.userBusy) {
+      if (response.cancelationReason == FormCancelationReason.UserBusy) {
         setTickTimeout(() => this.enter(player, ctx));
       } else {
         ctx.goto(null);
