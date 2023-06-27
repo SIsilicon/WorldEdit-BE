@@ -21,7 +21,7 @@ export class BlockBuilder {
   }
 
   dataValueToPermutation(block: string, data: number) {
-    if (!block.startsWith("minecraft:")) {
+    if (!block.includes(":")) {
       block = "minecraft:" + block;
     }
     return BlockPermutation.resolve(block, this.dataValueToStates(block, data));
