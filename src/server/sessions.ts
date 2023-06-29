@@ -294,7 +294,7 @@ export function removeSession(playerId: string) {
 
   playerSessions.get(playerId).selection.clear();
   playerSessions.get(playerId).globalPattern.clear();
-  pendingDeletion.set(playerId, [config.ticksToDeleteSession + 12000, playerSessions.get(playerId)]);
+  pendingDeletion.set(playerId, [config.ticksToDeleteSession, playerSessions.get(playerId)]);
   playerSessions.delete(playerId);
 }
 

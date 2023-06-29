@@ -2,7 +2,7 @@ from pathlib import Path
 import glob, os, shutil
 import argparse
 
-SERVER_LOCATION = 'C:\\Minecraft Servers\\1.19.70.22'
+SERVER_LOCATION = '%appdata%\\.minecraft_bedrock\\servers\\1.20.10.24'
 
 parser = argparse.ArgumentParser(description='Syncs the project folder\'s data with Minecraft (Windows 10/11 only).\nNote: Will only sync CHANGED files in watch mode.')
 parser.add_argument('--watch', '-w', action='store_true', help='Whether to watch for file changes.')

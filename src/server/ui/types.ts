@@ -11,13 +11,13 @@ export type BrushTypes = "sphere_brush" | "cylinder_brush" | "smooth_brush" | "s
 export interface ConfigContext {
   session: PlayerSession
 
-  currentItem?: [string, number]
+  currentItem?: string
   editingBrush?: boolean
 
   creatingTool?: ToolTypes | BrushTypes
   toolData?: [number, Mask] | [Brush, Mask, number, Mask] | [string] | [Pattern]
 
-  deletingTools?: [string, number][]
+  deletingTools?: string[]
 
   pickerData?: {
     return: UIFormName
