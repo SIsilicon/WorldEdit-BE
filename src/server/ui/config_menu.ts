@@ -63,13 +63,10 @@ const brushPatternInput: ModalFormInput = {
   }
 };
 
-function displayItem(item: [string, number]) {
-  let result = item[0];
+function displayItem(item: string) {
+  let result = item;
   if (result.startsWith("minecraft:")) {
     result = result.slice("minecraft:".length);
-  }
-  if (item[1] > 0) {
-    result += ":" + item[1];
   }
   return result;
 }
@@ -79,15 +76,15 @@ function editToolTitle(ctx: MenuConfigCtx) {
 }
 
 function getToolProperty(ctx: MenuConfigCtx, player: Player, prop: string) {
-  return Tools.getProperty(...ctx.getData("currentItem"), player, prop);
+  return Tools.getProperty(ctx.getData("currentItem"), player.id, prop);
 }
 
 function getTools(player: Player, brushes: boolean) {
-  return Tools.getBoundItems(player, brushes ? "brush" : /^.*(?<!brush)$/);
+  return Tools.getBoundItems(player.id, brushes ? "brush" : /^.*(?<!brush)$/);
 }
 
 function getToolType(ctx: MenuConfigCtx, player: Player) {
-  return ctx.getData("creatingTool") ?? Tools.getBindingType(...ctx.getData("currentItem"), player);
+  return ctx.getData("creatingTool") ?? Tools.getBindingType(ctx.getData("currentItem"), player.id);
 }
 
 function finishToolEdit(ctx: MenuConfigCtx) {
@@ -174,7 +171,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
   buttons: (ctx, player) => {
     const buttons = [];
     for (const tool of getTools(player, ctx.getData("editingBrush"))) {
-      const toolType = Tools.getBindingType(...tool as [string, number], player) as ToolTypes;
+      const toolType = Tools.getBindingType(tool, player.id) as ToolTypes;
       buttons.push({
         text: displayItem(tool),
         action: (ctx: MenuConfigCtx) => {
@@ -183,7 +180,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
           if (toolsWithProperties.includes(toolType)) {
             ctx.goto(`$editTool_${toolType}`);
           } else if (toolType == "brush") {
-            ctx.goto(`$editTool_${(Tools.getProperty(...tool, player, "brush") as Brush).id}`);
+            ctx.goto(`$editTool_${(Tools.getProperty(tool, player.id, "brush") as Brush).id}`);
           } else {
             ctx.goto("$toolNoConfig");
           }
@@ -679,8 +676,8 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
         session.bindTool("cycler_wand", item);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);
-        Tools.setProperty(...item, player, "range", toolData[2]);
-        Tools.setProperty(...item, player, "traceMask", toolData[3]);
+        Tools.setProperty(item, player.id, "range", toolData[2]);
+        Tools.setProperty(item, player.id, "traceMask", toolData[3]);
       }
       ctx.returnto("$tools");
     }
@@ -724,7 +721,7 @@ Server.uiForms.register<ConfigContext>("$deleteTools", {
   inputs: (ctx, player) => {
     const toggles: ModalFormInput = {};
     for (const tool of getTools(player, ctx.getData("editingBrush"))) {
-      toggles[`$${tool.join("--")}`] = {
+      toggles[`$${tool}`] = {
         name: displayItem(tool),
         type: "toggle"
       };
@@ -732,12 +729,11 @@ Server.uiForms.register<ConfigContext>("$deleteTools", {
     return toggles;
   },
   submit: (ctx, _, input) => {
-    const toDelete: [string, number][] = [];
+    const toDelete: string[] = [];
     for (const [key, value] of Object.entries(input)) {
-      const [id, dataString] = key.slice(1).split("--") as [string, string];
-      const dataValue = Number.parseInt(dataString);
       if (value) {
-        toDelete.push([id, dataValue]);
+        const id = key.slice(1);
+        toDelete.push(id);
       }
     }
     if (toDelete.length) {

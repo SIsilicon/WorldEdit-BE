@@ -143,7 +143,8 @@ class PlayerHandler {
     const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;
     const inv_stash = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
     for (let i = 0; i < 9; i++) {
-      inv.transferItem(i, inv_stash);
+      if (!inv.getItem(i)) continue;
+      inv.swapItems(i, i, inv_stash);
     }
     return false;
   }
@@ -167,13 +168,7 @@ class PlayerHandler {
       const inv = (<EntityInventoryComponent> player.getComponent("inventory")).container;
       const inv_stash = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
       for (let i = 0; i < 9; i++) {
-        if (inv.getItem(i) && inv_stash.getItem(i)) {
-          inv.swapItems(i, i, inv_stash);
-        } else if (inv.getItem(i)) {
-          inv.transferItem(i, inv_stash);
-        } else {
-          inv_stash.transferItem(i, inv);
-        }
+        inv.swapItems(i, i, inv_stash);
       }
       Server.runCommand(`tp @e[name="${stasherName}"] ~ ~ ~`, player);
       stasher.triggerEvent("wedit:despawn");

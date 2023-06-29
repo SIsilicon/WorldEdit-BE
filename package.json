@@ -11,6 +11,7 @@
     "scripts": {
         "watch": "python build.py --watch=stable",
         "watch:preview": "python build.py --watch=preview",
+        "watch:server": "python build.py --watch=server",
         "build:all": "python build.py --target=release --clean && python build.py --target=server",
         "build:beta": "python build.py --target=debug --clean"
     },

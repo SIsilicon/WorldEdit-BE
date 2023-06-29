@@ -109,7 +109,7 @@ const farwand_command = (session: PlayerSession, builder: Player) => {
 
 const cmd_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
   assertPermission(builder, registerInformation.usage[5].permission);
-  session.bindTool("command_wand", null, args.get("command"));
+  session.bindTool("command_wand", null, (args.get("command") as string[]).join(" "));
   return RawText.translate("commands.wedit:tool.bind.cmd").with(heldItemName(builder));
 };
 

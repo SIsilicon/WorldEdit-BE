@@ -1,6 +1,13 @@
 import { DynamicPropertiesDefinition, Player, system, world } from "@minecraft/server";
+import { getTickingAreas, print, printerr, setTickingAreas } from "./util.js";
+
+// Check if configuration is properly loaded
+if (!config.commandPrefix) {
+  world.getAllPlayers().forEach(player => printerr("WorldEdit failed to load configuration!", player, false));
+  throw new Error("Configuration is not properly loaded! If this is a server, \"variables.json\" is required.");
+}
+
 import { contentLog, Server, configuration, removeTickingArea } from "@notbeer-api";
-import { getTickingAreas, print, setTickingAreas } from "./util.js";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import config from "config.js";
@@ -47,7 +54,7 @@ Server.on("playerLoaded", ev => {
 
 Server.on("playerLeave", ev => {
   contentLog.debug(`player ${ev.playerName} left.`);
-  removeBuilder(ev.playerName);
+  removeBuilder(ev.playerId);
 });
 
 Server.on("tick", () => {

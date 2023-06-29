@@ -14,7 +14,7 @@ const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
 Server.on("playerChangeDimension", ev => {
-  playerSessions.get(ev.player.name)?.selection.clear();
+  playerSessions.get(ev.player.id)?.selection.clear();
 });
 
 interface regionTransform {
@@ -85,6 +85,7 @@ export class PlayerSession {
   public selection: Selection;
 
   private player: Player;
+  private playerId: string;
   private history: History;
   private regions = new Map<string, RegionBuffer>();
   private gradients = new Map<string, {dither: number, patterns: Pattern[]}>();
@@ -94,6 +95,7 @@ export class PlayerSession {
 
   constructor(player: Player) {
     this.player = player;
+    this.playerId = player.id;
     this.history = new History(this);
     this.selection = new Selection(player);
     this.drawOutlines = config.drawOutlines;
@@ -139,6 +141,7 @@ export class PlayerSession {
    */
   reassignPlayer(player: Player) {
     this.player = player;
+    this.playerId = player.id;
     this.selection = new Selection(player);
   }
 
@@ -170,14 +173,11 @@ export class PlayerSession {
    * @param args Optional parameters the tool uses during its construction.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public bindTool(tool: string, item: string|[string, number]|null, ...args: any[]) {
+  public bindTool(tool: string, item: string|null, ...args: any[]) {
     if (!item) {
-      const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, 0];
-    } else if (typeof item == "string") {
-      item = [item, 0];
+      item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.bind(tool, item[0], item[1], this.player, ...args);
+    return Tools.bind(tool, item, this.playerId, ...args);
   }
 
   /**
@@ -185,14 +185,11 @@ export class PlayerSession {
    * @param item The id of the item with the tool to test (null defaults to held item)
    * @param property The name of the tool's property
    */
-  public hasToolProperty(item: string|[string, number]|null, property: string) {
+  public hasToolProperty(item: string|null, property: string) {
     if (!item) {
-      const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, 0];
-    } else if (typeof item == "string") {
-      item = [item, 0];
+      item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.hasProperty(item[0], item[1], this.player, property);
+    return Tools.hasProperty(item, this.playerId, property);
   }
 
   /**
@@ -202,42 +199,33 @@ export class PlayerSession {
    * @param value The new value of the tool's property
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public setToolProperty(item: string|[string, number]|null, property: string, value: any) {
+  public setToolProperty(item: string|null, property: string, value: any) {
     if (!item) {
-      const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, 0];
-    } else if (typeof item == "string") {
-      item = [item, 0];
+      item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.setProperty(item[0], item[1], this.player, property, value);
+    return Tools.setProperty(item[0], this.playerId, property, value);
   }
 
   /**
    * @param item The id of the item to test (null defaults to held item)
    * @return Whether the session has a tool binded to the player's hand.
    */
-  public hasTool(item: string|[string, number]|null) {
+  public hasTool(item: string|null) {
     if (!item) {
-      const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, 0];
-    } else if (typeof item == "string") {
-      item = [item, 0];
+      item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.hasBinding(item[0], item[1], this.player);
+    return Tools.hasBinding(item[0], this.playerId);
   }
 
   /**
    * @param item The id of the item to unbinf from (null defaults to held item)
    * Unbinds a tool from this session's player's hand.
    */
-  public unbindTool(item: string|[string, number]|null) {
+  public unbindTool(item: string|null) {
     if (!item) {
-      const stack = Server.player.getHeldItem(this.player);
-      item = [stack.typeId, 0];
-    } else if (typeof item == "string") {
-      item = [item, 0];
+      item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.unbind(item[0], item[1], this.player);
+    return Tools.unbind(item, this.playerId);
   }
 
   /**
@@ -274,7 +262,7 @@ export class PlayerSession {
       region.deref();
     }
     this.regions.clear();
-    Tools.deleteBindings(this.player);
+    Tools.deleteBindings(this.playerId);
     this.history.delete();
     this.history = null;
   }
@@ -286,32 +274,32 @@ export class PlayerSession {
 }
 
 export function getSession(player: Player): PlayerSession {
-  const name = player.name;
-  if (!playerSessions.has(name)) {
+  const id = player.id;
+  if (!playerSessions.has(id)) {
     let session: PlayerSession;
-    if (pendingDeletion.has(name)) {
-      session = pendingDeletion.get(name)[1];
+    if (pendingDeletion.has(id)) {
+      session = pendingDeletion.get(id)[1];
       session.reassignPlayer(player);
-      pendingDeletion.delete(name);
+      pendingDeletion.delete(id);
     }
-    playerSessions.set(name, session ?? new PlayerSession(player));
-    contentLog.debug(playerSessions.get(name)?.getPlayer()?.name);
+    playerSessions.set(id, session ?? new PlayerSession(player));
+    contentLog.debug(playerSessions.get(id)?.getPlayer()?.name + ` (${id})`);
     contentLog.debug(`new Session?: ${!session}`);
   }
-  return playerSessions.get(name);
+  return playerSessions.get(id);
 }
 
-export function removeSession(player: string) {
-  if (!playerSessions.has(player)) return;
+export function removeSession(playerId: string) {
+  if (!playerSessions.has(playerId)) return;
 
-  playerSessions.get(player).selection.clear();
-  playerSessions.get(player).globalPattern.clear();
-  pendingDeletion.set(player, [config.ticksToDeleteSession, playerSessions.get(player)]);
-  playerSessions.delete(player);
+  playerSessions.get(playerId).selection.clear();
+  playerSessions.get(playerId).globalPattern.clear();
+  pendingDeletion.set(playerId, [config.ticksToDeleteSession + 12000, playerSessions.get(playerId)]);
+  playerSessions.delete(playerId);
 }
 
-export function hasSession(player: string) {
-  return playerSessions.has(player);
+export function hasSession(playerId: string) {
+  return playerSessions.has(playerId);
 }
 
 // Delayed a tick so that it's processed before other listeners
@@ -323,7 +311,7 @@ setTickTimeout(() => {
       if (session[0] < 0) {
         session[1].delete();
         pendingDeletion.delete(player);
-        contentLog.log(`${player}'s session has been deleted.`);
+        contentLog.log(`session for player ${player} has been deleted.`);
       }
     }
 
