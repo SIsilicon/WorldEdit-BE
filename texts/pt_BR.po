@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-06-23 03:39\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -449,9 +449,7 @@ msgid "commands.wedit:calc.description"
 msgstr "Evaluate a mathematical expression."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "Chave:Comandos.editor:calc.inválido\n\n"
-"Este texto não tem informações de contexto. O texto é usado em en_US.po. Posição no arquivo: 128\n\n"
-"Msgid: comandos.editor:calc.inválido"
+msgstr "'%s' could not be parsed as a valid expression."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Go to the ceiling."
@@ -961,10 +959,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "Por padrão, os jogadores não podem usar o WorldEdit. Apenas aqueles com a 'tag' 'builder' podem usar seus recursos. Para se tornar um construtor, digite §e/etiqueta @s add builder§r no chat. Você deve então receber uma mensagem dizendo que você recebeu permissões do WorldEdit."
+msgstr "Por padrão, os jogadores não podem usar o editorial. Apenas aqueles com a 'tag' 'worldedit' podem usar seus recursos. Para se tornar um construtor, digite §e/etiqueta @s add worldedit§r no chat. Você deve então receber uma mensagem dizendo que você recebeu permissões do editorial."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aDica:§r§a Você também pode tornar outros jogadores construtores alterando §e@s§r§a para o nome do jogador. Caso o jogador possua espaços no nome, será necessário utilizar aspas duplas. Por exemplo: §e/tag \"Steve Da Silva\" add builder§r"
+msgstr "§l§aDica:§r§a Você também pode tornar outros jogadores construtores alterando §e@s§r§a para o nome do jogador. Caso o jogador possua espaços no nome, será necessário utilizar aspas duplas. Por exemplo: §e/tag \"Steve Da Silva\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Indo a lugares"
