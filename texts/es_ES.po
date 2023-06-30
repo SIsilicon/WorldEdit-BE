@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-06-17 09:31\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -143,7 +143,7 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Acumuladora"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Herramienta de comando"
 
 msgid "worldedit.config.tool.repl"
 msgstr "Block Replacer Tool"
