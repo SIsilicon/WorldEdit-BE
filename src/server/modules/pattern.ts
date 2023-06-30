@@ -46,7 +46,7 @@ export class Pattern implements CustomArgType {
     try {
       const oldBlock = block.permutation;
       block.setPermutation(this.block.getPermutation(block, this.context));
-      return !oldBlock.matches(block.typeId, block.permutation.getAllStates());
+      return !oldBlock.matches(block.typeId);
     } catch (err) {
       //contentLog.error(err);
       return false;

@@ -1,4 +1,4 @@
-import { Vector3 } from "@minecraft/server";
+import { Block, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -111,7 +111,7 @@ export abstract class Shape {
     pattern.setContext(session, [min, max]);
 
     assertCanBuildWithin(player, min, max);
-    const blocksAffected = [];
+    const blocksAffected: Block[] = [];
     mask = mask ?? new Mask();
 
     const history = (options?.recordHistory ?? true) ? session.getHistory() : null;
@@ -158,15 +158,13 @@ export abstract class Shape {
           const volume = regionVolume(min, max);
           const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
           yield "Calculating shape...";
-          for (const block of regionIterateBlocks(min, max)) {
+          for (const blockLoc of regionIterateBlocks(min, max)) {
             if (iterateChunk()) yield progress / volume;
             progress++;
 
-            if (!activeMask.matchesBlock(dimension.getBlock(block))) {
-              continue;
-            }
-
-            if (this[inShapeFunc](Vector.sub(block, loc).floor(), this.genVars)) {
+            if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
+              const block = dimension.getBlock(blockLoc);
+              if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
               blocksAffected.push(block);
             }
           }
@@ -175,9 +173,7 @@ export abstract class Shape {
           yield "Generating blocks...";
           history?.addUndoStructure(record, min, max, blocksAffected);
           for (const block of blocksAffected) {
-            if (pattern.setBlock(dimension.getBlock(block))) {
-              count++;
-            }
+            if (pattern.setBlock(block)) count++;
             if (iterateChunk()) yield progress / blocksAffected.length;
             progress++;
           }
