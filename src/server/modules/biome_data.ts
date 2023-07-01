@@ -1,7 +1,7 @@
-import { Dimension, Vector3, world, Entity, DataDrivenEntityTriggerBeforeEvent } from "@minecraft/server";
+import { Dimension, Vector3, world, Entity, DataDrivenEntityTriggerBeforeEvent, DataDrivenEntityTriggerAfterEvent } from "@minecraft/server";
 import { commandSyntaxError, contentLog, CustomArgType, Database, Vector } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
-import { getWorldHeightLimits, locToString, wrap } from "../util.js";
+import { locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
 
 
@@ -152,23 +152,17 @@ class BiomeDetector extends EventEmitter implements PooledResource {
           // contentLog.debug("entity tpd:", this.id);
         }
       } catch (err) {
-        contentLog.debug("entity erro #1:", this.id);
+        contentLog.debug("entity error #1:", this.id);
         contentLog.debug(err);
         this.emit(errorEventSym);
         reject(err);
       }
 
-      // TODO: Check that the biome commands still work
       events.set(this.entity, (ev: DataDrivenEntityTriggerBeforeEvent) => {
         if (ev.id != "wedit:biome_update") return;
         try {
           const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
-          this.entity.nameTag = "";
-          this.entity.teleport({
-            x: this.entity.location.x,
-            y: getWorldHeightLimits(dim)[0] - 10,
-            z: this.entity.location.z,
-          }, { dimension: dim, rotation: { x: 0, y: 0 } });
+          this.entity.triggerEvent("wedit:despawn");
 
           this.emit(readyEventSym);
           resolve(biomeId);
@@ -185,8 +179,8 @@ class BiomeDetector extends EventEmitter implements PooledResource {
   }
 
   close() {
-    contentLog.debug("entity removed:", this.id);
     if (this.entityAvailable()) {
+      contentLog.debug("entity removed:", this.id);
       this.entity.triggerEvent("wedit:despawn");
     }
   }
@@ -229,8 +223,8 @@ async function getBiomeId(dim: Dimension, loc: Vector3) {
   return await detector.detect(dim, loc);
 }
 
-const events = new Map<Entity, (ev: DataDrivenEntityTriggerBeforeEvent) => void>();
-world.beforeEvents.dataDrivenEntityTriggerEvent.subscribe(ev => {
+const events = new Map<Entity, (ev: DataDrivenEntityTriggerAfterEvent) => void>();
+world.afterEvents.dataDrivenEntityTriggerEvent.subscribe(ev => {
   events.get(ev.entity)?.(ev);
 });
 
@@ -319,7 +313,8 @@ const nameToId = {
   dripstone_caves: 188,
   stony_peaks: 189,
   deep_dark: 190,
-  mangrove_swamp: 191
+  mangrove_swamp: 191,
+  cherry_grove: 192
 } as const;
 const idToName = Object.fromEntries(Object.entries(nameToId).map(([k, v]) => [v, k]));
 

@@ -22,6 +22,7 @@ class ToolBuilder {
       if (ev.source.typeId != "minecraft:player" || !ev.itemStack) {
         return;
       }
+
       this.onItemUse(ev.itemStack, ev.source as Player, ev);
     });
     Server.on("itemUseOnBefore", ev => {
@@ -64,72 +65,71 @@ class ToolBuilder {
   register(toolClass: toolConstruct, name: string, item?: string) {
     this.tools.set(name, toolClass);
     if (item) {
-      this.fixedBindings.set(item + "/0", new (toolClass)());
+      this.fixedBindings.set(item, new (toolClass)());
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind(toolId: string, itemId: string, itemData: number, player: Player, ...args: any[]) {
-    this.unbind(itemId, itemData, player);
+  bind(toolId: string, itemId: string, playerId: string, ...args: any[]) {
+    this.unbind(itemId, playerId);
     if (itemId) {
       const tool = new (this.tools.get(toolId))(...args);
       tool.type = toolId;
-      this.createPlayerBindingMap(player);
-      this.bindings.get(player.name).get(`${itemId}/${0}`)?.delete();
-      this.bindings.get(player.name).set(`${itemId}/${0}`, tool);
+      this.createPlayerBindingMap(playerId);
+      this.bindings.get(playerId).get(itemId)?.delete();
+      this.bindings.get(playerId).set(itemId, tool);
       return tool;
     } else {
       throw "worldedit.tool.noItem";
     }
   }
 
-  unbind(itemId: string, itemData: number, player: Player) {
+  unbind(itemId: string, playerId: string) {
     if (itemId) {
-      if (this.fixedBindings.has(itemId + "/0")) {
+      if (this.fixedBindings.has(itemId)) {
         throw "worldedit.tool.fixedBind";
       }
-      this.createPlayerBindingMap(player);
-      this.bindings.get(player.name).get(`${itemId}/${0}`)?.delete();
-      this.bindings.get(player.name).delete(`${itemId}/${0}`);
+      this.createPlayerBindingMap(playerId);
+      this.bindings.get(playerId).get(itemId)?.delete();
+      this.bindings.get(playerId).delete(itemId);
     } else {
       throw "worldedit.tool.noItem";
     }
   }
 
-  deleteBindings(player: Player) {
-    this.bindings.get(player.name).forEach(v => v.delete());
-    this.bindings.delete(player.name);
-    this.setDisabled(player, false);
+  deleteBindings(playerId: string) {
+    this.bindings.get(playerId).forEach(v => v.delete());
+    this.bindings.delete(playerId);
+    this.setDisabled(playerId, false);
   }
 
-  hasBinding(itemId: string, itemData: number, player: Player) {
+  hasBinding(itemId: string, playerId: string) {
     if (itemId) {
-      return this.bindings.get(player.name)?.has(`${itemId}/${0}`) || this.fixedBindings.has(itemId + "/0");
+      return this.bindings.get(playerId)?.has(itemId) || this.fixedBindings.has(itemId);
     } else {
       return false;
     }
   }
 
-  getBindingType(itemId: string, itemData: number, player: Player) {
+  getBindingType(itemId: string, playerId: string) {
     if (itemId) {
-      const tool = this.bindings.get(player.name)?.get(`${itemId}/${0}`) || this.fixedBindings.get(itemId + "/0");
+      const tool = this.bindings.get(playerId)?.get(itemId) || this.fixedBindings.get(itemId);
       return tool?.type ?? "";
     } else {
       return "";
     }
   }
 
-  getBoundItems(player: Player, type?: RegExp|string) {
-    const tools = this.bindings.get(player.name);
+  getBoundItems(playerId: string, type?: RegExp|string) {
+    const tools = this.bindings.get(playerId);
     return tools ? Array.from(tools.entries())
       .filter(binding => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
-      .map(binding => [binding[0].split("/")[0], parseInt(binding[0].split("/")[1])] as [string, number])
-      : [] as [string, number][];
+      .map(binding => binding[0]) : [] as string[];
   }
 
-  setProperty<T>(itemId: string, itemData: number, player: Player, prop: string, value: T) {
+  setProperty<T>(itemId: string, playerId: string, prop: string, value: T) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
+      const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         tool[prop] = value;
         return true;
@@ -138,9 +138,9 @@ class ToolBuilder {
     return false;
   }
 
-  getProperty<T>(itemId: string, itemData: number, player: Player, prop: string) {
+  getProperty<T>(itemId: string, playerId: string, prop: string) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
+      const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         return tool[prop] as T;
       }
@@ -148,9 +148,9 @@ class ToolBuilder {
     return null as T;
   }
 
-  hasProperty(itemId: string, itemData: number, player: Player, prop: string) {
+  hasProperty(itemId: string, playerId: string, prop: string) {
     if (itemId) {
-      const tool: toolObject = this.bindings.get(player.name).get(`${itemId}/${0}`);
+      const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         return true;
       }
@@ -158,23 +158,23 @@ class ToolBuilder {
     return false;
   }
 
-  setDisabled(player: Player, disabled: boolean) {
-    if (disabled && !this.disabled.includes(player.name)) {
-      this.disabled.push(player.name);
-    } else if (!disabled && this.disabled.includes(player.name)) {
-      this.disabled.splice(this.disabled.indexOf(player.name), 1);
+  setDisabled(playerId: string, disabled: boolean) {
+    if (disabled && !this.disabled.includes(playerId)) {
+      this.disabled.push(playerId);
+    } else if (!disabled && this.disabled.includes(playerId)) {
+      this.disabled.splice(this.disabled.indexOf(playerId), 1);
     }
   }
 
   private *onItemTick(item: ItemStack, player: Player, tick: number) {
-    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
+    if (this.disabled.includes(player.id) || !hasSession(player.id)) {
       return;
     }
 
-    const key = `${item.typeId}/${0}`;
+    const key = item.typeId;
     let tool: Tool;
-    if (this.bindings.get(player.name)?.has(key)) {
-      tool = this.bindings.get(player.name).get(key);
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
     } else {
@@ -186,14 +186,14 @@ class ToolBuilder {
   }
 
   private onItemUse(item: ItemStack, player: Player, ev: ItemUseBeforeEvent, loc?: Vector) {
-    if (this.disabled.includes(player.name) || !hasSession(player.name)) {
+    if (this.disabled.includes(player.id) || !hasSession(player.id)) {
       return;
     }
 
-    const key = `${item.typeId}/${0}`;
+    const key = item.typeId;
     let tool: Tool;
-    if (this.bindings.get(player.name)?.has(key)) {
-      tool = this.bindings.get(player.name).get(key);
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
     } else {
@@ -205,7 +205,7 @@ class ToolBuilder {
   }
 
   private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakAfterEvent) {
-    if (this.disabled.includes(player.name)) {
+    if (this.disabled.includes(player.id)) {
       return;
     }
 
@@ -213,10 +213,10 @@ class ToolBuilder {
     if (comp.container.getItem(player.selectedSlot) == null) return;
     item = comp.container.getItem(player.selectedSlot);
 
-    const key = `${item.typeId}/${0}`;
+    const key = item.typeId;
     let tool: Tool;
-    if (this.bindings.get(player.name)?.has(key)) {
-      tool = this.bindings.get(player.name).get(key);
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
     } else {
@@ -229,9 +229,9 @@ class ToolBuilder {
     }
   }
 
-  private createPlayerBindingMap(player: Player) {
-    if (!this.bindings.has(player.name)) {
-      this.bindings.set(player.name, new Map<string, Tool>());
+  private createPlayerBindingMap(playerId: string) {
+    if (!this.bindings.has(playerId)) {
+      this.bindings.set(playerId, new Map<string, Tool>());
     }
   }
 }

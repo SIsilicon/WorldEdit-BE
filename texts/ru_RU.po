@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-01-20 18:00\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cСкрипты WorldEdit остановлены! Сбросьте их командой §r/reload§c (Другие скрипты тоже будут сброшены).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -80,76 +80,94 @@ msgid "worldedit.maskPicker.set"
 msgstr "Поставить маску для блока: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit Settings"
+msgstr "Этот текст не имеет контекстной информации. Этот текст использован в en_US.po. Позиция в файле: 24"
 
 msgid "worldedit.config.brushes"
-msgstr "Brushes"
+msgstr "Кисти"
 
 msgid "worldedit.config.tools"
-msgstr "Tools"
+msgstr "Инструменты"
 
 msgid "worldedit.config.general"
-msgstr "General"
+msgstr "Основное"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Include Entities in Clipboard"
+msgstr "Включить сущности в Буфер Обмена"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Include Air in Clipboard"
+msgstr "Включить air в Буфер Обмена"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Performance Mode"
+msgstr "Производительный режим"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "Рисовать контуры"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "Selection Mode"
+msgstr "Режим выделения"
 
 msgid "worldedit.config.newTool"
-msgstr "Create New Tool"
+msgstr "Создать новый инструмент"
 
 msgid "worldedit.config.newBrush"
-msgstr "Create New Brush"
+msgstr "Создать новую кисть"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "Cuboid"
+msgstr "Куб"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "Extend"
+msgstr "Расширить"
 
 msgid "worldedit.selectionMode.sphere"
-msgstr "Sphere"
+msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "Cylinder"
+msgstr "Цилиндр"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "No Tool Properties"
+msgstr "Нет свойств у инструмента"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "This tool has no properties to change."
+msgstr "Этот инструмент не имеет свойств для изменения."
 
 msgid "worldedit.config.tool.selection"
-msgstr "Selection Wand"
+msgstr "Инструмент для выделения территории"
 
 msgid "worldedit.config.tool.far_selection"
-msgstr "Far Selection Wand"
+msgstr "Инструмент для выделения дальней территории"
 
 msgid "worldedit.config.tool.navigation"
-msgstr "Navigation Wand"
+msgstr "Топорик навигации"
 
 msgid "worldedit.config.tool.stacker"
-msgstr "Stacker Tool"
+msgstr "Инструмент \"Маркер\""
+
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Sphere Brush"
+msgstr "Сферовая кисть"
 
 msgid "worldedit.config.brush.cylinder"
-msgstr "Cylinder Brush"
+msgstr "Цилиндрическая кисть"
 
 msgid "worldedit.config.brush.smooth"
-msgstr "Smooth Brush"
+msgstr "Сглаживающий кисть"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -161,7 +179,10 @@ msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Сделайте узор и дополнительную маску для кисти."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Сделайте необязательную маску для инструмента."
@@ -173,37 +194,49 @@ msgid "worldedit.config.confirm"
 msgstr "Всё верно?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Вы согласны с настройкой, которую вы сделали?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Размер"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Высота"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Гладкость"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Диапазон"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Образец"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Маска"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Полный"
+
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
 
 msgid "worldedit.config.mask.height"
-msgstr "Height Mask"
+msgstr "Высота маски"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Используйте средство выбора блоков"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
@@ -221,10 +254,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Вторая точка поставлена на %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Запуск нового выбора цилиндрической формы%s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Радиус установлен на блоки %1/%2 (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Начал выбор в %1 (%2)."
@@ -260,13 +293,13 @@ msgid "worldedit.permission.revoked"
 msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "Failed to save history point!"
+msgstr "Не удалось сохранить точку истории!"
 
 msgid "worldedit.error.loadHistory"
-msgstr "Failed to load history point!"
+msgstr "Не удалось загрузить точку истории!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "History is still being recorded!"
+msgstr "История всё ещё записывается!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -299,7 +332,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Не возможно модифицировать не загруженные чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eПодсказка: Чтобы загрузить больше фрагментов, увеличьте расстояние моделирования или добавьте области с отметками, в которых вы работаете.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
@@ -314,16 +347,16 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "§7Выполните §e%s§7, удерживая предмет, чтобы отвязать его.§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "Biome at line of sight point: %s"
+msgstr "Биом в прямой точке видимости:%s"
 
 msgid "commands.wedit:biomeinfo.description"
-msgstr "Retrieve the kinds of biomes in your selection"
+msgstr "Извлеките типы биомов из выбранного вами списка"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "Biome at your position: %s"
+msgstr "Биом на вашей позиции:%s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "Biomes in your selection: %s"
+msgstr "Биомы в вашей выделенной области:%s"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферическая форма кисти установлена (%s)."
@@ -336,6 +369,18 @@ msgstr "Сглаживающая форма кисти установлена (%
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Сглаживающая форма кисти установлена (%1 x %2x using filter)."
+
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Установите тип удерживаемой кисти"
@@ -351,6 +396,15 @@ msgstr "Создать цилиндрическую кисть"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Создать кисть для сглаживания рельефа"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маска кисти установлена."
@@ -379,6 +433,9 @@ msgstr "Максимально допустимый радиус кисти: %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "Эта кисть не требует материала для работы."
 
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
+
 msgid "commands.wedit:brush.unbind"
 msgstr "Кисть не связана с вашим текущим предметом."
 
@@ -389,22 +446,25 @@ msgid "commands.wedit:butcher.explain"
 msgstr "Убито %s сущностей."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Оценка математического выражения."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' не удалось персонализировать как допустимое выражение."
+
+msgid "commands.wedit:ceiling.description"
+msgstr "Go to the ceiling."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Установить центральный блок(и)."
 
 msgid "commands.wedit:chunk.description"
 msgstr "Выберите ваш текущий или указанный чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Выбранные чанки: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Выбраны куски: (%1)-(%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Выбран чанк: (%1, %2, %3)."
+msgstr "Выбран кусок: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Очистить буфер обмена"
@@ -525,6 +585,12 @@ msgstr "Глобальная маска выключена."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "Превратить близлежащую землю в траву"
@@ -766,6 +832,12 @@ msgstr "No free spot under you found."
 msgid "commands.wedit:tracemask.description"
 msgstr "Установите, на каких блоках можно использовать кисть"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Жезл выделения привязана к %s."
 
@@ -777,6 +849,15 @@ msgstr "Палочка дальнего выделения привязана к
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Инструмент Стакер привязан к %s."
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "Block cycler tool bound to %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Получить все виды инструментов"
@@ -792,6 +873,15 @@ msgstr "Навигационный инструмент"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Стакер блоков"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "Block cycler tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Отменить привязку инструмента"

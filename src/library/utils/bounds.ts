@@ -51,7 +51,7 @@ export function regionTransformedBounds(start: Vector, end: Vector, origin: Vect
   corners.forEach(vec => min = min.min(vec));
   corners.forEach(vec => max = max.max(vec));
 
-  return [min.floor(), max.floor()];
+  return [min.floor(), max.floor()] as [Vector, Vector];
 }
 
 /**

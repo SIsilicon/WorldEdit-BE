@@ -41,6 +41,10 @@ export class OverlayBrush extends Brush {
     return this.radius;
   }
 
+  getDepth(): number {
+    return this.depth;
+  }
+
   public paintWith(value: Pattern) {
     this.pattern = value;
   }

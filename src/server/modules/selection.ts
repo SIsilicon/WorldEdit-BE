@@ -164,12 +164,15 @@ export class Selection {
         this.modeLastDraw = this._mode;
         this.pointsLastDraw = this.points;
       }
-      const dimension = this.player.dimension;
-      for (const point of this.drawPoints) {
-        try {
-          dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
-        } catch { /* pass */ }
-      }
+
+      try {
+        const dimension = this.player.dimension;
+        for (const point of this.drawPoints) {
+          try {
+            dimension.spawnParticle("wedit:selection_draw", point, new MolangVariableMap());
+          } catch { /* pass */ }
+        }
+      } catch { /* pass */ }
       this.lastDraw = system.currentTick;
     }
   }

@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-06-04 03:25\n"
 
 msgid "pack.description"
 msgstr "Een in-beta mod van de originele java mod en meer! Mod door SIsilicon (§l§b@iSiliconS§r)."
@@ -142,6 +142,15 @@ msgstr "Navigation Wand"
 msgid "worldedit.config.tool.stacker"
 msgstr "Stacker Tool"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "Command Tool"
+
+msgid "worldedit.config.tool.repl"
+msgstr "Block Replacer Tool"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "Block Cycler Tool"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "Sphere Brush"
 
@@ -150,6 +159,15 @@ msgstr "Cylinder Brush"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "Smooth Brush"
+
+msgid "worldedit.config.brush.struct"
+msgstr "Structure Brush"
+
+msgid "worldedit.config.brush.erode"
+msgstr "Erosion Brush"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "Overlay Brush"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hou een item vast om te verbinden."
@@ -162,6 +180,9 @@ msgstr "Choose what kind of tool to make."
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
+
+msgid "worldedit.config.pattern.tool"
+msgstr "Make a pattern for the tool."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Make an optional mask for the tool."
@@ -199,11 +220,23 @@ msgstr "Mask"
 msgid "worldedit.config.hollow"
 msgstr "Hollow"
 
+msgid "worldedit.config.depth"
+msgstr "Depth"
+
+msgid "worldedit.config.erosion"
+msgstr "Erosion Type"
+
 msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
 
 msgid "worldedit.config.usePicker"
 msgstr "Use Block Picker"
+
+msgid "worldedit.config.command"
+msgstr "Command"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "First selection has not been made yet."
@@ -337,6 +370,18 @@ msgstr "Smooth brush equipped (%1 x %2x)."
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Smooth brush equipped (%1 x %2x using filter)."
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "Clipboard brush equipped."
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "Structure brush equipped."
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "Erosion brush equipped (%s)."
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "Overlay brush equipped (%s)."
+
 msgid "commands.wedit:brush.description"
 msgstr "Set the type of a brush being held"
 
@@ -351,6 +396,15 @@ msgstr "Create a cylinder brush"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "Create a terrain smoothing brush"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "Creates a brush that places structures"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "Creates a terrain shaping brush"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Brush mask set."
@@ -379,6 +433,9 @@ msgstr "Maximum allowed brush radius: %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "This brush does not require a material to work."
 
+msgid "commands.wedit:brush.noSize"
+msgstr "This brush has no configurable size."
+
 msgid "commands.wedit:brush.unbind"
 msgstr "Brush unbound from your current item."
 
@@ -394,6 +451,9 @@ msgstr "Evaluate a mathematical expression."
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' could not be parsed as a valid expression."
 
+msgid "commands.wedit:ceiling.description"
+msgstr "Go to the ceiling."
+
 msgid "commands.wedit:center.description"
 msgstr "Set the center block(s)."
 
@@ -401,10 +461,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "Select your current, or specified chunk."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "Chunks selected: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "Chunk selected: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "Clear your clipboard"
@@ -525,6 +585,12 @@ msgstr "Global mask disabled."
 
 msgid "commands.wedit:gmask.set"
 msgstr "Global mask set."
+
+msgid "commands.wedit:gradient.create"
+msgstr "Gradient %s created."
+
+msgid "commands.wedit:gradient.description"
+msgstr "Create a gradient to use in patterns."
 
 msgid "commands.wedit:green.description"
 msgstr "Turn nearby dirt into grass"
@@ -766,6 +832,12 @@ msgstr "No free spot under you found."
 msgid "commands.wedit:tracemask.description"
 msgstr "Set what kind of blocks a brush can be used on"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "Toggled placement position."
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "Toggles the placement position used in various WorldEdit operations."
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Selection wand bound to %s."
 
@@ -777,6 +849,15 @@ msgstr "Far selection wand bound to %s."
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "Stacker tool bound to %s."
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "Command tool bound to %s."
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "Block replacer tool bound to %s."
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "Block cycler tool bound to %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Get all sorts of tools"
@@ -792,6 +873,15 @@ msgstr "Navigation tool"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "Command exeution tool; both vanilla and worldedit"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "Block replacer tool"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "Block cycler tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"

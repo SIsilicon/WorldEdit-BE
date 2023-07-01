@@ -1,4 +1,4 @@
-import { world, system, PlayerSpawnAfterEvent } from "@minecraft/server";
+import { world, system, PlayerSpawnAfterEvent, WatchdogTerminateReason } from "@minecraft/server";
 import { shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
@@ -6,14 +6,12 @@ import { contentLog, RawText } from "./utils/index.js";
 // eslint-disable-next-line prefer-const
 let _server: ServerBuild;
 
-system.events.beforeWatchdogTerminate.subscribe(ev => {
-  if (ev.terminateReason == "hang") {
+system.beforeEvents.watchdogTerminate.subscribe(ev => {
+  if (ev.terminateReason == WatchdogTerminateReason.Hang) {
     ev.cancel = true;
     shutdownTimers();
     shutdownThreads();
-    if (_server) {
-      _server.shutdown();
-    }
+    if (_server) _server.shutdown();
 
     const players = Array.from(world.getPlayers());
     if (players.length == 0) {
@@ -136,7 +134,7 @@ class ServerBuild extends ServerBuilder {
 
     let worldLoaded = false, tickCount = 0, prevTime = Date.now();
     const playerDimensions = new Map<string, string>();
-    const tickEvent = () => {
+    system.runInterval(() => {
       tickCount++;
       if (!this.runCommand("testfor @a").error && !worldLoaded) {
         /**
@@ -168,9 +166,7 @@ class ServerBuild extends ServerBuilder {
       });
 
       prevTime = Date.now();
-      system.run(tickEvent);
-    };
-    system.run(tickEvent);
+    });
 
     /**
      * Emit to 'playerSpawn' event listener

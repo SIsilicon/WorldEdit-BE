@@ -36,7 +36,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const range = shape.getRegion(origin);
   const heightLimits = getWorldHeightLimits(dimension);
   range[0].y = Math.max(range[0].y, heightLimits[0]);
-  range[1].y = Math.min(range[1].y, heightLimits[1]);
+  range[1].y = Math.min(range[1].y, heightLimits[1] - 1);
 
   const job = Jobs.startJob(session, 2, range);
   const history = session.getHistory();
@@ -64,16 +64,16 @@ registerCommand(registerInformation, function* (session, builder, args) {
           continue;
         }
 
-        const loc = new Vector(x + 0.5, yRange[1] + 1.01, z + 0.5);
+        const loc = new Vector(x + 0.5, range[1].y + 1.01, z + 0.5);
         try {
-          const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions);
+          const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions)?.block;
           if (block) {
             blocks.push(block);
             blockLocs.push(block.location);
 
             if (affectedBlockRange[0]) {
               affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).floor();
-              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(block.location).floor();
+              affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(Vector.add(block.location, Vector.ONE)).floor();
             } else {
               affectedBlockRange[0] = block.location;
               affectedBlockRange[1] = block.location;

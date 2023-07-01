@@ -51,7 +51,7 @@ function clearTickInterval(handle: number): void {
 }
 
 let totalTick = 0;
-system.run(function tick() {
+system.runInterval(() => {
   totalTick++;
   for(const [ID, tickTimeout] of tickTimeoutMap) {
     tickTimeout.tick--;
@@ -63,7 +63,6 @@ system.run(function tick() {
   for(const [, tickInterval] of tickIntervalMap) {
     if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
   }
-  system.run(tick);
 });
 
 function sleep(ticks: number) {

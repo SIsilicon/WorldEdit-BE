@@ -91,7 +91,7 @@ class Thread<T extends any[]> {
   }
 }
 
-system.run(async function args() {
+system.runInterval(() => {
   const ms = Date.now();
   while (Date.now() - ms < configuration.multiThreadingTimeBudget && threads.length) {
     const thread = threads.pop();
@@ -120,8 +120,6 @@ system.run(async function args() {
       thread.join();
     }
   }
-
-  system.run(args);
 });
 
 let iterCount = 0;

@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-01-20 16:49\n"
+"PO-Revision-Date: 2023-06-13 16:45\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -142,6 +142,15 @@ msgstr "传送器"
 msgid "worldedit.config.tool.stacker"
 msgstr "堆叠器"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "命令工具"
+
+msgid "worldedit.config.tool.repl"
+msgstr "方块替换工具"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "方块循环工具"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "球形笔刷"
 
@@ -150,6 +159,15 @@ msgstr "圆柱形笔刷"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "平滑笔刷"
+
+msgid "worldedit.config.brush.struct"
+msgstr "结构笔刷"
+
+msgid "worldedit.config.brush.erode"
+msgstr "侵蚀笔刷"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "叠加笔刷"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -162,6 +180,9 @@ msgstr "选择用于制作的工具类型"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "设定笔刷要填充的方块和要取代的方块"
+
+msgid "worldedit.config.pattern.tool"
+msgstr "为工具制作一个图案。"
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
@@ -199,11 +220,23 @@ msgstr "取代"
 msgid "worldedit.config.hollow"
 msgstr "下陷"
 
+msgid "worldedit.config.depth"
+msgstr "深度"
+
+msgid "worldedit.config.erosion"
+msgstr "侵蚀类型"
+
 msgid "worldedit.config.mask.height"
 msgstr "高度蒙板"
 
 msgid "worldedit.config.usePicker"
 msgstr "使用方块选择器"
+
+msgid "worldedit.config.command"
+msgstr "命令"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "是否为创世神命令"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
@@ -337,6 +370,18 @@ msgstr "平滑笔刷已装载 (%1 x %2x)"
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "平滑笔刷已装载 (%1 x %2x并使用过滤器)"
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "已装载剪贴板笔刷。"
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "已装载结构笔刷。"
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "已装备冲蚀笔刷（%s）。"
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "已装备覆盖笔刷（%s）。"
+
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
 
@@ -351,6 +396,15 @@ msgstr "创建一个圆柱形笔刷"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "创建一个平滑笔刷"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "创建一支可放置结构的笔刷"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "创建一个地形塑造笔刷"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "创建地形覆盖笔刷"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "已设定笔刷替换的方块"
@@ -379,6 +433,9 @@ msgstr "笔刷半径最大值： %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "此笔刷不需要材料来运作。"
 
+msgid "commands.wedit:brush.noSize"
+msgstr "该笔刷无可调尺寸。"
+
 msgid "commands.wedit:brush.unbind"
 msgstr "笔刷已从您选择的物品上解绑。"
 
@@ -389,22 +446,25 @@ msgid "commands.wedit:butcher.explain"
 msgstr "已杀死 %s 个实体。"
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "计算一个数学表达式。"
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s'不能被解析为一个有效表达式。"
+
+msgid "commands.wedit:ceiling.description"
+msgstr "前往顶层。"
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "设置中心的方块(可以多个)。"
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "选择您当前或指定的区块。"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1, %2, %3) - (%4, %5, %6)."
+msgstr "已选择区块：(%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1, %2, %3)."
+msgstr "已选择区块：(%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空您的剪贴板"
@@ -525,6 +585,12 @@ msgstr "已禁用默认被取代方块"
 
 msgid "commands.wedit:gmask.set"
 msgstr "已设置默认被取代的方块。"
+
+msgid "commands.wedit:gradient.create"
+msgstr "已创建渐变 %s。"
+
+msgid "commands.wedit:gradient.description"
+msgstr "创建一个要在图案中使用的渐变。"
 
 msgid "commands.wedit:green.description"
 msgstr "将附近的泥土变成草地"
@@ -766,6 +832,12 @@ msgstr "在您的下方没有发现有效空间"
 msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "已切换放置位置。"
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "切换用于不同创世神操作的放置位置。"
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "选择器已绑定到 %s。"
 
@@ -777,6 +849,15 @@ msgstr "远程选择工具已绑定到 %s。"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "堆叠器已绑定到 %s。"
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "命令工具已绑定到%s。"
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "方块替换工具已绑定到%s。"
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "方块循环工具已绑定到%s。"
 
 msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的工具"
@@ -792,6 +873,15 @@ msgstr "传送工具"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "方块堆叠工具"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "命令处理工具；适用于原版和创世神插件"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "方块替换工具"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "方块循环工具"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"

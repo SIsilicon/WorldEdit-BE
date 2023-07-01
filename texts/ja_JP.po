@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-01-20 19:32\n"
+"PO-Revision-Date: 2023-06-04 07:45\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -23,10 +23,10 @@ msgid "item.wedit:copy_button"
 msgstr "コピー"
 
 msgid "item.wedit:cut_button"
-msgstr "カット"
+msgstr "切り取り"
 
 msgid "item.wedit:paste_button"
-msgstr "ペースト"
+msgstr "貼り付け"
 
 msgid "item.wedit:undo_button"
 msgstr "元に戻す"
@@ -142,6 +142,15 @@ msgstr "案内用の杖"
 msgid "worldedit.config.tool.stacker"
 msgstr "スタッカーツール"
 
+msgid "worldedit.config.tool.cmd"
+msgstr "コマンドツール"
+
+msgid "worldedit.config.tool.repl"
+msgstr "ブロック置換ツール"
+
+msgid "worldedit.config.tool.cycle"
+msgstr "ブロック循環ツール"
+
 msgid "worldedit.config.brush.sphere"
 msgstr "球体ブラシ"
 
@@ -150,6 +159,15 @@ msgstr "円柱ブラシ"
 
 msgid "worldedit.config.brush.smooth"
 msgstr "スムーズブラシ"
+
+msgid "worldedit.config.brush.struct"
+msgstr "ストラクチャーブラシ"
+
+msgid "worldedit.config.brush.erode"
+msgstr "侵食ブラシ"
+
+msgid "worldedit.config.brush.overlay"
+msgstr "オーバーレイブラシ"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -162,6 +180,9 @@ msgstr "作るアイテムの種類を選択してください。"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
+
+msgid "worldedit.config.pattern.tool"
+msgstr "ツールのパターンを作成してください。"
 
 msgid "worldedit.config.mask.tool"
 msgstr "ツールのマスクを任意で作成してください。"
@@ -199,11 +220,23 @@ msgstr "マスク"
 msgid "worldedit.config.hollow"
 msgstr "空洞"
 
+msgid "worldedit.config.depth"
+msgstr "深さ"
+
+msgid "worldedit.config.erosion"
+msgstr "侵食のタイプ"
+
 msgid "worldedit.config.mask.height"
 msgstr "高さマスク"
 
 msgid "worldedit.config.usePicker"
 msgstr "ブロック選択を使用する"
+
+msgid "worldedit.config.command"
+msgstr "コマンド"
+
+msgid "worldedit.config.command.isWorldEdit"
+msgstr "WorldEdit のコマンドである"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
@@ -337,6 +370,18 @@ msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
 
+msgid "commands.wedit:brush.bind.clipboard"
+msgstr "クリップボードブラシを装備しました。"
+
+msgid "commands.wedit:brush.bind.struct"
+msgstr "ストラクチャーブラシを装備しました。"
+
+msgid "commands.wedit:brush.bind.erode"
+msgstr "侵食ブラシを装備しました (%s)。"
+
+msgid "commands.wedit:brush.bind.overlay"
+msgstr "オーバーレイブラシを装備しました (%s)。"
+
 msgid "commands.wedit:brush.description"
 msgstr "持つブラシの種類を設定する"
 
@@ -351,6 +396,15 @@ msgstr "円柱ブラシを生成する"
 
 msgid "commands.wedit:brush.description.smooth"
 msgstr "地形をなだらかにするスムーズブラシを生成する"
+
+msgid "commands.wedit:brush.description.struct"
+msgstr "構造物を配置するブラシを作成する"
+
+msgid "commands.wedit:brush.description.erode"
+msgstr "地形を整形するブラシを作成する"
+
+msgid "commands.wedit:brush.description.overlay"
+msgstr "地形を覆わせるブラシを作成する"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
@@ -379,6 +433,9 @@ msgstr "ブラシの最大半径: %s"
 msgid "commands.wedit:brush.noMaterial"
 msgstr "このブラシには材料が必要ありません。"
 
+msgid "commands.wedit:brush.noSize"
+msgstr "このブラシのサイズは設定できません。"
+
 msgid "commands.wedit:brush.unbind"
 msgstr "ブラシと現在のアイテムの紐づけを解除しました。"
 
@@ -394,6 +451,9 @@ msgstr "数式を評価する"
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' は有効な式として解析できませんでした。"
 
+msgid "commands.wedit:ceiling.description"
+msgstr "天井へワープする"
+
 msgid "commands.wedit:center.description"
 msgstr "中央のブロックを設定する"
 
@@ -401,10 +461,10 @@ msgid "commands.wedit:chunk.description"
 msgstr "現在の、または指定されたチャンクを選択する"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "チャンクを選択しました: (%1, %2, %3) - (%4, %5, %6)"
+msgstr "チャンクを選択しました: (%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "チャンクを選択しました: (%1, %2, %3)"
+msgstr "チャンクを選択しました: (%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "クリップボードを消去する"
@@ -525,6 +585,12 @@ msgstr "共通マスクを無効にしました。"
 
 msgid "commands.wedit:gmask.set"
 msgstr "共通マスクを設定しました。"
+
+msgid "commands.wedit:gradient.create"
+msgstr "グラデーション %s を作成しました。"
+
+msgid "commands.wedit:gradient.description"
+msgstr "パターンで使用するグラデーションを作成する。"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
@@ -766,6 +832,12 @@ msgstr "下に空間を見つけられませんでした。"
 msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
+msgid "commands.wedit:toggleplace.complete"
+msgstr "配置位置を切り替えました。"
+
+msgid "commands.wedit:toggleplace.description"
+msgstr "WorldEditでの操作で使用される配置位置を切り替える。"
+
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "選択用の杖を %s にセットしました。"
 
@@ -777,6 +849,15 @@ msgstr "遠距離選択用の杖を %s にセットしました。"
 
 msgid "commands.wedit:tool.bind.stacker"
 msgstr "スタッカーツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.cmd"
+msgstr "コマンドツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.repl"
+msgstr "置換ツールを %s にセットしました。"
+
+msgid "commands.wedit:tool.bind.cycler"
+msgstr "ブロック循環ツールを %s にセットしました。"
 
 msgid "commands.wedit:tool.description"
 msgstr "すべての種類のツールを入手する"
@@ -792,6 +873,15 @@ msgstr "案内ツール"
 
 msgid "commands.wedit:tool.description.stacker"
 msgstr "スタッカーツールをブロックする"
+
+msgid "commands.wedit:tool.description.cmd"
+msgstr "バニラ・WorldEdit共用のコマンド実行ツール"
+
+msgid "commands.wedit:tool.description.repl"
+msgstr "ブロック置換ツール"
+
+msgid "commands.wedit:tool.description.cycler"
+msgstr "ブロック循環ツール"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"

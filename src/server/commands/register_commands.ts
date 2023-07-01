@@ -15,7 +15,7 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
   commandList.set(registerInformation.name, [registerInformation, callback]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Server.command.register(registerInformation, (player: Player, msg: string, args: Map<string, any>) => {
-    if (!hasSession(player.name)) {
+    if (!hasSession(player.id)) {
       return undefined;
     }
     const toActionBar = getSession(player).usingItem;

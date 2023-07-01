@@ -15,7 +15,7 @@ HotbarUI.register<ConfigContext>("$chooseItem", {
   tick: (ctx, player) => {
     const item = Server.player.getHeldItem(player);
     if (player.selectedSlot != 8 && item) {
-      ctx.setData("currentItem", [item.typeId, -1]);
+      ctx.setData("currentItem", item.typeId);
       ctx.goto(ctx.getData("editingBrush") ? "$selectBrushType" : "$selectToolType");
     }
   },
@@ -78,6 +78,33 @@ HotbarUI.register<ConfigContext>("$pickPatternMask", {
   exiting: ctx => {
     const session = ctx.getData("session");
     session.globalMask = ctx.getData("stashedMask");
+    session.globalPattern = ctx.getData("stashedPattern");
+  },
+  cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+});
+
+HotbarUI.register<ConfigContext>("$pickPattern", {
+  title: ctx => "%worldedit.config.pattern." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+  items: {
+    4: {
+      item: "wedit:pattern_picker",
+      action: () => { /**/ }
+    },
+    7: {
+      item: "wedit:confirm_button",
+      action: (ctx, player) => {
+        const session = ctx.getData("session");
+        ctx.getData("pickerData").onFinish(ctx, player, null, session.globalPattern);
+      }
+    }
+  },
+  entered: ctx => {
+    const session = ctx.getData("session");
+    ctx.setData("stashedPattern", session.globalPattern);
+    session.globalPattern = new Pattern();
+  },
+  exiting: ctx => {
+    const session = ctx.getData("session");
     session.globalPattern = ctx.getData("stashedPattern");
   },
   cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)

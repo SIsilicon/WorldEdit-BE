@@ -1,69 +1,1124 @@
 {
     "format_version": "1.16.0",
     "minecraft:entity": {
-		"description": {
-			"identifier": "wedit:biome_detector",
-			"is_summonable": true,
-			"is_spawnable": false,
-			"is_experimental": false,
+        "description": {
+            "identifier": "wedit:biome_detector",
+            "is_summonable": true,
+            "is_spawnable": false,
+            "is_experimental": false,
 
             "animations": {
-                "biome": "controller.animation.biome"
+                "biome": "controller.animation.biome",
+                "900": "animation.biome_detector.900",
+                "800": "animation.biome_detector.800",
+                "700": "animation.biome_detector.700",
+                "600": "animation.biome_detector.600",
+                "500": "animation.biome_detector.500",
+                "400": "animation.biome_detector.400",
+                "300": "animation.biome_detector.300",
+                "200": "animation.biome_detector.200",
+                "100": "animation.biome_detector.100",
+                "000": "animation.biome_detector.000",
+                "90": "animation.biome_detector.90",
+                "80": "animation.biome_detector.80",
+                "70": "animation.biome_detector.70",
+                "60": "animation.biome_detector.60",
+                "50": "animation.biome_detector.50",
+                "40": "animation.biome_detector.40",
+                "30": "animation.biome_detector.30",
+                "20": "animation.biome_detector.20",
+                "10": "animation.biome_detector.10",
+                "00": "animation.biome_detector.00",
+                "9": "animation.biome_detector.9",
+                "8": "animation.biome_detector.8",
+                "7": "animation.biome_detector.7",
+                "6": "animation.biome_detector.6",
+                "5": "animation.biome_detector.5",
+                "4": "animation.biome_detector.4",
+                "3": "animation.biome_detector.3",
+                "2": "animation.biome_detector.2",
+                "1": "animation.biome_detector.1",
+                "0": "animation.biome_detector.0"
             },
             "scripts": {
-                "animate": [
-                    "biome"
+                "animate": ["biome"]
+            },
+            "properties": {
+                "wedit:biome": {
+                    "type": "int",
+                    "range": [-1, 999],
+                    "default": -1
+                }
+            }
+        },
+        "component_groups": {
+            "wedit:despawned": {
+                "minecraft:instant_despawn": {}
+            }
+        },
+        "components": {
+            "minecraft:persistent": {},
+            "minecraft:physics": {
+                "has_collision": false,
+                "has_gravity": false
+            },
+            "minecraft:custom_hit_test": {
+                "hitboxes": [
+                    {
+                        "pivot": [0, 100, 0],
+                        "width": 0,
+                        "height": 0
+                    }
+                ]
+            },
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
+            "minecraft:collision_box": {
+                "width": 0.0001,
+                "height": 0.0001
+            },
+            "minecraft:health": {
+                "value": 1,
+                "max": 1,
+                "min": 1
+            },
+            "minecraft:environment_sensor": {
+                "triggers": [
+                    // Ocean.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "ocean" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "deep" },
+                                { "test": "has_biome_tag", "value": "frozen" },
+                                { "test": "has_biome_tag", "value": "lukewarm" },
+                                { "test": "has_biome_tag", "value": "cold" }
+                            ]
+                        },
+                        "event": "wedit:ocean"
+                    },
+                    // Plains.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "plains" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:plains"
+                    },
+                    // Desert.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "desert" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ]
+                        },
+                        "event": "wedit:desert"
+                    },
+                    // Extreme Hills.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "extreme_hills" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "forest" },
+                                { "test": "has_biome_tag", "value": "edge" }
+                            ]
+                        },
+                        "event": "wedit:extreme_hills"
+                    },
+                    // Forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "forest" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "birch" },
+                                { "test": "has_biome_tag", "value": "roofed" },
+                                { "test": "has_biome_tag", "value": "extreme_hills" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ]
+                        },
+                        "event": "wedit:forest"
+                    },
+                    // Taiga.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "taiga" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "mega" }
+                            ]
+                        },
+                        "event": "wedit:taiga"
+                    },
+                    // Swamp.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "swamp" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:swamp"
+                    },
+                    // River.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "river" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "frozen" }]
+                        },
+                        "event": "wedit:river"
+                    },
+                    // Nether wastes.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "nether_wastes" }]
+                        },
+                        "event": "wedit:nether_wastes"
+                    },
+                    // The end.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "the_end" }]
+                        },
+                        "event": "wedit:the_end"
+                    },
+                    // Legacy frozen ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "frozen" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "monster" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ]
+                        },
+                        "event": "wedit:legacy_frozen_ocean"
+                    },
+                    // Frozen river.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "river" },
+                                { "test": "has_biome_tag", "value": "frozen" }
+                            ]
+                        },
+                        "event": "wedit:frozen_river"
+                    },
+                    // Ice plains.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "ice_plains" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:ice_plains"
+                    },
+                    // Ice mountains.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ice" },
+                                { "test": "has_biome_tag", "value": "mountain" }
+                            ]
+                        },
+                        "event": "wedit:ice_mountains"
+                    },
+                    // Mushroom island.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "mooshroom_island" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "shore" }]
+                        },
+                        "event": "wedit:mushroom_island"
+                    },
+                    // Mushroom island shore.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mooshroom_island" },
+                                { "test": "has_biome_tag", "value": "shore" }
+                            ]
+                        },
+                        "event": "wedit:mushroom_island_shore"
+                    },
+                    // Beach.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "beach" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "stone" },
+                                { "test": "has_biome_tag", "value": "cold" }
+                            ]
+                        },
+                        "event": "wedit:beach"
+                    },
+                    // Desert hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "desert" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:desert"
+                    },
+                    // Forest hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "forest" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "birch" },
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "roofed" },
+                                { "test": "has_biome_tag", "value": "extreme_hills" }
+                            ]
+                        },
+                        "event": "wedit:forest_hills"
+                    },
+                    // Taiga hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "mega" }
+                            ]
+                        },
+                        "event": "wedit:taiga_hills"
+                    },
+                    // Extreme hills edge.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "extreme_hills" },
+                                { "test": "has_biome_tag", "value": "edge" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "forest" }
+                            ]
+                        },
+                        "event": "wedit:extreme_hills_edge"
+                    },
+                    // Jungle.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "jungle" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ]
+                        },
+                        "event": "wedit:jungle"
+                    },
+                    // Jungle hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ]
+                        },
+                        "event": "wedit:jungle_hills"
+                    },
+                    // Jungle edge.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "edge" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ]
+                        },
+                        "event": "wedit:jungle_edge"
+                    },
+                    // Deep ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "lukewarm" },
+                                { "test": "has_biome_tag", "value": "frozen" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "warm" }
+                            ]
+                        },
+                        "event": "wedit:deep_ocean"
+                    },
+                    // Stone beach.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "beach" },
+                                { "test": "has_biome_tag", "value": "stone" }
+                            ]
+                        },
+                        "event": "wedit:stone_beach"
+                    },
+                    // Cold beach.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "beach" }
+                            ]
+                        },
+                        "event": "wedit:cold_beach"
+                    },
+                    // Birch forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "birch" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:birch_forest"
+                    },
+                    // Birch forest hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "birch" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:birch_forest_hills"
+                    },
+                    // Roofed forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "roofed" }],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:roofed_forest"
+                    },
+                    // Cold taiga.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "cold" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ]
+                        },
+                        "event": "wedit:cold_taiga"
+                    },
+                    // Cold taiga hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:cold_taiga_hills"
+                    },
+                    // Mega taiga.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "mega" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:mega_taiga"
+                    },
+                    // Mega taiga hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mega" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:mega_taiga_hills"
+                    },
+                    // Extreme hills plus trees.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "extreme_hills" },
+                                { "test": "has_biome_tag", "value": "forest" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "edge" }
+                            ]
+                        },
+                        "event": "wedit:extreme_hills_plus_trees"
+                    },
+                    // Savanna.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "savanna" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "plateau" }
+                            ]
+                        },
+                        "event": "wedit:savanna"
+                    },
+                    // Savanna plateau.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "savanna" },
+                                { "test": "has_biome_tag", "value": "plateau" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:savanna_plateau"
+                    },
+                    // Mesa.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "mesa" }],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "stone" }
+                            ]
+                        },
+                        "event": "wedit:mesa"
+                    },
+                    // Mesa plateau stone.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mesa" },
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "stone" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "mutated" }]
+                        },
+                        "event": "wedit:mesa_plateau_stone"
+                    },
+                    // Mesa plateau.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mesa" },
+                                { "test": "has_biome_tag", "value": "plateau" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "stone" }
+                            ]
+                        },
+                        "event": "wedit:mesa_plateau"
+                    },
+                    // Warm ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "warm" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "deep" }]
+                        },
+                        "event": "wedit:warm_ocean"
+                    },
+                    // Deep warm ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "warm" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ]
+                        },
+                        "event": "wedit:deep_warm_ocean"
+                    },
+                    // Lukewarm ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "lukewarm" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "deep" }]
+                        },
+                        "event": "wedit:lukewarm_ocean"
+                    },
+                    // Deep lukewarm ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "lukewarm" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ]
+                        },
+                        "event": "wedit:deep_lukewarm_ocean"
+                    },
+                    // Cold ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "cold" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "deep" }]
+                        },
+                        "event": "wedit:cold_ocean"
+                    },
+                    // Deep cold ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ]
+                        },
+                        "event": "wedit:deep_cold_ocean"
+                    },
+                    // Frozen ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "frozen" },
+                                { "test": "has_biome_tag", "value": "monster" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "deep" }]
+                        },
+                        "event": "wedit:frozen_ocean"
+                    },
+                    // Deep frozen ocean.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ocean" },
+                                { "test": "has_biome_tag", "value": "frozen" },
+                                { "test": "has_biome_tag", "value": "monster" },
+                                { "test": "has_biome_tag", "value": "deep" }
+                            ]
+                        },
+                        "event": "wedit:deep_frozen_ocean"
+                    },
+                    // Bamboo jungle.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "mutated" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ]
+                        },
+                        "event": "wedit:bamboo_jungle"
+                    },
+                    // Bamboo jungle hills.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "bamboo" },
+                                { "test": "has_biome_tag", "value": "hills" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:bamboo_jungle_hills"
+                    },
+                    // Sunflower plains.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "plains" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:sunflower_plains"
+                    },
+                    // Desert mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "desert" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "hills" }]
+                        },
+                        "event": "wedit:desert_mutated"
+                    },
+                    // Extreme hills mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "extreme_hills" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "forest" },
+                                { "test": "has_biome_tag", "value": "edge" }
+                            ]
+                        },
+                        "event": "wedit:extreme_hills_mutated"
+                    },
+                    // Flower forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "flower_forest" }]
+                        },
+                        "event": "wedit:flower_forest"
+                    },
+                    // Taiga mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "mega" }
+                            ]
+                        },
+                        "event": "wedit:taiga_mutated"
+                    },
+                    // Swampland mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "swamp" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:swampland_mutated"
+                    },
+                    // Ice plains spikes.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "ice_plains" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:ice_plains_spikes"
+                    },
+                    // Jungle mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ]
+                        },
+                        "event": "wedit:jungle_mutated"
+                    },
+                    // Jungle edge mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "jungle" },
+                                { "test": "has_biome_tag", "value": "edge" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "bamboo" }
+                            ]
+                        },
+                        "event": "wedit:jungle_edge_mutated"
+                    },
+                    // Birch forest mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "birch" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "hills" }]
+                        },
+                        "event": "wedit:birch_forest_mutated"
+                    },
+                    // Birch forest hills mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "birch" },
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:birch_forest_hills_mutated"
+                    },
+                    // Roofed forest mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "roofed" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:roofed_forest_mutated"
+                    },
+                    // Cold taiga mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "taiga" },
+                                { "test": "has_biome_tag", "value": "cold" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "hills" }]
+                        },
+                        "event": "wedit:cold_taiga_mutated"
+                    },
+                    // Redwood taiga mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mega" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "hills" }]
+                        },
+                        "event": "wedit:redwood_taiga_mutated"
+                    },
+                    // Redwood taiga hills mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mega" },
+                                { "test": "has_biome_tag", "value": "hills" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:redwood_taiga_hills_mutated"
+                    },
+                    // Extreme hills plus trees mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "extreme_hills" },
+                                { "test": "has_biome_tag", "value": "forest" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "edge" }]
+                        },
+                        "event": "wedit:extreme_hills_plus_trees_mutated"
+                    },
+                    // Savanna mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "savanna" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "plateau" }]
+                        },
+                        "event": "wedit:savanna_mutated"
+                    },
+                    // Savanna plateau mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "savanna" },
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:savanna_plateau_mutated"
+                    },
+                    // Mesa bryce.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mesa" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "stone" }
+                            ]
+                        },
+                        "event": "wedit:mesa_bryce"
+                    },
+                    // Mesa plateau stone mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mesa" },
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "stone" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ]
+                        },
+                        "event": "wedit:mesa_plateau_stone_mutated"
+                    },
+                    // Mesa plateau mutated.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "mesa" },
+                                { "test": "has_biome_tag", "value": "plateau" },
+                                { "test": "has_biome_tag", "value": "mutated" }
+                            ],
+                            "none_of": [{ "test": "has_biome_tag", "value": "stone" }]
+                        },
+                        "event": "wedit:mesa_plateau_mutated"
+                    },
+                    // Soulsand valley.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "soulsand_valley" }]
+                        },
+                        "event": "wedit:soulsand_valley"
+                    },
+                    // Crimson forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "crimson_forest" }]
+                        },
+                        "event": "wedit:crimson_forest"
+                    },
+                    // Warped forest.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "warped_forest" }]
+                        },
+                        "event": "wedit:warped_forest"
+                    },
+                    // Basalt deltas.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "basalt_deltas" }]
+                        },
+                        "event": "wedit:basalt_deltas"
+                    },
+                    // Jagged peaks.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "jagged_peaks" }]
+                        },
+                        "event": "wedit:jagged_peaks"
+                    },
+                    // Frozen peaks.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "frozen_peaks" }]
+                        },
+                        "event": "wedit:frozen_peaks"
+                    },
+                    // Snowy slopes.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "snowy_slopes" }]
+                        },
+                        "event": "wedit:snowy_slopes"
+                    },
+                    // Grove.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "grove" }]
+                        },
+                        "event": "wedit:grove"
+                    },
+                    // Meadow.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "meadow" }]
+                        },
+                        "event": "wedit:meadow"
+                    },
+                    // Lush caves.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "lush_caves" }]
+                        },
+                        "event": "wedit:lush_caves"
+                    },
+                    // Dripstone caves.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "dripstone_caves" }]
+                        },
+                        "event": "wedit:dripstone_caves"
+                    },
+                    // Deep dark.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "deep_dark" }]
+                        },
+                        "event": "wedit:deep_dark"
+                    },
+                    // Mangrove swamp.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "mangrove_swamp" }]
+                        },
+                        "event": "wedit:mangrove_swamp"
+                    },
+                    // Stony peaks.
+                    {
+                        "filters": {
+                            "all_of": [
+                                { "test": "has_biome_tag", "value": "monster" },
+                                { "test": "has_biome_tag", "value": "mountains" },
+                                { "test": "has_biome_tag", "value": "overworld" }
+                            ],
+                            "none_of": [
+                                { "test": "has_biome_tag", "value": "frozen" },
+                                { "test": "has_biome_tag", "value": "grove" },
+                                { "test": "has_biome_tag", "value": "meadow" }
+                            ]
+                        },
+                        "event": "wedit:stony_peaks"
+                    },
+                    // Cherry grove.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "cherry_grove" }]
+                        },
+                        "event": "wedit:cherry_grove"
+                    }
                 ]
             }
-		},
-		"component_groups": {
-			"wedit:despawned": {
-				"minecraft:instant_despawn": {}
-			}
-		},
-		"components": {
-			"minecraft:persistent": {},
-			"minecraft:physics": {
-				"has_collision": false,
-				"has_gravity": false
-			},
-			"minecraft:custom_hit_test": {
-				"hitboxes": [
-					{
-						"pivot": [
-							0,
-							100,
-							0
-						],
-						"width": 0,
-						"height": 0
-					}
-				]
-			},
-			"minecraft:damage_sensor": {
-				"triggers": {
-					"deals_damage": false
-				}
-			},
-			"minecraft:collision_box": {
-				"width": 0.0001,
-				"height": 0.0001
-			},
-			"minecraft:health": {
-				"value": 1,
-				"max": 1,
-				"min": 1
-			}
-		},
-		"events": {
-			"wedit:despawn": {
-				"add": {
-					"component_groups": [
-						"wedit:despawned"
-					]
-				}
-			},
-			"wedit:biome_update": {}
-		}
-	}
+        },
+        "events": {
+            "wedit:reset_biome_property": { "set_property": { "wedit:biome": -1 } },
+
+            "wedit:ocean": { "set_property": { "wedit:biome": 0 } },
+            "wedit:plains": { "set_property": { "wedit:biome": 1 } },
+            "wedit:desert": { "set_property": { "wedit:biome": 2 } },
+            "wedit:extreme_hills": { "set_property": { "wedit:biome": 3 } },
+            "wedit:forest": { "set_property": { "wedit:biome": 4 } },
+            "wedit:taiga": { "set_property": { "wedit:biome": 5 } },
+            "wedit:swamp": { "set_property": { "wedit:biome": 6 } },
+            "wedit:river": { "set_property": { "wedit:biome": 7 } },
+            "wedit:nether_wastes": { "set_property": { "wedit:biome": 8 } },
+            "wedit:the_end": { "set_property": { "wedit:biome": 9 } },
+            "wedit:legacy_frozen_ocean": { "set_property": { "wedit:biome": 10 } },
+            "wedit:frozen_river": { "set_property": { "wedit:biome": 11 } },
+            "wedit:ice_plains": { "set_property": { "wedit:biome": 12 } },
+            "wedit:ice_mountains": { "set_property": { "wedit:biome": 13 } },
+            "wedit:mushroom_island": { "set_property": { "wedit:biome": 14 } },
+            "wedit:mushroom_island_shore": { "set_property": { "wedit:biome": 15 } },
+            "wedit:beach": { "set_property": { "wedit:biome": 16 } },
+            "wedit:desert_hills": { "set_property": { "wedit:biome": 17 } },
+            "wedit:forest_hills": { "set_property": { "wedit:biome": 18 } },
+            "wedit:taiga_hills": { "set_property": { "wedit:biome": 19 } },
+            "wedit:extreme_hills_edge": { "set_property": { "wedit:biome": 20 } },
+            "wedit:jungle": { "set_property": { "wedit:biome": 21 } },
+            "wedit:jungle_hills": { "set_property": { "wedit:biome": 22 } },
+            "wedit:jungle_edge": { "set_property": { "wedit:biome": 23 } },
+            "wedit:deep_ocean": { "set_property": { "wedit:biome": 24 } },
+            "wedit:stone_beach": { "set_property": { "wedit:biome": 25 } },
+            "wedit:cold_beach": { "set_property": { "wedit:biome": 26 } },
+            "wedit:birch_forest": { "set_property": { "wedit:biome": 27 } },
+            "wedit:birch_forest_hills": { "set_property": { "wedit:biome": 28 } },
+            "wedit:roofed_forest": { "set_property": { "wedit:biome": 29 } },
+            "wedit:cold_taiga": { "set_property": { "wedit:biome": 30 } },
+            "wedit:cold_taiga_hills": { "set_property": { "wedit:biome": 31 } },
+            "wedit:mega_taiga": { "set_property": { "wedit:biome": 32 } },
+            "wedit:mega_taiga_hills": { "set_property": { "wedit:biome": 33 } },
+            "wedit:extreme_hills_plus_trees": { "set_property": { "wedit:biome": 34 } },
+            "wedit:savanna": { "set_property": { "wedit:biome": 35 } },
+            "wedit:savanna_plateau": { "set_property": { "wedit:biome": 36 } },
+            "wedit:mesa": { "set_property": { "wedit:biome": 37 } },
+            "wedit:mesa_plateau_stone": { "set_property": { "wedit:biome": 38 } },
+            "wedit:mesa_plateau": { "set_property": { "wedit:biome": 39 } },
+            "wedit:warm_ocean": { "set_property": { "wedit:biome": 40 } },
+            "wedit:deep_warm_ocean": { "set_property": { "wedit:biome": 41 } },
+            "wedit:lukewarm_ocean": { "set_property": { "wedit:biome": 42 } },
+            "wedit:deep_lukewarm_ocean": { "set_property": { "wedit:biome": 43 } },
+            "wedit:cold_ocean": { "set_property": { "wedit:biome": 44 } },
+            "wedit:deep_cold_ocean": { "set_property": { "wedit:biome": 45 } },
+            "wedit:frozen_ocean": { "set_property": { "wedit:biome": 46 } },
+            "wedit:deep_frozen_ocean": { "set_property": { "wedit:biome": 47 } },
+            "wedit:bamboo_jungle": { "set_property": { "wedit:biome": 48 } },
+            "wedit:bamboo_jungle_hills": { "set_property": { "wedit:biome": 49 } },
+            "wedit:sunflower_plains": { "set_property": { "wedit:biome": 129 } },
+            "wedit:desert_mutated": { "set_property": { "wedit:biome": 130 } },
+            "wedit:extreme_hills_mutated": { "set_property": { "wedit:biome": 131 } },
+            "wedit:flower_forest": { "set_property": { "wedit:biome": 132 } },
+            "wedit:taiga_mutated": { "set_property": { "wedit:biome": 133 } },
+            "wedit:swampland_mutated": { "set_property": { "wedit:biome": 134 } },
+            "wedit:ice_plains_spikes": { "set_property": { "wedit:biome": 140 } },
+            "wedit:jungle_mutated": { "set_property": { "wedit:biome": 149 } },
+            "wedit:jungle_edge_mutated": { "set_property": { "wedit:biome": 151 } },
+            "wedit:birch_forest_mutated": { "set_property": { "wedit:biome": 155 } },
+            "wedit:birch_forest_hills_mutated": { "set_property": { "wedit:biome": 156 } },
+            "wedit:roofed_forest_mutated": { "set_property": { "wedit:biome": 157 } },
+            "wedit:cold_taiga_mutated": { "set_property": { "wedit:biome": 158 } },
+            "wedit:redwood_taiga_mutated": { "set_property": { "wedit:biome": 160 } },
+            "wedit:redwood_taiga_hills_mutated": { "set_property": { "wedit:biome": 161 } },
+            "wedit:extreme_hills_plus_trees_mutated": { "set_property": { "wedit:biome": 162 } },
+            "wedit:savanna_mutated": { "set_property": { "wedit:biome": 163 } },
+            "wedit:savanna_plateau_mutated": { "set_property": { "wedit:biome": 164 } },
+            "wedit:mesa_bryce": { "set_property": { "wedit:biome": 165 } },
+            "wedit:mesa_plateau_stone_mutated": { "set_property": { "wedit:biome": 166 } },
+            "wedit:mesa_plateau_mutated": { "set_property": { "wedit:biome": 167 } },
+            "wedit:soulsand_valley": { "set_property": { "wedit:biome": 178 } },
+            "wedit:crimson_forest": { "set_property": { "wedit:biome": 179 } },
+            "wedit:warped_forest": { "set_property": { "wedit:biome": 180 } },
+            "wedit:basalt_deltas": { "set_property": { "wedit:biome": 181 } },
+            "wedit:jagged_peaks": { "set_property": { "wedit:biome": 182 } },
+            "wedit:frozen_peaks": { "set_property": { "wedit:biome": 183 } },
+            "wedit:snowy_slopes": { "set_property": { "wedit:biome": 184 } },
+            "wedit:grove": { "set_property": { "wedit:biome": 185 } },
+            "wedit:meadow": { "set_property": { "wedit:biome": 186 } },
+            "wedit:lush_caves": { "set_property": { "wedit:biome": 187 } },
+            "wedit:dripstone_caves": { "set_property": { "wedit:biome": 188 } },
+            "wedit:stony_peaks": { "set_property": { "wedit:biome": 189 } },
+            "wedit:deep_dark": { "set_property": { "wedit:biome": 190 } },
+            "wedit:mangrove_swamp": { "set_property": { "wedit:biome": 191 } },
+            "wedit:cherry_grove": { "set_property": { "wedit:biome": 192 } },
+
+            "wedit:despawn": { "add": { "component_groups": ["wedit:despawned"] } },
+            "wedit:biome_update": {}
+        }
+    }
 }

@@ -12,8 +12,10 @@ import { Tools } from "../tools/tool_manager.js";
 import { selectionModes } from "@modules/selection.js";
 import { ConfigContext, ToolTypes } from "./types.js";
 import config from "config.js";
-
-// TODO: Add structure brush and block replacer tool
+import { StructureBrush } from "server/brushes/structure_brush.js";
+import { getSession } from "server/sessions.js";
+import { ErosionBrush } from "server/brushes/erosion_brush.js";
+import { OverlayBrush } from "server/brushes/overlay_brush.js";
 
 type MenuConfigCtx = MenuContext<ConfigContext>
 type ModalFormInput = ModalForm<ConfigContext>["inputs"]
@@ -61,13 +63,10 @@ const brushPatternInput: ModalFormInput = {
   }
 };
 
-function displayItem(item: [string, number]) {
-  let result = item[0];
+function displayItem(item: string) {
+  let result = item;
   if (result.startsWith("minecraft:")) {
     result = result.slice("minecraft:".length);
-  }
-  if (item[1] > 0) {
-    result += ":" + item[1];
   }
   return result;
 }
@@ -77,15 +76,15 @@ function editToolTitle(ctx: MenuConfigCtx) {
 }
 
 function getToolProperty(ctx: MenuConfigCtx, player: Player, prop: string) {
-  return Tools.getProperty(...ctx.getData("currentItem"), player, prop);
+  return Tools.getProperty(ctx.getData("currentItem"), player.id, prop);
 }
 
 function getTools(player: Player, brushes: boolean) {
-  return Tools.getBoundItems(player, brushes ? "brush" : /^.*(?<!brush)$/);
+  return Tools.getBoundItems(player.id, brushes ? "brush" : /^.*(?<!brush)$/);
 }
 
 function getToolType(ctx: MenuConfigCtx, player: Player) {
-  return ctx.getData("creatingTool") ?? Tools.getBindingType(...ctx.getData("currentItem"), player);
+  return ctx.getData("creatingTool") ?? Tools.getBindingType(ctx.getData("currentItem"), player.id);
 }
 
 function finishToolEdit(ctx: MenuConfigCtx) {
@@ -172,7 +171,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
   buttons: (ctx, player) => {
     const buttons = [];
     for (const tool of getTools(player, ctx.getData("editingBrush"))) {
-      const toolType = Tools.getBindingType(...tool as [string, number], player) as ToolTypes;
+      const toolType = Tools.getBindingType(tool, player.id) as ToolTypes;
       buttons.push({
         text: displayItem(tool),
         action: (ctx: MenuConfigCtx) => {
@@ -181,7 +180,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
           if (toolsWithProperties.includes(toolType)) {
             ctx.goto(`$editTool_${toolType}`);
           } else if (toolType == "brush") {
-            ctx.goto(`$editTool_${(Tools.getProperty(...tool, player, "brush") as Brush).id}`);
+            ctx.goto(`$editTool_${(Tools.getProperty(tool, player.id, "brush") as Brush).id}`);
           } else {
             ctx.goto("$toolNoConfig");
           }
@@ -272,6 +271,39 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
   cancel: ctx => ctx.returnto("$tools")
 });
 toolsWithProperties.push("command_wand");
+
+Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
+  title: editToolTitle,
+  inputs: {
+    $pattern: {
+      type: "textField",
+      name: "%worldedit.config.pattern",
+      placeholder: "Eg: stone,dirt",
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return "";
+        return (getToolProperty(ctx, player, "pattern") as Pattern).getSource();
+      }
+    },
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_replacer_wand",
+        onFinish: (ctx, _, _mask, pattern) => {
+          ctx.setData("toolData", [pattern]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickPattern", player, ctx);
+    } else {
+      ctx.setData("toolData", [new Pattern(input.$pattern as string)]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+toolsWithProperties.push("replacer_wand");
 
 Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
   title: editToolTitle,
@@ -404,6 +436,101 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
   cancel: ctx => ctx.returnto("$tools")
 });
 
+Server.uiForms.register<ConfigContext>("$editTool_structure_brush", {
+  title: editToolTitle,
+  inputs: {
+    $structs: {
+      type: "textField",
+      name: "%worldedit.config.structures",
+      placeholder: "Leave blank for current clipboard",
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return "";
+        return (getToolProperty(ctx, player, "brush") as StructureBrush).imports?.join(" ") ?? "";
+      }
+    }
+  },
+  submit: (ctx, player, input) => {
+    ctx.setData("toolData", [new StructureBrush((input.$structs as string)?.split(" ") || getSession(player).clipboard, null), null, null, null]);
+    finishToolEdit(ctx);
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
+Server.uiForms.register<ConfigContext>("$editTool_erosion_brush", {
+  title: editToolTitle,
+  inputs: {
+    ...brushSizeInput,
+    $erosion: {
+      type: "dropdown",
+      name: "%worldedit.config.erosion",
+      options: ["Erode", "Lift", "Fill", "Melt", "Smooth"],
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return 0;
+        return (getToolProperty(ctx, player, "brush") as ErosionBrush).getType();
+      }
+    },
+    ...maskInput,
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_erosion_brush",
+        onFinish: (ctx, _, mask) => {
+          ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), mask, null, null]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickMask", player, ctx);
+    } else {
+      ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), new Mask(input.$mask as string), null, null]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
+Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
+  title: editToolTitle,
+  inputs: {
+    ...brushSizeInput,
+    ...brushPatternInput,
+    $depth: {
+      type: "slider",
+      name: "%worldedit.config.depth",
+      min: -10, max: 10,
+      default: (ctx, player) => {
+        if (ctx.getData("creatingTool")) return 1;
+        return (getToolProperty(ctx, player, "brush") as OverlayBrush).getDepth();
+      }
+    },
+    ...maskInput,
+    ...usePickerInput
+  },
+  submit: (ctx, player, input) => {
+    if (input.$usePicker) {
+      ctx.setData("pickerData", {
+        return: "$editTool_overlay_brush",
+        onFinish: (ctx, _, mask, pattern) => {
+          ctx.setData("toolData", [
+            new OverlayBrush(input.$size as number, input.$depth as number, pattern, null),
+            mask, null, null
+          ]);
+          finishToolEdit(ctx);
+        }
+      });
+      HotbarUI.goto("$pickPatternMask", player, ctx);
+    } else {
+      ctx.setData("toolData", [
+        new OverlayBrush(input.$size as number, input.$depth as number, new Pattern(input.$pattern as string), null),
+        new Mask(input.$mask as string), null, null
+      ]);
+      finishToolEdit(ctx);
+    }
+  },
+  cancel: ctx => ctx.returnto("$tools")
+});
+
 Server.uiForms.register<ConfigContext>("$selectToolType", {
   title: "%worldedit.config.choose.tool",
   buttons: [
@@ -446,6 +573,22 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
         ctx.setData("creatingTool", "command_wand");
         ctx.goto("$editTool_command_wand");
       }
+    },
+    {
+      text: "%worldedit.config.tool.repl",
+      icon: "textures/ui/replacer_wand",
+      action: ctx => {
+        ctx.setData("creatingTool", "replacer_wand");
+        ctx.goto("$editTool_replacer_wand");
+      }
+    },
+    {
+      text: "%worldedit.config.tool.cycle",
+      icon: "textures/ui/cycler_wand",
+      action: ctx => {
+        ctx.setData("creatingTool", "cycler_wand");
+        finishToolEdit(ctx);
+      }
     }
   ],
   cancel: ctx => ctx.returnto("$tools")
@@ -477,6 +620,30 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
         ctx.setData("creatingTool", "smooth_brush");
         ctx.goto("$editTool_smooth_brush");
       }
+    },
+    {
+      text: "%worldedit.config.brush.struct",
+      icon: "textures/ui/structure_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "structure_brush");
+        ctx.goto("$editTool_structure_brush");
+      }
+    },
+    {
+      text: "%worldedit.config.brush.erode",
+      icon: "textures/ui/erosion_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "erosion_brush");
+        ctx.goto("$editTool_erosion_brush");
+      }
+    },
+    {
+      text: "%worldedit.config.brush.overlay",
+      icon: "textures/ui/overlay_brush",
+      action: ctx => {
+        ctx.setData("creatingTool", "overlay_brush");
+        ctx.goto("$editTool_overlay_brush");
+      }
     }
   ],
   cancel: ctx => ctx.returnto("$tools")
@@ -503,10 +670,14 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
         session.bindTool("stacker_wand", item, ...toolData);
       } else if (toolType == "command_wand") {
         session.bindTool("command_wand", item, ...toolData);
+      } else if (toolType == "replacer_wand") {
+        session.bindTool("replacer_wand", item, ...toolData);
+      } else if (toolType == "cycler_wand") {
+        session.bindTool("cycler_wand", item);
       } else if (toolType.endsWith("brush")) {
         session.bindTool("brush", item, toolData[0], toolData[1]);
-        Tools.setProperty(...item, player, "range", toolData[2]);
-        Tools.setProperty(...item, player, "traceMask", toolData[3]);
+        Tools.setProperty(item, player.id, "range", toolData[2]);
+        Tools.setProperty(item, player.id, "traceMask", toolData[3]);
       }
       ctx.returnto("$tools");
     }
@@ -550,7 +721,7 @@ Server.uiForms.register<ConfigContext>("$deleteTools", {
   inputs: (ctx, player) => {
     const toggles: ModalFormInput = {};
     for (const tool of getTools(player, ctx.getData("editingBrush"))) {
-      toggles[`$${tool.join("--")}`] = {
+      toggles[`$${tool}`] = {
         name: displayItem(tool),
         type: "toggle"
       };
@@ -558,12 +729,11 @@ Server.uiForms.register<ConfigContext>("$deleteTools", {
     return toggles;
   },
   submit: (ctx, _, input) => {
-    const toDelete: [string, number][] = [];
+    const toDelete: string[] = [];
     for (const [key, value] of Object.entries(input)) {
-      const [id, dataString] = key.slice(1).split("--") as [string, string];
-      const dataValue = Number.parseInt(dataString);
       if (value) {
-        toDelete.push([id, dataValue]);
+        const id = key.slice(1);
+        toDelete.push(id);
       }
     }
     if (toDelete.length) {

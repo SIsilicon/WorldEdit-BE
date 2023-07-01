@@ -41,6 +41,8 @@ export class ErosionBrush extends Brush {
   private radius: number;
   private preset: ErosionPreset;
 
+  private type: ErosionType;
+
   /**
     * @param radius The radius of the spheres
     * @param type The type of erosion brush
@@ -50,6 +52,7 @@ export class ErosionBrush extends Brush {
     this.assertSizeInRange(radius);
     this.radius = radius;
     this.preset = erosionTypes.get(type);
+    this.type = type;
   }
 
   public resize(value: number) {
@@ -59,6 +62,10 @@ export class ErosionBrush extends Brush {
 
   public getSize(): number {
     return this.radius;
+  }
+
+  public getType(): ErosionType {
+    return this.type;
   }
 
   public paintWith() {

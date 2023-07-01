@@ -261,12 +261,14 @@ export class History {
   }
 
   private deleteHistoryRegions(index: number) {
-    for (const struct of this.undoStructures[index]) {
-      Server.structure.delete(struct.name);
-    }
-    for (const struct of this.redoStructures[index]) {
-      Server.structure.delete(struct.name);
-    }
+    try {
+      for (const struct of this.undoStructures[index]) {
+        Server.structure.delete(struct.name);
+      }
+      for (const struct of this.redoStructures[index]) {
+        Server.structure.delete(struct.name);
+      }
+    } catch { /* pass */ }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
