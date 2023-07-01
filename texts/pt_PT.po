@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-07-01 04:05\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -959,10 +959,10 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "Por padrão, os jogadores não podem usar o WorldEdit. Apenas aqueles marcados com permissão de worldedit podem usar seus recursos. Para dar a si mesmo permissão, digite §e/tag @s add worldedit§r no chat. Agora, você deve ter acesso a todos os comandos WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aDica:§r§a Você também pode dar permissão a outros jogadores alterando §e@s§r§a para o nome do jogador. Você precisará envolvê-lo em aspas se ele tiver um espaço. Por exemplo: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Going places"
