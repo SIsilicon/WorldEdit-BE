@@ -112,6 +112,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     [start, end] = session.selection.getRange();
   }
 
+  pattern.setContext(session, [start, end]);
+
   const history = session.getHistory();
   const record = history.record();
   let count: number;
@@ -121,7 +123,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     count = 0;
     for (const point of points) {
       const block = dim.getBlock(point);
-      if (session.globalMask.matchesBlock(block) && !pattern.setBlock(block)) {
+      if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
         count++;
       }
       yield;

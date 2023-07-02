@@ -1,6 +1,6 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
 import { MolangVariableMap, Player, system } from "@minecraft/server";
-import { Shape } from "../shapes/base_shape.js";
+import { Shape, shapeGenOptions } from "../shapes/base_shape.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { CylinderShape } from "../shapes/cylinder.js";
@@ -106,11 +106,11 @@ export class Selection {
   /**
    * @return The blocks within the current selection
    */
-  public* getBlocks() {
+  public* getBlocks(options?: shapeGenOptions) {
     if (!this.isValid()) return;
 
     const [shape, loc] = this.getShape();
-    yield* shape.getBlocks(loc);
+    yield* shape.getBlocks(loc, options);
   }
 
   /**
