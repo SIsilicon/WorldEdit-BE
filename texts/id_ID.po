@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-07-03 03:03\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -600,6 +600,9 @@ msgstr "Menghasilkan silinder berongga"
 
 msgid "commands.wedit:help.header"
 msgstr "--- Menampilkan halaman bantuan %1 dari %2 (;help <page>) ---"
+
+msgid "commands.wedit:hollow.description"
+msgstr "Hollow out the objects contained in your selection"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Setel posisi pertama seleksi Anda ke posisi blok yang Anda hadapi"
