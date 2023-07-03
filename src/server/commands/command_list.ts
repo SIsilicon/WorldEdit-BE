@@ -58,7 +58,7 @@ import "./region/flip.js";
 import "./region/wall.js";
 import "./region/smooth.js";
 import "./region/faces.js";
-// TODO: Implement hollow
+import "./region/hollow.js";
 import "./region/line.js";
 import "./region/center.js";
 
