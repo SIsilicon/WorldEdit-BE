@@ -66,10 +66,10 @@ export abstract class Shape {
   /**
    * Returns blocks that are in the shape.
    */
-  public* getBlocks(loc: Vector3): Generator<Vector3> {
+  public* getBlocks(loc: Vector3, options?: shapeGenOptions): Generator<Vector3> {
     const range = this.getRegion(loc);
     this.genVars = {};
-    this.prepGeneration(this.genVars);
+    this.prepGeneration(this.genVars, options);
 
     for (const block of regionIterateBlocks(...range)) {
       if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) {
