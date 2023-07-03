@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-07-03 03:02\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -600,6 +600,9 @@ msgstr "Générer un cylindre creux"
 
 msgid "commands.wedit:help.header"
 msgstr "--- Affichage de la page d'aide %1 de %2 (;help <page>) ---"
+
+msgid "commands.wedit:hollow.description"
+msgstr "Hollow out the objects contained in your selection"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Set the first position of your selection to the position of the block you're facing"
