@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-07-09 20:49\n"
+"PO-Revision-Date: 2023-07-09 21:58\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -800,16 +800,16 @@ msgid "commands.wedit:size.offset"
 msgstr "オフセット: %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "ポジション1: %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "ポジション2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "サイズ: %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "種類: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "領域内に降雪をシミュレートする"
