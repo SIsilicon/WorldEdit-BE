@@ -11,8 +11,8 @@ __Please note that this addon requires experimental features. To be on the safe 
 
 ## Installation
 ### Locally
-First you must download the mcaddon file. You can find one in the [release section](https://github.com/SIsilicon/WorldEdit-BE/releases). After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack (the resource pack should apply automatically). The "Holiday Creator Features" and "GameTest Framework" experimental features must also be enabled.
-![GameTest Framework and Holiday Creator Features](docs/Experimental_Features.jpg)
+First you must download the mcaddon file. You can find one in the [release section](https://github.com/SIsilicon/WorldEdit-BE/releases). After which, you open it with Minecraft and it will be imported into your game. Once there, choose a world you want to apply this addon to, and add the behaviour pack (the resource pack should apply automatically). The "Beta APIs" experimental feature must also be enabled.
+![Beta APIs](docs/Experimental_Features.jpg)
 And that's it! Your world is ready for WorldEdit.
 
 ### Aternos server
