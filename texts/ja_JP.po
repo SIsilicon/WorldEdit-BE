@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-07-09 09:16\n"
+"PO-Revision-Date: 2023-07-09 14:47\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -787,8 +787,29 @@ msgstr "選択範囲をシフトする"
 msgid "commands.wedit:shift.explain"
 msgstr "範囲を移動しました。"
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "ブラシのサイズを設定する"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "領域内に降雪をシミュレートする"
