@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-07-09 03:14\n"
+"PO-Revision-Date: 2023-07-09 04:26\n"
 
 msgid "pack.description"
-msgstr "기존JavaEdition 모드의 복사본을 개발 중입니다. 애드온 제작자 : SIsilicon (§l§b@iSiliconS§r)"
+msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit 스크립트가 중단되었습니다! §r/reload§c으로 스크립트를 다시 불러와주시기 바랍니다 (다른 스크립트 또는 행동 팩들 또한 다시 불러와집니다.).§r"
+msgstr "§cWorldEdit의 스크립트가 중지되었습니다! §r/reload§c로 재설정합니다(다른 스크립트도 재설정됨).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -80,7 +80,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "마스크를 블록으로 설정: "
 
 msgid "worldedit.config.mainMenu"
-msgstr "WorldEdit 설정"
+msgstr "월드에딧 설정"
 
 msgid "worldedit.config.brushes"
 msgstr "브러시"
@@ -104,7 +104,7 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "테두리 그리기"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "모드 선택"
+msgstr "선택 모드"
 
 msgid "worldedit.config.newTool"
 msgstr "새로운 도구 제작"
@@ -113,7 +113,7 @@ msgid "worldedit.config.newBrush"
 msgstr "새로운 브러시 제작"
 
 msgid "worldedit.selectionMode.cuboid"
-msgstr "정육면체"
+msgstr "직육면체"
 
 msgid "worldedit.selectionMode.extend"
 msgstr "확장"
@@ -263,7 +263,7 @@ msgid "worldedit.selection.extend.primaryArea"
 msgstr "선택 시작 지점 %1 선택됨. (%2)"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "%1 (%2)을 포함하도록 선택이 확장되었습니다."
+msgstr "%1 (%2) 을(를) 포함하도록 선택이 확장되었습니다."
 
 msgid "worldedit.selection.sphere.primary"
 msgstr "범위가 %1로 설정되었습니다."
@@ -299,7 +299,7 @@ msgid "worldedit.error.loadHistory"
 msgstr "기록 지점을 불러오는 데 실패함!"
 
 msgid "worldedit.error.stillRecording"
-msgstr "기록이 아직 기록중임!"
+msgstr "기록이 아직 기록중입니다!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 블록이 바뀌었습니다."
