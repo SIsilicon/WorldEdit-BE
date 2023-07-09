@@ -65,7 +65,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(drainStart));
   Jobs.nextStep(job, "Calculating and Draining blocks...");
-  const blocks = yield* floodFill(drainStart, args.get("radius"), dimension, (ctx, dir) => {
+  const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx, dir) => {
     const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
 
     if (!block.typeId.match(fluidMatch)) return drainWaterLogged && block.isWaterlogged;

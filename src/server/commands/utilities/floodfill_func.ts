@@ -16,7 +16,7 @@ export interface FloodFillContext {
     worldPos: Vector
 }
 
-export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, dimension: Dimension, spread: (ctx: T, dir: Vector3) => boolean): Generator<void> {
+export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, spread: (ctx: T, dir: Vector3) => boolean): Generator<void, Vector[]> {
   const initialCtx = {
     pos: Vector.ZERO,
     worldPos: Vector.from(start)

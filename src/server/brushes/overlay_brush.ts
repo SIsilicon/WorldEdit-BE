@@ -86,7 +86,6 @@ export class OverlayBrush extends Brush {
         yield;
       }
 
-      blockChanges.applyIteration();
       yield* blockChanges.flush();
       history.commit(record);
     } catch (e) {

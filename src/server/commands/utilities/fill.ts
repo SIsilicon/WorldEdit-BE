@@ -48,7 +48,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock));
 
   Jobs.nextStep(job, "Calculating and Generating blocks...");
-  const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), dimension, (ctx, dir) => {
+  const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), (ctx, dir) => {
     const dotDir = fillDir.dot(dir);
 
     if (dotDir < 0) return false;

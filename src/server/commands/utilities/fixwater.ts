@@ -39,7 +39,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
   const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixwaterStart));
   Jobs.nextStep(job, "Calculating and Fixing water...");
-  const blocks = yield* floodFill(fixwaterStart, args.get("radius"), dimension, (ctx, dir) => {
+  const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx, dir) => {
     const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
     if (!block.typeId.match(waterMatch)) return false;
     return true;
