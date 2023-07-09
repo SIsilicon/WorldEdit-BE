@@ -103,7 +103,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
       history.recordSelection(record, session);
       history.addRedoStructure(record, min, max);
     }
-    
+
     history.commit(record);
     return count;
   } catch (e) {
