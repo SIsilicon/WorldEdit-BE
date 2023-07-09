@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-07-03 03:02\n"
+"PO-Revision-Date: 2023-07-09 09:16\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -602,7 +602,7 @@ msgid "commands.wedit:help.header"
 msgstr "--- ヘルプ ページの %1 ／ %2 ページを表示 (;help <ページ番号>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Hollow out the objects contained in your selection"
+msgstr "選択範囲に含まれるオブジェクトを空洞にする"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "1つ目の選択地点を向いているブロックの位置に設定する"
