@@ -9,7 +9,8 @@
             "minecraft:icon": {
                 "texture": "cut"
             },
-            "minecraft:max_stack_size": 1
+            "minecraft:max_stack_size": 1,
+            "minecraft:throwable": {}
         }
     }
 }
