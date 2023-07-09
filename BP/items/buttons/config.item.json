@@ -1,5 +1,5 @@
 {
-    "format_version": "1.16.100",
+    "format_version": "1.20.10",
     "minecraft:item": {
         "description": {
             "identifier": "wedit:config_button",
@@ -7,18 +7,12 @@
         },
         "components": {
             "minecraft:icon": {
-                "texture": "config",
-                "frame": "0"
+                "texture": "config"
             },
             "minecraft:display_name": {
                 "value": "worldedit.config.mainMenu"
             },
-            "minecraft:max_stack_size": 1,
-            "minecraft:on_use": {
-                "on_use": {
-                    "event": "empty"
-                }
-            }
+            "minecraft:max_stack_size": 1
         }
     }
 }

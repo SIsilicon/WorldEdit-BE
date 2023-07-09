@@ -1,5 +1,5 @@
 {
-    "format_version": "1.16.100",
+    "format_version": "1.20.10",
     "minecraft:item": {
         "description": {
             "identifier": "wedit:draw_line",
@@ -7,15 +7,9 @@
         },
         "components": {
             "minecraft:icon": {
-                "texture": "draw_line",
-                "frame": "0"
+                "texture": "draw_line"
             },
-            "minecraft:max_stack_size": 1,
-            "minecraft:on_use": {
-                "on_use": {
-                    "event": "empty"
-                }
-            }
+            "minecraft:max_stack_size": 1
         }
     }
 }
