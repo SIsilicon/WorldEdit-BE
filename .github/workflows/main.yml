@@ -27,13 +27,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - uses: montudor/action-zip@v1
       - uses: bahmutov/npm-install@v1
         with:
-          node-version: 12
-      - uses: actions/setup-python@v2
+          node-version: 16
+      - uses: actions/setup-python@v3
         with:
           python-version: '3.x'
       
@@ -47,14 +47,14 @@ jobs:
         run: python build.py --clean --target ${{ matrix.target }}
       
       - name: Archive addon artifact (release)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ matrix.target == 'release'}}
         with:
           name: mcaddon-artifact-release
           path: builds/WorldEdit.mcaddon
       
       - name: Archive addon artifact (debug)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ matrix.target == 'debug'}}
         with:
           name: mcaddon-artifact-debug
