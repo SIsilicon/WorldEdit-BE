@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-07-03 03:02\n"
+"PO-Revision-Date: 2023-07-09 14:47\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -787,8 +787,29 @@ msgstr "Auswahlbereich verschieben"
 msgid "commands.wedit:shift.explain"
 msgstr "Region verschoben."
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "Größe eines Pinsels festlegen"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Schnee in der Region simulieren"
