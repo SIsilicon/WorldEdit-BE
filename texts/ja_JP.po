@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-07-09 14:47\n"
+"PO-Revision-Date: 2023-07-09 20:49\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -788,16 +788,16 @@ msgid "commands.wedit:shift.explain"
 msgstr "範囲を移動しました。"
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "ブロック数: %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "ブラシのサイズを設定するか、選択範囲の情報を取得する"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "立方体の距離: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "オフセット: %s"
 
 msgid "commands.wedit:size.pos1"
 msgstr "Position 1: %s"
