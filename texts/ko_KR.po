@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-07-09 04:26\n"
+"PO-Revision-Date: 2023-07-09 14:47\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -787,8 +787,29 @@ msgstr "선택 영역 이동"
 msgid "commands.wedit:shift.explain"
 msgstr "지역 이동됨."
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "브러시의 사이즈를 선택합니다"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "해당 지역의 눈 시뮬레이션하기"
