@@ -1,5 +1,5 @@
 import { Vector } from "@notbeer-api";
-import { Vector3, Dimension } from "@minecraft/server";
+import { Vector3 } from "@minecraft/server";
 import { locToString, stringToLoc } from "../../util.js";
 
 const offsets = [

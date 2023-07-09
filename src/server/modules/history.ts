@@ -419,7 +419,6 @@ class BlockChangeImpl implements BlockChanges {
 
     let i = 0;
     for (const [loc, block] of this.changes.entries()) {
-      const vec = loc.split("_").map(v => Number.parseFloat(v));
       try {
         this.blockCache.get(loc).setPermutation(block);
       } catch { /* pass */ }
