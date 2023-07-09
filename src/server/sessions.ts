@@ -203,7 +203,7 @@ export class PlayerSession {
     if (!item) {
       item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.setProperty(item[0], this.playerId, property, value);
+    return Tools.setProperty(item, this.playerId, property, value);
   }
 
   /**
@@ -214,7 +214,7 @@ export class PlayerSession {
     if (!item) {
       item = Server.player.getHeldItem(this.player)?.typeId;
     }
-    return Tools.hasBinding(item[0], this.playerId);
+    return Tools.hasBinding(item, this.playerId);
   }
 
   /**
