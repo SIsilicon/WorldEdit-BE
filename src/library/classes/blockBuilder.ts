@@ -1,6 +1,8 @@
-import { MinecraftBlockTypes, BlockType, Dimension, BlockPermutation } from "@minecraft/server";
+import { MinecraftBlockTypes, BlockType, Dimension, BlockPermutation, ItemStack, Entity, EntityInventoryComponent, EntityLifetimeState } from "@minecraft/server";
 import { Vector } from "../utils/vector";
 import { Server } from "./serverBuilder";
+import { PlayerSession } from "server/sessions";
+import { getWorldHeightLimits } from "server/util";
 
 export class BlockBuilder {
   /**
@@ -25,6 +27,35 @@ export class BlockBuilder {
       block = "minecraft:" + block;
     }
     return BlockPermutation.resolve(block, this.dataValueToStates(block, data));
+  }
+
+  itemToDataValue(item: ItemStack, session: PlayerSession) {
+    const block = item.typeId;
+    if (!(block in dataToItem)) return 0;
+    const testItems = dataToItem[block];
+    if (testItems.length == 0) {
+      let stasher: Entity;
+      try {
+        const player = session.getPlayer();
+        stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, getWorldHeightLimits(player.dimension)[1], player.location.z));
+        stasher.nameTag = "wedit:temp_inv";
+        const inv = (<EntityInventoryComponent> stasher.getComponent("inventory")).container;
+        for (let i = 0; i < dataToStates[block].length; i++) {
+          Server.runCommand(`replaceitem entity @s slot.inventory 0 ${block} 1 ${i}`, stasher);
+          testItems.push(inv.getItem(0) as ItemStack);
+        }
+      } catch {
+        dataToItem[block] = [];
+        return 0;
+      } finally {
+        if (stasher && stasher.lifetimeState === EntityLifetimeState.Loaded) {
+          stasher.triggerEvent("wedit:despawn");
+          stasher.nameTag = "despawned";
+        }
+      }
+    }
+    const data = testItems.findIndex(testItem => item.isStackableWith(testItem));
+    return data > 0 ? data : 0;
   }
 
   isAirOrFluid(block: BlockPermutation) {
@@ -124,6 +155,75 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
       testBlocks(loc.add([x, 0, z]));
     }
 }
+
+const dataToItem: {[key: string]: ItemStack[]} = {
+  "minecraft:waxed_cut_copper_slab": [],
+  "minecraft:cobbled_deepslate_slab": [],
+  "minecraft:fence": [],
+  "minecraft:light_block": [],
+  "minecraft:purpur_block": [],
+  "minecraft:tnt": [],
+  "minecraft:red_sandstone": [],
+  "minecraft:waxed_weathered_cut_copper_slab": [],
+  "minecraft:brown_mushroom_block": [],
+  "minecraft:warped_slab": [],
+  "minecraft:weathered_cut_copper_slab": [],
+  "minecraft:prismarine": [],
+  "minecraft:polished_blackstone_slab": [],
+  "minecraft:crimson_slab": [],
+  "minecraft:end_portal_frame": [],
+  "minecraft:log": [],
+  "minecraft:planks": [],
+  "minecraft:dirt": [],
+  "minecraft:concrete_powder": [],
+  "minecraft:stained_hardened_clay": [],
+  "minecraft:leaves": [],
+  "minecraft:stone_block_slab3": [],
+  "minecraft:oxidized_cut_copper_slab": [],
+  "minecraft:skull": [],
+  "minecraft:cut_copper_slab": [],
+  "minecraft:wooden_slab": [],
+  "minecraft:coral_block": [],
+  "minecraft:stone_block_slab2": [],
+  "minecraft:stained_glass_pane": [],
+  "minecraft:sand": [],
+  "minecraft:polished_blackstone_brick_slab": [],
+  "minecraft:monster_egg": [],
+  "minecraft:mud_brick_slab": [],
+  "minecraft:log2": [],
+  "minecraft:farmland": [],
+  "minecraft:stone_block_slab": [],
+  "minecraft:anvil": [],
+  "minecraft:stonebrick": [],
+  "minecraft:exposed_cut_copper_slab": [],
+  "minecraft:sandstone": [],
+  "minecraft:red_flower": [],
+  "minecraft:mangrove_slab": [],
+  "minecraft:wood": [],
+  "minecraft:deepslate_brick_slab": [],
+  "minecraft:tallgrass": [],
+  "minecraft:blackstone_slab": [],
+  "minecraft:quartz_block": [],
+  "minecraft:cobblestone_wall": [],
+  "minecraft:respawn_anchor": [],
+  "minecraft:sponge": [],
+  "minecraft:concrete": [],
+  "minecraft:stone": [],
+  "minecraft:stained_glass": [],
+  "minecraft:carpet": [],
+  "minecraft:waxed_oxidized_cut_copper_slab": [],
+  "minecraft:cauldron": [],
+  "minecraft:stone_block_slab4": [],
+  "minecraft:waxed_exposed_cut_copper_slab": [],
+  "minecraft:coral_fan": [],
+  "minecraft:sapling": [],
+  "minecraft:polished_deepslate_slab": [],
+  "minecraft:coral": [],
+  "minecraft:leaves2": [],
+  "minecraft:deepslate_tile_slab": [],
+  "minecraft:coral_fan_dead": [],
+  "minecraft:snow_layer": []
+};
 
 const dataToStates: {[key: string]: {[key: string]: string|number|boolean}[]} = {
   "minecraft:bamboo_sapling": [{"sapling_type":"oak","age_bit":false},{"sapling_type":"oak","age_bit":true}],
