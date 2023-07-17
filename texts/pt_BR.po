@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-07-17 13:08\n"
+"PO-Revision-Date: 2023-07-17 14:34\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -470,7 +470,7 @@ msgid "commands.wedit:clearclipboard.description"
 msgstr "Limpar sua área de transferência"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Hotbar limpa."
+msgstr "Prancheta limpa."
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "Limpa seu histórico de edição"
@@ -878,10 +878,10 @@ msgid "commands.wedit:tool.bind.cmd"
 msgstr "Ferramenta de comando foi selecionada para %s."
 
 msgid "commands.wedit:tool.bind.repl"
-msgstr "Block replacer tool bound to %s."
+msgstr "Ferramenta de substituição de blocos foi selecionada para %s."
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "Ferramenta de ciclo de blocos foi selecionada para %s."
 
 msgid "commands.wedit:tool.description"
 msgstr "Obter todos os tipos de ferramentas"
@@ -899,13 +899,13 @@ msgid "commands.wedit:tool.description.stacker"
 msgstr "Ferramenta de empilhar blocos"
 
 msgid "commands.wedit:tool.description.cmd"
-msgstr "Command exeution tool; both vanilla and worldedit"
+msgstr "Ferramenta de execução de comando; baunilha e edição de mundo"
 
 msgid "commands.wedit:tool.description.repl"
-msgstr "Block replacer tool"
+msgstr "Ferramenta de substituição de blocos"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "Ferramenta de ciclo de blocos"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Desvincular ferramenta segurada"
