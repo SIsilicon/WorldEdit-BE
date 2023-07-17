@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-07-17 02:37\n"
+"PO-Revision-Date: 2023-07-17 13:08\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -791,25 +791,25 @@ msgid "commands.wedit:size.blocks"
 msgstr "# do bloco '%s'"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "Mude o tamanho do Pincel ou obtenha mais informações sobre a seleção"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "Distancia do cuboide: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Desvio: %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "Posição 1: %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "Posição 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Tamanho: %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "Categoria: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Simular neve na área"
@@ -857,10 +857,10 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "Alternar posição de colocação."
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "Alterna a posição de posicionamento usada em várias operações da edição de mundo."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Varinha de seleção vinculada a %s."
@@ -875,7 +875,7 @@ msgid "commands.wedit:tool.bind.stacker"
 msgstr "Ferramenta de empilhar vinculada a %s."
 
 msgid "commands.wedit:tool.bind.cmd"
-msgstr "Command tool bound to %s."
+msgstr "Ferramenta de comando foi selecionada para %s."
 
 msgid "commands.wedit:tool.bind.repl"
 msgstr "Block replacer tool bound to %s."
