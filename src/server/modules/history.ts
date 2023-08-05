@@ -382,7 +382,7 @@ class BlockChangeImpl implements BlockChanges {
       dimension: this.dimension,
       setPermutation: (perm: BlockPermutation) => this.setBlock(loc, perm),
       hasTag: perm.hasTag,
-      get isAir() { return perm.type.id == "minecraft:air" ? true : false }
+      get isAir() { return perm.type.id == "minecraft:air" ? true : false; }
     };
   }
 
