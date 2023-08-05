@@ -107,7 +107,7 @@ class PlayerHandler {
           continue;
         } else if (mask && mask.matchesBlock(block)) {
           return point;
-        } else if (!mask && !block.isAir()) {
+        } else if (!mask && !block.isAir) {
           return point;
         } else if (range && range > 0 && i >= range) {
           return point;

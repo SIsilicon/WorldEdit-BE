@@ -1,4 +1,4 @@
-import { MinecraftBlockTypes, BlockType, Dimension, BlockPermutation } from "@minecraft/server";
+import { BlockType, Dimension, BlockPermutation } from "@minecraft/server";
 import { Vector } from "../utils/vector";
 import { Server } from "./serverBuilder";
 
@@ -45,7 +45,7 @@ export const Block = new BlockBuilder();
 async function fillDataMap(loc: Vector, dim: Dimension) {
   let printed = false;
   const data: {[key: string]: string} = {};
-  const blocks = MinecraftBlockTypes.getAllBlockTypes();
+  const blocks: BlockType[] = []; // MinecraftBlockTypes.getAllBlockTypes();
   const genGlass = (loc: Vector) => {
     const glass = BlockPermutation.resolve("minecraft:glass");
     for (const offset of [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]) {
@@ -73,7 +73,7 @@ async function fillDataMap(loc: Vector, dim: Dimension) {
         }
         const block = dim.getBlock(loc);
 
-        if (block.isAir() && i == 0) {
+        if (block.isAir && i == 0) {
           break;
         }
         const props = block.permutation.getAllStates();

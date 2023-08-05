@@ -13,8 +13,8 @@ registerCommand(registerInformation, function (session, builder) {
   const blockLoc = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
   do {
-    if (dimension.getBlock(blockLoc).isAir() &&
-        dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir()) {
+    if (dimension.getBlock(blockLoc).isAir &&
+        dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) {
       break;
     }
   }

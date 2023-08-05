@@ -16,6 +16,7 @@ import "./misc/worldedit.js";
 import "./misc/limit.js";
 import "./misc/kit.js";
 import "./misc/toggleplace.js";
+import "./misc/blockid.js";
 
 import "./selection/pos1.js";
 import "./selection/pos2.js";

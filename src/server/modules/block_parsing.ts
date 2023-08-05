@@ -14,7 +14,7 @@ export interface BlockUnit {
   readonly dimension: Dimension
   setPermutation(perm: BlockPermutation): void
   hasTag(tag: string): boolean
-  isAir(): boolean
+  isAir: boolean
 }
 
 export interface AstNode {
