@@ -54,7 +54,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (dotDir < 0) return false;
     if (dotDir == 0 && ctx.fillDown) return false;
     if (fillDir.dot(ctx.pos.add(dir)) > depth-1) return false;
-    if (!dimension.getBlock(ctx.worldPos.add(dir)).isAir()) return false;
+    if (!dimension.getBlock(ctx.worldPos.add(dir)).isAir) return false;
 
     if (dotDir > 0) ctx.fillDown = true;
     return true;

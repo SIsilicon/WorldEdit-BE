@@ -69,7 +69,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
     yield "Copying blocks...";
     const blocks = (loc: Vector3) => {
       const block = dimension.getBlock(loc);
-      const isAir = block.isAir();
+      const isAir = block.isAir;
       const willBeAir = isAir || (mask ? !mask.matchesBlock(block) : false);
       if (includeAir && mask && !isAir && willBeAir) {
         return airBlock;

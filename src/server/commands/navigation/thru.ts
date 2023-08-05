@@ -16,7 +16,7 @@ registerCommand(registerInformation, function (session, builder) {
   const dir = new Cardinal().getDirection(builder);
 
   function isSpaceEmpty(loc: Vector) {
-    return dimension.getBlock(loc).isAir() && dimension.getBlock(loc.offset(0, 1, 0)).isAir();
+    return dimension.getBlock(loc).isAir && dimension.getBlock(loc.offset(0, 1, 0)).isAir;
   }
 
   let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);

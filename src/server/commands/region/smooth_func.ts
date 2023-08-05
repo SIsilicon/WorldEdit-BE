@@ -61,7 +61,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     let h: Vector3;
 
     for (h = new Vector(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
-      if (!dim.getBlock(h).isAir() && heightMask.matchesBlock(dim.getBlock(h))) {
+      if (!dim.getBlock(h).isAir && heightMask.matchesBlock(dim.getBlock(h))) {
         break;
       }
     }
@@ -106,7 +106,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     yield* warpBuffer.create(range[0], range[1], loc => {
       const canSmooth = (loc: Vector3) => {
         const global = Vector.add(loc, range[0]);
-        return dim.getBlock(global).isAir() || mask.matchesBlock(dim.getBlock(global));
+        return dim.getBlock(global).isAir || mask.matchesBlock(dim.getBlock(global));
       };
 
       if (canSmooth(loc)) {

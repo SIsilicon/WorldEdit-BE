@@ -289,7 +289,7 @@ class SurfaceMask extends MaskNode {
     const loc = Vector.from(block.location);
     const dim = block.dimension;
     const isEmpty = (loc: Vector3) => {
-      return dim.getBlock(loc).isAir();
+      return dim.getBlock(loc).isAir;
     };
 
     return !isEmpty(loc) && (
@@ -305,7 +305,7 @@ class ExistingMask extends MaskNode {
   readonly opCount = 0;
 
   matchesBlock(block: BlockUnit) {
-    return !block.isAir();
+    return !block.isAir;
   }
 }
 
