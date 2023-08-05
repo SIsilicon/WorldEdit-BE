@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-07-09 14:47\n"
+"PO-Revision-Date: 2023-08-05 04:45\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -357,6 +357,12 @@ msgstr "Biome an deiner Position: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biome in Ihrer Auswahl: %s"
+
+msgid "commands.wedit:blockid.description"
+msgstr "Prints the id and states of the block you're looking at."
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "Look at the block you want the id and states of."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kugelförmiger Pinsel ausgerüstet (%s)."
