@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-08-05 04:45\n"
+"PO-Revision-Date: 2023-08-05 08:29\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -146,10 +146,10 @@ msgid "worldedit.config.tool.cmd"
 msgstr "Befehlswerkzeug"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Block-Ersetzungs-Werkzeug"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Blockwechselwerkzeug"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Kugel Pinsel"
@@ -161,13 +161,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Glatter Pinsel"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Struktur-Pinsel"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Erosionsbürste"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Overlay-Pinsel"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Objekt."
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Erstellen Sie ein Muster für das Werkzeug."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Erstellen Sie eine optionale Maske für das Werkzeug."
@@ -221,10 +221,10 @@ msgid "worldedit.config.hollow"
 msgstr "Hohlraum"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Tiefe"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Erosionstyp"
 
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
@@ -359,10 +359,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biome in Ihrer Auswahl: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "Gibt die Id und den Status des Blocks aus, den du suchst."
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "Schau dir den Block an, von dem du die Id und den Status möchtest."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kugelförmiger Pinsel ausgerüstet (%s)."
@@ -383,10 +383,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Strukturenpinsel ausgerüstet."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "Erosionsbürste ausgerüstet (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "Overlay-Bürste ausgestattet (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Legt den Typ eines Pinsels fest, der gehalten wird"
@@ -404,13 +404,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Geländeglättungspinsel erstellen"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "Erstellt einen Pinsel, der Strukturen platziert"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "Erstellt einen Geländeform-Pinsel"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "Erstellt eine Geländeüberlagerung"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pinselmaske gesetzt."
@@ -593,10 +593,10 @@ msgid "commands.wedit:gmask.set"
 msgstr "Globale Maske gesetzt."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "Verlauf %s erstellt."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "Erstelle einen Farbverlauf für Muster."
 
 msgid "commands.wedit:green.description"
 msgstr "Verwandle nahe Erde in Gras"
@@ -608,7 +608,7 @@ msgid "commands.wedit:help.header"
 msgstr "--- Hilfeseite %1 von %2 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Hollow out the objects contained in your selection"
+msgstr "Lösche die in deiner Auswahl enthaltenen Objekte aus"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Setze die erste Position Ihrer Auswahl auf die Position des Blocks, den Sie sehen"
@@ -794,16 +794,16 @@ msgid "commands.wedit:shift.explain"
 msgstr "Region verschoben."
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "# der Blöcke: %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "Setze die Größe eines Pinsels oder erhalte Informationen über die Auswahl"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "Cuboid Distanz: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Versatz: %s"
 
 msgid "commands.wedit:size.pos1"
 msgstr "Position 1: %s"
@@ -812,10 +812,10 @@ msgid "commands.wedit:size.pos2"
 msgstr "Position 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Größe: %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "Typ: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Schnee in der Region simulieren"
@@ -863,10 +863,10 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "Eingegebene Position."
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "Schaltet die Platzierungsposition ein, die in verschiedenen WorldEdit Operationen verwendet wird."
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "Auswahlstab an %s gebunden."
