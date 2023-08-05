@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-07-19 05:25\n"
+"PO-Revision-Date: 2023-08-05 04:45\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -357,6 +357,12 @@ msgstr "현재 위치의 바이옴 위치: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "선택한 영역의 바이옴: %s"
+
+msgid "commands.wedit:blockid.description"
+msgstr "Prints the id and states of the block you're looking at."
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "Look at the block you want the id and states of."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "구형 브러시 장착됨 (%s)."
