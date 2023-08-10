@@ -32,7 +32,7 @@ export class Pattern implements CustomArgType {
     try {
       const item = Server.player.getHeldItem(session.getPlayer());
       this.context.hand = item
-        ? Server.block.dataValueToPermutation(item.typeId, Server.block.itemToDataValue(item, session))
+        ? Server.block.dataValueToPermutation(item.typeId, Server.block.itemToDataValue(item))
         : BlockPermutation.resolve("minecraft:air");
     } catch {
       this.context.hand = BlockPermutation.resolve("minecraft:air");
