@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-08-05 04:45\n"
+"PO-Revision-Date: 2023-08-12 13:46\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -143,13 +143,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Outil d'empilage"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Outil de commande"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Outil de replacer de bloc"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Outil de replacer de bloc"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Brosse sphérique"
@@ -161,13 +161,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Brosse douce"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Brosse de structure"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Pinceau d'érosion"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Brosse de superposition"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Créer un motif et un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Créer un motif pour l'outil."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Créer un masque optionnel pour l'outil."
@@ -221,7 +221,7 @@ msgid "worldedit.config.hollow"
 msgstr "Creux"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "profondeur"
 
 msgid "worldedit.config.erosion"
 msgstr "Erosion Type"
