@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-08-09 05:34\n"
+"PO-Revision-Date: 2023-08-15 18:13\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -359,7 +359,7 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "您当前选区内的生物群系为:%s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "显示你所看到方块的id与状态。"
 
 msgid "commands.wedit:blockid.noBlock"
 msgstr "6"
