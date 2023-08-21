@@ -1,5 +1,5 @@
 import { Player, ItemStack, ItemUseBeforeEvent, world, BlockBreakAfterEvent, EntityInventoryComponent } from "@minecraft/server";
-import { contentLog, Server, sleep, Thread, Vector } from "@notbeer-api";
+import { contentLog, Server, sleep, Thread, Vector, Database } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
 import config from "config.js";
@@ -78,6 +78,14 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).set(itemId, tool);
+
+      // persisent tool bindings start
+      const database = new Database(`wedit:tools_test,${playerId}`);
+      database.load();
+      database.set(itemId, toolId);
+      database.save();
+      // persisent tool bindings end
+
       return tool;
     } else {
       throw "worldedit.tool.noItem";
@@ -92,6 +100,14 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).delete(itemId);
+
+      // persisent tool bindings start
+      const database = new Database(`wedit:tools_test,${playerId}`);
+      database.load();
+      database.delete(itemId);
+      database.save();
+      // persisent tool bindings end
+
     } else {
       throw "worldedit.tool.noItem";
     }
@@ -232,6 +248,18 @@ class ToolBuilder {
   private createPlayerBindingMap(playerId: string) {
     if (!this.bindings.has(playerId)) {
       this.bindings.set(playerId, new Map<string, Tool>());
+
+      // persisent tool bindings start
+      const database = new Database(`wedit:tools_test,${playerId}`);
+      database.load();
+      for (const itemId of database.keys()) {
+        const toolId = database.get(itemId);
+        const tool = new (this.tools.get(toolId))();
+        tool.type = toolId;
+        this.bindings.get(playerId).set(itemId, tool);
+      }
+      // persisent tool bindings end
+
     }
   }
 }
