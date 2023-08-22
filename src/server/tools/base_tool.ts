@@ -105,4 +105,10 @@ export abstract class Tool {
   delete() {
     return;
   }
+
+  // persisent tool bindings start
+  toJSON() {
+    return { type: this.type };
+  }
+  // persisent tool bindings end
 }

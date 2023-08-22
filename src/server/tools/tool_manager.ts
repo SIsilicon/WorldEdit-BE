@@ -82,7 +82,7 @@ class ToolBuilder {
       // persisent tool bindings start
       const database = new Database(`wedit:tools_test,${playerId}`);
       database.load();
-      database.set(itemId, toolId);
+      database.set(itemId, tool);
       database.save();
       // persisent tool bindings end
 
@@ -253,7 +253,7 @@ class ToolBuilder {
       const database = new Database(`wedit:tools_test,${playerId}`);
       database.load();
       for (const itemId of database.keys()) {
-        const toolId = database.get(itemId);
+        const toolId = database.get(itemId).type;
         const tool = new (this.tools.get(toolId))();
         tool.type = toolId;
         this.bindings.get(playerId).set(itemId, tool);
