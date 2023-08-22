@@ -79,13 +79,8 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).set(itemId, tool);
-
-      // persisent tool bindings start
-      const database = this.databases.get(playerId);
-      database.set(itemId, tool);
-      database.save();
-      // persisent tool bindings end
-
+      this.databases.get(playerId).set(itemId, tool);
+      this.databases.get(playerId).save();
       return tool;
     } else {
       throw "worldedit.tool.noItem";
@@ -100,13 +95,8 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).delete(itemId);
-
-      // persisent tool bindings start
-      const database = this.databases.get(playerId);
-      database.delete(itemId);
-      database.save();
-      // persisent tool bindings end
-
+      this.databases.get(playerId).delete(itemId);
+      this.databases.get(playerId).save();
     } else {
       throw "worldedit.tool.noItem";
     }

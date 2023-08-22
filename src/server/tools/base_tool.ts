@@ -106,7 +106,6 @@ export abstract class Tool {
     return;
   }
 
-  // persisent tool bindings start
   toJSON() {
     return { type: this.type };
   }
@@ -114,5 +113,4 @@ export abstract class Tool {
   static parseJSON(json: {[key: string]: any}): any[] {
     return [];
   }
-  // persisent tool bindings end
 }
