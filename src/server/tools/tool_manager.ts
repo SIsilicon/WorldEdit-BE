@@ -239,16 +239,19 @@ class ToolBuilder {
   private createPlayerBindingMap(playerId: string) {
     if (!this.bindings.has(playerId)) {
       this.bindings.set(playerId, new Map<string, Tool>());
-
-      const database = new Database(`wedit:tools_test,${playerId}`);
+      const database = new Database(`wedit:tools,${playerId}`);
       this.databases.set(playerId, database);
       database.load();
       for (const itemId of database.keys()) {
         const json = database.get(itemId);
-        const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
-        const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
-        tool.type = json.type;
-        this.bindings.get(playerId).set(itemId, tool);
+        try {
+          const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
+          const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
+          tool.type = json.type;
+          this.bindings.get(playerId).set(itemId, tool);
+        } catch (err) {
+          contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
+        }
       }
     }
   }
