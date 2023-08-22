@@ -110,6 +110,7 @@ export abstract class Tool {
     return { type: this.type };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseJSON(json: {[key: string]: any}): any[] {
     return [];
   }
