@@ -12,6 +12,7 @@ type toolObject = {[key: string]: any} & Tool;
 class ToolBuilder {
   private tools = new Map<string, toolConstruct>();
   private bindings = new Map<string, Map<string, Tool>>();
+  private databases = new Map<string, Database>;
   private fixedBindings = new Map<string, Tool>();
 
   private disabled: string[] = [];
@@ -80,8 +81,7 @@ class ToolBuilder {
       this.bindings.get(playerId).set(itemId, tool);
 
       // persisent tool bindings start
-      const database = new Database(`wedit:tools_test,${playerId}`);
-      database.load();
+      const database = this.databases.get(playerId);
       database.set(itemId, tool);
       database.save();
       // persisent tool bindings end
@@ -102,8 +102,7 @@ class ToolBuilder {
       this.bindings.get(playerId).delete(itemId);
 
       // persisent tool bindings start
-      const database = new Database(`wedit:tools_test,${playerId}`);
-      database.load();
+      const database = this.databases.get(playerId);
       database.delete(itemId);
       database.save();
       // persisent tool bindings end
@@ -251,6 +250,7 @@ class ToolBuilder {
 
       // persisent tool bindings start
       const database = new Database(`wedit:tools_test,${playerId}`);
+      this.databases.set(playerId, database);
       database.load();
       for (const itemId of database.keys()) {
         const toolId = database.get(itemId).type;
