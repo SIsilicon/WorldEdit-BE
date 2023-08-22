@@ -139,6 +139,8 @@ class ToolBuilder {
         tool[prop] = value;
         return true;
       }
+      this.databases.get(playerId).set(itemId, tool);
+      this.databases.get(playerId).save();
     }
     return false;
   }
@@ -238,21 +240,16 @@ class ToolBuilder {
     if (!this.bindings.has(playerId)) {
       this.bindings.set(playerId, new Map<string, Tool>());
 
-      // persisent tool bindings start
       const database = new Database(`wedit:tools_test,${playerId}`);
       this.databases.set(playerId, database);
       database.load();
       for (const itemId of database.keys()) {
         const json = database.get(itemId);
-        const toolId = json.type;
-        const toolClass = this.tools.get(toolId) as toolConstruct & typeof Tool;
-        const args = toolClass.parseJSON(json);
-        const tool = new (toolClass as toolConstruct)(args);
-        tool.type = toolId;
+        const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
+        const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
+        tool.type = json.type;
         this.bindings.get(playerId).set(itemId, tool);
       }
-      // persisent tool bindings end
-
     }
   }
 }
