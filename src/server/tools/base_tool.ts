@@ -29,7 +29,7 @@ export abstract class Tool {
    */
   readonly permission: string;
   /**
-   * Whether there should be some delay between item use to avoid rapid fire/
+   * Whether there should be some delay between item use to avoid rapid fire.
    */
   readonly noDelay: boolean = false;
 
@@ -109,6 +109,10 @@ export abstract class Tool {
   // persisent tool bindings start
   toJSON() {
     return { type: this.type };
+  }
+
+  static parseJSON(json: {[key: string]: any}): any[] {
+    return [];
   }
   // persisent tool bindings end
 }
