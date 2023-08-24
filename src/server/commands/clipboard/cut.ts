@@ -54,6 +54,7 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
   yield* set(session, fill, mask, false);
   if (includeEntities) {
     const entityQuery = {
+      excludeTypes: ["minecraft:player"],
       location: start,
       volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
     };

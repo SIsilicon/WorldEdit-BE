@@ -332,7 +332,7 @@ class StatePattern extends PatternNode {
   getPermutation(block: BlockUnit) {
     let permutation = block.permutation;
     const props = permutation.getAllStates();
-    Object.entries(this.states).forEach(([state, val]) => {
+    this.states.forEach((val, state) => {
       if (state in props) permutation = permutation.withState(state, val);
     });
     return permutation;
