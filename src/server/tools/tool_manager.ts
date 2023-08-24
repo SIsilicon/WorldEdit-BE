@@ -1,8 +1,7 @@
-import { Player, ItemStack, ItemUseBeforeEvent, world, BlockBreakAfterEvent, EntityInventoryComponent } from "@minecraft/server";
+import { Player, ItemStack, ItemUseBeforeEvent, world, EntityInventoryComponent, PlayerBreakBlockBeforeEvent } from "@minecraft/server";
 import { contentLog, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
-import config from "config.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -51,15 +50,13 @@ class ToolBuilder {
       }
     }, this);
 
-    if (config.useBlockBreaking) {
-      Server.on("blockBreak", ev => {
-        const item = Server.player.getHeldItem(ev.player);
-        if (!item) {
-          return;
-        }
-        this.onBlockBreak(item, ev.player, ev);
-      });
-    }
+    Server.on("blockBreak", ev => {
+      const item = Server.player.getHeldItem(ev.player);
+      if (!item) {
+        return;
+      }
+      this.onBlockBreak(item, ev.player, ev);
+    });
   }
 
   register(toolClass: toolConstruct, name: string, item?: string) {
@@ -204,7 +201,7 @@ class ToolBuilder {
     ev.cancel = true;
   }
 
-  private onBlockBreak(item: ItemStack, player: Player, ev: BlockBreakAfterEvent) {
+  private onBlockBreak(item: ItemStack, player: Player, ev: PlayerBreakBlockBeforeEvent) {
     if (this.disabled.includes(player.id)) {
       return;
     }
@@ -223,10 +220,8 @@ class ToolBuilder {
       return;
     }
 
-    const processed = tool.process(getSession(player), this.currentTick, Vector.from(ev.block.location), ev.brokenBlockPermutation);
-    if (processed) {
-      player.dimension.getBlock(ev.block.location).setPermutation(ev.brokenBlockPermutation);
-    }
+    const processed = tool.process(getSession(player), this.currentTick, Vector.from(ev.block), ev.block.permutation);
+    if (processed) ev.cancel = true;
   }
 
   private createPlayerBindingMap(playerId: string) {
