@@ -1,6 +1,6 @@
 import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -64,4 +64,18 @@ export class SphereBrush extends Brush {
     selection.set(0, loc);
     selection.set(1, loc.offset(0, 0, this.radius));
   }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      radius: this.radius,
+      pattern: this.pattern.getSource(),
+      hollow: this.hollow
+    };
+  }
+
+  public static parseJSON(json: {[key: string]: any}) {
+    return [json.radius, new Pattern(json.pattern), json.hollow];
+  }
 }
+brushTypes.set("sphere_brush", SphereBrush);

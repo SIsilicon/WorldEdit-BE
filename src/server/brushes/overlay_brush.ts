@@ -1,6 +1,6 @@
 import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
 import { getWorldHeightLimits } from "server/util.js";
@@ -99,4 +99,19 @@ export class OverlayBrush extends Brush {
     selection.set(0, loc);
     selection.set(1, loc.offset(0, 0, this.radius));
   }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      radius: this.radius,
+      depth: this.depth,
+      pattern: this.pattern.getSource(),
+      surfaceMask: this.surfaceMask.getSource()
+    };
+  }
+
+  public static parseJSON(json: {[key: string]: any}) {
+    return [json.radius, json.depth, new Pattern(json.pattern), new Mask(json.mask)];
+  }
 }
+brushTypes.set("overlay_brush", OverlayBrush);

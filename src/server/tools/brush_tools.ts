@@ -1,7 +1,7 @@
 import { Player } from "@minecraft/server";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
-import { Brush } from "../brushes/base_brush.js";
+import { brushConstruct, brushTypes, Brush } from "../brushes/base_brush.js";
 import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -56,10 +56,11 @@ class BrushTool extends Tool {
     }
   };
 
-  constructor(brush: Brush, mask?: Mask) {
+  constructor(brush: Brush, mask?: Mask, traceMask?: Mask) {
     super();
     this.brush = brush;
     this.mask = mask;
+    this.traceMask = traceMask;
   }
 
   set size(value: number) {
@@ -73,6 +74,24 @@ class BrushTool extends Tool {
   delete() {
     super.delete();
     this.brush.delete();
+  }
+
+  toJSON() {
+    // persistent structure brush not supported
+    if (this.brush.id === "structure_brush") return undefined;
+
+    return {
+      type: this.type,
+      brush: this.brush,
+      mask: this.mask?.getSource() ?? "",
+      traceMask: this.traceMask?.getSource() ?? ""
+    };
+  }
+
+  static parseJSON(json: {[key: string]: any}) {
+    const brushClass = (brushTypes.get(json.brush.id) as brushConstruct & typeof Brush);
+    const brush = new (brushClass as brushConstruct)(...brushClass.parseJSON(json));
+    return [brush, new Mask(json.mask), new Mask(json.traceMask)];
   }
 }
 Tools.register(BrushTool, "brush");

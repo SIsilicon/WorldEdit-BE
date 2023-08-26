@@ -1,6 +1,6 @@
 import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { CylinderShape } from "../shapes/cylinder.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -72,4 +72,19 @@ export class CylinderBrush extends Brush {
     selection.set(0, new Vector(loc.x, region[0].y, loc.z));
     selection.set(1, new Vector(loc.x + this.radius, region[1].y, loc.z));
   }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      radius: this.radius,
+      height: this.height,
+      pattern: this.pattern.getSource(),
+      hollow: this.hollow
+     };
+  }
+
+  public static parseJSON(json: {[key: string]: any}) {
+    return [json.radius, json.height, new Pattern(json.pattern), json.hollow];
+  }
 }
+brushTypes.set("cylinder_brush", CylinderBrush);
