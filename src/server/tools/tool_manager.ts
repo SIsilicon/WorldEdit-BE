@@ -253,7 +253,7 @@ class ToolBuilder {
       } catch (err) {
         contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
       }
-    }    
+    }
   }
 }
 export const Tools = new ToolBuilder();
