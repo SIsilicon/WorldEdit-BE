@@ -126,6 +126,7 @@ class ToolBuilder {
   }
 
   getBoundItems(playerId: string, type?: RegExp|string) {
+    this.createPlayerBindingMap(playerId);
     const tools = this.bindings.get(playerId);
     return tools ? Array.from(tools.entries())
       .filter(binding => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
@@ -237,23 +238,22 @@ class ToolBuilder {
   }
 
   private createPlayerBindingMap(playerId: string) {
-    if (!this.bindings.has(playerId)) {
-      this.bindings.set(playerId, new Map<string, Tool>());
-      const database = new Database(`wedit:tools,${playerId}`);
-      this.databases.set(playerId, database);
-      database.load();
-      for (const itemId of database.keys()) {
-        const json = database.get(itemId);
-        try {
-          const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
-          const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
-          tool.type = json.type;
-          this.bindings.get(playerId).set(itemId, tool);
-        } catch (err) {
-          contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
-        }
+    if (this.bindings.has(playerId)) return;
+    this.bindings.set(playerId, new Map<string, Tool>());
+    const database = new Database(`wedit:tools,${playerId}`);
+    this.databases.set(playerId, database);
+    database.load();
+    for (const itemId of database.keys()) {
+      const json = database.get(itemId);
+      try {
+        const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
+        const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
+        tool.type = json.type;
+        this.bindings.get(playerId).set(itemId, tool);
+      } catch (err) {
+        contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
       }
-    }
+    }    
   }
 }
 export const Tools = new ToolBuilder();

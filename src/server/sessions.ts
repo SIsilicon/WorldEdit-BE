@@ -100,8 +100,10 @@ export class PlayerSession {
     this.selection = new Selection(player);
     this.drawOutlines = config.drawOutlines;
 
-    this.bindTool("selection_wand", config.wandItem);
-    this.bindTool("navigation_wand", config.navWandItem);
+    if (!this.getTools().length) {
+      this.bindTool("selection_wand", config.wandItem);
+      this.bindTool("navigation_wand", config.navWandItem);
+    }
     if (PlayerUtil.isHotbarStashed(player)) {
       PlayerUtil.restoreHotbar(player);
     }
@@ -218,7 +220,7 @@ export class PlayerSession {
   }
 
   /**
-   * @param item The id of the item to unbinf from (null defaults to held item)
+   * @param item The id of the item to unbind from (null defaults to held item)
    * Unbinds a tool from this session's player's hand.
    */
   public unbindTool(item: string|null) {
@@ -226,6 +228,14 @@ export class PlayerSession {
       item = Server.player.getHeldItem(this.player)?.typeId;
     }
     return Tools.unbind(item, this.playerId);
+  }
+
+  /**
+   * @param type The name of the tool to filter by
+   * @returns The ids of the items that are bound to a tool
+   */
+  public getTools(type?: RegExp|string) {
+    return Tools.getBoundItems(this.playerId, type);
   }
 
   /**
