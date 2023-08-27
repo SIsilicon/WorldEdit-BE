@@ -50,10 +50,9 @@ export abstract class Tool {
   process(session: PlayerSession, tick: number, loc?: Vector, brokenBlock?: BlockPermutation): boolean {
     const player = session.getPlayer();
 
-    if (!loc && !this.use || loc && !this.useOn || brokenBlock && !this.breakOn) {
+    if (!loc && !this.use || loc && !brokenBlock && !this.useOn || brokenBlock && !this.breakOn) {
       return false;
     }
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFail = (e: any) => {
       printerr(e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e, player, true);
