@@ -58,6 +58,7 @@ export abstract class Brush {
     return { id: this.id };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static parseJSON(json: {[key: string]: any}): any[] {
     return [];
   }

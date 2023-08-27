@@ -83,6 +83,7 @@ export class CylinderBrush extends Brush {
      };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static parseJSON(json: {[key: string]: any}) {
     return [json.radius, json.height, new Pattern(json.pattern), json.hollow];
   }

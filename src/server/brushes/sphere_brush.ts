@@ -74,6 +74,7 @@ export class SphereBrush extends Brush {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static parseJSON(json: {[key: string]: any}) {
     return [json.radius, new Pattern(json.pattern), json.hollow];
   }

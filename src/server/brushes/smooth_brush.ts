@@ -75,6 +75,7 @@ export class SmoothBrush extends Brush {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static parseJSON(json: {[key: string]: any}) {
     return [json.radius, json.iterations, new Mask(json.mask)];
   }

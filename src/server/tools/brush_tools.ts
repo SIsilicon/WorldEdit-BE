@@ -88,6 +88,7 @@ class BrushTool extends Tool {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseJSON(json: {[key: string]: any}) {
     const brushClass = brushTypes.get(json.brush.id);
     const brush = new brushClass(...(brushClass as brushConstruct & typeof Brush).parseJSON(json));
