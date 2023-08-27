@@ -89,8 +89,8 @@ class BrushTool extends Tool {
   }
 
   static parseJSON(json: {[key: string]: any}) {
-    const brushClass = brushTypes.get(json.brush.id) as brushConstruct & typeof Brush;
-    const brush = new (brushClass as brushConstruct)(...brushClass.parseJSON(json));
+    const brushClass = brushTypes.get(json.brush.id);
+    const brush = new brushClass(...(brushClass as brushConstruct & typeof Brush).parseJSON(json));
     return [brush, new Mask(json.mask), new Mask(json.traceMask)];
   }
 }

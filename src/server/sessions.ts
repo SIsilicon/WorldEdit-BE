@@ -210,7 +210,7 @@ export class PlayerSession {
 
   /**
    * @param item The id of the item to test (null defaults to held item)
-   * @return Whether the session has a tool binded to the player's hand.
+   * @returns Whether the session has a tool binded to the player's hand.
    */
   public hasTool(item: string|null) {
     if (!item) {

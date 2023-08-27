@@ -246,8 +246,8 @@ class ToolBuilder {
     for (const itemId of database.keys()) {
       const json = database.get(itemId);
       try {
-        const toolClass = this.tools.get(json.type) as toolConstruct & typeof Tool;
-        const tool = new (toolClass as toolConstruct)(toolClass.parseJSON(json));
+        const toolClass = this.tools.get(json.type);
+        const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(json));
         tool.type = json.type;
         this.bindings.get(playerId).set(itemId, tool);
       } catch (err) {

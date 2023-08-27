@@ -12,7 +12,7 @@ const registerInformation = {
 registerCommand(registerInformation, function (session, builder) {
   let item = config.navWandItem;
   const boundItems = session.getTools("navigation_wand");
-  if (boundItems.length && !boundItems.includes(config.navWandItem)) {
+  if (boundItems.length && !boundItems.includes(item)) {
     item = boundItems[0];
   }
   Server.runCommand(`give @s ${item}`, builder);
