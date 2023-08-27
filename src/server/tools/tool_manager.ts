@@ -138,10 +138,10 @@ class ToolBuilder {
       const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         tool[prop] = value;
+        this.databases.get(playerId).set(itemId, tool);
+        this.databases.get(playerId).save();
         return true;
       }
-      this.databases.get(playerId).set(itemId, tool);
-      this.databases.get(playerId).save();
     }
     return false;
   }

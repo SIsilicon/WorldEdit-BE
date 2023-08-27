@@ -83,16 +83,16 @@ class BrushTool extends Tool {
     return {
       type: this.type,
       brush: this.brush,
-      mask: this.mask?.getSource() ?? "",
-      traceMask: this.traceMask?.getSource() ?? ""
+      mask: this.mask?.getSource() ?? null,
+      traceMask: this.traceMask?.getSource() ?? null
     };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseJSON(json: {[key: string]: any}) {
     const brushClass = brushTypes.get(json.brush.id);
-    const brush = new brushClass(...(brushClass as brushConstruct & typeof Brush).parseJSON(json));
-    return [brush, new Mask(json.mask), new Mask(json.traceMask)];
+    const brush = new brushClass(...(brushClass as brushConstruct & typeof Brush).parseJSON(json.brush));
+    return [brush, json.mask ? new Mask(json.mask) : null, json.traceMask ? new Mask(json.traceMask) : null];
   }
 }
 Tools.register(BrushTool, "brush");
