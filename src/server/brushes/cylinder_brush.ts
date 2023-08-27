@@ -80,7 +80,7 @@ export class CylinderBrush extends Brush {
       height: this.height,
       pattern: this.pattern.getSource(),
       hollow: this.hollow
-     };
+    };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

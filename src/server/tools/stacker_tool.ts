@@ -55,7 +55,7 @@ class StackerTool extends Tool {
       type: this.type,
       range: this.range,
       mask: this.mask.getSource()
-    }
+    };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

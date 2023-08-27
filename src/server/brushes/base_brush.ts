@@ -6,6 +6,7 @@ import { RawText } from "@notbeer-api";
 import { Selection } from "@modules/selection.js";
 import config from "config.js";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type brushConstruct = new (...args: any[]) => Brush;
 export const brushTypes: Map<string, brushConstruct> = new Map();
 
@@ -58,7 +59,7 @@ export abstract class Brush {
     return { id: this.id };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   public static parseJSON(json: {[key: string]: any}): any[] {
     return [];
   }
