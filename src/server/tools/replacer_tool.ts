@@ -18,8 +18,9 @@ class BlockReplacerTool extends Tool {
   };
 
   breakOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
-    self.pattern = new Pattern();
-    self.pattern.addBlock(player.dimension.getBlock(loc).permutation);
+    const pattern = new Pattern();
+    pattern.addBlock(player.dimension.getBlock(loc).permutation);
+    session.setToolProperty(null, "pattern", pattern);
   };
 
   constructor(pattern: Pattern) {

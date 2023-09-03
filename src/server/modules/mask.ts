@@ -36,13 +36,17 @@ export class Mask implements CustomArgType {
     return this.condition == null;
   }
 
-  addBlock(block: BlockPermutation) {
+  addBlock(permutation: BlockPermutation) {
     if (this.condition == null) {
       this.condition = new ChainMask(null);
     }
 
-    this.condition.nodes.push(new BlockMask(null, blockPermutation2ParsedBlock(block)));
-    this.stringObj = "(picked)";
+    const block = blockPermutation2ParsedBlock(permutation);
+    this.condition.nodes.push(new BlockMask(null, block));
+
+    if (this.stringObj) this.stringObj += ",";
+    this.stringObj += block.id.replace("minecraft:", "");
+    if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
   }
 
   intersect(mask: Mask) {

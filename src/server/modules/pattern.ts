@@ -68,13 +68,17 @@ export class Pattern implements CustomArgType {
     return this.block == null;
   }
 
-  addBlock(block: BlockPermutation) {
+  addBlock(permutation: BlockPermutation) {
     if (this.block == null) {
       this.block = new ChainPattern(null);
     }
 
-    this.block.nodes.push(new BlockPattern(null, blockPermutation2ParsedBlock(block)));
-    this.stringObj = "(picked)";
+    const block = blockPermutation2ParsedBlock(permutation);
+    this.block.nodes.push(new BlockPattern(null, block));
+
+    if (this.stringObj) this.stringObj += ",";
+    this.stringObj += block.id.replace("minecraft:", "");
+    if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
   }
 
   getBlockSummary() {
