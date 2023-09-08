@@ -102,6 +102,7 @@ class ToolBuilder {
   deleteBindings(playerId: string) {
     this.bindings.get(playerId).forEach(v => v.delete());
     this.bindings.delete(playerId);
+    this.databases.delete(playerId);
     this.setDisabled(playerId, false);
   }
 
