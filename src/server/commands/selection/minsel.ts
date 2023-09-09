@@ -34,7 +34,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
           }
         }
         layer[axes[0]] += offset;
-      } while (max[axes[0]] != min[axes[0]]);
+      } while (min[axes[0]] != max[axes[0]]);
       throw RawText.translate("commands.wedit:minsel.empty");
     }
   }
