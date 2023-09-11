@@ -49,6 +49,19 @@ class StackerTool extends Tool {
     this.range = range;
     this.mask = mask;
   }
+
+  toJSON() {
+    return {
+      type: this.type,
+      range: this.range,
+      mask: this.mask.getSource()
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static parseJSON(json: {[key: string]: any}) {
+    return [json.range, new Mask(json.mask)];
+  }
 }
 
 Tools.register(StackerTool, "stacker_wand");

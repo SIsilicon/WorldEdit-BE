@@ -1,6 +1,6 @@
 import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
 import { BlockPermutation } from "@minecraft/server";
@@ -197,7 +197,21 @@ export class ErosionBrush extends Brush {
     }
     blockChanges.applyIteration();
   }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      radius: this.radius,
+      type: this.type
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static parseJSON(json: {[key: string]: any}) {
+    return [json.radius, json.type];
+  }
 }
+brushTypes.set("erosion_brush", ErosionBrush);
 
 const erosionTypes = new Map<ErosionType, ErosionPreset>([
   [ErosionType.DEFAULT, new ErosionPreset(1, 1, 6, 0)],

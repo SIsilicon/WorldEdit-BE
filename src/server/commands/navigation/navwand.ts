@@ -10,7 +10,12 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session, builder) {
-  Server.runCommand(`give @s ${config.navWandItem}`, builder);
-  session.bindTool("navigation_wand", config.navWandItem);
+  let item = config.navWandItem;
+  const boundItems = session.getTools("navigation_wand");
+  if (boundItems.length && !boundItems.includes(item)) {
+    item = boundItems[0];
+  }
+  Server.runCommand(`give @s ${item}`, builder);
+  session.bindTool("navigation_wand", item);
   return RawText.translate("commands.wedit:navwand.explain");
 });

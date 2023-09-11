@@ -29,7 +29,7 @@ export abstract class Tool {
    */
   readonly permission: string;
   /**
-   * Whether there should be some delay between item use to avoid rapid fire/
+   * Whether there should be some delay between item use to avoid rapid fire.
    */
   readonly noDelay: boolean = false;
 
@@ -103,5 +103,14 @@ export abstract class Tool {
 
   delete() {
     return;
+  }
+
+  toJSON() {
+    return { type: this.type };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  static parseJSON(json: {[key: string]: any}): any[] {
+    return [];
   }
 }

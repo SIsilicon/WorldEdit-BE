@@ -1,6 +1,6 @@
 import { Vector, regionTransformedBounds } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
 import { RegionBuffer, RegionLoadOptions } from "@modules/region_buffer.js";
@@ -119,3 +119,4 @@ export class StructureBrush extends Brush {
     }
   }
 }
+brushTypes.set("structure_brush", StructureBrush);

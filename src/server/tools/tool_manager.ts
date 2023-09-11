@@ -1,5 +1,5 @@
 import { Player, ItemStack, ItemUseBeforeEvent, world, EntityInventoryComponent, PlayerBreakBlockBeforeEvent } from "@minecraft/server";
-import { contentLog, Server, sleep, Thread, Vector } from "@notbeer-api";
+import { contentLog, Server, sleep, Thread, Vector, Database } from "@notbeer-api";
 import { Tool } from "./base_tool.js";
 import { getSession, hasSession } from "../sessions.js";
 
@@ -11,6 +11,7 @@ type toolObject = {[key: string]: any} & Tool;
 class ToolBuilder {
   private tools = new Map<string, toolConstruct>();
   private bindings = new Map<string, Map<string, Tool>>();
+  private databases = new Map<string, Database>;
   private fixedBindings = new Map<string, Tool>();
 
   private disabled: string[] = [];
@@ -75,6 +76,8 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).set(itemId, tool);
+      this.databases.get(playerId).set(itemId, tool);
+      this.databases.get(playerId).save();
       return tool;
     } else {
       throw "worldedit.tool.noItem";
@@ -89,6 +92,8 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).delete(itemId);
+      this.databases.get(playerId).delete(itemId);
+      this.databases.get(playerId).save();
     } else {
       throw "worldedit.tool.noItem";
     }
@@ -97,6 +102,7 @@ class ToolBuilder {
   deleteBindings(playerId: string) {
     this.bindings.get(playerId).forEach(v => v.delete());
     this.bindings.delete(playerId);
+    this.databases.delete(playerId);
     this.setDisabled(playerId, false);
   }
 
@@ -118,6 +124,7 @@ class ToolBuilder {
   }
 
   getBoundItems(playerId: string, type?: RegExp|string) {
+    this.createPlayerBindingMap(playerId);
     const tools = this.bindings.get(playerId);
     return tools ? Array.from(tools.entries())
       .filter(binding => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
@@ -129,6 +136,8 @@ class ToolBuilder {
       const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         tool[prop] = value;
+        this.databases.get(playerId).set(itemId, tool);
+        this.databases.get(playerId).save();
         return true;
       }
     }
@@ -225,8 +234,21 @@ class ToolBuilder {
   }
 
   private createPlayerBindingMap(playerId: string) {
-    if (!this.bindings.has(playerId)) {
-      this.bindings.set(playerId, new Map<string, Tool>());
+    if (this.bindings.has(playerId)) return;
+    this.bindings.set(playerId, new Map<string, Tool>());
+    const database = new Database(`wedit:tools,${playerId}`);
+    this.databases.set(playerId, database);
+    database.load();
+    for (const itemId of database.keys()) {
+      const json = database.get(itemId);
+      try {
+        const toolClass = this.tools.get(json.type);
+        const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(json));
+        tool.type = json.type;
+        this.bindings.get(playerId).set(itemId, tool);
+      } catch (err) {
+        contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
+      }
     }
   }
 }

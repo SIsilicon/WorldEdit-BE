@@ -1,6 +1,6 @@
 import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { Brush } from "./base_brush.js";
+import { brushTypes, Brush } from "./base_brush.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { Mask } from "@modules/mask.js";
 import { smooth } from "../commands/region/smooth_func.js";
@@ -65,4 +65,19 @@ export class SmoothBrush extends Brush {
     selection.set(0, point);
     selection.set(1, point.offset(this.size*2+1, this.size*2+1, this.size*2+1));
   }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      radius: this.size,
+      iterations: this.iterations,
+      mask: this.mask.getSource()
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static parseJSON(json: {[key: string]: any}) {
+    return [json.radius, json.iterations, new Mask(json.mask)];
+  }
 }
+brushTypes.set("smooth_brush", SmoothBrush);

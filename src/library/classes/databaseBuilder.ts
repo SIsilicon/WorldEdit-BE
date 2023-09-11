@@ -12,7 +12,7 @@ export class Database {
 
   /**
   * Save a value or update a value in the Database under a key
-  * @param {string} Key The key you want to save the value as
+  * @param {string} key The key you want to save the value as
   * @param {any} value The value you want to save
   * @example Database.set('Test Key', 'Test Value');
   */

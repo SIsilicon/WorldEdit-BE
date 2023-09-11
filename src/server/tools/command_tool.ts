@@ -34,5 +34,17 @@ class CommandTool extends Tool {
       this.command = command;
     }
   }
+
+  toJSON() {
+    return {
+      type: this.type,
+      command: (this.isCustom ? ";" : "/") + this.command
+    };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static parseJSON(json: {[key: string]: any}) {
+    return [json.command];
+  }
 }
 Tools.register(CommandTool, "command_wand");
