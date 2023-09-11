@@ -46,10 +46,6 @@ export default {
   */
   maxBrushRadius: 6,
   /**
-  * Whether to break blocks, instead of interacting with them while sneaking, to mark the first position (;pos1, ;hpos1).
-  */
-  useBlockBreaking: true,
-  /**
   * The default amount of blocks that can be "potentially" affected within a single operation.
   */
   defaultChangeLimit: -1,
