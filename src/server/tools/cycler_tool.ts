@@ -24,7 +24,6 @@ class BlockCyclerTool extends Tool {
   update = function(player: Player, loc: Vector3, increment: boolean) {
     const block = player.dimension.getBlock(loc);
     let permutation = block.permutation;
-    console.warn(block.getComponent("minecraft:inventory"));
     try {
       const states = Object.entries(permutation.getAllStates());
 
