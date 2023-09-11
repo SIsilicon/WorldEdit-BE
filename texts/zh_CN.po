@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-06-13 16:45\n"
+"PO-Revision-Date: 2023-08-15 18:13\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -358,6 +358,12 @@ msgstr "您当前坐标的生物群系为:%s"
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "您当前选区内的生物群系为:%s"
 
+msgid "commands.wedit:blockid.description"
+msgstr "显示你所看到方块的id与状态。"
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "6"
+
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已装载球形笔刷 (%s)。"
 
@@ -601,6 +607,9 @@ msgstr "生成一个空心圆柱体"
 msgid "commands.wedit:help.header"
 msgstr "--- 显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
+msgid "commands.wedit:hollow.description"
+msgstr "将您的选区中包含的对象镂空"
+
 msgid "commands.wedit:hpos1.description"
 msgstr "将您的选区的第一个位置设定为你所面对的方块的位置。"
 
@@ -784,8 +793,29 @@ msgstr "移动选区"
 msgid "commands.wedit:shift.explain"
 msgstr "区域已移动。"
 
+msgid "commands.wedit:size.blocks"
+msgstr "#方块数: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "设置笔刷的尺寸"
+msgstr "设置一支笔刷的尺寸或是获取关于这个选区的信息"
+
+msgid "commands.wedit:size.distance"
+msgstr "立方体的距离: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "偏移: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "位置1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "位置2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "尺寸: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "类型: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "模拟该地区的雪"

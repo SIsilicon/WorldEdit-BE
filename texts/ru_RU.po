@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-08-14 16:11\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -143,13 +143,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Инструмент \"Маркер\""
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Инструмент команды"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Инструмент замены блоков"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Инструмент для поворота блоков"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Сферовая кисть"
@@ -161,13 +161,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Сглаживающий кисть"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Структурная кисть"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Кисть Эрозии"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Кисть наложения"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Сделайте узор и дополнительную маску для кисти."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Выберите шаблон для инструмента."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Сделайте необязательную маску для инструмента."
@@ -221,10 +221,10 @@ msgid "worldedit.config.hollow"
 msgstr "Полный"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Глубина"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Тип Эрозии"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
@@ -233,10 +233,10 @@ msgid "worldedit.config.usePicker"
 msgstr "Используйте средство выбора блоков"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Команда"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "Is WorldEdit Command"
+msgstr "Команда WorldEdit"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
@@ -358,6 +358,12 @@ msgstr "Биом на вашей позиции:%s"
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Биомы в вашей выделенной области:%s"
 
+msgid "commands.wedit:blockid.description"
+msgstr "Выводит Id и состояние блока на который вы смотрите."
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "Смотрите на блок, чьё состояние и id вы хотите получить."
+
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Сферическая форма кисти установлена (%s)."
 
@@ -371,7 +377,7 @@ msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Сглаживающая форма кисти установлена (%1 x %2x using filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "Clipboard brush equipped."
+msgstr "Выбрана кисть буфера обмена."
 
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
@@ -601,6 +607,9 @@ msgstr "Сгенерировать пустой целиндр"
 msgid "commands.wedit:help.header"
 msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
 
+msgid "commands.wedit:hollow.description"
+msgstr "Hollow out the objects contained in your selection"
+
 msgid "commands.wedit:hpos1.description"
 msgstr "Установите первую позицию выбора в позицию блока, на который вы смотрите"
 
@@ -784,8 +793,29 @@ msgstr "Сдвинуть выделенный регион"
 msgid "commands.wedit:shift.explain"
 msgstr "Регион сдвинут."
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "Установить размер кисти"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Имитация снега в области"

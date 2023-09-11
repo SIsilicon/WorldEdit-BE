@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-08-05 04:45\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -358,6 +358,12 @@ msgstr "Biome at your position: %s"
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomes in your selection: %s"
 
+msgid "commands.wedit:blockid.description"
+msgstr "Prints the id and states of the block you're looking at."
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "Look at the block you want the id and states of."
+
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Sphere brush shape equipped (%s)."
 
@@ -601,6 +607,9 @@ msgstr "Generate a hollow cylinder"
 msgid "commands.wedit:help.header"
 msgstr "--- Showing help page %1 of %2 (;help <page>) ---"
 
+msgid "commands.wedit:hollow.description"
+msgstr "Hollow out the objects contained in your selection"
+
 msgid "commands.wedit:hpos1.description"
 msgstr "Set the first position of your selection to the position of the block you're facing"
 
@@ -784,8 +793,29 @@ msgstr "Shift the selection area"
 msgid "commands.wedit:shift.explain"
 msgstr "Region shifted."
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Simulate snow in the area"

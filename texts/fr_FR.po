@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-06-04 03:25\n"
+"PO-Revision-Date: 2023-08-12 13:46\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -143,13 +143,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Outil d'empilage"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Outil de commande"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Outil de replacer de bloc"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Outil de replacer de bloc"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Brosse sphérique"
@@ -161,13 +161,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Brosse douce"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Brosse de structure"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Pinceau d'érosion"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Brosse de superposition"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Créer un motif et un masque optionnel pour le pinceau."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Créer un motif pour l'outil."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Créer un masque optionnel pour l'outil."
@@ -221,7 +221,7 @@ msgid "worldedit.config.hollow"
 msgstr "Creux"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "profondeur"
 
 msgid "worldedit.config.erosion"
 msgstr "Erosion Type"
@@ -357,6 +357,12 @@ msgstr "Biome à votre position: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomes dans votre sélection : %s"
+
+msgid "commands.wedit:blockid.description"
+msgstr "Prints the id and states of the block you're looking at."
+
+msgid "commands.wedit:blockid.noBlock"
+msgstr "Look at the block you want the id and states of."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Pinceau de type sphère équipé (%s)."
@@ -601,6 +607,9 @@ msgstr "Générer un cylindre creux"
 msgid "commands.wedit:help.header"
 msgstr "--- Affichage de la page d'aide %1 de %2 (;help <page>) ---"
 
+msgid "commands.wedit:hollow.description"
+msgstr "Hollow out the objects contained in your selection"
+
 msgid "commands.wedit:hpos1.description"
 msgstr "Set the first position of your selection to the position of the block you're facing"
 
@@ -784,8 +793,29 @@ msgstr "Shift the selection area"
 msgid "commands.wedit:shift.explain"
 msgstr "Region shifted."
 
+msgid "commands.wedit:size.blocks"
+msgstr "# of blocks: %s"
+
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush"
+msgstr "Set the size of a brush or get information about the selection"
+
+msgid "commands.wedit:size.distance"
+msgstr "Cuboid distance: %s"
+
+msgid "commands.wedit:size.offset"
+msgstr "Offset: %s"
+
+msgid "commands.wedit:size.pos1"
+msgstr "Position 1: %s"
+
+msgid "commands.wedit:size.pos2"
+msgstr "Position 2: %s"
+
+msgid "commands.wedit:size.size"
+msgstr "Size: %s"
+
+msgid "commands.wedit:size.type"
+msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Simulate snow in the area"
