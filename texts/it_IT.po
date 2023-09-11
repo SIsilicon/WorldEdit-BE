@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2023-08-05 04:45\n"
+"PO-Revision-Date: 2023-09-11 22:58\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -749,10 +749,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "Selezione cancellata."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: tocca mentre sei abbassato per il punto 1, tocca senza abbassarsi per il punto 2"
+msgstr "Cuboid: break block for point 1, use on block for point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
 
 msgid "commands.wedit:sel.description"
 msgstr "Cambia modalità selezione"
@@ -770,10 +770,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Select a sphere"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Estendere: tocca mentre sei abbassato per un punto di partenza, tocca senza abbassarti per estendere"
+msgstr "Extend: break block for a starting point, use on block to extend"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: tap while sneaking for the center, tap without sneaking to set radius"
+msgstr "Sphere selector: break block for the center, use on block to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Riempi la selezione col campione di un blocco"
@@ -947,7 +947,7 @@ msgid "commands.wedit:wand.description"
 msgstr "Dai a te stesso una bacchetta di selezione"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Abbassati e cliccaun blocco: seleziona pos #1; Tocca blocco senza abbassarti: seleziona pos #2"
+msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Comandi WorldEdit"
@@ -1010,7 +1010,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Fai una Selezione"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Come la mod originale, si utilizza quello che è noto come una bacchetta di selezione per contrassegnare facilmente le regioni del vostro mondo per varie operazioni. Per ottenerne uno, prendere un'ascia di legno, o inserire il comando §e;wand§r. Le selezioni in WorldEdit sono a forma di cuboid per impostazione predefinita. Per fare una selezione, è necessario contrassegnare i due angoli di questo cuboid. Si contrassegna il primo angolo utilizzando la bacchetta su un blocco in quell'angolo mentre sei abbassato. Marchi il secondo punto usandolo su un blocco §lsenza§r abbassarti. Se fatto correttamente, dovresti vedere un'evidenziazione della tua selezione."
+msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "Se non c'è nessun blocco per segnare un angolo, come per esempio in aria, puoi anche usare i comandi §e;pos1§r o §e;pos2§r per contrassegnare rispettivamente il primo e il secondo angolo, come la posizione in cui ti trovi attualmente. Questa non è la stessa posizione §lsu§r cui ti trovi."
