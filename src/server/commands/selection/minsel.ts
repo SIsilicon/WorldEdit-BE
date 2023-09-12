@@ -22,19 +22,17 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const [min, max] = session.selection.getRange();
   const dimension = builder.dimension;
 
-  const vec = Vector.ZERO;
   for (const axes of [["x", "y", "z"], ["y", "z", "x"], ["z", "x", "y"]] as ("x"|"y"|"z")[][]) {
-    layers: for (const [layer, offset] of [[min, 1], [max, -1]] as [Vector, number][]) {
-      do {
-        vec[axes[0]] = layer[axes[0]];
+    layers: for (const [start, end, sign] of [[min, max, 1], [max, min, -1]] as [Vector, Vector, number][]) {
+      for (const vec = start.clone(); Math.sign(vec[axes[0]] - end[axes[0]]) != sign; vec[axes[0]] += sign) {
+        start[axes[0]] = vec[axes[0]];
         for (vec[axes[1]] = min[axes[1]]; vec[axes[1]] <= max[axes[1]]; vec[axes[1]]++) {
           for (vec[axes[2]] = min[axes[2]]; vec[axes[2]] <= max[axes[2]]; vec[axes[2]]++) {
             if (mask.matchesBlock(dimension.getBlock(vec))) continue layers;
             yield;
           }
         }
-        layer[axes[0]] += offset;
-      } while (min[axes[0]] != max[axes[0]]);
+      }
       throw RawText.translate("commands.wedit:minsel.empty");
     }
   }
