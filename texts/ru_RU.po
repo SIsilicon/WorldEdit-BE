@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-08-14 16:11\n"
+"PO-Revision-Date: 2023-09-11 22:58\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -749,10 +749,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Кубоид: нажмите во время приседа на точку 1, и в обычном режиме на точку 2"
+msgstr "Cuboid: break block for point 1, use on block for point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: tap while sneaking for the center, tap without sneaking to expand radius and height"
+msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
 
 msgid "commands.wedit:sel.description"
 msgstr "Сменить режим выделения"
@@ -770,10 +770,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Выберите сферу"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Расширение: нажмите во время приседа для стартовой точки, нажмите без приседа, чтобы продлить"
+msgstr "Extend: break block for a starting point, use on block to extend"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Сфера селектор: коснитесь во время подкрадывания в центре экрана, нажмите без крадывания, чтобы установить радиус"
+msgstr "Sphere selector: break block for the center, use on block to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
@@ -947,7 +947,7 @@ msgid "commands.wedit:wand.description"
 msgstr "Дай себе топор для выделения"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Присесть и нажать на блок: выбрать точку #1; Нажмите на блок без приседания: выбрать точку #2"
+msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Команды WorldEdit"
@@ -1010,7 +1010,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Делать Выделения"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Как и в оригинальном моде, вы используете палочку выбора, чтобы легко отмечать области вашего мира для различных операций. Чтобы получить ее, возьмите деревянный топор или введите команду §e;wand§r. Выделения в WorldEdit по умолчанию имеют форму куба. Чтобы сделать выделение, вам нужно отметить два угла этого прямоугольного параллелепипеда. Вы отмечаете первый угол, используя палочку на блоке в этом углу, крадучись. Вы отмечаете вторую точку, используя ее на блоке §lбез §r крадучести. Если все сделано правильно, вы должны увидеть выделение вашего выбора."
+msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "Если у вас нет блока, которым вы могли бы отметить угол, например высоко в воздухе, вы также можете использовать команды §e;pos1§r или §e;pos2§r, чтобы отметить первый и второй угол соответственно в качестве позиции, на который вы стоите."

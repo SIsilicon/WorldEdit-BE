@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-08-06 21:45\n"
+"PO-Revision-Date: 2023-09-11 22:58\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -749,10 +749,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Кубоїд: нажміть під час присяду до точки 1, та нажміть у звичайному положенні до точки 2"
+msgstr "Cuboid: break block for point 1, use on block for point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Селектор циліндрів: натисніть, підкрадаючись до центру, натисніть, не підкрадаючись, щоб збільшити радіус і висоту"
+msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
 
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
@@ -770,10 +770,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Вибрати сферу"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Розширення: нажміть, підкрадаючись до початкової точки, та нажміть, не підкрадаючись, щоб розширити"
+msgstr "Extend: break block for a starting point, use on block to extend"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Селектор сфер: нажміть під час присяду в центр екрана, та нажміть, не підкрадаючись, щоб встановити радіус"
+msgstr "Sphere selector: break block for the center, use on block to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Заповнити виділення вибраним блоком"
@@ -947,7 +947,7 @@ msgid "commands.wedit:wand.description"
 msgstr "Видати собі паличку виділення"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Присядьте та нажміть на блок: вибрати позицію №1; Нажміть на блок без присідання: вибрати позицію №2"
+msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Команди WorldEdit"
@@ -1010,7 +1010,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Створення виділення"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Як і в оригінальної модифікації, ви використовуєте те, що називається паличка виділення, щоб легко позначати регіони вашого світу для різних операцій. Щоб отримати її, візьміть дерев’яну сокиру або введіть команду §e;wand§r. Виділення у WorldEdit за замовчуванням мають форму куба. Щоб зробити виділення, потрібно позначити два кути цього паралелепіпеда. Ви позначаєте перший кут, використовуючи паличку на блоці в цьому куті під час підкрадання. Ви позначаєте другу точку, використовуючи її на блоці §lбез§r підкрадання. Якщо все зроблено правильно, ви повинні побачити виділення."
+msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "Якщо у вас немає блоку, яким можна позначити кут, наприклад, високо в повітрі, ви також можете використати команди §e;pos1§r або §e;pos2§r, щоб позначити перший і другий кути відповідно як позицію, де ви зараз перебуваєте. Це не те саме, що ви стоїте."
