@@ -31,7 +31,7 @@ import "./selection/expand.js";
 import "./selection/shift.js";
 import "./selection/outset.js";
 import "./selection/inset.js";
-import "./selection/minsel.js";
+import "./selection/trim.js";
 
 import "./selection/count.js";
 import "./selection/distr.js";
