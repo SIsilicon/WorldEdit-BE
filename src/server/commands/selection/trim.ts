@@ -1,6 +1,6 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
-import { RawText, Vector } from "@notbeer-api";
+import { Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -33,12 +33,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
           }
         }
       }
-      throw RawText.translate("commands.wedit:trim.no-blocks");
+      throw "commands.wedit:trim.no-blocks";
     }
   }
 
   session.selection.set(0, min);
   session.selection.set(1, max);
 
-  return RawText.translate("commands.wedit:trim.explain");
+  return "commands.wedit:trim.explain";
 });
