@@ -450,7 +450,7 @@ Server.uiForms.register<ConfigContext>("$editTool_structure_brush", {
     }
   },
   submit: (ctx, player, input) => {
-    ctx.setData("toolData", [new StructureBrush((input.$structs as string)?.split(" ") || getSession(player).clipboard, null), null, null, null]);
+    ctx.setData("toolData", [new StructureBrush(input.$structs ? (input.$structs as string).split(" ") : getSession(player).clipboard, null), null, null, null]);
     finishToolEdit(ctx);
   },
   cancel: ctx => ctx.returnto("$tools")
