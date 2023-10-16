@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-09-11 22:58\n"
+"PO-Revision-Date: 2023-10-16 21:08\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -225,6 +225,9 @@ msgstr "Tiefe"
 
 msgid "worldedit.config.erosion"
 msgstr "Erosionstyp"
+
+msgid "worldedit.config.structures"
+msgstr "Structures"
 
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
@@ -861,6 +864,15 @@ msgstr "Keine freie Stelle unter Ihnen gefunden."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
+
+msgid "commands.wedit:trim.description"
+msgstr "Minimize the selection to encompass matching blocks"
+
+msgid "commands.wedit:trim.explain"
+msgstr "Region trimmed."
+
+msgid "commands.wedit:trim.no-blocks"
+msgstr "No blocks matched the trim mask!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Eingegebene Position."
