@@ -21,7 +21,6 @@ configuration.multiThreadingTimeBudget = config.asyncTimeBudget;
 const activeBuilders: Player[] = [];
 
 Server.on("worldInitialize", () => {
-  console.warn("Hi")
   system.run(() => {
     for (const tickingArea of getTickingAreas()) {
       if (!tickingArea) continue;
