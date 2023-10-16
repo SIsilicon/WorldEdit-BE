@@ -1,4 +1,4 @@
-import { DynamicPropertiesDefinition, Player, system, world } from "@minecraft/server";
+import { Player, system, world } from "@minecraft/server";
 import { getTickingAreas, print, printerr, setTickingAreas } from "./util.js";
 
 // Check if configuration is properly loaded
@@ -20,23 +20,17 @@ Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = config.asyncTimeBudget;
 const activeBuilders: Player[] = [];
 
-Server.on("worldInitialize", ev => {
-  try {
-    const def = new DynamicPropertiesDefinition();
-    def.defineString("wedit_ticking_areas", 500);
-    ev.propertyRegistry.registerWorldDynamicProperties(def);
-    contentLog.debug("Initialized dynamic properties");
-
-    system.run(() => {
-      for (const tickingArea of getTickingAreas()) {
-        if (!tickingArea) continue;
-        for (const dim of ["overworld", "nether", "the_end"]) {
-          if (!removeTickingArea(tickingArea, world.getDimension(dim))) break;
-        }
+Server.on("worldInitialize", () => {
+  console.warn("Hi")
+  system.run(() => {
+    for (const tickingArea of getTickingAreas()) {
+      if (!tickingArea) continue;
+      for (const dim of ["overworld", "nether", "the_end"]) {
+        if (!removeTickingArea(tickingArea, world.getDimension(dim))) break;
       }
-      setTickingAreas([]);
-    });
-  } catch (e) { contentLog.error(e); }
+    }
+    setTickingAreas([]);
+  });
 });
 
 let ready = false;
