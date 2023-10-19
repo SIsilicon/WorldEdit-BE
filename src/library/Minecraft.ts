@@ -136,7 +136,7 @@ class ServerBuild extends ServerBuilder {
     const playerDimensions = new Map<string, string>();
     system.runInterval(() => {
       tickCount++;
-      if (!this.runCommand("testfor @a").error && !worldLoaded) {
+      if (!worldLoaded && world.getAllPlayers().length) {
         /**
          * Emit to 'ready' event listener
          */
