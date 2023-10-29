@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-10-16 21:08\n"
+"PO-Revision-Date: 2023-10-29 07:50\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -224,7 +224,7 @@ msgid "worldedit.config.depth"
 msgstr "profondeur"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Type d'érosion"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
