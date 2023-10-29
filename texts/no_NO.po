@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-09-11 22:58\n"
+"PO-Revision-Date: 2023-10-09 13:33\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -146,10 +146,10 @@ msgid "worldedit.config.tool.cmd"
 msgstr "Kommandoverktøy"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Blokk erstatningsverktøy"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Blokk syklusverktøy"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Kulepensel"
@@ -161,13 +161,13 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Jevnbørste"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Strukturpensel"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Erosjonspensel"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Overlappingspensel"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
@@ -182,7 +182,7 @@ msgid "worldedit.config.patternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Lag et mønster for verktøyet."
 
 msgid "worldedit.config.mask.tool"
 msgstr "Lag en valgfri maske for verktøyet."
@@ -221,10 +221,10 @@ msgid "worldedit.config.hollow"
 msgstr "Hul"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Dybde"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Erosjonstype"
 
 msgid "worldedit.config.mask.height"
 msgstr "Høyde-maske"
@@ -359,10 +359,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomer i ditt utvalg: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "Skriver ut id-en og statusen til blokken du ser på."
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "Se på blokken du vil ha id og status av."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Kulepensel-form valgt (%s)."
@@ -608,7 +608,7 @@ msgid "commands.wedit:help.header"
 msgstr "--- Viser hjelpeside %1 av %2 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Hollow out the objects contained in your selection"
+msgstr "Hul ut objektene i utvalget ditt"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Angi den første posisjonen av utvalget ditt til posisjonen til blokken du ser på"
@@ -749,10 +749,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "Kube: ødelegg blokk for punkt 1, bruk på blokk for punkt 1"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "Syllinder velger: ødelegg blokk for midten, brukt på blokk for å utvide radius og høyde"
 
 msgid "commands.wedit:sel.description"
 msgstr "Endre utvalgs-modus"
@@ -770,10 +770,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Velg en sfære"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "Utvid: ødelegg blokk for startpunkt, brukt på blokk for å utvide"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "Sfære velger: ødelegg blokk for midten, bruk på blokk for å sette radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Fyll utvalget med et blokkmønster"
@@ -794,25 +794,25 @@ msgid "commands.wedit:shift.explain"
 msgstr "Region byttet."
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "# av blokker: %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "Angi størrelse av et pensel eller få informasjon om utvalget"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "Kube distanse: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Utlign: %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "Posisjon 1: %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "Posisjon 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Størrelse: %s"
 
 msgid "commands.wedit:size.type"
 msgstr "Type: %s"
@@ -947,7 +947,7 @@ msgid "commands.wedit:wand.description"
 msgstr "Gi deg selv en utvalgsstav"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "Ødelegg blokk: velg pos #1; \"bruk\" på blokk: velg pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit kommandoer"
@@ -1010,7 +1010,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Utføre valg"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
+msgstr "Som i den originale modden bruker du noe som kalles for en utvalgsstav for å enkelt markere områder av verdenen din for diverse operasjoner. For å få en, ta en treøks eller skriv inn kommandoen §e;wand§r. Utvalg i WorldEdit er kube-formede som standard. For å gjøre et valg må du velge to hjørner av kuben. Du markerer det første hjørnet ved å ødelegge en blokk i det hjørnet med staven. Du marker det andre punktet ved å \"bruke\" den på en blokk. Hvis dette er gjort riktig bør du kunne se en fremvisning av utvalget ditt."
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "Hvis det er ingen blokker å markere ett hjørne med, som for eksempel høyt i luften, kan du også bruke kommandoene §e;pos1§r for det første hjørnet, og §e;pos2§r for det andre punktet, denne kommandoen markerer punktet du står i på det tidspunktet. Dette er ikke den samme posisjonen som du står §lon§r."
