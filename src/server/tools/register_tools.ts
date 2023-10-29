@@ -7,3 +7,4 @@ import "./replacer_tool.js";
 import "./cycler_tool.js";
 import "./button_tools.js";
 import "./brush_tools.js";
+import "./superpickaxe_tool.js";

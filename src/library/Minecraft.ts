@@ -128,6 +128,10 @@ class ServerBuild extends ServerBuilder {
      */
     beforeEvents.playerBreakBlock.subscribe(data => this.emit("blockBreak", data));
     /**
+     * Emit to 'blockHit' event listener
+     */
+    afterEvents.entityHitBlock.subscribe(data => this.emit("blockHit", data));
+    /**
      * Emit to 'worldInitialize' event listener
      */
     afterEvents.worldInitialize.subscribe(data => this.emit("worldInitialize", data));

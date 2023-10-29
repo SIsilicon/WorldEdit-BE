@@ -10,13 +10,13 @@ class BlockCyclerTool extends Tool {
   permission = "worldedit.cycler";
   useOn = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
     if (player.isSneaking) {
-      self.breakOn(self, player, session, loc);
+      self.break(self, player, session, loc);
     } else {
       self.update(player, loc, true);
     }
   };
 
-  breakOn = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
+  break = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
     self.stateIndex++;
     self.update(player, loc, false);
   };
