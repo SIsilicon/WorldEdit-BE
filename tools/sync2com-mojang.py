@@ -11,7 +11,8 @@ parser.add_argument('--dest', choices=['stable', 'preview', 'server'], default='
 args = parser.parse_args()
 
 if args.dest == 'stable':
-    com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
+    # com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
+    com_mojang = os.path.expandvars('$HOME/.local/share/mcpelauncher/games/com.mojang')
 elif args.dest == 'preview':
     com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
 elif args.dest == 'server':
@@ -19,8 +20,8 @@ elif args.dest == 'server':
 
 pack_folder = 'WorldEdit'
 
-behaviour_pack = com_mojang + f'\\development_behavior_packs\\{pack_folder} BP'
-resource_pack = com_mojang + f'\\development_resource_packs\\{pack_folder} RP'
+behaviour_pack = os.path.join(com_mojang, 'development_behavior_packs', f'{pack_folder} BP')
+resource_pack = os.path.join(com_mojang, 'development_resource_packs', f'{pack_folder} RP')
 
 def sync_file(path, from_root, to_root):
     from_file = Path(path).relative_to(from_root)

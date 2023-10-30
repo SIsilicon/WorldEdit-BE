@@ -82,7 +82,7 @@ export abstract class Tool {
         if (system.currentTick - self.lastUse > 4 || self.noDelay) {
           self.lastUse = system.currentTick;
 
-          if (!(action == ToolAction.USE && self.useOnTick != tick)) {
+          if (!(action == ToolAction.USE && self.useOnTick == tick)) {
             if (action == ToolAction.USE_ON) self.useOnTick = tick;
             const func = self[action];
             if (func.constructor.name == "GeneratorFunction") {

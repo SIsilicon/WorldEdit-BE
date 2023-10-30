@@ -46,7 +46,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     session.superPickaxe.range = args.get("range");
   } else {
     const enabled = (session.superPickaxe.enabled = !session.superPickaxe.enabled);
-    return "commands.wedit:superpickaxe." + enabled ? "enabled" : "disabled";
+    return "commands.wedit:superpickaxe." + (enabled ? "enabled" : "disabled");
   }
   session.superPickaxe.enabled = true;
   return "commands.wedit:superpickaxe." + session.superPickaxe.mode;

@@ -66,9 +66,9 @@ class ToolBuilder {
     this.tools.set(name, toolClass);
     if (typeof item == "string") {
       this.fixedBindings.set(item, new toolClass());
-    } else if (condition && item instanceof Array) {
+    } else if (condition && Array.isArray(item)) {
       const tool = { condition, tool: new toolClass() };
-      for (const key in item) {
+      for (const key of item) {
         this.conditionalBindings.set(key, tool);
       }
     }

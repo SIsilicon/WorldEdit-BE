@@ -46,6 +46,14 @@ export default {
   */
   maxBrushRadius: 6,
   /**
+  * Whether blocks broken by the super pickaxe in "single" mode drop.
+  */
+  superPickaxeDrop: true,
+  /**
+  * Whether blocks broken by the super pickaxe in "area" and "recursive" mode drop.
+  */
+  superPickaxeManyDrop: false,
+  /**
   * The default amount of blocks that can be "potentially" affected within a single operation.
   */
   defaultChangeLimit: -1,
