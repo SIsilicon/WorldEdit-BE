@@ -11,8 +11,7 @@ parser.add_argument('--dest', choices=['stable', 'preview', 'server'], default='
 args = parser.parse_args()
 
 if args.dest == 'stable':
-    # com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
-    com_mojang = os.path.expandvars('$HOME/.local/share/mcpelauncher/games/com.mojang')
+    com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
 elif args.dest == 'preview':
     com_mojang = os.path.expandvars('%localappdata%\\Packages\\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\\LocalState\\games\\com.mojang')
 elif args.dest == 'server':

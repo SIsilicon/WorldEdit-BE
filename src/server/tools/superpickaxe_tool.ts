@@ -36,7 +36,7 @@ class SuperPickaxeTool extends Tool {
     while (queue.length) {
       const block = queue.shift();
       const str = locToString(block);
-      if (!visited.has(str) && loc.sub(block).lengthSqr <= rangeSqr && block.y > limits[0] && block.y < limits[1] && dimension.getBlock(block).typeId == typeId) {
+      if (!visited.has(str) && loc.sub(block).lengthSqr <= rangeSqr && block.y >= limits[0] && block.y <= limits[1] && dimension.getBlock(block).typeId == typeId) {
         visited.add(str);
         destroyBlock(dimension, block, config.superPickaxeManyDrop);
         for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
