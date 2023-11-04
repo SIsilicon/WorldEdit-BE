@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-10-16 21:08\n"
+"PO-Revision-Date: 2023-11-04 09:25\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -815,10 +815,10 @@ msgid "commands.wedit:size.pos2"
 msgstr "Position 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Размер: %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "Тип: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Имитация снега в области"
