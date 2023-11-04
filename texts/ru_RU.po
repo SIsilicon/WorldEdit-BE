@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-11-04 09:25\n"
+"PO-Revision-Date: 2023-11-04 10:48\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -50,7 +50,7 @@ msgid "item.wedit:mask_picker"
 msgstr "Выбор Маски"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Поставить Стеклянный Блок"
+msgstr "Разместить стеклянный блок"
 
 msgid "item.wedit:selection_fill"
 msgstr "Заполнение"
@@ -227,7 +227,7 @@ msgid "worldedit.config.erosion"
 msgstr "Тип Эрозии"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "Структуры"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
@@ -788,7 +788,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "Change the biomes in your selection"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eПримечание: Вам необходимо обработать мир в приложении WorldEdit, чтобы изменения биомов вступили в силу.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Сдвинуть выделенный регион"
@@ -806,13 +806,13 @@ msgid "commands.wedit:size.distance"
 msgstr "Cuboid distance: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Смещение на %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "Позиция 1: %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "Позиция 2: %s"
 
 msgid "commands.wedit:size.size"
 msgstr "Размер: %s"
