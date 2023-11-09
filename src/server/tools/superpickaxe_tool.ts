@@ -1,8 +1,8 @@
-import { Dimension, Player } from "@minecraft/server";
+import { Dimension, Player, Vector3 } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
-import { Server, Vector } from "@notbeer-api";
+import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
 import { getWorldHeightLimits, locToString } from "server/util.js";
 import config from "config.js";
 
@@ -10,11 +10,11 @@ class SuperPickaxeTool extends Tool {
   noDelay = true;
   permission = "worldedit.superpickaxe";
 
-  break = function () { /* pass */ };
-
-  hit = function* (self: SuperPickaxeTool, player: Player, session: PlayerSession, loc: Vector): Generator<void> {
-    const { mode, range } = session.superPickaxe;
+  break = function* (self: SuperPickaxeTool, player: Player, session: PlayerSession, loc: Vector): Generator<void> {
     const dimension = player.dimension;
+    const typeId = dimension.getBlock(loc).typeId;
+    if (typeId == "minecraft:air") return;
+    const { mode, range } = session.superPickaxe;
     if (mode == "single") {
       destroyBlock(dimension, loc, config.superPickaxeDrop);
       return;
@@ -25,11 +25,14 @@ class SuperPickaxeTool extends Tool {
       const max = loc.add(range);
       min.y = Math.max(min.y, limits[0]);
       max.y = Math.min(max.y, limits[1]);
-      destroyBlocks(dimension, min, max, config.superPickaxeManyDrop);
+      for (const block of regionIterateBlocks(min, max)) {
+        if (dimension.getBlock(block).typeId == typeId) {
+          destroyBlock(dimension, block, config.superPickaxeManyDrop);
+        }
+        yield;
+      }
       return;
     }
-    const typeId = dimension.getBlock(loc).typeId;
-    if (typeId == "minecraft:air") return;
     const rangeSqr = range * range;
     const queue: Vector[] = [loc];
     const visited = new Set<string>();
@@ -47,6 +50,8 @@ class SuperPickaxeTool extends Tool {
     }
   };
 
+  hit = this.break;
+
   constructor() {
     super();
   }
@@ -62,18 +67,10 @@ Tools.register(SuperPickaxeTool, "superpickaxe", [
   return session.superPickaxe.enabled;
 });
 
-function destroyBlock(dimension: Dimension, loc: Vector, drop: boolean) {
+function destroyBlock(dimension: Dimension, loc: Vector3, drop: boolean) {
   if (drop) {
     Server.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air destroy`, dimension);
   } else {
     dimension.getBlock(loc).setType("minecraft:air");
-  }
-}
-
-function destroyBlocks(dimension: Dimension, start: Vector, end: Vector, drop: boolean) {
-  if (drop) {
-    Server.runCommand(`fill ${start.x} ${start.y} ${start.z} ${end.x} ${end.y} ${end.z} air destroy`, dimension);
-  } else {
-    dimension.fillBlocks(start, end, "minecraft:air");
   }
 }

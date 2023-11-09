@@ -39,6 +39,14 @@
         "description": "The maximum brush radius allowed.",
         "default": 12
     },
+    "superPickaxeDrop": {
+        "description": "Whether blocks broken by the super pickaxe in \"single\" mode drop.",
+        "default": true
+    },
+    "superPickaxeManyDrop": {
+        "description": "Whether blocks broken by the super pickaxe in \"area\" and \"recursive\" mode drop.",
+        "default": false
+    },
     "defaultChangeLimit": {
         "description": "The default amount of blocks that can be \"potentially\" affected within a single operation.",
         "default": -1
