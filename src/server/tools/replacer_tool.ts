@@ -11,13 +11,13 @@ class BlockReplacerTool extends Tool {
   permission = "worldedit.repl";
   useOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
     if (player.isSneaking) {
-      self.breakOn(self, player, session, loc);
+      self.break(self, player, session, loc);
     } else {
       self.pattern.setBlock(player.dimension.getBlock(loc));
     }
   };
 
-  breakOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
+  break = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
     const pattern = new Pattern();
     pattern.addBlock(player.dimension.getBlock(loc).permutation);
     session.setToolProperty(null, "pattern", pattern);

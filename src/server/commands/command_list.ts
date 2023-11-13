@@ -90,6 +90,7 @@ import "./navigation/descend.js";
 import "./navigation/ceil.js";
 
 import "./tool/tool.js";
+import "./tool/superpickaxe.js";
 
 import "./brush/brush.js";
 import "./brush/mask.js";

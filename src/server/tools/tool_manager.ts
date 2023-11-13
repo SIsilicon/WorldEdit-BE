@@ -1,35 +1,45 @@
-import { Player, ItemStack, ItemUseBeforeEvent, world, EntityInventoryComponent, PlayerBreakBlockBeforeEvent } from "@minecraft/server";
+import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent } from "@minecraft/server";
 import { contentLog, Server, sleep, Thread, Vector, Database } from "@notbeer-api";
-import { Tool } from "./base_tool.js";
-import { getSession, hasSession } from "../sessions.js";
+import { Tool, ToolAction } from "./base_tool.js";
+import { PlayerSession, getSession, hasSession } from "../sessions.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
+type toolCondition = (player: Player, session: PlayerSession) => boolean;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolObject = {[key: string]: any} & Tool;
 
 class ToolBuilder {
   private tools = new Map<string, toolConstruct>();
   private bindings = new Map<string, Map<string, Tool>>();
-  private databases = new Map<string, Database>;
+  private databases = new Map<string, Database>();
   private fixedBindings = new Map<string, Tool>();
+  private conditionalBindings = new Map<string, {condition: toolCondition, tool: Tool}>();
 
   private disabled: string[] = [];
   private currentTick = 0;
 
   constructor() {
     Server.on("itemUseBefore", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) {
-        return;
-      }
-
+      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
       this.onItemUse(ev.itemStack, ev.source as Player, ev);
     });
+
     Server.on("itemUseOnBefore", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) {
-        return;
-      }
+      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
       this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
+    });
+
+    Server.on("blockBreak", ev => {
+      if (!ev.itemStack) return;
+      this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
+    });
+
+    Server.on("blockHit", ev => {
+      if (ev.damagingEntity.typeId != "minecraft:player") return;
+      const item = Server.player.getHeldItem(ev.damagingEntity as Player);
+      if (!item) return;
+      this.onBlockHit(item, ev.damagingEntity as Player, ev, Vector.from(ev.hitBlock));
     });
 
     Server.on("tick", ev => {
@@ -50,20 +60,17 @@ class ToolBuilder {
         yield sleep(1);
       }
     }, this);
-
-    Server.on("blockBreak", ev => {
-      const item = Server.player.getHeldItem(ev.player);
-      if (!item) {
-        return;
-      }
-      this.onBlockBreak(item, ev.player, ev);
-    });
   }
 
-  register(toolClass: toolConstruct, name: string, item?: string) {
+  register(toolClass: toolConstruct, name: string, item?: string | string[], condition?: toolCondition) {
     this.tools.set(name, toolClass);
-    if (item) {
-      this.fixedBindings.set(item, new (toolClass)());
+    if (typeof item == "string") {
+      this.fixedBindings.set(item, new toolClass());
+    } else if (condition && Array.isArray(item)) {
+      const tool = { condition, tool: new toolClass() };
+      for (const key of item) {
+        this.conditionalBindings.set(key, tool);
+      }
     }
   }
 
@@ -202,22 +209,21 @@ class ToolBuilder {
       tool = this.bindings.get(player.id).get(key);
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
     } else {
       return;
     }
 
-    tool.process(getSession(player), this.currentTick, loc);
-    ev.cancel = true;
+    if (tool.process(getSession(player), this.currentTick, loc ? ToolAction.USE_ON : ToolAction.USE, loc)) {
+      ev.cancel = true;
+    }
   }
 
-  private onBlockBreak(item: ItemStack, player: Player, ev: PlayerBreakBlockBeforeEvent) {
+  private onBlockBreak(item: ItemStack, player: Player, ev: PlayerBreakBlockBeforeEvent, loc: Vector) {
     if (this.disabled.includes(player.id)) {
       return;
     }
-
-    const comp = player.getComponent("inventory") as EntityInventoryComponent;
-    if (comp.container.getItem(player.selectedSlot) == null) return;
-    item = comp.container.getItem(player.selectedSlot);
 
     const key = item.typeId;
     let tool: Tool;
@@ -225,12 +231,35 @@ class ToolBuilder {
       tool = this.bindings.get(player.id).get(key);
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
     } else {
       return;
     }
 
-    const processed = tool.process(getSession(player), this.currentTick, Vector.from(ev.block), ev.block.permutation);
-    if (processed) ev.cancel = true;
+    if (tool.process(getSession(player), this.currentTick, ToolAction.BREAK, loc)) {
+      ev.cancel = true;
+    }
+  }
+
+  private onBlockHit(item: ItemStack, player: Player, ev: EntityHitBlockAfterEvent, loc: Vector) {
+    if (this.disabled.includes(player.id)) {
+      return;
+    }
+
+    const key = item.typeId;
+    let tool: Tool;
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
+    } else {
+      return;
+    }
+
+    tool.process(getSession(player), this.currentTick, ToolAction.HIT, loc);
   }
 
   private createPlayerBindingMap(playerId: string) {

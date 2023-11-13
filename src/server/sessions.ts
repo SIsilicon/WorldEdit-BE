@@ -25,6 +25,12 @@ interface regionTransform {
   flip: Vector
 }
 
+interface superPickaxe {
+  enabled: boolean,
+  mode: "single" | "area" | "recursive",
+  range: number
+}
+
 /**
  * Represents a WorldEdit user's current session with the addon.
  * It manages their selections, operation history, and other things related to WorldEdit per player.
@@ -80,6 +86,12 @@ export class PlayerSession {
     relative: Vector.ZERO,
     rotation: Vector.ZERO,
     flip: Vector.ONE
+  };
+
+  public superPickaxe: superPickaxe = {
+    enabled: false,
+    mode: "single",
+    range: 0
   };
 
   public selection: Selection;

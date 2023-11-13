@@ -1,8 +1,15 @@
-import { BlockPermutation, Player, system } from "@minecraft/server";
+import { Player, system } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Server, Thread } from "@notbeer-api";
 import { print, printerr } from "../util.js";
 import { RawText, Vector } from "@notbeer-api";
+
+export enum ToolAction {
+  USE = "use",
+  USE_ON = "useOn",
+  BREAK = "break",
+  HIT = "hit"
+}
 
 /**
  * The base tool class for handling tools that WorldEdit builders may use.
@@ -15,15 +22,19 @@ export abstract class Tool {
   /**
    * The function that's called when the tool is being used on a block.
    */
-  readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown>;
+  readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
+  /**
+   * The function that's called when the tool has broken a block.
+   */
+  readonly break: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
+  /**
+   * The function that's called when the tool has hit a block.
+   */
+  readonly hit: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
   /**
    * The function that's called every tick the tool is held.
    */
   readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => Generator<unknown>;
-  /**
-   * The function that's called when the tool has broken a block.
-   */
-  readonly breakOn: (self: Tool, player: Player, session: PlayerSession, loc: Vector, brokenBlock: BlockPermutation) => void;
   /**
    * The permission required for the tool to be used.
    */
@@ -47,12 +58,11 @@ export abstract class Tool {
   private useOnTick = 0;
   private lastUse = system.currentTick;
 
-  process(session: PlayerSession, tick: number, loc?: Vector, brokenBlock?: BlockPermutation): boolean {
+  process(session: PlayerSession, tick: number, action: ToolAction, loc?: Vector): boolean {
     const player = session.getPlayer();
 
-    if (!loc && !this.use || loc && !brokenBlock && !this.useOn || brokenBlock && !this.breakOn) {
-      return false;
-    }
+    if (!this[action]) return false;
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFail = (e: any) => {
       printerr(e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e, player, true);
@@ -61,7 +71,7 @@ export abstract class Tool {
       }
     };
 
-    new Thread().start(function* (self: Tool, player: Player, session: PlayerSession, loc: Vector, brokenBlock: BlockPermutation) {
+    new Thread().start(function* (self: Tool, player: Player, session: PlayerSession, action: ToolAction, loc: Vector) {
       self.currentPlayer = player;
       session.usingItem = true;
       try {
@@ -72,23 +82,14 @@ export abstract class Tool {
         if (system.currentTick - self.lastUse > 4 || self.noDelay) {
           self.lastUse = system.currentTick;
 
-          if (!loc) {
-            if (self.useOnTick != tick) {
-              if (self.use.constructor.name == "GeneratorFunction") {
-                yield* self.use(self, player, session) as Generator<void, void>;
-              } else {
-                self.use(self, player, session) as void;
-              }
-            }
-          } else if (!brokenBlock) {
-            self.useOnTick = tick;
-            if (self.useOn.constructor.name == "GeneratorFunction") {
-              yield* self.useOn(self, player, session, loc) as Generator<void, void>;
+          if (!(action == ToolAction.USE && self.useOnTick == tick)) {
+            if (action == ToolAction.USE_ON) self.useOnTick = tick;
+            const func = self[action];
+            if (func.constructor.name == "GeneratorFunction") {
+              yield* func(self, player, session, loc) as Generator<unknown, void>;
             } else {
-              self.useOn(self, player, session, loc) as void;
+              func(self, player, session, loc) as void;
             }
-          } else {
-            self.breakOn(self, player, session, loc, brokenBlock);
           }
         }
       } catch(e) {
@@ -97,7 +98,7 @@ export abstract class Tool {
         session.usingItem = false;
       }
       self.currentPlayer = null;
-    }, this, player, session, loc, brokenBlock);
+    }, this, player, session, action, loc);
     return true;
   }
 

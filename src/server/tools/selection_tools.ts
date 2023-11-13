@@ -9,7 +9,7 @@ class SelectionTool extends Tool {
   useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, "pos2", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
   };
-  breakOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
+  break = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
   };
 }
@@ -20,7 +20,7 @@ class FarSelectionTool extends Tool {
   use = function (self: Tool, player: Player) {
     Server.command.callCommand(player, player.isSneaking ? "hpos1" : "hpos2");
   };
-  breakOn = function (self: Tool, player: Player) {
+  break = function (self: Tool, player: Player) {
     Server.command.callCommand(player, "hpos1");
   };
 }
