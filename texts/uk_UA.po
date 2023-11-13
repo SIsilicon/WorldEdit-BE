@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2023-11-13 18:06\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -824,22 +824,22 @@ msgid "commands.wedit:snow.description"
 msgstr "Імітація снігу в області"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "Режим супер кайла: площа."
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Супер кайло"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "Супер кайло вимкнуто."
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "Супер кайло ввімкнено."
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "Режим супер кайла: рекурсивний."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "Режим супер кайла: одинарний."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Розтопити сніг і лід, виставлені на небо"
