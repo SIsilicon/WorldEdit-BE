@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-11-04 10:48\n"
+"PO-Revision-Date: 2023-11-13 13:08\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -822,6 +822,24 @@ msgstr "Тип: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Имитация снега в области"
+
+msgid "commands.wedit:superpickaxe.area"
+msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.disabled"
+msgstr "Super pickaxe disabled."
+
+msgid "commands.wedit:superpickaxe.enabled"
+msgstr "Super pickaxe enabled."
+
+msgid "commands.wedit:superpickaxe.recursive"
+msgstr "Super pickaxe mode is now: recursive."
+
+msgid "commands.wedit:superpickaxe.single"
+msgstr "Super pickaxe mode is now: single."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Снег и лед, подверженные небу"
