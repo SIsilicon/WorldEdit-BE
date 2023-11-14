@@ -1,6 +1,6 @@
 {
   "namespace": "how_to_play",
-  "selector_stack_panel/how_to_play_selector_pane": {
+  "how_to_play_selector_stack_panel/how_to_play_selector_pane": {
     "modifications": [
       {
         "array_name": "controls",
@@ -26,17 +26,12 @@
             "wedit:license_button@how_to_play.wedit:license_button": {
               "$toggle_group_forced_index": 72
             }
-          },
-          {
-            "minecraft_category@how_to_play_common.topic_category": {
-              "$category": "minecraft"
-            }
           }
         ]
       }
     ]
   },
-  "section_content_panels/general_tips_sections": {
+  "how_to_play_section_content_panels/general_tips_sections": {
     "modifications": [
       {
         "array_name": "controls",

@@ -158,8 +158,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         reject(err);
       }
 
-      events.set(this.entity, (ev: DataDrivenEntityTriggerBeforeEvent) => {
-        if (ev.id != "wedit:biome_update") return;
+      const onEvent = (ev: DataDrivenEntityTriggerAfterEvent) => {
         try {
           const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
           this.entity.triggerEvent("wedit:despawn");
@@ -172,8 +171,12 @@ class BiomeDetector extends EventEmitter implements PooledResource {
           this.emit(errorEventSym);
           reject(err);
         } finally {
-          events.delete(this.entity);
+          world.afterEvents.dataDrivenEntityTriggerEvent.unsubscribe(onEvent);
         }
+      };
+      world.afterEvents.dataDrivenEntityTriggerEvent.subscribe(onEvent, {
+        entities: [this.entity],
+        eventTypes: ["wedit:biome_update"]
       });
     });
   }
@@ -222,11 +225,6 @@ async function getBiomeId(dim: Dimension, loc: Vector3) {
   const detector = await detectorPool.allocate();
   return await detector.detect(dim, loc);
 }
-
-const events = new Map<Entity, (ev: DataDrivenEntityTriggerAfterEvent) => void>();
-world.afterEvents.dataDrivenEntityTriggerEvent.subscribe(ev => {
-  events.get(ev.entity)?.(ev);
-});
 
 const nameToId = {
   ocean: 0,
