@@ -10,7 +10,10 @@ class CommandTool extends Tool {
 
   use = function (self: CommandTool, player: Player, session: PlayerSession) {
     if (self.isCustom) {
-      const firstSpace = self.command.indexOf(" ");
+      let firstSpace = self.command.indexOf(" ");
+      if (firstSpace == -1) {
+        firstSpace = self.command.length;
+      }
       const usingItem = session.usingItem;
       session.usingItem = false;
       Server.command.callCommand(player, self.command.substring(0, firstSpace).trim(), self.command.substring(firstSpace).trim());
