@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Vector3, Player, world } from "@minecraft/server";
-import { contentLog, regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-api";
+import { Vector3, Player, system } from "@minecraft/server";
+import { RawText, regionBounds, regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
-import { RawText } from "@notbeer-api";
 import { PlayerUtil } from "@modules/player_util.js";
 import { Selection } from "@modules/selection.js";
-import { print } from "server/util.js";
+import { generateLine } from "server/commands/region/line.js";
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
@@ -154,9 +153,80 @@ class SelectionOutlineTool extends CommandButton {
 }
 Tools.register(SelectionOutlineTool, "selection_outline", "wedit:selection_outline");
 
-class DrawLineTool extends CommandButton {
+class DrawLineTool extends Tool {
   permission = "worldedit.region.line";
-  command = ["line", "air"];
+
+  private lineStart = new Map<PlayerSession, Vector>();
+
+  useOn = function* (self: DrawLineTool, player: Player, session: PlayerSession, loc: Vector3) {
+    if (session.globalPattern.empty()) throw "worldEdit.selectionFill.noPattern";
+    if (!self.lineStart.has(session)) {
+      self.lineStart.set(session, Vector.from(loc));
+      return;
+    }
+
+    const pos1 = self.lineStart.get(session);
+    const pos2 = Vector.from(loc);
+    const [start, end] = regionBounds([pos1, pos2]);
+    self.lineStart.delete(session);
+
+    const dim = player.dimension;
+    const pattern = session.globalPattern;  
+    pattern.setContext(session, [start, end]);
+  
+    const history = session.getHistory();
+    const record = history.record();
+    let count: number;
+    try {
+      const points = (yield* generateLine(pos1, pos2)).map(p => p.floor());
+      history.addUndoStructure(record, start, end);
+      count = 0;
+      for (const point of points) {
+        const block = dim.getBlock(point);
+        if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
+          count++;
+        }
+        yield;
+      }
+  
+      history.recordSelection(record, session);
+      history.addRedoStructure(record, start, end);
+      history.commit(record);
+    } catch (e) {
+      history.cancel(record);
+      throw e;
+    }
+  
+    self.log(RawText.translate("commands.blocks.wedit:changed").with(`${count}`));
+  }
+
+  tick = function* (self: DrawLineTool, player: Player, session: PlayerSession) {
+    if (system.currentTick % 5 !== 0 || !self.lineStart.has(session) || !session.drawOutlines) {
+      return;
+    }
+
+    let lineStart = self.lineStart.get(session);
+    const lineEnd = PlayerUtil.traceForBlock(player, 6);
+    const length = lineEnd.sub(lineStart).length;
+    const dim = player.dimension;
+    if (length > 32) {
+      lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
+    }
+
+    const genLine = generateLine(lineStart, lineEnd);
+    let val: IteratorResult<void, Vector3[]>;
+    while (!val?.done) val = genLine.next();
+    val.value.forEach((p) => {
+      dim.spawnParticle("wedit:selection_draw", p);
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [1, 0, 0]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [0, 1, 0]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [1, 1, 0]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [0, 0, 1]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [1, 0, 1]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [0, 1, 1]));
+      dim.spawnParticle("wedit:selection_draw", Vector.add(p, [1, 1, 1]));
+    });
+  }
 }
 Tools.register(DrawLineTool, "draw_line", "wedit:draw_line");
 

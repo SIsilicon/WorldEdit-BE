@@ -51,7 +51,7 @@ export class Vector {
   }
 
   get length() {
-    return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+    return Math.hypot(this.x, this.y, this.z);
   }
 
   set length(val: number) {
