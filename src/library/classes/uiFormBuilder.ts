@@ -6,7 +6,7 @@ import { setTickTimeout, contentLog } from "@notbeer-api";
 
 abstract class UIForm<T extends {}> {
   private readonly form: Form<T>;
-  protected readonly cancelAction: UIAction<T, void>;
+  protected readonly cancelAction?: UIAction<T, void>;
 
   constructor(form: Form<T>) {
     this.form = form;
@@ -26,7 +26,7 @@ abstract class UIForm<T extends {}> {
         setTickTimeout(() => this.enter(player, ctx));
       } else {
         ctx.goto(null);
-        this.cancelAction(ctx, player);
+        this.cancelAction?.(ctx, player);
       }
       return true;
     }
@@ -247,7 +247,7 @@ class UIFormBuilder {
       return true;
     }
     const ctx = new MenuContext<T>(player);
-    Object.entries(data).forEach(e => ctx.setData(e[0] as keyof T, e[1] as typeof data[keyof T]));
+    Object.entries(data ?? {}).forEach(e => ctx.setData(e[0] as keyof T, e[1] as typeof data[keyof T]));
     ctx.goto(name);
     return false;
   }

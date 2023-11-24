@@ -115,11 +115,8 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
 registerCommand(registerInformation, function* (session, builder, args) {
   assertSelection(session);
   assertCanBuildWithin(builder, ...session.selection.getRange());
-  if (args.get("_using_item") && session.globalPattern.empty()) {
-    throw RawText.translate("worldEdit.selectionFill.noPattern");
-  }
 
-  const pattern: Pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+  const pattern: Pattern = args.get("pattern");
   const thickness = args.get("thickness") as number;
 
   const job = Jobs.startJob(session, 3, session.selection.getRange());

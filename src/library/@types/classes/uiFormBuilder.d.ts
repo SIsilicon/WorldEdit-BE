@@ -49,7 +49,7 @@ interface BaseForm<T extends {}> {
   /** The title of the UI form */
   title: DynamicElem<T, string>,
   /** Action to perform when the user exits or cancels the form */
-  cancel: UIAction<T, void>
+  cancel?: UIAction<T, void>
 }
 
 /** A form with a message and one or two options */

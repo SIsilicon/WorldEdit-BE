@@ -128,31 +128,6 @@ class SpawnGlassTool extends Tool {
 }
 Tools.register(SpawnGlassTool, "spawn_glass", "wedit:spawn_glass");
 
-class SelectionFillTool extends Tool {
-  permission = "worldedit.region.replace";
-
-  use = function (self: Tool, player: Player, session: PlayerSession) {
-    if (session.globalMask.empty()) {
-      Server.command.callCommand(player, "set", ["air"]);
-    } else {
-      Server.command.callCommand(player, "replace", ["air", "air"]);
-    }
-  };
-}
-Tools.register(SelectionFillTool, "selection_fill", "wedit:selection_fill");
-
-class SelectionWallTool extends CommandButton {
-  permission = "worldedit.region.walls";
-  command = ["walls", "air"];
-}
-Tools.register(SelectionWallTool, "selection_wall", "wedit:selection_wall");
-
-class SelectionOutlineTool extends CommandButton {
-  permission = "worldedit.region.faces";
-  command = ["faces", "air"];
-}
-Tools.register(SelectionOutlineTool, "selection_outline", "wedit:selection_outline");
-
 class DrawLineTool extends Tool {
   permission = "worldedit.region.line";
 

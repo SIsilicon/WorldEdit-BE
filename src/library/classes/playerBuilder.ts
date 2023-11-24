@@ -66,6 +66,14 @@ export class PlayerBuilder {
     return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container;
   }
   /**
+   * Get the player's equipment component
+   * @param {Player} [player] Player of interest
+   * @returns {Minecraft.EntityEquippableComponent}
+   */
+  getEquipment(player: Player) {
+    return (player.getComponent("minecraft:equippable") as Minecraft.EntityEquippableComponent);
+  }
+  /**
    * Get the amount on a specific items player(s) has
    * @param {Player} [player] Player you are searching
    * @param {string} itemIdentifier Item you are looking for
