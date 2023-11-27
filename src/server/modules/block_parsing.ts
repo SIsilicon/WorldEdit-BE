@@ -152,7 +152,7 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
     } catch {
       throwTokenError(typeToken);
     }
-    if (!isMask && blockPerm.getState("persistent_bit") && !block.states?.has("persistent_bit")) {
+    if (!isMask && blockPerm.getState("persistent_bit") != undefined && !block.states?.has("persistent_bit")) {
       if (!block.states) {
         block.states = new Map();
       }
@@ -249,7 +249,13 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
       }
       break;
     case "misc":
-      if (token.value == "=") {
+      if (token.value == ":") {
+        token = tokens.next();
+        if (token.type != "id" || blockDataName == null || blockDataName.includes(":") || expectingBlockValue) {
+          throwTokenError(token);
+        }
+        blockDataName += ":" + token.value;
+      } else if (token.value == "=") {
         if (expectingBlockValue) {
           throwTokenError(token);
         }
