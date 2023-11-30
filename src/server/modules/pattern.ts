@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, BlockStates } from "@minecraft/server";
+import { Vector3, BlockPermutation } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -31,9 +31,7 @@ export class Pattern implements CustomArgType {
     this.context.range = [Vector.from(range[0]), Vector.from(range[1])];
     try {
       const item = Server.player.getHeldItem(session.getPlayer());
-      this.context.hand = item
-        ? Server.block.dataValueToPermutation(item.typeId, Server.block.itemToDataValue(item))
-        : BlockPermutation.resolve("minecraft:air");
+      this.context.hand = Server.block.itemToPermutation(item);
     } catch {
       this.context.hand = BlockPermutation.resolve("minecraft:air");
     }
@@ -346,24 +344,15 @@ class StatePattern extends PatternNode {
 class RandStatePattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
-  readonly permutation: BlockPermutation;
-  readonly props: Record<string, string | number | boolean>;
-  readonly validValues: Record<string, (string | number | boolean)[]>;
+  readonly permutations: BlockPermutation[];
 
   constructor(token: Token, public block: string) {
     super(token);
-    this.permutation = BlockPermutation.resolve(block);
-    this.props = this.permutation.getAllStates();
-    this.validValues = Object.fromEntries(Object.entries(this.props).map(([state]) => [state, BlockStates.get(state).validValues]));
+    this.permutations = Array.from(Server.block.iteratePermutations(this.block));
   }
 
   getPermutation() {
-    let permutation = this.permutation;
-    Object.entries(this.props).forEach(([state, val]) => {
-      const validValues = this.validValues[state];
-      permutation = permutation.withState(state, validValues[Math.floor(Math.random() * validValues.length)] ?? val);
-    });
-    return permutation;
+    return this.permutations[Math.floor(Math.random() * this.permutations.length)];
   }
 }
 
