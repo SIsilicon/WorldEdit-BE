@@ -189,7 +189,7 @@ class DrawSphereTool extends GeneratorTool {
 Tools.register(DrawSphereTool, "draw_sphere", "wedit:draw_sphere");
 
 class DrawCylinderTool extends GeneratorTool {
-  permission = "worldedit.generation.sphere";
+  permission = "worldedit.generation.cyl";
 
   commonUse = function* (self: DrawCylinderTool, player: Player, session: PlayerSession, loc?: Vector) {
     if (self.baseUse(player, session, loc)) return;
