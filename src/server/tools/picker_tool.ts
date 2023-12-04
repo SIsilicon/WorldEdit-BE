@@ -3,6 +3,7 @@ import { BlockPermutation, Vector3, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
+import { print } from "server/util.js";
 
 class PatternPickerTool extends Tool {
   useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
@@ -22,9 +23,7 @@ class PatternPickerTool extends Tool {
     if (blockName.startsWith("minecraft:")) {
       blockName = blockName.slice("minecraft:".length);
     }
-    self.log(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set"))
-      .append("text", blockName)
-    );
+    print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("text", blockName), player, true);
   };
   use = function (self: Tool, player: Player, session: PlayerSession) {
     let addedToPattern = true;
@@ -33,9 +32,7 @@ class PatternPickerTool extends Tool {
       addedToPattern = false;
     }
     session.globalPattern.addBlock(BlockPermutation.resolve("minecraft:air"));
-    self.log(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set"))
-      .append("text", "air")
-    );
+    print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("text", "air"), player, true);
   };
 }
 Tools.register(PatternPickerTool, "pattern_picker", "wedit:pattern_picker");
@@ -59,9 +56,7 @@ class MaskPickerTool extends Tool {
     if (blockName.startsWith("minecraft:")) {
       blockName = blockName.slice("minecraft:".length);
     }
-    self.log(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set"))
-      .append("text", blockName)
-    );
+    print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("text", blockName), player, true);
   };
   use = function (self: Tool, player: Player, session: PlayerSession) {
     let addedToPattern = true;
@@ -70,9 +65,7 @@ class MaskPickerTool extends Tool {
       addedToPattern = false;
     }
     session.globalMask.addBlock(BlockPermutation.resolve("minecraft:air"));
-    self.log(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set"))
-      .append("text", "air")
-    );
+    print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("text", "air"), player, true);
   };
 }
 Tools.register(MaskPickerTool, "mask_picker", "wedit:mask_picker");

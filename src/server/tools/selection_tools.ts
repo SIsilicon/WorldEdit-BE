@@ -12,6 +12,9 @@ class SelectionTool extends Tool {
   break = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
   };
+  drop = function (self: Tool, player: Player, session: PlayerSession) {
+    Server.command.callCommand(player, "desel");
+  };
 }
 Tools.register(SelectionTool, "selection_wand");
 
@@ -22,6 +25,9 @@ class FarSelectionTool extends Tool {
   };
   break = function (self: Tool, player: Player) {
     Server.command.callCommand(player, "hpos1");
+  };
+  drop = function (self: Tool, player: Player, session: PlayerSession) {
+    Server.command.callCommand(player, "desel");
   };
 }
 Tools.register(FarSelectionTool, "far_selection_wand");
