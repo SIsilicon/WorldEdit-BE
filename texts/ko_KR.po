@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-10-15 09:04\n"
+"PO-Revision-Date: 2023-11-13 13:09\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -225,6 +225,9 @@ msgstr "깊이"
 
 msgid "worldedit.config.erosion"
 msgstr "침식 유형"
+
+msgid "worldedit.config.structures"
+msgstr "Structures"
 
 msgid "worldedit.config.mask.height"
 msgstr "높이 마스크"
@@ -820,6 +823,24 @@ msgstr "유형: %s"
 msgid "commands.wedit:snow.description"
 msgstr "해당 지역의 눈 시뮬레이션하기"
 
+msgid "commands.wedit:superpickaxe.area"
+msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.disabled"
+msgstr "Super pickaxe disabled."
+
+msgid "commands.wedit:superpickaxe.enabled"
+msgstr "Super pickaxe enabled."
+
+msgid "commands.wedit:superpickaxe.recursive"
+msgstr "Super pickaxe mode is now: recursive."
+
+msgid "commands.wedit:superpickaxe.single"
+msgstr "Super pickaxe mode is now: single."
+
 msgid "commands.wedit:thaw.description"
 msgstr "하늘에 드러난 눈과 얼음을 녹이기"
 
@@ -861,6 +882,15 @@ msgstr "빈 장소를 찾을 수 없습니다."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "브러시를 사용할 수 있는 블록 유형 설정"
+
+msgid "commands.wedit:trim.description"
+msgstr "Minimize the selection to encompass matching blocks"
+
+msgid "commands.wedit:trim.explain"
+msgstr "Region trimmed."
+
+msgid "commands.wedit:trim.no-blocks"
+msgstr "No blocks matched the trim mask!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "토글된 배치 위치."

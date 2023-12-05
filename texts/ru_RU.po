@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-09-11 22:58\n"
+"PO-Revision-Date: 2023-11-13 13:08\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -50,7 +50,7 @@ msgid "item.wedit:mask_picker"
 msgstr "Выбор Маски"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Поставить Стеклянный Блок"
+msgstr "Разместить стеклянный блок"
 
 msgid "item.wedit:selection_fill"
 msgstr "Заполнение"
@@ -225,6 +225,9 @@ msgstr "Глубина"
 
 msgid "worldedit.config.erosion"
 msgstr "Тип Эрозии"
+
+msgid "worldedit.config.structures"
+msgstr "Структуры"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
@@ -785,7 +788,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "Change the biomes in your selection"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eПримечание: Вам необходимо обработать мир в приложении WorldEdit, чтобы изменения биомов вступили в силу.§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Сдвинуть выделенный регион"
@@ -803,22 +806,40 @@ msgid "commands.wedit:size.distance"
 msgstr "Cuboid distance: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Смещение на %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "Позиция 1: %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "Позиция 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Размер: %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "Тип: %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "Имитация снега в области"
+
+msgid "commands.wedit:superpickaxe.area"
+msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.disabled"
+msgstr "Super pickaxe disabled."
+
+msgid "commands.wedit:superpickaxe.enabled"
+msgstr "Super pickaxe enabled."
+
+msgid "commands.wedit:superpickaxe.recursive"
+msgstr "Super pickaxe mode is now: recursive."
+
+msgid "commands.wedit:superpickaxe.single"
+msgstr "Super pickaxe mode is now: single."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Снег и лед, подверженные небу"
@@ -861,6 +882,15 @@ msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Установите, на каких блоках можно использовать кисть"
+
+msgid "commands.wedit:trim.description"
+msgstr "Minimize the selection to encompass matching blocks"
+
+msgid "commands.wedit:trim.explain"
+msgstr "Region trimmed."
+
+msgid "commands.wedit:trim.no-blocks"
+msgstr "No blocks matched the trim mask!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Toggled placement position."
