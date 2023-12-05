@@ -7,7 +7,7 @@ const registerInformation = {
   aliases : ["sp"],
   usage: [
     {
-      subName: "single",
+      subName: "single"
     },
     {
       subName: "area",
