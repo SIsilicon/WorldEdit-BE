@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2023-12-05 16:17\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -828,6 +828,18 @@ msgstr "Super pickaxe mode is now: area."
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
 
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
