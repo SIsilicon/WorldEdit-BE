@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2023-12-05 16:18\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -828,6 +828,18 @@ msgstr "Super pickaxe mode is now: area."
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
 
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
