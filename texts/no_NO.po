@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-12-05 16:17\n"
+"PO-Revision-Date: 2023-12-07 21:25\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -227,7 +227,7 @@ msgid "worldedit.config.erosion"
 msgstr "Erosjonstype"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "Strukturer"
 
 msgid "worldedit.config.mask.height"
 msgstr "Høyde-maske"
@@ -824,34 +824,34 @@ msgid "commands.wedit:snow.description"
 msgstr "Simuler snø i området"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "Superhakke-modus er nå: område."
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Veksle om superhakken er på eller ikke"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Veksle om superhakken er på eller ikke"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "Gjør at superhakken ødelegger en enkelt blokk"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "Gjør at superhakken ødelegger blokker i et kubisk område"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "Gjør at superhakken ødelegger blokker som starter fra den første"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "Superhakken deaktivert."
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "Superhakken aktivert."
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "Superhakke-modus er nå: rekursiv."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "Superhakke-modus er nå: singel."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Smelt snø og is som er utsatt for himmelen"
@@ -896,13 +896,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Angi hva slags blokker et pensel kan bli brukt på"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "Minimer utvalget for å velge samsvarende blokker"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "Region trimmet."
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "Ingen blokker samsvarte med trimmingsmasken!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Vekslet plasseringspossisjon."
