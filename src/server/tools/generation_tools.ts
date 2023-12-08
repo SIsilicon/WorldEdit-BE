@@ -9,6 +9,7 @@ import { print, snap } from "server/util";
 import { Jobs } from "@modules/jobs";
 import { SphereShape } from "server/shapes/sphere";
 import { CylinderShape } from "server/shapes/cylinder";
+import { PyramidShape } from "server/shapes/pyramid";
 
 function trySpawnParticle(dimension: Dimension, type: string, location: Vector3) {
   try {
@@ -261,3 +262,64 @@ class DrawCylinderTool extends GeneratorTool {
   use = this.commonUse;
 }
 Tools.register(DrawCylinderTool, "draw_cylinder", "wedit:draw_cylinder");
+
+class DrawPyramidTool extends GeneratorTool {
+  permission = "worldedit.generation.pyramid";
+
+  commonUse = function* (self: DrawPyramidTool, player: Player, session: PlayerSession, loc?: Vector) {
+    if (self.baseUse(player, session, loc)) return;
+
+    const center = self.getFirstPos(session);
+    const pos2 = self.traceForPos(player);
+    const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v));
+
+    const pyramidShape = new PyramidShape(size + 1);
+    const pattern = session.globalPattern;
+    pattern.setContext(session, pyramidShape.getRegion(center));
+    self.clearFirstPos(session);
+
+    const job = Jobs.startJob(session, 2, pyramidShape.getRegion(center));
+    const count = yield* Jobs.perform(job, pyramidShape.generate(center, pattern, null, session));
+    Jobs.finishJob(job);
+  
+    print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+  };
+
+  tick = function* (self: DrawPyramidTool, player: Player, session: PlayerSession) {
+    if (self.baseTick(player, session)) return;
+
+    const dim = player.dimension;
+    const center = self.getFirstPos(session).clone();
+    const pos2 = self.traceForPos(player);
+    const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v));
+
+    const corners = [
+      center.add([-size, 0, -size]),
+      center.add([-size, 0, size + 1]),
+      center.add([size + 1, 0, -size]),
+      center.add([size + 1, 0, size + 1]),
+      center.add([0.5, size + 1, 0.5]),
+    ];
+
+    const edgeData: [number, number][]= [
+      [0, 1], [1, 3], [2, 0], [3, 2],
+      [0,4], [1, 4], [2, 4], [3, 4],
+    ];
+    const edgePoints: Vector[] = [];
+    for (const edge of edgeData) {
+      const [a, b] = [corners[edge[0]], corners[edge[1]]];
+      const resolution = Math.min(Math.floor(b.sub(a).length), 16);
+      for (let i = 1; i < resolution; i++) {
+        const t = i / resolution;
+        edgePoints.push(a.lerp(b, t));
+      }
+    }
+    for (const point of corners.concat(edgePoints)) {
+      trySpawnParticle(dim, "wedit:selection_draw", point);
+    }
+  };
+  
+  useOn = this.commonUse;
+  use = this.commonUse;
+}
+Tools.register(DrawPyramidTool, "draw_pyramid", "wedit:draw_pyramid");

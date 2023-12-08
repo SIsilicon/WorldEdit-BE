@@ -24,6 +24,13 @@ Server.uiForms.register("$selectGenMode", {
         Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_cylinder"));
       },
       icon: "textures/items/draw_cylinder"
+    },
+    {
+      text: "%worldedit.genMode.pyramid",
+      action: (_, player) => {
+        Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_pyramid"));
+      },
+      icon: "textures/items/draw_pyramid"
     }
   ]
 });

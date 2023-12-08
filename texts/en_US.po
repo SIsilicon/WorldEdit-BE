@@ -70,6 +70,8 @@ msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
 msgid "item.wedit:draw_cylinder"
 msgstr "Draw Cylinder"
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 # WORLDEDIT TOOLS AND CONFIG
 
@@ -138,6 +140,8 @@ msgid "worldedit.genMode.sphere"
 msgstr "Sphere"
 msgid "worldedit.genMode.cylinder"
 msgstr "Cylinder"
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "No Tool Properties"
