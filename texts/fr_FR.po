@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-12-05 16:17\n"
+"PO-Revision-Date: 2023-12-19 16:25\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -437,25 +437,25 @@ msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "Trace mask disabled."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Rayon de brosse maximum autorisé : %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Cette brosse n'a pas besoin de matériau pour fonctionner."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "Cette brosse n'a pas de taille configurable."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Brosse non liée à votre article actuel."
 
 msgid "commands.wedit:butcher.description"
-msgstr "Kill nearby entities."
+msgstr "Tue les entités à proximité."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "%s d'entités ont été tuées."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Évalue une expression mathématique."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' could not be parsed as a valid expression."
