@@ -30,6 +30,25 @@ export class CylinderShape extends Shape {
     return (lX*lX + lZ*lZ > 1.0) ? null : <[number, number]>[-this.height/2, this.height-1-this.height/2];
   }
 
+  public getOutline(loc: Vector) {
+    // TODO: Support oblique cylinders
+    loc = loc.offset(0, -this.height/2, 0).ceil();
+    const locWithOffset = loc.offset(0.5, 0, 0.5);
+    const maxRadius = Math.max(...this.radii) + 0.5;
+    const vertices = [
+      locWithOffset.add([-maxRadius, 0, 0]), locWithOffset.add([-maxRadius, this.height, 0]),
+      locWithOffset.add([maxRadius, 0, 0]), locWithOffset.add([maxRadius, this.height, 0]),
+      locWithOffset.add([0, 0, -maxRadius]), locWithOffset.add([0, this.height, -maxRadius]),
+      locWithOffset.add([0, 0, maxRadius]), locWithOffset.add([0, this.height, maxRadius]),
+    ]
+    const edges: [number, number][] = [[0, 1], [2, 3], [4, 5], [6, 7]];
+    return [
+      ...this.drawCircle(loc.sub([0, 0.5, 0]), maxRadius, "y"),
+      ...this.drawCircle(loc.sub([0, 0.5, 0]).add([0, this.height, 0]), maxRadius, "y"),
+      ...this.drawShape(vertices, edges)
+    ];
+  }
+
   protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
     genVars.isHollow = options?.hollow ?? false;
     genVars.radiiOff = this.radii.map(v => v + 0.5);

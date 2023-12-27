@@ -10,10 +10,11 @@ import { Jobs } from "@modules/jobs";
 import { SphereShape } from "server/shapes/sphere";
 import { CylinderShape } from "server/shapes/cylinder";
 import { PyramidShape } from "server/shapes/pyramid";
+import { Shape } from "server/shapes/base_shape";
 
-function trySpawnParticle(dimension: Dimension, type: string, location: Vector3) {
+function trySpawnParticle(player: Player, type: string, location: Vector3) {
   try {
-    dimension.spawnParticle(type, location);
+    player.spawnParticle(type, location);
   } catch {}
 }
 
@@ -114,7 +115,6 @@ class DrawLineTool extends GeneratorTool {
     let lineStart = self.posStart.get(session)[0];
     const lineEnd = self.traceForPos(player);
     const length = lineEnd.sub(lineStart).length;
-    const dim = player.dimension;
     if (length > 32) {
       lineStart = lineEnd
         .add(lineStart.sub(lineEnd).normalized().mul(32))
@@ -125,14 +125,14 @@ class DrawLineTool extends GeneratorTool {
     let val: IteratorResult<void, Vector3[]>;
     while (!val?.done) val = genLine.next();
     val.value.forEach((p) => {
-      trySpawnParticle(dim, "wedit:selection_draw", p);
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [1, 0, 0]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [0, 1, 0]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [1, 1, 0]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [0, 0, 1]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [1, 0, 1]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [0, 1, 1]));
-      trySpawnParticle(dim, "wedit:selection_draw", Vector.add(p, [1, 1, 1]));
+      trySpawnParticle(player, "wedit:selection_draw", p);
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 0, 0]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 1, 0]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 1, 0]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 0, 1]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 0, 1]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 1, 1]));
+      trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 1, 1]));
     });
   };
   
@@ -164,7 +164,6 @@ class DrawSphereTool extends GeneratorTool {
   tick = function* (self: DrawSphereTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
-    const dim = player.dimension;
     const center = self.getFirstPos(session);
     const radius = Math.floor(center.sub(self.traceForPos(player)).length) + 0.5;
 
@@ -179,7 +178,7 @@ class DrawSphereTool extends GeneratorTool {
       for (let i = 0; i < resolution; i++) {
         let point: Vector = rotateBy.call(vec, i / resolution * 360);
         point = point.mul(radius).add(center).add(0.5);
-        trySpawnParticle(dim, "wedit:selection_draw", point);
+        trySpawnParticle(player, "wedit:selection_draw", point);
       }
     }
   };
@@ -195,23 +194,13 @@ class DrawCylinderTool extends GeneratorTool {
   commonUse = function* (self: DrawCylinderTool, player: Player, session: PlayerSession, loc?: Vector) {
     if (self.baseUse(player, session, loc)) return;
 
-    const center = self.getFirstPos(session);
-    const pos2 = self.traceForPos(player);
-    const radius = Math.floor(pos2.sub(center).mul([1, 0, 1]).length);
-    let height = pos2.y - center.y + 1;
-    if (height < 1) {
-      center.y += height;
-      height = -height + 1;
-    }
-    center.y += height / 2;
-
-    const cylinderShape = new CylinderShape(height, radius);
+    const [shape, center] = self.getShape(player, session);
     const pattern = session.globalPattern;
-    pattern.setContext(session, cylinderShape.getRegion(center));
+    pattern.setContext(session, shape.getRegion(center));
     self.clearFirstPos(session);
 
-    const job = Jobs.startJob(session, 2, cylinderShape.getRegion(center));
-    const count = yield* Jobs.perform(job, cylinderShape.generate(center, pattern, null, session));
+    const job = Jobs.startJob(session, 2, shape.getRegion(center));
+    const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
     Jobs.finishJob(job);
   
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
@@ -220,44 +209,24 @@ class DrawCylinderTool extends GeneratorTool {
   tick = function* (self: DrawCylinderTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
-    const dim = player.dimension;
-    const center = self.getFirstPos(session).clone();
-    const pos2 = self.traceForPos(player);
+    const [shape, loc] = self.getShape(player, session);
+    for (const particle of shape.getOutline(loc)) {
+      trySpawnParticle(player, ...particle);
+    }
+  };
+  
+  getShape(player: Player, session: PlayerSession): [CylinderShape, Vector] {
+    const center = this.getFirstPos(session).clone();
+    const pos2 = this.traceForPos(player);
     const radius = Math.floor(pos2.sub(center).mul([1, 0, 1]).length);
     let height = pos2.y - center.y + 1;
     if (height < 1) {
       center.y += height;
       height = -height + 1;
     }
+    return [new CylinderShape(height, radius), center];
+  }
 
-    const offset = new Vector(0.5, 0, 0.5);
-    const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
-    const vec = new Vector(1, 0, 0);
-
-    for (let i = 0; i < resolution; i++) {
-      let point = vec.rotateY(i / resolution * 360);
-      point = point.mul(radius).add(center).add(offset);
-      trySpawnParticle(dim, "wedit:selection_draw", point);
-      trySpawnParticle(dim, "wedit:selection_draw", point.add([0, height, 0]));
-    }
-
-    const corners = [
-      new Vector(1, 0, 0), new Vector(-1, 0, 0),
-      new Vector(0, 0, 1), new Vector(0, 0, -1)
-    ];
-    for (const corner of corners) {
-      const [a, b] = [
-        corner.mul(radius).add(center).add(offset),
-        corner.mul(radius).add(center).add(offset).add([0, height, 0])
-      ];
-      const resolution = Math.min(Math.floor(b.sub(a).length), 16);
-      for (let i = 1; i < resolution; i++) {
-        const t = i / resolution;
-        trySpawnParticle(dim, "wedit:selection_draw", a.lerp(b, t));
-      }
-    }
-  };
-  
   useOn = this.commonUse;
   use = this.commonUse;
 }
@@ -269,17 +238,13 @@ class DrawPyramidTool extends GeneratorTool {
   commonUse = function* (self: DrawPyramidTool, player: Player, session: PlayerSession, loc?: Vector) {
     if (self.baseUse(player, session, loc)) return;
 
-    const center = self.getFirstPos(session);
-    const pos2 = self.traceForPos(player);
-    const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v));
-
-    const pyramidShape = new PyramidShape(size + 1);
+    const [shape, center] = self.getShape(player, session);
     const pattern = session.globalPattern;
-    pattern.setContext(session, pyramidShape.getRegion(center));
+    pattern.setContext(session, shape.getRegion(center));
     self.clearFirstPos(session);
 
-    const job = Jobs.startJob(session, 2, pyramidShape.getRegion(center));
-    const count = yield* Jobs.perform(job, pyramidShape.generate(center, pattern, null, session));
+    const job = Jobs.startJob(session, 2, shape.getRegion(center));
+    const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
     Jobs.finishJob(job);
   
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
@@ -288,37 +253,19 @@ class DrawPyramidTool extends GeneratorTool {
   tick = function* (self: DrawPyramidTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
-    const dim = player.dimension;
-    const center = self.getFirstPos(session).clone();
-    const pos2 = self.traceForPos(player);
-    const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v));
-
-    const corners = [
-      center.add([-size, 0, -size]),
-      center.add([-size, 0, size + 1]),
-      center.add([size + 1, 0, -size]),
-      center.add([size + 1, 0, size + 1]),
-      center.add([0.5, size + 1, 0.5]),
-    ];
-
-    const edgeData: [number, number][]= [
-      [0, 1], [1, 3], [2, 0], [3, 2],
-      [0,4], [1, 4], [2, 4], [3, 4],
-    ];
-    const edgePoints: Vector[] = [];
-    for (const edge of edgeData) {
-      const [a, b] = [corners[edge[0]], corners[edge[1]]];
-      const resolution = Math.min(Math.floor(b.sub(a).length), 16);
-      for (let i = 1; i < resolution; i++) {
-        const t = i / resolution;
-        edgePoints.push(a.lerp(b, t));
-      }
-    }
-    for (const point of corners.concat(edgePoints)) {
-      trySpawnParticle(dim, "wedit:selection_draw", point);
+    const [shape, loc] = self.getShape(player, session);
+    for (const particle of shape.getOutline(loc)) {
+      trySpawnParticle(player, ...particle);
     }
   };
   
+  getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {
+    const center = this.getFirstPos(session).clone();
+    const pos2 = this.traceForPos(player);
+    const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v)) + 1;
+    return [new PyramidShape(size), center];
+  }
+
   useOn = this.commonUse;
   use = this.commonUse;
 }
