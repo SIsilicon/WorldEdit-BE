@@ -36,45 +36,13 @@ export function getViewVector(entity: Entity | Player): Vector3 {
   return entity.getViewDirection();
 }
 
-const worldY = new Map<Dimension, [number, number]>();
-function findHeightLimits(dim: Dimension) {
-  const limits: [number, number] = [null, null];
-
-  for (const p of world.getPlayers()) {
-    if (p.dimension != dim) {
-      continue;
-    }
-
-    for (let i = -512; i <= 512; i += 16) {
-      const canPlace = canPlaceBlock(new Vector(p.location.x, i, p.location.z), dim);
-      if (limits[0] == null) {
-        if (canPlace) {
-          limits[0] = i;
-        }
-      } else if (limits[1] == null) {
-        if (!canPlace) {
-          limits[1] = i - 17;
-        }
-      }
-    }
-    break;
-  }
-
-  if (limits[0] != null && limits[1] != null) {
-    worldY.set(dim, limits);
-  }
-}
-
 /**
  * Gets the minimum and maximum Y levels of a dimension.
  * @param dim The dimension we're querying.
  * @return The minimum and maximum Y levels.
  */
-export function getWorldHeightLimits(dim: Dimension) {
-  if (!worldY.has(dim)) {
-    findHeightLimits(dim);
-  }
-  return worldY.get(dim) ?? [ -512, 511 ];
+export function getWorldHeightLimits(dim: Dimension): [number, number] {
+  return [dim.heightRange.min, dim.heightRange.max - 1];
 }
 
 /**

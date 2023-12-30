@@ -51,9 +51,11 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
       result.set(locToString(block), true);
       for (const offset of offsets) {
         const newCtx = {...ctx};
-        if (spread(newCtx, offset)) {
-          addNeighbor(block, offset, newCtx);
-        }
+        try {
+          if (spread(newCtx, offset)) {
+            addNeighbor(block, offset, newCtx);
+          }
+        } catch { /* pass */ }
       }
     }
 
