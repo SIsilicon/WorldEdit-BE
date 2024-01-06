@@ -1,4 +1,4 @@
-import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent } from "@minecraft/server";
+import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system } from "@minecraft/server";
 import { contentLog, Server, sleep, Thread, Vector, Database } from "@notbeer-api";
 import { Tool, ToolAction } from "./base_tool.js";
 import { PlayerSession, getSession, hasSession } from "../sessions.js";
@@ -14,10 +14,9 @@ class ToolBuilder {
   private bindings = new Map<string, Map<string, Tool>>();
   private databases = new Map<string, Database>();
   private fixedBindings = new Map<string, Tool>();
+  private prevHeldTool = new Map<Player, Tool>();
   private conditionalBindings = new Map<string, {condition: toolCondition, tool: Tool}>();
-
   private disabled: string[] = [];
-  private currentTick = 0;
 
   constructor() {
     Server.on("itemUseBefore", ev => {
@@ -30,6 +29,13 @@ class ToolBuilder {
       this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
     });
 
+    Server.on("entityCreate", ({ entity }) => {
+      if (!entity.hasComponent("minecraft:item")) return;
+
+      const player = entity.dimension.getPlayers({ closest: 1, location: entity.location, maxDistance: 2 })[0];
+      if (player) this.onItemDrop(entity.getComponent("item").itemStack, player);
+    });
+    
     Server.on("blockBreak", ev => {
       if (!ev.itemStack) return;
       this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
@@ -42,17 +48,16 @@ class ToolBuilder {
       this.onBlockHit(item, ev.damagingEntity as Player, ev, Vector.from(ev.hitBlock));
     });
 
-    Server.on("tick", ev => {
-      this.currentTick = ev.currentTick;
-    });
-
     new Thread().start(function* (self: ToolBuilder) {
       while (true) {
         for (const player of world.getPlayers()) {
           try {
             const item = Server.player.getHeldItem(player);
-            if (!item) continue;
-            yield* self.onItemTick(item, player, self.currentTick);
+            if (item) {
+              yield* self.onItemTick(item, player, system.currentTick);
+            } else {
+              self.stopHolding(player);
+            }
           } catch (err) {
             contentLog.error(err);
           }
@@ -180,9 +185,7 @@ class ToolBuilder {
   }
 
   private *onItemTick(item: ItemStack, player: Player, tick: number) {
-    if (this.disabled.includes(player.id) || !hasSession(player.id)) {
-      return;
-    }
+    if (this.disabled.includes(player.id) || !hasSession(player.id)) return this.stopHolding(player);
 
     const key = item.typeId;
     let tool: Tool;
@@ -191,7 +194,12 @@ class ToolBuilder {
     } else if (this.fixedBindings.has(key)) {
       tool = this.fixedBindings.get(key);
     } else {
-      return;
+      return this.stopHolding(player);
+    }
+
+    if (this.prevHeldTool.get(player) !== tool) {
+      this.stopHolding(player);
+      this.prevHeldTool.set(player, tool);
     }
 
     const gen = tool.tick?.(tool, player, getSession(player), tick);
@@ -199,6 +207,61 @@ class ToolBuilder {
   }
 
   private onItemUse(item: ItemStack, player: Player, ev: ItemUseBeforeEvent, loc?: Vector) {
+    if (this.disabled.includes(player.id) || !hasSession(player.id)) return;
+
+    const key = item.typeId;
+    let tool: Tool;
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
+    } else {
+      return;
+    }
+    if (tool.process(getSession(player), loc ? ToolAction.USE_ON : ToolAction.USE, loc)) {
+      ev.cancel = true;
+    }
+  }
+
+  private onBlockBreak(item: ItemStack, player: Player, ev: PlayerBreakBlockBeforeEvent, loc: Vector) {
+    if (this.disabled.includes(player.id)) return;
+
+    const key = item.typeId;
+    let tool: Tool;
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
+    } else {
+      return;
+    }
+    if (tool.process(getSession(player), ToolAction.BREAK, loc)) {
+      ev.cancel = true;
+    }
+  }
+
+  private onBlockHit(item: ItemStack, player: Player, ev: EntityHitBlockAfterEvent, loc: Vector) {
+    if (this.disabled.includes(player.id)) return;
+
+    const key = item.typeId;
+    let tool: Tool;
+    if (this.bindings.get(player.id)?.has(key)) {
+      tool = this.bindings.get(player.id).get(key);
+    } else if (this.fixedBindings.has(key)) {
+      tool = this.fixedBindings.get(key);
+    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
+      tool = this.conditionalBindings.get(key).tool;
+    } else {
+      return;
+    }
+    tool.process(getSession(player), ToolAction.DROP);
+  }
+  
+  private onItemDrop(item: ItemStack, player: Player) {
     if (this.disabled.includes(player.id) || !hasSession(player.id)) {
       return;
     }
@@ -214,52 +277,7 @@ class ToolBuilder {
     } else {
       return;
     }
-
-    if (tool.process(getSession(player), this.currentTick, loc ? ToolAction.USE_ON : ToolAction.USE, loc)) {
-      ev.cancel = true;
-    }
-  }
-
-  private onBlockBreak(item: ItemStack, player: Player, ev: PlayerBreakBlockBeforeEvent, loc: Vector) {
-    if (this.disabled.includes(player.id)) {
-      return;
-    }
-
-    const key = item.typeId;
-    let tool: Tool;
-    if (this.bindings.get(player.id)?.has(key)) {
-      tool = this.bindings.get(player.id).get(key);
-    } else if (this.fixedBindings.has(key)) {
-      tool = this.fixedBindings.get(key);
-    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
-      tool = this.conditionalBindings.get(key).tool;
-    } else {
-      return;
-    }
-
-    if (tool.process(getSession(player), this.currentTick, ToolAction.BREAK, loc)) {
-      ev.cancel = true;
-    }
-  }
-
-  private onBlockHit(item: ItemStack, player: Player, ev: EntityHitBlockAfterEvent, loc: Vector) {
-    if (this.disabled.includes(player.id)) {
-      return;
-    }
-
-    const key = item.typeId;
-    let tool: Tool;
-    if (this.bindings.get(player.id)?.has(key)) {
-      tool = this.bindings.get(player.id).get(key);
-    } else if (this.fixedBindings.has(key)) {
-      tool = this.fixedBindings.get(key);
-    } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
-      tool = this.conditionalBindings.get(key).tool;
-    } else {
-      return;
-    }
-
-    tool.process(getSession(player), this.currentTick, ToolAction.HIT, loc);
+    tool.process(getSession(player), ToolAction.DROP);
   }
 
   private createPlayerBindingMap(playerId: string) {
@@ -278,6 +296,13 @@ class ToolBuilder {
       } catch (err) {
         contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
       }
+    }
+  }
+  
+  private stopHolding(player: Player) {
+    if (this.prevHeldTool.has(player)) {
+        this.prevHeldTool.get(player)?.process(getSession(player), ToolAction.STOP_HOLD);
+        this.prevHeldTool.delete(player);
     }
   }
 }

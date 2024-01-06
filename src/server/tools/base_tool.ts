@@ -1,14 +1,16 @@
 import { Player, system } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Server, Thread } from "@notbeer-api";
-import { print, printerr } from "../util.js";
+import { printerr } from "../util.js";
 import { RawText, Vector } from "@notbeer-api";
 
 export enum ToolAction {
   USE = "use",
   USE_ON = "useOn",
   BREAK = "break",
-  HIT = "hit"
+  HIT = "hit",
+  DROP = "drop",
+  STOP_HOLD = "stopHold"
 }
 
 /**
@@ -32,9 +34,17 @@ export abstract class Tool {
    */
   readonly hit: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
   /**
+   * The function that's called when the tool is dropped.
+   */
+  readonly drop: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
+  /**
    * The function that's called every tick the tool is held.
    */
   readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => Generator<unknown>;
+  /**
+   * The function that's called when the tool stops being held.
+   */
+  readonly stopHold: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
   /**
    * The permission required for the tool to be used.
    */
@@ -50,16 +60,12 @@ export abstract class Tool {
    */
   type: string;
 
-  private currentPlayer: Player;
-  log(message: string | RawText) {
-    print(message, this.currentPlayer, true);
-  }
-
   private useOnTick = 0;
   private lastUse = system.currentTick;
 
-  process(session: PlayerSession, tick: number, action: ToolAction, loc?: Vector): boolean {
+  process(session: PlayerSession, action: ToolAction, loc?: Vector): boolean {
     const player = session.getPlayer();
+    const tick = system.currentTick;
 
     if (!this[action]) return false;
 
@@ -72,7 +78,6 @@ export abstract class Tool {
     };
 
     new Thread().start(function* (self: Tool, player: Player, session: PlayerSession, action: ToolAction, loc: Vector) {
-      self.currentPlayer = player;
       session.usingItem = true;
       try {
         if (!Server.player.hasPermission(player, self.permission)) {
@@ -97,7 +102,6 @@ export abstract class Tool {
       } finally {
         session.usingItem = false;
       }
-      self.currentPlayer = null;
     }, this, player, session, action, loc);
     return true;
   }

@@ -22,6 +22,21 @@ export class PyramidShape extends Shape {
     throw new Error("getYRange not implemented!");
     return null;
   }
+  
+  public getOutline(loc: Vector) {
+    const vertices = [
+      loc.add([-this.size + 1, 0, -this.size + 1]),
+      loc.add([-this.size + 1, 0, this.size]),
+      loc.add([this.size, 0, -this.size + 1]),
+      loc.add([this.size, 0, this.size]),
+      loc.add([0.5, this.size, 0.5]),
+    ];
+    const edges: [number, number][]= [
+      [0, 1], [1, 3], [2, 0], [3, 2],
+      [0,4], [1, 4], [2, 4], [3, 4],
+    ];
+    return this.drawShape(vertices, edges);
+  }
 
   protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
     genVars.isHollow = options?.hollow ?? false;

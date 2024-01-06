@@ -1,7 +1,6 @@
 import {
   ChatSendBeforeEvent,
   ExplosionBeforeEvent,
-  PistonActivateBeforeEvent,
   BlockExplodeAfterEvent,
   ItemUseBeforeEvent,
   ItemUseOnBeforeEvent,
@@ -23,7 +22,6 @@ import { registerInformation } from "./classes/CommandBuilder";
 export interface EventList {
     beforeMessage: [ChatSendBeforeEvent],
     beforeExplosion: [ExplosionBeforeEvent],
-    beforePistonActivate: [PistonActivateBeforeEvent],
     blockExplode: [BlockExplodeAfterEvent],
     messageCreate: [ChatSendAfterEvent],
     itemUseBefore: [ItemUseBeforeEvent],

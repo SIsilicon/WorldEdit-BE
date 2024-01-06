@@ -4,7 +4,7 @@ import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
-import { getWorldHeightLimits } from "../util.js";
+import { getWorldHeightLimits, snap } from "../util.js";
 
 export type shapeGenOptions = {
     hollow?: boolean,
@@ -62,6 +62,11 @@ export abstract class Shape {
   * @return True if a block should be generated; false otherwise
   */
   protected abstract inShape(relLoc: Vector, genVars: shapeGenVars): boolean;
+  
+  /**
+   * Generates a list of particles that when displayed, shows the shape.
+   */
+  public abstract getOutline(loc: Vector): [string, Vector][];
 
   /**
    * Returns blocks that are in the shape.
@@ -89,6 +94,35 @@ export abstract class Shape {
     } else {
       return block;
     }
+  }
+
+  protected drawShape(vertices: Vector[], edges: [number, number][]): [string, Vector][] {
+    const edgePoints: Vector[] = [];
+    for (const edge of edges) {
+      const [a, b] = [vertices[edge[0]], vertices[edge[1]]];
+      const resolution = Math.min(Math.floor(b.sub(a).length), 16);
+      for (let i = 1; i < resolution; i++) {
+        const t = i / resolution;
+        edgePoints.push(a.lerp(b, t));
+      }
+    }
+    return vertices.concat(edgePoints).map((v => ["wedit:selection_draw", v]));
+  }
+
+  protected drawCircle(center: Vector, radius: number, axis: "x"|"y"|"z"): [string, Vector][] {
+    const [rotate, vec]: [typeof Vector.prototype.rotateX, Vector] =
+      axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] :
+      axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] : 
+      [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
+    const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
+
+    const points: [string, Vector][] = [];
+    for (let i = 0; i < resolution; i++) {
+      let point: Vector = rotate.call(vec, i / resolution * 360);
+      point = point.mul(radius).add(center).add(0.5);
+      points.push(["wedit:selection_draw", point]);
+    }
+    return points;
   }
 
   /**

@@ -50,6 +50,15 @@
         "draw_line": {
             "textures": "textures/items/draw_line"
         },
+        "draw_sphere": {
+            "textures": "textures/items/draw_sphere"
+        },
+        "draw_cylinder": {
+            "textures": "textures/items/draw_cylinder"
+        },
+        "draw_pyramid": {
+            "textures": "textures/items/draw_pyramid"
+        },
         "config": {
             "textures": "textures/ui/gear"
         },

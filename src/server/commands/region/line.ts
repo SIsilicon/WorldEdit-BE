@@ -16,7 +16,7 @@ const registerInformation = {
   ]
 };
 
-function* bresenham3d(p1: Vector, p2: Vector): Generator<void, Vector[]> {
+export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]> {
   const pointList: Vector[] = [];
   pointList.push(p1.clone());
   const d = p2.sub(p1).abs();
@@ -118,7 +118,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   const record = history.record();
   let count: number;
   try {
-    const points = (yield* bresenham3d(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
+    const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
     history.addUndoStructure(record, start, end);
     count = 0;
     for (const point of points) {

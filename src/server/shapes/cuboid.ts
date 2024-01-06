@@ -21,6 +21,28 @@ export class CuboidShape extends Shape {
   public getYRange() {
     return <[number, number]>[0, this.size[1] - 1];
   }
+  
+  public getOutline(loc: Vector) {
+    const min = loc;
+    const max = loc.add(this.size);
+
+    const vertices = [
+      new Vector(min.x, min.y, min.z),
+      new Vector(max.x, min.y, min.z),
+      new Vector(min.x, max.y, min.z),
+      new Vector(max.x, max.y, min.z),
+      new Vector(min.x, min.y, max.z),
+      new Vector(max.x, min.y, max.z),
+      new Vector(min.x, max.y, max.z),
+      new Vector(max.x, max.y, max.z)
+    ];
+    const edges: [number, number][]= [
+      [0, 1], [2, 3], [4, 5], [6, 7],
+      [0, 2], [1, 3], [4, 6], [5, 7],
+      [0, 4], [1, 5], [2, 6], [3, 7]
+    ];
+    return this.drawShape(vertices, edges);
+  }
 
   protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
     genVars.isHollow = options?.hollow ?? false;

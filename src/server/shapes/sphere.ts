@@ -25,6 +25,12 @@ export class SphereShape extends Shape {
     return null;
   }
 
+  public getOutline(loc: Vector) {
+    // TODO: Support oblique spheres
+    const maxRadius = Math.max(...this.radii) + 0.5;
+    return [...this.drawCircle(loc, maxRadius, "x"), ...this.drawCircle(loc, maxRadius, "y"), ...this.drawCircle(loc, maxRadius, "z")];
+  }
+
   protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
     genVars.isHollow = options?.hollow ?? false;
     genVars.radiiOff = this.radii.map(v => v + 0.5);
