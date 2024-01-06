@@ -112,7 +112,7 @@ class DrawLineTool extends GeneratorTool {
   tick = function* (self: DrawLineTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
-    let lineStart = self.posStart.get(session)[0];
+    let lineStart = self.getFirstPos(session);
     const lineEnd = self.traceForPos(player);
     const length = lineEnd.sub(lineStart).length;
     if (length > 32) {
