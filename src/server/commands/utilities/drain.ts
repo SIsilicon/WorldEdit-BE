@@ -4,6 +4,7 @@ import { BlockPermutation } from "@minecraft/server";
 import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { floodFill } from "./floodfill_func.js";
+import { canPlaceBlock } from "server/util.js";
 
 const registerInformation = {
   name: "drain",
@@ -45,6 +46,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
   let drainStart: Vector;
   for (const offset of fluidLookPositions) {
     const loc = playerBlock.offset(offset.x, offset.y, offset.z);
+    if (!canPlaceBlock(loc, dimension)) continue;
     const block = dimension.getBlock(loc);
     if (block.typeId.match(waterMatch) || (args.has("w") && block.isWaterlogged)) {
       fluidMatch = waterMatch;

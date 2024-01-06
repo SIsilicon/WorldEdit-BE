@@ -1,7 +1,8 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, Vector } from "@notbeer-api";
+import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Player } from "@minecraft/server";
+import { getWorldHeightLimits } from "server/util.js";
 
 const registerInformation = {
   name: "descend",
@@ -11,40 +12,39 @@ const registerInformation = {
     {
       name: "levels",
       type: "int",
+      range: [1, null] as [number, null],
       default: 1
     }
   ]
 };
 
 function descend(builder: Player) {
-  const location = PlayerUtil.getBlockLocation(builder);
   const dimension = builder.dimension;
+  const limits = getWorldHeightLimits(dimension);
+  const blockLoc = PlayerUtil.getBlockLocation(builder);
 
-  for (let i = location.y - 3; i >= -64; i--) {
-    const floor = new Vector(location.x, i - 1, location.z);
-    const legs = new Vector(location.x, i, location.z);
-    const head = new Vector(location.x, i + 1, location.z);
+  for (blockLoc.y = Math.min(limits[1], blockLoc.y - 2);; blockLoc.y--) {
+    if (blockLoc.y < limits[0]) return false;
+    if (dimension.getBlock(blockLoc).isAir) continue;
+    if (blockLoc.y + 1 <= limits[1] && !dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) continue;
+    if (blockLoc.y + 2 <= limits[1] && !dimension.getBlock(blockLoc.offset(0, 2, 0)).isAir) continue;
 
-    let invalid = false;
-
-    if (dimension.getBlock(floor).isAir) invalid = true;
-    if (!dimension.getBlock(legs).isAir) invalid = true;
-    if (!dimension.getBlock(head).isAir) invalid = true;
-
-    if (!invalid) {
-      builder.teleport(new Vector(location.x + 0.5, legs.y, location.z + 0.5),  { dimension });
-      return RawText.translate("commands.wedit:thru.explain");
-    }
+    builder.teleport(blockLoc.offset(0.5, 1, 0.5), { dimension });
+    return true;
   }
-  return RawText.translate("commands.wedit:descend.obstructed");
 }
 
 registerCommand(registerInformation, function (session, builder, args) {
   const levels = args.get("levels") as number;
 
-  for (let level = 0; level < levels; level++) {
-    descend(builder);
+  let count = 0;
+  while (descend(builder)) {
+    count++;
+    if (count == levels) break;
   }
 
+  if (count == 0) {
+    throw RawText.translate("commands.wedit:descend.obstructed");
+  }
   return RawText.translate("commands.wedit:thru.explain");
 });
