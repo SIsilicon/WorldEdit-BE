@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-01-06 02:25\n"
+"PO-Revision-Date: 2024-01-12 20:05\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Selecione o Contorno"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Seleção de Parede"
 
 msgid "item.wedit:draw_line"
 msgstr "Desenhar uma linha"
