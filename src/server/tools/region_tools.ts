@@ -7,7 +7,7 @@ import { Tools } from "./tool_manager";
 class SelectionFillTool extends Tool {
   permission = "worldedit.region.replace";
 
-  use = function (_: Tool, player: Player, session: PlayerSession) {
+  use = function (self: Tool, player: Player, session: PlayerSession) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
@@ -24,7 +24,7 @@ Tools.register(SelectionFillTool, "selection_fill", "wedit:selection_fill");
 class SelectionWallTool extends Tool {
   permission = "worldedit.region.walls";
 
-  use = function (_t: Tool, player: Player) {
+  use = function (self: Tool, player: Player) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
@@ -37,7 +37,7 @@ Tools.register(SelectionWallTool, "selection_wall", "wedit:selection_wall");
 class SelectionOutlineTool extends Tool {
   permission = "worldedit.region.faces";
 
-  use = function (_t: Tool, player: Player) {
+  use = function (self: Tool, player: Player) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
