@@ -12,7 +12,7 @@ class SelectionTool extends Tool {
   break = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
     Server.command.callCommand(player, "pos1", [`${loc.x}`, `${loc.y}`, `${loc.z}`]);
   };
-  drop = function (self: Tool, player: Player, session: PlayerSession) {
+  drop = function (self: Tool, player: Player) {
     Server.command.callCommand(player, "desel");
   };
 }
@@ -26,7 +26,7 @@ class FarSelectionTool extends Tool {
   break = function (self: Tool, player: Player) {
     Server.command.callCommand(player, "hpos1");
   };
-  drop = function (self: Tool, player: Player, session: PlayerSession) {
+  drop = function (self: Tool, player: Player) {
     Server.command.callCommand(player, "desel");
   };
 }

@@ -22,7 +22,7 @@ export class PyramidShape extends Shape {
     throw new Error("getYRange not implemented!");
     return null;
   }
-  
+
   public getOutline(loc: Vector) {
     const vertices = [
       loc.add([-this.size + 1, 0, -this.size + 1]),

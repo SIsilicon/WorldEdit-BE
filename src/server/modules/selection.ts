@@ -1,5 +1,5 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
-import { MolangVariableMap, Player, system } from "@minecraft/server";
+import { Player, system } from "@minecraft/server";
 import { Shape, shapeGenOptions } from "../shapes/base_shape.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";

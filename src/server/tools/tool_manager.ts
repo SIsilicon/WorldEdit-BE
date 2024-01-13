@@ -35,7 +35,7 @@ class ToolBuilder {
       const player = entity.dimension.getPlayers({ closest: 1, location: entity.location, maxDistance: 2 })[0];
       if (player) this.onItemDrop(entity.getComponent("item").itemStack, player);
     });
-    
+
     Server.on("blockBreak", ev => {
       if (!ev.itemStack) return;
       this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
@@ -258,9 +258,9 @@ class ToolBuilder {
     } else {
       return;
     }
-    tool.process(getSession(player), ToolAction.DROP);
+    tool.process(getSession(player), ToolAction.HIT, loc);
   }
-  
+
   private onItemDrop(item: ItemStack, player: Player) {
     if (this.disabled.includes(player.id) || !hasSession(player.id)) {
       return;
@@ -298,11 +298,11 @@ class ToolBuilder {
       }
     }
   }
-  
+
   private stopHolding(player: Player) {
     if (this.prevHeldTool.has(player)) {
-        this.prevHeldTool.get(player)?.process(getSession(player), ToolAction.STOP_HOLD);
-        this.prevHeldTool.delete(player);
+      this.prevHeldTool.get(player)?.process(getSession(player), ToolAction.STOP_HOLD);
+      this.prevHeldTool.delete(player);
     }
   }
 }

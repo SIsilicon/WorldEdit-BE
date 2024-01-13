@@ -20,11 +20,11 @@ class SelectionFillTool extends Tool {
   };
 }
 Tools.register(SelectionFillTool, "selection_fill", "wedit:selection_fill");
-  
+
 class SelectionWallTool extends Tool {
   permission = "worldedit.region.walls";
 
-  use = function (_t: Tool, player: Player, _s: PlayerSession) {
+  use = function (_t: Tool, player: Player) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
@@ -37,7 +37,7 @@ Tools.register(SelectionWallTool, "selection_wall", "wedit:selection_wall");
 class SelectionOutlineTool extends Tool {
   permission = "worldedit.region.faces";
 
-  use = function (_t: Tool, player: Player, _s: PlayerSession) {
+  use = function (_t: Tool, player: Player) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
@@ -50,7 +50,7 @@ Tools.register(SelectionOutlineTool, "selection_outline", "wedit:selection_outli
 class SelectionHollowTool extends Tool {
   permission = "worldedit.region.hollow";
 
-  use = function (_t: Tool, player: Player, _s: PlayerSession) {
+  use = function (self: Tool, player: Player) {
     if (player.isSneaking) {
       Server.uiForms.show("$selectRegionMode", player);
     } else {
