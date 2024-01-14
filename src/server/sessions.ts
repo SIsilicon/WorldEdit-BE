@@ -119,7 +119,7 @@ export class PlayerSession {
       if (k === "patterns") return (<string[]>v).map(v => new Pattern(v));
       return v;
     });
-    
+
     if (!this.getTools().length) {
       this.bindTool("selection_wand", config.wandItem);
       this.bindTool("navigation_wand", config.navWandItem);
