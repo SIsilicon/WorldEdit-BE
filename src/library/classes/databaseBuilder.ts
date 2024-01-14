@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Entity, World, world } from "@minecraft/server";
 import { Server } from "./serverBuilder.js";
 
 const objective = world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", "");
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export class Database<T extends {} = {[key: string]: any}> {
   private data: T;
   private provider: World | Entity;
