@@ -30,8 +30,8 @@ class BlockReplacerTool extends Tool {
 
   toJSON() {
     return {
-      type: this.type,
-      pattern: this.pattern.getSource()
+      toolType: this.type,
+      pattern: this.pattern
     };
   }
 

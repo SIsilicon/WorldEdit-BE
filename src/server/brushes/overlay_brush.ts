@@ -105,8 +105,8 @@ export class OverlayBrush extends Brush {
       id: this.id,
       radius: this.radius,
       depth: this.depth,
-      pattern: this.pattern.getSource(),
-      surfaceMask: this.surfaceMask.getSource()
+      pattern: this.pattern,
+      surfaceMask: this.surfaceMask
     };
   }
 

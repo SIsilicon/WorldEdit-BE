@@ -78,7 +78,7 @@ export class CylinderBrush extends Brush {
       id: this.id,
       radius: this.radius,
       height: this.height,
-      pattern: this.pattern.getSource(),
+      pattern: this.pattern,
       hollow: this.hollow
     };
   }

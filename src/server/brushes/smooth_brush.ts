@@ -71,7 +71,7 @@ export class SmoothBrush extends Brush {
       id: this.id,
       radius: this.size,
       iterations: this.iterations,
-      mask: this.mask.getSource()
+      mask: this.mask
     };
   }
 

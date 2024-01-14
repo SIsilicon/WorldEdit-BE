@@ -88,7 +88,7 @@ export class Mask implements CustomArgType {
     return text;
   }
 
-  getSource() {
+  toJSON() {
     return this.stringObj;
   }
 

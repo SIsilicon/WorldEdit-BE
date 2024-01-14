@@ -81,10 +81,10 @@ class BrushTool extends Tool {
     if (this.brush.id === "structure_brush") return undefined;
 
     return {
-      type: this.type,
+      toolType: this.type,
       brush: this.brush,
-      mask: this.mask?.getSource() ?? null,
-      traceMask: this.traceMask?.getSource() ?? null
+      mask: this.mask,
+      traceMask: this.traceMask
     };
   }
 

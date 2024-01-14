@@ -11,8 +11,7 @@ type toolObject = {[key: string]: any} & Tool;
 
 class ToolBuilder {
   private tools = new Map<string, toolConstruct>();
-  private bindings = new Map<string, Map<string, Tool>>();
-  private databases = new Map<string, Database>();
+  private bindings = new Map<string, Database<{[id: string]: Tool}>>();
   private fixedBindings = new Map<string, Tool>();
   private prevHeldTool = new Map<Player, Tool>();
   private conditionalBindings = new Map<string, {condition: toolCondition, tool: Tool}>();
@@ -88,8 +87,7 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).set(itemId, tool);
-      this.databases.get(playerId).set(itemId, tool);
-      this.databases.get(playerId).save();
+      this.bindings.get(playerId).save();
       return tool;
     } else {
       throw "worldedit.tool.noItem";
@@ -104,18 +102,10 @@ class ToolBuilder {
       this.createPlayerBindingMap(playerId);
       this.bindings.get(playerId).get(itemId)?.delete();
       this.bindings.get(playerId).delete(itemId);
-      this.databases.get(playerId).delete(itemId);
-      this.databases.get(playerId).save();
+      this.bindings.get(playerId).save();
     } else {
       throw "worldedit.tool.noItem";
     }
-  }
-
-  deleteBindings(playerId: string) {
-    this.bindings.get(playerId).forEach(v => v.delete());
-    this.bindings.delete(playerId);
-    this.databases.delete(playerId);
-    this.setDisabled(playerId, false);
   }
 
   hasBinding(itemId: string, playerId: string) {
@@ -140,7 +130,7 @@ class ToolBuilder {
     const tools = this.bindings.get(playerId);
     return tools ? Array.from(tools.entries())
       .filter(binding => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
-      .map(binding => binding[0]) : [] as string[];
+      .map(binding => binding[0] as string) : [] as string[];
   }
 
   setProperty<T>(itemId: string, playerId: string, prop: string, value: T) {
@@ -148,8 +138,7 @@ class ToolBuilder {
       const tool: toolObject = this.bindings.get(playerId).get(itemId);
       if (tool && prop in tool) {
         tool[prop] = value;
-        this.databases.get(playerId).set(itemId, tool);
-        this.databases.get(playerId).save();
+        this.bindings.get(playerId).save();
         return true;
       }
     }
@@ -258,7 +247,7 @@ class ToolBuilder {
     } else {
       return;
     }
-    tool.process(getSession(player), ToolAction.DROP);
+    tool.process(getSession(player), ToolAction.HIT);
   }
   
   private onItemDrop(item: ItemStack, player: Player) {
@@ -282,21 +271,21 @@ class ToolBuilder {
 
   private createPlayerBindingMap(playerId: string) {
     if (this.bindings.has(playerId)) return;
-    this.bindings.set(playerId, new Map<string, Tool>());
-    const database = new Database(`wedit:tools,${playerId}`);
-    this.databases.set(playerId, database);
-    database.load();
-    for (const itemId of database.keys()) {
-      const json = database.get(itemId);
-      try {
-        const toolClass = this.tools.get(json.type);
-        const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(json));
-        tool.type = json.type;
-        this.bindings.get(playerId).set(itemId, tool);
-      } catch (err) {
-        contentLog.error(`Failed to load tool from '${JSON.stringify(json)}' for '${itemId}': ${err}`);
+    const database = new Database<{ [id: string]: Tool }>(`tools|${playerId}`, world, (k, v) => {
+      if (v && typeof v === "object" && "toolType" in v) {
+        try {
+          const toolClass = this.tools.get(v.toolType);
+          const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(v));
+          tool.type = v.toolType;
+          return tool;
+        } catch (err) {
+          contentLog.error(`Failed to load tool from '${JSON.stringify(v)}' for '${k}': ${err}`);
+        }
+      } else {
+        return v;
       }
-    }
+    });
+    this.bindings.set(playerId, database);
   }
   
   private stopHolding(player: Player) {

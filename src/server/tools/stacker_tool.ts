@@ -52,9 +52,9 @@ class StackerTool extends Tool {
 
   toJSON() {
     return {
-      type: this.type,
+      toolType: this.type,
       range: this.range,
-      mask: this.mask.getSource()
+      mask: this.mask
     };
   }
 

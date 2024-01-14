@@ -87,9 +87,8 @@ class BiomeChanges {
 
   flush() {
     for (const [chunk, data] of this.changes) {
-      const tableName = `wedit:biome,${this.dimension.id},${chunk}`;
+      const tableName = `biome,${this.dimension.id},${chunk}`;
       const database = new Database(tableName);
-      database.load();
 
       let biomes: number[] = [];
       if (!database.has("biomes")) {

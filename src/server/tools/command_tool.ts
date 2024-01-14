@@ -40,7 +40,7 @@ class CommandTool extends Tool {
 
   toJSON() {
     return {
-      type: this.type,
+      toolType: this.type,
       command: (this.isCustom ? ";" : "/") + this.command
     };
   }

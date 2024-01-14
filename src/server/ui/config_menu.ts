@@ -26,7 +26,7 @@ const usePickerInput: ModalFormInput = {
   $usePicker: {
     type: "toggle",
     name: "%worldedit.config.usePicker",
-    default: (ctx, player) => (getToolProperty(ctx, player, "mask") as Mask)?.getSource() == "(picked)"
+    default: (ctx, player) => (getToolProperty(ctx, player, "mask") as Mask)?.toJSON() == "(picked)"
   }
 };
 
@@ -46,7 +46,7 @@ const maskInput: ModalFormInput = {
     placeholder: "Eg: air %gametest.optionalPrefix",
     default: (ctx, player) => {
       if (ctx.getData("creatingTool")) return "";
-      return (getToolProperty(ctx, player, "mask") as Mask)?.getSource() ?? "";
+      return (getToolProperty(ctx, player, "mask") as Mask)?.toJSON() ?? "";
     }
   }
 };
@@ -58,7 +58,7 @@ const brushPatternInput: ModalFormInput = {
     placeholder: "Eg: stone,dirt",
     default: (ctx, player) => {
       if (ctx.getData("creatingTool")) return "";
-      return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().getSource();
+      return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().toJSON();
     }
   }
 };
@@ -281,7 +281,7 @@ Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
       placeholder: "Eg: stone,dirt",
       default: (ctx, player) => {
         if (ctx.getData("creatingTool")) return "";
-        return (getToolProperty(ctx, player, "pattern") as Pattern).getSource();
+        return (getToolProperty(ctx, player, "pattern") as Pattern).toJSON();
       }
     },
     ...usePickerInput
@@ -407,7 +407,7 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
       placeholder: "Eg: grass,stone %gametest.optionalPrefix",
       default: (ctx, player) => {
         if (ctx.getData("creatingTool")) return "";
-        return (getToolProperty(ctx, player, "brush") as SmoothBrush).getHeightMask()?.getSource() ?? "";
+        return (getToolProperty(ctx, player, "brush") as SmoothBrush).getHeightMask()?.toJSON() ?? "";
       }
     },
     ...usePickerInput

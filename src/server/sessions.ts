@@ -1,5 +1,5 @@
 import { Player } from "@minecraft/server";
-import { Server, Vector, setTickTimeout, contentLog } from "@notbeer-api";
+import { Server, Vector, setTickTimeout, contentLog, Database } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
@@ -29,6 +29,10 @@ interface superPickaxe {
   enabled: boolean,
   mode: "single" | "area" | "recursive",
   range: number
+}
+
+interface gradients {
+  [id: string]: { dither: number, patterns: Pattern[] }
 }
 
 /**
@@ -100,7 +104,7 @@ export class PlayerSession {
   private playerId: string;
   private history: History;
   private regions = new Map<string, RegionBuffer>();
-  private gradients = new Map<string, {dither: number, patterns: Pattern[]}>();
+  private gradients: Database<gradients>;
   private placementMode: "player" | "selection" = "player";
 
   private _drawOutlines: boolean;
@@ -111,7 +115,11 @@ export class PlayerSession {
     this.history = new History(this);
     this.selection = new Selection(player);
     this.drawOutlines = config.drawOutlines;
-
+    this.gradients = new Database<gradients>("gradients", player, (k, v) => {
+      if (k === "patterns") return (<string[]>v).map(v => new Pattern(v));
+      return v;
+    });
+    
     if (!this.getTools().length) {
       this.bindTool("selection_wand", config.wandItem);
       this.bindTool("navigation_wand", config.navWandItem);
@@ -273,6 +281,7 @@ export class PlayerSession {
 
   public createGradient(id: string, dither: number, patterns: Pattern[]) {
     this.gradients.set(id, { dither, patterns });
+    this.gradients.save();
   }
 
   public getGradient(id: string) {
@@ -284,7 +293,6 @@ export class PlayerSession {
       region.deref();
     }
     this.regions.clear();
-    Tools.deleteBindings(this.playerId);
     this.history.delete();
     this.history = null;
   }
