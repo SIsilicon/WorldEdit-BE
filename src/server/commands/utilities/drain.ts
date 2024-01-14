@@ -86,7 +86,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
       for (const loc of blocks) {
         const block = dimension.getBlock(loc);
         if (drainWaterLogged && !block.typeId.match(fluidMatch)) {
-          block.isWaterlogged = false;
+          block.setWaterlogged(false);
         } else {
           block.setPermutation(air);
         }
