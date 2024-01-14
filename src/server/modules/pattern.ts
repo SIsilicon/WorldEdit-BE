@@ -111,7 +111,7 @@ export class Pattern implements CustomArgType {
     return text;
   }
 
-  getSource() {
+  toJSON() {
     return this.stringObj;
   }
 

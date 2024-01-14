@@ -69,7 +69,7 @@ export class SphereBrush extends Brush {
     return {
       id: this.id,
       radius: this.radius,
-      pattern: this.pattern.getSource(),
+      pattern: this.pattern,
       hollow: this.hollow
     };
   }

@@ -110,8 +110,8 @@ export abstract class Tool {
     return;
   }
 
-  toJSON() {
-    return { type: this.type };
+  toJSON(): { toolType: string } {
+    return { toolType: this.type };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
