@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-01-06 02:24\n"
+"PO-Revision-Date: 2024-01-22 22:47\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Omriss Valg"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Hult utvalg"
 
 msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
@@ -71,13 +71,13 @@ msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Tegn kule"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Tegn syllinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Teng pyramide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -140,34 +140,34 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Syllinder"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Velg regionsoperasjon"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Fyllmodus"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Omrissningsmodus"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Veggmodus"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "Uthulingsmodus"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "Vel figur å generere"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Linje"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Kule"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Syllinder"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Pyramide"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Ingen verktøysegenskaper"
