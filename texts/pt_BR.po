@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-01-12 20:05\n"
+"PO-Revision-Date: 2024-01-25 16:21\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -71,10 +71,10 @@ msgid "item.wedit:draw_line"
 msgstr "Desenhar uma linha"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Grama"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Desenhar cilindro"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Draw Pyramid"
