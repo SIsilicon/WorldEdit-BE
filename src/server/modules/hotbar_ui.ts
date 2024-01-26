@@ -112,7 +112,7 @@ class HotbarUIForm<T extends {}> {
 }
 
 class HotbarContext<T extends {}> implements MenuContext<T> {
-  private stack: string[] = [];
+  private stack: UIFormName[] = [];
   private data: T = {} as T;
   private currentForm: HotbarUIForm<T>;
 
@@ -146,17 +146,25 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
     }
   }
 
+  back() {
+    this.stack.pop();
+    this.goto(this.stack.pop());
+  }
+
   returnto(menu: UIFormName) {
-    let popped: string;
+    let popped: string | undefined;
     // eslint-disable-next-line no-cond-assign
-    while (popped = this.stack.pop()) {
-      if (popped == menu) {
+    while ((popped = this.stack.pop())) {
+      if (popped === menu) {
         this.goto(menu);
         return;
       }
     }
-    this.goto(null);
-    this.base?.returnto(menu);
+    this.goto(undefined);
+  }
+
+  confirm() {
+    throw "confirm() is not implemented in hotbar UI";
   }
 }
 
@@ -198,7 +206,7 @@ class HotbarUIBuilder {
    * @param player The player to display the UI form to
    * @param ctx The context to be passed to the UI form
    */
-  goto(name: UIFormName, player: Player, ctx: MenuContext<{}>) {
+  goto(name: UIFormName, player: Player, ctx: MenuContext<unknown>) {
     if (!(ctx instanceof HotbarContext)) {
       ctx = new HotbarContext(player, ctx);
     }

@@ -95,4 +95,8 @@ export class Cardinal implements CustomArgType {
       return cardinal;
     }
   }
+
+  getDirectionLetter() {
+    return this.direction;
+  }
 }

@@ -21,16 +21,14 @@ abstract class UIForm<T extends {}> {
   public exit(player: Player, ctx: MenuContextType<T>) { /**/ }
 
   protected handleCancel(response: FormResponse, player: Player, ctx: MenuContext<T>) {
-    if (response.canceled) {
-      if (response.cancelationReason == FormCancelationReason.UserBusy) {
-        setTickTimeout(() => this.enter(player, ctx));
-      } else {
-        ctx.goto(null);
-        this.cancelAction?.(ctx, player);
-      }
-      return true;
+    if (!response.canceled) return false;
+    if (response.cancelationReason == FormCancelationReason.UserBusy) {
+      setTickTimeout(() => this.enter(player, ctx));
+    } else {
+      ctx.goto(undefined);
+      this.cancelAction?.(ctx, player);
     }
-    return false;
+    return true;
   }
 
   protected buildFormData(player: Player, ctx: MenuContext<T>) {
@@ -39,11 +37,7 @@ abstract class UIForm<T extends {}> {
   }
 
   protected resolve<S>(element: DynamicElem<T, S>, player: Player, ctx: MenuContext<T>) {
-    if (element instanceof Function) {
-      return element(ctx, player);
-    } else {
-      return element;
-    }
+    return element instanceof Function ? element(ctx, player) : element;
   }
 }
 
@@ -53,31 +47,27 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
 
   constructor(form: MessageForm<T>) {
     super(form);
-    this.action1 = form.button1.action;
-    this.action2 = form.button2?.action;
+    this.action1 = form.button2.action;
+    this.action2 = form.button1.action;
   }
 
   protected build(form: MessageForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S) {
     const formData = new MessageFormData();
     formData.title(resEl(form.title));
     formData.body(resEl(form.message));
-    formData.button1(resEl(form.button1.text));
-    if ("button2" in form) {
-      formData.button2(resEl(form.button2.text));
-    }
+    formData.button1(resEl(form.button2.text));
+    formData.button2(resEl(form.button1.text));
     return formData;
   }
 
   enter(player: Player, ctx: MenuContext<T>) {
     this.buildFormData(player, ctx).show(player).then((response: MessageFormResponse) => {
-      if (this.handleCancel(response, player, ctx)) {
-        return;
-      }
-      ctx.goto(null);
+      if (this.handleCancel(response, player, ctx)) return;
+      ctx.goto(undefined);
       if (response.selection == 0) {
         this.action1(ctx, player);
       } else if (response.selection == 1) {
-        (this.action2 ?? this.action1)(ctx, player);
+        this.action2(ctx, player);
       }
     });
   }
@@ -91,8 +81,10 @@ class ActionUIForm<T extends {}> extends UIForm<T> {
     const formData = new ActionFormData();
     formData.title(resEl(form.title));
 
-    if (form.message) {
-      formData.body(resEl(form.message));
+    if (form.message) formData.body(resEl(form.message));
+    if (resEl((ctx) => (<MenuContext<T>>ctx).canGoBack())) {
+      formData.button("<< Back");
+      this.actions.push((ctx) => ctx.back());
     }
     for (const button of resEl(form.buttons)) {
       formData.button(resEl(button.text), resEl(button.icon));
@@ -105,10 +97,8 @@ class ActionUIForm<T extends {}> extends UIForm<T> {
     const form = this.buildFormData(player, ctx);
     const actions = this.actions;
     form.show(player).then((response: ActionFormResponse) => {
-      if (this.handleCancel(response, player, ctx)) {
-        return;
-      }
-      ctx.goto(null);
+      if (this.handleCancel(response, player, ctx)) return;
+      ctx.goto(undefined);
       actions[response.selection]?.(ctx, player);
     });
   }
@@ -161,23 +151,20 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
     const form = this.buildFormData(player, ctx);
     const inputNames = this.inputNames;
     form.show(player).then((response: ModalFormResponse) => {
-      if (this.handleCancel(response, player, ctx)) {
-        return;
-      }
+      if (this.handleCancel(response, player, ctx)) return;
       const inputs: {[key: string]: string|number|boolean} = {};
       for (const i in response.formValues) {
         inputs[inputNames[i]] = response.formValues[i];
       }
-      ctx.goto(null);
+      ctx.goto(undefined);
       this.submit(ctx, player, inputs);
     });
   }
 }
 
 class MenuContext<T extends {}> implements MenuContextType<T> {
-  private stack: string[] = [];
+  private stack: `$${string}`[] = [];
   private data: T = {} as T;
-  private currentForm: UIForm<T>;
 
   constructor(private player: Player) {}
 
@@ -189,31 +176,53 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
     this.data[key] = value;
   }
 
-  goto(menu: UIFormName) {
-    if (menu) {
-      this.stack.push(menu);
+  goto(menu?: UIFormName) {
+    if (menu && this.stack[this.stack.length - 1] === "$___confirmMenu___") {
+        throw Error("Can't go to another form from a confirmation menu!");
     }
-    if (this.stack.length >= 64) {
-      throw Error("UI Stack overflow!");
-    }
-    this.currentForm = UIForms.goto(menu, this.player, this);
+    this._goto(menu);
+  }
+
+  back() {
+    this.stack.pop();
+    this._goto(this.stack.pop());
   }
 
   returnto(menu: UIFormName) {
-    let popped: string;
+    let popped: string | undefined;
     // eslint-disable-next-line no-cond-assign
-    while (popped = this.stack.pop()) {
-      if (popped == menu) {
-        this.goto(menu);
+    while ((popped = this.stack.pop())) {
+      if (popped === menu) {
+        this._goto(menu);
         return;
       }
     }
-    this.goto(null);
+    this._goto(undefined);
+  }
+
+  confirm(title: string, message: string, yes: UIAction<T, void>, no?: UIAction<T, void>) {
+    this.stack.push("$___confirmMenu___");
+    const form = new MessageUIForm({
+        title,
+        message,
+        button1: { text: "No", action: no ?? ((ctx) => ctx.back()) },
+        button2: { text: "Yes", action: yes },
+    });
+    form.enter(this.player, this);
+  }
+
+  canGoBack() {
+    return this.stack.length > 1;
+  }
+
+  private _goto(menu?: UIFormName) {
+    if (menu && menu !== this.stack[this.stack.length - 1]) this.stack.push(menu);
+    if (this.stack.length >= 64) throw Error("UI Stack overflow!");
+    UIForms.goto(menu, this.player, this);
   }
 }
 
 class UIFormBuilder {
-
   private forms = new Map<UIFormName, UIForm<{}>>();
   private active = new Map<Player, UIForm<{}>>();
 
@@ -284,17 +293,11 @@ class UIFormBuilder {
    * @returns Whether the UI, or any at all is being displayed.
    */
   displayingUI(player: Player, ui?: UIFormName) {
-    if (this.active.has(player)) {
-      if (ui) {
-        const form = this.active.get(player);
-        for (const registered of this.forms.values()) {
-          if (registered == form) {
-            return true;
-          }
-        }
-        return false;
-      }
-      return true;
+    if (!this.active.has(player)) return false;
+    if (!ui) return true;
+    const form = this.active.get(player);
+    for (const registered of this.forms.values()) {
+      if (registered == form) return true;
     }
     return false;
   }

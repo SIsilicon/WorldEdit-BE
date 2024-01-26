@@ -116,7 +116,10 @@ export class PlayerSession {
     this.selection = new Selection(player);
     this.drawOutlines = config.drawOutlines;
     this.gradients = new Database<gradients>("gradients", player, (k, v) => {
-      if (k === "patterns") return (<string[]>v).map(v => new Pattern(v));
+      if (k === "patterns") return (<string[]>v).map(v => {
+        console.warn(v);
+        return new Pattern(v);
+      });
       return v;
     });
     
@@ -286,6 +289,15 @@ export class PlayerSession {
 
   public getGradient(id: string) {
     return this.gradients.get(id);
+  }
+
+  public getGradientNames() {
+    return this.gradients.keys() as string[];
+  }
+
+  public deleteGradient(id: string) {
+    this.gradients.delete(id);
+    this.gradients.save();
   }
 
   delete() {

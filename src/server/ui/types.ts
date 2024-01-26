@@ -1,6 +1,7 @@
-import { Player } from "@minecraft/server";
+import { Player, Vector3 } from "@minecraft/server";
 import { Mask } from "@modules/mask";
 import { Pattern } from "@modules/pattern";
+import { selectMode } from "@modules/selection";
 import { MenuContext, UIFormName } from "library/@types/classes/uiFormBuilder";
 import { Brush } from "server/brushes/base_brush";
 import { PlayerSession } from "server/sessions";
@@ -13,9 +14,11 @@ export interface ConfigContext {
 
   currentItem?: string
   editingBrush?: boolean
+  currentGradient?: string
 
   creatingTool?: ToolTypes | BrushTypes
   toolData?: [number, Mask] | [Brush, Mask, number, Mask] | [string] | [Pattern]
+  gradientData?: [string, number, Vector3, Vector3]
 
   deletingTools?: string[]
 
@@ -26,4 +29,5 @@ export interface ConfigContext {
 
   stashedMask?: Mask
   stashedPattern?: Pattern
+  stashedSelectionMode?: selectMode
 }
