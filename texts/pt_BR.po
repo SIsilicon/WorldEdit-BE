@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-01-25 16:21\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -103,6 +103,9 @@ msgstr "Pincéis"
 msgid "worldedit.config.tools"
 msgstr "Ferramentas"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Geral"
 
@@ -126,6 +129,9 @@ msgstr "Criar nova ferramenta"
 
 msgid "worldedit.config.newBrush"
 msgstr "Criar pincel novo"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboide"
@@ -214,6 +220,15 @@ msgstr "Pincel de erosão"
 msgid "worldedit.config.brush.overlay"
 msgstr "Pincel de sobreposição"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Segure um item para vincular."
 
@@ -222,6 +237,9 @@ msgstr "Escolha que tipo de pincel fazer."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Escolha que tipo de ferramenta fazer."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Faça um padrão e uma máscara opcional para o pincel."
@@ -243,6 +261,9 @@ msgstr "Você está de acordo com as configurações que você fez?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Tem certeza de que quer desvincular esse objeto?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Tamanho"
@@ -273,6 +294,9 @@ msgstr "Categoria de erosão"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Altura da máscara"
