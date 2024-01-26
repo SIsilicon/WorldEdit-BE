@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-01-06 02:24\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -103,6 +103,9 @@ msgstr "브러시"
 msgid "worldedit.config.tools"
 msgstr "도구"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "일반"
 
@@ -126,6 +129,9 @@ msgstr "새로운 도구 제작"
 
 msgid "worldedit.config.newBrush"
 msgstr "새로운 브러시 제작"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "직육면체"
@@ -214,6 +220,15 @@ msgstr "침식 브러시"
 msgid "worldedit.config.brush.overlay"
 msgstr "겉깔개 브러시"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "묶을 아이템을 들고 있으세요."
 
@@ -222,6 +237,9 @@ msgstr "어떤 형태의 브러시를 만들 것인지 선택하세요."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 형태의 도구를 만들 것인지 선택하세요."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
@@ -243,6 +261,9 @@ msgstr "이 설정을 적용하시겠습니까?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "이 아이템을 정말로 삭제하시겠습니까?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "크기"
@@ -273,6 +294,9 @@ msgstr "침식 유형"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "높이 마스크"
