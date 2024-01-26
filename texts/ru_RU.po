@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-01-06 02:25\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -103,6 +103,9 @@ msgstr "Кисти"
 msgid "worldedit.config.tools"
 msgstr "Инструменты"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Основное"
 
@@ -126,6 +129,9 @@ msgstr "Создать новый инструмент"
 
 msgid "worldedit.config.newBrush"
 msgstr "Создать новую кисть"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Куб"
@@ -214,6 +220,15 @@ msgstr "Кисть Эрозии"
 msgid "worldedit.config.brush.overlay"
 msgstr "Кисть наложения"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
 
@@ -222,6 +237,9 @@ msgstr "Выберите, какую кисть создать."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Сделайте узор и дополнительную маску для кисти."
@@ -243,6 +261,9 @@ msgstr "Вы согласны с настройкой, которую вы сд�
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Размер"
@@ -273,6 +294,9 @@ msgstr "Тип Эрозии"
 
 msgid "worldedit.config.structures"
 msgstr "Структуры"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
