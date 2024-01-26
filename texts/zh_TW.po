@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-01-06 02:25\n"
+"PO-Revision-Date: 2024-01-26 02:49\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -103,6 +103,9 @@ msgstr "畫筆"
 msgid "worldedit.config.tools"
 msgstr "工具"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "一般"
 
@@ -126,6 +129,9 @@ msgstr "創建新工具"
 
 msgid "worldedit.config.newBrush"
 msgstr "創建新畫筆"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "長方體"
@@ -214,6 +220,15 @@ msgstr "Erosion Brush"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "握著要綁定的物件"
 
@@ -222,6 +237,9 @@ msgstr "選擇要製作什麼樣的畫筆。"
 
 msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "請設定畫筆的填充方塊(必選) 和取代方塊(可選)。"
@@ -243,6 +261,9 @@ msgstr "你對你所做的設置好嗎？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "您確定要取消綁定此項目嗎？"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "大小"
@@ -273,6 +294,9 @@ msgstr "Erosion Type"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "高度遮罩"
