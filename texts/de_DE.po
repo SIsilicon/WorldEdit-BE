@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-01-06 02:24\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -103,6 +103,9 @@ msgstr "Pinsel"
 msgid "worldedit.config.tools"
 msgstr "Werkzeuge"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Allgemein"
 
@@ -126,6 +129,9 @@ msgstr "Neues Werkzeug erstellen"
 
 msgid "worldedit.config.newBrush"
 msgstr "Neuen Pinsel erstellen"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Quader"
@@ -214,6 +220,15 @@ msgstr "Erosionsbürste"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay-Pinsel"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Objekt."
 
@@ -222,6 +237,9 @@ msgstr "Wählen Sie, welche Art von Pinsel gemacht werden soll."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Wählen Sie, welche Art von Werkzeug gemacht werden soll."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
@@ -243,6 +261,9 @@ msgstr "Sind Sie mit Ihren Einstellungen einverstanden?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Sind Sie sicher, dass Sie diese Objektbindung lösen möchten?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Größe"
@@ -273,6 +294,9 @@ msgstr "Erosionstyp"
 
 msgid "worldedit.config.structures"
 msgstr "Strukturen"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
