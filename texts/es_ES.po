@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2024-01-06 02:24\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -103,6 +103,9 @@ msgstr "Brocha"
 msgid "worldedit.config.tools"
 msgstr "Herramientas"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "General"
 
@@ -126,6 +129,9 @@ msgstr "Crear nueva herramienta"
 
 msgid "worldedit.config.newBrush"
 msgstr "Crear un Nuevo Foro"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboide"
@@ -214,6 +220,15 @@ msgstr "Copiar"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Mantén un elemento al que enlazar."
 
@@ -222,6 +237,9 @@ msgstr "Elige que tipo de pincel quieres crear."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Elige que tipo de pincel quieres crear."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Hacer un patrón y una máscara opcional para la brocha."
@@ -243,6 +261,9 @@ msgstr "¿Estás seguro de la configuración que has hecho?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea borrar este elemento?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Tamaño"
@@ -273,6 +294,9 @@ msgstr "Erosion Type"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Máscara de altura"
