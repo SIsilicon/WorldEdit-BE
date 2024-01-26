@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-01-06 02:24\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -103,6 +103,9 @@ msgstr "Brosses"
 msgid "worldedit.config.tools"
 msgstr "Outils"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Général"
 
@@ -126,6 +129,9 @@ msgstr "Créer un nouvel outil"
 
 msgid "worldedit.config.newBrush"
 msgstr "Créer une nouvelle brosse"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboïde"
@@ -214,6 +220,15 @@ msgstr "Pinceau d'érosion"
 msgid "worldedit.config.brush.overlay"
 msgstr "Brosse de superposition"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
 
@@ -222,6 +237,9 @@ msgstr "Choisissez le type de pinceau à créer."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Choisissez quel type d'outil à créer."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Créer un motif et un masque optionnel pour le pinceau."
@@ -243,6 +261,9 @@ msgstr "Êtes-vous d'accord avec votre configuration ?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Êtes-vous sûr de vouloir dissocier cet élément ?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Taille"
@@ -273,6 +294,9 @@ msgstr "Type d'érosion"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Masque de hauteur"
