@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
-"PO-Revision-Date: 2024-01-25 16:21\n"
+"PO-Revision-Date: 2024-01-26 02:48\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -103,6 +103,9 @@ msgstr "Brushes"
 msgid "worldedit.config.tools"
 msgstr "Tools"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "General"
 
@@ -126,6 +129,9 @@ msgstr "Create New Tool"
 
 msgid "worldedit.config.newBrush"
 msgstr "Create New Brush"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboid"
@@ -214,6 +220,15 @@ msgstr "Erosion Brush"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
 msgid "worldedit.config.chooseItem"
 msgstr "Hold an item to bind to."
 
@@ -222,6 +237,9 @@ msgstr "Choose what kind of brush to make."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Choose what kind of tool to make."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
@@ -243,6 +261,9 @@ msgstr "Are you ok with the setup you made?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "Are you sure you want to unbind this item?"
+
+msgid "worldedit.config.name"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Size"
@@ -273,6 +294,9 @@ msgstr "Erosion Type"
 
 msgid "worldedit.config.structures"
 msgstr "Structures"
+
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
