@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-01-26 02:48\n"
+"PO-Revision-Date: 2024-01-28 16:46\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Выбор Контура"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr ""
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
@@ -71,13 +71,13 @@ msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr ""
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr ""
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr ""
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Вам нужно указать блок, чтобы установить выбор!"
@@ -104,7 +104,7 @@ msgid "worldedit.config.tools"
 msgstr "Инструменты"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr ""
 
 msgid "worldedit.config.general"
 msgstr "Основное"
@@ -131,7 +131,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Создать новую кисть"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr ""
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Куб"
@@ -146,25 +146,25 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Цилиндр"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr ""
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr ""
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr ""
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr ""
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr ""
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr ""
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr ""
 
 msgid "worldedit.genMode.sphere"
 msgstr "Sphere"
