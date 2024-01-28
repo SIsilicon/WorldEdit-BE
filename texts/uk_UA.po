@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-01-26 02:48\n"
+"PO-Revision-Date: 2024-01-28 18:50\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -104,7 +104,7 @@ msgid "worldedit.config.tools"
 msgstr "Інструменти"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Градієнти"
 
 msgid "worldedit.config.general"
 msgstr "Загальне"
@@ -131,7 +131,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Створити новий пензель"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Створити новий градієнт"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Кубоподібний"
@@ -221,13 +221,13 @@ msgid "worldedit.config.brush.overlay"
 msgstr "Пензель накладання"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "Використовувати градієнт у «Вибір шаблону»"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "Видалити градієнт"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "Додати новий градієнт"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Візьміть предмет для прив’язки."
@@ -239,7 +239,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент створити."
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Insert Gradient ID Here"
+msgstr "Вставте ID градієнту тут"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Створити шаблон та за бажанням маску для пензля."
@@ -263,7 +263,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей предмет?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "Назва"
 
 msgid "worldedit.config.radius"
 msgstr "Розмір"
@@ -296,7 +296,7 @@ msgid "worldedit.config.structures"
 msgstr "Структури"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "Кількість замісу"
 
 msgid "worldedit.config.mask.height"
 msgstr "Висота маски"
