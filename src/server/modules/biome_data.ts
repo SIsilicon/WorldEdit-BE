@@ -171,10 +171,10 @@ class BiomeDetector extends EventEmitter implements PooledResource {
           this.emit(errorEventSym);
           reject(err);
         } finally {
-          world.afterEvents.dataDrivenEntityTriggerEvent.unsubscribe(onEvent);
+          world.afterEvents.dataDrivenEntityTrigger.unsubscribe(onEvent);
         }
       };
-      world.afterEvents.dataDrivenEntityTriggerEvent.subscribe(onEvent, {
+      world.afterEvents.dataDrivenEntityTrigger.subscribe(onEvent, {
         entities: [this.entity],
         eventTypes: ["wedit:biome_update"]
       });

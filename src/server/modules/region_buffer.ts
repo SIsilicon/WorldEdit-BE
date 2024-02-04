@@ -171,6 +171,9 @@ export class RegionBuffer {
           } else if (attachement != null && direction != null) {
             const states = (this.transformMapping(mappings.bellMap, `${attachement}_${direction}`, ...rotFlip) as string).split("_");
             block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
+          } else if (cardinalDir != null) {
+            const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, ...rotFlip);
+            block = block.withState("minecraft:cardinal_direction", state);
           } else if (facingDir != null) {
             const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
             block = block.withState("facing_direction", parseInt(state));
@@ -178,9 +181,6 @@ export class RegionBuffer {
             const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
             const state = this.transformMapping(mapping, direction, ...rotFlip);
             block = block.withState("direction", parseInt(state));
-          } else if (cardinalDir != null) {
-            const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, ...rotFlip);
-            block = block.withState("minecraft:cardinal_direction", state);
           } else if (groundSignDir != null) {
             const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
             block = block.withState("ground_sign_direction", parseInt(state));

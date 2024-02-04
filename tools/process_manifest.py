@@ -68,6 +68,13 @@ bp_manifest['dependencies'].append({
     'version': rp_manifest['header']['version']
 })
 
+if not 'dependencies' in rp_manifest:
+    rp_manifest['dependencies'] = []
+rp_manifest['dependencies'].append({
+    'uuid': bp_manifest['header']['uuid'],
+    'version': bp_manifest['header']['version']
+})
+
 if args.target == 'debug':
     bp_manifest['header']['name'] += ' [DEBUG]'
     rp_manifest['header']['name'] += ' [DEBUG]'

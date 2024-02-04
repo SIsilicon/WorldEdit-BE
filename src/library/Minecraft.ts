@@ -81,10 +81,6 @@ class ServerBuild extends ServerBuilder {
      */
     beforeEvents.explosion.subscribe(data => this.emit("beforeExplosion", data));
     /**
-     * Emit to 'beforePistonActivate' event listener
-     */
-    beforeEvents.pistonActivate.subscribe(data => this.emit("beforePistonActivate", data));
-    /**
      * Emit to 'blockExplode' event listener
      */
     afterEvents.blockExplode.subscribe(data => this.emit("blockExplode", data));
@@ -95,7 +91,7 @@ class ServerBuild extends ServerBuilder {
     /**
      * Emit to 'pistonActivate' event listener
      */
-    beforeEvents.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
+    afterEvents.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
 
     /**
      * Emit to 'itemUse' event listener
