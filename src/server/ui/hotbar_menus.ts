@@ -129,7 +129,7 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
     const session = getSession(player);
     if (!session.selection.isCuboid) {
       ctx.setData("stashedSelectionMode", session.selection.mode);
-      session.selection.mode = "cuboid"
+      session.selection.mode = "cuboid";
     } else {
       ctx.setData("stashedSelectionMode", undefined);
     }
