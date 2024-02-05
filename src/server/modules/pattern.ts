@@ -67,8 +67,12 @@ export class Pattern implements CustomArgType {
   }
 
   addBlock(permutation: BlockPermutation) {
-    if (this.block == null) {
+    if (!this.block) {
       this.block = new ChainPattern(null);
+    } else if (!(this.block instanceof ChainPattern)) {
+      const old = this.block;
+      this.block = new ChainPattern(null);
+      this.block.nodes.push(old);
     }
 
     const block = blockPermutation2ParsedBlock(permutation);

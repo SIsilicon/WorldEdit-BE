@@ -1,8 +1,8 @@
-import { Player } from "@minecraft/server";
+import { Player, Vector3 } from "@minecraft/server";
 import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { contentLog, Server } from "@notbeer-api";
+import { contentLog, regionSize, Server } from "@notbeer-api";
 import { MenuContext, ModalForm } from "library/@types/classes/uiFormBuilder.js";
 import { Brush } from "../brushes/base_brush.js";
 import { SphereBrush } from "../brushes/sphere_brush.js";
@@ -114,9 +114,13 @@ Server.uiForms.register<ConfigContext>("$configMenu", {
         ctx.setData("editingBrush", true);
         ctx.goto("$tools");
       }
+    },
+    {
+      text: "%worldedit.config.gradients",
+      icon: "textures/ui/gradient_config",
+      action: ctx => ctx.goto("$gradients")
     }
-  ],
-  cancel: () => null
+  ]
 });
 
 Server.uiForms.register<ConfigContext>("$generalOptions", {
@@ -204,6 +208,117 @@ Server.uiForms.register<ConfigContext>("$tools", {
     return buttons;
   },
   cancel: ctx => ctx.returnto("$configMenu")
+});
+
+Server.uiForms.register<ConfigContext>("$gradients", {
+  title: "%worldedit.config.gradients",
+  buttons: (_, player) => {
+    const buttons = [];
+    buttons.push({
+      text: "%worldedit.config.newGradient",
+      action: (ctx: MenuConfigCtx) => ctx.goto("$addGradient")
+    });
+    for (const id of getSession(player).getGradientNames()) {
+      buttons.push({
+        text: id,
+        action: (ctx: MenuConfigCtx) => {
+          ctx.setData("currentGradient", id);
+          ctx.goto("$gradientInfo");
+        }
+      });
+    }
+    return buttons;
+  }
+});
+
+Server.uiForms.register<ConfigContext>("$gradientInfo", {
+  title: (ctx) => ctx.getData("currentGradient"),
+  buttons: [
+    {
+      text: "%worldedit.config.gradient.use",
+      action: (ctx, player) => {
+        const session = getSession(player);
+        session.globalPattern = new Pattern(`$${ctx.getData("currentGradient")}`);
+      }
+    },
+    {
+      text: "%worldedit.config.gradient.remove",
+      action: (ctx) => 
+        ctx.confirm("$worldedit.config.confirm", "%worldedit.config.confirm.delete", (ctx, player) => {
+          getSession(player).deleteGradient(ctx.getData("currentGradient"));
+        })
+    }
+  ]
+});
+
+Server.uiForms.register<ConfigContext>("$addGradient", {
+  title: "%worldedit.config.gradient.add",
+  inputs: {
+    $id: {
+      type: "textField",
+      name: "%worldedit.config.name",
+      placeholder: "%worldedit.config.gradient.promptName"
+    },
+    $dither: {
+      type: "slider",
+      name: "%worldedit.config.blend",
+      min: 0, max: 1,
+      default: 1
+    }
+  },
+  submit: (ctx, player, input) => {
+    ctx.setData("pickerData", {
+      return: "$gradients",
+      onFinish: (ctx, player) => {
+        ctx.setData("gradientData", [input.$id as string, input.$dither as number, ...getSession(player).selection.getRange()]);
+        ctx.goto("$confirmGradientSelection");
+      }
+    });
+    HotbarUI.goto("$selectBlocks", player, ctx);
+  },
+  cancel: ctx => ctx.returnto("$gradients")
+});
+
+Server.uiForms.register<ConfigContext>("$confirmGradientSelection", {
+  title: "%worldedit.config.confirm",
+  message: "%worldedit.config.confirm.create",
+  button1: {
+    text: "%dr.button.ok",
+    action: (ctx, player) => {
+      const session = ctx.getData("session");
+      const [id, dither, min, max] = ctx.getData("gradientData");
+      const size = regionSize(min, max);
+      const dim = player.dimension;
+      const patterns = [];
+      type axis = "x" | "y" | "z";
+      let s: axis, t: axis, u: axis;
+      if (size.x > size.y && size.x > size.z) {
+        s = "y"; t = "z"; u = "x";
+      } else if (size.z > size.x && size.z > size.y) {
+        s = "x"; t = "y"; u = "z";
+      } else {
+        s = "x"; t = "z"; u = "y";
+      }
+  
+      for (let i = min[u]; i <= max[u]; i++) {
+        const pattern = new Pattern();
+        for (let j = min[s]; j <= max[s]; j++) {
+          for (let k = min[t]; k <= max[t]; k++) {
+            pattern.addBlock(dim.getBlock({ [s]: j, [t]: k, [u]: i } as unknown as Vector3).permutation);
+          }
+        }
+        patterns.push(pattern);
+      }
+  
+      session.createGradient(id, dither, patterns);
+      ctx.returnto("$gradients");
+    }
+  },
+  button2: {
+    text: "%gui.cancel",
+    action: ctx => ctx.returnto("$gradients")
+  },
+  cancel: ctx => ctx.returnto("$gradients")
 });
 
 Server.uiForms.register<ConfigContext>("$toolNoConfig", {

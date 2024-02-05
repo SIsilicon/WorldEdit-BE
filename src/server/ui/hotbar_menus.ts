@@ -3,14 +3,15 @@ import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern";
 import { Server } from "@notbeer-api";
 import { ConfigContext } from "./types";
+import { getSession } from "server/sessions";
 
 HotbarUI.register<ConfigContext>("$chooseItem", {
   title: "%worldedit.config.chooseItem",
   items: {
-    0: { item: "minecraft:air", action: null }, 1: { item: "minecraft:air", action: null },
-    2: { item: "minecraft:air", action: null }, 3: { item: "minecraft:air", action: null },
-    4: { item: "minecraft:air", action: null }, 5: { item: "minecraft:air", action: null },
-    6: { item: "minecraft:air", action: null }, 7: { item: "minecraft:air", action: null },
+    0: { item: "minecraft:air", action: undefined }, 1: { item: "minecraft:air", action: undefined },
+    2: { item: "minecraft:air", action: undefined }, 3: { item: "minecraft:air", action: undefined },
+    4: { item: "minecraft:air", action: undefined }, 5: { item: "minecraft:air", action: undefined },
+    6: { item: "minecraft:air", action: undefined }, 7: { item: "minecraft:air", action: undefined },
   },
   tick: (ctx, player) => {
     const item = Server.player.getHeldItem(player);
@@ -33,7 +34,7 @@ HotbarUI.register<ConfigContext>("$pickMask", {
       item: "wedit:confirm_button",
       action: (ctx, player) => {
         const mask = ctx.getData("session").globalMask;
-        ctx.getData("pickerData").onFinish(ctx, player, mask, null);
+        ctx.getData("pickerData").onFinish(ctx, player, mask, undefined);
       }
     }
   },
@@ -94,7 +95,7 @@ HotbarUI.register<ConfigContext>("$pickPattern", {
       item: "wedit:confirm_button",
       action: (ctx, player) => {
         const session = ctx.getData("session");
-        ctx.getData("pickerData").onFinish(ctx, player, null, session.globalPattern);
+        ctx.getData("pickerData").onFinish(ctx, player, undefined, session.globalPattern);
       }
     }
   },
@@ -106,6 +107,36 @@ HotbarUI.register<ConfigContext>("$pickPattern", {
   exiting: ctx => {
     const session = ctx.getData("session");
     session.globalPattern = ctx.getData("stashedPattern");
+  },
+  cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+});
+
+HotbarUI.register<ConfigContext>("$selectBlocks", {
+  title: "worldedit.config.gradient.select",
+  items: {
+    4: {
+      item: "minecraft:wooden_axe",
+      action: () => { /**/ }
+    },
+    7: {
+      item: "wedit:confirm_button",
+      action: (ctx, player) => {
+        ctx.getData("pickerData").onFinish(ctx, player, undefined, undefined);
+      }
+    }
+  },
+  entered: (ctx, player) => {
+    const session = getSession(player);
+    if (!session.selection.isCuboid) {
+      ctx.setData("stashedSelectionMode", session.selection.mode);
+      session.selection.mode = "cuboid"
+    } else {
+      ctx.setData("stashedSelectionMode", undefined);
+    }
+  },
+  exiting: (ctx, player) => {
+    const oldMode = ctx.getData("stashedSelectionMode");
+    if (oldMode) getSession(player).selection.mode = oldMode;
   },
   cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
 });
