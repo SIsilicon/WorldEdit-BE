@@ -62,7 +62,7 @@ export abstract class Shape {
   * @return True if a block should be generated; false otherwise
   */
   protected abstract inShape(relLoc: Vector, genVars: shapeGenVars): boolean;
-  
+
   /**
    * Generates a list of particles that when displayed, shows the shape.
    */
@@ -112,8 +112,8 @@ export abstract class Shape {
   protected drawCircle(center: Vector, radius: number, axis: "x"|"y"|"z"): [string, Vector][] {
     const [rotate, vec]: [typeof Vector.prototype.rotateX, Vector] =
       axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] :
-      axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] : 
-      [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
+        axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] :
+          [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
     const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
 
     const points: [string, Vector][] = [];

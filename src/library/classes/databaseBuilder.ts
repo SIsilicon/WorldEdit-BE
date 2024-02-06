@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Entity, World, world } from "@minecraft/server";
 import { Server } from "./serverBuilder.js";

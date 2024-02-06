@@ -38,13 +38,13 @@ export abstract class Tool {
    */
   readonly drop: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
   /**
-   * The function that's called every tick the tool is held.
-   */
-  readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => Generator<unknown>;
-  /**
-   * The function that's called when the tool stops being held.
-   */
+    * The function that's called when the tool stops being held.
+    */
   readonly stopHold: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
+  /**
+    * The function that's called every tick the tool is held.
+    */
+  readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => void | Generator<unknown, void>;
   /**
    * The permission required for the tool to be used.
    */

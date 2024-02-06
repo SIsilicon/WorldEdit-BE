@@ -178,7 +178,7 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
 
   goto(menu?: UIFormName) {
     if (menu && this.stack[this.stack.length - 1] === "$___confirmMenu___") {
-        throw Error("Can't go to another form from a confirmation menu!");
+      throw Error("Can't go to another form from a confirmation menu!");
     }
     this._goto(menu);
   }
@@ -203,10 +203,10 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
   confirm(title: string, message: string, yes: UIAction<T, void>, no?: UIAction<T, void>) {
     this.stack.push("$___confirmMenu___");
     const form = new MessageUIForm({
-        title,
-        message,
-        button1: { text: "No", action: no ?? ((ctx) => ctx.back()) },
-        button2: { text: "Yes", action: yes },
+      title,
+      message,
+      button1: { text: "No", action: no ?? ((ctx) => ctx.back()) },
+      button2: { text: "Yes", action: yes },
     });
     form.enter(this.player, this);
   }

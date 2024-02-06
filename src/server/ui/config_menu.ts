@@ -243,7 +243,7 @@ Server.uiForms.register<ConfigContext>("$gradientInfo", {
     },
     {
       text: "%worldedit.config.gradient.remove",
-      action: (ctx) => 
+      action: (ctx) =>
         ctx.confirm("$worldedit.config.confirm", "%worldedit.config.confirm.delete", (ctx, player) => {
           getSession(player).deleteGradient(ctx.getData("currentGradient"));
         })
@@ -299,7 +299,7 @@ Server.uiForms.register<ConfigContext>("$confirmGradientSelection", {
       } else {
         s = "x"; t = "z"; u = "y";
       }
-  
+
       for (let i = min[u]; i <= max[u]; i++) {
         const pattern = new Pattern();
         for (let j = min[s]; j <= max[s]; j++) {
@@ -309,7 +309,7 @@ Server.uiForms.register<ConfigContext>("$confirmGradientSelection", {
         }
         patterns.push(pattern);
       }
-  
+
       session.createGradient(id, dither, patterns);
       ctx.returnto("$gradients");
     }

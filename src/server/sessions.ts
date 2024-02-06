@@ -122,7 +122,7 @@ export class PlayerSession {
       });
       return v;
     });
-    
+
     if (!this.getTools().length) {
       this.bindTool("selection_wand", config.wandItem);
       this.bindTool("navigation_wand", config.navWandItem);

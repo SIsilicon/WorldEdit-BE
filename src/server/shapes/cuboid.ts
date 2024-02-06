@@ -21,7 +21,7 @@ export class CuboidShape extends Shape {
   public getYRange() {
     return <[number, number]>[0, this.size[1] - 1];
   }
-  
+
   public getOutline(loc: Vector) {
     const min = loc;
     const max = loc.add(this.size);

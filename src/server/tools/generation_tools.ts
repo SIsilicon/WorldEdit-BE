@@ -1,4 +1,4 @@
-import { Dimension, Player, Vector3, system } from "@minecraft/server";
+import { Player, Vector3, system } from "@minecraft/server";
 import { PlayerUtil } from "@modules/player_util";
 import { RawText, Server, Vector, regionBounds } from "@notbeer-api";
 import { generateLine } from "server/commands/region/line";
@@ -10,12 +10,11 @@ import { Jobs } from "@modules/jobs";
 import { SphereShape } from "server/shapes/sphere";
 import { CylinderShape } from "server/shapes/cylinder";
 import { PyramidShape } from "server/shapes/pyramid";
-import { Shape } from "server/shapes/base_shape";
 
 function trySpawnParticle(player: Player, type: string, location: Vector3) {
   try {
     player.spawnParticle(type, location);
-  } catch {}
+  } catch { /* pass */ }
 }
 
 abstract class GeneratorTool extends Tool {
@@ -33,7 +32,7 @@ abstract class GeneratorTool extends Tool {
       return true;
     }
     return false;
-  };
+  }
 
   protected baseTick(player: Player, session: PlayerSession) {
     if (system.currentTick % 5 !== 0 || !this.posStart.has(session) || !session.drawOutlines || this.posStart.get(session)[1] !== player.dimension.id) {
@@ -62,7 +61,7 @@ abstract class GeneratorTool extends Tool {
   stopHold = function (self: GeneratorTool, _: Player, session: PlayerSession) {
     self.posStart.delete(session);
   };
-  
+
   drop = function (self: GeneratorTool, _: Player, session: PlayerSession) {
     self.posStart.delete(session);
   };
@@ -73,7 +72,7 @@ class DrawLineTool extends GeneratorTool {
 
   commonUse = function* (self: DrawLineTool, player: Player, session: PlayerSession, loc?: Vector) {
     if (self.baseUse(player, session, loc)) return;
-    
+
     const pos1 = self.getFirstPos(session);
     const pos2 = self.traceForPos(player);
     const [start, end] = regionBounds([pos1, pos2]);
@@ -109,7 +108,7 @@ class DrawLineTool extends GeneratorTool {
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
   };
 
-  tick = function* (self: DrawLineTool, player: Player, session: PlayerSession) {
+  tick = function (self: DrawLineTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
     let lineStart = self.getFirstPos(session);
@@ -135,7 +134,7 @@ class DrawLineTool extends GeneratorTool {
       trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 1, 1]));
     });
   };
-  
+
   useOn = this.commonUse;
   use = this.commonUse;
 }
@@ -157,11 +156,11 @@ class DrawSphereTool extends GeneratorTool {
     const job = Jobs.startJob(session, 2, sphereShape.getRegion(center));
     const count = yield* Jobs.perform(job, sphereShape.generate(center, pattern, null, session));
     Jobs.finishJob(job);
-  
+
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
   };
 
-  tick = function* (self: DrawSphereTool, player: Player, session: PlayerSession) {
+  tick = function (self: DrawSphereTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
     const center = self.getFirstPos(session);
@@ -182,7 +181,7 @@ class DrawSphereTool extends GeneratorTool {
       }
     }
   };
-  
+
   useOn = this.commonUse;
   use = this.commonUse;
 }
@@ -202,11 +201,11 @@ class DrawCylinderTool extends GeneratorTool {
     const job = Jobs.startJob(session, 2, shape.getRegion(center));
     const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
     Jobs.finishJob(job);
-  
+
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
   };
 
-  tick = function* (self: DrawCylinderTool, player: Player, session: PlayerSession) {
+  tick = function (self: DrawCylinderTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
     const [shape, loc] = self.getShape(player, session);
@@ -214,7 +213,7 @@ class DrawCylinderTool extends GeneratorTool {
       trySpawnParticle(player, ...particle);
     }
   };
-  
+
   getShape(player: Player, session: PlayerSession): [CylinderShape, Vector] {
     const center = this.getFirstPos(session).clone();
     const pos2 = this.traceForPos(player);
@@ -246,11 +245,11 @@ class DrawPyramidTool extends GeneratorTool {
     const job = Jobs.startJob(session, 2, shape.getRegion(center));
     const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
     Jobs.finishJob(job);
-  
+
     print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
   };
 
-  tick = function* (self: DrawPyramidTool, player: Player, session: PlayerSession) {
+  tick = function (self: DrawPyramidTool, player: Player, session: PlayerSession) {
     if (self.baseTick(player, session)) return;
 
     const [shape, loc] = self.getShape(player, session);
@@ -258,7 +257,7 @@ class DrawPyramidTool extends GeneratorTool {
       trySpawnParticle(player, ...particle);
     }
   };
-  
+
   getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {
     const center = this.getFirstPos(session).clone();
     const pos2 = this.traceForPos(player);

@@ -40,7 +40,7 @@ export class CylinderShape extends Shape {
       locWithOffset.add([maxRadius, 0, 0]), locWithOffset.add([maxRadius, this.height, 0]),
       locWithOffset.add([0, 0, -maxRadius]), locWithOffset.add([0, this.height, -maxRadius]),
       locWithOffset.add([0, 0, maxRadius]), locWithOffset.add([0, this.height, maxRadius]),
-    ]
+    ];
     const edges: [number, number][] = [[0, 1], [2, 3], [4, 5], [6, 7]];
     return [
       ...this.drawCircle(loc.sub([0, 0.5, 0]), maxRadius, "y"),
