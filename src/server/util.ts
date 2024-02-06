@@ -82,7 +82,8 @@ export function blockHasNBTData(block: Block) {
     "minecraft:skull",
     "minecraft:snow_layer",
     "minecraft:end_gateway", // TEST
-    "minecraft:beacon"
+    "minecraft:beacon",
+    "minecraft:bed"
   ];
   return components.some(component => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
 }
