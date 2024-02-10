@@ -1,4 +1,4 @@
-import { Dimension, Vector3, world, Entity, DataDrivenEntityTriggerBeforeEvent, DataDrivenEntityTriggerAfterEvent } from "@minecraft/server";
+import { Dimension, Vector3, world, Entity } from "@minecraft/server";
 import { commandSyntaxError, contentLog, CustomArgType, Database, Vector } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
 import { locToString, wrap } from "../util.js";
@@ -157,7 +157,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         reject(err);
       }
 
-      const onEvent = (ev: DataDrivenEntityTriggerAfterEvent) => {
+      const onEvent = () => {
         try {
           const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
           this.entity.triggerEvent("wedit:despawn");
