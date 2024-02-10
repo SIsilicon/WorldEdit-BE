@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation } from "@minecraft/server";
+import { Vector3, BlockPermutation, Player } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -10,6 +10,7 @@ interface patternContext {
   session: PlayerSession
   hand: BlockPermutation
   range: [Vector, Vector]
+  cardinal: Cardinal
 }
 
 export class Pattern implements CustomArgType {
@@ -29,6 +30,7 @@ export class Pattern implements CustomArgType {
   setContext(session: PlayerSession, range?: [Vector3, Vector3]) {
     this.context.session = session;
     this.context.range = [Vector.from(range[0]), Vector.from(range[1])];
+    this.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
     try {
       const item = Server.player.getHeldItem(session.getPlayer());
       this.context.hand = Server.block.itemToPermutation(item);
@@ -176,10 +178,8 @@ export class Pattern implements CustomArgType {
           out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
         } else if (token.value == "$") {
           const t = tokens.next();
-          let cardinal = new Cardinal(Cardinal.Dir.UP);
-          if (t.type != "id") {
-            throwTokenError(t);
-          }
+          let cardinal;
+          if (t.type != "id") throwTokenError(t);
           if (tokens.peek().value == ".") {
             tokens.next();
             const d = tokens.next();
@@ -396,12 +396,33 @@ class GradientPattern extends PatternNode {
   readonly prec = -1;
   readonly opCount = 0;
 
-  readonly axis: "x" | "y" | "z";
-  readonly invertCoords: boolean;
+  private axis: "x" | "y" | "z";
+  private invertCoords: boolean;
 
-  constructor(token: Token, public gradientId: string, public cardinal: Cardinal) {
+  private ctxCardinal: Cardinal;
+
+  constructor(token: Token, public gradientId: string, public cardinal?: Cardinal) {
     super(token);
-    const dir = cardinal.getDirection();
+    if (cardinal) this.updateDirectionParams(cardinal);
+  }
+
+  getPermutation(block: BlockUnit, context: patternContext) {
+    const gradient = context.session.getGradient(this.gradientId);
+    if (gradient) {
+      if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
+        this.updateDirectionParams(context.cardinal, context.session.getPlayer());
+        this.ctxCardinal = context.cardinal;
+      }
+      const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
+      const patternLength = gradient.patterns.length;
+      const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
+      const index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+      return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
+    }
+  }
+
+  private updateDirectionParams(cardinal: Cardinal, player?: Player) {
+    const dir = cardinal.getDirection(player);
     const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
     if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {
       this.axis = "x";
@@ -411,17 +432,6 @@ class GradientPattern extends PatternNode {
       this.axis = "z";
     }
     this.invertCoords = dir[this.axis] < 0;
-  }
-
-  getPermutation(block: BlockUnit, context: patternContext) {
-    const gradient = context.session.getGradient(this.gradientId);
-    if (gradient) {
-      const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
-      const patternLength = gradient.patterns.length;
-      const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
-      const index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
-      return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
-    }
   }
 }
 
