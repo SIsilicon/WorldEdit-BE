@@ -1,21 +1,21 @@
 import {
-  ChatSendBeforeEvent,
-  ExplosionBeforeEvent,
-  BlockExplodeAfterEvent,
-  ItemUseBeforeEvent,
-  ItemUseOnBeforeEvent,
-  ChatSendAfterEvent,
-  Player,
-  Dimension,
-  Entity,
-  PlayerBreakBlockBeforeEvent,
-  EntityHitBlockAfterEvent,
-  EffectAddAfterEvent,
-  ExplosionAfterEvent,
-  PistonActivateAfterEvent,
-  WeatherChangeAfterEvent,
-  PlayerLeaveAfterEvent,
-  WorldInitializeAfterEvent
+    ChatSendBeforeEvent,
+    ExplosionBeforeEvent,
+    BlockExplodeAfterEvent,
+    ItemUseBeforeEvent,
+    ItemUseOnBeforeEvent,
+    ChatSendAfterEvent,
+    Player,
+    Dimension,
+    Entity,
+    PlayerBreakBlockBeforeEvent,
+    EntityHitBlockAfterEvent,
+    EffectAddAfterEvent,
+    ExplosionAfterEvent,
+    PistonActivateAfterEvent,
+    WeatherChangeAfterEvent,
+    PlayerLeaveAfterEvent,
+    WorldInitializeAfterEvent
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 

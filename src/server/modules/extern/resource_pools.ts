@@ -30,8 +30,8 @@ import { EventEmitterTypes } from "library/@types/classes/eventEmitter";
 // Auxilary declarations
 
 function* idGenerator(): Generator<number, number> {
-  let id = 0;
-  while (true) yield id++;
+    let id = 0;
+    while (true) yield id++;
 }
 
 interface poolConfig<T extends PooledResource> {
@@ -62,176 +62,176 @@ const DEFAULT_REQUEST_TIMEOUT = TicksPerSecond * 60;
 // Main
 
 class ResourcePool<T extends PooledResource> {
-  private readonly config: poolConfig<T>;
-  private readonly log: poolConfig<T>["log"];
-  private readonly idleObjects: { obj: T, timeout: number }[] = [];
-  private readonly busyObjects: { obj: T, timeout: number }[] = [];
-  private readonly allocRequests: { resolve: (v: T) => void, rejectTimeout: number }[] = [];
+    private readonly config: poolConfig<T>;
+    private readonly log: poolConfig<T>["log"];
+    private readonly idleObjects: { obj: T, timeout: number }[] = [];
+    private readonly busyObjects: { obj: T, timeout: number }[] = [];
+    private readonly allocRequests: { resolve: (v: T) => void, rejectTimeout: number }[] = [];
 
-  private readonly idGen = idGenerator();
-  private processSheduleId: number;
+    private readonly idGen = idGenerator();
+    private processSheduleId: number;
 
-  constructor(config: poolConfig<T>) {
-    this.config = config;
-    this.log = (logLevel, ...args) => (this.config?.log?.(logLevel, ...args));
-  }
-
-  private scheduleProcessing() {
-    clearTickTimeout(this.processSheduleId);
-    this.processSheduleId = setTickTimeout(() => this.processRequests());
-  }
-
-  private addToBusy(obj: T) {
-    this.log(2, "add object", obj.constructor.name, ":", obj.id, "to busy pool");
-    const timeout = setTickTimeout(() => {
-      this.log(3, "busy timeout reached for object", obj.constructor.name, ":", obj.id);
-      this.errorCallback(obj);
-      this.scheduleProcessing();
-    }, this.config.busyTimeout ?? DEFAULT_BUSY_TIMEOUT);
-    this.busyObjects.push({ obj, timeout });
-  }
-
-  private addToIdle(obj: T) {
-    this.log(2, "add object", obj.constructor.name, ":", obj.id, "to idle pool");
-    const timeout = setTickTimeout(() => {
-      this.log(3, "idle timeout reached for object", obj.constructor.name, ":", obj.id);
-      this.removeObject(obj);
-      this.scheduleProcessing(); // processing is likely not needed in this case
-    }, this.config.idleTimeout ?? DEFAULT_IDLE_TIMEOUT);
-    this.idleObjects.unshift({ obj, timeout });
-  }
-
-  private deleteFromBusy(obj: T) {
-    const index = this.busyObjects.findIndex(elem => elem.obj === obj);
-    if (index >= 0) {
-      this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from busy pool");
-      clearTickTimeout(this.busyObjects[index].timeout);
-      this.busyObjects.splice(index, 1);
-      return true;
-    }
-    return false;
-  }
-
-  private deleteFromIdle(obj: T) {
-    const index = this.idleObjects.findIndex(elem => elem.obj === obj);
-    if (index >= 0) {
-      this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from idle pool");
-      clearTickTimeout(this.idleObjects[index].timeout);
-      this.idleObjects.splice(index, 1);
-      return true;
-    }
-    return false;
-  }
-
-  private readyCallback(obj: T) {
-    this.log(1, "ready callback for object", obj.constructor.name, ":", obj.id);
-    this.deleteFromBusy(obj);
-    this.addToIdle(obj);
-  }
-
-  private errorCallback(obj: T) {
-    this.log(0, "error callback for object", obj.constructor.name, ":", obj.id);
-    try {
-      obj.close();
-    } catch (err) {
-      this.log(0, "error calling resourse close method:", err);
+    constructor(config: poolConfig<T>) {
+        this.config = config;
+        this.log = (logLevel, ...args) => (this.config?.log?.(logLevel, ...args));
     }
 
-    this.deleteFromBusy(obj);
-    this.deleteFromIdle(obj);
-
-    obj.removeAllListeners(readyEventSym);
-    obj.removeAllListeners(errorEventSym);
-  }
-
-  private addObject() {
-    const obj = new this.config.constructor(...this.config.arguments);
-    obj.id = this.idGen.next().value; // add id to the object
-    this.log(1, "new resource object", obj.constructor.name, ":", obj.id);
-
-    this.addToIdle(obj);
-
-    obj.once(errorEventSym, () => {
-      this.errorCallback(obj);
-      this.scheduleProcessing();
-    });
-
-    obj.on(readyEventSym, () => {
-      this.readyCallback(obj);
-      this.scheduleProcessing();
-    });
-  }
-
-  private removeObject(obj: T) {
-    this.log(1, "removing object:", obj.constructor.name, ":", obj.id);
-    try {
-      obj.close();
-    } catch (err) {
-      this.log(0, "error calling resourse close method:", err);
+    private scheduleProcessing() {
+        clearTickTimeout(this.processSheduleId);
+        this.processSheduleId = setTickTimeout(() => this.processRequests());
     }
 
-    this.deleteFromBusy(obj);
-    this.deleteFromIdle(obj);
-
-    obj.removeAllListeners(readyEventSym);
-    obj.removeAllListeners(errorEventSym);
-  }
-
-  private deleteRequest(request: typeof this.allocRequests[number])  {
-    const index = this.allocRequests.indexOf(request);
-    if (index >= 0) {
-      this.allocRequests.splice(index, 1);
-      return true;
-    }
-    return false;
-  }
-
-  // TODO: Remove promises
-  allocate() {
-    this.log(2, "allocating new resource request");
-    return new Promise<T>((resolve, reject) => {
-      const request = {
-        resolve,
-        rejectTimeout: setTickTimeout(() => {
-          // remove request from the array and reject it on timeout
-          this.log(0, "request rejected on timeout");
-          this.deleteRequest(request);
-          reject();
-        }, this.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT)
-      };
-      this.allocRequests.push(request);
-      this.scheduleProcessing();
-    });
-  }
-
-  private processRequests() {
-    this.log(2, "started request processing");
-
-    // assign pending requests to idle resources if possible
-    while ((this.allocRequests.length > 0) && (this.idleObjects.length > 0)) {
-      const allocateRequest = this.allocRequests.shift();
-      const obj = this.idleObjects[0].obj;
-      this.deleteFromIdle(obj);
-      this.addToBusy(obj);
-      clearTickTimeout(allocateRequest.rejectTimeout);
-      allocateRequest.resolve(obj);
-      this.log(1, "allocated request to idle resource", obj.constructor.name, ":", obj.id);
+    private addToBusy(obj: T) {
+        this.log(2, "add object", obj.constructor.name, ":", obj.id, "to busy pool");
+        const timeout = setTickTimeout(() => {
+            this.log(3, "busy timeout reached for object", obj.constructor.name, ":", obj.id);
+            this.errorCallback(obj);
+            this.scheduleProcessing();
+        }, this.config.busyTimeout ?? DEFAULT_BUSY_TIMEOUT);
+        this.busyObjects.push({ obj, timeout });
     }
 
-    // create new resources if possible for unprocessed requests
-    let toAdd = Math.min(this.config.maxCount - this.busyObjects.length, this.allocRequests.length);
-    const createdObjects = !!toAdd;
-    while (toAdd > 0) {
-      this.log(2, "creating new object");
-      this.addObject();
-      toAdd--;
+    private addToIdle(obj: T) {
+        this.log(2, "add object", obj.constructor.name, ":", obj.id, "to idle pool");
+        const timeout = setTickTimeout(() => {
+            this.log(3, "idle timeout reached for object", obj.constructor.name, ":", obj.id);
+            this.removeObject(obj);
+            this.scheduleProcessing(); // processing is likely not needed in this case
+        }, this.config.idleTimeout ?? DEFAULT_IDLE_TIMEOUT);
+        this.idleObjects.unshift({ obj, timeout });
     }
 
-    this.log(2, "ended request processing");
-    if (createdObjects) {
-      this.scheduleProcessing();
+    private deleteFromBusy(obj: T) {
+        const index = this.busyObjects.findIndex(elem => elem.obj === obj);
+        if (index >= 0) {
+            this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from busy pool");
+            clearTickTimeout(this.busyObjects[index].timeout);
+            this.busyObjects.splice(index, 1);
+            return true;
+        }
+        return false;
     }
-  }
+
+    private deleteFromIdle(obj: T) {
+        const index = this.idleObjects.findIndex(elem => elem.obj === obj);
+        if (index >= 0) {
+            this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from idle pool");
+            clearTickTimeout(this.idleObjects[index].timeout);
+            this.idleObjects.splice(index, 1);
+            return true;
+        }
+        return false;
+    }
+
+    private readyCallback(obj: T) {
+        this.log(1, "ready callback for object", obj.constructor.name, ":", obj.id);
+        this.deleteFromBusy(obj);
+        this.addToIdle(obj);
+    }
+
+    private errorCallback(obj: T) {
+        this.log(0, "error callback for object", obj.constructor.name, ":", obj.id);
+        try {
+            obj.close();
+        } catch (err) {
+            this.log(0, "error calling resourse close method:", err);
+        }
+
+        this.deleteFromBusy(obj);
+        this.deleteFromIdle(obj);
+
+        obj.removeAllListeners(readyEventSym);
+        obj.removeAllListeners(errorEventSym);
+    }
+
+    private addObject() {
+        const obj = new this.config.constructor(...this.config.arguments);
+        obj.id = this.idGen.next().value; // add id to the object
+        this.log(1, "new resource object", obj.constructor.name, ":", obj.id);
+
+        this.addToIdle(obj);
+
+        obj.once(errorEventSym, () => {
+            this.errorCallback(obj);
+            this.scheduleProcessing();
+        });
+
+        obj.on(readyEventSym, () => {
+            this.readyCallback(obj);
+            this.scheduleProcessing();
+        });
+    }
+
+    private removeObject(obj: T) {
+        this.log(1, "removing object:", obj.constructor.name, ":", obj.id);
+        try {
+            obj.close();
+        } catch (err) {
+            this.log(0, "error calling resourse close method:", err);
+        }
+
+        this.deleteFromBusy(obj);
+        this.deleteFromIdle(obj);
+
+        obj.removeAllListeners(readyEventSym);
+        obj.removeAllListeners(errorEventSym);
+    }
+
+    private deleteRequest(request: typeof this.allocRequests[number])  {
+        const index = this.allocRequests.indexOf(request);
+        if (index >= 0) {
+            this.allocRequests.splice(index, 1);
+            return true;
+        }
+        return false;
+    }
+
+    // TODO: Remove promises
+    allocate() {
+        this.log(2, "allocating new resource request");
+        return new Promise<T>((resolve, reject) => {
+            const request = {
+                resolve,
+                rejectTimeout: setTickTimeout(() => {
+                    // remove request from the array and reject it on timeout
+                    this.log(0, "request rejected on timeout");
+                    this.deleteRequest(request);
+                    reject();
+                }, this.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT)
+            };
+            this.allocRequests.push(request);
+            this.scheduleProcessing();
+        });
+    }
+
+    private processRequests() {
+        this.log(2, "started request processing");
+
+        // assign pending requests to idle resources if possible
+        while ((this.allocRequests.length > 0) && (this.idleObjects.length > 0)) {
+            const allocateRequest = this.allocRequests.shift();
+            const obj = this.idleObjects[0].obj;
+            this.deleteFromIdle(obj);
+            this.addToBusy(obj);
+            clearTickTimeout(allocateRequest.rejectTimeout);
+            allocateRequest.resolve(obj);
+            this.log(1, "allocated request to idle resource", obj.constructor.name, ":", obj.id);
+        }
+
+        // create new resources if possible for unprocessed requests
+        let toAdd = Math.min(this.config.maxCount - this.busyObjects.length, this.allocRequests.length);
+        const createdObjects = !!toAdd;
+        while (toAdd > 0) {
+            this.log(2, "creating new object");
+            this.addObject();
+            toAdd--;
+        }
+
+        this.log(2, "ended request processing");
+        if (createdObjects) {
+            this.scheduleProcessing();
+        }
+    }
 }
 
 // Exports

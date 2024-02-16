@@ -41,7 +41,7 @@ jobs:
         run: pip install polib
 
       - name: Test eslint
-        run: npx eslint "./src/**"
+        run: npm run lint
 
       - name: Run build script (${{ matrix.target }})
         run: python build.py --clean --target ${{ matrix.target }}

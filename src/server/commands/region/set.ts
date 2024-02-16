@@ -7,15 +7,15 @@ import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
-  name: "set",
-  permission: "worldedit.region.set",
-  description: "commands.wedit:set.description",
-  usage: [
-    {
-      name: "pattern",
-      type: "Pattern"
-    }
-  ]
+    name: "set",
+    permission: "worldedit.region.set",
+    description: "commands.wedit:set.description",
+    usage: [
+        {
+            name: "pattern",
+            type: "Pattern"
+        }
+    ]
 };
 
 /**
@@ -23,22 +23,22 @@ const registerInformation = {
  * @return number of blocks set
  */
 export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<string | number, number> {
-  const [shape, loc] = session.selection.getShape();
-  const changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory, ignoreGlobalMask: true});
-  return changed;
+    const [shape, loc] = session.selection.getShape();
+    const changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory, ignoreGlobalMask: true});
+    return changed;
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  assertSelection(session);
-  assertCanBuildWithin(builder, ...session.selection.getRange());
-  if (args.get("_using_item") && session.globalPattern.empty()) {
-    throw RawText.translate("worldEdit.selectionFill.noPattern");
-  }
+    assertSelection(session);
+    assertCanBuildWithin(builder, ...session.selection.getRange());
+    if (args.get("_using_item") && session.globalPattern.empty()) {
+        throw RawText.translate("worldEdit.selectionFill.noPattern");
+    }
 
-  const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+    const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
-  const job = Jobs.startJob(session, 2, session.selection.getRange());
-  const count = yield* Jobs.perform(job, set(session, pattern, null, true));
-  Jobs.finishJob(job);
-  return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    const job = Jobs.startJob(session, 2, session.selection.getRange());
+    const count = yield* Jobs.perform(job, set(session, pattern, null, true));
+    Jobs.finishJob(job);
+    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

@@ -12,24 +12,24 @@ import { PlayerSession } from "server/sessions.js";
 import { BlockAreaSize } from "@minecraft/server";
 
 const registerInformation = {
-  name: "cut",
-  permission: "worldedit.clipboard.cut",
-  description: "commands.wedit:cut.description",
-  usage: [
-    {
-      flag: "a"
-    }, {
-      flag: "e"
-    }, {
-      name: "fill",
-      type: "Pattern",
-      default: new Pattern("air")
-    }, {
-      flag: "m",
-      name: "mask",
-      type: "Mask"
-    }
-  ]
+    name: "cut",
+    permission: "worldedit.clipboard.cut",
+    description: "commands.wedit:cut.description",
+    usage: [
+        {
+            flag: "a"
+        }, {
+            flag: "e"
+        }, {
+            name: "fill",
+            type: "Pattern",
+            default: new Pattern("air")
+        }, {
+            flag: "m",
+            name: "mask",
+            type: "Mask"
+        }
+    ]
 };
 
 /**
@@ -41,55 +41,55 @@ const registerInformation = {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), buffer: RegionBuffer = null): Generator<number | string | Promise<unknown>, boolean> {
-  const usingItem = args.get("_using_item");
-  const dim = session.getPlayer().dimension;
-  const mask: Mask = usingItem ? session.globalMask : (args.has("m") ? args.get("m-mask") : undefined);
-  const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
-  const [start, end] = session.selection.getRange();
+    const usingItem = args.get("_using_item");
+    const dim = session.getPlayer().dimension;
+    const mask: Mask = usingItem ? session.globalMask : (args.has("m") ? args.get("m-mask") : undefined);
+    const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
+    const [start, end] = session.selection.getRange();
 
-  if (yield* copy(session, args, buffer)) {
-    return true;
-  }
-
-  yield* set(session, fill, mask, false);
-  if (includeEntities) {
-    const entityQuery = {
-      excludeTypes: ["minecraft:player"],
-      location: start,
-      volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
-    };
-    for (const entity of dim.getEntities(entityQuery)) {
-      entity.nameTag = "wedit:marked_for_deletion";
+    if (yield* copy(session, args, buffer)) {
+        return true;
     }
-    Server.runCommand("execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -512 ~", dim);
-    Server.runCommand("kill @e[name=wedit:marked_for_deletion]", dim);
-  }
+
+    yield* set(session, fill, mask, false);
+    if (includeEntities) {
+        const entityQuery = {
+            excludeTypes: ["minecraft:player"],
+            location: start,
+            volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
+        };
+        for (const entity of dim.getEntities(entityQuery)) {
+            entity.nameTag = "wedit:marked_for_deletion";
+        }
+        Server.runCommand("execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -512 ~", dim);
+        Server.runCommand("kill @e[name=wedit:marked_for_deletion]", dim);
+    }
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  assertCuboidSelection(session);
-  const [start, end] = session.selection.getRange();
-  assertCanBuildWithin(builder, start, end);
+    assertCuboidSelection(session);
+    const [start, end] = session.selection.getRange();
+    assertCanBuildWithin(builder, start, end);
 
-  const history = session.getHistory();
-  const record = history.record();
-  const job = Jobs.startJob(session, 3, [start, end]);
-  try {
-    history.recordSelection(record, session);
-    history.addUndoStructure(record, start, end, "any");
+    const history = session.getHistory();
+    const record = history.record();
+    const job = Jobs.startJob(session, 3, [start, end]);
+    try {
+        history.recordSelection(record, session);
+        history.addUndoStructure(record, start, end, "any");
 
-    if (yield* Jobs.perform(job, cut(session, args, args.get("fill")), false)) {
-      throw RawText.translate("commands.generic.wedit:commandFail");
+        if (yield* Jobs.perform(job, cut(session, args, args.get("fill")), false)) {
+            throw RawText.translate("commands.generic.wedit:commandFail");
+        }
+
+        history.addRedoStructure(record, start, end, "any");
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
+    } finally {
+        Jobs.finishJob(job);
     }
 
-    history.addRedoStructure(record, start, end, "any");
-    history.commit(record);
-  } catch (e) {
-    history.cancel(record);
-    throw e;
-  } finally {
-    Jobs.finishJob(job);
-  }
-
-  return RawText.translate("commands.wedit:cut.explain").with(`${session.clipboard.getBlockCount()}`);
+    return RawText.translate("commands.wedit:cut.explain").with(`${session.clipboard.getBlockCount()}`);
 });

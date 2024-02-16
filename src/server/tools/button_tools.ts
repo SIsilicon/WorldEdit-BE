@@ -11,125 +11,125 @@ abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
 
     use = function (self: CommandButton, player: Player, session: PlayerSession) {
-      if (typeof self.command == "string") {
-        Server.command.callCommand(player, self.command);
-      } else {
-        Server.command.callCommand(player, self.command[0], self.command.slice(1));
-      }
+        if (typeof self.command == "string") {
+            Server.command.callCommand(player, self.command);
+        } else {
+            Server.command.callCommand(player, self.command[0], self.command.slice(1));
+        }
     };
 }
 
 class CutTool extends CommandButton {
-  command = "cut";
-  permission = "worldedit.clipboard.cut";
+    command = "cut";
+    permission = "worldedit.clipboard.cut";
 }
 Tools.register(CutTool, "cut", "wedit:cut_button");
 
 class CopyTool extends CommandButton {
-  command = "copy";
-  permission = "worldedit.clipboard.copy";
+    command = "copy";
+    permission = "worldedit.clipboard.copy";
 }
 Tools.register(CopyTool, "copy", "wedit:copy_button");
 
 class PasteTool extends CommandButton {
-  command = ["paste", "-s"];
-  permission = "worldedit.clipboard.paste";
+    command = ["paste", "-s"];
+    permission = "worldedit.clipboard.paste";
 
-  outlines = new Map<PlayerSession, Selection>();
+    outlines = new Map<PlayerSession, Selection>();
 
-  use = function (self: CommandButton, player: Player, session: PlayerSession) {
-    Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
-  };
+    use = function (self: CommandButton, player: Player, session: PlayerSession) {
+        Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
+    };
 
-  tick = function* (self: PasteTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
-    if (!session.clipboard || !session.drawOutlines) {
-      return;
-    }
+    tick = function* (self: PasteTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
+        if (!session.clipboard || !session.drawOutlines) {
+            return;
+        }
 
-    if (!self.outlines.has(session)) {
-      const selection = new Selection(player);
-      selection.mode = "cuboid";
-      self.outlines.set(session, selection);
-    }
-    const rotation = session.clipboardTransform.rotation;
-    const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
-    const size = Vector.from(regionSize(bounds[0], bounds[1]));
+        if (!self.outlines.has(session)) {
+            const selection = new Selection(player);
+            selection.mode = "cuboid";
+            self.outlines.set(session, selection);
+        }
+        const rotation = session.clipboardTransform.rotation;
+        const flip = session.clipboardTransform.flip;
+        const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+        const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
-    const loc = PlayerUtil.getBlockLocation(player);
-    const pasteStart = Vector.add(loc, session.clipboardTransform.relative).sub(size.mul(0.5).sub(1));
-    const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
+        const loc = PlayerUtil.getBlockLocation(player);
+        const pasteStart = Vector.add(loc, session.clipboardTransform.relative).sub(size.mul(0.5).sub(1));
+        const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
 
-    const selection = self.outlines.get(session);
-    selection.set(0, pasteStart.floor());
-    selection.set(1, pasteEnd);
-    selection.draw();
-    yield;
-  };
+        const selection = self.outlines.get(session);
+        selection.set(0, pasteStart.floor());
+        selection.set(1, pasteEnd);
+        selection.draw();
+        yield;
+    };
 }
 Tools.register(PasteTool, "paste", "wedit:paste_button");
 
 class UndoTool extends CommandButton {
-  command = "undo";
-  permission = "worldedit.history.undo";
+    command = "undo";
+    permission = "worldedit.history.undo";
 }
 Tools.register(UndoTool, "undo", "wedit:undo_button");
 
 class RedoTool extends CommandButton {
-  command = "redo";
-  permission = "worldedit.history.redo";
+    command = "redo";
+    permission = "worldedit.history.redo";
 }
 Tools.register(RedoTool, "redo", "wedit:redo_button");
 
 class RotateCWTool extends Tool {
-  permission = "worldedit.region.rotate";
+    permission = "worldedit.region.rotate";
 
-  use = function (self: Tool, player: Player, session: PlayerSession) {
-    const args = ["90", "-sw"];
-    if (player.isSneaking) {
-      args.push("-o");
-    }
-    Server.command.callCommand(player, "rotate", args);
-  };
+    use = function (self: Tool, player: Player, session: PlayerSession) {
+        const args = ["90", "-sw"];
+        if (player.isSneaking) {
+            args.push("-o");
+        }
+        Server.command.callCommand(player, "rotate", args);
+    };
 }
 Tools.register(RotateCWTool, "rotate_cw", "wedit:rotate_cw_button");
 
 class RotateCCWTool extends Tool {
-  permission = "worldedit.region.rotate";
+    permission = "worldedit.region.rotate";
 
-  use = function (self: Tool, player: Player, session: PlayerSession) {
-    const args = ["-90", "-sw"];
-    if (player.isSneaking) {
-      args.push("-o");
-    }
-    Server.command.callCommand(player, "rotate", args);
-  };
+    use = function (self: Tool, player: Player, session: PlayerSession) {
+        const args = ["-90", "-sw"];
+        if (player.isSneaking) {
+            args.push("-o");
+        }
+        Server.command.callCommand(player, "rotate", args);
+    };
 }
 Tools.register(RotateCCWTool, "rotate_ccw", "wedit:rotate_ccw_button");
 
 class FlipTool extends Tool {
-  permission = "worldedit.region.flip";
+    permission = "worldedit.region.flip";
 
-  use = function (self: Tool, player: Player, session: PlayerSession) {
-    const args = ["-sw"];
-    if (player.isSneaking) {
-      args.push("-o");
-    }
-    Server.command.callCommand(player, "flip", args);
-  };
+    use = function (self: Tool, player: Player, session: PlayerSession) {
+        const args = ["-sw"];
+        if (player.isSneaking) {
+            args.push("-o");
+        }
+        Server.command.callCommand(player, "flip", args);
+    };
 }
 Tools.register(FlipTool, "flip", "wedit:flip_button");
 
 class SpawnGlassTool extends Tool {
-  use = function (self: Tool, player: Player) {
-    Server.queueCommand("setblock ~~~ glass", player);
-  };
+    use = function (self: Tool, player: Player) {
+        Server.queueCommand("setblock ~~~ glass", player);
+    };
 }
 Tools.register(SpawnGlassTool, "spawn_glass", "wedit:spawn_glass");
 
 class ConfigTool extends Tool {
-  use = function (self: Tool, player: Player, session: PlayerSession) {
-    session.enterSettings();
-  };
+    use = function (self: Tool, player: Player, session: PlayerSession) {
+        session.enterSettings();
+    };
 }
 Tools.register(ConfigTool, "config", "wedit:config_button");

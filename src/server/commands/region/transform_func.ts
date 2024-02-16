@@ -9,48 +9,48 @@ import { set } from "./set.js";
 // TODO: fix the bounds sometimes not encompassing the new geometry
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* transformSelection(session: PlayerSession, builder: Player, args: Map<string, any>, options: RegionLoadOptions): Generator<number | string | Promise<unknown>> {
-  assertCuboidSelection(session);
-  const history = session.getHistory();
-  const record = history.record();
-  const temp = session.createRegion(true);
-  try {
-    const [start, end] = session.selection.getRange();
-    const dim = builder.dimension;
-    assertCanBuildWithin(builder, start, end);
+    assertCuboidSelection(session);
+    const history = session.getHistory();
+    const record = history.record();
+    const temp = session.createRegion(true);
+    try {
+        const [start, end] = session.selection.getRange();
+        const dim = builder.dimension;
+        assertCanBuildWithin(builder, start, end);
 
-    const center = Vector.from(start).add(end).mul(0.5);
-    const origin = args.has("o") ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
-    yield "Gettings blocks...";
-    yield* temp.saveProgressive(start, end, dim);
+        const center = Vector.from(start).add(end).mul(0.5);
+        const origin = args.has("o") ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
+        yield "Gettings blocks...";
+        yield* temp.saveProgressive(start, end, dim);
 
-    const [newStart, newEnd] = regionTransformedBounds(
-      start, end, center.sub(origin),
-      options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE
-    );
+        const [newStart, newEnd] = regionTransformedBounds(
+            start, end, center.sub(origin),
+            options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE
+        );
 
-    history.addUndoStructure(record, start, end, "any");
-    history.addUndoStructure(record, newStart, newEnd, "any");
+        history.addUndoStructure(record, start, end, "any");
+        history.addUndoStructure(record, newStart, newEnd, "any");
 
-    assertCanBuildWithin(builder, newStart, newEnd);
+        assertCanBuildWithin(builder, newStart, newEnd);
 
-    yield* set(session, new Pattern("air"), null, false);
-    yield "Transforming blocks...";
-    yield* temp.loadProgressive(newStart, dim, options);
+        yield* set(session, new Pattern("air"), null, false);
+        yield "Transforming blocks...";
+        yield* temp.loadProgressive(newStart, dim, options);
 
-    if (args.has("s")) {
-      history.recordSelection(record, session);
-      session.selection.set(0, newStart);
-      session.selection.set(1, newEnd);
-      history.recordSelection(record, session);
+        if (args.has("s")) {
+            history.recordSelection(record, session);
+            session.selection.set(0, newStart);
+            session.selection.set(1, newEnd);
+            history.recordSelection(record, session);
+        }
+
+        history.addRedoStructure(record, newStart, newEnd, "any");
+        history.addRedoStructure(record, start, end, "any");
+        history.commit(record);
+    } catch (e) {
+        history.cancel(record);
+        throw e;
+    } finally {
+        session.deleteRegion(temp);
     }
-
-    history.addRedoStructure(record, newStart, newEnd, "any");
-    history.addRedoStructure(record, start, end, "any");
-    history.commit(record);
-  } catch (e) {
-    history.cancel(record);
-    throw e;
-  } finally {
-    session.deleteRegion(temp);
-  }
 }
