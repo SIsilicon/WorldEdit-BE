@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2024-01-26 02:49\n"
+"PO-Revision-Date: 2024-02-17 04:32\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Selección de contorno"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Selección Hueca"
 
 msgid "item.wedit:draw_line"
 msgstr "Línea de dibujo"
@@ -71,13 +71,13 @@ msgid "item.wedit:draw_line"
 msgstr "Línea de dibujo"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Dibujar Esfera"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Dibujar Cilindro"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Dibujar Pirámide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "¡Necesitas especificar un bloque para establecer la selección!"
@@ -104,7 +104,7 @@ msgid "worldedit.config.tools"
 msgstr "Herramientas"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Gradientes"
 
 msgid "worldedit.config.general"
 msgstr "General"
@@ -131,7 +131,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Crear nueva brocha"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Crear Nuevo Gradiente"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboide"
@@ -146,10 +146,10 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Cilindro"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Seleccionar Región de Operación"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Modo de Relleno"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
@@ -161,19 +161,19 @@ msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "Seleccione Forma a Generar"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Línea"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Esfera"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cilindro"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Pirámide"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Sin propiedades de herramienta"
@@ -221,13 +221,13 @@ msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "Usar Gradiente en el Selector de Patrones"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "Eliminar Gradiente"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "Añadir nuevo Gradiente"
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantener un elemento para enlazar."
@@ -239,7 +239,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Elige qué tipo de herramienta hacer."
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Insert Gradient ID Here"
+msgstr "Inserte ID de Gradiente Aquí"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Make a pattern and optional mask for the brush."
@@ -257,43 +257,43 @@ msgid "worldedit.config.confirm"
 msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "¿Estás de acuerdo con la configuración que has hecho?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea desvincular este elemento?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "Nombre"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Tamaño"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Suavidad"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Rango"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Patrón"
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Máscara"
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Hueco"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Profundidad"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Tipo de Erosión"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "Estructuras"
 
 msgid "worldedit.config.blend"
 msgstr "Blend Amount"
@@ -305,10 +305,10 @@ msgid "worldedit.config.usePicker"
 msgstr "Use Block Picker"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Comando"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "Is WorldEdit Command"
+msgstr "Es Comando de WorldEdit"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Primera selección no ha sido todavía hecha."
@@ -326,10 +326,10 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "Segunda posición establecida en %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "Starting a new cylindrical selection at %s."
+msgstr "Iniciando una nueva selección cilíndrica en %s."
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "Radius set to %1/%2 blocks (~%3)."
+msgstr "Radio establecido a %1/%2 bloques (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "Iniciar selección en %1 (%2)."
