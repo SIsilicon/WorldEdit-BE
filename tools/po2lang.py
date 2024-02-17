@@ -1,8 +1,11 @@
-import glob, re, polib
-import sys, os
+import argparse
+import glob
+import os
+import re
+import sys
 from itertools import chain
 
-import argparse
+import polib
 
 parser = argparse.ArgumentParser(description='Converts .po translatation files to .lang Minecraft translatation files.')
 parser.add_argument('--watch', '-w', action='store_true', help='Whether to watch for file changes in the texts folder.')
@@ -101,8 +104,9 @@ update_lang_json()
 
 if args.watch:
     import time
-    from watchdog.observers import Observer
+
     from watchdog.events import FileSystemEventHandler
+    from watchdog.observers import Observer
     
     def alert_watching():
         print('Watching for file changes...')

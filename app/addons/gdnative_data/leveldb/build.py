@@ -1,6 +1,6 @@
 
-from distutils.command.build import build
 import os
+from distutils.command.build import build
 from pathlib import Path
 
 

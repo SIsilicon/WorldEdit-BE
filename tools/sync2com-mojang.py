@@ -1,6 +1,8 @@
-from pathlib import Path
-import glob, os, shutil
 import argparse
+import glob
+import os
+import shutil
+from pathlib import Path
 
 SERVER_LOCATION = '%appdata%\\.minecraft_bedrock\\servers\\1.20.10.24'
 
@@ -55,8 +57,9 @@ def sync_all():
 
 if args.watch:
     import time
-    from watchdog.observers import Observer
+
     from watchdog.events import FileSystemEventHandler
+    from watchdog.observers import Observer
     
     def alert_watching():
         print('Watching for file changes...')

@@ -1,4 +1,5 @@
-import json, argparse
+import argparse
+import json
 
 parser = argparse.ArgumentParser(description='Build config file from worldedit_settings.json')
 parser.add_argument('--target', choices=['release', 'debug', 'server'], default='debug', help='Whether to build the addon in debug or release mode or for servers')
@@ -107,8 +108,9 @@ if args.generateConfigJSON:
 
 if args.watch:
     import time
-    from watchdog.observers import Observer
+
     from watchdog.events import FileSystemEventHandler
+    from watchdog.observers import Observer
     
     class MyHandler(FileSystemEventHandler):
         def on_modified(self, ev):

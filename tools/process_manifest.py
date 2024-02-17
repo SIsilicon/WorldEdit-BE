@@ -1,4 +1,5 @@
-import json, argparse
+import argparse
+import json
 
 parser = argparse.ArgumentParser(description='Build manifest files from \'mc_manifest.json\'.')
 parser.add_argument('--target', choices=['release', 'debug', 'server'], default='debug', help='Whether to build the addon in debug or release mode or for servers.')

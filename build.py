@@ -1,6 +1,10 @@
+import argparse
+import os
+import re
+import shutil
+import subprocess
+import sys
 from pathlib import Path
-import subprocess, sys, os, shutil
-import argparse, re
 
 parser = argparse.ArgumentParser(description='Build and package the addon.')
 parser.add_argument('--watch', '-w', choices=['stable', 'preview', 'server'], help='Whether to continually build and where to sync the project while editing it.')
@@ -104,7 +108,7 @@ try: shutil.copytree('RP', f'builds/{build_pack_name}RP')
 except: pass
 
 if args.target != 'debug':
-    from zipfile import ZipFile;
+    from zipfile import ZipFile
     
     def zipWriteDir(zip, dirname, arcname):
         for folderName, _, filenames in os.walk(dirname):

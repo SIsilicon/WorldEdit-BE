@@ -1,7 +1,8 @@
-import json, glob, re
-from os.path import relpath
-
 import argparse
+import glob
+import json
+import re
+from os.path import relpath
 
 parser = argparse.ArgumentParser(description='Remaps imports with absolute paths in the typescript build output.')
 parser.add_argument('--watch', '-w', action='store_true', help='Whether to watch for file changes in the build output.')
@@ -49,8 +50,9 @@ for filename in glob.iglob(outdir + '/**/*.js', recursive = True):
 
 if args.watch:
     import time
-    from watchdog.observers import Observer
+
     from watchdog.events import FileSystemEventHandler
+    from watchdog.observers import Observer
     
     def alert_watching():
         print('Watching for file changes...')
