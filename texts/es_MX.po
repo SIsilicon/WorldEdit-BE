@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2024-02-17 07:22\n"
+"PO-Revision-Date: 2024-02-17 18:46\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -302,7 +302,7 @@ msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
 
 msgid "worldedit.config.usePicker"
-msgstr "Use Block Picker"
+msgstr "Usar Selector de Bloques"
 
 msgid "worldedit.config.command"
 msgstr "Comando"
@@ -440,7 +440,7 @@ msgid "commands.wedit:brush.bind.sphere"
 msgstr "Forma de pincel esférica equipada (%s)."
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "Cylinder brush shape equipped (%1 by %2)."
+msgstr "Forma de pincel cilíndrica equipada (%1 por %2)."
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "Smooth brush equipped (%1 x %2x)."
