@@ -1,6 +1,8 @@
 # WorldEdit: Bedrock Edition
 ![Build Workflow](https://github.com/SIsilicon/WorldEdit-BE/actions/workflows/main.yml/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://worldedit-be-docs.readthedocs.io/?badge=latest)
+[![Python code style: black](https://img.shields.io/badge/python%20code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Python Imports: isort](https://img.shields.io/badge/python%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DSIsilicon%26type%3Dpatrons&style=flat)](https://patreon.com/SIsilicon)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXJ5ETNT5PSN)
 [![Twitter Follow](https://img.shields.io/twitter/follow/iSiliconS?style=social)](https://twitter.com/iSiliconS)

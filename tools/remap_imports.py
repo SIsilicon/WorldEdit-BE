@@ -1,22 +1,32 @@
-import json, glob, re
+import argparse
+import glob
+import json
+import re
 from os.path import relpath
 
-import argparse
-
-parser = argparse.ArgumentParser(description='Remaps imports with absolute paths in the typescript build output.')
-parser.add_argument('--watch', '-w', action='store_true', help='Whether to watch for file changes in the build output.')
+parser = argparse.ArgumentParser(
+    description="Remaps imports with absolute paths in the typescript build output."
+)
+parser.add_argument(
+    "--watch",
+    "-w",
+    action="store_true",
+    help="Whether to watch for file changes in the build output.",
+)
 args = parser.parse_args()
 
-with open('tsconfig.json') as file:
+with open("tsconfig.json") as file:
     tsconfig = json.load(file)
-    outdir = tsconfig['compilerOptions']['outDir']
-    baseurl = tsconfig['compilerOptions']['baseUrl']
-    paths = tsconfig['compilerOptions']['paths']
+    outdir = tsconfig["compilerOptions"]["outDir"]
+    baseurl = tsconfig["compilerOptions"]["baseUrl"]
+    paths = tsconfig["compilerOptions"]["paths"]
 
-regex = re.compile(r"import\s+.+\s+from\s['|\"](.+)['|\"]");
+regex = re.compile(r"import\s+.+\s+from\s['|\"](.+)['|\"]")
+
+
 def modify_file(path):
     modified = False
-    with open(path, 'r') as file:
+    with open(path, "r") as file:
         newlines = []
         try:
             for line in file.readlines():
@@ -24,60 +34,66 @@ def modify_file(path):
                 if match:
                     package = match.group(1)
                     for key, value in paths.items():
-                        module = re.match(key.replace('*', '(.+)'), package)
+                        module = re.match(key.replace("*", "(.+)"), package)
                         if module:
-                            newpackage = outdir + '/' + value[0]
+                            newpackage = outdir + "/" + value[0]
                             for g in module.groups():
-                                newpackage = newpackage.replace('*', g, 1)
-                            newpackage = relpath(newpackage, path).replace('\\', '/').replace('../', './', 1)
+                                newpackage = newpackage.replace("*", g, 1)
+                            newpackage = (
+                                relpath(newpackage, path)
+                                .replace("\\", "/")
+                                .replace("../", "./", 1)
+                            )
                             line = line.replace(package, newpackage)
                             modified = True
                             break
                 newlines.append(line)
         except:
             pass
-    
+
     if modified:
-        print('remapped imports in: ' + path)
-        with open(path, 'w') as file:
+        print("remapped imports in: " + path)
+        with open(path, "w") as file:
             file.writelines(newlines)
-    
+
     return modified
 
-for filename in glob.iglob(outdir + '/**/*.js', recursive = True):
+
+for filename in glob.iglob(outdir + "/**/*.js", recursive=True):
     modify_file(filename)
 
 if args.watch:
     import time
-    from watchdog.observers import Observer
+
     from watchdog.events import FileSystemEventHandler
-    
+    from watchdog.observers import Observer
+
     def alert_watching():
-        print('Watching for file changes...')
-    
+        print("Watching for file changes...")
+
     class MyHandler(FileSystemEventHandler):
-        def on_modified(self,  event):
+        def on_modified(self, event):
             if not event.is_directory:
                 modify_file(event.src_path)
-        
-        def on_created(self,  event):
+
+        def on_created(self, event):
             if not event.is_directory:
                 modify_file(event.src_path)
-        
-        def on_deleted(self,  event):
+
+        def on_deleted(self, event):
             pass
-    
+
     observer = Observer()
-    observer.schedule(MyHandler(),  path=outdir,  recursive=True)
+    observer.schedule(MyHandler(), path=outdir, recursive=True)
     observer.start()
-    
+
     try:
         alert_watching()
-        while  True:
+        while True:
             time.sleep(2)
-    except  KeyboardInterrupt:
+    except KeyboardInterrupt:
         observer.stop()
-    print('\n')
+    print("\n")
     observer.join()
 pass
 """
