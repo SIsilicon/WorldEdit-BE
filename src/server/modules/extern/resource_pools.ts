@@ -27,7 +27,7 @@ import { TicksPerSecond } from "@minecraft/server";
 import { setTickTimeout, clearTickTimeout } from "@notbeer-api";
 import { EventEmitterTypes } from "library/@types/classes/eventEmitter";
 
-// Auxilary declarations
+// Auxiliary declarations
 
 function* idGenerator(): Generator<number, number> {
     let id = 0;
