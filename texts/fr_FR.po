@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-01-26 02:48\n"
+"PO-Revision-Date: 2024-02-19 14:18\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Sélection des contours"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Sélection du mur creux"
 
 msgid "item.wedit:draw_line"
 msgstr "Tracer une ligne"
@@ -71,13 +71,13 @@ msgid "item.wedit:draw_line"
 msgstr "Tracer une ligne"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Crée la sphère"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Dessiner un cylindre"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Dessiner une pyramide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Vous devez spécifier un bloc pour définir la sélection !"
@@ -104,7 +104,7 @@ msgid "worldedit.config.tools"
 msgstr "Outils"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Configuration de dégradé"
 
 msgid "worldedit.config.general"
 msgstr "Général"
@@ -131,7 +131,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Créer une nouvelle brosse"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Créer un nouveau dégradé"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboïde"
@@ -146,19 +146,19 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Cylindre"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Modifier la forme de la sélection"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Mode de remplissage"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Mode de contour"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Mode de mur"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "Mode creux"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
