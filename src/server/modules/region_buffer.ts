@@ -138,7 +138,7 @@ export class RegionBuffer {
             if (shouldTransform) {
                 transform = block => {
                     const blockName = block.type.id;
-                    const attachement = block.getState("attachement") as string;
+                    const attachment = block.getState("attachment") as string;
                     const direction = block.getState("direction") as number;
                     const doorHingeBit = block.getState("door_hinge_bit") as boolean;
                     const facingDir = block.getState("facing_direction") as number;
@@ -168,9 +168,9 @@ export class RegionBuffer {
                     } else if (doorHingeBit != null && direction != null) {
                         const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, ...rotFlip) as string).split("_");
                         block = withProperties({ "door_hinge_bit": states[0] == "true", "direction": parseInt(states[1]) });
-                    } else if (attachement != null && direction != null) {
-                        const states = (this.transformMapping(mappings.bellMap, `${attachement}_${direction}`, ...rotFlip) as string).split("_");
-                        block = withProperties({ "attachement": states[0], "direction": parseInt(states[1]) });
+                    } else if (attachment != null && direction != null) {
+                        const states = (this.transformMapping(mappings.bellMap, `${attachment}_${direction}`, ...rotFlip) as string).split("_");
+                        block = withProperties({ "attachment": states[0], "direction": parseInt(states[1]) });
                     } else if (cardinalDir != null) {
                         const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, ...rotFlip);
                         block = block.withState("minecraft:cardinal_direction", state);
@@ -545,7 +545,7 @@ const mappings = {
         true_2: new Vector(-1, 0, 0.5),
         true_3: new Vector(-0.5, 0,-1)
     },
-    bellMap: { // attachement - direction
+    bellMap: { // attachment - direction
         standing_0: new Vector( 1, 0.5, 0),
         standing_1: new Vector( 0, 0.5, 1),
         standing_2: new Vector(-1, 0.5, 0),
