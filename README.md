@@ -38,7 +38,7 @@ These features will be added in the near future.
 - More brushes and tools
 - More selection shapes
 - More selection operations
-- Palletes
+- Palettes
 - Basically, Java Parity
 
 ## Documentation
