@@ -120,7 +120,7 @@ export class CommandBuilder {
         return commands;
     }
     /**
-    * Get all the registered informations
+    * Get a list of all registered information
     * @returns {Array<storedRegisterInformation>}
     * @example getAllRegistration();
     */
