@@ -12,7 +12,7 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
      * @private
      * @param {string} eventName Event type to listen for
      * @param {Function} listener Function to callback on fire
-     * @param {boolean} [once] Wheather to listen for the event only ONCE or not
+     * @param {boolean} [once] Whether to listen for the event only ONCE or not
      * @param {boolean} [prepand] Insert the Event in the beginning of the Array, so it executes first
      */
     private _addListener(eventName: string, listener: (...args: any[]) => void, once?: boolean, prepand?: boolean): void {
