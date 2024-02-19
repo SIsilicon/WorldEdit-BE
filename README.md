@@ -24,7 +24,7 @@ To properly add this addon to the server, you first need to upload an already ex
 WorldEdit currently has the following features.
 - Clipboard manipulation (Cut, Copy, Paste)
 - Masking blocks from certain actions
-- Maniuplating region selections
+- Manipulating region selections
 - Navigation commands and the Navigation Wand
 - Generating shapes
 - Multiblock patterns
