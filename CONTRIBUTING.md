@@ -56,6 +56,21 @@ For that last one, you'll need to specify the location of the server at `tools/s
 
 One more thing. While changing scripts, you can run the command `/reload` ingame to reload them, without having to exit and enter the world.
 
+### Linting
+
+#### Python
+
+The `isort` and `black` packages found in the `requirements.txt` file are responsible for automatically formatting your Python code!
+
+Simply run these commands locally at the root of the repository to automatically format the Python code:
+``` bash
+# Sort package imports.
+isort --profile black .
+
+# Auto-format Python code.
+black .
+```
+
 ## Translations
 
 Speak another language? Help the addon become more localized by going to the addon's [Crowdin page](https://crowdin.com/project/worldedit-for-bedrock). Choose a language you're good with, and start contributing in places that don't have a translation.
