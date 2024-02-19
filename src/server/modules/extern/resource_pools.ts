@@ -134,7 +134,7 @@ class ResourcePool<T extends PooledResource> {
         try {
             obj.close();
         } catch (err) {
-            this.log(0, "error calling resourse close method:", err);
+            this.log(0, "error calling resource close method:", err);
         }
 
         this.deleteFromBusy(obj);
@@ -167,7 +167,7 @@ class ResourcePool<T extends PooledResource> {
         try {
             obj.close();
         } catch (err) {
-            this.log(0, "error calling resourse close method:", err);
+            this.log(0, "error calling resource close method:", err);
         }
 
         this.deleteFromBusy(obj);
