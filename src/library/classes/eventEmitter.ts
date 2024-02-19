@@ -13,9 +13,9 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
      * @param {string} eventName Event type to listen for
      * @param {Function} listener Function to callback on fire
      * @param {boolean} [once] Whether to listen for the event only ONCE or not
-     * @param {boolean} [prepand] Insert the Event in the beginning of the Array, so it executes first
+     * @param {boolean} [prepend] Insert the Event in the beginning of the Array, so it executes first
      */
-    private _addListener(eventName: string, listener: (...args: any[]) => void, once?: boolean, prepand?: boolean): void {
+    private _addListener(eventName: string, listener: (...args: any[]) => void, once?: boolean, prepend?: boolean): void {
         const listenerCount = this.listenerCount(eventName);
         if(listenerCount >= this._configurations.maxListeners) throw `Warning: Possible EventEmitter memory leak detected. ${listenerCount + 1} ${eventName} listeners added. Use emitter.setMaxListeners(n) to increase limit`;
         const data = {
@@ -24,7 +24,7 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
             once,
             executed: false
         };
-        if(prepand) this._listeners.unshift(data);
+        if(prepend) this._listeners.unshift(data);
         else this._listeners.push(data);
     }
 
