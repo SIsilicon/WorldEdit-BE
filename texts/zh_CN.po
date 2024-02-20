@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-01-26 04:22\n"
+"PO-Revision-Date: 2024-02-20 14:33\n"
 
 msgid "pack.description"
-msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
 msgstr "§c创世神的脚本已被停止！使用 §r/reload§c 重置这些脚本(其他脚本也会被重置)。§r"
