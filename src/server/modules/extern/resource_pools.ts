@@ -27,7 +27,7 @@ import { TicksPerSecond } from "@minecraft/server";
 import { setTickTimeout, clearTickTimeout } from "@notbeer-api";
 import { EventEmitterTypes } from "library/@types/classes/eventEmitter";
 
-// Auxilary declarations
+// Auxiliary declarations
 
 function* idGenerator(): Generator<number, number> {
     let id = 0;
@@ -134,7 +134,7 @@ class ResourcePool<T extends PooledResource> {
         try {
             obj.close();
         } catch (err) {
-            this.log(0, "error calling resourse close method:", err);
+            this.log(0, "error calling resource close method:", err);
         }
 
         this.deleteFromBusy(obj);
@@ -167,7 +167,7 @@ class ResourcePool<T extends PooledResource> {
         try {
             obj.close();
         } catch (err) {
-            this.log(0, "error calling resourse close method:", err);
+            this.log(0, "error calling resource close method:", err);
         }
 
         this.deleteFromBusy(obj);

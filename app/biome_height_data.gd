@@ -11,7 +11,7 @@ var height_limit: int
 var _is_valid = false
 var _height_data = []
 var _biome_data = []
-# var _biome_pallete_data = []
+# var _biome_palette_data = []
 
 # warning-ignore:shadowed_variable
 func _init(x: int, z: int, dimension = 0) -> void:
@@ -50,7 +50,7 @@ func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 		var header = buffer.get_u8()
 		if header == 0xff:
 			_biome_data.append(null)
-#			_biome_pallete_data.append(null)
+#			_biome_palette_data.append(null)
 			continue
 		
 # warning-ignore:unused_variable
@@ -72,26 +72,26 @@ func load_from_db(leveldb: LevelDB, mutex: Mutex = null) -> void:
 			else:
 				ids = _get_packed_bits(buffer, bits_per_entry, 4096)
 			
-			var palletes = []
-			var pallete_count = buffer.get_u8()
+			var palettes = []
+			var palette_count = buffer.get_u8()
 			buffer.big_endian = true
-			for i in pallete_count:
+			for i in palette_count:
 				var biome = buffer.get_32()
-				palletes.append(biome)
+				palettes.append(biome)
 			buffer.big_endian = false
 			
-			buffer.seek(buffer.get_position() + 3) # strangely three bytes of padding seem to be added to the pallete
+			buffer.seek(buffer.get_position() + 3) # strangely three bytes of padding seem to be added to the palette
 			
 			var biome_ids = []
 			for id in ids:
-				biome_ids.append(palletes[id] if id < pallete_count else 0)
+				biome_ids.append(palettes[id] if id < palette_count else 0)
 			_biome_data.append(biome_ids)
-#			_biome_pallete_data.append(palletes)
+#			_biome_palette_data.append(palettes)
 			
 		else:
 			var id = buffer.get_32()
 			_biome_data.append(id)
-#			_biome_pallete_data.append([id])
+#			_biome_palette_data.append([id])
 	
 	height_limit = min_height + _biome_data.size() * 16
 	_is_valid = true
@@ -119,27 +119,27 @@ func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> int:
 			buffer.put_u8(0xff)
 			continue
 		
-		var pallete: Array
+		var palette: Array
 		if typeof(biomes) == TYPE_ARRAY:
-			var new_pallete := {}
+			var new_palette := {}
 			for b in biomes:
-				new_pallete[b] = 0
-			pallete = new_pallete.keys()
+				new_palette[b] = 0
+			palette = new_palette.keys()
 		else:
-			pallete = [biomes]
+			palette = [biomes]
 		
-		if pallete.size() > 1:
+		if palette.size() > 1:
 # warning-ignore:narrowing_conversion
-			var bits_per_entry: int = nearest_po2(log(nearest_po2(pallete.size())) / log(2))
+			var bits_per_entry: int = nearest_po2(log(nearest_po2(palette.size())) / log(2))
 			buffer.put_u8((bits_per_entry << 1) + 1)
 			
-			var reverse_pallete = {}
-			for j in pallete.size():
-				reverse_pallete[pallete[j]] = j
+			var reverse_palette = {}
+			for j in palette.size():
+				reverse_palette[palette[j]] = j
 			
 			var ids = []
 			for biome in biomes:
-				ids.append(reverse_pallete[biome])
+				ids.append(reverse_palette[biome])
 			
 			if bits_per_entry > 2:
 				var height_buffer = StreamPeerBuffer.new()
@@ -153,16 +153,16 @@ func save_to_db(leveldb: LevelDB, mutex: Mutex = null) -> int:
 			else:
 				_put_packed_bits(buffer, bits_per_entry, ids)
 			
-			buffer.put_u8(pallete.size())
+			buffer.put_u8(palette.size())
 			buffer.big_endian = true
-			for p in pallete:
+			for p in palette:
 				buffer.put_32(p)
 			buffer.big_endian = false
 			
 			buffer.put_data([0x00, 0x00, 0x00])
 		else:
 			buffer.put_u8(0x01)
-			buffer.put_32(pallete[0])
+			buffer.put_32(palette[0])
 	
 	if mutex:
 		mutex.lock()
@@ -336,29 +336,29 @@ func _put_packed_bits(buffer: StreamPeer, size: int, input: Array) -> void:
 #		var new_biomes = _biome_changes[y_idx]
 #
 #		var biomes = _biome_data[y_idx]
-#		var pallete = _biome_pallete_data[y_idx]
+#		var palette = _biome_palette_data[y_idx]
 #
 #		for change in new_biomes:
 #			var biome: int = new_biomes[change]
 #
-#			if pallete.size() == 1:
-#				if pallete[0] == biome:
+#			if palette.size() == 1:
+#				if palette[0] == biome:
 #					continue
 #
-#				pallete.append(biome)
+#				palette.append(biome)
 #				var new_data = []
 #				for i in 4096:
-#					new_data.append(pallete[0])
+#					new_data.append(palette[0])
 #				_biome_data[y_idx] = new_data
 #				biomes = new_data
 #
 #			var subchunk_idx = xyz_to_idx(change.x, change.y, change.z)
 #
-#		if pallete.size() > 1:
-#			var new_pallete = {}
+#		if palette.size() > 1:
+#			var new_palette = {}
 #			for b in biomes:
-#				new_pallete[b] = 0
+#				new_palette[b] = 0
 #
-#			_biome_pallete_data[y_idx] = new_pallete.keys()
-#			if new_pallete.size() == 1:
-#				_biome_data[y_idx] = new_pallete.keys()[0]
+#			_biome_palette_data[y_idx] = new_palette.keys()
+#			if new_palette.size() == 1:
+#				_biome_data[y_idx] = new_palette.keys()[0]

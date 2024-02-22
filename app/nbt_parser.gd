@@ -37,15 +37,15 @@ class BaseTag extends Reference:
 		tag_id = id
 	
 	func to_json() -> Dictionary:
-		printerr("to_json() needs to be overriden!")
+		printerr("to_json() needs to be overridden!")
 		return { "type": tag_id }
 	
 	# warning-ignore:unused_argument
 	func write(stream: StreamPeer) -> void:
-		printerr("write() needs to be overriden!")
+		printerr("write() needs to be overridden!")
 	
 	func duplicate() -> BaseTag:
-		printerr("duplicate() needs to be overriden!")
+		printerr("duplicate() needs to be overridden!")
 		return null
 	
 	static func _read_string(stream: StreamPeer) -> String:

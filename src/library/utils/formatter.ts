@@ -57,7 +57,7 @@ export function MS(value: StringValue | number, { compactDuration, fullDuration,
     } catch(err) {
         const message = isError(err)
             ? `${err.message}. Value = ${JSON.stringify(value)}`
-            : "An unknown error has occured.";
+            : "An unknown error has occurred.";
         throw new Error(message);
     }
 }

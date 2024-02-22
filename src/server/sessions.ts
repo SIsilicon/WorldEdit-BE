@@ -178,7 +178,7 @@ export class PlayerSession {
     }
 
     /**
-     * Get the position the player may use while excuting a command, such as ;fill and ;sphere
+     * Get the position the player may use while executing a command, such as ;fill and ;sphere
      * @returns placement position
      */
     getPlacementPosition() {
