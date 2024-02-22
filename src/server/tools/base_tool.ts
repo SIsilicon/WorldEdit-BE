@@ -93,7 +93,7 @@ export abstract class Tool {
                         if (func.constructor.name == "GeneratorFunction") {
                             yield* func(self, player, session, loc) as Generator<unknown, void>;
                         } else {
-              func(self, player, session, loc) as void;
+                            func(self, player, session, loc) as void;
                         }
                     }
                 }
