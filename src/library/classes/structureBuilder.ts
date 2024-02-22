@@ -100,7 +100,6 @@ class StructureManager {
                 const subBounds = regionTransformedBounds(sub.start.floor(), sub.end.floor(), Vector.ZERO, rotation, dir_sc);
                 const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
                 error = Server.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`, dim).error || error;
-                if (error) break;
             }
             return error;
         } else {
