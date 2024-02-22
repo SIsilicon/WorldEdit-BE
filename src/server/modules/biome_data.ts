@@ -95,27 +95,27 @@ class BiomeChanges {
                 biomes.length = 4096;
                 biomes = biomes.fill(-1);
             } else {
-                const pallete: number[] = database.get("pallete");
-                biomes = (database.get("biomes") as number[]).map(idx => idx ? pallete[idx - 1] : -1);
+                const palette: number[] = database.get("palette");
+                biomes = (database.get("biomes") as number[]).map(idx => idx ? palette[idx - 1] : -1);
             }
 
             for (const [loc, biome] of data.entries()) {
                 biomes[loc] = biome;
             }
 
-            const palleteMap = new Map<number, number>();
+            const paletteMap = new Map<number, number>();
             for (const biome of biomes) {
                 if (biome >= 0) {
-                    palleteMap.set(biome, null);
+                    paletteMap.set(biome, null);
                 }
             }
-            const newPallete = Array.from(palleteMap.keys());
-            palleteMap.clear();
-            newPallete.forEach((val, idx) => palleteMap.set(val, idx + 1));
-            palleteMap.set(-1, 0);
+            const newPalette = Array.from(paletteMap.keys());
+            paletteMap.clear();
+            newPalette.forEach((val, idx) => paletteMap.set(val, idx + 1));
+            paletteMap.set(-1, 0);
 
-            database.set("biomes", biomes.map(biome => palleteMap.get(biome)));
-            database.set("pallete", newPallete);
+            database.set("biomes", biomes.map(biome => paletteMap.get(biome)));
+            database.set("palette", newPalette);
 
             database.save();
         }

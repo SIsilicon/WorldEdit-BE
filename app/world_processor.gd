@@ -90,16 +90,16 @@ func check_for_changes(world: MCWorld) -> Dictionary:
 				
 				var change := {}
 				var biomes: Array = result.biomes
-				var pallete: Array = result.pallete
+				var palette: Array = result.palette
 				
-				var palleteMap := { 0: -1 }
-				for i in pallete.size():
-					palleteMap[i + 1] = pallete[i]
+				var paletteMap := { 0: -1 }
+				for i in palette.size():
+					paletteMap[i + 1] = palette[i]
 				
 				for loc in 4096:
 					loc = int(loc)
 					var idx: int = biomes[loc]
-					var biome: int = palleteMap[idx]
+					var biome: int = paletteMap[idx]
 					if biome >= 0:
 						var loc_array := Vector3(loc % 16, int(floor(loc / 16)) % 16, int(floor(loc / 256)) % 16)
 						change[loc_array] = biome
