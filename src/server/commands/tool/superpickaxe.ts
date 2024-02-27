@@ -4,10 +4,10 @@ const registerInformation = {
     name: "superpickaxe",
     permission: "worldedit.superpickaxe",
     description: "commands.wedit:superpickaxe.description",
-    aliases : ["sp"],
+    aliases: ["sp"],
     usage: [
         {
-            subName: "single"
+            subName: "single",
         },
         {
             subName: "area",
@@ -15,9 +15,9 @@ const registerInformation = {
                 {
                     name: "range",
                     type: "int",
-                    range: [0, 5] as [number, number]
-                }
-            ]
+                    range: [0, 5] as [number, number],
+                },
+            ],
         },
         {
             subName: "recursive",
@@ -25,14 +25,14 @@ const registerInformation = {
                 {
                     name: "range",
                     type: "int",
-                    range: [0, 5] as [number, number]
-                }
-            ]
+                    range: [0, 5] as [number, number],
+                },
+            ],
         },
         {
-            subName: "_default"
-        }
-    ]
+            subName: "_default",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

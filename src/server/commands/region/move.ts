@@ -1,9 +1,8 @@
-
 import { registerCommand } from "../register_commands.js";
-import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, regionBounds } from "@notbeer-api";
+import { RawText } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 import { cut } from "../clipboard/cut.js";
 
@@ -13,30 +12,36 @@ const registerInformation = {
     description: "commands.wedit:move.description",
     usage: [
         {
-            flag: "a"
-        }, {
-            flag: "e"
-        }, {
-            flag: "s"
-        }, {
+            flag: "a",
+        },
+        {
+            flag: "e",
+        },
+        {
+            flag: "s",
+        },
+        {
             name: "amount",
             type: "int",
             default: 1,
-            range: [1, null] as [number, null]
-        }, {
+            range: [1, null] as [number, null],
+        },
+        {
             name: "offset",
             type: "Direction",
-            default: new Cardinal()
-        }, {
+            default: new Cardinal(),
+        },
+        {
             name: "replace",
             type: "Pattern",
-            default: new Pattern("air")
-        }, {
+            default: new Pattern("air"),
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -48,43 +53,38 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const movedStart = start.offset(dir.x, dir.y, dir.z);
     const movedEnd = end.offset(dir.x, dir.y, dir.z);
 
-    assertCanBuildWithin(builder, start, end);
-    assertCanBuildWithin(builder, movedStart, movedEnd);
-
     const history = session.getHistory();
     const record = history.record();
     const temp = session.createRegion(true);
-    const job = Jobs.startJob(session, 4, regionBounds([start, end, movedStart, movedEnd]));
     let count: number;
-    try {
-        history.addUndoStructure(record, start, end, "any");
-        history.addUndoStructure(record, movedStart, movedEnd, "any");
+    yield* Jobs.run(session, 4, function* () {
+        try {
+            yield history.addUndoStructure(record, start, end, "any");
+            yield history.addUndoStructure(record, movedStart, movedEnd, "any");
+            if (yield* cut(session, args, args.get("replace"), temp)) {
+                throw RawText.translate("commands.generic.wedit:commandFail");
+            }
+            count = temp.getBlockCount();
 
-        if (yield* Jobs.perform(job, cut(session, args, args.get("replace"), temp), false)) {
-            throw RawText.translate("commands.generic.wedit:commandFail");
+            yield Jobs.nextStep("Pasting blocks...");
+            yield* temp.load(movedStart, dim);
+
+            yield history.addRedoStructure(record, start, end, "any");
+            yield history.addRedoStructure(record, movedStart, movedEnd, "any");
+
+            if (args.has("s")) {
+                history.recordSelection(record, session);
+                session.selection.set(0, movedStart);
+                session.selection.set(1, movedEnd);
+                history.recordSelection(record, session);
+            }
+            history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        } finally {
+            session.deleteRegion(temp);
         }
-        count = temp.getBlockCount();
-
-        Jobs.nextStep(job, "Pasting blocks...");
-        yield* Jobs.perform(job, temp.loadProgressive(movedStart, dim), false);
-
-        history.addRedoStructure(record, start, end, "any");
-        history.addRedoStructure(record, movedStart, movedEnd, "any");
-
-        if (args.has("s")) {
-            history.recordSelection(record, session);
-            session.selection.set(0, movedStart);
-            session.selection.set(1, movedEnd);
-            history.recordSelection(record, session);
-        }
-        history.commit(record);
-    } catch (e) {
-        history.cancel(record);
-        throw e;
-    } finally {
-        session.deleteRegion(temp);
-        Jobs.finishJob(job);
-    }
-
+    });
     return RawText.translate("commands.wedit:move.explain").with(count);
 });

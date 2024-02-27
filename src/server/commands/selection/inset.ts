@@ -8,21 +8,21 @@ const registerInformation = {
     permission: "worldedit.selection.inset",
     usage: [
         {
-            flag: "h"
+            flag: "h",
         },
         {
-            flag: "v"
+            flag: "v",
         },
         {
             name: "amount",
-            type: "int"
-        }
-    ]
+            type: "int",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
-    const points = session.selection.points.map(block => Vector.from(block));
+    const points = session.selection.points.map((block) => Vector.from(block));
     const dir = points[1].sub(points[0]);
     dir.x = Math.sign(dir.x) * (args.has("v") ? 0 : 1);
     dir.y = Math.sign(dir.y) * (args.has("h") ? 0 : 1);

@@ -10,46 +10,53 @@ const registerInformation = {
     description: "commands.wedit:cyl.description",
     usage: [
         {
-            flag: "h"
-        }, {
-            flag: "r"
-        }, {
+            flag: "h",
+        },
+        {
+            flag: "r",
+        },
+        {
             name: "pattern",
-            type: "Pattern"
-        }, {
+            type: "Pattern",
+        },
+        {
             subName: "_x",
             args: [
                 {
                     name: "radii",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "height",
                     type: "int",
                     default: 1,
-                    range: [1, null] as [number, null]
-                }
-            ]
-        }, {
+                    range: [1, null] as [number, null],
+                },
+            ],
+        },
+        {
             subName: "_xz",
             args: [
                 {
                     name: "radiiX",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "radiiZ",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "height",
                     type: "int",
                     default: 1,
-                    range: [1, null] as [number, null]
-                }
-            ]
-        }
-    ]
+                    range: [1, null] as [number, null],
+                },
+            ],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -59,17 +66,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const isHollow = args.has("h");
     const isRaised = args.has("r");
 
-    if (args.has("_x"))
-        radii = [args.get("radii"), args.get("radii")];
-    else
-        radii = [args.get("radiiX"), args.get("radiiZ")];
+    if (args.has("_x")) radii = [args.get("radii"), args.get("radii")];
+    else radii = [args.get("radiiX"), args.get("radiiZ")];
 
-    const loc = session.getPlacementPosition().offset(0, isRaised ? height/2 : 0, 0);
+    const loc = session.getPlacementPosition().offset(0, isRaised ? height / 2 : 0, 0);
 
-    const cylShape = new CylinderShape(height, ...<[number, number]>radii);
-    const job = Jobs.startJob(session, 2, cylShape.getRegion(loc));
-    const count = yield* Jobs.perform(job, cylShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
-    Jobs.finishJob(job);
-
+    const cylShape = new CylinderShape(height, ...(<[number, number]>radii));
+    const count = yield* Jobs.run(session, 2, cylShape.generate(loc, pattern, null, session, { hollow: isHollow }));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

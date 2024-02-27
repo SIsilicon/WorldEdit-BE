@@ -11,10 +11,10 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }
+            type: "Pattern",
+        },
     ],
-    aliases: ["middle"]
+    aliases: ["middle"],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -30,9 +30,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const [start, end] = [center.floor().floor(), center.ceil().floor()];
 
     const shape = new CuboidShape(...Vector.sub(end, start).add(1).toArray());
-    const job = Jobs.startJob(session, 2, [start, end]);
-    const count = yield* Jobs.perform(job, shape.generate(start, pattern, null, session));
-    Jobs.finishJob(job);
-
+    const count = yield* Jobs.run(session, 2, shape.generate(start, pattern, null, session));
     return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

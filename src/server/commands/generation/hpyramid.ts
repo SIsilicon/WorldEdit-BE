@@ -8,13 +8,14 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }, {
+            type: "Pattern",
+        },
+        {
             name: "size",
             type: "int",
-            range: [1, null] as [number, null]
-        }
-    ]
+            range: [1, null] as [number, null],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

@@ -1,5 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
+import { RawText, Vector, sleep } from "@notbeer-api";
 import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
@@ -13,20 +13,18 @@ const registerInformation = {
         {
             name: "size",
             type: "int",
-            range: [1, null] as [number, null]
+            range: [1, null] as [number, null],
         },
         {
             name: "height",
             type: "int",
             range: [1, null] as [number, null],
-            default: -1
-        }
-    ]
+            default: -1,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const dimension = builder.dimension;
     const radius: number = args.get("size");
     const height: number = args.get("height") < 0 ? 4096 : (args.get("height") - 1) * 2 + 1;
@@ -38,11 +36,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     range[0].y = Math.max(range[0].y, heightLimits[0]);
     range[1].y = Math.min(range[1].y, heightLimits[1] - 1);
 
-    const job = Jobs.startJob(session, 2, range);
-    const history = session.getHistory();
-    const record = history.record();
-    try {
-        Jobs.nextStep(job, "Raycasting..."); // TODO: Localize
+    return yield* Jobs.run(session, 2, function* () {
+        yield Jobs.nextStep("Raycasting..."); // TODO: Localize
         let i = 0;
 
         const blocks: Block[] = [];
@@ -53,12 +48,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const rayTraceOptions = {
             includeLiquidBlocks: true,
             includePassableBlocks: true,
-            maxDistance: height
+            maxDistance: height,
         };
 
         for (let x = range[0].x; x <= range[1].x; x++)
             for (let z = range[0].z; z <= range[1].z; z++) {
-                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map(y => y + origin.y) as [number, number];
+                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map((y) => y + origin.y) as [number, number];
                 if (!yRange) {
                     i++;
                     continue;
@@ -82,41 +77,42 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     // eslint-disable-next-line no-empty
                 } catch {}
 
-                Jobs.setProgress(job, i / area);
+                yield Jobs.setProgress(i / area);
                 i++;
-                yield;
             }
 
-        Jobs.nextStep(job, "Generating blocks..."); // TODO: Localize
+        yield Jobs.nextStep("Generating blocks..."); // TODO: Localize
         let changed = 0;
         i = 0;
 
         if (blocks.length) {
-            history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
-            const air = BlockPermutation.resolve("minecraft:air");
-            const water = BlockPermutation.resolve("minecraft:water");
+            const history = session.getHistory();
+            const record = history.record();
+            try {
+                yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                const air = BlockPermutation.resolve("minecraft:air");
+                const water = BlockPermutation.resolve("minecraft:water");
+                for (let block of blocks) {
+                    const loc = block.location;
+                    while (!(block?.isValid() || (block = Jobs.loadBlock(loc)))) yield sleep(1);
 
-            for (const block of blocks) {
-                if (block.typeId == "minecraft:ice") {
-                    block.setPermutation(water);
-                    changed++;
-                } else if (block.typeId == "minecraft:snow_layer") {
-                    block.setPermutation(air);
-                    changed++;
+                    if (block.typeId == "minecraft:ice") {
+                        block.setPermutation(water);
+                        changed++;
+                    } else if (block.typeId == "minecraft:snow_layer") {
+                        block.setPermutation(air);
+                        changed++;
+                    }
+                    yield Jobs.setProgress(i++ / blocks.length);
                 }
-
-                Jobs.setProgress(job, i++ / blocks.length);
-                yield;
+                yield history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                history.commit(record);
+            } catch (err) {
+                history.cancel(record);
+                throw err;
             }
-            history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
         }
 
         return RawText.translate("commands.blocks.wedit:changed").with(`${changed}`);
-    } catch (err) {
-        history.cancel(record);
-        throw err;
-    } finally {
-        history.commit(record);
-        Jobs.finishJob(job);
-    }
+    });
 });

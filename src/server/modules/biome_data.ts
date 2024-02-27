@@ -4,7 +4,6 @@ import { EventEmitter } from "library/classes/eventEmitter.js";
 import { locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
 
-
 class Biome implements CustomArgType {
     private id = -1;
     private name = "unknown";
@@ -44,7 +43,7 @@ class Biome implements CustomArgType {
             const err: commandSyntaxError = {
                 isSyntaxError: true,
                 stack: contentLog.stack(),
-                idx: index
+                idx: index,
             };
             throw err;
         }
@@ -70,9 +69,7 @@ class BiomeChanges {
     constructor(public dimension: Dimension) {}
 
     setBiome(loc: Vector3, biome: number) {
-        const subChunkCoord = locToString(new Vector(
-            Math.floor(loc.x / 16), Math.floor(loc.y / 16), Math.floor(loc.z / 16)
-        ));
+        const subChunkCoord = locToString(new Vector(Math.floor(loc.x / 16), Math.floor(loc.y / 16), Math.floor(loc.z / 16)));
 
         if (!this.changes.has(subChunkCoord)) {
             this.changes.set(subChunkCoord, new Map());
@@ -96,7 +93,7 @@ class BiomeChanges {
                 biomes = biomes.fill(-1);
             } else {
                 const palette: number[] = database.get("palette");
-                biomes = (database.get("biomes") as number[]).map(idx => idx ? palette[idx - 1] : -1);
+                biomes = (database.get("biomes") as number[]).map((idx) => (idx ? palette[idx - 1] : -1));
             }
 
             for (const [loc, biome] of data.entries()) {
@@ -114,7 +111,10 @@ class BiomeChanges {
             newPalette.forEach((val, idx) => paletteMap.set(val, idx + 1));
             paletteMap.set(-1, 0);
 
-            database.set("biomes", biomes.map(biome => paletteMap.get(biome)));
+            database.set(
+                "biomes",
+                biomes.map((biome) => paletteMap.get(biome))
+            );
             database.set("palette", newPalette);
 
             database.save();
@@ -146,7 +146,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
                     this.entity.nameTag = "wedit:biome_update";
                     this.entity.teleport(loc, {
                         dimension: dim,
-                        rotation: { x: 0, y: 0 }
+                        rotation: { x: 0, y: 0 },
                     });
                     // contentLog.debug("entity tpd:", this.id);
                 }
@@ -175,7 +175,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
             };
             world.afterEvents.dataDrivenEntityTrigger.subscribe(onEvent, {
                 entities: [this.entity],
-                eventTypes: ["wedit:biome_update"]
+                eventTypes: ["wedit:biome_update"],
             });
         });
     }
@@ -205,17 +205,17 @@ const detectorPool = new ResourcePool({
     maxCount: 32,
 
     log: () => {
-    // if(logLevel < 1) {
-    //   contentLog.error(...args);
-    // } else if (logLevel < 2) {
-    //   contentLog.log(...args);
-    // } else {
-    //   contentLog.debug(...args);
-    // }
+        // if(logLevel < 1) {
+        //   contentLog.error(...args);
+        // } else if (logLevel < 2) {
+        //   contentLog.log(...args);
+        // } else {
+        //   contentLog.debug(...args);
+        // }
     },
 
     busyTimeout: 100,
-    idleTimeout: 200
+    idleTimeout: 200,
 });
 
 const biomeScores = world.scoreboard.getObjective("wedit:biome") ?? world.scoreboard.addObjective("wedit:biome", "");
@@ -311,7 +311,7 @@ const nameToId = {
     stony_peaks: 189,
     deep_dark: 190,
     mangrove_swamp: 191,
-    cherry_grove: 192
+    cherry_grove: 192,
 } as const;
 const idToName = Object.fromEntries(Object.entries(nameToId).map(([k, v]) => [v, k]));
 

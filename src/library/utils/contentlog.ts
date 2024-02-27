@@ -6,7 +6,6 @@ function date() {
 }
 
 class ContentLog {
-
     verbose(...msg: any[]) {
         console.log("[VERBOSE]", date(), ...msg);
     }

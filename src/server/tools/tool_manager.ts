@@ -7,23 +7,23 @@ import { PlayerSession, getSession, hasSession } from "../sessions.js";
 type toolConstruct = new (...args: any[]) => Tool;
 type toolCondition = (player: Player, session: PlayerSession) => boolean;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type toolObject = {[key: string]: any} & Tool;
+type toolObject = { [key: string]: any } & Tool;
 
 class ToolBuilder {
     private tools = new Map<string, toolConstruct>();
-    private bindings = new Map<string, Database<{[id: string]: Tool}>>();
+    private bindings = new Map<string, Database<{ [id: string]: Tool }>>();
     private fixedBindings = new Map<string, Tool>();
     private prevHeldTool = new Map<Player, Tool>();
-    private conditionalBindings = new Map<string, {condition: toolCondition, tool: Tool}>();
+    private conditionalBindings = new Map<string, { condition: toolCondition; tool: Tool }>();
     private disabled: string[] = [];
 
     constructor() {
-        Server.on("itemUseBefore", ev => {
+        Server.on("itemUseBefore", (ev) => {
             if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
             this.onItemUse(ev.itemStack, ev.source as Player, ev);
         });
 
-        Server.on("itemUseOnBefore", ev => {
+        Server.on("itemUseOnBefore", (ev) => {
             if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
             this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
         });
@@ -35,12 +35,12 @@ class ToolBuilder {
             if (player) this.onItemDrop(entity.getComponent("item").itemStack, player);
         });
 
-        Server.on("blockBreak", ev => {
+        Server.on("blockBreak", (ev) => {
             if (!ev.itemStack) return;
             this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
         });
 
-        Server.on("blockHit", ev => {
+        Server.on("blockHit", (ev) => {
             if (ev.damagingEntity.typeId != "minecraft:player") return;
             const item = Server.player.getHeldItem(ev.damagingEntity as Player);
             if (!item) return;
@@ -125,12 +125,14 @@ class ToolBuilder {
         }
     }
 
-    getBoundItems(playerId: string, type?: RegExp|string) {
+    getBoundItems(playerId: string, type?: RegExp | string) {
         this.createPlayerBindingMap(playerId);
         const tools = this.bindings.get(playerId);
-        return tools ? Array.from(tools.entries())
-            .filter(binding => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
-            .map(binding => binding[0] as string) : [] as string[];
+        return tools
+            ? Array.from(tools.entries())
+                  .filter((binding) => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
+                  .map((binding) => binding[0] as string)
+            : ([] as string[]);
     }
 
     setProperty<T>(itemId: string, playerId: string, prop: string, value: T) {

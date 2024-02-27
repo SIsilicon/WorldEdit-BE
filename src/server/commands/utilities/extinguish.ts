@@ -9,16 +9,16 @@ const registerInformation = {
     usage: [
         {
             name: "radius",
-            type: "int"
-        }
+            type: "int",
+        },
     ],
-    aliases: ["ext", "ex"]
+    aliases: ["ext", "ex"],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const removeNearArgs = new Map([
         ["mask", new Mask("fire")],
-        ["size", args.get("radius")]
+        ["size", args.get("radius")],
     ]);
     return yield* getCommandFunc("removenear")(session, builder, removeNearArgs) as Generator<unknown, RawText | string>;
 });

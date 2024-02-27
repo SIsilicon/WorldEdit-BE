@@ -1,6 +1,6 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText } from "@notbeer-api";
+import { RawText, sleep } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
@@ -10,21 +10,21 @@ const registerInformation = {
     permission: "worldedit.analysis.distr",
     usage: [
         {
-            flag: "c"
+            flag: "c",
         },
         {
-            flag: "d"
-        }
-    ]
+            flag: "d",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     let total: number;
     const counts: Map<string, number> = new Map();
     const getStates = args.has("d");
-    let job: number;
 
-    try {
+    yield* Jobs.run(session, 1, function* () {
+        yield Jobs.nextStep("Analysing blocks...");
         let i = 0;
         const processBlock = (block: BlockPermutation) => {
             let id = block.type.id;
@@ -34,7 +34,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 }
             }
             counts.set(id, (counts.get(id) ?? 0) + 1);
-            Jobs.setProgress(job, ++i/total);
         };
 
         if (args.has("c")) {
@@ -42,29 +41,27 @@ registerCommand(registerInformation, function* (session, builder, args) {
             total = session.clipboard.getBlockCount();
             const clipboard = session.clipboard;
 
-            job = Jobs.startJob(session, 1, null);
-            Jobs.nextStep(job, "Analysing blocks...");
-
             for (const block of clipboard.getBlocks()) {
                 processBlock(Array.isArray(block) ? block[1] : block);
-                yield;
+                yield Jobs.setProgress(++i / total);
             }
         } else {
             assertSelection(session);
             total = session.selection.getBlockCount();
             const dimension = builder.dimension;
-
-            job = Jobs.startJob(session, 1, session.selection.getRange());
-            Jobs.nextStep(job, "Analysing blocks...");
+            yield Jobs.nextStep("Analysing blocks...");
 
             for (const loc of session.selection.getBlocks()) {
-                processBlock(dimension.getBlock(loc).permutation);
-                yield;
+                let block = dimension.getBlock(loc);
+                while (!block) {
+                    block = Jobs.loadBlock(loc);
+                    yield sleep(1);
+                }
+                processBlock(block.permutation);
+                yield Jobs.setProgress(++i / total);
             }
         }
-    } finally {
-        Jobs.finishJob(job);
-    }
+    });
 
     const entries = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
     const result = RawText.text("__________\n");
@@ -92,7 +89,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }
         }
 
-        const percent = (count / total * 100).toFixed(3);
+        const percent = ((count / total) * 100).toFixed(3);
         if (block.startsWith("minecraft:")) {
             block = block.slice("minecraft:".length);
         }

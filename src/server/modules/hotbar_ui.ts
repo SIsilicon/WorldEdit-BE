@@ -6,28 +6,28 @@ import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/c
 import { print } from "server/util.js";
 
 interface HotbarItem<T extends {}> {
-  item: DynamicElem<T, string>
-  dataValue?: DynamicElem<T, number>
-  action: UIAction<T, void>
+    item: DynamicElem<T, string>;
+    dataValue?: DynamicElem<T, number>;
+    action: UIAction<T, void>;
 }
 
-interface HotbarForm<T extends{}> {
-  title: DynamicElem<T, string>,
-  cancel: UIAction<T, void>
+interface HotbarForm<T extends {}> {
+    title: DynamicElem<T, string>;
+    cancel: UIAction<T, void>;
 
-  items: DynamicElem<T, {[key in 0|1|2|3|4|5|6|7]?: HotbarItem<T>}>
-  tick?: UIAction<T, void>
-  entered?: UIAction<T, void>
-  exiting?: UIAction<T, void>
+    items: DynamicElem<T, { [key in 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7]?: HotbarItem<T> }>;
+    tick?: UIAction<T, void>;
+    entered?: UIAction<T, void>;
+    exiting?: UIAction<T, void>;
 }
 
 type HotbarEventContext = MenuContext<{
-  __useEvent__: (ev: ItemUseBeforeEvent) => void
-  __tickEvent__: (ev: {currentTick: number}) => void
-}>
+    __useEvent__: (ev: ItemUseBeforeEvent) => void;
+    __tickEvent__: (ev: { currentTick: number }) => void;
+}>;
 
 class HotbarUIForm<T extends {}> {
-    private items: { name: string, data: number, action: UIAction<T, void> }[] = [];
+    private items: { name: string; data: number; action: UIAction<T, void> }[] = [];
     private title: string;
 
     private readonly tick: UIAction<T, void>;
@@ -55,13 +55,17 @@ class HotbarUIForm<T extends {}> {
             this.items.push({
                 name: resEl(itemData.item),
                 data: resEl(itemData.dataValue ?? 0),
-                action: itemData.action
+                action: itemData.action,
             });
         }
-        this.items.push({ name: "wedit:cancel_button", data: 0, action: (ctx, player) => {
-            ctx.goto(null);
-            this.cancel(ctx, player);
-        }});
+        this.items.push({
+            name: "wedit:cancel_button",
+            data: 0,
+            action: (ctx, player) => {
+                ctx.goto(null);
+                this.cancel(ctx, player);
+            },
+        });
         return null as FormData;
     }
 
@@ -118,7 +122,10 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
 
     private base: MenuContext<T>;
 
-    constructor(private player: Player, base?: MenuContext<T>) {
+    constructor(
+        private player: Player,
+        base?: MenuContext<T>
+    ) {
         this.base = base;
     }
 
@@ -169,43 +176,42 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
 }
 
 class HotbarUIBuilder {
-
     private forms = new Map<UIFormName, HotbarUIForm<{}>>();
     private active = new Map<Player, HotbarUIForm<{}>>();
 
     /**
-   * Register a Hotbar UI Form to be displayed to users.
-   * @param name The name of the UI form
-   * @param form The layout of the UI form
-   */
+     * Register a Hotbar UI Form to be displayed to users.
+     * @param name The name of the UI form
+     * @param form The layout of the UI form
+     */
     register<T extends {}>(name: UIFormName, form: HotbarForm<T>) {
         this.forms.set(name, new HotbarUIForm(form));
     }
 
     /**
-   * Displays a UI form registered as `name` to `player`.
-   * @param name The name of the UI form
-   * @param player The player the UI form must be shown to
-   * @param data Context data to be made available to the UI form's elements
-   * @returns True if another form is already being displayed. Otherwise false.
-   */
+     * Displays a UI form registered as `name` to `player`.
+     * @param name The name of the UI form
+     * @param player The player the UI form must be shown to
+     * @param data Context data to be made available to the UI form's elements
+     * @returns True if another form is already being displayed. Otherwise false.
+     */
     show<T extends {}>(name: UIFormName, player: Player, data?: T) {
         if (this.displayingUI(player)) {
             return true;
         }
         const ctx = new HotbarContext<T>(player);
-        Object.entries(data).forEach(e => ctx.setData(e[0] as keyof T, e[1] as typeof data[keyof T]));
+        Object.entries(data).forEach((e) => ctx.setData(e[0] as keyof T, e[1] as (typeof data)[keyof T]));
         ctx.goto(name);
         return false;
     }
 
     /**
-   * Go from one UI form to another.
-   * @internal
-   * @param name The name of the UI form to go to
-   * @param player The player to display the UI form to
-   * @param ctx The context to be passed to the UI form
-   */
+     * Go from one UI form to another.
+     * @internal
+     * @param name The name of the UI form to go to
+     * @param player The player to display the UI form to
+     * @param ctx The context to be passed to the UI form
+     */
     goto(name: UIFormName, player: Player, ctx: MenuContext<unknown>) {
         if (!(ctx instanceof HotbarContext)) {
             ctx = new HotbarContext(player, ctx);
@@ -229,10 +235,10 @@ class HotbarUIBuilder {
     }
 
     /**
-   * @param player The player being tested
-   * @param ui The name of the UI to test for, if you want to be specific
-   * @returns Whether the UI, or any at all is being displayed.
-   */
+     * @param player The player being tested
+     * @param ui The name of the UI to test for, if you want to be specific
+     * @returns Whether the UI, or any at all is being displayed.
+     */
     displayingUI(player: Player, ui?: UIFormName) {
         if (this.active.has(player)) {
             if (ui) {

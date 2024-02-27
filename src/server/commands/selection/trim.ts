@@ -11,9 +11,9 @@ const registerInformation = {
         {
             name: "mask",
             type: "Mask",
-            default: new Mask("#existing")
-        }
-    ]
+            default: new Mask("#existing"),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -22,8 +22,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const [min, max] = session.selection.getRange();
     const dimension = builder.dimension;
 
-    for (const axes of [["x", "y", "z"], ["y", "z", "x"], ["z", "x", "y"]] as ("x"|"y"|"z")[][]) {
-        outer: for (const [start, end, sign] of [[min, max, 1], [max, min, -1]] as [Vector, Vector, number][]) {
+    for (const axes of [
+        ["x", "y", "z"],
+        ["y", "z", "x"],
+        ["z", "x", "y"],
+    ] as ("x" | "y" | "z")[][]) {
+        outer: for (const [start, end, sign] of [
+            [min, max, 1],
+            [max, min, -1],
+        ] as [Vector, Vector, number][]) {
             for (const vec = start.clone(); Math.sign(vec[axes[0]] - end[axes[0]]) != sign; vec[axes[0]] += sign) {
                 start[axes[0]] = vec[axes[0]];
                 for (vec[axes[1]] = min[axes[1]]; vec[axes[1]] <= max[axes[1]]; vec[axes[1]]++) {

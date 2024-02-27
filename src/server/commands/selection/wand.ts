@@ -6,7 +6,7 @@ import config from "config.js";
 const registerInformation = {
     name: "wand",
     permission: "worldedit.wand",
-    description: "commands.wedit:wand.description"
+    description: "commands.wedit:wand.description",
 };
 
 registerCommand(registerInformation, function (session, builder) {

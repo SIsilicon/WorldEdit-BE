@@ -8,9 +8,9 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

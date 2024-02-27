@@ -3,26 +3,26 @@ import { BlockPermutation, BlockStates, Dimension, Vector3 } from "@minecraft/se
 import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export interface parsedBlock {
-    id: string
-    states: Map<string, string|number|boolean>
+    id: string;
+    states: Map<string, string | number | boolean>;
 }
 
 export interface BlockUnit {
-  readonly typeId: string
-  readonly permutation: BlockPermutation
-  readonly location: Vector3
-  readonly dimension: Dimension
-  setPermutation(perm: BlockPermutation): void
-  hasTag(tag: string): boolean
-  isAir: boolean
+    readonly typeId: string;
+    readonly permutation: BlockPermutation;
+    readonly location: Vector3;
+    readonly dimension: Dimension;
+    setPermutation(perm: BlockPermutation): void;
+    hasTag(tag: string): boolean;
+    isAir: boolean;
 }
 
 export interface AstNode {
-    prec: number
-    opCount: number
-    rightAssoc?: boolean
-    nodes: AstNode[]
-    token: Token
+    prec: number;
+    opCount: number;
+    rightAssoc?: boolean;
+    nodes: AstNode[];
+    token: Token;
 }
 
 const lexer = new Tokenizr();
@@ -65,7 +65,7 @@ export function tokenize(input: string) {
                 idx: -1,
                 start: err.pos,
                 end: err.pos + 1,
-                stack: contentLog.stack()
+                stack: contentLog.stack(),
             };
             throw error;
         }
@@ -85,7 +85,7 @@ export function throwTokenError(token: Token): never {
         idx: -1,
         start: token.pos,
         end: token.pos + token.text.length,
-        stack: contentLog.stack()
+        stack: contentLog.stack(),
     };
     throw err;
 }
@@ -93,7 +93,7 @@ export function throwTokenError(token: Token): never {
 export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     while (ops.length) {
         const op2 = ops.slice(-1)[0];
-        if (op && (op.prec > op2.prec || op.prec == op2.prec && op2.rightAssoc)) {
+        if (op && (op.prec > op2.prec || (op.prec == op2.prec && op2.rightAssoc))) {
             break;
         }
 
@@ -123,7 +123,7 @@ export function blockPermutation2ParsedBlock(block: BlockPermutation) {
 
     return {
         id: block.type.id,
-        states
+        states,
     };
 }
 
@@ -131,11 +131,26 @@ export function parsedBlock2BlockPermutation(block: parsedBlock) {
     return BlockPermutation.resolve(block.id, Object.fromEntries(block.states?.entries() ?? []));
 }
 
-export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isMask = false): parsedBlock|string {
+export function parsedBlock2CommandArg(block: parsedBlock) {
+    let id = block.id;
+    if (id.startsWith("minecraft:")) id = id.slice("minecraft:".length);
+    const states = Object.entries(block.states ?? {});
+    if (states.length) {
+        id += `[${states
+            .map(([key, value]) => {
+                value = typeof value === "string" ? `"${value}"` : value;
+                return `"${key}"=${value}`;
+            })
+            .join(",")}]`;
+    }
+    return id;
+}
+
+export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isMask = false): parsedBlock | string {
     let typeToken = tokens.curr();
     const block: parsedBlock = {
         id: tokens.curr().value,
-        states: null
+        states: null,
     };
     let token: Token;
 
@@ -172,49 +187,43 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
     }
 
     // eslint-disable-next-line no-cond-assign
-    while (token = tokens.peek()) {
+    while ((token = tokens.peek())) {
         switch (token.type) {
-        case "misc":
-            if (token.value == ":") {
-                token = tokens.next();
-                const peek = tokens.peek();
-                if (peek.type == "id") {
-                    if (block.id.includes(":") || block.states) throwTokenError(peek);
-                    block.id += ":" + peek.value;
+            case "misc":
+                if (token.value == ":") {
                     token = tokens.next();
-                    typeToken = mergeTokens(typeToken, token, input);
-                    if (typeOnly)
+                    const peek = tokens.peek();
+                    if (peek.type == "id") {
+                        if (block.id.includes(":") || block.states) throwTokenError(peek);
+                        block.id += ":" + peek.value;
+                        token = tokens.next();
+                        typeToken = mergeTokens(typeToken, token, input);
+                        if (typeOnly) return finish();
+                    } else if (peek.type == "number") {
+                        if (typeOnly) return finish();
+                        if (block.states) throwTokenError(peek);
+                        block.states = new Map(Object.entries(Server.block.dataValueToStates(block.id, peek.value)));
+                        token = tokens.next();
                         return finish();
-                } else if (peek.type == "number") {
-                    if (typeOnly)
-                        return finish();
-                    if (block.states)
+                    } else {
                         throwTokenError(peek);
-                    block.states = new Map(Object.entries(Server.block.dataValueToStates(block.id, peek.value)));
+                    }
+                } else {
+                    return finish();
+                }
+                break;
+            case "bracket":
+                if (token.value == "[") {
+                    if (typeOnly) return finish();
+                    if (block.states != null) throwTokenError(token);
                     token = tokens.next();
+                    block.states = parseBlockStates(tokens);
                     return finish();
                 } else {
-                    throwTokenError(peek);
-                }
-            } else {
-                return finish();
-            }
-            break;
-        case "bracket":
-            if (token.value == "[") {
-                if (typeOnly)
                     return finish();
-                if (block.states != null)
-                    throwTokenError(token);
-                token = tokens.next();
-                block.states = parseBlockStates(tokens);
+                }
+            default:
                 return finish();
-            } else {
-                return finish();
-            }
-            break;
-        default:
-            return finish();
         }
     }
 }
@@ -223,7 +232,7 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
     const blockStates: parsedBlock["states"] = new Map();
     let expectingBlockValue = false;
     let blockDataName: string = null;
-    let blockDataValue: string|number|boolean = null;
+    let blockDataValue: string | number | boolean = null;
     function pushDataTag() {
         blockStates.set(blockDataName, blockDataValue);
         expectingBlockValue = false;
@@ -233,50 +242,52 @@ export function parseBlockStates(tokens: Tokens): parsedBlock["states"] {
 
     let token: Token;
     // eslint-disable-next-line no-cond-assign
-    while (token = tokens.next()) {
+    while ((token = tokens.next())) {
         switch (token.type) {
-        case "id": case "number": case "boolean":
-            if (expectingBlockValue) {
-                if (blockDataValue != null) {
-                    throwTokenError(token);
-                }
-                blockDataValue = token.value;
-            } else {
-                if (blockDataName != null || token.type == "number" || token.type == "boolean") {
-                    throwTokenError(token);
-                }
-                blockDataName = token.value;
-            }
-            break;
-        case "misc":
-            if (token.value == ":") {
-                token = tokens.next();
-                if (token.type != "id" || blockDataName == null || blockDataName.includes(":") || expectingBlockValue) {
-                    throwTokenError(token);
-                }
-                blockDataName += ":" + token.value;
-            } else if (token.value == "=") {
+            case "id":
+            case "number":
+            case "boolean":
                 if (expectingBlockValue) {
+                    if (blockDataValue != null) {
+                        throwTokenError(token);
+                    }
+                    blockDataValue = token.value;
+                } else {
+                    if (blockDataName != null || token.type == "number" || token.type == "boolean") {
+                        throwTokenError(token);
+                    }
+                    blockDataName = token.value;
+                }
+                break;
+            case "misc":
+                if (token.value == ":") {
+                    token = tokens.next();
+                    if (token.type != "id" || blockDataName == null || blockDataName.includes(":") || expectingBlockValue) {
+                        throwTokenError(token);
+                    }
+                    blockDataName += ":" + token.value;
+                } else if (token.value == "=") {
+                    if (expectingBlockValue) {
+                        throwTokenError(token);
+                    }
+                    expectingBlockValue = true;
+                } else if (token.value == ",") {
+                    if (blockDataValue == null) {
+                        throwTokenError(token);
+                    }
+                    pushDataTag();
+                } else {
                     throwTokenError(token);
                 }
-                expectingBlockValue = true;
-            } else if (token.value == ",") {
-                if (blockDataValue == null) {
+                break;
+            case "bracket":
+                if (token.value != "]" || (token.value == "]" && blockDataValue == null)) {
                     throwTokenError(token);
                 }
                 pushDataTag();
-            } else {
+                return blockStates;
+            default:
                 throwTokenError(token);
-            }
-            break;
-        case "bracket":
-            if (token.value != "]" || token.value == "]" && blockDataValue == null) {
-                throwTokenError(token);
-            }
-            pushDataTag();
-            return blockStates;
-        default:
-            throwTokenError(token);
         }
     }
 }
@@ -286,7 +297,7 @@ export function parseNumberList(tokens: Tokens, length: number): number[] {
     let token: Token;
     let lastNumber: Token;
     // eslint-disable-next-line no-cond-assign
-    while (token = tokens.next()) {
+    while ((token = tokens.next())) {
         if (token.type == "number") {
             if (lastNumber) {
                 throwTokenError(token);

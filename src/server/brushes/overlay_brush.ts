@@ -74,7 +74,7 @@ export class OverlayBrush extends Brush {
                     const block = blockChanges.getBlock(trace);
                     if (!isAirOrFluid(block.permutation) && this.surfaceMask.matchesBlock(block)) {
                         for (let i = 0; i < Math.abs(this.depth); i++) {
-                            const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : (i + 1), 0));
+                            const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
                             if (!activeMask || activeMask.matchesBlock(block)) {
                                 this.pattern.setBlock(block);
                             }
@@ -106,12 +106,12 @@ export class OverlayBrush extends Brush {
             radius: this.radius,
             depth: this.depth,
             pattern: this.pattern,
-            surfaceMask: this.surfaceMask
+            surfaceMask: this.surfaceMask,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public static parseJSON(json: {[key: string]: any}) {
+    public static parseJSON(json: { [key: string]: any }) {
         return [json.radius, json.depth, new Pattern(json.pattern), new Mask(json.mask)];
     }
 }

@@ -5,7 +5,7 @@ import { registerCommand } from "../register_commands.js";
 const registerInformation = {
     name: "clearhistory",
     permission: "worldedit.history.clear",
-    description: "commands.wedit:clearhistory.description"
+    description: "commands.wedit:clearhistory.description",
 };
 
 registerCommand(registerInformation, function (session) {

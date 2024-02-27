@@ -13,32 +13,34 @@ abstract class UIForm<T extends {}> {
         this.cancelAction = form.cancel;
     }
 
-  protected abstract build(form: Form<T>, resEl: <S>(elem: DynamicElem<T, S>) => S): FormData;
+    protected abstract build(form: Form<T>, resEl: <S>(elem: DynamicElem<T, S>) => S): FormData;
 
-  public abstract enter(player: Player, ctx: MenuContextType<T>): void;
+    public abstract enter(player: Player, ctx: MenuContextType<T>): void;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public exit(player: Player, ctx: MenuContextType<T>) { /**/ }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public exit(player: Player, ctx: MenuContextType<T>) {
+        /**/
+    }
 
-  protected handleCancel(response: FormResponse, player: Player, ctx: MenuContext<T>) {
-      if (!response.canceled) return false;
-      if (response.cancelationReason == FormCancelationReason.UserBusy) {
-          setTickTimeout(() => this.enter(player, ctx));
-      } else {
-          ctx.goto(undefined);
-          this.cancelAction?.(ctx, player);
-      }
-      return true;
-  }
+    protected handleCancel(response: FormResponse, player: Player, ctx: MenuContext<T>) {
+        if (!response.canceled) return false;
+        if (response.cancelationReason == FormCancelationReason.UserBusy) {
+            setTickTimeout(() => this.enter(player, ctx));
+        } else {
+            ctx.goto(undefined);
+            this.cancelAction?.(ctx, player);
+        }
+        return true;
+    }
 
-  protected buildFormData(player: Player, ctx: MenuContext<T>) {
-      const resolve = <S>(elem: DynamicElem<T, S>): S => this.resolve(elem, player, ctx);
-      return this.build(this.form, resolve);
-  }
+    protected buildFormData(player: Player, ctx: MenuContext<T>) {
+        const resolve = <S>(elem: DynamicElem<T, S>): S => this.resolve(elem, player, ctx);
+        return this.build(this.form, resolve);
+    }
 
-  protected resolve<S>(element: DynamicElem<T, S>, player: Player, ctx: MenuContext<T>) {
-      return element instanceof Function ? element(ctx, player) : element;
-  }
+    protected resolve<S>(element: DynamicElem<T, S>, player: Player, ctx: MenuContext<T>) {
+        return element instanceof Function ? element(ctx, player) : element;
+    }
 }
 
 class MessageUIForm<T extends {}> extends UIForm<T> {
@@ -61,15 +63,17 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
     }
 
     enter(player: Player, ctx: MenuContext<T>) {
-        this.buildFormData(player, ctx).show(player).then((response: MessageFormResponse) => {
-            if (this.handleCancel(response, player, ctx)) return;
-            ctx.goto(undefined);
-            if (response.selection == 0) {
-                this.action1(ctx, player);
-            } else if (response.selection == 1) {
-                this.action2(ctx, player);
-            }
-        });
+        this.buildFormData(player, ctx)
+            .show(player)
+            .then((response: MessageFormResponse) => {
+                if (this.handleCancel(response, player, ctx)) return;
+                ctx.goto(undefined);
+                if (response.selection == 0) {
+                    this.action1(ctx, player);
+                } else if (response.selection == 1) {
+                    this.action2(ctx, player);
+                }
+            });
     }
 }
 
@@ -123,24 +127,13 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
             const input = formInputs[id as UIFormName];
 
             if (input.type == "dropdown") {
-                formData.dropdown(
-                    resEl(input.name), resEl(input.options),
-                    resEl(input.default)
-                );
+                formData.dropdown(resEl(input.name), resEl(input.options), resEl(input.default));
             } else if (input.type == "slider") {
-                formData.slider(
-                    resEl(input.name), resEl(input.min), resEl(input.max),
-                    resEl(input.step ?? 1), resEl(input.default)
-                );
+                formData.slider(resEl(input.name), resEl(input.min), resEl(input.max), resEl(input.step ?? 1), resEl(input.default));
             } else if (input.type == "textField") {
-                formData.textField(
-                    resEl(input.name), resEl(input.placeholder),
-                    resEl(input.default)
-                );
+                formData.textField(resEl(input.name), resEl(input.placeholder), resEl(input.default));
             } else if (input.type == "toggle") {
-                formData.toggle(
-                    resEl(input.name), resEl(input.default)
-                );
+                formData.toggle(resEl(input.name), resEl(input.default));
             }
             this.inputNames.push(id);
         }
@@ -152,7 +145,7 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
         const inputNames = this.inputNames;
         form.show(player).then((response: ModalFormResponse) => {
             if (this.handleCancel(response, player, ctx)) return;
-            const inputs: {[key: string]: string|number|boolean} = {};
+            const inputs: { [key: string]: string | number | boolean } = {};
             for (const i in response.formValues) {
                 inputs[inputNames[i]] = response.formValues[i];
             }
@@ -227,10 +220,10 @@ class UIFormBuilder {
     private active = new Map<Player, UIForm<{}>>();
 
     /**
-   * Register a UI Form to be displayed to users.
-   * @param name The name of the UI form
-   * @param form The layout of the UI form
-   */
+     * Register a UI Form to be displayed to users.
+     * @param name The name of the UI form
+     * @param form The layout of the UI form
+     */
     register<T extends {}>(name: UIFormName, form: Form<T>) {
         if (this.forms.has(name)) {
             throw `UIForm by the name ${name} has already been registered.`;
@@ -256,7 +249,7 @@ class UIFormBuilder {
             return true;
         }
         const ctx = new MenuContext<T>(player);
-        Object.entries(data ?? {}).forEach(e => ctx.setData(e[0] as keyof T, e[1] as typeof data[keyof T]));
+        Object.entries(data ?? {}).forEach((e) => ctx.setData(e[0] as keyof T, e[1] as (typeof data)[keyof T]));
         ctx.goto(name);
         return false;
     }

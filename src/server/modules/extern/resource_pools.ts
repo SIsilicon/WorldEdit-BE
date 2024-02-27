@@ -35,21 +35,21 @@ function* idGenerator(): Generator<number, number> {
 }
 
 interface poolConfig<T extends PooledResource> {
-  // required parameters:
-  constructor: new (...args: unknown[]) => T /* reference to the constructor of pooled objects */
-  arguments: unknown[] /* arguments for the pooled objects constructor */
-  maxCount: number /* maximum number of objects in the pool */
+    // required parameters:
+    constructor: new (...args: unknown[]) => T /* reference to the constructor of pooled objects */;
+    arguments: unknown[] /* arguments for the pooled objects constructor */;
+    maxCount: number /* maximum number of objects in the pool */;
 
-  // optional:
-  log?: (logLevel: number, ...args: unknown[]) => void /* function to which the resource pool object will pass log messages */
-  requestTimeout?: number /* the request will be rejected if no resource is available within this period, ms */
-  busyTimeout?: number /* if the resource is stuck in busy state for longer than this, it is deleted from the pool and its close method is being called, ms */
-  idleTimeout?: number /* the resource is released from the pool and closed if it is not used for longer than this, ms */
+    // optional:
+    log?: (logLevel: number, ...args: unknown[]) => void /* function to which the resource pool object will pass log messages */;
+    requestTimeout?: number /* the request will be rejected if no resource is available within this period, ms */;
+    busyTimeout?: number /* if the resource is stuck in busy state for longer than this, it is deleted from the pool and its close method is being called, ms */;
+    idleTimeout?: number /* the resource is released from the pool and closed if it is not used for longer than this, ms */;
 }
 
 interface PooledResource extends EventEmitterTypes {
-  id: number
-  close: () => void
+    id: number;
+    close: () => void;
 }
 
 const readyEventSym = Symbol("readyEventSym"); // reference to "ready" event emitted by resource
@@ -64,16 +64,16 @@ const DEFAULT_REQUEST_TIMEOUT = TicksPerSecond * 60;
 class ResourcePool<T extends PooledResource> {
     private readonly config: poolConfig<T>;
     private readonly log: poolConfig<T>["log"];
-    private readonly idleObjects: { obj: T, timeout: number }[] = [];
-    private readonly busyObjects: { obj: T, timeout: number }[] = [];
-    private readonly allocRequests: { resolve: (v: T) => void, rejectTimeout: number }[] = [];
+    private readonly idleObjects: { obj: T; timeout: number }[] = [];
+    private readonly busyObjects: { obj: T; timeout: number }[] = [];
+    private readonly allocRequests: { resolve: (v: T) => void; rejectTimeout: number }[] = [];
 
     private readonly idGen = idGenerator();
     private processSheduleId: number;
 
     constructor(config: poolConfig<T>) {
         this.config = config;
-        this.log = (logLevel, ...args) => (this.config?.log?.(logLevel, ...args));
+        this.log = (logLevel, ...args) => this.config?.log?.(logLevel, ...args);
     }
 
     private scheduleProcessing() {
@@ -102,7 +102,7 @@ class ResourcePool<T extends PooledResource> {
     }
 
     private deleteFromBusy(obj: T) {
-        const index = this.busyObjects.findIndex(elem => elem.obj === obj);
+        const index = this.busyObjects.findIndex((elem) => elem.obj === obj);
         if (index >= 0) {
             this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from busy pool");
             clearTickTimeout(this.busyObjects[index].timeout);
@@ -113,7 +113,7 @@ class ResourcePool<T extends PooledResource> {
     }
 
     private deleteFromIdle(obj: T) {
-        const index = this.idleObjects.findIndex(elem => elem.obj === obj);
+        const index = this.idleObjects.findIndex((elem) => elem.obj === obj);
         if (index >= 0) {
             this.log(2, "delete object", obj.constructor.name, ":", obj.id, "from idle pool");
             clearTickTimeout(this.idleObjects[index].timeout);
@@ -177,7 +177,7 @@ class ResourcePool<T extends PooledResource> {
         obj.removeAllListeners(errorEventSym);
     }
 
-    private deleteRequest(request: typeof this.allocRequests[number])  {
+    private deleteRequest(request: (typeof this.allocRequests)[number]) {
         const index = this.allocRequests.indexOf(request);
         if (index >= 0) {
             this.allocRequests.splice(index, 1);
@@ -197,7 +197,7 @@ class ResourcePool<T extends PooledResource> {
                     this.log(0, "request rejected on timeout");
                     this.deleteRequest(request);
                     reject();
-                }, this.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT)
+                }, this.config.requestTimeout || DEFAULT_REQUEST_TIMEOUT),
             };
             this.allocRequests.push(request);
             this.scheduleProcessing();
@@ -208,7 +208,7 @@ class ResourcePool<T extends PooledResource> {
         this.log(2, "started request processing");
 
         // assign pending requests to idle resources if possible
-        while ((this.allocRequests.length > 0) && (this.idleObjects.length > 0)) {
+        while (this.allocRequests.length > 0 && this.idleObjects.length > 0) {
             const allocateRequest = this.allocRequests.shift();
             const obj = this.idleObjects[0].obj;
             this.deleteFromIdle(obj);

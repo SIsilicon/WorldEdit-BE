@@ -28,13 +28,11 @@ class StackerTool extends Tool {
         const record = history.record();
         const tempStack = new RegionBuffer(true);
         try {
-            history.addUndoStructure(record, start, end, "any");
+            yield history.addUndoStructure(record, start, end, "any");
 
-            yield tempStack.save(loc, loc, dim);
-            for (const pos of regionIterateBlocks(start, end)) {
-                tempStack.load(pos, dim);
-            }
-            history.addRedoStructure(record, start, end, "any");
+            yield* tempStack.save(loc, loc, dim);
+            for (const pos of regionIterateBlocks(start, end)) yield* tempStack.load(pos, dim);
+            yield history.addRedoStructure(record, start, end, "any");
             history.commit(record);
         } catch (e) {
             history.cancel(record);
@@ -54,12 +52,12 @@ class StackerTool extends Tool {
         return {
             toolType: this.type,
             range: this.range,
-            mask: this.mask
+            mask: this.mask,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static parseJSON(json: {[key: string]: any}) {
+    static parseJSON(json: { [key: string]: any }) {
         return [json.range, new Mask(json.mask)];
     }
 }

@@ -37,7 +37,7 @@ type compactUnit = "ms" | "s" | "m" | "h" | "d" | "w" | "y";
 export type compactUnitAnyCase = compactUnit | Uppercase<compactUnit>;
 
 export interface durationInterface {
-    short: compactUnitAnyCase
-    long: UnitAnyCase
+    short: compactUnitAnyCase;
+    long: UnitAnyCase;
     ms: number;
 }

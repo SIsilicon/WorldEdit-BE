@@ -14,7 +14,9 @@ import { PyramidShape } from "server/shapes/pyramid";
 function trySpawnParticle(player: Player, type: string, location: Vector3) {
     try {
         player.spawnParticle(type, location);
-    } catch { /* pass */ }
+    } catch {
+        /* pass */
+    }
 }
 
 abstract class GeneratorTool extends Tool {
@@ -87,7 +89,7 @@ class DrawLineTool extends GeneratorTool {
         let count: number;
         try {
             const points = (yield* generateLine(pos1, pos2)).map((p) => p.floor());
-            history.addUndoStructure(record, start, end);
+            yield history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {
                 const block = dim.getBlock(point);
@@ -98,7 +100,7 @@ class DrawLineTool extends GeneratorTool {
             }
 
             history.recordSelection(record, session);
-            history.addRedoStructure(record, start, end);
+            yield history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch (e) {
             history.cancel(record);
@@ -115,9 +117,7 @@ class DrawLineTool extends GeneratorTool {
         const lineEnd = self.traceForPos(player);
         const length = lineEnd.sub(lineStart).length;
         if (length > 32) {
-            lineStart = lineEnd
-                .add(lineStart.sub(lineEnd).normalized().mul(32))
-                .floor();
+            lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
         }
 
         const genLine = generateLine(lineStart, lineEnd);
@@ -153,10 +153,7 @@ class DrawSphereTool extends GeneratorTool {
         pattern.setContext(session, sphereShape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, sphereShape.getRegion(center));
-        const count = yield* Jobs.perform(job, sphereShape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
-
+        const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };
 
@@ -169,13 +166,13 @@ class DrawSphereTool extends GeneratorTool {
         const axes: [typeof Vector.prototype.rotateX, Vector][] = [
             [Vector.prototype.rotateX, new Vector(0, 1, 0)],
             [Vector.prototype.rotateY, new Vector(1, 0, 0)],
-            [Vector.prototype.rotateZ, new Vector(0, 1, 0)]
+            [Vector.prototype.rotateZ, new Vector(0, 1, 0)],
         ];
-        const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
+        const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
         for (const [rotateBy, vec] of axes) {
             for (let i = 0; i < resolution; i++) {
-                let point: Vector = rotateBy.call(vec, i / resolution * 360);
+                let point: Vector = rotateBy.call(vec, (i / resolution) * 360);
                 point = point.mul(radius).add(center).add(0.5);
                 trySpawnParticle(player, "wedit:selection_draw", point);
             }
@@ -198,9 +195,7 @@ class DrawCylinderTool extends GeneratorTool {
         pattern.setContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, shape.getRegion(center));
-        const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
+        const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };
@@ -242,9 +237,7 @@ class DrawPyramidTool extends GeneratorTool {
         pattern.setContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, shape.getRegion(center));
-        const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
+        const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };
@@ -261,7 +254,13 @@ class DrawPyramidTool extends GeneratorTool {
     getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {
         const center = this.getFirstPos(session).clone();
         const pos2 = this.traceForPos(player);
-        const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v)) + 1;
+        const size =
+            Math.max(
+                ...pos2
+                    .sub(center)
+                    .toArray()
+                    .map((v, i) => (i !== 1 ? Math.abs(v) : v))
+            ) + 1;
         return [new PyramidShape(size), center];
     }
 

@@ -7,7 +7,7 @@ import { getWorldHeightLimits } from "server/util.js";
 const registerInformation = {
     name: "thru",
     permission: "worldedit.navigation.thru.command",
-    description: "commands.wedit:thru.description"
+    description: "commands.wedit:thru.description",
 };
 
 registerCommand(registerInformation, function (session, builder) {
@@ -18,8 +18,7 @@ registerCommand(registerInformation, function (session, builder) {
     const dir = new Cardinal().getDirection(builder);
 
     function isSpaceEmpty(loc: Vector) {
-        return (loc.y < limits[0] || loc.y > limits[1] || dimension.getBlock(loc).isAir) &&
-           (loc.y + 1 < limits[0] || loc.y + 1 > limits[1] || dimension.getBlock(loc.offset(0, 1, 0)).isAir);
+        return (loc.y < limits[0] || loc.y > limits[1] || dimension.getBlock(loc).isAir) && (loc.y + 1 < limits[0] || loc.y + 1 > limits[1] || dimension.getBlock(loc.offset(0, 1, 0)).isAir);
     }
 
     let testLoc = blockLoc.offset(dir.x, dir.y, dir.z);

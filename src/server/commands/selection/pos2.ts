@@ -12,10 +12,10 @@ const registerInformation = {
         {
             name: "coordinates",
             type: "xyz",
-            default: new CommandPosition()
-        }
+            default: new CommandPosition(),
+        },
     ],
-    aliases: ["2"]
+    aliases: ["2"],
 };
 
 export function setPos2(selection: Selection, loc: Vector3) {
@@ -30,15 +30,12 @@ export function setPos2(selection: Selection, loc: Vector3) {
         } else {
             translate = `worldedit.selection.${selection.mode}.secondaryArea`;
         }
-        let sub = [ printLocation(selection.points[1]) ];
+        let sub = [printLocation(selection.points[1])];
         if (selection.mode == "sphere") {
-            sub = [ `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}` ];
+            sub = [`${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`];
         } else if (selection.mode == "cylinder") {
             const vec = Vector.sub(selection.points[1], selection.points[0]);
-            sub = [
-                `${Math.round(vec.mul([1, 0, 1]).length)}`,
-                `${Math.abs(vec.y) + 1}`
-            ];
+            sub = [`${Math.round(vec.mul([1, 0, 1]).length)}`, `${Math.abs(vec.y) + 1}`];
         }
 
         let result = RawText.translate(translate);

@@ -1,11 +1,24 @@
 import { Vector3, BlockPermutation } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock, BlockUnit } from "./block_parsing.js";
+import {
+    tokenize,
+    throwTokenError,
+    mergeTokens,
+    parseBlock,
+    AstNode,
+    processOps,
+    parseBlockStates,
+    parsedBlock,
+    blockPermutation2ParsedBlock,
+    BlockUnit,
+    parsedBlock2CommandArg,
+} from "./block_parsing.js";
 
 export class Mask implements CustomArgType {
     private condition: MaskNode;
     private stringObj = "";
+    private simpleCache: string[];
 
     constructor(mask = "") {
         if (mask) {
@@ -16,10 +29,10 @@ export class Mask implements CustomArgType {
     }
 
     /**
-   * Tests if this mask matches a block
-   * @param block
-   * @returns True if the block matches; false otherwise
-   */
+     * Tests if this mask matches a block
+     * @param block
+     * @returns True if the block matches; false otherwise
+     */
     matchesBlock(block: BlockUnit) {
         if (this.empty()) {
             return true;
@@ -30,6 +43,7 @@ export class Mask implements CustomArgType {
     clear() {
         this.condition = null;
         this.stringObj = "";
+        this.simpleCache = undefined;
     }
 
     empty() {
@@ -47,6 +61,8 @@ export class Mask implements CustomArgType {
         if (this.stringObj) this.stringObj += ",";
         this.stringObj += block.id.replace("minecraft:", "");
         if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+
+        this.simpleCache = undefined;
     }
 
     intersect(mask: Mask) {
@@ -73,8 +89,8 @@ export class Mask implements CustomArgType {
         let text = "";
         let i = 0;
         for (const mask of this.condition.nodes) {
-            let sub = (<BlockMask> mask).block.id.replace("minecraft:", "");
-            for (const state of (<BlockMask> mask).block.states) {
+            let sub = (<BlockMask>mask).block.id.replace("minecraft:", "");
+            for (const state of (<BlockMask>mask).block.states) {
                 const val = state[1];
                 if (typeof val == "string" && val != "x" && val != "y" && val != "z") {
                     sub += `(${val})`;
@@ -82,7 +98,7 @@ export class Mask implements CustomArgType {
                 }
             }
             text += sub;
-            if (i < this.condition.nodes.length-1) text += ", ";
+            if (i < this.condition.nodes.length - 1) text += ", ";
             i++;
         }
         return text;
@@ -92,10 +108,27 @@ export class Mask implements CustomArgType {
         return this.stringObj;
     }
 
+    isSimple() {
+        return !this.condition || this.condition instanceof BlockMask || (this.condition instanceof ChainMask && this.condition.nodes.every((node) => node instanceof BlockMask));
+    }
+
+    getSimpleForCommandArgs() {
+        if (!this.simpleCache) {
+            if (this.condition instanceof BlockMask) {
+                this.simpleCache = [parsedBlock2CommandArg(this.condition.block)];
+            } else if (this.condition instanceof ChainMask) {
+                this.simpleCache = this.condition.nodes.map((node) => parsedBlock2CommandArg((<BlockMask>node).block));
+            } else {
+                this.simpleCache = [];
+            }
+        }
+        return this.simpleCache;
+    }
+
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
         if (!input) {
-            return {result: new Mask(), argIndex: index+1};
+            return { result: new Mask(), argIndex: index + 1 };
         }
 
         const tokens = tokenize(input);
@@ -111,7 +144,7 @@ export class Mask implements CustomArgType {
             }
 
             // eslint-disable-next-line no-cond-assign
-            while (token = tokens.next()) {
+            while ((token = tokens.next())) {
                 if (token.type == "id") {
                     out.push(new BlockMask(nodeToken(), parseBlock(tokens, input, false, true) as parsedBlock));
                 } else if (token.value == ",") {
@@ -122,7 +155,7 @@ export class Mask implements CustomArgType {
                     processOps(out, ops, new NegateMask(token));
                 } else if (token.type == "bracket") {
                     if (token.value == "<") {
-                        processOps(out, ops, new OffsetMask(token, 0,  1, 0));
+                        processOps(out, ops, new OffsetMask(token, 0, 1, 0));
                     } else if (token.value == ">") {
                         processOps(out, ops, new OffsetMask(token, 0, -1, 0));
                     } else if (token.value == "(") {
@@ -208,8 +241,8 @@ export class Mask implements CustomArgType {
                     isSyntaxError: true,
                     idx: index,
                     start: error.pos,
-                    end: error.pos+1,
-                    stack: error.stack
+                    end: error.pos + 1,
+                    stack: error.stack,
                 };
                 throw err;
             }
@@ -220,7 +253,7 @@ export class Mask implements CustomArgType {
         mask.stringObj = args[index];
         mask.condition = out;
 
-        return {result: mask, argIndex: index+1};
+        return { result: mask, argIndex: index + 1 };
     }
 
     static clone(original: Mask) {
@@ -253,7 +286,10 @@ class BlockMask extends MaskNode {
     readonly opCount = 0;
     readonly states: Record<string, string | number | boolean>;
 
-    constructor(token: Token, public block: parsedBlock) {
+    constructor(
+        token: Token,
+        public block: parsedBlock
+    ) {
         super(token);
         this.states = Object.fromEntries(block.states?.entries() ?? []);
     }
@@ -267,7 +303,11 @@ class StateMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public states: parsedBlock["states"], public strict: boolean) {
+    constructor(
+        token: Token,
+        public states: parsedBlock["states"],
+        public strict: boolean
+    ) {
         super(token);
     }
 
@@ -296,10 +336,14 @@ class SurfaceMask extends MaskNode {
             return dim.getBlock(loc).isAir;
         };
 
-        return !isEmpty(loc) && (
-            isEmpty(loc.offset( 0, 1, 0)) || isEmpty(loc.offset( 0,-1, 0)) ||
-      isEmpty(loc.offset(-1, 0, 0)) || isEmpty(loc.offset( 1, 0, 0)) ||
-      isEmpty(loc.offset( 0, 0,-1)) || isEmpty(loc.offset( 0, 0, 1))
+        return (
+            !isEmpty(loc) &&
+            (isEmpty(loc.offset(0, 1, 0)) ||
+                isEmpty(loc.offset(0, -1, 0)) ||
+                isEmpty(loc.offset(-1, 0, 0)) ||
+                isEmpty(loc.offset(1, 0, 0)) ||
+                isEmpty(loc.offset(0, 0, -1)) ||
+                isEmpty(loc.offset(0, 0, 1)))
         );
     }
 }
@@ -317,7 +361,10 @@ class TagMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public tag: string) {
+    constructor(
+        token: Token,
+        public tag: string
+    ) {
         super(token);
     }
 
@@ -330,7 +377,10 @@ class PercentMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public percent: number) {
+    constructor(
+        token: Token,
+        public percent: number
+    ) {
         super(token);
     }
 
@@ -345,8 +395,7 @@ class ChainMask extends MaskNode {
 
     matchesBlock(block: BlockUnit) {
         for (const mask of this.nodes) {
-            if (mask.matchesBlock(block))
-                return true;
+            if (mask.matchesBlock(block)) return true;
         }
         return false;
     }
@@ -377,8 +426,7 @@ class IntersectMask extends MaskNode {
 
     matchesBlock(block: BlockUnit) {
         for (const mask of this.nodes) {
-            if (!mask.matchesBlock(block))
-                return false;
+            if (!mask.matchesBlock(block)) return false;
         }
         return true;
     }
@@ -417,17 +465,24 @@ class OffsetMask extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
 
-    constructor(token: Token, public x: number, public y: number, public z: number) {
+    constructor(
+        token: Token,
+        public x: number,
+        public y: number,
+        public z: number
+    ) {
         super(token);
     }
 
     matchesBlock(block: BlockUnit) {
         const loc = block.location;
-        return this.nodes[0].matchesBlock(block.dimension.getBlock({
-            x: loc.x + this.x,
-            y: loc.y + this.y,
-            z: loc.z + this.z
-        }));
+        return this.nodes[0].matchesBlock(
+            block.dimension.getBlock({
+                x: loc.x + this.x,
+                y: loc.y + this.y,
+                z: loc.z + this.z,
+            })
+        );
     }
 
     postProcess() {

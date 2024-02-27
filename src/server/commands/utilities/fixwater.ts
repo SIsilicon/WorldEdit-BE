@@ -1,7 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, Vector } from "@notbeer-api";
+import { RawText, regionBounds, sleep, Vector } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
-import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { fluidLookPositions, waterMatch } from "./drain.js";
 import { floodFill } from "./floodfill_func.js";
@@ -13,14 +12,12 @@ const registerInformation = {
     usage: [
         {
             name: "radius",
-            type: "float"
-        }
-    ]
+            type: "float",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const dimension = builder.dimension;
     const playerBlock = session.getPlacementPosition();
     let fixwaterStart: Vector;
@@ -37,40 +34,38 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw "commands.wedit:fixWater.noWater";
     }
 
-    const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(fixwaterStart));
-    Jobs.nextStep(job, "Calculating and Fixing water...");
-    const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx, dir) => {
-        const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
-        if (!block.typeId.match(waterMatch)) return false;
-        return true;
-    });
+    const blocks = yield* Jobs.run(session, 1, function* () {
+        yield Jobs.nextStep("Calculating and Fixing water...");
+        // Stop filling at unloaded chunks
+        const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx, dir) => {
+            const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
+            if (!block?.typeId.match(waterMatch)) return false;
+            return true;
+        });
 
-    if (blocks.length) {
+        if (!blocks.length) return blocks;
         const [min, max] = regionBounds(blocks);
 
         const history = session.getHistory();
         const record = history.record();
         const water = BlockPermutation.resolve("minecraft:water");
         try {
-            history.addUndoStructure(record, min, max, blocks);
+            yield history.addUndoStructure(record, min, max, blocks);
             let i = 0;
             for (const loc of blocks) {
-                const block = dimension.getBlock(loc);
+                let block = dimension.getBlock(loc);
+                while (!(block || (block = Jobs.loadBlock(loc)))) yield sleep(1);
                 block.setPermutation(water);
-                Jobs.setProgress(job, i++ / blocks.length);
-                yield;
+                yield Jobs.setProgress(i++ / blocks.length);
             }
-            history.addRedoStructure(record, min, max, blocks);
+            yield history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
         } catch (err) {
             history.cancel(record);
             throw err;
-        } finally {
-            Jobs.finishJob(job);
         }
-    } else {
-        Jobs.finishJob(job);
-    }
+        return blocks;
+    });
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.length}`);
 });

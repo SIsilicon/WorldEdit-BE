@@ -1,4 +1,4 @@
 export interface runCommandReturn {
-    error: boolean,
-    successCount: number
+    error: boolean;
+    successCount: number;
 }

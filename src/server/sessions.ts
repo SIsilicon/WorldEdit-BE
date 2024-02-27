@@ -13,26 +13,26 @@ import config from "config.js";
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
 
-Server.on("playerChangeDimension", ev => {
+Server.on("playerChangeDimension", (ev) => {
     playerSessions.get(ev.player.id)?.selection.clear();
 });
 
 interface regionTransform {
-  originalLoc?: Vector,
-  originalDim?: string,
-  relative: Vector,
-  rotation: Vector,
-  flip: Vector
+    originalLoc?: Vector;
+    originalDim?: string;
+    relative: Vector;
+    rotation: Vector;
+    flip: Vector;
 }
 
 interface superPickaxe {
-  enabled: boolean,
-  mode: "single" | "area" | "recursive",
-  range: number
+    enabled: boolean;
+    mode: "single" | "area" | "recursive";
+    range: number;
 }
 
 interface gradients {
-  [id: string]: { dither: number, patterns: Pattern[] }
+    [id: string]: { dither: number; patterns: Pattern[] };
 }
 
 /**
@@ -89,13 +89,13 @@ export class PlayerSession {
     public clipboardTransform: regionTransform = {
         relative: Vector.ZERO,
         rotation: Vector.ZERO,
-        flip: Vector.ONE
+        flip: Vector.ONE,
     };
 
     public superPickaxe: superPickaxe = {
         enabled: false,
         mode: "single",
-        range: 0
+        range: 0,
     };
 
     public selection: Selection;
@@ -116,10 +116,11 @@ export class PlayerSession {
         this.selection = new Selection(player);
         this.drawOutlines = config.drawOutlines;
         this.gradients = new Database<gradients>("gradients", player, (k, v) => {
-            if (k === "patterns") return (<string[]>v).map(v => {
-                console.warn(v);
-                return new Pattern(v);
-            });
+            if (k === "patterns")
+                return (<string[]>v).map((v) => {
+                    console.warn(v);
+                    return new Pattern(v);
+                });
             return v;
         });
 
@@ -198,7 +199,7 @@ export class PlayerSession {
      * @param args Optional parameters the tool uses during its construction.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public bindTool(tool: string, item: string|null, ...args: any[]) {
+    public bindTool(tool: string, item: string | null, ...args: any[]) {
         if (!item) {
             item = Server.player.getHeldItem(this.player)?.typeId;
         }
@@ -210,7 +211,7 @@ export class PlayerSession {
      * @param item The id of the item with the tool to test (null defaults to held item)
      * @param property The name of the tool's property
      */
-    public hasToolProperty(item: string|null, property: string) {
+    public hasToolProperty(item: string | null, property: string) {
         if (!item) {
             item = Server.player.getHeldItem(this.player)?.typeId;
         }
@@ -224,7 +225,7 @@ export class PlayerSession {
      * @param value The new value of the tool's property
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public setToolProperty(item: string|null, property: string, value: any) {
+    public setToolProperty(item: string | null, property: string, value: any) {
         if (!item) {
             item = Server.player.getHeldItem(this.player)?.typeId;
         }
@@ -235,7 +236,7 @@ export class PlayerSession {
      * @param item The id of the item to test (null defaults to held item)
      * @returns Whether the session has a tool binded to the player's hand.
      */
-    public hasTool(item: string|null) {
+    public hasTool(item: string | null) {
         if (!item) {
             item = Server.player.getHeldItem(this.player)?.typeId;
         }
@@ -246,7 +247,7 @@ export class PlayerSession {
      * @param item The id of the item to unbind from (null defaults to held item)
      * Unbinds a tool from this session's player's hand.
      */
-    public unbindTool(item: string|null) {
+    public unbindTool(item: string | null) {
         if (!item) {
             item = Server.player.getHeldItem(this.player)?.typeId;
         }
@@ -257,7 +258,7 @@ export class PlayerSession {
      * @param type The name of the tool to filter by
      * @returns The ids of the items that are bound to a tool
      */
-    public getTools(type?: RegExp|string) {
+    public getTools(type?: RegExp | string) {
         return Tools.getBoundItems(this.playerId, type);
     }
 
@@ -266,9 +267,9 @@ export class PlayerSession {
      */
     public enterSettings() {
         Server.uiForms.show<ConfigContext>("$configMenu", this.player, {
-            session: this
+            session: this,
         });
-    // this.settingsHotbar = new SettingsHotbar(this);
+        // this.settingsHotbar = new SettingsHotbar(this);
     }
 
     public createRegion(isAccurate: boolean) {
@@ -310,7 +311,7 @@ export class PlayerSession {
     }
 
     onTick() {
-    // Draw Selection
+        // Draw Selection
         this.selection?.draw();
     }
 }

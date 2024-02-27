@@ -2,24 +2,17 @@ import { Vector } from "@notbeer-api";
 import { Vector3 } from "@minecraft/server";
 import { locToString, stringToLoc } from "../../util.js";
 
-const offsets = [
-    new Vector(-1, 0, 0),
-    new Vector( 1, 0, 0),
-    new Vector( 0,-1, 0),
-    new Vector( 0, 1, 0),
-    new Vector( 0, 0,-1),
-    new Vector( 0, 0, 1)
-];
+const offsets = [new Vector(-1, 0, 0), new Vector(1, 0, 0), new Vector(0, -1, 0), new Vector(0, 1, 0), new Vector(0, 0, -1), new Vector(0, 0, 1)];
 
 export interface FloodFillContext {
-    pos: Vector
-    worldPos: Vector
+    pos: Vector;
+    worldPos: Vector;
 }
 
 export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, spread: (ctx: T, dir: Vector3) => boolean): Generator<void, Vector[]> {
     const initialCtx = {
         pos: Vector.ZERO,
-        worldPos: Vector.from(start)
+        worldPos: Vector.from(start),
     } as T;
 
     if (!spread({ ...initialCtx }, Vector.ZERO)) {
@@ -30,7 +23,7 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
     const result: Map<string, boolean> = new Map();
 
     function isInside(loc: Vector3) {
-        if (result.has(locToString(loc)) || Vector.sub(loc, start).length > size+0.5) {
+        if (result.has(locToString(loc)) || Vector.sub(loc, start).length > size + 0.5) {
             return false;
         }
         return true;
@@ -50,17 +43,19 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
         if (isInside(block)) {
             result.set(locToString(block), true);
             for (const offset of offsets) {
-                const newCtx = {...ctx};
+                const newCtx = { ...ctx };
                 try {
                     if (spread(newCtx, offset)) {
                         addNeighbor(block, offset, newCtx);
                     }
-                } catch { /* pass */ }
+                } catch {
+                    /* pass */
+                }
             }
         }
 
         yield;
     }
 
-    return Array.from(result.keys()).map(str => stringToLoc(str));
+    return Array.from(result.keys()).map((str) => stringToLoc(str));
 }

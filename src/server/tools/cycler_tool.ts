@@ -21,7 +21,7 @@ class BlockCyclerTool extends Tool {
         self.update(player, loc, false);
     };
 
-    update = function(player: Player, loc: Vector3, increment: boolean) {
+    update = function (player: Player, loc: Vector3, increment: boolean) {
         const block = player.dimension.getBlock(loc);
         let permutation = block.permutation;
         try {
@@ -41,7 +41,7 @@ class BlockCyclerTool extends Tool {
                 let stateText = "  " + state;
                 let valueText = value;
                 if (state == currState) {
-                    if (typeof(value) == "boolean") {
+                    if (typeof value == "boolean") {
                         valueText = currValue ? "§8false §ftrue" : "§ffalse §8true";
                     } else {
                         const prev = String(validValues[wrap(validValues.length, currValueIndex - (increment ? 0 : 1))]);
@@ -53,7 +53,9 @@ class BlockCyclerTool extends Tool {
                 texts.push(`${stateText}: ${valueText}§r`.padEnd(60));
             }
             print(texts.join("\n"), player, true);
-        } catch { /* pass */ }
+        } catch {
+            /* pass */
+        }
     };
 }
 Tools.register(BlockCyclerTool, "cycler_wand");

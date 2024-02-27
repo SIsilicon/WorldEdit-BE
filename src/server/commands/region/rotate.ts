@@ -11,35 +11,35 @@ const registerInformation = {
     description: "commands.wedit:rotate.description",
     usage: [
         {
-            flag: "o"
+            flag: "o",
         },
         {
-            flag: "w"
+            flag: "w",
         },
         {
-            flag: "s"
+            flag: "s",
         },
         {
             name: "rotate",
-            type: "int"
+            type: "int",
         },
         {
             name: "rotateX",
             type: "int",
-            default: 0
+            default: 0,
         },
         {
             name: "rotateZ",
             type: "int",
-            default: 0
-        }
-    ]
+            default: 0,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     let blockCount = 0;
     const rotation = new Vector(args.get("rotateX"), args.get("rotate"), args.get("rotateZ"));
-    function assertValidFastArgs () {
+    function assertValidFastArgs() {
         if ((Math.abs(rotation.y) / 90) % 1 != 0) {
             throw RawText.translate("commands.wedit:rotate.notNinety").with(args.get("rotate"));
         } else if (rotation.x || rotation.z) {
@@ -49,10 +49,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     if (args.has("w")) {
         if (config.performanceMode || session.performanceMode) assertValidFastArgs();
-
-        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
-        yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
-        Jobs.finishJob(job);
+        yield* Jobs.run(session, 4, transformSelection(session, builder, args, { rotation }));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);

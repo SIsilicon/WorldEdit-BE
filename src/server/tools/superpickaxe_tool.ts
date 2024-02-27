@@ -42,7 +42,14 @@ class SuperPickaxeTool extends Tool {
             if (!visited.has(str) && loc.sub(block).lengthSqr <= rangeSqr && block.y >= limits[0] && block.y <= limits[1] && dimension.getBlock(block).typeId == typeId) {
                 visited.add(str);
                 destroyBlock(dimension, block, config.superPickaxeManyDrop);
-                for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
+                for (const offset of [
+                    [0, 1, 0],
+                    [0, -1, 0],
+                    [1, 0, 0],
+                    [-1, 0, 0],
+                    [0, 0, 1],
+                    [0, 0, -1],
+                ] as [number, number, number][]) {
                     queue.push(block.add(offset));
                 }
             }
@@ -56,16 +63,14 @@ class SuperPickaxeTool extends Tool {
         super();
     }
 }
-Tools.register(SuperPickaxeTool, "superpickaxe", [
-    "minecraft:diamond_pickaxe",
-    "minecraft:golden_pickaxe",
-    "minecraft:iron_pickaxe",
-    "minecraft:netherite_pickaxe",
-    "minecraft:stone_pickaxe",
-    "minecraft:wooden_pickaxe"
-], function (player: Player, session: PlayerSession) {
-    return session.superPickaxe.enabled;
-});
+Tools.register(
+    SuperPickaxeTool,
+    "superpickaxe",
+    ["minecraft:diamond_pickaxe", "minecraft:golden_pickaxe", "minecraft:iron_pickaxe", "minecraft:netherite_pickaxe", "minecraft:stone_pickaxe", "minecraft:wooden_pickaxe"],
+    function (player: Player, session: PlayerSession) {
+        return session.superPickaxe.enabled;
+    }
+);
 
 function destroyBlock(dimension: Dimension, loc: Vector3, drop: boolean) {
     if (drop) {

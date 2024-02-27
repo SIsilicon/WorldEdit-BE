@@ -32,7 +32,7 @@ export class StructureBrush extends Brush {
 
         if (Array.isArray(struct) && typeof struct[0] == "string") {
             this.imports = struct as string[];
-            struct = this.imports.map(name => {
+            struct = this.imports.map((name) => {
                 return importStructure(name, world.getPlayers()[0]).buffer;
             });
         }
@@ -84,9 +84,9 @@ export class StructureBrush extends Brush {
                 [start, end] = regionTransformedBounds(start, end, start.lerp(end, 0.5), options.rotation, options.flip);
             }
 
-            history.addUndoStructure(record, start, end);
-            yield* struct.loadProgressive(start, session.getPlayer().dimension, options);
-            history.addRedoStructure(record, start, end);
+            yield history.addUndoStructure(record, start, end);
+            yield* struct.load(start, session.getPlayer().dimension, options);
+            yield history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch {
             history.cancel(record);
@@ -111,11 +111,7 @@ export class StructureBrush extends Brush {
         this.structIdx = Math.floor(Math.random() * this.structs.length);
         this.size = this.structs[this.structIdx].getSize();
         if (this.randomTransform) {
-            this.size = new Vector(
-                Math.max(this.size.x, this.size.z),
-                this.size.y,
-                Math.max(this.size.x, this.size.z)
-            );
+            this.size = new Vector(Math.max(this.size.x, this.size.z), this.size.y, Math.max(this.size.x, this.size.z));
         }
     }
 }

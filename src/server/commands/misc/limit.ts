@@ -12,9 +12,9 @@ const registerInformation = {
             name: "limit",
             type: "int",
             range: [1, null] as [number, null],
-            default: -1
-        }
-    ]
+            default: -1,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

@@ -13,9 +13,9 @@ const registerInformation = {
             name: "levels",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
-        }
-    ]
+            default: 1,
+        },
+    ],
 };
 
 function ascend(builder: Player) {
@@ -23,7 +23,7 @@ function ascend(builder: Player) {
     const limits = getWorldHeightLimits(dimension);
     const blockLoc = PlayerUtil.getBlockLocation(builder);
 
-    for (blockLoc.y = Math.max(limits[0], blockLoc.y);; blockLoc.y++) {
+    for (blockLoc.y = Math.max(limits[0], blockLoc.y); ; blockLoc.y++) {
         if (blockLoc.y > limits[1]) return false;
         if (dimension.getBlock(blockLoc).isAir) continue;
         if (blockLoc.y + 1 <= limits[1] && !dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) continue;

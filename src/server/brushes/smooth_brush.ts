@@ -25,7 +25,7 @@ export class SmoothBrush extends Brush {
     constructor(radius: number, iterations: number, mask: Mask) {
         super();
         this.assertSizeInRange(radius);
-        this.shape = new CuboidShape(radius*2+1, radius*2+1, radius*2+1);
+        this.shape = new CuboidShape(radius * 2 + 1, radius * 2 + 1, radius * 2 + 1);
         this.size = radius;
         this.iterations = iterations;
         this.mask = mask;
@@ -33,7 +33,7 @@ export class SmoothBrush extends Brush {
 
     public resize(value: number) {
         this.assertSizeInRange(value);
-        this.shape = new CuboidShape(value*2+1, value*2+1, value*2+1);
+        this.shape = new CuboidShape(value * 2 + 1, value * 2 + 1, value * 2 + 1);
         this.size = value;
         this.shape.usedInBrush = true;
     }
@@ -63,7 +63,7 @@ export class SmoothBrush extends Brush {
         const point = loc.offset(-this.size, -this.size, -this.size);
         selection.mode = "cuboid";
         selection.set(0, point);
-        selection.set(1, point.offset(this.size*2+1, this.size*2+1, this.size*2+1));
+        selection.set(1, point.offset(this.size * 2 + 1, this.size * 2 + 1, this.size * 2 + 1));
     }
 
     public toJSON() {
@@ -71,12 +71,12 @@ export class SmoothBrush extends Brush {
             id: this.id,
             radius: this.size,
             iterations: this.iterations,
-            mask: this.mask
+            mask: this.mask,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public static parseJSON(json: {[key: string]: any}) {
+    public static parseJSON(json: { [key: string]: any }) {
         return [json.radius, json.iterations, new Mask(json.mask)];
     }
 }

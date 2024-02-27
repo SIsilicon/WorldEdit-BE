@@ -7,7 +7,7 @@ const registerInformation = {
     name: "unstuck",
     permission: "worldedit.navigation.unstuck",
     description: "commands.wedit:unstuck.description",
-    aliases: ["!"]
+    aliases: ["!"],
 };
 
 registerCommand(registerInformation, function (session, builder) {
@@ -15,7 +15,7 @@ registerCommand(registerInformation, function (session, builder) {
     const limits = getWorldHeightLimits(dimension);
     const blockLoc = PlayerUtil.getBlockLocation(builder);
 
-    for (blockLoc.y = Math.max(limits[0], blockLoc.y);; blockLoc.y++) {
+    for (blockLoc.y = Math.max(limits[0], blockLoc.y); ; blockLoc.y++) {
         if (blockLoc.y <= limits[1] && !dimension.getBlock(blockLoc).isAir) continue;
         if (blockLoc.y + 1 <= limits[1] && !dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) continue;
 

@@ -3,7 +3,8 @@ import { system } from "@minecraft/server";
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
-let tickTimeoutID = 0, tickIntervalID = 0;
+let tickTimeoutID = 0,
+    tickIntervalID = 0;
 
 /**
  * Delay executing a function
@@ -53,28 +54,26 @@ function clearTickInterval(handle: number): void {
 let totalTick = 0;
 system.runInterval(() => {
     totalTick++;
-    for(const [ID, tickTimeout] of tickTimeoutMap) {
+    for (const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
-        if(tickTimeout.tick <= 0) {
+        if (tickTimeout.tick <= 0) {
             tickTimeout.callback(...tickTimeout.args);
             tickTimeoutMap.delete(ID);
         }
     }
-    for(const [, tickInterval] of tickIntervalMap) {
-        if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
+    for (const [, tickInterval] of tickIntervalMap) {
+        if (totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
     }
 });
 
 function sleep(ticks: number) {
-    return new Promise(resolve => setTickTimeout(resolve, ticks));
+    return new Promise((resolve) => setTickTimeout(resolve, ticks));
 }
-
 
 function shutdownTimers() {
     tickTimeoutMap.clear();
     tickIntervalMap.clear();
 }
-
 
 class Timer {
     private time = Date.now();

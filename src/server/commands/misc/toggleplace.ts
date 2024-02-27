@@ -3,7 +3,7 @@ import { RawText } from "@notbeer-api";
 
 const registerInformation = {
     name: "toggleplace",
-    description: "commands.wedit:toggleplace.description"
+    description: "commands.wedit:toggleplace.description",
 };
 
 registerCommand(registerInformation, function (session) {

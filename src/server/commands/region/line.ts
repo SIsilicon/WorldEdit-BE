@@ -1,8 +1,9 @@
 import { Vector3 } from "@minecraft/server";
-import { assertCuboidSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, Vector } from "@notbeer-api";
+import { RawText, Vector, sleep } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { Jobs } from "@modules/jobs.js";
 
 const registerInformation = {
     name: "line",
@@ -11,9 +12,9 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]> {
@@ -95,7 +96,6 @@ export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]>
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    assertCanBuildWithin(builder, ...session.selection.getRange());
     if (session.selection.mode != "cuboid") {
         throw "commands.wedit:line.invalidType";
     }
@@ -113,29 +113,34 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
 
     pattern.setContext(session, [start, end]);
-
-    const history = session.getHistory();
-    const record = history.record();
     let count: number;
-    try {
-        const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
-        history.addUndoStructure(record, start, end);
-        count = 0;
-        for (const point of points) {
-            const block = dim.getBlock(point);
-            if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
-                count++;
-            }
-            yield;
-        }
 
-        history.recordSelection(record, session);
-        history.addRedoStructure(record, start, end);
-        history.commit(record);
-    } catch (e) {
-        history.cancel(record);
-        throw e;
-    }
+    yield* Jobs.run(session, 1, function* () {
+        const history = session.getHistory();
+        const record = history.record();
+        try {
+            const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map((p) => p.floor());
+            yield history.addUndoStructure(record, start, end);
+            count = 0;
+            for (const point of points) {
+                let block = dim.getBlock(point);
+                while (!block) {
+                    block = Jobs.loadBlock(point);
+                    yield sleep(1);
+                }
+                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
+                    count++;
+                }
+                yield;
+            }
+            history.recordSelection(record, session);
+            yield history.addRedoStructure(record, start, end);
+            history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        }
+    });
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

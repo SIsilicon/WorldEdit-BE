@@ -1,8 +1,7 @@
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, regionBounds } from "@notbeer-api";
-import { SphereShape } from "../../shapes/sphere.js";
+import { RawText, regionBounds, sleep } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { floodFill, FloodFillContext } from "./floodfill_func.js";
 
@@ -13,78 +12,73 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
+            type: "Pattern",
         },
         {
             name: "radius",
-            type: "float"
+            type: "float",
         },
         {
             name: "depth",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
+            default: 1,
         },
         {
             name: "direction",
             type: "Direction",
-            default: new Cardinal(Cardinal.Dir.DOWN)
-        }
-    ]
+            default: new Cardinal(Cardinal.Dir.DOWN),
+        },
+    ],
 };
 
 interface fillContext extends FloodFillContext {
-    fillDown?: boolean
+    fillDown?: boolean;
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const dimension = builder.dimension;
     const fillDir = (args.get("direction") as Cardinal).getDirection(builder);
     const pattern: Pattern = args.get("pattern");
     const depth: number = args.get("depth");
     const startBlock = session.getPlacementPosition();
-    const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(startBlock));
 
-    Jobs.nextStep(job, "Calculating and Generating blocks...");
-    const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), (ctx, dir) => {
-        const dotDir = fillDir.dot(dir);
+    const blocks = yield* Jobs.run(session, 1, function* () {
+        yield Jobs.nextStep("Calculating and Generating blocks...");
+        // Stop filling at unloaded chunks
+        const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), (ctx, dir) => {
+            const dotDir = fillDir.dot(dir);
+            if (dotDir < 0) return false;
+            if (dotDir == 0 && ctx.fillDown) return false;
+            if (fillDir.dot(ctx.pos.add(dir)) > depth - 1) return false;
+            if (!dimension.getBlock(ctx.worldPos.add(dir))?.isAir) return false;
+            if (dotDir > 0) ctx.fillDown = true;
+            return true;
+        });
 
-        if (dotDir < 0) return false;
-        if (dotDir == 0 && ctx.fillDown) return false;
-        if (fillDir.dot(ctx.pos.add(dir)) > depth-1) return false;
-        if (!dimension.getBlock(ctx.worldPos.add(dir)).isAir) return false;
-
-        if (dotDir > 0) ctx.fillDown = true;
-        return true;
-    });
-
-    if (blocks.length) {
+        if (!blocks.length) return blocks;
         const [min, max] = regionBounds(blocks);
         pattern.setContext(session, [min, max]);
 
         const history = session.getHistory();
         const record = history.record();
         try {
-            history.addUndoStructure(record, min, max, blocks);
+            yield history.addUndoStructure(record, min, max, blocks);
             let i = 0;
-            for (const block of blocks) {
-                pattern.setBlock(builder.dimension.getBlock(block));
-                Jobs.setProgress(job, i++ / blocks.length);
-                yield;
+            for (const loc of blocks) {
+                let block = dimension.getBlock(loc);
+                while (!(block || (block = Jobs.loadBlock(loc)))) yield sleep(1);
+                pattern.setBlock(block);
+                yield Jobs.setProgress(i++ / blocks.length);
             }
-            history.addRedoStructure(record, min, max, blocks);
+            yield history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
         } catch (err) {
             history.cancel(record);
             throw err;
-        } finally {
-            Jobs.finishJob(job);
         }
-    } else {
-        Jobs.finishJob(job);
-    }
+        return blocks;
+    });
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.length}`);
 });

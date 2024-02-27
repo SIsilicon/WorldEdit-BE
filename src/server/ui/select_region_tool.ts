@@ -9,28 +9,28 @@ Server.uiForms.register("$selectRegionMode", {
             action: (_, player) => {
                 Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:selection_fill"));
             },
-            icon: "textures/items/selection_fill"
+            icon: "textures/items/selection_fill",
         },
         {
             text: "%worldedit.regionMode.outline",
             action: (_, player) => {
                 Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:selection_outline"));
             },
-            icon: "textures/items/selection_outline"
+            icon: "textures/items/selection_outline",
         },
         {
             text: "%worldedit.regionMode.wall",
             action: (_, player) => {
                 Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:selection_wall"));
             },
-            icon: "textures/items/selection_wall"
+            icon: "textures/items/selection_wall",
         },
         {
             text: "%worldedit.regionMode.hollow",
             action: (_, player) => {
                 Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:selection_hollow"));
             },
-            icon: "textures/items/selection_hollow"
+            icon: "textures/items/selection_hollow",
         },
-    ]
+    ],
 });

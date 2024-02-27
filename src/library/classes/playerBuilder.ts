@@ -45,7 +45,7 @@ export class PlayerBuilder {
      */
     find(player: string): boolean {
         const players = this.list();
-        return !!players.find(p => {
+        return !!players.find((p) => {
             return p.name == player;
         });
     }
@@ -71,7 +71,7 @@ export class PlayerBuilder {
      * @returns {Minecraft.EntityEquippableComponent}
      */
     getEquipment(player: Player) {
-        return (player.getComponent("minecraft:equippable") as Minecraft.EntityEquippableComponent);
+        return player.getComponent("minecraft:equippable") as Minecraft.EntityEquippableComponent;
     }
     /**
      * Get the amount on a specific items player(s) has

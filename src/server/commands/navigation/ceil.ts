@@ -12,9 +12,9 @@ const registerInformation = {
             name: "clearance",
             type: "int",
             range: [0, null] as [number, null],
-            default: 0
-        }
-    ]
+            default: 0,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -23,7 +23,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     const limits = getWorldHeightLimits(dimension);
     const blockLoc = PlayerUtil.getBlockLocation(builder).offset(0, 2, 0);
 
-    for (let i = 0;; i++, blockLoc.y++) {
+    for (let i = 0; ; i++, blockLoc.y++) {
         if (blockLoc.y > limits[1]) {
             throw RawText.translate("commands.wedit:ascend.obstructed");
         }

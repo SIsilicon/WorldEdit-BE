@@ -12,10 +12,7 @@ export class PyramidShape extends Shape {
     }
 
     public getRegion(loc: Vector) {
-        return <[Vector, Vector]>[
-            loc.offset(-this.size+1, 0, -this.size+1),
-            loc.offset(this.size-1, this.size-1, this.size-1)
-        ];
+        return <[Vector, Vector]>[loc.offset(-this.size + 1, 0, -this.size + 1), loc.offset(this.size - 1, this.size - 1, this.size - 1)];
     }
 
     public getYRange(): null {
@@ -31,9 +28,15 @@ export class PyramidShape extends Shape {
             loc.add([this.size, 0, this.size]),
             loc.add([0.5, this.size, 0.5]),
         ];
-        const edges: [number, number][]= [
-            [0, 1], [1, 3], [2, 0], [3, 2],
-            [0,4], [1, 4], [2, 4], [3, 4],
+        const edges: [number, number][] = [
+            [0, 1],
+            [1, 3],
+            [2, 0],
+            [3, 2],
+            [0, 4],
+            [1, 4],
+            [2, 4],
+            [3, 4],
         ];
         return this.drawShape(vertices, edges);
     }
@@ -44,10 +47,7 @@ export class PyramidShape extends Shape {
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         const latSize = this.size - relLoc.y - 0.5;
-        const local = [
-            relLoc.x,
-            relLoc.z
-        ];
+        const local = [relLoc.x, relLoc.z];
 
         if (genVars.isHollow) {
             const hLatSize = latSize - 1;

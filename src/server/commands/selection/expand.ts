@@ -16,49 +16,48 @@ const registerInformation = {
                 {
                     name: "height",
                     type: "int",
-                    default: 384
-                }
-            ]
+                    default: 384,
+                },
+            ],
         },
         {
             subName: "_defaultA",
             args: [
                 {
                     name: "amount",
-                    type: "int"
+                    type: "int",
                 },
                 {
                     name: "direction",
                     type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD)
-                }
-            ]
+                    default: new Cardinal(Cardinal.Dir.FORWARD),
+                },
+            ],
         },
         {
             subName: "_defaultB",
             args: [
                 {
                     name: "amount",
-                    type: "int"
+                    type: "int",
                 },
                 {
                     name: "reverseAmount",
-                    type: "int"
+                    type: "int",
                 },
                 {
                     name: "direction",
                     type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD)
-                }
-            ]
-        }
-
-    ]
+                    default: new Cardinal(Cardinal.Dir.FORWARD),
+                },
+            ],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
     assertCuboidSelection(session);
-    const points = session.selection.points.map(block => Vector.from(block));
+    const points = session.selection.points.map((block) => Vector.from(block));
     let dir: Vector, dirIdx: number, side1: number, side2: number;
 
     if (args.has("vert")) {
@@ -68,7 +67,7 @@ registerCommand(registerInformation, function (session, builder, args) {
         side2 = args.get("height") as number;
     } else {
         dir = (args.get("direction") as Cardinal).getDirection(builder);
-        dirIdx = dir.x ? 0 : (dir.y ? 1 : 2);
+        dirIdx = dir.x ? 0 : dir.y ? 1 : 2;
         side1 = Math.max(-args.get("amount"), 0) + Math.max(args.get("reverseAmount") ?? 0, 0);
         side2 = Math.max(args.get("amount"), 0) + Math.max(-(args.get("reverseAmount") ?? 0), 0);
     }

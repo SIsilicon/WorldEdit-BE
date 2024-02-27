@@ -1,4 +1,4 @@
-import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
+import { assertClipboard } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
@@ -10,17 +10,20 @@ const registerInformation = {
     description: "commands.wedit:paste.description",
     usage: [
         {
-            flag: "o"
-        }, {
-            flag: "s"
-        }, {
-            flag: "n"
-        }, {
+            flag: "o",
+        },
+        {
+            flag: "s",
+        },
+        {
+            flag: "n",
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -51,33 +54,27 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const history = session.getHistory();
     const record = history.record();
-    const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
-    try {
-        if (pasteContent) {
-            assertCanBuildWithin(builder, pasteStart, pasteEnd);
-            history.addUndoStructure(record, pasteStart, pasteEnd, "any");
-
-            Jobs.nextStep(job, "Pasting blocks...");
-            yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") }));
-            history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+    yield* Jobs.run(session, 1, function* () {
+        try {
+            if (pasteContent) {
+                yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+                yield Jobs.nextStep("Pasting blocks...");
+                yield* session.clipboard.load(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") });
+                yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+            }
+            if (setSelection) {
+                history.recordSelection(record, session);
+                session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
+                session.selection.set(0, pasteStart);
+                session.selection.set(1, pasteEnd);
+                history.recordSelection(record, session);
+            }
+            history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
         }
-
-        if (setSelection) {
-            history.recordSelection(record, session);
-            session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
-            session.selection.set(0, pasteStart);
-            session.selection.set(1, pasteEnd);
-            history.recordSelection(record, session);
-        }
-
-        history.commit(record);
-    } catch (e) {
-        history.cancel(record);
-        throw e;
-    } finally {
-        Jobs.finishJob(job);
-    }
-
+    });
     if (pasteContent) {
         return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getBlockCount()}`);
     }

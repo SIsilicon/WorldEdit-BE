@@ -1,33 +1,34 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, Server, regionSize } from "@notbeer-api";
-import { assertCanBuildWithin, UnloadedChunksError } from "./assert.js";
-import { addTickingArea, canPlaceBlock, removeTickingArea } from "../util.js";
+import { Vector, regionVolume, Server, regionSize, regionCenter } from "@notbeer-api";
+import { UnloadedChunksError } from "./assert.js";
+import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
 import { selectMode } from "./selection.js";
 import { BlockUnit } from "./block_parsing.js";
 import config from "config.js";
+import { Jobs } from "./jobs.js";
 
 type historyEntry = {
-    name: string
-    dimension: Dimension
-    location: Vector3
-    size: Vector3
-}
+    name: string;
+    dimension: Dimension;
+    location: Vector3;
+    size: Vector3;
+};
 
 type selectionEntry = {
-    type: selectMode
-    points: Vector[]
-}
+    type: selectMode;
+    points: Vector[];
+};
 
 type historyPoint = {
-    undo: historyEntry[]
-    redo: historyEntry[]
-    selection: [selectionEntry, selectionEntry] | selectionEntry | "none"
+    undo: historyEntry[];
+    redo: historyEntry[];
+    selection: [selectionEntry, selectionEntry] | selectionEntry | "none";
 
-    blockChange: BlockChanges
-    blocksChanged: number
-    brush: boolean
-}
+    blockChange: BlockChanges;
+    blocksChanged: number;
+    brush: boolean;
+};
 
 const air = BlockPermutation.resolve("minecraft:air");
 
@@ -57,7 +58,7 @@ export class History {
 
             blockChange: new BlockChangeImpl(this.session.getPlayer().dimension, this, historyPointId),
             blocksChanged: 0,
-            brush
+            brush,
         } as historyPoint;
         this.historyPoints.set(historyPointId, historyPoint);
         return historyPointId;
@@ -104,8 +105,8 @@ export class History {
         return this.historyPoints.get(historyPoint)?.blockChange;
     }
 
-    addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
-    // contentLog.debug("adding undo structure");
+    async addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+        // contentLog.debug("adding undo structure");
         const point = this.historyPoints.get(historyPoint);
         point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
         // We test the change limit here,
@@ -113,25 +114,25 @@ export class History {
             throw "commands.generic.wedit:blockLimit";
         }
 
-        const structName = this.processRegion(historyPoint, start, end, blocks);
+        const structName = await this.processRegion(historyPoint, start, end, blocks);
         point.undo.push({
             name: structName,
             dimension: this.session.getPlayer().dimension,
             location: Vector.min(start, end).floor(),
-            size: regionSize(start, end)
+            size: regionSize(start, end),
         });
     }
 
-    addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+    async addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
         const point = this.historyPoints.get(historyPoint);
         this.assertRecording();
 
-        const structName = this.processRegion(historyPoint, start, end, blocks);
+        const structName = await this.processRegion(historyPoint, start, end, blocks);
         point.redo.push({
             name: structName,
             dimension: this.session.getPlayer().dimension,
             location: Vector.min(start, end).floor(),
-            size: regionSize(start, end)
+            size: regionSize(start, end),
         });
     }
 
@@ -140,22 +141,22 @@ export class History {
         if (point.selection == "none") {
             point.selection = {
                 type: session.selection.mode,
-                points: session.selection.points
+                points: session.selection.points,
             };
         } else if ("points" in point.selection) {
             point.selection = [
                 point.selection,
                 {
                     type: session.selection.mode,
-                    points: session.selection.points
-                }
+                    points: session.selection.points,
+                },
             ];
         } else {
-            throw new Error("Cannot call \"recordSelection\" more than two times!");
+            throw new Error('Cannot call "recordSelection" more than two times!');
         }
     }
 
-    undo(session: PlayerSession) {
+    async undo(session: PlayerSession) {
         this.assertNotRecording();
         if (this.historyIdx <= -1) {
             return true;
@@ -163,22 +164,15 @@ export class History {
 
         const player = this.session.getPlayer();
         const dim = player.dimension;
+        const jobCtx = Jobs.getContext();
         for (const region of this.undoStructures[this.historyIdx]) {
-            const pos = region.location;
-            const size = Server.structure.getSize(region.name);
-            assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).floor());
-        }
-
-        const tickArea = "wedit:history_" + this.historyIdx;
-        for (const region of this.undoStructures[this.historyIdx]) {
-            try {
-                addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
-                if (Server.structure.load(region.name, region.location, dim)) {
-                    throw new UnloadedChunksError("worldedit.error.loadHistory");
+            await Server.structure.loadWhileLoadingChunks(region.name, region.location, dim, {}, (min, max) => {
+                if (Jobs.isContextValid(jobCtx)) {
+                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
+                    return false;
                 }
-            } finally {
-                removeTickingArea(tickArea, region.dimension);
-            }
+                return true;
+            });
         }
 
         let selection: selectionEntry;
@@ -198,7 +192,7 @@ export class History {
         return false;
     }
 
-    redo(session: PlayerSession) {
+    async redo(session: PlayerSession) {
         this.assertNotRecording();
         if (this.historyIdx >= this.redoStructures.length - 1) {
             return true;
@@ -206,23 +200,16 @@ export class History {
 
         const player = this.session.getPlayer();
         const dim = player.dimension;
-        for (const region of this.redoStructures[this.historyIdx + 1]) {
-            const pos = region.location;
-            const size = Server.structure.getSize(region.name);
-            assertCanBuildWithin(player, pos, Vector.from(pos).add(size).sub(Vector.ONE).floor());
-        }
-
+        const jobCtx = Jobs.getContext();
         this.historyIdx++;
-        const tickArea = "wedit:history_" + this.historyIdx;
         for (const region of this.redoStructures[this.historyIdx]) {
-            try {
-                addTickingArea(tickArea, region.dimension, region.location, Vector.add(region.location, region.size).sub(1).floor());
-                if (Server.structure.load(region.name, region.location, dim)) {
-                    throw new UnloadedChunksError("worldedit.error.loadHistory");
+            await Server.structure.loadWhileLoadingChunks(region.name, region.location, dim, {}, (min, max) => {
+                if (Jobs.isContextValid(jobCtx)) {
+                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
+                    return false;
                 }
-            } finally {
-                removeTickingArea(tickArea, region.dimension);
-            }
+                return true;
+            });
         }
 
         let selection: selectionEntry;
@@ -268,57 +255,40 @@ export class History {
             for (const struct of this.redoStructures[index]) {
                 Server.structure.delete(struct.name);
             }
-        } catch { /* pass */ }
+        } catch {
+            /* pass */
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    private processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
+    private async processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
         let structName: string;
         const player = this.session.getPlayer();
         const dim = player.dimension;
 
-        const finish = () => {
-            // if (recordBlocks) {
-            //   Server.structure.load(tempRegion, loc, dim);
-            //   Server.structure.delete(tempRegion);
-            // }
-            return;
-        };
-
         try {
-            if (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim)) {
+            const jobCtx = Jobs.getContext();
+            if (!jobCtx && (!canPlaceBlock(start, dim) || !canPlaceBlock(end, dim))) {
                 throw new UnloadedChunksError("worldedit.error.saveHistory");
             }
 
-            // TODO: Get history precise recording working again
-            // Assuming that `blocks` was made with `start.blocksBetween(end)` and then filtered.
-            // if (recordBlocks) {
-            //   loc = Vector.min(start, end).floor();
-            //   const voidBlock = MinecraftBlockTypes.structureVoid.createDefaultBlockPermutation();
-            //   Server.structure.save(tempRegion, start, end, dim);
-            //   let index = 0;
-            //   for (const block of start.blocksBetween(end)) {
-            //     if (blocks[index]?.equals(block)) {
-            //       index++;
-            //     } else {
-            //       dim.getBlock(block).setPermutation(voidBlock);
-            //     }
-            //   }
-            // }
-
             structName = "wedit:history_" + (historyId++).toString(16);
-            if (Server.structure.save(structName, start, end, dim)) {
-                finish();
+            if (
+                await Server.structure.saveWhileLoadingChunks(structName, start, end, dim, {}, (min, max) => {
+                    if (Jobs.isContextValid(jobCtx)) {
+                        Jobs.loadBlock(regionCenter(min, max), jobCtx);
+                        return false;
+                    }
+                    return true;
+                })
+            ) {
                 this.cancel(historyPoint);
                 throw new UnloadedChunksError("worldedit.error.saveHistory");
             }
         } catch (err) {
-            finish();
             this.cancel(historyPoint);
             throw err;
         }
-
-        finish();
         return structName;
     }
 
@@ -336,14 +306,14 @@ export class History {
 }
 
 export interface BlockChanges {
-  readonly dimension: Dimension;
+    readonly dimension: Dimension;
 
-  getBlockPerm(loc: Vector3): BlockPermutation;
-  getBlock(loc: Vector3): BlockUnit;
-  setBlock(loc: Vector3, block: BlockPermutation): void;
+    getBlockPerm(loc: Vector3): BlockPermutation;
+    getBlock(loc: Vector3): BlockUnit;
+    setBlock(loc: Vector3, block: BlockPermutation): void;
 
-  applyIteration(): void;
-  flush(): Generator<number>;
+    applyIteration(): void;
+    flush(): Generator<number>;
 }
 
 class BlockChangeImpl implements BlockChanges {
@@ -382,7 +352,9 @@ class BlockChangeImpl implements BlockChanges {
             dimension: this.dimension,
             setPermutation: (perm: BlockPermutation) => this.setBlock(loc, perm),
             hasTag: perm.hasTag,
-            get isAir() { return perm.type.id == "minecraft:air" ? true : false; }
+            get isAir() {
+                return perm.type.id == "minecraft:air" ? true : false;
+            },
         };
     }
 
@@ -408,7 +380,7 @@ class BlockChangeImpl implements BlockChanges {
     }
 
     getRegion() {
-        return this.ranges.map(v => [v[0], v[1]]);
+        return this.ranges.map((v) => [v[0], v[1]]);
     }
 
     *flush() {
@@ -421,7 +393,9 @@ class BlockChangeImpl implements BlockChanges {
         for (const [loc, block] of this.changes.entries()) {
             try {
                 this.blockCache.get(loc).setPermutation(block);
-            } catch { /* pass */ }
+            } catch {
+                /* pass */
+            }
             yield ++i;
         }
 

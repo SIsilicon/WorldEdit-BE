@@ -23,13 +23,17 @@ class ErosionPreset {
 }
 
 export enum ErosionType {
-  DEFAULT, LIFT, FILL, MELT, SMOOTH
+    DEFAULT,
+    LIFT,
+    FILL,
+    MELT,
+    SMOOTH,
 }
 
 const fluids = {
     "minecraft:air": BlockPermutation.resolve("air"),
     "minecraft:water": BlockPermutation.resolve("water"),
-    "minecraft:lava": BlockPermutation.resolve("lava")
+    "minecraft:lava": BlockPermutation.resolve("lava"),
 };
 
 /**
@@ -202,12 +206,12 @@ export class ErosionBrush extends Brush {
         return {
             id: this.id,
             radius: this.radius,
-            type: this.type
+            type: this.type,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public static parseJSON(json: {[key: string]: any}) {
+    public static parseJSON(json: { [key: string]: any }) {
         return [json.radius, json.type];
     }
 }
@@ -218,5 +222,5 @@ const erosionTypes = new Map<ErosionType, ErosionPreset>([
     [ErosionType.LIFT, new ErosionPreset(6, 0, 1, 1)],
     [ErosionType.FILL, new ErosionPreset(5, 1, 2, 1)],
     [ErosionType.MELT, new ErosionPreset(2, 1, 5, 1)],
-    [ErosionType.SMOOTH, new ErosionPreset(3, 1, 3, 1)]
+    [ErosionType.SMOOTH, new ErosionPreset(3, 1, 3, 1)],
 ]);

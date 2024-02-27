@@ -10,16 +10,18 @@ const registerInformation = {
     description: "commands.wedit:pyramid.description",
     usage: [
         {
-            flag: "h"
-        }, {
+            flag: "h",
+        },
+        {
             name: "pattern",
-            type: "Pattern"
-        }, {
+            type: "Pattern",
+        },
+        {
             name: "size",
             type: "int",
-            range: [1, null] as [number, null]
-        }
-    ]
+            range: [1, null] as [number, null],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -29,9 +31,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const loc = session.getPlacementPosition();
     const pyramidShape = new PyramidShape(size);
-    const job = Jobs.startJob(session, 2, pyramidShape.getRegion(loc));
-    const count = yield* Jobs.perform(job, pyramidShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
-    Jobs.finishJob(job);
-
+    const count = yield* Jobs.run(session, 2, pyramidShape.generate(loc, pattern, null, session, { hollow: isHollow }));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

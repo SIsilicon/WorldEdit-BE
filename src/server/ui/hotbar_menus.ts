@@ -8,10 +8,14 @@ import { getSession } from "server/sessions";
 HotbarUI.register<ConfigContext>("$chooseItem", {
     title: "%worldedit.config.chooseItem",
     items: {
-        0: { item: "minecraft:air", action: undefined }, 1: { item: "minecraft:air", action: undefined },
-        2: { item: "minecraft:air", action: undefined }, 3: { item: "minecraft:air", action: undefined },
-        4: { item: "minecraft:air", action: undefined }, 5: { item: "minecraft:air", action: undefined },
-        6: { item: "minecraft:air", action: undefined }, 7: { item: "minecraft:air", action: undefined },
+        0: { item: "minecraft:air", action: undefined },
+        1: { item: "minecraft:air", action: undefined },
+        2: { item: "minecraft:air", action: undefined },
+        3: { item: "minecraft:air", action: undefined },
+        4: { item: "minecraft:air", action: undefined },
+        5: { item: "minecraft:air", action: undefined },
+        6: { item: "minecraft:air", action: undefined },
+        7: { item: "minecraft:air", action: undefined },
     },
     tick: (ctx, player) => {
         const item = Server.player.getHeldItem(player);
@@ -20,95 +24,103 @@ HotbarUI.register<ConfigContext>("$chooseItem", {
             ctx.goto(ctx.getData("editingBrush") ? "$selectBrushType" : "$selectToolType");
         }
     },
-    cancel: ctx => ctx.returnto("$tools")
+    cancel: (ctx) => ctx.returnto("$tools"),
 });
 
 HotbarUI.register<ConfigContext>("$pickMask", {
-    title: ctx => "worldedit.config.mask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+    title: (ctx) => "worldedit.config.mask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
     items: {
         4: {
             item: "wedit:mask_picker",
-            action: () => { /**/ }
+            action: () => {
+                /**/
+            },
         },
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 const mask = ctx.getData("session").globalMask;
                 ctx.getData("pickerData").onFinish(ctx, player, mask, undefined);
-            }
-        }
+            },
+        },
     },
-    entered: ctx => {
+    entered: (ctx) => {
         const session = ctx.getData("session");
         ctx.setData("stashedMask", session.globalMask);
         session.globalMask = new Mask();
     },
-    exiting: ctx => {
+    exiting: (ctx) => {
         const session = ctx.getData("session");
         session.globalMask = ctx.getData("stashedMask");
     },
-    cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+    cancel: (ctx) => ctx.returnto(ctx.getData("pickerData").return),
 });
 
 HotbarUI.register<ConfigContext>("$pickPatternMask", {
-    title: ctx => "%worldedit.config.patternMask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+    title: (ctx) => "%worldedit.config.patternMask." + (ctx.getData("editingBrush") ? "brush" : "tool"),
     items: {
         3: {
             item: "wedit:pattern_picker",
-            action: () => { /**/ }
+            action: () => {
+                /**/
+            },
         },
         5: {
             item: "wedit:mask_picker",
-            action: () => { /**/ }
+            action: () => {
+                /**/
+            },
         },
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 const session = ctx.getData("session");
                 ctx.getData("pickerData").onFinish(ctx, player, session.globalMask, session.globalPattern);
-            }
-        }
+            },
+        },
     },
-    entered: ctx => {
+    entered: (ctx) => {
         const session = ctx.getData("session");
         ctx.setData("stashedMask", session.globalMask);
         ctx.setData("stashedPattern", session.globalPattern);
         session.globalMask = new Mask();
         session.globalPattern = new Pattern();
     },
-    exiting: ctx => {
+    exiting: (ctx) => {
         const session = ctx.getData("session");
         session.globalMask = ctx.getData("stashedMask");
         session.globalPattern = ctx.getData("stashedPattern");
     },
-    cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+    cancel: (ctx) => ctx.returnto(ctx.getData("pickerData").return),
 });
 
 HotbarUI.register<ConfigContext>("$pickPattern", {
-    title: ctx => "%worldedit.config.pattern." + (ctx.getData("editingBrush") ? "brush" : "tool"),
+    title: (ctx) => "%worldedit.config.pattern." + (ctx.getData("editingBrush") ? "brush" : "tool"),
     items: {
         4: {
             item: "wedit:pattern_picker",
-            action: () => { /**/ }
+            action: () => {
+                /**/
+            },
         },
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 const session = ctx.getData("session");
                 ctx.getData("pickerData").onFinish(ctx, player, undefined, session.globalPattern);
-            }
-        }
+            },
+        },
     },
-    entered: ctx => {
+    entered: (ctx) => {
         const session = ctx.getData("session");
         ctx.setData("stashedPattern", session.globalPattern);
         session.globalPattern = new Pattern();
     },
-    exiting: ctx => {
+    exiting: (ctx) => {
         const session = ctx.getData("session");
         session.globalPattern = ctx.getData("stashedPattern");
     },
-    cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+    cancel: (ctx) => ctx.returnto(ctx.getData("pickerData").return),
 });
 
 HotbarUI.register<ConfigContext>("$selectBlocks", {
@@ -116,14 +128,16 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
     items: {
         4: {
             item: "minecraft:wooden_axe",
-            action: () => { /**/ }
+            action: () => {
+                /**/
+            },
         },
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 ctx.getData("pickerData").onFinish(ctx, player, undefined, undefined);
-            }
-        }
+            },
+        },
     },
     entered: (ctx, player) => {
         const session = getSession(player);
@@ -138,5 +152,5 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
         const oldMode = ctx.getData("stashedSelectionMode");
         if (oldMode) getSession(player).selection.mode = oldMode;
     },
-    cancel: ctx => ctx.returnto(ctx.getData("pickerData").return)
+    cancel: (ctx) => ctx.returnto(ctx.getData("pickerData").return),
 });

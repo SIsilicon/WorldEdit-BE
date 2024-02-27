@@ -5,21 +5,28 @@ import { getViewVector } from "server/util";
 const directions = ["up", "down", "left", "right", "forward", "back", "north", "south", "east", "west", "me"];
 const dirAliases = ["u", "d", "l", "r", "f", "b", "n", "s", "e", "w", "m"];
 
-const DIRECTIONS: {[k: string]: Vector} = {
-    "u": new Vector( 0, 1, 0),
-    "d": new Vector( 0,-1, 0),
-    "n": new Vector( 0, 0,-1),
-    "s": new Vector( 0, 0, 1),
-    "e": new Vector( 1, 0, 0),
-    "w": new Vector(-1, 0, 0)
+const DIRECTIONS: { [k: string]: Vector } = {
+    u: new Vector(0, 1, 0),
+    d: new Vector(0, -1, 0),
+    n: new Vector(0, 0, -1),
+    s: new Vector(0, 0, 1),
+    e: new Vector(1, 0, 0),
+    w: new Vector(-1, 0, 0),
 };
 
 export const directionVectors = Object.entries(DIRECTIONS);
 
 enum Dir {
-    FORWARD, BACK, LEFT, RIGHT,
-    NORTH, SOUTH, EAST, WEST,
-    UP, DOWN
+    FORWARD,
+    BACK,
+    LEFT,
+    RIGHT,
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST,
+    UP,
+    DOWN,
 }
 
 export class Cardinal implements CustomArgType {
@@ -30,11 +37,16 @@ export class Cardinal implements CustomArgType {
 
     constructor(dir: Dir = Cardinal.Dir.FORWARD) {
         this.direction = {
-            [Dir.FORWARD]: "f", [Dir.BACK]: "b",
-            [Dir.LEFT]: "l", [Dir.RIGHT]: "r",
-            [Dir.NORTH]: "n", [Dir.SOUTH]: "s",
-            [Dir.EAST]: "e", [Dir.WEST]: "w",
-            [Dir.UP]: "u", [Dir.DOWN]: "d"
+            [Dir.FORWARD]: "f",
+            [Dir.BACK]: "b",
+            [Dir.LEFT]: "l",
+            [Dir.RIGHT]: "r",
+            [Dir.NORTH]: "n",
+            [Dir.SOUTH]: "s",
+            [Dir.EAST]: "e",
+            [Dir.WEST]: "w",
+            [Dir.UP]: "u",
+            [Dir.DOWN]: "d",
         }[dir];
     }
 
@@ -48,7 +60,7 @@ export class Cardinal implements CustomArgType {
 
         const cardinal = new Cardinal();
         cardinal.direction = dir;
-        return {result: cardinal, argIndex: index+1};
+        return { result: cardinal, argIndex: index + 1 };
     }
 
     static clone(original: Cardinal) {

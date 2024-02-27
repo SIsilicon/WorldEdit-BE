@@ -7,44 +7,50 @@ const registerInformation = {
     description: "commands.wedit:hcyl.description",
     usage: [
         {
-            flag: "r"
-        }, {
+            flag: "r",
+        },
+        {
             name: "pattern",
-            type: "Pattern"
-        }, {
+            type: "Pattern",
+        },
+        {
             subName: "_x",
             args: [
                 {
                     name: "radii",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "height",
                     type: "int",
                     default: 1,
-                    range: [1, null] as [number, null]
-                }
-            ]
-        }, {
+                    range: [1, null] as [number, null],
+                },
+            ],
+        },
+        {
             subName: "_xz",
             args: [
                 {
                     name: "radiiX",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "radiiZ",
                     type: "float",
-                    range: [0.01, null] as [number, null]
-                }, {
+                    range: [0.01, null] as [number, null],
+                },
+                {
                     name: "height",
                     type: "int",
                     default: 1,
-                    range: [1, null] as [number, null]
-                }
-            ]
-        }
-    ]
+                    range: [1, null] as [number, null],
+                },
+            ],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
