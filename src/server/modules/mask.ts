@@ -1,11 +1,12 @@
 import { Vector3, BlockPermutation } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock, BlockUnit } from "./block_parsing.js";
+import { tokenize, throwTokenError, mergeTokens, parseBlock, AstNode, processOps, parseBlockStates, parsedBlock, blockPermutation2ParsedBlock, BlockUnit, parsedBlock2CommandArg } from "./block_parsing.js";
 
 export class Mask implements CustomArgType {
     private condition: MaskNode;
     private stringObj = "";
+    private simpleCache: string[];
 
     constructor(mask = "") {
         if (mask) {
@@ -16,10 +17,10 @@ export class Mask implements CustomArgType {
     }
 
     /**
-   * Tests if this mask matches a block
-   * @param block
-   * @returns True if the block matches; false otherwise
-   */
+     * Tests if this mask matches a block
+     * @param block
+     * @returns True if the block matches; false otherwise
+     */
     matchesBlock(block: BlockUnit) {
         if (this.empty()) {
             return true;
@@ -30,6 +31,7 @@ export class Mask implements CustomArgType {
     clear() {
         this.condition = null;
         this.stringObj = "";
+        this.simpleCache = undefined;
     }
 
     empty() {
@@ -47,6 +49,8 @@ export class Mask implements CustomArgType {
         if (this.stringObj) this.stringObj += ",";
         this.stringObj += block.id.replace("minecraft:", "");
         if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+
+        this.simpleCache = undefined;
     }
 
     intersect(mask: Mask) {
@@ -90,6 +94,27 @@ export class Mask implements CustomArgType {
 
     toJSON() {
         return this.stringObj;
+    }
+
+    isSimple() {
+        return (
+            !this.condition ||
+            this.condition instanceof BlockMask ||
+            (this.condition instanceof ChainMask && this.condition.nodes.every(node => node instanceof BlockMask))
+        );
+    }
+
+    getSimpleForCommandArgs() {
+        if (!this.simpleCache) {
+            if (this.condition instanceof BlockMask) {
+                this.simpleCache = [parsedBlock2CommandArg(this.condition.block)];
+            } else if (this.condition instanceof ChainMask) {
+                this.simpleCache = this.condition.nodes.map(node => parsedBlock2CommandArg((<BlockMask>node).block));
+            } else {
+                this.simpleCache = [];
+            }
+        }
+        return this.simpleCache;
     }
 
     static parseArgs(args: Array<string>, index = 0) {

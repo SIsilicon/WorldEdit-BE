@@ -1,6 +1,7 @@
 import { assertHistoryNotRecording } from "@modules/assert.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { Jobs } from "@modules/jobs.js";
 
 const registerInformation = {
     name: "redo",
@@ -16,15 +17,17 @@ const registerInformation = {
     ]
 };
 
-registerCommand(registerInformation, function (session, builder, args) {
-    const times = args.get("times") as number;
+registerCommand(registerInformation, function* (session, builder, args) {
     const history = session.getHistory();
-    let i: number;
     assertHistoryNotRecording(history);
-    for(i = 0; i < times; i++) {
-        if (history.redo(session)) {
-            break;
+    let i: number;
+    yield* Jobs.run(session, 1, function* () {
+        const times = args.get("times") as number;
+        for(i = 0; i < times; i++) {
+            if (yield history.redo(session)) {
+                break;
+            }
         }
-    }
+    });
     return RawText.translate(i == 0 ? "commands.wedit:redo.none" : "commands.wedit:redo.explain").with(`${i}`);
 });

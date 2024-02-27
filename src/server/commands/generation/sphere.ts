@@ -75,9 +75,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const loc = session.getPlacementPosition().offset(0, isRaised ? radii[1] : 0, 0);
 
     const sphereShape = new SphereShape(...radii);
-    const job = Jobs.startJob(session, 2, sphereShape.getRegion(loc));
-    const count = yield* Jobs.perform(job, sphereShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
-    Jobs.finishJob(job);
-
+    const count = yield* Jobs.run(session, 2, sphereShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

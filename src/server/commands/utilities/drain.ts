@@ -1,7 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, Vector } from "@notbeer-api";
+import { RawText, regionBounds, sleep, Vector } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
-import { SphereShape } from "../../shapes/sphere.js";
 import { registerCommand } from "../register_commands.js";
 import { floodFill } from "./floodfill_func.js";
 import { canPlaceBlock } from "server/util.js";
@@ -38,8 +37,6 @@ export const fluidLookPositions = [
 ];
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const dimension = builder.dimension;
     const playerBlock = session.getPlacementPosition();
     let fluidMatch: typeof waterMatch | typeof lavaMatch;
@@ -65,45 +62,41 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw "commands.wedit:drain.noFluid";
     }
 
-    const job = Jobs.startJob(session, 1, new SphereShape(args.get("radius")).getRegion(drainStart));
-    Jobs.nextStep(job, "Calculating and Draining blocks...");
-    const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx, dir) => {
-        const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
+    const blocks = yield* Jobs.run(session, 1, function* () {
+        yield Jobs.nextStep("Calculating and Draining blocks...");
+        // Stop fill at unloaded chunks
+        const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx, dir) => {
+            const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
+            if (!block?.typeId.match(fluidMatch)) return drainWaterLogged && block.isWaterlogged;
+            return true;
+        });
 
-        if (!block.typeId.match(fluidMatch)) return drainWaterLogged && block.isWaterlogged;
-        return true;
-    });
-
-    if (blocks.length) {
+        if (!blocks.length) return blocks;
         const [min, max] = regionBounds(blocks);
-
         const history = session.getHistory();
         const record = history.record();
         const air = BlockPermutation.resolve("minecraft:air");
         try {
-            history.addUndoStructure(record, min, max, blocks);
+            yield history.addUndoStructure(record, min, max, blocks);
             let i = 0;
             for (const loc of blocks) {
-                const block = dimension.getBlock(loc);
+                let block = dimension.getBlock(loc);
+                while (!(block || (block = Jobs.loadBlock(loc)))) yield sleep(1);
                 if (drainWaterLogged && !block.typeId.match(fluidMatch)) {
                     block.setWaterlogged(false);
                 } else {
                     block.setPermutation(air);
                 }
-                Jobs.setProgress(job, i++ / blocks.length);
-                yield;
+                yield Jobs.setProgress(i++ / blocks.length);
             }
-            history.addRedoStructure(record, min, max, blocks);
+            yield history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
         } catch (err) {
             history.cancel(record);
             throw err;
-        } finally {
-            Jobs.finishJob(job);
         }
-    } else {
-        Jobs.finishJob(job);
-    }
+        return blocks;
+    });
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.length}`);
 });

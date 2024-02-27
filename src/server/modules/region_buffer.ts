@@ -1,8 +1,9 @@
-import { contentLog, generateId, iterateChunk, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
+import { contentLog, generateId, iterateChunk, regionCenter, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Server, sleep, StructureLoadOptions, StructureSaveOptions, Thread, Vector } from "@notbeer-api";
 import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
 import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
 import { EntityCreateEvent } from "library/@types/Events.js";
 import { Mask } from "./mask.js";
+import { JobFunction, Jobs } from "./jobs.js";
 
 export interface RegionLoadOptions {
     rotation?: Vector
@@ -11,7 +12,7 @@ export interface RegionLoadOptions {
 }
 
 type blockData = BlockPermutation|[string, BlockPermutation]
-type blockList = Vector3[] | ((loc: Vector3) => boolean | BlockPermutation) | "all"
+type blockList = Vector3[] | ((loc: Block) => boolean | BlockPermutation) | "all"
 
 interface transformContext {
   blockData: blockData
@@ -38,26 +39,14 @@ export class RegionBuffer {
         contentLog.debug("creating structure", this.id);
     }
 
-    public save(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all") {
-        const save = this.saveProgressive(start, end, dim, options, blocks);
-        let val: IteratorResult<number, boolean>;
-        let lastPromise: unknown;
-        while (!val?.done) {
-            val = save.next(lastPromise);
-            lastPromise = undefined;
-        }
-        return val.value;
-    }
-
-    public* saveProgressive(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<number, boolean> {
+    public* save(start: Vector3, end: Vector3, dim: Dimension, options: StructureSaveOptions = {}, blocks: blockList = "all"): Generator<JobFunction | Promise<unknown>, boolean> {
         if (this.isAccurate) {
             const min = Vector.min(start, end);
-            const iterate = (blockLoc: Vector3) => {
-                const relLoc = Vector.sub(blockLoc, min).floor();
-                const block = dim.getBlock(blockLoc);
+            const iterate = (block: Block) => {
+                const relLoc = Vector.sub(block, min).floor();
                 if (blockHasNBTData(block)) {
                     const id = this.id + "_" + this.subId++;
-                    this.saveBlockAsStruct(id, blockLoc, dim);
+                    this.saveBlockAsStruct(id, block, dim);
                     this.blocks.set(locToString(relLoc), [id, block.permutation.clone()]);
                 } else {
                     this.blocks.set(locToString(relLoc), block.permutation.clone());
@@ -69,7 +58,13 @@ export class RegionBuffer {
             if (blocks == "all" || isFilter) {
                 const volume = regionVolume(start, end);
                 let i = 0;
-                for (const block of regionIterateBlocks(start, end)) {
+                for (const loc of regionIterateBlocks(start, end)) {
+                    let block = dim.getBlock(loc);
+                    while (!block && Jobs.inContext()) {
+                        block = Jobs.loadBlock(loc);
+                        yield sleep(1);
+                    }
+
                     if (!isFilter) {
                         iterate(block);
                         count++;
@@ -84,13 +79,18 @@ export class RegionBuffer {
                             count++;
                         }
                     }
-                    if (iterateChunk()) yield i / volume;
+                    if (iterateChunk()) yield Jobs.setProgress(i / volume);
                     i++;
                 }
             } else if (Array.isArray(blocks)) {
                 for (let i = 0; i < blocks.length; i++) {
-                    iterate(blocks[i]);
-                    if (iterateChunk()) yield i / blocks.length;
+                    let block = dim.getBlock(blocks[i]);
+                    while (!block && Jobs.inContext()) {
+                        block = Jobs.loadBlock(blocks[i]);
+                        yield sleep(1);
+                    }
+                    iterate(block);
+                    if (iterateChunk()) yield Jobs.setProgress(i / blocks.length);
                 }
                 count = blocks.length;
             }
@@ -102,7 +102,14 @@ export class RegionBuffer {
                 });
             }
         } else {
-            if (Server.structure.save(this.id, start, end, dim, options)) {
+            const jobCtx = Jobs.getContext();
+            if (yield Server.structure.saveWhileLoadingChunks(this.id, start, end, dim, options, (min, max) => {
+                if (Jobs.isContextValid(jobCtx)) {
+                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
+                    return false;
+                }
+                return true;
+            })) {
                 return true;
             }
             this.blockCount = regionVolume(start, end);
@@ -113,18 +120,7 @@ export class RegionBuffer {
         return false;
     }
 
-    public load(loc: Vector3, dim: Dimension, options?: RegionLoadOptions) {
-        const load = this.loadProgressive(loc, dim, options);
-        let val: IteratorResult<number, void>;
-        let lastPromise: unknown;
-        while (!val?.done) {
-            val = load.next(lastPromise);
-            lastPromise = undefined;
-        }
-        return val.value;
-    }
-
-    public* loadProgressive(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<number, void> {
+    public* load(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<JobFunction | Promise<unknown>, void> {
         const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
         if (this.isAccurate) {
             const bounds = regionTransformedBounds(
@@ -213,7 +209,11 @@ export class RegionBuffer {
                 }
 
                 blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
-                const oldBlock = dim.getBlock(blockLoc);
+                let oldBlock = dim.getBlock(blockLoc);
+                while (!oldBlock && Jobs.inContext()) {
+                    oldBlock = Jobs.loadBlock(blockLoc);
+                    yield sleep(1);
+                }
                 if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
 
                 if (block instanceof BlockPermutation) {
@@ -222,7 +222,7 @@ export class RegionBuffer {
                     this.loadBlockFromStruct(block[0], blockLoc, dim);
                     oldBlock.setPermutation(transform(block[1]));
                 }
-                if (iterateChunk()) yield i / this.blocks.size;
+                if (iterateChunk()) yield Jobs.setProgress(i / this.blocks.size);
                 i++;
             }
 
@@ -260,7 +260,14 @@ export class RegionBuffer {
             if (options.flip?.x == -1) loadOptions.flip += "z";
             if (loadOptions.flip as string == "nonez") loadOptions.flip = "z";
             if (this.imported) loadOptions.importedSize = Vector.from(this.size);
-            Server.structure.load(this.imported || this.id, loc, dim, loadOptions);
+            const jobCtx = Jobs.getContext();
+            yield Server.structure.loadWhileLoadingChunks(this.imported || this.id, loc, dim, loadOptions, (min, max) => {
+                if (Jobs.isContextValid(jobCtx)) {
+                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
+                    return false;
+                }
+                return true;
+            });
         }
     }
 
@@ -294,7 +301,7 @@ export class RegionBuffer {
         this.blockCount = this.blocks.size;
     }
 
-    public* create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation): Generator<number, null> {
+    public* create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation): Generator<JobFunction, null> {
         if (!this.isAccurate || !this.size.equals(Vector.ZERO)) {
             return;
         }
@@ -315,7 +322,7 @@ export class RegionBuffer {
                     this.blocks.set(locToString(coord), block instanceof Block ? block.permutation.clone() : block);
                 }
             }
-            yield ++i / volume;
+            yield Jobs.setProgress(++i / volume);
         }
         this.blockCount = this.blocks.size;
     }

@@ -54,6 +54,10 @@ export class CuboidShape extends Shape {
         }
     }
 
+    protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
+        return genVars.isWall || genVars.isHollow ? Shape.ChunkStatus.DETAIL : Shape.ChunkStatus.FULL;
+    }
+
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         const end = genVars.end;
         if (genVars.isWall &&

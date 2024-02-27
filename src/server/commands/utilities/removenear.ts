@@ -21,15 +21,11 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const size = (args.get("size") - 1) * 2 + 1;
     const origin = session.getPlacementPosition().sub(size / 2).ceil().floor();
 
     const shape = new CuboidShape(size, size, size);
-    const job = Jobs.startJob(session, 2, shape.getRegion(origin));
-    const count = yield* Jobs.perform(job, shape.generate(origin, new Pattern("air"), args.get("mask"), session, {ignoreGlobalMask: true}));
-    Jobs.finishJob(job);
+    const count = yield* Jobs.run(session, 2, shape.generate(origin, new Pattern("air"), args.get("mask"), session, {ignoreGlobalMask: true}));
 
     return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

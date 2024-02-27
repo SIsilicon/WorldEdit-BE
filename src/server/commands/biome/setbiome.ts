@@ -38,9 +38,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         let i = 0;
         const blockCount = session.selection.getBlockCount();
-        const job = Jobs.startJob(session, 1, session.selection.getRange());
-        try {
-            Jobs.nextStep(job, "Setting biome data...");
+        yield* Jobs.run(session, 1, function* () {
+            yield Jobs.nextStep("Setting biome data...");
             if (session.selection.isCuboid()) {
                 const [min, max] = session.selection.getRange();
                 const minSubChunk = Vector.from(min).mul(1/16).floor();
@@ -54,9 +53,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
                             for (const block of regionIterateBlocks(chunkMin.floor(), chunkMax.floor())) {
                                 biomeChanges.setBiome(block, biome);
-                                Jobs.setProgress(job, ++i / blockCount);
+                                yield Jobs.setProgress(++i / blockCount);
                                 changeCount++;
-                                yield;
                             }
                             biomeChanges.flush();
                             yield;
@@ -66,16 +64,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
             } else {
                 for (const block of session.selection.getBlocks()) {
                     biomeChanges.setBiome(block, biome);
-                    Jobs.setProgress(job, ++i / blockCount);
+                    yield Jobs.setProgress(++i / blockCount);
                     changeCount++;
-                    yield;
                 }
                 biomeChanges.flush();
                 yield;
             }
-        } finally {
-            Jobs.finishJob(job);
-        }
+        });
     }
     let message = RawText.translate("commands.wedit:setbiome.changed").with(changeCount);
     if (!users.includes(builder)) {

@@ -131,6 +131,21 @@ export function parsedBlock2BlockPermutation(block: parsedBlock) {
     return BlockPermutation.resolve(block.id, Object.fromEntries(block.states?.entries() ?? []));
 }
 
+export function parsedBlock2CommandArg(block: parsedBlock) {
+    let id = block.id;
+    if (id.startsWith("minecraft:")) id = id.slice("minecraft:".length);
+    const states = Object.entries(block.states ?? {});
+    if (states.length) {
+        id += `[${states
+            .map(([key, value]) => {
+                value = typeof value === "string" ? `"${value}"` : value;
+                return `"${key}"=${value}`;
+            })
+            .join(",")}]`;
+    }
+    return id;
+}
+
 export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isMask = false): parsedBlock|string {
     let typeToken = tokens.curr();
     const block: parsedBlock = {
@@ -212,7 +227,6 @@ export function parseBlock(tokens: Tokens, input: string, typeOnly: boolean, isM
             } else {
                 return finish();
             }
-            break;
         default:
             return finish();
         }

@@ -34,9 +34,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     } else {
         assertSelection(session);
-        const job = Jobs.startJob(session, 1, session.selection.getRange());
-        try {
-            Jobs.nextStep(job, "Reading biome data...");
+        return yield* Jobs.run(session, 1, function* () {
+            yield Jobs.nextStep("Reading biome data...");
             const biomes = new Map<number, Biome>();
             const promises: Promise<void>[] = [];
             const blockCount = session.selection.getBlockCount();
@@ -47,13 +46,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
             for (const block of session.selection.getBlocks()) {
                 if (j % checkChance == 0) {
                     promises.push(getBiomeId(builder.dimension, block).then(id => {
-                        if (!biomes.has(id)) {
-                            biomes.set(id, new Biome(`${id}`));
-                        }
-                        Jobs.setProgress(job, ++i / blockCount);
+                        if (!biomes.has(id)) biomes.set(id, new Biome(`${id}`));
                     }));
                 } else {
-                    Jobs.setProgress(job, ++i / blockCount);
+                    yield Jobs.setProgress(++i / blockCount);
                 }
                 j++;
                 if (promises.length >= 128) {
@@ -63,14 +59,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     yield;
                 }
             }
-            if (promises.length) {
-                yield Promise.all(promises);
-            }
+            if (promises.length) yield Promise.all(promises);
+            Jobs.setProgress(1);
 
             const result = "\n" + [...biomes.values()].map(biome => biome.getName()).join(",\n");
             return RawText.translate("commands.wedit:biomeinfo.selection").with(result);
-        } finally {
-            Jobs.finishJob(job);
-        }
+        });
     }
 });

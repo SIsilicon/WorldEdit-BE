@@ -1,10 +1,11 @@
-import { Vector3, BlockPermutation, Player } from "@minecraft/server";
+import { Vector3, BlockPermutation, Player, Dimension } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation, BlockUnit } from "./block_parsing.js";
+import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation, BlockUnit, parsedBlock2CommandArg } from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
+import { Mask } from "./mask.js";
 
 interface patternContext {
   session: PlayerSession
@@ -16,6 +17,7 @@ interface patternContext {
 export class Pattern implements CustomArgType {
     private block: PatternNode;
     private stringObj = "";
+    private simpleCache: string;
 
     private context = {} as patternContext;
 
@@ -40,10 +42,10 @@ export class Pattern implements CustomArgType {
     }
 
     /**
-   * Replaces a block with this pattern
-   * @param block
-   * @returns True if the block changed; false otherwise
-   */
+     * Replaces a block with this pattern
+     * @param block
+     * @returns True if the block changed; false otherwise
+     */
     setBlock(block: BlockUnit) {
         try {
             const oldBlock = block.permutation;
@@ -62,6 +64,7 @@ export class Pattern implements CustomArgType {
     clear() {
         this.block = null;
         this.stringObj = "";
+        this.simpleCache = undefined;
     }
 
     empty() {
@@ -83,6 +86,7 @@ export class Pattern implements CustomArgType {
         if (this.stringObj) this.stringObj += ",";
         this.stringObj += block.id.replace("minecraft:", "");
         if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+        this.simpleCache = undefined;
     }
 
     getBlockSummary() {
@@ -121,7 +125,31 @@ export class Pattern implements CustomArgType {
         return this.stringObj;
     }
 
-    getBlockFill() {
+    isSimple() {
+        return (
+            this.block instanceof BlockPattern ||
+            (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern)
+        );
+    }
+
+    fillSimpleArea(dimension: Dimension, start: Vector3, end: Vector3, mask?: Mask) {
+        if (!this.simpleCache) {
+            if (this.block instanceof BlockPattern) {
+                this.simpleCache = parsedBlock2CommandArg(this.block.block);
+            } else if (this.block instanceof ChainPattern) {
+                this.simpleCache = parsedBlock2CommandArg((<BlockPattern>this.block.nodes[0]).block);
+            }
+        }
+        const command = `fill ${start.x} ${start.y} ${start.z} ${end.x} ${end.y} ${end.z} ${this.simpleCache}`;
+        const maskArgs = mask?.getSimpleForCommandArgs();
+        if (maskArgs?.length) {
+            maskArgs.forEach(m => dimension.runCommand(command + ` replace ${m}`));
+        } else {
+            dimension.runCommand(command);
+        }
+    }
+
+    getSimpleBlockFill() {
         if (this.block instanceof BlockPattern) {
             return parsedBlock2BlockPermutation(this.block.block);
         } else if (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern) {

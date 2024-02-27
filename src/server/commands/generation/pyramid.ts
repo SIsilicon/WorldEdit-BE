@@ -29,9 +29,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const loc = session.getPlacementPosition();
     const pyramidShape = new PyramidShape(size);
-    const job = Jobs.startJob(session, 2, pyramidShape.getRegion(loc));
-    const count = yield* Jobs.perform(job, pyramidShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
-    Jobs.finishJob(job);
-
+    const count = yield* Jobs.run(session, 2, pyramidShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

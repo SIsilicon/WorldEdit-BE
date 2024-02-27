@@ -1,5 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
+import { RawText, Vector, sleep } from "@notbeer-api";
 import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
@@ -46,8 +46,6 @@ function canSnowOn(block: Block) {
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    // TODO: Assert Can Build within
-
     const dimension = builder.dimension;
     const radius: number = args.get("size");
     const height: number = args.get("height") < 0 ? 4096 : (args.get("height") - 1) * 2 + 1;
@@ -59,11 +57,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
     range[0].y = Math.max(range[0].y, heightLimits[0]);
     range[1].y = Math.min(range[1].y, heightLimits[1] - 1);
 
-    const job = Jobs.startJob(session, 2, range);
-    const history = session.getHistory();
-    const record = history.record();
-    try {
-        Jobs.nextStep(job, "Raycasting..."); // TODO: Localize
+    return yield* Jobs.run(session, 2, function* () {
+        yield Jobs.nextStep("Raycasting..."); // TODO: Localize
         let i = 0;
 
         const blocks: Block[] = [];
@@ -103,51 +98,56 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     // eslint-disable-next-line no-empty
                 } catch {}
 
-                Jobs.setProgress(job, i / area);
+                yield Jobs.setProgress(i / area);
                 i++;
                 yield;
             }
 
-        Jobs.nextStep(job, "Generating blocks..."); // TODO: Localize
+        yield Jobs.nextStep("Generating blocks..."); // TODO: Localize
         let changed = 0;
         i = 0;
 
         if (blocks.length) {
-            history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
-            const snowLayer = BlockPermutation.resolve("minecraft:snow_layer");
-            const ice = BlockPermutation.resolve("minecraft:ice");
+            const history = session.getHistory();
+            const record = history.record();
 
-            for (const block of blocks) {
-                if (block.typeId.match(waterMatch)) {
-                    block.setPermutation(ice);
-                    changed++;
-                } else if (block.typeId == "minecraft:snow_layer") {
-                    if (args.has("s") && Math.random() < 0.4) {
-                        let perm = block.permutation;
-                        const prevHeight = perm.getState("height") as number;
-                        perm = perm.withState("height", Math.min(prevHeight + 1, 7));
-                        block.setPermutation(perm);
-                        if (perm.getState("height") != prevHeight) changed++;
+            try {
+                yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                const snowLayer = BlockPermutation.resolve("minecraft:snow_layer");
+                const ice = BlockPermutation.resolve("minecraft:ice");
+                for (let block of blocks) {
+                    const loc = block.location;
+                    while (!(block?.isValid() || (block = Jobs.loadBlock(loc)))) yield sleep(1);
+
+                    if (block.typeId.match(waterMatch)) {
+                        block.setPermutation(ice);
+                        changed++;
+                    } else if (block.typeId == "minecraft:snow_layer") {
+                        if (args.has("s") && Math.random() < 0.4) {
+                            let perm = block.permutation;
+                            const prevHeight = perm.getState("height") as number;
+                            perm = perm.withState("height", Math.min(prevHeight + 1, 7));
+                            block.setPermutation(perm);
+                            if (perm.getState("height") != prevHeight) changed++;
+                        }
+                    } else if (block.typeId == "minecraft:ice") {
+                        // pass
+                    } else if (canSnowOn(block)) {
+                        dimension.getBlock(Vector.from(block.location).offset(0, 1, 0)).setPermutation(snowLayer);
+                        changed++;
                     }
-                } else if (block.typeId == "minecraft:ice") {
-                    // pass
-                } else if (canSnowOn(block)) {
-                    dimension.getBlock(Vector.from(block.location).offset(0, 1, 0)).setPermutation(snowLayer);
-                    changed++;
-                }
 
-                Jobs.setProgress(job, i++ / blocks.length);
-                yield;
+                    yield Jobs.setProgress(i++ / blocks.length);
+                    yield;
+                }
+                yield history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                history.commit(record);
+            } catch (err) {
+                history.cancel(record);
+                throw err;
             }
-            history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
         }
 
         return RawText.translate("commands.blocks.wedit:changed").with(`${changed}`);
-    } catch (err) {
-        history.cancel(record);
-        throw err;
-    } finally {
-        history.commit(record);
-        Jobs.finishJob(job);
-    }
+    });
 });

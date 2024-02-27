@@ -5,10 +5,12 @@ import { Shape } from "../../shapes/base_shape.js";
 import { getWorldHeightLimits } from "../../util.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Vector3 } from "@minecraft/server";
+import { JobFunction, Jobs } from "@modules/jobs.js";
 
 type map = (number | null)[][];
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask: Mask): Generator<number | string, number> {
+// TODO: Function with Job block loader
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask: Mask): Generator<JobFunction | Promise<unknown>, number> {
     const range = shape.getRegion(loc);
     const player = session.getPlayer();
     const dim = player.dimension;
@@ -34,14 +36,14 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         return arr;
     }
 
-    function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<number | string> {
+    function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<JobFunction> {
         let count = 0;
         const size = arr.length * arr[0].length;
-        yield jobMsg;
+        yield Jobs.nextStep(jobMsg);
         for (let x = 0; x < arr.length; x++) {
             for (let z = 0; z < arr[x].length; z++) {
                 arr[x][z] = func(x, z);
-                yield ++count / size;
+                yield Jobs.setProgress(++count / size);
             }
         }
     }
@@ -100,9 +102,9 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     const record = history.record();
     const warpBuffer = new RegionBuffer(true);
     try {
-        history.addUndoStructure(record, range[0], range[1], "any");
+        yield history.addUndoStructure(record, range[0], range[1], "any");
 
-        yield "Calculating blocks...";
+        yield Jobs.nextStep("Calculating blocks...");
         yield* warpBuffer.create(range[0], range[1], loc => {
             const canSmooth = (loc: Vector3) => {
                 const global = Vector.add(loc, range[0]);
@@ -119,11 +121,11 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
             }
         });
 
-        yield "Placing blocks...";
-        yield* warpBuffer.loadProgressive(range[0], dim);
+        yield Jobs.nextStep("Placing blocks...");
+        yield* warpBuffer.load(range[0], dim);
         count = warpBuffer.getBlockCount();
 
-        history.addRedoStructure(record, range[0], range[1], "any");
+        yield history.addRedoStructure(record, range[0], range[1], "any");
         history.commit(record);
     } catch (e) {
         history.cancel(record);

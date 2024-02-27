@@ -84,9 +84,9 @@ export class StructureBrush extends Brush {
                 [start, end] = regionTransformedBounds(start, end, start.lerp(end, 0.5), options.rotation, options.flip);
             }
 
-            history.addUndoStructure(record, start, end);
-            yield* struct.loadProgressive(start, session.getPlayer().dimension, options);
-            history.addRedoStructure(record, start, end);
+            yield history.addUndoStructure(record, start, end);
+            yield* struct.load(start, session.getPlayer().dimension, options);
+            yield history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch {
             history.cancel(record);

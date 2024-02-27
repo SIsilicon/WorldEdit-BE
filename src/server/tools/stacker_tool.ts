@@ -28,13 +28,11 @@ class StackerTool extends Tool {
         const record = history.record();
         const tempStack = new RegionBuffer(true);
         try {
-            history.addUndoStructure(record, start, end, "any");
+            yield history.addUndoStructure(record, start, end, "any");
 
-            yield tempStack.save(loc, loc, dim);
-            for (const pos of regionIterateBlocks(start, end)) {
-                tempStack.load(pos, dim);
-            }
-            history.addRedoStructure(record, start, end, "any");
+            yield* tempStack.save(loc, loc, dim);
+            for (const pos of regionIterateBlocks(start, end)) yield* tempStack.load(pos, dim);
+            yield history.addRedoStructure(record, start, end, "any");
             history.commit(record);
         } catch (e) {
             history.cancel(record);

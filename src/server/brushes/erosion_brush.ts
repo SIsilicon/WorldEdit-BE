@@ -3,7 +3,7 @@ import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
-import { BlockPermutation } from "@minecraft/server";
+import { BlockPermutation, Vector3 } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { BlockChanges } from "@modules/history.js";

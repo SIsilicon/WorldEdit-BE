@@ -1,7 +1,7 @@
 import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
-import { RawText } from "@notbeer-api";
+import { RawText, sleep } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -18,22 +18,24 @@ const registerInformation = {
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    let count = 0;
     const mask = args.get("mask") as Mask;
     const dimension = builder.dimension;
 
     const total = session.selection.getBlockCount();
-    const job = Jobs.startJob(session, 1, session.selection.getRange());
-    try {
+    const count = yield* Jobs.run(session, 1, function* () {
         let i = 0;
-        Jobs.nextStep(job, "Counting blocks...");
-        for (const block of session.selection.getBlocks()) {
-            count += mask.matchesBlock(dimension.getBlock(block)) ? 1 : 0;
-            Jobs.setProgress(job, ++i / total);
-            yield;
+        let count = 0;
+        yield Jobs.nextStep("Counting blocks...");
+        for (const loc of session.selection.getBlocks()) {
+            let block = dimension.getBlock(loc);
+            while(!block) {
+                block = Jobs.loadBlock(loc);
+                yield sleep(1);
+            }
+            count += mask.matchesBlock(block) ? 1 : 0;
+            yield Jobs.setProgress(++i / total);
         }
-    } finally {
-        Jobs.finishJob(job);
-    }
+        return count;
+    });
     return RawText.translate("commands.wedit:count.explain").with(count);
 });

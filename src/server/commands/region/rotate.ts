@@ -49,10 +49,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     if (args.has("w")) {
         if (config.performanceMode || session.performanceMode) assertValidFastArgs();
-
-        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
-        yield* Jobs.perform(job, transformSelection(session, builder, args, {rotation}));
-        Jobs.finishJob(job);
+        yield* Jobs.run(session, 4, transformSelection(session, builder, args, {rotation}));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);

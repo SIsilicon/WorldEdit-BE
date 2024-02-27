@@ -87,7 +87,7 @@ class DrawLineTool extends GeneratorTool {
         let count: number;
         try {
             const points = (yield* generateLine(pos1, pos2)).map((p) => p.floor());
-            history.addUndoStructure(record, start, end);
+            yield history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {
                 const block = dim.getBlock(point);
@@ -98,7 +98,7 @@ class DrawLineTool extends GeneratorTool {
             }
 
             history.recordSelection(record, session);
-            history.addRedoStructure(record, start, end);
+            yield history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch (e) {
             history.cancel(record);
@@ -153,10 +153,7 @@ class DrawSphereTool extends GeneratorTool {
         pattern.setContext(session, sphereShape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, sphereShape.getRegion(center));
-        const count = yield* Jobs.perform(job, sphereShape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
-
+        const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };
 
@@ -198,9 +195,7 @@ class DrawCylinderTool extends GeneratorTool {
         pattern.setContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, shape.getRegion(center));
-        const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
+        const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };
@@ -242,9 +237,7 @@ class DrawPyramidTool extends GeneratorTool {
         pattern.setContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
-        const job = Jobs.startJob(session, 2, shape.getRegion(center));
-        const count = yield* Jobs.perform(job, shape.generate(center, pattern, null, session));
-        Jobs.finishJob(job);
+        const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
     };

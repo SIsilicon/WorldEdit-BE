@@ -40,10 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         if (dir.y != 0 && (config.performanceMode || session.performanceMode)) {
             throw "commands.wedit:flip.notLateral";
         }
-
-        const job = Jobs.startJob(session, 3, null); // TODO: Add ticking area
-        yield* Jobs.perform(job, transformSelection(session, builder, args, {flip}));
-        Jobs.finishJob(job);
+        yield* Jobs.run(session, 4, transformSelection(session, builder, args, {flip}));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);

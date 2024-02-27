@@ -66,12 +66,9 @@ export function importStructure(name: string, player: Player) {
 
 registerCommand(registerInformation, function (session, builder, args) {
     const name: string = args.get("name");
-
     const { buffer, metadata } = importStructure(name, builder);
 
-    if (session.clipboard) {
-        session.deleteRegion(session.clipboard);
-    }
+    if (session.clipboard) session.deleteRegion(session.clipboard);
     session.clipboard = buffer;
     session.clipboardTransform = {
         relative: Vector.from(metadata.relative),

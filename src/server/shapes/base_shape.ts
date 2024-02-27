@@ -2,9 +2,14 @@ import { Block, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { contentLog, iterateChunk, regionIterateBlocks, regionVolume, Vector } from "@notbeer-api";
+import { iterateChunk, regionIterateBlocks, regionIterateChunks, regionVolume, sleep, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits, snap } from "../util.js";
+import { JobFunction, Jobs } from "@modules/jobs.js";
+
+enum ChunkStatus {
+    EMPTY, FULL, DETAIL
+}
 
 export type shapeGenOptions = {
     hollow?: boolean,
@@ -14,7 +19,7 @@ export type shapeGenOptions = {
 };
 
 export type shapeGenVars = {
-    isSolidCuboid?: boolean,
+    // isSolidCuboid?: boolean,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [k: string]: any
 };
@@ -28,6 +33,8 @@ export abstract class Shape {
     * Shapes used in a brush may handle history recording differently from other cases.
     */
     public usedInBrush = false;
+
+    protected static readonly ChunkStatus = ChunkStatus;
 
     protected abstract customHollow: boolean;
 
@@ -67,6 +74,20 @@ export abstract class Shape {
      * Generates a list of particles that when displayed, shows the shape.
      */
     public abstract getOutline(loc: Vector): [string, Vector][];
+
+    /**
+     * Deduces what kind of chunk is being processed.
+     * @param relLocMin relative location of the chunks minimum block corner
+     * @param relLocMax relative location of the chunks maximum block corner
+     * @param genVars
+     * @returns
+     * - `ChunkStatus.FULL` will use fast fill operations when simple patterns and masks are used.
+     * - `ChunkStatus.EMPTY` will get ignored.
+     * - `ChunkStatus.DETAIL` will place blocks one at a time.
+     */
+    protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
+        return ChunkStatus.DETAIL;
+    }
 
     /**
      * Returns blocks that are in the shape.
@@ -133,7 +154,7 @@ export abstract class Shape {
      * @param session The session that's using this shape
      * @param options A group of options that can change how the shape is generated
      */
-    public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<number | string, number> {
+    public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
         const player = session.getPlayer();
         const dimension = player.dimension;
@@ -144,8 +165,9 @@ export abstract class Shape {
         const canGenerate = max.y >= min.y;
         pattern.setContext(session, [min, max]);
 
-        assertCanBuildWithin(player, min, max);
-        const blocksAffected: Block[] = [];
+        if (!Jobs.inContext()) assertCanBuildWithin(player, min, max);
+        let blocksAffected = 0;
+        const blocksAndChunks: (Block | [Vector3, Vector3])[] = [];
         mask = mask ?? new Mask();
 
         const history = (options?.recordHistory ?? true) ? session.getHistory() : null;
@@ -160,61 +182,88 @@ export abstract class Shape {
                 let activeMask = mask;
                 const globalMask = (options?.ignoreGlobalMask ?? false) ? new Mask() : session.globalMask;
                 activeMask = !activeMask ? globalMask : (globalMask ? mask.intersect(globalMask) : activeMask);
-                const patternInFill = pattern.getBlockFill();
+                const simple = pattern.isSimple() && (!mask || mask.isSimple());
 
-                // eslint-disable-next-line no-constant-condition
-                if (this.genVars.isSolidCuboid && patternInFill && (!activeMask || activeMask.empty())) {
-                    contentLog.debug("Using fillBlocks() method.");
-                    const size = Vector.sub(max, min).add(1);
-                    const fillMax = 32;
-                    history?.addUndoStructure(record, min, max, "any");
+                let progress = 0;
+                const volume = regionVolume(min, max);
+                const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
+                yield Jobs.nextStep("Calculating shape...");
+                // Collect blocks and areas that will be changed.
+                for (const [chunkMin, chunkMax] of regionIterateChunks(min, max)) {
+                    yield Jobs.setProgress(progress / volume);
 
-                    yield "Calculating shape...";
-                    yield "Generating blocks...";
-                    for (let z = 0; z < size.z; z += fillMax) {
-                        for (let y = 0; y < size.y; y += fillMax) {
-                            for (let x = 0; x < size.x; x += fillMax) {
-                                const subStart = Vector.add(min, [x, y, z]);
-                                const subEnd = Vector.min(
-                                    new Vector(x, y, z).add(fillMax), size
-                                ).add(min).sub(Vector.ONE);
-                                dimension.fillBlocks(subStart.floor(), subEnd.floor(), patternInFill);
-
-                                const subSize = subEnd.sub(subStart).add(1);
-                                count += subSize.x * subSize.y * subSize.z;
-                                yield count / (size.x * size.y * size.z);
+                    const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
+                    if (chunkStatus === ChunkStatus.FULL && simple) {
+                        const volume = regionVolume(chunkMin, chunkMax);
+                        progress += volume;
+                        blocksAffected += volume;
+                        const prev = blocksAndChunks[blocksAndChunks.length - 1];
+                        if (
+                            Array.isArray(prev) && regionVolume(...prev) + volume > 32768 &&
+                            prev[1].y + 1 === chunkMin.y &&
+                            prev[0].x === chunkMin.x && prev[1].x === chunkMax.x &&
+                            prev[0].z === chunkMin.z && prev[1].z === chunkMax.z
+                        ) {
+                            // Merge chunks in the same column
+                            prev[1].y = chunkMax.y;
+                        } else {
+                            blocksAndChunks.push([chunkMin, chunkMax]);
+                        }
+                    } else if (chunkStatus === ChunkStatus.EMPTY) {
+                        const volume = regionVolume(chunkMin, chunkMax);
+                        progress += volume;
+                    } else {
+                        for (const blockLoc of regionIterateBlocks(chunkMin, chunkMax)) {
+                            yield Jobs.setProgress(progress / volume);
+                            progress++;
+                            if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
+                                let block;
+                                do {
+                                    if (Jobs.inContext()) {
+                                        block = Jobs.loadBlock(blockLoc);
+                                        if (!block) yield sleep(1);
+                                    } else {
+                                        block = dimension.getBlock(blockLoc);
+                                    }
+                                } while (!block || !Jobs.inContext());
+                                if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
+                                blocksAndChunks.push(block);
+                                blocksAffected++;
                             }
+                            yield;
                         }
                     }
-                    history?.addRedoStructure(record, min, max, "any");
-                } else {
-                    let progress = 0;
-                    const volume = regionVolume(min, max);
-                    const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
-                    yield "Calculating shape...";
-                    for (const blockLoc of regionIterateBlocks(min, max)) {
-                        if (iterateChunk()) yield progress / volume;
-                        progress++;
-
-                        if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                            const block = dimension.getBlock(blockLoc);
-                            if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
-                            blocksAffected.push(block);
-                        }
-                    }
-
-                    progress = 0;
-                    yield "Generating blocks...";
-                    history?.addUndoStructure(record, min, max, blocksAffected);
-                    for (const block of blocksAffected) {
-                        if (pattern.setBlock(block)) count++;
-                        if (iterateChunk()) yield progress / blocksAffected.length;
-                        progress++;
-                    }
-                    history?.addRedoStructure(record, min, max, blocksAffected);
                 }
-            }
 
+                progress = 0;
+                yield Jobs.nextStep("Generating blocks...");
+                yield history?.addUndoStructure(record, min, max);
+                for (let block of blocksAndChunks) {
+                    if (block instanceof Block) {
+                        if (!block.isValid() && Jobs.inContext()) {
+                            const loc = block.location;
+                            block = undefined;
+                            do {
+                                block = Jobs.loadBlock(loc);
+                                if (!block) yield sleep(1);
+                            } while (!block);
+                        }
+
+                        if (pattern.setBlock(block)) count++;
+                        if (iterateChunk()) yield Jobs.setProgress(progress / blocksAffected);
+                        progress++;
+                    } else {
+                        const [min, max] = block;
+                        const volume = regionVolume(min, max);
+                        if (Jobs.inContext()) while (!Jobs.loadBlock(min)) yield sleep(1);
+                        pattern.fillSimpleArea(dimension, min, max, mask);
+                        count += volume;
+                        yield Jobs.setProgress(progress / blocksAffected);
+                        progress += volume;
+                    }
+                }
+                yield history?.addRedoStructure(record, min, max);
+            }
             history?.commit(record);
             return count;
         } catch(e) {
