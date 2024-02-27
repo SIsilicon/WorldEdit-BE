@@ -23,10 +23,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         yield Jobs.nextStep("Gettings blocks...");
         yield* temp.save(start, end, dim);
 
-        const [newStart, newEnd] = regionTransformedBounds(
-            start, end, center.sub(origin),
-            options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE
-        );
+        const [newStart, newEnd] = regionTransformedBounds(start, end, center.sub(origin), options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE);
 
         yield history.addUndoStructure(record, start, end, "any");
         yield history.addUndoStructure(record, newStart, newEnd, "any");

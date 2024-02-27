@@ -12,9 +12,9 @@ const registerInformation = {
     usage: [
         {
             name: "radius",
-            type: "float"
-        }
-    ]
+            type: "float",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

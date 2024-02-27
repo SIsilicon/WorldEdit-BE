@@ -7,13 +7,13 @@ const registerInformation = {
     description: "commands.wedit:worldedit.description",
     usage: [
         {
-            subName: "version"
+            subName: "version",
         },
         {
-            subName: "perf"
-        }
+            subName: "perf",
+        },
     ],
-    aliases: ["we"]
+    aliases: ["we"],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

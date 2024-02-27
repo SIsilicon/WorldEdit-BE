@@ -3,15 +3,29 @@ import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api"
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
-import { tokenize, throwTokenError, mergeTokens, parseBlock, parsedBlock, parseBlockStates, AstNode, processOps, parseNumberList, blockPermutation2ParsedBlock, parsedBlock2BlockPermutation, BlockUnit, parsedBlock2CommandArg } from "./block_parsing.js";
+import {
+    tokenize,
+    throwTokenError,
+    mergeTokens,
+    parseBlock,
+    parsedBlock,
+    parseBlockStates,
+    AstNode,
+    processOps,
+    parseNumberList,
+    blockPermutation2ParsedBlock,
+    parsedBlock2BlockPermutation,
+    BlockUnit,
+    parsedBlock2CommandArg,
+} from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
 
 interface patternContext {
-  session: PlayerSession
-  hand: BlockPermutation
-  range: [Vector, Vector]
-  cardinal: Cardinal
+    session: PlayerSession;
+    hand: BlockPermutation;
+    range: [Vector, Vector];
+    cardinal: Cardinal;
 }
 
 export class Pattern implements CustomArgType {
@@ -126,10 +140,7 @@ export class Pattern implements CustomArgType {
     }
 
     isSimple() {
-        return (
-            this.block instanceof BlockPattern ||
-            (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern)
-        );
+        return this.block instanceof BlockPattern || (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern);
     }
 
     fillSimpleArea(dimension: Dimension, start: Vector3, end: Vector3, mask?: Mask) {
@@ -143,7 +154,7 @@ export class Pattern implements CustomArgType {
         const command = `fill ${start.x} ${start.y} ${start.z} ${end.x} ${end.y} ${end.z} ${this.simpleCache}`;
         const maskArgs = mask?.getSimpleForCommandArgs();
         if (maskArgs?.length) {
-            maskArgs.forEach(m => dimension.runCommand(command + ` replace ${m}`));
+            maskArgs.forEach((m) => dimension.runCommand(command + ` replace ${m}`));
         } else {
             dimension.runCommand(command);
         }
@@ -176,7 +187,7 @@ export class Pattern implements CustomArgType {
             }
 
             // eslint-disable-next-line no-cond-assign
-            while (token = tokens.next()) {
+            while ((token = tokens.next())) {
                 if (token.type == "id") {
                     out.push(new BlockPattern(nodeToken(), parseBlock(tokens, input, false) as parsedBlock));
                 } else if (token.type == "number") {
@@ -280,7 +291,7 @@ export class Pattern implements CustomArgType {
                     idx: index,
                     start: error.pos,
                     end: error.pos + 1,
-                    stack: error.stack
+                    stack: error.stack,
                 };
                 throw err;
             }
@@ -308,15 +319,15 @@ export class Pattern implements CustomArgType {
 
 abstract class PatternNode implements AstNode {
     public nodes: PatternNode[] = [];
-  abstract readonly prec: number;
-  abstract readonly opCount: number;
+    abstract readonly prec: number;
+    abstract readonly opCount: number;
 
-  constructor(public readonly token: Token) { }
+    constructor(public readonly token: Token) {}
 
-  abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation;
+    abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  postProcess() { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    postProcess() {}
 }
 
 class BlockPattern extends PatternNode {
@@ -324,7 +335,10 @@ class BlockPattern extends PatternNode {
     readonly opCount = 0;
     readonly permutation: BlockPermutation;
 
-    constructor(token: Token, public block: parsedBlock) {
+    constructor(
+        token: Token,
+        public block: parsedBlock
+    ) {
         super(token);
         this.permutation = parsedBlock2BlockPermutation(block);
     }
@@ -340,7 +354,10 @@ class TypePattern extends PatternNode {
     readonly permutation: BlockPermutation;
     readonly props: Record<string, string | number | boolean>;
 
-    constructor(token: Token, public type: string) {
+    constructor(
+        token: Token,
+        public type: string
+    ) {
         super(token);
         this.permutation = BlockPermutation.resolve(type);
         this.props = this.permutation.getAllStates();
@@ -349,7 +366,7 @@ class TypePattern extends PatternNode {
     getPermutation(block: BlockUnit): BlockPermutation {
         let permutation = this.permutation;
         Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
-            if(state in this.props) permutation = permutation.withState(state, val);
+            if (state in this.props) permutation = permutation.withState(state, val);
         });
         return permutation;
     }
@@ -359,7 +376,10 @@ class StatePattern extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public states: parsedBlock["states"]) {
+    constructor(
+        token: Token,
+        public states: parsedBlock["states"]
+    ) {
         super(token);
     }
 
@@ -378,7 +398,10 @@ class RandStatePattern extends PatternNode {
     readonly opCount = 0;
     readonly permutations: BlockPermutation[];
 
-    constructor(token: Token, public block: string) {
+    constructor(
+        token: Token,
+        public block: string
+    ) {
         super(token);
         this.permutations = Array.from(Server.block.iteratePermutations(this.block));
     }
@@ -392,7 +415,10 @@ class ClipboardPattern extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public offset: Vector3) {
+    constructor(
+        token: Token,
+        public offset: Vector3
+    ) {
         super(token);
     }
 
@@ -429,7 +455,11 @@ class GradientPattern extends PatternNode {
 
     private ctxCardinal: Cardinal;
 
-    constructor(token: Token, public gradientId: string, public cardinal?: Cardinal) {
+    constructor(
+        token: Token,
+        public gradientId: string,
+        public cardinal?: Cardinal
+    ) {
         super(token);
         if (cardinal) this.updateDirectionParams(cardinal);
     }
@@ -467,7 +497,10 @@ class PercentPattern extends PatternNode {
     readonly prec = 2;
     readonly opCount = 1;
 
-    constructor(token: Token, public percent: number) {
+    constructor(
+        token: Token,
+        public percent: number
+    ) {
         super(token);
     }
 
@@ -528,7 +561,7 @@ class ChainPattern extends PatternNode {
                 totalPercent += defaultPercent;
             }
         }
-        weights.map(value => {
+        weights.map((value) => {
             // printDebug(value / totalPercent);
             return value / totalPercent;
         });

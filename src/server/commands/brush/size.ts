@@ -14,20 +14,20 @@ const registerInformation = {
                 {
                     name: "size",
                     type: "int",
-                    range: [1, null] as [number, null]
-                }
-            ]
+                    range: [1, null] as [number, null],
+                },
+            ],
         },
         {
             subName: "_selection",
             permission: "worldedit.selection.size",
             args: [
                 {
-                    flag: "c"
-                }
-            ]
-        }
-    ]
+                    flag: "c",
+                },
+            ],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -43,7 +43,6 @@ registerCommand(registerInformation, function (session, builder, args) {
             blockCount = session.clipboard.getBlockCount();
 
             message.append("translate", "commands.wedit:size.offset").with(`${session.clipboardTransform.relative}\n`);
-
         } else {
             assertSelection(session);
 

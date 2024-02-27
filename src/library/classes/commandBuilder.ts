@@ -28,7 +28,7 @@ export class CommandPosition implements CustomArgType {
                 const err: commandSyntaxError = {
                     isSyntaxError: true,
                     stack: contentLog.stack(),
-                    idx: -1
+                    idx: -1,
                 };
                 throw err;
             }
@@ -88,57 +88,57 @@ export class CommandBuilder {
     private customArgTypes: Map<string, typeof CustomArgType> = new Map();
 
     /**
-    * Register a command with a callback
-    * @param {registerInformation} register An object of information needed to register the custom command
-    * @param {(data: ChatSendBeforeEvent, args: Array<string>) => void}callback Code you want to execute when the command is executed
-    * @example import { Server } from "../../Minecraft";
-    *  const server = new Server();
-    *  server.commands.register({ name: 'ping' }, (data, args) => {
-    *  server.broadcast('Pong!', player.nameTag);
-    * });
-    */
+     * Register a command with a callback
+     * @param {registerInformation} register An object of information needed to register the custom command
+     * @param {(data: ChatSendBeforeEvent, args: Array<string>) => void}callback Code you want to execute when the command is executed
+     * @example import { Server } from "../../Minecraft";
+     *  const server = new Server();
+     *  server.commands.register({ name: 'ping' }, (data, args) => {
+     *  server.broadcast('Pong!', player.nameTag);
+     * });
+     */
     register(register: registerInformation, callback: storedRegisterInformation["callback"]): void {
         this._registrationInformation.push({
             name: register.name.toLowerCase(),
-            aliases: register.aliases ? register.aliases.map(v => v.toLowerCase()) : null,
+            aliases: register.aliases ? register.aliases.map((v) => v.toLowerCase()) : null,
             description: register.description,
-            usage: register.usage ?? [] as commandArgList,
+            usage: register.usage ?? ([] as commandArgList),
             permission: register.permission,
-            callback
+            callback,
         });
     }
     /**
-    * Get a list of registered commands
-    * @returns {Array<string>}
-    * @example getAll();
-    */
+     * Get a list of registered commands
+     * @returns {Array<string>}
+     * @example getAll();
+     */
     getAll(): Array<string> {
         const commands: Array<string> = [];
-        this._registrationInformation.forEach(element => {
+        this._registrationInformation.forEach((element) => {
             commands.push(element.name);
         });
         return commands;
     }
     /**
-    * Get a list of all registered information
-    * @returns {Array<storedRegisterInformation>}
-    * @example getAllRegistration();
-    */
+     * Get a list of all registered information
+     * @returns {Array<storedRegisterInformation>}
+     * @example getAllRegistration();
+     */
     getAllRegistation(): Array<storedRegisterInformation> {
         return this._registrationInformation;
     }
     /**
-    * Get registration information on a specific command
-    * @param name The command name or alias you want to get information on
-    * @returns {storedRegisterInformation}
-    * @example getRegistration('ping');
-    */
+     * Get registration information on a specific command
+     * @param name The command name or alias you want to get information on
+     * @returns {storedRegisterInformation}
+     * @example getRegistration('ping');
+     */
     getRegistration(name: string): storedRegisterInformation {
-        const command = this._registrationInformation.some(element => element.name.toLowerCase() === name || element.aliases && element.aliases.includes(name));
+        const command = this._registrationInformation.some((element) => element.name.toLowerCase() === name || (element.aliases && element.aliases.includes(name)));
         if (!command) return;
         let register;
-        this._registrationInformation.forEach(element => {
-            const eachCommand = element.name.toLowerCase() === name || element.aliases && element.aliases.includes(name);
+        this._registrationInformation.forEach((element) => {
+            const eachCommand = element.name.toLowerCase() === name || (element.aliases && element.aliases.includes(name));
             if (!eachCommand) return;
             register = element;
         });
@@ -164,8 +164,8 @@ export class CommandBuilder {
                 text.push(subName);
             }
 
-            args?.forEach(arg => {
-                if ((!("flag" in arg) || arg.flag && arg.name) && flagText) {
+            args?.forEach((arg) => {
+                if ((!("flag" in arg) || (arg.flag && arg.name)) && flagText) {
                     text.push(flagText + "]");
                     flagText = null;
                 }
@@ -187,10 +187,8 @@ export class CommandBuilder {
                 } else {
                     let argText = arg.default ? "[" : "<";
                     argText += arg.name + ": ";
-                    if (arg.range && typeof (arg.range[0]) == "number" && typeof (arg.range[1]) == "number")
-                        argText += arg.range[0] + ".." + arg.range[1];
-                    else
-                        argText += arg.type;
+                    if (arg.range && typeof arg.range[0] == "number" && typeof arg.range[1] == "number") argText += arg.range[0] + ".." + arg.range[1];
+                    else argText += arg.type;
 
                     text.push(argText + (arg.default ? "]" : ">"));
                 }
@@ -308,12 +306,11 @@ export class CommandBuilder {
         };
 
         const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) => {
-
             let defIdx = 0;
             let hasNamedSubCmd = false;
             let invalidFlags: string[] = [];
             flagDefs = new Map<string, commandFlag>(flagDefs);
-            argDefs?.forEach(argDef => {
+            argDefs?.forEach((argDef) => {
                 if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
                     flagDefs.set(argDef.flag, argDef);
                 }
@@ -324,7 +321,7 @@ export class CommandBuilder {
                 let unnamedSubs: Array<commandSubDef> = [];
 
                 // process named sub-commands and collect unnamed ones
-                while (defIdx < argDefs.length && ("subName" in argDefs[defIdx])) {
+                while (defIdx < argDefs.length && "subName" in argDefs[defIdx]) {
                     const argDef = <commandSubDef>argDefs[defIdx];
                     if (!processed) {
                         if (argDef.subName.startsWith("_")) {
@@ -347,7 +344,7 @@ export class CommandBuilder {
                     const err: commandSyntaxError = {
                         isSyntaxError: true,
                         stack: contentLog.stack(),
-                        idx: i
+                        idx: i,
                     };
                     throw err;
                 }
@@ -361,12 +358,12 @@ export class CommandBuilder {
                         result.set(sub.subName, true);
                         subResult.forEach((v, k) => result.set(k, v));
                         invalidFlags.forEach((f, i) => {
-                            if (sub.args.map(argDef => "flag" in argDef ? argDef.flag : null).includes(f)) {
+                            if (sub.args.map((argDef) => ("flag" in argDef ? argDef.flag : null)).includes(f)) {
                                 result.set(f, true);
                                 invalidFlags[i] = "";
                             }
                         });
-                        invalidFlags = invalidFlags.filter(f => f !== "");
+                        invalidFlags = invalidFlags.filter((f) => f !== "");
                         break;
                     } catch (e) {
                         fails.push(e);
@@ -392,10 +389,14 @@ export class CommandBuilder {
                             result.set(f, true);
                             const argDef = flagDefs.get(f);
                             if (argDef.type != undefined) {
-                                i = processArg(i + 1, {
-                                    name: argDef.flag + "-" + argDef.name,
-                                    type: argDef.type
-                                }, result);
+                                i = processArg(
+                                    i + 1,
+                                    {
+                                        name: argDef.flag + "-" + argDef.name,
+                                        type: argDef.type,
+                                    },
+                                    result
+                                );
                             }
                         } else {
                             invalidFlags.push(f);
@@ -422,7 +423,7 @@ export class CommandBuilder {
                         const err: commandSyntaxError = {
                             isSyntaxError: true,
                             stack: contentLog.stack(),
-                            idx: i
+                            idx: i,
                         };
                         throw err;
                     }
@@ -450,7 +451,7 @@ export class CommandBuilder {
                         const err: commandSyntaxError = {
                             isSyntaxError: true,
                             stack: contentLog.stack(),
-                            idx: -1
+                            idx: -1,
                         };
                         throw err;
                     }
@@ -475,7 +476,7 @@ export class CommandBuilder {
             return i == -1 ? -1 : i + index;
         }
 
-        const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
+        const getCommand = Command.getAllRegistation().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
         if (!getCommand) {
             throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
         }
@@ -486,7 +487,7 @@ export class CommandBuilder {
             const arrArgs: Array<string> = [];
             let i = 0;
             while (i < args.length && i != -1) {
-                const quoted = args[i] == "\"";
+                const quoted = args[i] == '"';
                 let idx: number;
                 if (quoted) {
                     i++;
@@ -517,7 +518,9 @@ export class CommandBuilder {
             msg = args.join(" ");
         }
 
-        offsets.forEach((v, i) => { offsets[i] = v + this.prefix.length + command.length + 1; });
+        offsets.forEach((v, i) => {
+            offsets[i] = v + this.prefix.length + command.length + 1;
+        });
         msg = this.prefix + command + " " + msg;
 
         for (const element of Command.getAllRegistation()) {
@@ -536,21 +539,13 @@ export class CommandBuilder {
                 if (e.isSyntaxError) {
                     contentLog.error(e.stack);
                     if (e.idx == -1 || e.idx >= args.length) {
-                        RawText.translate("commands.generic.syntax")
-                            .with(msg)
-                            .with("")
-                            .with("")
-                            .printError(player);
+                        RawText.translate("commands.generic.syntax").with(msg).with("").with("").printError(player);
                     } else {
                         let start = offsets[e.idx];
                         if (e.start) start += e.start;
                         let end = start + args[e.idx].length;
                         if (e.end) end = start + e.end;
-                        RawText.translate("commands.generic.syntax")
-                            .with(msg.slice(0, start))
-                            .with(msg.slice(start, end))
-                            .with(msg.slice(end))
-                            .printError(player);
+                        RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end)).printError(player);
                     }
                 } else {
                     if (e instanceof RawText) {

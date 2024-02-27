@@ -31,12 +31,12 @@ class BlockReplacerTool extends Tool {
     toJSON() {
         return {
             toolType: this.type,
-            pattern: this.pattern
+            pattern: this.pattern,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static parseJSON(json: {[key: string]: any}) {
+    static parseJSON(json: { [key: string]: any }) {
         return [new Pattern(json.pattern)];
     }
 }

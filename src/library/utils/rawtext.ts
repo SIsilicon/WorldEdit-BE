@@ -2,11 +2,11 @@ import { Player } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 
 type textElement = {
-    text: string
+    text: string;
 };
 type translateElement = {
-    translate: string,
-    with: string[]
+    translate: string;
+    with: string[];
 };
 type rawTextElement = textElement | translateElement;
 
@@ -18,7 +18,7 @@ export class RawText {
         const raw = new RawText();
         raw.rawtext = this.rawtext;
         raw.lastElementIdx = this.lastElementIdx;
-        const element = <translateElement> raw.rawtext[this.lastElementIdx];
+        const element = <translateElement>raw.rawtext[this.lastElementIdx];
         if (element?.translate) {
             element.with.push(`${text}`);
         }
@@ -30,12 +30,12 @@ export class RawText {
         raw.rawtext = this.rawtext;
         if (type == "text") {
             raw.rawtext.unshift({
-                "text": data,
+                text: data,
             });
         } else {
             raw.rawtext.unshift({
-                "translate": data,
-                "with": []
+                translate: data,
+                with: [],
             });
         }
         raw.lastElementIdx = 0;
@@ -47,12 +47,12 @@ export class RawText {
         raw.rawtext = this.rawtext;
         if (type == "text") {
             raw.rawtext.push({
-                "text": data,
+                text: data,
             });
         } else {
             raw.rawtext.push({
-                "translate": data,
-                "with": []
+                translate: data,
+                with: [],
             });
         }
         raw.lastElementIdx = raw.rawtext.length - 1;
@@ -63,7 +63,7 @@ export class RawText {
         const raw = new RawText();
         raw.rawtext.push({
             translate: translationKey,
-            with: []
+            with: [],
         });
         raw.lastElementIdx = 0;
         return raw;
@@ -72,7 +72,7 @@ export class RawText {
     public static text(text: string) {
         const raw = new RawText();
         raw.rawtext.push({
-            text: text
+            text: text,
         });
         raw.lastElementIdx = 0;
         return raw;

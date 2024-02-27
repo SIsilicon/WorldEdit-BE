@@ -10,24 +10,28 @@ const registerInformation = {
     usage: [
         {
             name: "size",
-            type: "int"
+            type: "int",
         },
         {
             name: "mask",
-            type: "Mask"
+            type: "Mask",
         },
         {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const size = (args.get("size") - 1) * 2 + 1;
-    const origin = session.getPlacementPosition().sub(size / 2).ceil().floor();
+    const origin = session
+        .getPlacementPosition()
+        .sub(size / 2)
+        .ceil()
+        .floor();
 
     const shape = new CuboidShape(size, size, size);
-    const count = yield* Jobs.run(session, 2, shape.generate(origin, args.get("pattern"), args.get("mask"), session, {ignoreGlobalMask: true}));
+    const count = yield* Jobs.run(session, 2, shape.generate(origin, args.get("pattern"), args.get("mask"), session, { ignoreGlobalMask: true }));
     return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

@@ -14,14 +14,14 @@ const registerInformation = {
             name: "iterations",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
+            default: 1,
         },
         {
             name: "mask",
             type: "Mask",
-            default: new Mask()
-        }
-    ]
+            default: new Mask(),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

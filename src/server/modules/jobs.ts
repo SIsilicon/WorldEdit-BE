@@ -8,25 +8,22 @@ let globalJobIdCounter = 0;
 type JobContext = number;
 
 interface job {
-    stepCount: number,
-    step: number,
-    player: Player,
-    message: string,
-    percent: number,
-    dimension: Dimension
+    stepCount: number;
+    step: number;
+    player: Player;
+    message: string;
+    percent: number;
+    dimension: Dimension;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type JobFunction = { readonly jobFunc: "nextStep" | "setProgress", readonly data: any }
+export type JobFunction = { readonly jobFunc: "nextStep" | "setProgress"; readonly data: any };
 
 function cleanUpPlayer(player: Player) {
     if (player.getDynamicProperty("locationBeforeJob")) {
-        player.teleport(
-            <Vector3>player.getDynamicProperty("locationBeforeJob"),
-            { dimension: world.getDimension(<string>player.getDynamicProperty("dimensionBeforeJob")) }
-        );
+        player.teleport(<Vector3>player.getDynamicProperty("locationBeforeJob"), { dimension: world.getDimension(<string>player.getDynamicProperty("dimensionBeforeJob")) });
         player.setGameMode(<GameMode>player.getDynamicProperty("gamemodeBeforeJob"));
-        player.camera.fade({ fadeTime: { fadeInTime: 0, holdTime: 0, fadeOutTime: 0.5 }});
+        player.camera.fade({ fadeTime: { fadeInTime: 0, holdTime: 0, fadeOutTime: 0.5 } });
         player.setDynamicProperty("locationBeforeJob", undefined);
         player.setDynamicProperty("dimensionBeforeJob", undefined);
         player.setDynamicProperty("gamemodeBeforeJob", undefined);
@@ -34,7 +31,7 @@ function cleanUpPlayer(player: Player) {
     }
 }
 Server.addListener("playerLoaded", ({ player }) => cleanUpPlayer(player));
-world.getAllPlayers().forEach(player => cleanUpPlayer(player));
+world.getAllPlayers().forEach((player) => cleanUpPlayer(player));
 
 class JobHandler {
     private jobs = new Map<JobContext, job>();
@@ -44,7 +41,7 @@ class JobHandler {
         Server.on("tick", () => this.printJobs());
     }
 
-    public* run<T, TReturn>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | (() => Generator<T | JobFunction, TReturn>)) {
+    public *run<T, TReturn>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | (() => Generator<T | JobFunction, TReturn>)) {
         const jobId = ++globalJobIdCounter;
         const job = {
             stepCount: steps,
@@ -52,7 +49,7 @@ class JobHandler {
             player: session.getPlayer(),
             message: "", // Jobs with no messages are not displayed.
             percent: 0,
-            dimension: session.getPlayer().dimension
+            dimension: session.getPlayer().dimension,
         };
         this.jobs.set(jobId, job);
 

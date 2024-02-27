@@ -36,7 +36,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         return arr;
     }
 
-    function* modifyMap(arr: map, func: (x: number, z: number) => (number | null), jobMsg: string): Generator<JobFunction> {
+    function* modifyMap(arr: map, func: (x: number, z: number) => number | null, jobMsg: string): Generator<JobFunction> {
         let count = 0;
         const size = arr.length * arr[0].length;
         yield Jobs.nextStep(jobMsg);
@@ -54,47 +54,59 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     const top = createMap(sizeX, sizeZ);
     const base = createMap(sizeX, sizeZ);
 
-    yield* modifyMap(map, (x, z) => {
-        const yRange = shape.getYRange(x, z);
-        if (yRange == null) return;
+    yield* modifyMap(
+        map,
+        (x, z) => {
+            const yRange = shape.getYRange(x, z);
+            if (yRange == null) return;
 
-        yRange[0] = Math.max(yRange[0] + loc.y, minY);
-        yRange[1] = Math.min(yRange[1] + loc.y, maxY);
-        let h: Vector3;
+            yRange[0] = Math.max(yRange[0] + loc.y, minY);
+            yRange[1] = Math.min(yRange[1] + loc.y, maxY);
+            let h: Vector3;
 
-        for (h = new Vector(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
-            if (!dim.getBlock(h).isAir && heightMask.matchesBlock(dim.getBlock(h))) {
-                break;
+            for (h = new Vector(x + range[0].x, yRange[1], z + range[0].z); h.y >= yRange[0]; h.y--) {
+                if (!dim.getBlock(h).isAir && heightMask.matchesBlock(dim.getBlock(h))) {
+                    break;
+                }
             }
-        }
-        if (h.y != yRange[0] - 1) {
-            base[x][z] = h.y;
-            bottom[x][z] = yRange[0];
-            top[x][z] = yRange[1];
-            return h.y;
-        }
-    }, "Getting heightmap..."); // TODO: Localize
+            if (h.y != yRange[0] - 1) {
+                base[x][z] = h.y;
+                bottom[x][z] = yRange[0];
+                top[x][z] = yRange[1];
+                return h.y;
+            }
+        },
+        "Getting heightmap..."
+    ); // TODO: Localize
 
     const back = createMap(sizeX, sizeZ);
     for (let i = 0; i < iter; i++) {
-        yield* modifyMap(back, (x, z) => {
-            const c = getMap(map, x, z);
-            if (c == null) return null;
+        yield* modifyMap(
+            back,
+            (x, z) => {
+                const c = getMap(map, x, z);
+                if (c == null) return null;
 
-            let height = c * 0.6;
-            height += (getMap(map, x, z - 1) ?? c) * 0.2;
-            height += (getMap(map, x, z + 1) ?? c) * 0.2;
-            return height;
-        }, "Smoothing height map...");
-        yield* modifyMap(map, (x, z) => {
-            const c = getMap(back, x, z);
-            if (c == null) return null;
+                let height = c * 0.6;
+                height += (getMap(map, x, z - 1) ?? c) * 0.2;
+                height += (getMap(map, x, z + 1) ?? c) * 0.2;
+                return height;
+            },
+            "Smoothing height map..."
+        );
+        yield* modifyMap(
+            map,
+            (x, z) => {
+                const c = getMap(back, x, z);
+                if (c == null) return null;
 
-            let height = c * 0.6;
-            height += (getMap(back, x - 1, z) ?? c) * 0.2;
-            height += (getMap(back, x + 1, z) ?? c) * 0.2;
-            return height;
-        }, "Smoothing height map...");
+                let height = c * 0.6;
+                height += (getMap(back, x - 1, z) ?? c) * 0.2;
+                height += (getMap(back, x + 1, z) ?? c) * 0.2;
+                return height;
+            },
+            "Smoothing height map..."
+        );
     }
 
     let count = 0;
@@ -105,7 +117,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         yield history.addUndoStructure(record, range[0], range[1], "any");
 
         yield Jobs.nextStep("Calculating blocks...");
-        yield* warpBuffer.create(range[0], range[1], loc => {
+        yield* warpBuffer.create(range[0], range[1], (loc) => {
             const canSmooth = (loc: Vector3) => {
                 const global = Vector.add(loc, range[0]);
                 return dim.getBlock(global).isAir || mask.matchesBlock(dim.getBlock(global));

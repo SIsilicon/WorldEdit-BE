@@ -6,7 +6,7 @@ import { contentLog, RawText } from "./utils/index.js";
 // eslint-disable-next-line prefer-const
 let _server: ServerBuild;
 
-system.beforeEvents.watchdogTerminate.subscribe(ev => {
+system.beforeEvents.watchdogTerminate.subscribe((ev) => {
     if (ev.terminateReason == WatchdogTerminateReason.Hang) {
         ev.cancel = true;
         shutdownTimers();
@@ -62,7 +62,7 @@ class ServerBuild extends ServerBuilder {
         const beforeEvents = world.beforeEvents;
         const afterEvents = world.afterEvents;
 
-        beforeEvents.chatSend.subscribe(data => {
+        beforeEvents.chatSend.subscribe((data) => {
             /**
              * Emit to 'beforeMessage' event listener
              */
@@ -71,7 +71,7 @@ class ServerBuild extends ServerBuilder {
              * This is for the command builder and a emitter
              */
             const msg = data.message;
-            if(!msg.startsWith(this.command.prefix)) return;
+            if (!msg.startsWith(this.command.prefix)) return;
             data.cancel = true;
             const command = msg.split(/\s+/)[0].slice(this.command.prefix.length);
             this.command.callCommand(data.sender, command, msg.substring(msg.indexOf(command) + command.length).trim());
@@ -79,59 +79,61 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'beforeExplosion' event listener
          */
-        beforeEvents.explosion.subscribe(data => this.emit("beforeExplosion", data));
+        beforeEvents.explosion.subscribe((data) => this.emit("beforeExplosion", data));
         /**
          * Emit to 'blockExplode' event listener
          */
-        afterEvents.blockExplode.subscribe(data => this.emit("blockExplode", data));
+        afterEvents.blockExplode.subscribe((data) => this.emit("blockExplode", data));
         /**
          * Emit to 'beforeExplosion' event listener
          */
-        beforeEvents.explosion.subscribe(data => this.emit("explosion", data));
+        beforeEvents.explosion.subscribe((data) => this.emit("explosion", data));
         /**
          * Emit to 'pistonActivate' event listener
          */
-        afterEvents.pistonActivate.subscribe(data => this.emit("pistonActivate", data));
+        afterEvents.pistonActivate.subscribe((data) => this.emit("pistonActivate", data));
         /**
          * Emit to 'itemUse' event listener
          */
-        beforeEvents.itemUse.subscribe(data => this.emit("itemUseBefore", data));
+        beforeEvents.itemUse.subscribe((data) => this.emit("itemUseBefore", data));
 
         /**
          * Emit to 'itemUseBeforeOm' event listener
          */
-        beforeEvents.itemUseOn.subscribe(data => this.emit("itemUseOnBefore", data));
+        beforeEvents.itemUseOn.subscribe((data) => this.emit("itemUseOnBefore", data));
 
         /**
          * Emit to 'messageCreate' event listener
          */
-        afterEvents.chatSend.subscribe(data => this.emit("messageCreate", data));
+        afterEvents.chatSend.subscribe((data) => this.emit("messageCreate", data));
         /**
          * Emit to 'entityEffected' event listener
          */
-        afterEvents.effectAdd.subscribe(data => this.emit("entityEffected", data));
+        afterEvents.effectAdd.subscribe((data) => this.emit("entityEffected", data));
         /**
          * Emit to 'weatherChange' event listener
          */
-        afterEvents.weatherChange.subscribe(data => this.emit("weatherChange", data));
+        afterEvents.weatherChange.subscribe((data) => this.emit("weatherChange", data));
         /**
          * Emit to 'entityCreate' event listener
          */
-        afterEvents.entitySpawn.subscribe(data => this.emit("entityCreate", data));
+        afterEvents.entitySpawn.subscribe((data) => this.emit("entityCreate", data));
         /**
          * Emit to 'blockBreak' event listener
          */
-        beforeEvents.playerBreakBlock.subscribe(data => this.emit("blockBreak", data));
+        beforeEvents.playerBreakBlock.subscribe((data) => this.emit("blockBreak", data));
         /**
          * Emit to 'blockHit' event listener
          */
-        afterEvents.entityHitBlock.subscribe(data => this.emit("blockHit", data));
+        afterEvents.entityHitBlock.subscribe((data) => this.emit("blockHit", data));
         /**
          * Emit to 'worldInitialize' event listener
          */
-        afterEvents.worldInitialize.subscribe(data => this.emit("worldInitialize", data));
+        afterEvents.worldInitialize.subscribe((data) => this.emit("worldInitialize", data));
 
-        let worldLoaded = false, tickCount = 0, prevTime = Date.now();
+        let worldLoaded = false,
+            tickCount = 0,
+            prevTime = Date.now();
         const playerDimensions = new Map<string, string>();
         system.runInterval(() => {
             tickCount++;
@@ -154,14 +156,14 @@ class ServerBuild extends ServerBuilder {
                 if (oldDimension && oldDimension != newDimension) {
                     this.emit("playerChangeDimension", {
                         player: player,
-                        dimension: player.dimension
+                        dimension: player.dimension,
                     });
                 }
                 playerDimensions.set(player.name, newDimension);
             }
             this.emit("tick", {
                 currentTick: tickCount,
-                deltaTime: Date.now() - prevTime
+                deltaTime: Date.now() - prevTime,
             });
 
             prevTime = Date.now();
@@ -170,7 +172,7 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'playerSpawn' event listener
          */
-        afterEvents.playerSpawn.subscribe(data => {
+        afterEvents.playerSpawn.subscribe((data) => {
             if (data.initialSpawn) {
                 this.emit("playerLoaded", data);
             }
@@ -178,17 +180,16 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'playerJoin' event listener
          */
-        afterEvents.playerJoin.subscribe(data => {
+        afterEvents.playerJoin.subscribe((data) => {
             this.emit("playerJoin", { playerName: data.playerName });
         });
         /**
          * Emit to 'playerLeave' event listener
          */
-        afterEvents.playerLeave.subscribe(data => {
+        afterEvents.playerLeave.subscribe((data) => {
             this.emit("playerLeave", data);
         });
     }
-
 }
 
 _server = new ServerBuild();

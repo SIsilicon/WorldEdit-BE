@@ -5,11 +5,15 @@ import { Server } from "./serverBuilder.js";
 
 const objective = world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", "");
 
-export class Database<T extends {} = {[key: string]: any}> {
+export class Database<T extends {} = { [key: string]: any }> {
     private data: T;
     private provider: World | Entity;
 
-    constructor(private name: string, provider: World | Entity = world, reviver?: (key: string, value: any) => any) {
+    constructor(
+        private name: string,
+        provider: World | Entity = world,
+        reviver?: (key: string, value: any) => any
+    ) {
         const table = this.getScoreboardParticipant();
         this.data = table ? JSON.parse(JSON.parse(`"${table.displayName}"`), reviver)[1] : {};
         this.provider = provider;
@@ -66,7 +70,7 @@ export class Database<T extends {} = {[key: string]: any}> {
         if (table) {
             Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
         }
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(["wedit:"+this.name, this.data]))} GAMETEST_DB 0`);
+        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(["wedit:" + this.name, this.data]))} GAMETEST_DB 0`);
     }
     /**
      * Get all the keys in the table
@@ -81,7 +85,7 @@ export class Database<T extends {} = {[key: string]: any}> {
      * @returns Array of values
      * @example Database.values();
      */
-    values(): (T[keyof T])[] {
+    values(): T[keyof T][] {
         return Object.values(this.data);
     }
     /**
@@ -120,4 +124,3 @@ export class Database<T extends {} = {[key: string]: any}> {
         }
     }
 }
-

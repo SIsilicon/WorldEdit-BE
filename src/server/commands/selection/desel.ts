@@ -7,24 +7,24 @@ const registerInformation = {
     aliases: ["deselect", "desel"],
     usage: [
         {
-            flag: "d"
+            flag: "d",
         },
         {
-            subName: "cuboid"
+            subName: "cuboid",
         },
         {
-            subName: "extend"
+            subName: "extend",
         },
         {
-            subName: "sphere"
+            subName: "sphere",
         },
         {
-            subName: "cyl"
+            subName: "cyl",
         },
         {
-            subName: "_nothing"
-        }
-    ]
+            subName: "_nothing",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

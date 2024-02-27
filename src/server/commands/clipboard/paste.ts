@@ -10,17 +10,20 @@ const registerInformation = {
     description: "commands.wedit:paste.description",
     usage: [
         {
-            flag: "o"
-        }, {
-            flag: "s"
-        }, {
-            flag: "n"
-        }, {
+            flag: "o",
+        },
+        {
+            flag: "s",
+        },
+        {
+            flag: "n",
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

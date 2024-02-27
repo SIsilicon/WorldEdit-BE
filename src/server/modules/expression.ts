@@ -34,13 +34,13 @@ export class Expression implements CustomArgType {
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
         if (!input) {
-            return {result: new Expression(), argIndex: index+1};
+            return { result: new Expression(), argIndex: index + 1 };
         }
 
         const tokens = tokenize(input);
         let token: Token;
 
-        function processTokens(scope: null|"bracket"|"functionArg" = null) {
+        function processTokens(scope: null | "bracket" | "functionArg" = null) {
             const ops: ExpressionNode[] = [];
             const out: ExpressionNode[] = [];
             const start = tokens.curr();
@@ -50,7 +50,7 @@ export class Expression implements CustomArgType {
             }
 
             // eslint-disable-next-line no-cond-assign
-            while (token = tokens.next()) {
+            while ((token = tokens.next())) {
                 if (token.type == "space") {
                     continue;
                 } else if (token.type == "number") {
@@ -137,8 +137,8 @@ export class Expression implements CustomArgType {
                     isSyntaxError: true,
                     idx: index,
                     start: error.pos,
-                    end: error.pos+1,
-                    stack: error.stack
+                    end: error.pos + 1,
+                    stack: error.stack,
                 };
                 throw err;
             }
@@ -149,7 +149,7 @@ export class Expression implements CustomArgType {
         expression.stringObj = args[index];
         expression.root = out;
 
-        return {result: expression, argIndex: index+1};
+        return { result: expression, argIndex: index + 1 };
     }
 
     static clone(original: Expression) {
@@ -239,7 +239,7 @@ class FunctionExpression extends ExpressionNode {
     }
 
     postProcess(): void {
-    // TODO: Implement log10, rint, and other non Math functions
+        // TODO: Implement log10, rint, and other non Math functions
         if (this.id == "ln") {
             this.id = "log";
         }
@@ -260,14 +260,30 @@ class BinaryOperator extends ExpressionNode {
 
     readonly opType: string;
 
-    readonly ops: {[key: string]: number} = {
-        "=": 1, "+=": 1, "-=": 1, "*=": 1, "/=": 1, "%=": 1, "^=": 1,
-        "&&": 2, "||": 2,
-        "==": 3, "!=": 3, "~=": 3,
-        "<": 4, "<=": 4, ">": 4, ">=": 4,
-        "<<": 5, ">>": 5,
-        "+": 6, "-": 6,
-        "*": 7, "/": 7, "%": 7,
+    readonly ops: { [key: string]: number } = {
+        "=": 1,
+        "+=": 1,
+        "-=": 1,
+        "*=": 1,
+        "/=": 1,
+        "%=": 1,
+        "^=": 1,
+        "&&": 2,
+        "||": 2,
+        "==": 3,
+        "!=": 3,
+        "~=": 3,
+        "<": 4,
+        "<=": 4,
+        ">": 4,
+        ">=": 4,
+        "<<": 5,
+        ">>": 5,
+        "+": 6,
+        "-": 6,
+        "*": 7,
+        "/": 7,
+        "%": 7,
         "^": 8,
     };
 

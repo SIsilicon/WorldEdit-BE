@@ -4,7 +4,7 @@ import { registerCommand } from "../register_commands.js";
 const registerInformation = {
     name: "drawsel",
     permission: "worldedit.drawsel",
-    description: "commands.wedit:drawsel.description"
+    description: "commands.wedit:drawsel.description",
 };
 
 registerCommand(registerInformation, function (session) {

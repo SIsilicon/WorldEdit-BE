@@ -13,12 +13,12 @@ const registerInformation = {
     usage: [
         {
             name: "biome",
-            type: "Biome"
+            type: "Biome",
         },
         {
-            flag: "p"
-        }
-    ]
+            flag: "p",
+        },
+    ],
 };
 
 const users: Player[] = [];
@@ -42,8 +42,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield Jobs.nextStep("Setting biome data...");
             if (session.selection.isCuboid()) {
                 const [min, max] = session.selection.getRange();
-                const minSubChunk = Vector.from(min).mul(1/16).floor();
-                const maxSubChunk = Vector.from(max).mul(1/16).floor();
+                const minSubChunk = Vector.from(min)
+                    .mul(1 / 16)
+                    .floor();
+                const maxSubChunk = Vector.from(max)
+                    .mul(1 / 16)
+                    .floor();
 
                 for (let subZ = minSubChunk.z; subZ <= maxSubChunk.z; subZ++) {
                     for (let subY = minSubChunk.y; subY <= maxSubChunk.y; subY++) {

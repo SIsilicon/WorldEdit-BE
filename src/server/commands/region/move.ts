@@ -1,4 +1,3 @@
-
 import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
@@ -13,30 +12,36 @@ const registerInformation = {
     description: "commands.wedit:move.description",
     usage: [
         {
-            flag: "a"
-        }, {
-            flag: "e"
-        }, {
-            flag: "s"
-        }, {
+            flag: "a",
+        },
+        {
+            flag: "e",
+        },
+        {
+            flag: "s",
+        },
+        {
             name: "amount",
             type: "int",
             default: 1,
-            range: [1, null] as [number, null]
-        }, {
+            range: [1, null] as [number, null],
+        },
+        {
             name: "offset",
             type: "Direction",
-            default: new Cardinal()
-        }, {
+            default: new Cardinal(),
+        },
+        {
             name: "replace",
             type: "Pattern",
-            default: new Pattern("air")
-        }, {
+            default: new Pattern("air"),
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

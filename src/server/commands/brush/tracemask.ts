@@ -10,9 +10,9 @@ const registerInformation = {
         {
             name: "mask",
             type: "Mask",
-            default: new Mask()
-        }
-    ]
+            default: new Mask(),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

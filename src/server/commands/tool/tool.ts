@@ -11,7 +11,7 @@ const registerInformation = {
     description: "commands.wedit:tool.description",
     usage: [
         {
-            subName: "none"
+            subName: "none",
         },
         {
             subName: "stacker",
@@ -22,28 +22,29 @@ const registerInformation = {
                     name: "range",
                     type: "int",
                     range: [1, null] as [number, null],
-                    default: 1
-                }, {
+                    default: 1,
+                },
+                {
                     name: "mask",
                     type: "Mask",
-                    default: new Mask()
-                }
-            ]
+                    default: new Mask(),
+                },
+            ],
         },
         {
             subName: "selwand",
             permission: "worldedit.setwand",
-            description: "commands.wedit:tool.description.selwand"
+            description: "commands.wedit:tool.description.selwand",
         },
         {
             subName: "navwand",
             permission: "worldedit.setwand",
-            description: "commands.wedit:tool.description.navwand"
+            description: "commands.wedit:tool.description.navwand",
         },
         {
             subName: "farwand",
             permission: "worldedit.farwand",
-            description: "commands.wedit:tool.description.farwand"
+            description: "commands.wedit:tool.description.farwand",
         },
         {
             subName: "cmd",
@@ -52,9 +53,9 @@ const registerInformation = {
             args: [
                 {
                     name: "command",
-                    type: "string..."
-                }
-            ]
+                    type: "string...",
+                },
+            ],
         },
         {
             subName: "repl",
@@ -63,16 +64,16 @@ const registerInformation = {
             args: [
                 {
                     name: "pattern",
-                    type: "Pattern"
-                }
-            ]
+                    type: "Pattern",
+                },
+            ],
         },
         {
             subName: "cycler",
             permission: "worldedit.cycler",
-            description: "commands.wedit:tool.description.cycler"
-        }
-    ]
+            description: "commands.wedit:tool.description.cycler",
+        },
+    ],
 };
 
 // TODO: Add floodfill tool

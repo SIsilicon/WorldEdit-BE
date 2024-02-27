@@ -8,10 +8,10 @@ const registerInformation = {
     usage: [
         {
             name: "expr",
-            type: "Expression"
-        }
+            type: "Expression",
+        },
     ],
-    aliases: ["calc", "eval", "evaluate", "solve"]
+    aliases: ["calc", "eval", "evaluate", "solve"],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

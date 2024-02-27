@@ -56,9 +56,7 @@ class Thread<T extends any[]> {
 
         let promiseRes = promiseData.get(this);
         promiseData.delete(this);
-        let next = promiseRes instanceof ErrorPackage ?
-            this.task.throw(promiseRes.err) :
-            this.task.next(promiseRes);
+        let next = promiseRes instanceof ErrorPackage ? this.task.throw(promiseRes.err) : this.task.next(promiseRes);
         while (!next.done) {
             if (next.value instanceof Promise) {
                 try {
@@ -67,17 +65,15 @@ class Thread<T extends any[]> {
                     promiseRes = new ErrorPackage(err);
                 }
             }
-            next = promiseRes instanceof ErrorPackage ?
-                this.task.throw(promiseRes.err) :
-                this.task.next(promiseRes);
+            next = promiseRes instanceof ErrorPackage ? this.task.throw(promiseRes.err) : this.task.next(promiseRes);
             promiseRes = undefined;
         }
     }
 
     /**
-   * @internal
-   * @returns The generator task
-   */
+     * @internal
+     * @returns The generator task
+     */
     getTask() {
         return this.task;
     }
@@ -102,16 +98,13 @@ system.runInterval(() => {
                 continue;
             }
             promiseData.delete(thread);
-            const next = promiseRes instanceof ErrorPackage ?
-                thread.getTask().throw(promiseRes.err) :
-                thread.getTask().next(promiseRes);
+            const next = promiseRes instanceof ErrorPackage ? thread.getTask().throw(promiseRes.err) : thread.getTask().next(promiseRes);
             if (next.done) {
                 thread.join();
                 continue;
             } else if (next.value instanceof Promise) {
                 promiseData.set(thread, waitForPromise);
-                next.value.then(result => promiseData.set(thread, result))
-                    .catch(err => promiseData.set(thread, new ErrorPackage(err)));
+                next.value.then((result) => promiseData.set(thread, result)).catch((err) => promiseData.set(thread, new ErrorPackage(err)));
             }
             threads.unshift(thread);
         } catch (e) {

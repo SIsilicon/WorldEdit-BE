@@ -11,9 +11,9 @@ const registerInformation = {
         {
             name: "height",
             type: "int",
-            range: [0, null] as [number, null]
-        }
-    ]
+            range: [0, null] as [number, null],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

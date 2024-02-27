@@ -13,15 +13,17 @@ const registerInformation = {
     description: "commands.wedit:copy.description",
     usage: [
         {
-            flag: "a"
-        }, {
-            flag: "e"
-        }, {
+            flag: "a",
+        },
+        {
+            flag: "e",
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 /**
@@ -40,7 +42,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
     const usingItem = args.get("_using_item");
     const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const includeAir: boolean = usingItem ? session.includeAir : !args.has("a");
-    const mask: Mask = usingItem ? Mask.clone(session.globalMask) : (args.has("m") ? args.get("m-mask") : undefined);
+    const mask: Mask = usingItem ? Mask.clone(session.globalMask) : args.has("m") ? args.get("m-mask") : undefined;
 
     if (!buffer) {
         if (session.clipboard) session.deleteRegion(session.clipboard);
@@ -50,7 +52,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
             flip: Vector.ONE,
             originalLoc: Vector.add(start, end).mul(0.5),
             originalDim: player.dimension.id,
-            relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor())
+            relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor()),
         };
         buffer = session.clipboard;
     }
@@ -74,7 +76,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
         };
         error = yield* buffer.save(start, end, dimension, { includeEntities }, filter ? blocks : "all");
     } else {
-        error = yield* buffer.save(start, end, dimension, {includeEntities});
+        error = yield* buffer.save(start, end, dimension, { includeEntities });
     }
     return error;
 }

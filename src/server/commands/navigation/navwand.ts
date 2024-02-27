@@ -6,7 +6,7 @@ import config from "config.js";
 const registerInformation = {
     name: "navwand",
     permission: "worldedit.setwand",
-    description: "commands.wedit:navwand.description"
+    description: "commands.wedit:navwand.description",
 };
 
 registerCommand(registerInformation, function (session, builder) {

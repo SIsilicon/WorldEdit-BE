@@ -8,9 +8,9 @@ const registerInformation = {
     description: "commands.wedit:blockid.description",
     usage: [
         {
-            flag: "d"
-        }
-    ]
+            flag: "d",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

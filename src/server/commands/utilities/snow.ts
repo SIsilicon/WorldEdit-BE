@@ -12,36 +12,36 @@ const registerInformation = {
     description: "commands.wedit:snow.description",
     usage: [
         {
-            flag: "s"
+            flag: "s",
         },
         {
             name: "size",
             type: "int",
-            range: [1, null] as [number, null]
+            range: [1, null] as [number, null],
         },
         {
             name: "height",
             type: "int",
             range: [1, null] as [number, null],
-            default: -1
-        }
-    ]
+            default: -1,
+        },
+    ],
 };
 
 function canSnowOn(block: Block) {
     const solidTest = {
         includeLiquidBlocks: false,
         includePassableBlocks: false,
-        maxDistance: 1.0
+        maxDistance: 1.0,
     };
 
     const dimension = block.dimension;
     const location = Vector.from(block.location).add([0.5, 1.99, 0.5]);
     let isBlocked = !!dimension.getBlockFromRay(location, MCVector.down, solidTest);
     if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([-0.49, 0, 0]), MCVector.down, solidTest);
-    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0.49, 0, 0]), MCVector.down, solidTest);
-    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0,-0.49]), MCVector.down, solidTest);
-    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0, 0.49]), MCVector.down, solidTest);
+    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([0.49, 0, 0]), MCVector.down, solidTest);
+    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([0, 0, -0.49]), MCVector.down, solidTest);
+    if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([0, 0, 0.49]), MCVector.down, solidTest);
     return isBlocked;
 }
 
@@ -69,12 +69,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const rayTraceOptions = {
             includeLiquidBlocks: true,
             includePassableBlocks: true,
-            maxDistance: height
+            maxDistance: height,
         };
 
         for (let x = range[0].x; x <= range[1].x; x++)
             for (let z = range[0].z; z <= range[1].z; z++) {
-                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map(y => y + origin.y) as [number, number];
+                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map((y) => y + origin.y) as [number, number];
                 if (!yRange) {
                     i++;
                     continue;

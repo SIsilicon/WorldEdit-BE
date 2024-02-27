@@ -18,7 +18,7 @@ class BrushTool extends Tool {
 
     permission = "worldedit.brush";
 
-    private outlines = new Map<PlayerSession, {selection: Selection, lastHit: Vector}>();
+    private outlines = new Map<PlayerSession, { selection: Selection; lastHit: Vector }>();
     private prevTick = 0;
     private ticksToUpdate = 0;
 
@@ -41,7 +41,7 @@ class BrushTool extends Tool {
         if (hit) {
             if (!self.outlines.has(session)) {
                 const selection = new Selection(player);
-                self.outlines.set(session, {selection, lastHit: hit});
+                self.outlines.set(session, { selection, lastHit: hit });
             }
 
             const { selection, lastHit } = self.outlines.get(session);
@@ -77,19 +77,19 @@ class BrushTool extends Tool {
     }
 
     toJSON() {
-    // persistent structure brush not supported
+        // persistent structure brush not supported
         if (this.brush.id === "structure_brush") return undefined;
 
         return {
             toolType: this.type,
             brush: this.brush,
             mask: this.mask,
-            traceMask: this.traceMask
+            traceMask: this.traceMask,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static parseJSON(json: {[key: string]: any}) {
+    static parseJSON(json: { [key: string]: any }) {
         const brushClass = brushTypes.get(json.brush.id);
         const brush = new brushClass(...(brushClass as brushConstruct & typeof Brush).parseJSON(json.brush));
         return [brush, json.mask ? new Mask(json.mask) : null, json.traceMask ? new Mask(json.traceMask) : null];

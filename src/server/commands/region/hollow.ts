@@ -16,14 +16,14 @@ const registerInformation = {
             name: "thickness",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
+            default: 1,
         },
         {
             name: "pattern",
             type: "Pattern",
-            default: new Pattern("air")
-        }
-    ]
+            default: new Pattern("air"),
+        },
+    ],
 };
 
 function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): Generator<JobFunction | Promise<void>, number> {
@@ -65,7 +65,14 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                     if (!locStringSet.has(locString)) continue;
                     if (canPlaceBlock(loc, dimension) && !Server.block.isAirOrFluid(dimension.getBlock(loc).permutation)) continue;
                     locStringSet.delete(locString);
-                    for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
+                    for (const offset of [
+                        [0, 1, 0],
+                        [0, -1, 0],
+                        [1, 0, 0],
+                        [-1, 0, 0],
+                        [0, 0, 1],
+                        [0, 0, -1],
+                    ] as [number, number, number][]) {
                         queue.push(Vector.add(loc, offset));
                     }
                 }
@@ -76,7 +83,14 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                 outer: for (const locString of locStringSet) {
                     yield Jobs.setProgress(progress / volume);
                     progress += 0.5 / thickness;
-                    for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
+                    for (const offset of [
+                        [0, 1, 0],
+                        [0, -1, 0],
+                        [1, 0, 0],
+                        [-1, 0, 0],
+                        [0, 0, 1],
+                        [0, 0, -1],
+                    ] as [number, number, number][]) {
                         if (!locStringSet.has(locToString(stringToLoc(locString).add(offset)))) {
                             surface.push(locString);
                             continue outer;

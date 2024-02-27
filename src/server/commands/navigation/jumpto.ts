@@ -6,7 +6,7 @@ const registerInformation = {
     name: "jumpto",
     permission: "worldedit.navigation.jumpto.command",
     description: "commands.wedit:jumpto.description",
-    aliases: ["j"]
+    aliases: ["j"],
 };
 
 registerCommand(registerInformation, function (session, builder) {

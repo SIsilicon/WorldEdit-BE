@@ -13,21 +13,21 @@ const registerInformation = {
                 {
                     name: "page",
                     type: "int",
-                    default: 1
-                }
-            ]
+                    default: 1,
+                },
+            ],
         },
         {
             subName: "_command",
             args: [
                 {
                     name: "command",
-                    type: "CommandName"
-                }
-            ]
-        }
+                    type: "CommandName",
+                },
+            ],
+        },
     ],
-    aliases: ["?"]
+    aliases: ["?"],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -67,7 +67,11 @@ registerCommand(registerInformation, function (session, builder, args) {
         const page: number = Math.max(args.get("page"), 1);
         const pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
 
-        const msg = RawText.text("§2").append("translate", "commands.wedit:help.header").with(`${pageOff / PAGE_SIZE + 1}`).with(`${totalPages}`).append("text", "§r");
+        const msg = RawText.text("§2")
+            .append("translate", "commands.wedit:help.header")
+            .with(`${pageOff / PAGE_SIZE + 1}`)
+            .with(`${totalPages}`)
+            .append("text", "§r");
         for (let i = pageOff; i < Math.min(pageOff + PAGE_SIZE, cmdInfo.length); i++) {
             const cmd = cmdInfo[i];
             msg.append("text", `\n${Server.command.prefix}${cmd[0]} ${cmd[1]}`);

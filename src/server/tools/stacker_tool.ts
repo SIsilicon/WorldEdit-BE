@@ -52,12 +52,12 @@ class StackerTool extends Tool {
         return {
             toolType: this.type,
             range: this.range,
-            mask: this.mask
+            mask: this.mask,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static parseJSON(json: {[key: string]: any}) {
+    static parseJSON(json: { [key: string]: any }) {
         return [json.range, new Mask(json.mask)];
     }
 }

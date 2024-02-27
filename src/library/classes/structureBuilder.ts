@@ -4,26 +4,26 @@ import { Dimension, Vector3, world } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 
 interface SubStructure {
-  name: string,
-  start: Vector,
-  end: Vector
+    name: string;
+    start: Vector;
+    end: Vector;
 }
 
 interface StructureMeta {
-  subRegions?: SubStructure[],
-  size: Vector
+    subRegions?: SubStructure[];
+    size: Vector;
 }
 
 export interface StructureSaveOptions {
-  includeEntities?: boolean,
-  includeBlocks?: boolean,
-  saveToDisk?: boolean
+    includeEntities?: boolean;
+    includeBlocks?: boolean;
+    saveToDisk?: boolean;
 }
 
 export interface StructureLoadOptions {
-  rotation?: number,
-  flip?: "none"|"x"|"z"|"xz",
-  importedSize?: Vector
+    rotation?: number;
+    flip?: "none" | "x" | "z" | "xz";
+    importedSize?: Vector;
 }
 
 class StructureManager {
@@ -38,7 +38,7 @@ class StructureManager {
 
         const includeEntities = options.includeEntities ?? false;
         const includeBlocks = options.includeBlocks ?? true;
-        const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
+        const saveTo = options.saveToDisk ?? false ? "disk" : "memory";
 
         if (this.beyondMaxSize(size)) {
             let error = false;
@@ -59,7 +59,7 @@ class StructureManager {
             } else {
                 this.structures.set(name, {
                     subRegions: subStructs,
-                    size: size
+                    size: size,
                 });
                 return false;
             }
@@ -83,7 +83,7 @@ class StructureManager {
 
         const includeEntities = options.includeEntities ?? false;
         const includeBlocks = options.includeBlocks ?? true;
-        const saveTo = (options.saveToDisk ?? false) ? "disk" : "memory";
+        const saveTo = options.saveToDisk ?? false ? "disk" : "memory";
 
         if (this.beyondMaxSize(size)) {
             let error = false;
@@ -124,8 +124,8 @@ class StructureManager {
 
     load(name: string, location: Vector3, dim: Dimension, options: StructureLoadOptions = {}) {
         const loadPos = Vector.from(location);
-        let rot = (options.rotation ?? 0);
-        rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+        let rot = options.rotation ?? 0;
+        rot = rot >= 0 ? rot % 360 : ((rot % 360) + 360) % 360;
         const flip = options.flip ?? "none";
 
         const struct = this.structures.get(name);
@@ -139,9 +139,7 @@ class StructureManager {
 
             const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), Vector.ZERO, rotation, dir_sc);
             let error = false;
-            const subStructs = options.importedSize ?
-                this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) :
-                struct.subRegions;
+            const subStructs = options.importedSize ? this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) : struct.subRegions;
             for (const sub of subStructs) {
                 const subBounds = regionTransformedBounds(sub.start.floor(), sub.end.floor(), Vector.ZERO, rotation, dir_sc);
                 const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
@@ -156,8 +154,8 @@ class StructureManager {
 
     async loadWhileLoadingChunks(name: string, location: Vector3, dim: Dimension, options: StructureLoadOptions = {}, loadArea: (min: Vector3, max: Vector3) => boolean) {
         const loadPos = Vector.from(location);
-        let rot = (options.rotation ?? 0);
-        rot = rot >= 0 ? rot % 360 : (rot % 360 + 360) % 360;
+        let rot = options.rotation ?? 0;
+        rot = rot >= 0 ? rot % 360 : ((rot % 360) + 360) % 360;
         const flip = options.flip ?? "none";
 
         const struct = this.structures.get(name);
@@ -171,9 +169,7 @@ class StructureManager {
 
             const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), Vector.ZERO, rotation, dir_sc);
             let error = false;
-            const subStructs = options.importedSize ?
-                this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) :
-                struct.subRegions;
+            const subStructs = options.importedSize ? this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) : struct.subRegions;
             sub: for (const sub of subStructs) {
                 const subBounds = regionTransformedBounds(sub.start.floor(), sub.end.floor(), Vector.ZERO, rotation, dir_sc);
                 const subStart = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
@@ -239,12 +235,12 @@ class StructureManager {
                 for (let x = 0; x < size.x; x += this.MAX_SIZE.x) {
                     const subStart = new Vector(x, y, z);
                     const subEnd = Vector.min(subStart.add(this.MAX_SIZE).sub(1), size.add([-1, -1, -1]));
-                    const subName = `_${x/this.MAX_SIZE.x}_${y/this.MAX_SIZE.y}_${z/this.MAX_SIZE.z}`;
+                    const subName = `_${x / this.MAX_SIZE.x}_${y / this.MAX_SIZE.y}_${z / this.MAX_SIZE.z}`;
 
                     subStructs.push({
                         name: subName,
                         start: subStart,
-                        end: subEnd
+                        end: subEnd,
                     });
                 }
         return subStructs;

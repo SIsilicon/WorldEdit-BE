@@ -12,24 +12,24 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
+            type: "Pattern",
         },
         {
             name: "radius",
-            type: "float"
+            type: "float",
         },
         {
             name: "depth",
             type: "int",
             range: [1, null] as [number, null],
-            default: -1
+            default: -1,
         },
         {
             name: "direction",
             type: "Direction",
-            default: new Cardinal(Cardinal.Dir.DOWN)
-        }
-    ]
+            default: new Cardinal(Cardinal.Dir.DOWN),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const blocks = yield* floodFill(startBlock, args.get("radius"), (ctx, dir) => {
             const dotDir = fillDir.dot(dir);
             if (dotDir < 0) return false;
-            if (fillDir.dot(ctx.pos.add(dir)) > depth-1) return false;
+            if (fillDir.dot(ctx.pos.add(dir)) > depth - 1) return false;
             if (!dimension.getBlock(ctx.worldPos.add(dir))?.isAir) return false;
             return true;
         });

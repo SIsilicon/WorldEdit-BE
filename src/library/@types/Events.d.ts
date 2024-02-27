@@ -15,60 +15,61 @@ import {
     PistonActivateAfterEvent,
     WeatherChangeAfterEvent,
     PlayerLeaveAfterEvent,
-    WorldInitializeAfterEvent
+    WorldInitializeAfterEvent,
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
 export interface EventList {
-    beforeMessage: [ChatSendBeforeEvent],
-    beforeExplosion: [ExplosionBeforeEvent],
-    blockExplode: [BlockExplodeAfterEvent],
-    messageCreate: [ChatSendAfterEvent],
-    itemUseBefore: [ItemUseBeforeEvent],
-    itemUseOnBefore: [ItemUseOnBeforeEvent],
-    blockBreak: [PlayerBreakBlockBeforeEvent],
-    blockHit: [EntityHitBlockAfterEvent],
-    tick: [TickEvent],
-    entityEffected: [EffectAddAfterEvent],
-    entityCreate: [EntityCreateEvent],
-    explosion: [ExplosionAfterEvent],
-    pistonActivate: [PistonActivateAfterEvent],
-    weatherChange: [WeatherChangeAfterEvent],
-    playerJoin: [PlayerJoinEvent],
-    playerLoaded: [PlayerLoadedEvent]
-    playerLeave: [PlayerLeaveAfterEvent],
-    ready: [ready],
-    customCommand: [customCommand],
-    playerChangeDimension: [playerChangeDimension],
-    worldInitialize: [WorldInitializeAfterEvent]
+    beforeMessage: [ChatSendBeforeEvent];
+    beforeExplosion: [ExplosionBeforeEvent];
+    blockExplode: [BlockExplodeAfterEvent];
+    messageCreate: [ChatSendAfterEvent];
+    itemUseBefore: [ItemUseBeforeEvent];
+    itemUseOnBefore: [ItemUseOnBeforeEvent];
+    blockBreak: [PlayerBreakBlockBeforeEvent];
+    blockHit: [EntityHitBlockAfterEvent];
+    tick: [TickEvent];
+    entityEffected: [EffectAddAfterEvent];
+    entityCreate: [EntityCreateEvent];
+    explosion: [ExplosionAfterEvent];
+    pistonActivate: [PistonActivateAfterEvent];
+    weatherChange: [WeatherChangeAfterEvent];
+    playerJoin: [PlayerJoinEvent];
+    playerLoaded: [PlayerLoadedEvent];
+    playerLeave: [PlayerLeaveAfterEvent];
+    ready: [ready];
+    customCommand: [customCommand];
+    playerChangeDimension: [playerChangeDimension];
+    worldInitialize: [WorldInitializeAfterEvent];
 }
 
 interface TickEvent {
-    currentTick: number
-    deltaTime: number
+    currentTick: number;
+    deltaTime: number;
 }
 interface ready {
-    readonly loadTime: number
+    readonly loadTime: number;
 }
 interface PlayerLoadedEvent {
-    readonly player: Player
+    readonly player: Player;
 }
 interface PlayerJoinEvent {
-    readonly playerName: string
+    readonly playerName: string;
 }
 interface playerChangeDimension {
-    readonly player: Player,
-    readonly dimension: Dimension
+    readonly player: Player;
+    readonly dimension: Dimension;
 }
-export interface EntityCreateEvent { // Equivalent of EntitySpawnEvent (1.19.60+)
+export interface EntityCreateEvent {
+    // Equivalent of EntitySpawnEvent (1.19.60+)
     /**
      * Entity that was spawned.
      */
     readonly entity: Entity;
 }
 interface customCommand {
-    registration: registerInformation,
-    data: ChatSendBeforeEvent,
-    readonly createdAt: Date,
-    readonly createdTimestamp: number
+    registration: registerInformation;
+    data: ChatSendBeforeEvent;
+    readonly createdAt: Date;
+    readonly createdTimestamp: number;
 }

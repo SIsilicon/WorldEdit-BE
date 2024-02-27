@@ -9,7 +9,7 @@ import config from "config.js";
 
 // TODO: Add other selection modes
 export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
-export type selectMode = typeof selectionModes[number];
+export type selectMode = (typeof selectionModes)[number];
 
 const drawFrequency = 8; // in ticks
 
@@ -30,11 +30,11 @@ export class Selection {
     }
 
     /**
-   * Sets either the first or second selection point of a selection.
-   * @param index The first or second selection point
-   * @param loc The location the selection point is being made
-   */
-    public set(index: 0|1, loc: Vector): void {
+     * Sets either the first or second selection point of a selection.
+     * @param index The first or second selection point
+     * @param loc The location the selection point is being made
+     */
+    public set(index: 0 | 1, loc: Vector): void {
         if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
             throw "worldedit.selection.noPrimary";
         }
@@ -68,12 +68,12 @@ export class Selection {
         }
 
         const [min, max] = getWorldHeightLimits(this.player.dimension);
-        this._points.forEach(p => p.y = Math.min(Math.max(p.y, min), max));
+        this._points.forEach((p) => (p.y = Math.min(Math.max(p.y, min), max)));
     }
 
     /**
-   * Clears the selection points that have been made.
-   */
+     * Clears the selection points that have been made.
+     */
     public clear() {
         if (this._points.length) {
             this._points = [];
@@ -81,9 +81,9 @@ export class Selection {
     }
 
     /**
-   * Get the shape of the current selection
-   * @returns
-   */
+     * Get the shape of the current selection
+     * @returns
+     */
     public getShape(): [Shape, Vector] {
         if (!this.isValid()) return null;
 
@@ -104,9 +104,9 @@ export class Selection {
     }
 
     /**
-   * @return The blocks within the current selection
-   */
-    public* getBlocks(options?: shapeGenOptions) {
+     * @return The blocks within the current selection
+     */
+    public *getBlocks(options?: shapeGenOptions) {
         if (!this.isValid()) return;
 
         const [shape, loc] = this.getShape();
@@ -114,9 +114,9 @@ export class Selection {
     }
 
     /**
-   * Returns the exact or approximate number of blocks the selection encompasses.
-   * @returns
-   */
+     * Returns the exact or approximate number of blocks the selection encompasses.
+     * @returns
+     */
     public getBlockCount() {
         if (!this.isValid()) return 0;
 
@@ -124,7 +124,7 @@ export class Selection {
             return regionVolume(this._points[0], this._points[1]);
         } else if (this._mode == "sphere") {
             const radius = Vector.sub(this._points[1], this._points[0]).length;
-            return Math.round((4/3) * Math.PI * Math.pow(radius, 3));
+            return Math.round((4 / 3) * Math.PI * Math.pow(radius, 3));
         } else if (this._mode == "cylinder") {
             const vec = Vector.sub(this._points[1], this._points[0]);
             const height = Math.abs(vec.y) + 1;
@@ -134,8 +134,8 @@ export class Selection {
     }
 
     /**
-   * @return The minimum and maximum points of the selection
-   */
+     * @return The minimum and maximum points of the selection
+     */
     public getRange(): [Vector, Vector] {
         const [shape, loc] = this.getShape();
         if (shape) {
@@ -173,9 +173,13 @@ export class Selection {
                 for (const [id, loc] of this.drawParticles) {
                     try {
                         this.player.spawnParticle(id, loc);
-                    } catch { /* pass */ }
+                    } catch {
+                        /* pass */
+                    }
                 }
-            } catch { /* pass */ }
+            } catch {
+                /* pass */
+            }
             this.lastDraw = system.currentTick;
         }
     }
@@ -200,7 +204,7 @@ export class Selection {
     }
 
     public get points() {
-        return this._points.map(v => v.clone());
+        return this._points.map((v) => v.clone());
     }
 
     public get visible(): boolean {

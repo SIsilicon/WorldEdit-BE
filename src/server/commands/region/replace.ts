@@ -10,12 +10,13 @@ const registerInformation = {
     usage: [
         {
             name: "mask",
-            type: "Mask"
-        }, {
+            type: "Mask",
+        },
+        {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -24,7 +25,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw RawText.translate("worldEdit.selectionFill.noPattern");
     }
 
-    const mask = args.get("_using_item") ?  session.globalMask : args.get("mask");
+    const mask = args.get("_using_item") ? session.globalMask : args.get("mask");
     const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
     const [shape, loc] = session.selection.getShape();

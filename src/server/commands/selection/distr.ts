@@ -10,12 +10,12 @@ const registerInformation = {
     permission: "worldedit.analysis.distr",
     usage: [
         {
-            flag: "c"
+            flag: "c",
         },
         {
-            flag: "d"
-        }
-    ]
+            flag: "d",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -43,7 +43,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
             for (const block of clipboard.getBlocks()) {
                 processBlock(Array.isArray(block) ? block[1] : block);
-                yield Jobs.setProgress(++i/total);
+                yield Jobs.setProgress(++i / total);
             }
         } else {
             assertSelection(session);
@@ -53,12 +53,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
             for (const loc of session.selection.getBlocks()) {
                 let block = dimension.getBlock(loc);
-                while(!block) {
+                while (!block) {
                     block = Jobs.loadBlock(loc);
                     yield sleep(1);
                 }
                 processBlock(block.permutation);
-                yield Jobs.setProgress(++i/total);
+                yield Jobs.setProgress(++i / total);
             }
         }
     });
@@ -89,7 +89,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }
         }
 
-        const percent = (count / total * 100).toFixed(3);
+        const percent = ((count / total) * 100).toFixed(3);
         if (block.startsWith("minecraft:")) {
             block = block.slice("minecraft:".length);
         }

@@ -5,7 +5,7 @@ import { setPos1 } from "./pos1.js";
 const registerInformation = {
     name: "hpos1",
     permission: "worldedit.selection.hpos",
-    description: "commands.wedit:hpos1.description"
+    description: "commands.wedit:hpos1.description",
 };
 
 registerCommand(registerInformation, function (session, builder) {

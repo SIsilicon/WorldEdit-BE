@@ -1,4 +1,3 @@
-
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionCenter, regionIterateChunks, regionSize, Server, sleep, Vector } from "@notbeer-api";
@@ -12,16 +11,16 @@ const registerInformation = {
     description: "commands.wedit:export.description",
     usage: [
         {
-            flag: "e"
+            flag: "e",
         },
         {
-            flag: "a"
+            flag: "a",
         },
         {
             name: "name",
-            type: "string"
-        }
-    ]
+            type: "string",
+        },
+    ],
 };
 
 let tempID = 0;
@@ -42,7 +41,7 @@ function writeMetaData(name: string, data: string, player: Player) {
     const error = Server.structure.save(name, blockLoc, blockLoc, dimension, {
         saveToDisk: true,
         includeBlocks: false,
-        includeEntities: true
+        includeEntities: true,
     });
     entity.triggerEvent("wedit:despawn");
     return error;
@@ -86,29 +85,42 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }
 
             const jobCtx = Jobs.getContext();
-            if(yield Server.structure.saveWhileLoadingChunks(namespace + ":weditstructexport_" + struct, ...range, dimension, {
-                saveToDisk: true,
-                includeEntities: args.has("e")
-            }, (min, max) => {
-                if (Jobs.isContextValid(jobCtx)) {
-                    Jobs.loadBlock(regionCenter(min, max));
-                    return false;
-                }
-                return true;
-            })) throw "Failed to save structure";
+            if (
+                yield Server.structure.saveWhileLoadingChunks(
+                    namespace + ":weditstructexport_" + struct,
+                    ...range,
+                    dimension,
+                    {
+                        saveToDisk: true,
+                        includeEntities: args.has("e"),
+                    },
+                    (min, max) => {
+                        if (Jobs.isContextValid(jobCtx)) {
+                            Jobs.loadBlock(regionCenter(min, max));
+                            return false;
+                        }
+                        return true;
+                    }
+                )
+            )
+                throw "Failed to save structure";
 
             const size = regionSize(...range);
             const playerPos = PlayerUtil.getBlockLocation(builder);
             const relative = Vector.sub(regionCenter(...range), playerPos);
 
-            if(writeMetaData(namespace + ":weditstructmeta_" + struct,
-                JSON.stringify({
-                    size: { x: size.x, y: size.y, z: size.z },
-                    relative: { x: relative.x, y: relative.y, z: relative.z },
-                    exporter: builder.name
-                }),
-                builder
-            )) throw "Failed to save metadata";
+            if (
+                writeMetaData(
+                    namespace + ":weditstructmeta_" + struct,
+                    JSON.stringify({
+                        size: { x: size.x, y: size.y, z: size.z },
+                        relative: { x: relative.x, y: relative.y, z: relative.z },
+                        exporter: builder.name,
+                    }),
+                    builder
+                )
+            )
+                throw "Failed to save metadata";
             if (writeMetaData("weditstructref_" + struct, struct_name, builder)) throw "Failed to save reference data";
         } catch (e) {
             const [namespace, name] = struct_name.split(":") as [string, string];

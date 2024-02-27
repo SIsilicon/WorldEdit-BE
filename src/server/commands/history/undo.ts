@@ -12,9 +12,9 @@ const registerInformation = {
             name: "times",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
-        }
-    ]
+            default: 1,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -23,7 +23,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let i: number;
     yield* Jobs.run(session, 1, function* () {
         const times = args.get("times") as number;
-        for(i = 0; i < times; i++) {
+        for (i = 0; i < times; i++) {
             if (yield history.undo(session)) {
                 break;
             }

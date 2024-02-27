@@ -14,7 +14,7 @@ export const brushTypes: Map<string, brushConstruct> = new Map();
  * This class is the base for all brush types available in WorldEdit.
  */
 export abstract class Brush {
-    public readonly abstract id: string;
+    public abstract readonly id: string;
 
     /**
      * A method that changes the size of the brush.
@@ -60,7 +60,7 @@ export abstract class Brush {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-    public static parseJSON(json: {[key: string]: any}): any[] {
+    public static parseJSON(json: { [key: string]: any }): any[] {
         return [];
     }
 }

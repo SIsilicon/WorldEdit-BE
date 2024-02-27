@@ -11,9 +11,9 @@ const registerInformation = {
     usage: [
         {
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         yield Jobs.nextStep("Counting blocks...");
         for (const loc of session.selection.getBlocks()) {
             let block = dimension.getBlock(loc);
-            while(!block) {
+            while (!block) {
                 block = Jobs.loadBlock(loc);
                 yield sleep(1);
             }

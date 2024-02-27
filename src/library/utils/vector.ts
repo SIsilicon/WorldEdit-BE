@@ -5,10 +5,18 @@ type anyVec = Vector3 | [number, number, number];
 export class Vector {
     private vals: [number, number, number] = [0, 0, 0];
 
-    static get ZERO() {return new Vector(0, 0, 0);}
-    static get ONE() {return new Vector(1, 1, 1);}
-    static get INF() {return new Vector(Infinity, Infinity, Infinity);}
-    static get NEG_INF() {return new Vector(-Infinity, -Infinity, -Infinity);}
+    static get ZERO() {
+        return new Vector(0, 0, 0);
+    }
+    static get ONE() {
+        return new Vector(1, 1, 1);
+    }
+    static get INF() {
+        return new Vector(Infinity, Infinity, Infinity);
+    }
+    static get NEG_INF() {
+        return new Vector(-Infinity, -Infinity, -Infinity);
+    }
 
     static from(loc: anyVec) {
         if (Array.isArray(loc)) {
@@ -37,17 +45,29 @@ export class Vector {
         this.vals = [x, y, z];
     }
 
-    get x() { return this.vals[0]; }
-    set x(val: number) { this.vals[0] = val; }
+    get x() {
+        return this.vals[0];
+    }
+    set x(val: number) {
+        this.vals[0] = val;
+    }
 
-    get y() { return this.vals[1]; }
-    set y(val: number) { this.vals[1] = val; }
+    get y() {
+        return this.vals[1];
+    }
+    set y(val: number) {
+        this.vals[1] = val;
+    }
 
-    get z() { return this.vals[2]; }
-    set z(val: number) { this.vals[2] = val; }
+    get z() {
+        return this.vals[2];
+    }
+    set z(val: number) {
+        this.vals[2] = val;
+    }
 
     get lengthSqr() {
-        return this.x*this.x + this.y*this.y + this.z*this.z;
+        return this.x * this.x + this.y * this.y + this.z * this.z;
     }
 
     get length() {
@@ -56,9 +76,9 @@ export class Vector {
 
     set length(val: number) {
         const len = this.length;
-        this.x = this.x / len * val;
-        this.y = this.y / len * val;
-        this.z = this.z / len * val;
+        this.x = (this.x / len) * val;
+        this.y = (this.y / len) * val;
+        this.z = (this.z / len) * val;
     }
 
     getIdx(idx: number) {
@@ -82,7 +102,7 @@ export class Vector {
         return new Vector(this.x + x, this.y + y, this.z + z);
     }
 
-    add(v: anyVec|number) {
+    add(v: anyVec | number) {
         if (typeof v == "number") {
             return new Vector(this.x + v, this.y + v, this.z + v);
         } else {
@@ -91,7 +111,7 @@ export class Vector {
         }
     }
 
-    sub(v: anyVec|number) {
+    sub(v: anyVec | number) {
         if (typeof v == "number") {
             return new Vector(this.x - v, this.y - v, this.z - v);
         } else {
@@ -100,7 +120,7 @@ export class Vector {
         }
     }
 
-    mul(v: anyVec|number) {
+    mul(v: anyVec | number) {
         if (typeof v == "number") {
             return new Vector(this.x * v, this.y * v, this.z * v);
         } else {
@@ -109,7 +129,7 @@ export class Vector {
         }
     }
 
-    div(v: anyVec|number) {
+    div(v: anyVec | number) {
         if (typeof v == "number") {
             return new Vector(this.x / v, this.y / v, this.z / v);
         } else {
@@ -124,14 +144,10 @@ export class Vector {
         const y = this.y - org.y;
         const z = this.z - org.z;
 
-        const ang = rot * (Math.PI/180);
+        const ang = rot * (Math.PI / 180);
         const cos = Math.cos(ang);
         const sin = Math.sin(ang);
-        return new Vector(
-            this.x,
-            Math.round(10000*(y * cos - z * sin))/10000 + org.y,
-            Math.round(10000*(y * sin + z * cos))/10000 + org.z
-        );
+        return new Vector(this.x, Math.round(10000 * (y * cos - z * sin)) / 10000 + org.y, Math.round(10000 * (y * sin + z * cos)) / 10000 + org.z);
     }
 
     rotateY(rot: number, org: anyVec = Vector.ZERO) {
@@ -140,13 +156,10 @@ export class Vector {
         const x = this.x - org.x;
         const z = this.z - org.z;
 
-        const ang = rot * (Math.PI/180);
+        const ang = rot * (Math.PI / 180);
         const cos = Math.cos(ang);
         const sin = Math.sin(ang);
-        return new Vector(
-            Math.round(10000*(x * cos - z * sin))/10000 + org.x, this.y,
-            Math.round(10000*(x * sin + z * cos))/10000 + org.z
-        );
+        return new Vector(Math.round(10000 * (x * cos - z * sin)) / 10000 + org.x, this.y, Math.round(10000 * (x * sin + z * cos)) / 10000 + org.z);
     }
 
     rotateZ(rot: number, org: anyVec = Vector.ZERO) {
@@ -155,73 +168,41 @@ export class Vector {
         const x = this.x - org.x;
         const y = this.y - org.y;
 
-        const ang = rot * (Math.PI/180);
+        const ang = rot * (Math.PI / 180);
         const cos = Math.cos(ang);
         const sin = Math.sin(ang);
-        return new Vector(
-            Math.round(10000*(x * cos - y * sin))/10000 + org.x,
-            Math.round(10000*(x * sin + y * cos))/10000 + org.y,
-            this.z
-        );
+        return new Vector(Math.round(10000 * (x * cos - y * sin)) / 10000 + org.x, Math.round(10000 * (x * sin + y * cos)) / 10000 + org.y, this.z);
     }
 
     min(v: anyVec) {
         v = Vector.from(v);
-        return new Vector(
-            Math.min(this.x, v.x),
-            Math.min(this.y, v.y),
-            Math.min(this.z, v.z)
-        );
+        return new Vector(Math.min(this.x, v.x), Math.min(this.y, v.y), Math.min(this.z, v.z));
     }
 
     max(v: anyVec) {
         v = Vector.from(v);
-        return new Vector(
-            Math.max(this.x, v.x),
-            Math.max(this.y, v.y),
-            Math.max(this.z, v.z)
-        );
+        return new Vector(Math.max(this.x, v.x), Math.max(this.y, v.y), Math.max(this.z, v.z));
     }
 
     floor() {
-        return new Vector(
-            Math.floor(this.x),
-            Math.floor(this.y),
-            Math.floor(this.z)
-        );
+        return new Vector(Math.floor(this.x), Math.floor(this.y), Math.floor(this.z));
     }
 
     ceil() {
-        return new Vector(
-            Math.ceil(this.x),
-            Math.ceil(this.y),
-            Math.ceil(this.z)
-        );
+        return new Vector(Math.ceil(this.x), Math.ceil(this.y), Math.ceil(this.z));
     }
 
     round() {
-        return new Vector(
-            Math.round(this.x),
-            Math.round(this.y),
-            Math.round(this.z)
-        );
+        return new Vector(Math.round(this.x), Math.round(this.y), Math.round(this.z));
     }
 
     lerp(v: anyVec, t: number) {
         v = Vector.from(v);
-        return new Vector(
-            (1 - t) * this.x + t * v.x,
-            (1 - t) * this.y + t * v.y,
-            (1 - t) * this.z + t * v.z
-        );
+        return new Vector((1 - t) * this.x + t * v.x, (1 - t) * this.y + t * v.y, (1 - t) * this.z + t * v.z);
     }
 
     abs() {
-        return new Vector(
-            Math.abs(this.x),
-            Math.abs(this.y),
-            Math.abs(this.z),
-        );
+        return new Vector(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));
     }
 
     normalized() {
@@ -243,13 +224,13 @@ export class Vector {
         return [this.x, this.y, this.z] as [number, number, number];
     }
 
-    *[Symbol.iterator] () {
+    *[Symbol.iterator]() {
         yield this.vals[0];
         yield this.vals[1];
         yield this.vals[2];
     }
 }
 
-Vector.prototype.toString = function() {
+Vector.prototype.toString = function () {
     return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`;
 };

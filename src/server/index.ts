@@ -3,8 +3,8 @@ import { getTickingAreas, print, printerr, setTickingAreas } from "./util.js";
 
 // Check if configuration is properly loaded
 if (!config.commandPrefix) {
-    world.getAllPlayers().forEach(player => printerr("WorldEdit failed to load configuration!", player, false));
-    throw new Error("Configuration is not properly loaded! If this is a server, \"variables.json\" is required.");
+    world.getAllPlayers().forEach((player) => printerr("WorldEdit failed to load configuration!", player, false));
+    throw new Error('Configuration is not properly loaded! If this is a server, "variables.json" is required.');
 }
 
 import { contentLog, Server, configuration, removeTickingArea } from "@notbeer-api";
@@ -33,19 +33,19 @@ Server.on("worldInitialize", () => {
 });
 
 let ready = false;
-Server.on("ready", ev => {
+Server.on("ready", (ev) => {
     contentLog.debug(`World has been loaded in ${ev.loadTime} ticks!`);
     ready = true;
 });
 
-Server.on("playerLoaded", ev => {
+Server.on("playerLoaded", (ev) => {
     contentLog.debug(`player ${ev.player.name} loaded.`);
     if (ready) {
         makeBuilder(ev.player);
     }
 });
 
-Server.on("playerLeave", ev => {
+Server.on("playerLeave", (ev) => {
     contentLog.debug(`player ${ev.playerName} left.`);
     removeBuilder(ev.playerId);
 });
@@ -58,7 +58,8 @@ Server.on("tick", () => {
             if (PlayerUtil.isHotbarStashed(player)) {
                 PlayerUtil.restoreHotbar(player);
             }
-            if (!makeBuilder(player)) { // Attempt to make them a builder.
+            if (!makeBuilder(player)) {
+                // Attempt to make them a builder.
                 print("worldedit.permission.granted", player);
                 continue;
             }
@@ -102,7 +103,7 @@ function makeBuilder(player: Player) {
 function removeBuilder(player: string) {
     let i = -1;
     do {
-        i = activeBuilders.findIndex(p => {
+        i = activeBuilders.findIndex((p) => {
             try {
                 return p.name == player;
             } catch (e) {

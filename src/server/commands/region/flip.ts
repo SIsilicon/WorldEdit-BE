@@ -12,20 +12,20 @@ const registerInformation = {
     description: "commands.wedit:flip.description",
     usage: [
         {
-            flag: "o"
+            flag: "o",
         },
         {
-            flag: "w"
+            flag: "w",
         },
         {
-            flag: "s"
+            flag: "s",
         },
         {
             name: "direction",
             type: "Direction",
-            default: new Cardinal(Cardinal.Dir.LEFT)
-        }
-    ]
+            default: new Cardinal(Cardinal.Dir.LEFT),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         if (dir.y != 0 && (config.performanceMode || session.performanceMode)) {
             throw "commands.wedit:flip.notLateral";
         }
-        yield* Jobs.run(session, 4, transformSelection(session, builder, args, {flip}));
+        yield* Jobs.run(session, 4, transformSelection(session, builder, args, { flip }));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);

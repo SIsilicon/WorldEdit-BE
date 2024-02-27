@@ -5,12 +5,12 @@ import config from "config.js";
 const registerInformation = {
     name: "kit",
     permission: "worldedit.kit",
-    description: "commands.wedit:kit.description"
+    description: "commands.wedit:kit.description",
 };
 
 registerCommand(registerInformation, function (session, builder) {
     const items = [
-    // HOTBAR ITEMS
+        // HOTBAR ITEMS
         config.wandItem,
         "wedit:selection_fill",
         "wedit:pattern_picker",
@@ -28,7 +28,7 @@ registerCommand(registerInformation, function (session, builder) {
         "wedit:draw_line",
         "wedit:selection_wall",
         "wedit:selection_outline",
-        "wedit:spawn_glass"
+        "wedit:spawn_glass",
     ];
 
     for (const item of items) {

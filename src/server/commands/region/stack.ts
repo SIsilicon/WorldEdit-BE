@@ -12,28 +12,34 @@ const registerInformation = {
     description: "commands.wedit:stack.description",
     usage: [
         {
-            flag: "a"
-        }, {
-            flag: "e"
-        }, {
-            flag: "r"
-        }, {
-            flag: "s"
-        }, {
+            flag: "a",
+        },
+        {
+            flag: "e",
+        },
+        {
+            flag: "r",
+        },
+        {
+            flag: "s",
+        },
+        {
             name: "count",
             type: "int",
             range: [1, null] as [number, null],
-            default: 1
-        }, {
+            default: 1,
+        },
+        {
             name: "offset",
             type: "Direction",
-            default: new Cardinal()
-        }, {
+            default: new Cardinal(),
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -43,7 +49,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const dim = builder.dimension;
     const size = regionSize(start, end);
 
-    const dir = args.get("offset").getDirection(builder).mul(args.has("r") ? 1 : size);
+    const dir = args
+        .get("offset")
+        .getDirection(builder)
+        .mul(args.has("r") ? 1 : size);
     let loadStart = start.offset(dir.x, dir.y, dir.z);
     let loadEnd = end.offset(dir.x, dir.y, dir.z);
     let count = 0;

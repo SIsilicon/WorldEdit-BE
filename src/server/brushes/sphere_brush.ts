@@ -56,7 +56,7 @@ export class SphereBrush extends Brush {
     }
 
     public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
-        yield* this.shape.generate(loc, this.pattern, mask, session, {"hollow": this.hollow});
+        yield* this.shape.generate(loc, this.pattern, mask, session, { hollow: this.hollow });
     }
 
     public updateOutline(selection: Selection, loc: Vector): void {
@@ -70,12 +70,12 @@ export class SphereBrush extends Brush {
             id: this.id,
             radius: this.radius,
             pattern: this.pattern,
-            hollow: this.hollow
+            hollow: this.hollow,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public static parseJSON(json: {[key: string]: any}) {
+    public static parseJSON(json: { [key: string]: any }) {
         return [json.radius, new Pattern(json.pattern), json.hollow];
     }
 }

@@ -10,24 +10,24 @@ const registerInformation = {
     description: "commands.wedit:gradient.description",
     usage: [
         {
-            flag: "s"
+            flag: "s",
         },
         {
             flag: "f",
             name: "fade",
             type: "float",
-            range: [0, 1] as [number, number]
+            range: [0, 1] as [number, number],
         },
         {
             name: "id",
-            type: "string"
+            type: "string",
         },
         {
             name: "patterns",
             type: "Pattern...",
-            default: [new Pattern("stone")]
-        }
-    ]
+            default: [new Pattern("stone")],
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -37,25 +37,31 @@ registerCommand(registerInformation, function (session, builder, args) {
         const [min, max] = session.selection.getRange();
         const size = regionSize(min, max);
         const dim = builder.dimension;
-    type axis = "x" | "y" | "z";
-    let s: axis, t: axis, u: axis;
-    if (size.x > size.y && size.x > size.z) {
-        s = "y"; t = "z"; u = "x";
-    } else if (size.z > size.x && size.z > size.y) {
-        s = "x"; t = "y"; u = "z";
-    } else {
-        s = "x"; t = "z"; u = "y";
-    }
-
-    for (let i = min[u]; i <= max[u]; i++) {
-        const pattern = new Pattern();
-        for (let j = min[s]; j <= max[s]; j++) {
-            for (let k = min[t]; k <= max[t]; k++) {
-                pattern.addBlock(dim.getBlock({ [s]: j, [t]: k, [u]: i } as unknown as Vector3).permutation);
-            }
+        type axis = "x" | "y" | "z";
+        let s: axis, t: axis, u: axis;
+        if (size.x > size.y && size.x > size.z) {
+            s = "y";
+            t = "z";
+            u = "x";
+        } else if (size.z > size.x && size.z > size.y) {
+            s = "x";
+            t = "y";
+            u = "z";
+        } else {
+            s = "x";
+            t = "z";
+            u = "y";
         }
-        patterns.push(pattern);
-    }
+
+        for (let i = min[u]; i <= max[u]; i++) {
+            const pattern = new Pattern();
+            for (let j = min[s]; j <= max[s]; j++) {
+                for (let k = min[t]; k <= max[t]; k++) {
+                    pattern.addBlock(dim.getBlock({ [s]: j, [t]: k, [u]: i } as unknown as Vector3).permutation);
+                }
+            }
+            patterns.push(pattern);
+        }
     } else {
         patterns.push(...args.get("patterns"));
     }

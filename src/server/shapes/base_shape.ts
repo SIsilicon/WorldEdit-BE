@@ -8,20 +8,22 @@ import { getWorldHeightLimits, snap } from "../util.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
 
 enum ChunkStatus {
-    EMPTY, FULL, DETAIL
+    EMPTY,
+    FULL,
+    DETAIL,
 }
 
 export type shapeGenOptions = {
-    hollow?: boolean,
-    wall?: boolean,
-    recordHistory?: boolean,
-    ignoreGlobalMask?: boolean
+    hollow?: boolean;
+    wall?: boolean;
+    recordHistory?: boolean;
+    ignoreGlobalMask?: boolean;
 };
 
 export type shapeGenVars = {
     // isSolidCuboid?: boolean,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [k: string]: any
+    [k: string]: any;
 };
 
 /**
@@ -29,9 +31,9 @@ export type shapeGenVars = {
  */
 export abstract class Shape {
     /**
-    * Whether the shape is being used in a brush.
-    * Shapes used in a brush may handle history recording differently from other cases.
-    */
+     * Whether the shape is being used in a brush.
+     * Shapes used in a brush may handle history recording differently from other cases.
+     */
     public usedInBrush = false;
 
     protected static readonly ChunkStatus = ChunkStatus;
@@ -85,6 +87,7 @@ export abstract class Shape {
      * - `ChunkStatus.EMPTY` will get ignored.
      * - `ChunkStatus.DETAIL` will place blocks one at a time.
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
         return ChunkStatus.DETAIL;
     }
@@ -92,7 +95,7 @@ export abstract class Shape {
     /**
      * Returns blocks that are in the shape.
      */
-    public* getBlocks(loc: Vector3, options?: shapeGenOptions): Generator<Vector3> {
+    public *getBlocks(loc: Vector3, options?: shapeGenOptions): Generator<Vector3> {
         const range = this.getRegion(loc);
         this.genVars = {};
         this.prepGeneration(this.genVars, options);
@@ -108,7 +111,14 @@ export abstract class Shape {
         const block = this.inShape(relLoc, genVars);
         if (genVars.hollow && block) {
             let neighbourCount = 0;
-            for (const offset of [[0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]] as [number, number, number][]) {
+            for (const offset of [
+                [0, 1, 0],
+                [0, -1, 0],
+                [1, 0, 0],
+                [-1, 0, 0],
+                [0, 0, 1],
+                [0, 0, -1],
+            ] as [number, number, number][]) {
                 neighbourCount += this.inShape(relLoc.add(offset), genVars) ? 1 : 0;
             }
             return neighbourCount == 6 ? false : block;
@@ -127,19 +137,17 @@ export abstract class Shape {
                 edgePoints.push(a.lerp(b, t));
             }
         }
-        return vertices.concat(edgePoints).map((v => ["wedit:selection_draw", v]));
+        return vertices.concat(edgePoints).map((v) => ["wedit:selection_draw", v]);
     }
 
-    protected drawCircle(center: Vector, radius: number, axis: "x"|"y"|"z"): [string, Vector][] {
+    protected drawCircle(center: Vector, radius: number, axis: "x" | "y" | "z"): [string, Vector][] {
         const [rotate, vec]: [typeof Vector.prototype.rotateX, Vector] =
-        axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] :
-            axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] :
-                [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
-        const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
+            axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] : axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] : [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
+        const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
         const points: [string, Vector][] = [];
         for (let i = 0; i < resolution; i++) {
-            let point: Vector = rotate.call(vec, i / resolution * 360);
+            let point: Vector = rotate.call(vec, (i / resolution) * 360);
             point = point.mul(radius).add(center).add(0.5);
             points.push(["wedit:selection_draw", point]);
         }
@@ -154,7 +162,7 @@ export abstract class Shape {
      * @param session The session that's using this shape
      * @param options A group of options that can change how the shape is generated
      */
-    public* generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
+    public *generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
         const player = session.getPlayer();
         const dimension = player.dimension;
@@ -170,7 +178,7 @@ export abstract class Shape {
         const blocksAndChunks: (Block | [Vector3, Vector3])[] = [];
         mask = mask ?? new Mask();
 
-        const history = (options?.recordHistory ?? true) ? session.getHistory() : null;
+        const history = options?.recordHistory ?? true ? session.getHistory() : null;
         const record = history?.record(this.usedInBrush);
         try {
             let count = 0;
@@ -180,8 +188,8 @@ export abstract class Shape {
 
                 // TODO: Localize
                 let activeMask = mask;
-                const globalMask = (options?.ignoreGlobalMask ?? false) ? new Mask() : session.globalMask;
-                activeMask = !activeMask ? globalMask : (globalMask ? mask.intersect(globalMask) : activeMask);
+                const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
+                activeMask = !activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask;
                 const simple = pattern.isSimple() && (!mask || mask.isSimple());
 
                 let progress = 0;
@@ -199,10 +207,13 @@ export abstract class Shape {
                         blocksAffected += volume;
                         const prev = blocksAndChunks[blocksAndChunks.length - 1];
                         if (
-                            Array.isArray(prev) && regionVolume(...prev) + volume > 32768 &&
+                            Array.isArray(prev) &&
+                            regionVolume(...prev) + volume > 32768 &&
                             prev[1].y + 1 === chunkMin.y &&
-                            prev[0].x === chunkMin.x && prev[1].x === chunkMax.x &&
-                            prev[0].z === chunkMin.z && prev[1].z === chunkMax.z
+                            prev[0].x === chunkMin.x &&
+                            prev[1].x === chunkMax.x &&
+                            prev[0].z === chunkMin.z &&
+                            prev[1].z === chunkMax.z
                         ) {
                             // Merge chunks in the same column
                             prev[1].y = chunkMax.y;
@@ -266,7 +277,7 @@ export abstract class Shape {
             }
             history?.commit(record);
             return count;
-        } catch(e) {
+        } catch (e) {
             history?.cancel(record);
             throw e;
         }

@@ -17,19 +17,22 @@ const registerInformation = {
     description: "commands.wedit:cut.description",
     usage: [
         {
-            flag: "a"
-        }, {
-            flag: "e"
-        }, {
+            flag: "a",
+        },
+        {
+            flag: "e",
+        },
+        {
             name: "fill",
             type: "Pattern",
-            default: new Pattern("air")
-        }, {
+            default: new Pattern("air"),
+        },
+        {
             flag: "m",
             name: "mask",
-            type: "Mask"
-        }
-    ]
+            type: "Mask",
+        },
+    ],
 };
 
 /**
@@ -43,7 +46,7 @@ const registerInformation = {
 export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), buffer: RegionBuffer = null): Generator<JobFunction | Promise<unknown>, boolean> {
     const usingItem = args.get("_using_item");
     const dim = session.getPlayer().dimension;
-    const mask: Mask = usingItem ? session.globalMask : (args.has("m") ? args.get("m-mask") : undefined);
+    const mask: Mask = usingItem ? session.globalMask : args.has("m") ? args.get("m-mask") : undefined;
     const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const [start, end] = session.selection.getRange();
 
@@ -54,7 +57,7 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
         const entityQuery = {
             excludeTypes: ["minecraft:player"],
             location: start,
-            volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
+            volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z),
         };
         for (const entity of dim.getEntities(entityQuery)) {
             entity.nameTag = "wedit:marked_for_deletion";

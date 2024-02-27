@@ -14,7 +14,9 @@ import { PyramidShape } from "server/shapes/pyramid";
 function trySpawnParticle(player: Player, type: string, location: Vector3) {
     try {
         player.spawnParticle(type, location);
-    } catch { /* pass */ }
+    } catch {
+        /* pass */
+    }
 }
 
 abstract class GeneratorTool extends Tool {
@@ -115,9 +117,7 @@ class DrawLineTool extends GeneratorTool {
         const lineEnd = self.traceForPos(player);
         const length = lineEnd.sub(lineStart).length;
         if (length > 32) {
-            lineStart = lineEnd
-                .add(lineStart.sub(lineEnd).normalized().mul(32))
-                .floor();
+            lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
         }
 
         const genLine = generateLine(lineStart, lineEnd);
@@ -166,13 +166,13 @@ class DrawSphereTool extends GeneratorTool {
         const axes: [typeof Vector.prototype.rotateX, Vector][] = [
             [Vector.prototype.rotateX, new Vector(0, 1, 0)],
             [Vector.prototype.rotateY, new Vector(1, 0, 0)],
-            [Vector.prototype.rotateZ, new Vector(0, 1, 0)]
+            [Vector.prototype.rotateZ, new Vector(0, 1, 0)],
         ];
-        const resolution = snap(Math.min(radius * 2*Math.PI, 36), 4);
+        const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
         for (const [rotateBy, vec] of axes) {
             for (let i = 0; i < resolution; i++) {
-                let point: Vector = rotateBy.call(vec, i / resolution * 360);
+                let point: Vector = rotateBy.call(vec, (i / resolution) * 360);
                 point = point.mul(radius).add(center).add(0.5);
                 trySpawnParticle(player, "wedit:selection_draw", point);
             }
@@ -254,7 +254,13 @@ class DrawPyramidTool extends GeneratorTool {
     getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {
         const center = this.getFirstPos(session).clone();
         const pos2 = this.traceForPos(player);
-        const size = Math.max(...pos2.sub(center).toArray().map((v, i) => i !== 1 ? Math.abs(v) : v)) + 1;
+        const size =
+            Math.max(
+                ...pos2
+                    .sub(center)
+                    .toArray()
+                    .map((v, i) => (i !== 1 ? Math.abs(v) : v))
+            ) + 1;
         return [new PyramidShape(size), center];
     }
 

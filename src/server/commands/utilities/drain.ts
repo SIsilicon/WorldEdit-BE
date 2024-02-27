@@ -11,29 +11,29 @@ const registerInformation = {
     description: "commands.wedit:drain.description",
     usage: [
         {
-            flag: "w"
+            flag: "w",
         },
         {
             name: "radius",
-            type: "float"
-        }
-    ]
+            type: "float",
+        },
+    ],
 };
 
 export const waterMatch = /minecraft:.*water/;
 export const lavaMatch = /minecraft:.*lava/;
 
 export const fluidLookPositions = [
-    new Vector( 0, 0, 0),
+    new Vector(0, 0, 0),
     new Vector(-1, 0, 0),
-    new Vector( 1, 0, 0),
-    new Vector( 0, 0,-1),
-    new Vector( 0, 0, 1),
-    new Vector( 0,-1, 0),
-    new Vector(-1,-1, 0),
-    new Vector( 1,-1, 0),
-    new Vector( 0,-1,-1),
-    new Vector( 0,-1, 1)
+    new Vector(1, 0, 0),
+    new Vector(0, 0, -1),
+    new Vector(0, 0, 1),
+    new Vector(0, -1, 0),
+    new Vector(-1, -1, 0),
+    new Vector(1, -1, 0),
+    new Vector(0, -1, -1),
+    new Vector(0, -1, 1),
 ];
 
 registerCommand(registerInformation, function* (session, builder, args) {

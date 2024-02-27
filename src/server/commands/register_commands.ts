@@ -22,36 +22,40 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
         args.set("_using_item", getSession(player).usingItem);
 
         const thread = new Thread();
-        thread.start(function* (msg, player, args) {
-            const timer = new Timer();
-            try {
-                timer.start();
-                contentLog.log(`Processing command '${msg}' for '${player.name}'`);
-                let result: string | RawText;
-                if (callback.constructor.name == "GeneratorFunction") {
-                    result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
-                } else {
-                    result = callback(getSession(player), player, args) as string | RawText;
-                }
-                const time = timer.end();
-                contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
-                if (result) print(result, player, toActionBar);
-            }
-            catch (e) {
-                const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
-                contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
-                printerr(errMsg, player, toActionBar);
-
-                if (e instanceof UnloadedChunksError) {
-                    if (!sawOutsideWorldErr.includes(player)) {
-                        sawOutsideWorldErr.push(player);
-                        print("commands.generic.wedit:outsideWorld.detail", player, false);
+        thread.start(
+            function* (msg, player, args) {
+                const timer = new Timer();
+                try {
+                    timer.start();
+                    contentLog.log(`Processing command '${msg}' for '${player.name}'`);
+                    let result: string | RawText;
+                    if (callback.constructor.name == "GeneratorFunction") {
+                        result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
+                    } else {
+                        result = callback(getSession(player), player, args) as string | RawText;
                     }
-                } else if (e.stack) {
-                    printerr(e.stack, player, false);
+                    const time = timer.end();
+                    contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                    if (result) print(result, player, toActionBar);
+                } catch (e) {
+                    const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
+                    contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                    printerr(errMsg, player, toActionBar);
+
+                    if (e instanceof UnloadedChunksError) {
+                        if (!sawOutsideWorldErr.includes(player)) {
+                            sawOutsideWorldErr.push(player);
+                            print("commands.generic.wedit:outsideWorld.detail", player, false);
+                        }
+                    } else if (e.stack) {
+                        printerr(e.stack, player, false);
+                    }
                 }
-            }
-        }, msg, player, args);
+            },
+            msg,
+            player,
+            args
+        );
 
         return thread;
     });

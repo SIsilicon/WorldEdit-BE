@@ -11,16 +11,18 @@ const registerInformation = {
     description: "commands.wedit:gen.description",
     usage: [
         {
-            flag: "h"
-        }, {
+            flag: "h",
+        },
+        {
             name: "pattern",
-            type: "Pattern"
-        }, {
+            type: "Pattern",
+        },
+        {
             name: "expr",
-            type: "Expression"
-        }
+            type: "Expression",
+        },
     ],
-    aliases: ["g"]
+    aliases: ["g"],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -33,6 +35,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const loc = Vector.min(start, end).floor();
     const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expr"));
-    const count = yield* Jobs.run(session, 2, exprShape.generate(loc, pattern, null, session, {"hollow": isHollow}));
+    const count = yield* Jobs.run(session, 2, exprShape.generate(loc, pattern, null, session, { hollow: isHollow }));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

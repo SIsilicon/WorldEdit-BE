@@ -12,10 +12,10 @@ const registerInformation = {
         {
             name: "coordinates",
             type: "xyz",
-            default: new CommandPosition()
-        }
+            default: new CommandPosition(),
+        },
     ],
-    aliases: ["1"]
+    aliases: ["1"],
 };
 
 export function setPos1(selection: Selection, loc: Vector3) {
@@ -35,9 +35,7 @@ export function setPos1(selection: Selection, loc: Vector3) {
             sub = `${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`;
         }
 
-        return RawText.translate(translate)
-            .with(sub)
-            .with(`${blockCount}`);
+        return RawText.translate(translate).with(sub).with(`${blockCount}`);
     }
     return "";
 }

@@ -13,15 +13,15 @@ const registerInformation = {
         {
             name: "size",
             type: "int",
-            range: [1, null] as [number, null]
+            range: [1, null] as [number, null],
         },
         {
             name: "height",
             type: "int",
             range: [1, null] as [number, null],
-            default: -1
-        }
-    ]
+            default: -1,
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -48,12 +48,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const rayTraceOptions = {
             includeLiquidBlocks: true,
             includePassableBlocks: true,
-            maxDistance: height
+            maxDistance: height,
         };
 
         for (let x = range[0].x; x <= range[1].x; x++)
             for (let z = range[0].z; z <= range[1].z; z++) {
-                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map(y => y + origin.y) as [number, number];
+                const yRange = shape.getYRange(x - origin.x, z - origin.z)?.map((y) => y + origin.y) as [number, number];
                 if (!yRange) {
                     i++;
                     continue;

@@ -12,9 +12,9 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]> {
@@ -119,7 +119,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const history = session.getHistory();
         const record = history.record();
         try {
-            const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map(p => p.floor());
+            const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map((p) => p.floor());
             yield history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {

@@ -18,7 +18,7 @@ const registerInformation = {
     aliases: ["br"],
     usage: [
         {
-            subName: "none"
+            subName: "none",
         },
         {
             subName: "sphere",
@@ -26,18 +26,18 @@ const registerInformation = {
             description: "commands.wedit:brush.description.sphere",
             args: [
                 {
-                    flag: "h"
+                    flag: "h",
                 },
                 {
                     name: "pattern",
-                    type: "Pattern"
+                    type: "Pattern",
                 },
                 {
                     name: "radius",
                     type: "float",
-                    default: 3
-                }
-            ]
+                    default: 3,
+                },
+            ],
         },
         {
             subName: "cyl",
@@ -45,23 +45,23 @@ const registerInformation = {
             description: "commands.wedit:brush.description.cylinder",
             args: [
                 {
-                    flag: "h"
+                    flag: "h",
                 },
                 {
                     name: "pattern",
-                    type: "Pattern"
+                    type: "Pattern",
                 },
                 {
                     name: "radius",
                     type: "float",
-                    default: 3
+                    default: 3,
                 },
                 {
                     name: "height",
                     type: "int",
-                    default: 3
-                }
-            ]
+                    default: 3,
+                },
+            ],
         },
         {
             subName: "smooth",
@@ -71,19 +71,19 @@ const registerInformation = {
                 {
                     name: "radius",
                     type: "float",
-                    default: 2
+                    default: 2,
                 },
                 {
                     name: "iterations",
                     type: "int",
-                    default: 4
+                    default: 4,
                 },
                 {
                     name: "mask",
                     type: "Mask",
-                    default: new Mask()
-                }
-            ]
+                    default: new Mask(),
+                },
+            ],
         },
         {
             subName: "struct",
@@ -96,20 +96,20 @@ const registerInformation = {
                         {
                             name: "mask",
                             type: "Mask",
-                            default: new Mask()
-                        }
-                    ]
+                            default: new Mask(),
+                        },
+                    ],
                 },
                 {
                     subName: "_default",
                     args: [
                         {
                             name: "structureName",
-                            type: "string..."
-                        }
-                    ]
-                }
-            ]
+                            type: "string...",
+                        },
+                    ],
+                },
+            ],
         },
         {
             subName: "erode",
@@ -118,25 +118,25 @@ const registerInformation = {
             args: [
                 {
                     subName: "_",
-                    args: [{ name: "radius", type: "float", default: 3 }]
+                    args: [{ name: "radius", type: "float", default: 3 }],
                 },
                 {
                     subName: "lift",
-                    args: [{ name: "radius", type: "float", default: 3 }]
+                    args: [{ name: "radius", type: "float", default: 3 }],
                 },
                 {
                     subName: "fill",
-                    args: [{ name: "radius", type: "float", default: 3 }]
+                    args: [{ name: "radius", type: "float", default: 3 }],
                 },
                 {
                     subName: "melt",
-                    args: [{ name: "radius", type: "float", default: 3 }]
+                    args: [{ name: "radius", type: "float", default: 3 }],
                 },
                 {
                     subName: "smooth",
-                    args: [{ name: "radius", type: "float", default: 3 }]
-                }
-            ]
+                    args: [{ name: "radius", type: "float", default: 3 }],
+                },
+            ],
         },
         {
             subName: "overlay",
@@ -145,26 +145,26 @@ const registerInformation = {
             args: [
                 {
                     name: "pattern",
-                    type: "Pattern"
+                    type: "Pattern",
                 },
                 {
                     name: "radius",
                     type: "float",
-                    default: 3
+                    default: 3,
                 },
                 {
                     name: "depth",
                     type: "int",
-                    default: 1
+                    default: 1,
                 },
                 {
                     name: "mask",
                     type: "Mask",
-                    default: new Mask()
-                }
-            ]
-        }
-    ]
+                    default: new Mask(),
+                },
+            ],
+        },
+    ],
 };
 
 export function createDefaultBrush() {
@@ -174,34 +174,21 @@ export function createDefaultBrush() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.bindTool("brush", null, new SphereBrush(
-        args.get("radius"),
-        args.get("pattern"),
-        args.has("h")
-    ));
+    session.bindTool("brush", null, new SphereBrush(args.get("radius"), args.get("pattern"), args.has("h")));
     return RawText.translate("commands.wedit:brush.bind.sphere").with(args.get("radius"));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[2].permission);
-    session.bindTool("brush", null, new CylinderBrush(
-        args.get("radius"),
-        args.get("height"),
-        args.get("pattern"),
-        args.has("h")
-    ));
+    session.bindTool("brush", null, new CylinderBrush(args.get("radius"), args.get("height"), args.get("pattern"), args.has("h")));
     return RawText.translate("commands.wedit:brush.bind.cylinder").with(args.get("radius")).with(args.get("height"));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[3].permission);
-    session.bindTool("brush", null, new SmoothBrush(
-        args.get("radius"),
-        args.get("iterations"),
-        args.get("mask")
-    ));
+    session.bindTool("brush", null, new SmoothBrush(args.get("radius"), args.get("iterations"), args.get("mask")));
 
     const msg = "commands.wedit:brush.bind.smooth." + ((args.get("mask") as Mask).empty() ? "noFilter" : "filter");
     return RawText.translate(msg).with(args.get("radius")).with(args.get("iterations"));
@@ -215,7 +202,7 @@ const struct_command = (session: PlayerSession, builder: Player, args: Map<strin
         assertClipboard(session);
     }
 
-    session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : args.get("structureName") as string[], args.get("mask")));
+    session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : (args.get("structureName") as string[]), args.get("mask")));
     const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");
     return RawText.translate(msg).with(args.get("structureName"));
 };
@@ -238,12 +225,7 @@ const erode_command = (session: PlayerSession, builder: Player, args: Map<string
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const overlay_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.bindTool("brush", null, new OverlayBrush(
-        args.get("radius"),
-        args.get("depth"),
-        args.get("pattern"),
-        args.get("mask"),
-    ));
+    session.bindTool("brush", null, new OverlayBrush(args.get("radius"), args.get("depth"), args.get("pattern"), args.get("mask")));
     session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
     return RawText.translate("commands.wedit:brush.bind.overlay").with(args.get("radius"));
 };

@@ -10,7 +10,7 @@ import config from "config.js";
  */
 export function print(msg: string | RawText, player: Player, toActionBar = false) {
     if (typeof msg == "string") {
-        msg = <RawText> RawText.translate(msg);
+        msg = <RawText>RawText.translate(msg);
     }
     let command: string;
     if (toActionBar && config.printToActionBar) {
@@ -27,7 +27,7 @@ export function print(msg: string | RawText, player: Player, toActionBar = false
  */
 export function printerr(msg: string | RawText, player: Player, toActionBar = false) {
     if (!(msg instanceof RawText)) {
-        msg = <RawText> RawText.translate(msg);
+        msg = <RawText>RawText.translate(msg);
     }
     print(msg.prepend("text", "§c"), player, toActionBar);
 }
@@ -70,22 +70,27 @@ export function blockHasNBTData(block: Block) {
         "minecraft:waterContainer",
         "minecraft:lavaContainer",
         "minecraft:snowContainer",
-        "minecraft:potionContainer"
+        "minecraft:potionContainer",
     ];
     const nbt_blocks = [
-        "minecraft:bee_nest", "minecraft:beehive",
-        "minecraft:command_block", "minecraft:chain_command_block",
-        "minecraft:repeating_command_block", "minecraft:structure_block",
+        "minecraft:bee_nest",
+        "minecraft:beehive",
+        "minecraft:command_block",
+        "minecraft:chain_command_block",
+        "minecraft:repeating_command_block",
+        "minecraft:structure_block",
         "minecraft:flower_pot",
-        "minecraft:noteblock", "minecraft:mob_spawner",
-        "minecraft:standing_banner", "minecraft:wall_banner",
+        "minecraft:noteblock",
+        "minecraft:mob_spawner",
+        "minecraft:standing_banner",
+        "minecraft:wall_banner",
         "minecraft:skull",
         "minecraft:snow_layer",
         "minecraft:end_gateway", // TEST
         "minecraft:beacon",
-        "minecraft:bed"
+        "minecraft:bed",
     ];
-    return components.some(component => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
+    return components.some((component) => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
 }
 
 export function getTickingAreas() {
@@ -114,8 +119,8 @@ export function removeTickingArea(name: string, dim: Dimension) {
     if (!tickingAreas.includes(name)) {
         return true;
     }
-    if(!removeTickArea(name, dim)) {
-        setTickingAreas(tickingAreas.filter(tickingArea => tickingArea !== name));
+    if (!removeTickArea(name, dim)) {
+        setTickingAreas(tickingAreas.filter((tickingArea) => tickingArea !== name));
         return false;
     }
     return true;
@@ -128,10 +133,8 @@ export function removeTickingArea(name: string, dim: Dimension) {
  * @return A string representation of the location
  */
 export function printLocation(loc: Vector3, pretty = true) {
-    if (pretty)
-        return `(${loc.x}, ${loc.y}, ${loc.z})`;
-    else
-        return `${loc.x} ${loc.y} ${loc.z}`;
+    if (pretty) return `(${loc.x}, ${loc.y}, ${loc.z})`;
+    else return `${loc.x} ${loc.y} ${loc.z}`;
 }
 
 /**
@@ -145,14 +148,14 @@ export function locToString(loc: Vector3) {
  * Converts string to a Vector
  */
 export function stringToLoc(loc: string) {
-    return new Vector(...loc.split("_").map(str => Number.parseInt(str)) as [number, number, number]);
+    return new Vector(...(loc.split("_").map((str) => Number.parseInt(str)) as [number, number, number]));
 }
 
 /**
  * Wraps `num` between 0 and `range` exclusive
  */
 export function wrap(range: number, num: number) {
-    return num >= 0 ? num % range : (num % range + range) % range;
+    return num >= 0 ? num % range : ((num % range) + range) % range;
 }
 
 /**

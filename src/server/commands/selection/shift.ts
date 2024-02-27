@@ -10,19 +10,19 @@ const registerInformation = {
     usage: [
         {
             name: "amount",
-            type: "int"
+            type: "int",
         },
         {
             name: "direction",
             type: "Direction",
-            default: new Cardinal(Cardinal.Dir.FORWARD)
-        }
-    ]
+            default: new Cardinal(Cardinal.Dir.FORWARD),
+        },
+    ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
     assertSelection(session);
-    const points = session.selection.points.map(block => Vector.from(block));
+    const points = session.selection.points.map((block) => Vector.from(block));
     const dir = (args.get("direction") as Cardinal).getDirection(builder).mul(args.get("amount"));
 
     session.selection.clear();

@@ -13,9 +13,9 @@ const registerInformation = {
     usage: [
         {
             name: "pattern",
-            type: "Pattern"
-        }
-    ]
+            type: "Pattern",
+        },
+    ],
 };
 
 /**
@@ -24,7 +24,7 @@ const registerInformation = {
  */
 export function* set(session: PlayerSession, pattern: Pattern, mask?: Mask, recordHistory = false): Generator<JobFunction | Promise<unknown>, number> {
     const [shape, loc] = session.selection.getShape();
-    const changed = yield* shape.generate(loc, pattern, mask, session, {recordHistory, ignoreGlobalMask: true});
+    const changed = yield* shape.generate(loc, pattern, mask, session, { recordHistory, ignoreGlobalMask: true });
     return changed;
 }
 

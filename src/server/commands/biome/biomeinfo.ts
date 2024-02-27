@@ -11,19 +11,18 @@ const registerInformation = {
     description: "commands.wedit:biomeinfo.description",
     usage: [
         {
-            flag: "p"
+            flag: "p",
         },
         {
-            flag: "t"
-        }
-    ]
+            flag: "t",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     if (args.has("p")) {
         const result = (yield getBiomeId(builder.dimension, PlayerUtil.getBlockLocation(builder))) as number;
         return RawText.translate("commands.wedit:biomeinfo.position").with(new Biome(`${result}`).getName());
-
     } else if (args.has("t")) {
         const hit = PlayerUtil.traceForBlock(builder);
         if (!hit) {
@@ -31,7 +30,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
         const result = (yield getBiomeId(builder.dimension, hit)) as number;
         return RawText.translate("commands.wedit:biomeinfo.lineofsight").with(new Biome(`${result}`).getName());
-
     } else {
         assertSelection(session);
         return yield* Jobs.run(session, 1, function* () {
@@ -45,9 +43,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
             let j = 0;
             for (const block of session.selection.getBlocks()) {
                 if (j % checkChance == 0) {
-                    promises.push(getBiomeId(builder.dimension, block).then(id => {
-                        if (!biomes.has(id)) biomes.set(id, new Biome(`${id}`));
-                    }));
+                    promises.push(
+                        getBiomeId(builder.dimension, block).then((id) => {
+                            if (!biomes.has(id)) biomes.set(id, new Biome(`${id}`));
+                        })
+                    );
                 } else {
                     yield Jobs.setProgress(++i / blockCount);
                 }
@@ -62,7 +62,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             if (promises.length) yield Promise.all(promises);
             Jobs.setProgress(1);
 
-            const result = "\n" + [...biomes.values()].map(biome => biome.getName()).join(",\n");
+            const result = "\n" + [...biomes.values()].map((biome) => biome.getName()).join(",\n");
             return RawText.translate("commands.wedit:biomeinfo.selection").with(result);
         });
     }

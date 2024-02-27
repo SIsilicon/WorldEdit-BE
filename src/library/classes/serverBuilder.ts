@@ -14,7 +14,7 @@ export class ServerBuilder extends EventEmitter {
     close(): void {
         function crash() {
             // eslint-disable-next-line no-constant-condition
-            while(true) {
+            while (true) {
                 crash();
             }
         }
@@ -27,7 +27,7 @@ export class ServerBuilder extends EventEmitter {
      * @returns {runCommandReturn}
      * @example ServerBuilder.runCommand('say Hello World!');
      */
-    runCommand(command: string, target?: Dimension|Player|Entity): runCommandReturn {
+    runCommand(command: string, target?: Dimension | Player | Entity): runCommandReturn {
         try {
             const successCount = (target ?? world.getDimension("overworld")).runCommand(command).successCount;
             return { error: false, successCount };
@@ -42,14 +42,19 @@ export class ServerBuilder extends EventEmitter {
      * @returns {Promise<runCommandReturn>}
      * @example ServerBuilder.queueCommand('say Hello World!');
      */
-    queueCommand(command: string, target?: Dimension|Player|Entity): Promise<runCommandReturn> {
+    queueCommand(command: string, target?: Dimension | Player | Entity): Promise<runCommandReturn> {
         try {
             if (this.flushingCommands) {
                 throw "queue";
             }
-            const promise = (target ?? world.getDimension("overworld")).runCommandAsync(command)
-                .then(result => { return { error: false, ...result }; })
-                .catch(result => { return { error: true, successCount: 0, ...result }; })
+            const promise = (target ?? world.getDimension("overworld"))
+                .runCommandAsync(command)
+                .then((result) => {
+                    return { error: false, ...result };
+                })
+                .catch((result) => {
+                    return { error: true, successCount: 0, ...result };
+                })
                 .finally(() => this.commandQueue.splice(this.commandQueue.indexOf(promise), 1));
             this.commandQueue.push(promise);
             return promise;
