@@ -18,9 +18,9 @@ system.beforeEvents.watchdogTerminate.subscribe((ev) => {
             const event = (ev: PlayerSpawnAfterEvent) => {
                 if (!ev.initialSpawn) return;
                 world.afterEvents.playerSpawn.unsubscribe(event);
-                ev.player.runCommand(`tellraw @s ${RawText.translate("script.watchdog.error.hang")}`);
+                RawText.translate("script.watchdog.error.hang").print(ev.player);
             };
-            world.afterEvents.playerSpawn.subscribe(event);
+            system.run(() => world.afterEvents.playerSpawn.subscribe(event));
         } else {
             for (const player of players) {
                 RawText.translate("script.watchdog.error.hang").print(player);

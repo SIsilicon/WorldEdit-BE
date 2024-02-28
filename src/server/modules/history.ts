@@ -242,9 +242,9 @@ export class History {
     }
 
     delete() {
-        while (this.undoStructures.length) {
+        do {
             this.deleteHistoryRegions(0);
-        }
+        } while (this.undoStructures.shift());
     }
 
     private deleteHistoryRegions(index: number) {
