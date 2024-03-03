@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-02-13 09:27\n"
+"PO-Revision-Date: 2024-03-03 22:35\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -229,6 +229,12 @@ msgstr "Delete Gradient"
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
 
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Pegang item untuk diikat."
 
@@ -280,8 +286,17 @@ msgstr "Jarak"
 msgid "worldedit.config.pattern"
 msgstr "Pola"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Penutup"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Kosong"
@@ -306,6 +321,9 @@ msgstr "Gunakan Pemilih Blok"
 
 msgid "worldedit.config.command"
 msgstr "Perintah"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Is WorldEdit Command"
