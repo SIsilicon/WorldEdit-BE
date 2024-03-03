@@ -2,7 +2,7 @@ import { Player, Vector3 } from "@minecraft/server";
 import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { contentLog, regionSize, Server } from "@notbeer-api";
+import { regionSize, Server } from "@notbeer-api";
 import { MenuContext, ModalForm } from "library/@types/classes/uiFormBuilder.js";
 import { Brush } from "../brushes/base_brush.js";
 import { SphereBrush } from "../brushes/sphere_brush.js";
@@ -92,6 +92,26 @@ function finishToolEdit(ctx: MenuConfigCtx) {
     ctx.goto("$confirmToolBind");
 }
 
+function verifyPattern(input: string) {
+    let pattern;
+    try {
+        if ((pattern = new Pattern(input)).empty()) return "worldedit.config.pattern.noPattern";
+    } catch {
+        return "worldedit.config.pattern.invalidPattern";
+    }
+    return pattern;
+}
+
+function verifyMask(input: string) {
+    let mask;
+    try {
+        mask = new Mask(input);
+    } catch {
+        return "worldedit.config.mask.invalidMask";
+    }
+    return mask;
+}
+
 Server.uiForms.register<ConfigContext>("$configMenu", {
     title: "%worldedit.config.mainMenu",
     buttons: [
@@ -170,6 +190,12 @@ Server.uiForms.register<ConfigContext>("$tools", {
     title: (ctx) => "%worldedit.config." + (ctx.getData("editingBrush") ? "brushes" : "tools"),
     buttons: (ctx, player) => {
         const buttons = [];
+        buttons.push({
+            text: (ctx: MenuConfigCtx) => "%worldedit.config.new" + (ctx.getData("editingBrush") ? "Brush" : "Tool"),
+            action: (ctx: MenuConfigCtx, player: Player) => {
+                HotbarUI.goto("$chooseItem", player, ctx);
+            },
+        });
         for (const tool of getTools(player, ctx.getData("editingBrush"))) {
             const toolType = Tools.getBindingType(tool, player.id) as ToolTypes;
             buttons.push({
@@ -187,12 +213,6 @@ Server.uiForms.register<ConfigContext>("$tools", {
                 },
             });
         }
-        buttons.push({
-            text: (ctx: MenuConfigCtx) => "%worldedit.config.new" + (ctx.getData("editingBrush") ? "Brush" : "Tool"),
-            action: (ctx: MenuConfigCtx, player: Player) => {
-                HotbarUI.goto("$chooseItem", player, ctx);
-            },
-        });
         if (buttons.length > 1) {
             buttons.push({
                 text: "Delete tool(s)",
@@ -264,10 +284,14 @@ Server.uiForms.register<ConfigContext>("$addGradient", {
         },
     },
     submit: (ctx, player, input) => {
+        const gradientId = <string>input.$id;
+        if (!gradientId.length) return ctx.error("worldedit.config.gradient.noId");
+        if (getSession(player).getGradient(gradientId)) return ctx.error("worldedit.config.gradient.dupeId");
+
         ctx.setData("pickerData", {
             return: "$gradients",
             onFinish: (ctx, player) => {
-                ctx.setData("gradientData", [input.$id as string, input.$dither as number, ...getSession(player).selection.getRange()]);
+                ctx.setData("gradientData", [gradientId, input.$dither as number, ...getSession(player).selection.getRange()]);
                 ctx.goto("$confirmGradientSelection");
             },
         });
@@ -384,6 +408,7 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
         },
     },
     submit: (ctx, _, input) => {
+        if (!(<string>input.$command).length) return ctx.error("worldedit.config.command.noCommand");
         ctx.setData("toolData", [((input.$worldeditCmd ? config.commandPrefix : "/") + input.$command) as string]);
         finishToolEdit(ctx);
     },
@@ -416,7 +441,9 @@ Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
             });
             HotbarUI.goto("$pickPattern", player, ctx);
         } else {
-            ctx.setData("toolData", [new Pattern(input.$pattern as string)]);
+            const pattern = verifyPattern(<string>input.$pattern);
+            if (typeof pattern === "string") return ctx.error(pattern);
+            ctx.setData("toolData", [pattern]);
             finishToolEdit(ctx);
         }
     },
@@ -448,8 +475,11 @@ Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
             });
             HotbarUI.goto("$pickPatternMask", player, ctx);
         } else {
-            contentLog.debug(input.$size, input.$pattern, input.$hollow);
-            ctx.setData("toolData", [new SphereBrush(input.$size as number, new Pattern(input.$pattern as string), input.$hollow as boolean), new Mask(input.$mask as string), null, null]);
+            const pattern = verifyPattern(<string>input.$pattern);
+            if (typeof pattern === "string") return ctx.error(pattern);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new SphereBrush(input.$size as number, pattern, input.$hollow as boolean), mask, null, null]);
             finishToolEdit(ctx);
         }
     },
@@ -487,12 +517,11 @@ Server.uiForms.register<ConfigContext>("$editTool_cylinder_brush", {
             });
             HotbarUI.goto("$pickPatternMask", player, ctx);
         } else {
-            ctx.setData("toolData", [
-                new CylinderBrush(input.$size as number, input.$height as number, new Pattern(input.$pattern as string), input.$hollow as boolean),
-                new Mask(input.$mask as string),
-                null,
-                null,
-            ]);
+            const pattern = verifyPattern(<string>input.$pattern);
+            if (typeof pattern === "string") return ctx.error(pattern);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new CylinderBrush(input.$size as number, input.$height as number, pattern, input.$hollow as boolean), mask, null, null]);
             finishToolEdit(ctx);
         }
     },
@@ -523,17 +552,22 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
         ...usePickerInput,
     },
     submit: (ctx, player, input) => {
+        const heightMask = verifyMask(<string>input.$heightMask);
+        if (typeof heightMask === "string") return ctx.error(heightMask);
+
         if (input.$usePicker) {
             ctx.setData("pickerData", {
                 return: "$editTool_smooth_brush",
                 onFinish: (ctx, _, mask) => {
-                    ctx.setData("toolData", [new SmoothBrush(input.$size as number, input.$iterations as number, new Mask(input.$heightMask as string)), mask, null, null]);
+                    ctx.setData("toolData", [new SmoothBrush(input.$size as number, input.$iterations as number, heightMask), mask, null, null]);
                     finishToolEdit(ctx);
                 },
             });
             HotbarUI.goto("$pickMask", player, ctx);
         } else {
-            ctx.setData("toolData", [new SmoothBrush(input.$size as number, input.$iterations as number, new Mask(input.$heightMask as string)), new Mask(input.$mask as string), null, null]);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new SmoothBrush(input.$size as number, input.$iterations as number, heightMask), mask, null, null]);
             finishToolEdit(ctx);
         }
     },
@@ -587,7 +621,9 @@ Server.uiForms.register<ConfigContext>("$editTool_erosion_brush", {
             });
             HotbarUI.goto("$pickMask", player, ctx);
         } else {
-            ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), new Mask(input.$mask as string), null, null]);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new ErosionBrush(input.$size as number, input.$erosion as number), mask, null, null]);
             finishToolEdit(ctx);
         }
     },
@@ -623,7 +659,11 @@ Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
             });
             HotbarUI.goto("$pickPatternMask", player, ctx);
         } else {
-            ctx.setData("toolData", [new OverlayBrush(input.$size as number, input.$depth as number, new Pattern(input.$pattern as string), null), new Mask(input.$mask as string), null, null]);
+            const pattern = verifyPattern(<string>input.$pattern);
+            if (typeof pattern === "string") return ctx.error(pattern);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new OverlayBrush(input.$size as number, input.$depth as number, pattern, null), mask, null, null]);
             finishToolEdit(ctx);
         }
     },

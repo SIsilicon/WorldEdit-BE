@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { MessageFormData, MessageFormResponse, ActionFormData, ActionFormResponse, ModalFormData, ModalFormResponse, FormCancelationReason, FormResponse } from "@minecraft/server-ui";
-import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem } from "../@types/classes/uiFormBuilder";
-import { Player } from "@minecraft/server";
+import { Form, FormData, UIAction, MessageForm, ActionForm, SubmitAction, ModalForm, UIFormName, MenuContext as MenuContextType, DynamicElem, LocalizedText } from "../@types/classes/uiFormBuilder";
+import { Player, RawMessage } from "@minecraft/server";
 import { setTickTimeout, contentLog } from "@notbeer-api";
 
 abstract class UIForm<T extends {}> {
@@ -13,9 +13,9 @@ abstract class UIForm<T extends {}> {
         this.cancelAction = form.cancel;
     }
 
-    protected abstract build(form: Form<T>, resEl: <S>(elem: DynamicElem<T, S>) => S): FormData;
+    protected abstract build(form: Form<T>, resEl: <S>(elem: DynamicElem<T, S>) => S, errorFmt?: RawMessage): FormData;
 
-    public abstract enter(player: Player, ctx: MenuContextType<T>): void;
+    public abstract enter(player: Player, ctx: MenuContextType<T>, error?: LocalizedText): void;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public exit(player: Player, ctx: MenuContextType<T>) {
@@ -33,9 +33,14 @@ abstract class UIForm<T extends {}> {
         return true;
     }
 
-    protected buildFormData(player: Player, ctx: MenuContext<T>) {
+    protected buildFormData(player: Player, ctx: MenuContext<T>, error?: LocalizedText) {
         const resolve = <S>(elem: DynamicElem<T, S>): S => this.resolve(elem, player, ctx);
-        return this.build(this.form, resolve);
+        if (typeof error === "string") {
+            error = { rawtext: [{ text: "§c" }, { translate: error }, { text: "§r" }] };
+        } else if (error) {
+            error = { rawtext: [{ text: "§c" }, ...error.rawtext!, { text: "§r" }] };
+        }
+        return this.build(this.form, resolve, error);
     }
 
     protected resolve<S>(element: DynamicElem<T, S>, player: Player, ctx: MenuContext<T>) {
@@ -80,10 +85,10 @@ class MessageUIForm<T extends {}> extends UIForm<T> {
 class ActionUIForm<T extends {}> extends UIForm<T> {
     private actions: UIAction<T, void>[] = []; // Changes between builds
 
-    protected build(form: ActionForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S) {
+    protected build(form: ActionForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S, errorFmt?: RawMessage) {
         this.actions = [];
         const formData = new ActionFormData();
-        formData.title(resEl(form.title));
+        formData.title(errorFmt ?? resEl(form.title));
 
         if (form.message) formData.body(resEl(form.message));
         if (resEl((ctx) => (<MenuContext<T>>ctx).canGoBack())) {
@@ -97,8 +102,8 @@ class ActionUIForm<T extends {}> extends UIForm<T> {
         return formData;
     }
 
-    async enter(player: Player, ctx: MenuContext<T>) {
-        const form = this.buildFormData(player, ctx);
+    enter(player: Player, ctx: MenuContext<T>, error?: LocalizedText) {
+        const form = this.buildFormData(player, ctx, error);
         const actions = this.actions;
         form.show(player).then((response: ActionFormResponse) => {
             if (this.handleCancel(response, player, ctx)) return;
@@ -117,10 +122,10 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
         this.submit = form.submit;
     }
 
-    protected build(form: ModalForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S) {
+    protected build(form: ModalForm<T>, resEl: <S>(elem: DynamicElem<T, S>) => S, errorFmt?: RawMessage) {
         this.inputNames = [];
         const formData = new ModalFormData();
-        formData.title(resEl(form.title));
+        formData.title(errorFmt ?? resEl(form.title));
 
         const formInputs = resEl(form.inputs);
         for (const id in formInputs) {
@@ -140,8 +145,8 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
         return formData;
     }
 
-    enter(player: Player, ctx: MenuContext<T>) {
-        const form = this.buildFormData(player, ctx);
+    enter(player: Player, ctx: MenuContext<T>, error: LocalizedText) {
+        const form = this.buildFormData(player, ctx, error);
         const inputNames = this.inputNames;
         form.show(player).then((response: ModalFormResponse) => {
             if (this.handleCancel(response, player, ctx)) return;
@@ -204,14 +209,22 @@ class MenuContext<T extends {}> implements MenuContextType<T> {
         form.enter(this.player, this);
     }
 
+    error(errorMessage: LocalizedText) {
+        this._goto(this.stack[this.stack.length - 1], errorMessage);
+    }
+
     canGoBack() {
         return this.stack.length > 1;
     }
 
-    private _goto(menu?: UIFormName) {
+    get currentMenu() {
+        return this.stack[this.stack.length - 1];
+    }
+
+    private _goto(menu?: UIFormName, error?: LocalizedText) {
         if (menu && menu !== this.stack[this.stack.length - 1]) this.stack.push(menu);
         if (this.stack.length >= 64) throw Error("UI Stack overflow!");
-        UIForms.goto(menu, this.player, this);
+        UIForms.goto(menu, this.player, this, error);
     }
 }
 
@@ -261,7 +274,7 @@ class UIFormBuilder {
      * @param player The player to display the UI form to
      * @param ctx The context to be passed to the UI form
      */
-    goto(name: UIFormName, player: Player, ctx: MenuContextType<{}>) {
+    goto(name: UIFormName, player: Player, ctx: MenuContextType<{}>, error?: LocalizedText) {
         if (this.active.has(player)) {
             this.active.get(player).exit(player, ctx);
             this.active.delete(player);
@@ -273,7 +286,7 @@ class UIFormBuilder {
             contentLog.debug("UI going to", name, "for", player.name);
             const form = this.forms.get(name);
             this.active.set(player, form);
-            form.enter(player, ctx);
+            form.enter(player, ctx, error);
             return form;
         } else {
             throw new TypeError(`Menu "${name}" has not been registered!`);

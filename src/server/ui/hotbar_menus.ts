@@ -75,6 +75,7 @@ HotbarUI.register<ConfigContext>("$pickPatternMask", {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 const session = ctx.getData("session");
+                if (session.globalPattern.empty()) return ctx.error("worldedit.config.pattern.noPattern");
                 ctx.getData("pickerData").onFinish(ctx, player, session.globalMask, session.globalPattern);
             },
         },
@@ -107,6 +108,7 @@ HotbarUI.register<ConfigContext>("$pickPattern", {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
                 const session = ctx.getData("session");
+                if (session.globalPattern.empty()) return ctx.error("worldedit.config.pattern.noPattern");
                 ctx.getData("pickerData").onFinish(ctx, player, undefined, session.globalPattern);
             },
         },
@@ -135,6 +137,7 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
+                if (!getSession(player).selection.isValid()) return ctx.error("commands.generic.wedit:noSelection");
                 ctx.getData("pickerData").onFinish(ctx, player, undefined, undefined);
             },
         },

@@ -2,7 +2,7 @@
 import { ItemLockMode, ItemStack, ItemUseBeforeEvent, Player, system } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerUtil } from "./player_util.js";
-import { MenuContext, UIAction, DynamicElem, UIFormName } from "library/@types/classes/uiFormBuilder.js";
+import { MenuContext, UIAction, DynamicElem, UIFormName, LocalizedText } from "library/@types/classes/uiFormBuilder.js";
 import { print } from "server/util.js";
 
 interface HotbarItem<T extends {}> {
@@ -139,9 +139,7 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
     }
 
     goto(menu: UIFormName) {
-        if (menu) {
-            this.stack.push(menu);
-        }
+        if (menu) this.stack.push(menu);
         try {
             this.currentForm = HotbarUI.goto(menu, this.player, this);
         } catch (e) {
@@ -155,12 +153,15 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
 
     back() {
         this.stack.pop();
-        this.goto(this.stack.pop());
+        if (this.stack.length) {
+            this.goto(this.stack.pop()!);
+        } else {
+            this.base?.goto(this.base.currentMenu);
+        }
     }
 
     returnto(menu: UIFormName) {
         let popped: string | undefined;
-        // eslint-disable-next-line no-cond-assign
         while ((popped = this.stack.pop())) {
             if (popped === menu) {
                 this.goto(menu);
@@ -168,10 +169,24 @@ class HotbarContext<T extends {}> implements MenuContext<T> {
             }
         }
         this.goto(undefined);
+        this.base?.returnto(menu);
     }
 
-    confirm() {
-        throw "confirm() is not implemented in hotbar UI";
+    confirm(): void {
+        throw "No 'confirm' action in a hotbar UI context.";
+    }
+
+    error(errorMessage: LocalizedText) {
+        if (typeof errorMessage === "string") {
+            errorMessage = { rawtext: [{ text: "§c" }, { translate: errorMessage }, { text: "§r" }] };
+        } else if (errorMessage) {
+            errorMessage = { rawtext: [{ text: "§c" }, ...errorMessage.rawtext!, { text: "§r" }] };
+        }
+        print(errorMessage, this.player, true);
+    }
+
+    get currentMenu() {
+        return this.stack[this.stack.length - 1];
     }
 }
 
@@ -213,9 +228,7 @@ class HotbarUIBuilder {
      * @param ctx The context to be passed to the UI form
      */
     goto(name: UIFormName, player: Player, ctx: MenuContext<unknown>) {
-        if (!(ctx instanceof HotbarContext)) {
-            ctx = new HotbarContext(player, ctx);
-        }
+        if (!(ctx instanceof HotbarContext)) ctx = new HotbarContext(player, ctx);
 
         if (this.active.has(player)) {
             this.active.get(player).exit(player, ctx);

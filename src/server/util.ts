@@ -1,4 +1,4 @@
-import { Block, Vector3, Dimension, Entity, Player, world, BlockComponentTypeMap } from "@minecraft/server";
+import { Block, Vector3, Dimension, Entity, Player, world, BlockComponentTypeMap, RawMessage } from "@minecraft/server";
 import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea, Vector } from "@notbeer-api";
 import config from "config.js";
 
@@ -8,10 +8,10 @@ import config from "config.js";
  * @param player The one to send the message to
  * @param toActionBar If true the message goes to the player's action bar; otherwise it goes to chat
  */
-export function print(msg: string | RawText, player: Player, toActionBar = false) {
-    if (typeof msg == "string") {
-        msg = <RawText>RawText.translate(msg);
-    }
+export function print(msg: string | RawText | RawMessage, player: Player, toActionBar = false) {
+    if (typeof msg === "string") msg = <RawText>RawText.translate(msg);
+    if (!(msg instanceof RawText)) msg = JSON.stringify(msg);
+
     let command: string;
     if (toActionBar && config.printToActionBar) {
         command = `titleraw @s actionbar ${msg.toString()}`;
