@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-03 23:43\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -311,7 +311,7 @@ msgid "worldedit.config.structures"
 msgstr "Structures"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "混合量"
 
 msgid "worldedit.config.mask.height"
 msgstr "高さマスク"
@@ -449,10 +449,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "選択したバイオーム: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "見ているブロックのIDとステートを出力します。"
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "IDとステートを取得したいブロックを見てください"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "球体のブラシをセットしました (%s) 。"
@@ -929,10 +929,10 @@ msgid "commands.wedit:superpickaxe.description.recursive"
 msgstr "Make the super pickaxe break blocks starting from the initial one"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "スーパーツルハシを無効にしました"
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "スーパーツルハシを有効にしました"
 
 msgid "commands.wedit:superpickaxe.recursive"
 msgstr "Super pickaxe mode is now: recursive."
