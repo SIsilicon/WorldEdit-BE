@@ -20,7 +20,6 @@ class ToolBuilder {
     constructor() {
         Server.on("itemUseBefore", (ev) => {
             if (!ev.itemStack || !hasSession(ev.source.id)) return;
-            console.warn(hasSession(ev.source.id));
             this.onItemUse(ev.itemStack, ev.source, ev);
         });
 
