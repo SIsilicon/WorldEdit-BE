@@ -21,22 +21,22 @@ class ToolBuilder {
 
   constructor() {
     Server.on("itemUseBefore", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
+      if (!ev.itemStack || !hasSession(ev.source.id)) return;
       this.onItemUse(ev.itemStack, ev.source as Player, ev);
     });
 
     Server.on("itemUseOnBefore", ev => {
-      if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
+      if (!ev.itemStack || !hasSession(ev.source.id)) return;
       this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
     });
 
     Server.on("blockBreak", ev => {
-      if (!ev.itemStack) return;
+      if (!ev.itemStack || !hasSession(ev.player.id)) return;
       this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
     });
 
     Server.on("blockHit", ev => {
-      if (ev.damagingEntity.typeId != "minecraft:player") return;
+      if (ev.damagingEntity.typeId != "minecraft:player" || !hasSession(ev.damagingEntity.id)) return;
       const item = Server.player.getHeldItem(ev.damagingEntity as Player);
       if (!item) return;
       this.onBlockHit(item, ev.damagingEntity as Player, ev, Vector.from(ev.hitBlock));
@@ -51,7 +51,7 @@ class ToolBuilder {
         for (const player of world.getPlayers()) {
           try {
             const item = Server.player.getHeldItem(player);
-            if (!item) continue;
+            if (!item || !hasSession(player.id)) continue;
             yield* self.onItemTick(item, player, self.currentTick);
           } catch (err) {
             contentLog.error(err);
