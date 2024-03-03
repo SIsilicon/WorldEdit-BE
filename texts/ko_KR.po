@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-01-26 02:48\n"
+"PO-Revision-Date: 2024-03-03 22:35\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -229,6 +229,12 @@ msgstr "Delete Gradient"
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
 
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "묶을 아이템을 들고 있으세요."
 
@@ -280,8 +286,17 @@ msgstr "범위"
 msgid "worldedit.config.pattern"
 msgstr "패턴"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "마스크"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "빈 구"
@@ -306,6 +321,9 @@ msgstr "블록 선택 도구 사용하기"
 
 msgid "worldedit.config.command"
 msgstr "명령어"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "월드에딧 명령어"
