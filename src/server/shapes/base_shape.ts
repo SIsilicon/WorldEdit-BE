@@ -236,7 +236,7 @@ export abstract class Shape {
                                     } else {
                                         block = dimension.getBlock(blockLoc);
                                     }
-                                } while (!block || !Jobs.inContext());
+                                } while (!block && Jobs.inContext());
                                 if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
                                 blocksAndChunks.push(block);
                                 blocksAffected++;
