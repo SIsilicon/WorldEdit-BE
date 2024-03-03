@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-01-28 22:28\n"
+"PO-Revision-Date: 2024-03-03 22:35\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -229,6 +229,12 @@ msgstr "Slett Gradient"
 msgid "worldedit.config.gradient.add"
 msgstr "Legg til nytt Gradient"
 
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
 
@@ -280,8 +286,17 @@ msgstr "Område"
 msgid "worldedit.config.pattern"
 msgstr "Mønster"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Maske"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Hul"
@@ -306,6 +321,9 @@ msgstr "Bruk blokkvelger"
 
 msgid "worldedit.config.command"
 msgstr "Kommando"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Er WorldEdit-kommando"
