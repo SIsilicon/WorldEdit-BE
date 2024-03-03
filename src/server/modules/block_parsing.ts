@@ -134,9 +134,9 @@ export function parsedBlock2BlockPermutation(block: parsedBlock) {
 export function parsedBlock2CommandArg(block: parsedBlock) {
     let id = block.id;
     if (id.startsWith("minecraft:")) id = id.slice("minecraft:".length);
-    const states = Object.entries(block.states ?? {});
-    if (states.length) {
-        id += `[${states
+    const states = block.states;
+    if (states?.size) {
+        id += `[${Array.from(states.entries())
             .map(([key, value]) => {
                 value = typeof value === "string" ? `"${value}"` : value;
                 return `"${key}"=${value}`;
