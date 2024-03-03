@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2024-01-26 02:48\n"
+"PO-Revision-Date: 2024-03-03 22:35\n"
 
 msgid "pack.description"
 msgstr "Vyvíjející se port originálního Java modu a dalšího! Addon od SIsilicon (§l§b@iSiliconS§r)."
@@ -229,6 +229,12 @@ msgstr "Delete Gradient"
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
 
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Hold an item to bind to."
 
@@ -280,8 +286,17 @@ msgstr "Range"
 msgid "worldedit.config.pattern"
 msgstr "Pattern"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Mask"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Hollow"
@@ -306,6 +321,9 @@ msgstr "Use Block Picker"
 
 msgid "worldedit.config.command"
 msgstr "Command"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Is WorldEdit Command"
