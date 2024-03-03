@@ -81,10 +81,9 @@ Server.on("tick", () => {
         if (hasWorldEdit(builder)) {
             getSession(builder);
         } else {
-            removeBuilder(builder.name);
+            removeBuilder(builder.id);
             contentLog.log(`${builder.name} has been revoked of their worldedit permissions.`);
             print("worldedit.permission.revoked", builder);
-            continue;
         }
     }
 });
@@ -105,7 +104,7 @@ function removeBuilder(player: string) {
     do {
         i = activeBuilders.findIndex((p) => {
             try {
-                return p.name == player;
+                return p.id == player;
             } catch (e) {
                 return true;
             }

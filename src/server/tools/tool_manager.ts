@@ -19,12 +19,13 @@ class ToolBuilder {
 
     constructor() {
         Server.on("itemUseBefore", (ev) => {
-            if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
-            this.onItemUse(ev.itemStack, ev.source as Player, ev);
+            if (!ev.itemStack || !hasSession(ev.source.id)) return;
+            console.warn(hasSession(ev.source.id));
+            this.onItemUse(ev.itemStack, ev.source, ev);
         });
 
         Server.on("itemUseOnBefore", (ev) => {
-            if (ev.source.typeId != "minecraft:player" || !ev.itemStack) return;
+            if (!ev.itemStack || !hasSession(ev.source.id)) return;
             this.onItemUse(ev.itemStack, ev.source as Player, ev, Vector.from(ev.block));
         });
 
@@ -36,12 +37,12 @@ class ToolBuilder {
         });
 
         Server.on("blockBreak", (ev) => {
-            if (!ev.itemStack) return;
+            if (!ev.itemStack || !hasSession(ev.player.id)) return;
             this.onBlockBreak(ev.itemStack, ev.player, ev, Vector.from(ev.block));
         });
 
         Server.on("blockHit", (ev) => {
-            if (ev.damagingEntity.typeId != "minecraft:player") return;
+            if (ev.damagingEntity.typeId != "minecraft:player" || !hasSession(ev.damagingEntity.id)) return;
             const item = Server.player.getHeldItem(ev.damagingEntity as Player);
             if (!item) return;
             this.onBlockHit(item, ev.damagingEntity as Player, ev, Vector.from(ev.hitBlock));
@@ -50,6 +51,7 @@ class ToolBuilder {
         new Thread().start(function* (self: ToolBuilder) {
             while (true) {
                 for (const player of world.getPlayers()) {
+                    if (!hasSession(player.id)) return;
                     try {
                         const item = Server.player.getHeldItem(player);
                         if (item) {

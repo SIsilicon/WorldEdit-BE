@@ -116,11 +116,7 @@ export class PlayerSession {
         this.selection = new Selection(player);
         this.drawOutlines = config.drawOutlines;
         this.gradients = new Database<gradients>("gradients", player, (k, v) => {
-            if (k === "patterns")
-                return (<string[]>v).map((v) => {
-                    console.warn(v);
-                    return new Pattern(v);
-                });
+            if (k === "patterns") return (<string[]>v).map((v) => new Pattern(v));
             return v;
         });
 

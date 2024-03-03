@@ -130,11 +130,14 @@ class ServerBuild extends ServerBuilder {
          * Emit to 'worldInitialize' event listener
          */
         afterEvents.worldInitialize.subscribe((data) => this.emit("worldInitialize", data));
+        /**
+         * Emit to 'playerChangeDimension' event listener
+         */
+        afterEvents.playerDimensionChange.subscribe((data) => this.emit("playerChangeDimension", { player: data.player, dimension: data.player.dimension }));
 
-        let worldLoaded = false,
-            tickCount = 0,
-            prevTime = Date.now();
-        const playerDimensions = new Map<string, string>();
+        let worldLoaded = false;
+        let tickCount = 0;
+        let prevTime = Date.now();
         system.runInterval(() => {
             tickCount++;
             if (!worldLoaded && world.getAllPlayers().length) {
@@ -149,18 +152,6 @@ class ServerBuild extends ServerBuilder {
                 worldLoaded = true;
             }
 
-            for (const player of world.getPlayers()) {
-                const oldDimension = playerDimensions.get(player.name);
-                const newDimension = player.dimension.id;
-
-                if (oldDimension && oldDimension != newDimension) {
-                    this.emit("playerChangeDimension", {
-                        player: player,
-                        dimension: player.dimension,
-                    });
-                }
-                playerDimensions.set(player.name, newDimension);
-            }
             this.emit("tick", {
                 currentTick: tickCount,
                 deltaTime: Date.now() - prevTime,
