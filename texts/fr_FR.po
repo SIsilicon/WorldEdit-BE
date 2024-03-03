@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-02-19 14:18\n"
+"PO-Revision-Date: 2024-03-03 22:35\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -229,6 +229,12 @@ msgstr "Delete Gradient"
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
 
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Maintenez un objet pour le lier."
 
@@ -280,8 +286,17 @@ msgstr "Écart"
 msgid "worldedit.config.pattern"
 msgstr "Motif"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Masque"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Creux"
@@ -306,6 +321,9 @@ msgstr "Utiliser le sélecteur de blocs"
 
 msgid "worldedit.config.command"
 msgstr "Command"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Is WorldEdit Command"
