@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-06 16:47\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -230,10 +230,10 @@ msgid "worldedit.config.gradient.add"
 msgstr "Додати новий градієнт"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "No Gradient ID specified."
+msgstr "Не вказано ідентифікатор градієнта."
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Gradient ID already exists."
+msgstr "Ідентифікатор градієнта вже існує."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Візьміть предмет для прив’язки."
@@ -287,16 +287,16 @@ msgid "worldedit.config.pattern"
 msgstr "Шаблон"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "Шаблон не вказано."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "Вказано недійсний шаблон."
 
 msgid "worldedit.config.mask"
 msgstr "Маска"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "Вказано невірну маску."
 
 msgid "worldedit.config.hollow"
 msgstr "Порожньо"
@@ -323,7 +323,7 @@ msgid "worldedit.config.command"
 msgstr "Команда"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "Команду не вказано."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Є командою WorldEdit"
