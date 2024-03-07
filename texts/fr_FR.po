@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-07 21:30\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -63,6 +63,12 @@ msgstr "Sélection des contours"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Sélection du mur creux"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Tracer une ligne"
@@ -160,6 +166,12 @@ msgstr "Mode de mur"
 msgid "worldedit.regionMode.hollow"
 msgstr "Mode creux"
 
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
@@ -174,6 +186,12 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "L'outil n'a pas de propriétés définies"
@@ -282,6 +300,9 @@ msgstr "Lissage"
 
 msgid "worldedit.config.range"
 msgstr "Écart"
+
+msgid "worldedit.config.amount"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Motif"
