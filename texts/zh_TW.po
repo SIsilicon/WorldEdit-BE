@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-07 21:31\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -63,6 +63,12 @@ msgstr "外圍選擇"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "畫線"
@@ -160,6 +166,12 @@ msgstr "Wall Mode"
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
 
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
@@ -174,6 +186,12 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "無工具屬性"
@@ -282,6 +300,9 @@ msgstr "平滑度"
 
 msgid "worldedit.config.range"
 msgstr "範圍"
+
+msgid "worldedit.config.amount"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "圖案"
