@@ -3,6 +3,7 @@ import { Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions";
 import { Tool } from "./base_tool";
 import { Tools } from "./tool_manager";
+import { assertCuboidSelection } from "@modules/assert";
 
 class SelectionFillTool extends Tool {
     permission = "worldedit.region.replace";
@@ -63,10 +64,11 @@ Tools.register(SelectionHollowTool, "selection_hollow", "wedit:selection_hollow"
 class SelectionStackTool extends Tool {
     permission = "worldedit.region.stack";
 
-    use = function (self: Tool, player: Player) {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         if (player.isSneaking) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
+            assertCuboidSelection(session);
             Server.uiForms.show("$stackAmount", player);
         }
     };
@@ -76,10 +78,11 @@ Tools.register(SelectionStackTool, "selection_stack", "wedit:selection_stack");
 class SelectionMoveTool extends Tool {
     permission = "worldedit.region.move";
 
-    use = function (self: Tool, player: Player) {
+    use = function (self: Tool, player: Player, session: PlayerSession) {
         if (player.isSneaking) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
+            assertCuboidSelection(session);
             Server.uiForms.show("$moveAmount", player);
         }
     };
