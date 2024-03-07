@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-07 21:31\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -63,6 +63,12 @@ msgstr "Omriss Valg"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Hult utvalg"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
@@ -160,6 +166,12 @@ msgstr "Veggmodus"
 msgid "worldedit.regionMode.hollow"
 msgstr "Uthulingsmodus"
 
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
 msgid "worldedit.genMode.selectOp"
 msgstr "Vel figur å generere"
 
@@ -174,6 +186,12 @@ msgstr "Syllinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramide"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Ingen verktøysegenskaper"
@@ -282,6 +300,9 @@ msgstr "Glatthet"
 
 msgid "worldedit.config.range"
 msgstr "Område"
+
+msgid "worldedit.config.amount"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Mønster"
