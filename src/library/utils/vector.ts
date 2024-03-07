@@ -11,6 +11,12 @@ export class Vector {
     static get ONE() {
         return new Vector(1, 1, 1);
     }
+    static get UP() {
+        return new Vector(0, 1, 0);
+    }
+    static get DOWN() {
+        return new Vector(0, -1, 0);
+    }
     static get INF() {
         return new Vector(Infinity, Infinity, Infinity);
     }

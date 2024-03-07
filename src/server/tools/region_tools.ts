@@ -59,3 +59,29 @@ class SelectionHollowTool extends Tool {
     };
 }
 Tools.register(SelectionHollowTool, "selection_hollow", "wedit:selection_hollow");
+
+class SelectionStackTool extends Tool {
+    permission = "worldedit.region.stack";
+
+    use = function (self: Tool, player: Player) {
+        if (player.isSneaking) {
+            Server.uiForms.show("$selectRegionMode", player);
+        } else {
+            Server.uiForms.show("$stackAmount", player);
+        }
+    };
+}
+Tools.register(SelectionStackTool, "selection_stack", "wedit:selection_stack");
+
+class SelectionMoveTool extends Tool {
+    permission = "worldedit.region.move";
+
+    use = function (self: Tool, player: Player) {
+        if (player.isSneaking) {
+            Server.uiForms.show("$selectRegionMode", player);
+        } else {
+            Server.uiForms.show("$moveAmount", player);
+        }
+    };
+}
+Tools.register(SelectionMoveTool, "selection_move", "wedit:selection_move");

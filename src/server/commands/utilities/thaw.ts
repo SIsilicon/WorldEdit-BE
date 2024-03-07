@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector, sleep } from "@notbeer-api";
-import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
+import { Block, Vector3, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -61,7 +61,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
                 const loc = new Vector(x + 0.5, range[1].y + 1.01, z + 0.5);
                 try {
-                    const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions)?.block;
+                    const block = dimension.getBlockFromRay(loc, Vector.DOWN, rayTraceOptions)?.block;
                     if (block) {
                         blocks.push(block);
                         blockLocs.push(block.location);
