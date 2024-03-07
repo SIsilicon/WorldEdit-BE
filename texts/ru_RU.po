@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-07 21:31\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -63,6 +63,12 @@ msgstr "Выбор Контура"
 
 msgid "item.wedit:selection_hollow"
 msgstr ""
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
@@ -160,6 +166,12 @@ msgstr ""
 msgid "worldedit.regionMode.hollow"
 msgstr ""
 
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
 msgid "worldedit.genMode.selectOp"
 msgstr ""
 
@@ -174,6 +186,12 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Нет свойств у инструмента"
@@ -282,6 +300,9 @@ msgstr "Гладкость"
 
 msgid "worldedit.config.range"
 msgstr "Диапазон"
+
+msgid "worldedit.config.amount"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Образец"
