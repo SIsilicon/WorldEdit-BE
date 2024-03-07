@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2024-03-03 22:35\n"
+"PO-Revision-Date: 2024-03-07 21:31\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -63,6 +63,12 @@ msgstr "Outline Selection"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Draw Line"
@@ -160,6 +166,12 @@ msgstr "Wall Mode"
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
 
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
@@ -174,6 +186,12 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "No Tool Properties"
@@ -282,6 +300,9 @@ msgstr "Smoothness"
 
 msgid "worldedit.config.range"
 msgstr "Range"
+
+msgid "worldedit.config.amount"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Pattern"
