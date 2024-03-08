@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-03-08 23:27\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -65,10 +65,10 @@ msgid "item.wedit:selection_hollow"
 msgstr "Виділення пустоти"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Стосувати виділення"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Перемістити виділення"
 
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
@@ -167,10 +167,10 @@ msgid "worldedit.regionMode.hollow"
 msgstr "Режим пустоти"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Режим стосування"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Режим переміщення"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "Оберіть фігуру, щоб згенерувати"
@@ -188,10 +188,10 @@ msgid "worldedit.genMode.pyramid"
 msgstr "Піраміда"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "Виберіть кількість стосу"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "Виберіть кількість переміщень"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Немає властивостей інструменту"
@@ -302,7 +302,7 @@ msgid "worldedit.config.range"
 msgstr "Діапазон"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Кількість"
 
 msgid "worldedit.config.pattern"
 msgstr "Шаблон"
