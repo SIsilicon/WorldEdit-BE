@@ -267,8 +267,7 @@ export abstract class Shape {
                         const [min, max] = block;
                         const volume = regionVolume(min, max);
                         if (Jobs.inContext()) while (!Jobs.loadBlock(min)) yield sleep(1);
-                        pattern.fillSimpleArea(dimension, min, max, mask);
-                        count += volume;
+                        if (pattern.fillSimpleArea(dimension, min, max, mask)) count += volume;
                         yield Jobs.setProgress(progress / blocksAffected);
                         progress += volume;
                     }
