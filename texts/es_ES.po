@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-03-16 20:34\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Selección exterior"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr ""
 
 msgid "item.wedit:selection_stack"
 msgstr "Stack Selection"
