@@ -108,6 +108,10 @@ export class Vector {
         return new Vector(this.x + x, this.y + y, this.z + z);
     }
 
+    distanceTo(v: anyVec) {
+        return this.sub(v).length;
+    }
+
     add(v: anyVec | number) {
         if (typeof v == "number") {
             return new Vector(this.x + v, this.y + v, this.z + v);

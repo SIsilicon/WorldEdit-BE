@@ -84,7 +84,7 @@ export function throwTokenError(token: Token): never {
         isSyntaxError: true,
         idx: -1,
         start: token.pos,
-        end: token.pos + token.text.length,
+        end: token.pos + token.text.length - 1,
         stack: contentLog.stack(),
     };
     throw err;

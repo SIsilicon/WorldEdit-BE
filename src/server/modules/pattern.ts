@@ -66,7 +66,7 @@ export class Pattern implements CustomArgType {
             block.setPermutation(this.block.getPermutation(block, this.context));
             return !oldBlock.matches(block.typeId);
         } catch (err) {
-            //contentLog.error(err);
+            // console.error(err);
             return false;
         }
     }
@@ -234,15 +234,16 @@ export class Pattern implements CustomArgType {
                         let offset = Vector.ZERO;
                         if (tokens.peek()?.value == "@") {
                             tokens.next();
-                            if (tokens.next().value != "[") {
-                                throwTokenError(tokens.curr());
-                            }
+                            if (tokens.next().value != "[") throwTokenError(tokens.curr());
                             const array = parseNumberList(tokens, 3);
                             offset = Vector.from(array as [number, number, number]);
                         }
                         out.push(new ClipboardPattern(nodeToken(), offset.floor()));
                     } else if (t.value == "hand") {
                         out.push(new HandPattern(nodeToken()));
+                    } else if (t.value.match?.(/blob[1-9][0-9]*/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new BlobPattern(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
                     } else {
                         throwTokenError(t);
                     }
@@ -319,6 +320,7 @@ export class Pattern implements CustomArgType {
     }
 }
 
+type NodeJSON = { type: string; nodes: NodeJSON[] };
 abstract class PatternNode implements AstNode {
     public nodes: PatternNode[] = [];
     abstract readonly prec: number;
@@ -330,6 +332,14 @@ abstract class PatternNode implements AstNode {
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     postProcess() {}
+
+    /** Debug only! Not all important data is represented. */
+    toJSON(): NodeJSON {
+        return {
+            type: this.constructor.name,
+            nodes: this.nodes.map((n) => n.toJSON()),
+        };
+    }
 }
 
 class BlockPattern extends PatternNode {
@@ -337,7 +347,10 @@ class BlockPattern extends PatternNode {
     readonly opCount = 0;
     readonly permutation: BlockPermutation;
 
-    constructor(token: Token, public block: parsedBlock) {
+    constructor(
+        token: Token,
+        public block: parsedBlock
+    ) {
         super(token);
         this.permutation = parsedBlock2BlockPermutation(block);
     }
@@ -353,7 +366,10 @@ class TypePattern extends PatternNode {
     readonly permutation: BlockPermutation;
     readonly props: Record<string, string | number | boolean>;
 
-    constructor(token: Token, public type: string) {
+    constructor(
+        token: Token,
+        public type: string
+    ) {
         super(token);
         this.permutation = BlockPermutation.resolve(type);
         this.props = this.permutation.getAllStates();
@@ -372,7 +388,10 @@ class StatePattern extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public states: parsedBlock["states"]) {
+    constructor(
+        token: Token,
+        public states: parsedBlock["states"]
+    ) {
         super(token);
     }
 
@@ -391,7 +410,10 @@ class RandStatePattern extends PatternNode {
     readonly opCount = 0;
     readonly permutations: BlockPermutation[];
 
-    constructor(token: Token, public block: string) {
+    constructor(
+        token: Token,
+        public block: string
+    ) {
         super(token);
         this.permutations = Array.from(Server.block.iteratePermutations(this.block));
     }
@@ -405,7 +427,10 @@ class ClipboardPattern extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
-    constructor(token: Token, public offset: Vector3) {
+    constructor(
+        token: Token,
+        public offset: Vector3
+    ) {
         super(token);
     }
 
@@ -442,7 +467,11 @@ class GradientPattern extends PatternNode {
 
     private ctxCardinal: Cardinal;
 
-    constructor(token: Token, public gradientId: string, public cardinal?: Cardinal) {
+    constructor(
+        token: Token,
+        public gradientId: string,
+        public cardinal?: Cardinal
+    ) {
         super(token);
         if (cardinal) this.updateDirectionParams(cardinal);
     }
@@ -480,12 +509,72 @@ class PercentPattern extends PatternNode {
     readonly prec = 2;
     readonly opCount = 1;
 
-    constructor(token: Token, public percent: number) {
+    constructor(
+        token: Token,
+        public percent: number
+    ) {
         super(token);
     }
 
     getPermutation() {
         return null as BlockPermutation;
+    }
+}
+
+class BlobPattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private readonly offsets: Vector[] = [];
+    private readonly perms: { [key: number]: BlockPermutation } = {};
+    private readonly points: { [key: number]: Vector } = {};
+
+    constructor(
+        token: Token,
+        public readonly size: number
+    ) {
+        super(token);
+        this.offsets = [];
+        for (let z = -1; z <= 1; z++) {
+            for (let y = -1; y <= 1; y++) {
+                for (let x = -1; x <= 1; x++) {
+                    this.offsets.push(new Vector(x * this.size, y * this.size, z * this.size));
+                }
+            }
+        }
+    }
+
+    postProcess() {
+        this.nodes[0].postProcess();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        const blockLoc = Vector.from(block.location);
+        const cellLoc = blockLoc.div(this.size).floor().mul(this.size);
+        let closestCell = 0;
+        let minDist = Infinity;
+        for (const offset of this.offsets) {
+            const loc = cellLoc.add(offset);
+            const neighbour = this.getCellKey(loc);
+            if (!(neighbour in this.points)) this.points[neighbour] = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+
+            const distance = loc.add(this.points[neighbour]).distanceTo(blockLoc);
+            if (distance < minDist) {
+                closestCell = neighbour;
+                minDist = distance;
+            }
+        }
+
+        if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
+        return this.perms[closestCell];
+    }
+
+    private getCellKey(location: Vector3) {
+        return `${Math.floor(location.x / this.size)} ${Math.floor(location.y / this.size)} ${Math.floor(location.z / this.size)}`.hashCode();
+    }
+
+    private randomNum() {
+        return Math.random() * (this.size - 1);
     }
 }
 
