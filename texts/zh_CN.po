@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-03-21 16:08\n"
 
 msgid "pack.description"
 msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -65,10 +65,10 @@ msgid "item.wedit:selection_hollow"
 msgstr "选择选区"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "堆叠选区"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "移动选区"
 
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
@@ -167,10 +167,10 @@ msgid "worldedit.regionMode.hollow"
 msgstr "Hollow 模式"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "堆叠模式"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "移动模式"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "选择要生成的形状"
@@ -188,10 +188,10 @@ msgid "worldedit.genMode.pyramid"
 msgstr "棱锥"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "选择堆叠数量"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "选择移动数量"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "没有工具属性"
@@ -248,10 +248,10 @@ msgid "worldedit.config.gradient.add"
 msgstr "添加新渐变"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "No Gradient ID specified."
+msgstr "未指定渐变ID。"
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Gradient ID already exists."
+msgstr "渐变ID已存在。"
 
 msgid "worldedit.config.chooseItem"
 msgstr "手持一个物品来绑定它。"
@@ -302,22 +302,22 @@ msgid "worldedit.config.range"
 msgstr "范围"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "数量"
 
 msgid "worldedit.config.pattern"
 msgstr "填充"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "没有指定的图案。"
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "无效的指定图案。"
 
 msgid "worldedit.config.mask"
 msgstr "取代"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "无效的指定蒙版。"
 
 msgid "worldedit.config.hollow"
 msgstr "下陷"
@@ -344,7 +344,7 @@ msgid "worldedit.config.command"
 msgstr "命令"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "没有指定的命令。"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "是否为创世神命令"
