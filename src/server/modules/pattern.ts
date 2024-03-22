@@ -1,5 +1,5 @@
 import { Vector3, BlockPermutation, Player, Dimension } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, Vector, Server, Timer, contentLog, doOn } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
@@ -549,16 +549,21 @@ class BlobPattern extends PatternNode {
     }
 
     getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        const size = this.size;
         const blockLoc = Vector.from(block.location);
-        const cellLoc = blockLoc.div(this.size).floor().mul(this.size);
+        const cellLoc = blockLoc.div(size).floor().mul(size);
         let closestCell = 0;
         let minDist = Infinity;
         for (const offset of this.offsets) {
-            const loc = cellLoc.add(offset);
-            const neighbour = this.getCellKey(loc);
-            if (!(neighbour in this.points)) this.points[neighbour] = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+            const locX = cellLoc.x + offset.x;
+            const locY = cellLoc.y + offset.y;
+            const locZ = cellLoc.z + offset.z;
+            // cell key
+            const neighbour = Math.floor(Math.floor(locX / size) * 4576.498 + Math.floor(locY / size) * 76392.953 + Math.floor(locZ / size) * 203478.295) % 1024;
+            if (!this.points[neighbour]) this.points[neighbour] = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+            const point = this.points[neighbour];
 
-            const distance = loc.add(this.points[neighbour]).distanceTo(blockLoc);
+            const distance = Math.hypot(locX + point.x - blockLoc.x, locY + point.y - blockLoc.y, locZ + point.z - blockLoc.z);
             if (distance < minDist) {
                 closestCell = neighbour;
                 minDist = distance;
@@ -567,10 +572,6 @@ class BlobPattern extends PatternNode {
 
         if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
         return this.perms[closestCell];
-    }
-
-    private getCellKey(location: Vector3) {
-        return `${Math.floor(location.x / this.size)} ${Math.floor(location.y / this.size)} ${Math.floor(location.z / this.size)}`.hashCode();
     }
 
     private randomNum() {
