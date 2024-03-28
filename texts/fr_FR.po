@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-03-28 10:57\n"
+"PO-Revision-Date: 2024-03-28 12:48\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -173,7 +173,7 @@ msgid "worldedit.regionMode.move"
 msgstr "Move Mode"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "Sélectionner une forme à générer"
 
 msgid "worldedit.genMode.line"
 msgstr "Ligne"
@@ -302,7 +302,7 @@ msgid "worldedit.config.range"
 msgstr "Écart"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Quantité"
 
 msgid "worldedit.config.pattern"
 msgstr "Motif"
@@ -833,10 +833,10 @@ msgid "commands.wedit:replace.description"
 msgstr "Replace certain blocks in the selection with other blocks"
 
 msgid "commands.wedit:removeabove.description"
-msgstr "Remove blocks above you"
+msgstr "Retirer les blocs au dessus de vous"
 
 msgid "commands.wedit:removebelow.description"
-msgstr "Remove blocks below you"
+msgstr "Retirer les blocs en dessous de vous"
 
 msgid "commands.wedit:removenear.description"
 msgstr "Remove nearby blocks"
@@ -923,7 +923,7 @@ msgid "commands.wedit:size.pos2"
 msgstr "Position 2: %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "Taille: %s"
 
 msgid "commands.wedit:size.type"
 msgstr "Type: %s"
@@ -950,10 +950,10 @@ msgid "commands.wedit:superpickaxe.description.recursive"
 msgstr "Make the super pickaxe break blocks starting from the initial one"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "Super pioche désactivée."
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "Super pioche activée."
 
 msgid "commands.wedit:superpickaxe.recursive"
 msgstr "Super pickaxe mode is now: recursive."
@@ -1100,16 +1100,16 @@ msgid "commands.wedit:wand.explain"
 msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
-msgstr "WorldEdit commands"
+msgstr "Commandes WorldEdit"
 
 msgid "commands.wedit:worldedit.description.perf"
 msgstr "Toggle performance mode for the current session."
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Performance mode enabled."
+msgstr "Mode performances activé."
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Performance mode disabled."
+msgstr "Mode performances désactivé."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "Get WorldEdit version"
@@ -1139,13 +1139,13 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Avant tout le reste..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "Par défaut, les joueurs n'ont pas les permissions pour utiliser WorldEdit. Seuls les joueurs avec l'étiquette worldedit ont la permission d'utiliser WorldEdit. Pour recevoir les permissions, écrivez dans le chat §e/tag @s add worldedit§r. Vous devriez avoir maintenant accès aux commandes WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "Going places"
+msgstr "Se rendre à différents endroits"
 
 msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§aNotice:§r§a Les commandes fournies par cet addon utilisent un point-virgule (;) au lieu d'un slash (/). À l'avenir, Mojang pourrait ajouter le support de commandes personnalisées à Minecraft.§r"
@@ -1166,7 +1166,7 @@ msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "If there's no block for you to mark a corner with, like high in the air, you can also use the commands §e;pos1§r or §e;pos2§r to mark the first and second corner respectively, as the position you are currently standing in. This is not the same as the position you are standing §lon§r."
 
 msgid "howtoplay.wedit:quick_start.header.4"
-msgstr "Doing stuff with your selection"
+msgstr "Faire des choses avec votre sélection"
 
 msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "Make a modest sized selection to work with and get your kit ready with §e;kit§r. We're going to try some of the features WorldEdit has to offer."
