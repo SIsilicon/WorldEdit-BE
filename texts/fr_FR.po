@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-03-07 21:30\n"
+"PO-Revision-Date: 2024-03-28 10:57\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -176,16 +176,16 @@ msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Ligne"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Sphère"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cylindre"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Pyramide"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -287,7 +287,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "Êtes-vous sûr de vouloir dissocier cet élément ?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "Nom"
 
 msgid "worldedit.config.radius"
 msgstr "Taille"
@@ -341,7 +341,7 @@ msgid "worldedit.config.usePicker"
 msgstr "Utiliser le sélecteur de blocs"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Commande"
 
 msgid "worldedit.config.command.noCommand"
 msgstr "No command specified."
@@ -635,7 +635,7 @@ msgid "commands.wedit:drawsel.description"
 msgstr "Toggle your selection's visibility"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Vos sélections ne vont plus être visibles."
 
 msgid "commands.wedit:drawsel.enabled"
 msgstr "Vos sélections seront maintenant visibles."
@@ -653,7 +653,7 @@ msgid "commands.wedit:export.description"
 msgstr "Exports the selection for later use."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s a été exporté."
 
 msgid "commands.wedit:export.otherWorlds"
 msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
