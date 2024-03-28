@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-11-13 18:06\n"
+"PO-Revision-Date: 2024-03-08 23:27\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -61,8 +61,29 @@ msgstr "Вибір стіни"
 msgid "item.wedit:selection_outline"
 msgstr "Контур виділення"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Виділення пустоти"
+
+msgid "item.wedit:selection_stack"
+msgstr "Стосувати виділення"
+
+msgid "item.wedit:selection_move"
+msgstr "Перемістити виділення"
+
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
+
+msgid "item.wedit:draw_line"
+msgstr "Малювати лінію"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Намалювати сферу"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Намалювати циліндр"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Намалювати піраміду"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
@@ -88,6 +109,9 @@ msgstr "Пензлі"
 msgid "worldedit.config.tools"
 msgstr "Інструменти"
 
+msgid "worldedit.config.gradients"
+msgstr "Градієнти"
+
 msgid "worldedit.config.general"
 msgstr "Загальне"
 
@@ -112,6 +136,9 @@ msgstr "Створити новий інструмент"
 msgid "worldedit.config.newBrush"
 msgstr "Створити новий пензель"
 
+msgid "worldedit.config.newGradient"
+msgstr "Створити новий градієнт"
+
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Кубоподібний"
 
@@ -123,6 +150,48 @@ msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Циліндр"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Обрати регіон діяльності"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Режим заповнення"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Режим контуру"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Режим стіни"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Режим пустоти"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Режим стосування"
+
+msgid "worldedit.regionMode.move"
+msgstr "Режим переміщення"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Оберіть фігуру, щоб згенерувати"
+
+msgid "worldedit.genMode.line"
+msgstr "Лінія"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Сфера"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Циліндр"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Піраміда"
+
+msgid "worldedit.stack.title"
+msgstr "Виберіть кількість стосу"
+
+msgid "worldedit.move.title"
+msgstr "Виберіть кількість переміщень"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Немає властивостей інструменту"
@@ -169,6 +238,21 @@ msgstr "Пензель ерозії"
 msgid "worldedit.config.brush.overlay"
 msgstr "Пензель накладання"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Використовувати градієнт у «Вибір шаблону»"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Видалити градієнт"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Додати новий градієнт"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "Не вказано ідентифікатор градієнта."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Ідентифікатор градієнта вже існує."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Візьміть предмет для прив’язки."
 
@@ -177,6 +261,9 @@ msgstr "Виберіть, який пензель створити."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент створити."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Вставте ID градієнту тут"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Створити шаблон та за бажанням маску для пензля."
@@ -199,6 +286,9 @@ msgstr "Вас влаштовує налаштування, які ви зроб
 msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей предмет?"
 
+msgid "worldedit.config.name"
+msgstr "Назва"
+
 msgid "worldedit.config.radius"
 msgstr "Розмір"
 
@@ -211,11 +301,23 @@ msgstr "Згладжування"
 msgid "worldedit.config.range"
 msgstr "Діапазон"
 
+msgid "worldedit.config.amount"
+msgstr "Кількість"
+
 msgid "worldedit.config.pattern"
 msgstr "Шаблон"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "Шаблон не вказано."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Вказано недійсний шаблон."
+
 msgid "worldedit.config.mask"
 msgstr "Маска"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Вказано невірну маску."
 
 msgid "worldedit.config.hollow"
 msgstr "Порожньо"
@@ -229,6 +331,9 @@ msgstr "Вид ерозії"
 msgid "worldedit.config.structures"
 msgstr "Структури"
 
+msgid "worldedit.config.blend"
+msgstr "Кількість замісу"
+
 msgid "worldedit.config.mask.height"
 msgstr "Висота маски"
 
@@ -237,6 +342,9 @@ msgstr "Використовувати вибір блоку"
 
 msgid "worldedit.config.command"
 msgstr "Команда"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "Команду не вказано."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Є командою WorldEdit"
@@ -828,6 +936,18 @@ msgstr "Режим супер кайла: площа."
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Супер кайло"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Супер кайло"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Зробити так, щоб супер кайло розбило один блок"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Зробити так, щоб супер кайло розбивало блоки в кубічному діапазоні"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Зробити так, щоб супер кайло розбивало блоки, починаючи з початкового блоку"
 
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Супер кайло вимкнуто."
