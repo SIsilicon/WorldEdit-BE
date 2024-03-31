@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-03-28 12:48\n"
+"PO-Revision-Date: 2024-03-31 17:14\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -29,7 +29,7 @@ msgid "item.wedit:paste_button"
 msgstr "Coller"
 
 msgid "item.wedit:undo_button"
-msgstr "Retour"
+msgstr "Annuler"
 
 msgid "item.wedit:redo_button"
 msgstr "Rétablir"
@@ -1082,7 +1082,7 @@ msgid "commands.wedit:undo.explain"
 msgstr "Undid %s available edits."
 
 msgid "commands.wedit:undo.none"
-msgstr "Nothing left to undo."
+msgstr "Il n'y a plus rien à annuler."
 
 msgid "commands.wedit:up.description"
 msgstr "Move up a certain number of blocks"
@@ -1124,7 +1124,7 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "Tutoriel Rapide"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "How to Play: Quick Start to WorldEdit"
+msgstr "Comment jouer: Initiation à WorldEdit"
 
 msgid "howtoplay.wedit:license"
 msgstr "Licence"
@@ -1142,7 +1142,7 @@ msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "Par défaut, les joueurs n'ont pas les permissions pour utiliser WorldEdit. Seuls les joueurs avec l'étiquette worldedit ont la permission d'utiliser WorldEdit. Pour recevoir les permissions, écrivez dans le chat §e/tag @s add worldedit§r. Vous devriez avoir maintenant accès aux commandes WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§aConseil:§r§a Vous pouvez aussi donner les permissions à d'autres joueurs en remplaçant §e@s§r§a par le nom du joueur. Si le nom a un espace, il faut l'entourer de guillemets. Ex: §e/tag add \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "Se rendre à différents endroits"
