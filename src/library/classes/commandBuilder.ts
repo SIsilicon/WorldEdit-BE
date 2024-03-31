@@ -389,14 +389,15 @@ export class CommandBuilder {
                             result.set(f, true);
                             const argDef = flagDefs.get(f);
                             if (argDef.type != undefined) {
-                                i = processArg(
-                                    i + 1,
-                                    {
-                                        name: argDef.flag + "-" + argDef.name,
-                                        type: argDef.type,
-                                    },
-                                    result
-                                );
+                                i =
+                                    processArg(
+                                        i + 1,
+                                        {
+                                            name: argDef.flag + "-" + argDef.name,
+                                            type: argDef.type,
+                                        },
+                                        result
+                                    ) - 1;
                             }
                         } else {
                             invalidFlags.push(f);
