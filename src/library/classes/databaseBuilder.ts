@@ -14,6 +14,8 @@ export class Database<T extends {} = { [key: string]: any }> {
         provider: World | Entity = world,
         reviver?: (key: string, value: any) => any
     ) {
+        if (this.provider instanceof Entity) this.name += this.provider.id;
+
         const table = this.getScoreboardParticipant();
         this.data = table ? JSON.parse(JSON.parse(`"${table.displayName}"`), reviver)[1] : {};
         this.provider = provider;
@@ -67,9 +69,7 @@ export class Database<T extends {} = { [key: string]: any }> {
      */
     save(): void {
         const table = this.getScoreboardParticipant();
-        if (table) {
-            Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
-        }
+        if (table) Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
         Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(["wedit:" + this.name, this.data]))} GAMETEST_DB 0`);
     }
     /**
@@ -118,7 +118,7 @@ export class Database<T extends {} = { [key: string]: any }> {
     private getScoreboardParticipant() {
         for (const table of objective.getParticipants()) {
             const name = table.displayName;
-            if (name.startsWith(`[\\"wedit:${this.name + (this.provider instanceof Entity ? this.provider.id : "")}\\"`)) {
+            if (name.startsWith(`[\\"wedit:${this.name}\\"`)) {
                 return table;
             }
         }
