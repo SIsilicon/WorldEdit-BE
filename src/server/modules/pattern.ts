@@ -63,7 +63,9 @@ export class Pattern implements CustomArgType {
     setBlock(block: BlockUnit) {
         try {
             const oldBlock = block.permutation;
-            block.setPermutation(this.block.getPermutation(block, this.context));
+            const newBlock = this.block.getPermutation(block, this.context);
+            if (!newBlock) return false;
+            block.setPermutation(newBlock);
             return !oldBlock.matches(block.typeId);
         } catch (err) {
             // console.error(err);
@@ -190,7 +192,9 @@ export class Pattern implements CustomArgType {
 
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
-                if (token.type == "id") {
+                if (token.value === "void") {
+                    out.push(new VoidPattern(nodeToken()));
+                } else if (token.type == "id") {
                     out.push(new BlockPattern(nodeToken(), parseBlock(tokens, input, false) as parsedBlock));
                 } else if (token.type == "number") {
                     const num = token;
@@ -219,12 +223,12 @@ export class Pattern implements CustomArgType {
                     out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
                 } else if (token.value == "$") {
                     const t = tokens.next();
-                    let cardinal;
+                    let cardinal: Cardinal | "radial";
                     if (t.type != "id") throwTokenError(t);
                     if (tokens.peek().value == ".") {
                         tokens.next();
-                        const d = tokens.next();
-                        cardinal = Cardinal.parseArgs([d.value as string]).result;
+                        const d: string = tokens.next()?.value;
+                        cardinal = d === "rad" ? "radial" : Cardinal.parseArgs([d]).result;
                     }
 
                     out.push(new GradientPattern(nodeToken(), t.value, cardinal));
@@ -328,7 +332,7 @@ abstract class PatternNode implements AstNode {
 
     constructor(public readonly token: Token) {}
 
-    abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation;
+    abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation | undefined;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     postProcess() {}
@@ -357,6 +361,15 @@ class BlockPattern extends PatternNode {
 
     getPermutation() {
         return this.permutation;
+    }
+}
+
+class VoidPattern extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+
+    getPermutation() {
+        return <BlockPermutation>undefined;
     }
 }
 
@@ -465,28 +478,37 @@ class GradientPattern extends PatternNode {
     private axis: "x" | "y" | "z";
     private invertCoords: boolean;
 
+    private radial = false;
     private ctxCardinal: Cardinal;
 
     constructor(
         token: Token,
         public gradientId: string,
-        public cardinal?: Cardinal
+        public cardinal?: Cardinal | "radial"
     ) {
         super(token);
-        if (cardinal) this.updateDirectionParams(cardinal);
+        if (cardinal && cardinal !== "radial") this.updateDirectionParams(cardinal);
+        if (cardinal === "radial") this.radial = true;
     }
 
     getPermutation(block: BlockUnit, context: patternContext) {
         const gradient = context.session.getGradient(this.gradientId);
         if (gradient) {
-            if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
-                this.updateDirectionParams(context.cardinal, context.session.getPlayer());
-                this.ctxCardinal = context.cardinal;
-            }
-            const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
             const patternLength = gradient.patterns.length;
-            const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
-            const index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+            let index = 0;
+            if (this.radial) {
+                const center = context.range[0].lerp(context.range[1], 0.5);
+                const maxLength = context.range[1].distanceTo(context.range[0]) / 2;
+                index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+            } else {
+                if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
+                    this.updateDirectionParams(context.cardinal, context.session.getPlayer());
+                    this.ctxCardinal = context.cardinal;
+                }
+                const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
+                const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
+                index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+            }
             return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
         }
     }
@@ -526,8 +548,11 @@ class BlobPattern extends PatternNode {
     readonly opCount = 1;
 
     private readonly offsets: Vector[] = [];
-    private readonly perms: { [key: number]: BlockPermutation } = {};
-    private readonly points: { [key: number]: Vector } = {};
+    private perms: { [key: number]: BlockPermutation } = {};
+    private ranges: { [key: number]: { range: [Vector, Vector] } } = {};
+    private points: { [key: number]: Vector } = {};
+
+    private isRadial = false;
 
     constructor(
         token: Token,
@@ -546,6 +571,10 @@ class BlobPattern extends PatternNode {
 
     postProcess() {
         this.nodes[0].postProcess();
+        this.isRadial = this.nodes[0] instanceof GradientPattern && this.nodes[0].cardinal === "radial";
+        this.perms = {};
+        this.ranges = {};
+        this.points = {};
     }
 
     getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
@@ -560,7 +589,14 @@ class BlobPattern extends PatternNode {
             const locZ = cellLoc.z + offset.z;
             // cell key
             const neighbour = Math.floor(Math.floor(locX / size) * 4576.498 + Math.floor(locY / size) * 76392.953 + Math.floor(locZ / size) * 203478.295) % 1024;
-            if (!this.points[neighbour]) this.points[neighbour] = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+            if (!this.points[neighbour]) {
+                const point = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+                this.points[neighbour] = point;
+                if (this.isRadial) {
+                    const cellPoint = point.offset(locX, locY, locZ);
+                    this.ranges[neighbour] = { range: [cellPoint.offset(-this.size, -this.size, -this.size), cellPoint.offset(this.size, this.size, this.size)] };
+                }
+            }
             const point = this.points[neighbour];
 
             const distance = Math.hypot(locX + point.x - blockLoc.x, locY + point.y - blockLoc.y, locZ + point.z - blockLoc.z);
@@ -570,8 +606,12 @@ class BlobPattern extends PatternNode {
             }
         }
 
-        if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
-        return this.perms[closestCell];
+        if (this.isRadial) {
+            return this.nodes[0].getPermutation(block, { ...context, ...this.ranges[closestCell] });
+        } else {
+            if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
+            return this.perms[closestCell];
+        }
     }
 
     private randomNum() {
