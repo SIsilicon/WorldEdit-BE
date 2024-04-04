@@ -9,7 +9,7 @@ class PatternPickerTool extends Tool {
     useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
         const dimension = player.dimension;
         let addedToPattern = false;
-        const block = dimension.getBlock(loc).permutation.clone();
+        const block = dimension.getBlock(loc).permutation;
         let blockName = block.type.id;
         if (player.isSneaking) {
             session.globalPattern.addBlock(block);
@@ -42,7 +42,7 @@ class MaskPickerTool extends Tool {
     useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
         const dimension = player.dimension;
         let addedToPattern = false;
-        const block = dimension.getBlock(loc).permutation.clone();
+        const block = dimension.getBlock(loc).permutation;
         let blockName = block.type.id;
         if (player.isSneaking) {
             session.globalMask.addBlock(block);

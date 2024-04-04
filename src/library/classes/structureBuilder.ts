@@ -1,7 +1,20 @@
 /* eslint-disable no-empty */
 import { regionLoaded, regionSize, regionTransformedBounds, sleep, Vector } from "../utils/index.js";
-import { Dimension, Vector3, world } from "@minecraft/server";
-import { Server } from "@notbeer-api";
+import { BlockVolume, Dimension, StructureMirrorAxis, StructureRotation, Vector3, world } from "@minecraft/server";
+
+const ROT2STRUCT: { [key: number]: StructureRotation } = {
+    0: StructureRotation.None,
+    90: StructureRotation.Rotate90,
+    180: StructureRotation.Rotate180,
+    270: StructureRotation.Rotate270,
+};
+
+const FLIP2STRUCT = {
+    none: StructureMirrorAxis.None,
+    x: StructureMirrorAxis.X,
+    z: StructureMirrorAxis.Z,
+    xz: StructureMirrorAxis.XZ,
+};
 
 interface SubStructure {
     name: string;
@@ -35,43 +48,42 @@ class StructureManager {
         const min = Vector.min(start, end);
         const max = Vector.max(start, end);
         const size = Vector.from(regionSize(start, end));
-
-        const includeEntities = options.includeEntities ?? false;
-        const includeBlocks = options.includeBlocks ?? true;
-        const saveTo = options.saveToDisk ?? false ? "disk" : "memory";
+        const saveOptions = {
+            includeEntities: options.includeEntities ?? false,
+            includeBlocks: options.includeBlocks ?? true,
+        };
+        const saveToDisk = options.saveToDisk ?? false;
 
         if (this.beyondMaxSize(size)) {
             let error = false;
             const subStructs = this.getSubStructs(start, end);
+            const saved = [];
             for (const sub of subStructs) {
-                const subStart = min.add(sub.start);
-                const subEnd = min.add(sub.end);
-                const subName = name + sub.name;
-                error = Server.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).error || error;
-                if (error) break;
+                try {
+                    const struct = world.structureManager.createFromWorld(name + sub.name, dim, new BlockVolume(min.add(sub.start), min.add(sub.end)), saveOptions);
+                    saved.push(struct);
+                    if (saveToDisk) struct.saveToWorld();
+                } catch {
+                    error = true;
+                    break;
+                }
             }
 
             if (error) {
-                for (const sub of subStructs) {
-                    Server.queueCommand(`structure delete ${name + sub.name}`, dim);
-                }
+                saved.forEach((struct) => world.structureManager.delete(struct));
                 return true;
             } else {
-                this.structures.set(name, {
-                    subRegions: subStructs,
-                    size: size,
-                });
+                this.structures.set(name, { subRegions: subStructs, size: size });
                 return false;
             }
         } else {
-            const startStr = min.print();
-            const endStr = max.print();
-
-            if (Server.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).error) {
-                return true;
-            } else {
+            try {
+                const struct = world.structureManager.createFromWorld(name, dim, new BlockVolume(min, max), saveOptions);
+                if (saveToDisk) struct.saveToWorld();
                 this.structures.set(name, { size });
                 return false;
+            } catch {
+                return true;
             }
         }
     }
@@ -80,45 +92,57 @@ class StructureManager {
         const min = Vector.min(start, end);
         const max = Vector.max(start, end);
         const size = Vector.from(regionSize(start, end));
-
-        const includeEntities = options.includeEntities ?? false;
-        const includeBlocks = options.includeBlocks ?? true;
-        const saveTo = options.saveToDisk ?? false ? "disk" : "memory";
+        const saveOptions = {
+            includeEntities: options.includeEntities ?? false,
+            includeBlocks: options.includeBlocks ?? true,
+        };
+        const saveToDisk = options.saveToDisk ?? false;
 
         if (this.beyondMaxSize(size)) {
             let error = false;
+            const saved = [];
             const subStructs = this.getSubStructs(start, end);
             subs: for (const sub of subStructs) {
                 const subStart = min.add(sub.start);
                 const subEnd = min.add(sub.end);
                 const subName = name + sub.name;
-
-                while (!Server.runCommand(`structure save ${subName} ${subStart.print()} ${subEnd.print()} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).successCount) {
-                    if (loadArea(subStart, subEnd)) {
-                        error = true;
-                        break subs;
+                // eslint-disable-next-line no-constant-condition
+                while (true) {
+                    try {
+                        const struct = world.structureManager.createFromWorld(subName, dim, new BlockVolume(min.add(sub.start), min.add(sub.end)), saveOptions);
+                        saved.push(struct);
+                        if (saveToDisk) struct.saveToWorld();
+                        break;
+                    } catch {
+                        if (loadArea(subStart, subEnd)) {
+                            error = true;
+                            break subs;
+                        }
+                        await sleep(1);
                     }
-                    await sleep(1);
                 }
             }
 
             if (error) {
-                for (const sub of subStructs) Server.queueCommand(`structure delete ${name + sub.name}`, dim);
+                saved.forEach((struct) => world.structureManager.delete(struct));
                 return true;
             } else {
                 this.structures.set(name, { subRegions: subStructs, size: size });
                 return false;
             }
         } else {
-            const startStr = min.print();
-            const endStr = max.print();
-
-            while (!Server.runCommand(`structure save ${name} ${startStr} ${endStr} ${includeEntities} ${saveTo} ${includeBlocks}`, dim).successCount) {
-                if (loadArea(min, max)) return true;
-                await sleep(1);
+            // eslint-disable-next-line no-constant-condition
+            while (true) {
+                try {
+                    const struct = world.structureManager.createFromWorld(name, dim, new BlockVolume(min, max), saveOptions);
+                    if (saveToDisk) struct.saveToWorld();
+                    this.structures.set(name, { size });
+                    return false;
+                } catch {
+                    if (loadArea(min, max)) return true;
+                    await sleep(1);
+                }
             }
-            this.structures.set(name, { size });
-            return false;
         }
     }
 
@@ -126,29 +150,37 @@ class StructureManager {
         const loadPos = Vector.from(location);
         let rot = options.rotation ?? 0;
         rot = rot >= 0 ? rot % 360 : ((rot % 360) + 360) % 360;
-        const flip = options.flip ?? "none";
+        const mirror = FLIP2STRUCT[options.flip ?? "none"];
+        const loadOptions = { rotation: ROT2STRUCT[rot], mirror };
 
         const struct = this.structures.get(name);
         if (struct?.subRegions || this.beyondMaxSize(options.importedSize ?? Vector.ZERO)) {
             const size = options.importedSize ?? struct.size;
             const rotation = new Vector(0, options.rotation ?? 0, 0);
-            const flip = options.flip ?? "none";
             const dir_sc = Vector.ONE;
-            if (flip.includes("x")) dir_sc.z *= -1;
-            if (flip.includes("z")) dir_sc.x *= -1;
+            if (mirror.includes("X")) dir_sc.z *= -1;
+            if (mirror.includes("Z")) dir_sc.x *= -1;
 
             const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), Vector.ZERO, rotation, dir_sc);
             let error = false;
             const subStructs = options.importedSize ? this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) : struct.subRegions;
             for (const sub of subStructs) {
                 const subBounds = regionTransformedBounds(sub.start.floor(), sub.end.floor(), Vector.ZERO, rotation, dir_sc);
-                const subLoad = Vector.sub(subBounds[0], bounds[0]).add(loadPos);
-                error = Server.runCommand(`structure load ${name + sub.name} ${subLoad.print()} ${rot}_degrees ${flip}`, dim).error || error;
-                if (error) break;
+                try {
+                    world.structureManager.place(name + sub.name, dim, Vector.sub(subBounds[0], bounds[0]).add(loadPos), loadOptions);
+                } catch {
+                    error = true;
+                    break;
+                }
             }
             return error;
         } else {
-            return Server.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`, dim).error;
+            try {
+                world.structureManager.place(name, dim, loadPos, loadOptions);
+                return false;
+            } catch {
+                return true;
+            }
         }
     }
 
@@ -156,7 +188,8 @@ class StructureManager {
         const loadPos = Vector.from(location);
         let rot = options.rotation ?? 0;
         rot = rot >= 0 ? rot % 360 : ((rot % 360) + 360) % 360;
-        const flip = options.flip ?? "none";
+        const mirror = FLIP2STRUCT[options.flip ?? "none"];
+        const loadOptions = { rotation: ROT2STRUCT[rot], mirror };
 
         const struct = this.structures.get(name);
         if (struct?.subRegions || this.beyondMaxSize(options.importedSize ?? Vector.ZERO)) {
@@ -181,8 +214,12 @@ class StructureManager {
                     }
                     await sleep(1);
                 }
-                error = Server.runCommand(`structure load ${name + sub.name} ${subStart.print()} ${rot}_degrees ${flip}`, dim).error || error;
-                if (error) break;
+                try {
+                    world.structureManager.place(name + sub.name, dim, subStart, loadOptions);
+                } catch {
+                    error = true;
+                    break;
+                }
             }
             return error;
         } else {
@@ -190,7 +227,12 @@ class StructureManager {
                 if (loadArea(loadPos, loadPos.add(struct.size).sub(1))) return true;
                 await sleep(1);
             }
-            return Server.runCommand(`structure load ${name} ${loadPos.print()} ${rot}_degrees ${flip}`, dim);
+            try {
+                world.structureManager.place(name, dim, loadPos, loadOptions);
+                return false;
+            } catch {
+                return true;
+            }
         }
     }
 
@@ -200,18 +242,11 @@ class StructureManager {
 
     delete(name: string) {
         const struct = this.structures.get(name);
-        const dim = world.getDimension("overworld");
         if (struct) {
             if (struct.subRegions) {
-                let error = false;
-                for (const sub of struct.subRegions) {
-                    error = Server.runCommand(`structure delete ${name}${sub.name}`, dim).error || error;
-                    if (error) return true;
-                }
+                for (const sub of struct.subRegions) world.structureManager.delete(`${name}${sub.name}`);
             } else {
-                if (Server.runCommand(`structure delete ${name}`, dim).error) {
-                    return true;
-                }
+                world.structureManager.delete(name);
             }
             this.structures.delete(name);
             return false;

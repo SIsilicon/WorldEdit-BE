@@ -2,7 +2,6 @@ import { world, system, PlayerSpawnAfterEvent, WatchdogTerminateReason } from "@
 import { shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
 import { contentLog, RawText } from "./utils/index.js";
-import "./extensions/index.js";
 
 // eslint-disable-next-line prefer-const
 let _server: ServerBuild;

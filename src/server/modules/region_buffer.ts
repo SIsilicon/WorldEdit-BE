@@ -61,9 +61,9 @@ export class RegionBuffer {
                 if (blockHasNBTData(block)) {
                     const id = this.id + "_" + this.subId++;
                     this.saveBlockAsStruct(id, block, dim);
-                    this.blocks.set(locToString(relLoc), [id, block.permutation.clone()]);
+                    this.blocks.set(locToString(relLoc), [id, block.permutation]);
                 } else {
-                    this.blocks.set(locToString(relLoc), block.permutation.clone());
+                    this.blocks.set(locToString(relLoc), block.permutation);
                 }
             };
 
@@ -323,9 +323,9 @@ export class RegionBuffer {
                 if (block instanceof Block && blockHasNBTData(block)) {
                     const id = this.id + "_" + this.subId++;
                     this.saveBlockAsStruct(id, block.location, block.dimension);
-                    this.blocks.set(locToString(coord), [id, block.permutation.clone()]);
+                    this.blocks.set(locToString(coord), [id, block.permutation]);
                 } else {
-                    this.blocks.set(locToString(coord), block instanceof Block ? block.permutation.clone() : block);
+                    this.blocks.set(locToString(coord), block instanceof Block ? block.permutation : block);
                 }
             }
             yield Jobs.setProgress(++i / volume);
@@ -377,7 +377,7 @@ export class RegionBuffer {
         } else {
             const id = this.id + "_" + this.subId++;
             error = Server.structure.save(id, block.location, block.location, block.dimension, options);
-            this.blocks.set(key, [id, block.permutation.clone()]);
+            this.blocks.set(key, [id, block.permutation]);
         }
         this.size = Vector.max(this.size, Vector.from(loc).add(1)).floor();
         this.blockCount = this.blocks.size;
