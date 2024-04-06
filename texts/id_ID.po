@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-04-06 22:52\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -412,6 +412,9 @@ msgstr "Gagal untuk memuat di poin riwayat!"
 msgid "worldedit.error.stillRecording"
 msgstr "Riwayat masih dicatat!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "Blok %s telah diubah."
 
@@ -443,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Tidak dapat memodifikasi chunk yang tidak memuat!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: Untuk memuat lebih banyak chunk, tingkatkan jarak simulasi, atau tambahkan area ticking di tempat Anda beroperasi.§r"
+msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Nomor (%1) terlalu besar! Itu harus paling banyak (%2)."
