@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-04-06 22:52\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -412,6 +412,9 @@ msgstr "Falha em carregar histórico!"
 msgid "worldedit.error.stillRecording"
 msgstr "Histórico ainda salvando!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocos foram alterados."
 
@@ -443,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Você não pode modificar chunks descarregadas!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eDica: Para carregar mais chunks, aumente a distância de simulação, ou crie ticking areas onde você está usando.§r"
+msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "O número (%1) é muito grande! Deve ser no máximo (%2)."
