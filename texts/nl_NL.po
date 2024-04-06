@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-04-06 22:52\n"
 
 msgid "pack.description"
 msgstr "Een in-beta mod van de originele java mod en meer! Mod door SIsilicon (§l§b@iSiliconS§r)."
@@ -412,6 +412,9 @@ msgstr "Failed to load history point!"
 msgid "worldedit.error.stillRecording"
 msgstr "History is still being recorded!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blokken zijn veranderd."
 
@@ -443,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Cannot modify unloaded chunks!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance, or add ticking areas where you're operating.§r"
+msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Het nummer (%1) is te groot! Het moet maximaal (%2)."
