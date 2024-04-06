@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-04-06 22:52\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -412,6 +412,9 @@ msgstr "Geçmiş noktası kaydedilemedi!"
 msgid "worldedit.error.stillRecording"
 msgstr "Geçmiş noktası hala kaydediliyor!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%sBloklar değişti."
 
@@ -443,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Yüklenmeyen chunklar modifiye edilemez!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: Daha fazla parça yüklemek için simülasyon mesafenizi artırın veya faaliyet gösterdiğiniz yerlere geçiş alanları ekleyin.§r"
+msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "(%1) Sayısı fazla büyük! En fazla (%2) olmalı."
