@@ -60,6 +60,7 @@ class StructureManager {
             const saved = [];
             for (const sub of subStructs) {
                 try {
+                    world.structureManager.delete(name + sub.name);
                     const struct = world.structureManager.createFromWorld(name + sub.name, dim, new BlockVolume(min.add(sub.start), min.add(sub.end)), saveOptions);
                     saved.push(struct);
                     if (saveToDisk) struct.saveToWorld();
@@ -78,6 +79,7 @@ class StructureManager {
             }
         } else {
             try {
+                world.structureManager.delete(name);
                 const struct = world.structureManager.createFromWorld(name, dim, new BlockVolume(min, max), saveOptions);
                 if (saveToDisk) struct.saveToWorld();
                 this.structures.set(name, { size });
@@ -106,6 +108,7 @@ class StructureManager {
                 const subStart = min.add(sub.start);
                 const subEnd = min.add(sub.end);
                 const subName = name + sub.name;
+                world.structureManager.delete(subName);
                 // eslint-disable-next-line no-constant-condition
                 while (true) {
                     try {
@@ -113,7 +116,7 @@ class StructureManager {
                         saved.push(struct);
                         if (saveToDisk) struct.saveToWorld();
                         break;
-                    } catch {
+                    } catch (err) {
                         if (loadArea(subStart, subEnd)) {
                             error = true;
                             break subs;
@@ -131,6 +134,7 @@ class StructureManager {
                 return false;
             }
         } else {
+            world.structureManager.delete(name);
             // eslint-disable-next-line no-constant-condition
             while (true) {
                 try {
@@ -138,7 +142,8 @@ class StructureManager {
                     if (saveToDisk) struct.saveToWorld();
                     this.structures.set(name, { size });
                     return false;
-                } catch {
+                } catch (err) {
+                    console.warn(err);
                     if (loadArea(min, max)) return true;
                     await sleep(1);
                 }
