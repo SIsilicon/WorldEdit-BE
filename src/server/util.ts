@@ -1,5 +1,5 @@
-import { Block, Vector3, Dimension, Entity, Player, world, BlockComponentTypeMap, RawMessage } from "@minecraft/server";
-import { Server, RawText, addTickingArea as addTickArea, removeTickingArea as removeTickArea, Vector } from "@notbeer-api";
+import { Block, Vector3, Dimension, Entity, Player, BlockComponentTypeMap, RawMessage } from "@minecraft/server";
+import { Server, RawText, Vector } from "@notbeer-api";
 import config from "config.js";
 
 /**
@@ -91,39 +91,6 @@ export function blockHasNBTData(block: Block) {
         "minecraft:bed",
     ];
     return components.some((component) => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
-}
-
-export function getTickingAreas() {
-    return (world.getDynamicProperty("wedit_ticking_areas") as string)?.split(",") ?? [];
-}
-
-export function setTickingAreas(tickingAreas: string[]) {
-    world.setDynamicProperty("wedit_ticking_areas", tickingAreas.join(","));
-}
-
-export function addTickingArea(name: string, dim: Dimension, start: Vector3, end: Vector3) {
-    const tickingAreas = getTickingAreas();
-    if (tickingAreas.length >= 10) {
-        return true;
-    }
-    if (!addTickArea(start, end, dim, name, true)) {
-        tickingAreas.push(name);
-        setTickingAreas(tickingAreas);
-        return false;
-    }
-    return true;
-}
-
-export function removeTickingArea(name: string, dim: Dimension) {
-    const tickingAreas = getTickingAreas();
-    if (!tickingAreas.includes(name)) {
-        return true;
-    }
-    if (!removeTickArea(name, dim)) {
-        setTickingAreas(tickingAreas.filter((tickingArea) => tickingArea !== name));
-        return false;
-    }
-    return true;
 }
 
 /**

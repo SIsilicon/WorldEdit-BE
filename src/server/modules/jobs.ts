@@ -1,6 +1,7 @@
-import { Server, RawText } from "@notbeer-api";
-import { Player, Dimension, Vector3, Block, world, GameMode } from "@minecraft/server";
+import { Server, RawText, removeTickingArea, setTickingAreaCircle } from "@notbeer-api";
+import { Player, Dimension, Vector3, Block } from "@minecraft/server";
 import { PlayerSession } from "server/sessions";
+import { UnloadedChunksError } from "./assert";
 
 // eslint-disable-next-line prefer-const
 let globalJobIdCounter = 0;
@@ -14,31 +15,25 @@ interface job {
     message: string;
     percent: number;
     dimension: Dimension;
+    tickingAreaUsageTime?: number;
+    tickingAreaRequestTime?: number;
+    tickingAreaSlot?: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type JobFunction = { readonly jobFunc: "nextStep" | "setProgress"; readonly data: any };
 
-function cleanUpPlayer(player: Player) {
-    if (player.getDynamicProperty("locationBeforeJob")) {
-        player.teleport(<Vector3>player.getDynamicProperty("locationBeforeJob"), { dimension: world.getDimension(<string>player.getDynamicProperty("dimensionBeforeJob")) });
-        player.setGameMode(<GameMode>player.getDynamicProperty("gamemodeBeforeJob"));
-        player.camera.fade({ fadeTime: { fadeInTime: 0, holdTime: 0, fadeOutTime: 0.5 } });
-        player.setDynamicProperty("locationBeforeJob", undefined);
-        player.setDynamicProperty("dimensionBeforeJob", undefined);
-        player.setDynamicProperty("gamemodeBeforeJob", undefined);
-        player.runCommand("inputpermission set @s movement enabled");
-    }
-}
-Server.addListener("playerLoaded", ({ player }) => cleanUpPlayer(player));
-world.getAllPlayers().forEach((player) => cleanUpPlayer(player));
-
 class JobHandler {
     private jobs = new Map<JobContext, job>();
     private current: JobContext;
+    private occupiedTickingAreaSlots = [false];
 
     constructor() {
-        Server.on("tick", () => this.printJobs());
+        Server.on("tick", () => {
+            this.manageTickingAreaSlots();
+            this.printJobs();
+        });
+        for (let i = 0; i < 9; i++) removeTickingArea("wedit:ticking_area_" + i);
     }
 
     public *run<T, TReturn>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | (() => Generator<T | JobFunction, TReturn>)) {
@@ -95,17 +90,14 @@ class JobHandler {
         const job = this.jobs.get(ctx ?? this.current);
         const block = job?.dimension.getBlock(loc);
         if ((ctx || !block) && job) {
-            const player = job.player;
-            if (!player.isValid()) return;
-            if (!player.getDynamicProperty("locationBeforeJob")) {
-                player.setDynamicProperty("locationBeforeJob", player.location);
-                player.setDynamicProperty("dimensionBeforeJob", player.dimension.id);
-                player.setDynamicProperty("gamemodeBeforeJob", player.getGameMode());
-                player.runCommand("inputpermission set @s movement disabled");
-                player.setGameMode(GameMode.spectator);
-                player.camera.fade({ fadeTime: { fadeInTime: 0, holdTime: 1, fadeOutTime: 0 }, fadeColor: { red: 0, green: 0, blue: 0 } });
+            if (job.tickingAreaSlot === undefined) {
+                if (!job.tickingAreaRequestTime) job.tickingAreaRequestTime = Date.now();
+                return;
             }
-            player.teleport(loc);
+
+            if (!setTickingAreaCircle(loc, 4, job.dimension, "wedit:ticking_area_" + job.tickingAreaSlot)) {
+                throw new UnloadedChunksError("worldedit.error.tickArea");
+            }
         }
         return block;
     }
@@ -128,7 +120,10 @@ class JobHandler {
             job.percent = 1;
             job.step = job.stepCount - 1;
             if (job.message?.length) job.message = "Finished!"; // TODO: Localize
-            if (job.player.isValid) cleanUpPlayer(job.player);
+            if (job.tickingAreaSlot !== undefined) {
+                removeTickingArea("wedit:ticking_area_" + job.tickingAreaSlot, job.dimension);
+                this.occupiedTickingAreaSlots[job.tickingAreaSlot] = false;
+            }
             this.printJobs();
             this.jobs.delete(jobId);
         }
@@ -141,11 +136,7 @@ class JobHandler {
             if (job.message?.length) {
                 if (!progresses.has(job.player)) progresses.set(job.player, []);
                 const percent = (job.percent + job.step) / job.stepCount;
-                progresses.get(job.player).push([job.message, Math.max(percent, 0)]);
-            }
-
-            if (job.player.isValid() && job.player.getDynamicProperty("locationBeforeJob")) {
-                job.player.camera.fade({ fadeTime: { fadeInTime: 0.1, holdTime: 1, fadeOutTime: 0.1 } });
+                progresses.get(job.player).push([job.tickingAreaRequestTime ? "Loading Chunks..." : job.message, Math.max(percent, 0)]);
             }
         }
 
@@ -153,24 +144,39 @@ class JobHandler {
             let text: RawText;
             let i = 0;
             for (const [message, percent] of progress) {
-                if (text) {
-                    text.append("text", "\n");
-                }
-
+                if (text) text.append("text", "\n");
                 let bar = "";
-                for (let i = 0; i < 20; i++) {
-                    bar += i / 20 <= percent ? "█" : "▒";
-                }
+                for (let i = 0; i < 20; i++) bar += i / 20 <= percent ? "█" : "▒";
 
-                if (!text) {
-                    text = new RawText();
-                }
-                if (progress.length > 1) {
-                    text.append("text", `Job ${++i}: `);
-                }
+                if (!text) text = new RawText();
+                if (progress.length > 1) text.append("text", `Job ${++i}: `);
                 text.append("translate", message).append("text", `\n${bar} ${(percent * 100).toFixed(2)}%`);
             }
             Server.queueCommand(`titleraw @s actionbar ${text.toString()}`, player);
+        }
+    }
+
+    private manageTickingAreaSlots() {
+        const jobs = Array.from(this.jobs.values());
+        const jobsRequestingArea = jobs.filter((job) => job.tickingAreaRequestTime).sort((a, b) => a.tickingAreaRequestTime - b.tickingAreaRequestTime);
+        if (!jobsRequestingArea) return;
+
+        const jobsUsingArea = jobs.filter((job) => job.tickingAreaUsageTime && job.tickingAreaUsageTime < Date.now() - 2000).sort((a, b) => a.tickingAreaUsageTime - b.tickingAreaUsageTime);
+        for (const needy of jobsRequestingArea) {
+            let slot = this.occupiedTickingAreaSlots.findIndex((slot) => !slot);
+            if (slot === -1 && jobsUsingArea.length) {
+                const donor = jobsUsingArea.shift();
+                slot = donor.tickingAreaSlot;
+                donor.tickingAreaSlot = undefined;
+                donor.tickingAreaRequestTime = undefined;
+                donor.tickingAreaUsageTime = undefined;
+            }
+            if (slot !== -1) {
+                needy.tickingAreaRequestTime = undefined;
+                needy.tickingAreaUsageTime = Date.now();
+                needy.tickingAreaSlot = slot;
+                this.occupiedTickingAreaSlots[slot] = true;
+            }
         }
     }
 }

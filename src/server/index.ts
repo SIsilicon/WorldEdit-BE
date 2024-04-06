@@ -1,5 +1,5 @@
-import { Player, system, world } from "@minecraft/server";
-import { getTickingAreas, print, printerr, setTickingAreas } from "./util.js";
+import { Player, world } from "@minecraft/server";
+import { print, printerr } from "./util.js";
 
 // Check if configuration is properly loaded
 if (!config.commandPrefix) {
@@ -7,7 +7,7 @@ if (!config.commandPrefix) {
     throw new Error('Configuration is not properly loaded! If this is a server, "variables.json" is required.');
 }
 
-import { contentLog, Server, configuration, removeTickingArea } from "@notbeer-api";
+import { contentLog, Server, configuration } from "@notbeer-api";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import config from "config.js";
@@ -19,18 +19,6 @@ import "./ui/index.js";
 Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = config.asyncTimeBudget;
 const activeBuilders: Player[] = [];
-
-Server.on("worldInitialize", () => {
-    system.run(() => {
-        for (const tickingArea of getTickingAreas()) {
-            if (!tickingArea) continue;
-            for (const dim of ["overworld", "nether", "the_end"]) {
-                if (!removeTickingArea(tickingArea, world.getDimension(dim))) break;
-            }
-        }
-        setTickingAreas([]);
-    });
-});
 
 let ready = false;
 Server.on("ready", (ev) => {
