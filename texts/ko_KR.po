@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-03-07 21:31\n"
+"PO-Revision-Date: 2024-04-06 22:51\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -412,6 +412,9 @@ msgstr "기록 지점을 불러오는 데 실패함!"
 msgid "worldedit.error.stillRecording"
 msgstr "기록이 아직 기록중입니다!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 블록이 바뀌었습니다."
 
@@ -443,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 명령어를 이용하여 Ticking area를 추가하세요."
+msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
