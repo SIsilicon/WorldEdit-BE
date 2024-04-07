@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-04-06 22:52\n"
+"PO-Revision-Date: 2024-04-07 14:37\n"
 
 msgid "pack.description"
 msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -413,7 +413,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "历史记录仍在进行！"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "创建临时常加载区域失败！"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
@@ -446,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
+msgstr "§e提示：要加载更多的区块，增加你的模拟距离并靠近操作位置，或在欲操作位置添加常加载区域。§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
