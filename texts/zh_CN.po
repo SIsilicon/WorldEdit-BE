@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-04-10 02:46\n"
+"PO-Revision-Date: 2024-04-10 03:43\n"
 
 msgid "pack.description"
 msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -647,7 +647,7 @@ msgid "commands.wedit:expand.description"
 msgstr "扩大选区。"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "垂直拓展你的选区直到它到达世界高度限制。"
+msgstr "垂直拓展您的选区直到它到达世界高度限制。"
 
 msgid "commands.wedit:expand.explain"
 msgstr "选区已扩展 %s 个方块。"
@@ -791,7 +791,7 @@ msgid "commands.wedit:move.explain"
 msgstr "已移除%s个方块"
 
 msgid "commands.wedit:navwand.description"
-msgstr "给你自己一个传送棍"
+msgstr "给您自己一个传送棍"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
@@ -839,7 +839,7 @@ msgid "commands.wedit:removeabove.description"
 msgstr "移除您上方的方块"
 
 msgid "commands.wedit:removebelow.description"
-msgstr "移除你下方的方块"
+msgstr "移除您下方的方块"
 
 msgid "commands.wedit:removenear.description"
 msgstr "移除附近的方块"
@@ -857,7 +857,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s'不是一个90°的倍数！"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "你只能沿Y轴旋转！"
+msgstr "您只能沿Y轴旋转！"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -1097,7 +1097,7 @@ msgid "commands.wedit:wall.description"
 msgstr "在您的选区中生成一面墙"
 
 msgid "commands.wedit:wand.description"
-msgstr "给你自己一个选择棍"
+msgstr "给您自己一个选择"
 
 msgid "commands.wedit:wand.explain"
 msgstr "破坏方块：选择点 #1；对着方块使用：选择点 #2"
@@ -1136,7 +1136,7 @@ msgid "howtoplay.wedit:license.title"
 msgstr "游戏指南：创世神插件许可证书"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "欢迎使用创世神插件。这个附加包是 Java 版同名模组在基岩版上的移植，它将帮助你在 Minecraft 中塑造你的世界。"
+msgstr "欢迎使用创世神插件。这个附加包是 Java 版同名模组在基岩版上的移植，它将帮助您在 Minecraft 中塑造你的世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
@@ -1157,7 +1157,7 @@ msgid "howtoplay.wedit:quick_start.text.5"
 msgstr "从这里到那里的路途有时会很麻烦。幸运的是，这个附加包附带了传送器，您可以通过在物品栏中添加一个指南针，或是使用 §e;navwand§r 命令获取。拿到之后，就可以使用此物品来远程传送到你所看的地方。如果想穿过墙或者天花板，潜行时使用传送器即可穿过。如果被困在方块中，使用传送器可以进行脱困。"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§a提示:§r§a 如果你不想使用传送器,你也可以通过使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a来实现这一功能§r."
+msgstr "§l§a提示:§r§a 如果您不想使用传送器,您也可以通过使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a来实现这一功能§r."
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "创建选区"
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. 放下砂岩和玻璃，用填充方块选取器点击砂岩，然后再潜行用填充方块选取器点击玻璃。使用“填充选区”，选区内便会被砂岩和玻璃混合填充。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4。拿出你的物品栏中的取代方块选取器，用它点击沙岩。将你选择的方块设置为你的填充方块，并使用“填充选区”。现在所有的沙岩都将被你选择的方块所取代。"
+msgstr "§r4。拿出您的物品栏中的取代方块选取器，用它点击沙岩。将您选择的方块设置为您的填充方块，并使用“填充选区”。现在所有的沙岩都将被您选择的方块所取代。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 通过输入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
@@ -1196,7 +1196,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "笔刷的使用"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. 获取任意类型的铲子，然后放置一个圆石（你待会需要用它来设置笔刷）。"
+msgstr "1. 获取任意类型的铲子，然后放置一个圆石（您待会需要用它来设置笔刷）。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 使用\"创世神工具\"物品。菜单应该显示\"笔刷设置\". 选择该按钮，然后创建一个新笔刷作为接口来指示您。 使它成为半径为3的球形笔刷和用圆石填充。确认设置并退出菜单。"
