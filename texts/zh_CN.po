@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-04-07 14:37\n"
+"PO-Revision-Date: 2024-04-10 02:46\n"
 
 msgid "pack.description"
 msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -284,7 +284,7 @@ msgid "worldedit.config.confirm.create"
 msgstr "您确定要用这个设置吗？"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "你确定要解除该物品的绑定吗？"
+msgstr "您确定要解除该物品的绑定吗？"
 
 msgid "worldedit.config.name"
 msgstr "名称"
@@ -473,10 +473,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "您当前选区内的生物群系为:%s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "显示你所看到方块的id与状态。"
+msgstr "显示您所看到方块的id与状态。"
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "6"
+msgstr "查看您需要的区块的 ID 和状态。"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已装载球形笔刷 (%s)。"
@@ -632,7 +632,7 @@ msgid "commands.wedit:drain.description"
 msgstr "消耗附近的液体"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "你需要靠近某些水或熔岩来排水。"
+msgstr "您需要靠近某些水或熔岩来排水。"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "切换您的选区的可见性"
@@ -677,13 +677,13 @@ msgid "commands.wedit:fixlava.description"
 msgstr "使附近的熔岩变成熔岩源"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "你需要靠近熔岩来修复。"
+msgstr "您需要靠近水才能修复。"
 
 msgid "commands.wedit:fixwater.description"
 msgstr "使附近的水变成水源"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "你需要靠近水才能修复。"
+msgstr "您需要靠近水才能修复。"
 
 msgid "commands.wedit:flip.description"
 msgstr "翻转选区"
