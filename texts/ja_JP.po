@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-04-06 22:51\n"
+"PO-Revision-Date: 2024-04-15 01:32\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -186,6 +186,9 @@ msgstr "円柱"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "ピラミッド"
+
+msgid "worldedit.clipboard.options"
+msgstr "Clipboard Options"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
