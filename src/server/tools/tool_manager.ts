@@ -50,7 +50,7 @@ class ToolBuilder {
         new Thread().start(function* (self: ToolBuilder) {
             while (true) {
                 for (const player of world.getPlayers()) {
-                    if (!hasSession(player.id)) return;
+                    if (!hasSession(player.id)) break;
                     try {
                         const item = Server.player.getHeldItem(player);
                         if (item) {
