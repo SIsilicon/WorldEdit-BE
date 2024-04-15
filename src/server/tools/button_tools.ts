@@ -6,6 +6,7 @@ import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { Selection } from "@modules/selection.js";
+import { assertClipboard } from "@modules/assert.js";
 
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
@@ -38,6 +39,11 @@ class PasteTool extends CommandButton {
     outlines = new Map<PlayerSession, Selection>();
 
     use = function (self: CommandButton, player: Player, session: PlayerSession) {
+        assertClipboard(session);
+        if (player.isSneaking) {
+            Server.uiForms.show("$clipboardOptions", player);
+            return;
+        }
         Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
     };
 
@@ -80,45 +86,6 @@ class RedoTool extends CommandButton {
     permission = "worldedit.history.redo";
 }
 Tools.register(RedoTool, "redo", "wedit:redo_button");
-
-class RotateCWTool extends Tool {
-    permission = "worldedit.region.rotate";
-
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        const args = ["90", "-sw"];
-        if (player.isSneaking) {
-            args.push("-o");
-        }
-        Server.command.callCommand(player, "rotate", args);
-    };
-}
-Tools.register(RotateCWTool, "rotate_cw", "wedit:rotate_cw_button");
-
-class RotateCCWTool extends Tool {
-    permission = "worldedit.region.rotate";
-
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        const args = ["-90", "-sw"];
-        if (player.isSneaking) {
-            args.push("-o");
-        }
-        Server.command.callCommand(player, "rotate", args);
-    };
-}
-Tools.register(RotateCCWTool, "rotate_ccw", "wedit:rotate_ccw_button");
-
-class FlipTool extends Tool {
-    permission = "worldedit.region.flip";
-
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        const args = ["-sw"];
-        if (player.isSneaking) {
-            args.push("-o");
-        }
-        Server.command.callCommand(player, "flip", args);
-    };
-}
-Tools.register(FlipTool, "flip", "wedit:flip_button");
 
 class SpawnGlassTool extends Tool {
     use = function (self: Tool, player: Player) {

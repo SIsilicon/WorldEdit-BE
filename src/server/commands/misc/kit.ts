@@ -18,16 +18,11 @@ registerCommand(registerInformation, function (session, builder) {
         "wedit:cut_button",
         "wedit:paste_button",
         "wedit:undo_button",
-        "wedit:redo_button",
+        "wedit:draw_line",
         "wedit:config_button",
         // INVENTORY ITEMS
-        "wedit:flip_button",
-        "wedit:rotate_cw_button",
-        "wedit:rotate_ccw_button",
+        "wedit:redo_button",
         "wedit:mask_picker",
-        "wedit:draw_line",
-        "wedit:selection_wall",
-        "wedit:selection_outline",
         "wedit:spawn_glass",
     ];
 
