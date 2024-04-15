@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-04-06 22:51\n"
+"PO-Revision-Date: 2024-04-15 01:32\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -186,6 +186,9 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.clipboard.options"
+msgstr "Clipboard Options"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
