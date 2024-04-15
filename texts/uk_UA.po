@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-04-15 01:33\n"
+"PO-Revision-Date: 2024-04-15 17:32\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.pyramid"
 msgstr "Піраміда"
 
 msgid "worldedit.clipboard.options"
-msgstr "Clipboard Options"
+msgstr "Параметри буфера обміну"
 
 msgid "worldedit.stack.title"
 msgstr "Виберіть кількість стосу"
@@ -416,7 +416,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "Історія ще записується!"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "Не вдалося створити тимчасову область тіку!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоків змінено."
@@ -449,7 +449,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Неможливо змінити не вивантажені чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
+msgstr "§eПідказка: Щоб завантажити більше чанків, збільште відстань симуляції та тримайтеся ближче до області дії, або додайте область тіку, де хочете.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) завелике! Має бути не більше (%2)."
