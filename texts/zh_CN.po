@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-04-15 01:33\n"
+"PO-Revision-Date: 2024-04-16 14:18\n"
 
 msgid "pack.description"
 msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.pyramid"
 msgstr "棱锥"
 
 msgid "worldedit.clipboard.options"
-msgstr "Clipboard Options"
+msgstr "剪贴板选项"
 
 msgid "worldedit.stack.title"
 msgstr "选择堆叠数量"
