@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-04-18 13:57\n"
+"PO-Revision-Date: 2024-04-18 15:31\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -746,7 +746,7 @@ msgid "commands.wedit:import.description"
 msgstr "Importer une structure du presse-papiers."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s a été importé et défini dans votre presse-papiers."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Vous téléporte au sommet du bloc que vous regardez"
@@ -767,10 +767,10 @@ msgid "commands.wedit:kit.explain"
 msgstr "Kit donné."
 
 msgid "commands.wedit:line.description"
-msgstr "Create a line between your first and second selection points"
+msgstr "Créer une ligne entre vos 2 points de sélection"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "this command only works with cuboid selections"
+msgstr "cette commande fonctionne uniquement avec la séléction cuboïde"
 
 msgid "commands.wedit:limit.description"
 msgstr "Set the number of blocks you can change per action"
@@ -866,7 +866,7 @@ msgid "commands.wedit:sel.clear"
 msgstr "Sélection effacée."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "Cuboïde: casser le bloc pour le point 1, et utiliser sur le bloc pour le point 2"
 
 msgid "commands.wedit:sel.cyl"
 msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
@@ -875,13 +875,13 @@ msgid "commands.wedit:sel.description"
 msgstr "Change selection mode"
 
 msgid "commands.wedit:sel.description.cuboid"
-msgstr "Select two corners of a cuboid"
+msgstr "Sélectionner les 2 sommets d'un cuboïde"
 
 msgid "commands.wedit:sel.description.cyl"
 msgstr "Select a cylinder"
 
 msgid "commands.wedit:sel.description.extend"
-msgstr "Fast cuboid selection mode"
+msgstr "Mode de sélection cuboïde rapide"
 
 msgid "commands.wedit:sel.description.sphere"
 msgstr "Select a sphere"
@@ -917,7 +917,7 @@ msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush or get information about the selection"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "Distance cuboïde: %s"
 
 msgid "commands.wedit:size.offset"
 msgstr "Offset: %s"
