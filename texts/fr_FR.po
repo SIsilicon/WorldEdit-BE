@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-04-18 15:31\n"
+"PO-Revision-Date: 2024-04-19 05:39\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -623,19 +623,19 @@ msgid "commands.wedit:cut.description"
 msgstr "Retire votre sélection actuelle et la copie dans le presse-papier"
 
 msgid "commands.wedit:cut.explain"
-msgstr "Cut %s blocks."
+msgstr "%s blocs coupés."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Générer un cylindre"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Analyse la quantité de différents blocs dans la sélection"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Retire les fluides proches"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Vous devez être proche d'eau ou de lave pour en retirer."
 
 msgid "commands.wedit:drawsel.description"
 msgstr "Toggle your selection's visibility"
@@ -656,7 +656,7 @@ msgid "commands.wedit:expand.explain"
 msgstr "Région étendue de %s blocs."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Exporte la sélection pour un prochain usage."
 
 msgid "commands.wedit:export.explain"
 msgstr "%s a été exporté."
@@ -665,28 +665,28 @@ msgid "commands.wedit:export.otherWorlds"
 msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Éteint les feux à proximité"
 
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Remplit une zone avec certains blocs"
 
 msgid "commands.wedit:fillr.description"
 msgstr "Recursively fill an area with certain blocks"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Transforme la lave fluide à proximité en source de lave"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Vous devez être proche de lave."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Transforme l'eau fluide à proximité en source d'eau"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "You need to be close to some water to fix."
+msgstr "Vous devez être proche d'eau."
 
 msgid "commands.wedit:flip.description"
 msgstr "Flip the selection"
@@ -710,7 +710,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Masque global défini."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "Dégradé %s créé."
 
 msgid "commands.wedit:gradient.description"
 msgstr "Create a gradient to use in patterns."
@@ -860,7 +860,7 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' is not an increment of 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Vous ne pouvez que faire pivoter le long de l'axe des Y!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Sélection effacée."
