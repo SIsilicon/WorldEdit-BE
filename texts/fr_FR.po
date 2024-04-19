@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-04-19 11:33\n"
+"PO-Revision-Date: 2024-04-19 13:47\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -869,16 +869,16 @@ msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboïde: casser le bloc pour le point 1, et utiliser sur le bloc pour le point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "Selection cylindrique: casse un bloc pour le centre, utilise sur un bloc pour agrandir la hauteur et le rayon"
 
 msgid "commands.wedit:sel.description"
-msgstr "Change selection mode"
+msgstr "Change le mode de sélection"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Sélectionner les 2 sommets d'un cuboïde"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Sélectionner un cylindre"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Mode de sélection cuboïde rapide"
@@ -947,10 +947,10 @@ msgid "commands.wedit:superpickaxe.description"
 msgstr "Active la super pioche"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "Faire en sorte que la super pioche casse un seul bloc"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "Faire en sorte que la super pioche casse les blocs dans une zone cubique"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
 msgstr "Make the super pickaxe break blocks starting from the initial one"
