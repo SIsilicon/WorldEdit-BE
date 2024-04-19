@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-04-19 05:39\n"
+"PO-Revision-Date: 2024-04-19 11:33\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -779,7 +779,7 @@ msgid "commands.wedit:limit.set"
 msgstr "Block change limit set to %s."
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "Your maximum allowable limit is %s."
+msgstr "La limite maximale autorisée est de %s."
 
 msgid "commands.wedit:mask.description"
 msgstr "Définissez, s'il y en a, le type de blocs qu'une brosse peut affecter"
@@ -836,7 +836,7 @@ msgid "commands.wedit:redo.none"
 msgstr "Il ne reste plus rien à rétablir."
 
 msgid "commands.wedit:replace.description"
-msgstr "Replace certain blocks in the selection with other blocks"
+msgstr "Replace certains blocs de la sélection avec d'autres blocs"
 
 msgid "commands.wedit:removeabove.description"
 msgstr "Retirer les blocs au dessus de vous"
@@ -845,10 +845,10 @@ msgid "commands.wedit:removebelow.description"
 msgstr "Retirer les blocs en dessous de vous"
 
 msgid "commands.wedit:removenear.description"
-msgstr "Remove nearby blocks"
+msgstr "Retire des blocs proches"
 
 msgid "commands.wedit:replacenear.description"
-msgstr "Replace nearby blocks with other blocks"
+msgstr "Replace des blocs proches par d'autres"
 
 msgid "commands.wedit:rotate.description"
 msgstr "Faire pivoter la sélection"
@@ -887,19 +887,19 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Select a sphere"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "Etendre: casse le bloc pour le point de départ, utilise sur un bloc pour étendre"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "Sélection sphérique: casse un bloc pour le centre, utilise sur un autre pour définir le rayon"
 
 msgid "commands.wedit:set.description"
 msgstr "Fill the selection with a block pattern"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Les biomes ont été changés pour environ %s blocs."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "Change le biome dans votre sélection"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
@@ -911,7 +911,7 @@ msgid "commands.wedit:shift.explain"
 msgstr "Region shifted."
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "# de blocs: %s"
 
 msgid "commands.wedit:size.description"
 msgstr "Set the size of a brush or get information about the selection"
@@ -935,16 +935,16 @@ msgid "commands.wedit:size.type"
 msgstr "Type: %s"
 
 msgid "commands.wedit:snow.description"
-msgstr "Simulate snow in the area"
+msgstr "Simule de la neige dans une zone"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "Mode super pioche est maintenant: zone."
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Active la super pioche"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Active la super pioche"
 
 msgid "commands.wedit:superpickaxe.description.single"
 msgstr "Make the super pickaxe break a single block"
