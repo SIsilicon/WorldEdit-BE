@@ -1,6 +1,6 @@
 import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
-import { Block, Vector3, Vector as MCVector, BlockPermutation } from "@minecraft/server";
+import { Block, Vector3, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
@@ -37,11 +37,11 @@ function canSnowOn(block: Block) {
 
   const dimension = block.dimension;
   const location = Vector.from(block.location).add([0.5, 1.99, 0.5]);
-  let isBlocked = !!dimension.getBlockFromRay(location, MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([-0.49, 0, 0]), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0.49, 0, 0]), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0,-0.49]), MCVector.down, solidTest);
-  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0, 0.49]), MCVector.down, solidTest);
+  let isBlocked = !!dimension.getBlockFromRay(location, new Vector(0, -1, 0), solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([-0.49, 0, 0]), new Vector(0, -1, 0), solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0.49, 0, 0]), new Vector(0, -1, 0), solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0,-0.49]), new Vector(0, -1, 0), solidTest);
+  if (isBlocked) isBlocked &&= !!dimension.getBlockFromRay(location.add([ 0, 0, 0.49]), new Vector(0, -1, 0), solidTest);
   return isBlocked;
 }
 
@@ -87,7 +87,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         const loc = new Vector(x + 0.5, range[1].y + 1.01, z + 0.5);
         try {
-          const block = dimension.getBlockFromRay(loc, MCVector.down, rayTraceOptions)?.block;
+          const block = dimension.getBlockFromRay(loc, new Vector(0, -1, 0), rayTraceOptions)?.block;
           if (block) {
             blocks.push(block);
             blockLocs.push(block.location);

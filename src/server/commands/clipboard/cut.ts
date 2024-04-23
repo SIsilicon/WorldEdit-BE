@@ -1,4 +1,4 @@
-import { Server } from "@notbeer-api";
+import { Server, Vector } from "@notbeer-api";
 import { copy } from "./copy.js";
 import { set } from "../region/set.js";
 import { registerCommand } from "../register_commands.js";
@@ -9,7 +9,6 @@ import { RawText } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { PlayerSession } from "server/sessions.js";
-import { BlockAreaSize } from "@minecraft/server";
 
 const registerInformation = {
   name: "cut",
@@ -56,7 +55,7 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
     const entityQuery = {
       excludeTypes: ["minecraft:player"],
       location: start,
-      volume: new BlockAreaSize(end.x - start.x, end.y - start.y, end.z - start.z)
+      volume: new Vector(end.x - start.x, end.y - start.y, end.z - start.z)
     };
     for (const entity of dim.getEntities(entityQuery)) {
       entity.nameTag = "wedit:marked_for_deletion";
