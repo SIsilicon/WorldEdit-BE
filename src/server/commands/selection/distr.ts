@@ -42,7 +42,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             const clipboard = session.clipboard;
 
             for (const block of clipboard.getBlocks()) {
-                processBlock(Array.isArray(block) ? block[1] : block);
+                processBlock(block[0]);
                 yield Jobs.setProgress(++i / total);
             }
         } else {

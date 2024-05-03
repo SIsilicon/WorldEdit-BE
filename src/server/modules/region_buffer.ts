@@ -26,7 +26,7 @@ export interface RegionLoadOptions {
     mask?: Mask;
 }
 
-type blockData = BlockPermutation | [string, BlockPermutation];
+type blockData = [BlockPermutation, boolean] | [BlockPermutation, boolean, string];
 type blockList = Vector3[] | ((loc: Block) => boolean | BlockPermutation) | "all";
 
 interface transformContext {
@@ -61,9 +61,9 @@ export class RegionBuffer {
                 if (blockHasNBTData(block)) {
                     const id = this.id + "_" + this.subId++;
                     this.saveBlockAsStruct(id, block, dim);
-                    this.blocks.set(locToString(relLoc), [id, block.permutation]);
+                    this.blocks.set(locToString(relLoc), [block.permutation, block.isWaterlogged, id]);
                 } else {
-                    this.blocks.set(locToString(relLoc), block.permutation);
+                    this.blocks.set(locToString(relLoc), [block.permutation, block.isWaterlogged]);
                 }
             };
 
@@ -86,7 +86,7 @@ export class RegionBuffer {
                         const filtered = blocks(block);
                         if (typeof filtered != "boolean") {
                             const relLoc = Vector.sub(block, min).floor();
-                            this.blocks.set(locToString(relLoc), filtered);
+                            this.blocks.set(locToString(relLoc), [filtered, false]);
                             count++;
                         } else if (filtered) {
                             iterate(block);
@@ -125,9 +125,8 @@ export class RegionBuffer {
                     }
                     return true;
                 })
-            ) {
+            )
                 return true;
-            }
             this.blockCount = regionVolume(start, end);
         }
         this.imported = "";
@@ -214,9 +213,7 @@ export class RegionBuffer {
             let i = 0;
             for (const [key, block] of this.blocks.entries()) {
                 let blockLoc = stringToLoc(key);
-                if (shouldTransform) {
-                    blockLoc = Vector.from(blockLoc).rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z).mul(rotFlip[1]).sub(bounds[0]).floor();
-                }
+                if (shouldTransform) blockLoc = Vector.from(blockLoc).rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z).mul(rotFlip[1]).sub(bounds[0]).floor();
 
                 blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
                 let oldBlock = dim.getBlock(blockLoc);
@@ -226,12 +223,9 @@ export class RegionBuffer {
                 }
                 if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
 
-                if (block instanceof BlockPermutation) {
-                    oldBlock.setPermutation(transform(block));
-                } else {
-                    this.loadBlockFromStruct(block[0], blockLoc, dim);
-                    oldBlock.setPermutation(transform(block[1]));
-                }
+                if (block.length === 3) this.loadBlockFromStruct(block[2], blockLoc, dim);
+                oldBlock.setPermutation(transform(block[0]));
+                oldBlock.setWaterlogged(block[1]);
                 if (iterateChunk()) yield Jobs.setProgress(i / this.blocks.size);
                 i++;
             }
@@ -282,9 +276,7 @@ export class RegionBuffer {
      * @returns
      */
     public *warp(func: (loc: Vector3, ctx: transformContext) => blockData): Generator<number, null> {
-        if (!this.isAccurate) {
-            return;
-        }
+        if (!this.isAccurate) return;
 
         const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.sub(-1)];
         const output = new Map();
@@ -297,9 +289,7 @@ export class RegionBuffer {
                 blockData: this.blocks.get(locToString(coord)),
                 sampleBlock,
             });
-            if (block) {
-                output.set(locToString(coord), block);
-            }
+            if (block) output.set(locToString(coord), block);
             yield ++i / volume;
         }
 
@@ -308,9 +298,7 @@ export class RegionBuffer {
     }
 
     public *create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation): Generator<JobFunction, null> {
-        if (!this.isAccurate || !this.size.equals(Vector.ZERO)) {
-            return;
-        }
+        if (!this.isAccurate || !this.size.equals(Vector.ZERO)) return;
 
         this.size = regionSize(start, end);
         const region: [Vector, Vector] = [Vector.ZERO.floor(), this.size.offset(-1, -1, -1)];
@@ -323,9 +311,9 @@ export class RegionBuffer {
                 if (block instanceof Block && blockHasNBTData(block)) {
                     const id = this.id + "_" + this.subId++;
                     this.saveBlockAsStruct(id, block.location, block.dimension);
-                    this.blocks.set(locToString(coord), [id, block.permutation]);
+                    this.blocks.set(locToString(coord), [block.permutation, block.isWaterlogged, id]);
                 } else {
-                    this.blocks.set(locToString(coord), block instanceof Block ? block.permutation : block);
+                    this.blocks.set(locToString(coord), block instanceof Block ? [block.permutation, block.isWaterlogged] : [block, false]);
                 }
             }
             yield Jobs.setProgress(++i / volume);
@@ -342,16 +330,9 @@ export class RegionBuffer {
     }
 
     public getBlock(loc: Vector) {
-        if (!this.isAccurate) {
-            return null;
-        }
-
+        if (!this.isAccurate) return null;
         const block = this.blocks.get(locToString(loc));
-        if (Array.isArray(block)) {
-            return block[1];
-        } else if (block) {
-            return block;
-        }
+        if (block) return block[0];
     }
 
     public getBlocks() {
@@ -363,21 +344,21 @@ export class RegionBuffer {
         const key = locToString(loc);
 
         if (this.blocks.has(key) && Array.isArray(this.blocks.get(key))) {
-            this.deleteBlockStruct((this.blocks.get(key) as [string, BlockPermutation])[0]);
+            this.deleteBlockStruct((this.blocks.get(key) as [BlockPermutation, boolean, string])[2]);
         }
 
         if (block instanceof BlockPermutation) {
             if (options?.includeEntities) {
                 const id = this.id + "_" + this.subId++;
                 error = Server.structure.save(id, options.loc, options.loc, options.dim, options);
-                this.blocks.set(key, [id, block]);
+                this.blocks.set(key, [block, false, id]);
             } else {
-                this.blocks.set(key, block);
+                this.blocks.set(key, [block, false]);
             }
         } else {
             const id = this.id + "_" + this.subId++;
             error = Server.structure.save(id, block.location, block.location, block.dimension, options);
-            this.blocks.set(key, [id, block.permutation]);
+            this.blocks.set(key, [block.permutation, block.isWaterlogged, id]);
         }
         this.size = Vector.max(this.size, Vector.from(loc).add(1)).floor();
         this.blockCount = this.blocks.size;
@@ -395,9 +376,7 @@ export class RegionBuffer {
     }
 
     public deref() {
-        if (--this.refCount < 1) {
-            this.delete();
-        }
+        if (--this.refCount < 1) this.delete();
     }
 
     private transformMapping(mapping: { [key: string | number]: Vector | [number, number, number] }, state: string | number, rotate: Vector, flip: Vector): string {
@@ -442,8 +421,8 @@ export class RegionBuffer {
             if (self.isAccurate) {
                 const promises = [];
                 for (const block of self.blocks.values()) {
-                    if (!(block instanceof BlockPermutation)) {
-                        promises.push(self.deleteBlockStruct(block[0]));
+                    if (block.length === 3) {
+                        promises.push(self.deleteBlockStruct(block[2]));
                         yield;
                     }
                 }
