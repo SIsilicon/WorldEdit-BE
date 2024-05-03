@@ -61,7 +61,7 @@ class StructureManager {
             for (const sub of subStructs) {
                 try {
                     world.structureManager.delete(name + sub.name);
-                    const struct = world.structureManager.createFromWorld(name + sub.name, dim, new BlockVolume(min.add(sub.start), min.add(sub.end)), saveOptions);
+                    const struct = world.structureManager.createFromWorld(name + sub.name, dim, min.add(sub.start), min.add(sub.end), saveOptions);
                     saved.push(struct);
                     if (saveToDisk) struct.saveToWorld();
                 } catch {
@@ -80,7 +80,7 @@ class StructureManager {
         } else {
             try {
                 world.structureManager.delete(name);
-                const struct = world.structureManager.createFromWorld(name, dim, new BlockVolume(min, max), saveOptions);
+                const struct = world.structureManager.createFromWorld(name, dim, min, max, saveOptions);
                 if (saveToDisk) struct.saveToWorld();
                 this.structures.set(name, { size });
                 return false;
@@ -112,7 +112,7 @@ class StructureManager {
                 // eslint-disable-next-line no-constant-condition
                 while (true) {
                     try {
-                        const struct = world.structureManager.createFromWorld(subName, dim, new BlockVolume(min.add(sub.start), min.add(sub.end)), saveOptions);
+                        const struct = world.structureManager.createFromWorld(subName, dim, min.add(sub.start), min.add(sub.end), saveOptions);
                         saved.push(struct);
                         if (saveToDisk) struct.saveToWorld();
                         break;
@@ -138,7 +138,7 @@ class StructureManager {
             // eslint-disable-next-line no-constant-condition
             while (true) {
                 try {
-                    const struct = world.structureManager.createFromWorld(name, dim, new BlockVolume(min, max), saveOptions);
+                    const struct = world.structureManager.createFromWorld(name, dim, min, max, saveOptions);
                     if (saveToDisk) struct.saveToWorld();
                     this.structures.set(name, { size });
                     return false;

@@ -19,7 +19,7 @@ HotbarUI.register<ConfigContext>("$chooseItem", {
     },
     tick: (ctx, player) => {
         const item = Server.player.getHeldItem(player);
-        if (player.selectedSlot != 8 && item) {
+        if (player.selectedSlotIndex != 8 && item) {
             ctx.setData("currentItem", item.typeId);
             ctx.goto(ctx.getData("editingBrush") ? "$selectBrushType" : "$selectToolType");
         }

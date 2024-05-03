@@ -1,7 +1,7 @@
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionCenter, regionIterateChunks, regionSize, Server, sleep, Vector } from "@notbeer-api";
-import { BlockPermutation, Player, world } from "@minecraft/server";
+import { BlockPermutation, BlockVolume, Player, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 
@@ -77,7 +77,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 const air = BlockPermutation.resolve("minecraft:air");
                 for (const [subStart, subEnd] of regionIterateChunks(...range)) {
                     while (!Jobs.loadBlock(regionCenter(subStart, subEnd))) yield sleep(1);
-                    dimension.fillBlocks(subStart.floor(), subEnd.floor(), structVoid, { matchingBlock: air });
+                    dimension.fillBlocks(new BlockVolume(subStart.floor(), subEnd.floor()), structVoid, { blockFilter: { includeTypes: ["air"] } });
                     const subSize = subEnd.sub(subStart).add(1);
                     count += subSize.x * subSize.y * subSize.z;
                     yield Jobs.setProgress(count / (size.x * size.y * size.z));

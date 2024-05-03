@@ -88,7 +88,7 @@ class HotbarUIForm<T extends {}> {
             if (ev.source != player) return;
             ev.cancel = true;
 
-            const slot = player.selectedSlot;
+            const slot = player.selectedSlotIndex;
             if (items[slot].name == "wedit:blank") return;
 
             system.run(() => items[slot].action?.(ctx, player));
