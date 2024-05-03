@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-04-15 01:33\n"
+"PO-Revision-Date: 2024-05-03 22:25\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -573,6 +573,21 @@ msgstr "Оценка математического выражения."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не удалось персонализировать как допустимое выражение."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Go to the ceiling."
