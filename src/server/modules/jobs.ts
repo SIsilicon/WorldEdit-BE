@@ -1,6 +1,6 @@
-import { Server, RawText, removeTickingArea, setTickingAreaCircle } from "@notbeer-api";
+import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread } from "@notbeer-api";
 import { Player, Dimension, Vector3, Block } from "@minecraft/server";
-import { PlayerSession } from "server/sessions";
+import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
 
 // eslint-disable-next-line prefer-const
@@ -15,6 +15,7 @@ interface job {
     message: string;
     percent: number;
     dimension: Dimension;
+    thread: Thread;
     tickingAreaUsageTime?: number;
     tickingAreaRequestTime?: number;
     tickingAreaSlot?: number;
@@ -45,6 +46,7 @@ class JobHandler {
             message: "", // Jobs with no messages are not displayed.
             percent: 0,
             dimension: session.getPlayer().dimension,
+            thread: getCurrentThread(),
         };
         this.jobs.set(jobId, job);
 
@@ -112,6 +114,23 @@ class JobHandler {
 
     public isContextValid(ctx: JobContext) {
         return this.jobs.has(ctx);
+    }
+
+    public getJobsForSession(session: PlayerSession) {
+        const jobs = [];
+        const player = session.getPlayer();
+        for (const [id, data] of this.jobs.entries()) {
+            if (data.player === player) jobs.push(id);
+        }
+        return jobs;
+    }
+
+    public cancelJob(jobId: JobContext) {
+        const job = this.jobs.get(jobId);
+        const history = getSession(job.player).getHistory();
+        for (const point of history.getActivePointsInThread(job.thread)) history.cancel(point);
+        job.thread.abort();
+        this.finishJob(jobId);
     }
 
     private finishJob(jobId: JobContext) {

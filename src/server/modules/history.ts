@@ -1,5 +1,5 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, Server, regionSize, regionCenter } from "@notbeer-api";
+import { Vector, regionVolume, Server, regionSize, regionCenter, Thread, getCurrentThread } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -28,6 +28,7 @@ type historyPoint = {
     blockChange: BlockChanges;
     blocksChanged: number;
     brush: boolean;
+    thread: Thread;
 };
 
 const air = BlockPermutation.resolve("minecraft:air");
@@ -58,6 +59,7 @@ export class History {
 
             blockChange: new BlockChangeImpl(this.session.getPlayer().dimension, this, historyPointId),
             blocksChanged: 0,
+            thread: getCurrentThread(),
             brush,
         } as historyPoint;
         this.historyPoints.set(historyPointId, historyPoint);
@@ -93,12 +95,8 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         this.historyPoints.delete(historyPoint);
 
-        for (const struct of point.undo) {
-            Server.structure.delete(struct.name);
-        }
-        for (const struct of point.redo) {
-            Server.structure.delete(struct.name);
-        }
+        for (const struct of point.undo) Server.structure.delete(struct.name);
+        for (const struct of point.redo) Server.structure.delete(struct.name);
     }
 
     collectBlockChanges(historyPoint: number) {
@@ -239,6 +237,14 @@ export class History {
 
     isRecording() {
         return this.historyPoints.size != 0;
+    }
+
+    getActivePointsInThread(thread: Thread) {
+        const points = [];
+        for (const [point, data] of this.historyPoints.entries()) {
+            if (data.thread === thread) points.push(point);
+        }
+        return points;
     }
 
     delete() {
