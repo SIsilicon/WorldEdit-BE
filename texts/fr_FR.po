@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-05-03 22:24\n"
+"PO-Revision-Date: 2024-05-09 09:58\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -65,7 +65,7 @@ msgid "item.wedit:selection_hollow"
 msgstr "Sélection du mur creux"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Sélection de la pile"
 
 msgid "item.wedit:selection_move"
 msgstr "Déplacer la sélection"
@@ -167,7 +167,7 @@ msgid "worldedit.regionMode.hollow"
 msgstr "Mode creux"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Mode Pile"
 
 msgid "worldedit.regionMode.move"
 msgstr "Mode déplacement"
