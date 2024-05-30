@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-05-08 05:28\n"
+"PO-Revision-Date: 2024-05-30 06:06\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -65,10 +65,10 @@ msgid "item.wedit:selection_hollow"
 msgstr ""
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Выбор выделения"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Переместить выделенное"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
@@ -167,10 +167,10 @@ msgid "worldedit.regionMode.hollow"
 msgstr ""
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Режим выделения"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Режим перемещения"
 
 msgid "worldedit.genMode.selectOp"
 msgstr ""
