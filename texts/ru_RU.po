@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-05-30 06:06\n"
+"PO-Revision-Date: 2024-05-30 08:11\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -191,10 +191,10 @@ msgid "worldedit.clipboard.options"
 msgstr "Настройки Буфера Обмена"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "Выбрать количество выделенного"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "Выбрать количество перемещенного"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Нет свойств у инструмента"
@@ -248,7 +248,7 @@ msgid "worldedit.config.gradient.remove"
 msgstr "Удалить градиент"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "Добавить новый градиент"
 
 msgid "worldedit.config.gradient.noId"
 msgstr "Не указан ID градиента."
@@ -311,16 +311,16 @@ msgid "worldedit.config.pattern"
 msgstr "Образец"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "Паттерн не указан."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "Указанный паттерн неверный."
 
 msgid "worldedit.config.mask"
 msgstr "Маска"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "Указанная маска неверная."
 
 msgid "worldedit.config.hollow"
 msgstr "Полный"
@@ -335,7 +335,7 @@ msgid "worldedit.config.structures"
 msgstr "Структуры"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "Количество смешивания"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
@@ -347,7 +347,7 @@ msgid "worldedit.config.command"
 msgstr "Команда"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "Не указана команда."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Команда WorldEdit"
@@ -416,7 +416,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "История всё ещё записывается!"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "Не удалось создать временную область!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -449,7 +449,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Не возможно модифицировать не загруженные чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
+msgstr "§eПодсказка: Чтобы загрузить больше чанков, увеличите расстояние симуляции и оставайтесь ближе к операции, или добавьте активные области, где вы работаете.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
