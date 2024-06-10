@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-05-03 22:25\n"
+"PO-Revision-Date: 2024-06-10 06:48\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Anahat Seçimi"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Oyuk seçici"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Yığın seçici"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Hareket seçici"
 
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Küre çiz"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Silindir çiz"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Piramit çiz"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Seçimi ayarlamak için bir blok belirlemeniz gerekiyor!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Aletler"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Degradeler çiz"
 
 msgid "worldedit.config.general"
 msgstr "Genel"
@@ -137,7 +137,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Yeni Fırça oluştur"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Yeni degrade oluştur"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Küboid"
@@ -152,13 +152,13 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Silindir"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Bölge işlemini seçin"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Foldurma modu"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Dış çizgi modu"
 
 msgid "worldedit.regionMode.wall"
 msgstr "Wall Mode"
