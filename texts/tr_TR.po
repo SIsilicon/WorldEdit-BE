@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-06-10 06:48\n"
+"PO-Revision-Date: 2024-06-10 08:37\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -161,13 +161,13 @@ msgid "worldedit.regionMode.outline"
 msgstr "Dış çizgi modu"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Duvar modu"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "İçi boş mod"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Yığın modu"
 
 msgid "worldedit.regionMode.move"
 msgstr "Move Mode"
