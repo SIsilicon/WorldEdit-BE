@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-05-03 22:25\n"
+"PO-Revision-Date: 2024-06-13 13:41\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -68,7 +68,7 @@ msgid "item.wedit:selection_stack"
 msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "移動選擇區域"
 
 msgid "item.wedit:draw_line"
 msgstr "畫線"
@@ -155,7 +155,7 @@ msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "填充模式"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
