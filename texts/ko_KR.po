@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-05-03 22:25\n"
+"PO-Revision-Date: 2024-06-14 06:43\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -68,7 +68,7 @@ msgid "item.wedit:selection_stack"
 msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "이동 도구"
 
 msgid "item.wedit:draw_line"
 msgstr "선 그리기"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "선 그리기"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "구 그리기"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "기둥 그리기"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "피라미드 그리기"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "도구"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "그레디언트"
 
 msgid "worldedit.config.general"
 msgstr "일반"
@@ -137,7 +137,7 @@ msgid "worldedit.config.newBrush"
 msgstr "새로운 브러시 제작"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "새 그라데이션 생성"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "직육면체"
@@ -152,16 +152,16 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "원기둥"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "지역 설정"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "채우기 모드"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "벽 모드"
 
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
@@ -170,25 +170,25 @@ msgid "worldedit.regionMode.stack"
 msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "이동 모드"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "생성할 형상 선택"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "선"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "구"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "원기둥"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "피라미드"
 
 msgid "worldedit.clipboard.options"
-msgstr "Clipboard Options"
+msgstr "클립보드 옵션"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -245,7 +245,7 @@ msgid "worldedit.config.gradient.use"
 msgstr "Use Gradient in Pattern Picker"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "그레디언트 지우기"
 
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
@@ -290,7 +290,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "이 아이템을 정말로 삭제하시겠습니까?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "이름"
 
 msgid "worldedit.config.radius"
 msgstr "크기"
