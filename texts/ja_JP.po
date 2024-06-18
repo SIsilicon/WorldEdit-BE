@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-05-03 22:25\n"
+"PO-Revision-Date: 2024-06-18 23:49\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -1118,7 +1118,7 @@ msgid "commands.wedit:wand.description"
 msgstr "自身に選択用の杖を付与する"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "ブロックの破壊で;pos #1を選択します。ブロックの使用で;pos #2を選択します"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit のコマンド"
