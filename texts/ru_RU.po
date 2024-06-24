@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-06-24 18:36\n"
+"PO-Revision-Date: 2024-06-24 19:52\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -500,10 +500,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Структурная кисть экипирована."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "Эрозионная кисть оснащена (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "Кисть наслоения оснащена (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Установите тип удерживаемой кисти"
