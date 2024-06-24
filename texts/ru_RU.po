@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-05-30 08:11\n"
+"PO-Revision-Date: 2024-06-24 18:36\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -242,7 +242,7 @@ msgid "worldedit.config.brush.overlay"
 msgstr "Кисть наложения"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "Используйте градиент в палитре шаблонов"
 
 msgid "worldedit.config.gradient.remove"
 msgstr "Удалить градиент"
@@ -497,7 +497,7 @@ msgid "commands.wedit:brush.bind.clipboard"
 msgstr "Выбрана кисть буфера обмена."
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Structure brush equipped."
+msgstr "Структурная кисть экипирована."
 
 msgid "commands.wedit:brush.bind.erode"
 msgstr "Erosion brush equipped (%s)."
