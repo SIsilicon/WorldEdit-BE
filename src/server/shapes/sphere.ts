@@ -3,23 +3,38 @@ import { Vector } from "@notbeer-api";
 
 export class SphereShape extends Shape {
     private radii: [number, number, number] = [0, 0, 0];
+    private domeDirection?: Vector;
 
     protected customHollow = true;
 
-    constructor(radiusX: number, radiusY?: number, radiusZ?: number) {
+    constructor(radiusX: number, radiusY?: number, radiusZ?: number, domeDirection?: Vector) {
         super();
         this.radii[0] = radiusX;
         this.radii[1] = radiusY ?? this.radii[0];
         this.radii[2] = radiusZ ?? this.radii[1];
+        this.domeDirection = domeDirection;
     }
 
     public getRegion(loc: Vector) {
-        return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]), loc.offset(this.radii[0], this.radii[1], this.radii[2])];
+        if (this.domeDirection?.x === 1) {
+            return <[Vector, Vector]>[loc.offset(0, -this.radii[1], -this.radii[2]), loc.offset(this.radii[0], this.radii[1], this.radii[2])];
+        } else if (this.domeDirection?.x === -1) {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]), loc.offset(0, this.radii[1], this.radii[2])];
+        } else if (this.domeDirection?.y === 1) {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], 0, -this.radii[2]), loc.offset(this.radii[0], this.radii[1], this.radii[2])];
+        } else if (this.domeDirection?.y === -1) {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]), loc.offset(this.radii[0], 0, this.radii[2])];
+        } else if (this.domeDirection?.z === 1) {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], 0), loc.offset(this.radii[0], this.radii[1], this.radii[2])];
+        } else if (this.domeDirection?.z === -1) {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]), loc.offset(this.radii[0], this.radii[1], 0)];
+        } else {
+            return <[Vector, Vector]>[loc.offset(-this.radii[0], -this.radii[1], -this.radii[2]), loc.offset(this.radii[0], this.radii[1], this.radii[2])];
+        }
     }
 
     public getYRange(): null {
         throw new Error("getYRange not implemented!");
-        return null;
     }
 
     public getOutline(loc: Vector) {

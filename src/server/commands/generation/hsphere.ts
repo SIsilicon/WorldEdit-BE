@@ -10,6 +10,11 @@ const registerInformation = {
             flag: "r",
         },
         {
+            flag: "d",
+            name: "dome",
+            type: "Direction",
+        },
+        {
             name: "pattern",
             type: "Pattern",
         },
