@@ -2,6 +2,8 @@ import { Vector3 } from "@minecraft/server";
 
 type anyVec = Vector3 | [number, number, number];
 
+export type axis = "x" | "y" | "z";
+
 export class Vector {
     private vals: [number, number, number] = [0, 0, 0];
 
