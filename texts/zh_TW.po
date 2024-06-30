@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-06-13 15:32\n"
+"PO-Revision-Date: 2024-06-30 01:59\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -186,9 +186,6 @@ msgstr "圓柱"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "金字塔"
-
-msgid "worldedit.clipboard.options"
-msgstr "剪貼版選項"
 
 msgid "worldedit.stack.title"
 msgstr "選擇堆疊數量"
