@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-05-09 09:58\n"
+"PO-Revision-Date: 2024-06-30 01:59\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -186,9 +186,6 @@ msgstr "Cylindre"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramide"
-
-msgid "worldedit.clipboard.options"
-msgstr "Options du presse-papiers"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
