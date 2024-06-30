@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-05-29 13:29\n"
+"PO-Revision-Date: 2024-06-30 01:59\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -186,9 +186,6 @@ msgstr "Syllinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramide"
-
-msgid "worldedit.clipboard.options"
-msgstr "Uklipsstavleinnstillinger"
 
 msgid "worldedit.stack.title"
 msgstr "Velg stabelmengde"
