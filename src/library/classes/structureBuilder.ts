@@ -1,6 +1,6 @@
 /* eslint-disable no-empty */
 import { regionLoaded, regionSize, regionTransformedBounds, sleep, Vector } from "../utils/index.js";
-import { BlockVolume, Dimension, StructureMirrorAxis, StructureRotation, Vector3, world } from "@minecraft/server";
+import { Dimension, StructureMirrorAxis, StructureRotation, Vector3, world } from "@minecraft/server";
 
 const ROT2STRUCT: { [key: number]: StructureRotation } = {
     0: StructureRotation.None,

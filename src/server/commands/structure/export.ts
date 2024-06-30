@@ -74,7 +74,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 let count = 0;
                 const size = Vector.sub(range[1], range[0]).add(1);
                 const structVoid = BlockPermutation.resolve("minecraft:structure_void");
-                const air = BlockPermutation.resolve("minecraft:air");
                 for (const [subStart, subEnd] of regionIterateChunks(...range)) {
                     while (!Jobs.loadBlock(regionCenter(subStart, subEnd))) yield sleep(1);
                     dimension.fillBlocks(new BlockVolume(subStart.floor(), subEnd.floor()), structVoid, { blockFilter: { includeTypes: ["air"] } });
