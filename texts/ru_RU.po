@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-06-24 19:52\n"
+"PO-Revision-Date: 2024-06-30 01:59\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -186,9 +186,6 @@ msgstr "Цилиндр"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Пирамида"
-
-msgid "worldedit.clipboard.options"
-msgstr "Настройки Буфера Обмена"
 
 msgid "worldedit.stack.title"
 msgstr "Выбрать количество выделенного"
