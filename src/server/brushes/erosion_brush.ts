@@ -180,9 +180,7 @@ export class ErosionBrush extends Brush {
                             break;
                         }
                     }
-                    if (!foundType) {
-                        blockTypes.push([block, 1]);
-                    }
+                    if (!foundType) blockTypes.push([block, 1]);
                 }
             }
 

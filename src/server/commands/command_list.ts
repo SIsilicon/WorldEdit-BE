@@ -48,6 +48,8 @@ import "./generation/cyl.js";
 import "./generation/hcyl.js";
 import "./generation/pyramid.js";
 import "./generation/hpyramid.js";
+import "./generation/torus.js";
+import "./generation/htorus.js";
 import "./generation/gen.js";
 import "./generation/gradient.js";
 

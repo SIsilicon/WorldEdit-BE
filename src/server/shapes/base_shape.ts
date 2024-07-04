@@ -15,6 +15,7 @@ enum ChunkStatus {
 
 export type shapeGenOptions = {
     hollow?: boolean;
+    hollowThickness?: number;
     wall?: boolean;
     recordHistory?: boolean;
     ignoreGlobalMask?: boolean;
@@ -55,7 +56,7 @@ export abstract class Shape {
      * @param z the z coordinate of the column
      * @return The minimum y and maximum y if the the coordinates are within the shape; otherwise null
      */
-    public abstract getYRange(x: number, z: number): [number, number] | null;
+    public abstract getYRange(x: number, z: number): [number, number] | void;
 
     /**
      * Prepares some variables that the shape will use when generating blocks.
@@ -110,14 +111,15 @@ export abstract class Shape {
     private inShapeHollow(relLoc: Vector, genVars: shapeGenVars) {
         const block = this.inShape(relLoc, genVars);
         if (genVars.hollow && block) {
+            const thickness = genVars.hollowThickness ?? 1;
             let neighbourCount = 0;
             for (const offset of [
-                [0, 1, 0],
-                [0, -1, 0],
-                [1, 0, 0],
-                [-1, 0, 0],
-                [0, 0, 1],
-                [0, 0, -1],
+                [0, thickness, 0],
+                [0, -thickness, 0],
+                [thickness, 0, 0],
+                [-thickness, 0, 0],
+                [0, 0, thickness],
+                [0, 0, -thickness],
             ] as [number, number, number][]) {
                 neighbourCount += this.inShape(relLoc.add(offset), genVars) ? 1 : 0;
             }

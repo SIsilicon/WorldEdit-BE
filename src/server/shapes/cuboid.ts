@@ -53,7 +53,8 @@ export class CuboidShape extends Shape {
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
         genVars.isWall = options?.wall ?? false;
-        genVars.end = this.size.map((v) => v - 1);
+        genVars.hollowOffset = options?.hollowThickness ?? 0;
+        genVars.end = this.size.map((v) => v - (genVars.isHollow || genVars.isWall ? options?.hollowThickness ?? 1 : 1));
 
         if (!genVars.isHollow && !genVars.isWall) {
             genVars.isSolidCuboid = true;
@@ -66,9 +67,10 @@ export class CuboidShape extends Shape {
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         const end = genVars.end;
-        if (genVars.isWall && relLoc.x > 0 && relLoc.x < end[0] && relLoc.z > 0 && relLoc.z < end[2]) {
+        const hollowOffset = genVars.hollowOffset;
+        if (genVars.isWall && relLoc.x > hollowOffset && relLoc.x < end[0] && relLoc.z > hollowOffset && relLoc.z < end[2]) {
             return false;
-        } else if (genVars.isHollow && relLoc.x > 0 && relLoc.x < end[0] && relLoc.y > 0 && relLoc.y < end[1] && relLoc.z > 0 && relLoc.z < end[2]) {
+        } else if (genVars.isHollow && relLoc.x > hollowOffset && relLoc.x < end[0] && relLoc.y > hollowOffset && relLoc.y < end[1] && relLoc.z > hollowOffset && relLoc.z < end[2]) {
             return false;
         }
 

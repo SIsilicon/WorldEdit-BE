@@ -63,11 +63,13 @@ export class CylinderShape extends Shape {
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
         genVars.radiiOff = this.radii.map((v) => v + 0.5);
+        genVars.thickness = options?.hollowThickness ?? 1;
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         if (genVars.isHollow) {
-            const hLocal = [relLoc[this.axes[0]] / (genVars.radiiOff[0] - 1.0), relLoc[this.axes[2]] / (genVars.radiiOff[1] - 1.0)];
+            const thickness = genVars.thickness;
+            const hLocal = [relLoc[this.axes[0]] / (genVars.radiiOff[0] - thickness), relLoc[this.axes[2]] / (genVars.radiiOff[1] - thickness)];
             if (hLocal[0] * hLocal[0] + hLocal[1] * hLocal[1] < 1.0) return false;
         }
 

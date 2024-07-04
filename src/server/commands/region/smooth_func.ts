@@ -58,7 +58,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
         map,
         (x, z) => {
             const yRange = shape.getYRange(x, z);
-            if (yRange == null) return;
+            if (!yRange) return;
 
             yRange[0] = Math.max(yRange[0] + loc.y, minY);
             yRange[1] = Math.min(yRange[1] + loc.y, maxY);

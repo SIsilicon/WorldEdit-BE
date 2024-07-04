@@ -20,7 +20,6 @@ export class ExpressionShape extends Shape {
 
     public getYRange() {
         throw Error("YRange not implemented");
-        return [null, null] as [number, number];
     }
 
     public getOutline(loc: Vector) {

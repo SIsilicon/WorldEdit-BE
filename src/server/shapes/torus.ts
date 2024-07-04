@@ -1,4 +1,3 @@
-import { MolangVariableMap, Player } from "@minecraft/server";
 import { Vector, axis } from "@notbeer-api";
 import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape";
 
@@ -41,6 +40,7 @@ export class TorusShape extends Shape {
 
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
+        genVars.thickness = options?.hollowThickness ?? 1;
         genVars.innerRadOff = this.innerRadius + 0.5;
         genVars.outerRadOff = this.outerRadius;
     }
@@ -49,7 +49,8 @@ export class TorusShape extends Shape {
         relLoc = new Vector(Math.hypot(relLoc[this.axes[0]], relLoc[this.axes[2]]) - genVars.outerRadOff, relLoc[this.axes[1]], 0);
 
         if (genVars.isHollow) {
-            const hLocal = [relLoc.x / (genVars.innerRadOff - 1.0), relLoc.y / (genVars.innerRadOff - 1.0)];
+            const thickness = genVars.thickness;
+            const hLocal = [relLoc.x / (genVars.innerRadOff - thickness), relLoc.y / (genVars.innerRadOff - thickness)];
             if (hLocal[0] * hLocal[0] + hLocal[1] * hLocal[1] < 1.0) return false;
         }
 

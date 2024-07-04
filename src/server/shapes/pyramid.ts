@@ -17,7 +17,6 @@ export class PyramidShape extends Shape {
 
     public getYRange(): null {
         throw new Error("getYRange not implemented!");
-        return null;
     }
 
     public getOutline(loc: Vector) {
@@ -43,6 +42,7 @@ export class PyramidShape extends Shape {
 
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
+        genVars.thickness = options?.hollowThickness ?? 1;
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
@@ -50,7 +50,7 @@ export class PyramidShape extends Shape {
         const local = [relLoc.x, relLoc.z];
 
         if (genVars.isHollow) {
-            const hLatSize = latSize - 1;
+            const hLatSize = latSize - genVars.thickness;
             if (local[0] > -hLatSize && local[0] < hLatSize && local[1] > -hLatSize && local[1] < hLatSize) {
                 return false;
             }

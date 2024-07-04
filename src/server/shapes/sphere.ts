@@ -46,11 +46,13 @@ export class SphereShape extends Shape {
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
         genVars.radiiOff = this.radii.map((v) => v + 0.5);
+        genVars.thickness = options?.hollowThickness ?? 1;
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         if (genVars.isHollow) {
-            const hLocal = [relLoc.x / (genVars.radiiOff[0] - 1.0), relLoc.y / (genVars.radiiOff[1] - 1.0), relLoc.z / (genVars.radiiOff[2] - 1.0)];
+            const thickness = genVars.thickness;
+            const hLocal = [relLoc.x / (genVars.radiiOff[0] - thickness), relLoc.y / (genVars.radiiOff[1] - thickness), relLoc.z / (genVars.radiiOff[2] - thickness)];
             if (hLocal[0] * hLocal[0] + hLocal[1] * hLocal[1] + hLocal[2] * hLocal[2] < 1.0) {
                 return false;
             }
