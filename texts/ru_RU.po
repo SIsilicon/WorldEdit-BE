@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-06-30 01:59\n"
+"PO-Revision-Date: 2024-07-13 11:06\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -518,13 +518,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Создать кисть для сглаживания рельефа"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "Создает кисть, которая размещает постройки"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "Создает кисть для формирования местности"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "Создает слой местности"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маска кисти установлена."
@@ -554,7 +554,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Эта кисть не требует материала для работы."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "У этой кисти нет настраиваемого размера."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Кисть не связана с вашим текущим предметом."
@@ -572,10 +572,10 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не удалось персонализировать как допустимое выражение."
 
 msgid "commands.wedit:cancel.description"
-msgstr "Cancels one of, or all your active jobs."
+msgstr "Отменяет одну или все ваши активные задания."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "Отменен номер вакансии %s."
 
 msgid "commands.wedit:cancel.explain.all"
 msgstr "%s Работ отменено."
@@ -587,7 +587,7 @@ msgid "commands.wedit:cancel.none.all"
 msgstr "Нет работ, которые можно отменить."
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Go to the ceiling."
+msgstr "Перейти к потолку."
 
 msgid "commands.wedit:center.description"
 msgstr "Установить центральный блок(и)."
@@ -668,13 +668,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "Регион расширен на %s блоков."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Экспортирует выделение для последующего использования."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s экспортирован."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eПримечание: Для использования экспортированных структур в других мирах WorldEdit требуется приложение для извлечения его из внешнего использования.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасить огонь поблизости"
@@ -722,7 +722,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "Градиент %s создан."
 
 msgid "commands.wedit:gradient.description"
 msgstr "Create a gradient to use in patterns."
