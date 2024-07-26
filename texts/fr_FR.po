@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-06-30 01:59\n"
+"PO-Revision-Date: 2024-07-26 17:09\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -896,7 +896,7 @@ msgid "commands.wedit:sel.description.extend"
 msgstr "Mode de sélection cuboïde rapide"
 
 msgid "commands.wedit:sel.description.sphere"
-msgstr "Select a sphere"
+msgstr "Générer une sphère"
 
 msgid "commands.wedit:sel.extend"
 msgstr "Etendre: casse le bloc pour le point de départ, utilise sur un bloc pour étendre"
@@ -917,22 +917,22 @@ msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
 
 msgid "commands.wedit:shift.description"
-msgstr "Shift the selection area"
+msgstr "Agrandir la zone de sélection"
 
 msgid "commands.wedit:shift.explain"
-msgstr "Region shifted."
+msgstr "Région déplacée."
 
 msgid "commands.wedit:size.blocks"
 msgstr "# de blocs: %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "Définir la taille du pinceau ou obtenir des informations sur la sélection"
 
 msgid "commands.wedit:size.distance"
 msgstr "Distance cuboïde: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "Décalage : %s"
 
 msgid "commands.wedit:size.pos1"
 msgstr "Position 1: %s"
@@ -965,7 +965,7 @@ msgid "commands.wedit:superpickaxe.description.area"
 msgstr "Faire en sorte que la super pioche casse les blocs dans une zone cubique"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "Faites en sorte que la super pioche brise les blocs en commençant par le bloc initial"
 
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pioche désactivée."
@@ -974,22 +974,22 @@ msgid "commands.wedit:superpickaxe.enabled"
 msgstr "Super pioche activée."
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "Le mode super pioche est désormais : alternatif."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "Le mode super pioche est désormais : simple."
 
 msgid "commands.wedit:thaw.description"
-msgstr "Melt snow and ice exposed to the sky"
+msgstr "Faire fondre la neige et la glace exposées au ciel"
 
 msgid "commands.wedit:stack.description"
-msgstr "Repeat the contents of the current selection"
+msgstr "Répéter le contenu de la sélection actuelle"
 
 msgid "commands.wedit:stack.explain"
-msgstr "Created %s blocks from stacking."
+msgstr "%s blocs créés à partir de l'empilement."
 
 msgid "commands.wedit:smooth.description"
-msgstr "Smooth the surface within the selection"
+msgstr "Lisser la surface dans la sélection"
 
 msgid "commands.wedit:sphere.description"
 msgstr "Générer une sphère"
@@ -1001,19 +1001,19 @@ msgid "commands.wedit:thru.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:thru.none"
-msgstr "Not against or facing a wall to go through."
+msgstr "Ne pas être contre ou face à un mur à traverser."
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "No free spot ahead of you found."
+msgstr "Aucune place libre n'a été trouvée devant toi."
 
 msgid "commands.wedit:ascend.description"
-msgstr "Go up a floor"
+msgstr "Monter d'un étage"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "No free spot above you found."
+msgstr "Aucune place libre n'a été trouvée ci-dessus."
 
 msgid "commands.wedit:descend.description"
-msgstr "Go down a floor"
+msgstr "Monter d'un étage"
 
 msgid "commands.wedit:descend.obstructed"
 msgstr "No free spot under you found."
@@ -1079,49 +1079,49 @@ msgid "commands.wedit:tool.description.repl"
 msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "Outil de replacer de bloc"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "Unbind held tool"
+msgstr "Délier outil détenu"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "Tool unbound from your current item."
+msgstr "Outil ai dissocié de votre élément actuel."
 
 msgid "commands.wedit:unstuck.description"
-msgstr "Move out of blocks"
+msgstr "Sortir des blocs"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "Et voilà !"
 
 msgid "commands.wedit:undo.description"
-msgstr "Undo a certain amount of actions"
+msgstr "Rétablir un certain nombre d'actions"
 
 msgid "commands.wedit:undo.explain"
-msgstr "Undid %s available edits."
+msgstr "Annulé %s modifications disponibles."
 
 msgid "commands.wedit:undo.none"
 msgstr "Il n'y a plus rien à annuler."
 
 msgid "commands.wedit:up.description"
-msgstr "Move up a certain number of blocks"
+msgstr "Monter d'un certain nombre de blocs"
 
 msgid "commands.wedit:up.explain"
 msgstr "Whoosh!"
 
 msgid "commands.wedit:wall.description"
-msgstr "Generate a wall from your selection"
+msgstr "Générer un mur à partir de votre sélection"
 
 msgid "commands.wedit:wand.description"
 msgstr "Donne un outil de sélection"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "Casser le block : sélectionne les pos #1; \"Utiliser\" sur le block : sélectionne les pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Commandes WorldEdit"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Toggle performance mode for the current session."
+msgstr "Activer/désactiver le mode de performance pour la session actuelle."
 
 msgid "commands.wedit:worldedit.perf.enabled"
 msgstr "Mode performances activé."
@@ -1130,7 +1130,7 @@ msgid "commands.wedit:worldedit.perf.disabled"
 msgstr "Mode performances désactivé."
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Get WorldEdit version"
+msgstr "Obtenir la version WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "Version de WorldEdit: %s"
