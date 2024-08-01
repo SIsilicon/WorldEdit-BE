@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2024-06-30 01:59\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -61,8 +61,29 @@ msgstr "Vegg Utvalg"
 msgid "item.wedit:selection_outline"
 msgstr "Omriss Valg"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hult utvalg"
+
+msgid "item.wedit:selection_stack"
+msgstr "Velg stabel"
+
+msgid "item.wedit:selection_move"
+msgstr "Flytt utvalget"
+
 msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
+
+msgid "item.wedit:draw_line"
+msgstr "Tegn Linje"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Tegn kule"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Tegn syllinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Teng pyramide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -88,6 +109,9 @@ msgstr "Pensler"
 msgid "worldedit.config.tools"
 msgstr "Verktøy"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradienter"
+
 msgid "worldedit.config.general"
 msgstr "Generell"
 
@@ -112,6 +136,9 @@ msgstr "Lag et nytt verktøy"
 msgid "worldedit.config.newBrush"
 msgstr "Lag et nytt pensel"
 
+msgid "worldedit.config.newGradient"
+msgstr "Lag Ny Gradient"
+
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Kube"
 
@@ -123,6 +150,48 @@ msgstr "Kule"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Syllinder"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Velg regionsoperasjon"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fyllmodus"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Omrissningsmodus"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Veggmodus"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Uthulingsmodus"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stablingsmodus"
+
+msgid "worldedit.regionMode.move"
+msgstr "Flyttingsmodus"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Vel figur å generere"
+
+msgid "worldedit.genMode.line"
+msgstr "Linje"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Kule"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Syllinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramide"
+
+msgid "worldedit.stack.title"
+msgstr "Velg stabelmengde"
+
+msgid "worldedit.move.title"
+msgstr "Velg flyttmengde"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Ingen verktøysegenskaper"
@@ -169,6 +238,21 @@ msgstr "Erosjonspensel"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlappingspensel"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Bruk Gradient I Mønstervelgeren"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Slett Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Legg til nytt Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "Ingen gradient-ID spesifisert."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient-ID finnes allerede."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
 
@@ -177,6 +261,9 @@ msgstr "Velg hva slags pensel som skal lages."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Sett Inn Gradient ID Her"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
@@ -199,6 +286,9 @@ msgstr "Er du fornøyd med oppsettet du har laget?"
 msgid "worldedit.config.confirm.delete"
 msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
 
+msgid "worldedit.config.name"
+msgstr "Navn"
+
 msgid "worldedit.config.radius"
 msgstr "Størrelse"
 
@@ -211,11 +301,23 @@ msgstr "Glatthet"
 msgid "worldedit.config.range"
 msgstr "Område"
 
+msgid "worldedit.config.amount"
+msgstr "Mengde"
+
 msgid "worldedit.config.pattern"
 msgstr "Mønster"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "Ingen mønster spesifisert."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Ugyldig mønster spesifisert."
+
 msgid "worldedit.config.mask"
 msgstr "Maske"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Ugyldig maske spesifisert."
 
 msgid "worldedit.config.hollow"
 msgstr "Hul"
@@ -227,7 +329,10 @@ msgid "worldedit.config.erosion"
 msgstr "Erosjonstype"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "Strukturer"
+
+msgid "worldedit.config.blend"
+msgstr "Blandingsmengde"
 
 msgid "worldedit.config.mask.height"
 msgstr "Høyde-maske"
@@ -237,6 +342,9 @@ msgstr "Bruk blokkvelger"
 
 msgid "worldedit.config.command"
 msgstr "Kommando"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "Ingen kommando spesifisert."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Er WorldEdit-kommando"
@@ -304,6 +412,9 @@ msgstr "Kunne ikke laste historikkpunkt!"
 msgid "worldedit.error.stillRecording"
 msgstr "Historikk blir fortsatt tatt opp!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Kunne ikke opprette et midlertidig selvoppdaterende område!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blokker har blitt endret."
 
@@ -335,7 +446,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Kan ikke endre ubelastede deler!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTips: For å laste flere deler, øk simuleringsavstanden, eller legg til selvoppdaterende områder der du arbeider.§r"
+msgstr "§eTips: For å laste flere deler, øk simuleringsavstanden og hold deg nærmt operasjonen, eller legg til selvoppdaterende områder hvor du opererer.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Tallet (%1) er for stort! Det må være maksimalt (%2)."
@@ -459,6 +570,21 @@ msgstr "Evaluer et matematisk uttrykk."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' kunne ikke analyseres som et gyldig uttrykk."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Avbryter en av, eller alle dine aktive jobber."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Avlyste jobb nummer %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Avlyste alle %s jobber."
+
+msgid "commands.wedit:cancel.none"
+msgstr "Det er ingen jobb med den IDen."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "Det er ingen jobber å avbryte."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Gå til taket."
@@ -824,22 +950,34 @@ msgid "commands.wedit:snow.description"
 msgstr "Simuler snø i området"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "Superhakke-modus er nå: område."
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "Veksle om superhakken er på eller ikke"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Veksle om superhakken er på eller ikke"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Gjør at superhakken ødelegger en enkelt blokk"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Gjør at superhakken ødelegger blokker i et kubisk område"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Gjør at superhakken ødelegger blokker som starter fra den første"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "Superhakken deaktivert."
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "Superhakken aktivert."
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "Superhakke-modus er nå: rekursiv."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "Superhakke-modus er nå: singel."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Smelt snø og is som er utsatt for himmelen"
@@ -884,13 +1022,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Angi hva slags blokker et pensel kan bli brukt på"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "Minimer utvalget for å velge samsvarende blokker"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "Region trimmet."
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "Ingen blokker samsvarte med trimmingsmasken!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Vekslet plasseringspossisjon."
