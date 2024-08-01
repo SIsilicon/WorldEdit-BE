@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2024-06-30 01:59\n"
+"PO-Revision-Date: 2024-08-01 03:09\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -68,7 +68,7 @@ msgid "item.wedit:selection_stack"
 msgstr "Wall Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Wall Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Dibujar línea"
@@ -77,7 +77,7 @@ msgid "item.wedit:draw_line"
 msgstr "Dibujar línea"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr ""
 
 msgid "item.wedit:draw_cylinder"
 msgstr "Draw Cylinder"
