@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-06-30 01:59\n"
+"PO-Revision-Date: 2024-08-13 04:46\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -126,6 +126,15 @@ msgstr "Режим продуктивності"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Малювання контурів"
+
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим виділення"
@@ -751,6 +760,9 @@ msgstr "Згенерувати порожню піраміду"
 msgid "commands.wedit:hsphere.description"
 msgstr "Згенерувати порожню сферу"
 
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
+
 msgid "commands.wedit:inset.description"
 msgstr "Вставити область виділення"
 
@@ -1005,6 +1017,9 @@ msgstr "Не до стіни або обличчям до неї, щоб про�
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Перед вами не знайдено вільного місця."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Піднятися вверх"
