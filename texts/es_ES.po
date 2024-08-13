@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2024-08-01 03:09\n"
+"PO-Revision-Date: 2024-08-13 04:46\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -126,6 +126,15 @@ msgstr "Modo Rendimiento"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar lineas salientes"
+
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de selección"
@@ -751,6 +760,9 @@ msgstr "Genera una pirámide hueca"
 msgid "commands.wedit:hsphere.description"
 msgstr "Genera una esfera hueca"
 
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
+
 msgid "commands.wedit:inset.description"
 msgstr "Inserta el área seleccionada"
 
@@ -1005,6 +1017,9 @@ msgstr "No hay pared al frente o no se está mirando."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "No se ha encontrado ningún espacio libre por delante."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Sube un piso"
