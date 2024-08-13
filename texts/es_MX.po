@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2024-06-30 01:59\n"
+"PO-Revision-Date: 2024-08-13 04:46\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -126,6 +126,15 @@ msgstr "Modo de rendimiento"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar líneas"
+
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de selección"
@@ -753,6 +762,9 @@ msgstr "Generate a hollow pyramid"
 msgid "commands.wedit:hsphere.description"
 msgstr "Generate a hollow sphere"
 
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
+
 msgid "commands.wedit:inset.description"
 msgstr "Inserta la área de selección"
 
@@ -1007,6 +1019,9 @@ msgstr "Not against or facing a wall to go through."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "No free spot ahead of you found."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"
