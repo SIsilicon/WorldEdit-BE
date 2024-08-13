@@ -17,9 +17,7 @@ const registerInformation = {
 };
 
 function readMetaData(name: string, player: Player) {
-    if (!name.includes(":")) {
-        name = "mystructure:" + name;
-    }
+    if (!name.includes(":")) name = "mystructure:" + name;
 
     const dimension = player.dimension;
     let blockLoc = PlayerUtil.getBlockLocation(player);
@@ -27,11 +25,11 @@ function readMetaData(name: string, player: Player) {
         blockLoc = blockLoc.offset(1, 0, 0);
     }
     const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
-    entity.nameTag = "__wedit__placeholder__";
+    entity.nameTag = "__placeholder__";
 
     Server.structure.load(name, blockLoc, player.dimension);
     let data: string;
-    const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find((entity) => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__wedit__placeholder__");
+    const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find((entity) => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__placeholder__");
     if (imported) {
         data = imported.nameTag;
         imported.triggerEvent("wedit:despawn");
@@ -43,9 +41,7 @@ function readMetaData(name: string, player: Player) {
 export function importStructure(name: string, player: Player) {
     if (!name.includes(":")) {
         const ref = readMetaData("weditstructref_" + name, player);
-        if (ref) {
-            name = ref;
-        }
+        if (ref) name = ref;
     }
 
     const [namespace, struct] = name.split(":") as [string, string];

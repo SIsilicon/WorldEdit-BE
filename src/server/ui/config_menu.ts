@@ -164,8 +164,14 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
         },
         $drawOutlines: {
             name: "%worldedit.config.general.drawOutlines",
-            type: "toggle",
-            default: (ctx) => ctx.getData("session").drawOutlines,
+            type: "dropdown",
+            options: ["%worldedit.config.general.drawOutlines.off", "%worldedit.config.general.drawOutlines.self", "%worldedit.config.general.drawOutlines.all"],
+            default: (ctx) => {
+                const drawOutlines = ctx.getData("session").drawOutlines;
+                if (!drawOutlines) return 0;
+                else if (drawOutlines === "local") return 1;
+                else return 2;
+            },
         },
         $selectionMode: {
             name: "%worldedit.config.general.selectMode",
@@ -179,7 +185,7 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
         session.includeAir = input.$includeAir as boolean;
         session.includeEntities = input.$includeEntities as boolean;
         session.performanceMode = input.$perfMode as boolean;
-        session.drawOutlines = input.$drawOutlines as boolean;
+        session.drawOutlines = <boolean | "local">[false, "local", true][input.$drawOutlines as number];
         session.selection.mode = selectionModes[input.$selectionMode as number];
         ctx.returnto("$configMenu");
     },

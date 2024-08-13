@@ -1,4 +1,4 @@
-import { Block, Vector3, Dimension, Entity, Player, BlockComponentTypeMap, RawMessage } from "@minecraft/server";
+import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes } from "@minecraft/server";
 import { Server, RawText, Vector } from "@notbeer-api";
 import config from "config.js";
 
@@ -62,11 +62,11 @@ export function canPlaceBlock(loc: Vector3, dim: Dimension) {
 }
 
 export function blockHasNBTData(block: Block) {
-    const components: (keyof BlockComponentTypeMap)[] = [
+    const components: `${BlockComponentTypes}`[] = [
         "minecraft:inventory",
         "minecraft:sign",
         "minecraft:piston",
-        "minecraft:recordPlayer",
+        "minecraft:record_player",
         "minecraft:waterContainer",
         "minecraft:lavaContainer",
         "minecraft:snowContainer",

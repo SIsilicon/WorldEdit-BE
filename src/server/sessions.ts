@@ -107,7 +107,7 @@ export class PlayerSession {
     private gradients: Database<gradients>;
     private placementMode: "player" | "selection" = "player";
 
-    private _drawOutlines: boolean;
+    private _drawOutlines: boolean | "local";
 
     constructor(player: Player) {
         this.player = player;
@@ -135,7 +135,7 @@ export class PlayerSession {
         }
     }
 
-    public set drawOutlines(val: boolean) {
+    public set drawOutlines(val: boolean | "local") {
         this._drawOutlines = val;
         this.selection.visible = val;
     }

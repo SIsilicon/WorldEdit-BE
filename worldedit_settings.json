@@ -12,7 +12,7 @@
         "default": 25
     },
     "drawOutlines": {
-        "description": "Whether a player's outlines are drawn by default. Outlines include selections, brush influence and paste location",
+        "description": "Whether a player's outlines are drawn by default. Outlines include selections, brush influence and paste location. Can be true, false or \"local\".",
         "default": true
     },
     "ticksToDeleteSession": {
