@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-13 21:50\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "輪郭を描写"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "オフ"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "自身に表示"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "すべての人に表示"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "選択モード"
@@ -761,7 +761,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "空洞の球体を生成する"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "空洞のトーラスを生成"
 
 msgid "commands.wedit:inset.description"
 msgstr "選択範囲を挿入する"
@@ -1019,7 +1019,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "トーラスを生成"
 
 msgid "commands.wedit:ascend.description"
 msgstr "1階分上に行く"
