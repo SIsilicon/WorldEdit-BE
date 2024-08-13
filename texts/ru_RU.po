@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-07-13 11:06\n"
+"PO-Revision-Date: 2024-08-13 04:46\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -126,6 +126,15 @@ msgstr "Производительный режим"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Рисовать контуры"
+
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим выделения"
@@ -751,6 +760,9 @@ msgstr "Сгенерировать пустую пирамиду"
 msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
 
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
+
 msgid "commands.wedit:inset.description"
 msgstr "Вставить область выделения"
 
@@ -1005,6 +1017,9 @@ msgstr "Не напротив или лицом к стене, чтобы про
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Свободного места перед вами не найдено."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"
