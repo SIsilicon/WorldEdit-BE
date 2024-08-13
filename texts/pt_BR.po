@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-13 23:06\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Ferramentas"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Gradientes"
 
 msgid "worldedit.config.general"
 msgstr "Geral"
@@ -131,7 +131,7 @@ msgid "worldedit.config.general.drawOutlines.off"
 msgstr "Off"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "Visível para você"
 
 msgid "worldedit.config.general.drawOutlines.all"
 msgstr "Visible to Everyone"
@@ -971,7 +971,7 @@ msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "Faça a super picareta quebrar um único bloco"
 
 msgid "commands.wedit:superpickaxe.description.area"
 msgstr "Make the super pickaxe break blocks in a cubic range"
@@ -989,7 +989,7 @@ msgid "commands.wedit:superpickaxe.recursive"
 msgstr "Super pickaxe mode is now: recursive."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "Modo da super picareta está agora: único."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Derreter neve e gelo expostos ao céu"
