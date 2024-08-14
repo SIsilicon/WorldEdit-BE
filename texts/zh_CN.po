@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-14 04:58\n"
 
 msgid "pack.description"
-msgstr "这是一个受 Java 版创世神模组启发，尝试将其在基岩版进行移植的模组，目前还在不断开发中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是 Java 版创世神模组在基岩版上的移植，目前正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§c创世神的脚本已被停止！使用 §r/reload§c 重置这些脚本(其他脚本也会被重置)。§r"
+msgstr "§c创世神的脚本已被停止！键入 §r/reload§c 命令以重置(其他模组也将被重置)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -50,19 +50,19 @@ msgid "item.wedit:mask_picker"
 msgstr "取代方块选取器"
 
 msgid "item.wedit:spawn_glass"
-msgstr "在脚下生成玻璃方块"
+msgstr "在脚下生成玻璃块"
 
 msgid "item.wedit:selection_fill"
 msgstr "填充选区"
 
 msgid "item.wedit:selection_wall"
-msgstr "填充选区的侧面"
+msgstr "填充选区侧面"
 
 msgid "item.wedit:selection_outline"
-msgstr "填充选区表面"
+msgstr "填充选区轮廓"
 
 msgid "item.wedit:selection_hollow"
-msgstr "选择选区"
+msgstr "填充选区表面"
 
 msgid "item.wedit:selection_stack"
 msgstr "堆叠选区"
@@ -71,10 +71,10 @@ msgid "item.wedit:selection_move"
 msgstr "移动选区"
 
 msgid "item.wedit:draw_line"
-msgstr "填充选区对角线"
+msgstr "绘制对角线"
 
 msgid "item.wedit:draw_line"
-msgstr "填充选区对角线"
+msgstr "绘制对角线"
 
 msgid "item.wedit:draw_sphere"
 msgstr "绘制球体"
@@ -86,7 +86,7 @@ msgid "item.wedit:draw_pyramid"
 msgstr "绘制椎体"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "您需要指定一个方块来设置选区！"
+msgstr "您需要选取一个方块以填充选区！"
 
 msgid "worldedit.patternPicker.add"
 msgstr "已添加的填充方块： "
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "绘制轮廓"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "关闭"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "仅自己可见"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "所有人可见"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "选择模式"
@@ -761,7 +761,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "生成一个空心球体"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "生成一个空心圆环"
 
 msgid "commands.wedit:inset.description"
 msgstr "收缩选区。"
@@ -1019,7 +1019,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "未在您的前方发现有效空间。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "生成一个圆环"
 
 msgid "commands.wedit:ascend.description"
 msgstr "上升一层"
