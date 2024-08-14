@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-14 13:05\n"
+"PO-Revision-Date: 2024-08-14 23:51\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit 的脚本已被停止！键入 §r/reload§c 命令以重置(其他模组也将被重置)。§r"
+msgstr "§cWorldEdit 的脚本已被停止！键入命令 §r/reload§c 以重置 (其他模组也将被重置) 。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -59,10 +59,10 @@ msgid "item.wedit:selection_wall"
 msgstr "填充选区侧面"
 
 msgid "item.wedit:selection_outline"
-msgstr "填充选区轮廓"
+msgstr "填充选区表面"
 
 msgid "item.wedit:selection_hollow"
-msgstr "填充选区表面"
+msgstr "镂空选区"
 
 msgid "item.wedit:selection_stack"
 msgstr "堆叠选区"
@@ -101,7 +101,7 @@ msgid "worldedit.maskPicker.set"
 msgstr "将替换方块设为： "
 
 msgid "worldedit.config.mainMenu"
-msgstr "创世神设置"
+msgstr "WorldEdit 设置"
 
 msgid "worldedit.config.brushes"
 msgstr "笔刷"
@@ -110,10 +110,10 @@ msgid "worldedit.config.tools"
 msgstr "工具"
 
 msgid "worldedit.config.gradients"
-msgstr "渐变："
+msgstr "渐变"
 
 msgid "worldedit.config.general"
-msgstr "常规设置"
+msgstr "通用"
 
 msgid "worldedit.config.general.includeEntities"
 msgstr "在剪贴板中包含实体"
@@ -137,7 +137,7 @@ msgid "worldedit.config.general.drawOutlines.all"
 msgstr "所有人可见"
 
 msgid "worldedit.config.general.selectMode"
-msgstr "选择模式"
+msgstr "选区模式"
 
 msgid "worldedit.config.newTool"
 msgstr "新建工具"
@@ -152,7 +152,7 @@ msgid "worldedit.selectionMode.cuboid"
 msgstr "立方体"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "扩展"
+msgstr "拓展"
 
 msgid "worldedit.selectionMode.sphere"
 msgstr "球体"
@@ -167,13 +167,13 @@ msgid "worldedit.regionMode.fill"
 msgstr "填充模式"
 
 msgid "worldedit.regionMode.outline"
-msgstr "轮廓填充模式"
+msgstr "表面填充模式"
 
 msgid "worldedit.regionMode.wall"
 msgstr "侧面填充模式"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "表面填充模式"
+msgstr "镂空模式"
 
 msgid "worldedit.regionMode.stack"
 msgstr "堆叠模式"
