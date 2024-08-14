@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-14 09:00\n"
+"PO-Revision-Date: 2024-08-14 13:05\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -359,7 +359,7 @@ msgid "worldedit.config.command.isWorldEdit"
 msgstr "是否为创世神命令"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "未选定第一个点。"
+msgstr "未设定第一个点。"
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
@@ -689,7 +689,7 @@ msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
 
 msgid "commands.wedit:faces.description"
-msgstr "基于您的选区生成轮廓"
+msgstr "在选区中生成一个轮廓"
 
 msgid "commands.wedit:fill.description"
 msgstr "用特定方块填充区域"
@@ -701,13 +701,13 @@ msgid "commands.wedit:fixlava.description"
 msgstr "使附近的熔岩变成熔岩源"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "你需要靠近熔岩来修复。"
+msgstr "您需要靠近熔岩以修复。"
 
 msgid "commands.wedit:fixwater.description"
 msgstr "使附近的水变成水源"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "您需要靠近水才能修复。"
+msgstr "您需要靠近水以修复。"
 
 msgid "commands.wedit:flip.description"
 msgstr "翻转选区"
@@ -719,7 +719,7 @@ msgid "commands.wedit:flip.notLateral"
 msgstr "不能向上或向下翻转！"
 
 msgid "commands.wedit:gen.description"
-msgstr "在您的选择中生成任何形状"
+msgstr "在选区中生成各种形状"
 
 msgid "commands.wedit:gmask.description"
 msgstr "设置全局替换方块"
@@ -746,13 +746,13 @@ msgid "commands.wedit:help.header"
 msgstr "--- 显示帮助页面 第%1页 共%2页 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "将您的选区中包含的对象镂空"
+msgstr "镂空选区中的物体"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "将您的选区的第一个位置设定为你所面对的方块的位置。"
+msgstr "将选区的第一个点设定为您所面对的方块的位置。"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "将您的选区的第二个位置设定为你所面对的方块的位置。"
+msgstr "将选区的第二个点设定为您所面对的方块的位置。"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一个空心金字塔结构"
@@ -773,7 +773,7 @@ msgid "commands.wedit:import.explain"
 msgstr "%s 已被导入并设置为剪贴板。"
 
 msgid "commands.wedit:jumpto.description"
-msgstr "将您传送至面对着的方块的顶部"
+msgstr "将您传送至您所面对的方块的顶部"
 
 msgid "commands.wedit:inset.explain"
 msgstr "已收缩区域"
@@ -785,7 +785,7 @@ msgid "commands.wedit:jumpto.none"
 msgstr "视线中没有方块(或者离方块太远了)！"
 
 msgid "commands.wedit:kit.description"
-msgstr "给您自己一套物品来使用常见的创世神功能"
+msgstr "给予自己一套常见 WorldEdit 功能的快捷工具"
 
 msgid "commands.wedit:kit.explain"
 msgstr "配套工具已被给予"
@@ -803,7 +803,7 @@ msgid "commands.wedit:limit.set"
 msgstr "可变化的方块限制已设定为 %s。"
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "允许您设定的极限为 %s。"
+msgstr "您最大的允许限制为 %s。"
 
 msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
@@ -818,7 +818,7 @@ msgid "commands.wedit:move.explain"
 msgstr "已移除 %s 个方块。"
 
 msgid "commands.wedit:navwand.description"
-msgstr "给您自己一个传送棍"
+msgstr "给予自己一个传送器"
 
 msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
@@ -830,7 +830,7 @@ msgid "commands.wedit:outset.explain"
 msgstr "已扩展区域。"
 
 msgid "commands.wedit:paste.description"
-msgstr "将您的剪切板粘贴至这个世界"
+msgstr "将您的剪切板粘贴至世界"
 
 msgid "commands.wedit:paste.explain"
 msgstr "已粘贴 %s 个方块。"
@@ -839,10 +839,10 @@ msgid "commands.wedit:paste.noOriginal"
 msgstr "不能粘贴剪贴板到其初始位置。"
 
 msgid "commands.wedit:pos1.description"
-msgstr "将您的选区的第一个点设置为指定的或当前的位置"
+msgstr "将选区的第一个点设定为指定或当前位置"
 
 msgid "commands.wedit:pos2.description"
-msgstr "将您的选区的第二个点设置为指定的或当前的位置"
+msgstr "将选区的第二个点设定为指定或当前位置"
 
 msgid "commands.wedit:pyramid.description"
 msgstr "生成一个棱锥体结构"
@@ -923,10 +923,10 @@ msgid "commands.wedit:setbiome.changed"
 msgstr "生物群系被修改为约 %s 个方块。"
 
 msgid "commands.wedit:setbiome.description"
-msgstr "更改您的选区中的群系"
+msgstr "更改选区中的生物群系"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§e注意：您需要使用创世神应用程序处理世界才能应用生物群落的更改。§r"
+msgstr "§e注：您需要使用 WorldEdit 应用程序处理世界才能应用生物群系更改。§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "移动选区"
@@ -1007,7 +1007,7 @@ msgid "commands.wedit:sphere.description"
 msgstr "生成一个球体"
 
 msgid "commands.wedit:thru.description"
-msgstr "传送您通过面向的任何墙体"
+msgstr "穿过您面向的任何墙体"
 
 msgid "commands.wedit:thru.explain"
 msgstr "呼呼！"
@@ -1016,7 +1016,7 @@ msgid "commands.wedit:thru.none"
 msgstr "没有贴近或面对一面要穿过的墙。"
 
 msgid "commands.wedit:thru.obstructed"
-msgstr "未在您的前方发现有效空间。"
+msgstr "在您的前方没有发现有效空间。"
 
 msgid "commands.wedit:torus.description"
 msgstr "生成一个圆环"
@@ -1025,13 +1025,13 @@ msgid "commands.wedit:ascend.description"
 msgstr "上升一层"
 
 msgid "commands.wedit:ascend.obstructed"
-msgstr "在您的上方没有发现有效空间"
+msgstr "在您的上方没有发现有效空间。"
 
 msgid "commands.wedit:descend.description"
 msgstr "下降一层"
 
 msgid "commands.wedit:descend.obstructed"
-msgstr "在您的下方没有发现有效空间"
+msgstr "在您的下方没有发现有效空间。"
 
 msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
@@ -1100,7 +1100,7 @@ msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "工具已从您选定的物品上解绑。"
+msgstr "工具已从当前物品解绑。"
 
 msgid "commands.wedit:unstuck.description"
 msgstr "从方块中脱离"
@@ -1124,10 +1124,10 @@ msgid "commands.wedit:up.explain"
 msgstr "呼呼！"
 
 msgid "commands.wedit:wall.description"
-msgstr "在您的选区中生成一面墙"
+msgstr "在选区中生成一面墙"
 
 msgid "commands.wedit:wand.description"
-msgstr "给您自己一个选择"
+msgstr "给予自己一个选择器"
 
 msgid "commands.wedit:wand.explain"
 msgstr "破坏方块：选择点 #1；对着方块使用：选择点 #2"
@@ -1166,16 +1166,16 @@ msgid "howtoplay.wedit:license.title"
 msgstr "游戏指南：创世神插件许可证书"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "欢迎使用创世神插件。这个附加包是 Java 版同名模组在基岩版上的移植，它将帮助您在 Minecraft 中塑造你的世界。"
+msgstr "欢迎！这是 Java 版 WorldEdit 模组在基岩版上的移植，可帮助您在 Minecraft 中塑造你的世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "默认情况下，普通玩家无法使用创世神插件。只有那些有 “worldedit” 标签的玩家才可以使用它。 如果您想使自己获得“worldedit”标签，请在聊天框中输入 §e/tag @s add worldedit§r 。您应该会收到一条消息，提示您已经获得了创世神权限。"
+msgstr "通常情况下，普通玩家无法使用 WorldEdit 。仅拥有 “worldedit” 标签的玩家才可使用它。 如果想使自己获得 “worldedit” 标签，请键入命令 §e/tag @s add worldedit§r 。之后，您应该会收到一条消息，提示您已经获得了 WorldEdit 权限。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§a提示：§r§a 您也可以将 §e@s§a 更改为指定的玩家名字来给其他玩家添加“创世神”标签。 如果他们的名字中有空格，那么您需要在玩家名两测添加英文引号。比方说，§e/tag \"Steve Wander\" add worldedit§r§a输入这行指令后，名字为Steve Wander的玩家就能获得\"创世神\"标签。"
+msgstr "§l§a提示：§r§a 您也可以将 §e@s§r§a 更改为指定的玩家名称来给其他玩家添加 “worldedit” 标签。 若玩家名称中有空格，则需要用引号将其括起来。例：§e/tag \"Steve Wander\" add worldedit§r。"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "行走八方"
@@ -1184,16 +1184,16 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意：§r§a此插件提供的命令使用分号（;) 而不是正斜杠（/）。未来，Mojang可能会为Minecraft添加实际的自定义命令支持。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "从这里到那里的路途有时会很麻烦。幸运的是，这个附加包附带了传送器，您可以通过在物品栏中添加一个指南针，或是使用 §e;navwand§r 命令获取。拿到之后，就可以使用此物品来远程传送到你所看的地方。如果想穿过墙或者天花板，潜行时使用传送器即可穿过。如果被困在方块中，使用传送器可以进行脱困。"
+msgstr "在两地直接移动有时会很麻烦。幸运的是，这个模组带有传送器，您可以键入命令 §e;navwand§r 命令获取。使用传送器以传送到视野尽头。如果想穿过墙或天花板，潜行时使用传送器即可穿过。如果被卡在方块中，使用传送器即可脱离。"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§a提示:§r§a 如果您不想使用传送器,您也可以通过使用命令§e;jumpto§r§a;thru§r§a和§e;unstuck§r§r§a来实现这一功能§r."
+msgstr "§l§a提示：§r§a 如果您不想使用传送器，也可以键入命令 §e;jumpto§r§a §e;thru§r§a §e;unstuck§r§a实现上述功能§r。"
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "创建选区"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "与java版原模组相同，您可以使用选择器来轻松标记世界中的区域以便进行各种操作。您可以拿出一个木斧，或是通过 §e;wand§r 命令获取选择器。创世神插件中的选区默认是长方体形状的。为了形成一个选区，你需要标记立方体的两个角落：标记第一个角落点的方法是使用选择器破坏方块；标记第二个角落点的方法是对目标方块使用选择器而不是破坏它。如果步骤正确，您应该会看见一个高亮的选区出现。"
+msgstr "与Java版原模组相同，您可以使用选择器选择一个区域并进行各种操作。键入命令 §e;wand§r 以获取选择器。WorldEdit中的选区默认为立方体形状的。您需要选择立方体的两个对角以创建选区，使用选择器破坏单个方块以选择第一个点；对方块使用选择器以选择第二个点。如果步骤正确，您应该会看到选区被粒子效果勾勒。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "如果没有方块供您标记选区的角落，比如在高空中，您也可以使用命令 §e;pos1§r 和 §e;pos2§r 分别将目前站立的坐标标记为第一个点和第二个点。§l需要注意的是，标记的是人物当前所在的坐标，而不是当前脚下的方块的坐标。§r"
