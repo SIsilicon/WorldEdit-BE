@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-14 04:58\n"
+"PO-Revision-Date: 2024-08-14 06:48\n"
 
 msgid "pack.description"
-msgstr "这是 Java 版创世神模组在基岩版上的移植，目前正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§c创世神的脚本已被停止！键入 §r/reload§c 命令以重置(其他模组也将被重置)。§r"
+msgstr "§cWorldEdit 的脚本已被停止！键入 §r/reload§c 命令以重置(其他模组也将被重置)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -47,7 +47,7 @@ msgid "item.wedit:pattern_picker"
 msgstr "填充方块选取器"
 
 msgid "item.wedit:mask_picker"
-msgstr "取代方块选取器"
+msgstr "替换方块选取器"
 
 msgid "item.wedit:spawn_glass"
 msgstr "在脚下生成玻璃块"
@@ -95,10 +95,10 @@ msgid "worldedit.patternPicker.set"
 msgstr "将填充方块设为: "
 
 msgid "worldedit.maskPicker.add"
-msgstr "已添加的取代方块： "
+msgstr "已添加的替换方块： "
 
 msgid "worldedit.maskPicker.set"
-msgstr "将取代方块设为： "
+msgstr "将替换方块设为： "
 
 msgid "worldedit.config.mainMenu"
 msgstr "创世神设置"
@@ -140,13 +140,13 @@ msgid "worldedit.config.general.selectMode"
 msgstr "选择模式"
 
 msgid "worldedit.config.newTool"
-msgstr "创建新工具"
+msgstr "新建工具"
 
 msgid "worldedit.config.newBrush"
-msgstr "创建新笔刷"
+msgstr "新建笔刷"
 
 msgid "worldedit.config.newGradient"
-msgstr "创建新的渐变"
+msgstr "新建渐变"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "立方体"
@@ -167,13 +167,13 @@ msgid "worldedit.regionMode.fill"
 msgstr "填充模式"
 
 msgid "worldedit.regionMode.outline"
-msgstr "轮廓模式"
+msgstr "轮廓填充模式"
 
 msgid "worldedit.regionMode.wall"
-msgstr "表面填充模式"
+msgstr "侧面填充模式"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow 模式"
+msgstr "表面填充模式"
 
 msgid "worldedit.regionMode.stack"
 msgstr "堆叠模式"
@@ -182,10 +182,10 @@ msgid "worldedit.regionMode.move"
 msgstr "移动模式"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "选择要生成的形状"
+msgstr "选择生成形状"
 
 msgid "worldedit.genMode.line"
-msgstr "线"
+msgstr "对角线"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球体"
@@ -197,16 +197,16 @@ msgid "worldedit.genMode.pyramid"
 msgstr "棱锥"
 
 msgid "worldedit.stack.title"
-msgstr "选择堆叠数量"
+msgstr "选择堆叠次数"
 
 msgid "worldedit.move.title"
-msgstr "选择移动数量"
+msgstr "选择移动次数"
 
 msgid "worldedit.config.tool.noProps"
-msgstr "没有工具属性"
+msgstr "无工具属性"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "此工具没有要更改的属性"
+msgstr "此工具无可更改的属性"
 
 msgid "worldedit.config.tool.selection"
 msgstr "选择器"
@@ -224,10 +224,10 @@ msgid "worldedit.config.tool.cmd"
 msgstr "命令工具"
 
 msgid "worldedit.config.tool.repl"
-msgstr "方块替换工具"
+msgstr "替换工具"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "方块循环工具"
+msgstr "旋转工具"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "球形笔刷"
@@ -248,13 +248,13 @@ msgid "worldedit.config.brush.overlay"
 msgstr "叠加笔刷"
 
 msgid "worldedit.config.gradient.use"
-msgstr "在图案选择器中使用渐变"
+msgstr "在填充方块选择器中使用渐变"
 
 msgid "worldedit.config.gradient.remove"
 msgstr "删除渐变"
 
 msgid "worldedit.config.gradient.add"
-msgstr "添加新渐变"
+msgstr "添加渐变"
 
 msgid "worldedit.config.gradient.noId"
 msgstr "未指定渐变ID。"
@@ -263,22 +263,22 @@ msgid "worldedit.config.gradient.dupeId"
 msgstr "渐变ID已存在。"
 
 msgid "worldedit.config.chooseItem"
-msgstr "手持一个物品来绑定它。"
+msgstr "手持一个物品以绑定笔刷。"
 
 msgid "worldedit.config.choose.brush"
 msgstr "选择要制作的笔刷类型。"
 
 msgid "worldedit.config.choose.tool"
-msgstr "选择用于制作的工具类型"
+msgstr "选择要制作的工具类型。"
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "在此处插入渐变ID"
+msgstr "在此插入渐变ID"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "设定笔刷要填充的方块和要取代的方块"
+msgstr "选择笔刷的填充方块和替换方块。"
 
 msgid "worldedit.config.pattern.tool"
-msgstr "为工具制作一个图案。"
+msgstr "选择工具的填充方块。"
 
 msgid "worldedit.config.mask.tool"
 msgstr "选择工具的平滑度"
@@ -287,13 +287,13 @@ msgid "worldedit.config.mask.brush"
 msgstr "选择笔刷的平滑度"
 
 msgid "worldedit.config.confirm"
-msgstr "确定设置成这样吗？"
+msgstr "确定该设置？"
 
 msgid "worldedit.config.confirm.create"
-msgstr "您确定要用这个设置吗？"
+msgstr "您确定该设置吗？"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "您确定要解除该物品的绑定吗？"
+msgstr "您确定解除该物品的绑定吗？"
 
 msgid "worldedit.config.name"
 msgstr "名称"
@@ -311,25 +311,25 @@ msgid "worldedit.config.range"
 msgstr "范围"
 
 msgid "worldedit.config.amount"
-msgstr "数量"
+msgstr "次数"
 
 msgid "worldedit.config.pattern"
 msgstr "填充"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "没有指定的图案。"
+msgstr "未指定填充方块。"
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "无效的指定图案。"
+msgstr "无效填充方块。"
 
 msgid "worldedit.config.mask"
-msgstr "取代"
+msgstr "替换"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "无效的指定蒙版。"
+msgstr "无效替换方块。"
 
 msgid "worldedit.config.hollow"
-msgstr "下陷"
+msgstr "凹陷"
 
 msgid "worldedit.config.depth"
 msgstr "深度"
@@ -341,7 +341,7 @@ msgid "worldedit.config.structures"
 msgstr "结构"
 
 msgid "worldedit.config.blend"
-msgstr "混合量"
+msgstr "混合次数"
 
 msgid "worldedit.config.mask.height"
 msgstr "高度蒙板"
@@ -353,13 +353,13 @@ msgid "worldedit.config.command"
 msgstr "命令"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "没有指定的命令。"
+msgstr "未指定命令。"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "是否为创世神命令"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "您还没有选定第一个点。"
+msgstr "未选定第一个点。"
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
@@ -374,49 +374,49 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二个点设定为 %1 (%2)。"
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "在 %s 开始一个新的圆柱体选区。"
+msgstr "从 %s 开始一个新的圆柱体选区。"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "半径设置为 %1/%2 个方块 (~%3)。"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "在 %1 (%2) 之间创建选区。"
+msgstr "从 %1 (%2) 开始选区。"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "选区已扩展至 %1 (%2)."
+msgstr "选区已扩展至 %1 (%2)。"
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "半径设置为 %1"
+msgstr "半径设置为 %1。"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "半径设置为 %1 (~%2)"
+msgstr "半径设置为 %1 (~%2)。"
 
 msgid "worldedit.tool.noItem"
-msgstr "一个物品必须放在您的主手位"
+msgstr "物品必须放在主手。"
 
 msgid "worldedit.tool.cantBind"
 msgstr "您不能绑定到这种物品上。"
 
 msgid "worldedit.tool.noBind"
-msgstr "此物品还未绑定为任何工具"
+msgstr "该物品未绑定为任何工具。"
 
 msgid "worldedit.tool.noPerm"
 msgstr "您没有使用该工具的权限。"
 
 msgid "worldedit.tool.fixedBind"
-msgstr "此物品所绑定为的工具无法被删除或替换。"
+msgstr "该物品所绑定的工具无法被删除或替换。"
 
 msgid "worldedit.permission.granted"
-msgstr "§e您已经被给予创世神权限。前往 (设置 > 游戏指南 > 快速开始) 了解如何运用它。§r"
+msgstr "§e您已被授予 WorldEdit 权限。前往 (设置 > 游戏指南 > 快速入门) 了解使用方式。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§e您的创世神权限已被移除§r"
+msgstr "§e您的 WorldEdit 权限已被移除。§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "保存历史操作节点失败"
+msgstr "保存历史操作记录失败！"
 
 msgid "worldedit.error.loadHistory"
-msgstr "加载历史操作节点失败"
+msgstr "加载历史操作记录失败！"
 
 msgid "worldedit.error.stillRecording"
 msgstr "历史记录仍在进行！"
@@ -437,16 +437,16 @@ msgid "commands.generic.wedit:noSelection"
 msgstr "请先选定一个区域。"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "“%s”是无效的方向参数!"
+msgstr "“%s”是无效的方向参数！"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "预设外的字符: %s"
+msgstr "意外的“%s”"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "您的剪贴板是空的。请先复制或剪切一个区域。"
+msgstr "您的剪贴板为空。请先复制或剪切一个区域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "请先选取一个矩形区域。"
+msgstr "请先选取一个立方体区域。"
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "您没有执行此命令的权限。"
@@ -455,10 +455,10 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载的区块！"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e提示：要加载更多的区块，增加你的模拟距离并靠近操作位置，或在欲操作位置添加常加载区域。§r"
+msgstr "§e提示：要加载更多区块，增加你的模拟距离并靠近操作位置，或在欲操作位置添加常加载区域。§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "数值 (%1) 太大了! 它的最大值为(%2)。"
+msgstr "你输入的数字(%1)太大了，它最高只能为 %2"
 
 msgid "commands.generic.wedit:tooSmall"
 msgstr "数值 (%1) 太小了！它的最小值为 (%2)。"
@@ -563,7 +563,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "此笔刷不需要材料来运作。"
 
 msgid "commands.wedit:brush.noSize"
-msgstr "该笔刷无可调尺寸。"
+msgstr "此笔刷没有可设置的大小。"
 
 msgid "commands.wedit:brush.unbind"
 msgstr "笔刷已从您选择的物品上解绑。"
@@ -722,13 +722,13 @@ msgid "commands.wedit:gen.description"
 msgstr "在您的选择中生成任何形状"
 
 msgid "commands.wedit:gmask.description"
-msgstr "设置默认被取代方块"
+msgstr "设置全局替换方块"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "已禁用默认被取代方块"
+msgstr "已禁用全局替换方块。"
 
 msgid "commands.wedit:gmask.set"
-msgstr "已设置默认被取代的方块。"
+msgstr "已设置全局替换方块。"
 
 msgid "commands.wedit:gradient.create"
 msgstr "已创建渐变 %s。"
@@ -1214,7 +1214,7 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. 放下砂岩和玻璃，用填充方块选取器点击砂岩，然后再潜行用填充方块选取器点击玻璃。使用“填充选区”，选区内便会被砂岩和玻璃混合填充。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4。拿出您的物品栏中的取代方块选取器，用它点击沙岩。将您选择的方块设置为您的填充方块，并使用“填充选区”。现在所有的沙岩都将被您选择的方块所取代。"
+msgstr "§r4. 在背包中取出“替换方块选取器”并对砂岩使用，随后使用“填充方块选取器”选择任意一个方块，并使用“填充选区”，选区内砂岩将替换为另一方块。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 通过输入命令 §e;stack 4 up§r§7 将选区往上重复 4 次。"
@@ -1235,7 +1235,7 @@ msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. 再次进入笔刷设置然后将笔刷的取代方块设置为“草方块”。现在使用笔刷来制作一个圆石路径。"
+msgstr "§74. 再次进入笔刷设置，将笔刷的替换方块设为草方块。现在，使用笔刷来建造一个圆石道路。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. 从菜单中删除这个笔刷来禁用它。"
