@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-15 09:44\n"
+"PO-Revision-Date: 2024-08-15 10:51\n"
 
 msgid "pack.description"
-msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植 (§l§b@iSiliconS§r)。"
+msgstr "一个受 Java 版 WorldEdit 模组启发的基岩版 Addon！作者： §l§b@iSiliconS§r"
 
 msgid "script.watchdog.error.hang"
 msgstr "§cWorldEdit 的脚本已被停止！键入命令 §r/reload§c 以重置 (其他模组也将被重置) 。§r"
