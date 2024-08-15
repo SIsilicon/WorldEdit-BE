@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-15 01:40\n"
+"PO-Revision-Date: 2024-08-15 05:22\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -599,7 +599,7 @@ msgid "commands.wedit:ceiling.description"
 msgstr "前往顶层。"
 
 msgid "commands.wedit:center.description"
-msgstr "设置中心方块(可以多个)。"
+msgstr "设定中心方块(可以多个)。"
 
 msgid "commands.wedit:chunk.description"
 msgstr "选择您当前或指定的区块。"
@@ -722,13 +722,13 @@ msgid "commands.wedit:gen.description"
 msgstr "在选区中生成各种形状"
 
 msgid "commands.wedit:gmask.description"
-msgstr "设置全局替换方块"
+msgstr "设定全局替换方块"
 
 msgid "commands.wedit:gmask.disabled"
 msgstr "已禁用全局替换方块。"
 
 msgid "commands.wedit:gmask.set"
-msgstr "已设置全局替换方块。"
+msgstr "已设定全局替换方块。"
 
 msgid "commands.wedit:gradient.create"
 msgstr "已创建渐变 %s。"
@@ -809,7 +809,7 @@ msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
 
 msgid "commands.wedit:material.description"
-msgstr "设置笔刷应该用哪种方块进行填充"
+msgstr "设置笔刷的填充方块"
 
 msgid "commands.wedit:move.description"
 msgstr "将选区在特定方向上移动"
