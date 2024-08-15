@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-14 23:51\n"
+"PO-Revision-Date: 2024-08-15 01:40\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -221,13 +221,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "堆叠器"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "命令工具"
+msgstr "命令棒"
 
 msgid "worldedit.config.tool.repl"
-msgstr "替换工具"
+msgstr "替换棒"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "旋转工具"
+msgstr "调试棒"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "球形笔刷"
@@ -248,13 +248,13 @@ msgid "worldedit.config.brush.overlay"
 msgstr "叠加笔刷"
 
 msgid "worldedit.config.gradient.use"
-msgstr "在填充方块选择器中使用渐变"
+msgstr "在填充方块选取器中使用渐变"
 
 msgid "worldedit.config.gradient.remove"
 msgstr "删除渐变"
 
 msgid "worldedit.config.gradient.add"
-msgstr "添加渐变"
+msgstr "新建渐变"
 
 msgid "worldedit.config.gradient.noId"
 msgstr "未指定渐变ID。"
@@ -269,10 +269,10 @@ msgid "worldedit.config.choose.brush"
 msgstr "选择要制作的笔刷类型。"
 
 msgid "worldedit.config.choose.tool"
-msgstr "选择要制作的工具类型。"
+msgstr "选择要创建的工具类型"
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "在此插入渐变ID"
+msgstr "在此处插入渐变ID"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "选择笔刷的填充方块和替换方块。"
@@ -377,7 +377,7 @@ msgid "worldedit.selection.cylinder.primary"
 msgstr "从 %s 开始一个新的圆柱体选区。"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "半径设置为 %1/%2 个方块 (~%3)。"
+msgstr "半径设定为 %1/%2 个方块 (~%3)。"
 
 msgid "worldedit.selection.extend.primaryArea"
 msgstr "从 %1 (%2) 开始选区。"
@@ -386,10 +386,10 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "选区已扩展至 %1 (%2)。"
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "半径设置为 %1。"
+msgstr "半径设定为 %1。"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "半径设置为 %1 (~%2)。"
+msgstr "半径设定为 %1 (~%2)。"
 
 msgid "worldedit.tool.noItem"
 msgstr "物品必须放在主手。"
@@ -749,10 +749,10 @@ msgid "commands.wedit:hollow.description"
 msgstr "镂空选区中的物体"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "将选区的第一个点设定为您所面对的方块的位置。"
+msgstr "将选区的第一个点设定为您所面对的方块的位置"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "将选区的第二个点设定为您所面对的方块的位置。"
+msgstr "将选区的第二个点设定为您所面对的方块的位置"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一个空心金字塔结构"
@@ -770,7 +770,7 @@ msgid "commands.wedit:import.description"
 msgstr "导入一个结构到剪贴板。"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s 已被导入并设置为剪贴板。"
+msgstr "%s 已被导入并写入剪贴板。"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "将您传送至您所面对的方块的顶部"
@@ -797,7 +797,7 @@ msgid "commands.wedit:line.invalidType"
 msgstr "此命令只适用于立方体的选择。"
 
 msgid "commands.wedit:limit.description"
-msgstr "设置每个步骤可以更改的方块数量。"
+msgstr "设置每个操作可更改的方块数量。"
 
 msgid "commands.wedit:limit.set"
 msgstr "可变化的方块限制已设定为 %s。"
