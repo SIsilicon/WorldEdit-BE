@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-15 06:22\n"
+"PO-Revision-Date: 2024-08-15 08:12\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -86,7 +86,7 @@ msgid "item.wedit:draw_pyramid"
 msgstr "绘制椎体"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "您需要指定一个方块以填充选区！"
+msgstr "您需要指定一个方块以填充选区"
 
 msgid "worldedit.patternPicker.add"
 msgstr "已添加的填充方块： "
@@ -275,16 +275,16 @@ msgid "worldedit.config.gradient.promptName"
 msgstr "在此处插入渐变 ID"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "选择笔刷的填充方块和替换方块。"
+msgstr "设置笔刷的填充方块和替换方块。"
 
 msgid "worldedit.config.pattern.tool"
-msgstr "选择工具的填充方块。"
+msgstr "设置工具的填充方块。"
 
 msgid "worldedit.config.mask.tool"
-msgstr "选择工具的平滑度"
+msgstr "设置工具的平滑度。"
 
 msgid "worldedit.config.mask.brush"
-msgstr "选择笔刷的平滑度"
+msgstr "设置笔刷的平滑度。"
 
 msgid "worldedit.config.confirm"
 msgstr "确定该设置？"
@@ -329,7 +329,7 @@ msgid "worldedit.config.mask.invalidMask"
 msgstr "无效替换方块。"
 
 msgid "worldedit.config.hollow"
-msgstr "凹陷"
+msgstr "下陷"
 
 msgid "worldedit.config.depth"
 msgstr "深度"
@@ -356,7 +356,7 @@ msgid "worldedit.config.command.noCommand"
 msgstr "未指定命令。"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "是否为创世神命令"
+msgstr "是否为 WorldEdit 命令"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "未设定第一个点。"
@@ -395,34 +395,34 @@ msgid "worldedit.tool.noItem"
 msgstr "物品必须放在主手。"
 
 msgid "worldedit.tool.cantBind"
-msgstr "您不能绑定到这种物品上。"
+msgstr "不能绑定该物品。"
 
 msgid "worldedit.tool.noBind"
 msgstr "该物品未绑定为任何工具。"
 
 msgid "worldedit.tool.noPerm"
-msgstr "您没有使用该工具的权限。"
+msgstr "没有使用此工具的权限。"
 
 msgid "worldedit.tool.fixedBind"
-msgstr "该物品所绑定的工具无法被删除或替换。"
+msgstr "该物品绑定的工具无法被删除或替换。"
 
 msgid "worldedit.permission.granted"
 msgstr "§e您已被授予 WorldEdit 权限。前往 (设置 > 游戏指南 > 快速入门) 了解使用方式。§r"
 
 msgid "worldedit.permission.revoked"
-msgstr "§e您的 WorldEdit 权限已被移除。§r"
+msgstr "§e您的 WorldEdit 权限已被撤销。§r"
 
 msgid "worldedit.error.saveHistory"
-msgstr "保存历史操作记录失败！"
+msgstr "保存历史操作记录失败"
 
 msgid "worldedit.error.loadHistory"
-msgstr "加载历史操作记录失败！"
+msgstr "加载历史操作记录失败"
 
 msgid "worldedit.error.stillRecording"
-msgstr "历史记录仍在进行！"
+msgstr "历史记录仍在进行"
 
 msgid "worldedit.error.tickArea"
-msgstr "创建临时常加载区域失败！"
+msgstr "创建临时常加载区域失败"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 个方块已被更改。"
@@ -431,37 +431,37 @@ msgid "commands.blocks.wedit:created"
 msgstr "%s 个方块已被创建。"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "无法执行此命令。"
+msgstr "执行失败。"
 
 msgid "commands.generic.wedit:noSelection"
 msgstr "请先选定一个区域。"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "“%s”是无效的方向参数！"
+msgstr "“%s” 为无效方向参数"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "意外的“%s”"
+msgstr "意外的 “%s”"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "您的剪贴板为空。请先复制或剪切一个区域。"
+msgstr "剪贴板为空，请先复制或剪切一个区域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "请先选取一个立方体区域。"
+msgstr "请先选定一个立方体区域。"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "您没有执行此命令的权限。"
+msgstr "你没有使用此命令的权限。"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "无法修改未加载的区块！"
+msgstr "无法修改未加载区块"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e提示：要加载更多区块，增加你的模拟距离并靠近操作位置，或在欲操作位置添加常加载区域。§r"
+msgstr "§e提示：若需加载更多区块，请增加模拟距离并靠近操作位置，或在欲操作位置添加常加载区域。§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "你输入的数字 (%1) 太大了，它最高只能为 (%2)"
+msgstr "你输入的数字(%1)太大了，它最高只能为 %2"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "你输入的数字 (%1) 太小了，它至少需要为 (%2)"
+msgstr "你输入的数字(%1)太小了，它至少需要为 %2"
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "设定的方块太多"
@@ -716,7 +716,7 @@ msgid "commands.wedit:flip.explain"
 msgstr "已翻转 %s 个方块。"
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "不能向上或向下翻转！"
+msgstr "无法垂直翻转"
 
 msgid "commands.wedit:gen.description"
 msgstr "在选区中生成各种形状"
@@ -782,7 +782,7 @@ msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "视线中没有方块(或者离方块太远了)！"
+msgstr "视野中无方块或距离方块过远"
 
 msgid "commands.wedit:kit.description"
 msgstr "给予自己一套常见 WorldEdit 功能的快捷工具"
@@ -881,10 +881,10 @@ msgid "commands.wedit:rotate.explain"
 msgstr "已旋转 %s 个方块。"
 
 msgid "commands.wedit:rotate.notNinety"
-msgstr "'%s'不是一个90°的倍数！"
+msgstr "‘%s’ 不是 90° 的倍数"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "您只能沿Y轴旋转！"
+msgstr "只能沿Y轴旋转"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -1043,7 +1043,7 @@ msgid "commands.wedit:trim.explain"
 msgstr "区域已修饰"
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "修饰遮罩里没有匹配到的方块！"
+msgstr "没有匹配的方块"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "已切换放置位置。"
@@ -1166,7 +1166,7 @@ msgid "howtoplay.wedit:license.title"
 msgstr "游戏指南：创世神插件许可证书"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "欢迎！这是 Java 版 WorldEdit 模组在基岩版上的移植，可帮助您在 Minecraft 中塑造你的世界。"
+msgstr "欢迎！这是 Java 版 WorldEdit 模组在基岩版上的移植，可帮助您在 Minecraft 中塑造世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意：§r§a此插件提供的命令使用分号（;) 而不是正斜杠（/）。未来，Mojang可能会为Minecraft添加实际的自定义命令支持。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "在两地直接移动有时会很麻烦。幸运的是，这个模组带有传送器，您可以键入命令 §e;navwand§r 命令获取。使用传送器以传送到视野尽头。如果想穿过墙或天花板，潜行时使用传送器即可穿过。如果被卡在方块中，使用传送器即可脱离。"
+msgstr "在两地之间移动有时会很麻烦。幸运的是，这个模组带有传送器，您可以键入命令 §e;navwand§r 命令以获取。使用传送器以传送到视野尽头。如果想穿过墙或天花板，潜行时使用传送器即可穿过。如果被卡在方块中，使用传送器即可脱离。"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a提示：§r§a 如果您不想使用传送器，也可以键入命令 §e;jumpto§r§a §e;thru§r§a §e;unstuck§r§a实现上述功能§r。"
