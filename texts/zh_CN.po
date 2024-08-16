@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-16 08:37\n"
+"PO-Revision-Date: 2024-08-16 11:23\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -605,28 +605,28 @@ msgid "commands.wedit:chunk.description"
 msgstr "选择当前或指定的区块。"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "已选择区块：(%1) - (%2)。"
+msgstr "已选择区块：(%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "已选择区块：(%1)。"
+msgstr "已选择区块：(%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清空剪贴板"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "已清空剪贴板。"
+msgstr "已清空剪贴板"
 
 msgid "commands.wedit:clearhistory.description"
 msgstr "清空编辑记录"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "已清空记录。"
+msgstr "已清空历史记录"
 
 msgid "commands.wedit:contract.description"
-msgstr "缩小选区"
+msgstr "缩小选区。"
 
 msgid "commands.wedit:contract.explain"
-msgstr "选区已收缩 %s 个方块。"
+msgstr "选区已收缩 %s 个方块"
 
 msgid "commands.wedit:copy.description"
 msgstr "将选区复制到剪贴板"
@@ -638,13 +638,13 @@ msgid "commands.wedit:count.description"
 msgstr "统计匹配替换方块的方块数量"
 
 msgid "commands.wedit:count.explain"
-msgstr "找到 %s 个方块。"
+msgstr "找到 %s 个方块"
 
 msgid "commands.wedit:cut.description"
 msgstr "删除选区并将其复制到剪贴板"
 
 msgid "commands.wedit:cut.explain"
-msgstr "剪切 %s 个方块。"
+msgstr "剪切 %s 个方块"
 
 msgid "commands.wedit:cyl.description"
 msgstr "生成圆柱体"
@@ -656,31 +656,31 @@ msgid "commands.wedit:drain.description"
 msgstr "抽空附近的液体"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "需要靠近以抽空液体。"
+msgstr "需要靠近以抽空液体"
 
 msgid "commands.wedit:drawsel.description"
 msgstr "切换选区粒子可见性"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "选区粒子不再可见。"
+msgstr "选区粒子不再可见"
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "选区粒子将可见。"
+msgstr "选区粒子将可见"
 
 msgid "commands.wedit:expand.description"
-msgstr "扩大选区"
+msgstr "扩大选区。"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "垂直扩展选区直到世界高度限制"
+msgstr "垂直扩展选区直到世界高度限制。"
 
 msgid "commands.wedit:expand.explain"
-msgstr "选区已扩展 %s 个方块。"
+msgstr "选区已扩展 %s 个方块"
 
 msgid "commands.wedit:export.description"
 msgstr "导出选区以供之后使用。"
 
 msgid "commands.wedit:export.explain"
-msgstr "%s 已被导出。"
+msgstr "%s 导出成功"
 
 msgid "commands.wedit:export.otherWorlds"
 msgstr "§e注: 要在其他世界上使用导出的结构，需要在WorldEdit应用程序中提取。§r"
@@ -701,19 +701,19 @@ msgid "commands.wedit:fixlava.description"
 msgstr "使附近的熔岩变成熔岩源"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "需要靠近以填充液体。"
+msgstr "需要靠近以填充液体"
 
 msgid "commands.wedit:fixwater.description"
 msgstr "使附近的水变成水源"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "需要靠近以填充液体。"
+msgstr "需要靠近以填充液体"
 
 msgid "commands.wedit:flip.description"
 msgstr "翻转选区"
 
 msgid "commands.wedit:flip.explain"
-msgstr "已翻转 %s 个方块。"
+msgstr "已翻转 %s 个方块"
 
 msgid "commands.wedit:flip.notLateral"
 msgstr "无法垂直翻转"
@@ -725,16 +725,16 @@ msgid "commands.wedit:gmask.description"
 msgstr "设定全局替换方块"
 
 msgid "commands.wedit:gmask.disabled"
-msgstr "已禁用全局替换方块。"
+msgstr "已禁用全局替换方块"
 
 msgid "commands.wedit:gmask.set"
-msgstr "已设定全局替换方块。"
+msgstr "已设定全局替换方块"
 
 msgid "commands.wedit:gradient.create"
-msgstr "已创建渐变 %s。"
+msgstr "已创建渐变 %s"
 
 msgid "commands.wedit:gradient.description"
-msgstr "创建一个要在图案中使用的渐变。"
+msgstr "创建一个在填充方块中使用的渐变。"
 
 msgid "commands.wedit:green.description"
 msgstr "将附近的泥土变成草地"
@@ -749,10 +749,10 @@ msgid "commands.wedit:hollow.description"
 msgstr "镂空选区中的物体"
 
 msgid "commands.wedit:hpos1.description"
-msgstr "将选区的第一个点设定为面向方块的位置"
+msgstr "将选区的第一个点设定为面向方块的位置。"
 
 msgid "commands.wedit:hpos2.description"
-msgstr "将选区的第二个点设定为面向方块的位置"
+msgstr "将选区的第二个点设定为面向方块的位置。"
 
 msgid "commands.wedit:hpyramid.description"
 msgstr "生成一个空心金字塔结构"
@@ -764,19 +764,19 @@ msgid "commands.wedit:htorus.description"
 msgstr "生成一个空心圆环"
 
 msgid "commands.wedit:inset.description"
-msgstr "收缩选区。"
+msgstr "内移选区。"
 
 msgid "commands.wedit:import.description"
-msgstr "导入一个结构到剪贴板。"
+msgstr "导入结构到剪贴板。"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s 已被导入并写入剪贴板。"
+msgstr "%s 已被导入并写入剪贴板"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "将自身传送至面向方块的顶部"
 
 msgid "commands.wedit:inset.explain"
-msgstr "已收缩区域"
+msgstr "已内移选区"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
@@ -794,16 +794,16 @@ msgid "commands.wedit:line.description"
 msgstr "在第一个和第二个选择点之间创建一条线"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "此命令只适用于立方体的选择。"
+msgstr "此命令仅适用于立方体选区模式"
 
 msgid "commands.wedit:limit.description"
 msgstr "设置每个操作可更改的方块数量。"
 
 msgid "commands.wedit:limit.set"
-msgstr "可变化的方块限制已设定为 %s。"
+msgstr "方块更改限制已设为 %s"
 
 msgid "commands.wedit:limit.tooHigh"
-msgstr "最大的允许限制为 %s。"
+msgstr "最大允许限制为 %s"
 
 msgid "commands.wedit:mask.description"
 msgstr "设置笔刷可在哪些方块上生效 (默认为空气)"
@@ -815,7 +815,7 @@ msgid "commands.wedit:move.description"
 msgstr "将选区在特定方向上移动"
 
 msgid "commands.wedit:move.explain"
-msgstr "已移除 %s 个方块。"
+msgstr "已移除 %s 个方块"
 
 msgid "commands.wedit:navwand.description"
 msgstr "给予自己一个传送器"
@@ -824,19 +824,19 @@ msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
 
 msgid "commands.wedit:outset.description"
-msgstr "扩大选区。"
+msgstr "外移选区。"
 
 msgid "commands.wedit:outset.explain"
-msgstr "已扩展区域。"
+msgstr "已外移选区"
 
 msgid "commands.wedit:paste.description"
 msgstr "将剪切板粘贴至世界"
 
 msgid "commands.wedit:paste.explain"
-msgstr "已粘贴 %s 个方块。"
+msgstr "已粘贴 %s 个方块"
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "不能粘贴剪贴板到其初始位置。"
+msgstr "无法粘贴至初始位置"
 
 msgid "commands.wedit:pos1.description"
 msgstr "将选区的第一个点设定为指定或当前位置"
@@ -854,10 +854,10 @@ msgid "commands.wedit:redo.description"
 msgstr "重做操作"
 
 msgid "commands.wedit:redo.explain"
-msgstr "重做了 %s 个操作。"
+msgstr "重做了 %s 个操作"
 
 msgid "commands.wedit:redo.none"
-msgstr "没有可以重做的操作。"
+msgstr "无可重做操作"
 
 msgid "commands.wedit:replace.description"
 msgstr "将选区中确定的方块替换为其它方块"
@@ -911,7 +911,7 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "选择球体"
 
 msgid "commands.wedit:sel.extend"
-msgstr "扩展：选择起始方块，再选择终点方块。"
+msgstr "拓展选区模式：使用选择器破坏单个方块以选择起点；对方块使用选择器以选择终点。"
 
 msgid "commands.wedit:sel.sphere"
 msgstr "球体选区模式：使用选择器破坏单个方块以设定球心；对方块使用选择器以设定半径"
