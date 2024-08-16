@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-15 15:58\n"
+"PO-Revision-Date: 2024-08-16 06:43\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit 的脚本已被停止！键入命令 §r/reload§c 以重置 (其他模组也将被重置) 。§r"
+msgstr "§cWorldEdit 的脚本已被停止！键入命令 §r/reload§c 以重置 (其他模组也将被重置)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -257,13 +257,13 @@ msgid "worldedit.config.gradient.add"
 msgstr "新建渐变"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "未指定渐变 ID。"
+msgstr "未指定渐变 ID"
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "渐变 ID 已存在。"
+msgstr "渐变 ID 已存在"
 
 msgid "worldedit.config.chooseItem"
-msgstr "手持一个物品以绑定笔刷。"
+msgstr "手持一个物品以绑定笔刷"
 
 msgid "worldedit.config.choose.brush"
 msgstr "选择要制作的笔刷类型。"
@@ -275,16 +275,16 @@ msgid "worldedit.config.gradient.promptName"
 msgstr "在此处插入渐变 ID"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "设置笔刷的填充方块和替换方块。"
+msgstr "设置笔刷的填充方块和替换方块"
 
 msgid "worldedit.config.pattern.tool"
-msgstr "设置工具的填充方块。"
+msgstr "设置工具的填充方块"
 
 msgid "worldedit.config.mask.tool"
-msgstr "设置工具的平滑度。"
+msgstr "设置工具的平滑度"
 
 msgid "worldedit.config.mask.brush"
-msgstr "设置笔刷的平滑度。"
+msgstr "设置笔刷的平滑度"
 
 msgid "worldedit.config.confirm"
 msgstr "确定该设置？"
@@ -317,16 +317,16 @@ msgid "worldedit.config.pattern"
 msgstr "填充"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "未指定填充方块。"
+msgstr "未指定填充方块"
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "无效填充方块。"
+msgstr "无效填充方块"
 
 msgid "worldedit.config.mask"
 msgstr "替换"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "无效替换方块。"
+msgstr "无效替换方块"
 
 msgid "worldedit.config.hollow"
 msgstr "下陷"
@@ -353,58 +353,58 @@ msgid "worldedit.config.command"
 msgstr "命令"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "未指定命令。"
+msgstr "未指定命令"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "是否为 WorldEdit 命令"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "未设定第一个点。"
+msgstr "未设定第一个点"
 
 msgid "worldedit.selection.cuboid.primary"
-msgstr "第一个点设定为 %s。"
+msgstr "第一个点设定为 %s"
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "第一个点设定为 %1 (%2)。"
+msgstr "第一个点设定为 %1 (%2)"
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "第二个点设定为 %s。"
+msgstr "第二个点设定为 %s"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "第二个点设定为 %1 (%2)。"
+msgstr "第二个点设定为 %1 (%2)"
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "从 %s 开始一个新的圆柱体选区。"
+msgstr "从 %s 开始一个新的圆柱体选区"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "半径设定为 %1/%2 个方块 (~%3)。"
+msgstr "半径设定为 %1/%2 个方块 (~%3)"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "从 %1 (%2) 开始选区。"
+msgstr "从 %1 (%2) 开始选区"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "选区已扩展至 %1 (%2)。"
+msgstr "选区已扩展至 %1 (%2)"
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "半径设定为 %1。"
+msgstr "半径设定为 %1"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "半径设定为 %1 (~%2)。"
+msgstr "半径设定为 %1 (~%2)"
 
 msgid "worldedit.tool.noItem"
-msgstr "物品必须放在主手。"
+msgstr "物品必须放在主手"
 
 msgid "worldedit.tool.cantBind"
-msgstr "不能绑定该物品。"
+msgstr "不能绑定该物品"
 
 msgid "worldedit.tool.noBind"
-msgstr "该物品未绑定为任何工具。"
+msgstr "该物品未绑定为任何工具"
 
 msgid "worldedit.tool.noPerm"
-msgstr "没有使用此工具的权限。"
+msgstr "没有使用此工具的权限"
 
 msgid "worldedit.tool.fixedBind"
-msgstr "该物品绑定的工具无法被删除或替换。"
+msgstr "该物品绑定的工具无法被删除或替换"
 
 msgid "worldedit.permission.granted"
 msgstr "§e你已被授予 WorldEdit 权限。前往 (设置 > 游戏指南 > 快速入门) 了解使用方式。§r"
@@ -425,16 +425,16 @@ msgid "worldedit.error.tickArea"
 msgstr "创建临时常加载区域失败"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s 个方块已被更改。"
+msgstr "%s 个方块已被更改"
 
 msgid "commands.blocks.wedit:created"
-msgstr "%s 个方块已被创建。"
+msgstr "%s 个方块已被创建"
 
 msgid "commands.generic.wedit:commandFail"
 msgstr "执行失败。"
 
 msgid "commands.generic.wedit:noSelection"
-msgstr "请先选定一个区域。"
+msgstr "请先选定一个区域"
 
 msgid "commands.generic.wedit:invalidDir"
 msgstr "‘%s’ 为无效方向参数"
@@ -443,10 +443,10 @@ msgid "commands.generic.wedit:invalidFlag"
 msgstr "意外的 “%s”"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "剪贴板为空，请先复制或剪切一个区域。"
+msgstr "剪贴板为空，请先复制或剪切一个区域"
 
 msgid "commands.generic.wedit:noCuboidSelection"
-msgstr "请先选定一个立方体区域。"
+msgstr "请先选定一个立方体区域"
 
 msgid "commands.generic.wedit:noPermission"
 msgstr "你没有使用此命令的权限。"
@@ -851,13 +851,13 @@ msgid "commands.wedit:range.description"
 msgstr "设置笔刷能够生效的距离"
 
 msgid "commands.wedit:redo.description"
-msgstr "还原一定数量的操作"
+msgstr "重做操作"
 
 msgid "commands.wedit:redo.explain"
-msgstr "还原了 %s 个可用的编辑。"
+msgstr "重做了 %s 个操作。"
 
 msgid "commands.wedit:redo.none"
-msgstr "没有可以还原的步骤"
+msgstr "没有可以重做的操作。"
 
 msgid "commands.wedit:replace.description"
 msgstr "将选区中确定的方块替换为其它方块"
@@ -1013,7 +1013,7 @@ msgid "commands.wedit:thru.explain"
 msgstr "呼呼！"
 
 msgid "commands.wedit:thru.none"
-msgstr "没有贴近或面对一面要穿过的墙。"
+msgstr "没有贴近或面对墙体。"
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "在前方未发现有效空间。"
@@ -1109,13 +1109,13 @@ msgid "commands.wedit:unstuck.explain"
 msgstr "这边请！"
 
 msgid "commands.wedit:undo.description"
-msgstr "撤销一定数量的操作"
+msgstr "撤销操作"
 
 msgid "commands.wedit:undo.explain"
-msgstr "撤销了 %s 次可用编辑。"
+msgstr "撤销了 %s 个操作。"
 
 msgid "commands.wedit:undo.none"
-msgstr "没有可以撤销的步骤了。"
+msgstr "没有可以撤销的操作。"
 
 msgid "commands.wedit:up.description"
 msgstr "向上移动一定高度"
