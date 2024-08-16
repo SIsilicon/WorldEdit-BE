@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-16 11:23\n"
+"PO-Revision-Date: 2024-08-16 14:27\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -692,10 +692,10 @@ msgid "commands.wedit:faces.description"
 msgstr "在选区中生成一个轮廓"
 
 msgid "commands.wedit:fill.description"
-msgstr "用特定方块填充区域"
+msgstr "用指定方块填充选区。"
 
 msgid "commands.wedit:fillr.description"
-msgstr "用某些方块递归填充区域"
+msgstr "用指定方块递归填充选区。"
 
 msgid "commands.wedit:fixlava.description"
 msgstr "使附近的熔岩变成熔岩源"
@@ -764,7 +764,7 @@ msgid "commands.wedit:htorus.description"
 msgstr "生成一个空心圆环"
 
 msgid "commands.wedit:inset.description"
-msgstr "内移选区。"
+msgstr "内缩选区。"
 
 msgid "commands.wedit:import.description"
 msgstr "导入结构到剪贴板。"
@@ -776,7 +776,7 @@ msgid "commands.wedit:jumpto.description"
 msgstr "将自身传送至面向方块的顶部"
 
 msgid "commands.wedit:inset.explain"
-msgstr "已内移选区"
+msgstr "已内缩选区"
 
 msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
@@ -824,10 +824,10 @@ msgid "commands.wedit:navwand.explain"
 msgstr "潜行并使用道具：穿过墙体；不潜行直接使用道具：传送至墙体顶上"
 
 msgid "commands.wedit:outset.description"
-msgstr "外移选区。"
+msgstr "外扩选区。"
 
 msgid "commands.wedit:outset.explain"
-msgstr "已外移选区"
+msgstr "已外扩选区"
 
 msgid "commands.wedit:paste.description"
 msgstr "将剪切板粘贴至世界"
@@ -929,10 +929,10 @@ msgid "commands.wedit:setbiome.warning"
 msgstr "§e注：需要使用 WorldEdit 应用程序处理世界才能应用生物群系更改。§r"
 
 msgid "commands.wedit:shift.description"
-msgstr "移动选区"
+msgstr "移动选区。"
 
 msgid "commands.wedit:shift.explain"
-msgstr "区域已移动。"
+msgstr "已移动选区"
 
 msgid "commands.wedit:size.blocks"
 msgstr "#方块数: %s"
