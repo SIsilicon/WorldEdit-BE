@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-16 06:43\n"
+"PO-Revision-Date: 2024-08-16 08:37\n"
 
 msgid "pack.description"
 msgstr "这是 Java 版 WorldEdit 模组在基岩版上的移植，正在持续更新中！此模组的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -431,7 +431,7 @@ msgid "commands.blocks.wedit:created"
 msgstr "%s 个方块已被创建"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "执行失败。"
+msgstr "执行失败"
 
 msgid "commands.generic.wedit:noSelection"
 msgstr "请先选定一个区域"
@@ -449,7 +449,7 @@ msgid "commands.generic.wedit:noCuboidSelection"
 msgstr "请先选定一个立方体区域"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "你没有使用此命令的权限。"
+msgstr "你没有使用此命令的权限"
 
 msgid "commands.generic.wedit:outsideWorld"
 msgstr "无法修改未加载区块"
@@ -485,31 +485,31 @@ msgid "commands.wedit:blockid.description"
 msgstr "显示面向方块的 ID 与方块状态。"
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "对准需要获取 ID 与方块状态的方块。"
+msgstr "对准需要获取 ID 与方块状态的方块"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "已装载球形笔刷 (%s)。"
+msgstr "已装载球形笔刷 (%s)"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "已装载圆柱形笔刷 (%1 由 %2)。"
+msgstr "已装载圆柱形笔刷 (%1 由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "已装载平滑笔刷 (%1 x %2x)。"
+msgstr "已装载平滑笔刷 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "已装载平滑笔刷 (%1 x %2x 并使用过滤器)。"
+msgstr "已装载平滑笔刷 (%1 x %2x 并使用过滤器)"
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "已装载剪贴板笔刷。"
+msgstr "已装载剪贴板笔刷"
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "已装载结构笔刷。"
+msgstr "已装载结构笔刷"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "已装载侵蚀笔刷 (%s)。"
+msgstr "已装载侵蚀笔刷 (%s)"
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "已装载叠加笔刷 (%s)。"
+msgstr "已装载叠加笔刷 (%s)"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
@@ -536,64 +536,64 @@ msgid "commands.wedit:brush.description.overlay"
 msgstr "创建地形覆盖笔刷"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "已设定笔刷替换方块。"
+msgstr "已设定笔刷替换方块"
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "已禁用笔刷替换方块。"
+msgstr "已禁用笔刷替换方块"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "已设定笔刷材质。"
+msgstr "已设定笔刷材质"
 
 msgid "commands.wedit:brush.range.set"
-msgstr "已设定笔刷范围。"
+msgstr "已设定笔刷范围"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "已设定笔刷大小。"
+msgstr "已设定笔刷大小"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "已设定笔刷生效方块。"
+msgstr "已设定笔刷生效方块"
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "已禁用笔刷生效方块。"
+msgstr "已禁用笔刷生效方块"
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "笔刷最大半径： %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "此笔刷不需要材质来运作。"
+msgstr "此笔刷不需要材质来运作"
 
 msgid "commands.wedit:brush.noSize"
-msgstr "此笔刷没有可设置的大小。"
+msgstr "此笔刷没有可设置的大小"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "笔刷已从当前物品解绑。"
+msgstr "笔刷已从当前物品解绑"
 
 msgid "commands.wedit:butcher.description"
 msgstr "杀死附近的实体。"
 
 msgid "commands.wedit:butcher.explain"
-msgstr "杀死了 %s 个实体。"
+msgstr "杀死了 %s 个实体"
 
 msgid "commands.wedit:calc.description"
 msgstr "计算数学表达式。"
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s'无法解析为有效表达式。"
+msgstr "'%s'无法解析为有效表达式"
 
 msgid "commands.wedit:cancel.description"
 msgstr "取消所有正在执行的任务。"
 
 msgid "commands.wedit:cancel.explain"
-msgstr "取消了第 %s 个任务。"
+msgstr "取消了第 %s 个任务"
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "取消了共 %s 个任务。"
+msgstr "取消了共 %s 个任务"
 
 msgid "commands.wedit:cancel.none"
-msgstr "没有对应该ID的任务。"
+msgstr "没有对应该ID的任务"
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "没有可以取消的任务。"
+msgstr "没有可以取消的任务"
 
 msgid "commands.wedit:ceiling.description"
 msgstr "前往顶层。"
