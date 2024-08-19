@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-19 01:24\n"
+"PO-Revision-Date: 2024-08-19 02:24\n"
 
 msgid "pack.description"
 msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon（§l§b@iSiliconS§r）。"
@@ -470,7 +470,7 @@ msgid "commands.generic.wedit:unbindInfo"
 msgstr "在手持物品的情况下，通过§7执行§e%s§7来解绑。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "面向的生物群系: %s"
+msgstr "面向的生物群系：%s"
 
 msgid "commands.wedit:biomeinfo.description"
 msgstr "获取选区中的生物群系类型"
@@ -494,7 +494,7 @@ msgid "commands.wedit:brush.bind.cylinder"
 msgstr "已装载圆柱形笔刷（%1 由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "已装载平滑笔刷（%1 x %2x)"
+msgstr "平滑笔刷已装载 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已装载平滑笔刷（%1 x %2x 并使用过滤器)"
