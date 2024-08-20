@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-20 01:54\n"
+"PO-Revision-Date: 2024-08-20 03:42\n"
 
 msgid "pack.description"
 msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon (§l§b@iSiliconS§r)。"
@@ -116,10 +116,10 @@ msgid "worldedit.config.general"
 msgstr "通用"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "剪贴板中包括实体"
+msgstr "剪贴板内包括实体"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "剪贴板中包括空气"
+msgstr "剪贴板内包括空气"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "性能模式"
@@ -272,7 +272,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "选择要创建的工具类型"
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "在此处插入渐变 ID"
+msgstr "渐变ID"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "设置笔刷的填充图案与替换蒙版"
@@ -356,7 +356,7 @@ msgid "worldedit.config.command.noCommand"
 msgstr "未指定命令"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "是否为 WorldEdit 命令"
+msgstr "是否为WorldEdit命令"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "未设置第一个点"
@@ -479,7 +479,7 @@ msgid "commands.wedit:biomeinfo.position"
 msgstr "当前位置的生物群系为：%s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "当前选区内的生物群系为：%s"
+msgstr "当前选区中的生物群系为：%s"
 
 msgid "commands.wedit:blockid.description"
 msgstr "显示面向方块的ID与方块状态。"
@@ -488,16 +488,16 @@ msgid "commands.wedit:blockid.noBlock"
 msgstr "面向需要获取ID与方块状态的方块"
 
 msgid "commands.wedit:brush.bind.sphere"
-msgstr "已装载球形笔刷(%s)"
+msgstr "已装载球形笔刷 (%s)"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "已装载圆柱形笔刷(%1 由 %2)"
+msgstr "已装载圆柱形笔刷 (%1 由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
 msgstr "已装载平滑笔刷 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "已装载平滑笔刷(%1 x %2x 并使用过滤器)"
+msgstr "已装载平滑笔刷 (%1 x %2x 并使用过滤器)"
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "已装载剪贴板笔刷"
@@ -506,10 +506,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "已装载结构笔刷"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "已装载侵蚀笔刷(%s)"
+msgstr "已装载侵蚀笔刷 (%s)"
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "已装载叠加笔刷(%s)"
+msgstr "已装载叠加笔刷 (%s)"
 
 msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
@@ -542,7 +542,7 @@ msgid "commands.wedit:brush.mask.disabled"
 msgstr "已禁用笔刷替换蒙版"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "已设置笔刷材质"
+msgstr "已设置笔刷材料"
 
 msgid "commands.wedit:brush.range.set"
 msgstr "已设置笔刷范围"
@@ -551,10 +551,10 @@ msgid "commands.wedit:brush.size.set"
 msgstr "已设置笔刷大小"
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "已设定笔刷生效方块"
+msgstr "已设置笔刷生效蒙版"
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "已禁用笔刷生效方块"
+msgstr "已禁用笔刷生效蒙版"
 
 msgid "commands.wedit:brush.tooLarge"
 msgstr "你输入的数字太大了，最大只能为%s"
@@ -650,7 +650,7 @@ msgid "commands.wedit:cyl.description"
 msgstr "生成圆柱"
 
 msgid "commands.wedit:distr.description"
-msgstr "统计选区中不同方块的数量"
+msgstr "统计选区内不同方块的数量"
 
 msgid "commands.wedit:drain.description"
 msgstr "抽空附近的液体"
@@ -668,7 +668,7 @@ msgid "commands.wedit:drawsel.enabled"
 msgstr "选区粒子将可见"
 
 msgid "commands.wedit:expand.description"
-msgstr "扩大选区。"
+msgstr "扩大选区"
 
 msgid "commands.wedit:expand.description.vert"
 msgstr "垂直扩展选区至世界高度限制"
@@ -677,13 +677,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "选区扩展了%s个方块"
 
 msgid "commands.wedit:export.description"
-msgstr "导出选区以供之后使用。"
+msgstr "导出选区供之后使用。"
 
 msgid "commands.wedit:export.explain"
 msgstr "%s导出成功"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§e注: 要在其他世界上使用导出的结构，需要在WorldEdit应用程序中提取。§r"
+msgstr "§e注：要在其他世界上使用导出的结构，需要在WorldEdit应用程序中提取。§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
@@ -719,7 +719,7 @@ msgid "commands.wedit:flip.notLateral"
 msgstr "无法垂直翻转"
 
 msgid "commands.wedit:gen.description"
-msgstr "在选区中生成各种形状"
+msgstr "在选区内生成各种形状"
 
 msgid "commands.wedit:gmask.description"
 msgstr "设置全局替换蒙版"
@@ -806,7 +806,7 @@ msgid "commands.wedit:limit.tooHigh"
 msgstr "你输入的数字太大了，最大只能为%s"
 
 msgid "commands.wedit:mask.description"
-msgstr "设置笔刷可以在哪些方块上生效，默认为空气"
+msgstr "设置笔刷的替换蒙版，默认为空气，如果有的话可以添加"
 
 msgid "commands.wedit:material.description"
 msgstr "设置笔刷的填充图案"
@@ -848,7 +848,7 @@ msgid "commands.wedit:pyramid.description"
 msgstr "生成棱锥"
 
 msgid "commands.wedit:range.description"
-msgstr "设置笔刷能够生效的距离"
+msgstr "设置笔刷可以生效的距离"
 
 msgid "commands.wedit:redo.description"
 msgstr "重做操作"
@@ -929,34 +929,34 @@ msgid "commands.wedit:setbiome.warning"
 msgstr "§e注：需要使用WorldEdit应用程序处理世界才能应用生物群系更改。§r"
 
 msgid "commands.wedit:shift.description"
-msgstr "移动选区。"
+msgstr "移动选区"
 
 msgid "commands.wedit:shift.explain"
 msgstr "已移动选区"
 
 msgid "commands.wedit:size.blocks"
-msgstr "#方块数:%s"
+msgstr "#方块数：%s"
 
 msgid "commands.wedit:size.description"
 msgstr "设置笔刷大小或获取选区信息"
 
 msgid "commands.wedit:size.distance"
-msgstr "立方体距离:%s"
+msgstr "立方体距离：%s"
 
 msgid "commands.wedit:size.offset"
-msgstr "偏移:%s"
+msgstr "偏移：%s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "第一个点:%s"
+msgstr "第一个点：%s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "第二个点:%s"
+msgstr "第二个点：%s"
 
 msgid "commands.wedit:size.size"
-msgstr "大小:%s"
+msgstr "大小：%s"
 
 msgid "commands.wedit:size.type"
-msgstr "类型:%s"
+msgstr "类型：%s"
 
 msgid "commands.wedit:snow.description"
 msgstr "模拟该区域的降雪"
@@ -1034,7 +1034,7 @@ msgid "commands.wedit:descend.obstructed"
 msgstr "在下方未发现有效空间。"
 
 msgid "commands.wedit:tracemask.description"
-msgstr "设置笔刷可以使用的方块类型"
+msgstr "设置笔刷可以在哪些方块上使用"
 
 msgid "commands.wedit:trim.description"
 msgstr "修剪选区至包含匹配的方块"
@@ -1049,7 +1049,7 @@ msgid "commands.wedit:toggleplace.complete"
 msgstr "已切换放置位置。"
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "切换用于不同创世神操作的放置位置。"
+msgstr "切换用于不同WorldEdit操作的放置位置。"
 
 msgid "commands.wedit:tool.bind.selwand"
 msgstr "选择器已被绑定至%s"
@@ -1124,7 +1124,7 @@ msgid "commands.wedit:up.explain"
 msgstr "呼呼！"
 
 msgid "commands.wedit:wall.description"
-msgstr "在选区中生成墙"
+msgstr "在选区内生成墙"
 
 msgid "commands.wedit:wand.description"
 msgstr "获取一个选择器"
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意：§r§a此插件提供的命令使用分号（;) 而不是正斜杠（/）。未来，Mojang可能会为Minecraft添加实际的自定义命令支持。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "在两地之间移动有时会很麻烦。幸运的是，这个附加包带有传送器，你可以使用命令§e;navwand§r命令获取。使用传送器可传送至面向方块；如果想穿过墙或天花板，潜行时使用传送器即可穿过；如果被卡在方块中，使用传送器即可脱离。"
+msgstr "在两地之间移动有时会很麻烦。幸运的是，这个附加包带有传送器，你可以使用命令§e;navwand§r命令获取。使用传送器可传送至面向方块；如果想穿过墙或天花板，潜行时使用传送器即可穿过；如果被卡在方块内，使用传送器即可脱离。"
 
 msgid "howtoplay.wedit:quick_start.text.6"
 msgstr "§l§a提示：§r§a如果你不想使用传送器，也可以使用命令§e;jumpto§r§a §e;thru§r§a §e;unstuck§r§a实现上述功能§r。"
@@ -1193,7 +1193,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "选择"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "与Java版原模组相同，你可以使用选择器选定一个区域并进行各种操作，使用命令§e;wand§r获取选择器。WorldEdit中的选区默认为立方体形状，你需要选择立方体的两个对角以选定区域，使用选择器破坏单个方块选择第一个点；对方块使用选择器选择第二个点。如果步骤正确，你应该会看到选区被粒子效果框选。"
+msgstr "与Java版原模组相同，你可以使用选择器选定一个区域并进行各种操作，使用命令§e;wand§r获取选择器。WorldEdit内的选区默认为立方体形状，你需要选择立方体的两个对角以选定区域，使用选择器破坏单个方块选择第一个点；对方块使用选择器选择第二个点。如果步骤正确，你应该会看到选区被粒子效果框选。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "如果没有方块用于选定区域对角，例如在半空中，你也可以使用命令§e;pos1§r §e;pos2§r分别将当前位置设置为第一个点与第二个点。§l需要注意的是，设置的是自身当前所在的位置，即玩家的腿部模型，而非脚下方块的位置。§r"
@@ -1214,7 +1214,7 @@ msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73. 放置一块砂岩与玻璃，对砂岩使用“填充方块选取器”物品，随后，潜行对玻璃使用“填充方块选取器”物品。之后，使用“填充选区”物品，选区将混合填充砂岩与玻璃。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. 在背包中取出“替换方块选取器”物品并对砂岩使用，随后，使用“填充方块选取器”物品选择任意一个方块。之后，使用“填充选区”物品，选区内砂岩将替换为另一方块。操作结束后，使用命令§e;gmask§r禁用替换蒙版，不需要使用替换功能时都需要这么做。"
+msgstr "§r4. 在背包内取出“替换方块选取器”物品并对砂岩使用，随后，使用“填充方块选取器”物品选择任意一个方块。之后，使用“填充选区”物品，选区中砂岩将替换为另一方块。操作结束后，使用命令§e;gmask§r禁用替换蒙版，不需要使用替换功能时都需要这么做。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
 msgstr "§75. 使用命令§e;stack 4 up§r§7将选区向上堆叠4次。"
@@ -1226,7 +1226,7 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "笔刷实践"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. 在背包中取出任意类型的铲子，随后，放置一块圆石；稍后将用于设置笔刷。"
+msgstr "1. 在背包内取出任意类型的铲子，随后，放置一块圆石；稍后将用于设置笔刷。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. 使用“WorldEdit设置”物品，打开“笔刷”二级菜单。随后，新建一个笔刷，笔刷类型设置为球形笔刷，半径设置为3，填充图案设置为圆石。之后，确认设置并关闭菜单。"
