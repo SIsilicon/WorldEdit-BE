@@ -218,7 +218,7 @@ class DrawCylinderTool extends GeneratorTool {
             center.y += height;
             height = -height + 1;
         }
-        return [new CylinderShape(height, radius), center];
+        return [new CylinderShape(height * 2, radius), center];
     }
 
     useOn = this.commonUse;
