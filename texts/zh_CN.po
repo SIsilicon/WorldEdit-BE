@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-20 00:11\n"
+"PO-Revision-Date: 2024-08-20 01:54\n"
 
 msgid "pack.description"
-msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon(§l§b@iSiliconS§r)。"
+msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit的脚本已停止！使用命令§r/reload§c重新加载(所有行为包都将重新加载)。§r"
+msgstr "§cWorldEdit的脚本已停止！使用命令§r/reload§c重新加载 (所有行为包都将重新加载)。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -83,16 +83,16 @@ msgid "item.wedit:draw_cylinder"
 msgstr "绘制圆柱体"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "绘制椎体"
+msgstr "绘制棱锥体"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "未指定填充图案"
 
 msgid "worldedit.patternPicker.add"
-msgstr "已添加的填充方块： "
+msgstr "已添加的填充图案： "
 
 msgid "worldedit.patternPicker.set"
-msgstr "将填充方块设为: "
+msgstr "将填充图案设置为： "
 
 msgid "worldedit.maskPicker.add"
 msgstr "已添加的替换蒙版： "
@@ -116,16 +116,16 @@ msgid "worldedit.config.general"
 msgstr "通用"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "在剪贴板中包含实体"
+msgstr "剪贴板中包括实体"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "在剪贴板中包含空气"
+msgstr "剪贴板中包括空气"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "性能模式"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "绘制轮廓"
+msgstr "选区粒子"
 
 msgid "worldedit.config.general.drawOutlines.off"
 msgstr "关闭"
@@ -194,7 +194,7 @@ msgid "worldedit.genMode.cylinder"
 msgstr "圆柱体"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "棱锥"
+msgstr "棱锥体"
 
 msgid "worldedit.stack.title"
 msgstr "选择堆叠次数"
@@ -221,10 +221,10 @@ msgid "worldedit.config.tool.stacker"
 msgstr "堆叠器"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "命令棒"
+msgstr "命令工具"
 
 msgid "worldedit.config.tool.repl"
-msgstr "替换棒"
+msgstr "方块替换工具"
 
 msgid "worldedit.config.tool.cycle"
 msgstr "方块调试工具"
@@ -314,7 +314,7 @@ msgid "worldedit.config.amount"
 msgstr "次数"
 
 msgid "worldedit.config.pattern"
-msgstr "填充"
+msgstr "填充图案"
 
 msgid "worldedit.config.pattern.noPattern"
 msgstr "未指定填充图案"
@@ -341,7 +341,7 @@ msgid "worldedit.config.structures"
 msgstr "结构"
 
 msgid "worldedit.config.blend"
-msgstr "混合次数"
+msgstr "混合程度"
 
 msgid "worldedit.config.mask.height"
 msgstr "高度蒙板"
@@ -365,31 +365,31 @@ msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设置为%s"
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "第一个点设置为%1(%2)"
+msgstr "第一个点设置为%1 (%2)"
 
 msgid "worldedit.selection.cuboid.secondary"
 msgstr "第二个点设置为%s"
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "第二个点设置为%1(%2)"
+msgstr "第二个点设置为%1 (%2)"
 
 msgid "worldedit.selection.cylinder.primary"
 msgstr "从%s新建圆柱体选区"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
-msgstr "半径设置为%1/%2 个方块(~%3)"
+msgstr "半径设置为%1/%2 个方块 (~%3)"
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "从%1(%2)新建选区"
+msgstr "从%1 (%2) 新建选区"
 
 msgid "worldedit.selection.extend.secondaryArea"
-msgstr "选区已扩展至%1(%2)"
+msgstr "选区已扩展至%1 (%2)"
 
 msgid "worldedit.selection.sphere.primary"
 msgstr "半径设置为%1"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "半径设置为%1(~%2)"
+msgstr "半径设置为%1 (~%2)"
 
 msgid "worldedit.tool.noItem"
 msgstr "物品必须放在主手"
@@ -407,7 +407,7 @@ msgid "worldedit.tool.fixedBind"
 msgstr "该物品绑定的工具无法被删除或替换"
 
 msgid "worldedit.permission.granted"
-msgstr "§e你已被给予WorldEdit权限，前往(设置 > 游戏指南 > 快速入门)了解使用方式。§r"
+msgstr "§e你已被给予WorldEdit权限，前往 (设置 > 游戏指南 > 快速入门) 了解使用方式。§r"
 
 msgid "worldedit.permission.revoked"
 msgstr "§e你已被撤销WorldEdit权限§r"
@@ -458,10 +458,10 @@ msgid "commands.generic.wedit:outsideWorld.detail"
 msgstr "§e提示：如果需要加载更多区块，请增加模拟距离并靠近操作位置，或在需要操作的位置添加常加载区域。§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "你输入的数字(%1) 太大了，它最高只能为 (%2)"
+msgstr "你输入的数字 (%1) 太大了，它最高只能为 (%2)"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "你输入的数字（%1)太小了，它至少需要为 %2"
+msgstr "你输入的数字 (%1) 太小了，它至少需要为 (%2)"
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "方块太多"
@@ -494,7 +494,7 @@ msgid "commands.wedit:brush.bind.cylinder"
 msgstr "已装载圆柱形笔刷(%1 由 %2)"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "已装载平滑笔刷(%1 x %2x)"
+msgstr "已装载平滑笔刷 (%1 x %2x)"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已装载平滑笔刷(%1 x %2x 并使用过滤器)"
@@ -599,7 +599,7 @@ msgid "commands.wedit:ceiling.description"
 msgstr "前往顶层。"
 
 msgid "commands.wedit:center.description"
-msgstr "设置中心方块(可以多个)。"
+msgstr "设置中心方块 (可以多个)。"
 
 msgid "commands.wedit:chunk.description"
 msgstr "选择当前或指定的区块。"
@@ -743,7 +743,7 @@ msgid "commands.wedit:hcyl.description"
 msgstr "生成空心圆柱"
 
 msgid "commands.wedit:help.header"
-msgstr "--- 显示帮助手册第%1/%2页(;help <page>) ---"
+msgstr "--- 显示帮助手册第%1/%2页 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
 msgstr "镂空选区中的物体"
@@ -782,7 +782,7 @@ msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "没有面向方块(或距离方块过远)"
+msgstr "没有面向方块 (或距离方块过远)"
 
 msgid "commands.wedit:kit.description"
 msgstr "获取一套常用WorldEdit功能的快捷工具"
@@ -806,7 +806,7 @@ msgid "commands.wedit:limit.tooHigh"
 msgstr "你输入的数字太大了，最大只能为%s"
 
 msgid "commands.wedit:mask.description"
-msgstr "设置笔刷可以在哪些方块上生效(默认为空气)"
+msgstr "设置笔刷可以在哪些方块上生效，默认为空气"
 
 msgid "commands.wedit:material.description"
 msgstr "设置笔刷的填充图案"
@@ -1205,19 +1205,19 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "选定一个合适大小的区域，并使用§e;kit§r获取一套快捷工具，我们将实践一些WorldEdit提供的功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71.放置一块石头，对其使用“填充方块选取器”物品。随后，使用“填充选区”物品，这会将选区填充为石头。"
+msgstr "§71. 放置一块石头，对其使用“填充方块选取器”物品。随后，使用“填充选区”物品，这会将选区填充为石头。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. 对空气使用“填充方块选取器”物品(对于使用轻触 > 摇杆并点击进行互动/方向键并点击进行互动 控制模式的玩家，需要长按)，随后，再次使用“填充选区”物品以清除石头。"
+msgstr "§r2. 对空气使用“填充方块选取器”物品 (对于使用轻触 > 摇杆并点击进行互动/方向键并点击进行互动 控制模式的玩家，需要长按)，随后，再次使用“填充选区”物品以清除石头。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73.放置一块砂岩与玻璃，对砂岩使用“填充方块选取器”物品，随后，潜行对玻璃使用“填充方块选取器”物品。之后，使用“填充选区”物品，选区将混合填充砂岩与玻璃。"
+msgstr "§73. 放置一块砂岩与玻璃，对砂岩使用“填充方块选取器”物品，随后，潜行对玻璃使用“填充方块选取器”物品。之后，使用“填充选区”物品，选区将混合填充砂岩与玻璃。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4.在背包中取出“替换方块选取器”物品并对砂岩使用，随后，使用“填充方块选取器”物品选择任意一个方块。之后，使用“填充选区”物品，选区内砂岩将替换为另一方块。操作结束后，使用命令§e;gmask§r禁用替换蒙版，不需要使用替换功能时都需要这么做。"
+msgstr "§r4. 在背包中取出“替换方块选取器”物品并对砂岩使用，随后，使用“填充方块选取器”物品选择任意一个方块。之后，使用“填充选区”物品，选区内砂岩将替换为另一方块。操作结束后，使用命令§e;gmask§r禁用替换蒙版，不需要使用替换功能时都需要这么做。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75.使用命令§e;stack 4 up§r§7将选区向上堆叠4次。"
+msgstr "§75. 使用命令§e;stack 4 up§r§7将选区向上堆叠4次。"
 
 msgid "howtoplay.wedit:quick_start.text.15"
 msgstr "只要你愿意，可以使用“撤销”与“重做”物品撤回所有操作，直到无法进一步撤回为止。另外，使用命令§e;desel§r可以取消选区，不需要使用选区时都需要这么做，以防止潜在的卡顿。"
@@ -1226,25 +1226,25 @@ msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "笔刷实践"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1.在背包中取出任意类型的铲子，随后，放置一块圆石(稍后用于设置笔刷)。"
+msgstr "1. 在背包中取出任意类型的铲子，随后，放置一块圆石；稍后将用于设置笔刷。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72.使用“WorldEdit设置”物品，打开“笔刷”二级菜单。随后，新建一个笔刷，笔刷类型设置为球形笔刷，半径设置为3，填充图案设置为圆石。之后，确认设置并关闭菜单。"
+msgstr "§72. 使用“WorldEdit设置”物品，打开“笔刷”二级菜单。随后，新建一个笔刷，笔刷类型设置为球形笔刷，半径设置为3，填充图案设置为圆石。之后，确认设置并关闭菜单。"
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3。瞄准不靠近你的地面，用铲子（现在是刷子）放置鹅卵石球。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74.再次打开“笔刷”菜单，将笔刷的替换蒙版设置为草方块。现在，使用笔刷建造一条圆石道路。"
+msgstr "§74. 再次打开“笔刷”菜单，将笔刷的替换蒙版设置为草方块。现在，使用笔刷建造一条圆石道路。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5.从菜单中删除这个笔刷以禁用它。"
+msgstr "§r5. 从菜单中删除这个笔刷以禁用它。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "帮助"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "要了解更多关于此附加包的信息，你可以访问它的在线文档(只有英文)：§ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "要了解更多关于此附加包的信息，你可以访问它的在线英文文档：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
 msgstr "我的世界"
