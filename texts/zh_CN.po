@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-19 16:39\n"
+"PO-Revision-Date: 2024-08-20 00:11\n"
 
 msgid "pack.description"
 msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon(§l§b@iSiliconS§r)。"
@@ -1208,7 +1208,7 @@ msgid "howtoplay.wedit:quick_start.text.10"
 msgstr "§71.放置一块石头，对其使用“填充方块选取器”物品。随后，使用“填充选区”物品，这会将选区填充为石头。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2.对空气使用“填充方块选取器”物品，随后，再次使用“填充选区”物品以清除石头。"
+msgstr "§r2. 对空气使用“填充方块选取器”物品(对于使用轻触 > 摇杆并点击进行互动/方向键并点击进行互动 控制模式的玩家，需要长按)，随后，再次使用“填充选区”物品以清除石头。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
 msgstr "§73.放置一块砂岩与玻璃，对砂岩使用“填充方块选取器”物品，随后，潜行对玻璃使用“填充方块选取器”物品。之后，使用“填充选区”物品，选区将混合填充砂岩与玻璃。"
