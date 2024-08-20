@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-20 03:42\n"
+"PO-Revision-Date: 2024-08-20 04:51\n"
 
 msgid "pack.description"
 msgstr "这是Java版WorldEdit模组在基岩版上的移植，正在持续更新中！此附加包的作者是SIsilicon (§l§b@iSiliconS§r)。"
@@ -515,7 +515,7 @@ msgid "commands.wedit:brush.description"
 msgstr "设置所持笔刷的类型"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "从当前物品解绑笔刷"
+msgstr "从所持物品解绑笔刷"
 
 msgid "commands.wedit:brush.description.sphere"
 msgstr "创建球形笔刷"
@@ -566,7 +566,7 @@ msgid "commands.wedit:brush.noSize"
 msgstr "此笔刷没有可设置的大小"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "笔刷已从当前物品解绑"
+msgstr "笔刷已从所持物品解绑"
 
 msgid "commands.wedit:butcher.description"
 msgstr "杀死附近的实体。"
@@ -1046,7 +1046,7 @@ msgid "commands.wedit:trim.no-blocks"
 msgstr "没有匹配修剪蒙版的方块"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "已切换放置位置。"
+msgstr "已切换放置位置"
 
 msgid "commands.wedit:toggleplace.description"
 msgstr "切换用于不同WorldEdit操作的放置位置。"
@@ -1076,34 +1076,34 @@ msgid "commands.wedit:tool.description"
 msgstr "获取所有类型的工具"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "远程选择器"
+msgstr "远程选择器：选区工具，但可以选择更远的距离"
 
 msgid "commands.wedit:tool.description.selwand"
-msgstr "选区工具"
+msgstr "选择器：选区工具"
 
 msgid "commands.wedit:tool.description.navwand"
-msgstr "传送工具"
+msgstr "传送器：传送工具"
 
 msgid "commands.wedit:tool.description.stacker"
-msgstr "堆叠器"
+msgstr "堆叠器：方块堆叠工具"
 
 msgid "commands.wedit:tool.description.cmd"
-msgstr "命令工具；允许原版与WorldEdit命令"
+msgstr "命令工具：允许原版与WorldEdit命令"
 
 msgid "commands.wedit:tool.description.repl"
 msgstr "方块替换工具"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "方块调试工具"
+msgstr "方块调试工具：调试棒"
 
 msgid "commands.wedit:tool.description.none"
-msgstr "取消绑定所持工具"
+msgstr "从所持物品解绑工具"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "工具已从当前物品解绑。"
+msgstr "工具已从所持物品解绑。"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "从方块中脱离"
+msgstr "从方块内脱离"
 
 msgid "commands.wedit:unstuck.explain"
 msgstr "这边请！"
@@ -1160,7 +1160,7 @@ msgid "howtoplay.wedit:quick_start.title"
 msgstr "游戏指南：快速学习如何使用WorldEdit"
 
 msgid "howtoplay.wedit:license"
-msgstr "许可证书"
+msgstr "许可证"
 
 msgid "howtoplay.wedit:license.title"
 msgstr "游戏指南：WorldEdit许可证"
@@ -1178,7 +1178,7 @@ msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a提示：§r§a你也可以将§e@s§r§a更改为指定的玩家名称来给其他玩家添加“worldedit”标签。如果玩家名称中有空格，则需要用引号将其括起来。例：§e/tag \"Steve Wander\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
-msgstr "行走八方"
+msgstr "移动"
 
 msgid "howtoplay.wedit:quick_start.text.4"
 msgstr "§l§a注意：§r§a此插件提供的命令使用分号（;) 而不是正斜杠（/）。未来，Mojang可能会为Minecraft添加实际的自定义命令支持。§r"
@@ -1247,5 +1247,5 @@ msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "要了解更多关于此附加包的信息，你可以访问它的在线英文文档：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "我的世界"
+msgstr "Minecraft"
 
