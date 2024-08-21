@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-21 19:29\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "Tegn omriss"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "Av"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "Synlig for seg selv"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Synlig for alle"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Utvalgsmodus"
@@ -761,7 +761,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Generer et hul kule"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "Generer en hul torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "Sett in utvalgsområdet"
@@ -1019,7 +1019,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "Ingen tomme områder funnet foran deg."
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "Generer en torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Gå opp en etasje"
