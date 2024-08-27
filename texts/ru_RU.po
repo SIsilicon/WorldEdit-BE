@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-08-27 21:47\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -1172,7 +1172,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перед чем-либо еще..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "По умолчанию игрокам не разрешается использовать WorldEdit. Только те, у кого есть разрешение worldedit, могут использовать его функции. Чтобы дать себе разрешение, введите §e/tag @s add worldedit§r в чате. После этого у вас должен быть доступ ко всем командам WorldEdit."
+msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aПодсказка:§r§a Вы также можете дать разрешение другим игрокам, сменив §e@s§r§a на имя игрока. Вам нужно окружить его кавычками, если в нём есть пробел. Например: §e/tag \"Steve Wanderer\" add worldedit§r"
