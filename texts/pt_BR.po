@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-08-27 21:47\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -1172,7 +1172,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "Por padrão, os jogadores não podem usar o editorial. Apenas aqueles com a 'tag' 'worldedit' podem usar seus recursos. Para se tornar um construtor, digite §e/etiqueta @s add worldedit§r no chat. Você deve então receber uma mensagem dizendo que você recebeu permissões do editorial."
+msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aDica:§r§a Você também pode tornar outros jogadores construtores alterando §e@s§r§a para o nome do jogador. Caso o jogador possua espaços no nome, será necessário utilizar aspas duplas. Por exemplo: §e/tag \"Steve Da Silva\" add worldedit§r"
