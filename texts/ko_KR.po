@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: ko\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -68,7 +68,7 @@ msgid "item.wedit:selection_stack"
 msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "이동 도구"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "선 그리기"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "선 그리기"
 
 msgid "item.wedit:draw_sphere"
-msgstr "구 그리기"
+msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "기둥 그리기"
+msgstr "Draw Cylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "피라미드 그리기"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "도구"
 
 msgid "worldedit.config.gradients"
-msgstr "그레디언트"
+msgstr "Gradients"
 
 msgid "worldedit.config.general"
 msgstr "일반"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "새로운 브러시 제작"
 
 msgid "worldedit.config.newGradient"
-msgstr "새 그라데이션 생성"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "직육면체"
@@ -161,16 +161,16 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "원기둥"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "지역 설정"
+msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "채우기 모드"
+msgstr "Fill Mode"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "벽 모드"
+msgstr "Wall Mode"
 
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
@@ -179,22 +179,22 @@ msgid "worldedit.regionMode.stack"
 msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "이동 모드"
+msgstr "Move Mode"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "생성할 형상 선택"
+msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "선"
+msgstr "Line"
 
 msgid "worldedit.genMode.sphere"
-msgstr "구"
+msgstr "Sphere"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "원기둥"
+msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "피라미드"
+msgstr "Pyramid"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -251,7 +251,7 @@ msgid "worldedit.config.gradient.use"
 msgstr "Use Gradient in Pattern Picker"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "그레디언트 지우기"
+msgstr "Delete Gradient"
 
 msgid "worldedit.config.gradient.add"
 msgstr "Add new Gradient"
@@ -296,7 +296,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "이 아이템을 정말로 삭제하시겠습니까?"
 
 msgid "worldedit.config.name"
-msgstr "이름"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "크기"
@@ -455,7 +455,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "언로드된 청크를 수정할 수 없습니다!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
+msgstr "§e팁: 더 많은 청크를 로드하려면 시뮬레이션 거리를 늘리거나 명령어를 이용하여 Ticking area를 추가하세요."
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "숫자(%1) 가 너무 큽니다! 최대값(%2) 이어야 합니다."
@@ -482,7 +482,7 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "선택한 영역의 바이옴: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr ""
+msgstr "Prints the id and states of the block you're looking at."
 
 msgid "commands.wedit:blockid.noBlock"
 msgstr "Look at the block you want the id and states of."
