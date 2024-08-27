@@ -166,7 +166,6 @@ export abstract class Shape {
      */
     public *generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
-        console.warn(min, max);
         const player = session.getPlayer();
         const dimension = player.dimension;
 

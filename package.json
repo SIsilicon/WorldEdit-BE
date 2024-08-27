@@ -27,13 +27,13 @@
         "typescript": "^4.7.4"
     },
     "dependencies": {
-        "@minecraft/server": "^1.14.0-beta.1.21.20-preview.24",
-        "@minecraft/server-admin": "^1.0.0-beta.1.19.80-stable",
-        "@minecraft/server-ui": "^1.3.0-beta.1.21.20-preview.24"
+        "@minecraft/server": "1.14.0-beta.1.21.20-stable",
+        "@minecraft/server-admin": "1.0.0-beta.1.19.80-stable",
+        "@minecraft/server-ui": "1.3.0-beta.1.21.20-stable"
     },
     "overrides": {
         "@minecraft/server-ui": {
-            "@minecraft/server": "^1.14.0-beta.1.21.20-preview.24"
+            "@minecraft/server": "1.14.0-beta.1.21.20-stable"
         }
     }
 }

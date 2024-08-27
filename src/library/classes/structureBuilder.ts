@@ -143,7 +143,6 @@ class StructureManager {
                     this.structures.set(name, { size });
                     return false;
                 } catch (err) {
-                    console.warn(err);
                     if (loadArea(min, max)) return true;
                     await sleep(1);
                 }
