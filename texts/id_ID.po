@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-08-27 21:47\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -1172,7 +1172,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Before Anything Else..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
