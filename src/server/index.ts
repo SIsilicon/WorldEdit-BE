@@ -1,5 +1,6 @@
 import { Player, world } from "@minecraft/server";
 import { print, printerr } from "./util.js";
+import whitelistEnabled from "whitelist.js";
 
 // Check if configuration is properly loaded
 if (!config.commandPrefix) {
@@ -105,10 +106,9 @@ function removeBuilder(player: string) {
 }
 
 function hasWorldEdit(player: Player) {
+    if (!whitelistEnabled) return true;
     for (const tag of player.getTags()) {
-        if (tag.startsWith("worldedit")) {
-            return true;
-        }
+        if (tag.startsWith("worldedit")) return true;
     }
     return false;
 }

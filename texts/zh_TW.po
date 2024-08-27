@@ -1172,7 +1172,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "默認情況下，不允許玩家使用 WorldEdit。 只有那些帶有 worldedit 權限的人才能使用它的功能。 要授予自己權限，請在聊天中輸入 §e/tag @s add worldedit§r。 您現在應該可以訪問每個 WorldEdit 命令。"
+msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a提示：§r§a 你也可以通過將 §e@s§r§a 更改為玩家的名字來授予其他玩家權限。 如果其中有空格，則需要將其括在引號中。 例如：§e/tag \"Steve Wanderer\" add worldedit§r"
