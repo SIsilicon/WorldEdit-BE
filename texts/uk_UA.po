@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-08-27 18:32\n"
+"PO-Revision-Date: 2024-08-27 19:28\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -113,7 +113,7 @@ msgid "worldedit.config.gradients"
 msgstr "Градієнти"
 
 msgid "worldedit.config.general"
-msgstr "Загальне"
+msgstr "Загальні"
 
 msgid "worldedit.config.general.includeEntities"
 msgstr "Включити сутності в буфер обміну"
@@ -122,7 +122,7 @@ msgid "worldedit.config.general.includeAir"
 msgstr "Включити повітря в буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Режим продуктивності"
+msgstr "Режим швидкодії"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Малювання контурів"
