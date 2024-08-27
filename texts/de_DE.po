@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: de\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-11-24 19:06\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -61,8 +61,29 @@ msgstr "Wandauswahl"
 msgid "item.wedit:selection_outline"
 msgstr "Konturenauswahl"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
+
 msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
+
+msgid "item.wedit:draw_line"
+msgstr "Linie zeichnen"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Draw Sphere"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Draw Cylinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Sie müssen einen Block angeben, auf den die Auswahl gesetzt werden soll!"
@@ -88,6 +109,9 @@ msgstr "Pinsel"
 msgid "worldedit.config.tools"
 msgstr "Werkzeuge"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Allgemein"
 
@@ -103,6 +127,15 @@ msgstr "Leistungsmodus"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Umrisse zeichnen"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Auswahlmodus"
 
@@ -111,6 +144,9 @@ msgstr "Neues Werkzeug erstellen"
 
 msgid "worldedit.config.newBrush"
 msgstr "Neuen Pinsel erstellen"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Quader"
@@ -123,6 +159,48 @@ msgstr "Kugel"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Zylinder"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Select Region Operation"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fill Mode"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Outline Mode"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Wall Mode"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Hollow Mode"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Select Shape to Generate"
+
+msgid "worldedit.genMode.line"
+msgstr "Line"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Keine Werkzeugeigenschaften"
@@ -169,6 +247,21 @@ msgstr "Erosionsbürste"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay-Pinsel"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Objekt."
 
@@ -177,6 +270,9 @@ msgstr "Wählen Sie, welche Art von Pinsel gemacht werden soll."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Wählen Sie, welche Art von Werkzeug gemacht werden soll."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
@@ -199,6 +295,9 @@ msgstr "Sind Sie mit Ihren Einstellungen einverstanden?"
 msgid "worldedit.config.confirm.delete"
 msgstr "Sind Sie sicher, dass Sie diese Objektbindung lösen möchten?"
 
+msgid "worldedit.config.name"
+msgstr "Name"
+
 msgid "worldedit.config.radius"
 msgstr "Größe"
 
@@ -211,11 +310,23 @@ msgstr "Glätte"
 msgid "worldedit.config.range"
 msgstr "Bereich"
 
+msgid "worldedit.config.amount"
+msgstr "Amount"
+
 msgid "worldedit.config.pattern"
 msgstr "Muster"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Maske"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Hohlraum"
@@ -229,6 +340,9 @@ msgstr "Erosionstyp"
 msgid "worldedit.config.structures"
 msgstr "Strukturen"
 
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
+
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
 
@@ -237,6 +351,9 @@ msgstr "Blockauswahl verwenden"
 
 msgid "worldedit.config.command"
 msgstr "Befehls-stärke"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Ist WorldEdit Befehl"
@@ -303,6 +420,9 @@ msgstr "Fehler beim Laden des Verlaufspunktes!"
 
 msgid "worldedit.error.stillRecording"
 msgstr "Verlauf wird noch immer aufgezeichnet!"
+
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s Blöcke wurden geändert."
@@ -459,6 +579,21 @@ msgstr "Einen Mathematischen Ausdruck evaluieren."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' konnte nicht als gültiger Ausdruck analysiert werden."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Gehe zur Deckelung."
@@ -624,6 +759,9 @@ msgstr "Hohle Pyramide generieren"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Hohle Kugel generieren"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "Einfügen des Auswahlbereichs"
@@ -829,6 +967,18 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
 
@@ -867,6 +1017,9 @@ msgstr "Nicht gegen oder mit Blick auf eine Wand, um durchzugehen."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Keine freie Stelle vor Ihnen gefunden."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Eine Etage aufwärts gehen"

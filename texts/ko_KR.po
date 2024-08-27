@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: ko\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -61,8 +61,29 @@ msgstr "벽 도구"
 msgid "item.wedit:selection_outline"
 msgstr "테두리 선택"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
+
 msgid "item.wedit:draw_line"
 msgstr "선 그리기"
+
+msgid "item.wedit:draw_line"
+msgstr "선 그리기"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Draw Sphere"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Draw Cylinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -88,6 +109,9 @@ msgstr "브러시"
 msgid "worldedit.config.tools"
 msgstr "도구"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "일반"
 
@@ -103,6 +127,15 @@ msgstr "성능 모드"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "테두리 그리기"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "선택 모드"
 
@@ -111,6 +144,9 @@ msgstr "새로운 도구 제작"
 
 msgid "worldedit.config.newBrush"
 msgstr "새로운 브러시 제작"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "직육면체"
@@ -123,6 +159,48 @@ msgstr "구"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "원기둥"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Select Region Operation"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fill Mode"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Outline Mode"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Wall Mode"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Hollow Mode"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Select Shape to Generate"
+
+msgid "worldedit.genMode.line"
+msgstr "Line"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "도구에 대한 속성이 없음"
@@ -169,6 +247,21 @@ msgstr "침식 브러시"
 msgid "worldedit.config.brush.overlay"
 msgstr "겉깔개 브러시"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "묶을 아이템을 들고 있으세요."
 
@@ -177,6 +270,9 @@ msgstr "어떤 형태의 브러시를 만들 것인지 선택하세요."
 
 msgid "worldedit.config.choose.tool"
 msgstr "어떤 형태의 도구를 만들 것인지 선택하세요."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "브러시의 패턴과 옵션 마스크를 만듭니다."
@@ -199,6 +295,9 @@ msgstr "이 설정을 적용하시겠습니까?"
 msgid "worldedit.config.confirm.delete"
 msgstr "이 아이템을 정말로 삭제하시겠습니까?"
 
+msgid "worldedit.config.name"
+msgstr "Name"
+
 msgid "worldedit.config.radius"
 msgstr "크기"
 
@@ -211,11 +310,23 @@ msgstr "부드러운 정도"
 msgid "worldedit.config.range"
 msgstr "범위"
 
+msgid "worldedit.config.amount"
+msgstr "Amount"
+
 msgid "worldedit.config.pattern"
 msgstr "패턴"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "마스크"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "빈 구"
@@ -229,6 +340,9 @@ msgstr "침식 유형"
 msgid "worldedit.config.structures"
 msgstr "Structures"
 
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
+
 msgid "worldedit.config.mask.height"
 msgstr "높이 마스크"
 
@@ -237,6 +351,9 @@ msgstr "블록 선택 도구 사용하기"
 
 msgid "worldedit.config.command"
 msgstr "명령어"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "월드에딧 명령어"
@@ -304,6 +421,9 @@ msgstr "기록 지점을 불러오는 데 실패함!"
 msgid "worldedit.error.stillRecording"
 msgstr "기록이 아직 기록중입니다!"
 
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
+
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 블록이 바뀌었습니다."
 
@@ -362,7 +482,7 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "선택한 영역의 바이옴: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr ""
+msgstr "Prints the id and states of the block you're looking at."
 
 msgid "commands.wedit:blockid.noBlock"
 msgstr "Look at the block you want the id and states of."
@@ -459,6 +579,21 @@ msgstr "수학적 표현을 평가합니다."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s'은(는) 유효한 식으로 분석할 수 없습니다."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "천장으로 가세요."
@@ -624,6 +759,9 @@ msgstr "속이 빈 피라미드를 생성합니다."
 
 msgid "commands.wedit:hsphere.description"
 msgstr "속이 빈 구체를 생성합니다."
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "선택 영역 삽입"
@@ -829,6 +967,18 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
 
@@ -867,6 +1017,9 @@ msgstr "벽에 기대거나 벽을 향하지 않고 통과할 수 있습니다."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "빈곳을 찾을수 없습니다."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "위로가기"

@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-11-13 13:08\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -61,8 +61,29 @@ msgstr "Выбор Стены"
 msgid "item.wedit:selection_outline"
 msgstr "Выбор Контура"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
+
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
+
+msgid "item.wedit:draw_line"
+msgstr "Нарисовать линию"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Draw Sphere"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Draw Cylinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Вам нужно указать блок, чтобы установить выбор!"
@@ -88,6 +109,9 @@ msgstr "Кисти"
 msgid "worldedit.config.tools"
 msgstr "Инструменты"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Основное"
 
@@ -103,6 +127,15 @@ msgstr "Производительный режим"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Рисовать контуры"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим выделения"
 
@@ -111,6 +144,9 @@ msgstr "Создать новый инструмент"
 
 msgid "worldedit.config.newBrush"
 msgstr "Создать новую кисть"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Куб"
@@ -123,6 +159,48 @@ msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Цилиндр"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Select Region Operation"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fill Mode"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Outline Mode"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Wall Mode"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Hollow Mode"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Select Shape to Generate"
+
+msgid "worldedit.genMode.line"
+msgstr "Line"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Нет свойств у инструмента"
@@ -169,6 +247,21 @@ msgstr "Кисть Эрозии"
 msgid "worldedit.config.brush.overlay"
 msgstr "Кисть наложения"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
 
@@ -177,6 +270,9 @@ msgstr "Выберите, какую кисть создать."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Сделайте узор и дополнительную маску для кисти."
@@ -199,6 +295,9 @@ msgstr "Вы согласны с настройкой, которую вы сд�
 msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
 
+msgid "worldedit.config.name"
+msgstr "Name"
+
 msgid "worldedit.config.radius"
 msgstr "Размер"
 
@@ -211,11 +310,23 @@ msgstr "Гладкость"
 msgid "worldedit.config.range"
 msgstr "Диапазон"
 
+msgid "worldedit.config.amount"
+msgstr "Amount"
+
 msgid "worldedit.config.pattern"
 msgstr "Образец"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Маска"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Полный"
@@ -229,6 +340,9 @@ msgstr "Тип Эрозии"
 msgid "worldedit.config.structures"
 msgstr "Структуры"
 
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
+
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
 
@@ -237,6 +351,9 @@ msgstr "Используйте средство выбора блоков"
 
 msgid "worldedit.config.command"
 msgstr "Команда"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Команда WorldEdit"
@@ -303,6 +420,9 @@ msgstr "Не удалось загрузить точку истории!"
 
 msgid "worldedit.error.stillRecording"
 msgstr "История всё ещё записывается!"
+
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -459,6 +579,21 @@ msgstr "Оценка математического выражения."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не удалось персонализировать как допустимое выражение."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Go to the ceiling."
@@ -624,6 +759,9 @@ msgstr "Сгенерировать пустую пирамиду"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "Вставить область выделения"
@@ -829,6 +967,18 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
 
@@ -867,6 +1017,9 @@ msgstr "Не напротив или лицом к стене, чтобы про
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Свободного места перед вами не найдено."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"

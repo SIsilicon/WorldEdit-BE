@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -61,8 +61,29 @@ msgstr "選擇墻壁"
 msgid "item.wedit:selection_outline"
 msgstr "外圍選擇"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
+
 msgid "item.wedit:draw_line"
 msgstr "畫線"
+
+msgid "item.wedit:draw_line"
+msgstr "畫線"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Draw Sphere"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Draw Cylinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "你需要選擇填充選中的區域的方塊！"
@@ -88,6 +109,9 @@ msgstr "畫筆"
 msgid "worldedit.config.tools"
 msgstr "工具"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "一般"
 
@@ -103,6 +127,15 @@ msgstr "表演模式"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Draw Outlines"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "選擇模式"
 
@@ -111,6 +144,9 @@ msgstr "創建新工具"
 
 msgid "worldedit.config.newBrush"
 msgstr "創建新畫筆"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "長方體"
@@ -123,6 +159,48 @@ msgstr "球體"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "圓柱"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Select Region Operation"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fill Mode"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Outline Mode"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Wall Mode"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Hollow Mode"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Select Shape to Generate"
+
+msgid "worldedit.genMode.line"
+msgstr "Line"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "無工具屬性"
@@ -169,6 +247,21 @@ msgstr "Erosion Brush"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlay Brush"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "握著要綁定的物件"
 
@@ -177,6 +270,9 @@ msgstr "選擇要製作什麼樣的畫筆。"
 
 msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "請設定畫筆的填充方塊(必選) 和取代方塊(可選)。"
@@ -199,6 +295,9 @@ msgstr "你對你所做的設置好嗎？"
 msgid "worldedit.config.confirm.delete"
 msgstr "您確定要取消綁定此項目嗎？"
 
+msgid "worldedit.config.name"
+msgstr "Name"
+
 msgid "worldedit.config.radius"
 msgstr "大小"
 
@@ -211,11 +310,23 @@ msgstr "平滑度"
 msgid "worldedit.config.range"
 msgstr "範圍"
 
+msgid "worldedit.config.amount"
+msgstr "Amount"
+
 msgid "worldedit.config.pattern"
 msgstr "圖案"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "遮罩"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "空洞"
@@ -229,6 +340,9 @@ msgstr "Erosion Type"
 msgid "worldedit.config.structures"
 msgstr "Structures"
 
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
+
 msgid "worldedit.config.mask.height"
 msgstr "高度遮罩"
 
@@ -237,6 +351,9 @@ msgstr "使用方塊選擇器"
 
 msgid "worldedit.config.command"
 msgstr "指令"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "WorldEdit是指令嗎"
@@ -303,6 +420,9 @@ msgstr "錯誤: 載入歷史記錄點失敗"
 
 msgid "worldedit.error.stillRecording"
 msgstr "歷史仍在記錄中！"
+
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "已變更 %s 個方塊"
@@ -459,6 +579,21 @@ msgstr "Evaluate a mathematical expression."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "無法解析「%s」為有效的表達式"
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Go to the ceiling."
@@ -624,6 +759,9 @@ msgstr "生成一個空心的錐體"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "生成一個空心的球體"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "插入選擇區域"
@@ -829,6 +967,18 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
 
@@ -867,6 +1017,9 @@ msgstr "在你前面沒有找到牆壁。"
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "在你前面沒有找到可傳送的位置。"
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "上一層"

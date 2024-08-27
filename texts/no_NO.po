@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: no\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2023-11-13 13:09\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -61,8 +61,29 @@ msgstr "Vegg Utvalg"
 msgid "item.wedit:selection_outline"
 msgstr "Omriss Valg"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Hollow Selection"
+
+msgid "item.wedit:selection_stack"
+msgstr "Stack Selection"
+
+msgid "item.wedit:selection_move"
+msgstr "Move Selection"
+
 msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
+
+msgid "item.wedit:draw_line"
+msgstr "Tegn Linje"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Draw Sphere"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Draw Cylinder"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -88,6 +109,9 @@ msgstr "Pensler"
 msgid "worldedit.config.tools"
 msgstr "Verktøy"
 
+msgid "worldedit.config.gradients"
+msgstr "Gradients"
+
 msgid "worldedit.config.general"
 msgstr "Generell"
 
@@ -103,6 +127,15 @@ msgstr "Ytelsemodus"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Tegn omriss"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Off"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Visible to Self"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Visible to Everyone"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Utvalgsmodus"
 
@@ -111,6 +144,9 @@ msgstr "Lag et nytt verktøy"
 
 msgid "worldedit.config.newBrush"
 msgstr "Lag et nytt pensel"
+
+msgid "worldedit.config.newGradient"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Kube"
@@ -123,6 +159,48 @@ msgstr "Kule"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Syllinder"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Select Region Operation"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Fill Mode"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Outline Mode"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Wall Mode"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Hollow Mode"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Stack Mode"
+
+msgid "worldedit.regionMode.move"
+msgstr "Move Mode"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Select Shape to Generate"
+
+msgid "worldedit.genMode.line"
+msgstr "Line"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Sphere"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Cylinder"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Pyramid"
+
+msgid "worldedit.stack.title"
+msgstr "Select stack amount"
+
+msgid "worldedit.move.title"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Ingen verktøysegenskaper"
@@ -169,6 +247,21 @@ msgstr "Erosjonspensel"
 msgid "worldedit.config.brush.overlay"
 msgstr "Overlappingspensel"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Use Gradient in Pattern Picker"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Delete Gradient"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Add new Gradient"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "No Gradient ID specified."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Gradient ID already exists."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Hold en gjenstand å binde til."
 
@@ -177,6 +270,9 @@ msgstr "Velg hva slags pensel som skal lages."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Velg hva slags verktøy som skal lages."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Lag et mønster og valgfri maske for penselet."
@@ -199,6 +295,9 @@ msgstr "Er du fornøyd med oppsettet du har laget?"
 msgid "worldedit.config.confirm.delete"
 msgstr "Er du sikker på at du vil fjerne bindingen av denne gjenstanden?"
 
+msgid "worldedit.config.name"
+msgstr "Name"
+
 msgid "worldedit.config.radius"
 msgstr "Størrelse"
 
@@ -211,11 +310,23 @@ msgstr "Glatthet"
 msgid "worldedit.config.range"
 msgstr "Område"
 
+msgid "worldedit.config.amount"
+msgstr "Amount"
+
 msgid "worldedit.config.pattern"
 msgstr "Mønster"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "No pattern specified."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Invalid pattern specified."
+
 msgid "worldedit.config.mask"
 msgstr "Maske"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Hul"
@@ -229,6 +340,9 @@ msgstr "Erosjonstype"
 msgid "worldedit.config.structures"
 msgstr "Structures"
 
+msgid "worldedit.config.blend"
+msgstr "Blend Amount"
+
 msgid "worldedit.config.mask.height"
 msgstr "Høyde-maske"
 
@@ -237,6 +351,9 @@ msgstr "Bruk blokkvelger"
 
 msgid "worldedit.config.command"
 msgstr "Kommando"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Er WorldEdit-kommando"
@@ -303,6 +420,9 @@ msgstr "Kunne ikke laste historikkpunkt!"
 
 msgid "worldedit.error.stillRecording"
 msgstr "Historikk blir fortsatt tatt opp!"
+
+msgid "worldedit.error.tickArea"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blokker har blitt endret."
@@ -459,6 +579,21 @@ msgstr "Evaluer et matematisk uttrykk."
 
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' kunne ikke analyseres som et gyldig uttrykk."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Cancels one of, or all your active jobs."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Cancelled job number %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Cancelled all %s jobs."
+
+msgid "commands.wedit:cancel.none"
+msgstr "There is no job with that id."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Gå til taket."
@@ -624,6 +759,9 @@ msgstr "Generer en hul pyramide"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Generer et hul kule"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "Sett in utvalgsområdet"
@@ -829,6 +967,18 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
 msgid "commands.wedit:superpickaxe.disabled"
 msgstr "Super pickaxe disabled."
 
@@ -867,6 +1017,9 @@ msgstr "Ikke mot eller vendt mot en vegg til å gå gjennom."
 
 msgid "commands.wedit:thru.obstructed"
 msgstr "Ingen tomme områder funnet foran deg."
+
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Gå opp en etasje"
