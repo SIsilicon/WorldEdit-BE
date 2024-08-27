@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-08-27 18:32\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх за допомогою §r/reload§c (інші скрипти також скинуться).§r"
+msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх командою §r/reload§c (інші скрипти також скинуться).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Копіювати"
@@ -35,10 +35,10 @@ msgid "item.wedit:redo_button"
 msgstr "Відновити дію"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Повернути за годинниковою стрілкою"
+msgstr "Обернути за годинниковою стрілкою"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Повернути проти годинникової стрілки"
+msgstr "Обернути проти годинникової стрілки"
 
 msgid "item.wedit:flip_button"
 msgstr "Перевернути"
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Контур виділення"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Виділення пустоти"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Виділення стосу"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Виділення переміщення"
 
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Намалювати сферу"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Намалювати циліндр"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Намалювати піраміду"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Інструменти"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Градієнти"
 
 msgid "worldedit.config.general"
 msgstr "Загальне"
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "Малювання контурів"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "Вимкнено"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "Видимі для себе"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Видимі для усіх"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим виділення"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Створити новий пензель"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Створити новий градієнт"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Кубоподібний"
@@ -164,37 +164,37 @@ msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Режим заповнення"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Режим контуру"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Режим стіни"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "Режим пустоти"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Режим стосу"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Режим переміщення"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Лінія"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Сфера"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Циліндр"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Піраміда"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -296,7 +296,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "Ви впевнені, що бажаєте відв’язати цей предмет?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "Назва"
 
 msgid "worldedit.config.radius"
 msgstr "Розмір"
@@ -311,22 +311,22 @@ msgid "worldedit.config.range"
 msgstr "Діапазон"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Кількість"
 
 msgid "worldedit.config.pattern"
 msgstr "Шаблон"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "Шаблон не вказано."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "Вказано недійсний шаблон."
 
 msgid "worldedit.config.mask"
 msgstr "Маска"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "Вказано недійсну маску."
 
 msgid "worldedit.config.hollow"
 msgstr "Порожньо"
