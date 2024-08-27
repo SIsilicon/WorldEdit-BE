@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Выбор Контура"
 
 msgid "item.wedit:selection_hollow"
-msgstr ""
+msgstr "Hollow Selection"
 
 msgid "item.wedit:selection_stack"
-msgstr "Выбор выделения"
+msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Переместить выделенное"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
 
 msgid "item.wedit:draw_sphere"
-msgstr ""
+msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr ""
+msgstr "Draw Cylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr ""
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Вам нужно указать блок, чтобы установить выбор!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Инструменты"
 
 msgid "worldedit.config.gradients"
-msgstr ""
+msgstr "Gradients"
 
 msgid "worldedit.config.general"
 msgstr "Основное"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Создать новую кисть"
 
 msgid "worldedit.config.newGradient"
-msgstr ""
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Куб"
@@ -161,46 +161,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Цилиндр"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr ""
+msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr ""
+msgstr "Fill Mode"
 
 msgid "worldedit.regionMode.outline"
-msgstr ""
+msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr ""
+msgstr "Wall Mode"
 
 msgid "worldedit.regionMode.hollow"
-msgstr ""
+msgstr "Hollow Mode"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Режим выделения"
+msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "Режим перемещения"
+msgstr "Move Mode"
 
 msgid "worldedit.genMode.selectOp"
-msgstr ""
+msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr ""
+msgstr "Line"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Сфера"
+msgstr "Sphere"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Цилиндр"
+msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Пирамида"
+msgstr "Pyramid"
 
 msgid "worldedit.stack.title"
-msgstr "Выбрать количество выделенного"
+msgstr "Select stack amount"
 
 msgid "worldedit.move.title"
-msgstr "Выбрать количество перемещенного"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Нет свойств у инструмента"
@@ -248,19 +248,19 @@ msgid "worldedit.config.brush.overlay"
 msgstr "Кисть наложения"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Используйте градиент в палитре шаблонов"
+msgstr "Use Gradient in Pattern Picker"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Удалить градиент"
+msgstr "Delete Gradient"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Добавить новый градиент"
+msgstr "Add new Gradient"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "Не указан ID градиента."
+msgstr "No Gradient ID specified."
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "ID градиента уже существует."
+msgstr "Gradient ID already exists."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Возьмите предмет для привязки."
@@ -272,7 +272,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Выберите, какой инструмент сделать."
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Вставьте ID Градиента сюда"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Сделайте узор и дополнительную маску для кисти."
@@ -296,7 +296,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "Вы уверены, что хотите отменить привязку этого предмета?"
 
 msgid "worldedit.config.name"
-msgstr "Название"
+msgstr "Name"
 
 msgid "worldedit.config.radius"
 msgstr "Размер"
@@ -311,22 +311,22 @@ msgid "worldedit.config.range"
 msgstr "Диапазон"
 
 msgid "worldedit.config.amount"
-msgstr "Количество"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Образец"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "Паттерн не указан."
+msgstr "No pattern specified."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Указанный паттерн неверный."
+msgstr "Invalid pattern specified."
 
 msgid "worldedit.config.mask"
 msgstr "Маска"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Указанная маска неверная."
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Полный"
@@ -341,7 +341,7 @@ msgid "worldedit.config.structures"
 msgstr "Структуры"
 
 msgid "worldedit.config.blend"
-msgstr "Количество смешивания"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Высота маски"
@@ -353,7 +353,7 @@ msgid "worldedit.config.command"
 msgstr "Команда"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "Не указана команда."
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Команда WorldEdit"
@@ -422,7 +422,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "История всё ещё записывается!"
 
 msgid "worldedit.error.tickArea"
-msgstr "Не удалось создать временную область!"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоки были изменины."
@@ -455,7 +455,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Не возможно модифицировать не загруженные чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eПодсказка: Чтобы загрузить больше чанков, увеличите расстояние симуляции и оставайтесь ближе к операции, или добавьте активные области, где вы работаете.§r"
+msgstr "§eПодсказка: Чтобы загрузить больше фрагментов, увеличьте расстояние моделирования или добавьте области с отметками, в которых вы работаете.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Число (%1) слишком большое! Самое большое допустимое число (%2)."
@@ -503,13 +503,13 @@ msgid "commands.wedit:brush.bind.clipboard"
 msgstr "Выбрана кисть буфера обмена."
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Структурная кисть экипирована."
+msgstr "Structure brush equipped."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Эрозионная кисть оснащена (%s)."
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Кисть наслоения оснащена (%s)."
+msgstr "Overlay brush equipped (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Установите тип удерживаемой кисти"
@@ -527,13 +527,13 @@ msgid "commands.wedit:brush.description.smooth"
 msgstr "Создать кисть для сглаживания рельефа"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Создает кисть, которая размещает постройки"
+msgstr "Creates a brush that places structures"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Создает кисть для формирования местности"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Создает слой местности"
+msgstr "Creates a terrain overlaying brush"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маска кисти установлена."
@@ -563,7 +563,7 @@ msgid "commands.wedit:brush.noMaterial"
 msgstr "Эта кисть не требует материала для работы."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "У этой кисти нет настраиваемого размера."
+msgstr "This brush has no configurable size."
 
 msgid "commands.wedit:brush.unbind"
 msgstr "Кисть не связана с вашим текущим предметом."
@@ -581,22 +581,22 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не удалось персонализировать как допустимое выражение."
 
 msgid "commands.wedit:cancel.description"
-msgstr "Отменяет одну или все ваши активные задания."
+msgstr "Cancels one of, or all your active jobs."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Отменен номер вакансии %s."
+msgstr "Cancelled job number %s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "%s Работ отменено."
+msgstr "Cancelled all %s jobs."
 
 msgid "commands.wedit:cancel.none"
-msgstr "Нет работ с этим Id."
+msgstr "There is no job with that id."
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "Нет работ, которые можно отменить."
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Перейти к потолку."
+msgstr "Go to the ceiling."
 
 msgid "commands.wedit:center.description"
 msgstr "Установить центральный блок(и)."
@@ -677,13 +677,13 @@ msgid "commands.wedit:expand.explain"
 msgstr "Регион расширен на %s блоков."
 
 msgid "commands.wedit:export.description"
-msgstr "Экспортирует выделение для последующего использования."
+msgstr "Exports the selection for later use."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s экспортирован."
+msgstr "%s has been exported."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eПримечание: Для использования экспортированных структур в других мирах WorldEdit требуется приложение для извлечения его из внешнего использования.§r"
+msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Погасить огонь поблизости"
@@ -731,7 +731,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Градиент %s создан."
+msgstr "Gradient %s created."
 
 msgid "commands.wedit:gradient.description"
 msgstr "Create a gradient to use in patterns."
@@ -767,7 +767,7 @@ msgid "commands.wedit:inset.description"
 msgstr "Вставить область выделения"
 
 msgid "commands.wedit:import.description"
-msgstr "Импортирует структуру в буфер обмена."
+msgstr "Imports a structure to the clipboard."
 
 msgid "commands.wedit:import.explain"
 msgstr "%s has been imported and set to your clipboard."
