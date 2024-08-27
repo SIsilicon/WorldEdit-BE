@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: de\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Konturenauswahl"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hohlauswahl"
+msgstr "Hollow Selection"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stapelauswahl"
+msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Auswahl verschieben"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Kugel zeichnen"
+msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Zylinder ziehen"
+msgstr "Draw Cylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Pyramide zeichnen"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Sie müssen einen Block angeben, auf den die Auswahl gesetzt werden soll!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Werkzeuge"
 
 msgid "worldedit.config.gradients"
-msgstr "Farbverläufe"
+msgstr "Gradients"
 
 msgid "worldedit.config.general"
 msgstr "Allgemein"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Neuen Pinsel erstellen"
 
 msgid "worldedit.config.newGradient"
-msgstr "Neuen Farbverlauf erstellen"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Quader"
@@ -161,46 +161,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Zylinder"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Vorgang „Region auswählen“"
+msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Füllmodus"
+msgstr "Fill Mode"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Gliederungsmodus"
+msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wandmodus"
+msgstr "Wall Mode"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow-Modus"
+msgstr "Hollow Mode"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stapelmodus"
+msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "Verschiebemodus"
+msgstr "Move Mode"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Zu generierende Form auswählen"
+msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "Linie"
+msgstr "Line"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Kugel"
+msgstr "Sphere"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Zylinder"
+msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramide"
+msgstr "Pyramid"
 
 msgid "worldedit.stack.title"
-msgstr "Stapelmenge auswählen"
+msgstr "Select stack amount"
 
 msgid "worldedit.move.title"
-msgstr "Wählen Sie den Betrag der Verschiebung"
+msgstr "Select move amount"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Keine Werkzeugeigenschaften"
@@ -248,19 +248,19 @@ msgid "worldedit.config.brush.overlay"
 msgstr "Overlay-Pinsel"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Farbverlauf im Musterwähler verwenden"
+msgstr "Use Gradient in Pattern Picker"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Farbverlauf löschen"
+msgstr "Delete Gradient"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Neuen Farbverlauf hinzufügen"
+msgstr "Add new Gradient"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "Keine Gradienten-ID angegeben."
+msgstr "No Gradient ID specified."
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Die Gradienten-ID ist bereits vorhanden."
+msgstr "Gradient ID already exists."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Halten Sie ein zu bindendes Objekt."
@@ -272,7 +272,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "Wählen Sie, welche Art von Werkzeug gemacht werden soll."
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Gradienten-ID hier einfügen"
+msgstr "Insert Gradient ID Here"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Erstellen Sie ein Muster und eine optionale Maske für den Pinsel."
@@ -311,22 +311,22 @@ msgid "worldedit.config.range"
 msgstr "Bereich"
 
 msgid "worldedit.config.amount"
-msgstr "Menge"
+msgstr "Amount"
 
 msgid "worldedit.config.pattern"
 msgstr "Muster"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "Kein Muster angegeben."
+msgstr "No pattern specified."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Ungültiges Muster angegeben."
+msgstr "Invalid pattern specified."
 
 msgid "worldedit.config.mask"
 msgstr "Maske"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Ungültige Maske angegeben."
+msgstr "Invalid mask specified."
 
 msgid "worldedit.config.hollow"
 msgstr "Hohlraum"
@@ -341,7 +341,7 @@ msgid "worldedit.config.structures"
 msgstr "Strukturen"
 
 msgid "worldedit.config.blend"
-msgstr "Mischmenge"
+msgstr "Blend Amount"
 
 msgid "worldedit.config.mask.height"
 msgstr "Höhen-Maske"
@@ -353,7 +353,7 @@ msgid "worldedit.config.command"
 msgstr "Befehls-stärke"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "Kein Befehl angegeben."
+msgstr "No command specified."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Ist WorldEdit Befehl"
@@ -422,7 +422,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "Verlauf wird noch immer aufgezeichnet!"
 
 msgid "worldedit.error.tickArea"
-msgstr "Das Erstellen eines temporären Häkchenbereichs ist fehlgeschlagen!"
+msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s Blöcke wurden geändert."
@@ -455,7 +455,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Ungeladene Chunks können nicht verändert werden!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTipp: Um mehr Chunks zu laden, erhöhen Sie die Simulationsdistanz und bleiben Sie in der Nähe der Operation, oder fügen Sie dort, wo Sie arbeiten, tickende Bereiche hinzu.§r"
+msgstr "§eTipp: Um weitere Chunks zu laden, erhöhen Sie Ihre Simulationsdistanz oder fügen Sie Ticking-Bereiche hinzu, in denen Sie aktiv sind.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "Die Zahl (%1) ist zu groß! Sie muss höchstens (%2) sein."
@@ -581,19 +581,19 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' konnte nicht als gültiger Ausdruck analysiert werden."
 
 msgid "commands.wedit:cancel.description"
-msgstr "Bricht einen oder alle Ihrer aktiven Jobs ab."
+msgstr "Cancels one of, or all your active jobs."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Auftrag Nr. %s storniert."
+msgstr "Cancelled job number %s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Alle %s Jobs abgebrochen."
+msgstr "Cancelled all %s jobs."
 
 msgid "commands.wedit:cancel.none"
-msgstr "Es gibt keinen Job mit dieser ID."
+msgstr "There is no job with that id."
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "Es sind keine Jobs vorhanden, die abgebrochen werden könnten."
+msgstr "There are no jobs to cancel."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Gehe zur Deckelung."
@@ -890,10 +890,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "Auswahl geleert."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Quader: Block für Punkt 1 aufbrechen, Block für Punkt 2 verwenden"
+msgstr "Cuboid: break block for point 1, use on block for point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Zylinderauswahl: Block für die Mitte aufbrechen, Block verwenden, um Radius und Höhe zu erweitern"
+msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
 
 msgid "commands.wedit:sel.description"
 msgstr "Auswahlmodus ändern"
@@ -911,10 +911,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Sphäre auswählen"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Erweitern: Block für einen Startpunkt unterbrechen, Block zum Erweitern verwenden"
+msgstr "Extend: break block for a starting point, use on block to extend"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Kugelauswahl: Block für die Mitte aufbrechen, auf Block verwenden, um Radius festzulegen"
+msgstr "Sphere selector: break block for the center, use on block to set radius"
 
 msgid "commands.wedit:set.description"
 msgstr "Auswahl mit einem Blockmuster füllen"
@@ -962,34 +962,34 @@ msgid "commands.wedit:snow.description"
 msgstr "Schnee in der Region simulieren"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Der Super-Spitzhackenmodus ist jetzt: Bereich."
+msgstr "Super pickaxe mode is now: area."
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Schalten Sie die Super-Spitzhacke ein und aus"
+msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Schalten Sie die Super-Spitzhacke ein und aus"
+msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Lass die Superspitzhacke einen einzelnen Block zerbrechen"
+msgstr "Make the super pickaxe break a single block"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Lass die Superspitzhacke Blöcke in einem kubischen Bereich zerbrechen"
+msgstr "Make the super pickaxe break blocks in a cubic range"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Lass die Superspitzhacke Blöcke zerbrechen, beginnend mit dem ersten"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Superspitzhacke deaktiviert."
+msgstr "Super pickaxe disabled."
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Superspitzhacke aktiviert."
+msgstr "Super pickaxe enabled."
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Der Super-Spitzhackenmodus ist jetzt: rekursiv."
+msgstr "Super pickaxe mode is now: recursive."
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Der Super-Spitzhackenmodus ist jetzt: Einzeln."
+msgstr "Super pickaxe mode is now: single."
 
 msgid "commands.wedit:thaw.description"
 msgstr "Schnee und Eis, das dem Himmel ausgesetzt ist, schmelzen"
@@ -1037,13 +1037,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Legen Sie fest, für welche Art von Blöcken ein Pinsel verwendet werden kann"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimieren Sie die Auswahl, um passende Blöcke einzuschließen"
+msgstr "Minimize the selection to encompass matching blocks"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region beschnitten."
+msgstr "Region trimmed."
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "Keine Blöcke stimmten mit der Trimmmaske überein!"
+msgstr "No blocks matched the trim mask!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Eingegebene Position."
@@ -1130,7 +1130,7 @@ msgid "commands.wedit:wand.description"
 msgstr "Geben Sie sich einen Auswahlstab"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Block aufheben: wähle Position Nr. 1; „Verwenden“ auf Block: wähle Position Nr. 2"
+msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit Befehle"
@@ -1193,7 +1193,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "Auswahl machen"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Wie im Originalmod verwenden Sie einen so genannten Auswahlstab, um Bereiche Ihrer Welt für verschiedene Vorgänge einfach zu markieren. Um einen zu erhalten, schnappen Sie sich eine Holzaxt oder geben Sie den Befehl §e;wand§r ein. Auswahlen in WorldEdit sind standardmäßig quaderförmig. Um eine Auswahl zu treffen, müssen Sie die beiden Ecken dieses Quaders markieren. Sie markieren die erste Ecke, indem Sie mit dem Stab einen Block an dieser Ecke zerbrechen. Sie markieren den zweiten Punkt, indem Sie den Stab auf einem anderen Block „verwenden“. Wenn Sie es richtig machen, sollten Sie eine Hervorhebung Ihrer Auswahl sehen."
+msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "Wenn Sie keine Ecke markieren können, wie z. B. in der Luft, können Sie auch die Befehle §e;pos1§r oder §e;pos2§r benutzen, um die erste bzw. zweite Ecke als die Position zu markieren, in der Sie gerade stehen. Dies ist nicht die gleiche Position wie die §lauf§r der Sie stehen."
