@@ -6,12 +6,12 @@ msgstr ""
 "X-Crowdin-Language: tr\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-08-13 04:46\n"
+"PO-Revision-Date: 2024-08-27 17:23\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Anahat Seçimi"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Oyuk seçici"
+msgstr "Hollow Selection"
 
 msgid "item.wedit:selection_stack"
-msgstr "Yığın seçici"
+msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Hareket seçici"
+msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Küre çiz"
+msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Silindir çiz"
+msgstr "Draw Cylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Piramit çiz"
+msgstr "Draw Pyramid"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Seçimi ayarlamak için bir blok belirlemeniz gerekiyor!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Aletler"
 
 msgid "worldedit.config.gradients"
-msgstr "Degradeler çiz"
+msgstr "Gradients"
 
 msgid "worldedit.config.general"
 msgstr "Genel"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Yeni Fırça oluştur"
 
 msgid "worldedit.config.newGradient"
-msgstr "Yeni degrade oluştur"
+msgstr "Create New Gradient"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Küboid"
@@ -161,22 +161,22 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Silindir"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Bölge işlemini seçin"
+msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Foldurma modu"
+msgstr "Fill Mode"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Dış çizgi modu"
+msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Duvar modu"
+msgstr "Wall Mode"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "İçi boş mod"
+msgstr "Hollow Mode"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Yığın modu"
+msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
 msgstr "Move Mode"
@@ -455,7 +455,7 @@ msgid "commands.generic.wedit:outsideWorld"
 msgstr "Yüklenmeyen chunklar modifiye edilemez!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§eTip: To load more chunks, increase your simulation distance and stay close to the operation, or add ticking areas where you're operating.§r"
+msgstr "§eTip: Daha fazla parça yüklemek için simülasyon mesafenizi artırın veya faaliyet gösterdiğiniz yerlere geçiş alanları ekleyin.§r"
 
 msgid "commands.generic.wedit:tooBig"
 msgstr "(%1) Sayısı fazla büyük! En fazla (%2) olmalı."
