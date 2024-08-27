@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-08-27 21:47\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -1172,7 +1172,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "다른 무엇보다도 먼저.."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "기본적으로 플레이어는 WorldEdit를 사용할 수 없습니다. WorldEdit 권한이 있는 사용자만 해당 기능을 사용할 수 있습니다. 자신에게 권한을 부여하려면 채팅에 §e/tag @s add worldedit§r를 입력하십시오. 이제 모든 WorldEdit 명령에 액세스할 수 있습니다."
+msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a 다른 플레이어에게 §e@s§r§a를 플레이어 이름으로 변경하여 권한을 부여할 수도 있습니다. 공백이 있으면 따옴표로 묶어야 합니다. 예: §e/tag add \"Steve Wanderer\" worldedit§r"
