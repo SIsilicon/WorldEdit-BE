@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2024-08-27 21:47\n"
+"PO-Revision-Date: 2024-08-28 19:50\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cLes scripts WorldEdit ont été interrompus ! Réinitialisez-les avec §r/reload§c (les autres scripts seront aussi réinitialisés).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copier"
@@ -411,6 +411,18 @@ msgstr "§eVous avez reçu les autorisations WorldEdit. Allez dans (Paramètres 
 
 msgid "worldedit.permission.revoked"
 msgstr "§eVos permissions WorldEdit ont été supprimées.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Failed to save history point!"
