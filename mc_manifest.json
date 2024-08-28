@@ -71,24 +71,6 @@
 			"version": "1.0.0-beta"
 		}
 	],
-	"bp_subpacks": [
-		{
-			"folder_name": "whitelist_on",
-			"name": "\u00a7aWhitelist On\u00a7r",
-			"memory_tier": 0
-		},
-		{
-			"folder_name": "whitelist_off",
-			"name": "\u00a7cWhitelist Off\u00a7r",
-			"memory_tier": 0
-		}
-	],
-	"bp_settings": [
-		{
-			"type": "label",
-			"text": "By enabling the whitelist, only players tagged with \u00a7eworldedit\u00a7r can use the add-on."
-		}
-	],
 	"metadata": {
 		"authors": [
 			"SIsilicon"

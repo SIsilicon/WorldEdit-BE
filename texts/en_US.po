@@ -28,7 +28,7 @@ msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c (other scripts will reset too).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 # ITEMS
 
@@ -313,6 +313,17 @@ msgid "worldedit.permission.granted"
 msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to Play > Quick Start) for a guide.§r"
 msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
+
 
 msgid "worldedit.error.saveHistory"
 msgstr "Failed to save history point!"

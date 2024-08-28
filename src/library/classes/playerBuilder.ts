@@ -1,6 +1,6 @@
 import * as Minecraft from "@minecraft/server";
 import { getItemCountReturn } from "../@types/classes/PlayerBuilder.js";
-import whitelistEnabled from "whitelist.js";
+import isWhitelistEnabled from "whitelist.js";
 
 type Player = Minecraft.Player;
 
@@ -12,7 +12,7 @@ export class PlayerBuilder {
      * @returns {boolean}
      */
     hasPermission(player: Player, perm: string): boolean {
-        if (!whitelistEnabled || !perm) return true;
+        if (!isWhitelistEnabled() || !perm) return true;
 
         let included = false;
         const permLevels = perm.split(".");
