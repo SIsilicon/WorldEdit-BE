@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-27 21:47\n"
+"PO-Revision-Date: 2024-08-28 19:51\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cСкрипты WorldEdit остановлены! Сбросьте их командой §r/reload§c (Другие скрипты тоже будут сброшены).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Скопировать"
@@ -411,6 +411,18 @@ msgstr "§eВам предоставлены права WorldEdit. Открой�
 
 msgid "worldedit.permission.revoked"
 msgstr "§eВаши права доступа к WorldEdit были удалены.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Не удалось сохранить точку истории!"
