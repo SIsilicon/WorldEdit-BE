@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-08-28 19:51\n"
+"PO-Revision-Date: 2024-08-29 07:16\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cСкрипти WorldEdit зупинилися! Перезавантажте їх, ввівши команду §r/reload§c або перезавантажте сам світ.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Копіювати"
@@ -413,16 +413,16 @@ msgid "worldedit.permission.revoked"
 msgstr "§eВаші дозволи WorldEdit вилучено.§r"
 
 msgid "worldedit.whitelist.enabled"
-msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+msgstr "Білий список увімкнено. Надайте собі дозвіл, ввівши команду §e/tag @s add worldedit§r."
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "Білий список вимкнено."
 
 msgid "worldedit.whitelist.status.on"
-msgstr "The whitelist is currently on."
+msgstr "Білий список наразі ввімкнено."
 
 msgid "worldedit.whitelist.status.off"
-msgstr "The whitelist is currently off."
+msgstr "Білий список наразі вимкнено."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Не вдалося зберегти точку історії!"
