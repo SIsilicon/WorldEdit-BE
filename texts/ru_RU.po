@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-30 19:48\n"
+"PO-Revision-Date: 2024-08-30 21:47\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
+msgstr "Находящийся в разработке порт мода Java и многого другого! Addon от Silicon. (@iSiliconS)."
 
 msgid "script.watchdog.error.hang"
 msgstr "§cСкрипты WorldEdit остановились! Сбросьте их с помощью §r/reload§c или перезапустите мир.§r"
@@ -437,7 +437,7 @@ msgid "worldedit.error.tickArea"
 msgstr "Не удалось создать временную область для заметок!"
 
 msgid "commands.blocks.wedit:changed"
-msgstr "%s блоки были изменины."
+msgstr "%s блоки были изменены."
 
 msgid "commands.blocks.wedit:created"
 msgstr "%s блоки были созданы."
@@ -461,10 +461,10 @@ msgid "commands.generic.wedit:noCuboidSelection"
 msgstr "Для начала выберите прямоугольные точки."
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "У вас не достаточно прав чтобы использовать эту команду."
+msgstr "У вас недостаточно прав чтобы использовать эту команду."
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "Не возможно модифицировать не загруженные чанки!"
+msgstr "Невозможно модифицировать не загруженные чанки!"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
 msgstr "§eПодсказка: Чтобы загрузить больше фрагментов, увеличьте расстояние моделирования или добавьте области с отметками, в которых вы работаете.§r"
@@ -545,7 +545,7 @@ msgid "commands.wedit:brush.description.erode"
 msgstr "Создает кисть для придания формы рельефу"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr ""
+msgstr "Создает кисть для наложения рельефа"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маска кисти установлена."
@@ -617,7 +617,7 @@ msgid "commands.wedit:chunk.description"
 msgstr "Выберите ваш текущий или указанный чанк."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Выбраны куски: (%1)-(%2)."
+msgstr "Выбранные чанки: (%1)-(%2)."
 
 msgid "commands.wedit:chunk.selected"
 msgstr "Выбран кусок: (%1)."
@@ -743,7 +743,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Y"
+msgstr "Создан градиент %s."
 
 msgid "commands.wedit:gradient.description"
 msgstr "Создайте градиент для использования в узорах."
@@ -752,7 +752,7 @@ msgid "commands.wedit:green.description"
 msgstr "Превратить близлежащую землю в траву"
 
 msgid "commands.wedit:hcyl.description"
-msgstr "Сгенерировать пустой целиндр"
+msgstr "Сгенерировать пустой цилиндр"
 
 msgid "commands.wedit:help.header"
 msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
@@ -800,7 +800,7 @@ msgid "commands.wedit:kit.description"
 msgstr "Дайте себе набор предметов для обычных функций WorldEdit"
 
 msgid "commands.wedit:kit.explain"
-msgstr "Кит получен."
+msgstr "Комплект получен."
 
 msgid "commands.wedit:line.description"
 msgstr "Создать линию между первой и второй точками выбора региона"
@@ -929,7 +929,7 @@ msgid "commands.wedit:sel.sphere"
 msgstr "Выбор сферы: разбить блок на центр, использовать на блоке для задания радиуса"
 
 msgid "commands.wedit:set.description"
-msgstr "Заполнить выделение выбраным блоком"
+msgstr "Заполнить выделение выбранным блоком"
 
 msgid "commands.wedit:setbiome.changed"
 msgstr "Биомы были изменены примерно на 100% блоков."
@@ -1244,7 +1244,7 @@ msgid "howtoplay.wedit:quick_start.text.17"
 msgstr "§72. Воспользуйтесь пунктом \"Настройки WorldEdit\". Должно появиться меню, включающее \"Настройки кисти\". Нажмите на эту кнопку, затем создайте новую кисть в соответствии с инструкциями интерфейса. Сделайте ее сферической кистью радиуса 3 и узором из булыжника. Подтвердите настройки и выйдите из меню."
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
+msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (то есть кистью), чтобы поместить сферы из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.19"
 msgstr "§74. Снова введите настройки кисти, чтобы установить для нее маску \"трава\". Теперь используйте кисть, чтобы проложить дорожку из булыжника."
