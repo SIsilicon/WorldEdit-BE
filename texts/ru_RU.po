@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-30 12:17\n"
+"PO-Revision-Date: 2024-08-30 15:22\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -746,7 +746,7 @@ msgid "commands.wedit:gradient.create"
 msgstr "Gradient %s created."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "Создайте градиент для использования в узорах."
 
 msgid "commands.wedit:green.description"
 msgstr "Превратить близлежащую землю в траву"
@@ -758,7 +758,7 @@ msgid "commands.wedit:help.header"
 msgstr "--- Страница Помощи %1 из %2 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Hollow out the objects contained in your selection"
+msgstr "Выделите объекты, содержащиеся в вашем выделении"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Установите первую позицию выбора в позицию блока, на который вы смотрите"
@@ -896,16 +896,16 @@ msgid "commands.wedit:rotate.notNinety"
 msgstr "%s не является приращением 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "You can only rotate along the Y axis!"
+msgstr "Вы можете вращаться только вдоль оси Y!"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "Кубоид: разбить блок на point 1, использовать в блоке для point 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "Переключатель цилиндров: разбейте блок по центру, используйте на блоке для увеличения радиуса и высоты"
 
 msgid "commands.wedit:sel.description"
 msgstr "Сменить режим выделения"
@@ -914,7 +914,7 @@ msgid "commands.wedit:sel.description.cuboid"
 msgstr "Выделите два угла кубоида"
 
 msgid "commands.wedit:sel.description.cyl"
-msgstr "Select a cylinder"
+msgstr "Выберите цилиндр"
 
 msgid "commands.wedit:sel.description.extend"
 msgstr "Режим быстрого выделения кубоидов"
@@ -923,10 +923,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "Выберите сферу"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "Расширить: разбить блок на начальную точку, использовать в блоке для расширения"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "Выбор сферы: разбить блок на центр, использовать на блоке для задания радиуса"
 
 msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
