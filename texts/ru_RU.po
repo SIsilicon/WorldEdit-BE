@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-30 15:22\n"
+"PO-Revision-Date: 2024-08-30 16:25\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -518,10 +518,10 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Конструкция оснащена щеткой."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "Оснащенная эрозионной щеткой(%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "Кисть для наложения готова (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Установите тип удерживаемой кисти"
@@ -596,10 +596,10 @@ msgid "commands.wedit:cancel.description"
 msgstr "Отменяет одно или все ваши активные задания."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "Количество отмененных заданий%s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "Отменил все задания %s."
 
 msgid "commands.wedit:cancel.none"
 msgstr "Работы с таким идентификатором не существует."
@@ -743,7 +743,7 @@ msgid "commands.wedit:gmask.set"
 msgstr "Глобальная маска поставлена."
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "Y"
 
 msgid "commands.wedit:gradient.description"
 msgstr "Создайте градиент для использования в узорах."
@@ -773,16 +773,16 @@ msgid "commands.wedit:hsphere.description"
 msgstr "Сгенерировать пустую сферу"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "Создайте полый тор."
 
 msgid "commands.wedit:inset.description"
 msgstr "Вставить область выделения"
 
 msgid "commands.wedit:import.description"
-msgstr "Imports a structure to the clipboard."
+msgstr "Импортирует структуру в буфер обмена."
 
 msgid "commands.wedit:import.explain"
-msgstr "%s has been imported and set to your clipboard."
+msgstr "%s был импортирован и сохранен в вашем буфере обмена."
 
 msgid "commands.wedit:jumpto.description"
 msgstr "Телепортирует вас на блок на который вы смотрите"
@@ -848,7 +848,7 @@ msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоков."
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "Can't paste the clipboard at its original location."
+msgstr "Не удается вставить буфер обмена в его исходное местоположение."
 
 msgid "commands.wedit:pos1.description"
 msgstr "Установите первую позицию вашего выбора в указанную или текущую позицию"
@@ -932,10 +932,10 @@ msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбраным блоком"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "Биомы были изменены примерно на 100% блоков."
 
 msgid "commands.wedit:setbiome.description"
-msgstr "Change the biomes in your selection"
+msgstr "Измените выбранные вами биомы"
 
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eПримечание: Вам необходимо обработать мир в приложении WorldEdit, чтобы изменения биомов вступили в силу.§r"
@@ -1241,16 +1241,16 @@ msgid "howtoplay.wedit:quick_start.text.16"
 msgstr "1. Возьмите любую лопату и поставьте булыжник; вам понадобится это для кисти."
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. Воспользуйтесь пунктом \"Настройки WorldEdit\". Должно появиться меню, включающее \"Настройки кисти\". Нажмите на эту кнопку, затем создайте новую кисть в соответствии с инструкциями интерфейса. Сделайте ее сферической кистью радиуса 3 и узором из булыжника. Подтвердите настройки и выйдите из меню."
 
 msgid "howtoplay.wedit:quick_start.text.18"
 msgstr "§r3. Цельтесь в землю не рядом с собой и взаимодействуйте с лопатой (тоесть кистью), чтобы поместить сферы из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. Снова введите настройки кисти, чтобы установить для нее маску \"трава\". Теперь используйте кисть, чтобы проложить дорожку из булыжника."
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "Удалите кисть из меню, чтобы отключить ее."
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "Что сейчас?"
@@ -1259,5 +1259,5 @@ msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "Чтобы узнать больше об этом дополнении, вы можете перейти к его онлайн-документации здесь: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr "Майнкрафт"
 
