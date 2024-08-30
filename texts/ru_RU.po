@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-30 16:25\n"
+"PO-Revision-Date: 2024-08-30 18:38\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -947,13 +947,13 @@ msgid "commands.wedit:shift.explain"
 msgstr "Регион сдвинут."
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "# количество блоков: %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "Установите размер кисти или получите информацию о выделении"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "Расстояние между кубоидами: %s"
 
 msgid "commands.wedit:size.offset"
 msgstr "Смещение на %s"
@@ -974,7 +974,7 @@ msgid "commands.wedit:snow.description"
 msgstr "Имитация снега в области"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "Режим \"супер-кирки\" теперь: зона."
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
