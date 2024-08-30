@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-08-28 19:51\n"
+"PO-Revision-Date: 2024-08-30 10:21\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт оригинального мода Java и многого другого! Аддон от Silicon. (@iSiliconS)."
@@ -545,7 +545,7 @@ msgid "commands.wedit:brush.description.erode"
 msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr ""
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маска кисти установлена."
