@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-08-28 19:51\n"
+"PO-Revision-Date: 2024-08-30 19:48\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cWorldEdit的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "填充选区表面"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "镂空选区"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "堆叠选区"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "移动选区"
 
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "绘制球体"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "绘制圆柱体"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "绘制圆椎体"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "您需要指定一个方块来设置选区！"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "工具"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "渐变"
 
 msgid "worldedit.config.general"
 msgstr "常规设置"
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "绘制轮廓"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "关闭"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "仅自己可见"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "所有人可见"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "选择模式"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "创建新笔刷"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "创建新渐变"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "立方体"
@@ -161,46 +161,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "圆柱体"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "选区操作"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "填充模式"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "表面模式"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "墙面模式"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "镂空模式"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "堆叠模式"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "移动模式"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "选择绘制形状"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "线状"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "球状"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "柱体"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "锥体"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "选择堆叠次数"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "选择移动次数"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "没有工具属性"
