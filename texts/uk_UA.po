@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-08-29 07:16\n"
+"PO-Revision-Date: 2024-09-06 02:27\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перш ніж усе інше..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "За стандартом WorldEdit може використовувати будь-хто, але якщо у налаштуваннях пакета увімкнено білий список, то користуватися його можливостями зможуть лише ті, кому надано право «worldedit». Щоб надати собі дозвіл, введіть «§e/tag @s add worldedit§r» у чаті. Після цього ви матимете доступ до всіх команд WorldEdit."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aПорада:§r§a ви також можете надати іншим гравцям дозвіл, змінивши §e@s§r§a на ім’я гравця. Вам потрібно буде взяти його ім’я в лапки, якщо в ньому є пробіл. Наприклад: §e/tag \"Steve Wanderer\" add worldedit§r"
