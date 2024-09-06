@@ -1172,7 +1172,8 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, anyone can use WorldEdit, but if the whitelist is enabled in the pack's settings, then only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーに権限を与えることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add worldedit§r"

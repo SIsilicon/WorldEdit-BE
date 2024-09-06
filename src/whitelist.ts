@@ -1,6 +1,6 @@
 import { system, world, Player } from "@minecraft/server";
 
-let whitelistEnabled = <boolean>world.getDynamicProperty("whitelistEnabled") ?? false;
+let whitelistEnabled = <boolean>world.getDynamicProperty("whitelistEnabled") ?? true;
 
 system.afterEvents.scriptEventReceive.subscribe((ev) => {
     if (ev.id !== "wedit:whitelist") return;
