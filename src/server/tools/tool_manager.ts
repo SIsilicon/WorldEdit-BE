@@ -1,7 +1,8 @@
 import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system } from "@minecraft/server";
-import { contentLog, Server, sleep, Thread, Vector, Database } from "@notbeer-api";
+import { contentLog, getDatabase, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool, ToolAction } from "./base_tool.js";
 import { PlayerSession, getSession, hasSession } from "../sessions.js";
+import { Database } from "library/@types/classes/databaseBuilder.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolConstruct = new (...args: any[]) => Tool;
@@ -274,7 +275,7 @@ class ToolBuilder {
 
     private createPlayerBindingMap(playerId: string) {
         if (this.bindings.has(playerId)) return;
-        const database = new Database<{ [id: string]: Tool }>(`tools|${playerId}`, world, (k, v) => {
+        const database = getDatabase<{ [id: string]: Tool }>(`tools|${playerId}`, world, (k, v) => {
             if (v && typeof v === "object" && "toolType" in v) {
                 try {
                     const toolClass = this.tools.get(v.toolType);

@@ -1,5 +1,5 @@
 import { Player } from "@minecraft/server";
-import { Server, Vector, setTickTimeout, contentLog, Database } from "@notbeer-api";
+import { Server, Vector, setTickTimeout, contentLog, getDatabase } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
@@ -9,6 +9,7 @@ import { RegionBuffer } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
 import { ConfigContext } from "./ui/types.js";
 import config from "config.js";
+import { Database } from "library/@types/classes/databaseBuilder.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -115,7 +116,7 @@ export class PlayerSession {
         this.history = new History(this);
         this.selection = new Selection(player);
         this.drawOutlines = config.drawOutlines;
-        this.gradients = new Database<gradients>("gradients", player, (k, v) => {
+        this.gradients = getDatabase<gradients>("gradients", player, (k, v) => {
             if (k === "patterns") return (<string[]>v).map((v) => new Pattern(v));
             return v;
         });

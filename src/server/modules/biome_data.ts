@@ -1,5 +1,5 @@
 import { Dimension, Vector3, world, Entity } from "@minecraft/server";
-import { commandSyntaxError, contentLog, CustomArgType, Database, Vector } from "@notbeer-api";
+import { commandSyntaxError, contentLog, CustomArgType, getDatabase, Vector } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
 import { locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
@@ -85,7 +85,7 @@ class BiomeChanges {
     flush() {
         for (const [chunk, data] of this.changes) {
             const tableName = `biome,${this.dimension.id},${chunk}`;
-            const database = new Database(tableName);
+            const database = getDatabase(tableName, world, undefined, true);
 
             let biomes: number[] = [];
             if (!database.has("biomes")) {
