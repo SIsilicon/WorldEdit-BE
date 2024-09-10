@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-09-06 02:27\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit의 스크립트가 중지되었습니다! §r/reload§c로 재설정합니다(다른 스크립트도 재설정됨).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -411,6 +411,18 @@ msgstr "§eWorldEdit 권한이 부여되었습니다. (설정 > 게임 방법 > 
 
 msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit 권한이 제거되었습니다.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "기록 지점을 저장하는 데 실패함!"
@@ -1172,8 +1184,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "다른 무엇보다도 먼저.."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
-
+msgstr "기본적으로 플레이어는 WorldEdit를 사용할 수 없습니다. WorldEdit 권한이 있는 사용자만 해당 기능을 사용할 수 있습니다. 자신에게 권한을 부여하려면 채팅에 §e/tag @s add worldedit§r를 입력하십시오. 이제 모든 WorldEdit 명령에 액세스할 수 있습니다."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a 다른 플레이어에게 §e@s§r§a를 플레이어 이름으로 변경하여 권한을 부여할 수도 있습니다. 공백이 있으면 따옴표로 묶어야 합니다. 예: §e/tag add \"Steve Wanderer\" worldedit§r"

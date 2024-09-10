@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-09-06 02:27\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cSkrip WorldEdit telah berhenti! Mulai ulang dengan perintah §r/reload§c (Skrip lainnya akan mengatur ulang juga).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Salin"
@@ -411,6 +411,18 @@ msgstr "§eKamu telah diberikan izin WorldEdit. Pergi ke (Pengaturan > Cara berm
 
 msgid "worldedit.permission.revoked"
 msgstr "§eIzin WorldEdit Anda telah dihapus.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Gagal menyimpan di poin riwayat!"

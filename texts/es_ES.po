@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-09-06 02:27\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§c¡Los scripts de WorldEdit se han detenido! Reinícialos con §r/reload§c (los demás scripts también se reiniciarán).§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -411,6 +411,18 @@ msgstr "§eSe le han otorgado permisos de WorldEdit. Vaya a (Configuración > C�
 
 msgid "worldedit.permission.revoked"
 msgstr "§eTus permisos de WorldEdit han sido eliminados.§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "¡Error al guardar el historial!"
@@ -1173,7 +1185,6 @@ msgstr "Antes que nada..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
-
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aConsejo:§r§a Puedes dar permiso a otros jugadores cambiando el §e@s§r§a al nombre del jugador deseado. Si tiene espacios en su nombre deberás escribirlo entre comillas. Por ejemplo: §e/tag \"Steve Wanderer\" add worldedit§r"

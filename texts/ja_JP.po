@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-08-27 17:23\n"
+"PO-Revision-Date: 2024-09-06 02:27\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit のスクリプトが停止しました! §r/reload§c でリセットしてください (他のスクリプトもリセットされます)。§r"
+msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
@@ -411,6 +411,18 @@ msgstr "§eWorldEdit の権限を与えられています。(設定 → 遊び�
 
 msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit の権限が削除されました。§r"
+
+msgid "worldedit.whitelist.enabled"
+msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Whitelist disabled."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "The whitelist is currently on."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "The whitelist is currently off."
 
 msgid "worldedit.error.saveHistory"
 msgstr "履歴ポイントの保存に失敗しました！"
@@ -1172,8 +1184,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
-
+msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。WorldEdit の権限者としてタグ付けされたプレイヤーのみが使用できます。 自身に権限を与えるには、チャットで §e/tag @s add worldedit§r を入力してください。これですべてのWorldEdit コマンドにアクセスできます。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーに権限を与えることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add worldedit§r"
