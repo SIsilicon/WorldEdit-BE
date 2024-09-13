@@ -2,19 +2,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Entity, World, world } from "@minecraft/server";
 import { Server } from "./serverBuilder.js";
-import { Database } from "../@types/classes/databaseBuilder.js";
+import { Database } from "../@types/classes/databaseBuilder";
 import { contentLog } from "@notbeer-api";
 
 const objective = world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", "");
-const databases: { [k: string]: _Database<any> } = {};
+const databases: { [k: string]: DatabaseImpl<any> } = {};
 
 export function getDatabase<T extends object = { [key: string]: any }>(name: string, provider: World | Entity = world, reviver?: (key: string, value: any) => any, legacyStorage = false) {
     const key = name + "//" + (provider instanceof Entity ? provider.id : "world");
-    if (!databases[key]) databases[key] = new _Database<T>(name, provider, reviver, legacyStorage);
-    return databases[key] as _Database<T>;
+    if (!databases[key]) databases[key] = new DatabaseImpl<T>(name, provider, reviver, legacyStorage);
+    return databases[key] as DatabaseImpl<T>;
 }
 
-class _Database<T extends object = { [key: string]: any }> implements Database<T> {
+export function deleteDatabase(name: string, provider: World | Entity = world) {
+    const key = name + "//" + (provider instanceof Entity ? provider.id : "world");
+    if (databases[key]) databases[key].clear();
+
+    const scoreboardTable = DatabaseImpl.getScoreboardParticipant(DatabaseImpl.getScoreboardName(name, provider));
+    if (scoreboardTable) objective.removeParticipant(scoreboardTable);
+    else provider.setDynamicProperty(name, undefined);
+}
+
+class DatabaseImpl<T extends object = { [key: string]: any }> implements Database<T> {
     private data: T;
 
     constructor(
@@ -23,16 +32,17 @@ class _Database<T extends object = { [key: string]: any }> implements Database<T
         reviver?: (key: string, value: any) => any,
         private legacyStorage = false
     ) {
-        let table = this.getScoreboardParticipant();
+        const scoreboardName = DatabaseImpl.getScoreboardName(name, provider);
+        let table = DatabaseImpl.getScoreboardParticipant(scoreboardName);
         try {
             if (table) this.data = JSON.parse(JSON.parse(`"${table.displayName}"`), reviver)[1];
-            else this.data = JSON.parse(<string>provider.getDynamicProperty("__database__" + name) ?? "{}", reviver);
+            else this.data = JSON.parse(<string>provider.getDynamicProperty(name) ?? "{}", reviver);
 
             if (table && !legacyStorage) objective.removeParticipant(table);
         } catch {
             contentLog.error(`Failed to load database ${name} from ${provider instanceof Entity ? provider.nameTag ?? provider.id : "world"}`);
             if (table) objective.removeParticipant(table), (table = undefined);
-            provider.setDynamicProperty("__database__" + name, undefined);
+            provider.setDynamicProperty(name, undefined);
             this.data = <any>{};
         }
     }
@@ -54,11 +64,12 @@ class _Database<T extends object = { [key: string]: any }> implements Database<T
     }
     save(): void {
         if (this.legacyStorage) {
-            const table = this.getScoreboardParticipant();
+            const scoreboardName = DatabaseImpl.getScoreboardName(this.name, this.provider);
+            const table = DatabaseImpl.getScoreboardParticipant(scoreboardName);
             if (table) Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
-            Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify([this.getScoreboardName(), this.data]))} GAMETEST_DB 0`);
+            Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify([scoreboardName, this.data]))} GAMETEST_DB 0`);
         } else {
-            this.provider.setDynamicProperty("__database__" + this.name, JSON.stringify(this.data));
+            this.provider.setDynamicProperty(this.name, JSON.stringify(this.data));
         }
     }
     keys() {
@@ -71,16 +82,15 @@ class _Database<T extends object = { [key: string]: any }> implements Database<T
         return <[S, T[S]][]>Object.entries(this.data);
     }
 
-    private getScoreboardParticipant() {
-        const test = this.getScoreboardName();
-        for (const table of objective.getParticipants()) {
-            if (table.displayName.startsWith(`[\\"${test}\\"`)) return table;
+    static getScoreboardParticipant(scoreboardName: string) {
+        for (const table of objective?.getParticipants() ?? []) {
+            if (table.displayName.startsWith(`[\\"${scoreboardName}\\"`)) return table;
         }
     }
 
-    private getScoreboardName() {
-        let name = "wedit:" + this.name;
-        if (this.provider instanceof Entity) name += this.provider.id;
+    static getScoreboardName(name: string, provider: World | Entity) {
+        name = "wedit:" + name;
+        if (provider instanceof Entity) name += provider.id;
         return name;
     }
 }

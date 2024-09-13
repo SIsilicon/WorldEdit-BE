@@ -1,5 +1,5 @@
 import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system } from "@minecraft/server";
-import { contentLog, getDatabase, Server, sleep, Thread, Vector } from "@notbeer-api";
+import { contentLog, deleteDatabase, getDatabase, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool, ToolAction } from "./base_tool.js";
 import { PlayerSession, getSession, hasSession } from "../sessions.js";
 import { Database } from "library/@types/classes/databaseBuilder.js";
@@ -9,6 +9,11 @@ type toolConstruct = new (...args: any[]) => Tool;
 type toolCondition = (player: Player, session: PlayerSession) => boolean;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolObject = { [key: string]: any } & Tool;
+
+system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+    if (id !== "wedit:reset_tools_database" || !sourceEntity) return;
+    deleteDatabase(`tools|${sourceEntity.id}`);
+});
 
 class ToolBuilder {
     private tools = new Map<string, toolConstruct>();

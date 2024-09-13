@@ -1,5 +1,5 @@
-import { Player } from "@minecraft/server";
-import { Server, Vector, setTickTimeout, contentLog, getDatabase } from "@notbeer-api";
+import { Player, system } from "@minecraft/server";
+import { Server, Vector, setTickTimeout, contentLog, getDatabase, deleteDatabase } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
@@ -35,6 +35,11 @@ interface superPickaxe {
 interface gradients {
     [id: string]: { dither: number; patterns: Pattern[] };
 }
+
+system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+    if (id !== "wedit:reset_gradients_database" || !sourceEntity) return;
+    deleteDatabase("gradients", sourceEntity);
+});
 
 /**
  * Represents a WorldEdit user's current session with the addon.
