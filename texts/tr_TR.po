@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-09-13 16:51\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cWorldEdit'in kodları durdu! Bunları §r/reload§c ile sıfırlayın veya dünyayı yeniden başlatın.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopyala"
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "Anahat Seçimi"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Oyuk Seçimi"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "Yığın Seçimi"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Hareket Seçimi"
 
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Küre Çiz"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Silindir Çiz"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Piramit Çiz"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Seçimi ayarlamak için bir blok belirlemeniz gerekiyor!"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "Aletler"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "Renk Geçişleri"
 
 msgid "worldedit.config.general"
 msgstr "Genel"
@@ -128,13 +128,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "Anahat çizin"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "Kapalı"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "Sadece Kendimde Görünür"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Tüm Sunucuda Görünür"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Seçim modu"
@@ -146,7 +146,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Yeni Fırça oluştur"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Yeni Bir Renk Geçişi Oluştur"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Küboid"
@@ -161,46 +161,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Silindir"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Bölge İşlemini Seçin"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Doldurma Modu"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Dış Çizgi Modu"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Duvar Modu"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "Oyuk Modu"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Yığın Modu"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Hareket Modu"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "Oluşturulacak Şekli Seçin"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Çizgi"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Küre"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Silindir"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Piramit"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "Yığın miktarını seç"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "Hareket miktarını seç"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Araç özelliği yok"
@@ -221,10 +221,10 @@ msgid "worldedit.config.tool.stacker"
 msgstr "İstifleyici Aracı"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Komut Aleti"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Blok Yerleştirme Amacı"
 
 msgid "worldedit.config.tool.cycle"
 msgstr "Block Cycler Tool"
@@ -1185,7 +1185,6 @@ msgstr "Before Anything Else..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
-
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"
