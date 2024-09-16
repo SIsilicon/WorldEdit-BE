@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-09-16 10:18\n"
 
 msgid "pack.description"
-msgstr "這是一個由原版Java端口的開發中模組并有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cWorldEdit 的指令碼已停止！ 使用 §r/reload§c 重設它們或重新啟動世界。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "複製"
@@ -29,10 +29,10 @@ msgid "item.wedit:paste_button"
 msgstr "貼上"
 
 msgid "item.wedit:undo_button"
-msgstr "重做"
+msgstr "復原"
 
 msgid "item.wedit:redo_button"
-msgstr "復原"
+msgstr "重做"
 
 msgid "item.wedit:rotate_cw_button"
 msgstr "順時針旋轉"
@@ -56,19 +56,19 @@ msgid "item.wedit:selection_fill"
 msgstr "填充選擇"
 
 msgid "item.wedit:selection_wall"
-msgstr "選擇墻壁"
+msgstr "選擇牆壁"
 
 msgid "item.wedit:selection_outline"
 msgstr "外圍選擇"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "挖空選擇"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "堆疊選擇"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "移動選擇"
 
 msgid "item.wedit:draw_line"
 msgstr "畫線"
@@ -77,28 +77,28 @@ msgid "item.wedit:draw_line"
 msgstr "畫線"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "繪製球體"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "繪製圓柱體"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "繪製金字塔"
 
 msgid "worldEdit.selectionFill.noPattern"
-msgstr "你需要選擇填充選中的區域的方塊！"
+msgstr "你需要選擇填充選中區域的方塊！"
 
 msgid "worldedit.patternPicker.add"
-msgstr "已新增以下方塊到填充方塊選擇器: "
+msgstr "已新增以下方塊到填充方塊選擇器： "
 
 msgid "worldedit.patternPicker.set"
-msgstr "已設定以下方塊為填充方塊: "
+msgstr "已設定以下方塊為填充方塊： "
 
 msgid "worldedit.maskPicker.add"
-msgstr "已新增以下方塊到取代方塊選擇器: "
+msgstr "已新增以下方塊到取代方塊選擇器： "
 
 msgid "worldedit.maskPicker.set"
-msgstr "已設定以下方塊為取代方塊: "
+msgstr "已設定以下方塊為取代方塊： "
 
 msgid "worldedit.config.mainMenu"
 msgstr "WorldEdit 設定"
@@ -110,103 +110,103 @@ msgid "worldedit.config.tools"
 msgstr "工具"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "漸層"
 
 msgid "worldedit.config.general"
 msgstr "一般"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "在剪貼板中包含實體"
+msgstr "在剪貼簿中包含實體"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "在剪貼板中包含空氣"
+msgstr "在剪貼簿中包含空氣"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "表演模式"
+msgstr "效能模式"
 
 msgid "worldedit.config.general.drawOutlines"
-msgstr "Draw Outlines"
+msgstr "繪製輪廓"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "關閉"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "僅自己可見"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "所有人可見"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "選擇模式"
 
 msgid "worldedit.config.newTool"
-msgstr "創建新工具"
+msgstr "建立新工具"
 
 msgid "worldedit.config.newBrush"
-msgstr "創建新畫筆"
+msgstr "建立新畫筆"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "建立新漸層"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "長方體"
 
 msgid "worldedit.selectionMode.extend"
-msgstr "延長"
+msgstr "延伸"
 
 msgid "worldedit.selectionMode.sphere"
 msgstr "球體"
 
 msgid "worldedit.selectionMode.cylinder"
-msgstr "圓柱"
+msgstr "圓柱體"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "選擇區域操作"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "填充模式"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "輪廓模式"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "牆壁模式"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "挖空模式"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "堆疊模式"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "移動模式"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "選擇要生成的形狀"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "線"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "球體"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "圓柱體"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "金字塔"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "選擇堆疊數量"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "選擇移動數量"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "無工具屬性"
 
 msgid "worldedit.config.tool.noProps.detail"
-msgstr "此工具沒有要更改的屬性。"
+msgstr "此工具沒有要變更的屬性。"
 
 msgid "worldedit.config.tool.selection"
 msgstr "選擇棒"
@@ -221,13 +221,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "堆疊工具"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "指令工具"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "方塊取代工具"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "方塊循環工具"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "球體畫筆"
@@ -239,28 +239,28 @@ msgid "worldedit.config.brush.smooth"
 msgstr "平滑畫筆"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "結構畫筆"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "侵蝕畫筆"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "覆蓋畫筆"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "在樣式選擇器中使用漸層"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "刪除漸層"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "新增漸層"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "No Gradient ID specified."
+msgstr "未指定漸層 ID。"
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Gradient ID already exists."
+msgstr "漸層 ID 已存在。"
 
 msgid "worldedit.config.chooseItem"
 msgstr "握著要綁定的物件"
@@ -272,10 +272,10 @@ msgid "worldedit.config.choose.tool"
 msgstr "選擇製作什麼樣的工具。"
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Insert Gradient ID Here"
+msgstr "在此插入漸層 ID"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "請設定畫筆的填充方塊(必選) 和取代方塊(可選)。"
+msgstr "請設定畫筆的填充方塊（必選）和取代方塊（可選）。"
 
 msgid "worldedit.config.pattern.tool"
 msgstr "為工具繪畫圖案"
@@ -284,19 +284,19 @@ msgid "worldedit.config.mask.tool"
 msgstr "為該工具製作一個正常覆蓋。"
 
 msgid "worldedit.config.mask.brush"
-msgstr "為刷子製作一個正常覆蓋。"
+msgstr "為畫筆製作一個正常覆蓋。"
 
 msgid "worldedit.config.confirm"
-msgstr "這樣可以嗎?"
+msgstr "這樣可以嗎？"
 
 msgid "worldedit.config.confirm.create"
-msgstr "你對你所做的設置好嗎？"
+msgstr "你對你所做的設定好嗎？"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "您確定要取消綁定此項目嗎？"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "名稱"
 
 msgid "worldedit.config.radius"
 msgstr "大小"
@@ -311,22 +311,22 @@ msgid "worldedit.config.range"
 msgstr "範圍"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "數量"
 
 msgid "worldedit.config.pattern"
 msgstr "圖案"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "未指定圖案。"
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "指定的圖案無效。"
 
 msgid "worldedit.config.mask"
 msgstr "遮罩"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "指定的遮罩無效。"
 
 msgid "worldedit.config.hollow"
 msgstr "空洞"
@@ -335,13 +335,13 @@ msgid "worldedit.config.depth"
 msgstr "深度"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "侵蝕類型"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "結構"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "混合數量"
 
 msgid "worldedit.config.mask.height"
 msgstr "高度遮罩"
@@ -353,13 +353,13 @@ msgid "worldedit.config.command"
 msgstr "指令"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "未指定指令。"
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "WorldEdit是指令嗎"
+msgstr "WorldEdit 是指令嗎"
 
 msgid "worldedit.selection.noPrimary"
-msgstr "第一個位置還沒設置。"
+msgstr "第一個位置還沒設定。"
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一個位置已設定至 %s。"
@@ -374,7 +374,7 @@ msgid "worldedit.selection.cuboid.secondaryArea"
 msgstr "第二個位置已設定至 %1 (%2)。"
 
 msgid "worldedit.selection.cylinder.primary"
-msgstr "正在建立於%s的新圓形選擇。"
+msgstr "正在建立於 %s 的新圓形選擇。"
 
 msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "半徑被設為 %1 / %2 方塊 (~%3)"
@@ -386,130 +386,130 @@ msgid "worldedit.selection.extend.secondaryArea"
 msgstr "擴展選擇以包含 %1 (%2)。"
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "範圍設置為 %1。"
+msgstr "範圍設定為 %1。"
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "範圍設置為 %1 (~%2)。"
+msgstr "範圍設定為 %1 (~%2)。"
 
 msgid "worldedit.tool.noItem"
-msgstr "必須有一個物品在您的主手中。"
+msgstr "你的主手必須有一個物品。"
 
 msgid "worldedit.tool.cantBind"
-msgstr "您不能綁定此類物品。"
+msgstr "你不能綁定此類物品。"
 
 msgid "worldedit.tool.noBind"
 msgstr "此物品還沒綁定至任何工具。"
 
 msgid "worldedit.tool.noPerm"
-msgstr "您無權使用此物品。"
+msgstr "你無權使用此物品。"
 
 msgid "worldedit.tool.fixedBind"
 msgstr "此物品上的工具無法移除或更換。"
 
 msgid "worldedit.permission.granted"
-msgstr "§e你已獲得 WorldEdit 權限。前往 (設定 > 遊戲說明 > 快速開始) 以獲得 WorldEdit 教學。§r"
+msgstr "§e你已獲得 WorldEdit 權限。前往（設定 > 遊戲說明 > 快速開始）以獲得 WorldEdit 教學。§r"
 
 msgid "worldedit.permission.revoked"
 msgstr "§e您的 WorldEdit 權限已被刪除。§r"
 
 msgid "worldedit.whitelist.enabled"
-msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+msgstr "已啟用白名單。 透過執行指令 §e/tag @s add worldedit§r 授予自己權限。"
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "已停用白名單。"
 
 msgid "worldedit.whitelist.status.on"
-msgstr "The whitelist is currently on."
+msgstr "白名單目前已開啟。"
 
 msgid "worldedit.whitelist.status.off"
-msgstr "The whitelist is currently off."
+msgstr "白名單目前已關閉。"
 
 msgid "worldedit.error.saveHistory"
-msgstr "錯誤: 儲存歷史記錄點失敗"
+msgstr "錯誤： 儲存歷史記錄點失敗"
 
 msgid "worldedit.error.loadHistory"
-msgstr "錯誤: 載入歷史記錄點失敗"
+msgstr "錯誤： 載入歷史記錄點失敗"
 
 msgid "worldedit.error.stillRecording"
 msgstr "歷史仍在記錄中！"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "無法建立臨時的刻區域！"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "已變更 %s 個方塊"
 
 msgid "commands.blocks.wedit:created"
-msgstr "已創建 %s 個方塊"
+msgstr "已建立 %s 個方塊"
 
 msgid "commands.generic.wedit:commandFail"
-msgstr "執行此命令失敗"
+msgstr "執行此指令失敗"
 
 msgid "commands.generic.wedit:noSelection"
 msgstr "請先選擇"
 
 msgid "commands.generic.wedit:invalidDir"
-msgstr "'%s'是一個無效的方向參數！"
+msgstr "'%s' 是一個無效的方向參數！"
 
 msgid "commands.generic.wedit:invalidFlag"
-msgstr "預期外的旗標: %s"
+msgstr "預期外的旗標： %s"
 
 msgid "commands.generic.wedit:noClipboard"
-msgstr "你的剪貼板是空的。請先複製或剪切一個區域。"
+msgstr "你的剪貼簿是空的。 請先複製或剪切一個區域。"
 
 msgid "commands.generic.wedit:noCuboidSelection"
 msgstr "請先選擇一個長方體區域"
 
 msgid "commands.generic.wedit:noPermission"
-msgstr "你沒有權限執行此命令"
+msgstr "你沒有權限執行此指令"
 
 msgid "commands.generic.wedit:outsideWorld"
-msgstr "不能修改未加載的區塊！"
+msgstr "不能修改未載入的區塊！"
 
 msgid "commands.generic.wedit:outsideWorld.detail"
-msgstr "§e提示：要加載更多方塊，增加模擬距離，或在您正在操作的地方添加常載入區域。§r"
+msgstr "§e提示： 要載入更多方塊，增加顯示距離，或在你正在操作的地方新增常載入區域。§r"
 
 msgid "commands.generic.wedit:tooBig"
-msgstr "數值(%1)太大了！它的最大是(%2)。"
+msgstr "數值 (%1) 太大了！ 它的最大是 (%2)。"
 
 msgid "commands.generic.wedit:tooSmall"
-msgstr "數值(%1)太小了！它的最少是(%2)。"
+msgstr "數值 (%1) 太小了！ 它的最少是 (%2)。"
 
 msgid "commands.generic.wedit:blockLimit"
 msgstr "方塊過多！"
 
 msgid "commands.generic.wedit:unbindInfo"
-msgstr "§7運行 §e%s§7，同時按住該物品以解開它。§r"
+msgstr "§7執行 §e%s§7，同時按住該物品以解除它。§r"
 
 msgid "commands.wedit:biomeinfo.lineofsight"
-msgstr "視線點內之生態域：%s"
+msgstr "視線點內之生態域： %s"
 
 msgid "commands.wedit:biomeinfo.description"
 msgstr "檢索您選擇的生態域類別"
 
 msgid "commands.wedit:biomeinfo.position"
-msgstr "你現在位置之生態域：%s"
+msgstr "你現在位置之生態域： %s"
 
 msgid "commands.wedit:biomeinfo.selection"
-msgstr "你選取區域內的生態域：%s"
+msgstr "你選取區域內的生態域： %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "印出您正在查看的方塊的 ID 和狀態。"
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "查看您想要 ID 和狀態的方塊。"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "已裝載球型筆刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.cylinder"
-msgstr "已裝載柱型筆刷 (%1，被 %2) 。"
+msgstr "已裝載柱型筆刷 (%1，被 %2)。"
 
 msgid "commands.wedit:brush.bind.smooth.noFilter"
-msgstr "配備平滑刷 (%1 x %2x)。"
+msgstr "配備平滑筆刷 (%1 x %2x)。"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
-msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選) 。"
+msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選)。"
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "已配備剪貼簿筆刷樣式。"
@@ -518,49 +518,49 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "已配備結構類型之筆刷。"
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "已配備侵蝕類型之筆刷 (%s) 。"
+msgstr "已配備侵蝕類型之筆刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "已配備覆蓋類型之筆刷 (%s) 。"
+msgstr "已配備覆蓋類型之筆刷 (%s)。"
 
 msgid "commands.wedit:brush.description"
-msgstr "设置你正在握着的笔刷种类"
+msgstr "設定你正在握著的畫筆種類"
 
 msgid "commands.wedit:brush.description.none"
-msgstr "從你當前的物品裡解鎖一個區域筆刷"
+msgstr "從你目前的物品裡解鎖一個區域筆刷"
 
 msgid "commands.wedit:brush.description.sphere"
-msgstr "制造一个圆形笔刷"
+msgstr "製作一個圓形筆刷"
 
 msgid "commands.wedit:brush.description.cyl"
-msgstr "制造一个圆柱体笔刷"
+msgstr "製作一個圓柱體筆刷"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "制造一个地形顺滑笔"
+msgstr "製作一個地形平滑筆刷"
 
 msgid "commands.wedit:brush.description.struct"
 msgstr "建立可放置結構的筆刷"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "製造一個可編輯地形形狀的筆刷"
+msgstr "製作一個可編輯地形形狀的筆刷"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "建立一個地形覆蓋筆刷"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "已設定刷子遮罩。"
+msgstr "已設定畫筆遮罩。"
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "已停用刷子遮罩。"
+msgstr "已停用畫筆遮罩。"
 
 msgid "commands.wedit:brush.material.set"
-msgstr "笔刷材料已设置"
+msgstr "畫筆材質已設定"
 
 msgid "commands.wedit:brush.range.set"
-msgstr "已設定刷子範圍。"
+msgstr "已設定畫筆範圍。"
 
 msgid "commands.wedit:brush.size.set"
-msgstr "已設定刷子大小。"
+msgstr "已設定畫筆大小。"
 
 msgid "commands.wedit:brush.tracemask.set"
 msgstr "已設定痕跡遮罩"
@@ -569,58 +569,58 @@ msgid "commands.wedit:brush.tracemask.disabled"
 msgstr "已停用痕跡遮罩。"
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "被允许的笔刷最大范围: %s"
+msgstr "允許的畫筆最大範圍： %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "这个笔刷没有运作需要的材料"
+msgstr "這個畫筆沒有運作需要的材質"
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "這個畫筆沒有可設定的大小。"
 
 msgid "commands.wedit:brush.unbind"
-msgstr "已解除您手持的物品與刷子之間的綁定。"
+msgstr "已解除您手持的物品與畫筆之間的綁定。"
 
 msgid "commands.wedit:butcher.description"
-msgstr "杀死附近的生物"
+msgstr "殺死附近的生物"
 
 msgid "commands.wedit:butcher.explain"
-msgstr "已杀死 %s 生物"
+msgstr "已殺死 %s 生物"
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "計算數學表達式。"
 
 msgid "commands.wedit:calc.invalid"
 msgstr "無法解析「%s」為有效的表達式"
 
 msgid "commands.wedit:cancel.description"
-msgstr "Cancels one of, or all your active jobs."
+msgstr "取消您的一個或所有活動作業。"
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "已取消作業編號 %s。"
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "已取消所有 %s 個作業。"
 
 msgid "commands.wedit:cancel.none"
-msgstr "There is no job with that id."
+msgstr "沒有該 ID 的作業。"
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "There are no jobs to cancel."
+msgstr "沒有要取消的作業。"
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Go to the ceiling."
+msgstr "前往天花板。"
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "設定中心方塊。"
 
 msgid "commands.wedit:chunk.description"
 msgstr "選擇此處或特定區塊"
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "已選擇區塊: (%1) - (%2)"
+msgstr "已選擇區塊： (%1) - (%2)"
 
 msgid "commands.wedit:chunk.selected"
-msgstr "已選擇區塊: (%1)"
+msgstr "已選擇區塊： (%1)"
 
 msgid "commands.wedit:clearclipboard.description"
 msgstr "清除您的剪貼簿"
@@ -641,7 +641,7 @@ msgid "commands.wedit:contract.explain"
 msgstr "區域承包了 %s 個區塊。"
 
 msgid "commands.wedit:copy.description"
-msgstr "複製目前所選中的區域到剪貼板上"
+msgstr "複製目前所選中的區域到剪貼簿上"
 
 msgid "commands.wedit:copy.explain"
 msgstr "已複製 %s 個方塊"
@@ -653,7 +653,7 @@ msgid "commands.wedit:count.explain"
 msgstr "已尋找 %s 個方塊。"
 
 msgid "commands.wedit:cut.description"
-msgstr "移除掉你當前的選擇並把他放置在剪貼板"
+msgstr "移除掉你目前的選擇並把他放置在剪貼簿"
 
 msgid "commands.wedit:cut.explain"
 msgstr "已剪下 %s 個方塊"
@@ -695,7 +695,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s 已導出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§e注意： 若要在其他世界中使用匯出的結構，需要 WorldEdit 應用程式將其提取以供外部使用。§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "已熄滅附近的火焰"
@@ -734,7 +734,7 @@ msgid "commands.wedit:gen.description"
 msgstr "在你的選擇裡生成任何形狀"
 
 msgid "commands.wedit:gmask.description"
-msgstr "設置選擇範圍"
+msgstr "設定選擇範圍"
 
 msgid "commands.wedit:gmask.disabled"
 msgstr "已停用全域遮罩。"
@@ -743,10 +743,10 @@ msgid "commands.wedit:gmask.set"
 msgstr "已設定全域遮罩。"
 
 msgid "commands.wedit:gradient.create"
-msgstr "Gradient %s created."
+msgstr "已建立漸層 %s。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "Create a gradient to use in patterns."
+msgstr "建立要在圖案中使用的漸層。"
 
 msgid "commands.wedit:green.description"
 msgstr "把附近的泥土切換成草地"
@@ -755,10 +755,10 @@ msgid "commands.wedit:hcyl.description"
 msgstr "生成一個空心的圓柱體"
 
 msgid "commands.wedit:help.header"
-msgstr "--- 顯示說明第 %1 頁 (共 %2 頁) (;help <頁數>) ---"
+msgstr "--- 顯示說明第 %1 頁（共 %2 頁）（;help <頁數>） ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Hollow out the objects contained in your selection"
+msgstr "挖空您選擇中包含的物件"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "把你選擇的第一個位置切換到你正在看著的方塊的位置"
@@ -767,22 +767,22 @@ msgid "commands.wedit:hpos2.description"
 msgstr "把你選擇的第二個位置切換到你正在看著的方塊的位置"
 
 msgid "commands.wedit:hpyramid.description"
-msgstr "生成一個空心的錐體"
+msgstr "生成一個空心的金字塔"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "生成一個空心的球體"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "生成一個空心的環面。"
 
 msgid "commands.wedit:inset.description"
 msgstr "插入選擇區域"
 
 msgid "commands.wedit:import.description"
-msgstr "將結構導入剪貼板。"
+msgstr "將結構匯入剪貼簿。"
 
 msgid "commands.wedit:import.explain"
-msgstr "%s 已被導入並設置到您的剪貼板。"
+msgstr "%s 已被匯入並設定到您的剪貼簿。"
 
 msgid "commands.wedit:jumpto.description"
 msgstr "傳送你到你視線中方塊的頂端"
@@ -794,7 +794,7 @@ msgid "commands.wedit:jumpto.explain"
 msgstr "噗！"
 
 msgid "commands.wedit:jumpto.none"
-msgstr "視線中沒有方塊（或方塊距離太遠）!"
+msgstr "視線中沒有方塊（或方塊距離太遠）！"
 
 msgid "commands.wedit:kit.description"
 msgstr "給自己一套物品用於執行常見的 WorldEdit 功能"
@@ -803,16 +803,16 @@ msgid "commands.wedit:kit.explain"
 msgstr "您收到了 WorldEdit 的一套物品"
 
 msgid "commands.wedit:line.description"
-msgstr "在您的第一個和第二個選擇點之間創建一條線"
+msgstr "在您的第一個和第二個選擇點之間建立一條線"
 
 msgid "commands.wedit:line.invalidType"
-msgstr "此命令僅適用於長方體選擇"
+msgstr "此指令僅適用於長方體選擇"
 
 msgid "commands.wedit:limit.description"
-msgstr "設置每個操作可以更改的塊數"
+msgstr "設定每個操作可以變更的方塊數量"
 
 msgid "commands.wedit:limit.set"
-msgstr "方塊更改限制設置為 %s。"
+msgstr "方塊變更限制設定為 %s。"
 
 msgid "commands.wedit:limit.tooHigh"
 msgstr "您的最大允許限制為 %s。"
@@ -821,7 +821,7 @@ msgid "commands.wedit:mask.description"
 msgstr "設定畫筆可以變更的方塊，如果有的話"
 
 msgid "commands.wedit:material.description"
-msgstr "設定畫筆應該創建甚麼方塊"
+msgstr "設定畫筆應該建立什麼方塊"
 
 msgid "commands.wedit:move.description"
 msgstr "將所選中的區域向某個方向移動"
@@ -833,22 +833,22 @@ msgid "commands.wedit:navwand.description"
 msgstr "給自己一個導航工具"
 
 msgid "commands.wedit:navwand.explain"
-msgstr "潛行和使用物品：穿牆；不潛行和使用物品：傳送到視線中方塊的位置"
+msgstr "潛行和使用物品： 穿牆； 不潛行和使用物品： 傳送到視線中方塊的位置"
 
 msgid "commands.wedit:outset.description"
-msgstr "開始選擇區域"
+msgstr "展開選擇區域"
 
 msgid "commands.wedit:outset.explain"
-msgstr "地區一開始。"
+msgstr "地區展開。"
 
 msgid "commands.wedit:paste.description"
-msgstr "將剪貼板粘貼到世界中"
+msgstr "將剪貼簿貼到世界中"
 
 msgid "commands.wedit:paste.explain"
 msgstr "已貼上 %s 個方塊"
 
 msgid "commands.wedit:paste.noOriginal"
-msgstr "無法將剪貼板粘貼到其原始位置。"
+msgstr "無法將剪貼簿貼到其原始位置。"
 
 msgid "commands.wedit:pos1.description"
 msgstr "設定你所選中的區域的第一個位置到指定或目前的位置"
@@ -857,10 +857,10 @@ msgid "commands.wedit:pos2.description"
 msgstr "設定你所選中的區域的第二個位置到指定或目前的位置"
 
 msgid "commands.wedit:pyramid.description"
-msgstr "生成一個錐體"
+msgstr "生成一個金字塔"
 
 msgid "commands.wedit:range.description"
-msgstr "設置刷子可以使用的距離"
+msgstr "設定畫筆可以使用的距離"
 
 msgid "commands.wedit:redo.description"
 msgstr "重做一定數量的動作"
@@ -887,7 +887,7 @@ msgid "commands.wedit:replacenear.description"
 msgstr "用其他方塊替換附近的方塊"
 
 msgid "commands.wedit:rotate.description"
-msgstr "順轉已選中的區域"
+msgstr "旋轉已選中的區域"
 
 msgid "commands.wedit:rotate.explain"
 msgstr "已旋轉 %s 個方塊"
@@ -902,13 +902,13 @@ msgid "commands.wedit:sel.clear"
 msgstr "已清除所選擇的區域"
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "長方體： 破壞方塊以設定點 1，對著方塊使用以設定點 2"
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "圓柱體選擇器： 破壞方塊以設定中心，對著方塊使用以擴展半徑和高度"
 
 msgid "commands.wedit:sel.description"
-msgstr "更改選擇模式"
+msgstr "變更選擇模式"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "選擇長方體的兩個角"
@@ -923,22 +923,22 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "選擇一個球體"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "延伸： 破壞方塊以設定起點，對著方塊使用以延伸"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "球體選擇器： 破壞方塊以設定中心，對著方塊使用以設定半徑"
 
 msgid "commands.wedit:set.description"
 msgstr "用填充方塊來填滿選中的區域"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Biomes were changed for approximately %s blocks."
+msgstr "已變更大約 %s 個方塊的生態域。"
 
 msgid "commands.wedit:setbiome.description"
-msgstr "更改選擇範圍內的生態域"
+msgstr "變更選擇範圍內的生態域"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§e注意： 您需要使用 WorldEdit 應用程式處理世界才能套用生態域變更。§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "轉移選擇區域"
@@ -947,79 +947,79 @@ msgid "commands.wedit:shift.explain"
 msgstr "區域切換"
 
 msgid "commands.wedit:size.blocks"
-msgstr "# of blocks: %s"
+msgstr "方塊數量： %s"
 
 msgid "commands.wedit:size.description"
-msgstr "Set the size of a brush or get information about the selection"
+msgstr "設定畫筆的大小或取得有關選擇的資訊"
 
 msgid "commands.wedit:size.distance"
-msgstr "Cuboid distance: %s"
+msgstr "長方體距離： %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "偏移： %s"
 
 msgid "commands.wedit:size.pos1"
-msgstr "Position 1: %s"
+msgstr "位置 1： %s"
 
 msgid "commands.wedit:size.pos2"
-msgstr "Position 2: %s"
+msgstr "位置 2： %s"
 
 msgid "commands.wedit:size.size"
-msgstr "Size: %s"
+msgstr "大小： %s"
 
 msgid "commands.wedit:size.type"
-msgstr "Type: %s"
+msgstr "類型： %s"
 
 msgid "commands.wedit:snow.description"
 msgstr "在區域裡模擬雪地"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "超級鎬模式現在是： 區域。"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "切換超級鎬"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "切換超級鎬"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "讓超級鎬破壞單個方塊"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "讓超級鎬在立方範圍內破壞方塊"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "讓超級鎬從初始方塊開始破壞方塊"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "超級鎬已停用。"
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "超級鎬已啟用。"
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "超級鎬模式現在是： 遞迴。"
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "超級鎬模式現在是： 單個。"
 
 msgid "commands.wedit:thaw.description"
 msgstr "融化雪和把冰塊給裸露在外"
 
 msgid "commands.wedit:stack.description"
-msgstr "重複當前的選擇內容"
+msgstr "重複目前的選擇內容"
 
 msgid "commands.wedit:stack.explain"
 msgstr "創造 %s 方塊堆疊"
 
 msgid "commands.wedit:smooth.description"
-msgstr "選擇以順滑表面"
+msgstr "使選擇的表面平滑"
 
 msgid "commands.wedit:sphere.description"
 msgstr "生成一個球體"
 
 msgid "commands.wedit:thru.description"
-msgstr "傳送到你看著的任何墻壁後"
+msgstr "傳送到你看著的任何牆壁後"
 
 msgid "commands.wedit:thru.explain"
 msgstr "嗖！"
@@ -1031,7 +1031,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "在你前面沒有找到可傳送的位置。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "生成一個環面。"
 
 msgid "commands.wedit:ascend.description"
 msgstr "上一層"
@@ -1046,25 +1046,25 @@ msgid "commands.wedit:descend.obstructed"
 msgstr "沒有找到您下方的空閒位置。"
 
 msgid "commands.wedit:tracemask.description"
-msgstr "設置刷子可以用在什麼樣的塊上"
+msgstr "設定畫筆可以用在什麼樣的方塊上"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "最小化選擇範圍以包含匹配的方塊"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "區域已修剪。"
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "沒有方塊匹配修剪遮罩！"
 
 msgid "commands.wedit:toggleplace.complete"
-msgstr "Toggled placement position."
+msgstr "已切換放置位置。"
 
 msgid "commands.wedit:toggleplace.description"
-msgstr "Toggles the placement position used in various WorldEdit operations."
+msgstr "切換在各種 WorldEdit 操作中使用的放置位置。"
 
 msgid "commands.wedit:tool.bind.selwand"
-msgstr "選取魔法棒工具已綁定至 %s。"
+msgstr "選擇魔法棒工具已綁定至 %s。"
 
 msgid "commands.wedit:tool.bind.navwand"
 msgstr "導航魔法棒工具已綁定至 %s。"
@@ -1073,22 +1073,22 @@ msgid "commands.wedit:tool.bind.farwand"
 msgstr "遠端選擇棒綁定到 %s。"
 
 msgid "commands.wedit:tool.bind.stacker"
-msgstr "堆疊工具限制到 %s."
+msgstr "堆疊工具限制到 %s。"
 
 msgid "commands.wedit:tool.bind.cmd"
-msgstr "Command tool bound to %s."
+msgstr "指令工具綁定到 %s。"
 
 msgid "commands.wedit:tool.bind.repl"
-msgstr "Block replacer tool bound to %s."
+msgstr "方塊取代工具綁定到 %s。"
 
 msgid "commands.wedit:tool.bind.cycler"
-msgstr "Block cycler tool bound to %s."
+msgstr "方塊循環工具綁定到 %s。"
 
 msgid "commands.wedit:tool.description"
 msgstr "獲得所有工具"
 
 msgid "commands.wedit:tool.description.farwand"
-msgstr "選擇工具, 但是可以觸碰到更遠。"
+msgstr "選擇工具，但是可以觸碰到更遠。"
 
 msgid "commands.wedit:tool.description.selwand"
 msgstr "選擇用工具"
@@ -1100,28 +1100,28 @@ msgid "commands.wedit:tool.description.stacker"
 msgstr "方塊堆疊工具"
 
 msgid "commands.wedit:tool.description.cmd"
-msgstr "Command exeution tool; both vanilla and worldedit"
+msgstr "指令執行工具； 包含原版和 WorldEdit"
 
 msgid "commands.wedit:tool.description.repl"
-msgstr "Block replacer tool"
+msgstr "方塊取代工具"
 
 msgid "commands.wedit:tool.description.cycler"
-msgstr "Block cycler tool"
+msgstr "方塊循環工具"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "放開握著的工具"
 
 msgid "commands.wedit:tool.unbind"
-msgstr "已解除你的筆刷與當前物品之間的綁定."
+msgstr "已解除你的畫筆與目前物品之間的綁定。"
 
 msgid "commands.wedit:unstuck.description"
-msgstr "在方塊裏面移出"
+msgstr "在方塊裡面移出"
 
 msgid "commands.wedit:unstuck.explain"
-msgstr "好了!"
+msgstr "好了！"
 
 msgid "commands.wedit:undo.description"
-msgstr "重做一定數量的動作"
+msgstr "復原一定數量的動作"
 
 msgid "commands.wedit:undo.explain"
 msgstr "已復原 %s 個操作"
@@ -1142,25 +1142,25 @@ msgid "commands.wedit:wand.description"
 msgstr "給自己一個區域選擇工具"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "破壞方塊： 選擇位置 #1； 對著方塊「使用」： 選擇位置 #2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit 指令"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "切換當前會話的性能模式。"
+msgstr "切換目前工作階段的效能模式。"
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "性能模式已啟用。"
+msgstr "效能模式已啟用。"
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "性能模式已禁用。"
+msgstr "效能模式已停用。"
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "取得WorldEdit 版本"
+msgstr "取得 WorldEdit 版本"
 
 msgid "commands.wedit:worldedit.version"
-msgstr "WorldEdit 版本: %s"
+msgstr "WorldEdit 版本： %s"
 
 msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
@@ -1169,46 +1169,46 @@ msgid "howtoplay.wedit:quick_start"
 msgstr "快速開始"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "遊戲說明: WorldEdit的快速開始"
+msgstr "遊戲說明： WorldEdit 的快速開始"
 
 msgid "howtoplay.wedit:license"
 msgstr "授權"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "怎麼玩：WorldEdit 許可證"
+msgstr "怎麼玩： WorldEdit 授權"
 
 msgid "howtoplay.wedit:quick_start.text.1"
-msgstr "歡迎！ 這是 Minecraft: Java 版的原始 WorldEdit 模組的移植版。 這個插件將幫助你在 Minecraft 中塑造你的世界。"
+msgstr "歡迎！ 這是 Minecraft： Java 版的原始 WorldEdit 模組的移植版。 這個插件將幫助你在 Minecraft 中塑造你的世界。"
 
 msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在任何東西之前..."
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "默認情況下，不允許玩家使用 WorldEdit。 只有那些帶有 worldedit 權限的人才能使用它的功能。 要授予自己權限，請在聊天中輸入 §e/tag @s add worldedit§r。 您現在應該可以訪問每個 WorldEdit 命令。"
+msgstr "根據預設，玩家不允許使用 WorldEdit。 只有標記有 worldedit 權限的玩家才能使用其功能。 若要授予自己權限，請在聊天中輸入 §e/tag @s add worldedit§r。 您現在應該可以存取每個 WorldEdit 指令。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
-msgstr "§l§a提示：§r§a 你也可以通過將 §e@s§r§a 更改為玩家的名字來授予其他玩家權限。 如果其中有空格，則需要將其括在引號中。 例如：§e/tag \"Steve Wanderer\" add worldedit§r"
+msgstr "§l§a提示：§r§a 你也可以透過將 §e@s§r§a 更改為玩家的名稱來授予其他玩家權限。 如果其中有空格，則需要將其括在引號中。 例如：§e/tag \"Steve Wanderer\" add worldedit§r"
 
 msgid "howtoplay.wedit:quick_start.header.2"
 msgstr "前往地方"
 
 msgid "howtoplay.wedit:quick_start.text.4"
-msgstr "§l§a注意：§r§a 此插件提供的命令使用分號 (;) 而不是正斜杠 (/)。 將來，Mojang 可能會為 Minecraft 添加實際的自定義命令支持。§r"
+msgstr "§l§a注意：§r§a 此插件提供的指令使用分號 (;) 而不是正斜線 (/)。 將來，Mojang 可能會為 Minecraft 新增實際的自訂指令支援。§r"
 
 msgid "howtoplay.wedit:quick_start.text.5"
-msgstr "從 A 點到 B 點有時會很麻煩。 幸運的是，這個插件帶有所謂的導航棒。 要獲得一個，請輸入命令 §e;navwand§r。 擁有此物品後，只需與它互動即可傳送到您正在查看的位置。 想爬到牆或天花板的另一邊？ 在潛行時使用魔杖直接穿過它！ 卡在一個街區？ 使用魔杖會讓你擺脫困境！"
+msgstr "從 A 點到 B 點有時會很麻煩。 幸運的是，這個插件帶有所謂的導航棒。 要獲得一個，請輸入指令 §e;navwand§r。 擁有此物品後，只需與它互動即可傳送到您正在查看的位置。 想爬到牆或天花板的另一邊？ 在潛行時使用魔杖直接穿過它！ 卡在一個方塊？ 使用魔杖會讓你擺脫困境！"
 
 msgid "howtoplay.wedit:quick_start.text.6"
-msgstr "§l§a提示:§r§a 如果你不想使用導航工具，這些動作也可透過命令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成§r。"
+msgstr "§l§a提示：§r§a 如果你不想使用導航工具，這些動作也可透過指令 §e;jumpto§r§a，§e;thru§r§a 和 §e;unstuck§r§a 來完成。§r"
 
 msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "做出選擇"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
+msgstr "就像原始模組一樣，您可以使用所謂的選擇魔杖輕鬆地標記您世界中的區域以進行各種操作。 要獲得一個，請拿一把木斧，或輸入指令 §e;wand§r。 WorldEdit 中的選擇預設為長方體形狀。 若要進行選擇，您需要標記此長方體的兩個角。 您可以透過使用魔杖破壞該角落的方塊來標記第一個角。 您可以透過對著另一個方塊「使用」魔杖來標記第二個點。 如果操作正確，您應該會看到您選擇的亮顯。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
-msgstr "如果沒有方塊讓你標記一個角落，比如高空，你也可以使用命令 §e;pos1§r 或 §e;pos2§r 分別標記第一個和第二個角，作為你的位置 目前正在站立。這與您在站立§l上§r的位置不同。"
+msgstr "如果沒有方塊讓你標記一個角落，比如高空，你也可以使用指令 §e;pos1§r 或 §e;pos2§r 分別標記第一個和第二個角，作為你目前站立的位置。 這與您在站立§l上§r的位置不同。"
 
 msgid "howtoplay.wedit:quick_start.header.4"
 msgstr "用你的選擇做事"
@@ -1217,47 +1217,47 @@ msgid "howtoplay.wedit:quick_start.text.9"
 msgstr "使用 §e;kit§r 進行適當大小的選擇並準備好您的套件。 我們將嘗試 WorldEdit 提供的一些功能。"
 
 msgid "howtoplay.wedit:quick_start.text.10"
-msgstr "§71. 放下石頭，在其上使用圖案採摘器，然後使用“填充選擇”。 應該製作一塊石頭。"
+msgstr "§71. 放下石頭，在其上使用圖案選擇器，然後使用「填充選擇」。 應該會製作一塊石頭。"
 
 msgid "howtoplay.wedit:quick_start.text.11"
-msgstr "§r2. 在空中使用圖案採摘器(移動玩家必須握住屏幕)，然後再次使用“填充選擇”清除石頭。"
+msgstr "§r2. 在空中使用圖案選擇器（移動玩家必須握住畫面），然後再次使用「填充選擇」清除石頭。"
 
 msgid "howtoplay.wedit:quick_start.text.12"
-msgstr "§73. 將砂岩和玻璃放下，在砂岩上使用圖案採摘器，然後潛行在玻璃上使用並將其添加到圖案中。 使用“填充選擇”，您應該混合砂岩和玻璃。"
+msgstr "§73. 將砂岩和玻璃放下，在砂岩上使用圖案選擇器，然後潛行在玻璃上使用並將其新增到圖案中。 使用「填充選擇」，您應該會混合砂岩和玻璃。"
 
 msgid "howtoplay.wedit:quick_start.text.13"
-msgstr "§r4. 取出庫存中的面具拾取器，然後在砂岩上使用它。 將您選擇的方塊設置為圖案，並使用“填充選擇”。 現在，應將所有砂岩替換為那個方塊。"
+msgstr "§r4. 取出庫存中的遮罩選擇器，然後在砂岩上使用它。 將您選擇的方塊設定為圖案，並使用「填充選擇」。 現在，應該會將所有砂岩替換為那個方塊。"
 
 msgid "howtoplay.wedit:quick_start.text.14"
-msgstr "§75. 通過鍵入命令 §e;stack 4 up§r§7 向上重複您的選擇。"
+msgstr "§75. 透過輸入指令 §e;stack 4 up§r§7 向上重複您的選擇。"
 
 msgid "howtoplay.wedit:quick_start.text.15"
-msgstr "如果您願意，您可以使用撤消項撤消所有操作，直到您無法進一步撤消為止。"
+msgstr "如果您願意，您可以使用復原項復原所有操作，直到您無法進一步復原為止。"
 
 msgid "howtoplay.wedit:quick_start.header.5"
 msgstr "用畫筆來遊玩"
 
 msgid "howtoplay.wedit:quick_start.text.16"
-msgstr "1. 拿一把任意類型的鏟子，把圓石放下； 你需要它來刷刷。"
+msgstr "1. 拿一把任意類型的鏟子，把鵝卵石放下； 你需要它來刷刷。"
 
 msgid "howtoplay.wedit:quick_start.text.17"
-msgstr "§72. Use the \"WorldEdit Settings\" item. A menu should appear including \"Brush Settings\". Select that button, then create a new brush as the interface instructs you. Make it a sphere brush of radius 3, and a cobblestone pattern. Confirm the settings and exit the menu."
+msgstr "§72. 使用「WorldEdit 設定」物品。 應該會出現一個包含「畫筆設定」的選單。 選擇該按鈕，然後按照介面的指示建立一個新的畫筆。 將其設定為半徑為 3 的球體畫筆，以及鵝卵石圖案。 確認設定並退出選單。"
 
 msgid "howtoplay.wedit:quick_start.text.18"
-msgstr "§r3. 瞄準不靠近您的地面並與鏟子 (現在是刷子) 互動以放置鵝卵石球體。"
+msgstr "§r3. 瞄準不靠近您的地面並與鏟子（現在是畫筆）互動以放置鵝卵石球體。"
 
 msgid "howtoplay.wedit:quick_start.text.19"
-msgstr "§74. Enter the brush settings again to set the mask for the brush to `grass`. Use the brush now to make a cobblestone path."
+msgstr "§74. 再次輸入畫筆設定以將畫筆的遮罩設定為 `grass`。 現在使用畫筆製作一條鵝卵石路徑。"
 
 msgid "howtoplay.wedit:quick_start.text.20"
-msgstr "§r5. Delete the brush from the menu to disable it."
+msgstr "§r5. 從選單中刪除畫筆以停用它。"
 
 msgid "howtoplay.wedit:quick_start.header.7"
 msgstr "那麼現在呢？"
 
 msgid "howtoplay.wedit:quick_start.text.23"
-msgstr "若要了解有關此附加包的更多信息，你可以在此連結訪問其在線文檔：§ehttps://worldedit-be-docs.readthedocs.io§r"
+msgstr "若要瞭解更多關於此附加包的資訊，你可以在此連結存取其線上說明文件：§ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "我的世界"
+msgstr "Minecraft"
 
