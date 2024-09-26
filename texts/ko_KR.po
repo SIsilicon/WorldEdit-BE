@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-09-26 21:34\n"
+"PO-Revision-Date: 2024-09-26 22:36\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -65,10 +65,10 @@ msgid "item.wedit:selection_hollow"
 msgstr "구덩이 도구"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "쌓기 도구"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "이동 도구"
 
 msgid "item.wedit:draw_line"
 msgstr "선 그리기"
@@ -413,10 +413,10 @@ msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit 권한이 제거되었습니다.§r"
 
 msgid "worldedit.whitelist.enabled"
-msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+msgstr "화이트리스트가 활성화되었습니다. §e/tag @s add worldedit§r. 명령어를 실행해 권한을 부여받으세요."
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "화이트리스트가 비활성화되었습니다."
 
 msgid "worldedit.whitelist.status.on"
 msgstr "현재 화이트리스트가 켜져 있습니다."
