@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-09-26 22:36\n"
+"PO-Revision-Date: 2024-10-08 16:21\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "선 그리기"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "구 그리기"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "원기둥 그리기"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "피라미드 그리기"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
@@ -164,7 +164,7 @@ msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "채우기 모드"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
@@ -185,16 +185,16 @@ msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "선"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "구"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "원기둥"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "피라미드"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -296,7 +296,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "이 아이템을 정말로 삭제하시겠습니까?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "이름"
 
 msgid "worldedit.config.radius"
 msgstr "크기"
@@ -311,22 +311,22 @@ msgid "worldedit.config.range"
 msgstr "범위"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "양"
 
 msgid "worldedit.config.pattern"
 msgstr "패턴"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "패턴이 지정되지 않았습니다."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "잘못된 패턴이 지정되었습니다."
 
 msgid "worldedit.config.mask"
 msgstr "마스크"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "잘못된 mask가 지정되었습니다."
 
 msgid "worldedit.config.hollow"
 msgstr "빈 구"
@@ -353,7 +353,7 @@ msgid "worldedit.config.command"
 msgstr "명령어"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "지정되지 않은 명령어"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "월드에딧 명령어"
@@ -596,16 +596,16 @@ msgid "commands.wedit:cancel.description"
 msgstr "Cancels one of, or all your active jobs."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "작업 %s를 취소했습니다."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "%s의 모든 작업을 취소했습니다."
 
 msgid "commands.wedit:cancel.none"
-msgstr "There is no job with that id."
+msgstr "이 id의 작업은 존재하지 않습니다."
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "There are no jobs to cancel."
+msgstr "취소할 작업이 없습니다."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "천장으로 가세요."
@@ -773,7 +773,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "속이 빈 구체를 생성합니다."
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "속이 빈 원환면 생성"
 
 msgid "commands.wedit:inset.description"
 msgstr "선택 영역 삽입"
@@ -956,7 +956,7 @@ msgid "commands.wedit:size.distance"
 msgstr "Cuboid distance: %s"
 
 msgid "commands.wedit:size.offset"
-msgstr "Offset: %s"
+msgstr "오프셋: %s"
 
 msgid "commands.wedit:size.pos1"
 msgstr "Position 1: %s"
@@ -1031,7 +1031,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "빈곳을 찾을수 없습니다."
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "원환면 생성"
 
 msgid "commands.wedit:ascend.description"
 msgstr "위로가기"
