@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-10-12 15:29\n"
+"PO-Revision-Date: 2024-10-12 16:28\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
+msgstr "§c创世神的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -902,10 +902,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "立方体选区模式：使用选择器左键破坏单个方块设置第一个对角点，对方块右键（Pe则是长按）设置第二个对角点."
+msgstr "立方体选区模式：使用选择器左键破坏单个方块设置第一个对角点，然后对另一个方块右键（Pe则是长按）设置第二个对角点."
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "圆柱体选区模式：使用选择器左键破坏单个方块来设置圆心, 接着对另一个方块右键（Pe则是长按）设置半径与高度."
 
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
@@ -923,10 +923,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "选择球体"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "拓展选区：使用选择器左键破坏单个方块设置起点，然后对另一个方块右键（Pe则是长按）设置终点."
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "球体选区模式：使用选择器左键破坏单个方块设置球心，然后对另一个方块右键（Pe则是长按）设置半径."
 
 msgid "commands.wedit:set.description"
 msgstr "用选择好的填充方块填充选区"
@@ -974,34 +974,34 @@ msgid "commands.wedit:snow.description"
 msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "超级镐子处于: 范围破坏模式"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "将超级镐子切换为单方块破坏模式"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "将超级镐子切换为范围破坏模式"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "将超级镐子切换为连续破坏模式"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "已禁用超级镐子"
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "已启用超级镐子"
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "超级镐子处于：连续破坏模式"
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "超级镐子处于：单方块破坏模式"
 
 msgid "commands.wedit:thaw.description"
 msgstr "使暴露于天空的冰雪融化"
@@ -1031,7 +1031,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "未在您的前方发现有效空间。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "生成一个圆环"
 
 msgid "commands.wedit:ascend.description"
 msgstr "上升一层"
@@ -1049,13 +1049,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "设定笔刷能使用的方块的类型"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "减小选区直至包含匹配的方块"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "已修剪选区"
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "没有匹配的修剪用的蒙版方块"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "已切换放置位置。"
@@ -1142,7 +1142,7 @@ msgid "commands.wedit:wand.description"
 msgstr "给你自己一个选择棍"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "使用选择器左键破坏单个方块设置第一个点；对另一个方块右键（Pe则是长按）设置第二个点"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "创世神命令"
@@ -1163,7 +1163,7 @@ msgid "commands.wedit:worldedit.version"
 msgstr "当前创世神版本：%s"
 
 msgid "howtoplay.category.worldEdit"
-msgstr "WorldEdit"
+msgstr "创世神"
 
 msgid "howtoplay.wedit:quick_start"
 msgstr "快速入门"
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "在开始之前，"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "默认情况下，普通玩家无法使用创世神功能。仅拥有“worldedit”标签的玩家才可以使用它。如果想获得“worldedit”标签，请使用命令§e/tag @s add worldedit§r。之后，你应该会收到一条消息，提示你已经获得了创世神权限。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a提示：§r§a 您也可以将 §e@s§a 更改为指定的玩家名字来给其他玩家添加“创世神”标签。 如果他们的名字中有空格，那么您需要在玩家名两测添加英文引号。比方说，§e/tag \"Steve Wander\" add worldedit§r§a输入这行指令后，名字为Steve Wander的玩家就能获得\"创世神\"标签。"
@@ -1205,7 +1205,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "创建选区"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
+msgstr "与Java版原模组相同，你可以使用选择器选定一个区域并进行各种操作，使用命令§e;wand§r获取选择器。创世神中的选区默认是立方体形状，你需要选择立方体的两个对角点以选定区域，使用选择器左键破坏单个方块选择第一个点；对方块右键选择第二个点。如果步骤正确，你应该会看到选区被白色粒子效果框住。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "如果没有方块供您标记选区的角落，比如在高空中，您也可以使用命令 §e;pos1§r 和 §e;pos2§r 分别将目前站立的坐标标记为第一个点和第二个点。§l需要注意的是，标记的是人物当前所在的坐标，而不是当前脚下的方块的坐标。§r"
