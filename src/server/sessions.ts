@@ -1,4 +1,4 @@
-import { Player, system, world } from "@minecraft/server";
+import { Player, system } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog, Databases } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
