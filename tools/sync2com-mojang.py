@@ -124,8 +124,7 @@ if args.watch:
         sync_all()
     try:
         alert_watching()
-        while True:
-            time.sleep(1)
+        while True: time.sleep(1)
     except KeyboardInterrupt:
         observerBP.stop()
         observerRP.stop()

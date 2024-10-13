@@ -1,5 +1,5 @@
 import { Dimension, Vector3, world, Entity } from "@minecraft/server";
-import { commandSyntaxError, contentLog, CustomArgType, getDatabase, Vector } from "@notbeer-api";
+import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
 import { locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
@@ -85,15 +85,15 @@ class BiomeChanges {
     flush() {
         for (const [chunk, data] of this.changes) {
             const tableName = `biome,${this.dimension.id},${chunk}`;
-            const database = getDatabase(tableName, world, undefined, true);
+            const database = Databases.load(tableName, world, true);
 
             let biomes: number[] = [];
-            if (!database.has("biomes")) {
+            if (!("biomes" in database)) {
                 biomes.length = 4096;
                 biomes = biomes.fill(-1);
             } else {
-                const palette: number[] = database.get("palette");
-                biomes = (database.get("biomes") as number[]).map((idx) => (idx ? palette[idx - 1] : -1));
+                const palette: number[] = database.data.palette;
+                biomes = (database.data.biomes as number[]).map((idx) => (idx ? palette[idx - 1] : -1));
             }
 
             for (const [loc, biome] of data.entries()) {
@@ -111,12 +111,8 @@ class BiomeChanges {
             newPalette.forEach((val, idx) => paletteMap.set(val, idx + 1));
             paletteMap.set(-1, 0);
 
-            database.set(
-                "biomes",
-                biomes.map((biome) => paletteMap.get(biome))
-            );
-            database.set("palette", newPalette);
-
+            database.data.biomes = biomes.map((biome) => paletteMap.get(biome));
+            database.data.palette = newPalette;
             database.save();
         }
         this.changes.clear();

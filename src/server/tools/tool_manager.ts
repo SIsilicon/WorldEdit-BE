@@ -1,5 +1,5 @@
 import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system } from "@minecraft/server";
-import { contentLog, deleteDatabase, getDatabase, Server, sleep, Thread, Vector } from "@notbeer-api";
+import { contentLog, Databases, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool, ToolAction } from "./base_tool.js";
 import { PlayerSession, getSession, hasSession } from "../sessions.js";
 import { Database } from "library/@types/classes/databaseBuilder.js";
@@ -10,13 +10,29 @@ type toolCondition = (player: Player, session: PlayerSession) => boolean;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type toolObject = { [key: string]: any } & Tool;
 
+const tools = new Map<string, toolConstruct>();
+
+Databases.addParser((k, v, databaseName) => {
+    if (databaseName.startsWith("tools|") && v && typeof v === "object" && "toolType" in v) {
+        try {
+            const toolClass = tools.get(v.toolType);
+            const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(v));
+            tool.type = v.toolType;
+            return tool;
+        } catch (err) {
+            contentLog.error(`Failed to load tool from '${JSON.stringify(v)}' for '${k}': ${err}`);
+        }
+    } else {
+        return v;
+    }
+});
+
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
     if (id !== "wedit:reset_tools_database" || !sourceEntity) return;
-    deleteDatabase(`tools|${sourceEntity.id}`);
+    Databases.delete(`tools|${sourceEntity.id}`);
 });
 
 class ToolBuilder {
-    private tools = new Map<string, toolConstruct>();
     private bindings = new Map<string, Database<{ [id: string]: Tool }>>();
     private fixedBindings = new Map<string, Tool>();
     private prevHeldTool = new Map<Player, Tool>();
@@ -74,7 +90,7 @@ class ToolBuilder {
     }
 
     register(toolClass: toolConstruct, name: string, item?: string | string[], condition?: toolCondition) {
-        this.tools.set(name, toolClass);
+        tools.set(name, toolClass);
         if (typeof item == "string") {
             this.fixedBindings.set(item, new toolClass());
         } else if (condition && Array.isArray(item)) {
@@ -89,11 +105,11 @@ class ToolBuilder {
     bind(toolId: string, itemId: string, playerId: string, ...args: any[]) {
         this.unbind(itemId, playerId);
         if (itemId) {
-            const tool = new (this.tools.get(toolId))(...args);
+            const tool = new (tools.get(toolId))(...args);
             tool.type = toolId;
             this.createPlayerBindingMap(playerId);
-            this.bindings.get(playerId).get(itemId)?.delete();
-            this.bindings.get(playerId).set(itemId, tool);
+            this.bindings.get(playerId).data[itemId]?.delete();
+            this.bindings.get(playerId).data[itemId] = tool;
             this.bindings.get(playerId).save();
             return tool;
         } else {
@@ -107,8 +123,8 @@ class ToolBuilder {
                 throw "worldedit.tool.fixedBind";
             }
             this.createPlayerBindingMap(playerId);
-            this.bindings.get(playerId).get(itemId)?.delete();
-            this.bindings.get(playerId).delete(itemId);
+            this.bindings.get(playerId).data[itemId]?.delete();
+            delete this.bindings.get(playerId).data[itemId];
             this.bindings.get(playerId).save();
         } else {
             throw "worldedit.tool.noItem";
@@ -117,7 +133,7 @@ class ToolBuilder {
 
     hasBinding(itemId: string, playerId: string) {
         if (itemId) {
-            return this.bindings.get(playerId)?.has(itemId) || this.fixedBindings.has(itemId);
+            return !!this.bindings.get(playerId)?.data[itemId] || this.fixedBindings.has(itemId);
         } else {
             return false;
         }
@@ -125,7 +141,7 @@ class ToolBuilder {
 
     getBindingType(itemId: string, playerId: string) {
         if (itemId) {
-            const tool = this.bindings.get(playerId)?.get(itemId) || this.fixedBindings.get(itemId);
+            const tool = this.bindings.get(playerId)?.data[itemId] || this.fixedBindings.get(itemId);
             return tool?.type ?? "";
         } else {
             return "";
@@ -134,9 +150,9 @@ class ToolBuilder {
 
     getBoundItems(playerId: string, type?: RegExp | string) {
         this.createPlayerBindingMap(playerId);
-        const tools = this.bindings.get(playerId);
+        const tools = this.bindings.get(playerId).data;
         return tools
-            ? Array.from(tools.entries())
+            ? Array.from(Object.entries(tools))
                   .filter((binding) => !type || (typeof type == "string" ? binding[1].type == type : type.test(binding[1].type)))
                   .map((binding) => binding[0] as string)
             : ([] as string[]);
@@ -144,7 +160,7 @@ class ToolBuilder {
 
     setProperty<T>(itemId: string, playerId: string, prop: string, value: T) {
         if (itemId) {
-            const tool: toolObject = this.bindings.get(playerId).get(itemId);
+            const tool: toolObject = this.bindings.get(playerId).data[itemId];
             if (tool && prop in tool) {
                 tool[prop] = value;
                 this.bindings.get(playerId).save();
@@ -156,7 +172,7 @@ class ToolBuilder {
 
     getProperty<T>(itemId: string, playerId: string, prop: string) {
         if (itemId) {
-            const tool: toolObject = this.bindings.get(playerId).get(itemId);
+            const tool: toolObject = this.bindings.get(playerId).data[itemId];
             if (tool && prop in tool) {
                 return tool[prop] as T;
             }
@@ -166,7 +182,7 @@ class ToolBuilder {
 
     hasProperty(itemId: string, playerId: string, prop: string) {
         if (itemId) {
-            const tool: toolObject = this.bindings.get(playerId).get(itemId);
+            const tool: toolObject = this.bindings.get(playerId).data[itemId];
             if (tool && prop in tool) {
                 return true;
             }
@@ -187,8 +203,8 @@ class ToolBuilder {
 
         const key = item.typeId;
         let tool: Tool;
-        if (this.bindings.get(player.id)?.has(key)) {
-            tool = this.bindings.get(player.id).get(key);
+        if (this.bindings.get(player.id)?.data[key]) {
+            tool = this.bindings.get(player.id).data[key];
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else {
@@ -209,8 +225,8 @@ class ToolBuilder {
 
         const key = item.typeId;
         let tool: Tool;
-        if (this.bindings.get(player.id)?.has(key)) {
-            tool = this.bindings.get(player.id).get(key);
+        if (this.bindings.get(player.id)?.data[key]) {
+            tool = this.bindings.get(player.id).data[key];
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
@@ -228,8 +244,8 @@ class ToolBuilder {
 
         const key = item.typeId;
         let tool: Tool;
-        if (this.bindings.get(player.id)?.has(key)) {
-            tool = this.bindings.get(player.id).get(key);
+        if (this.bindings.get(player.id)?.data[key]) {
+            tool = this.bindings.get(player.id).data[key];
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
@@ -247,8 +263,8 @@ class ToolBuilder {
 
         const key = item.typeId;
         let tool: Tool;
-        if (this.bindings.get(player.id)?.has(key)) {
-            tool = this.bindings.get(player.id).get(key);
+        if (this.bindings.get(player.id)?.data[key]) {
+            tool = this.bindings.get(player.id).data[key];
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
@@ -266,8 +282,8 @@ class ToolBuilder {
 
         const key = item.typeId;
         let tool: Tool;
-        if (this.bindings.get(player.id)?.has(key)) {
-            tool = this.bindings.get(player.id).get(key);
+        if (this.bindings.get(player.id)?.data[key]) {
+            tool = this.bindings.get(player.id).data[key];
         } else if (this.fixedBindings.has(key)) {
             tool = this.fixedBindings.get(key);
         } else if (this.conditionalBindings.get(key)?.condition(player, getSession(player))) {
@@ -280,28 +296,14 @@ class ToolBuilder {
 
     private createPlayerBindingMap(playerId: string) {
         if (this.bindings.has(playerId)) return;
-        const database = getDatabase<{ [id: string]: Tool }>(`tools|${playerId}`, world, (k, v) => {
-            if (v && typeof v === "object" && "toolType" in v) {
-                try {
-                    const toolClass = this.tools.get(v.toolType);
-                    const tool = new toolClass(...(toolClass as toolConstruct & typeof Tool).parseJSON(v));
-                    tool.type = v.toolType;
-                    return tool;
-                } catch (err) {
-                    contentLog.error(`Failed to load tool from '${JSON.stringify(v)}' for '${k}': ${err}`);
-                }
-            } else {
-                return v;
-            }
-        });
+        const database = Databases.load<{ [id: string]: Tool }>(`tools|${playerId}`, world);
         this.bindings.set(playerId, database);
     }
 
     private stopHolding(player: Player) {
-        if (this.prevHeldTool.has(player)) {
-            this.prevHeldTool.get(player)?.process(getSession(player), ToolAction.STOP_HOLD);
-            this.prevHeldTool.delete(player);
-        }
+        if (!this.prevHeldTool.has(player)) return;
+        this.prevHeldTool.get(player)?.process(getSession(player), ToolAction.STOP_HOLD);
+        this.prevHeldTool.delete(player);
     }
 }
 export const Tools = new ToolBuilder();

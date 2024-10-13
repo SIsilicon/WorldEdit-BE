@@ -1,5 +1,5 @@
-import { Player, system } from "@minecraft/server";
-import { Server, Vector, setTickTimeout, contentLog, getDatabase, deleteDatabase } from "@notbeer-api";
+import { Player, system, world } from "@minecraft/server";
+import { Server, Vector, setTickTimeout, contentLog, Databases } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
@@ -36,9 +36,22 @@ interface gradients {
     [id: string]: { dither: number; patterns: Pattern[] };
 }
 
+Databases.addParser((key, value, databaseName) => {
+    if (databaseName === "gradients" && typeof value === "object" && value.patterns) {
+        try {
+            value.patterns = (<string[]>value.patterns).map((v) => new Pattern(v));
+            return value;
+        } catch {
+            contentLog.error(`Failed to load gradient ${key}`);
+        }
+    } else {
+        return value;
+    }
+});
+
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
     if (id !== "wedit:reset_gradients_database" || !sourceEntity) return;
-    deleteDatabase("gradients", sourceEntity);
+    Databases.delete("gradients", sourceEntity);
 });
 
 /**
@@ -121,10 +134,7 @@ export class PlayerSession {
         this.history = new History(this);
         this.selection = new Selection(player);
         this.drawOutlines = config.drawOutlines;
-        this.gradients = getDatabase<gradients>("gradients", player, (k, v) => {
-            if (k === "patterns") return (<string[]>v).map((v) => new Pattern(v));
-            return v;
-        });
+        this.gradients = Databases.load<gradients>("gradients", player);
 
         if (!this.getTools().length) {
             this.bindTool("selection_wand", config.wandItem);
@@ -286,27 +296,25 @@ export class PlayerSession {
     }
 
     public createGradient(id: string, dither: number, patterns: Pattern[]) {
-        this.gradients.set(id, { dither, patterns });
+        this.gradients.data[id] = { dither, patterns };
         this.gradients.save();
     }
 
     public getGradient(id: string) {
-        return this.gradients.get(id);
+        return this.gradients.data[id];
     }
 
     public getGradientNames() {
-        return this.gradients.keys() as string[];
+        return Object.keys(this.gradients.data);
     }
 
     public deleteGradient(id: string) {
-        this.gradients.delete(id);
+        delete this.gradients.data[id];
         this.gradients.save();
     }
 
     delete() {
-        for (const region of this.regions.values()) {
-            region.deref();
-        }
+        for (const region of this.regions.values()) region.deref();
         this.regions.clear();
         this.history.delete();
         this.history = null;

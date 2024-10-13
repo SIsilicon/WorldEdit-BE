@@ -41,7 +41,7 @@ import { Block } from "./classes/blockBuilder.js";
 export { CustomArgType, CommandPosition } from "./classes/commandBuilder.js";
 export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/classes/CommandBuilder";
 export { StructureSaveOptions, StructureLoadOptions } from "./classes/structureBuilder.js";
-export { getDatabase, deleteDatabase } from "./classes/databaseBuilder.js";
+export { Databases } from "./classes/databaseBuilder.js";
 export { configuration } from "./configurations.js";
 
 class ServerBuild extends ServerBuilder {

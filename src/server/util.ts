@@ -67,10 +67,7 @@ export function blockHasNBTData(block: Block) {
         "minecraft:sign",
         "minecraft:piston",
         "minecraft:record_player",
-        "minecraft:waterContainer",
-        "minecraft:lavaContainer",
-        "minecraft:snowContainer",
-        "minecraft:potionContainer",
+        "minecraft:fluidContainer",
     ];
     const nbt_blocks = [
         "minecraft:bee_nest",

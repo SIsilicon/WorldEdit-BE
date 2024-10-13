@@ -141,7 +141,7 @@ if args.watch:
 
     class MyHandler(FileSystemEventHandler):
         def on_modified(self, ev):
-            if ev.src_path in [".\worldedit_settings.json", "BP\scripts\config.js"]:
+            if ev.src_path in ["./worldedit_settings.json", "BP/scripts/config.js"]:
                 update()
 
     obsSettings = Observer()
@@ -149,7 +149,7 @@ if args.watch:
     obsSettings.start()
 
     obsConfigJS = Observer()
-    obsConfigJS.schedule(MyHandler(), path="BP\scripts")
+    obsConfigJS.schedule(MyHandler(), path="BP/scripts")
     obsConfigJS.start()
 
     try:
