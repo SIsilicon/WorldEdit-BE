@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-10-30 07:29\n"
+"PO-Revision-Date: 2024-10-30 09:10\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cWorldEditのスクリプトが停止しました！§r/reload§c を実行するか、ワールドを再起動してリセットしてください。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
@@ -62,13 +62,13 @@ msgid "item.wedit:selection_outline"
 msgstr "範囲の輪郭線を生成"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "空洞の選択"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "選択範囲のスタック"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "選択範囲の移動"
 
 msgid "item.wedit:draw_line"
 msgstr "線を引く"
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "球体を生成"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "円柱の生成"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "ピラミッドの生成"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
@@ -110,7 +110,7 @@ msgid "worldedit.config.tools"
 msgstr "ツール"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "グラデーション"
 
 msgid "worldedit.config.general"
 msgstr "一般"
@@ -902,10 +902,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "直方体:\"pos1を破壊したブロック、pos2をブロックの使用\""
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "円柱の選択：中心の破壊されたブロックから半径と高さを決めるためにブロックを使用する"
 
 msgid "commands.wedit:sel.description"
 msgstr "選択モードを変更する"
@@ -923,10 +923,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "球体を選択する"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "拡張: 開始点の破壊されたブロックを拡張するためにブロックを使用してください。"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "球体の選択：中心の破壊されたブロック、半径はブロックの使用で設定します"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
@@ -974,34 +974,34 @@ msgid "commands.wedit:snow.description"
 msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "スーパーピッケルのモードは現在: area"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "スーパーツルハシで1つのブロックを破壊する"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "スーパーツルハシの壊せるブロックを立方体の選択範囲内のみにする"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "スーパーピッケルが最初に触れたブロックから順にブロックを破壊するようにする"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "スーパーツルハシを無効にしました"
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "スーパーツルハシを有効にしました"
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "スーパーツルハシのモードは現在: recursive"
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "スーパーピッケルのモードは現在: single"
 
 msgid "commands.wedit:thaw.description"
 msgstr "日光にさらされる雪と氷ブロックを消滅させる"
@@ -1031,7 +1031,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "トーラスを生成"
 
 msgid "commands.wedit:ascend.description"
 msgstr "1階分上に行く"
@@ -1049,13 +1049,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "条件に一致するブロックのみ選択範囲に含める"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "選択範囲内を切り取りました"
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "マスクと一致するブロックはありません！"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "配置位置を切り替えました。"
@@ -1142,7 +1142,7 @@ msgid "commands.wedit:wand.description"
 msgstr "自身に選択用の杖を付与する"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "ブロックの破壊で\";\"pos #1を選択します。ブロックの使用で\";\"pos #2を選択します"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit のコマンド"
@@ -1184,7 +1184,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "何よりも先に…、"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
+msgstr "デフォルトでは、プレイヤーは WorldEdit を使用できません。WorldEdit の権限者としてタグ付けされたプレイヤーのみが使用できます。 自身に権限を与えるには、チャットで §e/tag @s add worldedit§r を入力してください。これですべてのWorldEdit コマンドにアクセスできます。"
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§a豆知識:§r §e@s§r §aを他のプレイヤー名に変更することでそのプレイヤーに権限を与えることもできます。 スペースがある場合は引用符で囲む必要があります。例: §e/tag \"Steve Wanderer\" add worldedit§r"
@@ -1205,7 +1205,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "選択する"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
+msgstr "オリジナルのjavaのMod と同じように、選択用のワンド（木の斧）というアイテムを使用してさまざまな操作で簡単にワールドの内に範囲を選択できます。 ワンドを手に入れるには木の斧を持つか、 §e;wand§r コマンドを入力します。 WorldEdit の選択範囲のデフォルトは立方体です。 範囲を選択するには、この立方体の2つの角を決める必要があります。 スニークしながら角のブロックに杖を使って最初の角をマークします。 スニーク§lせずに§rブロックに杖を使って 2 番目の角をマークします。正しく行われた場合は、選択範囲がハイライトされます。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "空高くにある場合など角にマークするブロックが見つからない場合は、コマンド §e;pos1§r と §e;pos2§r を使って、それぞれ最初と 2 番目の角を立っている位置でマークすることもできます。 立っている§l下の§rブロックではありません。"
@@ -1259,5 +1259,5 @@ msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "このアドオンの詳細については、こちらのオンラインドキュメント (英語) を参照してください: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr "マインクラフト"
 
