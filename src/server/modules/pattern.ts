@@ -391,7 +391,7 @@ class TypePattern extends PatternNode {
     getPermutation(block: BlockUnit): BlockPermutation {
         let permutation = this.permutation;
         Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
-            if (state in this.props) permutation = permutation.withState(state, val);
+            if (state in this.props) permutation = permutation.withState(<any>state, val);
         });
         return permutation;
     }
@@ -412,7 +412,7 @@ class StatePattern extends PatternNode {
         let permutation = block.permutation;
         const props = permutation.getAllStates();
         this.states.forEach((val, state) => {
-            if (state in props) permutation = permutation.withState(state, val);
+            if (state in props) permutation = permutation.withState(<any>state, val);
         });
         return permutation;
     }

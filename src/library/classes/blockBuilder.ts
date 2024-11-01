@@ -43,8 +43,8 @@ export class BlockBuilder {
         function* recurseStates(i: number): Generator<BlockPermutation> {
             const state = props[--i];
             for (const val of Array.from(BlockStates.get(state).validValues)) {
-                permutation = permutation.withState(state, val);
-                if (permutation.getState(state) != val) return;
+                permutation = permutation.withState(<any>state, val);
+                if (permutation.getState(<any>state) != val) return;
                 if (i == 0) {
                     yield permutation;
                 } else {

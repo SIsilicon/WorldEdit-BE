@@ -161,7 +161,7 @@ export class RegionBuffer {
 
                     const withProperties = (properties: Record<string, string | number | boolean>) => {
                         for (const prop in properties) {
-                            block = block.withState(prop, properties[prop]);
+                            block = block.withState(<any>prop, properties[prop]);
                         }
                         return block;
                     };
