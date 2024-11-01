@@ -82,7 +82,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
         if (table) {
             data = (<string>JSON.parse(`"${table.displayName}"`)).slice(`[\\"${this.getScoreboardName()}\\"`.length - 1, -1);
         } else {
-            let data = <string>this.provider.getDynamicProperty(this.name);
+            data = <string>this.provider.getDynamicProperty(this.name);
             let page: string | undefined;
             let i = 2;
             while (data && (page = <string>this.provider.getDynamicProperty(`__page${i++}__` + this.name))) data += page;

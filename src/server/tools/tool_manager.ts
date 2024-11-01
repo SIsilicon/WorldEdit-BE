@@ -296,7 +296,7 @@ class ToolBuilder {
 
     private createPlayerBindingMap(playerId: string) {
         if (this.bindings.has(playerId)) return;
-        const database = Databases.load<{ [id: string]: Tool }>(`tools|${playerId}`, world);
+        const database = Databases.load<{ [id: string]: Tool }>(`tools|${playerId}`);
         this.bindings.set(playerId, database);
     }
 
