@@ -1,5 +1,5 @@
 import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes } from "@minecraft/server";
-import { Server, RawText, Vector } from "@notbeer-api";
+import { Server, RawText, Vector, Matrix } from "@notbeer-api";
 import config from "config.js";
 
 /**
@@ -136,4 +136,11 @@ export function arraysEqual<T>(a: T[], b: T[], compare: (a: T, b: T) => boolean)
         if (!!valA != !!valB) return true;
         return !compare(valA, valB);
     });
+}
+
+export function rotationFlipMatrix(rotation: Vector3, flip: Vector3, origin?: Vector3) {
+    const matrix = new Matrix().rotate(rotation.y, "y").rotate(rotation.x, "x").rotate(rotation.z, "z").scale(flip);
+    if (!origin) return matrix;
+    const translate = Matrix.fromTranslation(origin);
+    return translate.multiply(matrix).multiply(matrix.invert());
 }

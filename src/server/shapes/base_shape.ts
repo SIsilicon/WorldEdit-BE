@@ -143,13 +143,12 @@ export abstract class Shape {
     }
 
     protected drawCircle(center: Vector, radius: number, axis: "x" | "y" | "z"): [string, Vector][] {
-        const [rotate, vec]: [typeof Vector.prototype.rotateX, Vector] =
-            axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] : axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] : [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
+        const vec = axis === "x" ? new Vector(0, 1, 0) : axis === "y" ? new Vector(1, 0, 0) : new Vector(0, 1, 0);
         const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
         const points: [string, Vector][] = [];
         for (let i = 0; i < resolution; i++) {
-            let point: Vector = rotate.call(vec, (i / resolution) * 360);
+            let point: Vector = vec.rotate((i / resolution) * 360, axis);
             point = point.mul(radius).add(center).add(0.5);
             points.push(["wedit:selection_draw", point]);
         }

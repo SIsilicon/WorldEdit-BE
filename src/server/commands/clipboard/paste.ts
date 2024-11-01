@@ -3,6 +3,7 @@ import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { rotationFlipMatrix } from "server/util.js";
 
 const registerInformation = {
     name: "paste",
@@ -35,7 +36,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const rotation = session.clipboardTransform.rotation;
     const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), rotationFlipMatrix(rotation, flip));
     const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
     let pasteStart: Vector;

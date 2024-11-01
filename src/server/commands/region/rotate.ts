@@ -56,7 +56,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         if (!session.clipboard.isAccurate) assertValidFastArgs();
 
         if (!args.has("o")) {
-            session.clipboardTransform.relative = session.clipboardTransform.relative.rotateY(args.get("rotate"));
+            session.clipboardTransform.relative = session.clipboardTransform.relative.rotate(args.get("rotate"), "y");
         }
         session.clipboardTransform.rotation = session.clipboardTransform.rotation.add(rotation);
         blockCount = session.clipboard.getBlockCount();

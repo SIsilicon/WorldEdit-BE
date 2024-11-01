@@ -6,6 +6,7 @@ import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { set } from "./set.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
+import { rotationFlipMatrix } from "server/util.js";
 
 // TODO: fix the bounds sometimes not encompassing the new geometry
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,11 +20,11 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         const dim = builder.dimension;
 
         const center = Vector.from(start).add(end).mul(0.5);
-        const origin = args.has("o") ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor());
+        const origin = center.sub(args.has("o") ? Vector.ZERO : Vector.sub(center, Vector.from(builder.location).floor()));
         yield Jobs.nextStep("Gettings blocks...");
         yield* temp.save(start, end, dim);
 
-        const [newStart, newEnd] = regionTransformedBounds(start, end, center.sub(origin), options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE);
+        const [newStart, newEnd] = regionTransformedBounds(start, end, rotationFlipMatrix(options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE, origin));
 
         yield history.addUndoStructure(record, start, end, "any");
         yield history.addUndoStructure(record, newStart, newEnd, "any");

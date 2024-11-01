@@ -6,6 +6,7 @@ import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { Selection } from "@modules/selection.js";
+import { rotationFlipMatrix } from "server/util.js";
 
 interface PreviewPaste {
     outlines: Map<PlayerSession, Selection>;
@@ -130,7 +131,7 @@ function* previewPaste(self: PreviewPaste, player: Player, session: PlayerSessio
     }
     const rotation = session.clipboardTransform.rotation;
     const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
+    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), rotationFlipMatrix(rotation, flip));
     const size = Vector.from(regionSize(bounds[0], bounds[1]));
 
     const loc = PlayerUtil.getBlockLocation(player);

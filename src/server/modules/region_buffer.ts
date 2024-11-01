@@ -2,6 +2,7 @@ import {
     contentLog,
     generateId,
     iterateChunk,
+    Matrix,
     regionCenter,
     regionIterateBlocks,
     regionSize,
@@ -15,7 +16,7 @@ import {
     Vector,
 } from "@notbeer-api";
 import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
-import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
+import { blockHasNBTData, getViewVector, locToString, rotationFlipMatrix, stringToLoc } from "../util.js";
 import { EntityCreateEvent } from "library/@types/Events.js";
 import { Mask } from "./mask.js";
 import { JobFunction, Jobs } from "./jobs.js";
@@ -138,7 +139,8 @@ export class RegionBuffer {
     public *load(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<JobFunction | Promise<unknown>, void> {
         const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
         if (this.isAccurate) {
-            const bounds = regionTransformedBounds(Vector.ZERO, Vector.sub(this.size, [1, 1, 1]).floor(), Vector.ZERO, ...rotFlip);
+            const matrix = rotationFlipMatrix(...rotFlip);
+            const bounds = regionTransformedBounds(Vector.ZERO, Vector.sub(this.size, [1, 1, 1]).floor(), matrix);
             const shouldTransform = options.rotation || options.flip;
 
             let transform: (block: BlockPermutation) => BlockPermutation;
@@ -167,41 +169,41 @@ export class RegionBuffer {
                     };
 
                     if (upsideDownBit != null && openBit != null && direction != null) {
-                        const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit}_${openBit}_${direction}`, ...rotFlip) as string).split("_");
+                        const states = (this.transformMapping(mappings.trapdoorMap, `${upsideDownBit}_${openBit}_${direction}`, matrix) as string).split("_");
                         block = withProperties({ upside_down_bit: states[0] == "true", open_bit: states[1] == "true", direction: parseInt(states[2]) });
                     } else if (weirdoDir != null && upsideDownBit != null) {
-                        const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit}_${weirdoDir}`, ...rotFlip) as string).split("_");
+                        const states = (this.transformMapping(mappings.stairsMap, `${upsideDownBit}_${weirdoDir}`, matrix) as string).split("_");
                         block = withProperties({ upside_down_bit: states[0] == "true", weirdo_direction: parseInt(states[1]) });
                     } else if (doorHingeBit != null && direction != null) {
-                        const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, ...rotFlip) as string).split("_");
+                        const states = (this.transformMapping(mappings.doorMap, `${doorHingeBit}_${direction}`, matrix) as string).split("_");
                         block = withProperties({ door_hinge_bit: states[0] == "true", direction: parseInt(states[1]) });
                     } else if (attachment != null && direction != null) {
-                        const states = (this.transformMapping(mappings.bellMap, `${attachment}_${direction}`, ...rotFlip) as string).split("_");
+                        const states = (this.transformMapping(mappings.bellMap, `${attachment}_${direction}`, matrix) as string).split("_");
                         block = withProperties({ attachment: states[0], direction: parseInt(states[1]) });
                     } else if (cardinalDir != null) {
-                        const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, ...rotFlip);
+                        const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, matrix);
                         block = block.withState("minecraft:cardinal_direction", state);
                     } else if (facingDir != null) {
-                        const state = this.transformMapping(mappings.facingDirectionMap, facingDir, ...rotFlip);
+                        const state = this.transformMapping(mappings.facingDirectionMap, facingDir, matrix);
                         block = block.withState("facing_direction", parseInt(state));
                     } else if (direction != null) {
                         const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
-                        const state = this.transformMapping(mapping, direction, ...rotFlip);
+                        const state = this.transformMapping(mapping, direction, matrix);
                         block = block.withState("direction", parseInt(state));
                     } else if (groundSignDir != null) {
-                        const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, ...rotFlip);
+                        const state = this.transformMapping(mappings.groundSignDirectionMap, groundSignDir, matrix);
                         block = block.withState("ground_sign_direction", parseInt(state));
                     } else if (torchFacingDir != null) {
-                        const state = this.transformMapping(mappings.torchMap, torchFacingDir, ...rotFlip);
+                        const state = this.transformMapping(mappings.torchMap, torchFacingDir, matrix);
                         block = block.withState("torch_facing_direction", state);
                     } else if (leverDir != null) {
-                        const state = this.transformMapping(mappings.leverMap, leverDir, ...rotFlip);
+                        const state = this.transformMapping(mappings.leverMap, leverDir, matrix);
                         block = block.withState("lever_direction", state.replace("0", ""));
                     } else if (pillarAxis != null) {
-                        const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", ...rotFlip);
+                        const state = this.transformMapping(mappings.pillarAxisMap, pillarAxis + "_0", matrix);
                         block = block.withState("pillar_axis", state[0]);
                     } else if (topSlotBit != null) {
-                        const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), ...rotFlip);
+                        const state = this.transformMapping(mappings.topSlotMap, String(topSlotBit), matrix);
                         block = block.withState("top_slot_bit", state == "true");
                     }
                     return block;
@@ -213,7 +215,7 @@ export class RegionBuffer {
             let i = 0;
             for (const [key, block] of this.blocks.entries()) {
                 let blockLoc = stringToLoc(key);
-                if (shouldTransform) blockLoc = Vector.from(blockLoc).rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z).mul(rotFlip[1]).sub(bounds[0]).floor();
+                if (shouldTransform) blockLoc = Vector.from(blockLoc).transform(matrix).sub(bounds[0]).floor();
 
                 blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
                 let oldBlock = dim.getBlock(blockLoc);
@@ -237,8 +239,8 @@ export class RegionBuffer {
                         let entityLoc = ev.entity.location;
                         let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc);
 
-                        entityLoc = Vector.from(entityLoc).sub(loc).rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z).mul(rotFlip[1]).sub(bounds[0]).add(loc);
-                        entityFacing = Vector.from(entityFacing).sub(loc).rotateY(rotFlip[0].y).rotateX(rotFlip[0].x).rotateZ(rotFlip[0].z).mul(rotFlip[1]).sub(bounds[0]).add(loc);
+                        entityLoc = Vector.from(entityLoc).sub(loc).transform(matrix).sub(bounds[0]).add(loc);
+                        entityFacing = Vector.from(entityFacing).sub(loc).transform(matrix).sub(bounds[0]).add(loc);
 
                         ev.entity.teleport(entityLoc, {
                             dimension: dim,
@@ -379,14 +381,13 @@ export class RegionBuffer {
         if (--this.refCount < 1) this.delete();
     }
 
-    private transformMapping(mapping: { [key: string | number]: Vector | [number, number, number] }, state: string | number, rotate: Vector, flip: Vector): string {
+    private transformMapping(mapping: { [key: string | number]: Vector | [number, number, number] }, state: string | number, transform: Matrix): string {
         let vec = Vector.from(mapping[state]);
         if (!vec) {
             contentLog.debug(`Can't map state "${state}".`);
             return typeof state == "string" ? state : state.toString();
         }
-        vec = vec.rotateY(rotate.y).rotateX(rotate.x).rotateZ(rotate.z);
-        vec = vec.mul(flip);
+        vec = vec.transformDirection(transform);
 
         let closestState: string;
         let closestDot = -1000;
@@ -486,21 +487,21 @@ const mappings = {
     groundSignDirectionMap: {
         // ground_sign_direction
         0: new Vector(0, 0, 1),
-        1: new Vector(0, 0, 1).rotateY((1 / 16) * 360),
-        2: new Vector(0, 0, 1).rotateY((2 / 16) * 360),
-        3: new Vector(0, 0, 1).rotateY((3 / 16) * 360),
-        4: new Vector(0, 0, 1).rotateY((4 / 16) * 360),
-        5: new Vector(0, 0, 1).rotateY((5 / 16) * 360),
-        6: new Vector(0, 0, 1).rotateY((6 / 16) * 360),
-        7: new Vector(0, 0, 1).rotateY((7 / 16) * 360),
-        8: new Vector(0, 0, 1).rotateY((8 / 16) * 360),
-        9: new Vector(0, 0, 1).rotateY((9 / 16) * 360),
-        10: new Vector(0, 0, 1).rotateY((10 / 16) * 360),
-        11: new Vector(0, 0, 1).rotateY((11 / 16) * 360),
-        12: new Vector(0, 0, 1).rotateY((12 / 16) * 360),
-        13: new Vector(0, 0, 1).rotateY((13 / 16) * 360),
-        14: new Vector(0, 0, 1).rotateY((14 / 16) * 360),
-        15: new Vector(0, 0, 1).rotateY((15 / 16) * 360),
+        1: new Vector(0, 0, 1).rotate((1 / 16) * 360, "y"),
+        2: new Vector(0, 0, 1).rotate((2 / 16) * 360, "y"),
+        3: new Vector(0, 0, 1).rotate((3 / 16) * 360, "y"),
+        4: new Vector(0, 0, 1).rotate((4 / 16) * 360, "y"),
+        5: new Vector(0, 0, 1).rotate((5 / 16) * 360, "y"),
+        6: new Vector(0, 0, 1).rotate((6 / 16) * 360, "y"),
+        7: new Vector(0, 0, 1).rotate((7 / 16) * 360, "y"),
+        8: new Vector(0, 0, 1).rotate((8 / 16) * 360, "y"),
+        9: new Vector(0, 0, 1).rotate((9 / 16) * 360, "y"),
+        10: new Vector(0, 0, 1).rotate((10 / 16) * 360, "y"),
+        11: new Vector(0, 0, 1).rotate((11 / 16) * 360, "y"),
+        12: new Vector(0, 0, 1).rotate((12 / 16) * 360, "y"),
+        13: new Vector(0, 0, 1).rotate((13 / 16) * 360, "y"),
+        14: new Vector(0, 0, 1).rotate((14 / 16) * 360, "y"),
+        15: new Vector(0, 0, 1).rotate((15 / 16) * 360, "y"),
     },
     stairsMap: {
         // upside_down_bit - weirdo_direction
