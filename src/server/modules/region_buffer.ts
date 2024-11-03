@@ -16,12 +16,13 @@ import {
     Vector,
 } from "@notbeer-api";
 import { Block, BlockPermutation, Dimension, Vector3 } from "@minecraft/server";
-import { blockHasNBTData, getViewVector, locToString, rotationFlipMatrix, stringToLoc } from "../util.js";
+import { blockHasNBTData, getViewVector, locToString, stringToLoc } from "../util.js";
 import { EntityCreateEvent } from "library/@types/Events.js";
 import { Mask } from "./mask.js";
 import { JobFunction, Jobs } from "./jobs.js";
 
 export interface RegionLoadOptions {
+    offset?: Vector;
     rotation?: Vector;
     flip?: Vector;
     mask?: Mask;
@@ -137,10 +138,12 @@ export class RegionBuffer {
     }
 
     public *load(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<JobFunction | Promise<unknown>, void> {
-        const rotFlip: [Vector, Vector] = [options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE];
+        const rotation = options.rotation ?? Vector.ZERO;
+        const flip = options.flip ?? Vector.ONE;
+        const bounds = this.getBounds(loc, options);
         if (this.isAccurate) {
-            const matrix = rotationFlipMatrix(...rotFlip);
-            const bounds = regionTransformedBounds(Vector.ZERO, Vector.sub(this.size, [1, 1, 1]).floor(), matrix);
+            const matrix = RegionBuffer.getTransformationMatrix(loc, options);
+            const invMatrix = matrix.invert();
             const shouldTransform = options.rotation || options.flip;
 
             let transform: (block: BlockPermutation) => BlockPermutation;
@@ -162,9 +165,7 @@ export class RegionBuffer {
                     const cardinalDir = block.getState("minecraft:cardinal_direction") as string;
 
                     const withProperties = (properties: Record<string, string | number | boolean>) => {
-                        for (const prop in properties) {
-                            block = block.withState(<any>prop, properties[prop]);
-                        }
+                        for (const prop in properties) block = block.withState(<any>prop, properties[prop]);
                         return block;
                     };
 
@@ -212,12 +213,32 @@ export class RegionBuffer {
                 transform = (block) => block;
             }
 
-            let i = 0;
-            for (const [key, block] of this.blocks.entries()) {
-                let blockLoc = stringToLoc(key);
-                if (shouldTransform) blockLoc = Vector.from(blockLoc).transform(matrix).sub(bounds[0]).floor();
+            const blocks = this.blocks;
+            let totalIterationCount = 0;
+            const iterator = function* (): Generator<[Vector3, blockData | undefined]> {
+                if (rotation.x % 90 || rotation.y % 90 || rotation.z % 90) {
+                    totalIterationCount = regionVolume(...bounds);
+                    for (const blockLoc of regionIterateBlocks(...bounds)) {
+                        const sample = Vector.from(blockLoc).add(0.5).transform(invMatrix).floor();
+                        const block = blocks.get(locToString(sample));
+                        yield [blockLoc, block];
+                    }
+                } else {
+                    totalIterationCount = blocks.size;
+                    for (const [key, block] of blocks.entries()) {
+                        let blockLoc = stringToLoc(key);
+                        blockLoc = (shouldTransform ? blockLoc.add(0.5).transform(matrix) : blockLoc.add(loc)).floor();
+                        yield [blockLoc, block];
+                    }
+                }
+            };
 
-                blockLoc = blockLoc.offset(loc.x, loc.y, loc.z);
+            let i = 0;
+            for (const [blockLoc, block] of iterator()) {
+                if (iterateChunk()) yield Jobs.setProgress(i / totalIterationCount);
+                i++;
+                if (!block) continue;
+
                 let oldBlock = dim.getBlock(blockLoc);
                 while (!oldBlock && Jobs.inContext()) {
                     oldBlock = Jobs.loadBlock(blockLoc);
@@ -228,8 +249,6 @@ export class RegionBuffer {
                 if (block.length === 3) this.loadBlockFromStruct(block[2], blockLoc, dim);
                 oldBlock.setPermutation(transform(block[0]));
                 oldBlock.setWaterlogged(block[1]);
-                if (iterateChunk()) yield Jobs.setProgress(i / this.blocks.size);
-                i++;
             }
 
             if (this.savedEntities) {
@@ -239,8 +258,8 @@ export class RegionBuffer {
                         let entityLoc = ev.entity.location;
                         let entityFacing = Vector.from(getViewVector(ev.entity)).add(entityLoc);
 
-                        entityLoc = Vector.from(entityLoc).sub(loc).transform(matrix).sub(bounds[0]).add(loc);
-                        entityFacing = Vector.from(entityFacing).sub(loc).transform(matrix).sub(bounds[0]).add(loc);
+                        entityLoc = Vector.from(entityLoc).sub(loc).transform(matrix).add(loc);
+                        entityFacing = Vector.from(entityFacing).sub(loc).transform(matrix).add(loc);
 
                         ev.entity.teleport(entityLoc, {
                             dimension: dim,
@@ -254,16 +273,13 @@ export class RegionBuffer {
                 Server.off("entityCreate", onEntityload);
             }
         } else {
-            const loadOptions: StructureLoadOptions = {
-                rotation: rotFlip[0].y,
-                flip: "none",
-            };
-            if (options.flip?.z == -1) loadOptions.flip = "x";
-            if (options.flip?.x == -1) loadOptions.flip += "z";
+            const loadOptions: StructureLoadOptions = { rotation: rotation.y, flip: "none" };
+            if (flip.z == -1) loadOptions.flip = "x";
+            if (flip.x == -1) loadOptions.flip += "z";
             if ((loadOptions.flip as string) == "nonez") loadOptions.flip = "z";
             if (this.imported) loadOptions.importedSize = Vector.from(this.size);
             const jobCtx = Jobs.getContext();
-            yield Server.structure.loadWhileLoadingChunks(this.imported || this.id, loc, dim, loadOptions, (min, max) => {
+            yield Server.structure.loadWhileLoadingChunks(this.imported || this.id, bounds[0], dim, loadOptions, (min, max) => {
                 if (Jobs.isContextValid(jobCtx)) {
                     Jobs.loadBlock(regionCenter(min, max), jobCtx);
                     return false;
@@ -327,6 +343,10 @@ export class RegionBuffer {
         return this.size;
     }
 
+    public getBounds(loc: Vector3, options: RegionLoadOptions = {}) {
+        return RegionBuffer.createBounds(loc, Vector.add(loc, this.size).sub(1), options);
+    }
+
     public getBlockCount() {
         return this.blockCount;
     }
@@ -379,6 +399,17 @@ export class RegionBuffer {
 
     public deref() {
         if (--this.refCount < 1) this.delete();
+    }
+
+    public static createBounds(start: Vector3, end: Vector3, options: RegionLoadOptions = {}) {
+        return regionTransformedBounds(Vector.ZERO, Vector.sub(end, start).floor(), RegionBuffer.getTransformationMatrix(start, options));
+    }
+
+    private static getTransformationMatrix(loc: Vector3, options: RegionLoadOptions = {}) {
+        const offset = Matrix.fromTranslation(options.offset ?? Vector.ZERO);
+        return Matrix.fromRotationFlipOffset(options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE)
+            .multiply(offset)
+            .translate(loc);
     }
 
     private transformMapping(mapping: { [key: string | number]: Vector | [number, number, number] }, state: string | number, transform: Matrix): string {

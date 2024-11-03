@@ -64,7 +64,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     if (session.clipboard) session.deleteRegion(session.clipboard);
     session.clipboard = buffer;
     session.clipboardTransform = {
-        relative: Vector.from(metadata.relative),
+        offset: Vector.from(metadata.relative),
         rotation: Vector.ZERO,
         flip: Vector.ONE,
     };

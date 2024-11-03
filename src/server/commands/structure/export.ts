@@ -105,8 +105,8 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 throw "Failed to save structure";
 
             const size = regionSize(...range);
-            const playerPos = PlayerUtil.getBlockLocation(builder);
-            const relative = Vector.sub(regionCenter(...range), playerPos);
+            const playerPos = PlayerUtil.getBlockLocation(builder).add(0.5);
+            const relative = Vector.sub(range[0], playerPos);
 
             if (
                 writeMetaData(

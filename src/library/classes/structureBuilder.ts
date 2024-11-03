@@ -1,6 +1,5 @@
 /* eslint-disable no-empty */
-import { rotationFlipMatrix } from "server/util.js";
-import { regionLoaded, regionSize, regionTransformedBounds, sleep, Vector } from "../utils/index.js";
+import { Matrix, regionLoaded, regionSize, regionTransformedBounds, sleep, Vector } from "../utils/index.js";
 import { Dimension, StructureMirrorAxis, StructureRotation, Vector3, world } from "@minecraft/server";
 
 const ROT2STRUCT: { [key: number]: StructureRotation } = {
@@ -166,7 +165,7 @@ class StructureManager {
             if (mirror.includes("X")) dir_sc.z *= -1;
             if (mirror.includes("Z")) dir_sc.x *= -1;
 
-            const transform = rotationFlipMatrix(rotation, dir_sc);
+            const transform = Matrix.fromRotationFlipOffset(rotation, dir_sc);
             const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), transform);
             let error = false;
             const subStructs = options.importedSize ? this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) : struct.subRegions;
@@ -206,7 +205,7 @@ class StructureManager {
             if (flip.includes("x")) dir_sc.z *= -1;
             if (flip.includes("z")) dir_sc.x *= -1;
 
-            const transform = rotationFlipMatrix(rotation, dir_sc);
+            const transform = Matrix.fromRotationFlipOffset(rotation, dir_sc);
             const bounds = regionTransformedBounds(Vector.ZERO, size.sub(1).floor(), transform);
             let error = false;
             const subStructs = options.importedSize ? this.getSubStructs(location, Vector.add(location, options.importedSize).floor()) : struct.subRegions;

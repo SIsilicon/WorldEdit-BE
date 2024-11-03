@@ -1,4 +1,4 @@
-import { Vector, regionTransformedBounds } from "@notbeer-api";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -6,7 +6,6 @@ import { Selection } from "@modules/selection.js";
 import { RegionBuffer, RegionLoadOptions } from "@modules/region_buffer.js";
 import { world } from "@minecraft/server";
 import { importStructure } from "server/commands/structure/import.js";
-import { rotationFlipMatrix } from "server/util.js";
 
 /**
  * Pastes structures on use
@@ -72,21 +71,23 @@ export class StructureBrush extends Brush {
             const regionSize = struct.getSize();
             let start = loc.offset(-regionSize.x / 2, 1, -regionSize.z / 2).ceil();
             let end = start.add(regionSize).sub(1);
-            const options: RegionLoadOptions = { mask: this.mask };
+            const center = start.add(end.add(1)).mul(0.5);
+            const options: RegionLoadOptions = { offset: start.sub(center), mask: this.mask };
             if (this.randomTransform) {
                 const newTransform = this.lastTransform.slice() as typeof this.lastTransform;
                 while (newTransform[0] == this.lastTransform[0] && newTransform[1].equals(this.lastTransform[1])) {
-                    newTransform[0] = [0, 90, 180, 270][Math.floor(Math.random() * 4)];
+                    newTransform[0] = [0, 90, 180, -90][Math.floor(Math.random() * 4)];
                     newTransform[1] = new Vector(Math.random() > 0.5 ? 1 : -1, 1, Math.random() > 0.5 ? 1 : -1);
                 }
                 options.rotation = new Vector(0, newTransform[0], 0);
                 options.flip = newTransform[1];
                 this.lastTransform = newTransform;
-                [start, end] = regionTransformedBounds(start, end, rotationFlipMatrix(options.rotation, options.flip, start.lerp(end, 0.5)));
+                [start, end] = struct.getBounds(center, options);
+                console.warn(options.rotation, options.flip);
             }
 
             yield history.addUndoStructure(record, start, end);
-            yield* struct.load(start, session.getPlayer().dimension, options);
+            yield* struct.load(center, session.getPlayer().dimension, options);
             yield history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch {

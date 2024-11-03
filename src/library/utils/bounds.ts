@@ -17,7 +17,7 @@ export function regionVolume(start: Vector3, end: Vector3) {
  * @param blocks The set of blocks
  * @return The minimum and maximum
  */
-export function regionBounds(blocks: Vector3[]): [Vector3, Vector3] {
+export function regionBounds(blocks: Vector3[]): [Vector, Vector] {
     let min: Vector;
     let max: Vector;
     for (const block of blocks) {
@@ -35,8 +35,9 @@ export function regionBounds(blocks: Vector3[]): [Vector3, Vector3] {
     return [min, max];
 }
 
-export function regionTransformedBounds(start: Vector, end: Vector, transform: Matrix) {
-    end = end.add(1);
+export function regionTransformedBounds(start: Vector3, end: Vector3, transform: Matrix) {
+    start = Vector.add(start, [0.5, 0.5, 0.5]);
+    end = Vector.add(end, [0.5, 0.5, 0.5]);
     const corners = [
         new Vector(start.x, start.y, start.z),
         new Vector(start.x, start.y, end.z),
@@ -53,6 +54,10 @@ export function regionTransformedBounds(start: Vector, end: Vector, transform: M
     corners.forEach((vec) => (max = max.max(vec)));
 
     return [min.floor(), max.sub(1).ceil()] as [Vector, Vector];
+}
+
+export function regionOffset(start: Vector3, end: Vector3, offset: Vector3): [Vector, Vector] {
+    return [Vector.add(start, offset), Vector.add(end, offset)];
 }
 
 /**

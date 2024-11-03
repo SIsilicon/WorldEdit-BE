@@ -49,13 +49,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
 
         const clipTrans = session.clipboardTransform;
-        if (!args.has("o")) {
-            if (Math.abs(dir.x)) {
-                clipTrans.relative.x *= -1;
-            } else if (Math.abs(dir.z)) {
-                clipTrans.relative.z *= -1;
-            }
-        }
+
+        // TODO: Get -o flag working for clipboard flips again
+        // if (!args.has("o")) {
+        //     if (Math.abs(dir.x)) {
+        //         clipTrans.offset.x *= -1;
+        //     } else if (Math.abs(dir.z)) {
+        //         clipTrans.offset.z *= -1;
+        //     }
+        // }
 
         clipTrans.flip = clipTrans.flip.mul(flip);
         blockCount = session.clipboard.getBlockCount();

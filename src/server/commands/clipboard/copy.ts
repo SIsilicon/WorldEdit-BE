@@ -50,9 +50,9 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
         session.clipboardTransform = {
             rotation: Vector.ZERO,
             flip: Vector.ONE,
-            originalLoc: Vector.add(start, end).mul(0.5),
+            originalLoc: start,
             originalDim: player.dimension.id,
-            relative: Vector.sub(Vector.add(start, end).mul(0.5), Vector.from(player.location).floor()),
+            offset: Vector.sub(start, Vector.from(player.location).floor().add(0.5)),
         };
         buffer = session.clipboard;
     }

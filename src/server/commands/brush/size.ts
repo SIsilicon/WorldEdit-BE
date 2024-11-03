@@ -42,7 +42,7 @@ registerCommand(registerInformation, function (session, builder, args) {
             size = Vector.from(session.clipboard.getSize());
             blockCount = session.clipboard.getBlockCount();
 
-            message.append("translate", "commands.wedit:size.offset").with(`${session.clipboardTransform.relative}\n`);
+            message.append("translate", "commands.wedit:size.offset").with(`${session.clipboardTransform.offset}\n`);
         } else {
             assertSelection(session);
 

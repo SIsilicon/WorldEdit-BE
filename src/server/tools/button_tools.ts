@@ -4,9 +4,7 @@ import { regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-ap
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
-import { PlayerUtil } from "@modules/player_util.js";
 import { Selection } from "@modules/selection.js";
-import { rotationFlipMatrix } from "server/util.js";
 
 interface PreviewPaste {
     outlines: Map<PlayerSession, Selection>;
@@ -129,17 +127,9 @@ function* previewPaste(self: PreviewPaste, player: Player, session: PlayerSessio
         const selection = new Selection(player);
         self.outlines.set(session, selection);
     }
-    const rotation = session.clipboardTransform.rotation;
-    const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), rotationFlipMatrix(rotation, flip));
-    const size = Vector.from(regionSize(bounds[0], bounds[1]));
-
-    const loc = PlayerUtil.getBlockLocation(player);
-    const pasteStart = Vector.add(loc, session.clipboardTransform.relative).sub(size.mul(0.5).sub(1));
-    const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
-
+    const [pasteStart, pasteEnd] = session.clipboard.getBounds(Vector.from(player.location).floor().add(0.5), session.clipboardTransform);
     const selection = self.outlines.get(session)!;
-    selection.set(0, pasteStart.floor());
+    selection.set(0, pasteStart);
     selection.set(1, pasteEnd);
     selection.draw();
     yield;

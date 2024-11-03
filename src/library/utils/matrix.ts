@@ -7,18 +7,16 @@ export class Matrix {
     public readonly vals: matrixElements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 
     static fromTranslation(vec: Vector3) {
-        return new Matrix([1, 0, 0, vec.x, 0, 1, 0, vec.y, 0, 0, 1, vec.z, 0, 0, 0, 1]);
+        return new Matrix([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, vec.x, vec.y, vec.z, 1]);
     }
 
-    static fromRotation(degrees: number, axis: axis) {
+    static fromRotation(degrees: number, axis: axis | Vector3) {
         // Based on http://www.gamedev.net/reference/articles/article1199.asp
         const radians = degrees * (Math.PI / 180);
-        const c = Math.cos(radians);
-        const s = Math.sin(radians);
+        const c = Math.floor(10_000 * Math.cos(radians)) / 10_000;
+        const s = Math.floor(10_000 * Math.sin(radians)) / 10_000;
         const t = 1 - c;
-        const x = axis === "x" ? 1 : 0;
-        const y = axis === "y" ? 1 : 0;
-        const z = axis === "z" ? 1 : 0;
+        const { x, y, z } = typeof axis === "string" ? { x: Number(axis === "x"), y: Number(axis === "y"), z: Number(axis === "z") } : axis;
         const tx = t * x;
         const ty = t * y;
 
@@ -27,6 +25,13 @@ export class Matrix {
 
     static fromScale(vec: Vector3) {
         return new Matrix([vec.x, 0, 0, 0, 0, vec.y, 0, 0, 0, 0, vec.z, 0, 0, 0, 0, 1]);
+    }
+
+    static fromRotationFlipOffset(rotation: Vector3, flip: Vector3, origin?: Vector3) {
+        const matrix = new Matrix().rotate(rotation.y, "y").rotate(rotation.x, "x").rotate(rotation.z, "z").scale(flip);
+        if (!origin) return matrix;
+        const translate = Matrix.fromTranslation(origin);
+        return translate.multiply(matrix).multiply(translate.invert());
     }
 
     constructor(values?: matrixElements) {
@@ -38,15 +43,15 @@ export class Matrix {
     }
 
     rotate(degrees: number, axis: axis) {
-        return this.multiply(Matrix.fromRotation(degrees, axis));
+        return Matrix.fromRotation(degrees, axis).multiply(this);
     }
 
     translate(vec: Vector3) {
-        return this.multiply(Matrix.fromTranslation(vec));
+        return Matrix.fromTranslation(vec).multiply(this);
     }
 
     scale(vec: Vector3) {
-        return this.multiply(Matrix.fromScale(vec));
+        return Matrix.fromScale(vec).multiply(this);
     }
 
     transpose() {
@@ -68,8 +73,7 @@ export class Matrix {
 
     invert() {
         // based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
-        const result = new Matrix();
-        const vals = result.vals,
+        const vals = <matrixElements>[...this.vals],
             n11 = vals[0],
             n21 = vals[1],
             n31 = vals[2],
@@ -117,7 +121,7 @@ export class Matrix {
         vals[14] = (n14 * n22 * n31 - n12 * n24 * n31 - n14 * n21 * n32 + n11 * n24 * n32 + n12 * n21 * n34 - n11 * n22 * n34) * detInv;
         vals[15] = (n12 * n23 * n31 - n13 * n22 * n31 + n13 * n21 * n32 - n11 * n23 * n32 - n12 * n21 * n33 + n11 * n22 * n33) * detInv;
 
-        return result;
+        return new Matrix(vals);
     }
 
     multiply(mat: Matrix) {
@@ -181,5 +185,3 @@ export class Matrix {
         return result;
     }
 }
-
-new Matrix();

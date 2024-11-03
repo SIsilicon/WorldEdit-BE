@@ -21,7 +21,7 @@ Server.on("playerChangeDimension", (ev) => {
 interface regionTransform {
     originalLoc?: Vector;
     originalDim?: string;
-    relative: Vector;
+    offset: Vector;
     rotation: Vector;
     flip: Vector;
 }
@@ -106,7 +106,7 @@ export class PlayerSession {
      * The transformation properties currently on the clipboard
      */
     public clipboardTransform: regionTransform = {
-        relative: Vector.ZERO,
+        offset: Vector.ZERO,
         rotation: Vector.ZERO,
         flip: Vector.ONE,
     };
