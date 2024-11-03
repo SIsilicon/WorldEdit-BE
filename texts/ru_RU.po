@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-09-18 19:57\n"
+"PO-Revision-Date: 2024-11-03 23:55\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода Java и многого другого! Addon от Silicon. (@iSiliconS)."
@@ -885,6 +885,12 @@ msgstr "Удалить ближайшие блоки"
 
 msgid "commands.wedit:replacenear.description"
 msgstr "Заменить близлежащие блоки другими блоками"
+
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Повернуть блоки в выделении"
