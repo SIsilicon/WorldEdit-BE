@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-10-16 20:29\n"
+"PO-Revision-Date: 2024-11-03 23:55\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -885,6 +885,12 @@ msgstr "Видалити блоки поблизу"
 
 msgid "commands.wedit:replacenear.description"
 msgstr "Замінити блоки поблизу з іншими блоками"
+
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Повернути блоки у виділенні"
