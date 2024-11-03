@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-11-03 23:55\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -886,6 +886,12 @@ msgstr "Remove nearby blocks"
 msgid "commands.wedit:replacenear.description"
 msgstr "Replace nearby blocks with other blocks"
 
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
+
 msgid "commands.wedit:rotate.description"
 msgstr "Rotate the selection"
 
@@ -1184,7 +1190,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Antes de tudo..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "Por padrão, os jogadores não podem usar o WorldEdit. Apenas aqueles marcados com permissão de worldedit podem usar seus recursos. Para dar a si mesmo permissão, digite §e/tag @s add worldedit§r no chat. Agora, você deve ter acesso a todos os comandos WorldEdit."
+msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aDica:§r§a Você também pode dar permissão a outros jogadores alterando §e@s§r§a para o nome do jogador. Você precisará envolvê-lo em aspas se ele tiver um espaço. Por exemplo: §e/tag \"Steve Wanderer\" add worldedit§r"
