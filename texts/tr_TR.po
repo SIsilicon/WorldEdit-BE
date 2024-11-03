@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-09-13 18:29\n"
+"PO-Revision-Date: 2024-11-03 23:55\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -885,6 +885,12 @@ msgstr "Remove nearby blocks"
 
 msgid "commands.wedit:replacenear.description"
 msgstr "Replace nearby blocks with other blocks"
+
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Rotate the selection"
