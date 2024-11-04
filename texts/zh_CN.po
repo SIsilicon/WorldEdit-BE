@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-11-03 23:55\n"
+"PO-Revision-Date: 2024-11-04 15:20\n"
 
 msgid "pack.description"
-msgstr "这是一个正在开发中的 Java 版的创世神模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "这是一个正在开发中的 Java 版 WorldEdit 模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
 
 msgid "script.watchdog.error.hang"
 msgstr "§c创世神的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
@@ -887,10 +887,10 @@ msgid "commands.wedit:replacenear.description"
 msgstr "用其他方块替换附近的方块。"
 
 msgid "commands.wedit:revolve.description"
-msgstr "Make copies of the selection revolving around the player"
+msgstr "制作围绕玩家旋转的选区的副本"
 
 msgid "commands.wedit:revolve.explain"
-msgstr "Created %s blocks from revolving."
+msgstr "由旋转创建了%s个方块"
 
 msgid "commands.wedit:rotate.description"
 msgstr "旋转选区"
