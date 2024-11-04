@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation } from "@minecraft/server";
+import { Vector3, BlockPermutation, BlockFilter } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import {
@@ -12,13 +12,14 @@ import {
     parsedBlock,
     blockPermutation2ParsedBlock,
     BlockUnit,
-    parsedBlock2CommandArg,
+    parsedBlock2BlockPermutation,
 } from "./block_parsing.js";
+import { iterateBlockPermutations } from "server/util.js";
 
 export class Mask implements CustomArgType {
     private condition: MaskNode;
     private stringObj = "";
-    private simpleCache: string[];
+    private simpleCache: BlockFilter;
 
     constructor(mask = "") {
         if (mask) {
@@ -109,19 +110,51 @@ export class Mask implements CustomArgType {
     }
 
     isSimple() {
-        return !this.condition || this.condition instanceof BlockMask || (this.condition instanceof ChainMask && this.condition.nodes.every((node) => node instanceof BlockMask));
+        const root = this.condition;
+        const child = root.nodes[0];
+        return (
+            !root ||
+            root instanceof BlockMask ||
+            (root instanceof ChainMask && root.nodes.every((node) => node instanceof BlockMask)) ||
+            (root instanceof NegateMask && (child instanceof BlockMask || (child instanceof ChainMask && child.nodes.every((node) => node instanceof BlockMask))))
+        );
     }
 
-    getSimpleForCommandArgs() {
-        if (!this.simpleCache) {
-            if (this.condition instanceof BlockMask) {
-                this.simpleCache = [parsedBlock2CommandArg(this.condition.block)];
-            } else if (this.condition instanceof ChainMask) {
-                this.simpleCache = this.condition.nodes.map((node) => parsedBlock2CommandArg((<BlockMask>node).block));
+    getSimpleBlockFilter() {
+        if (this.simpleCache) return this.simpleCache;
+
+        const addToFilter = (block: parsedBlock, types: string[], perms: BlockPermutation[]) => {
+            const perm = parsedBlock2BlockPermutation(block);
+            if (block.states != null) {
+                const test = Array.from(block.states.entries());
+                for (const states of iterateBlockPermutations(block.id)) {
+                    if (!test.every(([key, value]) => states[key] === value)) continue;
+                    perms.push(BlockPermutation.resolve(block.id, states));
+                }
             } else {
-                this.simpleCache = [];
+                types.push(perm.type.id);
             }
+        };
+
+        const includeTypes: string[] = [];
+        const excludeTypes: string[] = [];
+        const includePerms: BlockPermutation[] = [];
+        const excludePerms: BlockPermutation[] = [];
+        this.simpleCache = {};
+
+        if (this.condition instanceof BlockMask) addToFilter(this.condition.block, includeTypes, includePerms);
+        else if (this.condition instanceof ChainMask) this.condition.nodes.forEach((node) => addToFilter((<BlockMask>node).block, includeTypes, includePerms));
+        else if (this.condition instanceof NegateMask) {
+            const negated = this.condition.nodes[0];
+            if (negated instanceof BlockMask) addToFilter(negated.block, excludeTypes, excludePerms);
+            else if (negated instanceof ChainMask) negated.nodes.forEach((node) => addToFilter((<BlockMask>node).block, excludeTypes, excludePerms));
         }
+
+        if (includeTypes.length) this.simpleCache.includeTypes = includeTypes;
+        if (excludeTypes.length) this.simpleCache.excludeTypes = excludeTypes;
+        if (includePerms.length) this.simpleCache.includePermutations = includePerms;
+        if (excludePerms.length) this.simpleCache.excludePermutations = excludePerms;
+
         return this.simpleCache;
     }
 

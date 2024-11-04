@@ -1,4 +1,4 @@
-import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes } from "@minecraft/server";
+import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes, BlockPermutation, BlockStates } from "@minecraft/server";
 import { Server, RawText, Vector } from "@notbeer-api";
 import config from "config.js";
 
@@ -82,6 +82,27 @@ export function blockHasNBTData(block: Block) {
         "minecraft:bed",
     ];
     return components.some((component) => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
+}
+
+/**
+ * Iterates through every possible block permutation for a specified block type.
+ */
+export function* iterateBlockPermutations(blockType: string) {
+    const perm = BlockPermutation.resolve(blockType);
+    const properties = Object.keys(perm.getAllStates());
+    const values = properties.map((p) => BlockStates.get(p).validValues);
+
+    function* combine(current: any[], depth: number): Generator<Record<string, any>, void> {
+        if (depth === values.length) {
+            yield Object.fromEntries(current.map((value, i) => [properties[i], value]));
+            return;
+        }
+
+        for (let i = 0; i < values[depth].length; i++) {
+            yield* combine(current.concat(values[depth][i]), depth + 1);
+        }
+    }
+    yield* combine([], 0);
 }
 
 /**

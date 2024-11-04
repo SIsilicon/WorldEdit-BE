@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Player, Dimension } from "@minecraft/server";
+import { Vector3, BlockPermutation, Player, Dimension, BlockVolume } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -16,7 +16,6 @@ import {
     blockPermutation2ParsedBlock,
     parsedBlock2BlockPermutation,
     BlockUnit,
-    parsedBlock2CommandArg,
 } from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
@@ -31,7 +30,7 @@ interface patternContext {
 export class Pattern implements CustomArgType {
     private block: PatternNode;
     private stringObj = "";
-    private simpleCache: string;
+    private simpleCache: BlockPermutation;
 
     private context = {} as patternContext;
 
@@ -148,20 +147,12 @@ export class Pattern implements CustomArgType {
     fillSimpleArea(dimension: Dimension, start: Vector3, end: Vector3, mask?: Mask) {
         if (!this.simpleCache) {
             if (this.block instanceof BlockPattern) {
-                this.simpleCache = parsedBlock2CommandArg(this.block.block);
+                this.simpleCache = parsedBlock2BlockPermutation(this.block.block);
             } else if (this.block instanceof ChainPattern) {
-                this.simpleCache = parsedBlock2CommandArg((<BlockPattern>this.block.nodes[0]).block);
+                this.simpleCache = parsedBlock2BlockPermutation((<BlockPattern>this.block.nodes[0]).block);
             }
         }
-        const command = `fill ${start.x} ${start.y} ${start.z} ${end.x} ${end.y} ${end.z} ${this.simpleCache}`;
-        const maskArgs = mask?.getSimpleForCommandArgs();
-        let successCount = 0;
-        if (maskArgs?.length) {
-            maskArgs.forEach((m) => (successCount += dimension.runCommand(command + ` replace ${m}`).successCount));
-        } else {
-            successCount += dimension.runCommand(command).successCount;
-        }
-        return !!successCount;
+        return dimension.fillBlocks(new BlockVolume(start, end), this.simpleCache, { blockFilter: mask?.getSimpleBlockFilter() }).getCapacity();
     }
 
     getSimpleBlockFill() {
