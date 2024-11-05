@@ -16,13 +16,14 @@ class StackerTool extends Tool {
         const dim = player.dimension;
         const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
         const start = loc.add(dir);
-        if (!self.mask.matchesBlock(dim.getBlock(start))) {
+        const mask = self.mask.withContext(session);
+        if (!mask.matchesBlock(dim.getBlock(start))) {
             return;
         }
         let end = loc;
         for (let i = 0; i < self.range; i++) {
             end = end.add(dir);
-            if (!self.mask.matchesBlock(dim.getBlock(end.add(dir)))) break;
+            if (!mask.matchesBlock(dim.getBlock(end.add(dir)))) break;
         }
         const history = session.getHistory();
         const record = history.record();

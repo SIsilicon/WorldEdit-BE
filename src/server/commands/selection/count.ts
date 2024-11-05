@@ -18,7 +18,7 @@ const registerInformation = {
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    const mask = args.get("mask") as Mask;
+    const mask = (<Mask>args.get("mask")).withContext(session);
     const dimension = builder.dimension;
 
     const total = session.selection.getBlockCount();

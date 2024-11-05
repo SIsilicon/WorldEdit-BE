@@ -18,7 +18,8 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     const [minY, maxY] = getWorldHeightLimits(dim);
     range[0].y = Math.max(range[0].y, minY);
     range[1].y = Math.min(range[1].y, maxY);
-    mask = mask ? mask.intersect(session.globalMask) : session.globalMask;
+    mask = (mask ? mask.intersect(session.globalMask) : session.globalMask)?.withContext(session);
+    heightMask = heightMask.withContext(session);
 
     function getMap(arr: map, x: number, z: number) {
         return arr[x]?.[z] ?? null;

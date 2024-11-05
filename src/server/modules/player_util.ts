@@ -3,6 +3,7 @@ import { Server, contentLog, Vector } from "@notbeer-api";
 import { Mask } from "./mask.js";
 import config from "config.js";
 import { getViewVector, getWorldHeightLimits } from "server/util.js";
+import { getSession, hasSession } from "server/sessions.js";
 
 /**
  * This singleton holds utility and miscellaneous functions for players.
@@ -82,6 +83,7 @@ class PlayerHandler {
      * @return The location of the block the ray hits or reached its range at; null otherwise
      */
     traceForBlock(player: Player, range?: number, mask?: Mask) {
+        if (mask && hasSession(player.id)) mask = mask?.withContext(getSession(player));
         const start = player.getHeadLocation();
         const dir = getViewVector(player);
         const dim = player.dimension;

@@ -82,6 +82,7 @@ class DrawLineTool extends GeneratorTool {
 
         const dim = player.dimension;
         const pattern = session.globalPattern.withContext(session, [start, end]);
+        const mask = session.globalMask.withContext(session);
 
         const history = session.getHistory();
         const record = history.record();
@@ -92,9 +93,7 @@ class DrawLineTool extends GeneratorTool {
             count = 0;
             for (const point of points) {
                 const block = dim.getBlock(point);
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
-                    count++;
-                }
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
 

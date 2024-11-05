@@ -72,7 +72,8 @@ export class StructureBrush extends Brush {
             let start = loc.offset(-regionSize.x / 2, 1, -regionSize.z / 2).ceil();
             let end = start.add(regionSize).sub(1);
             const center = start.add(end.add(1)).mul(0.5);
-            const options: RegionLoadOptions = { offset: start.sub(center), mask: this.mask };
+            const mask = this.mask.withContext(session);
+            const options: RegionLoadOptions = { offset: start.sub(center), mask };
             if (this.randomTransform) {
                 const newTransform = this.lastTransform.slice() as typeof this.lastTransform;
                 while (newTransform[0] == this.lastTransform[0] && newTransform[1].equals(this.lastTransform[1])) {

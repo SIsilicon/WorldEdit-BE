@@ -20,6 +20,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         const center = Vector.from(start).add(end.add(1)).mul(0.5);
         const origin = args.has("o") ? center : Vector.from(builder.location).floor().add(0.5);
         options = { offset: start.sub(origin), ...options };
+        options.mask = options.mask?.withContext(session);
         yield Jobs.nextStep("Gettings blocks...");
         yield* temp.save(start, end, dim);
 

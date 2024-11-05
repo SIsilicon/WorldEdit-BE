@@ -30,6 +30,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
     const [min, max] = session.selection.getRange();
     const dimension = session.getPlayer().dimension;
     const [minY, maxY] = getWorldHeightLimits(dimension);
+    const mask = session.globalMask.withContext(session);
     min.y = Math.max(minY, min.y);
     max.y = Math.min(maxY, max.y);
     const canGenerate = max.y >= min.y;
@@ -110,7 +111,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             yield history.addUndoStructure(record, min, max);
             for (const locString of locStringSet) {
                 const block = dimension.getBlock(stringToLoc(locString));
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) count++;
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 if (iterateChunk()) yield Jobs.setProgress(progress / volume);
                 progress++;
             }

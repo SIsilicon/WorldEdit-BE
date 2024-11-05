@@ -15,11 +15,18 @@ import {
     parsedBlock2BlockPermutation,
 } from "./block_parsing.js";
 import { iterateBlockPermutations } from "server/util.js";
+import { PlayerSession } from "server/sessions.js";
+
+interface maskContext {
+    placePosition: Vector;
+}
 
 export class Mask implements CustomArgType {
     private condition: MaskNode;
     private stringObj = "";
     private simpleCache: BlockFilter;
+
+    private context = {} as maskContext;
 
     constructor(mask = "") {
         if (mask) {
@@ -27,6 +34,12 @@ export class Mask implements CustomArgType {
             this.condition = obj.condition;
             this.stringObj = obj.stringObj;
         }
+    }
+
+    withContext(session: PlayerSession) {
+        const mask = this.clone();
+        mask.context.placePosition = session.getPlacementPosition();
+        return mask;
     }
 
     /**

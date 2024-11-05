@@ -96,12 +96,8 @@ export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]>
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    if (session.selection.mode != "cuboid") {
-        throw "commands.wedit:line.invalidType";
-    }
-    if (args.get("_using_item") && session.globalPattern.empty()) {
-        throw "worldEdit.selectionFill.noPattern";
-    }
+    if (session.selection.mode != "cuboid") throw "commands.wedit:line.invalidType";
+    if (args.get("_using_item") && session.globalPattern.empty()) throw "worldEdit.selectionFill.noPattern";
 
     let pos1: Vector3, pos2: Vector3, start: Vector3, end: Vector3;
     if (session.selection.mode == "cuboid") {
@@ -111,6 +107,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const dim = builder.dimension;
     const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end]);
+    const mask = session.globalMask.withContext(session);
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
@@ -126,7 +123,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     block = Jobs.loadBlock(point);
                     yield sleep(1);
                 }
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) {
                     count++;
                 }
                 yield;

@@ -18,7 +18,7 @@ const registerInformation = {
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    const mask: Mask = args.get("mask");
+    const mask = (<Mask>args.get("mask")).withContext(session);
     const [min, max] = session.selection.getRange();
     const dimension = builder.dimension;
 

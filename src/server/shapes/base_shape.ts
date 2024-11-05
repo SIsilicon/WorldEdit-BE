@@ -190,7 +190,7 @@ export abstract class Shape {
                 // TODO: Localize
                 let activeMask = mask;
                 const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
-                activeMask = !activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask;
+                activeMask = (!activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask)?.withContext(session);
                 const simple = pattern.isSimple() && (!mask || mask.isSimple());
 
                 let progress = 0;

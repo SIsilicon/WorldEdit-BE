@@ -42,7 +42,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, buffer: Re
     const usingItem = args.get("_using_item");
     const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const includeAir: boolean = usingItem ? session.includeAir : !args.has("a");
-    const mask: Mask = usingItem ? session.globalMask.clone() : args.has("m") ? args.get("m-mask") : undefined;
+    const mask = (usingItem ? session.globalMask.clone() : <Mask>args.get("m-mask"))?.withContext(session);
 
     if (!buffer) {
         if (session.clipboard) session.deleteRegion(session.clipboard);
