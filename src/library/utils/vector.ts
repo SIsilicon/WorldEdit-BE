@@ -1,9 +1,18 @@
-import { Vector3 } from "@minecraft/server";
+import { Direction, Vector3 } from "@minecraft/server";
 import { Matrix } from "./matrix";
 
-type anyVec = Vector3 | [number, number, number];
+type anyVec = Vector3 | [number, number, number] | Direction;
 
 export type axis = "x" | "y" | "z";
+
+const DIRECTION_VECTORS: Record<Direction, [number, number, number]> = {
+    [Direction.Up]: [0, 1, 0],
+    [Direction.Down]: [0, -1, 0],
+    [Direction.North]: [0, 0, -1],
+    [Direction.South]: [0, 0, 1],
+    [Direction.East]: [1, 0, 0],
+    [Direction.West]: [-1, 0, 0],
+};
 
 export class Vector {
     private vals: [number, number, number] = [0, 0, 0];
@@ -28,9 +37,8 @@ export class Vector {
     }
 
     static from(loc: anyVec) {
-        if (Array.isArray(loc)) {
-            return new Vector(...loc);
-        }
+        if (Array.isArray(loc)) return new Vector(...loc);
+        else if (typeof loc === "string") return new Vector(...DIRECTION_VECTORS[loc]);
         return new Vector(loc.x, loc.y, loc.z);
     }
 
@@ -48,6 +56,10 @@ export class Vector {
 
     static max(a: anyVec, b: anyVec) {
         return Vector.from(a).max(b);
+    }
+
+    static equals(a: anyVec, b: anyVec) {
+        return Vector.from(a).equals(b);
     }
 
     constructor(x: number, y: number, z: number) {

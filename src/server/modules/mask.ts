@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, BlockFilter } from "@minecraft/server";
+import { Vector3, BlockPermutation, BlockFilter, Direction } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import {
@@ -38,7 +38,7 @@ export class Mask implements CustomArgType {
 
     withContext(session: PlayerSession) {
         const mask = this.clone();
-        mask.context.placePosition = session.getPlacementPosition();
+        mask.context.placePosition = Vector.from(session.getPlayer().getHeadLocation()); //session.getPlacementPosition().add(0.5);
         return mask;
     }
 
@@ -48,10 +48,8 @@ export class Mask implements CustomArgType {
      * @returns True if the block matches; false otherwise
      */
     matchesBlock(block: BlockUnit) {
-        if (this.empty()) {
-            return true;
-        }
-        return this.condition.matchesBlock(block);
+        if (this.empty()) return true;
+        return this.condition.matchesBlock(block, this.context);
     }
 
     clear() {
@@ -184,9 +182,7 @@ export class Mask implements CustomArgType {
 
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
-        if (!input) {
-            return { result: new Mask(), argIndex: index + 1 };
-        }
+        if (!input) return { result: new Mask(), argIndex: index + 1 };
 
         const tokens = tokenize(input);
         let token: Token;
@@ -233,6 +229,8 @@ export class Mask implements CustomArgType {
                         out.push(new ExistingMask(nodeToken()));
                     } else if (t.value == "surface" || t.value == "exposed") {
                         out.push(new SurfaceMask(nodeToken()));
+                    } else if (t.value == "shadow") {
+                        out.push(new ShadowMask(nodeToken()));
                     } else if (t.value == "#") {
                         const id = tokens.next();
                         if (id.type != "id") {
@@ -321,7 +319,7 @@ abstract class MaskNode implements AstNode {
 
     constructor(public readonly token: Token) {}
 
-    abstract matchesBlock(block: BlockUnit): boolean;
+    abstract matchesBlock(block: BlockUnit, context: maskContext): boolean;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     postProcess() {}
@@ -403,6 +401,36 @@ class ExistingMask extends MaskNode {
     }
 }
 
+class ShadowMask extends MaskNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+
+    static readonly testFaces = [
+        Vector.from(Direction.Up).mul(0.5),
+        Vector.from(Direction.Down).mul(0.5),
+        Vector.from(Direction.North).mul(0.5),
+        Vector.from(Direction.South).mul(0.5),
+        Vector.from(Direction.East).mul(0.5),
+        Vector.from(Direction.West).mul(0.5),
+    ];
+
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        const start = context.placePosition;
+        const toBlock = Vector.sub(Vector.add(block.location, [0.5, 0.5, 0.5]), start);
+        for (const face of ShadowMask.testFaces) {
+            if (face.dot(toBlock) > 0) continue;
+            const target = Vector.add(block.location, face).add(0.5);
+            const ray = Vector.sub(target, start);
+            const hit = block.dimension.getBlockFromRay(start, ray, { includePassableBlocks: false, includeLiquidBlocks: false });
+            if (!hit) return false;
+
+            const hitLocation = Vector.add(hit.block, hit.faceLocation);
+            if (Vector.sub(hitLocation, start).length > ray.length + 0.01 || Vector.equals(hit.block, block.location)) return false;
+        }
+        return true;
+    }
+}
+
 class TagMask extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
@@ -439,9 +467,9 @@ class ChainMask extends MaskNode {
     readonly prec = 3;
     readonly opCount = 2;
 
-    matchesBlock(block: BlockUnit) {
+    matchesBlock(block: BlockUnit, context: maskContext) {
         for (const mask of this.nodes) {
-            if (mask.matchesBlock(block)) return true;
+            if (mask.matchesBlock(block, context)) return true;
         }
         return false;
     }
@@ -470,9 +498,9 @@ class IntersectMask extends MaskNode {
     readonly prec = 1;
     readonly opCount = 2;
 
-    matchesBlock(block: BlockUnit) {
+    matchesBlock(block: BlockUnit, context: maskContext) {
         for (const mask of this.nodes) {
-            if (!mask.matchesBlock(block)) return false;
+            if (!mask.matchesBlock(block, context)) return false;
         }
         return true;
     }
@@ -501,8 +529,8 @@ class NegateMask extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
 
-    matchesBlock(block: BlockUnit) {
-        return !this.nodes[0].matchesBlock(block);
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        return !this.nodes[0].matchesBlock(block, context);
     }
 }
 
@@ -520,14 +548,15 @@ class OffsetMask extends MaskNode {
         super(token);
     }
 
-    matchesBlock(block: BlockUnit) {
+    matchesBlock(block: BlockUnit, context: maskContext) {
         const loc = block.location;
         return this.nodes[0].matchesBlock(
             block.dimension.getBlock({
                 x: loc.x + this.x,
                 y: loc.y + this.y,
                 z: loc.z + this.z,
-            })
+            }),
+            context
         );
     }
 
