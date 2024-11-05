@@ -92,7 +92,7 @@ export class Vector {
     }
 
     get length() {
-        return Math.hypot(this.x, this.y, this.z);
+        return Math.hypot(...this.vals);
     }
 
     set length(val: number) {
