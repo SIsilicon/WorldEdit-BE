@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-11-03 23:55\n"
+"PO-Revision-Date: 2024-11-05 11:47\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -887,10 +887,10 @@ msgid "commands.wedit:replacenear.description"
 msgstr "用其他方塊替換附近的方塊"
 
 msgid "commands.wedit:revolve.description"
-msgstr "Make copies of the selection revolving around the player"
+msgstr "以玩家為中心，環狀複製選取的物件。"
 
 msgid "commands.wedit:revolve.explain"
-msgstr "Created %s blocks from revolving."
+msgstr "環狀複製已建立 %s 個方塊。"
 
 msgid "commands.wedit:rotate.description"
 msgstr "旋轉已選中的區域"
