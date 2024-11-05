@@ -38,7 +38,7 @@ export class Mask implements CustomArgType {
 
     withContext(session: PlayerSession) {
         const mask = this.clone();
-        mask.context.placePosition = Vector.from(session.getPlayer().getHeadLocation()); //session.getPlacementPosition().add(0.5);
+        mask.context.placePosition = session.getPlacementPosition().add(0.5);
         return mask;
     }
 
