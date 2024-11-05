@@ -35,7 +35,6 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
     const dimension = builder.dimension;
     const fillDir = (args.get("direction") as Cardinal).getDirection(builder);
-    const pattern: Pattern = args.get("pattern");
     const depth: number = args.get(args.get("depth") == -1 ? "radius" : "depth");
     const startBlock = session.getPlacementPosition();
 
@@ -52,7 +51,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         if (!blocks.length) return blocks;
         const [min, max] = regionBounds(blocks);
-        pattern.setContext(session, [min, max]);
+        const pattern = (<Pattern>args.get("pattern")).withContext(session, [min, max]);
 
         const history = session.getHistory();
         const record = history.record();

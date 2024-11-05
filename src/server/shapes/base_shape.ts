@@ -172,7 +172,7 @@ export abstract class Shape {
         min.y = Math.max(minY, min.y);
         max.y = Math.min(maxY, max.y);
         const canGenerate = max.y >= min.y;
-        pattern.setContext(session, [min, max]);
+        pattern = pattern.withContext(session, [min, max]);
 
         if (!Jobs.inContext()) assertCanBuildWithin(player, min, max);
         let blocksAffected = 0;

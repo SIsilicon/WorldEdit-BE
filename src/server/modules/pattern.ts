@@ -42,16 +42,18 @@ export class Pattern implements CustomArgType {
         }
     }
 
-    setContext(session: PlayerSession, range?: [Vector3, Vector3]) {
-        this.context.session = session;
-        this.context.range = [Vector.from(range[0]), Vector.from(range[1])];
-        this.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
+    withContext(session: PlayerSession, range: [Vector3, Vector3]) {
+        const pattern = this.clone();
+        pattern.context.session = session;
+        pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
+        pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
         try {
             const item = Server.player.getHeldItem(session.getPlayer());
-            this.context.hand = Server.block.itemToPermutation(item);
+            pattern.context.hand = Server.block.itemToPermutation(item);
         } catch {
-            this.context.hand = BlockPermutation.resolve("minecraft:air");
+            pattern.context.hand = BlockPermutation.resolve("minecraft:air");
         }
+        return pattern;
     }
 
     /**
@@ -161,6 +163,17 @@ export class Pattern implements CustomArgType {
         } else if (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern) {
             return parsedBlock2BlockPermutation(this.block.nodes[0].block);
         }
+    }
+
+    clone() {
+        const pattern = new Pattern();
+        pattern.block = this.block;
+        pattern.stringObj = this.stringObj;
+        return pattern;
+    }
+
+    toString() {
+        return `[pattern: ${this.stringObj}]`;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
@@ -301,17 +314,6 @@ export class Pattern implements CustomArgType {
         pattern.block = out;
 
         return { result: pattern, argIndex: index + 1 };
-    }
-
-    static clone(original: Pattern) {
-        const pattern = new Pattern();
-        pattern.block = original.block;
-        pattern.stringObj = original.stringObj;
-        return pattern;
-    }
-
-    toString() {
-        return `[pattern: ${this.stringObj}]`;
     }
 }
 

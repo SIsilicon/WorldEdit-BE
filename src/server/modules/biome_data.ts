@@ -25,6 +25,17 @@ class Biome implements CustomArgType {
         return this.name;
     }
 
+    clone() {
+        const clone = new Biome();
+        clone.id = this.id;
+        clone.name = this.name;
+        return clone;
+    }
+
+    toString() {
+        return `[biome: ${this.name}/${this.id}]`;
+    }
+
     static parseArgs(args: string[], index = 0) {
         const input = args[index];
         const result = new Biome();
@@ -48,17 +59,6 @@ class Biome implements CustomArgType {
             throw err;
         }
         return { result, argIndex: index + 1 };
-    }
-
-    static clone(original: Biome) {
-        const clone = new Biome();
-        clone.id = original.id;
-        clone.name = original.name;
-        return clone;
-    }
-
-    toString() {
-        return `[biome: ${this.name}/${this.id}]`;
     }
 }
 

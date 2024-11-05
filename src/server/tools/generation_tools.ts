@@ -81,8 +81,7 @@ class DrawLineTool extends GeneratorTool {
         self.clearFirstPos(session);
 
         const dim = player.dimension;
-        const pattern = session.globalPattern;
-        pattern.setContext(session, [start, end]);
+        const pattern = session.globalPattern.withContext(session, [start, end]);
 
         const history = session.getHistory();
         const record = history.record();
@@ -149,8 +148,7 @@ class DrawSphereTool extends GeneratorTool {
         const center = self.getFirstPos(session);
         const radius = Math.floor(self.traceForPos(player).sub(center).length);
         const sphereShape = new SphereShape(radius);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, sphereShape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, sphereShape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
@@ -191,8 +189,7 @@ class DrawCylinderTool extends GeneratorTool {
         if (self.baseUse(player, session, loc)) return;
 
         const [shape, center] = self.getShape(player, session);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, shape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
@@ -233,8 +230,7 @@ class DrawPyramidTool extends GeneratorTool {
         if (self.baseUse(player, session, loc)) return;
 
         const [shape, center] = self.getShape(player, session);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, shape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));

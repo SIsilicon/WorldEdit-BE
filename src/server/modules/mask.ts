@@ -111,7 +111,7 @@ export class Mask implements CustomArgType {
 
     isSimple() {
         const root = this.condition;
-        const child = root.nodes[0];
+        const child = root?.nodes[0];
         return (
             !root ||
             root instanceof BlockMask ||
@@ -156,6 +156,17 @@ export class Mask implements CustomArgType {
         if (excludePerms.length) this.simpleCache.excludePermutations = excludePerms;
 
         return this.simpleCache;
+    }
+
+    clone() {
+        const mask = new Mask();
+        mask.condition = this.condition;
+        mask.stringObj = this.stringObj;
+        return mask;
+    }
+
+    toString() {
+        return `[mask: ${this.stringObj}]`;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
@@ -287,17 +298,6 @@ export class Mask implements CustomArgType {
         mask.condition = out;
 
         return { result: mask, argIndex: index + 1 };
-    }
-
-    static clone(original: Mask) {
-        const mask = new Mask();
-        mask.condition = original.condition;
-        mask.stringObj = original.stringObj;
-        return mask;
-    }
-
-    toString() {
-        return `[mask: ${this.stringObj}]`;
     }
 }
 

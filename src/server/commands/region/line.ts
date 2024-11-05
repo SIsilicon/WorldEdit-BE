@@ -103,16 +103,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
         throw "worldEdit.selectionFill.noPattern";
     }
 
-    const dim = builder.dimension;
-    const pattern: Pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
-
     let pos1: Vector3, pos2: Vector3, start: Vector3, end: Vector3;
     if (session.selection.mode == "cuboid") {
         [pos1, pos2] = session.selection.points;
         [start, end] = session.selection.getRange();
     }
 
-    pattern.setContext(session, [start, end]);
+    const dim = builder.dimension;
+    const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end]);
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {

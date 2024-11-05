@@ -34,7 +34,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
     max.y = Math.min(maxY, max.y);
     const canGenerate = max.y >= min.y;
 
-    pattern.setContext(session, [min, max]);
+    pattern = pattern.withContext(session, [min, max]);
 
     const history = session.getHistory();
     const record = history.record();

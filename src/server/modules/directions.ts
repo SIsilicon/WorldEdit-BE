@@ -50,22 +50,9 @@ export class Cardinal implements CustomArgType {
         }[dir];
     }
 
-    static parseArgs(args: Array<string>, index = 0) {
-        const dir = args[index][0].toLowerCase();
-        if (!directions.includes(dir) && !dirAliases.includes(dir)) {
-            throw RawText.translate("commands.generic.wedit:invalidDir").with(args[index]);
-            /*printDebug(dir);
-            printDebug(dir in directions);*/
-        }
-
+    clone() {
         const cardinal = new Cardinal();
-        cardinal.direction = dir;
-        return { result: cardinal, argIndex: index + 1 };
-    }
-
-    static clone(original: Cardinal) {
-        const cardinal = new Cardinal();
-        cardinal.direction = original.direction;
+        cardinal.direction = this.direction;
         return cardinal;
     }
 
@@ -110,5 +97,18 @@ export class Cardinal implements CustomArgType {
 
     getDirectionLetter() {
         return this.direction;
+    }
+
+    static parseArgs(args: Array<string>, index = 0) {
+        const dir = args[index][0].toLowerCase();
+        if (!directions.includes(dir) && !dirAliases.includes(dir)) {
+            throw RawText.translate("commands.generic.wedit:invalidDir").with(args[index]);
+            /*printDebug(dir);
+            printDebug(dir in directions);*/
+        }
+
+        const cardinal = new Cardinal();
+        cardinal.direction = dir;
+        return { result: cardinal, argIndex: index + 1 };
     }
 }
