@@ -200,7 +200,7 @@ export class PlayerSession {
         } else {
             const point = this.selection.points[0];
             if (!point) throw "";
-            return point;
+            return point.clone();
         }
     }
 

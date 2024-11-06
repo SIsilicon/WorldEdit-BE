@@ -24,6 +24,7 @@ interface patternContext {
     session: PlayerSession;
     hand: BlockPermutation;
     range: [Vector, Vector];
+    placePosition: Vector;
     cardinal: Cardinal;
 }
 
@@ -47,6 +48,7 @@ export class Pattern implements CustomArgType {
         pattern.context.session = session;
         pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
         pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
+        pattern.context.placePosition = session.getPlacementPosition();
         try {
             const item = Server.player.getHeldItem(session.getPlayer());
             pattern.context.hand = Server.block.itemToPermutation(item);
@@ -227,12 +229,12 @@ export class Pattern implements CustomArgType {
                     out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
                 } else if (token.value == "$") {
                     const t = tokens.next();
-                    let cardinal: Cardinal | "radial";
+                    let cardinal: Cardinal | "radial" | "light";
                     if (t.type != "id") throwTokenError(t);
                     if (tokens.peek().value == ".") {
                         tokens.next();
                         const d: string = tokens.next()?.value;
-                        cardinal = d === "rad" ? "radial" : Cardinal.parseArgs([d]).result;
+                        cardinal = d === "rad" ? "radial" : d === "lit" ? "light" : Cardinal.parseArgs([d]).result;
                     }
 
                     out.push(new GradientPattern(nodeToken(), t.value, cardinal));
@@ -472,16 +474,21 @@ class GradientPattern extends PatternNode {
     private invertCoords: boolean;
 
     private radial = false;
+    private radialOrigin: "center" | "placement" = "center";
     private ctxCardinal: Cardinal;
 
     constructor(
         token: Token,
         public gradientId: string,
-        public cardinal?: Cardinal | "radial"
+        public cardinal?: Cardinal | "radial" | "light"
     ) {
         super(token);
-        if (cardinal && cardinal !== "radial") this.updateDirectionParams(cardinal);
-        if (cardinal === "radial") this.radial = true;
+        const isRadial = cardinal === "radial" || cardinal === "light";
+        if (cardinal && !isRadial) this.updateDirectionParams(cardinal);
+        if (isRadial) {
+            this.radial = true;
+            if (cardinal === "light") this.radialOrigin = "placement";
+        }
     }
 
     getPermutation(block: BlockUnit, context: patternContext) {
@@ -490,8 +497,21 @@ class GradientPattern extends PatternNode {
             const patternLength = gradient.patterns.length;
             let index = 0;
             if (this.radial) {
-                const center = context.range[0].lerp(context.range[1], 0.5);
-                const maxLength = context.range[1].distanceTo(context.range[0]) / 2;
+                let center = context.range[0].lerp(context.range[1], 0.5);
+                let maxLength;
+                if (this.radialOrigin === "center") {
+                    maxLength = context.range[1].distanceTo(context.range[0]) / 2;
+                } else {
+                    const point = context.placePosition;
+                    const max = context.range[1];
+                    const min = context.range[0];
+                    // Determine which corner is farthest based on the relative position of the point to the center
+                    const farthestX = point.x < center.x ? max.x : min.x;
+                    const farthestY = point.y < center.y ? max.y : min.y;
+                    const farthestZ = point.z < center.z ? max.z : min.z;
+                    maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
+                    center = point;
+                }
                 index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
             } else {
                 if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
