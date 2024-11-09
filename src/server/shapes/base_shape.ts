@@ -102,9 +102,7 @@ export abstract class Shape {
         this.prepGeneration(this.genVars, options);
 
         for (const block of regionIterateBlocks(...range)) {
-            if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) {
-                yield block;
-            }
+            if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) yield block;
         }
     }
 
@@ -163,7 +161,7 @@ export abstract class Shape {
      * @param session The session that's using this shape
      * @param options A group of options that can change how the shape is generated
      */
-    public *generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
+    public *generate(loc: Vector, pattern: Pattern, mask: Mask | undefined, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
         const player = session.getPlayer();
         const dimension = player.dimension;
@@ -177,7 +175,6 @@ export abstract class Shape {
         if (!Jobs.inContext()) assertCanBuildWithin(player, min, max);
         let blocksAffected = 0;
         const blocksAndChunks: (Block | [Vector3, Vector3])[] = [];
-        mask = mask ?? new Mask();
 
         const history = options?.recordHistory ?? true ? session.getHistory() : null;
         const record = history?.record(this.usedInBrush);
@@ -188,10 +185,10 @@ export abstract class Shape {
                 this.prepGeneration(this.genVars, options);
 
                 // TODO: Localize
-                let activeMask = mask;
+                let activeMask = mask ?? new Mask();
                 const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
                 activeMask = (!activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask)?.withContext(session);
-                const simple = pattern.isSimple() && (!mask || mask.isSimple());
+                const simple = pattern.isSimple() && activeMask.isSimple();
 
                 let progress = 0;
                 const volume = regionVolume(min, max);
@@ -268,7 +265,7 @@ export abstract class Shape {
                         const [min, max] = block;
                         const volume = regionVolume(min, max);
                         if (Jobs.inContext()) while (!Jobs.loadBlock(min)) yield sleep(1);
-                        count += pattern.fillSimpleArea(dimension, min, max, mask);
+                        count += pattern.fillSimpleArea(dimension, min, max, activeMask);
                         yield Jobs.setProgress(progress / blocksAffected);
                         progress += volume;
                     }
