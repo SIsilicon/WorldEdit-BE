@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-11-03 23:54\n"
+"PO-Revision-Date: 2024-11-20 19:30\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -887,10 +887,10 @@ msgid "commands.wedit:replacenear.description"
 msgstr "近くのブロックを他のブロックに置き換える"
 
 msgid "commands.wedit:revolve.description"
-msgstr "Make copies of the selection revolving around the player"
+msgstr "プレイヤーを中心に選択範囲のコピーを作成"
 
 msgid "commands.wedit:revolve.explain"
-msgstr "Created %s blocks from revolving."
+msgstr "回転から %s ブロックを作成しました。"
 
 msgid "commands.wedit:rotate.description"
 msgstr "選択範囲を回転する"
