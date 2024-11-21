@@ -5,6 +5,7 @@ import { RawText, regionBounds, regionSize, regionVolume, Vector } from "@notbee
 import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
 import { Vector3 } from "@minecraft/server";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation = {
     name: "stack",
@@ -69,17 +70,17 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const history = session.getHistory();
     const record = history.record();
-    const tempStack = session.createRegion(true);
     yield* Jobs.run(session, loads.length + 1, function* () {
+        let tempStack: RegionBuffer;
         try {
-            yield* copy(session, args, tempStack);
-            yield history.addUndoStructure(record, ...stackRegion, "any");
+            tempStack = yield* copy(session, args, false);
+            yield* history.addUndoStructure(record, ...stackRegion, "any");
             for (const load of loads) {
                 yield Jobs.nextStep("Pasting blocks...");
                 yield* tempStack.load(load[0], dim);
                 count += regionVolume(load[0], load[1]);
             }
-            yield history.addRedoStructure(record, ...stackRegion, "any");
+            yield* history.addRedoStructure(record, ...stackRegion, "any");
 
             if (args.has("s")) {
                 history.recordSelection(record, session);

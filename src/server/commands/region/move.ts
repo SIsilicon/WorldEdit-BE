@@ -5,6 +5,7 @@ import { Pattern } from "@modules/pattern.js";
 import { RawText } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 import { cut } from "../clipboard/cut.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation = {
     name: "move",
@@ -55,22 +56,22 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const history = session.getHistory();
     const record = history.record();
-    const temp = session.createRegion(true);
     let count: number;
     yield* Jobs.run(session, 4, function* () {
+        let temp: RegionBuffer;
         try {
-            yield history.addUndoStructure(record, start, end, "any");
-            yield history.addUndoStructure(record, movedStart, movedEnd, "any");
-            if (yield* cut(session, args, args.get("replace"), temp)) {
+            yield* history.addUndoStructure(record, start, end, "any");
+            yield* history.addUndoStructure(record, movedStart, movedEnd, "any");
+            if (!(temp = yield* cut(session, args, args.get("replace"), false))) {
                 throw RawText.translate("commands.generic.wedit:commandFail");
             }
-            count = temp.getBlockCount();
+            count = temp.getVolume();
 
             yield Jobs.nextStep("Pasting blocks...");
             yield* temp.load(movedStart, dim);
 
-            yield history.addRedoStructure(record, start, end, "any");
-            yield history.addRedoStructure(record, movedStart, movedEnd, "any");
+            yield* history.addRedoStructure(record, start, end, "any");
+            yield* history.addRedoStructure(record, movedStart, movedEnd, "any");
 
             if (args.has("s")) {
                 history.recordSelection(record, session);

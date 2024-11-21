@@ -1,6 +1,6 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText, sleep } from "@notbeer-api";
+import { RawText } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
@@ -38,11 +38,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         if (args.has("c")) {
             assertClipboard(session);
-            total = session.clipboard.getBlockCount();
+            total = session.clipboard.getVolume();
             const clipboard = session.clipboard;
 
             for (const block of clipboard.getBlocks()) {
-                processBlock(block[0]);
+                processBlock(block.permutation);
                 yield Jobs.setProgress(++i / total);
             }
         } else {
@@ -52,11 +52,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield Jobs.nextStep("Analysing blocks...");
 
             for (const loc of session.selection.getBlocks()) {
-                let block = dimension.getBlock(loc);
-                while (!block) {
-                    block = Jobs.loadBlock(loc);
-                    yield sleep(1);
-                }
+                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
                 processBlock(block.permutation);
                 yield Jobs.setProgress(++i / total);
             }

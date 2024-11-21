@@ -78,18 +78,18 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let count = 0;
     const history = session.getHistory();
     const record = history.record();
-    const tempRevolve = session.createRegion(true);
 
     yield* Jobs.run(session, loads.length + 1, function* () {
+        let tempRevolve: RegionBuffer;
         try {
-            yield* copy(session, args, tempRevolve);
-            yield history.addUndoStructure(record, ...revolveRegion, "any");
+            tempRevolve = yield* copy(session, args, false);
+            yield* history.addUndoStructure(record, ...revolveRegion, "any");
             for (const [loadPosition, rotation] of loads) {
                 yield Jobs.nextStep("Pasting blocks...");
                 yield* tempRevolve.load(loadPosition, dim, { rotation, offset });
-                count += tempRevolve.getBlockCount();
+                count += tempRevolve.getVolume();
             }
-            yield history.addRedoStructure(record, ...revolveRegion, "any");
+            yield* history.addRedoStructure(record, ...revolveRegion, "any");
 
             if (args.has("s")) {
                 history.recordSelection(record, session);

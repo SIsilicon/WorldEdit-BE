@@ -47,10 +47,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
     yield* Jobs.run(session, 1, function* () {
         try {
             if (pasteContent) {
-                yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+                yield* history.addUndoStructure(record, pasteStart, pasteEnd, "any");
                 yield Jobs.nextStep("Pasting blocks...");
                 yield* session.clipboard.load(pasteFrom, builder.dimension, { ...transform, mask: args.get("m-mask")?.withContext(session) });
-                yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+                yield* history.addRedoStructure(record, pasteStart, pasteEnd, "any");
             }
             if (setSelection) {
                 history.recordSelection(record, session);
@@ -66,7 +66,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     });
     if (pasteContent) {
-        return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getBlockCount()}`);
+        return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getVolume()}`);
     }
     return "";
 });

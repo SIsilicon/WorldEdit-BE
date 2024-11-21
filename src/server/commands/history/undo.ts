@@ -24,9 +24,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     yield* Jobs.run(session, 1, function* () {
         const times = args.get("times") as number;
         for (i = 0; i < times; i++) {
-            if (yield history.undo(session)) {
-                break;
-            }
+            if (yield* history.undo(session)) break;
         }
     });
     return RawText.translate(i == 0 ? "commands.wedit:undo.none" : "commands.wedit:undo.explain").with(`${i}`);

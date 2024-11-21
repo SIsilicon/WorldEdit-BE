@@ -444,12 +444,10 @@ class ClipboardPattern extends PatternNode {
 
     getPermutation(block: BlockUnit, context: patternContext) {
         const clipboard = context.session?.clipboard;
-        if (clipboard?.isAccurate) {
-            const size = clipboard.getSize();
-            const offset = Vector.sub(block.location, this.offset);
-            const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
-            return clipboard.getBlock(sampledLoc);
-        }
+        const size = clipboard.getSize();
+        const offset = Vector.sub(block.location, this.offset);
+        const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
+        return clipboard.getBlock(sampledLoc).permutation;
     }
 }
 

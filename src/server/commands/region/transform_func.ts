@@ -1,6 +1,6 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
-import { RegionLoadOptions } from "@modules/region_buffer.js";
+import { RegionBuffer, RegionLoadOptions } from "@modules/region_buffer.js";
 import { Vector } from "@notbeer-api";
 import { Player } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
@@ -12,7 +12,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
     assertCuboidSelection(session);
     const history = session.getHistory();
     const record = history.record();
-    const temp = session.createRegion(true);
+    let temp: RegionBuffer;
     try {
         const [start, end] = session.selection.getRange();
         const dim = builder.dimension;
@@ -22,12 +22,12 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         options = { offset: start.sub(origin), ...options };
         options.mask = options.mask?.withContext(session);
         yield Jobs.nextStep("Gettings blocks...");
-        yield* temp.save(start, end, dim);
+        temp = yield* session.createRegion(start, end);
 
         const [newStart, newEnd] = temp.getBounds(origin, options);
 
-        yield history.addUndoStructure(record, start, end, "any");
-        yield history.addUndoStructure(record, newStart, newEnd, "any");
+        yield* history.addUndoStructure(record, start, end, "any");
+        yield* history.addUndoStructure(record, newStart, newEnd, "any");
 
         yield* set(session, new Pattern("air"), null, false);
         yield Jobs.nextStep("Transforming blocks...");
@@ -40,8 +40,8 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
             history.recordSelection(record, session);
         }
 
-        yield history.addRedoStructure(record, newStart, newEnd, "any");
-        yield history.addRedoStructure(record, start, end, "any");
+        yield* history.addRedoStructure(record, newStart, newEnd, "any");
+        yield* history.addRedoStructure(record, start, end, "any");
         history.commit(record);
     } catch (e) {
         history.cancel(record);

@@ -1,7 +1,7 @@
 import { PlayerUtil } from "@modules/player_util.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
-import { RawText, Server, Vector } from "@notbeer-api";
-import { Player } from "@minecraft/server";
+import { RawText, Vector } from "@notbeer-api";
+import { Player, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
@@ -27,7 +27,7 @@ function readMetaData(name: string, player: Player) {
     const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
     entity.nameTag = "__placeholder__";
 
-    Server.structure.load(name, blockLoc, player.dimension);
+    world.structureManager.place(name, player.dimension, blockLoc);
     let data: string;
     const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find((entity) => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__placeholder__");
     if (imported) {
@@ -52,8 +52,7 @@ export function importStructure(name: string, player: Player) {
         throw "commands.generic.wedit:commandFail";
     }
 
-    const buffer = new RegionBuffer(false);
-    buffer.import(namespace + ":weditstructexport_" + struct, Vector.from(metadata.size).floor());
+    const buffer = RegionBuffer.get(namespace + ":weditstructexport_" + struct);
     return { buffer, metadata };
 }
 

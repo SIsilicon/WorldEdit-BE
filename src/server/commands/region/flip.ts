@@ -4,7 +4,6 @@ import { Cardinal } from "@modules/directions.js";
 import { RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
-import config from "config.js";
 
 const registerInformation = {
     name: "flip",
@@ -37,17 +36,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     let blockCount = 0;
     if (args.has("w")) {
-        if (dir.y != 0 && (config.performanceMode || session.performanceMode)) {
-            throw "commands.wedit:flip.notLateral";
-        }
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { flip }));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);
-        if (dir.y != 0 && !session.clipboard.isAccurate) {
-            throw "commands.wedit:flip.notLateral";
-        }
-
         const clipTrans = session.clipboardTransform;
 
         // TODO: Get -o flag working for clipboard flips again
@@ -60,7 +52,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         // }
 
         clipTrans.flip = clipTrans.flip.mul(flip);
-        blockCount = session.clipboard.getBlockCount();
+        blockCount = session.clipboard.getVolume();
     }
 
     return RawText.translate("commands.wedit:flip.explain").with(blockCount);

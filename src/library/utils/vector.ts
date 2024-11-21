@@ -42,12 +42,20 @@ export class Vector {
         return new Vector(loc.x, loc.y, loc.z);
     }
 
-    static add(a: anyVec, b: anyVec) {
+    static add(a: anyVec, b: anyVec | number) {
         return Vector.from(a).add(b);
     }
 
-    static sub(a: anyVec, b: anyVec) {
+    static sub(a: anyVec, b: anyVec | number) {
         return Vector.from(a).sub(b);
+    }
+
+    static mul(a: anyVec, b: anyVec | number) {
+        return Vector.from(a).mul(b);
+    }
+
+    static div(a: anyVec, b: anyVec | number) {
+        return Vector.from(a).div(b);
     }
 
     static min(a: anyVec, b: anyVec) {

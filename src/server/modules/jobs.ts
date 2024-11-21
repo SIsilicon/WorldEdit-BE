@@ -1,4 +1,4 @@
-import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread } from "@notbeer-api";
+import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread, regionCenter, sleep } from "@notbeer-api";
 import { Player, Dimension, Vector3, Block } from "@minecraft/server";
 import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
@@ -88,20 +88,26 @@ class JobHandler {
         if (this.current) return { jobFunc: "setProgress", data: percent };
     }
 
-    public loadBlock(loc: Vector3, ctx?: JobContext): Block | undefined {
-        const job = this.jobs.get(ctx ?? this.current);
-        const block = job?.dimension.getBlock(loc);
-        if ((ctx || !block) && job) {
+    public *loadBlock(loc: Vector3, ctx: JobContext = this.current): Generator<Promise<void>, Block | undefined> {
+        const job = this.jobs.get(ctx);
+        while (true) {
+            if (!Jobs.isContextValid(ctx)) return undefined;
+            const block = job.dimension.getBlock(loc);
+            if (block) return block;
+
             if (job.tickingAreaSlot === undefined) {
                 if (!job.tickingAreaRequestTime) job.tickingAreaRequestTime = Date.now();
-                return;
+                yield sleep(1);
+                continue;
             }
 
-            if (!setTickingAreaCircle(loc, 4, job.dimension, "wedit:ticking_area_" + job.tickingAreaSlot)) {
-                throw new UnloadedChunksError("worldedit.error.tickArea");
-            }
+            if (setTickingAreaCircle(loc, 4, job.dimension, "wedit:ticking_area_" + job.tickingAreaSlot)) yield sleep(1);
+            else throw new UnloadedChunksError("worldedit.error.tickArea");
         }
-        return block;
+    }
+
+    public *loadArea(start: Vector3, end: Vector3, ctx?: JobContext) {
+        return !!(yield* this.loadBlock(regionCenter(start, end), ctx));
     }
 
     public inContext(): boolean {

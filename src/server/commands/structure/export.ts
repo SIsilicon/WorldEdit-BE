@@ -1,9 +1,10 @@
 import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionCenter, regionIterateChunks, regionSize, Server, sleep, Vector } from "@notbeer-api";
-import { BlockPermutation, BlockVolume, Player, world } from "@minecraft/server";
+import { RawText, regionIterateChunks, regionLoaded, regionSize, Server, Vector } from "@notbeer-api";
+import { BlockPermutation, BlockVolume, Player, StructureSaveMode, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
+import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation = {
     name: "export",
@@ -23,12 +24,8 @@ const registerInformation = {
     ],
 };
 
-let tempID = 0;
-
 function writeMetaData(name: string, data: string, player: Player) {
-    if (!name.includes(":")) {
-        name = "mystructure:" + name;
-    }
+    if (!name.includes(":")) name = "mystructure:" + name;
 
     const dimension = player.dimension;
     let blockLoc = PlayerUtil.getBlockLocation(player);
@@ -38,13 +35,14 @@ function writeMetaData(name: string, data: string, player: Player) {
     const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
     entity.nameTag = data;
 
-    const error = Server.structure.save(name, blockLoc, blockLoc, dimension, {
-        saveToDisk: true,
+    console.warn("saving", name);
+    const structure = world.structureManager.createFromWorld(name, dimension, blockLoc, blockLoc, {
         includeBlocks: false,
         includeEntities: true,
+        saveMode: StructureSaveMode.World,
     });
     entity.triggerEvent("wedit:despawn");
-    return error;
+    return structure;
 }
 
 const users: Player[] = [];
@@ -61,9 +59,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     const [namespace, struct] = struct_name.split(":") as [string, string];
 
-    const tempStruct = `wedit:temp_export${tempID++}`;
+    let tempStruct: RegionBuffer;
     yield* Jobs.run(session, 1, function* () {
-        if (excludeAir) Server.structure.save(tempStruct, ...range, dimension);
+        if (excludeAir) tempStruct = yield* RegionBuffer.createFromWorld(...range, dimension);
 
         try {
             world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
@@ -75,7 +73,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 const size = Vector.sub(range[1], range[0]).add(1);
                 const structVoid = BlockPermutation.resolve("minecraft:structure_void");
                 for (const [subStart, subEnd] of regionIterateChunks(...range)) {
-                    while (!Jobs.loadBlock(regionCenter(subStart, subEnd))) yield sleep(1);
+                    if (!regionLoaded(subStart, subEnd, dimension)) yield* Jobs.loadArea(subStart, subEnd);
                     dimension.fillBlocks(new BlockVolume(subStart.floor(), subEnd.floor()), structVoid, { blockFilter: { includeTypes: ["air"] } });
                     const subSize = subEnd.sub(subStart).add(1);
                     count += subSize.x * subSize.y * subSize.z;
@@ -83,56 +81,37 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 }
             }
 
-            const jobCtx = Jobs.getContext();
             if (
-                yield Server.structure.saveWhileLoadingChunks(
-                    namespace + ":weditstructexport_" + struct,
-                    ...range,
-                    dimension,
-                    {
-                        saveToDisk: true,
-                        includeEntities: args.has("e"),
-                    },
-                    (min, max) => {
-                        if (Jobs.isContextValid(jobCtx)) {
-                            Jobs.loadBlock(regionCenter(min, max));
-                            return false;
-                        }
-                        return true;
-                    }
-                )
+                !(yield* RegionBuffer.createFromWorld(...range, dimension, {
+                    saveAs: namespace + ":weditstructexport_" + struct,
+                    includeEntities: args.has("e"),
+                }))
             )
                 throw "Failed to save structure";
 
             const size = regionSize(...range);
             const playerPos = PlayerUtil.getBlockLocation(builder).add(0.5);
             const relative = Vector.sub(range[0], playerPos);
+            const data = {
+                size: { x: size.x, y: size.y, z: size.z },
+                relative: { x: relative.x, y: relative.y, z: relative.z },
+                exporter: builder.name,
+            };
 
-            if (
-                writeMetaData(
-                    namespace + ":weditstructmeta_" + struct,
-                    JSON.stringify({
-                        size: { x: size.x, y: size.y, z: size.z },
-                        relative: { x: relative.x, y: relative.y, z: relative.z },
-                        exporter: builder.name,
-                    }),
-                    builder
-                )
-            )
-                throw "Failed to save metadata";
-            if (writeMetaData("weditstructref_" + struct, struct_name, builder)) throw "Failed to save reference data";
+            if (!writeMetaData(namespace + ":weditstructmeta_" + struct, JSON.stringify(data), builder)) throw "Failed to save metadata";
+            if (!writeMetaData("weditstructref_" + struct, struct_name, builder)) throw "Failed to save reference data";
         } catch (e) {
             const [namespace, name] = struct_name.split(":") as [string, string];
-            Server.structure.delete(namespace + ":weditstructexport_" + name);
-            Server.structure.delete(namespace + ":weditstructmeta_" + name);
-            Server.structure.delete("weditstructref_" + name);
+            world.structureManager.delete(namespace + ":weditstructexport_" + name);
+            world.structureManager.delete(namespace + ":weditstructmeta_" + name);
+            world.structureManager.delete("weditstructref_" + name);
             Server.runCommand(`scoreboard players reset ${struct_name} wedit:exports`);
             console.error(e);
             throw "commands.generic.wedit:commandFail";
         } finally {
-            if (excludeAir) {
-                Server.structure.load(tempStruct, range[0], dimension);
-                Server.structure.delete(tempStruct);
+            if (tempStruct) {
+                tempStruct.load(range[0], dimension);
+                tempStruct.deref();
             }
         }
     });

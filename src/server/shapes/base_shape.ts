@@ -2,7 +2,7 @@ import { Block, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { iterateChunk, regionIterateBlocks, regionIterateChunks, regionVolume, sleep, Vector } from "@notbeer-api";
+import { iterateChunk, regionIterateBlocks, regionIterateChunks, regionVolume, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits, snap } from "../util.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
@@ -187,7 +187,7 @@ export abstract class Shape {
                 // TODO: Localize
                 let activeMask = mask ?? new Mask();
                 const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
-                activeMask = (!activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask)?.withContext(session);
+                activeMask = (!activeMask ? globalMask : globalMask ? activeMask.intersect(globalMask) : activeMask)?.withContext(session);
                 const simple = pattern.isSimple() && activeMask.isSimple();
 
                 let progress = 0;
@@ -226,15 +226,7 @@ export abstract class Shape {
                             yield Jobs.setProgress(progress / volume);
                             progress++;
                             if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                                let block;
-                                do {
-                                    if (Jobs.inContext()) {
-                                        block = Jobs.loadBlock(blockLoc);
-                                        if (!block) yield sleep(1);
-                                    } else {
-                                        block = dimension.getBlock(blockLoc);
-                                    }
-                                } while (!block && Jobs.inContext());
+                                const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
                                 if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
                                 blocksAndChunks.push(block);
                                 blocksAffected++;
@@ -246,31 +238,23 @@ export abstract class Shape {
 
                 progress = 0;
                 yield Jobs.nextStep("Generating blocks...");
-                yield history?.addUndoStructure(record, min, max);
+                yield* history?.addUndoStructure(record, min, max);
                 for (let block of blocksAndChunks) {
                     if (block instanceof Block) {
-                        if (!block.isValid() && Jobs.inContext()) {
-                            const loc = block.location;
-                            block = undefined;
-                            do {
-                                block = Jobs.loadBlock(loc);
-                                if (!block) yield sleep(1);
-                            } while (!block);
-                        }
-
+                        if (!block.isValid() && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
                         if (pattern.setBlock(block)) count++;
                         if (iterateChunk()) yield Jobs.setProgress(progress / blocksAffected);
                         progress++;
                     } else {
                         const [min, max] = block;
                         const volume = regionVolume(min, max);
-                        if (Jobs.inContext()) while (!Jobs.loadBlock(min)) yield sleep(1);
+                        if (Jobs.inContext()) yield* Jobs.loadArea(min, max);
                         count += pattern.fillSimpleArea(dimension, min, max, activeMask);
                         yield Jobs.setProgress(progress / blocksAffected);
                         progress += volume;
                     }
                 }
-                yield history?.addRedoStructure(record, min, max);
+                yield* history?.addRedoStructure(record, min, max);
             }
             history?.commit(record);
             return count;

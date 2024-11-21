@@ -1,7 +1,7 @@
 import { Vector3 } from "@minecraft/server";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, Vector, sleep } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 
@@ -115,21 +115,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const record = history.record();
         try {
             const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map((p) => p.floor());
-            yield history.addUndoStructure(record, start, end);
+            yield* history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {
-                let block = dim.getBlock(point);
-                while (!block) {
-                    block = Jobs.loadBlock(point);
-                    yield sleep(1);
-                }
-                if (mask.matchesBlock(block) && pattern.setBlock(block)) {
-                    count++;
-                }
+                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
             history.recordSelection(record, session);
-            yield history.addRedoStructure(record, start, end);
+            yield* history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch (e) {
             history.cancel(record);

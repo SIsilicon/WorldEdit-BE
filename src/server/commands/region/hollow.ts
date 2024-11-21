@@ -26,7 +26,7 @@ const registerInformation = {
     ],
 };
 
-function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): Generator<JobFunction | Promise<void>, number> {
+function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): Generator<JobFunction | Promise<unknown>, number> {
     const [min, max] = session.selection.getRange();
     const dimension = session.getPlayer().dimension;
     const [minY, maxY] = getWorldHeightLimits(dimension);
@@ -108,7 +108,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             progress = 0;
             volume = locStringSet.size;
             yield Jobs.nextStep("Generating blocks...");
-            yield history.addUndoStructure(record, min, max);
+            yield* history.addUndoStructure(record, min, max);
             for (const locString of locStringSet) {
                 const block = dimension.getBlock(stringToLoc(locString));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
@@ -116,7 +116,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                 progress++;
             }
             history.recordSelection(record, session);
-            yield history.addRedoStructure(record, min, max);
+            yield* history.addRedoStructure(record, min, max);
         }
 
         history.commit(record);

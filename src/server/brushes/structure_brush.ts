@@ -87,9 +87,9 @@ export class StructureBrush extends Brush {
                 console.warn(options.rotation, options.flip);
             }
 
-            yield history.addUndoStructure(record, start, end);
+            yield* history.addUndoStructure(record, start, end);
             yield* struct.load(center, session.getPlayer().dimension, options);
-            yield history.addRedoStructure(record, start, end);
+            yield* history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch {
             history.cancel(record);

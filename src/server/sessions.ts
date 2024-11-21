@@ -1,11 +1,11 @@
-import { Player, system } from "@minecraft/server";
+import { Player, system, Vector3 } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog, Databases } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RegionBuffer } from "@modules/region_buffer.js";
+import { RegionBuffer, RegionSaveOptions } from "@modules/region_buffer.js";
 import { Selection, selectMode } from "@modules/selection.js";
 import { ConfigContext } from "./ui/types.js";
 import config from "config.js";
@@ -284,10 +284,15 @@ export class PlayerSession {
         // this.settingsHotbar = new SettingsHotbar(this);
     }
 
-    public createRegion(isAccurate: boolean) {
-        const buffer = new RegionBuffer(isAccurate && !config.performanceMode && !this.performanceMode);
-        this.regions.set(buffer.id, buffer);
-        return buffer;
+    public *createRegion(start: Vector3, end: Vector3, options: RegionSaveOptions = {}) {
+        const buffer = yield* RegionBuffer.createFromWorld(start, end, this.player.dimension, {
+            ...options,
+            recordBlocksWithData: (options.recordBlocksWithData ?? true) && !config.performanceMode && !this.performanceMode,
+        });
+        if (buffer) {
+            this.regions.set(buffer.id, buffer);
+            return buffer;
+        }
     }
 
     public deleteRegion(buffer: RegionBuffer) {

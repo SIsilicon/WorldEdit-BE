@@ -113,12 +113,12 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     let count = 0;
     const history = session.getHistory();
     const record = history.record();
-    const warpBuffer = new RegionBuffer(true);
+    let warpBuffer: RegionBuffer;
     try {
-        yield history.addUndoStructure(record, range[0], range[1], "any");
+        yield* history.addUndoStructure(record, range[0], range[1], "any");
 
         yield Jobs.nextStep("Calculating blocks...");
-        yield* warpBuffer.create(range[0], range[1], (loc) => {
+        warpBuffer = yield* RegionBuffer.create(range[0], range[1], (loc) => {
             const canSmooth = (loc: Vector3) => {
                 const global = Vector.add(loc, range[0]);
                 return dim.getBlock(global).isAir || mask.matchesBlock(dim.getBlock(global));
@@ -128,23 +128,21 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
                 const heightDiff = getMap(map, loc.x, loc.z) - getMap(base, loc.x, loc.z);
                 const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
                 sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), warpBuffer.getSize().y - 1);
-                if (canSmooth(sampleLoc)) {
-                    return dim.getBlock(sampleLoc.add(range[0]));
-                }
+                if (canSmooth(sampleLoc)) return dim.getBlock(sampleLoc.add(range[0]));
             }
         });
 
         yield Jobs.nextStep("Placing blocks...");
         yield* warpBuffer.load(range[0], dim);
-        count = warpBuffer.getBlockCount();
+        count = warpBuffer.getVolume();
 
-        yield history.addRedoStructure(record, range[0], range[1], "any");
+        yield* history.addRedoStructure(record, range[0], range[1], "any");
         history.commit(record);
     } catch (e) {
         history.cancel(record);
         throw e;
     } finally {
-        warpBuffer.deref();
+        warpBuffer?.deref();
     }
 
     return count;

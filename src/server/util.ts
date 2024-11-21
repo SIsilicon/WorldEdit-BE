@@ -120,7 +120,7 @@ export function printLocation(loc: Vector3, pretty = true) {
  * Converts loc to a string
  */
 export function locToString(loc: Vector3) {
-    return `${loc.x}_${loc.y}_${loc.z}`;
+    return `${Math.floor(loc.x)}_${Math.floor(loc.y)}_${Math.floor(loc.z)}`;
 }
 
 /**
