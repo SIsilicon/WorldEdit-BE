@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-11-23 15:50\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -742,8 +742,17 @@ msgstr "글로벌 마스크가 생성되었습니다."
 msgid "commands.wedit:gradient.create"
 msgstr "그라데이션 %s 생성됨."
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "패턴에 사용할 그라데이션을 만듭니다."
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "주변 흙블록을 잔디블록으로 변경합니다."
