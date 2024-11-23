@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-11-03 23:55\n"
+"PO-Revision-Date: 2024-11-23 15:50\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -69,9 +69,6 @@ msgstr "Yığın Seçimi"
 
 msgid "item.wedit:selection_move"
 msgstr "Hareket Seçimi"
-
-msgid "item.wedit:draw_line"
-msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
