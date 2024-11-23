@@ -113,6 +113,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
     let count = 0;
     const history = session.getHistory();
     const record = history.record();
+    const rangeYDiff = range[1].y - range[0].y;
     let warpBuffer: RegionBuffer;
     try {
         yield* history.addUndoStructure(record, range[0], range[1], "any");
@@ -127,7 +128,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
             if (canSmooth(loc)) {
                 const heightDiff = getMap(map, loc.x, loc.z) - getMap(base, loc.x, loc.z);
                 const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
-                sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), warpBuffer.getSize().y - 1);
+                sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), rangeYDiff);
                 if (canSmooth(sampleLoc)) return dim.getBlock(sampleLoc.add(range[0]));
             }
         });
