@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-11-23 15:50\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -742,8 +742,17 @@ msgstr "共通マスクを設定しました。"
 msgid "commands.wedit:gradient.create"
 msgstr "グラデーション %s を作成しました。"
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "パターンで使用するグラデーションを作成する。"
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
