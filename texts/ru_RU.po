@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-11-03 23:55\n"
+"PO-Revision-Date: 2024-11-23 15:50\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода Java и многого другого! Addon от Silicon. (@iSiliconS)."
@@ -69,9 +69,6 @@ msgstr "Выбор стопки"
 
 msgid "item.wedit:selection_move"
 msgstr "Переместить выделение"
-
-msgid "item.wedit:draw_line"
-msgstr "Нарисовать линию"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
