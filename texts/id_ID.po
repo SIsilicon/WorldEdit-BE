@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-11-03 23:55\n"
+"PO-Revision-Date: 2024-11-23 15:50\n"
 
 msgid "pack.description"
 msgstr "Port yang masih dalam pengembangan dari Java Mod dan masih banyak lagi! Addon oleh SIsilicon (§l§b@iSiliconS§r)."
@@ -69,9 +69,6 @@ msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
 msgstr "Move Selection"
-
-msgid "item.wedit:draw_line"
-msgstr "Gambar Garis"
 
 msgid "item.wedit:draw_line"
 msgstr "Gambar Garis"
