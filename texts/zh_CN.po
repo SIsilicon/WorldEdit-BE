@@ -73,9 +73,6 @@ msgstr "移动选区"
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
-msgid "item.wedit:draw_line"
-msgstr "填充选区对角线"
-
 msgid "item.wedit:draw_sphere"
 msgstr "绘制球体"
 
@@ -975,9 +972,6 @@ msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Super pickaxe mode is now: area."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"

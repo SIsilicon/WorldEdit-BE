@@ -73,9 +73,6 @@ msgstr "Виділення переміщення"
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
 
-msgid "item.wedit:draw_line"
-msgstr "Малювати лінію"
-
 msgid "item.wedit:draw_sphere"
 msgstr "Намалювати сферу"
 

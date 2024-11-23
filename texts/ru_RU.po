@@ -73,9 +73,6 @@ msgstr "Переместить выделение"
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
 
-msgid "item.wedit:draw_line"
-msgstr "Нарисовать линию"
-
 msgid "item.wedit:draw_sphere"
 msgstr "Нарисуйте сферу"
 

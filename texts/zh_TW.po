@@ -73,9 +73,6 @@ msgstr "移動選擇"
 msgid "item.wedit:draw_line"
 msgstr "畫線"
 
-msgid "item.wedit:draw_line"
-msgstr "畫線"
-
 msgid "item.wedit:draw_sphere"
 msgstr "繪製球體"
 

@@ -73,9 +73,6 @@ msgstr "Move Selection"
 msgid "item.wedit:draw_line"
 msgstr "Nakreslit čáru"
 
-msgid "item.wedit:draw_line"
-msgstr "Nakreslit čáru"
-
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
 
@@ -975,9 +972,6 @@ msgstr "Simulate snow in the area"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Super pickaxe mode is now: area."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"

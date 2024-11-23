@@ -73,9 +73,6 @@ msgstr "Flytt utvalget"
 msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
 
-msgid "item.wedit:draw_line"
-msgstr "Tegn Linje"
-
 msgid "item.wedit:draw_sphere"
 msgstr "Tegn kule"
 
