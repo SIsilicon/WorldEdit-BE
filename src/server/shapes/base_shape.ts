@@ -176,7 +176,7 @@ export abstract class Shape {
         let blocksAffected = 0;
         const blocksAndChunks: (Block | [Vector3, Vector3])[] = [];
 
-        const history = options?.recordHistory ?? true ? session.getHistory() : null;
+        const history = options?.recordHistory ?? true ? session.getHistory() : undefined;
         const record = history?.record(this.usedInBrush);
         try {
             let count = 0;
@@ -238,7 +238,7 @@ export abstract class Shape {
 
                 progress = 0;
                 yield Jobs.nextStep("Generating blocks...");
-                yield* history?.addUndoStructure(record, min, max);
+                if (history) yield* history.addUndoStructure(record, min, max);
                 for (let block of blocksAndChunks) {
                     if (block instanceof Block) {
                         if (!block.isValid() && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
@@ -254,7 +254,7 @@ export abstract class Shape {
                         progress += volume;
                     }
                 }
-                yield* history?.addRedoStructure(record, min, max);
+                if (history) yield* history.addRedoStructure(record, min, max);
             }
             history?.commit(record);
             return count;
