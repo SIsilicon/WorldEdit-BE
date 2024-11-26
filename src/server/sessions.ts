@@ -296,8 +296,8 @@ export class PlayerSession {
     }
 
     public deleteRegion(buffer: RegionBuffer) {
-        buffer.deref();
-        this.regions.delete(buffer.id);
+        buffer?.deref();
+        this.regions.delete(buffer?.id);
     }
 
     public createGradient(id: string, dither: number, patterns: Pattern[]) {
