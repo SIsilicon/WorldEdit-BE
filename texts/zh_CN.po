@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2024-12-02 04:11\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版 WorldEdit 模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -746,7 +746,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "创建一个要在图案中使用的渐变。"
+msgstr "Manage your gradients."
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Delete a gradient."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "List created gradients."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Gradient %s does not exist."
@@ -987,6 +996,9 @@ msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "超级镐子处于: 范围破坏模式"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "切换为超级镐子"
