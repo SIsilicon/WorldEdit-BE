@@ -266,7 +266,7 @@ export class RegionBuffer {
                 const locString = locToString(localLoc);
                 const name = buffer.id + "_block" + locString;
                 world.structureManager.delete(name);
-                buffer.extraBlockData[locString] = world.structureManager.createFromWorld(name, block.dimension, loc, loc, { includeEntities: false });
+                buffer.extraBlockData[locString] = world.structureManager.createFromWorld(name, block.dimension, loc, loc, { includeEntities: false, saveMode: StructureSaveMode.Memory });
             }
 
             if (iterateChunk()) yield Jobs.setProgress(i / volume);
