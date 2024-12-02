@@ -1,5 +1,5 @@
 import { Dimension, Vector3 } from "@minecraft/server";
-import { Vector } from "@notbeer-api";
+import { Matrix, Vector } from "@notbeer-api";
 
 /**
  * Gives the volume of a space defined by two corners.
@@ -17,7 +17,7 @@ export function regionVolume(start: Vector3, end: Vector3) {
  * @param blocks The set of blocks
  * @return The minimum and maximum
  */
-export function regionBounds(blocks: Vector3[]): [Vector3, Vector3] {
+export function regionBounds(blocks: Vector3[]): [Vector, Vector] {
     let min: Vector;
     let max: Vector;
     for (const block of blocks) {
@@ -35,7 +35,9 @@ export function regionBounds(blocks: Vector3[]): [Vector3, Vector3] {
     return [min, max];
 }
 
-export function regionTransformedBounds(start: Vector, end: Vector, origin: Vector, rotate: Vector, flip: Vector) {
+export function regionTransformedBounds(start: Vector3, end: Vector3, transform: Matrix) {
+    start = Vector.add(start, [0.5, 0.5, 0.5]);
+    end = Vector.add(end, [0.5, 0.5, 0.5]);
     const corners = [
         new Vector(start.x, start.y, start.z),
         new Vector(start.x, start.y, end.z),
@@ -45,13 +47,17 @@ export function regionTransformedBounds(start: Vector, end: Vector, origin: Vect
         new Vector(end.x, start.y, end.z),
         new Vector(end.x, end.y, start.z),
         new Vector(end.x, end.y, end.z),
-    ].map((vec) => vec.sub(origin).rotateY(rotate.y).rotateX(rotate.x).rotateZ(rotate.z).mul(flip).add(origin));
+    ].map((vec) => vec.transform(transform));
 
     let [min, max] = [Vector.INF, Vector.NEG_INF];
     corners.forEach((vec) => (min = min.min(vec)));
     corners.forEach((vec) => (max = max.max(vec)));
 
-    return [min.floor(), max.floor()] as [Vector, Vector];
+    return [min.floor(), max.sub(1).ceil()] as [Vector, Vector];
+}
+
+export function regionOffset(start: Vector3, end: Vector3, offset: Vector3): [Vector, Vector] {
+    return [Vector.add(start, offset), Vector.add(end, offset)];
 }
 
 /**

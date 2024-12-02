@@ -32,7 +32,7 @@ class BlockCyclerTool extends Tool {
             const validValues = BlockStates.get(currState).validValues;
             const currValueIndex = validValues.indexOf(currValue);
             currValue = validValues[wrap(validValues.length, currValueIndex + (increment ? 1 : 0))];
-            permutation = permutation.withState(currState, currValue);
+            permutation = permutation.withState(<any>currState, currValue);
 
             block.setPermutation(permutation);
 

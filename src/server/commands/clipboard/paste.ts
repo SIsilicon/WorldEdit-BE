@@ -1,8 +1,8 @@
 import { assertClipboard } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
-import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { RegionLoadOptions } from "@modules/region_buffer.js";
 
 const registerInformation = {
     name: "paste",
@@ -33,34 +33,24 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pasteOriginal = args.has("o");
     const pasteContent = !args.has("n");
 
-    const rotation = session.clipboardTransform.rotation;
-    const flip = session.clipboardTransform.flip;
-    const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
-    const size = Vector.from(regionSize(bounds[0], bounds[1]));
-
-    let pasteStart: Vector;
+    let pasteFrom = Vector.from(builder.location).floor().add(0.5);
+    let transform: RegionLoadOptions = session.clipboardTransform;
     if (pasteOriginal) {
-        if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) {
-            throw "commands.wedit:paste.noOriginal";
-        }
-        pasteStart = session.clipboardTransform.originalLoc;
-    } else {
-        const loc = PlayerUtil.getBlockLocation(builder);
-        pasteStart = Vector.add(loc, session.clipboardTransform.relative);
+        if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) throw "commands.wedit:paste.noOriginal";
+        pasteFrom = session.clipboardTransform.originalLoc;
+        transform = {};
     }
-    pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
-    const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
-    pasteStart = pasteStart.floor();
+    const [pasteStart, pasteEnd] = session.clipboard.getBounds(pasteFrom, transform);
 
     const history = session.getHistory();
     const record = history.record();
     yield* Jobs.run(session, 1, function* () {
         try {
             if (pasteContent) {
-                yield history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+                yield* history.addUndoStructure(record, pasteStart, pasteEnd, "any");
                 yield Jobs.nextStep("Pasting blocks...");
-                yield* session.clipboard.load(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") });
-                yield history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+                yield* session.clipboard.load(pasteFrom, builder.dimension, { ...transform, mask: args.get("m-mask")?.withContext(session) });
+                yield* history.addRedoStructure(record, pasteStart, pasteEnd, "any");
             }
             if (setSelection) {
                 history.recordSelection(record, session);
@@ -76,7 +66,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     });
     if (pasteContent) {
-        return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getBlockCount()}`);
+        return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getVolume()}`);
     }
     return "";
 });

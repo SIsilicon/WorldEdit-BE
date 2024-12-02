@@ -26,15 +26,16 @@ const registerInformation = {
     ],
 };
 
-function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): Generator<JobFunction | Promise<void>, number> {
+function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): Generator<JobFunction | Promise<unknown>, number> {
     const [min, max] = session.selection.getRange();
     const dimension = session.getPlayer().dimension;
     const [minY, maxY] = getWorldHeightLimits(dimension);
+    const mask = session.globalMask.withContext(session);
     min.y = Math.max(minY, min.y);
     max.y = Math.min(maxY, max.y);
     const canGenerate = max.y >= min.y;
 
-    pattern.setContext(session, [min, max]);
+    pattern = pattern.withContext(session, [min, max]);
 
     const history = session.getHistory();
     const record = history.record();
@@ -107,15 +108,15 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             progress = 0;
             volume = locStringSet.size;
             yield Jobs.nextStep("Generating blocks...");
-            yield history.addUndoStructure(record, min, max);
+            yield* history.addUndoStructure(record, min, max);
             for (const locString of locStringSet) {
                 const block = dimension.getBlock(stringToLoc(locString));
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) count++;
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 if (iterateChunk()) yield Jobs.setProgress(progress / volume);
                 progress++;
             }
             history.recordSelection(record, session);
-            yield history.addRedoStructure(record, min, max);
+            yield* history.addRedoStructure(record, min, max);
         }
 
         history.commit(record);

@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Player, Dimension } from "@minecraft/server";
+import { Vector3, BlockPermutation, Player, Dimension, BlockVolume } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -16,7 +16,6 @@ import {
     blockPermutation2ParsedBlock,
     parsedBlock2BlockPermutation,
     BlockUnit,
-    parsedBlock2CommandArg,
 } from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
@@ -25,13 +24,14 @@ interface patternContext {
     session: PlayerSession;
     hand: BlockPermutation;
     range: [Vector, Vector];
+    placePosition: Vector;
     cardinal: Cardinal;
 }
 
 export class Pattern implements CustomArgType {
     private block: PatternNode;
     private stringObj = "";
-    private simpleCache: string;
+    private simpleCache: BlockPermutation;
 
     private context = {} as patternContext;
 
@@ -43,16 +43,19 @@ export class Pattern implements CustomArgType {
         }
     }
 
-    setContext(session: PlayerSession, range?: [Vector3, Vector3]) {
-        this.context.session = session;
-        this.context.range = [Vector.from(range[0]), Vector.from(range[1])];
-        this.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
+    withContext(session: PlayerSession, range: [Vector3, Vector3]) {
+        const pattern = this.clone();
+        pattern.context.session = session;
+        pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
+        pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
+        pattern.context.placePosition = session.getPlacementPosition();
         try {
             const item = Server.player.getHeldItem(session.getPlayer());
-            this.context.hand = Server.block.itemToPermutation(item);
+            pattern.context.hand = Server.block.itemToPermutation(item);
         } catch {
-            this.context.hand = BlockPermutation.resolve("minecraft:air");
+            pattern.context.hand = BlockPermutation.resolve("minecraft:air");
         }
+        return pattern;
     }
 
     /**
@@ -148,20 +151,12 @@ export class Pattern implements CustomArgType {
     fillSimpleArea(dimension: Dimension, start: Vector3, end: Vector3, mask?: Mask) {
         if (!this.simpleCache) {
             if (this.block instanceof BlockPattern) {
-                this.simpleCache = parsedBlock2CommandArg(this.block.block);
+                this.simpleCache = parsedBlock2BlockPermutation(this.block.block);
             } else if (this.block instanceof ChainPattern) {
-                this.simpleCache = parsedBlock2CommandArg((<BlockPattern>this.block.nodes[0]).block);
+                this.simpleCache = parsedBlock2BlockPermutation((<BlockPattern>this.block.nodes[0]).block);
             }
         }
-        const command = `fill ${start.x} ${start.y} ${start.z} ${end.x} ${end.y} ${end.z} ${this.simpleCache}`;
-        const maskArgs = mask?.getSimpleForCommandArgs();
-        let successCount = 0;
-        if (maskArgs?.length) {
-            maskArgs.forEach((m) => (successCount += dimension.runCommand(command + ` replace ${m}`).successCount));
-        } else {
-            successCount += dimension.runCommand(command).successCount;
-        }
-        return !!successCount;
+        return dimension.fillBlocks(new BlockVolume(start, end), this.simpleCache, { blockFilter: mask?.getSimpleBlockFilter() }).getCapacity();
     }
 
     getSimpleBlockFill() {
@@ -170,6 +165,17 @@ export class Pattern implements CustomArgType {
         } else if (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern) {
             return parsedBlock2BlockPermutation(this.block.nodes[0].block);
         }
+    }
+
+    clone() {
+        const pattern = new Pattern();
+        pattern.block = this.block;
+        pattern.stringObj = this.stringObj;
+        return pattern;
+    }
+
+    toString() {
+        return `[pattern: ${this.stringObj}]`;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
@@ -223,12 +229,12 @@ export class Pattern implements CustomArgType {
                     out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
                 } else if (token.value == "$") {
                     const t = tokens.next();
-                    let cardinal: Cardinal | "radial";
+                    let cardinal: Cardinal | "radial" | "light";
                     if (t.type != "id") throwTokenError(t);
                     if (tokens.peek().value == ".") {
                         tokens.next();
                         const d: string = tokens.next()?.value;
-                        cardinal = d === "rad" ? "radial" : Cardinal.parseArgs([d]).result;
+                        cardinal = d === "rad" ? "radial" : d === "lit" ? "light" : Cardinal.parseArgs([d]).result;
                     }
 
                     out.push(new GradientPattern(nodeToken(), t.value, cardinal));
@@ -311,17 +317,6 @@ export class Pattern implements CustomArgType {
 
         return { result: pattern, argIndex: index + 1 };
     }
-
-    static clone(original: Pattern) {
-        const pattern = new Pattern();
-        pattern.block = original.block;
-        pattern.stringObj = original.stringObj;
-        return pattern;
-    }
-
-    toString() {
-        return `[pattern: ${this.stringObj}]`;
-    }
 }
 
 type NodeJSON = { type: string; nodes: NodeJSON[] };
@@ -391,7 +386,7 @@ class TypePattern extends PatternNode {
     getPermutation(block: BlockUnit): BlockPermutation {
         let permutation = this.permutation;
         Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
-            if (state in this.props) permutation = permutation.withState(state, val);
+            if (state in this.props) permutation = permutation.withState(<any>state, val);
         });
         return permutation;
     }
@@ -412,7 +407,7 @@ class StatePattern extends PatternNode {
         let permutation = block.permutation;
         const props = permutation.getAllStates();
         this.states.forEach((val, state) => {
-            if (state in props) permutation = permutation.withState(state, val);
+            if (state in props) permutation = permutation.withState(<any>state, val);
         });
         return permutation;
     }
@@ -449,12 +444,10 @@ class ClipboardPattern extends PatternNode {
 
     getPermutation(block: BlockUnit, context: patternContext) {
         const clipboard = context.session?.clipboard;
-        if (clipboard?.isAccurate) {
-            const size = clipboard.getSize();
-            const offset = Vector.sub(block.location, this.offset);
-            const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
-            return clipboard.getBlock(sampledLoc);
-        }
+        const size = clipboard.getSize();
+        const offset = Vector.sub(block.location, this.offset);
+        const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
+        return clipboard.getBlock(sampledLoc).permutation;
     }
 }
 
@@ -479,16 +472,21 @@ class GradientPattern extends PatternNode {
     private invertCoords: boolean;
 
     private radial = false;
+    private radialOrigin: "center" | "placement" = "center";
     private ctxCardinal: Cardinal;
 
     constructor(
         token: Token,
         public gradientId: string,
-        public cardinal?: Cardinal | "radial"
+        public cardinal?: Cardinal | "radial" | "light"
     ) {
         super(token);
-        if (cardinal && cardinal !== "radial") this.updateDirectionParams(cardinal);
-        if (cardinal === "radial") this.radial = true;
+        const isRadial = cardinal === "radial" || cardinal === "light";
+        if (cardinal && !isRadial) this.updateDirectionParams(cardinal);
+        if (isRadial) {
+            this.radial = true;
+            if (cardinal === "light") this.radialOrigin = "placement";
+        }
     }
 
     getPermutation(block: BlockUnit, context: patternContext) {
@@ -497,8 +495,21 @@ class GradientPattern extends PatternNode {
             const patternLength = gradient.patterns.length;
             let index = 0;
             if (this.radial) {
-                const center = context.range[0].lerp(context.range[1], 0.5);
-                const maxLength = context.range[1].distanceTo(context.range[0]) / 2;
+                let center = context.range[0].lerp(context.range[1], 0.5);
+                let maxLength;
+                if (this.radialOrigin === "center") {
+                    maxLength = context.range[1].distanceTo(context.range[0]) / 2;
+                } else {
+                    const point = context.placePosition;
+                    const max = context.range[1];
+                    const min = context.range[0];
+                    // Determine which corner is farthest based on the relative position of the point to the center
+                    const farthestX = point.x < center.x ? max.x : min.x;
+                    const farthestY = point.y < center.y ? max.y : min.y;
+                    const farthestZ = point.z < center.z ? max.z : min.z;
+                    maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
+                    center = point;
+                }
                 index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
             } else {
                 if (!this.cardinal && this.ctxCardinal !== context.cardinal) {

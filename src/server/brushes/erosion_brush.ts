@@ -79,7 +79,7 @@ export class ErosionBrush extends Brush {
     public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
         const range: [Vector, Vector] = [loc.sub(this.radius), loc.add(this.radius)];
         const [minY, maxY] = getWorldHeightLimits(session.getPlayer().dimension);
-        const activeMask = !mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask;
+        const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
         range[0].y = Math.max(minY, range[0].y);
         range[1].y = Math.min(maxY, range[1].y);
 

@@ -33,15 +33,13 @@ export * from "./utils/index.js";
 
 import { Player as PlayerBuilder } from "./classes/playerBuilder.js";
 import { Command } from "./classes/commandBuilder.js";
-import { Structure } from "./classes/structureBuilder.js";
 import { ServerBuilder } from "./classes/serverBuilder.js";
 import { UIForms } from "./classes/uiFormBuilder.js";
 import { Block } from "./classes/blockBuilder.js";
 
 export { CustomArgType, CommandPosition } from "./classes/commandBuilder.js";
 export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/classes/CommandBuilder";
-export { StructureSaveOptions, StructureLoadOptions } from "./classes/structureBuilder.js";
-export { getDatabase, deleteDatabase } from "./classes/databaseBuilder.js";
+export { Databases } from "./classes/databaseBuilder.js";
 export { configuration } from "./configurations.js";
 
 class ServerBuild extends ServerBuilder {
@@ -49,7 +47,6 @@ class ServerBuild extends ServerBuilder {
     public player = PlayerBuilder;
     public command = Command;
     public uiForms = UIForms;
-    public structure = Structure;
 
     constructor() {
         super();

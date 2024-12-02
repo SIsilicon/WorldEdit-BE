@@ -1,7 +1,7 @@
 import { Vector3 } from "@minecraft/server";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, Vector, sleep } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 
@@ -96,15 +96,8 @@ export function* generateLine(p1: Vector, p2: Vector): Generator<void, Vector[]>
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    if (session.selection.mode != "cuboid") {
-        throw "commands.wedit:line.invalidType";
-    }
-    if (args.get("_using_item") && session.globalPattern.empty()) {
-        throw "worldEdit.selectionFill.noPattern";
-    }
-
-    const dim = builder.dimension;
-    const pattern: Pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+    if (session.selection.mode != "cuboid") throw "commands.wedit:line.invalidType";
+    if (args.get("_using_item") && session.globalPattern.empty()) throw "worldEdit.selectionFill.noPattern";
 
     let pos1: Vector3, pos2: Vector3, start: Vector3, end: Vector3;
     if (session.selection.mode == "cuboid") {
@@ -112,7 +105,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
         [start, end] = session.selection.getRange();
     }
 
-    pattern.setContext(session, [start, end]);
+    const dim = builder.dimension;
+    const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end]);
+    const mask = session.globalMask.withContext(session);
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
@@ -120,21 +115,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const record = history.record();
         try {
             const points = (yield* generateLine(Vector.from(pos1), Vector.from(pos2))).map((p) => p.floor());
-            yield history.addUndoStructure(record, start, end);
+            yield* history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {
-                let block = dim.getBlock(point);
-                while (!block) {
-                    block = Jobs.loadBlock(point);
-                    yield sleep(1);
-                }
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
-                    count++;
-                }
+                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
             history.recordSelection(record, session);
-            yield history.addRedoStructure(record, start, end);
+            yield* history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch (e) {
             history.cancel(record);

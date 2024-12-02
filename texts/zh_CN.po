@@ -991,9 +991,6 @@ msgstr "超级镐子处于: 范围破坏模式"
 msgid "commands.wedit:superpickaxe.description"
 msgstr "切换为超级镐子"
 
-msgid "commands.wedit:superpickaxe.description"
-msgstr "切换为超级镐子"
-
 msgid "commands.wedit:superpickaxe.description.single"
 msgstr "将超级镐子切换为单方块破坏模式"
 

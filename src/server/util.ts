@@ -1,4 +1,4 @@
-import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes } from "@minecraft/server";
+import { Block, Vector3, Dimension, Entity, Player, RawMessage, BlockComponentTypes, BlockPermutation, BlockStates } from "@minecraft/server";
 import { Server, RawText, Vector } from "@notbeer-api";
 import config from "config.js";
 
@@ -62,16 +62,7 @@ export function canPlaceBlock(loc: Vector3, dim: Dimension) {
 }
 
 export function blockHasNBTData(block: Block) {
-    const components: `${BlockComponentTypes}`[] = [
-        "minecraft:inventory",
-        "minecraft:sign",
-        "minecraft:piston",
-        "minecraft:record_player",
-        "minecraft:waterContainer",
-        "minecraft:lavaContainer",
-        "minecraft:snowContainer",
-        "minecraft:potionContainer",
-    ];
+    const components: `${BlockComponentTypes}`[] = ["minecraft:inventory", "minecraft:sign", "minecraft:piston", "minecraft:record_player", "minecraft:fluidContainer"];
     const nbt_blocks = [
         "minecraft:bee_nest",
         "minecraft:beehive",
@@ -94,6 +85,27 @@ export function blockHasNBTData(block: Block) {
 }
 
 /**
+ * Iterates through every possible block permutation for a specified block type.
+ */
+export function* iterateBlockPermutations(blockType: string) {
+    const perm = BlockPermutation.resolve(blockType);
+    const properties = Object.keys(perm.getAllStates());
+    const values = properties.map((p) => BlockStates.get(p).validValues);
+
+    function* combine(current: any[], depth: number): Generator<Record<string, any>, void> {
+        if (depth === values.length) {
+            yield Object.fromEntries(current.map((value, i) => [properties[i], value]));
+            return;
+        }
+
+        for (let i = 0; i < values[depth].length; i++) {
+            yield* combine(current.concat(values[depth][i]), depth + 1);
+        }
+    }
+    yield* combine([], 0);
+}
+
+/**
  * Converts a location object to a string.
  * @param loc The object to convert
  * @param pretty Whether the function should include brackets and commas in the string. Set to false if you're using this in a command.
@@ -108,7 +120,7 @@ export function printLocation(loc: Vector3, pretty = true) {
  * Converts loc to a string
  */
 export function locToString(loc: Vector3) {
-    return `${loc.x}_${loc.y}_${loc.z}`;
+    return `${Math.floor(loc.x)}_${Math.floor(loc.y)}_${Math.floor(loc.z)}`;
 }
 
 /**

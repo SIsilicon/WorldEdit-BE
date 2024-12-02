@@ -35,21 +35,22 @@ const registerInformation = {
 };
 
 /**
- * Cuts a region into a buffer (session's clipboard by default). When performed in a job, takes 3 steps to execute.
+ * Cuts a region into a buffer. When performed in a job, takes 3 steps to execute.
  * @param session The session whose player is running this command
  * @param args The arguments that change how the cutting will happen
  * @param fill The pattern to fill after cutting the region out
- * @param buffer An optional buffer to place the cut in. Leaving it blank cuts to the clipboard instead
+ * @param toClipboard Whether the created buffer is set to the session's clipboard.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), buffer: RegionBuffer = null): Generator<JobFunction | Promise<unknown>, boolean> {
+export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), toClipboard: boolean): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
     const usingItem = args.get("_using_item");
     const dim = session.getPlayer().dimension;
     const mask: Mask = usingItem ? session.globalMask : args.has("m") ? args.get("m-mask") : undefined;
     const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const [start, end] = session.selection.getRange();
 
-    if (yield* copy(session, args, buffer)) return true;
+    let buffer: RegionBuffer;
+    if (!(buffer = yield* copy(session, args, toClipboard))) return undefined;
 
     yield* set(session, fill, mask, false);
     if (includeEntities) {
@@ -64,6 +65,8 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
         Server.runCommand("execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -512 ~", dim);
         Server.runCommand("kill @e[name=wedit:marked_for_deletion]", dim);
     }
+
+    return buffer;
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -75,16 +78,16 @@ registerCommand(registerInformation, function* (session, builder, args) {
     yield* Jobs.run(session, 3, function* () {
         try {
             history.recordSelection(record, session);
-            yield history.addUndoStructure(record, start, end, "any");
-            if (yield* cut(session, args, args.get("fill"))) {
+            yield* history.addUndoStructure(record, start, end, "any");
+            if (!(yield* cut(session, args, args.get("fill"), true))) {
                 throw RawText.translate("commands.generic.wedit:commandFail");
             }
-            yield history.addRedoStructure(record, start, end, "any");
+            yield* history.addRedoStructure(record, start, end, "any");
             history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;
         }
     });
-    return RawText.translate("commands.wedit:cut.explain").with(`${session.clipboard.getBlockCount()}`);
+    return RawText.translate("commands.wedit:cut.explain").with(`${session.clipboard.getVolume()}`);
 });

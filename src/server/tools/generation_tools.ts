@@ -1,6 +1,6 @@
 import { Player, Vector3, system } from "@minecraft/server";
 import { PlayerUtil } from "@modules/player_util";
-import { RawText, Server, Vector, regionBounds } from "@notbeer-api";
+import { RawText, Server, Vector, axis, regionBounds } from "@notbeer-api";
 import { generateLine } from "server/commands/region/line";
 import { PlayerSession } from "server/sessions";
 import { Tool } from "./base_tool";
@@ -81,26 +81,24 @@ class DrawLineTool extends GeneratorTool {
         self.clearFirstPos(session);
 
         const dim = player.dimension;
-        const pattern = session.globalPattern;
-        pattern.setContext(session, [start, end]);
+        const pattern = session.globalPattern.withContext(session, [start, end]);
+        const mask = session.globalMask.withContext(session);
 
         const history = session.getHistory();
         const record = history.record();
         let count: number;
         try {
             const points = (yield* generateLine(pos1, pos2)).map((p) => p.floor());
-            yield history.addUndoStructure(record, start, end);
+            yield* history.addUndoStructure(record, start, end);
             count = 0;
             for (const point of points) {
                 const block = dim.getBlock(point);
-                if (session.globalMask.matchesBlock(block) && pattern.setBlock(block)) {
-                    count++;
-                }
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
 
             history.recordSelection(record, session);
-            yield history.addRedoStructure(record, start, end);
+            yield* history.addRedoStructure(record, start, end);
             history.commit(record);
         } catch (e) {
             history.cancel(record);
@@ -149,8 +147,7 @@ class DrawSphereTool extends GeneratorTool {
         const center = self.getFirstPos(session);
         const radius = Math.floor(self.traceForPos(player).sub(center).length);
         const sphereShape = new SphereShape(radius);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, sphereShape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, sphereShape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
@@ -163,16 +160,16 @@ class DrawSphereTool extends GeneratorTool {
         const center = self.getFirstPos(session);
         const radius = Math.floor(center.sub(self.traceForPos(player)).length) + 0.5;
 
-        const axes: [typeof Vector.prototype.rotateX, Vector][] = [
-            [Vector.prototype.rotateX, new Vector(0, 1, 0)],
-            [Vector.prototype.rotateY, new Vector(1, 0, 0)],
-            [Vector.prototype.rotateZ, new Vector(0, 1, 0)],
+        const axes: [Vector, axis][] = [
+            [new Vector(0, 1, 0), "x"],
+            [new Vector(1, 0, 0), "y"],
+            [new Vector(0, 1, 0), "z"],
         ];
         const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
-        for (const [rotateBy, vec] of axes) {
+        for (const [vec, axis] of axes) {
             for (let i = 0; i < resolution; i++) {
-                let point: Vector = rotateBy.call(vec, (i / resolution) * 360);
+                let point: Vector = vec.rotate((i / resolution) * 360, axis);
                 point = point.mul(radius).add(center).add(0.5);
                 trySpawnParticle(player, "wedit:selection_draw", point);
             }
@@ -191,8 +188,7 @@ class DrawCylinderTool extends GeneratorTool {
         if (self.baseUse(player, session, loc)) return;
 
         const [shape, center] = self.getShape(player, session);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, shape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
@@ -233,8 +229,7 @@ class DrawPyramidTool extends GeneratorTool {
         if (self.baseUse(player, session, loc)) return;
 
         const [shape, center] = self.getShape(player, session);
-        const pattern = session.globalPattern;
-        pattern.setContext(session, shape.getRegion(center));
+        const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
         self.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));

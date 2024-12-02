@@ -31,6 +31,17 @@ export class Expression implements CustomArgType {
         return new Function(...variables, "return " + this.root.compile());
     }
 
+    clone() {
+        const expression = new Expression();
+        expression.root = this.root;
+        expression.stringObj = this.stringObj;
+        return expression;
+    }
+
+    toString() {
+        return `[expression: ${this.stringObj}]`;
+    }
+
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
         if (!input) {
@@ -150,17 +161,6 @@ export class Expression implements CustomArgType {
         expression.root = out;
 
         return { result: expression, argIndex: index + 1 };
-    }
-
-    static clone(original: Expression) {
-        const expression = new Expression();
-        expression.root = original.root;
-        expression.stringObj = original.stringObj;
-        return expression;
-    }
-
-    toString() {
-        return `[expression: ${this.stringObj}]`;
     }
 }
 

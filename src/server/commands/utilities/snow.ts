@@ -1,5 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector, sleep } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { Block, Vector3, BlockPermutation } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
@@ -112,12 +112,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
             const record = history.record();
 
             try {
-                yield history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                yield* history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
                 const snowLayer = BlockPermutation.resolve("minecraft:snow_layer");
                 const ice = BlockPermutation.resolve("minecraft:ice");
                 for (let block of blocks) {
                     const loc = block.location;
-                    while (!(block?.isValid() || (block = Jobs.loadBlock(loc)))) yield sleep(1);
+                    if (!block?.isValid()) block = yield* Jobs.loadBlock(loc);
 
                     if (block.typeId.match(waterMatch)) {
                         block.setPermutation(ice);
@@ -140,7 +140,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     yield Jobs.setProgress(i++ / blocks.length);
                     yield;
                 }
-                yield history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                yield* history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
                 history.commit(record);
             } catch (err) {
                 history.cancel(record);

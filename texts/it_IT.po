@@ -991,9 +991,6 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
-msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
-
 msgid "commands.wedit:superpickaxe.description.single"
 msgstr "Make the super pickaxe break a single block"
 

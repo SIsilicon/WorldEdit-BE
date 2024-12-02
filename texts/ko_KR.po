@@ -70,9 +70,6 @@ msgstr "쌓기 도구"
 msgid "item.wedit:selection_move"
 msgstr "이동 도구"
 
-msgid "item.wedit:draw_line"
-msgstr "선 그리기"
-
 msgid "item.wedit:draw_sphere"
 msgstr "구 그리기"
 
@@ -987,9 +984,6 @@ msgstr "해당 지역의 눈 시뮬레이션하기"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "슈퍼 곡괭이 모드가 이제 공간으로 변경되었습니다."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "슈퍼 곡괭이를 토글합니다"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "슈퍼 곡괭이를 토글합니다"

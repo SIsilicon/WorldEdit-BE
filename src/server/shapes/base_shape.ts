@@ -2,7 +2,7 @@ import { Block, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { iterateChunk, regionIterateBlocks, regionIterateChunks, regionVolume, sleep, Vector } from "@notbeer-api";
+import { iterateChunk, regionIterateBlocks, regionIterateChunks, regionVolume, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits, snap } from "../util.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
@@ -102,9 +102,7 @@ export abstract class Shape {
         this.prepGeneration(this.genVars, options);
 
         for (const block of regionIterateBlocks(...range)) {
-            if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) {
-                yield block;
-            }
+            if (this.inShape(Vector.sub(block, loc).floor(), this.genVars)) yield block;
         }
     }
 
@@ -143,13 +141,12 @@ export abstract class Shape {
     }
 
     protected drawCircle(center: Vector, radius: number, axis: "x" | "y" | "z"): [string, Vector][] {
-        const [rotate, vec]: [typeof Vector.prototype.rotateX, Vector] =
-            axis === "x" ? [Vector.prototype.rotateX, new Vector(0, 1, 0)] : axis === "y" ? [Vector.prototype.rotateY, new Vector(1, 0, 0)] : [Vector.prototype.rotateZ, new Vector(0, 1, 0)];
+        const vec = axis === "x" ? new Vector(0, 1, 0) : axis === "y" ? new Vector(1, 0, 0) : new Vector(0, 1, 0);
         const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
 
         const points: [string, Vector][] = [];
         for (let i = 0; i < resolution; i++) {
-            let point: Vector = rotate.call(vec, (i / resolution) * 360);
+            let point: Vector = vec.rotate((i / resolution) * 360, axis);
             point = point.mul(radius).add(center).add(0.5);
             points.push(["wedit:selection_draw", point]);
         }
@@ -164,7 +161,7 @@ export abstract class Shape {
      * @param session The session that's using this shape
      * @param options A group of options that can change how the shape is generated
      */
-    public *generate(loc: Vector, pattern: Pattern, mask: Mask, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
+    public *generate(loc: Vector, pattern: Pattern, mask: Mask | undefined, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
         const player = session.getPlayer();
         const dimension = player.dimension;
@@ -173,14 +170,13 @@ export abstract class Shape {
         min.y = Math.max(minY, min.y);
         max.y = Math.min(maxY, max.y);
         const canGenerate = max.y >= min.y;
-        pattern.setContext(session, [min, max]);
+        pattern = pattern.withContext(session, [min, max]);
 
         if (!Jobs.inContext()) assertCanBuildWithin(player, min, max);
         let blocksAffected = 0;
         const blocksAndChunks: (Block | [Vector3, Vector3])[] = [];
-        mask = mask ?? new Mask();
 
-        const history = options?.recordHistory ?? true ? session.getHistory() : null;
+        const history = options?.recordHistory ?? true ? session.getHistory() : undefined;
         const record = history?.record(this.usedInBrush);
         try {
             let count = 0;
@@ -189,10 +185,10 @@ export abstract class Shape {
                 this.prepGeneration(this.genVars, options);
 
                 // TODO: Localize
-                let activeMask = mask;
+                let activeMask = mask ?? new Mask();
                 const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
-                activeMask = !activeMask ? globalMask : globalMask ? mask.intersect(globalMask) : activeMask;
-                const simple = pattern.isSimple() && (!mask || mask.isSimple());
+                activeMask = (!activeMask ? globalMask : globalMask ? activeMask.intersect(globalMask) : activeMask)?.withContext(session);
+                const simple = pattern.isSimple() && activeMask.isSimple();
 
                 let progress = 0;
                 const volume = regionVolume(min, max);
@@ -230,15 +226,7 @@ export abstract class Shape {
                             yield Jobs.setProgress(progress / volume);
                             progress++;
                             if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                                let block;
-                                do {
-                                    if (Jobs.inContext()) {
-                                        block = Jobs.loadBlock(blockLoc);
-                                        if (!block) yield sleep(1);
-                                    } else {
-                                        block = dimension.getBlock(blockLoc);
-                                    }
-                                } while (!block && Jobs.inContext());
+                                const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
                                 if (!activeMask.empty() && !activeMask.matchesBlock(block)) continue;
                                 blocksAndChunks.push(block);
                                 blocksAffected++;
@@ -250,31 +238,23 @@ export abstract class Shape {
 
                 progress = 0;
                 yield Jobs.nextStep("Generating blocks...");
-                yield history?.addUndoStructure(record, min, max);
+                if (history) yield* history.addUndoStructure(record, min, max);
                 for (let block of blocksAndChunks) {
                     if (block instanceof Block) {
-                        if (!block.isValid() && Jobs.inContext()) {
-                            const loc = block.location;
-                            block = undefined;
-                            do {
-                                block = Jobs.loadBlock(loc);
-                                if (!block) yield sleep(1);
-                            } while (!block);
-                        }
-
+                        if (!block.isValid() && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
                         if (pattern.setBlock(block)) count++;
                         if (iterateChunk()) yield Jobs.setProgress(progress / blocksAffected);
                         progress++;
                     } else {
                         const [min, max] = block;
                         const volume = regionVolume(min, max);
-                        if (Jobs.inContext()) while (!Jobs.loadBlock(min)) yield sleep(1);
-                        if (pattern.fillSimpleArea(dimension, min, max, mask)) count += volume;
+                        if (Jobs.inContext()) yield* Jobs.loadArea(min, max);
+                        count += pattern.fillSimpleArea(dimension, min, max, activeMask);
                         yield Jobs.setProgress(progress / blocksAffected);
                         progress += volume;
                     }
                 }
-                yield history?.addRedoStructure(record, min, max);
+                if (history) yield* history.addRedoStructure(record, min, max);
             }
             history?.commit(record);
             return count;

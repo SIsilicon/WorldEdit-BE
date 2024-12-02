@@ -70,9 +70,6 @@ msgstr "選択範囲のスタック"
 msgid "item.wedit:selection_move"
 msgstr "選択範囲の移動"
 
-msgid "item.wedit:draw_line"
-msgstr "線を引く"
-
 msgid "item.wedit:draw_sphere"
 msgstr "球体を生成"
 
@@ -987,9 +984,6 @@ msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "スーパーピッケルのモードは現在: area"
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "スーパーピッケルの切り替え"

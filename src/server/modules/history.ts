@@ -1,5 +1,5 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, Server, regionSize, regionCenter, Thread, getCurrentThread } from "@notbeer-api";
+import { Vector, regionVolume, regionSize, Thread, getCurrentThread } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -7,9 +7,10 @@ import { selectMode } from "./selection.js";
 import { BlockUnit } from "./block_parsing.js";
 import config from "config.js";
 import { Jobs } from "./jobs.js";
+import { RegionBuffer } from "./region_buffer.js";
 
 type historyEntry = {
-    name: string;
+    buffer: RegionBuffer;
     dimension: Dimension;
     location: Vector3;
     size: Vector3;
@@ -33,7 +34,6 @@ type historyPoint = {
 
 const air = BlockPermutation.resolve("minecraft:air");
 
-let historyId = 0;
 let historyPointId = 0;
 
 export class History {
@@ -95,39 +95,37 @@ export class History {
         const point = this.historyPoints.get(historyPoint);
         this.historyPoints.delete(historyPoint);
 
-        for (const struct of point.undo) Server.structure.delete(struct.name);
-        for (const struct of point.redo) Server.structure.delete(struct.name);
+        for (const struct of point.undo) struct.buffer.deref();
+        for (const struct of point.redo) struct.buffer.deref();
     }
 
     collectBlockChanges(historyPoint: number) {
         return this.historyPoints.get(historyPoint)?.blockChange;
     }
 
-    async addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+    *addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
         // contentLog.debug("adding undo structure");
         const point = this.historyPoints.get(historyPoint);
         point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
         // We test the change limit here,
-        if (point.blocksChanged > this.session.changeLimit) {
-            throw "commands.generic.wedit:blockLimit";
-        }
+        if (point.blocksChanged > this.session.changeLimit) throw "commands.generic.wedit:blockLimit";
 
-        const structName = await this.processRegion(historyPoint, start, end, blocks);
+        const buffer = yield* this.processRegion(historyPoint, start, end, blocks);
         point.undo.push({
-            name: structName,
+            buffer,
             dimension: this.session.getPlayer().dimension,
             location: Vector.min(start, end).floor(),
             size: regionSize(start, end),
         });
     }
 
-    async addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+    *addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
         const point = this.historyPoints.get(historyPoint);
         this.assertRecording();
 
-        const structName = await this.processRegion(historyPoint, start, end, blocks);
+        const buffer = yield* this.processRegion(historyPoint, start, end, blocks);
         point.redo.push({
-            name: structName,
+            buffer,
             dimension: this.session.getPlayer().dimension,
             location: Vector.min(start, end).floor(),
             size: regionSize(start, end),
@@ -154,23 +152,14 @@ export class History {
         }
     }
 
-    async undo(session: PlayerSession) {
+    *undo(session: PlayerSession) {
         this.assertNotRecording();
-        if (this.historyIdx <= -1) {
-            return true;
-        }
+        if (this.historyIdx <= -1) return true;
 
         const player = this.session.getPlayer();
         const dim = player.dimension;
-        const jobCtx = Jobs.getContext();
         for (const region of this.undoStructures[this.historyIdx]) {
-            await Server.structure.loadWhileLoadingChunks(region.name, region.location, dim, {}, (min, max) => {
-                if (Jobs.isContextValid(jobCtx)) {
-                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
-                    return false;
-                }
-                return true;
-            });
+            yield* region.buffer.load(region.location, dim);
         }
 
         let selection: selectionEntry;
@@ -190,24 +179,15 @@ export class History {
         return false;
     }
 
-    async redo(session: PlayerSession) {
+    *redo(session: PlayerSession) {
         this.assertNotRecording();
-        if (this.historyIdx >= this.redoStructures.length - 1) {
-            return true;
-        }
+        if (this.historyIdx >= this.redoStructures.length - 1) return true;
 
         const player = this.session.getPlayer();
         const dim = player.dimension;
-        const jobCtx = Jobs.getContext();
         this.historyIdx++;
         for (const region of this.redoStructures[this.historyIdx]) {
-            await Server.structure.loadWhileLoadingChunks(region.name, region.location, dim, {}, (min, max) => {
-                if (Jobs.isContextValid(jobCtx)) {
-                    Jobs.loadBlock(regionCenter(min, max), jobCtx);
-                    return false;
-                }
-                return true;
-            });
+            yield* region.buffer.load(region.location, dim);
         }
 
         let selection: selectionEntry;
@@ -255,22 +235,18 @@ export class History {
 
     private deleteHistoryRegions(index: number) {
         try {
-            for (const struct of this.undoStructures[index]) {
-                Server.structure.delete(struct.name);
-            }
-            for (const struct of this.redoStructures[index]) {
-                Server.structure.delete(struct.name);
-            }
+            for (const struct of this.undoStructures[index]) struct.buffer.deref();
+            for (const struct of this.redoStructures[index]) struct.buffer.deref();
         } catch {
             /* pass */
         }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    private async processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
-        let structName: string;
+    private *processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
         const player = this.session.getPlayer();
         const dim = player.dimension;
+        let buffer: RegionBuffer;
 
         try {
             const jobCtx = Jobs.getContext();
@@ -278,24 +254,13 @@ export class History {
                 throw new UnloadedChunksError("worldedit.error.saveHistory");
             }
 
-            structName = "wedit:history_" + (historyId++).toString(16);
-            if (
-                await Server.structure.saveWhileLoadingChunks(structName, start, end, dim, {}, (min, max) => {
-                    if (Jobs.isContextValid(jobCtx)) {
-                        Jobs.loadBlock(regionCenter(min, max), jobCtx);
-                        return false;
-                    }
-                    return true;
-                })
-            ) {
-                this.cancel(historyPoint);
-                throw new UnloadedChunksError("worldedit.error.saveHistory");
-            }
+            buffer = yield* RegionBuffer.createFromWorld(start, end, dim);
+            if (!buffer) throw new UnloadedChunksError("worldedit.error.saveHistory");
         } catch (err) {
             this.cancel(historyPoint);
             throw err;
         }
-        return structName;
+        return buffer!;
     }
 
     private assertRecording() {

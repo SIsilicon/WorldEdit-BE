@@ -1,8 +1,18 @@
-import { Vector3 } from "@minecraft/server";
+import { Direction, Vector3 } from "@minecraft/server";
+import { Matrix } from "./matrix";
 
-type anyVec = Vector3 | [number, number, number];
+type anyVec = Vector3 | [number, number, number] | Direction;
 
 export type axis = "x" | "y" | "z";
+
+const DIRECTION_VECTORS: Record<Direction, [number, number, number]> = {
+    [Direction.Up]: [0, 1, 0],
+    [Direction.Down]: [0, -1, 0],
+    [Direction.North]: [0, 0, -1],
+    [Direction.South]: [0, 0, 1],
+    [Direction.East]: [1, 0, 0],
+    [Direction.West]: [-1, 0, 0],
+};
 
 export class Vector {
     private vals: [number, number, number] = [0, 0, 0];
@@ -27,18 +37,25 @@ export class Vector {
     }
 
     static from(loc: anyVec) {
-        if (Array.isArray(loc)) {
-            return new Vector(...loc);
-        }
+        if (Array.isArray(loc)) return new Vector(...loc);
+        else if (typeof loc === "string") return new Vector(...DIRECTION_VECTORS[loc]);
         return new Vector(loc.x, loc.y, loc.z);
     }
 
-    static add(a: anyVec, b: anyVec) {
+    static add(a: anyVec, b: anyVec | number) {
         return Vector.from(a).add(b);
     }
 
-    static sub(a: anyVec, b: anyVec) {
+    static sub(a: anyVec, b: anyVec | number) {
         return Vector.from(a).sub(b);
+    }
+
+    static mul(a: anyVec, b: anyVec | number) {
+        return Vector.from(a).mul(b);
+    }
+
+    static div(a: anyVec, b: anyVec | number) {
+        return Vector.from(a).div(b);
     }
 
     static min(a: anyVec, b: anyVec) {
@@ -47,6 +64,10 @@ export class Vector {
 
     static max(a: anyVec, b: anyVec) {
         return Vector.from(a).max(b);
+    }
+
+    static equals(a: anyVec, b: anyVec) {
+        return Vector.from(a).equals(b);
     }
 
     constructor(x: number, y: number, z: number) {
@@ -79,7 +100,7 @@ export class Vector {
     }
 
     get length() {
-        return Math.hypot(this.x, this.y, this.z);
+        return Math.hypot(...this.vals);
     }
 
     set length(val: number) {
@@ -150,40 +171,15 @@ export class Vector {
         }
     }
 
-    rotateX(rot: number, org: anyVec = Vector.ZERO) {
-        if (!rot) return this.clone();
-        org = Vector.from(org);
-        const y = this.y - org.y;
-        const z = this.z - org.z;
+    rotate(degrees: number, axis: axis) {
+        if (!degrees) return this.clone();
+        const radians = degrees * (Math.PI / 180);
+        const cos = Math.cos(radians);
+        const sin = Math.sin(radians);
 
-        const ang = rot * (Math.PI / 180);
-        const cos = Math.cos(ang);
-        const sin = Math.sin(ang);
-        return new Vector(this.x, Math.round(10000 * (y * cos - z * sin)) / 10000 + org.y, Math.round(10000 * (y * sin + z * cos)) / 10000 + org.z);
-    }
-
-    rotateY(rot: number, org: anyVec = Vector.ZERO) {
-        if (!rot) return this.clone();
-        org = Vector.from(org);
-        const x = this.x - org.x;
-        const z = this.z - org.z;
-
-        const ang = rot * (Math.PI / 180);
-        const cos = Math.cos(ang);
-        const sin = Math.sin(ang);
-        return new Vector(Math.round(10000 * (x * cos - z * sin)) / 10000 + org.x, this.y, Math.round(10000 * (x * sin + z * cos)) / 10000 + org.z);
-    }
-
-    rotateZ(rot: number, org: anyVec = Vector.ZERO) {
-        if (!rot) return this.clone();
-        org = Vector.from(org);
-        const x = this.x - org.x;
-        const y = this.y - org.y;
-
-        const ang = rot * (Math.PI / 180);
-        const cos = Math.cos(ang);
-        const sin = Math.sin(ang);
-        return new Vector(Math.round(10000 * (x * cos - y * sin)) / 10000 + org.x, Math.round(10000 * (x * sin + y * cos)) / 10000 + org.y, this.z);
+        if (axis === "x") return new Vector(this.x, Math.round(10000 * (this.y * cos - this.z * sin)) / 10000, Math.round(10000 * (this.y * sin + this.z * cos)) / 10000);
+        else if (axis === "y") return new Vector(Math.round(10000 * (this.x * cos - this.z * sin)) / 10000, this.y, Math.round(10000 * (this.x * sin + this.z * cos)) / 10000);
+        else return new Vector(Math.round(10000 * (this.x * cos - this.y * sin)) / 10000, Math.round(10000 * (this.x * sin + this.y * cos)) / 10000, this.z);
     }
 
     min(v: anyVec) {
@@ -226,6 +222,32 @@ export class Vector {
     dot(v: anyVec) {
         v = Vector.from(v);
         return this.x * v.x + this.y * v.y + this.z * v.z;
+    }
+
+    transform(mat: Matrix) {
+        const [x, y, z] = this.vals;
+        const vals = mat.vals;
+        const w = 1 / (vals[3] * x + vals[7] * y + vals[11] * z + vals[15]);
+
+        const result = new Vector(0, 0, 0);
+        result.x = (vals[0] * x + vals[4] * y + vals[8] * z + vals[12]) * w;
+        result.y = (vals[1] * x + vals[5] * y + vals[9] * z + vals[13]) * w;
+        result.z = (vals[2] * x + vals[6] * y + vals[10] * z + vals[14]) * w;
+
+        return result;
+    }
+
+    transformDirection(mat: Matrix) {
+        const [x, y, z] = this.vals;
+        const vals = mat.vals;
+
+        const result = new Vector(0, 0, 0);
+        result.x = vals[0] * x + vals[4] * y + vals[8] * z;
+        result.y = vals[1] * x + vals[5] * y + vals[9] * z;
+        result.z = vals[2] * x + vals[6] * y + vals[10] * z;
+        result.length = this.length;
+
+        return result;
     }
 
     print() {

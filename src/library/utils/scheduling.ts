@@ -67,7 +67,7 @@ system.runInterval(() => {
 });
 
 function sleep(ticks: number) {
-    return new Promise((resolve) => setTickTimeout(resolve, ticks));
+    return new Promise<void>((resolve) => setTickTimeout(resolve, ticks));
 }
 
 function shutdownTimers() {

@@ -1,5 +1,5 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, sleep, Vector } from "@notbeer-api";
+import { RawText, regionBounds, Vector } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { fluidLookPositions, lavaMatch } from "./drain.js";
@@ -50,15 +50,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const record = history.record();
         const lava = BlockPermutation.resolve("minecraft:lava");
         try {
-            yield history.addUndoStructure(record, min, max, blocks);
+            yield* history.addUndoStructure(record, min, max, blocks);
             let i = 0;
             for (const loc of blocks) {
-                let block = dimension.getBlock(loc);
-                while (!(block || (block = Jobs.loadBlock(loc)))) yield sleep(1);
-                block.setPermutation(lava);
+                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setPermutation(lava);
                 yield Jobs.setProgress(i++ / blocks.length);
             }
-            yield history.addRedoStructure(record, min, max, blocks);
+            yield* history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
         } catch (err) {
             history.cancel(record);

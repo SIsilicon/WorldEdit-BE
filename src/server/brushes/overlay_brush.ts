@@ -56,7 +56,8 @@ export class OverlayBrush extends Brush {
     public *apply(hit: Vector, session: PlayerSession, mask?: Mask) {
         const range: [Vector, Vector] = [hit.offset(-this.radius, 1, -this.radius), hit.offset(this.radius, 1, this.radius)];
         const minY = getWorldHeightLimits(session.getPlayer().dimension)[0];
-        const activeMask = !mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask;
+        const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
+        const surfaceMask = this.surfaceMask.withContext(session);
         const isAirOrFluid = Server.block.isAirOrFluid;
         const r2 = Math.pow(this.radius + 0.5, 2);
 
@@ -72,7 +73,7 @@ export class OverlayBrush extends Brush {
                 const trace = Vector.sub(loc, [0, 1, 0]);
                 while (trace.y >= minY) {
                     const block = blockChanges.getBlock(trace);
-                    if (!isAirOrFluid(block.permutation) && this.surfaceMask.matchesBlock(block)) {
+                    if (!isAirOrFluid(block.permutation) && surfaceMask.matchesBlock(block)) {
                         for (let i = 0; i < Math.abs(this.depth); i++) {
                             const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
                             if (!activeMask || activeMask.matchesBlock(block)) {

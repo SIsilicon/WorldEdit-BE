@@ -9,7 +9,7 @@ import { contentLog, RawText } from "../utils/index.js";
 
 export class CustomArgType {
     static parseArgs: (args: Array<string>, argIndex: number) => argParseResult<unknown>;
-    static clone: (argType: CustomArgType) => CustomArgType;
+    clone: () => CustomArgType;
 }
 
 export class CommandPosition implements CustomArgType {
@@ -19,6 +19,29 @@ export class CommandPosition implements CustomArgType {
     xRelative = true;
     yRelative = true;
     zRelative = true;
+
+    clone() {
+        const pos = new CommandPosition();
+        pos.x = this.x;
+        pos.y = this.y;
+        pos.z = this.z;
+        pos.xRelative = this.xRelative;
+        pos.yRelative = this.yRelative;
+        pos.zRelative = this.zRelative;
+        return pos;
+    }
+
+    relativeTo(player: Player, isBlockLoc = false): Vector3 {
+        const loc = { x: 0, y: 0, z: 0 };
+        const x = this.x + (this.xRelative ? player.location.x : 0);
+        const y = this.y + (this.yRelative ? player.location.y : 0);
+        const z = this.z + (this.zRelative ? player.location.z : 0);
+
+        loc.x = isBlockLoc ? Math.floor(x) : x;
+        loc.y = isBlockLoc ? Math.floor(y) : y;
+        loc.z = isBlockLoc ? Math.floor(z) : z;
+        return loc;
+    }
 
     static parseArgs(args: Array<string>, index: number, is3d = true) {
         const pos = new CommandPosition();
@@ -56,29 +79,6 @@ export class CommandPosition implements CustomArgType {
             index++;
         }
         return { result: pos, argIndex: index };
-    }
-
-    static clone(original: CommandPosition) {
-        const pos = new CommandPosition();
-        pos.x = original.x;
-        pos.y = original.y;
-        pos.z = original.z;
-        pos.xRelative = original.xRelative;
-        pos.yRelative = original.yRelative;
-        pos.zRelative = original.zRelative;
-        return pos;
-    }
-
-    relativeTo(player: Player, isBlockLoc = false): Vector3 {
-        const loc = { x: 0, y: 0, z: 0 };
-        const x = this.x + (this.xRelative ? player.location.x : 0);
-        const y = this.y + (this.yRelative ? player.location.y : 0);
-        const z = this.z + (this.zRelative ? player.location.z : 0);
-
-        loc.x = isBlockLoc ? Math.floor(x) : x;
-        loc.y = isBlockLoc ? Math.floor(y) : y;
-        loc.z = isBlockLoc ? Math.floor(z) : z;
-        return loc;
     }
 }
 
@@ -443,8 +443,8 @@ export class CommandBuilder {
                 const argDef = argDefs[defIdx];
                 if (!("flag" in argDef)) {
                     if ("type" in argDef && argDef?.default != undefined && !("subName" in argDef)) {
-                        // TODO: use clone command of customArgType here
-                        result.set(argDef.name, argDef.default);
+                        const def = argDef.default.clone?.() ?? argDef.default;
+                        result.set(argDef.name, def);
                     } else if ("subName" in argDef) {
                         processSubCmd(i, "");
                     } else {

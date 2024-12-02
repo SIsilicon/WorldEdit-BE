@@ -3,7 +3,6 @@ import { RawText, Vector } from "@notbeer-api";
 import { assertClipboard } from "@modules/assert.js";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
-import config from "config.js";
 
 const registerInformation = {
     name: "rotate",
@@ -39,27 +38,19 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
     let blockCount = 0;
     const rotation = new Vector(args.get("rotateX"), args.get("rotate"), args.get("rotateZ"));
-    function assertValidFastArgs() {
-        if ((Math.abs(rotation.y) / 90) % 1 != 0) {
-            throw RawText.translate("commands.wedit:rotate.notNinety").with(args.get("rotate"));
-        } else if (rotation.x || rotation.z) {
-            throw RawText.translate("commands.wedit:rotate.yOnly");
-        }
-    }
 
     if (args.has("w")) {
-        if (config.performanceMode || session.performanceMode) assertValidFastArgs();
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { rotation }));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);
-        if (!session.clipboard.isAccurate) assertValidFastArgs();
 
-        if (!args.has("o")) {
-            session.clipboardTransform.relative = session.clipboardTransform.relative.rotateY(args.get("rotate"));
-        }
+        // TODO: Get -o flag working for clipboard rotations again
+        // if (!args.has("o")) {
+        //     session.clipboardTransform.offset = session.clipboardTransform.offset.rotate(args.get("rotate"), "y");
+        // }
         session.clipboardTransform.rotation = session.clipboardTransform.rotation.add(rotation);
-        blockCount = session.clipboard.getBlockCount();
+        blockCount = session.clipboard.getVolume();
     }
 
     return RawText.translate("commands.wedit:rotate.explain").with(blockCount);
