@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2024-12-02 04:10\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -69,6 +69,9 @@ msgstr "選択範囲のスタック"
 
 msgid "item.wedit:selection_move"
 msgstr "選択範囲の移動"
+
+msgid "item.wedit:draw_line"
+msgstr "線を引く"
 
 msgid "item.wedit:draw_sphere"
 msgstr "球体を生成"
@@ -743,7 +746,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "パターンで使用するグラデーションを作成する。"
+msgstr "Manage your gradients."
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Delete a gradient."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "List created gradients."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Gradient %s does not exist."
@@ -984,6 +996,9 @@ msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "スーパーピッケルのモードは現在: area"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "スーパーピッケルの切り替え"
