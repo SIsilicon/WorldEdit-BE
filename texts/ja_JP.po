@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr "§cWorldEditのスクリプトが停止しました！§r/reload§c を実行するか、ワールドを再起動してリセットしてください。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "コピー"
@@ -62,25 +62,22 @@ msgid "item.wedit:selection_outline"
 msgstr "範囲の輪郭線を生成"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "空洞の選択"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr "選択範囲のスタック"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
-
-msgid "item.wedit:draw_line"
-msgstr "線を引く"
+msgstr "選択範囲の移動"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "球体を生成"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "円柱の生成"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "ピラミッドの生成"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "選択範囲を設定するにはブロックを指定してください！"
@@ -107,7 +104,7 @@ msgid "worldedit.config.tools"
 msgstr "ツール"
 
 msgid "worldedit.config.gradients"
-msgstr "Gradients"
+msgstr "グラデーション"
 
 msgid "worldedit.config.general"
 msgstr "一般"
@@ -125,13 +122,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "輪郭を描写"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "無効"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "自分自身にのみ表示"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "全員に表示"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "選択モード"
@@ -143,7 +140,7 @@ msgid "worldedit.config.newBrush"
 msgstr "新規ブラシを作成"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "新しいグラデーションの作成"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "立方体"
@@ -158,46 +155,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "円柱"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "領域の操作を選択します"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "塗りつぶしモード"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "輪郭モード"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "壁面モード"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "中空モード"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "スタックモード"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "移動モード"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "生成する形状を選択"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "線"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "球体"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "円柱"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "ピラミッド"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "スタック回数を選択"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "移動距離を選択"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "ツール設定なし"
@@ -245,19 +242,19 @@ msgid "worldedit.config.brush.overlay"
 msgstr "オーバーレイブラシ"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "パターンピッカーにグラデーションを使用"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "グラデーションを削除"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "新しいグラデーションを追加"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "No Gradient ID specified."
+msgstr "グラデーションのIDが指定されていません。"
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Gradient ID already exists."
+msgstr "そのグラデーションのIDは既に存在します。"
 
 msgid "worldedit.config.chooseItem"
 msgstr "紐づけるアイテムを持ってください。"
@@ -269,7 +266,7 @@ msgid "worldedit.config.choose.tool"
 msgstr "作るアイテムの種類を選択してください。"
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Insert Gradient ID Here"
+msgstr "ここにグラデーションのIDを記入"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "ブラシのパターンと任意でマスクを作成してください。"
@@ -293,7 +290,7 @@ msgid "worldedit.config.confirm.delete"
 msgstr "本当に紐づけを解除しますか？"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "名前"
 
 msgid "worldedit.config.radius"
 msgstr "サイズ"
@@ -308,22 +305,22 @@ msgid "worldedit.config.range"
 msgstr "範囲"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "量"
 
 msgid "worldedit.config.pattern"
 msgstr "パターン"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "パターンが指定されていません。"
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "無効なパターンが指定されています。"
 
 msgid "worldedit.config.mask"
 msgstr "マスク"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "無効なマスクが指定されています。"
 
 msgid "worldedit.config.hollow"
 msgstr "空洞"
@@ -335,10 +332,10 @@ msgid "worldedit.config.erosion"
 msgstr "侵食のタイプ"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "ストラクチャー"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "混合量"
 
 msgid "worldedit.config.mask.height"
 msgstr "高さマスク"
@@ -350,7 +347,7 @@ msgid "worldedit.config.command"
 msgstr "コマンド"
 
 msgid "worldedit.config.command.noCommand"
-msgstr "No command specified."
+msgstr "コマンドが指定されていません。"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "WorldEdit のコマンドである"
@@ -410,16 +407,16 @@ msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit の権限が削除されました。§r"
 
 msgid "worldedit.whitelist.enabled"
-msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
+msgstr "ホワイトリストが有効になりました。§e/tag @s add worldedit§rコマンドを実行して権限を与えてください。"
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "ホワイトリストが無効化されました"
 
 msgid "worldedit.whitelist.status.on"
-msgstr "The whitelist is currently on."
+msgstr "ホワイトリストは現在有効です。"
 
 msgid "worldedit.whitelist.status.off"
-msgstr "The whitelist is currently off."
+msgstr "ホワイトリストは現在無効です。"
 
 msgid "worldedit.error.saveHistory"
 msgstr "履歴ポイントの保存に失敗しました！"
@@ -431,7 +428,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "履歴はまだ記録中です！"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "一時的なティッキングエリアの作成に失敗しました。"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s 個のブロックが変更されました。"
@@ -491,10 +488,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "選択したバイオーム: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "視線の先のブロックのIDとステートを表示します。"
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "IDとステートを取得したいブロックを見てください"
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "球体のブラシをセットしました (%s) 。"
@@ -590,19 +587,19 @@ msgid "commands.wedit:calc.invalid"
 msgstr "'%s' は有効な式として解析できませんでした。"
 
 msgid "commands.wedit:cancel.description"
-msgstr "Cancels one of, or all your active jobs."
+msgstr "実行中の作業の1つ、またはすべての作業をキャンセルします。"
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "キャンセルされた作業の番号 %s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "すべての %s 作業をキャンセルしました。"
 
 msgid "commands.wedit:cancel.none"
-msgstr "There is no job with that id."
+msgstr "そのIDの作業は存在しません"
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "There are no jobs to cancel."
+msgstr "キャンセルできる作業はありません。"
 
 msgid "commands.wedit:ceiling.description"
 msgstr "天井へワープする"
@@ -742,8 +739,17 @@ msgstr "共通マスクを設定しました。"
 msgid "commands.wedit:gradient.create"
 msgstr "グラデーション %s を作成しました。"
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "パターンで使用するグラデーションを作成する。"
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
@@ -770,7 +776,7 @@ msgid "commands.wedit:hsphere.description"
 msgstr "空洞の球体を生成する"
 
 msgid "commands.wedit:htorus.description"
-msgstr "Generate a hollow torus."
+msgstr "空洞のトーラスを生成"
 
 msgid "commands.wedit:inset.description"
 msgstr "選択範囲を挿入する"
@@ -788,7 +794,7 @@ msgid "commands.wedit:inset.explain"
 msgstr "範囲を挿入しました。"
 
 msgid "commands.wedit:jumpto.explain"
-msgstr "Poof!"
+msgstr "シュッ！"
 
 msgid "commands.wedit:jumpto.none"
 msgstr "視界にブロックがありません (または遠すぎます)！"
@@ -883,6 +889,12 @@ msgstr "近くのブロックを削除する"
 msgid "commands.wedit:replacenear.description"
 msgstr "近くのブロックを他のブロックに置き換える"
 
+msgid "commands.wedit:revolve.description"
+msgstr "プレイヤーを中心に選択範囲のコピーを作成"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "回転から %s ブロックを作成しました。"
+
 msgid "commands.wedit:rotate.description"
 msgstr "選択範囲を回転する"
 
@@ -899,10 +911,10 @@ msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
 
 msgid "commands.wedit:sel.cuboid"
-msgstr "Cuboid: break block for point 1, use on block for point 2"
+msgstr "直方体:\"pos1を破壊したブロック、pos2をブロックの使用\""
 
 msgid "commands.wedit:sel.cyl"
-msgstr "Cylinder selector: break block for the center, use on block to expand radius and height"
+msgstr "円柱の選択：中心の破壊されたブロックから半径と高さを決めるためにブロックを使用する"
 
 msgid "commands.wedit:sel.description"
 msgstr "選択モードを変更する"
@@ -920,10 +932,10 @@ msgid "commands.wedit:sel.description.sphere"
 msgstr "球体を選択する"
 
 msgid "commands.wedit:sel.extend"
-msgstr "Extend: break block for a starting point, use on block to extend"
+msgstr "拡張: 開始点の破壊されたブロックを拡張するためにブロックを使用してください。"
 
 msgid "commands.wedit:sel.sphere"
-msgstr "Sphere selector: break block for the center, use on block to set radius"
+msgstr "球体の選択：中心の破壊されたブロック、半径はブロックの使用で設定します"
 
 msgid "commands.wedit:set.description"
 msgstr "選択範囲をブロックパターンで塗りつぶす"
@@ -971,31 +983,31 @@ msgid "commands.wedit:snow.description"
 msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
-msgstr "Super pickaxe mode is now: area."
+msgstr "スーパーピッケルのモードは現在: area"
 
 msgid "commands.wedit:superpickaxe.description"
-msgstr "Toggle the super pickaxe"
+msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description.single"
-msgstr "Make the super pickaxe break a single block"
+msgstr "スーパーツルハシで1つのブロックを破壊する"
 
 msgid "commands.wedit:superpickaxe.description.area"
-msgstr "Make the super pickaxe break blocks in a cubic range"
+msgstr "スーパーツルハシの壊せるブロックを立方体の選択範囲内のみにする"
 
 msgid "commands.wedit:superpickaxe.description.recursive"
-msgstr "Make the super pickaxe break blocks starting from the initial one"
+msgstr "スーパーピッケルが最初に触れたブロックから順にブロックを破壊するようにする"
 
 msgid "commands.wedit:superpickaxe.disabled"
-msgstr "Super pickaxe disabled."
+msgstr "スーパーツルハシを無効にしました"
 
 msgid "commands.wedit:superpickaxe.enabled"
-msgstr "Super pickaxe enabled."
+msgstr "スーパーツルハシを有効にしました"
 
 msgid "commands.wedit:superpickaxe.recursive"
-msgstr "Super pickaxe mode is now: recursive."
+msgstr "スーパーツルハシのモードは現在: recursive"
 
 msgid "commands.wedit:superpickaxe.single"
-msgstr "Super pickaxe mode is now: single."
+msgstr "スーパーピッケルのモードは現在: single"
 
 msgid "commands.wedit:thaw.description"
 msgstr "日光にさらされる雪と氷ブロックを消滅させる"
@@ -1025,7 +1037,7 @@ msgid "commands.wedit:thru.obstructed"
 msgstr "前方にスペースが見つかりませんでした。"
 
 msgid "commands.wedit:torus.description"
-msgstr "Generate a torus."
+msgstr "トーラスを生成"
 
 msgid "commands.wedit:ascend.description"
 msgstr "1階分上に行く"
@@ -1043,13 +1055,13 @@ msgid "commands.wedit:tracemask.description"
 msgstr "ブラシを使用できるブロックの種類を設定する"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "条件に一致するブロックのみ選択範囲に含める"
 
 msgid "commands.wedit:trim.explain"
-msgstr "Region trimmed."
+msgstr "選択範囲内を切り取りました"
 
 msgid "commands.wedit:trim.no-blocks"
-msgstr "No blocks matched the trim mask!"
+msgstr "マスクと一致するブロックはありません！"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "配置位置を切り替えました。"
@@ -1136,7 +1148,7 @@ msgid "commands.wedit:wand.description"
 msgstr "自身に選択用の杖を付与する"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Break block: select pos #1; \"Use\" on block: select pos #2"
+msgstr "ブロックの破壊で\";\"pos #1を選択します。ブロックの使用で\";\"pos #2を選択します"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "WorldEdit のコマンド"
@@ -1199,7 +1211,7 @@ msgid "howtoplay.wedit:quick_start.header.3"
 msgstr "選択する"
 
 msgid "howtoplay.wedit:quick_start.text.7"
-msgstr "Like the original mod, you use what's known as a Selection Wand to easily mark regions of your world for various operations. To get one, grab a wooden axe, or enter the command §e;wand§r. Selections in WorldEdit are cuboid shaped by default. To make a selection, you need to mark the two corners of this cuboid. You mark the first corner by breaking a block at that corner with the wand. You mark the second point by \"using\" the wand on another block. If done correctly, you should see a highlight of your selection."
+msgstr "オリジナルのjavaのMod と同じように、選択用のワンド（木の斧）というアイテムを使用してさまざまな操作で簡単にワールドの内に範囲を選択できます。 ワンドを手に入れるには木の斧を持つか、 §e;wand§r コマンドを入力します。 WorldEdit の選択範囲のデフォルトは立方体です。 範囲を選択するには、この立方体の2つの角を決める必要があります。 スニークしながら角のブロックに杖を使って最初の角をマークします。 スニーク§lせずに§rブロックに杖を使って 2 番目の角をマークします。正しく行われた場合は、選択範囲がハイライトされます。"
 
 msgid "howtoplay.wedit:quick_start.text.8"
 msgstr "空高くにある場合など角にマークするブロックが見つからない場合は、コマンド §e;pos1§r と §e;pos2§r を使って、それぞれ最初と 2 番目の角を立っている位置でマークすることもできます。 立っている§l下の§rブロックではありません。"
@@ -1253,5 +1265,5 @@ msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "このアドオンの詳細については、こちらのオンラインドキュメント (英語) を参照してください: §ehttps://worldedit-be-docs.readthedocs.io§r"
 
 msgid "howtoplay.category.minecraft"
-msgstr "Minecraft"
+msgstr "マインクラフト"
 

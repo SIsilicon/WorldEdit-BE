@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr ""
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -62,10 +62,10 @@ msgid "item.wedit:selection_outline"
 msgstr "Selección de contorno"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Hollow Selection"
+msgstr "Spanish, México"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr ""
 
 msgid "item.wedit:selection_move"
 msgstr "Move Selection"
@@ -74,13 +74,13 @@ msgid "item.wedit:draw_line"
 msgstr "Línea de dibujo"
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Dibujar Esfera"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Dibujar Cilindro"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Dibujar Pirámide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "¡Necesitas especificar un bloque para establecer la selección!"
@@ -742,8 +742,17 @@ msgstr "Establecer máscara global."
 msgid "commands.wedit:gradient.create"
 msgstr "Gradient %s created."
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "Turn nearby dirt into grass"
@@ -882,6 +891,12 @@ msgstr "Remove nearby blocks"
 
 msgid "commands.wedit:replacenear.description"
 msgstr "Replace nearby blocks with other blocks"
+
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Rotate the selection"
@@ -1179,7 +1194,6 @@ msgstr "Before Anything Else..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
 msgstr "By default, players are not allowed to use WorldEdit. Only those tagged with worldedit permission can use its features. To give yourself permission, enter §e/tag @s add worldedit§r in chat. You should now have access to every WorldEdit command."
-
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aTip:§r§a You can also give other players permission by changing §e@s§r§a to the player's name. You'll need to surround it in quotes if it has a space in it. Eg: §e/tag \"Steve Wanderer\" add worldedit§r"

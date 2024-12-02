@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-09-06 02:27\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -182,16 +182,16 @@ msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Linie"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Kugel"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Zylinder"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Pyramide"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -742,8 +742,17 @@ msgstr "Globale Maske gesetzt."
 msgid "commands.wedit:gradient.create"
 msgstr "Verlauf %s erstellt."
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "Erstelle einen Farbverlauf für Muster."
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "Verwandle nahe Erde in Gras"
@@ -882,6 +891,12 @@ msgstr "Blöcke in der Nähe entfernen"
 
 msgid "commands.wedit:replacenear.description"
 msgstr "Blöcke in der Nähe durch andere Blöcke ersetzen"
+
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Auswahl drehen"
