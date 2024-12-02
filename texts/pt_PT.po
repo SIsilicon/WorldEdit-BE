@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2024-12-02 04:11\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -746,7 +746,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
+msgstr "Manage your gradients."
+
+msgid "commands.wedit:gradient.description.create"
 msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Delete a gradient."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "List created gradients."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Gradient %s does not exist."
@@ -987,6 +996,9 @@ msgstr "Simulate snow in the area"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
