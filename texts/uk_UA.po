@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2024-12-04 15:31\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -746,16 +746,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Видалено градієнт «%s»."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Manage your gradients."
+msgstr "Керувати своїми градієнтами."
 
 msgid "commands.wedit:gradient.description.create"
-msgstr "Create a gradient to use in patterns."
+msgstr "Створити градієнт для використання у шаблонах."
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "Видалити градієнт."
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "Список створених градієнтів."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Градієнту «%s» не існує."
