@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-12-11 14:53\n"
+"PO-Revision-Date: 2024-12-11 16:30\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr ""
+msgstr "§cWorldEdit의 스크립트가 중지되었습니다! §r/reload§c로 재설정합니다(다른 스크립트도 재설정됨).§r"
 
 msgid "item.wedit:copy_button"
 msgstr "복사"
@@ -746,22 +746,22 @@ msgid "commands.wedit:gradient.delete"
 msgstr "그라데이션 %s 삭제됨."
 
 msgid "commands.wedit:gradient.description"
-msgstr "당신의 그라데이션을 관리합니다."
+msgstr "그라데이션을 관리합니다."
 
 msgid "commands.wedit:gradient.description.create"
 msgstr "패턴에 사용할 그라데이션을 만듭니다."
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "그라데이션 지우기."
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "생성된 그라데이션 목록입니다."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "그라데이션 %s(이)가 존재하지 않습니다."
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "표시할 그라데이션이 없습니다."
 
 msgid "commands.wedit:green.description"
 msgstr "주변 흙블록을 잔디블록으로 변경합니다."
