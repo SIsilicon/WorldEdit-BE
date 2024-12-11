@@ -515,15 +515,15 @@ export class RegionBuffer {
         const mirror = new Vector(Math.sign(options.flip?.x ?? 1), 1, Math.sign(options.flip?.z ?? 1));
         const loadOptions = {
             rotation: {
-                0: StructureRotation.None,
-                1: StructureRotation.Rotate90,
-                2: StructureRotation.Rotate180,
-                3: StructureRotation.Rotate270,
+                "0": StructureRotation.None,
+                "1": StructureRotation.Rotate90,
+                "2": StructureRotation.Rotate180,
+                "3": StructureRotation.Rotate270,
             }[((rotation.y ?? 0) / 90) % 4],
             mirror: {
                 "1 1": StructureMirrorAxis.None,
-                "-1 1": StructureMirrorAxis.X,
-                "1 -1": StructureMirrorAxis.Z,
+                "-1 1": StructureMirrorAxis.Z,
+                "1 -1": StructureMirrorAxis.X,
                 "-1 -1": StructureMirrorAxis.XZ,
             }[<string>`${mirror.x} ${mirror.z}`],
             includeBlocks: options.includeBlocks ?? true,
