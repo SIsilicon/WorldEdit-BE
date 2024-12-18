@@ -504,7 +504,7 @@ export class RegionBuffer {
 
     private getBlockMulti(loc: Vector3) {
         if (loc.x < 0 || loc.x >= this.size.x || loc.y < 0 || loc.y >= this.size.y || loc.z < 0 || loc.z >= this.size.z) return undefined;
-        const offset = { x: loc.x / RegionBuffer.MAX_SIZE.x, y: loc.y / RegionBuffer.MAX_SIZE.y, z: loc.z / RegionBuffer.MAX_SIZE.z };
+        const offset = { x: Math.floor(loc.x / RegionBuffer.MAX_SIZE.x), y: Math.floor(loc.y / RegionBuffer.MAX_SIZE.y), z: Math.floor(loc.z / RegionBuffer.MAX_SIZE.z) };
         const structure = this.structures[locToString(offset)];
         return new RegionBlockImpl(this, this.extraBlockData, loc, structure, Vector.sub(loc, Vector.mul(offset, RegionBuffer.MAX_SIZE)));
     }
