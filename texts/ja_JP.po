@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-12-02 04:10\n"
+"PO-Revision-Date: 2024-12-18 00:09\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -743,25 +743,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "グラデーション %s を作成しました。"
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "グラデーション %s を削除しました。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "Manage your gradients."
+msgstr "グラデーションの管理"
 
 msgid "commands.wedit:gradient.description.create"
-msgstr "Create a gradient to use in patterns."
+msgstr "グラデーションを作成してパターンに使用します。"
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "グラデーションを削除"
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "作成されたグラデーションの一覧。"
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "グラデーション %s は存在しません。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "リストにグラデーションがありません"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
