@@ -284,7 +284,7 @@ export interface BlockChanges {
     setBlock(loc: Vector3, block: BlockPermutation): void;
 
     applyIteration(): void;
-    flush(): Generator<number>;
+    flush(): Generator<any>;
 }
 
 class BlockChangeImpl implements BlockChanges {
@@ -356,9 +356,7 @@ class BlockChangeImpl implements BlockChanges {
 
     *flush() {
         this.applyIteration();
-        for (const range of this.ranges) {
-            this.history.addUndoStructure(this.record, ...range);
-        }
+        for (const range of this.ranges) yield* this.history.addUndoStructure(this.record, ...range);
 
         let i = 0;
         for (const [loc, block] of this.changes.entries()) {
@@ -370,9 +368,7 @@ class BlockChangeImpl implements BlockChanges {
             yield ++i;
         }
 
-        for (const range of this.ranges) {
-            this.history.addRedoStructure(this.record, ...range);
-        }
+        for (const range of this.ranges) yield* this.history.addRedoStructure(this.record, ...range);
         this.ranges.length = 0;
         this.changes.clear();
     }
