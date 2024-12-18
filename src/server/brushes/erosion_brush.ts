@@ -1,9 +1,9 @@
-import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
+import { Server, Vector, iterateChunk, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
-import { BlockPermutation } from "@minecraft/server";
+import { BlockPermutation, Vector3 } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { BlockChanges } from "@modules/history.js";
@@ -87,11 +87,18 @@ export class ErosionBrush extends Brush {
         const record = history.record();
         const blockChanges = history.collectBlockChanges(record);
         try {
+            const locations: Vector3[] = [];
+            const centre = Vector.add(...range).mul(0.5);
+            const r2 = (this.radius + 0.5) * (this.radius + 0.5);
+            for (const loc of regionIterateBlocks(...range)) {
+                if (centre.sub(loc).lengthSqr <= r2) locations.push(loc);
+            }
+
             for (let i = 0; i < this.preset.erodeIterations; i++) {
-                yield* this.processErosion(range, this.preset.erodeThreshold, blockChanges, activeMask);
+                yield* this.processErosion(locations, this.preset.erodeThreshold, blockChanges, activeMask);
             }
             for (let i = 0; i < this.preset.fillIterations; i++) {
-                yield* this.processFill(range, this.preset.fillThreshold, blockChanges, activeMask);
+                yield* this.processFill(locations, this.preset.fillThreshold, blockChanges, activeMask);
             }
 
             yield* blockChanges.flush();
@@ -108,15 +115,11 @@ export class ErosionBrush extends Brush {
         selection.set(1, loc.offset(0, 0, this.radius));
     }
 
-    private *processErosion(range: [Vector, Vector], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
-        const centre = Vector.add(...range).mul(0.5);
-        const r2 = (this.radius + 0.5) * (this.radius + 0.5);
+    private *processErosion(locations: Vector3[], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
         const isAirOrFluid = Server.block.isAirOrFluid;
 
-        for (const loc of regionIterateBlocks(...range)) {
-            if (centre.sub(loc).lengthSqr > r2 || isAirOrFluid(blockChanges.getBlockPerm(loc)) || (mask && !mask.matchesBlock(blockChanges.dimension.getBlock(loc)))) {
-                continue;
-            }
+        for (const loc of locations) {
+            if (isAirOrFluid(blockChanges.getBlockPerm(loc)) || (mask && !mask.matchesBlock(blockChanges.dimension.getBlock(loc)))) continue;
 
             let count = 0;
             const fluidTypes: [string, number][] = [];
@@ -150,20 +153,15 @@ export class ErosionBrush extends Brush {
                 }
                 blockChanges.setBlock(loc, fluids[maxBlock as keyof typeof fluids]);
             }
-            yield 0;
+            if (iterateChunk()) yield 0;
         }
         blockChanges.applyIteration();
     }
 
-    private *processFill(range: [Vector, Vector], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
-        const centre = Vector.add(...range).mul(0.5);
-        const r2 = (this.radius + 0.5) * (this.radius + 0.5);
+    private *processFill(locations: Vector3[], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
         const isAirOrFluid = Server.block.isAirOrFluid;
-
-        for (const loc of regionIterateBlocks(...range)) {
-            if (centre.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
-                continue;
-            }
+        for (const loc of locations) {
+            if (!isAirOrFluid(blockChanges.getBlockPerm(loc))) continue;
 
             let count = 0;
             const blockTypes: [BlockPermutation, number][] = [];
@@ -195,7 +193,7 @@ export class ErosionBrush extends Brush {
                 }
                 blockChanges.setBlock(loc, maxBlock);
             }
-            yield 0;
+            if (iterateChunk()) yield 0;
         }
         blockChanges.applyIteration();
     }
