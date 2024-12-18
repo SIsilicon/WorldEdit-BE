@@ -11,7 +11,7 @@ class ContentLog {
     }
 
     log(...msg: any[]) {
-        console.warn("[LOG]", date(), ...msg);
+        console.log("[LOG]", date(), ...msg);
     }
 
     warn(...msg: any[]) {
@@ -20,15 +20,11 @@ class ContentLog {
 
     error(...msg: any[]) {
         console.error("[ERROR]", date(), ...msg);
-        if (msg[0]?.stack) {
-            console.error(msg[0].stack);
-        }
+        if (msg[0]?.stack) console.error(msg[0].stack);
     }
 
     debug(...msg: any[]) {
-        if (config.debug) {
-            console.warn("[DEBUG]", date(), ...msg);
-        }
+        if (config.debug) console.log("[DEBUG]", date(), ...msg);
     }
 
     stack() {
