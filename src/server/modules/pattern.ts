@@ -1,4 +1,4 @@
-import { Vector3, BlockPermutation, Player, Dimension, BlockVolume } from "@minecraft/server";
+import { Vector3, BlockPermutation, Player, Dimension, BlockVolumeBase } from "@minecraft/server";
 import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
@@ -148,22 +148,24 @@ export class Pattern implements CustomArgType {
         return this.block instanceof BlockPattern || (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern);
     }
 
-    fillSimpleArea(dimension: Dimension, start: Vector3, end: Vector3, mask?: Mask) {
-        if (!this.simpleCache) {
-            if (this.block instanceof BlockPattern) {
-                this.simpleCache = parsedBlock2BlockPermutation(this.block.block);
-            } else if (this.block instanceof ChainPattern) {
-                this.simpleCache = parsedBlock2BlockPermutation((<BlockPattern>this.block.nodes[0]).block);
+    fillBlocks(dimension: Dimension, volume: BlockVolumeBase, mask?: Mask) {
+        const filter = mask?.getSimpleBlockFilter();
+        if (this.isSimple()) {
+            if (!this.simpleCache) {
+                if (this.block instanceof BlockPattern) {
+                    this.simpleCache = parsedBlock2BlockPermutation(this.block.block);
+                } else if (this.block instanceof ChainPattern) {
+                    this.simpleCache = parsedBlock2BlockPermutation((<BlockPattern>this.block.nodes[0]).block);
+                }
             }
-        }
-        return dimension.fillBlocks(new BlockVolume(start, end), this.simpleCache, { blockFilter: mask?.getSimpleBlockFilter() }).getCapacity();
-    }
-
-    getSimpleBlockFill() {
-        if (this.block instanceof BlockPattern) {
-            return parsedBlock2BlockPermutation(this.block.block);
-        } else if (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern) {
-            return parsedBlock2BlockPermutation(this.block.nodes[0].block);
+            return dimension.fillBlocks(volume, this.simpleCache, { blockFilter: filter }).getCapacity();
+        } else {
+            let count = 0;
+            volume = dimension.getBlocks(volume, filter);
+            for (const block of volume.getBlockLocationIterator()) {
+                count += this.setBlock(dimension.getBlock(block)) ? 1 : 0;
+            }
+            return count;
         }
     }
 

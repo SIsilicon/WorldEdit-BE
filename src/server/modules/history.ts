@@ -1,5 +1,5 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, regionSize, Thread, getCurrentThread } from "@notbeer-api";
+import { Vector, regionVolume, regionSize, Thread, getCurrentThread, iterateChunk } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -365,7 +365,8 @@ class BlockChangeImpl implements BlockChanges {
             } catch {
                 /* pass */
             }
-            yield ++i;
+            i++;
+            if (iterateChunk) yield i;
         }
 
         for (const range of this.ranges) yield* this.history.addRedoStructure(this.record, ...range);
