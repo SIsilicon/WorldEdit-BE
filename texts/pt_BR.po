@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2024-12-05 22:31\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -431,7 +431,7 @@ msgid "worldedit.error.stillRecording"
 msgstr "Histórico ainda salvando!"
 
 msgid "worldedit.error.tickArea"
-msgstr "Failed to create a temporary ticking area!"
+msgstr "Falha ao criar uma área temporária!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s blocos foram alterados."
@@ -596,13 +596,13 @@ msgid "commands.wedit:cancel.explain"
 msgstr "Cancelled job number %s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "Foram cancelados todos %s os seus trabalhos."
 
 msgid "commands.wedit:cancel.none"
 msgstr "There is no job with that id."
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "There are no jobs to cancel."
+msgstr "Não há trabalhos para cancelar."
 
 msgid "commands.wedit:ceiling.description"
 msgstr "Vá ao o teto."
@@ -746,7 +746,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Crie um gradeante para usar padrões."
+msgstr "Manage your gradients."
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Delete a gradient."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "List created gradients."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Gradient %s does not exist."
@@ -991,6 +1000,9 @@ msgstr "Super pickaxe mode is now: area."
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"
 
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
 msgid "commands.wedit:superpickaxe.description.single"
 msgstr "Make the super pickaxe break a single block"
 
@@ -1058,7 +1070,7 @@ msgid "commands.wedit:tracemask.description"
 msgstr "Defina em quais tipos de blocos o pincel pode ser usado"
 
 msgid "commands.wedit:trim.description"
-msgstr "Minimize the selection to encompass matching blocks"
+msgstr "Minimize a seleção para abranger os blocos correspondentes."
 
 msgid "commands.wedit:trim.explain"
 msgstr "Region trimmed."
