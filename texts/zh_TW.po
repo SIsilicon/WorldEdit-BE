@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2024-12-19 04:17\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -743,25 +743,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "已建立漸層 %s。"
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "漸層 %s 已刪除。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "Manage your gradients."
+msgstr "管理您的漸層。"
 
 msgid "commands.wedit:gradient.description.create"
-msgstr "Create a gradient to use in patterns."
+msgstr "建立要在圖案中使用的漸層。"
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "刪除漸層。"
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "列出已建立的漸層。"
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "漸層 %s 不存在。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "沒有可列出的漸層。"
 
 msgid "commands.wedit:green.description"
 msgstr "把附近的泥土切換成草地"
