@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2024-12-28 00:39\n"
+"PO-Revision-Date: 2024-12-28 01:42\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -89,13 +89,13 @@ msgid "worldedit.patternPicker.add"
 msgstr "Bloque agregado al patrón: "
 
 msgid "worldedit.patternPicker.set"
-msgstr "Set pattern to block: "
+msgstr "Establecer patrón a un bloque: "
 
 msgid "worldedit.maskPicker.add"
 msgstr "Mascara añadida al bloque "
 
 msgid "worldedit.maskPicker.set"
-msgstr "Set mask to block: "
+msgstr "Colocar mascara al bloque: "
 
 msgid "worldedit.config.mainMenu"
 msgstr "Ajustes de WorldEdit"
@@ -125,13 +125,13 @@ msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar líneas"
 
 msgid "worldedit.config.general.drawOutlines.off"
-msgstr "Off"
+msgstr "Desactivado"
 
 msgid "worldedit.config.general.drawOutlines.self"
-msgstr "Visible to Self"
+msgstr "Visible para si mismo"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Visible para todos"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Modo de selección"
@@ -143,7 +143,7 @@ msgid "worldedit.config.newBrush"
 msgstr "Crear nueva brocha"
 
 msgid "worldedit.config.newGradient"
-msgstr "Create New Gradient"
+msgstr "Crear nuevo gradiente"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Cuboide"
@@ -158,46 +158,46 @@ msgid "worldedit.selectionMode.cylinder"
 msgstr "Cilindro"
 
 msgid "worldedit.regionMode.selectOp"
-msgstr "Select Region Operation"
+msgstr "Seleccionar región de operación"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Modo de relleno"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Modo de esquema"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Modo de pared"
 
 msgid "worldedit.regionMode.hollow"
-msgstr "Hollow Mode"
+msgstr "Modo de hueco"
 
 msgid "worldedit.regionMode.stack"
-msgstr "Stack Mode"
+msgstr "Modo de apilamiento"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Modo de movimiento"
 
 msgid "worldedit.genMode.selectOp"
-msgstr "Select Shape to Generate"
+msgstr "Seleccionar forma para generar"
 
 msgid "worldedit.genMode.line"
-msgstr "Line"
+msgstr "Linea"
 
 msgid "worldedit.genMode.sphere"
-msgstr "Sphere"
+msgstr "Esfera"
 
 msgid "worldedit.genMode.cylinder"
-msgstr "Cylinder"
+msgstr "Cilindro"
 
 msgid "worldedit.genMode.pyramid"
-msgstr "Pyramid"
+msgstr "Pirámide"
 
 msgid "worldedit.stack.title"
-msgstr "Select stack amount"
+msgstr "Seleccionar cantidad de apilado"
 
 msgid "worldedit.move.title"
-msgstr "Select move amount"
+msgstr "Seleccionar cantidad de movimiento"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Sin propiedades de herramienta"
@@ -236,28 +236,28 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Brocha suavizante"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Pincel de estructura"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Pincel de erosión"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Pincel de superposición"
 
 msgid "worldedit.config.gradient.use"
-msgstr "Use Gradient in Pattern Picker"
+msgstr "Usar gradiente en el selector de patrones"
 
 msgid "worldedit.config.gradient.remove"
-msgstr "Delete Gradient"
+msgstr "Borrar gradiente"
 
 msgid "worldedit.config.gradient.add"
-msgstr "Add new Gradient"
+msgstr "Agregar nuevo gradiente"
 
 msgid "worldedit.config.gradient.noId"
-msgstr "No Gradient ID specified."
+msgstr "ID del gradiente no especificada."
 
 msgid "worldedit.config.gradient.dupeId"
-msgstr "Gradient ID already exists."
+msgstr "La ID introducida ya existe."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Mantener un elemento para enlazar."
@@ -269,10 +269,10 @@ msgid "worldedit.config.choose.tool"
 msgstr "Elige qué tipo de herramienta hacer."
 
 msgid "worldedit.config.gradient.promptName"
-msgstr "Insert Gradient ID Here"
+msgstr "Insertar la ID del gradiente aquí"
 
 msgid "worldedit.config.patternMask.brush"
-msgstr "Make a pattern and optional mask for the brush."
+msgstr "Crear un patrón y una máscara opcional para el pincel."
 
 msgid "worldedit.config.pattern.tool"
 msgstr "Crea un patrón para la herramienta."
@@ -287,58 +287,58 @@ msgid "worldedit.config.confirm"
 msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Are you ok with the setup you made?"
+msgstr "Estás de acuerdo con la configuración que creaste?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea desvincular este elemento?"
 
 msgid "worldedit.config.name"
-msgstr "Name"
+msgstr "Nombre"
 
 msgid "worldedit.config.radius"
-msgstr "Size"
+msgstr "Tamaño"
 
 msgid "worldedit.config.height"
-msgstr "Height"
+msgstr "Altura"
 
 msgid "worldedit.config.smooth"
-msgstr "Smoothness"
+msgstr "Suavidad"
 
 msgid "worldedit.config.range"
-msgstr "Range"
+msgstr "Rango"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Cantidad"
 
 msgid "worldedit.config.pattern"
-msgstr "Pattern"
+msgstr "Patrón"
 
 msgid "worldedit.config.pattern.noPattern"
-msgstr "No pattern specified."
+msgstr "El patrón no a sido especificado."
 
 msgid "worldedit.config.pattern.invalidPattern"
-msgstr "Invalid pattern specified."
+msgstr "Patrón inválido especificado."
 
 msgid "worldedit.config.mask"
-msgstr "Mask"
+msgstr "Mascara"
 
 msgid "worldedit.config.mask.invalidMask"
-msgstr "Invalid mask specified."
+msgstr "Mascara inválida especificada."
 
 msgid "worldedit.config.hollow"
-msgstr "Hollow"
+msgstr "Hueco"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Profundidad"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Tipo de erosión"
 
 msgid "worldedit.config.structures"
-msgstr "Structures"
+msgstr "Estructuras"
 
 msgid "worldedit.config.blend"
-msgstr "Blend Amount"
+msgstr "Cantidad de mezcla"
 
 msgid "worldedit.config.mask.height"
 msgstr "Height Mask"
@@ -581,34 +581,34 @@ msgid "commands.wedit:butcher.description"
 msgstr "Kill nearby entities."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "Asesinadas %s entidades."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Evaluar una expresión matemática."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "%s No se pudo analizar como una expresión válida."
 
 msgid "commands.wedit:cancel.description"
-msgstr "Cancels one of, or all your active jobs."
+msgstr "Cancelar una de, o todos tus trabajos activos."
 
 msgid "commands.wedit:cancel.explain"
-msgstr "Cancelled job number %s."
+msgstr "Número de trabajos cancelados %s."
 
 msgid "commands.wedit:cancel.explain.all"
-msgstr "Cancelled all %s jobs."
+msgstr "Cancelado todo %s trabajos."
 
 msgid "commands.wedit:cancel.none"
-msgstr "There is no job with that id."
+msgstr "No hay un trabajo con esa identificación."
 
 msgid "commands.wedit:cancel.none.all"
-msgstr "There are no jobs to cancel."
+msgstr "No hay trabajos para cancelar."
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Go to the ceiling."
+msgstr "Ir al techo."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Establecer bloque central."
 
 msgid "commands.wedit:chunk.description"
 msgstr "Select your current, or specified chunk."
