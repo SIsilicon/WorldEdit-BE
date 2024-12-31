@@ -37,7 +37,7 @@ interface gradients {
 }
 
 Databases.addParser((key, value, databaseName) => {
-    if (databaseName === "gradients" && typeof value === "object" && value.patterns) {
+    if (databaseName === "gradients" && value && typeof value === "object" && value.patterns) {
         try {
             value.patterns = (<string[]>value.patterns).map((v) => new Pattern(v));
             return value;

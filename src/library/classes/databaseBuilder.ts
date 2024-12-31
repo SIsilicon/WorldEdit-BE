@@ -150,7 +150,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
             this._data = parseJSON(this.name, this.rawData ?? "{}");
         } catch (err) {
             contentLog.error(`Failed to load database ${this.name} from ${this.provider instanceof Entity ? this.provider.nameTag ?? this.provider.id : "the world"}`);
-            if (err) contentLog.debug(err);
+            if (err) contentLog.debug(err, err.stack);
             return;
         }
         this.loaded = true;
@@ -193,7 +193,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
 }
 
 Databases.addParser((_, value) => {
-    if (typeof value !== "object" || !("__dbName__" in value)) return value;
+    if (!value || typeof value !== "object" || !value.__dbName__) return value;
     const provider = value.__dbProvider__ ? world.getEntity(value.__dbProvider__) : world;
     const key = getDatabaseKey(value.__dbName__, provider);
     if (!databases[key]) databases[key] = new DatabaseImpl(value.__dbName__, provider, value.__dbLegacy__);
