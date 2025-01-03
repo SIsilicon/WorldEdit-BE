@@ -84,7 +84,6 @@ export class StructureBrush extends Brush {
                 options.flip = newTransform[1];
                 this.lastTransform = newTransform;
                 [start, end] = struct.getBounds(center, options);
-                console.warn(options.rotation, options.flip);
             }
 
             yield* history.addUndoStructure(record, start, end);
