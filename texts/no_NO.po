@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2025-01-12 21:34\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -743,25 +743,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "Stigning %s lagd."
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "Graduebt %s slettet."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Manage your gradients."
+msgstr "Administrer gradientene dine."
 
 msgid "commands.wedit:gradient.description.create"
-msgstr "Create a gradient to use in patterns."
+msgstr "Lag en gradient for å bruke i mønster."
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "Slett en gradient."
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "List opp gradienter."
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "Gradient %s finnes ikke."
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "Det er ingen gradienter å liste opp"
 
 msgid "commands.wedit:green.description"
 msgstr "Omgjør nærliggende jord om til gress"
@@ -902,10 +902,10 @@ msgid "commands.wedit:replacenear.description"
 msgstr "Erstatt blokker i nærheten med andre blokker"
 
 msgid "commands.wedit:revolve.description"
-msgstr "Make copies of the selection revolving around the player"
+msgstr "Lag kopier av utvalget som snurrer rundt spilleren"
 
 msgid "commands.wedit:revolve.explain"
-msgstr "Created %s blocks from revolving."
+msgstr "Lagre %s blokker fra snurring."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Roter utvalget"
