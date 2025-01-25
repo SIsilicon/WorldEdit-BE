@@ -1,4 +1,4 @@
-import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system } from "@minecraft/server";
+import { Player, ItemStack, ItemUseBeforeEvent, world, PlayerBreakBlockBeforeEvent, EntityHitBlockAfterEvent, system, ItemUseOnBeforeEvent } from "@minecraft/server";
 import { contentLog, Databases, Server, sleep, Thread, Vector } from "@notbeer-api";
 import { Tool, ToolAction } from "./base_tool.js";
 import { PlayerSession, getSession, hasSession } from "../sessions.js";
@@ -220,7 +220,7 @@ class ToolBuilder {
         if (gen) yield* gen;
     }
 
-    private onItemUse(item: ItemStack, player: Player, ev: ItemUseBeforeEvent, loc?: Vector) {
+    private onItemUse(item: ItemStack, player: Player, ev: ItemUseBeforeEvent | ItemUseOnBeforeEvent, loc?: Vector) {
         if (this.disabled.includes(player.id) || !hasSession(player.id)) return;
 
         const key = item.typeId;
@@ -234,6 +234,8 @@ class ToolBuilder {
         } else {
             return;
         }
+
+        loc = loc ? (tool.onSurface ? Vector.add(loc, (<ItemUseOnBeforeEvent>ev).blockFace) : loc) : undefined;
         if (tool.process(getSession(player), loc ? ToolAction.USE_ON : ToolAction.USE, loc)) {
             ev.cancel = true;
         }

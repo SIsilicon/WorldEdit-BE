@@ -53,6 +53,10 @@ export abstract class Tool {
      * Whether there should be some delay between item use to avoid rapid fire.
      */
     readonly noDelay: boolean = false;
+    /**
+     * Whether the tool should apply to the surface of a block rather than the block itself.
+     */
+    readonly onSurface: boolean = false;
 
     /**
      * @internal

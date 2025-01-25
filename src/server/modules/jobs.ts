@@ -1,5 +1,5 @@
 import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread, regionCenter, sleep } from "@notbeer-api";
-import { Player, Dimension, Vector3, Block } from "@minecraft/server";
+import { Player, Dimension, Vector3, Block, system } from "@minecraft/server";
 import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
 
@@ -62,7 +62,7 @@ class JobHandler {
 
                 const value = val.value;
                 if ((<JobFunction>value)?.jobFunc === "setProgress") {
-                    job.percent = Math.max(Math.min((<JobFunction>value).data, 1), 0);
+                    job.percent = Math.min((<JobFunction>value).data, 1);
                 } else if ((<JobFunction>value)?.jobFunc === "nextStep") {
                     job.message = (<JobFunction>value).data;
                     job.percent = 0;
@@ -122,6 +122,10 @@ class JobHandler {
         return this.jobs.has(ctx);
     }
 
+    public getRunner(ctx?: JobContext) {
+        return this.jobs.get(ctx ?? this.getContext()).player;
+    }
+
     public getJobsForSession(session: PlayerSession) {
         const jobs = [];
         const player = session.getPlayer();
@@ -161,7 +165,7 @@ class JobHandler {
             if (job.message?.length) {
                 if (!progresses.has(job.player)) progresses.set(job.player, []);
                 const percent = (job.percent + job.step) / job.stepCount;
-                progresses.get(job.player).push([job.tickingAreaRequestTime ? "Loading Chunks..." : job.message, Math.max(percent, 0)]);
+                progresses.get(job.player).push([job.tickingAreaRequestTime ? "Loading Chunks..." : job.message, percent]);
             }
         }
 
@@ -171,11 +175,12 @@ class JobHandler {
             for (const [message, percent] of progress) {
                 if (text) text.append("text", "\n");
                 let bar = "";
-                for (let i = 0; i < 20; i++) bar += i / 20 <= percent ? "█" : "▒";
+                if (percent >= 0) for (let i = 0; i < 20; i++) bar += i / 20 <= percent ? "█" : "▒";
+                else for (let i = 0; i < 20; i++) bar += (i - 2 * system.currentTick) % 20 > -5 ? "█" : "▒";
 
                 if (!text) text = new RawText();
                 if (progress.length > 1) text.append("text", `Job ${++i}: `);
-                text.append("translate", message).append("text", `\n${bar} ${(percent * 100).toFixed(2)}%`);
+                text.append("translate", message).append("text", `\n${bar} ${percent >= 0 ? (percent * 100).toFixed(2) : ". . . ."}%`);
             }
             Server.queueCommand(`titleraw @s actionbar ${text.toString()}`, player);
         }

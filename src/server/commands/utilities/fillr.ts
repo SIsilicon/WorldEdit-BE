@@ -40,12 +40,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const blocks = yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Calculating and Generating blocks...");
-        // Stop filling at unloaded chunks
+        yield Jobs.setProgress(-1);
+
         const blocks = yield* floodFill(startBlock, args.get("radius"), (ctx, dir) => {
             const dotDir = fillDir.dot(dir);
             if (dotDir < 0) return false;
             if (fillDir.dot(ctx.pos.add(dir)) > depth - 1) return false;
-            if (!dimension.getBlock(ctx.worldPos.add(dir))?.isAir) return false;
+            if (!ctx.nextBlock.isAir) return false;
             return true;
         });
 

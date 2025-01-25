@@ -58,16 +58,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     const drainWaterLogged = fluidMatch == waterMatch && args.has("w");
 
-    if (!drainStart) {
-        throw "commands.wedit:drain.noFluid";
-    }
+    if (!drainStart) throw "commands.wedit:drain.noFluid";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Calculating and Draining blocks...");
-        // Stop fill at unloaded chunks
-        const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx, dir) => {
-            const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
-            if (!block?.typeId.match(fluidMatch)) return drainWaterLogged && block.isWaterlogged;
+        yield Jobs.setProgress(-1);
+
+        const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx) => {
+            if (!ctx.nextBlock.typeId.match(fluidMatch)) return drainWaterLogged && ctx.nextBlock.isWaterlogged;
             return true;
         });
 

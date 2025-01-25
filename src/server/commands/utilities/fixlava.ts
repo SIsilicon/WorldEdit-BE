@@ -30,17 +30,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     }
 
-    if (!fixlavaStart) {
-        throw "commands.wedit:fixlava.noLava";
-    }
+    if (!fixlavaStart) throw "commands.wedit:fixlava.noLava";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Calculating and Fixing lava...");
-        // Stop filling at unloaded chunks
-        const blocks = yield* floodFill(fixlavaStart, args.get("radius"), (ctx, dir) => {
-            const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
-            if (!block?.typeId.match(lavaMatch)) return false;
-            return true;
+        yield Jobs.setProgress(-1);
+
+        const blocks = yield* floodFill(fixlavaStart, args.get("radius"), (ctx) => {
+            return !!ctx.nextBlock.typeId.match(lavaMatch);
         });
 
         if (!blocks.length) return blocks;

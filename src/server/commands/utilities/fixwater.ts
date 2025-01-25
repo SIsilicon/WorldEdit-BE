@@ -30,17 +30,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     }
 
-    if (!fixwaterStart) {
-        throw "commands.wedit:fixWater.noWater";
-    }
+    if (!fixwaterStart) throw "commands.wedit:fixWater.noWater";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Calculating and Fixing water...");
-        // Stop filling at unloaded chunks
-        const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx, dir) => {
-            const block = dimension.getBlock(ctx.worldPos.offset(dir.x, dir.y, dir.z));
-            if (!block?.typeId.match(waterMatch)) return false;
-            return true;
+        yield Jobs.setProgress(-1);
+
+        const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx) => {
+            return !!ctx.nextBlock.typeId.match(waterMatch);
         });
 
         if (!blocks.length) return blocks;
