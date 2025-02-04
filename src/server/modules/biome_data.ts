@@ -75,7 +75,7 @@ class BiomeChanges {
             this.changes.set(subChunkCoord, new Map());
         }
         const subChunk = this.changes.get(subChunkCoord);
-        subChunk.set(this.locToId(new Vector(wrap(16, loc.x), wrap(16, loc.y), wrap(16, loc.z))), biome);
+        subChunk.set(this.locToId(new Vector(wrap(loc.x, 16), wrap(loc.y, 16), wrap(loc.z, 16))), biome);
 
         if (subChunk.size == 4096) {
             this.flush();

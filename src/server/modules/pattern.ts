@@ -448,7 +448,7 @@ class ClipboardPattern extends PatternNode {
         const clipboard = context.session?.clipboard;
         const size = clipboard.getSize();
         const offset = Vector.sub(block.location, this.offset);
-        const sampledLoc = new Vector(wrap(size.x, offset.x), wrap(size.y, offset.y), wrap(size.z, offset.z));
+        const sampledLoc = new Vector(wrap(offset.x, size.x), wrap(offset.y, size.y), wrap(offset.z, size.z));
         return clipboard.getBlock(sampledLoc).permutation;
     }
 }

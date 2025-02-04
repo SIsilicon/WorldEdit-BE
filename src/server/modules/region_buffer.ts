@@ -1,6 +1,6 @@
 import { axis, contentLog, generateId, iterateChunk, Matrix, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Thread, Vector } from "@notbeer-api";
 import { Block, BlockPermutation, BlockType, Dimension, Structure, StructureMirrorAxis, StructureRotation, StructureSaveMode, Vector3, VectorXZ, world } from "@minecraft/server";
-import { blockHasNBTData, locToString, stringToLoc } from "../util.js";
+import { blockHasNBTData, locToString, stringToLoc, wrap } from "../util.js";
 import { Mask } from "./mask.js";
 import { JobFunction, Jobs } from "./jobs.js";
 
@@ -519,7 +519,7 @@ export class RegionBuffer {
                 "1": StructureRotation.Rotate90,
                 "2": StructureRotation.Rotate180,
                 "3": StructureRotation.Rotate270,
-            }[((rotation.y ?? 0) / 90) % 4],
+            }[wrap((rotation.y ?? 0) / 90, 4)],
             mirror: {
                 "1 1": StructureMirrorAxis.None,
                 "-1 1": StructureMirrorAxis.Z,

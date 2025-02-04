@@ -133,8 +133,8 @@ export function stringToLoc(loc: string) {
 /**
  * Wraps `num` between 0 and `range` exclusive
  */
-export function wrap(range: number, num: number) {
-    return num >= 0 ? num % range : ((num % range) + range) % range;
+export function wrap(num: number, range: number) {
+    return ((num % range) + range) % range;
 }
 
 /**

@@ -31,7 +31,7 @@ class BlockCyclerTool extends Tool {
             let [currState, currValue] = states[this.stateIndex % states.length];
             const validValues = BlockStates.get(currState).validValues;
             const currValueIndex = validValues.indexOf(currValue);
-            currValue = validValues[wrap(validValues.length, currValueIndex + (increment ? 1 : 0))];
+            currValue = validValues[wrap(currValueIndex + (increment ? 1 : 0), validValues.length)];
             permutation = permutation.withState(<any>currState, currValue);
 
             block.setPermutation(permutation);
@@ -44,8 +44,8 @@ class BlockCyclerTool extends Tool {
                     if (typeof value == "boolean") {
                         valueText = currValue ? "§8false §ftrue" : "§ffalse §8true";
                     } else {
-                        const prev = String(validValues[wrap(validValues.length, currValueIndex - (increment ? 0 : 1))]);
-                        const next = String(validValues[wrap(validValues.length, currValueIndex + (increment ? 2 : 1))]);
+                        const prev = String(validValues[wrap(currValueIndex - (increment ? 0 : 1), validValues.length)]);
+                        const next = String(validValues[wrap(currValueIndex + (increment ? 2 : 1), validValues.length)]);
                         valueText = [`§8...${prev.slice(-5)}`, "§f" + currValue, `§8${next.slice(0, 5)}...`].join(" ");
                     }
                     stateText = "> " + state;
