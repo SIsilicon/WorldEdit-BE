@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2025-02-06 18:10\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -72,6 +72,9 @@ msgstr "Hareket Seçimi"
 
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Küre Çiz"
@@ -183,6 +186,9 @@ msgstr "Oluşturulacak Şekli Seçin"
 
 msgid "worldedit.genMode.line"
 msgstr "Çizgi"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Küre"
