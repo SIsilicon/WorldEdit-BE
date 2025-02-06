@@ -17,6 +17,10 @@ const DIRECTION_VECTORS: Record<Direction, [number, number, number]> = {
 export class Vector {
     private vals: [number, number, number] = [0, 0, 0];
 
+    static get AXES(): [axis, axis, axis] {
+        return ["x", "y", "z"];
+    }
+
     static get ZERO() {
         return new Vector(0, 0, 0);
     }
@@ -118,6 +122,12 @@ export class Vector {
         this.vals[idx] = val;
     }
 
+    largestAxis(): axis {
+        if (this.x > this.y && this.x > this.z) return "x";
+        else if (this.y > this.x && this.y > this.z) return "y";
+        else return "z";
+    }
+
     clone() {
         return new Vector(...this.vals);
     }
@@ -213,6 +223,10 @@ export class Vector {
         return new Vector(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));
     }
 
+    map(callbackfn: (value: number, index: number, array: number[]) => number) {
+        return new Vector(...(<[number, number, number]>this.vals.map(callbackfn)));
+    }
+
     normalized() {
         const vec = new Vector(...this.vals);
         vec.length = 1;
@@ -258,6 +272,10 @@ export class Vector {
         return [this.x, this.y, this.z] as [number, number, number];
     }
 
+    toString() {
+        return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`;
+    }
+
     *[Symbol.iterator]() {
         yield this.vals[0];
         yield this.vals[1];
@@ -265,6 +283,44 @@ export class Vector {
     }
 }
 
-Vector.prototype.toString = function () {
-    return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`;
-};
+export class VectorSet<T extends Vector3> implements Set<T> {
+    private map = new Map<string, T>();
+
+    get size() {
+        return this.map.size;
+    }
+
+    add(value: T) {
+        this.map.set(`${value.x} ${value.y} ${value.z}`, value);
+        return this;
+    }
+
+    clear() {
+        this.map.clear();
+    }
+
+    delete(value: T) {
+        return this.map.delete(`${value.x} ${value.y} ${value.z}`);
+    }
+
+    *values() {
+        for (const value of this.map.values()) yield value;
+    }
+
+    keys = this.values;
+
+    *entries() {
+        for (const value of this.map.values()) yield <[T, T]>[value, value];
+    }
+
+    forEach(callbackfn: (value: T, value2: T, set: Set<T>) => void, thisArg?: any) {
+        for (const entry of this.entries()) callbackfn.apply(thisArg, [entry[0], entry[1], this]);
+    }
+
+    has(value: Vector3) {
+        return this.map.has(`${value.x} ${value.y} ${value.z}`);
+    }
+
+    [Symbol.iterator] = this.values;
+    [Symbol.toStringTag] = "vectorSet";
+}

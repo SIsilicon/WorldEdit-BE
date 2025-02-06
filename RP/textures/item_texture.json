@@ -56,6 +56,9 @@
         "draw_line": {
             "textures": "textures/items/draw_line"
         },
+        "draw_curve": {
+            "textures": "textures/items/draw_curve"
+        },
         "draw_sphere": {
             "textures": "textures/items/draw_sphere"
         },

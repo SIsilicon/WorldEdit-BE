@@ -6,30 +6,27 @@ Server.uiForms.register("$selectGenMode", {
     buttons: [
         {
             text: "%worldedit.genMode.line",
-            action: (_, player) => {
-                Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_line"));
-            },
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_line")),
             icon: "textures/items/draw_line",
         },
         {
+            text: "%worldedit.genMode.curve",
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_curve")),
+            icon: "textures/items/draw_curve",
+        },
+        {
             text: "%worldedit.genMode.sphere",
-            action: (_, player) => {
-                Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_sphere"));
-            },
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_sphere")),
             icon: "textures/items/draw_sphere",
         },
         {
             text: "%worldedit.genMode.cylinder",
-            action: (_, player) => {
-                Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_cylinder"));
-            },
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_cylinder")),
             icon: "textures/items/draw_cylinder",
         },
         {
             text: "%worldedit.genMode.pyramid",
-            action: (_, player) => {
-                Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_pyramid"));
-            },
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_pyramid")),
             icon: "textures/items/draw_pyramid",
         },
     ],

@@ -3,7 +3,7 @@ import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { smooth } from "./smooth_func.js";
+import { smooth } from "./heightmap_func.js";
 
 const registerInformation = {
     name: "smooth",

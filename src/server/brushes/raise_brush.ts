@@ -9,8 +9,8 @@ import { Selection } from "@modules/selection.js";
 /**
  * This smooths the terrain in the world.
  */
-export class SmoothBrush extends Brush {
-    public readonly id = "smooth_brush";
+export class RaiseBrush extends Brush {
+    public readonly id = "raise_brush";
 
     private shape: CuboidShape;
     private size: number;
@@ -80,4 +80,4 @@ export class SmoothBrush extends Brush {
         return [json.radius, json.iterations, new Mask(json.mask)];
     }
 }
-brushTypes.set("smooth_brush", SmoothBrush);
+brushTypes.set("raise_brush", RaiseBrush);

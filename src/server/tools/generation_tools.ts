@@ -1,7 +1,7 @@
 import { Player, Vector3, system } from "@minecraft/server";
 import { PlayerUtil } from "@modules/player_util";
 import { RawText, Server, Vector, axis, regionBounds } from "@notbeer-api";
-import { generateLine } from "server/commands/region/line";
+import { plotCurve, plotLine } from "server/commands/region/paths_func";
 import { PlayerSession } from "server/sessions";
 import { Tool } from "./base_tool";
 import { Tools } from "./tool_manager";
@@ -88,11 +88,10 @@ class DrawLineTool extends GeneratorTool {
         const record = history.record();
         let count: number;
         try {
-            const points = (yield* generateLine(pos1, pos2)).map((p) => p.floor());
             yield* history.addUndoStructure(record, start, end);
             count = 0;
-            for (const point of points) {
-                const block = dim.getBlock(point);
+            for (const point of plotLine(pos1, pos2)) {
+                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
@@ -114,29 +113,101 @@ class DrawLineTool extends GeneratorTool {
         let lineStart = self.getFirstPos(session);
         const lineEnd = self.traceForPos(player);
         const length = lineEnd.sub(lineStart).length;
-        if (length > 32) {
-            lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
-        }
+        if (length > 32) lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
 
-        const genLine = generateLine(lineStart, lineEnd);
-        let val: IteratorResult<void, Vector3[]>;
-        while (!val?.done) val = genLine.next();
-        val.value.forEach((p) => {
-            trySpawnParticle(player, "wedit:selection_draw", p);
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 0, 0]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 1, 0]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 1, 0]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 0, 1]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 0, 1]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [0, 1, 1]));
-            trySpawnParticle(player, "wedit:selection_draw", Vector.add(p, [1, 1, 1]));
-        });
+        for (const point of plotLine(lineStart, lineEnd)) {
+            trySpawnParticle(player, "wedit:selection_draw", point);
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 0, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 0, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 0, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 1]));
+        }
     };
 
     useOn = this.commonUse;
     use = this.commonUse;
 }
 Tools.register(DrawLineTool, "draw_line", "wedit:draw_line");
+
+class DrawCurveTool extends GeneratorTool {
+    permission = "worldedit.region.curve";
+
+    posMiddle = new Map<PlayerSession, Vector[]>();
+
+    commonUse = function* (self: DrawCurveTool, player: Player, session: PlayerSession, loc?: Vector) {
+        if (self.baseUse(player, session, loc)) return;
+
+        if (!self.posMiddle.has(session)) self.posMiddle.set(session, []);
+        const points = self.posMiddle.get(session);
+
+        const nextPoint = self.traceForPos(player);
+        if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) {
+            points.push(nextPoint);
+            return;
+        }
+
+        points.unshift(self.getFirstPos(session));
+        self.clearFirstPos(session);
+        self.posMiddle.delete(session);
+
+        const dim = player.dimension;
+
+        const history = session.getHistory();
+        const record = history.record();
+        let count: number;
+        try {
+            const blocks = yield* plotCurve(points);
+            const [start, end] = regionBounds(blocks);
+
+            const pattern = session.globalPattern.withContext(session, [start, end]);
+            const mask = session.globalMask.withContext(session);
+
+            yield* history.addUndoStructure(record, start, end);
+            count = 0;
+            for (const point of blocks) {
+                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
+                yield;
+            }
+            history.recordSelection(record, session);
+            yield* history.addRedoStructure(record, start, end);
+            history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        }
+
+        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+    };
+
+    tick = function (self: DrawCurveTool, player: Player, session: PlayerSession) {
+        if (self.baseTick(player, session)) return;
+        if (self.posMiddle.has(session) && !self.getFirstPos(session)) self.posMiddle.delete(session);
+
+        const points = self.posMiddle.get(session)?.slice() ?? [];
+        const nextPoint = self.traceForPos(player);
+        if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) points.push(nextPoint);
+        points.unshift(self.getFirstPos(session));
+
+        for (const point of plotCurve(points)) {
+            trySpawnParticle(player, "wedit:selection_draw", point);
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 0, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 0]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 0, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 0, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 1]));
+            trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 1]));
+        }
+    };
+
+    useOn = this.commonUse;
+    use = this.commonUse;
+}
+Tools.register(DrawCurveTool, "draw_curve", "wedit:draw_curve");
 
 class DrawSphereTool extends GeneratorTool {
     permission = "worldedit.generation.sphere";

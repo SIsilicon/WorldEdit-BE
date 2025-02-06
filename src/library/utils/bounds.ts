@@ -17,7 +17,7 @@ export function regionVolume(start: Vector3, end: Vector3) {
  * @param blocks The set of blocks
  * @return The minimum and maximum
  */
-export function regionBounds(blocks: Vector3[]): [Vector, Vector] {
+export function regionBounds(blocks: Iterable<Vector3>): [Vector, Vector] {
     let min: Vector;
     let max: Vector;
     for (const block of blocks) {
