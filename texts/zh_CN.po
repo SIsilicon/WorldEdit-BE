@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2025-02-06 18:10\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版 WorldEdit 模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -72,6 +72,9 @@ msgstr "移动选区"
 
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "绘制球体"
@@ -183,6 +186,9 @@ msgstr "选择绘制形状"
 
 msgid "worldedit.genMode.line"
 msgstr "线状"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球状"
