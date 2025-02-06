@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-12-02 04:10\n"
+"PO-Revision-Date: 2025-02-06 18:10\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -72,6 +72,9 @@ msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
@@ -183,6 +186,9 @@ msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
 msgstr "Linie"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Kugel"
