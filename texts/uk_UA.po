@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-12-04 15:31\n"
+"PO-Revision-Date: 2025-02-06 18:10\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -72,6 +72,9 @@ msgstr "Виділення переміщення"
 
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Намалювати сферу"
@@ -183,6 +186,9 @@ msgstr "Виберіть фігуру для генерування"
 
 msgid "worldedit.genMode.line"
 msgstr "Лінія"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Сфера"
