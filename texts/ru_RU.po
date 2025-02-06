@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-12-02 04:11\n"
+"PO-Revision-Date: 2025-02-06 18:10\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода Java и многого другого! Addon от Silicon. (@iSiliconS)."
@@ -72,6 +72,9 @@ msgstr "Переместить выделение"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Нарисуйте сферу"
@@ -183,6 +186,9 @@ msgstr "Выберите форму для создания"
 
 msgid "worldedit.genMode.line"
 msgstr "Линия"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Сфера"
