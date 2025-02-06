@@ -135,13 +135,13 @@ Tools.register(DrawLineTool, "draw_line", "wedit:draw_line");
 class DrawCurveTool extends GeneratorTool {
     permission = "worldedit.region.curve";
 
-    posMiddle = new Map<PlayerSession, Vector[]>();
+    paths = new Map<PlayerSession, Vector[]>();
 
     commonUse = function* (self: DrawCurveTool, player: Player, session: PlayerSession, loc?: Vector) {
         if (self.baseUse(player, session, loc)) return;
 
-        if (!self.posMiddle.has(session)) self.posMiddle.set(session, []);
-        const points = self.posMiddle.get(session);
+        if (!self.paths.has(session)) self.paths.set(session, []);
+        const points = self.paths.get(session);
 
         const nextPoint = self.traceForPos(player);
         if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) {
@@ -151,7 +151,7 @@ class DrawCurveTool extends GeneratorTool {
 
         points.unshift(self.getFirstPos(session));
         self.clearFirstPos(session);
-        self.posMiddle.delete(session);
+        self.paths.delete(session);
 
         const dim = player.dimension;
 
@@ -185,9 +185,9 @@ class DrawCurveTool extends GeneratorTool {
 
     tick = function (self: DrawCurveTool, player: Player, session: PlayerSession) {
         if (self.baseTick(player, session)) return;
-        if (self.posMiddle.has(session) && !self.getFirstPos(session)) self.posMiddle.delete(session);
+        if (self.paths.has(session) && !self.getFirstPos(session)) self.paths.delete(session);
 
-        const points = self.posMiddle.get(session)?.slice() ?? [];
+        const points = self.paths.get(session)?.slice() ?? [];
         const nextPoint = self.traceForPos(player);
         if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) points.push(nextPoint);
         points.unshift(self.getFirstPos(session));
