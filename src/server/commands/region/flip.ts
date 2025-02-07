@@ -36,7 +36,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     let blockCount = 0;
     if (args.has("w")) {
-        yield* Jobs.run(session, 4, transformSelection(session, builder, args, { flip }));
+        yield* Jobs.run(session, 4, transformSelection(session, builder, args, { scale: flip }));
         blockCount = session.selection.getBlockCount();
     } else {
         assertClipboard(session);
@@ -51,7 +51,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         //     }
         // }
 
-        clipTrans.flip = clipTrans.flip.mul(flip);
+        clipTrans.scale = clipTrans.scale.mul(flip);
         blockCount = session.clipboard.getVolume();
     }
 

@@ -81,7 +81,7 @@ export class StructureBrush extends Brush {
                     newTransform[1] = new Vector(Math.random() > 0.5 ? 1 : -1, 1, Math.random() > 0.5 ? 1 : -1);
                 }
                 options.rotation = new Vector(0, newTransform[0], 0);
-                options.flip = newTransform[1];
+                options.scale = newTransform[1];
                 this.lastTransform = newTransform;
                 [start, end] = struct.getBounds(center, options);
             }

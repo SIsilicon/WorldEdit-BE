@@ -23,7 +23,7 @@ interface regionTransform {
     originalDim?: string;
     offset: Vector;
     rotation: Vector;
-    flip: Vector;
+    scale: Vector;
 }
 
 interface superPickaxe {
@@ -108,7 +108,7 @@ export class PlayerSession {
     public clipboardTransform: regionTransform = {
         offset: Vector.ZERO,
         rotation: Vector.ZERO,
-        flip: Vector.ONE,
+        scale: Vector.ONE,
     };
 
     public superPickaxe: superPickaxe = {

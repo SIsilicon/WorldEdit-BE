@@ -62,7 +62,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
         if (session.clipboard) session.deleteRegion(session.clipboard);
         session.clipboardTransform = {
             rotation: Vector.ZERO,
-            flip: Vector.ONE,
+            scale: Vector.ONE,
             originalLoc: start,
             originalDim: player.dimension.id,
             offset: Vector.sub(start, Vector.from(player.location).floor().add(0.5)),

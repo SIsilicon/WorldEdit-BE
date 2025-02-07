@@ -14,7 +14,7 @@ export interface RegionSaveOptions {
 export interface RegionLoadOptions {
     offset?: Vector;
     rotation?: Vector;
-    flip?: Vector;
+    scale?: Vector;
     mask?: Mask;
 }
 
@@ -345,12 +345,12 @@ export class RegionBuffer {
 
     public *load(loc: Vector3, dim: Dimension, options: RegionLoadOptions = {}): Generator<JobFunction | Promise<unknown>, void> {
         const rotation = options.rotation ?? Vector.ZERO;
-        const flip = options.flip ?? Vector.ONE;
+        const scale = options.scale ?? Vector.ONE;
         const bounds = this.getBounds(loc, options);
 
         const matrix = RegionBuffer.getTransformationMatrix(loc, options);
         const invMatrix = matrix.invert();
-        const shouldTransform = options.rotation || options.flip;
+        const shouldTransform = options.rotation || options.scale;
 
         let transform: (block: BlockPermutation) => BlockPermutation;
         if (shouldTransform) {
@@ -419,7 +419,7 @@ export class RegionBuffer {
             transform = (block) => block;
         }
 
-        if ((Math.abs(rotation.y) / 90) % 1 != 0 || rotation.x || rotation.z || flip.y != 1 || options.mask) {
+        if ((Math.abs(rotation.y) / 90) % 1 != 0 || rotation.x || rotation.z || scale.y != 1 || Math.abs(scale.x) != 1 || Math.abs(scale.z) != 1 || options.mask) {
             let i = 0;
             const totalIterationCount = regionVolume(...bounds);
             for (const blockLoc of regionIterateBlocks(...bounds)) {
@@ -454,7 +454,7 @@ export class RegionBuffer {
                     });
             }
         } else {
-            yield* this.loadStructs(bounds[0], dim, { rotation: rotation.y, flip });
+            yield* this.loadStructs(bounds[0], dim, { rotation: rotation.y, flip: scale });
 
             let i = 0;
             const totalIterationCount = Object.keys(this.extraBlockData).length;
@@ -598,7 +598,7 @@ export class RegionBuffer {
 
     private static getTransformationMatrix(loc: Vector3, options: RegionLoadOptions = {}) {
         const offset = Matrix.fromTranslation(options.offset ?? Vector.ZERO);
-        return Matrix.fromRotationFlipOffset(options.rotation ?? Vector.ZERO, options.flip ?? Vector.ONE)
+        return Matrix.fromRotationFlipOffset(options.rotation ?? Vector.ZERO, options.scale ?? Vector.ONE)
             .multiply(offset)
             .translate(loc);
     }

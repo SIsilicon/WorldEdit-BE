@@ -65,7 +65,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     session.clipboardTransform = {
         offset: Vector.from(metadata.relative),
         rotation: Vector.ZERO,
-        flip: Vector.ONE,
+        scale: Vector.ONE,
     };
 
     return RawText.translate("commands.wedit:import.explain").with(args.get("name"));
