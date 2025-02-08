@@ -1,4 +1,4 @@
-import { regionIterateBlocks, Timer, Vector } from "@notbeer-api";
+import { regionIterateBlocks, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -91,8 +91,6 @@ export class BlobBrush extends Brush {
                 backSplat = temp;
                 yield;
             }
-            const timer = new Timer();
-            timer.start();
             // Smooth blob
             for (let s = 0; s < smoothness * 3; s++) {
                 const axis = s % 3;
@@ -112,7 +110,6 @@ export class BlobBrush extends Brush {
                 backSplat = temp;
                 yield;
             }
-            console.warn("smooth time:", timer.end());
 
             const rSquared = Math.pow(brushSize + 1, 2);
 
