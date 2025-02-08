@@ -11,6 +11,7 @@ import { registerCommand } from "../register_commands.js";
 import { StructureBrush } from "server/brushes/structure_brush.js";
 import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
+import { BlobBrush } from "server/brushes/blob_brush.js";
 
 const registerInformation = {
     name: "brush",
@@ -164,6 +165,34 @@ const registerInformation = {
                 },
             ],
         },
+        {
+            subName: "blob",
+            permission: "worldedit.brush.blob",
+            description: "commands.wedit:brush.description.blob",
+            args: [
+                {
+                    name: "pattern",
+                    type: "Pattern",
+                },
+                {
+                    name: "radius",
+                    type: "float",
+                    default: 3,
+                },
+                {
+                    name: "growPercent",
+                    type: "int",
+                    default: 10,
+                    range: [1, 99] as [number, number],
+                },
+                {
+                    name: "smoothness",
+                    type: "int",
+                    default: 0,
+                    range: [0, 6] as [number, number],
+                },
+            ],
+        },
     ],
 };
 
@@ -230,6 +259,14 @@ const overlay_command = (session: PlayerSession, builder: Player, args: Map<stri
     return RawText.translate("commands.wedit:brush.bind.overlay").with(args.get("radius"));
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const blob_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, registerInformation.usage[1].permission);
+    session.bindTool("brush", null, new BlobBrush(args.get("radius"), args.get("pattern"), args.get("growPercent"), args.get("smoothness")));
+    session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
+    return RawText.translate("commands.wedit:brush.bind.blob").with(args.get("radius"));
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has("erode")) {
@@ -244,6 +281,8 @@ registerCommand(registerInformation, function (session, builder, args) {
         msg = struct_command(session, builder, args);
     } else if (args.has("overlay")) {
         msg = overlay_command(session, builder, args);
+    } else if (args.has("blob")) {
+        msg = blob_command(session, builder, args);
     } else {
         session.unbindTool(null);
         return "commands.wedit:brush.unbind";
