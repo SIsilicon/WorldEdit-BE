@@ -96,7 +96,7 @@ export class BlobBrush extends Brush {
                     let newGrow = 0;
                     const { x, y, z } = loc;
                     for (const { x, y, z } of regionIterateBlocks(Vector.sub(loc, 1), Vector.add(loc, 1))) newGrow += splat[x]?.[y]?.[z] ?? 0;
-                    backSplat[x][y][z] = (0.5 * newGrow) / 27 + 0.5 * splat[x][y][z];
+                    backSplat[x][y][z] = (0.75 * newGrow) / 27 + 0.25 * splat[x][y][z];
                 }
                 const temp = splat;
                 splat = backSplat;
