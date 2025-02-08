@@ -182,7 +182,7 @@ const registerInformation = {
                 {
                     name: "growPercent",
                     type: "int",
-                    default: 10,
+                    default: 50,
                     range: [1, 99] as [number, number],
                 },
                 {
