@@ -21,6 +21,8 @@ export class BlobBrush extends Brush {
     /**
      * @param radius The radius of the brush
      * @param pattern The type of block(s) to generate
+     * @param growPercent The chance of a block in the blob to spread
+     * @param smoothness The amount of smoothing the blob goes through after growing
      */
     constructor(radius: number, pattern: Pattern, growPercent = 10, smoothness = 0) {
         super();
