@@ -1,4 +1,4 @@
-import { regionIterateBlocks, Vector } from "@notbeer-api";
+import { regionIterateBlocks, Timer, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -72,17 +72,18 @@ export class BlobBrush extends Brush {
             // Grow blob
             for (let r = 0; r < brushSize * Math.SQRT2; r++) {
                 for (const { x, y, z } of regionIterateBlocks(Vector.ZERO, Vector.ONE.mul(brushSizeDoubled))) {
-                    backSplat[x][y][z] = splat[x][y][z];
-                    let growCheck = 0;
                     if (splat[x][y][z] === 0) {
-                        if (x !== 0 && splat[x - 1][y][z] === 1) growCheck++;
-                        if (y !== 0 && splat[x][y - 1][z] === 1) growCheck++;
-                        if (z !== 0 && splat[x][y][z - 1] === 1) growCheck++;
-                        if (x !== brushSizeDoubled && splat[x + 1][y][z] === 1) growCheck++;
-                        if (y !== brushSizeDoubled && splat[x][y + 1][z] === 1) growCheck++;
-                        if (z !== brushSizeDoubled && splat[x][y][z + 1] === 1) growCheck++;
+                        let neighbours = 0;
+                        if (splat[x - 1]?.[y][z] === 1) neighbours++;
+                        if (splat[x][y - 1]?.[z] === 1) neighbours++;
+                        if (splat[x][y][z - 1] === 1) neighbours++;
+                        if (splat[x + 1]?.[y][z] === 1) neighbours++;
+                        if (splat[x][y + 1]?.[z] === 1) neighbours++;
+                        if (splat[x][y][z + 1] === 1) neighbours++;
+                        backSplat[x][y][z] = Number(neighbours >= 1 && Math.random() <= growPercent);
+                    } else {
+                        backSplat[x][y][z] = 1;
                     }
-                    if (growCheck >= 1 && Math.random() <= growPercent) backSplat[x][y][z] = 1;
                 }
 
                 const temp = splat;
@@ -90,19 +91,28 @@ export class BlobBrush extends Brush {
                 backSplat = temp;
                 yield;
             }
+            const timer = new Timer();
+            timer.start();
             // Smooth blob
-            for (let s = 0; s < smoothness; s++) {
-                for (const loc of regionIterateBlocks(Vector.ZERO, Vector.ONE.mul(brushSizeDoubled))) {
-                    let newGrow = 0;
-                    const { x, y, z } = loc;
-                    for (const { x, y, z } of regionIterateBlocks(Vector.sub(loc, 1), Vector.add(loc, 1))) newGrow += splat[x]?.[y]?.[z] ?? 0;
-                    backSplat[x][y][z] = (0.75 * newGrow) / 27 + 0.25 * splat[x][y][z];
+            for (let s = 0; s < smoothness * 3; s++) {
+                const axis = s % 3;
+                const offsetX = Number(axis === 0);
+                const offsetY = Number(axis === 1);
+                const offsetZ = Number(axis === 2);
+
+                for (const { x, y, z } of regionIterateBlocks(Vector.ZERO, Vector.ONE.mul(brushSizeDoubled))) {
+                    let density = splat[x][y][z] * 1.4;
+                    density += (splat[x + offsetX]?.[y + offsetY]?.[z + offsetZ] ?? 0) * 0.8;
+                    density += (splat[x - offsetX]?.[y - offsetY]?.[z - offsetZ] ?? 0) * 0.8;
+                    backSplat[x][y][z] = density / 3;
                 }
+
                 const temp = splat;
                 splat = backSplat;
                 backSplat = temp;
                 yield;
             }
+            console.warn("smooth time:", timer.end());
 
             const rSquared = Math.pow(brushSize + 1, 2);
 
@@ -154,7 +164,7 @@ export class BlobBrush extends Brush {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public static parseJSON(json: { [key: string]: any }) {
-        return [json.radius, new Pattern(json.pattern), json.growPercent];
+        return [json.radius, new Pattern(json.pattern), json.growPercent, json.smoothness];
     }
 }
 brushTypes.set("blob_brush", BlobBrush);
