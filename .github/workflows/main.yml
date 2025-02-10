@@ -78,14 +78,14 @@ jobs:
         run: python build.py --clean --target ${{ matrix.target }}
       
       - name: Archive addon artifact (release)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ matrix.target == 'release'}}
         with:
           name: mcaddon-artifact-release
           path: builds/WorldEdit.mcaddon
       
       - name: Archive addon artifact (debug)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ matrix.target == 'debug'}}
         with:
           name: mcaddon-artifact-debug
