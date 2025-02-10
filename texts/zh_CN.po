@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-02-10 17:34\n"
 
 msgid "pack.description"
 msgstr "这是一个正在开发中的 Java 版 WorldEdit 模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "绘制曲线"
 
 msgid "item.wedit:draw_sphere"
 msgstr "绘制球体"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "线状"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "曲线"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球状"
@@ -752,22 +752,22 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Manage your gradients."
+msgstr "管理您的渐变样式。"
 
 msgid "commands.wedit:gradient.description.create"
-msgstr "Create a gradient to use in patterns."
+msgstr "在图案中创建一个渐变样式。"
 
 msgid "commands.wedit:gradient.description.delete"
-msgstr "Delete a gradient."
+msgstr "删除一个渐变样式。"
 
 msgid "commands.wedit:gradient.description.list"
-msgstr "List created gradients."
+msgstr "列出已创建的渐变样式。"
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "渐变样式%s不存在。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "您还没有创建过渐变样式"
 
 msgid "commands.wedit:green.description"
 msgstr "将附近的泥土变成草地"
