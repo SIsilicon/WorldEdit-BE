@@ -1,12 +1,32 @@
 import { Server, Vector } from "@notbeer-api";
-import { Vector3, Dimension } from "@minecraft/server";
+import { Vector3, Dimension, world } from "@minecraft/server";
 
-export function addTickingArea(start: Vector3, end: Vector3, dimension: Dimension, name: string, preload = false) {
-  return Server.runCommand(
-    `tickingarea add ${Vector.from(start).print()} ${Vector.from(end).print()} ${name} ${preload}`, dimension
-  ).error;
+const DIMENSIONS = [world.getDimension("overworld"), world.getDimension("nether"), world.getDimension("the_end")];
+
+/**
+ * Sets a ticking area in a cuboid region to load chunks. Note that chunks don't get loaded immediately.
+ * @returns `true` when created successfully; `false` otherwise.
+ */
+export function setTickingArea(start: Vector3, end: Vector3, dimension: Dimension, name: string) {
+    const removed = removeTickingArea(name, dimension);
+    return !!Server.runCommand(`tickingarea add ${Vector.from(start).print()} ${Vector.from(end).print()} ${name}`, dimension).successCount || removed;
 }
 
-export function removeTickingArea(name: string, dimension: Dimension) {
-  return Server.runCommand(`tickingarea remove ${name}`, dimension).error;
+/**
+ * Sets a ticking area in a circular region to load chunks. Note that chunks don't get loaded immediately.
+ * @returns `true` when created successfully; `false` otherwise.
+ */
+export function setTickingAreaCircle(center: Vector3, radius: 1 | 2 | 3 | 4, dimension: Dimension, name: string) {
+    const removed = removeTickingArea(name, dimension);
+    const result = Server.runCommand(`tickingarea add circle ${Vector.from(center).print()} ${radius} ${name}`, dimension);
+    return !!result.successCount || removed;
+}
+
+/** Removes a ticking area. */
+export function removeTickingArea(name: string, dimension?: Dimension) {
+    if (dimension) {
+        return !!Server.runCommand(`tickingarea remove ${name}`, dimension).successCount;
+    } else {
+        DIMENSIONS.forEach((d) => Server.runCommand(`tickingarea remove ${name}`, d));
+    }
 }

@@ -11,26 +11,17 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "plugins": [ "prettier" ],
     "rules": {
-        "indent": [
-            "error",
-            2
-        ],
+        "@typescript-eslint/no-explicit-any": "off",
         "linebreak-style": [
             "error",
             "windows"
-        ],
-        "quotes": [
-            "error",
-            "double"
         ],
         "semi": [
             "error",
             "always"
         ],
-        "no-trailing-spaces": "error"
+        "prettier/prettier": "error"
     }
 }

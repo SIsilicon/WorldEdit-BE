@@ -1,26 +1,25 @@
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { getWorldHeightLimits } from "server/util.js";
 
 const registerInformation = {
-  name: "unstuck",
-  permission: "worldedit.navigation.unstuck",
-  description: "commands.wedit:unstuck.description",
-  aliases: ["!"]
+    name: "unstuck",
+    permission: "worldedit.navigation.unstuck",
+    description: "commands.wedit:unstuck.description",
+    aliases: ["!"],
 };
 
 registerCommand(registerInformation, function (session, builder) {
-  const blockLoc = PlayerUtil.getBlockLocation(builder);
-  const dimension = builder.dimension;
-  do {
-    if (dimension.getBlock(blockLoc).isAir &&
-        dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) {
-      break;
-    }
-  }
-  // eslint-disable-next-line no-cond-assign
-  while (blockLoc.y += 1);
+    const dimension = builder.dimension;
+    const limits = getWorldHeightLimits(dimension);
+    const blockLoc = PlayerUtil.getBlockLocation(builder);
 
-  builder.teleport(blockLoc.offset(0.5, 0, 0.5), { dimension });
-  return RawText.translate("commands.wedit:unstuck.explain");
+    for (blockLoc.y = Math.max(limits[0], blockLoc.y); ; blockLoc.y++) {
+        if (blockLoc.y <= limits[1] && !dimension.getBlock(blockLoc).isAir) continue;
+        if (blockLoc.y + 1 <= limits[1] && !dimension.getBlock(blockLoc.offset(0, 1, 0)).isAir) continue;
+
+        builder.teleport(blockLoc.offset(0.5, 0, 0.5), { dimension });
+        return RawText.translate("commands.wedit:unstuck.explain");
+    }
 });

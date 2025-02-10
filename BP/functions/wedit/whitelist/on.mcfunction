@@ -1,0 +1,1 @@
+scriptevent wedit:whitelist true

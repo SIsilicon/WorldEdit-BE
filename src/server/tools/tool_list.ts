@@ -6,6 +6,7 @@ import "./command_tool.js";
 import "./generation_tools.js";
 import "./replacer_tool.js";
 import "./cycler_tool.js";
+import "./fill_tool.js";
 import "./button_tools.js";
 import "./brush_tools.js";
 import "./region_tools.js";

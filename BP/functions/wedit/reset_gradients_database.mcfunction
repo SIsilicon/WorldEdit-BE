@@ -1,0 +1,1 @@
+scriptevent wedit:reset_gradients_database

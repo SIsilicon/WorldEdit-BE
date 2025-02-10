@@ -2,39 +2,34 @@
 import config from "config";
 
 function date() {
-  return `[${new Date().toLocaleTimeString()}]`;
+    return `[${new Date().toLocaleTimeString()}]`;
 }
 
 class ContentLog {
-
-  verbose(...msg: any[]) {
-    console.log("[VERBOSE]", date(), ...msg);
-  }
-
-  log(...msg: any[]) {
-    console.warn("[LOG]", date(), ...msg);
-  }
-
-  warn(...msg: any[]) {
-    console.warn("[WARN]", date(), ...msg);
-  }
-
-  error(...msg: any[]) {
-    console.error("[ERROR]", date(), ...msg);
-    if (msg[0]?.stack) {
-      console.error(msg[0].stack);
+    verbose(...msg: any[]) {
+        console.log("[VERBOSE]", date(), ...msg);
     }
-  }
 
-  debug(...msg: any[]) {
-    if (config.debug) {
-      console.warn("[DEBUG]", date(), ...msg);
+    log(...msg: any[]) {
+        console.log("[LOG]", date(), ...msg);
     }
-  }
 
-  stack() {
-    return new Error().stack.split("\n").splice(1).join("\n");
-  }
+    warn(...msg: any[]) {
+        console.warn("[WARN]", date(), ...msg);
+    }
+
+    error(...msg: any[]) {
+        console.error("[ERROR]", date(), ...msg);
+        if (msg[0]?.stack) console.error(msg[0].stack);
+    }
+
+    debug(...msg: any[]) {
+        if (config.debug) console.log("[DEBUG]", date(), ...msg);
+    }
+
+    stack() {
+        return new Error().stack.split("\n").splice(1).join("\n");
+    }
 }
 
 export const contentLog = new ContentLog();

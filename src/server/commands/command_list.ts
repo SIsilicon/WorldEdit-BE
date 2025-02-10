@@ -17,6 +17,7 @@ import "./misc/limit.js";
 import "./misc/kit.js";
 import "./misc/toggleplace.js";
 import "./misc/blockid.js";
+import "./misc/cancel.js";
 
 import "./selection/pos1.js";
 import "./selection/pos2.js";
@@ -47,6 +48,8 @@ import "./generation/cyl.js";
 import "./generation/hcyl.js";
 import "./generation/pyramid.js";
 import "./generation/hpyramid.js";
+import "./generation/torus.js";
+import "./generation/htorus.js";
 import "./generation/gen.js";
 import "./generation/gradient.js";
 
@@ -55,6 +58,7 @@ import "./region/set.js";
 import "./region/replace.js";
 import "./region/move.js";
 import "./region/stack.js";
+import "./region/revolve.js";
 import "./region/rotate.js";
 import "./region/flip.js";
 import "./region/wall.js";

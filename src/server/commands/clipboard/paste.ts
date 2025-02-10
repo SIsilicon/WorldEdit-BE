@@ -1,85 +1,72 @@
-import { assertClipboard, assertCanBuildWithin } from "@modules/assert";
+import { assertClipboard } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
-import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionSize, regionTransformedBounds, Vector } from "@notbeer-api";
+import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { RegionLoadOptions } from "@modules/region_buffer.js";
 
 const registerInformation = {
-  name: "paste",
-  permission: "worldedit.clipboard.paste",
-  description: "commands.wedit:paste.description",
-  usage: [
-    {
-      flag: "o"
-    }, {
-      flag: "s"
-    }, {
-      flag: "n"
-    }, {
-      flag: "m",
-      name: "mask",
-      type: "Mask"
-    }
-  ]
+    name: "paste",
+    permission: "worldedit.clipboard.paste",
+    description: "commands.wedit:paste.description",
+    usage: [
+        {
+            flag: "o",
+        },
+        {
+            flag: "s",
+        },
+        {
+            flag: "n",
+        },
+        {
+            flag: "m",
+            name: "mask",
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  assertClipboard(session);
+    assertClipboard(session);
 
-  const setSelection = args.has("s") || args.has("n");
-  const pasteOriginal = args.has("o");
-  const pasteContent = !args.has("n");
+    const setSelection = args.has("s") || args.has("n");
+    const pasteOriginal = args.has("o");
+    const pasteContent = !args.has("n");
 
-  const rotation = session.clipboardTransform.rotation;
-  const flip = session.clipboardTransform.flip;
-  const bounds = regionTransformedBounds(Vector.ZERO.floor(), session.clipboard.getSize().offset(-1, -1, -1), Vector.ZERO, rotation, flip);
-  const size = Vector.from(regionSize(bounds[0], bounds[1]));
-
-  let pasteStart: Vector;
-  if (pasteOriginal) {
-    if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) {
-      throw "commands.wedit:paste.noOriginal";
+    let pasteFrom = Vector.from(builder.location).floor().add(0.5);
+    let transform: RegionLoadOptions = session.clipboardTransform;
+    if (pasteOriginal) {
+        if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) throw "commands.wedit:paste.noOriginal";
+        pasteFrom = session.clipboardTransform.originalLoc;
+        transform = {};
     }
-    pasteStart = session.clipboardTransform.originalLoc;
-  } else {
-    const loc = PlayerUtil.getBlockLocation(builder);
-    pasteStart = Vector.add(loc, session.clipboardTransform.relative);
-  }
-  pasteStart = pasteStart.sub(size.mul(0.5).sub(1));
-  const pasteEnd = pasteStart.add(Vector.sub(size, Vector.ONE)).floor();
-  pasteStart = pasteStart.floor();
+    const [pasteStart, pasteEnd] = session.clipboard.getBounds(pasteFrom, transform);
 
-  const history = session.getHistory();
-  const record = history.record();
-  const job = Jobs.startJob(session, 1, [pasteStart, pasteEnd]);
-  try {
+    const history = session.getHistory();
+    const record = history.record();
+    yield* Jobs.run(session, 1, function* () {
+        try {
+            if (pasteContent) {
+                yield* history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+                yield Jobs.nextStep("Pasting blocks...");
+                yield* session.clipboard.load(pasteFrom, builder.dimension, { ...transform, mask: args.get("m-mask")?.withContext(session) });
+                yield* history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+            }
+            if (setSelection) {
+                history.recordSelection(record, session);
+                session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
+                session.selection.set(0, pasteStart);
+                session.selection.set(1, pasteEnd);
+                history.recordSelection(record, session);
+            }
+            history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        }
+    });
     if (pasteContent) {
-      assertCanBuildWithin(builder, pasteStart, pasteEnd);
-      history.addUndoStructure(record, pasteStart, pasteEnd, "any");
-
-      Jobs.nextStep(job, "Pasting blocks...");
-      yield* Jobs.perform(job, session.clipboard.loadProgressive(pasteStart, builder.dimension, { ...session.clipboardTransform, mask: args.get("m-mask") }));
-      history.addRedoStructure(record, pasteStart, pasteEnd, "any");
+        return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getVolume()}`);
     }
-
-    if (setSelection) {
-      history.recordSelection(record, session);
-      session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
-      session.selection.set(0, pasteStart);
-      session.selection.set(1, pasteEnd);
-      history.recordSelection(record, session);
-    }
-
-    history.commit(record);
-  } catch (e) {
-    history.cancel(record);
-    throw e;
-  } finally {
-    Jobs.finishJob(job);
-  }
-
-  if (pasteContent) {
-    return RawText.translate("commands.wedit:paste.explain").with(`${session.clipboard.getBlockCount()}`);
-  }
-  return "";
+    return "";
 });

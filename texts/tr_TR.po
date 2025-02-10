@@ -6,18 +6,18 @@ msgstr ""
 "X-Crowdin-Language: tr\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2023-09-11 22:58\n"
+"PO-Revision-Date: 2024-11-23 17:13\n"
 
 msgid "pack.description"
-msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
+msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit'in betikleri durdu! §r/reload§c ile sıfırlayın (diğer komut dosyaları da sıfırlanır).§r"
+msgstr "§cWorldEdit'in kodları durdu! Bunları §r/reload§c ile sıfırlayın veya dünyayı yeniden başlatın.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Kopyala"
@@ -61,8 +61,26 @@ msgstr "Seçimi Doldur"
 msgid "item.wedit:selection_outline"
 msgstr "Anahat Seçimi"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Oyuk Seçimi"
+
+msgid "item.wedit:selection_stack"
+msgstr "Yığın Seçimi"
+
+msgid "item.wedit:selection_move"
+msgstr "Hareket Seçimi"
+
 msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Küre Çiz"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Silindir Çiz"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Piramit Çiz"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Seçimi ayarlamak için bir blok belirlemeniz gerekiyor!"
@@ -88,6 +106,9 @@ msgstr "Fırçalar"
 msgid "worldedit.config.tools"
 msgstr "Aletler"
 
+msgid "worldedit.config.gradients"
+msgstr "Renk Geçişleri"
+
 msgid "worldedit.config.general"
 msgstr "Genel"
 
@@ -103,6 +124,15 @@ msgstr "Performans modu"
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Anahat çizin"
 
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Kapalı"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Sadece Kendimde Görünür"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Tüm Sunucuda Görünür"
+
 msgid "worldedit.config.general.selectMode"
 msgstr "Seçim modu"
 
@@ -111,6 +141,9 @@ msgstr "Yeni Araç Oluştur"
 
 msgid "worldedit.config.newBrush"
 msgstr "Yeni Fırça oluştur"
+
+msgid "worldedit.config.newGradient"
+msgstr "Yeni Bir Renk Geçişi Oluştur"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Küboid"
@@ -123,6 +156,48 @@ msgstr "Küre"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Silindir"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Bölge İşlemini Seçin"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Doldurma Modu"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Dış Çizgi Modu"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Duvar Modu"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Oyuk Modu"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Yığın Modu"
+
+msgid "worldedit.regionMode.move"
+msgstr "Hareket Modu"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Oluşturulacak Şekli Seçin"
+
+msgid "worldedit.genMode.line"
+msgstr "Çizgi"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Küre"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Silindir"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Piramit"
+
+msgid "worldedit.stack.title"
+msgstr "Yığın miktarını seç"
+
+msgid "worldedit.move.title"
+msgstr "Hareket miktarını seç"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Araç özelliği yok"
@@ -143,13 +218,13 @@ msgid "worldedit.config.tool.stacker"
 msgstr "İstifleyici Aracı"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Command Tool"
+msgstr "Komut Aleti"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Block Replacer Tool"
+msgstr "Blok Yerleştirme Aracı"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Block Cycler Tool"
+msgstr "Blok Döngüsü Aracı"
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Küre Fırçası"
@@ -161,13 +236,28 @@ msgid "worldedit.config.brush.smooth"
 msgstr "Pürüzsüz Fırça"
 
 msgid "worldedit.config.brush.struct"
-msgstr "Structure Brush"
+msgstr "Yapı Fırçası"
 
 msgid "worldedit.config.brush.erode"
-msgstr "Erosion Brush"
+msgstr "Erozyon Fırçası"
 
 msgid "worldedit.config.brush.overlay"
-msgstr "Overlay Brush"
+msgstr "Kaplama Fırçası"
+
+msgid "worldedit.config.gradient.use"
+msgstr "Desen Seçici'de Renk Geçişi Kullan"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Renk Geçişini Sil"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Yeni bir Renk Geçişi ekle"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "Renk Geçişi ID'si belirtilmedi."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Renk Geçişi ID'si zaten var."
 
 msgid "worldedit.config.chooseItem"
 msgstr "Bağlanacak bir öğeyi tutun."
@@ -178,11 +268,14 @@ msgstr "Ne tür bir fırça yapacağınızı seçin."
 msgid "worldedit.config.choose.tool"
 msgstr "Ne tür bir araç yapacağınızı seçin."
 
+msgid "worldedit.config.gradient.promptName"
+msgstr "Renk Geçişi ID'sini Yerleştir"
+
 msgid "worldedit.config.patternMask.brush"
 msgstr "Fırça için bir desen ve isteğe bağlı maske yapın."
 
 msgid "worldedit.config.pattern.tool"
-msgstr "Make a pattern for the tool."
+msgstr "Alet için bir desen yapın."
 
 msgid "worldedit.config.mask.tool"
 msgstr "İsteğe bağlı araç için maske yapın"
@@ -199,6 +292,9 @@ msgstr "Yaptığın ayardan emin misin?"
 msgid "worldedit.config.confirm.delete"
 msgstr "Bu eşyayı çözmek istediğinden emin misin?"
 
+msgid "worldedit.config.name"
+msgstr "İsim"
+
 msgid "worldedit.config.radius"
 msgstr "Boyut"
 
@@ -211,20 +307,38 @@ msgstr "Pürüzsüzlük"
 msgid "worldedit.config.range"
 msgstr "Uzaklık"
 
+msgid "worldedit.config.amount"
+msgstr "Miktar"
+
 msgid "worldedit.config.pattern"
 msgstr "Desen"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "Hiçbir desen belirtilmedi."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Geçersiz desen belirtildi."
+
 msgid "worldedit.config.mask"
 msgstr "Maske"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Geçersiz maske belirtildi."
 
 msgid "worldedit.config.hollow"
 msgstr "Oyuk"
 
 msgid "worldedit.config.depth"
-msgstr "Depth"
+msgstr "Derinlik"
 
 msgid "worldedit.config.erosion"
-msgstr "Erosion Type"
+msgstr "Erozyon Tipi"
+
+msgid "worldedit.config.structures"
+msgstr "Yapılar"
+
+msgid "worldedit.config.blend"
+msgstr "Karışım Miktarı"
 
 msgid "worldedit.config.mask.height"
 msgstr "Yükseklik maskesi"
@@ -233,10 +347,13 @@ msgid "worldedit.config.usePicker"
 msgstr "Blok seçici kullan"
 
 msgid "worldedit.config.command"
-msgstr "Command"
+msgstr "Komut"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "Komut belirtilmedi."
 
 msgid "worldedit.config.command.isWorldEdit"
-msgstr "Is WorldEdit Command"
+msgstr "WorldEdit Komutu"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "İlk seçim daha yapılmadı."
@@ -292,6 +409,18 @@ msgstr "§eSize WorldEdit izinleri verildi. Kılavuz için (Ayarlar > Nasıl Oyn
 msgid "worldedit.permission.revoked"
 msgstr "§eWorldEdit izinlerin silindi.§r"
 
+msgid "worldedit.whitelist.enabled"
+msgstr "Beyazliste aktifleştirildi. §e/tag @s add worldedit§r komutunu çalıştırarak kendinize izin verin."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Beyazliste devre dışı bırakıldı."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "Beyazliste şu anda açık."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "Beyazliste şu anda kapalı."
+
 msgid "worldedit.error.saveHistory"
 msgstr "Geçmiş noktası kaydedilemedi!"
 
@@ -300,6 +429,9 @@ msgstr "Geçmiş noktası kaydedilemedi!"
 
 msgid "worldedit.error.stillRecording"
 msgstr "Geçmiş noktası hala kaydediliyor!"
+
+msgid "worldedit.error.tickArea"
+msgstr "Geçici bir işaretleme alanı oluşturulamadı!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%sBloklar değişti."
@@ -359,10 +491,10 @@ msgid "commands.wedit:biomeinfo.selection"
 msgstr "Seçimindeki biyomlar: %s"
 
 msgid "commands.wedit:blockid.description"
-msgstr "Prints the id and states of the block you're looking at."
+msgstr "Baktığınız bloğun id'sini ve durumlarını yazdırır."
 
 msgid "commands.wedit:blockid.noBlock"
-msgstr "Look at the block you want the id and states of."
+msgstr "Id'sini ve durumlarını öğrenmek istediğiniz bloğa bakın."
 
 msgid "commands.wedit:brush.bind.sphere"
 msgstr "Küre fırça şekli etkin (%s)."
@@ -377,16 +509,16 @@ msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Pürüzsüz fırça donanımlı (%1 x %2x filtre kullanılarak)."
 
 msgid "commands.wedit:brush.bind.clipboard"
-msgstr "Clipboard brush equipped."
+msgstr "Pano fırçası donanıldı."
 
 msgid "commands.wedit:brush.bind.struct"
-msgstr "Structure brush equipped."
+msgstr "Yapı fırçası donanıldı."
 
 msgid "commands.wedit:brush.bind.erode"
-msgstr "Erosion brush equipped (%s)."
+msgstr "Erozyon fırçası donanıldı (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
-msgstr "Overlay brush equipped (%s)."
+msgstr "Kaplama fırçası donanıldı (%s)."
 
 msgid "commands.wedit:brush.description"
 msgstr "Tutulan fırçanın türünü ayarlayın"
@@ -401,106 +533,121 @@ msgid "commands.wedit:brush.description.cyl"
 msgstr "Bir silindir fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.smooth"
-msgstr "Create a terrain smoothing brush"
+msgstr "Bir arazi düzeltme fırçası oluşturun"
 
 msgid "commands.wedit:brush.description.struct"
-msgstr "Creates a brush that places structures"
+msgstr "Yapıları yerleştiren bir fırça oluşturur"
 
 msgid "commands.wedit:brush.description.erode"
-msgstr "Creates a terrain shaping brush"
+msgstr "Bir arazi şekillendirme fırçası oluşturur"
 
 msgid "commands.wedit:brush.description.overlay"
-msgstr "Creates a terrain overlaying brush"
+msgstr "Bir arazi kaplama fırçası oluşturur"
 
 msgid "commands.wedit:brush.mask.set"
-msgstr "Brush mask set."
+msgstr "Maske fırçası ayarlandı."
 
 msgid "commands.wedit:brush.mask.disabled"
-msgstr "Brush mask disabled."
+msgstr "Maske fırçası devre dışı bırakıldı."
 
 msgid "commands.wedit:brush.material.set"
-msgstr "Brush material set."
+msgstr "Materyal fırçası ayarlandı."
 
 msgid "commands.wedit:brush.range.set"
-msgstr "Brush range set."
+msgstr "Fırça mesafesi ayarlandı."
 
 msgid "commands.wedit:brush.size.set"
 msgstr "Fırça boyutu belirle."
 
 msgid "commands.wedit:brush.tracemask.set"
-msgstr "Trace mask set."
+msgstr "İz maskesi seti."
 
 msgid "commands.wedit:brush.tracemask.disabled"
-msgstr "Trace mask disabled."
+msgstr "İz maskesi devre dışı bırakıldı."
 
 msgid "commands.wedit:brush.tooLarge"
-msgstr "Maximum allowed brush radius: %s"
+msgstr "Maksimum fırça mesafesi: %s"
 
 msgid "commands.wedit:brush.noMaterial"
-msgstr "This brush does not require a material to work."
+msgstr "Bu fırçanın çalışması için herhangi bir malzemeye ihtiyaç yoktur."
 
 msgid "commands.wedit:brush.noSize"
-msgstr "This brush has no configurable size."
+msgstr "Bu fırçanın yapılandırılabilir bir boyutu yok."
 
 msgid "commands.wedit:brush.unbind"
-msgstr "Brush unbound from your current item."
+msgstr "Fırçayı mevcut öğenizden ayırın."
 
 msgid "commands.wedit:butcher.description"
-msgstr "Kill nearby entities."
+msgstr "Yakındaki varlıkları öldür."
 
 msgid "commands.wedit:butcher.explain"
-msgstr "Killed %s entities."
+msgstr "%s adet varlık öldürüldü."
 
 msgid "commands.wedit:calc.description"
-msgstr "Evaluate a mathematical expression."
+msgstr "Matematiksel bir ifadeyi değerlendirin."
 
 msgid "commands.wedit:calc.invalid"
-msgstr "'%s' could not be parsed as a valid expression."
+msgstr "'%s' geçerli bir ifade olarak ayrıştırılamadı."
+
+msgid "commands.wedit:cancel.description"
+msgstr "Etkin işlerinizden birini veya tamamını iptal eder."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "%s numaralı iş iptal edildi."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "%s adet iş iptal edildi."
+
+msgid "commands.wedit:cancel.none"
+msgstr "Bu idye sahip hiç bir iş yok."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "İptal edilecek hiç bir iş yok."
 
 msgid "commands.wedit:ceiling.description"
-msgstr "Go to the ceiling."
+msgstr "Tavana git."
 
 msgid "commands.wedit:center.description"
-msgstr "Set the center block(s)."
+msgstr "Merkez bloğunu (blokları) ayarlayın."
 
 msgid "commands.wedit:chunk.description"
-msgstr "Select your current, or specified chunk."
+msgstr "Mevcut veya belirtilen parçayı seçin."
 
 msgid "commands.wedit:chunk.selected-multiple"
-msgstr "Chunks selected: (%1) - (%2)."
+msgstr "Seçilen yığınlar: (%1) - (%2)."
 
 msgid "commands.wedit:chunk.selected"
-msgstr "Chunk selected: (%1)."
+msgstr "Yığın seçildi: (%1)."
 
 msgid "commands.wedit:clearclipboard.description"
-msgstr "Clear your clipboard"
+msgstr "Panoyu temizle"
 
 msgid "commands.wedit:clearclipboard.explain"
-msgstr "Cleared clipboard."
+msgstr "Pano temizlendi."
 
 msgid "commands.wedit:clearhistory.description"
-msgstr "Clear your editing history"
+msgstr "Düzenleme geçmişinizi temizleyin"
 
 msgid "commands.wedit:clearhistory.explain"
-msgstr "History cleared."
+msgstr "Geçmiş temizlendi."
 
 msgid "commands.wedit:contract.description"
-msgstr "Contract the selection area"
+msgstr "Seçim alanını sözleşmeye bağlayın"
 
 msgid "commands.wedit:contract.explain"
-msgstr "Region contracted %s blocks."
+msgstr "Bölge %s blokla sözleşme imzaladı."
 
 msgid "commands.wedit:copy.description"
-msgstr "Copy the current selection to the clipboard"
+msgstr "Geçerli seçimi panoya kopyala"
 
 msgid "commands.wedit:copy.explain"
 msgstr "%s Blok kopyalandı."
 
 msgid "commands.wedit:count.description"
-msgstr "Count the number of blocks that match a mask"
+msgstr "Bir maskeyle eşleşen blok sayısını sayın"
 
 msgid "commands.wedit:count.explain"
-msgstr "Found %s blocks."
+msgstr "%s blok bulundu."
 
 msgid "commands.wedit:cut.description"
 msgstr "Remove your current selection and place it in the clipboard"
@@ -595,8 +742,17 @@ msgstr "Global mask set."
 msgid "commands.wedit:gradient.create"
 msgstr "Gradient %s created."
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Gradient %s deleted."
+
 msgid "commands.wedit:gradient.description"
 msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Gradient %s does not exist."
+
+msgid "commands.wedit:gradient.none"
+msgstr "There are no gradients to list"
 
 msgid "commands.wedit:green.description"
 msgstr "Turn nearby dirt into grass"
@@ -621,6 +777,9 @@ msgstr "Generate a hollow pyramid"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Generate a hollow sphere"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Generate a hollow torus."
 
 msgid "commands.wedit:inset.description"
 msgstr "Inset the selection area"
@@ -733,6 +892,12 @@ msgstr "Remove nearby blocks"
 msgid "commands.wedit:replacenear.description"
 msgstr "Replace nearby blocks with other blocks"
 
+msgid "commands.wedit:revolve.description"
+msgstr "Make copies of the selection revolving around the player"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Created %s blocks from revolving."
+
 msgid "commands.wedit:rotate.description"
 msgstr "Rotate the selection"
 
@@ -820,6 +985,33 @@ msgstr "Type: %s"
 msgid "commands.wedit:snow.description"
 msgstr "Simulate snow in the area"
 
+msgid "commands.wedit:superpickaxe.area"
+msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Make the super pickaxe break a single block"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Make the super pickaxe break blocks in a cubic range"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Make the super pickaxe break blocks starting from the initial one"
+
+msgid "commands.wedit:superpickaxe.disabled"
+msgstr "Super pickaxe disabled."
+
+msgid "commands.wedit:superpickaxe.enabled"
+msgstr "Super pickaxe enabled."
+
+msgid "commands.wedit:superpickaxe.recursive"
+msgstr "Super pickaxe mode is now: recursive."
+
+msgid "commands.wedit:superpickaxe.single"
+msgstr "Super pickaxe mode is now: single."
+
 msgid "commands.wedit:thaw.description"
 msgstr "Melt snow and ice exposed to the sky"
 
@@ -847,6 +1039,9 @@ msgstr "Not against or facing a wall to go through."
 msgid "commands.wedit:thru.obstructed"
 msgstr "No free spot ahead of you found."
 
+msgid "commands.wedit:torus.description"
+msgstr "Generate a torus."
+
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"
 
@@ -861,6 +1056,15 @@ msgstr "No free spot under you found."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Set what kind of blocks a brush can be used on"
+
+msgid "commands.wedit:trim.description"
+msgstr "Minimize the selection to encompass matching blocks"
+
+msgid "commands.wedit:trim.explain"
+msgstr "Region trimmed."
+
+msgid "commands.wedit:trim.no-blocks"
+msgstr "No blocks matched the trim mask!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Toggled placement position."

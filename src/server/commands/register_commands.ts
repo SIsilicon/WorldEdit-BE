@@ -12,55 +12,59 @@ const commandList = new Map<string, [CommandInfo, commandFunc]>();
 const sawOutsideWorldErr: Player[] = [];
 
 export function registerCommand(registerInformation: CommandInfo, callback: commandFunc) {
-  commandList.set(registerInformation.name, [registerInformation, callback]);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Server.command.register(registerInformation, (player: Player, msg: string, args: Map<string, any>) => {
-    if (!hasSession(player.id)) {
-      return undefined;
-    }
-    const toActionBar = getSession(player).usingItem;
-    args.set("_using_item", getSession(player).usingItem);
-
-    const thread = new Thread();
-    thread.start(function* (msg, player, args) {
-      const timer = new Timer();
-      try {
-        timer.start();
-        contentLog.log(`Processing command '${msg}' for '${player.name}'`);
-        let result: string | RawText;
-        if (callback.constructor.name == "GeneratorFunction") {
-          result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
-        } else {
-          result = callback(getSession(player), player, args) as string | RawText;
+    commandList.set(registerInformation.name, [registerInformation, callback]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Server.command.register(registerInformation, (player: Player, msg: string, args: Map<string, any>) => {
+        if (!hasSession(player.id)) {
+            return undefined;
         }
-        const time = timer.end();
-        contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
-        if (result) print(result, player, toActionBar);
-      }
-      catch (e) {
-        const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
-        contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
-        printerr(errMsg, player, toActionBar);
+        const toActionBar = getSession(player).usingItem;
+        args.set("_using_item", getSession(player).usingItem);
 
-        if (e instanceof UnloadedChunksError) {
-          if (!sawOutsideWorldErr.includes(player)) {
-            sawOutsideWorldErr.push(player);
-            print("commands.generic.wedit:outsideWorld.detail", player, false);
-          }
-        } else if (e.stack) {
-          printerr(e.stack, player, false);
-        }
-      }
-    }, msg, player, args);
+        const thread = new Thread();
+        thread.start(
+            function* (msg, player, args) {
+                const timer = new Timer();
+                try {
+                    timer.start();
+                    contentLog.log(`Processing command '${msg}' for '${player.name}'`);
+                    let result: string | RawText;
+                    if (callback.constructor.name == "GeneratorFunction") {
+                        result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
+                    } else {
+                        result = callback(getSession(player), player, args) as string | RawText;
+                    }
+                    const time = timer.end();
+                    contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                    if (result) print(result, player, toActionBar);
+                } catch (e) {
+                    const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
+                    contentLog.error(`Command '${msg}' failed for '${player.name}' with msg: ${errMsg}`);
+                    printerr(errMsg, player, toActionBar);
 
-    return thread;
-  });
+                    if (e instanceof UnloadedChunksError) {
+                        if (!sawOutsideWorldErr.includes(player)) {
+                            sawOutsideWorldErr.push(player);
+                            print("commands.generic.wedit:outsideWorld.detail", player, false);
+                        }
+                    } else if (e.stack) {
+                        printerr(e.stack, player, false);
+                    }
+                }
+            },
+            msg,
+            player,
+            args
+        );
+
+        return thread;
+    });
 }
 
 export function getCommandFunc(command: string) {
-  return commandList.get(command)[1];
+    return commandList.get(command)[1];
 }
 
 export function getCommandInfo(command: string) {
-  return commandList.get(command)[0];
+    return commandList.get(command)[0];
 }

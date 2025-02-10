@@ -6,18 +6,18 @@ msgstr ""
 "X-Crowdin-Language: uk\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "X-Crowdin-File: /[SIsilicon.WorldEdit-BE] master/texts/en_US.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: worldedit-for-bedrock\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-10-12 19:36\n"
+"PO-Revision-Date: 2024-11-23 21:47\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cСкрипти WorldEdit зупинилися! Скиньте їх за допомогою §r/reload§c (інші скрипти також скинуться).§r"
+msgstr "§cСкрипти WorldEdit зупинилися! Перезавантажте їх, ввівши команду §r/reload§c або перезавантажте сам світ.§r"
 
 msgid "item.wedit:copy_button"
 msgstr "Копіювати"
@@ -35,10 +35,10 @@ msgid "item.wedit:redo_button"
 msgstr "Відновити дію"
 
 msgid "item.wedit:rotate_cw_button"
-msgstr "Повернути за годинниковою стрілкою"
+msgstr "Обернути за годинниковою стрілкою"
 
 msgid "item.wedit:rotate_ccw_button"
-msgstr "Повернути проти годинникової стрілки"
+msgstr "Обернути проти годинникової стрілки"
 
 msgid "item.wedit:flip_button"
 msgstr "Перевернути"
@@ -50,19 +50,37 @@ msgid "item.wedit:mask_picker"
 msgstr "Вибір маски"
 
 msgid "item.wedit:spawn_glass"
-msgstr "Створити скляний блок"
+msgstr "Створити блок скла"
 
 msgid "item.wedit:selection_fill"
 msgstr "Заповнити виділення"
 
 msgid "item.wedit:selection_wall"
-msgstr "Вибір стіни"
+msgstr "Стіна виділення"
 
 msgid "item.wedit:selection_outline"
 msgstr "Контур виділення"
 
+msgid "item.wedit:selection_hollow"
+msgstr "Виділення пустоти"
+
+msgid "item.wedit:selection_stack"
+msgstr "Виділення стосу"
+
+msgid "item.wedit:selection_move"
+msgstr "Виділення переміщення"
+
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
+
+msgid "item.wedit:draw_sphere"
+msgstr "Намалювати сферу"
+
+msgid "item.wedit:draw_cylinder"
+msgstr "Намалювати циліндр"
+
+msgid "item.wedit:draw_pyramid"
+msgstr "Намалювати піраміду"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"
@@ -88,20 +106,32 @@ msgstr "Пензлі"
 msgid "worldedit.config.tools"
 msgstr "Інструменти"
 
+msgid "worldedit.config.gradients"
+msgstr "Градієнти"
+
 msgid "worldedit.config.general"
-msgstr "Загальне"
+msgstr "Загальні"
 
 msgid "worldedit.config.general.includeEntities"
-msgstr "Включити сутності в буфер обміну"
+msgstr "Включати сутності в буфер обміну"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Включити повітря в буфер обміну"
+msgstr "Включати повітря в буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
-msgstr "Режим продуктивності"
+msgstr "Режим швидкодії"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Малювання контурів"
+
+msgid "worldedit.config.general.drawOutlines.off"
+msgstr "Вимкнено"
+
+msgid "worldedit.config.general.drawOutlines.self"
+msgstr "Видимі для себе"
+
+msgid "worldedit.config.general.drawOutlines.all"
+msgstr "Видимі для усіх"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Режим виділення"
@@ -111,6 +141,9 @@ msgstr "Створити новий інструмент"
 
 msgid "worldedit.config.newBrush"
 msgstr "Створити новий пензель"
+
+msgid "worldedit.config.newGradient"
+msgstr "Створити новий градієнт"
 
 msgid "worldedit.selectionMode.cuboid"
 msgstr "Кубоподібний"
@@ -123,6 +156,48 @@ msgstr "Сфера"
 
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Циліндр"
+
+msgid "worldedit.regionMode.selectOp"
+msgstr "Виберіть регіон завдання"
+
+msgid "worldedit.regionMode.fill"
+msgstr "Режим заповнення"
+
+msgid "worldedit.regionMode.outline"
+msgstr "Режим контуру"
+
+msgid "worldedit.regionMode.wall"
+msgstr "Режим стіни"
+
+msgid "worldedit.regionMode.hollow"
+msgstr "Режим пустоти"
+
+msgid "worldedit.regionMode.stack"
+msgstr "Режим стосу"
+
+msgid "worldedit.regionMode.move"
+msgstr "Режим переміщення"
+
+msgid "worldedit.genMode.selectOp"
+msgstr "Виберіть фігуру для генерування"
+
+msgid "worldedit.genMode.line"
+msgstr "Лінія"
+
+msgid "worldedit.genMode.sphere"
+msgstr "Сфера"
+
+msgid "worldedit.genMode.cylinder"
+msgstr "Циліндр"
+
+msgid "worldedit.genMode.pyramid"
+msgstr "Піраміда"
+
+msgid "worldedit.stack.title"
+msgstr "Виберіть розмір стосу"
+
+msgid "worldedit.move.title"
+msgstr "Виберіть розмір переміщення"
 
 msgid "worldedit.config.tool.noProps"
 msgstr "Немає властивостей інструменту"
@@ -169,6 +244,21 @@ msgstr "Пензель ерозії"
 msgid "worldedit.config.brush.overlay"
 msgstr "Пензель накладання"
 
+msgid "worldedit.config.gradient.use"
+msgstr "Використовувати градієнт в «Вибір шаблону»"
+
+msgid "worldedit.config.gradient.remove"
+msgstr "Видалити градієнт"
+
+msgid "worldedit.config.gradient.add"
+msgstr "Додати новий градієнт"
+
+msgid "worldedit.config.gradient.noId"
+msgstr "Не вказано ідентифікатор градієнта."
+
+msgid "worldedit.config.gradient.dupeId"
+msgstr "Ідентифікатор градієнта вже існує."
+
 msgid "worldedit.config.chooseItem"
 msgstr "Візьміть предмет для прив’язки."
 
@@ -177,6 +267,9 @@ msgstr "Виберіть, який пензель створити."
 
 msgid "worldedit.config.choose.tool"
 msgstr "Виберіть, який інструмент створити."
+
+msgid "worldedit.config.gradient.promptName"
+msgstr "Вставте ідентифікатор градієнта тут"
 
 msgid "worldedit.config.patternMask.brush"
 msgstr "Створити шаблон та за бажанням маску для пензля."
@@ -194,10 +287,13 @@ msgid "worldedit.config.confirm"
 msgstr "Усе добре?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Вас влаштовує налаштування, які ви зробили?"
+msgstr "Вас влаштовують задані вами налаштування?"
 
 msgid "worldedit.config.confirm.delete"
-msgstr "Ви впевнені, що бажаєте відв’язати цей предмет?"
+msgstr "Ви дійсно бажаєте відв’язати цей предмет?"
+
+msgid "worldedit.config.name"
+msgstr "Назва"
 
 msgid "worldedit.config.radius"
 msgstr "Розмір"
@@ -211,11 +307,23 @@ msgstr "Згладжування"
 msgid "worldedit.config.range"
 msgstr "Діапазон"
 
+msgid "worldedit.config.amount"
+msgstr "Кількість"
+
 msgid "worldedit.config.pattern"
 msgstr "Шаблон"
 
+msgid "worldedit.config.pattern.noPattern"
+msgstr "Шаблон не вказано."
+
+msgid "worldedit.config.pattern.invalidPattern"
+msgstr "Вказано недійсний шаблон."
+
 msgid "worldedit.config.mask"
 msgstr "Маска"
+
+msgid "worldedit.config.mask.invalidMask"
+msgstr "Вказано недійсну маску."
 
 msgid "worldedit.config.hollow"
 msgstr "Порожньо"
@@ -226,6 +334,12 @@ msgstr "Глибина"
 msgid "worldedit.config.erosion"
 msgstr "Вид ерозії"
 
+msgid "worldedit.config.structures"
+msgstr "Структури"
+
+msgid "worldedit.config.blend"
+msgstr "Розмір замісу"
+
 msgid "worldedit.config.mask.height"
 msgstr "Висота маски"
 
@@ -234,6 +348,9 @@ msgstr "Використовувати вибір блоку"
 
 msgid "worldedit.config.command"
 msgstr "Команда"
+
+msgid "worldedit.config.command.noCommand"
+msgstr "Команду не вказано."
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "Є командою WorldEdit"
@@ -292,6 +409,18 @@ msgstr "§eВам були надані дозволи WorldEdit. Перейді
 msgid "worldedit.permission.revoked"
 msgstr "§eВаші дозволи WorldEdit вилучено.§r"
 
+msgid "worldedit.whitelist.enabled"
+msgstr "Білий список увімкнено. Надайте собі дозвіл, ввівши команду §e/tag @s add worldedit§r."
+
+msgid "worldedit.whitelist.disabled"
+msgstr "Білий список вимкнено."
+
+msgid "worldedit.whitelist.status.on"
+msgstr "Білий список наразі ввімкнено."
+
+msgid "worldedit.whitelist.status.off"
+msgstr "Білий список наразі вимкнено."
+
 msgid "worldedit.error.saveHistory"
 msgstr "Не вдалося зберегти точку історії!"
 
@@ -300,6 +429,9 @@ msgstr "Не вдалося завантажити точку історії!"
 
 msgid "worldedit.error.stillRecording"
 msgstr "Історія ще записується!"
+
+msgid "worldedit.error.tickArea"
+msgstr "Не вдалося створити тимчасову область такту!"
 
 msgid "commands.blocks.wedit:changed"
 msgstr "%s блоків змінено."
@@ -457,6 +589,21 @@ msgstr "Обчислити математичний вираз."
 msgid "commands.wedit:calc.invalid"
 msgstr "'%s' не вдалося розібрати як дійсний вираз."
 
+msgid "commands.wedit:cancel.description"
+msgstr "Скасовує одне або всі ваші активні завдання."
+
+msgid "commands.wedit:cancel.explain"
+msgstr "Скасовано завдання: %s."
+
+msgid "commands.wedit:cancel.explain.all"
+msgstr "Скасовано завдання: %s."
+
+msgid "commands.wedit:cancel.none"
+msgstr "Завдання з таким ідентифікатором немає."
+
+msgid "commands.wedit:cancel.none.all"
+msgstr "Немає жодного завдання, яке можна було б скасувати."
+
 msgid "commands.wedit:ceiling.description"
 msgstr "Йти до стелі."
 
@@ -595,8 +742,17 @@ msgstr "Глобальну маску встановлено."
 msgid "commands.wedit:gradient.create"
 msgstr "Створено градієнт: %s."
 
+msgid "commands.wedit:gradient.delete"
+msgstr "Видалено градієнт «%s»."
+
 msgid "commands.wedit:gradient.description"
 msgstr "Створити градієнт для використання у візерунках."
+
+msgid "commands.wedit:gradient.noExist"
+msgstr "Градієнту «%s» не існує."
+
+msgid "commands.wedit:gradient.none"
+msgstr "Не знайдено жодних градієнтів для показу"
 
 msgid "commands.wedit:green.description"
 msgstr "Перетворити землю поблизу на траву"
@@ -608,7 +764,7 @@ msgid "commands.wedit:help.header"
 msgstr "--- Сторінка довідки %1 з %2 (;help <page>) ---"
 
 msgid "commands.wedit:hollow.description"
-msgstr "Виділити об’єкти, що містяться у виділенні"
+msgstr "Відокремити об’єкти, що містяться у виділенні"
 
 msgid "commands.wedit:hpos1.description"
 msgstr "Установити першу позицію виділення на позицію блоку, який стоїть перед вами"
@@ -621,6 +777,9 @@ msgstr "Згенерувати порожню піраміду"
 
 msgid "commands.wedit:hsphere.description"
 msgstr "Згенерувати порожню сферу"
+
+msgid "commands.wedit:htorus.description"
+msgstr "Згенерувати порожнистий тор."
 
 msgid "commands.wedit:inset.description"
 msgstr "Вставити область виділення"
@@ -733,6 +892,12 @@ msgstr "Видалити блоки поблизу"
 msgid "commands.wedit:replacenear.description"
 msgstr "Замінити блоки поблизу з іншими блоками"
 
+msgid "commands.wedit:revolve.description"
+msgstr "Зробити копії оберту виділення навколо гравця"
+
+msgid "commands.wedit:revolve.explain"
+msgstr "Створено блоки (%s) з оберту."
+
 msgid "commands.wedit:rotate.description"
 msgstr "Повернути блоки у виділенні"
 
@@ -820,6 +985,36 @@ msgstr "Тип: %s"
 msgid "commands.wedit:snow.description"
 msgstr "Імітація снігу в області"
 
+msgid "commands.wedit:superpickaxe.area"
+msgstr "Режим супер кайла: площа."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Супер кайло"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Супер кайло"
+
+msgid "commands.wedit:superpickaxe.description.single"
+msgstr "Зробити так, щоб суперкайло зламало один блок"
+
+msgid "commands.wedit:superpickaxe.description.area"
+msgstr "Зробити так, щоб суперкайло зламало блоки в кубічному діапазоні"
+
+msgid "commands.wedit:superpickaxe.description.recursive"
+msgstr "Зробити так, щоб суперкайло зламало блоки, починаючи з початкового"
+
+msgid "commands.wedit:superpickaxe.disabled"
+msgstr "Супер кайло вимкнуто."
+
+msgid "commands.wedit:superpickaxe.enabled"
+msgstr "Супер кайло ввімкнено."
+
+msgid "commands.wedit:superpickaxe.recursive"
+msgstr "Режим супер кайла: рекурсивний."
+
+msgid "commands.wedit:superpickaxe.single"
+msgstr "Режим супер кайла: одинарний."
+
 msgid "commands.wedit:thaw.description"
 msgstr "Розтопити сніг і лід, виставлені на небо"
 
@@ -847,6 +1042,9 @@ msgstr "Не до стіни або обличчям до неї, щоб про�
 msgid "commands.wedit:thru.obstructed"
 msgstr "Перед вами не знайдено вільного місця."
 
+msgid "commands.wedit:torus.description"
+msgstr "Згенерувати тор."
+
 msgid "commands.wedit:ascend.description"
 msgstr "Піднятися вверх"
 
@@ -861,6 +1059,15 @@ msgstr "Вільного місця під вами не знайдено."
 
 msgid "commands.wedit:tracemask.description"
 msgstr "Встановити тип блоків, на яких можна використовувати пензель"
+
+msgid "commands.wedit:trim.description"
+msgstr "Зменшити виділення, щоб охопити відповідні блоки"
+
+msgid "commands.wedit:trim.explain"
+msgstr "Регіон обрізано."
+
+msgid "commands.wedit:trim.no-blocks"
+msgstr "Жоден блок не збігався з маскою для обрізки!"
 
 msgid "commands.wedit:toggleplace.complete"
 msgstr "Позицію розміщення перемкнуто."
@@ -989,7 +1196,7 @@ msgid "howtoplay.wedit:quick_start.header.1"
 msgstr "Перш ніж усе інше..,"
 
 msgid "howtoplay.wedit:quick_start.text.2"
-msgstr "За замовчуванням у гравців немає дозволу використовувати WorldEdit. Лише ті, хто позначив дозвіл worldedit, можуть використовувати його функції. Щоб надати собі дозвіл, введіть §e/tag @s add worldedit§r у чаті. Тепер ви будете мати доступ до кожної команди WorldEdit."
+msgstr "За стандартом гравцям не дозволено використовувати WorldEdit. Лише ті, хто має дозвіл на worldedit, можуть користуватися його можливостями. Щоб надати собі дозвіл, введіть §e/tag @s add worldedit§r у чаті. Після цього ви матимете доступ до всіх команд WorldEdit."
 
 msgid "howtoplay.wedit:quick_start.text.3"
 msgstr "§l§aПорада:§r§a ви також можете надати іншим гравцям дозвіл, змінивши §e@s§r§a на ім’я гравця. Вам потрібно буде взяти його ім’я в лапки, якщо в ньому є пробіл. Наприклад: §e/tag \"Steve Wanderer\" add worldedit§r"

@@ -5,45 +5,45 @@ import { Player } from "@minecraft/server";
 export type range = [number | null, number | null];
 
 export interface commandArg {
-    name: string,
-    type: string,
-    default?: any,
-    range?: range
+    name: string;
+    type: string;
+    default?: any;
+    range?: range;
 }
 export interface commandFlag {
-    flag: string,
-    name?: string,
-    type?: string,
+    flag: string;
+    name?: string;
+    type?: string;
 }
 export interface commandSubDef {
-    subName: string,
-    permission?: string,
-    description?: string,
-    args?: commandArgList
+    subName: string;
+    permission?: string;
+    description?: string;
+    args?: commandArgList;
 }
 
 export type commandArgList = Array<commandArg | commandFlag | commandSubDef>;
 
 export interface argParseResult<T> {
-    result: T,
-    argIndex: number
+    result: T;
+    argIndex: number;
 }
 
 export interface commandSyntaxError {
-    isSyntaxError: true,
-    idx: number,
-    start?: number,
-    end?: number,
-    stack: string
+    isSyntaxError: true;
+    idx: number;
+    start?: number;
+    end?: number;
+    stack: string;
 }
 
 export interface registerInformation {
-    name: string,
-    permission?: string,
-    description: string,
-    usage?: commandArgList,
-    aliases?: Array<string>
+    name: string;
+    permission?: string;
+    description: string;
+    usage?: commandArgList;
+    aliases?: Array<string>;
 }
 export interface storedRegisterInformation extends registerInformation {
-    callback: (player: Player, msg: string, args: Map<string, any>) => Thread<any[]>
+    callback: (player: Player, msg: string, args: Map<string, any>) => Thread<any[]>;
 }

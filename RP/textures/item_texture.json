@@ -44,6 +44,12 @@
         "selection_outline": {
             "textures": "textures/items/selection_outline"
         },
+        "selection_stack": {
+            "textures": "textures/items/selection_stack"
+        },
+        "selection_move": {
+            "textures": "textures/items/selection_move"
+        },
         "selection_wall": {
             "textures": "textures/items/selection_wall"
         },

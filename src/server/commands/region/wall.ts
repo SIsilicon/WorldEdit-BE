@@ -4,29 +4,26 @@ import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
-  name: "walls",
-  permission: "worldedit.region.walls",
-  description: "commands.wedit:wall.description",
-  usage: [
-    {
-      name: "pattern",
-      type: "Pattern"
-    }
-  ]
+    name: "walls",
+    permission: "worldedit.region.walls",
+    description: "commands.wedit:wall.description",
+    usage: [
+        {
+            name: "pattern",
+            type: "Pattern",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  assertSelection(session);
-  if (args.get("_using_item") && session.globalPattern.empty()) {
-    throw RawText.translate("worldEdit.selectionFill.noPattern");
-  }
+    assertSelection(session);
+    if (args.get("_using_item") && session.globalPattern.empty()) {
+        throw RawText.translate("worldEdit.selectionFill.noPattern");
+    }
 
-  const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+    const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
-  const [shape, loc] = session.selection.getShape();
-  const job = Jobs.startJob(session, 2, shape.getRegion(loc));
-  const count = yield* Jobs.perform(job, shape.generate(loc, pattern, null, session, {wall: true, hollow: true}));
-  Jobs.finishJob(job);
-
-  return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    const [shape, loc] = session.selection.getShape();
+    const count = yield* Jobs.run(session, 2, shape.generate(loc, pattern, null, session, { wall: true, hollow: true }));
+    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
 });

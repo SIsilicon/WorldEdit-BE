@@ -5,35 +5,33 @@ import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 const registerInformation = {
-  name: "count",
-  description: "commands.wedit:count.description",
-  permission: "worldedit.analysis.count",
-  usage: [
-    {
-      name: "mask",
-      type: "Mask"
-    }
-  ]
+    name: "count",
+    description: "commands.wedit:count.description",
+    permission: "worldedit.analysis.count",
+    usage: [
+        {
+            name: "mask",
+            type: "Mask",
+        },
+    ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-  assertSelection(session);
-  let count = 0;
-  const mask = args.get("mask") as Mask;
-  const dimension = builder.dimension;
+    assertSelection(session);
+    const mask = (<Mask>args.get("mask")).withContext(session);
+    const dimension = builder.dimension;
 
-  const total = session.selection.getBlockCount();
-  const job = Jobs.startJob(session, 1, session.selection.getRange());
-  try {
-    let i = 0;
-    Jobs.nextStep(job, "Counting blocks...");
-    for (const block of session.selection.getBlocks()) {
-      count += mask.matchesBlock(dimension.getBlock(block)) ? 1 : 0;
-      Jobs.setProgress(job, ++i / total);
-      yield;
-    }
-  } finally {
-    Jobs.finishJob(job);
-  }
-  return RawText.translate("commands.wedit:count.explain").with(count);
+    const total = session.selection.getBlockCount();
+    const count = yield* Jobs.run(session, 1, function* () {
+        let i = 0;
+        let count = 0;
+        yield Jobs.nextStep("Counting blocks...");
+        for (const loc of session.selection.getBlocks()) {
+            const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
+            count += mask.matchesBlock(block) ? 1 : 0;
+            yield Jobs.setProgress(++i / total);
+        }
+        return count;
+    });
+    return RawText.translate("commands.wedit:count.explain").with(count);
 });
