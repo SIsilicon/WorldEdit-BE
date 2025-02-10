@@ -1,4 +1,4 @@
-import { assertCanBuildWithin, assertCuboidSelection } from "@modules/assert.js";
+import { assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RawText, regionIterateChunks, regionLoaded, regionSize, Server, Vector } from "@notbeer-api";
 import { BlockPermutation, BlockVolume, Player, StructureSaveMode, world } from "@minecraft/server";
@@ -35,13 +35,13 @@ function writeMetaData(name: string, data: string, player: Player) {
     const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
     entity.nameTag = data;
 
-    console.warn("saving", name);
+    world.structureManager.delete(name);
     const structure = world.structureManager.createFromWorld(name, dimension, blockLoc, blockLoc, {
         includeBlocks: false,
         includeEntities: true,
         saveMode: StructureSaveMode.World,
     });
-    entity.triggerEvent("wedit:despawn");
+    entity.remove();
     return structure;
 }
 
@@ -51,12 +51,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const range = session.selection.getRange();
     const dimension = builder.dimension;
     const excludeAir = args.has("a");
-    assertCanBuildWithin(builder, ...range);
 
     let struct_name: string = args.get("name");
-    if (!struct_name.includes(":")) {
-        struct_name = "wedit:" + struct_name;
-    }
+    if (!struct_name.includes(":")) struct_name = "wedit:" + struct_name;
     const [namespace, struct] = struct_name.split(":") as [string, string];
 
     let tempStruct: RegionBuffer;

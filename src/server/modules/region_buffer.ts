@@ -327,7 +327,7 @@ export class RegionBuffer {
                 while ((structure = world.structureManager.get(name + "_" + locToString(maxIdx)))) maxIdx[axis]++;
                 maxIdx[axis]--;
             }
-            const size = maxIdx.mul(this.MAX_SIZE).add(structure.size);
+            const size = maxIdx.mul(this.MAX_SIZE).add(world.structureManager.get(name + "_" + locToString(maxIdx)).size);
             const buffer = new RegionBuffer(name, true);
             Array.from(Object.entries(this.getSubStructs(name, size))).forEach(([key, sub]) => (buffer.structures[key] = sub.structure));
             buffer.volume = size.x * size.y * size.z;
