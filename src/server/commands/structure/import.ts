@@ -32,9 +32,9 @@ function readMetaData(name: string, player: Player) {
     const imported = dimension.getEntitiesAtBlockLocation(blockLoc).find((entity) => entity.typeId == "wedit:struct_meta" && entity.nameTag != "__placeholder__");
     if (imported) {
         data = imported.nameTag;
-        imported.triggerEvent("wedit:despawn");
+        imported.remove();
     }
-    entity.triggerEvent("wedit:despawn");
+    entity.remove();
     return data;
 }
 
