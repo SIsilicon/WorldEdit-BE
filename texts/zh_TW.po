@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-02-11 05:44\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "畫線"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "繪製曲線"
 
 msgid "item.wedit:draw_sphere"
 msgstr "繪製球體"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "線"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "曲線"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球體"
