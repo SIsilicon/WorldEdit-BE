@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2025-02-13 22:47\n"
+"PO-Revision-Date: 2025-02-13 23:48\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr ""
+msgstr "Cargar"
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -230,7 +230,7 @@ msgid "worldedit.config.tool.repl"
 msgstr "Español"
 
 msgid "worldedit.config.tool.cycle"
-msgstr "Bloquear herramienta cicler"
+msgstr "Bloquear herramienta "
 
 msgid "worldedit.config.brush.sphere"
 msgstr "Brocha esférica"
