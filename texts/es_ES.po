@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-02-13 22:47\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§cWorldEdit's scripts have stopped! Reset them with §r/reload§c or restart the world.§r"
+msgstr ""
 
 msgid "item.wedit:copy_button"
 msgstr "Copiar"
@@ -65,7 +65,7 @@ msgid "item.wedit:selection_hollow"
 msgstr "Hollow Selection"
 
 msgid "item.wedit:selection_stack"
-msgstr "Stack Selection"
+msgstr ""
 
 msgid "item.wedit:selection_move"
 msgstr "Move Selection"
@@ -164,10 +164,10 @@ msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Rellenar"
 
 msgid "worldedit.regionMode.outline"
-msgstr "Outline Mode"
+msgstr "Hace un cuadrado"
 
 msgid "worldedit.regionMode.wall"
 msgstr "Wall Mode"
