@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-02-15 04:09\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "線"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "曲線"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球体"
