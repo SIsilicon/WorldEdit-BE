@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-02-15 04:09\n"
+"PO-Revision-Date: 2025-02-15 05:42\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "線を引く"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "曲線を描く"
 
 msgid "item.wedit:draw_sphere"
 msgstr "球体を生成"
