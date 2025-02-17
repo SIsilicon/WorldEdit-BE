@@ -4,10 +4,10 @@ export interface Database<T = { [key: string]: any }> {
     data: T;
 
     /** Returns whether the database is a valid object that can have functions called and data read from. */
-    isValid(): boolean;
+    readonly isValid: boolean;
 
     /** Returns whether the database has loaded its data from its provider. */
-    isLoaded(): boolean;
+    readonly isLoaded: boolean;
 
     /** Clears everything in the database. */
     clear(): void;

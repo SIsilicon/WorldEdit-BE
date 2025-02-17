@@ -1,4 +1,4 @@
-import { world, Player, Entity, Dimension } from "@minecraft/server";
+import { world, Player, Entity, Dimension, CommandResult } from "@minecraft/server";
 import { EventEmitter } from "./eventEmitter.js";
 import { runCommandReturn } from "../@types/classes/ServerBuilder";
 import { sleep } from "@notbeer-api";
@@ -44,11 +44,11 @@ export class ServerBuilder extends EventEmitter {
      */
     queueCommand(command: string, target?: Dimension | Player | Entity): Promise<runCommandReturn> {
         try {
-            if (this.flushingCommands) {
-                throw "queue";
-            }
-            const promise = (target ?? world.getDimension("overworld"))
-                .runCommandAsync(command)
+            if (this.flushingCommands || this.commandQueue.length > 128) throw "queue";
+
+            const promise = new Promise<CommandResult>((resolve) => {
+                resolve((target ?? world.getDimension("overworld")).runCommand(command));
+            })
                 .then((result) => {
                     return { error: false, ...result };
                 })
@@ -75,9 +75,7 @@ export class ServerBuilder extends EventEmitter {
      * Any attempts at running commands while flushing will be queued.
      */
     async flushCommands() {
-        if (this.commandQueue) {
-            return;
-        }
+        if (this.commandQueue) return;
         this.flushingCommands = true;
         await Promise.all(this.commandQueue);
         this.flushingCommands = false;

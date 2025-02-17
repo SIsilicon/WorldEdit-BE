@@ -15,7 +15,7 @@ import {
     PistonActivateAfterEvent,
     WeatherChangeAfterEvent,
     PlayerLeaveAfterEvent,
-    WorldInitializeAfterEvent,
+    WorldLoadAfterEvent,
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
@@ -40,7 +40,7 @@ export interface EventList {
     ready: [ready];
     customCommand: [customCommand];
     playerChangeDimension: [playerChangeDimension];
-    worldInitialize: [WorldInitializeAfterEvent];
+    worldInitialize: [WorldLoadAfterEvent];
 }
 
 interface TickEvent {

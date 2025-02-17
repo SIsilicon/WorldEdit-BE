@@ -126,7 +126,7 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'worldInitialize' event listener
          */
-        afterEvents.worldInitialize.subscribe((data) => this.emit("worldInitialize", data));
+        afterEvents.worldLoad.subscribe((data) => this.emit("worldLoad", data));
         /**
          * Emit to 'playerChangeDimension' event listener
          */

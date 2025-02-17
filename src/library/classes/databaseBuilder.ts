@@ -32,7 +32,7 @@ class DatabaseManager {
     delete(name: string, provider: World | Entity = world) {
         const key = getDatabaseKey(name, provider);
         const database = databases[key] ?? new DatabaseImpl<any>(name, provider);
-        if (database.isValid()) database.delete();
+        if (database.isValid) database.delete();
         delete databases[key];
     }
 
@@ -90,11 +90,11 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
         return data;
     }
 
-    isLoaded() {
+    get isLoaded() {
         return this.loaded;
     }
 
-    isValid() {
+    get isValid() {
         return this.valid;
     }
 

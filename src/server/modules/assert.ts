@@ -39,13 +39,13 @@ function assertClipboard(session: PlayerSession) {
 }
 
 function assertSelection(session: PlayerSession) {
-    if (!session.selection.isValid()) {
+    if (!session.selection.isValid) {
         throw RawText.translate("commands.generic.wedit:noSelection");
     }
 }
 
 function assertCuboidSelection(session: PlayerSession) {
-    if (!session.selection.isValid() || !session.selection.isCuboid()) {
+    if (!session.selection.isValid || !session.selection.isCuboid()) {
         throw RawText.translate("commands.generic.wedit:noCuboidSelection");
     }
 }

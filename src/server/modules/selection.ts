@@ -28,6 +28,14 @@ export class Selection {
         this.player = player;
     }
 
+    get isValid() {
+        let points = 0;
+        for (const point of this._points) {
+            if (point) points++;
+        }
+        return points != 0 && points != 1;
+    }
+
     /**
      * Sets either the first or second selection point of a selection.
      * @param index The first or second selection point
@@ -84,7 +92,7 @@ export class Selection {
      * @returns
      */
     public getShape(): [Shape, Vector] {
-        if (!this.isValid()) return null;
+        if (!this.isValid) return null;
 
         if (this.isCuboid()) {
             const [start, end] = regionBounds(this._points);
@@ -106,7 +114,7 @@ export class Selection {
      * @return The blocks within the current selection
      */
     public *getBlocks(options?: shapeGenOptions) {
-        if (!this.isValid()) return;
+        if (!this.isValid) return;
 
         const [shape, loc] = this.getShape();
         yield* shape.getBlocks(loc, options);
@@ -117,7 +125,7 @@ export class Selection {
      * @returns
      */
     public getBlockCount() {
-        if (!this.isValid()) return 0;
+        if (!this.isValid) return 0;
 
         if (this.isCuboid()) {
             return regionVolume(this._points[0], this._points[1]);
@@ -147,20 +155,12 @@ export class Selection {
         return this._mode == "cuboid" || this._mode == "extend";
     }
 
-    public isValid() {
-        let points = 0;
-        for (const point of this._points) {
-            if (point) points++;
-        }
-        return points != 0 && points != 1;
-    }
-
     public draw(): void {
         if (!this._visible) return;
         if (system.currentTick > this.lastDraw + drawFrequency) {
             if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
                 this.drawParticles.length = 0;
-                if (this.isValid()) {
+                if (this.isValid) {
                     const [shape, loc] = this.getShape();
                     this.drawParticles.push(...shape.getOutline(loc));
                 }
