@@ -45,7 +45,12 @@ def generateScript(isServer):
     result += "export default {\n"
     for name, data in settings.items():
         if isServer:
-            result += f'  {name}: variables.get("{name}"),\n'
+            variable = data["default"]
+            if type(data["default"]) is bool:
+                variable = "true" if data["default"] else "false"
+            elif type(data["default"]) is str:
+                variable = f'"{data["default"]}"'
+            result += f'  {name}: variables.get("{name}") || {variable},\n'
         else:
             value = data["default"]
 

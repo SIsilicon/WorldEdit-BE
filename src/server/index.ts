@@ -2,12 +2,6 @@ import { Player, world } from "@minecraft/server";
 import { print, printerr } from "./util.js";
 import isWhitelistEnabled from "whitelist.js";
 
-// Check if configuration is properly loaded
-if (!config.commandPrefix) {
-    world.getAllPlayers().forEach((player) => printerr("WorldEdit failed to load configuration!", player, false));
-    throw new Error('Configuration is not properly loaded! If this is a server, "variables.json" is required.');
-}
-
 import { contentLog, Server, configuration } from "@notbeer-api";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "@modules/player_util.js";
