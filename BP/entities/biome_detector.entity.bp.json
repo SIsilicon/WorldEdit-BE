@@ -1023,6 +1023,13 @@
                             "all_of": [{ "test": "has_biome_tag", "value": "cherry_grove" }]
                         },
                         "event": "wedit:cherry_grove"
+                    },
+                    // Pale garden.
+                    {
+                        "filters": {
+                            "all_of": [{ "test": "has_biome_tag", "value": "pale_garden" }]
+                        },
+                        "event": "wedit:pale_garden"
                     }
                 ]
             }
@@ -1116,6 +1123,7 @@
             "wedit:deep_dark": { "set_property": { "wedit:biome": 190 } },
             "wedit:mangrove_swamp": { "set_property": { "wedit:biome": 191 } },
             "wedit:cherry_grove": { "set_property": { "wedit:biome": 192 } },
+            "wedit:pale_garden": { "set_property": { "wedit:biome": 193 } },
 
             "wedit:despawn": { "add": { "component_groups": ["wedit:despawned"] } },
             "wedit:biome_update": {}
