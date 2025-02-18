@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-02-13 00:48\n"
+"PO-Revision-Date: 2025-02-18 07:29\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -68,13 +68,13 @@ msgid "item.wedit:selection_stack"
 msgstr "Stack Selection"
 
 msgid "item.wedit:selection_move"
-msgstr "Move Selection"
+msgstr "Move Selekkction"
 
 msgid "item.wedit:draw_line"
 msgstr "Desenhar uma linha"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr ""
 
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
