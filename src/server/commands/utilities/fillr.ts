@@ -50,7 +50,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             return true;
         });
 
-        if (!blocks.length) return blocks;
+        if (!blocks.size) return blocks;
         const [min, max] = regionBounds(blocks);
         const pattern = (<Pattern>args.get("pattern")).withContext(session, [min, max]);
 
@@ -61,7 +61,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             let i = 0;
             for (const loc of blocks) {
                 pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
-                yield Jobs.setProgress(i++ / blocks.length);
+                yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
@@ -71,5 +71,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
         return blocks;
     });
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.length}`);
+    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
 });

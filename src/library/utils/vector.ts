@@ -283,7 +283,7 @@ export class Vector {
     }
 }
 
-export class VectorSet<T extends Vector3> implements Set<T> {
+export class VectorSet<T extends Vector3 = Vector3> implements Set<T> {
     private map = new Map<string, T>();
 
     get size() {

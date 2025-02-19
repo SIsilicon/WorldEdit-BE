@@ -1,5 +1,5 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, regionSize, Thread, getCurrentThread, iterateChunk } from "@notbeer-api";
+import { Vector, regionVolume, regionSize, Thread, getCurrentThread, iterateChunk, VectorSet } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -103,14 +103,14 @@ export class History {
         return this.historyPoints.get(historyPoint)?.blockChange;
     }
 
-    *addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+    *addUndoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | VectorSet | "any" = "any") {
         // contentLog.debug("adding undo structure");
         const point = this.historyPoints.get(historyPoint);
-        point.blocksChanged += blocks == "any" ? regionVolume(start, end) : blocks.length;
+        point.blocksChanged += blocks == "any" ? regionVolume(start, end) : Array.isArray(blocks) ? blocks.length : blocks.size;
         // We test the change limit here,
         if (point.blocksChanged > this.session.changeLimit) throw "commands.generic.wedit:blockLimit";
 
-        const buffer = yield* this.processRegion(historyPoint, start, end, blocks);
+        const buffer = yield* this.processRegion(historyPoint, start, end);
         point.undo.push({
             buffer,
             dimension: this.session.getPlayer().dimension,
@@ -119,11 +119,12 @@ export class History {
         });
     }
 
-    *addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any" = "any") {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    *addRedoStructure(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | VectorSet | "any" = "any") {
         const point = this.historyPoints.get(historyPoint);
         this.assertRecording();
 
-        const buffer = yield* this.processRegion(historyPoint, start, end, blocks);
+        const buffer = yield* this.processRegion(historyPoint, start, end);
         point.redo.push({
             buffer,
             dimension: this.session.getPlayer().dimension,
@@ -243,7 +244,7 @@ export class History {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    private *processRegion(historyPoint: number, start: Vector3, end: Vector3, blocks: Vector3[] | "any") {
+    private *processRegion(historyPoint: number, start: Vector3, end: Vector3) {
         const player = this.session.getPlayer();
         const dim = player.dimension;
         let buffer: RegionBuffer;

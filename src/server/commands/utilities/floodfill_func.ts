@@ -1,6 +1,5 @@
-import { Vector } from "@notbeer-api";
+import { Vector, VectorSet } from "@notbeer-api";
 import { Block, Vector3, VectorXZ } from "@minecraft/server";
-import { locToString } from "../../util.js";
 import { Jobs } from "@modules/jobs.js";
 
 const offsets = [new Vector(-1, 0, 0), new Vector(1, 0, 0), new Vector(0, -1, 0), new Vector(0, 1, 0), new Vector(0, 0, -1), new Vector(0, 0, 1)];
@@ -40,20 +39,19 @@ export interface FloodFillContext {
     nextBlock: Block;
 }
 
-export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, spread: (ctx: T, dir: Vector3) => boolean): Generator<void | Promise<unknown>, Vector[]> {
+export function* floodFill<T extends FloodFillContext>(start: Vector3, size: number, spread: (ctx: T, dir: Vector3) => boolean): Generator<void | Promise<unknown>, VectorSet<Vector>> {
     const initialCtx = {
         pos: Vector.ZERO,
         worldPos: Vector.from(start),
         nextBlock: yield* Jobs.loadBlock(start),
     } as T;
 
-    if (!spread({ ...initialCtx }, Vector.ZERO)) return [];
+    if (!spread({ ...initialCtx }, Vector.ZERO)) return new VectorSet<Vector>();
 
     const dimension = Jobs.getRunner().dimension;
     const chunks: Map<string, [Vector, T][]> = new Map();
     const queue: [Vector, T][] = [[Vector.from(start), initialCtx]];
-    const resultSet: Set<string> = new Set();
-    const result: Vector[] = [];
+    const result = new VectorSet<Vector>();
     let currentChunk: string = getChunkKey(start);
 
     function addNeighbor(block: Vector, offset: Vector, ctx: T) {
@@ -73,10 +71,8 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
     while (queue.length) {
         const [block, ctx] = queue.shift()!;
 
-        const blockKey = locToString(block);
-        if (!resultSet.has(blockKey) && Vector.sub(block, start).length <= size + 0.5) {
-            resultSet.add(blockKey);
-            result.push(block);
+        if (!result.has(block) && Vector.sub(block, start).length <= size + 0.5) {
+            result.add(block);
             for (const offset of offsets) {
                 const nextBlockLoc = Vector.add(block, offset);
                 const newCtx = { ...ctx, nextBlock: dimension.getBlock(nextBlockLoc) ?? (yield* Jobs.loadBlock(nextBlockLoc)) };

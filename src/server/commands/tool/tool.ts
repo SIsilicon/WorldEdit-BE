@@ -33,6 +33,22 @@ const registerInformation = {
             ],
         },
         {
+            subName: "extrude",
+            permission: "worldedit.tool.extrude",
+            description: "commands.wedit:tool.description.extrude",
+            args: [
+                {
+                    name: "range",
+                    type: "int",
+                    range: [1, null] as [number, null],
+                    default: 1,
+                },
+                {
+                    flag: "d",
+                },
+            ],
+        },
+        {
             subName: "selwand",
             permission: "worldedit.setwand",
             description: "commands.wedit:tool.description.selwand",
@@ -103,9 +119,6 @@ const registerInformation = {
     ],
 };
 
-// TODO: Add floodfill tool
-// TODO: Add delete tree tool
-
 function heldItemName(player: Player) {
     const name = Server.player.getHeldItem(player).typeId;
     return name.replace("minecraft:", "");
@@ -115,6 +128,12 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
     assertPermission(builder, registerInformation.usage[1].permission);
     session.bindTool("stacker_wand", null, args.get("range"), args.get("mask"));
     return RawText.translate("commands.wedit:tool.bind.stacker").with(heldItemName(builder));
+};
+
+const extrude_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+    assertPermission(builder, registerInformation.usage[1].permission);
+    session.bindTool("extrude_wand", null, args.get("range"), args.has("d"));
+    return RawText.translate("commands.wedit:tool.bind.extrude").with(heldItemName(builder));
 };
 
 const selwand_command = (session: PlayerSession, builder: Player) => {
@@ -163,6 +182,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has("stacker")) {
         msg = stack_command(session, builder, args);
+    } else if (args.has("extrude")) {
+        msg = extrude_command(session, builder, args);
     } else if (args.has("selwand")) {
         msg = selwand_command(session, builder);
     } else if (args.has("navwand")) {

@@ -1,6 +1,7 @@
 import "./picker_tool.js";
 import "./selection_tools.js";
 import "./stacker_tool.js";
+import "./extrude_tool.js";
 import "./navigation_tool.js";
 import "./command_tool.js";
 import "./generation_tools.js";

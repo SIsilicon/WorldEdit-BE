@@ -36,7 +36,7 @@ class FillTool extends Tool {
                 return true;
             });
 
-            if (!blocks.length) return blocks;
+            if (!blocks.size) return blocks;
             const [min, max] = regionBounds(blocks);
             pattern = pattern.withContext(session, [min, max]);
 
@@ -47,7 +47,7 @@ class FillTool extends Tool {
                 let i = 0;
                 for (const loc of blocks) {
                     pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
-                    yield Jobs.setProgress(i++ / blocks.length);
+                    yield Jobs.setProgress(i++ / blocks.size);
                 }
                 yield* history.addRedoStructure(record, min, max, blocks);
                 history.commit(record);

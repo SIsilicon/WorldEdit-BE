@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             return !!ctx.nextBlock.typeId.match(waterMatch);
         });
 
-        if (!blocks.length) return blocks;
+        if (!blocks.size) return blocks;
         const [min, max] = regionBounds(blocks);
 
         const history = session.getHistory();
@@ -51,7 +51,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             let i = 0;
             for (const loc of blocks) {
                 dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setPermutation(water);
-                yield Jobs.setProgress(i++ / blocks.length);
+                yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.addRedoStructure(record, min, max, blocks);
             history.commit(record);
@@ -62,5 +62,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return blocks;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.length}`);
+    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
 });
