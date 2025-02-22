@@ -33,9 +33,9 @@ const registerInformation = {
             ],
         },
         {
-            subName: "extrude",
-            permission: "worldedit.tool.extrude",
-            description: "commands.wedit:tool.description.extrude",
+            subName: "extruder",
+            permission: "worldedit.tool.extruder",
+            description: "commands.wedit:tool.description.extruder",
             args: [
                 {
                     name: "range",
@@ -130,10 +130,10 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
     return RawText.translate("commands.wedit:tool.bind.stacker").with(heldItemName(builder));
 };
 
-const extrude_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
+const extruder_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.bindTool("extrude_wand", null, args.get("range"), args.has("d"));
-    return RawText.translate("commands.wedit:tool.bind.extrude").with(heldItemName(builder));
+    session.bindTool("extruder_wand", null, args.get("range"), args.has("d"));
+    return RawText.translate("commands.wedit:tool.bind.extruder").with(heldItemName(builder));
 };
 
 const selwand_command = (session: PlayerSession, builder: Player) => {
@@ -182,8 +182,8 @@ registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has("stacker")) {
         msg = stack_command(session, builder, args);
-    } else if (args.has("extrude")) {
-        msg = extrude_command(session, builder, args);
+    } else if (args.has("extruder")) {
+        msg = extruder_command(session, builder, args);
     } else if (args.has("selwand")) {
         msg = selwand_command(session, builder);
     } else if (args.has("navwand")) {

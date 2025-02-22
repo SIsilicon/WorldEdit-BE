@@ -12,7 +12,7 @@ class ExtrudeTool extends Tool {
     public range: number;
     public digging = false;
 
-    permission = "worldedit.region.extrude";
+    permission = "worldedit.region.extruder";
     useOn = function* (self: ExtrudeTool, player: Player, session: PlayerSession, loc: Vector) {
         const dim = player.dimension;
         const extrudeDir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
@@ -78,7 +78,7 @@ class ExtrudeTool extends Tool {
     }
 }
 
-Tools.register(ExtrudeTool, "extrude_wand");
+Tools.register(ExtrudeTool, "extruder_wand");
 
 function isAirOrFluid(block: Block) {
     const type = block.typeId;
