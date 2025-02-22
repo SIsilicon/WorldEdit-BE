@@ -36,8 +36,8 @@ export function regionBounds(blocks: Iterable<Vector3>): [Vector, Vector] {
 }
 
 export function regionTransformedBounds(start: Vector3, end: Vector3, transform: Matrix) {
-    start = Vector.add(start, [0.5, 0.5, 0.5]);
-    end = Vector.add(end, [0.5, 0.5, 0.5]);
+    start = Vector.add(start, [0, 0, 0]);
+    end = Vector.add(end, [1, 1, 1]);
     const corners = [
         new Vector(start.x, start.y, start.z),
         new Vector(start.x, start.y, end.z),
