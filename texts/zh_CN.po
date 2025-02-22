@@ -11,13 +11,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2025-02-13 23:48\n"
 
 msgid "pack.description"
-msgstr "这是一个正在开发中的 Java 版 WorldEdit 模组在基岩版上的移植！此附加包的作者是 SIsilicon (§l§b@iSiliconS§r)。"
+msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
-msgstr "§c创世神的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
+msgstr ";replace §c创世神的脚本已停止！使用 §r/reload§c 重新加载§c 或重启世界。§r"
 
 msgid "item.wedit:copy_button"
 msgstr "复制"
@@ -72,6 +72,9 @@ msgstr "移动选区"
 
 msgid "item.wedit:draw_line"
 msgstr "填充选区对角线"
+
+msgid "item.wedit:draw_curve"
+msgstr "绘制曲线"
 
 msgid "item.wedit:draw_sphere"
 msgstr "绘制球体"
@@ -183,6 +186,9 @@ msgstr "选择绘制形状"
 
 msgid "worldedit.genMode.line"
 msgstr "线状"
+
+msgid "worldedit.genMode.curve"
+msgstr "曲线"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球状"
@@ -746,13 +752,22 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "创建一个要在图案中使用的渐变。"
+msgstr "管理您的渐变样式。"
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "在图案中创建一个渐变样式。"
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "删除一个渐变样式。"
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "列出已创建的渐变样式。"
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "渐变样式%s不存在。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "您还没有创建过渐变样式"
 
 msgid "commands.wedit:green.description"
 msgstr "将附近的泥土变成草地"
@@ -987,6 +1002,9 @@ msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "超级镐子处于: 范围破坏模式"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "切换为超级镐子"
