@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-02-18 07:29\n"
+"PO-Revision-Date: 2025-03-08 00:13\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -77,13 +77,13 @@ msgid "item.wedit:draw_curve"
 msgstr ""
 
 msgid "item.wedit:draw_sphere"
-msgstr "Draw Sphere"
+msgstr "Desenhar Esfera"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Desenhar Cilindro³l"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Desenhar Pirâmide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Você precisa especificar um bloco para seleciona-ló!"
