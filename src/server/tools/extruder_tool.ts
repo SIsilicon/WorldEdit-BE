@@ -38,7 +38,10 @@ class ExtrudeTool extends Tool {
                     }
                     // Include blocks infront of the extrusion
                     [start, end] = regionBounds(blocks);
-                    tempExtrude = yield* RegionBuffer.createFromWorld(start, end, dim, { recordBlocksWithData: true, modifier: (block) => blocks.has(block) });
+                    tempExtrude = yield* RegionBuffer.createFromWorld(start, end, dim, {
+                        recordBlocksWithData: true,
+                        modifier: (block) => blocks.has(block) && !block.offset(extrudeDir.mul(-1))!.matches("air"),
+                    });
                     [start, end] = regionOffset(start, end, extrudeDir.mul(-1));
                 } else {
                     tempExtrude = yield* RegionBuffer.createFromWorld(start, end, dim, { recordBlocksWithData: true, modifier: (block) => blocks.has(block) });
