@@ -245,7 +245,11 @@ export class RegionBuffer {
     private volume = 0;
     private refCount = 1;
 
-    static *create(start: Vector3, end: Vector3, func: (loc: Vector3) => Block | BlockPermutation | undefined): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
+    static *create(
+        start: Vector3,
+        end: Vector3,
+        func: (loc: Vector3) => Generator<any, Block | BlockPermutation | undefined> | Block | BlockPermutation | undefined
+    ): Generator<JobFunction | Promise<unknown>, RegionBuffer | undefined> {
         const min = Vector.min(start, end);
         const size = Vector.from(regionSize(start, end));
 
@@ -259,9 +263,10 @@ export class RegionBuffer {
         let i = 0;
         for (const loc of regionIterateBlocks(start, end)) {
             const localLoc = Vector.sub(loc, min);
-            const block = func(localLoc);
+            let block = func(localLoc);
+            if (block && "next" in block) block = yield* block;
 
-            if (block) buffer.getBlock(localLoc).setPermutation(block instanceof BlockPermutation ? block : block.permutation);
+            if (block) buffer.getBlock(localLoc)!.setPermutation(block instanceof BlockPermutation ? block : (<Block>block).permutation);
             if (block instanceof Block && blockRecordable(block)) {
                 const locString = locToString(localLoc);
                 const name = buffer.id + "_block" + locString;
