@@ -117,7 +117,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 const ice = BlockPermutation.resolve("minecraft:ice");
                 for (let block of blocks) {
                     const loc = block.location;
-                    if (!block?.isValid()) block = yield* Jobs.loadBlock(loc);
+                    if (!block?.isValid) block = yield* Jobs.loadBlock(loc);
 
                     if (block.typeId.match(waterMatch)) {
                         block.setPermutation(ice);

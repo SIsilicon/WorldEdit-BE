@@ -62,7 +62,7 @@ export function canPlaceBlock(loc: Vector3, dim: Dimension) {
 }
 
 export function blockHasNBTData(block: Block) {
-    const components: `${BlockComponentTypes}`[] = ["minecraft:inventory", "minecraft:sign", "minecraft:piston", "minecraft:record_player", "minecraft:fluidContainer"];
+    const components: `${BlockComponentTypes}`[] = ["minecraft:inventory", "minecraft:sign", "minecraft:piston", "minecraft:record_player", "minecraft:fluid_container"];
     const nbt_blocks = [
         "minecraft:bee_nest",
         "minecraft:beehive",

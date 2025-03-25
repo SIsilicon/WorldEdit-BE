@@ -10,7 +10,6 @@
         "sourceMap": false,
         "outDir": "./BP/scripts",
         "allowJs": true,
-        
         "baseUrl": "./src",
         "paths": {
             "@modules/*": ["server/modules/*"],

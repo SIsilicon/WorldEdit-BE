@@ -3,7 +3,6 @@ import {
     ExplosionBeforeEvent,
     BlockExplodeAfterEvent,
     ItemUseBeforeEvent,
-    ItemUseOnBeforeEvent,
     ChatSendAfterEvent,
     Player,
     Dimension,
@@ -15,7 +14,8 @@ import {
     PistonActivateAfterEvent,
     WeatherChangeAfterEvent,
     PlayerLeaveAfterEvent,
-    WorldInitializeAfterEvent,
+    PlayerInteractWithBlockBeforeEvent,
+    WorldLoadAfterEvent,
 } from "@minecraft/server";
 import { registerInformation } from "./classes/CommandBuilder";
 
@@ -25,7 +25,7 @@ export interface EventList {
     blockExplode: [BlockExplodeAfterEvent];
     messageCreate: [ChatSendAfterEvent];
     itemUseBefore: [ItemUseBeforeEvent];
-    itemUseOnBefore: [ItemUseOnBeforeEvent];
+    itemUseOnBefore: [PlayerInteractWithBlockBeforeEvent];
     blockBreak: [PlayerBreakBlockBeforeEvent];
     blockHit: [EntityHitBlockAfterEvent];
     tick: [TickEvent];
@@ -40,7 +40,7 @@ export interface EventList {
     ready: [ready];
     customCommand: [customCommand];
     playerChangeDimension: [playerChangeDimension];
-    worldInitialize: [WorldInitializeAfterEvent];
+    worldInitialize: [WorldLoadAfterEvent];
 }
 
 interface TickEvent {

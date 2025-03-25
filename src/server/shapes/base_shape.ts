@@ -245,7 +245,7 @@ export abstract class Shape {
                 yield Jobs.setProgress(progress / blocksAffected);
                 if (Array.isArray(volume)) {
                     for (let block of volume) {
-                        if (!block.isValid() && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
+                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
                         if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
                         progress++;
                     }

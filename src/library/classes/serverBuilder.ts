@@ -47,8 +47,7 @@ export class ServerBuilder extends EventEmitter {
             if (this.flushingCommands) {
                 throw "queue";
             }
-            const promise = (target ?? world.getDimension("overworld"))
-                .runCommandAsync(command)
+            const promise = Promise.resolve((target ?? world.getDimension("overworld")).runCommand(command))
                 .then((result) => {
                     return { error: false, ...result };
                 })

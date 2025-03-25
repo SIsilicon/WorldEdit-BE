@@ -95,9 +95,9 @@ class ServerBuild extends ServerBuilder {
         beforeEvents.itemUse.subscribe((data) => this.emit("itemUseBefore", data));
 
         /**
-         * Emit to 'itemUseBeforeOm' event listener
+         * Emit to 'itemUseBeforeOn' event listener
          */
-        beforeEvents.itemUseOn.subscribe((data) => this.emit("itemUseOnBefore", data));
+        beforeEvents.playerInteractWithBlock.subscribe((data) => this.emit("itemUseOnBefore", data));
 
         /**
          * Emit to 'messageCreate' event listener
@@ -126,7 +126,7 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'worldInitialize' event listener
          */
-        afterEvents.worldInitialize.subscribe((data) => this.emit("worldInitialize", data));
+        afterEvents.worldLoad.subscribe((data) => this.emit("worldInitialize", data));
         /**
          * Emit to 'playerChangeDimension' event listener
          */
