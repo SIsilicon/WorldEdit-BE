@@ -1,7 +1,7 @@
 import { world, system, PlayerSpawnAfterEvent, WatchdogTerminateReason } from "@minecraft/server";
 import { shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
-import { contentLog, RawText } from "./utils/index.js";
+import { RawText } from "./utils/index.js";
 
 // eslint-disable-next-line prefer-const
 let _server: ServerBuild;
@@ -95,9 +95,9 @@ class ServerBuild extends ServerBuilder {
         beforeEvents.itemUse.subscribe((data) => this.emit("itemUseBefore", data));
 
         /**
-         * Emit to 'itemUseBeforeOm' event listener
+         * Emit to 'itemUseBeforeOn' event listener
          */
-        beforeEvents.itemUseOn.subscribe((data) => this.emit("itemUseOnBefore", data));
+        beforeEvents.playerInteractWithBlock.subscribe((data) => this.emit("itemUseOnBefore", data));
 
         /**
          * Emit to 'messageCreate' event listener
@@ -112,10 +112,6 @@ class ServerBuild extends ServerBuilder {
          */
         afterEvents.weatherChange.subscribe((data) => this.emit("weatherChange", data));
         /**
-         * Emit to 'entityCreate' event listener
-         */
-        afterEvents.entitySpawn.subscribe((data) => this.emit("entityCreate", data));
-        /**
          * Emit to 'blockBreak' event listener
          */
         beforeEvents.playerBreakBlock.subscribe((data) => this.emit("blockBreak", data));
@@ -126,28 +122,24 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'worldInitialize' event listener
          */
-        afterEvents.worldLoad.subscribe((data) => this.emit("worldLoad", data));
+        afterEvents.worldLoad.subscribe(() => this.emit("ready", { loadTime: tickCount }));
         /**
          * Emit to 'playerChangeDimension' event listener
          */
         afterEvents.playerDimensionChange.subscribe((data) => this.emit("playerChangeDimension", { player: data.player, dimension: data.player.dimension }));
 
-        let worldLoaded = false;
+        /**
+         * Emit to 'entityCreate' event listener
+         */
+        afterEvents.entitySpawn.subscribe((data) => {
+            if (!data.entity) return;
+            this.emit("entityCreate", data);
+        });
+
         let tickCount = 0;
         let prevTime = Date.now();
         system.runInterval(() => {
             tickCount++;
-            if (!worldLoaded && world.getAllPlayers().length) {
-                /**
-                 * Emit to 'ready' event listener
-                 */
-                try {
-                    this.emit("ready", { loadTime: tickCount });
-                } catch (e) {
-                    contentLog.error(e);
-                }
-                worldLoaded = true;
-            }
 
             this.emit("tick", {
                 currentTick: tickCount,

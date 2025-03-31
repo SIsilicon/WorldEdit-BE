@@ -1,4 +1,4 @@
-import { Server, Vector, iterateChunk, regionIterateBlocks } from "@notbeer-api";
+import { Server, Vector, iterateChunk, regionIterateBlocks, whenReady } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -30,11 +30,15 @@ export enum ErosionType {
     SMOOTH,
 }
 
-const fluids = {
-    "minecraft:air": BlockPermutation.resolve("air"),
-    "minecraft:water": BlockPermutation.resolve("water"),
-    "minecraft:lava": BlockPermutation.resolve("lava"),
-};
+let fluids: { [block: string]: BlockPermutation };
+whenReady(
+    () =>
+        (fluids = {
+            "minecraft:air": BlockPermutation.resolve("air"),
+            "minecraft:water": BlockPermutation.resolve("water"),
+            "minecraft:lava": BlockPermutation.resolve("lava"),
+        })
+);
 
 /**
  * Shapes terrain in various ways

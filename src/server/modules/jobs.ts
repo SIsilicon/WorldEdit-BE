@@ -1,4 +1,4 @@
-import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread, regionCenter, sleep } from "@notbeer-api";
+import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread, regionCenter, sleep, whenReady } from "@notbeer-api";
 import { Player, Dimension, Vector3, Block, system } from "@minecraft/server";
 import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
@@ -34,7 +34,7 @@ class JobHandler {
             this.manageTickingAreaSlots();
             this.printJobs();
         });
-        for (let i = 0; i < 9; i++) removeTickingArea("wedit:ticking_area_" + i);
+        for (let i = 0; i < 9; i++) whenReady(() => removeTickingArea("wedit:ticking_area_" + i));
     }
 
     public *run<T, TReturn>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | (() => Generator<T | JobFunction, TReturn>)) {

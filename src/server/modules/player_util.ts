@@ -136,7 +136,7 @@ class PlayerHandler {
             return true;
         }
 
-        const stasher = player.dimension.spawnEntity("wedit:inventory_stasher", new Vector(player.location.x, getWorldHeightLimits(player.dimension)[1], player.location.z));
+        const stasher = player.dimension.spawnEntity(<any>"wedit:inventory_stasher", new Vector(player.location.x, getWorldHeightLimits(player.dimension)[1], player.location.z));
         stasher.nameTag = "wedit:stasher_for_" + player.name;
 
         const inv = (<EntityInventoryComponent>player.getComponent("inventory")).container;

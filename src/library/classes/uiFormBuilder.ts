@@ -132,13 +132,13 @@ class ModalUIForm<T extends {}> extends UIForm<T> {
             const input = formInputs[id as UIFormName];
 
             if (input.type == "dropdown") {
-                formData.dropdown(resEl(input.name), resEl(input.options), resEl(input.default));
+                formData.dropdown(resEl(input.name), resEl(input.options), { defaultValueIndex: resEl(input.default) });
             } else if (input.type == "slider") {
-                formData.slider(resEl(input.name), resEl(input.min), resEl(input.max), resEl(input.step ?? 1), resEl(input.default));
+                formData.slider(resEl(input.name), resEl(input.min), resEl(input.max), { valueStep: resEl(input.step ?? 1), defaultValue: resEl(input.default) });
             } else if (input.type == "textField") {
-                formData.textField(resEl(input.name), resEl(input.placeholder), resEl(input.default));
+                formData.textField(resEl(input.name), resEl(input.placeholder), { defaultValue: resEl(input.default) });
             } else if (input.type == "toggle") {
-                formData.toggle(resEl(input.name), resEl(input.default));
+                formData.toggle(resEl(input.name), { defaultValue: resEl(input.default) });
             }
             this.inputNames.push(id);
         }

@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { system } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
+
+let ready = false;
+world.afterEvents.worldLoad.subscribe(() => (ready = true));
 
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
@@ -70,6 +73,21 @@ function sleep(ticks: number) {
     return new Promise<void>((resolve) => setTickTimeout(resolve, ticks));
 }
 
+function whenReady<T>(callback: () => T) {
+    if (ready) {
+        const result = callback();
+        return Promise.resolve(result);
+    }
+
+    return new Promise<T>((resolve) => {
+        const tickInterval = setTickInterval(() => {
+            if (!ready) return;
+            resolve(callback());
+            clearTickInterval(tickInterval);
+        });
+    });
+}
+
 function shutdownTimers() {
     tickTimeoutMap.clear();
     tickIntervalMap.clear();
@@ -109,4 +127,4 @@ function startTime() {
     return timer;
 }
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, Timer };
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, whenReady, Timer };

@@ -1,5 +1,5 @@
 import { Vector3, BlockPermutation, Player, Dimension, BlockVolumeBase } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector, Server } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, Vector, Server, whenReady } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
@@ -36,11 +36,12 @@ export class Pattern implements CustomArgType {
     private context = {} as patternContext;
 
     constructor(pattern = "") {
-        if (pattern) {
+        if (!pattern) return;
+        whenReady(() => {
             const obj = Pattern.parseArgs([pattern]).result;
             this.block = obj.block;
             this.stringObj = obj.stringObj;
-        }
+        });
     }
 
     withContext(session: PlayerSession, range: [Vector3, Vector3]) {

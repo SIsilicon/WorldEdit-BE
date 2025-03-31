@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Entity, World, world } from "@minecraft/server";
+import { Entity, ScoreboardObjective, World, world } from "@minecraft/server";
 import { Database } from "../@types/classes/databaseBuilder";
-import { contentLog, Server } from "@notbeer-api";
+import { contentLog, Server, whenReady } from "@notbeer-api";
 
-const objective = world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", "");
+let objective: ScoreboardObjective;
+whenReady(() => world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", ""));
+
 const databases: { [k: string]: DatabaseImpl<any> } = {};
 const parsers: ((key: string, value: any, databaseName: string) => any)[] = [];
 

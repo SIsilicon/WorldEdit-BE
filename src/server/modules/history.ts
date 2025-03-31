@@ -1,5 +1,5 @@
 import { Vector3, Dimension, BlockPermutation, Block } from "@minecraft/server";
-import { Vector, regionVolume, regionSize, Thread, getCurrentThread, iterateChunk, VectorSet } from "@notbeer-api";
+import { Vector, regionVolume, regionSize, Thread, getCurrentThread, iterateChunk, VectorSet, whenReady } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -32,7 +32,8 @@ type historyPoint = {
     thread: Thread;
 };
 
-const air = BlockPermutation.resolve("minecraft:air");
+let air: BlockPermutation;
+whenReady(() => (air = BlockPermutation.resolve("minecraft:air")));
 
 let historyPointId = 0;
 

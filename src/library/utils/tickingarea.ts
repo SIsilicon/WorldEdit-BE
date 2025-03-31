@@ -1,7 +1,7 @@
 import { Server, Vector } from "@notbeer-api";
 import { Vector3, Dimension, world } from "@minecraft/server";
 
-const DIMENSIONS = [world.getDimension("overworld"), world.getDimension("nether"), world.getDimension("the_end")];
+const DIMENSIONS = ["overworld", "nether", "the_end"];
 
 /**
  * Sets a ticking area in a cuboid region to load chunks. Note that chunks don't get loaded immediately.
@@ -27,6 +27,6 @@ export function removeTickingArea(name: string, dimension?: Dimension) {
     if (dimension) {
         return !!Server.runCommand(`tickingarea remove ${name}`, dimension).successCount;
     } else {
-        DIMENSIONS.forEach((d) => Server.runCommand(`tickingarea remove ${name}`, d));
+        DIMENSIONS.forEach((d) => Server.runCommand(`tickingarea remove ${name}`, world.getDimension(d)));
     }
 }

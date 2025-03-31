@@ -1,5 +1,5 @@
-import { Dimension, Vector3, world, Entity } from "@minecraft/server";
-import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector } from "@notbeer-api";
+import { Dimension, Vector3, world, Entity, ScoreboardObjective } from "@minecraft/server";
+import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector, whenReady } from "@notbeer-api";
 import { EventEmitter } from "library/classes/eventEmitter.js";
 import { locToString, wrap } from "../util.js";
 import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
@@ -136,7 +136,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         return new Promise<number>((resolve, reject) => {
             try {
                 if (!this.entityAvailable()) {
-                    this.entity = dim.spawnEntity("wedit:biome_detector", loc);
+                    this.entity = dim.spawnEntity(<any>"wedit:biome_detector", loc);
                     // contentLog.debug("entity created:", this.id);
                 } else {
                     this.entity.nameTag = "wedit:biome_update";
@@ -214,7 +214,8 @@ const detectorPool = new ResourcePool({
     idleTimeout: 200,
 });
 
-const biomeScores = world.scoreboard.getObjective("wedit:biome") ?? world.scoreboard.addObjective("wedit:biome", "");
+let biomeScores: ScoreboardObjective;
+whenReady(() => (biomeScores = world.scoreboard.getObjective("wedit:biome") ?? world.scoreboard.addObjective("wedit:biome", "")));
 
 async function getBiomeId(dim: Dimension, loc: Vector3) {
     const detector = await detectorPool.allocate();

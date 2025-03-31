@@ -1,5 +1,5 @@
 import { Vector3, BlockPermutation, BlockFilter, Direction } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, Vector, whenReady } from "@notbeer-api";
 import { Token } from "./extern/tokenizr.js";
 import {
     tokenize,
@@ -29,11 +29,12 @@ export class Mask implements CustomArgType {
     private context = {} as maskContext;
 
     constructor(mask = "") {
-        if (mask) {
+        if (!mask) return;
+        whenReady(() => {
             const obj = Mask.parseArgs([mask]).result;
             this.condition = obj.condition;
             this.stringObj = obj.stringObj;
-        }
+        });
     }
 
     withContext(session: PlayerSession) {
