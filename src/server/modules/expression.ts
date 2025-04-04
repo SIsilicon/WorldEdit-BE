@@ -42,6 +42,10 @@ export class Expression implements CustomArgType {
         return `[expression: ${this.stringObj}]`;
     }
 
+    toJSON() {
+        return this.stringObj;
+    }
+
     static parseArgs(args: Array<string>, index = 0) {
         const input = args[index];
         if (!input) {
