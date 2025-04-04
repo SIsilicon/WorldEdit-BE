@@ -6,7 +6,7 @@ import { Selection } from "@modules/selection.js";
 import { BlockPermutation, Vector3 } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
-import { BlockChanges } from "@modules/history.js";
+import { BlockChanges, recordBlockChanges } from "@modules/block_changes.js";
 
 class ErosionPreset {
     readonly erodeThreshold: number;
@@ -82,14 +82,14 @@ export class ErosionBrush extends Brush {
 
     public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
         const range: [Vector, Vector] = [loc.sub(this.radius), loc.add(this.radius)];
-        const [minY, maxY] = getWorldHeightLimits(session.getPlayer().dimension);
+        const [minY, maxY] = getWorldHeightLimits(session.player.dimension);
         const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
         range[0].y = Math.max(minY, range[0].y);
         range[1].y = Math.min(maxY, range[1].y);
 
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
-        const blockChanges = history.collectBlockChanges(record);
+        const blockChanges = recordBlockChanges(session, record);
         try {
             const locations: Vector3[] = [];
             const centre = Vector.add(...range).mul(0.5);
@@ -106,7 +106,7 @@ export class ErosionBrush extends Brush {
             }
 
             yield* blockChanges.flush();
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

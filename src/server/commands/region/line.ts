@@ -44,19 +44,18 @@ registerCommand(registerInformation, function* (session, builder, args) {
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
         try {
-            yield* history.addUndoStructure(record, start, end);
+            yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of balloonPath(plotLine(Vector.from(pos1), Vector.from(pos2)), thickness)) {
                 const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
-            history.recordSelection(record, session);
-            yield* history.addRedoStructure(record, start, end);
-            history.commit(record);
+            history.trackSelection(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

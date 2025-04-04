@@ -167,7 +167,7 @@ export abstract class Shape {
      */
     public *generate(loc: Vector, pattern: Pattern, mask: Mask | undefined, session: PlayerSession, options?: shapeGenOptions): Generator<JobFunction | Promise<unknown>, number> {
         const [min, max] = this.getRegion(loc);
-        const player = session.getPlayer();
+        const player = session.player;
         const dimension = player.dimension;
 
         const [minY, maxY] = getWorldHeightLimits(dimension);
@@ -181,8 +181,8 @@ export abstract class Shape {
         let blocksAffected = 0;
         const volumes: (Block[] | BlockVolumeBase)[] = [];
 
-        const history = options?.recordHistory ?? true ? session.getHistory() : undefined;
-        const record = history?.record(this.usedInBrush);
+        const history = options?.recordHistory ?? true ? session.history : undefined;
+        const record = history?.record();
 
         if (!canGenerate) {
             history?.commit(record);
@@ -239,7 +239,7 @@ export abstract class Shape {
 
             progress = 0;
             yield Jobs.nextStep("Generating blocks...");
-            if (history) yield* history.addUndoStructure(record, min, max);
+            if (history) yield* history.trackRegion(record, min, max);
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
             for (const volume of volumes) {
                 yield Jobs.setProgress(progress / blocksAffected);
@@ -255,9 +255,8 @@ export abstract class Shape {
                     progress += volume.getCapacity();
                 }
             }
-            if (history) yield* history.addRedoStructure(record, min, max);
 
-            history?.commit(record);
+            if (history) yield* history.commit(record);
             return count;
         } catch (e) {
             history?.cancel(record);

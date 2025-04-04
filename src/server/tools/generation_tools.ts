@@ -84,21 +84,18 @@ class DrawLineTool extends GeneratorTool {
         const pattern = session.globalPattern.withContext(session, [start, end]);
         const mask = session.globalMask.withContext(session);
 
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
         let count: number;
         try {
-            yield* history.addUndoStructure(record, start, end);
+            yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of plotLine(pos1, pos2)) {
                 const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
-
-            history.recordSelection(record, session);
-            yield* history.addRedoStructure(record, start, end);
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;
@@ -155,7 +152,7 @@ class DrawCurveTool extends GeneratorTool {
 
         const dim = player.dimension;
 
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
         let count: number;
         try {
@@ -165,16 +162,14 @@ class DrawCurveTool extends GeneratorTool {
             const pattern = session.globalPattern.withContext(session, [start, end]);
             const mask = session.globalMask.withContext(session);
 
-            yield* history.addUndoStructure(record, start, end);
+            yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of blocks) {
                 const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
-            history.recordSelection(record, session);
-            yield* history.addRedoStructure(record, start, end);
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

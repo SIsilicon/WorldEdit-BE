@@ -64,7 +64,7 @@ export class StructureBrush extends Brush {
     }
 
     public *apply(loc: Vector, session: PlayerSession) {
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
         try {
             const struct = this.structs[this.structIdx];
@@ -86,10 +86,9 @@ export class StructureBrush extends Brush {
                 [start, end] = struct.getBounds(center, options);
             }
 
-            yield* history.addUndoStructure(record, start, end);
-            yield* struct.load(center, session.getPlayer().dimension, options);
-            yield* history.addRedoStructure(record, start, end);
-            history.commit(record);
+            yield* history.trackRegion(record, start, end);
+            yield* struct.load(center, session.player.dimension, options);
+            yield* history.commit(record);
         } catch {
             history.cancel(record);
         }

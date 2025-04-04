@@ -1,7 +1,7 @@
 import { Player, system, Vector3 } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog, Databases } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
-import { History } from "@modules/history.js";
+import { createHistoryBufferForSession, History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
@@ -111,30 +111,30 @@ export class PlayerSession {
         scale: Vector.ONE,
     };
 
-    public superPickaxe: superPickaxe = {
+    public readonly superPickaxe: superPickaxe = {
         enabled: false,
         mode: "single",
         range: 0,
     };
 
-    public selection: Selection;
+    public readonly player: Player;
+    public readonly history: History;
+    public readonly selection: Selection;
 
-    private player: Player;
-    private playerId: string;
-    private history: History;
-    private regions = new Map<string, RegionBuffer>();
-    private gradients: Database<gradients>;
+    private readonly playerId: string;
+    private readonly regions = new Map<string, RegionBuffer>();
+    private readonly gradients: Database<gradients>;
+
     private placementMode: "player" | "selection" = "player";
-
-    private _drawOutlines: boolean | "local";
 
     constructor(player: Player) {
         this.player = player;
         this.playerId = player.id;
-        this.history = new History(this);
-        this.selection = new Selection(player);
-        this.drawOutlines = config.drawOutlines;
         this.gradients = Databases.load<gradients>("gradients", player);
+        this.selection = new Selection(player);
+        this.history = createHistoryBufferForSession(this);
+
+        this.selection.visible = config.drawOutlines;
 
         if (!this.getTools().length) {
             this.bindTool("selection_wand", config.wandItem);
@@ -152,35 +152,11 @@ export class PlayerSession {
     }
 
     public set drawOutlines(val: boolean | "local") {
-        this._drawOutlines = val;
         this.selection.visible = val;
     }
 
     public get drawOutlines() {
-        return this._drawOutlines;
-    }
-
-    /**
-     * @return The player that this session handles
-     */
-    public getPlayer() {
-        return this.player;
-    }
-
-    /**
-     * @return The history handler that this session uses
-     */
-    public getHistory() {
-        return this.history;
-    }
-
-    /**
-     * @internal
-     */
-    reassignPlayer(player: Player) {
-        this.player = player;
-        this.playerId = player.id;
-        this.selection = new Selection(player);
+        return this.selection.visible;
     }
 
     /**
@@ -212,9 +188,7 @@ export class PlayerSession {
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public bindTool(tool: string, item: string | null, ...args: any[]) {
-        if (!item) {
-            item = Server.player.getHeldItem(this.player)?.typeId;
-        }
+        if (!item) item = Server.player.getHeldItem(this.player)?.typeId;
         return Tools.bind(tool, item, this.playerId, ...args);
     }
 
@@ -224,9 +198,7 @@ export class PlayerSession {
      * @param property The name of the tool's property
      */
     public hasToolProperty(item: string | null, property: string) {
-        if (!item) {
-            item = Server.player.getHeldItem(this.player)?.typeId;
-        }
+        if (!item) item = Server.player.getHeldItem(this.player)?.typeId;
         return Tools.hasProperty(item, this.playerId, property);
     }
 
@@ -238,9 +210,7 @@ export class PlayerSession {
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public setToolProperty(item: string | null, property: string, value: any) {
-        if (!item) {
-            item = Server.player.getHeldItem(this.player)?.typeId;
-        }
+        if (!item) item = Server.player.getHeldItem(this.player)?.typeId;
         return Tools.setProperty(item, this.playerId, property, value);
     }
 
@@ -249,9 +219,7 @@ export class PlayerSession {
      * @returns Whether the session has a tool binded to the player's hand.
      */
     public hasTool(item: string | null) {
-        if (!item) {
-            item = Server.player.getHeldItem(this.player)?.typeId;
-        }
+        if (!item) item = Server.player.getHeldItem(this.player)?.typeId;
         return Tools.hasBinding(item, this.playerId);
     }
 
@@ -260,9 +228,7 @@ export class PlayerSession {
      * Unbinds a tool from this session's player's hand.
      */
     public unbindTool(item: string | null) {
-        if (!item) {
-            item = Server.player.getHeldItem(this.player)?.typeId;
-        }
+        if (!item) item = Server.player.getHeldItem(this.player)?.typeId;
         return Tools.unbind(item, this.playerId);
     }
 
@@ -278,9 +244,7 @@ export class PlayerSession {
      * Triggers the hotbar setting menu to appear.
      */
     public enterSettings() {
-        Server.uiForms.show<ConfigContext>("$configMenu", this.player, {
-            session: this,
-        });
+        Server.uiForms.show<ConfigContext>("$configMenu", this.player, { session: this });
         // this.settingsHotbar = new SettingsHotbar(this);
     }
 
@@ -321,8 +285,7 @@ export class PlayerSession {
     delete() {
         for (const region of this.regions.values()) region.deref();
         this.regions.clear();
-        this.history.delete();
-        this.history = null;
+        this.history.clear();
     }
 
     onTick() {
@@ -337,11 +300,10 @@ export function getSession(player: Player): PlayerSession {
         let session: PlayerSession;
         if (pendingDeletion.has(id)) {
             session = pendingDeletion.get(id)[1];
-            session.reassignPlayer(player);
             pendingDeletion.delete(id);
         }
         playerSessions.set(id, session ?? new PlayerSession(player));
-        contentLog.debug(playerSessions.get(id)?.getPlayer()?.name + ` (${id})`);
+        contentLog.debug(playerSessions.get(id)?.player?.name + ` (${id})`);
         contentLog.debug(`new Session?: ${!session}`);
     }
     return playerSessions.get(id);

@@ -18,13 +18,13 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const history = session.getHistory();
+    const history = session.history;
     assertHistoryNotRecording(history);
     let i: number;
     yield* Jobs.run(session, 1, function* () {
         const times = args.get("times") as number;
         for (i = 0; i < times; i++) {
-            if (yield* history.redo(session)) break;
+            if (yield* history.redo()) break;
         }
     });
     return RawText.translate(i == 0 ? "commands.wedit:redo.none" : "commands.wedit:redo.explain").with(`${i}`);

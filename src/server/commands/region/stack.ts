@@ -68,27 +68,25 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     const stackRegion = regionBounds(points);
 
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     yield* Jobs.run(session, loads.length + 1, function* () {
         let tempStack: RegionBuffer;
         try {
             tempStack = yield* copy(session, args, false);
-            yield* history.addUndoStructure(record, ...stackRegion, "any");
+            yield* history.trackRegion(record, ...stackRegion);
             for (const load of loads) {
                 yield Jobs.nextStep("Pasting blocks...");
                 yield* tempStack.load(load[0], dim);
                 count += regionVolume(load[0], load[1]);
             }
-            yield* history.addRedoStructure(record, ...stackRegion, "any");
 
             if (args.has("s")) {
-                history.recordSelection(record, session);
+                history.trackSelection(record);
                 session.selection.set(0, loads[loads.length - 1][0]);
                 session.selection.set(1, loads[loads.length - 1][1]);
-                history.recordSelection(record, session);
             }
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

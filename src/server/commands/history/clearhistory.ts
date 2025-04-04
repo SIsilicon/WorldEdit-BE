@@ -9,7 +9,7 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function (session) {
-    const history = session.getHistory();
+    const history = session.history;
     assertHistoryNotRecording(history);
     history.clear();
     return RawText.translate("commands.wedit:clearhistory.explain");

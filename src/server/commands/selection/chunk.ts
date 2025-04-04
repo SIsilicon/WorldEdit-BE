@@ -46,7 +46,7 @@ function toChunk(loc: Vector3) {
 }
 
 function setSelection(session: PlayerSession, chunks: [Vector3, Vector3], useHeightLimits: boolean) {
-    const heights: [number, number] = useHeightLimits ? getWorldHeightLimits(session.getPlayer().dimension) : [chunks[0].y * 16, chunks[1].y * 16 + 15];
+    const heights: [number, number] = useHeightLimits ? getWorldHeightLimits(session.player.dimension) : [chunks[0].y * 16, chunks[1].y * 16 + 15];
     session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
     session.selection.set(0, new Vector(chunks[0].x * 16, heights[0], chunks[0].z * 16));
     session.selection.set(1, new Vector(chunks[1].x * 16 + 15, heights[1], chunks[1].z * 16 + 15));

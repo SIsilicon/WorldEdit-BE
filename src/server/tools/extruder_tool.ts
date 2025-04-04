@@ -25,7 +25,7 @@ class ExtrudeTool extends Tool {
 
             let [start, end] = regionBounds(blocks);
 
-            const history = session.getHistory();
+            const history = session.history;
             const record = history.record();
             let tempExtrude: RegionBuffer;
             try {
@@ -48,10 +48,9 @@ class ExtrudeTool extends Tool {
                     [start, end] = regionOffset(start, end, extrudeDir);
                 }
 
-                yield* history.addUndoStructure(record, start, end, "any");
+                yield* history.trackRegion(record, start, end);
                 yield* tempExtrude.load(start, dim);
-                yield* history.addRedoStructure(record, start, end, "any");
-                history.commit(record);
+                yield* history.commit(record);
             } catch (e) {
                 history.cancel(record);
                 throw e;

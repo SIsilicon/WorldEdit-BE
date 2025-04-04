@@ -42,7 +42,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         const blocks: Block[] = [];
         const blockLocs: Vector3[] = [];
-        const affectedBlockRange: [Vector3, Vector3] = [null, null];
         const area = (range[1].x - range[0].x + 1) * (range[1].z - range[0].x + 1);
 
         const rayTraceOptions = {
@@ -65,14 +64,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     if (block) {
                         blocks.push(block);
                         blockLocs.push(block.location);
-
-                        if (affectedBlockRange[0]) {
-                            affectedBlockRange[0] = Vector.from(affectedBlockRange[0]).min(block.location).floor();
-                            affectedBlockRange[1] = Vector.from(affectedBlockRange[1]).max(Vector.add(block.location, Vector.ONE)).floor();
-                        } else {
-                            affectedBlockRange[0] = block.location;
-                            affectedBlockRange[1] = block.location;
-                        }
                     }
                     // eslint-disable-next-line no-empty
                 } catch {}
@@ -86,10 +77,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
         i = 0;
 
         if (blocks.length) {
-            const history = session.getHistory();
+            const history = session.history;
             const record = history.record();
             try {
-                yield* history.addUndoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
+                yield* history.trackRegion(record, blockLocs);
                 const air = BlockPermutation.resolve("minecraft:air");
                 const water = BlockPermutation.resolve("minecraft:water");
                 for (let block of blocks) {
@@ -105,8 +96,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     }
                     yield Jobs.setProgress(i++ / blocks.length);
                 }
-                yield* history.addRedoStructure(record, affectedBlockRange[0], affectedBlockRange[1], blockLocs);
-                history.commit(record);
+                yield* history.commit(record);
             } catch (err) {
                 history.cancel(record);
                 throw err;

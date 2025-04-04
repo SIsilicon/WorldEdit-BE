@@ -68,7 +68,7 @@ export abstract class Tool {
     private lastUse = system.currentTick;
 
     process(session: PlayerSession, action: ToolAction, loc?: Vector): boolean {
-        const player = session.getPlayer();
+        const player = session.player;
         const tick = system.currentTick;
 
         if (!this[action]) return false;

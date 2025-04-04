@@ -51,7 +51,7 @@ export class BlobBrush extends Brush {
     }
 
     public *apply(hit: Vector, session: PlayerSession, mask?: Mask) {
-        const dimension = session.getPlayer().dimension;
+        const dimension = session.player.dimension;
         const [min, max] = [hit.sub(this.radius), hit.add(this.radius)];
         const pattern = this.pattern.withContext(session, [min, max]);
         mask = mask?.withContext(session);
@@ -113,10 +113,10 @@ export class BlobBrush extends Brush {
 
             const rSquared = Math.pow(brushSize + 1, 2);
 
-            const history = session.getHistory();
+            const history = session.history;
             const record = history.record();
             try {
-                yield* history.addUndoStructure(record, min, max);
+                yield* history.trackRegion(record, min, max);
                 for (let x = brushSizeDoubled; x >= 0; x--) {
                     const xSquared = Math.pow(x - brushSize - 1, 2);
                     for (let y = brushSizeDoubled; y >= 0; y--) {
@@ -134,8 +134,7 @@ export class BlobBrush extends Brush {
                         }
                     }
                 }
-                yield* history.addRedoStructure(record, min, max);
-                history.commit(record);
+                yield* history.commit(record);
             } catch (e) {
                 history.cancel(record);
                 throw e;

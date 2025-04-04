@@ -51,7 +51,7 @@ export class Pattern implements CustomArgType {
         pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
         pattern.context.placePosition = session.getPlacementPosition();
         try {
-            const item = Server.player.getHeldItem(session.getPlayer());
+            const item = Server.player.getHeldItem(session.player);
             pattern.context.hand = Server.block.itemToPermutation(item);
         } catch {
             pattern.context.hand = BlockPermutation.resolve("minecraft:air");
@@ -516,7 +516,7 @@ class GradientPattern extends PatternNode {
                 index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
             } else {
                 if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
-                    this.updateDirectionParams(context.cardinal, context.session.getPlayer());
+                    this.updateDirectionParams(context.cardinal, context.session.player);
                     this.ctxCardinal = context.cardinal;
                 }
                 const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));

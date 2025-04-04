@@ -42,10 +42,10 @@ class JobHandler {
         const job = {
             stepCount: steps,
             step: -1,
-            player: session.getPlayer(),
+            player: session.player,
             message: "", // Jobs with no messages are not displayed.
             percent: 0,
-            dimension: session.getPlayer().dimension,
+            dimension: session.player.dimension,
             thread: getCurrentThread(),
         };
         this.jobs.set(jobId, job);
@@ -128,7 +128,7 @@ class JobHandler {
 
     public getJobsForSession(session: PlayerSession) {
         const jobs = [];
-        const player = session.getPlayer();
+        const player = session.player;
         for (const [id, data] of this.jobs.entries()) {
             if (data.player === player) jobs.push(id);
         }
@@ -137,7 +137,7 @@ class JobHandler {
 
     public cancelJob(jobId: JobContext) {
         const job = this.jobs.get(jobId);
-        const history = getSession(job.player).getHistory();
+        const history = getSession(job.player).history;
         for (const point of history.getActivePointsInThread(job.thread)) history.cancel(point);
         job.thread.abort();
         this.finishJob(jobId);

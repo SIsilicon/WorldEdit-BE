@@ -10,7 +10,7 @@ import { JobFunction, Jobs } from "@modules/jobs.js";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* transformSelection(session: PlayerSession, builder: Player, args: Map<string, any>, options: RegionLoadOptions): Generator<JobFunction | Promise<unknown>> {
     assertCuboidSelection(session);
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     let temp: RegionBuffer;
     try {
@@ -26,23 +26,20 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
 
         const [newStart, newEnd] = temp.getBounds(origin, options);
 
-        yield* history.addUndoStructure(record, start, end, "any");
-        yield* history.addUndoStructure(record, newStart, newEnd, "any");
+        yield* history.trackRegion(record, start, end);
+        yield* history.trackRegion(record, newStart, newEnd);
 
         yield* set(session, new Pattern("air"), null, false);
         yield Jobs.nextStep("Transforming blocks...");
         yield* temp.load(origin, dim, options);
 
         if (args.has("s")) {
-            history.recordSelection(record, session);
+            history.trackSelection(record);
             session.selection.set(0, newStart);
             session.selection.set(1, newEnd);
-            history.recordSelection(record, session);
         }
 
-        yield* history.addRedoStructure(record, newStart, newEnd, "any");
-        yield* history.addRedoStructure(record, start, end, "any");
-        history.commit(record);
+        yield* history.commit(record);
     } catch (e) {
         history.cancel(record);
         throw e;

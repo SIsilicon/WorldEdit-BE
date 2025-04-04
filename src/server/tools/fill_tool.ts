@@ -40,17 +40,16 @@ class FillTool extends Tool {
             const [min, max] = regionBounds(blocks);
             pattern = pattern.withContext(session, [min, max]);
 
-            const history = session.getHistory();
+            const history = session.history;
             const record = history.record();
             try {
-                yield* history.addUndoStructure(record, min, max, blocks);
+                yield* history.trackRegion(record, blocks);
                 let i = 0;
                 for (const loc of blocks) {
                     pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
                     yield Jobs.setProgress(i++ / blocks.size);
                 }
-                yield* history.addRedoStructure(record, min, max, blocks);
-                history.commit(record);
+                yield* history.commit(record);
             } catch (err) {
                 history.cancel(record);
                 throw err;

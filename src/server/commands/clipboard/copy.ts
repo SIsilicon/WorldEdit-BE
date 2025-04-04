@@ -35,7 +35,7 @@ const registerInformation = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* copy(session: PlayerSession, args: Map<string, any>, toClipboard: boolean): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
     assertCuboidSelection(session);
-    const player = session.getPlayer();
+    const player = session.player;
     const [start, end] = session.selection.getRange();
 
     const usingItem = args.get("_using_item");

@@ -54,14 +54,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const movedStart = start.offset(dir.x, dir.y, dir.z);
     const movedEnd = end.offset(dir.x, dir.y, dir.z);
 
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     let count: number;
     yield* Jobs.run(session, 4, function* () {
         let temp: RegionBuffer;
         try {
-            yield* history.addUndoStructure(record, start, end, "any");
-            yield* history.addUndoStructure(record, movedStart, movedEnd, "any");
+            yield* history.trackRegion(record, start, end);
+            yield* history.trackRegion(record, movedStart, movedEnd);
             if (!(temp = yield* cut(session, args, args.get("replace"), false))) {
                 throw RawText.translate("commands.generic.wedit:commandFail");
             }
@@ -70,16 +70,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield Jobs.nextStep("Pasting blocks...");
             yield* temp.load(movedStart, dim);
 
-            yield* history.addRedoStructure(record, start, end, "any");
-            yield* history.addRedoStructure(record, movedStart, movedEnd, "any");
-
             if (args.has("s")) {
-                history.recordSelection(record, session);
+                history.trackSelection(record);
                 session.selection.set(0, movedStart);
                 session.selection.set(1, movedEnd);
-                history.recordSelection(record, session);
             }
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

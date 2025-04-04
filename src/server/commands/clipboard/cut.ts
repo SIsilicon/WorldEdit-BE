@@ -44,7 +44,7 @@ const registerInformation = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), toClipboard: boolean): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
     const usingItem = args.get("_using_item");
-    const dim = session.getPlayer().dimension;
+    const dim = session.player.dimension;
     const mask: Mask = usingItem ? session.globalMask : args.has("m") ? args.get("m-mask") : undefined;
     const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const [start, end] = session.selection.getRange();
@@ -73,17 +73,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const [start, end] = session.selection.getRange();
 
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     yield* Jobs.run(session, 3, function* () {
         try {
-            history.recordSelection(record, session);
-            yield* history.addUndoStructure(record, start, end, "any");
-            if (!(yield* cut(session, args, args.get("fill"), true))) {
-                throw RawText.translate("commands.generic.wedit:commandFail");
-            }
-            yield* history.addRedoStructure(record, start, end, "any");
-            history.commit(record);
+            history.trackSelection(record);
+            yield* history.trackRegion(record, start, end);
+            if (!(yield* cut(session, args, args.get("fill"), true))) throw RawText.translate("commands.generic.wedit:commandFail");
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

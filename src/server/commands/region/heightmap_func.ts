@@ -87,7 +87,7 @@ export function* modifyHeight(
     mask?: Mask
 ): Generator<JobFunction | Promise<unknown>, number> {
     const [min, max] = shape.getRegion(loc);
-    const player = session.getPlayer();
+    const player = session.player;
     const dim = player.dimension;
 
     const { min: minY, max: maxY } = dim.heightRange;
@@ -129,12 +129,12 @@ export function* modifyHeight(
     yield* modify({ x: sizeX, z: sizeZ }, map, API);
 
     let count = 0;
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     const rangeYDiff = max.y - min.y;
     let warpBuffer: RegionBuffer | undefined;
     try {
-        yield* history.addUndoStructure(record, min, max, "any");
+        yield* history.trackRegion(record, min, max);
 
         yield Jobs.nextStep("Calculating blocks...");
         warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
@@ -157,8 +157,7 @@ export function* modifyHeight(
             yield* warpBuffer.load(min, dim);
             count = warpBuffer.getVolume();
         }
-        yield* history.addRedoStructure(record, min, max, "any");
-        history.commit(record);
+        yield* history.commit(record);
     } catch (e) {
         history.cancel(record);
         throw e;

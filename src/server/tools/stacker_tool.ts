@@ -25,16 +25,14 @@ class StackerTool extends Tool {
             end = end.add(dir);
             if (!mask.matchesBlock(dim.getBlock(end.add(dir)))) break;
         }
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
         let tempStack: RegionBuffer;
         try {
-            yield* history.addUndoStructure(record, start, end, "any");
-
+            yield* history.trackRegion(record, start, end);
             tempStack = yield* RegionBuffer.createFromWorld(loc, loc, dim);
             for (const pos of regionIterateBlocks(start, end)) yield* tempStack.load(pos, dim);
-            yield* history.addRedoStructure(record, start, end, "any");
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

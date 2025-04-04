@@ -5,6 +5,7 @@ import { Mask } from "@modules/mask.js";
 import { Selection } from "@modules/selection.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { Pattern } from "@modules/pattern.js";
+import { recordBlockChanges } from "@modules/block_changes.js";
 
 /**
  * overlays terrain with blocks
@@ -55,15 +56,15 @@ export class OverlayBrush extends Brush {
 
     public *apply(hit: Vector, session: PlayerSession, mask?: Mask) {
         const range: [Vector, Vector] = [hit.offset(-this.radius, 1, -this.radius), hit.offset(this.radius, 1, this.radius)];
-        const minY = getWorldHeightLimits(session.getPlayer().dimension)[0];
+        const minY = getWorldHeightLimits(session.player.dimension)[0];
         const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
         const surfaceMask = this.surfaceMask.withContext(session);
         const isAirOrFluid = Server.block.isAirOrFluid;
         const r2 = Math.pow(this.radius + 0.5, 2);
 
-        const history = session.getHistory();
+        const history = session.history;
         const record = history.record();
-        const blockChanges = history.collectBlockChanges(record);
+        const blockChanges = recordBlockChanges(session, record);
         try {
             for (const loc of regionIterateBlocks(...range)) {
                 if (hit.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
@@ -88,7 +89,7 @@ export class OverlayBrush extends Brush {
             }
 
             yield* blockChanges.flush();
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;

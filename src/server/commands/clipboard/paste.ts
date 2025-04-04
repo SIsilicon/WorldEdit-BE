@@ -42,24 +42,22 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
     const [pasteStart, pasteEnd] = session.clipboard.getBounds(pasteFrom, transform);
 
-    const history = session.getHistory();
+    const history = session.history;
     const record = history.record();
     yield* Jobs.run(session, 1, function* () {
         try {
             if (pasteContent) {
-                yield* history.addUndoStructure(record, pasteStart, pasteEnd, "any");
+                yield* history.trackRegion(record, pasteStart, pasteEnd);
                 yield Jobs.nextStep("Pasting blocks...");
                 yield* session.clipboard.load(pasteFrom, builder.dimension, { ...transform, mask: args.get("m-mask")?.withContext(session) });
-                yield* history.addRedoStructure(record, pasteStart, pasteEnd, "any");
             }
             if (setSelection) {
-                history.recordSelection(record, session);
+                history.trackSelection(record);
                 session.selection.mode = session.selection.mode == "extend" ? "extend" : "cuboid";
                 session.selection.set(0, pasteStart);
                 session.selection.set(1, pasteEnd);
-                history.recordSelection(record, session);
             }
-            history.commit(record);
+            yield* history.commit(record);
         } catch (e) {
             history.cancel(record);
             throw e;
