@@ -29,13 +29,13 @@
         "typescript": "^5.8.2"
     },
     "dependencies": {
-        "@minecraft/server": "2.0.0-beta.1.21.80-preview.22",
+        "@minecraft/server": "2.0.0-beta.1.21.80-preview.26",
         "@minecraft/server-admin": "1.0.0-beta.1.19.80-stable",
-        "@minecraft/server-ui": "2.0.0-beta.1.21.80-preview.22"
+        "@minecraft/server-ui": "2.0.0-beta.1.21.80-preview.26"
     },
     "overrides": {
         "@minecraft/server-ui": {
-            "@minecraft/server": "2.0.0-beta.1.21.80-preview.22"
+            "@minecraft/server": "2.0.0-beta.1.21.80-preview.26"
         }
     }
 }
