@@ -2,10 +2,12 @@ import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
-import { Selection } from "@modules/selection.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { Pattern } from "@modules/pattern.js";
 import { recordBlockChanges } from "@modules/block_changes.js";
+import { CylinderShape } from "server/shapes/cylinder.js";
+import { Shape } from "server/shapes/base_shape.js";
+import { Vector3 } from "@minecraft/server";
 
 /**
  * overlays terrain with blocks
@@ -96,10 +98,8 @@ export class OverlayBrush extends Brush {
         }
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        selection.mode = "cylinder";
-        selection.set(0, loc);
-        selection.set(1, loc.offset(0, 0, this.radius));
+    public getOutline(): [Shape, Vector3] {
+        return [new CylinderShape(1, this.radius), Vector.ZERO];
     }
 
     public toJSON() {

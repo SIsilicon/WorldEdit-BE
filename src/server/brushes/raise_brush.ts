@@ -4,7 +4,8 @@ import { brushTypes, Brush } from "./base_brush.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { Mask } from "@modules/mask.js";
 import { smooth } from "../commands/region/heightmap_func.js";
-import { Selection } from "@modules/selection.js";
+import { Shape } from "server/shapes/base_shape.js";
+import { Vector3 } from "@minecraft/server";
 
 /**
  * This smooths the terrain in the world.
@@ -59,11 +60,8 @@ export class RaiseBrush extends Brush {
         yield* smooth(session, this.iterations, this.shape, point, this.mask, mask);
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        const point = loc.offset(-this.size, -this.size, -this.size);
-        selection.mode = "cuboid";
-        selection.set(0, point);
-        selection.set(1, point.offset(this.size * 2 + 1, this.size * 2 + 1, this.size * 2 + 1));
+    public getOutline(): [Shape, Vector3] {
+        return [new CuboidShape(this.size * 2, this.size * 2, this.size * 2), Vector.ONE.mul(-this.size)];
     }
 
     public toJSON() {

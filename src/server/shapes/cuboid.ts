@@ -19,9 +19,9 @@ export class CuboidShape extends Shape {
         return <[number, number]>[0, this.size[1] - 1];
     }
 
-    public getOutline(loc: Vector) {
-        const min = loc;
-        const max = loc.add(this.size);
+    public getOutline() {
+        const min = Vector.ZERO;
+        const max = Vector.from(this.size);
 
         const vertices = [
             new Vector(min.x, min.y, min.z),

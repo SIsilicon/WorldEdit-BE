@@ -6,8 +6,9 @@ import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { Selection } from "@modules/selection.js";
-import { Vector } from "@notbeer-api";
+import { everyCall, Vector } from "@notbeer-api";
+
+const outlines = new WeakMap<PlayerSession, { lastHit: Vector; lazyCall: (cb: () => any) => void }>();
 
 class BrushTool extends Tool {
     public brush: Brush;
@@ -18,15 +19,9 @@ class BrushTool extends Tool {
 
     permission = "worldedit.brush";
 
-    private outlines = new Map<PlayerSession, { selection: Selection; lastHit: Vector }>();
-    private prevTick = 0;
-    private ticksToUpdate = 0;
-
     use = function* (self: BrushTool, player: Player, session: PlayerSession) {
         const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
-        if (!hit) {
-            throw "commands.wedit:jumpto.none";
-        }
+        if (!hit) throw "commands.wedit:jumpto.none";
         yield* self.brush.apply(hit, session, self.mask);
     };
 
@@ -39,19 +34,13 @@ class BrushTool extends Tool {
         const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
         yield;
         if (hit) {
-            if (!self.outlines.has(session)) {
-                const selection = new Selection(player);
-                self.outlines.set(session, { selection, lastHit: hit });
-            }
+            if (!outlines.has(session)) outlines.set(session, { lastHit: hit, lazyCall: everyCall(4) });
 
-            const { selection, lastHit } = self.outlines.get(session);
-            self.brush.updateOutline(selection, hit);
-            if (lastHit && !lastHit.equals(hit)) {
-                selection.forceDraw();
-            } else {
-                selection.draw();
-            }
-            self.outlines.get(session).lastHit = hit;
+            const [shape, offset] = self.brush.getOutline();
+            const { lastHit, lazyCall } = outlines.get(session);
+            if (lastHit && !lastHit.equals(hit)) shape.draw(player, Vector.add(hit, offset));
+            else lazyCall(() => shape.draw(player, Vector.add(hit, offset)));
+            outlines.get(session).lastHit = hit;
             yield;
         }
     };

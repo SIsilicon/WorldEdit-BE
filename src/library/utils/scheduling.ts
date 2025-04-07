@@ -88,6 +88,15 @@ function whenReady<T>(callback: () => T) {
     });
 }
 
+function everyCall(times: number) {
+    let count = 0;
+    return function (callback: () => void) {
+        if (count-- > 0) return;
+        count = times;
+        callback();
+    };
+}
+
 function shutdownTimers() {
     tickTimeoutMap.clear();
     tickIntervalMap.clear();
@@ -127,4 +136,4 @@ function startTime() {
     return timer;
 }
 
-export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, whenReady, Timer };
+export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval, shutdownTimers, sleep, startTime, whenReady, Timer, everyCall };

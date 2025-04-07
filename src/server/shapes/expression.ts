@@ -22,9 +22,9 @@ export class ExpressionShape extends Shape {
         throw Error("YRange not implemented");
     }
 
-    public getOutline(loc: Vector) {
-        const min = loc;
-        const max = loc.add(this.size);
+    public getOutline() {
+        const min = Vector.ZERO;
+        const max = Vector.from(this.size);
 
         const vertices = [
             new Vector(min.x, min.y, min.z),

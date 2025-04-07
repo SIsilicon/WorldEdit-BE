@@ -19,13 +19,13 @@ export class PyramidShape extends Shape {
         throw new Error("getYRange not implemented!");
     }
 
-    public getOutline(loc: Vector) {
+    public getOutline() {
         const vertices = [
-            loc.add([-this.size + 1, 0, -this.size + 1]),
-            loc.add([-this.size + 1, 0, this.size]),
-            loc.add([this.size, 0, -this.size + 1]),
-            loc.add([this.size, 0, this.size]),
-            loc.add([0.5, this.size, 0.5]),
+            new Vector(-this.size + 1, 0, -this.size + 1),
+            new Vector(-this.size + 1, 0, this.size),
+            new Vector(this.size, 0, -this.size + 1),
+            new Vector(this.size, 0, this.size),
+            new Vector(0.5, this.size, 0.5),
         ];
         const edges: [number, number][] = [
             [0, 1],

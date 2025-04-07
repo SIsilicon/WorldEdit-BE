@@ -4,7 +4,7 @@ import { brushTypes, Brush } from "./base_brush.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { Selection } from "@modules/selection.js";
+import { Shape } from "server/shapes/base_shape.js";
 
 /**
  * This brush creates sphere shaped patterns in the world.
@@ -59,10 +59,8 @@ export class SphereBrush extends Brush {
         yield* this.shape.generate(loc, this.pattern, mask, session, { hollow: this.hollow });
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        selection.mode = "sphere";
-        selection.set(0, loc);
-        selection.set(1, loc.offset(0, 0, this.radius));
+    public getOutline(): [Shape, Vector] {
+        return [this.shape, Vector.ZERO];
     }
 
     public toJSON() {

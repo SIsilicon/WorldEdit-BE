@@ -4,7 +4,7 @@ import { brushTypes, Brush } from "./base_brush.js";
 import { CylinderShape } from "../shapes/cylinder.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { Selection } from "@modules/selection.js";
+import { Shape } from "server/shapes/base_shape.js";
 
 /**
  * This brush creates cylinder shaped patterns in the world.
@@ -66,11 +66,8 @@ export class CylinderBrush extends Brush {
         yield* this.shape.generate(loc, this.pattern, mask, session, { hollow: this.hollow });
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        const region = this.shape.getRegion(loc);
-        selection.mode = "cylinder";
-        selection.set(0, new Vector(loc.x, region[0].y, loc.z));
-        selection.set(1, new Vector(loc.x + this.radius, region[1].y, loc.z));
+    public getOutline(): [Shape, Vector] {
+        return [this.shape, Vector.ZERO];
     }
 
     public toJSON() {

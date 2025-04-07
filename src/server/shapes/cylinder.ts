@@ -36,9 +36,9 @@ export class CylinderShape extends Shape {
         return lX * lX + lZ * lZ > 1.0 ? null : <[number, number]>[-this.height / 2, this.height - 1 - this.height / 2];
     }
 
-    public getOutline(loc: Vector) {
+    public getOutline() {
         // TODO: Support oblique cylinders and different axes.
-        loc = loc.offset(0, -this.height / 2, 0).ceil();
+        const loc = new Vector(0, -this.height / 2, 0).ceil();
         const locWithOffset = loc.offset(0.5, 0, 0.5);
         const maxRadius = Math.max(...this.radii) + 0.5;
         const vertices = [

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Player } from "@minecraft/server";
-import { regionSize, regionTransformedBounds, Server, Vector } from "@notbeer-api";
+import { everyCall, regionSize, Server, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
-import { Selection } from "@modules/selection.js";
+import { CuboidShape } from "server/shapes/cuboid.js";
+
+const outlines = new WeakMap<PlayerSession, { lazyCall: (cb: () => any) => void }>();
 
 interface PreviewPaste {
-    outlines: Map<PlayerSession, Selection>;
     tick: typeof previewPaste;
 }
 
@@ -43,7 +44,7 @@ class PasteTool extends CommandButton implements PreviewPaste {
         Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
     };
 
-    outlines = new Map();
+    outlines = new WeakMap();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
 }
@@ -70,7 +71,6 @@ class RotateCWTool extends Tool implements PreviewPaste {
         Server.command.callCommand(player, "rotate", args);
     };
 
-    outlines = new Map();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
 }
@@ -85,7 +85,6 @@ class RotateCCWTool extends Tool implements PreviewPaste {
         Server.command.callCommand(player, "rotate", args);
     };
 
-    outlines = new Map();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
 }
@@ -100,7 +99,6 @@ class FlipTool extends Tool implements PreviewPaste {
         Server.command.callCommand(player, "flip", args);
     };
 
-    outlines = new Map();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
 }
@@ -123,14 +121,10 @@ Tools.register(ConfigTool, "config", "wedit:config_button");
 function* previewPaste(self: PreviewPaste, player: Player, session: PlayerSession): Generator<void> {
     if (!session.clipboard || !session.drawOutlines) return;
 
-    if (!self.outlines.has(session)) {
-        const selection = new Selection(player);
-        self.outlines.set(session, selection);
-    }
+    if (!outlines.has(session)) outlines.set(session, { lazyCall: everyCall(8) });
     const [pasteStart, pasteEnd] = session.clipboard.getBounds(Vector.from(player.location).floor().add(0.5), session.clipboardTransform);
-    const selection = self.outlines.get(session)!;
-    selection.set(0, pasteStart);
-    selection.set(1, pasteEnd);
-    selection.draw();
+    const size = regionSize(pasteStart, pasteEnd);
+    const shape = new CuboidShape(...size.toArray());
+    outlines.get(session)!.lazyCall(() => shape.draw(player, pasteStart));
     yield;
 }

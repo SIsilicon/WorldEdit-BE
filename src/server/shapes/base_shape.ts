@@ -1,4 +1,4 @@
-import { Block, BlockVolume, BlockVolumeBase, ListBlockVolume, Vector3 } from "@minecraft/server";
+import { Block, BlockVolume, BlockVolumeBase, ListBlockVolume, Player, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -48,6 +48,8 @@ export abstract class Shape {
 
     protected shapeCacheKey: string;
 
+    private outlineCache: [string, Vector][];
+
     private genVars: shapeGenVars;
 
     /**
@@ -83,7 +85,7 @@ export abstract class Shape {
     /**
      * Generates a list of particles that when displayed, shows the shape.
      */
-    public abstract getOutline(loc: Vector): [string, Vector][];
+    protected abstract getOutline(): [string, Vector][];
 
     /**
      * Deduces what kind of chunk is being processed.
@@ -95,6 +97,20 @@ export abstract class Shape {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
         return ChunkStatus.DETAIL;
+    }
+
+    public draw(player: Player, loc: Vector3) {
+        try {
+            for (const [id, pos] of (this.outlineCache = this.outlineCache ?? this.getOutline())) {
+                try {
+                    player.spawnParticle(id, pos.add(loc));
+                } catch {
+                    /* pass */
+                }
+            }
+        } catch {
+            /* pass */
+        }
     }
 
     /**

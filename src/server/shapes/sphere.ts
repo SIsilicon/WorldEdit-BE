@@ -37,10 +37,10 @@ export class SphereShape extends Shape {
         throw new Error("getYRange not implemented!");
     }
 
-    public getOutline(loc: Vector) {
+    public getOutline() {
         // TODO: Support oblique spheres
         const maxRadius = Math.max(...this.radii) + 0.5;
-        return [...this.drawCircle(loc, maxRadius, "x"), ...this.drawCircle(loc, maxRadius, "y"), ...this.drawCircle(loc, maxRadius, "z")];
+        return [...this.drawCircle(Vector.ZERO, maxRadius, "x"), ...this.drawCircle(Vector.ZERO, maxRadius, "y"), ...this.drawCircle(Vector.ZERO, maxRadius, "z")];
     }
 
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {

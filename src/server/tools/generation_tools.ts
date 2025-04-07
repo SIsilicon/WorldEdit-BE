@@ -20,7 +20,7 @@ function trySpawnParticle(player: Player, type: string, location: Vector3) {
 }
 
 abstract class GeneratorTool extends Tool {
-    protected posStart = new Map<PlayerSession, [Vector, string]>(); // [location, dimension type]
+    protected posStart = new WeakMap<PlayerSession, [Vector, string]>(); // [location, dimension type]
 
     protected baseUse(player: Player, session: PlayerSession, loc?: Vector) {
         if (player.isSneaking) {
@@ -266,9 +266,7 @@ class DrawCylinderTool extends GeneratorTool {
         if (self.baseTick(player, session)) return;
 
         const [shape, loc] = self.getShape(player, session);
-        for (const particle of shape.getOutline(loc)) {
-            trySpawnParticle(player, ...particle);
-        }
+        shape.draw(player, loc);
     };
 
     getShape(player: Player, session: PlayerSession): [CylinderShape, Vector] {
@@ -307,9 +305,7 @@ class DrawPyramidTool extends GeneratorTool {
         if (self.baseTick(player, session)) return;
 
         const [shape, loc] = self.getShape(player, session);
-        for (const particle of shape.getOutline(loc)) {
-            trySpawnParticle(player, ...particle);
-        }
+        shape.draw(player, loc);
     };
 
     getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {

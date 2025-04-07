@@ -1,39 +1,27 @@
 import { regionBounds, regionVolume, Vector } from "@notbeer-api";
-import { Player, system } from "@minecraft/server";
+import { Player, Vector3 } from "@minecraft/server";
 import { Shape, shapeGenOptions } from "../shapes/base_shape.js";
 import { SphereShape } from "../shapes/sphere.js";
 import { CuboidShape } from "../shapes/cuboid.js";
 import { CylinderShape } from "../shapes/cylinder.js";
-import { arraysEqual, getWorldHeightLimits } from "../util.js";
+import { getWorldHeightLimits } from "../util.js";
 import config from "config.js";
 
 // TODO: Add other selection modes
-export const selectionModes = ["cuboid", "extend", "sphere", "cylinder"] as const;
+export const selectionModes = ["cuboid", "extend", "sphere", "cylinder", "volume"] as const;
 export type selectMode = (typeof selectionModes)[number];
 
-const drawFrequency = 8; // in ticks
+export abstract class Selection {
+    public abstract readonly isEmpty: boolean;
+    public abstract readonly isCuboid: boolean;
+    public abstract readonly points: Vector[];
+    public abstract mode: selectMode;
+    public abstract visible: boolean | "local";
 
-export class Selection {
-    private _mode: selectMode = "cuboid";
-    private _points: Vector[] = [];
-    private _visible: boolean | "local" = config.drawOutlines;
-    private modeLastDraw: selectMode = this._mode;
-    private pointsLastDraw: Vector[] = [];
-
-    private player: Player;
-    private drawParticles: [string, Vector][] = [];
-    private lastDraw = 0;
+    protected readonly player: Player;
 
     constructor(player: Player) {
         this.player = player;
-    }
-
-    get isValid() {
-        let points = 0;
-        for (const point of this._points) {
-            if (point) points++;
-        }
-        return points != 0 && points != 1;
     }
 
     /**
@@ -41,7 +29,76 @@ export class Selection {
      * @param index The first or second selection point
      * @param loc The location the selection point is being made
      */
-    public set(index: 0 | 1, loc: Vector): void {
+    public abstract set(index: 0 | 1, loc: Vector): void;
+
+    /**
+     * Clears the selection points that have been made.
+     */
+    public abstract clear(): void;
+
+    /**
+     * Get the shape of the current selection
+     * @returns
+     */
+    public abstract getShape(): [Shape, Vector] | undefined;
+
+    /**
+     * @return The blocks within the current selection
+     */
+    public abstract getBlocks(options?: shapeGenOptions): Generator<Vector3>;
+
+    /**
+     * Returns the exact or approximate number of blocks the selection encompasses.
+     * @returns
+     */
+    public abstract getBlockCount(): number;
+
+    /**
+     * @return The minimum and maximum points of the selection
+     */
+    public abstract getRange(): [Vector, Vector];
+}
+
+class DefaultSelection extends Selection {
+    public visible: boolean | "local" = config.drawOutlines;
+
+    private _mode: selectMode = "cuboid";
+    private _points: Vector[] = [];
+
+    get isEmpty() {
+        let points = 0;
+        for (const point of this._points) if (point) points++;
+        return points === 0 || points === 1;
+    }
+
+    public get isCuboid() {
+        return this._mode == "cuboid" || this._mode == "extend";
+    }
+
+    public get mode(): selectMode {
+        return this._mode;
+    }
+
+    public set mode(value: selectMode) {
+        if (this._mode == value) return;
+
+        const wasCuboid = this.isCuboid;
+        this._mode = value;
+        if (!this.isCuboid || wasCuboid != this.isCuboid) {
+            this.clear();
+        }
+    }
+
+    public get points() {
+        return this._points.map((v) => v.clone());
+    }
+
+    /**
+     * Sets either the first or second selection point of a selection.
+     * @param index The first or second selection point
+     * @param loc The location the selection point is being made
+     */
+    public set(index: 0 | 1, loc: Vector) {
         if (index > 0 && this._points.length == 0 && this._mode != "cuboid") {
             throw "worldedit.selection.noPrimary";
         }
@@ -91,10 +148,10 @@ export class Selection {
      * Get the shape of the current selection
      * @returns
      */
-    public getShape(): [Shape, Vector] {
-        if (!this.isValid) return null;
+    public getShape(): [Shape, Vector] | undefined {
+        if (this.isEmpty) return undefined;
 
-        if (this.isCuboid()) {
+        if (this.isCuboid) {
             const [start, end] = regionBounds(this._points);
             const size = Vector.sub(end, start).add(1);
             return [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
@@ -114,7 +171,7 @@ export class Selection {
      * @return The blocks within the current selection
      */
     public *getBlocks(options?: shapeGenOptions) {
-        if (!this.isValid) return;
+        if (this.isEmpty) return;
 
         const [shape, loc] = this.getShape();
         yield* shape.getBlocks(loc, options);
@@ -125,9 +182,9 @@ export class Selection {
      * @returns
      */
     public getBlockCount() {
-        if (!this.isValid) return 0;
+        if (this.isEmpty) return 0;
 
-        if (this.isCuboid()) {
+        if (this.isCuboid) {
             return regionVolume(this._points[0], this._points[1]);
         } else if (this._mode == "sphere") {
             const radius = Vector.sub(this._points[1], this._points[0]).length;
@@ -143,74 +200,19 @@ export class Selection {
     /**
      * @return The minimum and maximum points of the selection
      */
-    public getRange(): [Vector, Vector] {
+    public getRange() {
         const [shape, loc] = this.getShape();
-        if (shape) {
-            return shape.getRegion(loc);
-        }
-        return null;
+        if (shape) return shape.getRegion(loc);
+        return undefined;
     }
+}
 
-    public isCuboid(): boolean {
-        return this._mode == "cuboid" || this._mode == "extend";
-    }
+let selectionClass: { new (player: Player): Selection } = DefaultSelection;
 
-    public draw(): void {
-        if (!this._visible) return;
-        if (system.currentTick > this.lastDraw + drawFrequency) {
-            if (this._mode != this.modeLastDraw || !arraysEqual(this._points, this.pointsLastDraw, (a, b) => a.equals(b))) {
-                this.drawParticles.length = 0;
-                if (this.isValid) {
-                    const [shape, loc] = this.getShape();
-                    this.drawParticles.push(...shape.getOutline(loc));
-                }
-                this.modeLastDraw = this._mode;
-                this.pointsLastDraw = this.points;
-            }
+export function createSelectionForPlayer(player: Player) {
+    return new selectionClass(player);
+}
 
-            try {
-                for (const [id, loc] of this.drawParticles) {
-                    try {
-                        this.player.spawnParticle(id, loc);
-                    } catch {
-                        /* pass */
-                    }
-                }
-            } catch {
-                /* pass */
-            }
-            this.lastDraw = system.currentTick;
-        }
-    }
-
-    public forceDraw(): void {
-        this.lastDraw = 0;
-        this.draw();
-    }
-
-    public get mode(): selectMode {
-        return this._mode;
-    }
-
-    public set mode(value: selectMode) {
-        if (this._mode == value) return;
-
-        const wasCuboid = this.isCuboid();
-        this._mode = value;
-        if (!this.isCuboid() || wasCuboid != this.isCuboid()) {
-            this.clear();
-        }
-    }
-
-    public get points() {
-        return this._points.map((v) => v.clone());
-    }
-
-    public get visible(): boolean | "local" {
-        return this._visible;
-    }
-
-    public set visible(value: boolean | "local") {
-        this._visible = value;
-    }
+export function setSelectionClass(newSelectionClass: { new (player: Player): Selection }) {
+    selectionClass = newSelectionClass;
 }

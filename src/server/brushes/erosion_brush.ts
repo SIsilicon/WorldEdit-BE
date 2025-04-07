@@ -2,11 +2,12 @@ import { Server, Vector, iterateChunk, regionIterateBlocks, whenReady } from "@n
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
-import { Selection } from "@modules/selection.js";
 import { BlockPermutation, Vector3 } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { BlockChanges, recordBlockChanges } from "@modules/block_changes.js";
+import { Shape } from "server/shapes/base_shape.js";
+import { SphereShape } from "server/shapes/sphere.js";
 
 class ErosionPreset {
     readonly erodeThreshold: number;
@@ -113,10 +114,8 @@ export class ErosionBrush extends Brush {
         }
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        selection.mode = "sphere";
-        selection.set(0, loc);
-        selection.set(1, loc.offset(0, 0, this.radius));
+    public getOutline(): [Shape, Vector] {
+        return [new SphereShape(this.radius), Vector.ZERO];
     }
 
     private *processErosion(locations: Vector3[], threshold: number, blockChanges: BlockChanges, mask?: Mask) {

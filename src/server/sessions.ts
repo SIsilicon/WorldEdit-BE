@@ -1,12 +1,12 @@
 import { Player, system, Vector3 } from "@minecraft/server";
-import { Server, Vector, setTickTimeout, contentLog, Databases } from "@notbeer-api";
+import { Server, Vector, setTickTimeout, contentLog, Databases, everyCall } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { createHistoryBufferForSession, History } from "@modules/history.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { RegionBuffer, RegionSaveOptions } from "@modules/region_buffer.js";
-import { Selection, selectMode } from "@modules/selection.js";
+import { createSelectionForPlayer, Selection, selectMode } from "@modules/selection.js";
 import { ConfigContext } from "./ui/types.js";
 import config from "config.js";
 import { Database } from "library/@types/classes/databaseBuilder.js";
@@ -124,6 +124,7 @@ export class PlayerSession {
     private readonly playerId: string;
     private readonly regions = new Map<string, RegionBuffer>();
     private readonly gradients: Database<gradients>;
+    private readonly lazySelectionDraw = everyCall(8);
 
     private placementMode: "player" | "selection" = "player";
 
@@ -131,7 +132,7 @@ export class PlayerSession {
         this.player = player;
         this.playerId = player.id;
         this.gradients = Databases.load<gradients>("gradients", player);
-        this.selection = new Selection(player);
+        this.selection = createSelectionForPlayer(player);
         this.history = createHistoryBufferForSession(this);
 
         this.selection.visible = config.drawOutlines;
@@ -290,7 +291,9 @@ export class PlayerSession {
 
     onTick() {
         // Draw Selection
-        this.selection?.draw();
+        if (this.selection.isEmpty) return;
+        const [shape, loc] = this.selection.getShape();
+        this.lazySelectionDraw(() => shape.draw(this.player, loc));
     }
 }
 

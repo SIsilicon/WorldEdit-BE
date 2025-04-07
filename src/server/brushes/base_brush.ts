@@ -3,8 +3,9 @@ import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { RawText } from "@notbeer-api";
-import { Selection } from "@modules/selection.js";
 import config from "config.js";
+import { Shape } from "server/shapes/base_shape.js";
+import { Vector3 } from "@minecraft/server";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type brushConstruct = new (...args: any[]) => Brush;
@@ -39,11 +40,9 @@ export abstract class Brush {
     public abstract apply(loc: Vector, session: PlayerSession, mask?: Mask): Generator<unknown, void>;
 
     /**
-     * Updates the position of the outline
-     * @param selection The selection object that will draw the outline
-     * @param loc The location where the brush will affect
+     * Gets the shape outline of the brush, and the offset from the hit postition to draw it at.
      */
-    public abstract updateOutline(selection: Selection, loc: Vector): void;
+    public abstract getOutline(): [Shape, Vector3];
 
     public delete() {
         return;

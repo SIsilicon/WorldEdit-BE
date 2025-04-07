@@ -25,7 +25,7 @@ export function setPos1(selection: Selection, loc: Vector3) {
     if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         let translate: string;
         const blockCount = selection.getBlockCount();
-        if (!blockCount || !selection.isCuboid()) {
+        if (!blockCount || !selection.isCuboid) {
             translate = `worldedit.selection.${selection.mode}.primary`;
         } else {
             translate = `worldedit.selection.${selection.mode}.primaryArea`;

@@ -2,10 +2,11 @@ import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
-import { Selection } from "@modules/selection.js";
 import { RegionBuffer, RegionLoadOptions } from "@modules/region_buffer.js";
-import { world } from "@minecraft/server";
+import { Vector3, world } from "@minecraft/server";
 import { importStructure } from "server/commands/structure/import.js";
+import { CuboidShape } from "server/shapes/cuboid.js";
+import { Shape } from "server/shapes/base_shape.js";
 
 /**
  * Pastes structures on use
@@ -95,11 +96,8 @@ export class StructureBrush extends Brush {
         this.updateStructIdx();
     }
 
-    public updateOutline(selection: Selection, loc: Vector) {
-        const point = loc.offset(-this.size.x / 2, 1, -this.size.z / 2).ceil();
-        selection.mode = "cuboid";
-        selection.set(0, point);
-        selection.set(1, point.add(this.size.sub(1)));
+    public getOutline(): [Shape, Vector3] {
+        return [new CuboidShape(...this.size.toArray()), new Vector(-this.size.x / 2, 1, -this.size.z / 2).ceil()];
     }
 
     public delete() {

@@ -137,7 +137,7 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
         7: {
             item: "wedit:confirm_button",
             action: (ctx, player) => {
-                if (!getSession(player).selection.isValid) return ctx.error("commands.generic.wedit:noSelection");
+                if (getSession(player).selection.isEmpty) return ctx.error("commands.generic.wedit:noSelection");
                 ctx.getData("pickerData").onFinish(ctx, player, undefined, undefined);
             },
         },

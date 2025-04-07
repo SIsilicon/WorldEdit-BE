@@ -2,10 +2,11 @@ import { regionIterateBlocks, Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
-import { Selection } from "@modules/selection.js";
 import { Pattern } from "@modules/pattern.js";
 import { Jobs } from "@modules/jobs.js";
 import { getWorldHeightLimits } from "server/util.js";
+import { SphereShape } from "server/shapes/sphere.js";
+import { Shape } from "server/shapes/base_shape.js";
 
 /**
  * creates a blob of blocks
@@ -142,10 +143,8 @@ export class BlobBrush extends Brush {
         });
     }
 
-    public updateOutline(selection: Selection, loc: Vector): void {
-        selection.mode = "sphere";
-        selection.set(0, loc);
-        selection.set(1, loc.offset(0, 0, this.radius));
+    public getOutline(): [Shape, Vector] {
+        return [new SphereShape(this.radius), Vector.ZERO];
     }
 
     public toJSON() {

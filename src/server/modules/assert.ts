@@ -8,12 +8,6 @@ class UnloadedChunksError extends Error {
     name = "UnloadedChunksError";
 }
 
-function assertPermission(player: Player, perm: string) {
-    if (!Server.player.hasPermission(player, perm)) {
-        throw "commands.generic.wedit:noPermission";
-    }
-}
-
 function assertCanBuildWithin(player: Player, min: Vector3, max: Vector3) {
     const minChunk = Vector.from(min)
         .mul(1 / 16)
@@ -32,28 +26,24 @@ function assertCanBuildWithin(player: Player, min: Vector3, max: Vector3) {
         }
 }
 
+function assertPermission(player: Player, perm: string) {
+    if (!Server.player.hasPermission(player, perm)) throw "commands.generic.wedit:noPermission";
+}
+
 function assertClipboard(session: PlayerSession) {
-    if (!session.clipboard) {
-        throw RawText.translate("commands.generic.wedit:noClipboard");
-    }
+    if (!session.clipboard) throw RawText.translate("commands.generic.wedit:noClipboard");
 }
 
 function assertSelection(session: PlayerSession) {
-    if (!session.selection.isValid) {
-        throw RawText.translate("commands.generic.wedit:noSelection");
-    }
+    if (session.selection.isEmpty) throw RawText.translate("commands.generic.wedit:noSelection");
 }
 
 function assertCuboidSelection(session: PlayerSession) {
-    if (!session.selection.isValid || !session.selection.isCuboid()) {
-        throw RawText.translate("commands.generic.wedit:noCuboidSelection");
-    }
+    if (session.selection.isEmpty || !session.selection.isCuboid) throw RawText.translate("commands.generic.wedit:noCuboidSelection");
 }
 
 function assertHistoryNotRecording(history: History) {
-    if (history.isRecording()) {
-        throw RawText.translate("worldedit.error.stillRecording");
-    }
+    if (history.isRecording()) throw RawText.translate("worldedit.error.stillRecording");
 }
 
 export { UnloadedChunksError, assertCanBuildWithin, assertClipboard, assertCuboidSelection, assertHistoryNotRecording, assertPermission, assertSelection };
