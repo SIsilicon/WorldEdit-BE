@@ -12,9 +12,6 @@ const registerInformation = {
     description: "commands.wedit:snow.description",
     usage: [
         {
-            flag: "s",
-        },
-        {
             name: "size",
             type: "int",
             range: [1, null] as [number, null],
@@ -24,6 +21,11 @@ const registerInformation = {
             type: "int",
             range: [1, null] as [number, null],
             default: -1,
+        },
+        {
+            name: "accumulateSnow",
+            type: "bool",
+            default: false,
         },
     ],
 };
@@ -114,7 +116,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                         block.setPermutation(ice);
                         changed++;
                     } else if (block.typeId == "minecraft:snow_layer") {
-                        if (args.has("s") && Math.random() < 0.4) {
+                        if (args.get("accumulateSnow") && Math.random() < 0.4) {
                             let perm = block.permutation;
                             const prevHeight = perm.getState("height") as number;
                             perm = perm.withState("height", Math.min(prevHeight + 1, 7));

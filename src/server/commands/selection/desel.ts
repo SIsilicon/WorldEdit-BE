@@ -7,38 +7,32 @@ const registerInformation = {
     aliases: ["deselect", "desel"],
     usage: [
         {
-            flag: "d",
+            name: "mode",
+            type: "enum",
+            values: ["cuboid", "extend", "sphere", "cyl"],
+            default: <string>null,
         },
         {
-            subName: "cuboid",
-        },
-        {
-            subName: "extend",
-        },
-        {
-            subName: "sphere",
-        },
-        {
-            subName: "cyl",
-        },
-        {
-            subName: "_nothing",
+            name: "makeDefault",
+            type: "bool",
+            default: false,
         },
     ],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
     try {
-        if (args.has("cuboid")) {
+        const mode = args.get("mode") as string;
+        if (mode === "cuboid") {
             session.selection.mode = "cuboid";
             return "commands.wedit:sel.cuboid";
-        } else if (args.has("extend")) {
+        } else if (mode === "extend") {
             session.selection.mode = "extend";
             return "commands.wedit:sel.extend";
-        } else if (args.has("sphere")) {
+        } else if (mode === "sphere") {
             session.selection.mode = "sphere";
             return "commands.wedit:sel.sphere";
-        } else if (args.has("cyl")) {
+        } else if (mode === "cyl") {
             session.selection.mode = "cylinder";
             return "commands.wedit:sel.cyl";
         } else {
@@ -46,10 +40,8 @@ registerCommand(registerInformation, function (session, builder, args) {
             return "commands.wedit:sel.clear";
         }
     } finally {
-        if (args.has("d")) {
-            for (const mode of selectionModes) {
-                builder.removeTag(`wedit:defaultTag_${mode}`);
-            }
+        if (args.get("makeDefault")) {
+            for (const mode of selectionModes) builder.removeTag(`wedit:defaultTag_${mode}`);
             builder.addTag(`wedit:defaultTag_${session.selection.mode}`);
         }
     }

@@ -13,15 +13,6 @@ const registerInformation = {
     description: "commands.wedit:move.description",
     usage: [
         {
-            flag: "a",
-        },
-        {
-            flag: "e",
-        },
-        {
-            flag: "s",
-        },
-        {
             name: "amount",
             type: "int",
             default: 1,
@@ -38,9 +29,19 @@ const registerInformation = {
             default: new Pattern("air"),
         },
         {
-            flag: "m",
+            name: "includeAir",
+            type: "bool",
+            default: true,
+        },
+        {
+            name: "includeEntities",
+            type: "bool",
+            default: false,
+        },
+        {
             name: "mask",
             type: "Mask",
+            default: undefined,
         },
     ],
 };
@@ -70,11 +71,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield Jobs.nextStep("Pasting blocks...");
             yield* temp.load(movedStart, dim);
 
-            if (args.has("s")) {
-                history.trackSelection(record);
-                session.selection.set(0, movedStart);
-                session.selection.set(1, movedEnd);
-            }
+            history.trackSelection(record);
+            session.selection.set(0, movedStart);
+            session.selection.set(1, movedEnd);
+
             yield* history.commit(record);
         } catch (e) {
             history.cancel(record);

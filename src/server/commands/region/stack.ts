@@ -13,18 +13,6 @@ const registerInformation = {
     description: "commands.wedit:stack.description",
     usage: [
         {
-            flag: "a",
-        },
-        {
-            flag: "e",
-        },
-        {
-            flag: "r",
-        },
-        {
-            flag: "s",
-        },
-        {
             name: "count",
             type: "int",
             range: [1, null] as [number, null],
@@ -36,9 +24,25 @@ const registerInformation = {
             default: new Cardinal(),
         },
         {
-            flag: "m",
+            name: "offsetMode",
+            type: "enum",
+            values: ["absolute", "relative"],
+            default: "relative",
+        },
+        {
+            name: "includeAir",
+            type: "bool",
+            default: true,
+        },
+        {
+            name: "includeEntities",
+            type: "bool",
+            default: false,
+        },
+        {
             name: "mask",
             type: "Mask",
+            default: null,
         },
     ],
 };
@@ -53,7 +57,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const dir = args
         .get("offset")
         .getDirection(builder)
-        .mul(args.has("r") ? 1 : size);
+        .mul(args.get("offsetMode") === "absolute" ? 1 : size);
     let loadStart = start.offset(dir.x, dir.y, dir.z);
     let loadEnd = end.offset(dir.x, dir.y, dir.z);
     let count = 0;
@@ -81,11 +85,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 count += regionVolume(load[0], load[1]);
             }
 
-            if (args.has("s")) {
-                history.trackSelection(record);
-                session.selection.set(0, loads[loads.length - 1][0]);
-                session.selection.set(1, loads[loads.length - 1][1]);
-            }
+            history.trackSelection(record);
+            session.selection.set(0, loads[loads.length - 1][0]);
+            session.selection.set(1, loads[loads.length - 1][1]);
+
             yield* history.commit(record);
         } catch (e) {
             history.cancel(record);

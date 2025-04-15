@@ -18,7 +18,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         const dim = builder.dimension;
 
         const center = Vector.from(start).add(end.add(1)).mul(0.5);
-        const origin = args.has("o") ? center : Vector.from(builder.location).floor().add(0.5);
+        const origin = args.get("aroundOrigin") ? center : Vector.from(builder.location).floor().add(0.5);
         options = { offset: start.sub(origin), ...options };
         options.mask = options.mask?.withContext(session);
         yield Jobs.nextStep("Gettings blocks...");
@@ -33,11 +33,9 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         yield Jobs.nextStep("Transforming blocks...");
         yield* temp.load(origin, dim, options);
 
-        if (args.has("s")) {
-            history.trackSelection(record);
-            session.selection.set(0, newStart);
-            session.selection.set(1, newEnd);
-        }
+        history.trackSelection(record);
+        session.selection.set(0, newStart);
+        session.selection.set(1, newEnd);
 
         yield* history.commit(record);
     } catch (e) {

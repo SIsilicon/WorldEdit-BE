@@ -11,18 +11,19 @@ const registerInformation = {
     description: "commands.wedit:flip.description",
     usage: [
         {
-            flag: "o",
-        },
-        {
-            flag: "w",
-        },
-        {
-            flag: "s",
-        },
-        {
             name: "direction",
             type: "Direction",
             default: new Cardinal(Cardinal.Dir.LEFT),
+        },
+        {
+            name: "aroundOrigin",
+            type: "bool",
+            default: false,
+        },
+        {
+            name: "affectWorld",
+            type: "bool",
+            default: false,
         },
     ],
 };
@@ -35,7 +36,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (dir.z) flip.z *= -1;
 
     let blockCount = 0;
-    if (args.has("w")) {
+    if (args.get("affectWorld")) {
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { scale: flip }));
         blockCount = session.selection.getBlockCount();
     } else {

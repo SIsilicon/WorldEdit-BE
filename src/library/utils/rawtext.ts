@@ -1,5 +1,4 @@
-import { Player } from "@minecraft/server";
-import { Server } from "@notbeer-api";
+import { Player, system } from "@minecraft/server";
 
 type textElement = {
     text: string;
@@ -96,11 +95,7 @@ export class RawText {
     }
 
     print(player: Player) {
-        try {
-            Server.queueCommand(`tellraw @s ${this.toString()}`, player);
-        } catch {
-            return;
-        }
+        system.run(() => player.runCommand(`tellraw @s ${this.toString()}`));
     }
 
     printError(player: Player) {

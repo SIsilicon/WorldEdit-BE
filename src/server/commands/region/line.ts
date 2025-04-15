@@ -17,10 +17,10 @@ const registerInformation: CommandInfo = {
             type: "Pattern",
         },
         {
-            flag: "t",
             name: "thickness",
             type: "int",
             range: [0, config.maxBrushRadius],
+            default: 0,
         },
     ],
 };
@@ -29,7 +29,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     if (session.selection.mode != "cuboid") throw "commands.wedit:line.invalidType";
     if (args.get("_using_item") && session.globalPattern.empty()) throw "worldEdit.selectionFill.noPattern";
-    const thickness = args.get("t-thickness") ?? 0;
+    const thickness = <number>args.get("thickness");
 
     let pos1: Vector3, pos2: Vector3, start: Vector, end: Vector;
     if (session.selection.mode == "cuboid") {

@@ -11,15 +11,17 @@ const registerInformation = {
     description: "commands.wedit:gen.description",
     usage: [
         {
-            flag: "h",
-        },
-        {
             name: "pattern",
             type: "Pattern",
         },
         {
             name: "expr",
             type: "Expression",
+        },
+        {
+            name: "hollow",
+            type: "bool",
+            default: false,
         },
     ],
     aliases: ["g"],
@@ -31,7 +33,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const [start, end] = session.selection.points;
 
     const pattern: Pattern = args.get("pattern");
-    const isHollow = args.has("h");
+    const isHollow = args.get("hollow");
 
     const loc = Vector.min(start, end).floor();
     const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expr"));

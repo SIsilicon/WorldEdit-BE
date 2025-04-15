@@ -13,15 +13,19 @@ const registerInformation = {
     description: "commands.wedit:copy.description",
     usage: [
         {
-            flag: "a",
+            name: "includeAir",
+            type: "bool",
+            default: true,
         },
         {
-            flag: "e",
+            name: "includeEntities",
+            type: "bool",
+            default: false,
         },
         {
-            flag: "m",
             name: "mask",
             type: "Mask",
+            default: undefined,
         },
     ],
 };
@@ -39,9 +43,9 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
     const [start, end] = session.selection.getRange();
 
     const usingItem = args.get("_using_item");
-    const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
-    const includeAir: boolean = usingItem ? session.includeAir : !args.has("a");
-    const mask = (usingItem ? session.globalMask.clone() : <Mask>args.get("m-mask"))?.withContext(session);
+    const includeEntities: boolean = usingItem ? session.includeEntities : args.get("includeEntities");
+    const includeAir: boolean = usingItem ? session.includeAir : args.get("includeAir");
+    const mask = (usingItem ? session.globalMask.clone() : <Mask>args.get("mask"))?.withContext(session);
 
     const airBlock = BlockPermutation.resolve("minecraft:air");
     const filter = mask || !includeAir;

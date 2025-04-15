@@ -103,3 +103,5 @@ function hasWorldEdit(player: Player) {
     }
     return false;
 }
+
+// import "./editor/index.js";

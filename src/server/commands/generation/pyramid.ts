@@ -10,9 +10,6 @@ const registerInformation = {
     description: "commands.wedit:pyramid.description",
     usage: [
         {
-            flag: "h",
-        },
-        {
             name: "pattern",
             type: "Pattern",
         },
@@ -21,12 +18,17 @@ const registerInformation = {
             type: "int",
             range: [1, null] as [number, null],
         },
+        {
+            name: "hollow",
+            type: "bool",
+            default: false,
+        },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const pattern: Pattern = args.get("pattern");
-    const isHollow = args.has("h");
+    const isHollow = args.get("hollow");
     const size: number = args.get("size");
 
     const loc = session.getPlacementPosition();

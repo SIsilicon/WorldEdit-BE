@@ -12,22 +12,26 @@ const registerInformation = {
             subName: "create",
             args: [
                 {
-                    flag: "s",
+                    name: "id",
+                    type: "string",
                 },
                 {
-                    flag: "f",
                     name: "fade",
                     type: "float",
                     range: [0, 1] as [number, number],
                 },
                 {
-                    name: "id",
-                    type: "string",
+                    subName: "selection",
                 },
                 {
-                    name: "patterns",
-                    type: "Pattern...",
-                    default: [new Pattern("stone")],
+                    subName: "_",
+                    args: [
+                        {
+                            name: "patterns",
+                            type: "Pattern...",
+                            default: [new Pattern("stone")],
+                        },
+                    ],
                 },
             ],
         },
@@ -57,7 +61,7 @@ function truncateStringFromMiddle(str: string, length: number) {
 registerCommand(registerInformation, function (session, builder, args) {
     if (args.has("create")) {
         const patterns = [];
-        if (args.has("s")) {
+        if (args.has("selection")) {
             assertCuboidSelection(session);
             const [min, max] = session.selection.getRange();
             const size = regionSize(min, max);
@@ -80,7 +84,7 @@ registerCommand(registerInformation, function (session, builder, args) {
             patterns.push(...args.get("patterns"));
         }
 
-        session.createGradient(args.get("id"), args.get("f-fade") ?? 1.0, patterns);
+        session.createGradient(args.get("id"), args.get("fade") ?? 1.0, patterns);
         return RawText.translate("commands.wedit:gradient.create").with(args.get("id"));
     } else if (args.has("delete")) {
         if (session.getGradientNames().includes(args.get("id"))) {

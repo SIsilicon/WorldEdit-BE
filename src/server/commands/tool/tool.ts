@@ -44,7 +44,9 @@ const registerInformation = {
                     default: 1,
                 },
                 {
-                    flag: "d",
+                    name: "digging",
+                    type: "bool",
+                    default: false,
                 },
             ],
         },
@@ -132,7 +134,7 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
 
 const extruder_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
     assertPermission(builder, registerInformation.usage[1].permission);
-    session.bindTool("extruder_wand", null, args.get("range"), args.has("d"));
+    session.bindTool("extruder_wand", null, args.get("range"), args.get("digging"));
     return RawText.translate("commands.wedit:tool.bind.extruder").with(heldItemName(builder));
 };
 

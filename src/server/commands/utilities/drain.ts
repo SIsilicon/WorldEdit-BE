@@ -11,9 +11,6 @@ const registerInformation = {
     description: "commands.wedit:drain.description",
     usage: [
         {
-            flag: "w",
-        },
-        {
             name: "radius",
             type: "float",
         },
@@ -45,7 +42,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const loc = playerBlock.offset(offset.x, offset.y, offset.z);
         if (!canPlaceBlock(loc, dimension)) continue;
         const block = dimension.getBlock(loc);
-        if (block.typeId.match(waterMatch) || (args.has("w") && block.isWaterlogged)) {
+        if (block.typeId.match(waterMatch) || block.isWaterlogged) {
             fluidMatch = waterMatch;
         } else if (block.typeId.match(lavaMatch)) {
             fluidMatch = lavaMatch;
@@ -56,7 +53,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         drainStart = loc;
         break;
     }
-    const drainWaterLogged = fluidMatch == waterMatch && args.has("w");
+    const drainWaterLogged = fluidMatch === waterMatch;
 
     if (!drainStart) throw "commands.wedit:drain.noFluid";
 

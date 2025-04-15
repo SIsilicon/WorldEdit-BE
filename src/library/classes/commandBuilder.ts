@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Player, Vector3 } from "@minecraft/server";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandFlag, commandArg, commandSubDef, commandSyntaxError, argParseResult } from "../@types/classes/CommandBuilder";
+import {
+    storedRegisterInformation,
+    registerInformation,
+    commandArgList,
+    commandArg,
+    commandSubDef,
+    commandSyntaxError,
+    argParseResult,
+    commandNum,
+    commandEnum,
+} from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
 import { contentLog, RawText } from "../utils/index.js";
 
@@ -149,72 +159,7 @@ export class CommandBuilder {
         this.customArgTypes.set(name, argType);
     }
 
-    printCommandArguments(name: string, player?: Player): Array<string> {
-        const register = this.getRegistration(name);
-        if (!register) return;
-
-        const usages: Array<string> = [];
-
-        function accumulate(base: Array<string>, args: commandArgList, subName = "_") {
-            const text = [...base];
-            let hasSubCommand = false;
-            let flagText: string;
-
-            if (subName.charAt(0) != "_") {
-                text.push(subName);
-            }
-
-            args?.forEach((arg) => {
-                if ((!("flag" in arg) || (arg.flag && arg.name)) && flagText) {
-                    text.push(flagText + "]");
-                    flagText = null;
-                }
-
-                if ("subName" in arg) {
-                    hasSubCommand = true;
-                    if (player && !playerHandler.hasPermission(player, arg.permission)) {
-                        return;
-                    }
-                    accumulate(text, arg.args, arg.subName);
-                } else if ("flag" in arg) {
-                    if (!flagText) flagText = "[-";
-
-                    flagText += arg.flag;
-                    if (arg.name) {
-                        text.push(flagText + ` <${arg.name}: ${arg.type}>]`);
-                        flagText = null;
-                    }
-                } else {
-                    let argText = arg.default ? "[" : "<";
-                    argText += arg.name + ": ";
-                    if (arg.range && typeof arg.range[0] == "number" && typeof arg.range[1] == "number") argText += arg.range[0] + ".." + arg.range[1];
-                    else argText += arg.type;
-
-                    text.push(argText + (arg.default ? "]" : ">"));
-                }
-            });
-
-            if (flagText) {
-                text.push(flagText + "]");
-                flagText = null;
-            }
-
-            if (!hasSubCommand) {
-                usages.push(text.join(" "));
-            }
-        }
-
-        if (player && !playerHandler.hasPermission(player, register.permission)) {
-            return [];
-        }
-
-        if (!register.usage.length) return [""];
-        accumulate([], register.usage);
-
-        return usages;
-    }
-
-    parseArgs(comnand: string, args: Array<string>): Map<string, any> {
+    parseArgs(comnand: string, args: Array<string>, subCommands: Array<string>): Map<string, any> {
         const result = new Map<string, any>();
         const argDefs = this.getRegistration(comnand)?.usage;
         if (argDefs == undefined) return;
@@ -222,44 +167,19 @@ export class CommandBuilder {
         const processArg = (idx: number, def: commandArg, result: Map<string, any>) => {
             let type = def.type;
             let value: unknown;
-            if (type.endsWith("...")) {
-                type = type.replace("...", "");
-            }
+            if (type.endsWith("...")) type = type.replace("...", "");
 
-            if (type == "int") {
-                if (!/^[-+]?(\d+)$/.test(args[idx])) {
-                    throw RawText.translate("commands.generic.num.invalid").with(args[idx]);
-                }
+            if (type === "int" || type === "float") {
+                const val = (type === "int" ? parseInt : parseFloat)(args[idx]);
+                if (val != val || isNaN(val)) throw RawText.translate("commands.generic.num.invalid").with(args[idx]);
 
-                const val = Number(args[idx]);
-                if (def.range) {
-                    const less = val < (def.range[0] ?? -Infinity);
-                    const greater = val > (def.range[1] ?? Infinity);
+                const range = (<commandNum>def).range;
+                if (range) {
+                    const less = val < (range[0] ?? -Infinity);
+                    const greater = val > (range[1] ?? Infinity);
 
-                    if (less) {
-                        throw RawText.translate("commands.generic.wedit:tooSmall").with(val).with(def.range[0]);
-                    } else if (greater) {
-                        throw RawText.translate("commands.generic.wedit:tooBig").with(val).with(def.range[1]);
-                    }
-                }
-
-                idx++;
-                value = val;
-            } else if (type == "float") {
-                const val = parseFloat(args[idx]);
-                if (val != val || isNaN(val)) {
-                    throw RawText.translate("commands.generic.num.invalid").with(args[idx]);
-                }
-
-                if (def.range) {
-                    const less = val < (def.range[0] ?? -Infinity);
-                    const greater = val > (def.range[1] ?? Infinity);
-
-                    if (less) {
-                        throw RawText.translate("commands.generic.wedit:tooSmall").with(val).with(def.range[0]);
-                    } else if (greater) {
-                        throw RawText.translate("commands.generic.wedit:tooBig").with(val).with(def.range[1]);
-                    }
+                    if (less) throw RawText.translate("commands.generic.wedit:tooSmall").with(val).with(range[0]);
+                    else if (greater) throw RawText.translate("commands.generic.wedit:tooBig").with(val).with(range[1]);
                 }
 
                 idx++;
@@ -279,15 +199,21 @@ export class CommandBuilder {
                 value = cmdBaseInfo.name;
             } else if (type == "string") {
                 value = args[idx++];
+            } else if (type == "enum") {
+                if (!(<commandEnum>def).values.includes(args[idx])) throw RawText.translate("commands.generic.unknown");
+                value = args[idx++];
+            } else if (type == "bool") {
+                if (args[idx].toLowerCase() == "true") value = true;
+                else if (args[idx].toLowerCase() == "false") value = false;
+                else throw RawText.translate("commands.generic.bool.invalid").with(args[idx]);
+                idx++;
             } else if (this.customArgTypes.has(type)) {
                 try {
                     const parse = this.customArgTypes.get(type).parseArgs(args, idx);
                     idx = parse.argIndex;
                     value = parse.result;
                 } catch (error) {
-                    if (error.isSyntaxError) {
-                        error.idx = idx;
-                    }
+                    if (error.isSyntaxError) error.idx = idx;
                     throw error;
                 }
             } else {
@@ -295,9 +221,7 @@ export class CommandBuilder {
             }
 
             if (def.type.endsWith("...")) {
-                if (!result.has(def.name)) {
-                    result.set(def.name, []);
-                }
+                if (!result.has(def.name)) result.set(def.name, []);
                 (result.get(def.name) as Array<unknown>).push(value);
             } else {
                 result.set(def.name, value);
@@ -305,20 +229,24 @@ export class CommandBuilder {
             return idx;
         };
 
-        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) => {
+        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, subCommands: Array<string>) => {
             let defIdx = 0;
             let hasNamedSubCmd = false;
-            let invalidFlags: string[] = [];
-            flagDefs = new Map<string, commandFlag>(flagDefs);
-            argDefs?.forEach((argDef) => {
-                if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
-                    flagDefs.set(argDef.flag, argDef);
-                }
-            });
 
             function processSubCmd(idx: number, arg: string) {
                 let processed = false;
                 let unnamedSubs: Array<commandSubDef> = [];
+
+                if (subCommands.length) {
+                    const argDef = <commandSubDef>argDefs[defIdx];
+                    if (argDef.subName === subCommands[0]) {
+                        idx = processList(idx, argDef.args, result, subCommands.slice(1));
+                        result.set(argDef.subName, true);
+                        processed = true;
+                        unnamedSubs = [];
+                    }
+                    return idx;
+                }
 
                 // process named sub-commands and collect unnamed ones
                 while (defIdx < argDefs.length && "subName" in argDefs[defIdx]) {
@@ -329,7 +257,7 @@ export class CommandBuilder {
                         } else {
                             hasNamedSubCmd = true;
                             if (argDef.subName == arg) {
-                                idx = processList(idx + 1, argDef.args, result, flagDefs);
+                                idx = processList(idx + 1, argDef.args, result, subCommands);
                                 result.set(argDef.subName, true);
                                 processed = true;
                                 unnamedSubs = [];
@@ -354,66 +282,23 @@ export class CommandBuilder {
                 for (const sub of unnamedSubs) {
                     try {
                         const subResult = new Map<string, any>();
-                        idx = processList(i, sub.args, subResult, flagDefs);
+                        idx = processList(i, sub.args, subResult, subCommands);
                         result.set(sub.subName, true);
                         subResult.forEach((v, k) => result.set(k, v));
-                        invalidFlags.forEach((f, i) => {
-                            if (sub.args.map((argDef) => ("flag" in argDef ? argDef.flag : null)).includes(f)) {
-                                result.set(f, true);
-                                invalidFlags[i] = "";
-                            }
-                        });
-                        invalidFlags = invalidFlags.filter((f) => f !== "");
                         break;
                     } catch (e) {
                         fails.push(e);
                     }
                 }
-
-                if (fails.length != 0 && fails.length == unnamedSubs.length) {
-                    throw fails[0];
-                }
+                if (fails.length != 0 && fails.length == unnamedSubs.length) throw fails[0];
 
                 return idx;
             }
 
-            const numList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
             let i: number;
             for (i = currIdx; i < args.length; i++) {
                 const arg = args[i];
-
-                if (arg.startsWith("-") && !numList.includes(arg.charAt(1))) {
-                    for (const f of arg) {
-                        if (f == "-") continue;
-                        if (flagDefs.has(f)) {
-                            result.set(f, true);
-                            const argDef = flagDefs.get(f);
-                            if (argDef.type != undefined) {
-                                i =
-                                    processArg(
-                                        i + 1,
-                                        {
-                                            name: argDef.flag + "-" + argDef.name,
-                                            type: argDef.type,
-                                        },
-                                        result
-                                    ) - 1;
-                            }
-                        } else {
-                            invalidFlags.push(f);
-                        }
-                    }
-                    continue;
-                }
-
-                let argDef: commandArg | commandSubDef;
-                while (defIdx < (argDefs?.length ?? 0)) {
-                    if (!("flag" in argDefs[defIdx])) {
-                        argDef = <typeof argDef>argDefs[defIdx];
-                        break;
-                    }
-                    defIdx++;
-                }
+                let argDef = argDefs[defIdx];
 
                 // Leftover arguments
                 if (!argDef) {
@@ -430,7 +315,7 @@ export class CommandBuilder {
                     }
                 }
 
-                if ("type" in argDef && !("flag" in argDef)) {
+                if ("type" in argDef) {
                     i = processArg(i, argDef, result) - 1;
                     defIdx++;
                 } else if ("subName" in argDef) {
@@ -441,46 +326,38 @@ export class CommandBuilder {
             // Process optional arguments (and throw if some are required)
             while (defIdx < (argDefs?.length ?? 0)) {
                 const argDef = argDefs[defIdx];
-                if (!("flag" in argDef)) {
-                    if ("type" in argDef && argDef?.default != undefined && !("subName" in argDef)) {
-                        const def = argDef.default.clone?.() ?? argDef.default;
-                        result.set(argDef.name, def);
-                    } else if ("subName" in argDef) {
-                        processSubCmd(i, "");
-                    } else {
-                        // Required arguments not specified
-                        const err: commandSyntaxError = {
-                            isSyntaxError: true,
-                            stack: contentLog.stack(),
-                            idx: -1,
-                        };
-                        throw err;
-                    }
+                if ("type" in argDef) {
+                    const def = argDef.default?.clone?.() ?? argDef.default;
+                    result.set(argDef.name, def);
+                } else if ("subName" in argDef) {
+                    if (!subCommands.length) processSubCmd(i, "");
+                } else {
+                    // Required arguments not specified
+                    const err: commandSyntaxError = {
+                        isSyntaxError: true,
+                        stack: contentLog.stack(),
+                        idx: -1,
+                    };
+                    throw err;
                 }
                 defIdx++;
-            }
-
-            if (invalidFlags.length != 0) {
-                throw RawText.translate("commands.generic.wedit:invalidFlag").with(invalidFlags[0]);
             }
 
             return i;
         };
 
-        processList(0, argDefs, result);
+        processList(0, argDefs, result, [...subCommands]);
         return result;
     }
 
-    callCommand(player: Player, command: string, args: Array<string> | string = []) {
+    callCommand(player: Player, command: string, args: Array<string> | string = [], subCommands: Array<string> = []) {
         function regexIndexOf(text: string, re: RegExp, index: number) {
             const i = text.slice(index).search(re);
             return i == -1 ? -1 : i + index;
         }
 
         const getCommand = Command.getAllRegistation().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
-        if (!getCommand) {
-            throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
-        }
+        if (!getCommand) throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
 
         let msg = "";
         const offsets: Array<number> = [];
@@ -519,9 +396,7 @@ export class CommandBuilder {
             msg = args.join(" ");
         }
 
-        offsets.forEach((v, i) => {
-            offsets[i] = v + this.prefix.length + command.length + 1;
-        });
+        offsets.forEach((v, i) => (offsets[i] = v + this.prefix.length + command.length + 1));
         msg = this.prefix + command + " " + msg;
 
         for (const element of Command.getAllRegistation()) {
@@ -532,10 +407,9 @@ export class CommandBuilder {
              */
             let result;
             try {
-                if (element.permission && !playerHandler.hasPermission(player, element.permission)) {
-                    throw RawText.translate("commands.generic.wedit:noPermission");
-                }
-                result = element.callback(player, msg, Command.parseArgs(command, args));
+                if (element.permission && !playerHandler.hasPermission(player, element.permission)) throw RawText.translate("commands.generic.wedit:noPermission");
+                const map = Command.parseArgs(command, args, subCommands);
+                result = element.callback(player, msg, map);
             } catch (e) {
                 if (e.isSyntaxError) {
                     contentLog.error(e.stack);
@@ -553,9 +427,7 @@ export class CommandBuilder {
                         e.printError(player);
                     } else {
                         RawText.text(e).printError(player);
-                        if (e.stack) {
-                            RawText.text(e.stack).printError(player);
-                        }
+                        if (e.stack) RawText.text(e.stack).printError(player);
                     }
                 }
             }

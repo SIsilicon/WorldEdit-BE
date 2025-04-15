@@ -1,19 +1,30 @@
 import { RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
+import { commandArgList } from "library/@types/classes/CommandBuilder.js";
+
+const suffixArguments: commandArgList = [
+    {
+        name: "hollow",
+        type: "bool",
+        default: false,
+    },
+    {
+        name: "raised",
+        type: "bool",
+        default: false,
+    },
+    {
+        name: "dome",
+        type: "Direction",
+        default: null,
+    },
+];
 
 const registerInformation = {
     name: "hsphere",
-    permission: "worldedit.generation.sphere",
+    permission: "worldedit.generation.hsphere",
     description: "commands.wedit:hsphere.description",
     usage: [
-        {
-            flag: "r",
-        },
-        {
-            flag: "d",
-            name: "dome",
-            type: "Direction",
-        },
         {
             name: "pattern",
             type: "Pattern",
@@ -26,6 +37,7 @@ const registerInformation = {
                     type: "float",
                     range: [0.01, null] as [number, null],
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -41,6 +53,7 @@ const registerInformation = {
                     type: "float",
                     range: [0.01, null] as [number, null],
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -61,12 +74,13 @@ const registerInformation = {
                     type: "float",
                     range: [0.01, null] as [number, null],
                 },
+                ...suffixArguments,
             ],
         },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    args.set("h", true);
+    args.set("hollow", true);
     return yield* getCommandFunc("sphere")(session, builder, args) as Generator<unknown, RawText | string>;
 });

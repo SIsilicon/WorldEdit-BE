@@ -10,7 +10,7 @@ const registerInformation = {
     permission: "worldedit.selection.contract",
     usage: [
         {
-            subName: "_defaultA",
+            subName: "_",
             args: [
                 {
                     name: "amount",
@@ -24,7 +24,7 @@ const registerInformation = {
             ],
         },
         {
-            subName: "_defaultB",
+            subName: "_reverse",
             args: [
                 {
                     name: "amount",

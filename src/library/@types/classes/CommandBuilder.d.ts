@@ -8,12 +8,14 @@ export interface commandArg {
     name: string;
     type: string;
     default?: any;
+}
+export interface commandNum extends commandArg {
+    type: "int" | "float";
     range?: range;
 }
-export interface commandFlag {
-    flag: string;
-    name?: string;
-    type?: string;
+export interface commandEnum extends commandArg {
+    type: "enum";
+    values: Array<string>;
 }
 export interface commandSubDef {
     subName: string;
@@ -22,7 +24,7 @@ export interface commandSubDef {
     args?: commandArgList;
 }
 
-export type commandArgList = Array<commandArg | commandFlag | commandSubDef>;
+export type commandArgList = Array<commandNum | commandEnum | commandArg | commandSubDef>;
 
 export interface argParseResult<T> {
     result: T;

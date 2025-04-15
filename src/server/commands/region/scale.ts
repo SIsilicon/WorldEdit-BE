@@ -3,6 +3,20 @@ import { assertClipboard } from "@modules/assert.js";
 import { RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
+import { commandArgList } from "library/@types/classes/CommandBuilder.js";
+
+const suffixArguments: commandArgList = [
+    {
+        name: "aroundOrigin",
+        type: "bool",
+        default: false,
+    },
+    {
+        name: "affectWorld",
+        type: "bool",
+        default: false,
+    },
+];
 
 const registerInformation = {
     name: "scale",
@@ -10,21 +24,13 @@ const registerInformation = {
     description: "commands.wedit:scale.description",
     usage: [
         {
-            flag: "o",
-        },
-        {
-            flag: "w",
-        },
-        {
-            flag: "s",
-        },
-        {
             subName: "_x",
             args: [
                 {
                     name: "scale",
                     type: "float",
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -38,6 +44,7 @@ const registerInformation = {
                     name: "scaleY",
                     type: "float",
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -55,6 +62,7 @@ const registerInformation = {
                     name: "scaleZ",
                     type: "float",
                 },
+                ...suffixArguments,
             ],
         },
     ],
@@ -67,7 +75,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     else scale = new Vector(args.get("scaleX"), args.get("scaleY"), args.get("scaleZ"));
 
     let blockCount = 0;
-    if (args.has("w")) {
+    if (args.get("affectWorld")) {
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { scale }));
         blockCount = session.selection.getBlockCount();
     } else {

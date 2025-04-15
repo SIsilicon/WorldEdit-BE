@@ -1,19 +1,25 @@
 import { RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
+import { commandArgList } from "library/@types/classes/CommandBuilder.js";
+
+const suffixArguments: commandArgList = [
+    {
+        name: "raised",
+        type: "bool",
+        default: false,
+    },
+    {
+        name: "direction",
+        type: "Direction",
+        default: null,
+    },
+];
 
 const registerInformation = {
     name: "hcyl",
-    permission: "worldedit.generation.cylinder",
+    permission: "worldedit.generation.hcylinder",
     description: "commands.wedit:hcyl.description",
     usage: [
-        {
-            flag: "r",
-        },
-        {
-            flag: "d",
-            name: "direction",
-            type: "Direction",
-        },
         {
             name: "pattern",
             type: "Pattern",
@@ -32,6 +38,7 @@ const registerInformation = {
                     default: 1,
                     range: [1, null] as [number, null],
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -53,12 +60,13 @@ const registerInformation = {
                     default: 1,
                     range: [1, null] as [number, null],
                 },
+                ...suffixArguments,
             ],
         },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    args.set("h", true);
+    args.set("hollow", true);
     return yield* getCommandFunc("cyl")(session, builder, args) as Generator<unknown, RawText | string>;
 });

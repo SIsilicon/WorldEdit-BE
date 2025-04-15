@@ -4,18 +4,21 @@ import { Vector3 } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { PlayerSession } from "server/sessions.js";
 import { getWorldHeightLimits } from "server/util.js";
+import { commandArgList } from "library/@types/classes/CommandBuilder.js";
+
+const suffixArguments: commandArgList = [
+    {
+        name: "expandSelection",
+        type: "bool",
+        default: false,
+    },
+];
 
 const registerInformation = {
     name: "chunk",
     permission: "worldedit.selection.chunk",
     description: "commands.wedit:chunk.description",
     usage: [
-        {
-            flag: "c",
-        },
-        {
-            flag: "s",
-        },
         {
             subName: "_xz",
             args: [
@@ -24,6 +27,7 @@ const registerInformation = {
                     type: "xz",
                     default: new CommandPosition(),
                 },
+                ...suffixArguments,
             ],
         },
         {
@@ -33,6 +37,7 @@ const registerInformation = {
                     name: "coordinates",
                     type: "xyz",
                 },
+                ...suffixArguments,
             ],
         },
     ],
@@ -53,8 +58,7 @@ function setSelection(session: PlayerSession, chunks: [Vector3, Vector3], useHei
 }
 
 registerCommand(registerInformation, function (session, builder, args) {
-    const useChunkCoordinates = args.has("c");
-    const expandSelection = args.has("s");
+    const expandSelection = args.get("expandSelection") as boolean;
     const useHeightLimits = args.has("_xz");
     const coordinates = args.get("coordinates") as CommandPosition;
 
@@ -70,12 +74,6 @@ registerCommand(registerInformation, function (session, builder, args) {
             .with(`${chunks[0].x}, ${useHeightLimits ? "" : `${chunks[0].y}, `}${chunks[0].z}`)
             .with(`${chunks[1].x}, ${useHeightLimits ? "" : `${chunks[1].y}, `}${chunks[1].z}`);
     } else {
-        if (useChunkCoordinates) {
-            coordinates.x *= 16;
-            coordinates.y *= 16;
-            coordinates.z *= 16;
-        }
-
         const chunk = toChunk(coordinates.relativeTo(builder, true));
         setSelection(session, [chunk, chunk], useHeightLimits);
 

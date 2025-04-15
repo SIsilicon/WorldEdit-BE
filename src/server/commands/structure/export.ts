@@ -12,14 +12,18 @@ const registerInformation = {
     description: "commands.wedit:export.description",
     usage: [
         {
-            flag: "e",
-        },
-        {
-            flag: "a",
-        },
-        {
             name: "name",
             type: "string",
+        },
+        {
+            name: "includeAir",
+            type: "bool",
+            default: true,
+        },
+        {
+            name: "includeEntities",
+            type: "bool",
+            default: false,
         },
     ],
 };
@@ -50,7 +54,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const range = session.selection.getRange();
     const dimension = builder.dimension;
-    const excludeAir = args.has("a");
+    const excludeAir = !args.get("includeAir");
 
     let struct_name: string = args.get("name");
     if (!struct_name.includes(":")) struct_name = "wedit:" + struct_name;
@@ -81,7 +85,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             if (
                 !(yield* RegionBuffer.createFromWorld(...range, dimension, {
                     saveAs: namespace + ":weditstructexport_" + struct,
-                    includeEntities: args.has("e"),
+                    includeEntities: args.get("includeEntities"),
                 }))
             )
                 throw "Failed to save structure";

@@ -16,20 +16,24 @@ const registerInformation = {
     description: "commands.wedit:cut.description",
     usage: [
         {
-            flag: "a",
+            name: "includeAir",
+            type: "bool",
+            default: true,
         },
         {
-            flag: "e",
+            name: "includeEntities",
+            type: "bool",
+            default: false,
+        },
+        {
+            name: "mask",
+            type: "Mask",
+            default: undefined,
         },
         {
             name: "fill",
             type: "Pattern",
             default: new Pattern("air"),
-        },
-        {
-            flag: "m",
-            name: "mask",
-            type: "Mask",
         },
     ],
 };
@@ -45,8 +49,8 @@ const registerInformation = {
 export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), toClipboard: boolean): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
     const usingItem = args.get("_using_item");
     const dim = session.player.dimension;
-    const mask: Mask = usingItem ? session.globalMask : args.has("m") ? args.get("m-mask") : undefined;
-    const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
+    const mask: Mask = usingItem ? session.globalMask : args.get("mask");
+    const includeEntities: boolean = usingItem ? session.includeEntities : args.get("includeEntities");
     const [start, end] = session.selection.getRange();
 
     let buffer: RegionBuffer;
@@ -59,9 +63,7 @@ export function* cut(session: PlayerSession, args: Map<string, any>, fill: Patte
             location: start,
             volume: end.sub(start),
         };
-        for (const entity of dim.getEntities(entityQuery)) {
-            entity.nameTag = "wedit:marked_for_deletion";
-        }
+        for (const entity of dim.getEntities(entityQuery)) entity.nameTag = "wedit:marked_for_deletion";
         Server.runCommand("execute @e[name=wedit:marked_for_deletion] ~~~ tp @s ~ -512 ~", dim);
         Server.runCommand("kill @e[name=wedit:marked_for_deletion]", dim);
     }

@@ -23,7 +23,9 @@ const registerInformation = {
             permission: "worldedit.selection.size",
             args: [
                 {
-                    flag: "c",
+                    name: "countClipboard",
+                    type: "bool",
+                    default: false,
                 },
             ],
         },
@@ -36,7 +38,7 @@ registerCommand(registerInformation, function (session, builder, args) {
         let size: Vector;
         let blockCount: number;
 
-        if (args.has("c")) {
+        if (args.get("countClipboard")) {
             assertClipboard(session);
 
             size = Vector.from(session.clipboard.getSize());
@@ -60,12 +62,9 @@ registerCommand(registerInformation, function (session, builder, args) {
         message.append("translate", "commands.wedit:size.distance").with(`${size.sub(1).length}\n`);
         message.append("translate", "commands.wedit:size.blocks").with(`${blockCount}`);
         return message;
+    } else {
+        if (!session.hasToolProperty(null, "brush")) session.bindTool("brush", null, createDefaultBrush());
+        session.setToolProperty(null, "size", args.get("size"));
+        return "commands.wedit:brush.size.set";
     }
-
-    if (!session.hasToolProperty(null, "brush")) {
-        session.bindTool("brush", null, createDefaultBrush());
-    }
-
-    session.setToolProperty(null, "size", args.get("size"));
-    return "commands.wedit:brush.size.set";
 });

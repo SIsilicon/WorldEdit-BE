@@ -21,7 +21,7 @@ const registerInformation = {
             ],
         },
         {
-            subName: "_defaultA",
+            subName: "_",
             args: [
                 {
                     name: "amount",
@@ -35,7 +35,7 @@ const registerInformation = {
             ],
         },
         {
-            subName: "_defaultB",
+            subName: "_reverse",
             args: [
                 {
                     name: "amount",

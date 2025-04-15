@@ -16,7 +16,9 @@ const registerInformation = {
             type: "Biome",
         },
         {
-            flag: "p",
+            name: "changeAtPosition",
+            type: "bool",
+            default: false,
         },
     ],
 };
@@ -27,7 +29,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const biome = (args.get("biome") as Biome).getId();
     const biomeChanges = new BiomeChanges(builder.dimension);
 
-    if (args.has("p")) {
+    if (args.get("changeAtPosition")) {
         biomeChanges.setBiome(PlayerUtil.getBlockLocation(builder), biome);
         biomeChanges.flush();
         changeCount++;

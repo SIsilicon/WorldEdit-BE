@@ -10,10 +10,14 @@ const registerInformation = {
     permission: "worldedit.analysis.distr",
     usage: [
         {
-            flag: "c",
+            name: "checkClipboard",
+            type: "bool",
+            default: false,
         },
         {
-            flag: "d",
+            name: "strict",
+            type: "bool",
+            default: false,
         },
     ],
 };
@@ -21,7 +25,7 @@ const registerInformation = {
 registerCommand(registerInformation, function* (session, builder, args) {
     let total: number;
     const counts: Map<string, number> = new Map();
-    const getStates = args.has("d");
+    const getStates = args.get("strict");
 
     yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Analysing blocks...");
@@ -36,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             counts.set(id, (counts.get(id) ?? 0) + 1);
         };
 
-        if (args.has("c")) {
+        if (args.get("checkClipboard")) {
             assertClipboard(session);
             total = session.clipboard.getVolume();
             const clipboard = session.clipboard;
@@ -86,9 +90,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
 
         const percent = ((count / total) * 100).toFixed(3);
-        if (block.startsWith("minecraft:")) {
-            block = block.slice("minecraft:".length);
-        }
+        if (block.startsWith("minecraft:")) block = block.slice("minecraft:".length);
         result.append("text", `\n${count}${" ".repeat(8 - count.toString().length * 1.5)} (%${percent}) ${block}`);
     }
     return result;

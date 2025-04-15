@@ -62,7 +62,7 @@ Server.uiForms.register("$stackAmount", {
     },
     submit: (_, player, input) => {
         player.setDynamicProperty("toolLastStackAmount", input.$amount);
-        Server.command.callCommand(player, "stack", [input.$amount.toString(), "-s"]);
+        Server.command.callCommand(player, "stack", [input.$amount.toString(), "-s"]); // FIXME
     },
 });
 
@@ -79,6 +79,6 @@ Server.uiForms.register("$moveAmount", {
     },
     submit: (_, player, input) => {
         player.setDynamicProperty("toolLastMoveAmount", input.$amount);
-        Server.command.callCommand(player, "move", [input.$amount.toString(), "-s"]);
+        Server.command.callCommand(player, "move", [input.$amount.toString(), "-s"]); // FIXME
     },
 });

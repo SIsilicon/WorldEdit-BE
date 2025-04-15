@@ -19,6 +19,6 @@ const registerInformation = {
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    args.set("h", true);
+    args.set("hollow", true);
     return yield* getCommandFunc("pyramid")(session, builder, args) as Generator<unknown, RawText | string>;
 });

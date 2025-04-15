@@ -8,7 +8,10 @@ const registerInformation = {
     description: "commands.wedit:blockid.description",
     usage: [
         {
-            flag: "d",
+            name: "type",
+            type: "enum",
+            values: ["states", "data"],
+            default: "states",
         },
     ],
 };
@@ -18,7 +21,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     if (block) {
         let id = block.typeId;
         if (id.startsWith("minecraft:")) id = id.slice("minecraft:".length);
-        if (args.has("d")) return `${id}:${Server.block.statesToDataValue(block.permutation.getAllStates())}`;
+        if (args.get("type") === "data") return `${id}:${Server.block.statesToDataValue(block.permutation.getAllStates())}`;
         const states = Object.entries(block.permutation.getAllStates());
         if (states.length) id += `[${states.map(([key, value]) => `${key}=${value}`).join(",")}]`;
         return id;
