@@ -7,7 +7,6 @@ const registerInformation: CommandInfo = {
     name: "unstuck",
     permission: "worldedit.navigation.unstuck",
     description: "commands.wedit:unstuck.description",
-    aliases: ["!"],
 };
 
 registerCommand(registerInformation, function (session, builder) {
