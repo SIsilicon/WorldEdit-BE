@@ -1,5 +1,5 @@
 import { Vector3, Dimension, Player } from "@minecraft/server";
-import { Vector, regionVolume, regionSize, Thread, getCurrentThread, VectorSet } from "@notbeer-api";
+import { Vector, regionVolume, regionSize, Thread, getCurrentThread, VectorSet, regionBounds } from "@notbeer-api";
 import { UnloadedChunksError } from "./assert.js";
 import { canPlaceBlock } from "../util.js";
 import { PlayerSession } from "../sessions.js";
@@ -145,7 +145,10 @@ class DefaultHistory extends History {
         // We test the change limit here,
         if (point.blocksChanged > this.changeLimit) throw "commands.generic.wedit:blockLimit";
 
-        const start = "x" in startBlocks ? startBlocks : (Array.isArray(startBlocks) ? startBlocks : Array.from(startBlocks)).reduce((a, b) => Vector.min(a, b));
+        let start: Vector3;
+        if ("x" in startBlocks) start = <Vector3>startBlocks;
+        else [start, end] = regionBounds(startBlocks);
+
         const buffer = yield* this.processRegion(historyPoint, start, end);
         point.undo.push({
             buffer,
