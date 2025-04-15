@@ -1,5 +1,6 @@
 import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
+import { Expression } from "@modules/expression.js";
 
 const registerInformation: CommandInfo = {
     name: "calculate",
@@ -10,8 +11,8 @@ const registerInformation: CommandInfo = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-    const expr = args.get("expr");
-    const exprString = expr.stringObj;
+    const expr = args.get("expr") as Expression;
+    const exprString = expr.toJSON();
     try {
         return `${exprString} = ${expr.compile([])()}`;
     } catch (error) {
