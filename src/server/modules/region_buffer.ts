@@ -672,7 +672,7 @@ export class RegionBuffer {
 
 class RegionBlockImpl implements RegionBlock {
     private static AIR = "minecraft:air";
-    private static LIQUIDS = ["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"];
+    private static LIQUIDS = ["minecraft:water", "minecraft:lava"];
 
     readonly buffer: RegionBuffer;
     readonly x: number;
