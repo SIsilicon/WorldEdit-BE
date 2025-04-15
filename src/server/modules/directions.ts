@@ -30,6 +30,7 @@ enum Dir {
 }
 
 export class Cardinal implements CustomArgType {
+    static commandEnumValues = [...directions, ...dirAliases];
     static readonly Dir = Dir;
     readonly Dir = Cardinal.Dir;
 

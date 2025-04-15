@@ -1,7 +1,7 @@
 import { world, system, PlayerSpawnAfterEvent, WatchdogTerminateReason, CommandPermissionLevel, CustomCommandParamType, CustomCommandStatus, Player, CustomCommandParameter } from "@minecraft/server";
 import { shutdownTimers } from "./utils/scheduling.js";
 import { shutdownThreads } from "./utils/multithreading.js";
-import { RawText } from "./utils/index.js";
+import { contentLog, RawText } from "./utils/index.js";
 
 // eslint-disable-next-line prefer-const
 let _server: ServerBuild;
@@ -189,13 +189,18 @@ class ServerBuild extends ServerBuilder {
                             }[arg.type];
 
                             let name = arg.name;
-                            if (arg.type === "enum") {
+                            const customEnumValues = this.command.getCustomArgEnums(arg.type);
+                            if (arg.type === "enum" || customEnumValues) {
                                 name = `wedit:${name}`;
-                                ev.customCommandRegistry.registerEnum(name, (<commandEnum>arg).values);
+                                try {
+                                    ev.customCommandRegistry.registerEnum(name, (<commandEnum>arg).values ?? customEnumValues);
+                                } catch {
+                                    if (!customEnumValues) contentLog.warn("Warning: Enum name already exists", name);
+                                }
                             } else {
                                 name += types === undefined ? `: ${arg.type}` : "";
                             }
-                            list.push({ name, type: types ?? CustomCommandParamType.String });
+                            list.push({ name, type: types ?? customEnumValues ? CustomCommandParamType.Enum : CustomCommandParamType.String });
                         }
                     });
 

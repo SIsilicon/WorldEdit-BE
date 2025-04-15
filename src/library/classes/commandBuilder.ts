@@ -19,6 +19,7 @@ import { contentLog, RawText } from "../utils/index.js";
 
 export class CustomArgType {
     static parseArgs: (args: Array<string>, argIndex: number) => argParseResult<unknown>;
+    static readonly commandEnumValues?: string[];
     clone: () => CustomArgType;
 }
 
@@ -157,6 +158,10 @@ export class CommandBuilder {
 
     addCustomArgType(name: string, argType: typeof CustomArgType) {
         this.customArgTypes.set(name, argType);
+    }
+
+    getCustomArgEnums(name: string) {
+        return this.customArgTypes.get(name)?.commandEnumValues;
     }
 
     parseArgs(comnand: string, args: Array<string>, subCommands: Array<string>): Map<string, any> {
