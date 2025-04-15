@@ -162,7 +162,6 @@ class ServerBuild extends ServerBuilder {
     private _buildCommands() {
         system.beforeEvents.startup.subscribe((ev) => {
             for (const command of this.command.getAllRegistation()) {
-                if (command.name === "help") continue;
                 const names = [command.name, ...(command.aliases ?? [])];
 
                 type Parameters = { mandatoryParameters: CustomCommandParameter[]; optionalParameters: CustomCommandParameter[] };

@@ -11,7 +11,6 @@ Server.command.addCustomArgType("Direction", Cardinal);
 Server.command.addCustomArgType("Expression", Expression);
 Server.command.addCustomArgType("Biome", Biome);
 
-import "./misc/help.js";
 import "./misc/worldedit.js";
 import "./misc/limit.js";
 import "./misc/kit.js";
