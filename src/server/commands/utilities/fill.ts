@@ -1,34 +1,19 @@
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, regionBounds } from "@notbeer-api";
+import { CommandInfo, RawText, regionBounds } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { floodFill, FloodFillContext } from "./floodfill_func.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "fill",
     permission: "worldedit.utility.fill",
     description: "commands.wedit:fill.description",
     usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-        {
-            name: "radius",
-            type: "float",
-        },
-        {
-            name: "depth",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: 1,
-        },
-        {
-            name: "direction",
-            type: "Direction",
-            default: new Cardinal(Cardinal.Dir.DOWN),
-        },
+        { name: "pattern", type: "Pattern" },
+        { name: "radius", type: "float" },
+        { name: "depth", type: "int", range: [1, null], default: 1 },
+        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.DOWN) },
     ],
 };
 
@@ -38,7 +23,7 @@ interface fillContext extends FloodFillContext {
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const dimension = builder.dimension;
-    const fillDir = (args.get("direction") as Cardinal).getDirection(builder);
+    const fillDir = (<Cardinal>args.get("direction")).getDirection(builder);
     const depth: number = args.get("depth");
     const startBlock = session.getPlacementPosition();
 

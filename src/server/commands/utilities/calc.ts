@@ -1,16 +1,11 @@
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "calculate",
     permission: "worldedit.utility.calc",
     description: "commands.wedit:calc.description",
-    usage: [
-        {
-            name: "expr",
-            type: "Expression",
-        },
-    ],
+    usage: [{ name: "expr", type: "Expression" }],
     aliases: ["calc", "eval", "evaluate", "solve"],
 };
 

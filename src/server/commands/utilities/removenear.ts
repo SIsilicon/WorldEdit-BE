@@ -1,22 +1,16 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "removenear",
     permission: "worldedit.utility.removenear",
     description: "commands.wedit:removenear.description",
     usage: [
-        {
-            name: "mask",
-            type: "Mask",
-        },
-        {
-            name: "size",
-            type: "int",
-        },
+        { name: "mask", type: "Mask" },
+        { name: "size", type: "int" },
     ],
 };
 

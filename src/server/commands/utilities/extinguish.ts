@@ -1,17 +1,12 @@
 import { Mask } from "@modules/mask.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "extinguish",
     permission: "worldedit.utility.extinguish",
     description: "commands.wedit:extinguish.description",
-    usage: [
-        {
-            name: "radius",
-            type: "int",
-        },
-    ],
+    usage: [{ name: "radius", type: "int" }],
     aliases: ["ext", "ex"],
 };
 

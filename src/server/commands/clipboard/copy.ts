@@ -1,32 +1,20 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { BlockPermutation, Block } from "@minecraft/server";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "copy",
     permission: "worldedit.clipboard.copy",
     description: "commands.wedit:copy.description",
     usage: [
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: undefined,
-        },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
+        { name: "mask", type: "Mask", default: undefined },
     ],
 };
 
@@ -79,8 +67,6 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
-    if (!(yield* Jobs.run(session, 1, copy(session, args, true)))) {
-        throw RawText.translate("commands.generic.wedit:commandFail");
-    }
+    if (!(yield* Jobs.run(session, 1, copy(session, args, true)))) throw RawText.translate("commands.generic.wedit:commandFail");
     return RawText.translate("commands.wedit:copy.explain").with(`${session.clipboard.getVolume()}`);
 });

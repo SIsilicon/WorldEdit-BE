@@ -1,9 +1,9 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { getWorldHeightLimits } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "unstuck",
     permission: "worldedit.navigation.unstuck",
     description: "commands.wedit:unstuck.description",

@@ -1,19 +1,13 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
-import { Vector } from "@notbeer-api";
+import { CommandInfo, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "trim",
     description: "commands.wedit:trim.description",
     permission: "worldedit.selection.trim",
-    usage: [
-        {
-            name: "mask",
-            type: "Mask",
-            default: new Mask("#existing"),
-        },
-    ],
+    usage: [{ name: "mask", type: "Mask", default: new Mask("#existing") }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

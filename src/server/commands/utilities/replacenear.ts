@@ -1,25 +1,16 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "replacenear",
     permission: "worldedit.utility.replacenear",
     description: "commands.wedit:replacenear.description",
     usage: [
-        {
-            name: "size",
-            type: "int",
-        },
-        {
-            name: "mask",
-            type: "Mask",
-        },
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
+        { name: "size", type: "int" },
+        { name: "mask", type: "Mask" },
+        { name: "pattern", type: "Pattern" },
     ],
 };
 

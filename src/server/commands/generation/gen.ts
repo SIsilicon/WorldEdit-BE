@@ -2,27 +2,17 @@ import { registerCommand } from "../register_commands.js";
 import { ExpressionShape } from "../../shapes/expression.js";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText, Vector, regionSize } from "@notbeer-api";
+import { CommandInfo, RawText, Vector, regionSize } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "gen",
     permission: "worldedit.generation.shape",
     description: "commands.wedit:gen.description",
     usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-        {
-            name: "expr",
-            type: "Expression",
-        },
-        {
-            name: "hollow",
-            type: "bool",
-            default: false,
-        },
+        { name: "pattern", type: "Pattern" },
+        { name: "expression", type: "Expression" },
+        { name: "hollow", type: "bool", default: false },
     ],
     aliases: ["g"],
 };
@@ -36,7 +26,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const isHollow = args.get("hollow");
 
     const loc = Vector.min(start, end).floor();
-    const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expr"));
+    const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expression"));
     const count = yield* Jobs.run(session, 2, exprShape.generate(loc, pattern, null, session, { hollow: isHollow }));
     return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
 });

@@ -3,28 +3,17 @@ import { Jobs } from "@modules/jobs.js";
 import { RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { RegionLoadOptions } from "@modules/region_buffer.js";
+import { CommandInfo } from "@notbeer-api";
 import { Mask } from "@modules/mask.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "paste",
     permission: "worldedit.clipboard.paste",
     description: "commands.wedit:paste.description",
     usage: [
-        {
-            name: "mask",
-            type: "Mask",
-            default: null,
-        },
-        {
-            name: "originalLocation",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "pasteContent",
-            type: "bool",
-            default: true,
-        },
+        { name: "mask", type: "Mask", default: new Mask() },
+        { name: "originalLocation", type: "bool", default: false },
+        { name: "pasteContent", type: "bool", default: true },
     ],
 };
 

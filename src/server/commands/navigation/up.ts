@@ -1,9 +1,9 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { getWorldHeightLimits } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "up",
     permission: "worldedit.navigation.up",
     description: "commands.wedit:up.description",
@@ -11,7 +11,7 @@ const registerInformation = {
         {
             name: "height",
             type: "int",
-            range: [0, null] as [number, null],
+            range: [0, null],
         },
     ],
 };

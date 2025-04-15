@@ -2,32 +2,21 @@ import { registerCommand } from "../register_commands.js";
 import { createDefaultBrush } from "./brush.js";
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo } from "@notbeer-api";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "size",
     description: "commands.wedit:size.description",
     usage: [
         {
             subName: "_brush",
             permission: "worldedit.brush.options.size",
-            args: [
-                {
-                    name: "size",
-                    type: "int",
-                    range: [1, null] as [number, null],
-                },
-            ],
+            args: [{ name: "size", type: "int", range: [1, null] }],
         },
         {
             subName: "_selection",
             permission: "worldedit.selection.size",
-            args: [
-                {
-                    name: "countClipboard",
-                    type: "bool",
-                    default: false,
-                },
-            ],
+            args: [{ name: "countClipboard", type: "bool", default: false }],
         },
     ],
 };

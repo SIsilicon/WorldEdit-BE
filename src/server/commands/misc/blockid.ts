@@ -1,19 +1,12 @@
-import { Server } from "@notbeer-api";
+import { CommandInfo, Server } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "blockid",
     aliases: ["id"],
     permission: "worldedit.blockid",
     description: "commands.wedit:blockid.description",
-    usage: [
-        {
-            name: "type",
-            type: "enum",
-            values: ["states", "data"],
-            default: "states",
-        },
-    ],
+    usage: [{ name: "type", type: "enum", values: ["states", "data"], default: "states" }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

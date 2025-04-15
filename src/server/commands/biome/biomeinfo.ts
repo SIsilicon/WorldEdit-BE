@@ -2,21 +2,14 @@ import { assertSelection } from "@modules/assert.js";
 import { Biome, getBiomeId } from "@modules/biome_data.js";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "biomeinfo",
     permission: "worldedit.biome.info",
     description: "commands.wedit:biomeinfo.description",
-    usage: [
-        {
-            name: "detectAt",
-            type: "enum",
-            values: ["selection", "position", "lineofsight"],
-            default: "selection",
-        },
-    ],
+    usage: [{ name: "detectAt", type: "enum", values: ["selection", "position", "lineofsight"], default: "selection" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

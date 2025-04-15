@@ -2,20 +2,15 @@ import { assertSelection } from "@modules/assert.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { PlayerSession } from "../../sessions.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "set",
     permission: "worldedit.region.set",
     description: "commands.wedit:set.description",
-    usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-    ],
+    usage: [{ name: "pattern", type: "Pattern" }],
 };
 
 /**

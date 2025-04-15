@@ -1,30 +1,19 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionIterateChunks, regionLoaded, regionSize, Server, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, regionIterateChunks, regionLoaded, regionSize, Server, Vector } from "@notbeer-api";
 import { BlockPermutation, BlockVolume, Player, StructureSaveMode, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "export",
     permission: "worldedit.structure.export",
     description: "commands.wedit:export.description",
     usage: [
-        {
-            name: "name",
-            type: "string",
-        },
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
+        { name: "name", type: "string" },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
     ],
 };
 
@@ -33,9 +22,7 @@ function writeMetaData(name: string, data: string, player: Player) {
 
     const dimension = player.dimension;
     let blockLoc = PlayerUtil.getBlockLocation(player);
-    while (dimension.getEntitiesAtBlockLocation(blockLoc).length) {
-        blockLoc = blockLoc.offset(0, 1, 0);
-    }
+    while (dimension.getEntitiesAtBlockLocation(blockLoc).length) blockLoc = blockLoc.offset(0, 1, 0);
     const entity = dimension.spawnEntity(<any>"wedit:struct_meta", blockLoc);
     entity.nameTag = data;
 

@@ -1,22 +1,14 @@
 import { selectionModes } from "@modules/selection.js";
 import { registerCommand } from "../register_commands.js";
+import { CommandInfo } from "@notbeer-api";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "sel",
     description: "commands.wedit:sel.description",
     aliases: ["deselect", "desel"],
     usage: [
-        {
-            name: "mode",
-            type: "enum",
-            values: ["cuboid", "extend", "sphere", "cyl"],
-            default: <string>null,
-        },
-        {
-            name: "makeDefault",
-            type: "bool",
-            default: false,
-        },
+        { name: "mode", type: "enum", values: ["cuboid", "extend", "sphere", "cyl"], default: "" },
+        { name: "makeDefault", type: "bool", default: false },
     ],
 };
 

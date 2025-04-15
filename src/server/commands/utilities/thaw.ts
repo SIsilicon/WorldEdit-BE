@@ -1,26 +1,17 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
-import { Block, Vector3, BlockPermutation } from "@minecraft/server";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
+import { Block, Vector3 } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "thaw",
     permission: "worldedit.utility.thaw",
     description: "commands.wedit:thaw.description",
     usage: [
-        {
-            name: "size",
-            type: "int",
-            range: [1, null] as [number, null],
-        },
-        {
-            name: "height",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: -1,
-        },
+        { name: "size", type: "int", range: [1, null] },
+        { name: "height", type: "int", range: [1, null], default: -1 },
     ],
 };
 
@@ -81,17 +72,15 @@ registerCommand(registerInformation, function* (session, builder, args) {
             const record = history.record();
             try {
                 yield* history.trackRegion(record, blockLocs);
-                const air = BlockPermutation.resolve("minecraft:air");
-                const water = BlockPermutation.resolve("minecraft:water");
                 for (let block of blocks) {
                     const loc = block.location;
                     if (!block?.isValid) block = yield* Jobs.loadBlock(loc);
 
-                    if (block.typeId == "minecraft:ice") {
-                        block.setPermutation(water);
+                    if (block.matches("ice")) {
+                        block.setType("water");
                         changed++;
-                    } else if (block.typeId == "minecraft:snow_layer") {
-                        block.setPermutation(air);
+                    } else if (block.matches("snow_layer")) {
+                        block.setType("air");
                         changed++;
                     }
                     yield Jobs.setProgress(i++ / blocks.length);

@@ -1,30 +1,18 @@
 import { registerCommand } from "../register_commands.js";
 import { assertClipboard } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "flip",
     permission: "worldedit.region.flip",
     description: "commands.wedit:flip.description",
     usage: [
-        {
-            name: "direction",
-            type: "Direction",
-            default: new Cardinal(Cardinal.Dir.LEFT),
-        },
-        {
-            name: "aroundOrigin",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "affectWorld",
-            type: "bool",
-            default: false,
-        },
+        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.LEFT) },
+        { name: "aroundOrigin", type: "bool", default: false },
+        { name: "affectWorld", type: "bool", default: false },
     ],
 };
 

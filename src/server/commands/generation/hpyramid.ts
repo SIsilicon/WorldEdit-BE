@@ -1,20 +1,13 @@
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "hpyramid",
     permission: "worldedit.generation.pyramid",
     description: "commands.wedit:hpyramid.description",
     usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-        {
-            name: "size",
-            type: "int",
-            range: [1, null] as [number, null],
-        },
+        { name: "pattern", type: "Pattern" },
+        { name: "size", type: "int", range: [1, null] },
     ],
 };
 

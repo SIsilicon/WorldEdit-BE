@@ -3,23 +3,16 @@ import { assertCanBuildWithin, assertSelection } from "@modules/assert.js";
 import { Biome, BiomeChanges } from "@modules/biome_data.js";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, regionIterateBlocks, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, regionIterateBlocks, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "setbiome",
     permission: "worldedit.biome.set",
     description: "commands.wedit:setbiome.description",
     usage: [
-        {
-            name: "biome",
-            type: "Biome",
-        },
-        {
-            name: "changeAtPosition",
-            type: "bool",
-            default: false,
-        },
+        { name: "biome", type: "Biome" },
+        { name: "changeAtPosition", type: "bool", default: false },
     ],
 };
 

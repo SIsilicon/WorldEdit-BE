@@ -1,28 +1,17 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { PyramidShape } from "../../shapes/pyramid.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "pyramid",
     permission: "worldedit.generation.pyramid",
     description: "commands.wedit:pyramid.description",
     usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-        {
-            name: "size",
-            type: "int",
-            range: [1, null] as [number, null],
-        },
-        {
-            name: "hollow",
-            type: "bool",
-            default: false,
-        },
+        { name: "pattern", type: "Pattern" },
+        { name: "size", type: "int", range: [1, null] },
+        { name: "hollow", type: "bool", default: false },
     ],
 };
 

@@ -1,26 +1,17 @@
 import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
 import { Mask } from "@modules/mask.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { smooth } from "./heightmap_func.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "smooth",
     permission: "worldedit.region.smooth",
     description: "commands.wedit:smooth.description",
     usage: [
-        {
-            name: "iterations",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: 1,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: new Mask(),
-        },
+        { name: "iterations", type: "int", range: [1, null], default: 1 },
+        { name: "mask", type: "Mask", default: new Mask() },
     ],
 };
 

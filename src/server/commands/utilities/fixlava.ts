@@ -1,20 +1,14 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
-import { BlockPermutation } from "@minecraft/server";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { fluidLookPositions, lavaMatch } from "./drain.js";
+import { fluidLookPositions } from "./drain.js";
 import { floodFill } from "./floodfill_func.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "fixlava",
     permission: "worldedit.utility.fixlava",
     description: "commands.wedit:fixlava.description",
-    usage: [
-        {
-            name: "radius",
-            type: "float",
-        },
-    ],
+    usage: [{ name: "radius", type: "float" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -24,7 +18,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     for (const offset of fluidLookPositions) {
         const loc = playerBlock.offset(offset.x, offset.y, offset.z);
         const block = dimension.getBlock(loc);
-        if (block.typeId.match(lavaMatch)) {
+        if (block.typeId.match("lava")) {
             fixlavaStart = loc;
             break;
         }
@@ -36,20 +30,17 @@ registerCommand(registerInformation, function* (session, builder, args) {
         yield Jobs.nextStep("Calculating and Fixing lava...");
         yield Jobs.setProgress(-1);
 
-        const blocks = yield* floodFill(fixlavaStart, args.get("radius"), (ctx) => {
-            return !!ctx.nextBlock.typeId.match(lavaMatch);
-        });
+        const blocks = yield* floodFill(fixlavaStart, args.get("radius"), (ctx) => !!ctx.nextBlock.typeId.match("lava"));
 
         if (!blocks.size) return blocks;
 
         const history = session.history;
         const record = history.record();
-        const lava = BlockPermutation.resolve("minecraft:lava");
         try {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setPermutation(lava);
+                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setType("lava");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

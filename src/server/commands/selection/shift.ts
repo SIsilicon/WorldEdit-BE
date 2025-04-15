@@ -1,22 +1,15 @@
 import { assertSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
-import { Vector } from "@notbeer-api";
+import { CommandInfo, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "shift",
     description: "commands.wedit:shift.description",
     permission: "worldedit.selection.shift",
     usage: [
-        {
-            name: "amount",
-            type: "int",
-        },
-        {
-            name: "direction",
-            type: "Direction",
-            default: new Cardinal(Cardinal.Dir.FORWARD),
-        },
+        { name: "amount", type: "int" },
+        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
     ],
 };
 
@@ -26,9 +19,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     const dir = (args.get("direction") as Cardinal).getDirection(builder).mul(args.get("amount"));
 
     session.selection.clear();
-    points.forEach((point, idx) => {
-        session.selection.set(idx ? 1 : 0, point.add(dir).floor());
-    });
+    points.forEach((point, idx) => session.selection.set(idx ? 1 : 0, point.add(dir).floor()));
 
     return "commands.wedit:shift.explain";
 });

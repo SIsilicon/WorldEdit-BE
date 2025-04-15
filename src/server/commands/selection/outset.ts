@@ -1,26 +1,15 @@
 import { assertCuboidSelection } from "@modules/assert.js";
-import { Vector } from "@notbeer-api";
+import { CommandInfo, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "outset",
     description: "commands.wedit:outset.description",
     permission: "worldedit.selection.outset",
     usage: [
-        {
-            name: "amount",
-            type: "int",
-        },
-        {
-            name: "horizontal",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "vertical",
-            type: "bool",
-            default: false,
-        },
+        { name: "amount", type: "int" },
+        { name: "horizontal", type: "bool", default: false },
+        { name: "vertical", type: "bool", default: false },
     ],
 };
 

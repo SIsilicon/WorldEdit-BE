@@ -1,19 +1,14 @@
 import { PlayerUtil } from "@modules/player_util.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { Player, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "import",
     permission: "worldedit.structure.import",
     description: "commands.wedit:import.description",
-    usage: [
-        {
-            name: "name",
-            type: "string",
-        },
-    ],
+    usage: [{ name: "name", type: "string" }],
 };
 
 function readMetaData(name: string, player: Player) {
@@ -21,9 +16,7 @@ function readMetaData(name: string, player: Player) {
 
     const dimension = player.dimension;
     let blockLoc = PlayerUtil.getBlockLocation(player);
-    while (dimension.getEntitiesAtBlockLocation(blockLoc).some((e) => e.typeId == "wedit:struct_meta")) {
-        blockLoc = blockLoc.offset(1, 0, 0);
-    }
+    while (dimension.getEntitiesAtBlockLocation(blockLoc).some((e) => e.typeId == "wedit:struct_meta")) blockLoc = blockLoc.offset(1, 0, 0);
     const entity = dimension.spawnEntity(<any>"wedit:struct_meta", blockLoc);
     entity.nameTag = "__placeholder__";
 

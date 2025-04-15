@@ -1,22 +1,15 @@
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "green",
     permission: "worldedit.utility.green",
     description: "commands.wedit:green.description",
     usage: [
-        {
-            name: "radius",
-            type: "int",
-        },
-        {
-            name: "strictDirt",
-            type: "bool",
-            default: false,
-        },
+        { name: "radius", type: "int" },
+        { name: "strictDirt", type: "bool", default: false },
     ],
 };
 

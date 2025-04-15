@@ -2,17 +2,12 @@ import { registerCommand } from "../register_commands.js";
 import { VERSION } from "config.js";
 import { RawText } from "@notbeer-api";
 
-const registerInformation = {
+import { CommandInfo } from "@notbeer-api";
+
+const registerInformation: CommandInfo = {
     name: "worldedit",
     description: "commands.wedit:worldedit.description",
-    usage: [
-        {
-            subName: "version",
-        },
-        {
-            subName: "perf",
-        },
-    ],
+    usage: [{ subName: "version" }, { subName: "perf" }],
     aliases: ["we"],
 };
 

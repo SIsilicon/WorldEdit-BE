@@ -2,27 +2,18 @@ import { Vector3 } from "@minecraft/server";
 import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { Server, RawText, Vector, iterateChunk, regionVolume } from "@notbeer-api";
+import { Server, RawText, Vector, iterateChunk, regionVolume, CommandInfo } from "@notbeer-api";
 import { canPlaceBlock, getWorldHeightLimits, locToString, stringToLoc } from "server/util.js";
 import { PlayerSession } from "server/sessions.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "hollow",
     permission: "worldedit.region.hollow",
     description: "commands.wedit:hollow.description",
     usage: [
-        {
-            name: "thickness",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: 1,
-        },
-        {
-            name: "pattern",
-            type: "Pattern",
-            default: new Pattern("air"),
-        },
+        { name: "thickness", type: "int", range: [1, null], default: 1 },
+        { name: "pattern", type: "Pattern", default: new Pattern("air") },
     ],
 };
 

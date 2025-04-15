@@ -2,47 +2,22 @@ import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 import { cut } from "../clipboard/cut.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "move",
     permission: "worldedit.region.move",
     description: "commands.wedit:move.description",
     usage: [
-        {
-            name: "amount",
-            type: "int",
-            default: 1,
-            range: [1, null] as [number, null],
-        },
-        {
-            name: "offset",
-            type: "Direction",
-            default: new Cardinal(),
-        },
-        {
-            name: "replace",
-            type: "Pattern",
-            default: new Pattern("air"),
-        },
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: undefined,
-        },
+        { name: "amount", type: "int", default: 1, range: [1, null] },
+        { name: "offset", type: "Direction", default: new Cardinal() },
+        { name: "replace", type: "Pattern", default: new Pattern("air") },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
+        { name: "mask", type: "Mask", default: undefined },
     ],
 };
 

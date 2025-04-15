@@ -1,10 +1,10 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "contract",
     description: "commands.wedit:contract.description",
     permission: "worldedit.selection.contract",
@@ -12,33 +12,16 @@ const registerInformation = {
         {
             subName: "_",
             args: [
-                {
-                    name: "amount",
-                    type: "int",
-                },
-                {
-                    name: "direction",
-                    type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD),
-                },
+                { name: "amount", type: "int" },
+                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
             ],
         },
         {
             subName: "_reverse",
             args: [
-                {
-                    name: "amount",
-                    type: "int",
-                },
-                {
-                    name: "reverseAmount",
-                    type: "int",
-                },
-                {
-                    name: "direction",
-                    type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD),
-                },
+                { name: "amount", type: "int" },
+                { name: "reverseAmount", type: "int" },
+                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
             ],
         },
     ],

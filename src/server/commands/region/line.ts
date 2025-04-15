@@ -12,16 +12,8 @@ const registerInformation: CommandInfo = {
     permission: "worldedit.region.line",
     description: "commands.wedit:line.description",
     usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-        {
-            name: "thickness",
-            type: "int",
-            range: [0, config.maxBrushRadius],
-            default: 0,
-        },
+        { name: "pattern", type: "Pattern" },
+        { name: "thickness", type: "int", range: [0, config.maxBrushRadius], default: 0 },
     ],
 };
 

@@ -1,24 +1,16 @@
 import { assertClipboard, assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { BlockPermutation } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "distr",
     description: "commands.wedit:distr.description",
     permission: "worldedit.analysis.distr",
     usage: [
-        {
-            name: "checkClipboard",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "strict",
-            type: "bool",
-            default: false,
-        },
+        { name: "checkClipboard", type: "bool", default: false },
+        { name: "strict", type: "bool", default: false },
     ],
 };
 

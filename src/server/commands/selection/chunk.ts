@@ -1,44 +1,25 @@
 import { assertSelection } from "@modules/assert.js";
-import { RawText, CommandPosition, Vector } from "@notbeer-api";
+import { RawText, CommandPosition, Vector, CommandInfo } from "@notbeer-api";
 import { Vector3 } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { PlayerSession } from "server/sessions.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { commandArgList } from "library/@types/classes/CommandBuilder.js";
 
-const suffixArguments: commandArgList = [
-    {
-        name: "expandSelection",
-        type: "bool",
-        default: false,
-    },
-];
+const suffixArguments: commandArgList = [{ name: "expandSelection", type: "bool", default: false }];
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "chunk",
     permission: "worldedit.selection.chunk",
     description: "commands.wedit:chunk.description",
     usage: [
         {
             subName: "_xz",
-            args: [
-                {
-                    name: "coordinates",
-                    type: "xz",
-                    default: new CommandPosition(),
-                },
-                ...suffixArguments,
-            ],
+            args: [{ name: "coordinates", type: "xz", default: new CommandPosition() }, ...suffixArguments],
         },
         {
-            subName: "_xyz",
-            args: [
-                {
-                    name: "coordinates",
-                    type: "xyz",
-                },
-                ...suffixArguments,
-            ],
+            subName: "_",
+            args: [{ name: "coordinates", type: "xyz" }, ...suffixArguments],
         },
     ],
 };

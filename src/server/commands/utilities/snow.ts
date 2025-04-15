@@ -1,32 +1,18 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
-import { Block, Vector3, BlockPermutation } from "@minecraft/server";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
+import { Block, Vector3 } from "@minecraft/server";
 import { getWorldHeightLimits } from "../../util.js";
 import { CylinderShape } from "../../shapes/cylinder.js";
 import { registerCommand } from "../register_commands.js";
-import { waterMatch } from "./drain.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "snow",
     permission: "worldedit.utility.snow",
     description: "commands.wedit:snow.description",
     usage: [
-        {
-            name: "size",
-            type: "int",
-            range: [1, null] as [number, null],
-        },
-        {
-            name: "height",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: -1,
-        },
-        {
-            name: "accumulateSnow",
-            type: "bool",
-            default: false,
-        },
+        { name: "size", type: "int", range: [1, null] },
+        { name: "height", type: "int", range: [1, null], default: -1 },
+        { name: "accumulateSnow", type: "bool", default: false },
     ],
 };
 
@@ -106,16 +92,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
             try {
                 yield* history.trackRegion(record, blockLocs);
-                const snowLayer = BlockPermutation.resolve("minecraft:snow_layer");
-                const ice = BlockPermutation.resolve("minecraft:ice");
                 for (let block of blocks) {
                     const loc = block.location;
                     if (!block?.isValid) block = yield* Jobs.loadBlock(loc);
 
-                    if (block.typeId.match(waterMatch)) {
-                        block.setPermutation(ice);
+                    if (block.matches("water")) {
+                        block.setType("ice");
                         changed++;
-                    } else if (block.typeId == "minecraft:snow_layer") {
+                    } else if (block.matches("snow_layer")) {
                         if (args.get("accumulateSnow") && Math.random() < 0.4) {
                             let perm = block.permutation;
                             const prevHeight = perm.getState("height") as number;
@@ -123,10 +107,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
                             block.setPermutation(perm);
                             if (perm.getState("height") != prevHeight) changed++;
                         }
-                    } else if (block.typeId == "minecraft:ice") {
+                    } else if (block.matches("ice")) {
                         // pass
                     } else if (canSnowOn(block)) {
-                        dimension.getBlock(Vector.from(block.location).offset(0, 1, 0)).setPermutation(snowLayer);
+                        dimension.getBlock(Vector.from(block.location).offset(0, 1, 0)).setType("snow_layer");
                         changed++;
                     }
 

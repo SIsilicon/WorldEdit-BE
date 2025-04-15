@@ -1,21 +1,14 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Player } from "@minecraft/server";
 import { getWorldHeightLimits } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "ascend",
     permission: "worldedit.navigation.ascend",
     description: "commands.wedit:ascend.description",
-    usage: [
-        {
-            name: "levels",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: 1,
-        },
-    ],
+    usage: [{ name: "levels", type: "int", range: [1, null], default: 1 }],
 };
 
 function ascend(builder: Player) {

@@ -1,25 +1,17 @@
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { CuboidShape } from "../../shapes/cuboid.js";
 import { getWorldHeightLimits } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "removebelow",
     permission: "worldedit.utility.removebelow",
     description: "commands.wedit:removebelow.description",
     usage: [
-        {
-            name: "size",
-            type: "int",
-        },
-        {
-            name: "depth",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: -1,
-        },
+        { name: "size", type: "int" },
+        { name: "depth", type: "int", range: [1, null], default: -1 },
     ],
 };
 

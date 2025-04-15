@@ -1,37 +1,16 @@
+import { CommandInfo } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "superpickaxe",
     permission: "worldedit.superpickaxe",
     description: "commands.wedit:superpickaxe.description",
     aliases: ["sp"],
     usage: [
-        {
-            subName: "single",
-        },
-        {
-            subName: "area",
-            args: [
-                {
-                    name: "range",
-                    type: "int",
-                    range: [0, 5] as [number, number],
-                },
-            ],
-        },
-        {
-            subName: "recursive",
-            args: [
-                {
-                    name: "range",
-                    type: "int",
-                    range: [0, 5] as [number, number],
-                },
-            ],
-        },
-        {
-            subName: "_default",
-        },
+        { subName: "single" },
+        { subName: "area", args: [{ name: "range", type: "int", range: [0, 5] }] },
+        { subName: "recursive", args: [{ name: "range", type: "int", range: [0, 5] }] },
+        { subName: "_" },
     ],
 };
 

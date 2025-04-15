@@ -6,40 +6,28 @@ import { SmoothBrush } from "../../brushes/smooth_brush.js";
 import { assertClipboard, assertPermission } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { StructureBrush } from "server/brushes/structure_brush.js";
 import { ErosionBrush, ErosionType } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
 import { BlobBrush } from "server/brushes/blob_brush.js";
+import { commandSubDef } from "library/@types/classes/CommandBuilder.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "brush",
     description: "commands.wedit:brush.description",
     aliases: ["br"],
     usage: [
-        {
-            subName: "none",
-        },
+        { subName: "none" },
         {
             subName: "sphere",
             permission: "worldedit.brush.sphere",
             description: "commands.wedit:brush.description.sphere",
             args: [
-                {
-                    name: "pattern",
-                    type: "Pattern",
-                },
-                {
-                    name: "radius",
-                    type: "float",
-                    default: 3,
-                },
-                {
-                    name: "hollow",
-                    type: "bool",
-                    default: false,
-                },
+                { name: "pattern", type: "Pattern" },
+                { name: "radius", type: "float", default: 3 },
+                { name: "hollow", type: "bool", default: false },
             ],
         },
         {
@@ -47,25 +35,10 @@ const registerInformation = {
             permission: "worldedit.brush.cylinder",
             description: "commands.wedit:brush.description.cylinder",
             args: [
-                {
-                    name: "pattern",
-                    type: "Pattern",
-                },
-                {
-                    name: "radius",
-                    type: "float",
-                    default: 3,
-                },
-                {
-                    name: "height",
-                    type: "int",
-                    default: 3,
-                },
-                {
-                    name: "hollow",
-                    type: "bool",
-                    default: false,
-                },
+                { name: "pattern", type: "Pattern" },
+                { name: "radius", type: "float", default: 3 },
+                { name: "height", type: "int", default: 3 },
+                { name: "hollow", type: "bool", default: false },
             ],
         },
         {
@@ -73,21 +46,9 @@ const registerInformation = {
             permission: "worldedit.brush.smooth",
             description: "commands.wedit:brush.description.smooth",
             args: [
-                {
-                    name: "radius",
-                    type: "float",
-                    default: 2,
-                },
-                {
-                    name: "iterations",
-                    type: "int",
-                    default: 4,
-                },
-                {
-                    name: "mask",
-                    type: "Mask",
-                    default: new Mask(),
-                },
+                { name: "radius", type: "float", default: 2 },
+                { name: "iterations", type: "int", default: 4 },
+                { name: "mask", type: "Mask", default: new Mask() },
             ],
         },
         {
@@ -97,22 +58,11 @@ const registerInformation = {
             args: [
                 {
                     subName: "clipboard",
-                    args: [
-                        {
-                            name: "mask",
-                            type: "Mask",
-                            default: new Mask(),
-                        },
-                    ],
+                    args: [{ name: "mask", type: "Mask", default: new Mask() }],
                 },
                 {
-                    subName: "_default",
-                    args: [
-                        {
-                            name: "structureName",
-                            type: "string...",
-                        },
-                    ],
+                    subName: "_",
+                    args: [{ name: "structureName", type: "string..." }],
                 },
             ],
         },
@@ -148,25 +98,10 @@ const registerInformation = {
             permission: "worldedit.brush.overlay",
             description: "commands.wedit:brush.description.overlay",
             args: [
-                {
-                    name: "pattern",
-                    type: "Pattern",
-                },
-                {
-                    name: "radius",
-                    type: "float",
-                    default: 3,
-                },
-                {
-                    name: "depth",
-                    type: "int",
-                    default: 1,
-                },
-                {
-                    name: "mask",
-                    type: "Mask",
-                    default: new Mask(),
-                },
+                { name: "pattern", type: "Pattern" },
+                { name: "radius", type: "float", default: 3 },
+                { name: "depth", type: "int", default: 1 },
+                { name: "mask", type: "Mask", default: new Mask() },
             ],
         },
         {
@@ -174,27 +109,10 @@ const registerInformation = {
             permission: "worldedit.brush.blob",
             description: "commands.wedit:brush.description.blob",
             args: [
-                {
-                    name: "pattern",
-                    type: "Pattern",
-                },
-                {
-                    name: "radius",
-                    type: "float",
-                    default: 3,
-                },
-                {
-                    name: "growPercent",
-                    type: "int",
-                    default: 50,
-                    range: [1, 99] as [number, number],
-                },
-                {
-                    name: "smoothness",
-                    type: "int",
-                    default: 0,
-                    range: [0, 6] as [number, number],
-                },
+                { name: "pattern", type: "Pattern" },
+                { name: "radius", type: "float", default: 3 },
+                { name: "growPercent", type: "int", default: 50, range: [1, 99] },
+                { name: "smoothness", type: "int", default: 0, range: [0, 6] },
             ],
         },
     ],
@@ -206,21 +124,21 @@ export function createDefaultBrush() {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[1].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission);
     session.bindTool("brush", null, new SphereBrush(args.get("radius"), args.get("pattern"), args.get("hollow")));
     return RawText.translate("commands.wedit:brush.bind.sphere").with(args.get("radius"));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[2].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[2]).permission);
     session.bindTool("brush", null, new CylinderBrush(args.get("radius"), args.get("height"), args.get("pattern"), args.get("hollow")));
     return RawText.translate("commands.wedit:brush.bind.cylinder").with(args.get("radius")).with(args.get("height"));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const smooth_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[3].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[3]).permission);
     session.bindTool("brush", null, new SmoothBrush(args.get("radius"), args.get("iterations"), args.get("mask")));
 
     const msg = "commands.wedit:brush.bind.smooth." + ((args.get("mask") as Mask).empty() ? "noFilter" : "filter");
@@ -229,7 +147,7 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const struct_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[4].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[4]).permission);
     const clipboard = args.has("clipboard");
     if (clipboard) {
         assertClipboard(session);
@@ -242,7 +160,7 @@ const struct_command = (session: PlayerSession, builder: Player, args: Map<strin
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const erode_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[5].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[5]).permission);
 
     let type = ErosionType.DEFAULT;
     if (args.has("lift")) type = ErosionType.LIFT;
@@ -257,7 +175,7 @@ const erode_command = (session: PlayerSession, builder: Player, args: Map<string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const overlay_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[1].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission);
     session.bindTool("brush", null, new OverlayBrush(args.get("radius"), args.get("depth"), args.get("pattern"), args.get("mask")));
     session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
     return RawText.translate("commands.wedit:brush.bind.overlay").with(args.get("radius"));
@@ -265,7 +183,7 @@ const overlay_command = (session: PlayerSession, builder: Player, args: Map<stri
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const blob_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, registerInformation.usage[1].permission);
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission);
     session.bindTool("brush", null, new BlobBrush(args.get("radius"), args.get("pattern"), args.get("growPercent"), args.get("smoothness")));
     session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
     return RawText.translate("commands.wedit:brush.bind.blob").with(args.get("radius"));

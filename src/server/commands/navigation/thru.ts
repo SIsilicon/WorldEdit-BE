@@ -1,10 +1,10 @@
-import { Vector } from "@notbeer-api";
+import { CommandInfo, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Cardinal } from "@modules/directions.js";
 import { PlayerUtil } from "@modules/player_util.js";
 import { getWorldHeightLimits } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "thru",
     permission: "worldedit.navigation.thru.command",
     description: "commands.wedit:thru.description",

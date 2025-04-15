@@ -1,7 +1,7 @@
 import { registerCommand } from "../register_commands.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "toggleplace",
     description: "commands.wedit:toggleplace.description",
 };

@@ -1,19 +1,14 @@
 import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { CuboidShape } from "server/shapes/cuboid.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "center",
     permission: "worldedit.region.center",
     description: "commands.wedit:center.description",
-    usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-    ],
+    usage: [{ name: "pattern", type: "Pattern" }],
     aliases: ["middle"],
 };
 

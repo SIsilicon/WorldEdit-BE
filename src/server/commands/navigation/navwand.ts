@@ -1,9 +1,9 @@
-import { Server } from "@notbeer-api";
+import { CommandInfo, Server } from "@notbeer-api";
 import { RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import config from "config.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "navwand",
     permission: "worldedit.setwand",
     description: "commands.wedit:navwand.description",

@@ -1,7 +1,7 @@
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "drawsel",
     permission: "worldedit.drawsel",
     description: "commands.wedit:drawsel.description",
@@ -9,9 +9,5 @@ const registerInformation = {
 
 registerCommand(registerInformation, function (session) {
     session.drawOutlines = !session.drawOutlines;
-    if (session.drawOutlines) {
-        return RawText.translate("commands.wedit:drawsel.enabled");
-    } else {
-        return RawText.translate("commands.wedit:drawsel.disabled");
-    }
+    return RawText.translate(session.drawOutlines ? "commands.wedit:drawsel.enabled" : "commands.wedit:drawsel.disabled");
 });

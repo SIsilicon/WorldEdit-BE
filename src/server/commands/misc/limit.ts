@@ -1,20 +1,13 @@
 import { registerCommand } from "../register_commands.js";
-import { Server } from "@notbeer-api";
+import { CommandInfo, Server } from "@notbeer-api";
 import { RawText } from "@notbeer-api";
 import config from "config.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "limit",
     permission: "worldedit.limit",
     description: "commands.wedit:limit.description",
-    usage: [
-        {
-            name: "limit",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: -1,
-        },
-    ],
+    usage: [{ name: "limit", type: "int", range: [1, null], default: -1 }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

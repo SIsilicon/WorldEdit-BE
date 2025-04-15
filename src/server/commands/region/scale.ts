@@ -1,78 +1,40 @@
 import { registerCommand } from "../register_commands.js";
 import { assertClipboard } from "@modules/assert.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
 import { commandArgList } from "library/@types/classes/CommandBuilder.js";
 
 const suffixArguments: commandArgList = [
-    {
-        name: "aroundOrigin",
-        type: "bool",
-        default: false,
-    },
-    {
-        name: "affectWorld",
-        type: "bool",
-        default: false,
-    },
+    { name: "aroundOrigin", type: "bool", default: false },
+    { name: "affectWorld", type: "bool", default: false },
 ];
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "scale",
     permission: "worldedit.region.scale",
     description: "commands.wedit:scale.description",
     usage: [
         {
-            subName: "_x",
-            args: [
-                {
-                    name: "scale",
-                    type: "float",
-                },
-                ...suffixArguments,
-            ],
+            subName: "_",
+            args: [{ name: "scale", type: "float" }, ...suffixArguments],
         },
         {
             subName: "_xy",
-            args: [
-                {
-                    name: "scaleXZ",
-                    type: "float",
-                },
-                {
-                    name: "scaleY",
-                    type: "float",
-                },
-                ...suffixArguments,
-            ],
+            args: [{ name: "scaleXZ", type: "float" }, { name: "scaleY", type: "float" }, ...suffixArguments],
         },
         {
             subName: "_xyz",
-            args: [
-                {
-                    name: "scaleX",
-                    type: "float",
-                },
-                {
-                    name: "scaleY",
-                    type: "float",
-                },
-                {
-                    name: "scaleZ",
-                    type: "float",
-                },
-                ...suffixArguments,
-            ],
+            args: [{ name: "scaleX", type: "float" }, { name: "scaleY", type: "float" }, { name: "scaleZ", type: "float" }, ...suffixArguments],
         },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     let scale: Vector;
-    if (args.has("_x")) scale = new Vector(args.get("scale"), args.get("scale"), args.get("scale"));
+    if (args.has("_xyz")) scale = new Vector(args.get("scaleX"), args.get("scaleY"), args.get("scaleZ"));
     else if (args.has("_xy")) scale = new Vector(args.get("scaleXZ"), args.get("scaleY"), args.get("scaleXZ"));
-    else scale = new Vector(args.get("scaleX"), args.get("scaleY"), args.get("scaleZ"));
+    else scale = new Vector(args.get("scale"), args.get("scale"), args.get("scale"));
 
     let blockCount = 0;
     if (args.get("affectWorld")) {

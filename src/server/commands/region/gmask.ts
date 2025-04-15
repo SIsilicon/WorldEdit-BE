@@ -1,18 +1,12 @@
 import { Mask } from "@modules/mask.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "gmask",
     permission: "worldedit.global-mask",
     description: "commands.wedit:gmask.description",
-    usage: [
-        {
-            name: "mask",
-            type: "Mask",
-            default: new Mask(),
-        },
-    ],
+    usage: [{ name: "mask", type: "Mask", default: new Mask() }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

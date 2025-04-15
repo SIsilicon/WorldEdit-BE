@@ -1,24 +1,15 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
-import { BlockPermutation } from "@minecraft/server";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { floodFill } from "./floodfill_func.js";
 import { canPlaceBlock } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "drain",
     permission: "worldedit.utility.drain",
     description: "commands.wedit:drain.description",
-    usage: [
-        {
-            name: "radius",
-            type: "float",
-        },
-    ],
+    usage: [{ name: "radius", type: "float" }],
 };
-
-export const waterMatch = /minecraft:.*water/;
-export const lavaMatch = /minecraft:.*lava/;
 
 export const fluidLookPositions = [
     new Vector(0, 0, 0),
@@ -36,24 +27,20 @@ export const fluidLookPositions = [
 registerCommand(registerInformation, function* (session, builder, args) {
     const dimension = builder.dimension;
     const playerBlock = session.getPlacementPosition();
-    let fluidMatch: typeof waterMatch | typeof lavaMatch;
+    let fluidMatch: string;
     let drainStart: Vector;
     for (const offset of fluidLookPositions) {
         const loc = playerBlock.offset(offset.x, offset.y, offset.z);
         if (!canPlaceBlock(loc, dimension)) continue;
         const block = dimension.getBlock(loc);
-        if (block.typeId.match(waterMatch) || block.isWaterlogged) {
-            fluidMatch = waterMatch;
-        } else if (block.typeId.match(lavaMatch)) {
-            fluidMatch = lavaMatch;
-        } else {
-            continue;
-        }
+        if (block.typeId.match("water") || block.isWaterlogged) fluidMatch = "water";
+        else if (block.typeId.match("lava")) fluidMatch = "lava";
+        else continue;
 
         drainStart = loc;
         break;
     }
-    const drainWaterLogged = fluidMatch === waterMatch;
+    const drainWaterLogged = fluidMatch === "water";
 
     if (!drainStart) throw "commands.wedit:drain.noFluid";
 
@@ -69,14 +56,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
         if (!blocks.size) return blocks;
         const history = session.history;
         const record = history.record();
-        const air = BlockPermutation.resolve("minecraft:air");
         try {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
                 const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
                 if (drainWaterLogged && !block.typeId.match(fluidMatch)) block.setWaterlogged(false);
-                else block.setPermutation(air);
+                else block.setType("air");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

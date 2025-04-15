@@ -1,38 +1,19 @@
 import { registerCommand } from "../register_commands.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { assertClipboard } from "@modules/assert.js";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "rotate",
     permission: "worldedit.region.rotate",
     description: "commands.wedit:rotate.description",
     usage: [
-        {
-            name: "rotate",
-            type: "int",
-        },
-        {
-            name: "rotateX",
-            type: "int",
-            default: 0,
-        },
-        {
-            name: "rotateZ",
-            type: "int",
-            default: 0,
-        },
-        {
-            name: "aroundOrigin",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "affectWorld",
-            type: "bool",
-            default: false,
-        },
+        { name: "rotate", type: "int" },
+        { name: "rotateX", type: "int", default: 0 },
+        { name: "rotateZ", type: "int", default: 0 },
+        { name: "aroundOrigin", type: "bool", default: false },
+        { name: "affectWorld", type: "bool", default: false },
     ],
 };
 

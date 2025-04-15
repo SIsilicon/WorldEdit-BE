@@ -1,20 +1,13 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { getWorldHeightLimits } from "server/util.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "ceil",
     permission: "worldedit.navigation.ceiling",
     description: "commands.wedit:ceiling.description",
-    usage: [
-        {
-            name: "clearance",
-            type: "int",
-            range: [0, null] as [number, null],
-            default: 0,
-        },
-    ],
+    usage: [{ name: "clearance", type: "int", range: [0, null], default: 0 }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

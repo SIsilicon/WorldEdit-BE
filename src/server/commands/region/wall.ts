@@ -1,18 +1,13 @@
 import { assertSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "walls",
     permission: "worldedit.region.walls",
     description: "commands.wedit:wall.description",
-    usage: [
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
-    ],
+    usage: [{ name: "pattern", type: "Pattern" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {

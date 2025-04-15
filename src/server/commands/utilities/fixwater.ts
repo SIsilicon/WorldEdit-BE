@@ -1,20 +1,14 @@
 import { Jobs } from "@modules/jobs.js";
-import { RawText, Vector } from "@notbeer-api";
-import { BlockPermutation } from "@minecraft/server";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
-import { fluidLookPositions, waterMatch } from "./drain.js";
+import { fluidLookPositions } from "./drain.js";
 import { floodFill } from "./floodfill_func.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "fixwater",
     permission: "worldedit.utility.fixwater",
     description: "commands.wedit:fixwater.description",
-    usage: [
-        {
-            name: "radius",
-            type: "float",
-        },
-    ],
+    usage: [{ name: "radius", type: "float" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -24,7 +18,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     for (const offset of fluidLookPositions) {
         const loc = playerBlock.offset(offset.x, offset.y, offset.z);
         const block = dimension.getBlock(loc);
-        if (block.typeId.match(waterMatch)) {
+        if (block.typeId.match("water")) {
             fixwaterStart = loc;
             break;
         }
@@ -36,20 +30,17 @@ registerCommand(registerInformation, function* (session, builder, args) {
         yield Jobs.nextStep("Calculating and Fixing water...");
         yield Jobs.setProgress(-1);
 
-        const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx) => {
-            return !!ctx.nextBlock.typeId.match(waterMatch);
-        });
+        const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx) => !!ctx.nextBlock.typeId.match("water"));
 
         if (!blocks.size) return blocks;
 
         const history = session.history;
         const record = history.record();
-        const water = BlockPermutation.resolve("minecraft:water");
         try {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setPermutation(water);
+                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setType("water");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

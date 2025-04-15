@@ -1,9 +1,9 @@
-import { axis, RawText, regionSize } from "@notbeer-api";
+import { axis, CommandInfo, RawText, regionSize } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Pattern } from "@modules/pattern.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "gradient",
     permission: "worldedit.generation.gradient",
     description: "commands.wedit:gradient.description",
@@ -11,42 +11,20 @@ const registerInformation = {
         {
             subName: "create",
             args: [
-                {
-                    name: "id",
-                    type: "string",
-                },
-                {
-                    name: "fade",
-                    type: "float",
-                    range: [0, 1] as [number, number],
-                },
-                {
-                    subName: "selection",
-                },
+                { name: "id", type: "string" },
+                { name: "fade", type: "float", range: [0, 1] },
+                { subName: "selection" },
                 {
                     subName: "_",
-                    args: [
-                        {
-                            name: "patterns",
-                            type: "Pattern...",
-                            default: [new Pattern("stone")],
-                        },
-                    ],
+                    args: [{ name: "patterns", type: "Pattern...", default: [new Pattern("stone")] }],
                 },
             ],
         },
         {
             subName: "delete",
-            args: [
-                {
-                    name: "id",
-                    type: "string",
-                },
-            ],
+            args: [{ name: "id", type: "string" }],
         },
-        {
-            subName: "list",
-        },
+        { subName: "list" },
     ],
 };
 

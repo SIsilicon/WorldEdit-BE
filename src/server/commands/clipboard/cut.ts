@@ -1,4 +1,4 @@
-import { Server } from "@notbeer-api";
+import { CommandInfo, Server } from "@notbeer-api";
 import { copy } from "./copy.js";
 import { set } from "../region/set.js";
 import { registerCommand } from "../register_commands.js";
@@ -10,31 +10,15 @@ import { JobFunction, Jobs } from "@modules/jobs.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { PlayerSession } from "server/sessions.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "cut",
     permission: "worldedit.clipboard.cut",
     description: "commands.wedit:cut.description",
     usage: [
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: undefined,
-        },
-        {
-            name: "fill",
-            type: "Pattern",
-            default: new Pattern("air"),
-        },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
+        { name: "mask", type: "Mask", default: new Mask() },
+        { name: "fill", type: "Pattern", default: new Pattern("air") },
     ],
 };
 

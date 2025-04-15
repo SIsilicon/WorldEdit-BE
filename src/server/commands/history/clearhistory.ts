@@ -1,8 +1,8 @@
 import { assertHistoryNotRecording } from "@modules/assert.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "clearhistory",
     permission: "worldedit.history.clear",
     description: "commands.wedit:clearhistory.description",

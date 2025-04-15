@@ -1,18 +1,12 @@
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "cancel",
     permission: "worldedit.cancel",
     description: "commands.wedit:cancel.description",
-    usage: [
-        {
-            name: "job",
-            type: "int",
-            default: -1,
-        },
-    ],
+    usage: [{ name: "job", type: "int", default: -1 }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {

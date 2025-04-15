@@ -1,55 +1,32 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
 // TODO: Support multiple directions at once (contract too)
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "expand",
     description: "commands.wedit:expand.description",
     permission: "worldedit.selection.expand",
     usage: [
         {
             subName: "vert",
-            args: [
-                {
-                    name: "height",
-                    type: "int",
-                    default: 384,
-                },
-            ],
+            args: [{ name: "height", type: "int", default: 384 }],
         },
         {
             subName: "_",
             args: [
-                {
-                    name: "amount",
-                    type: "int",
-                },
-                {
-                    name: "direction",
-                    type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD),
-                },
+                { name: "amount", type: "int" },
+                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
             ],
         },
         {
             subName: "_reverse",
             args: [
-                {
-                    name: "amount",
-                    type: "int",
-                },
-                {
-                    name: "reverseAmount",
-                    type: "int",
-                },
-                {
-                    name: "direction",
-                    type: "Direction",
-                    default: new Cardinal(Cardinal.Dir.FORWARD),
-                },
+                { name: "amount", type: "int" },
+                { name: "reverseAmount", type: "int" },
+                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
             ],
         },
     ],

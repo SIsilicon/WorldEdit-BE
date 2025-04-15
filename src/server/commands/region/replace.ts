@@ -1,21 +1,15 @@
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
 import { assertSelection } from "@modules/assert.js";
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "replace",
     permission: "worldedit.region.replace",
     description: "commands.wedit:replace.description",
     usage: [
-        {
-            name: "mask",
-            type: "Mask",
-        },
-        {
-            name: "pattern",
-            type: "Pattern",
-        },
+        { name: "mask", type: "Mask" },
+        { name: "pattern", type: "Pattern" },
     ],
 };
 

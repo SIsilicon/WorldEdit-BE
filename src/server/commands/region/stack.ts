@@ -1,49 +1,24 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Cardinal } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, regionSize, regionVolume, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, regionBounds, regionSize, regionVolume, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
 import { Vector3 } from "@minecraft/server";
 import { RegionBuffer } from "@modules/region_buffer.js";
+import { Mask } from "@modules/mask.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "stack",
     permission: "worldedit.region.stack",
     description: "commands.wedit:stack.description",
     usage: [
-        {
-            name: "count",
-            type: "int",
-            range: [1, null] as [number, null],
-            default: 1,
-        },
-        {
-            name: "offset",
-            type: "Direction",
-            default: new Cardinal(),
-        },
-        {
-            name: "offsetMode",
-            type: "enum",
-            values: ["absolute", "relative"],
-            default: "relative",
-        },
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: null,
-        },
+        { name: "count", type: "int", range: [1, null], default: 1 },
+        { name: "offset", type: "Direction", default: new Cardinal() },
+        { name: "offsetMode", type: "enum", values: ["absolute", "relative"], default: "relative" },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
+        { name: "mask", type: "Mask", default: new Mask() },
     ],
 };
 

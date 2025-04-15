@@ -1,63 +1,32 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { RawText, regionBounds, regionOffset, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, regionBounds, regionOffset, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Cardinal } from "@modules/directions.js";
+import { Mask } from "@modules/mask.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "revolve",
     permission: "worldedit.region.revolve",
     description: "commands.wedit:revolve.description",
     usage: [
-        {
-            name: "count",
-            type: "int",
-            range: [2, null] as [number, null],
-        },
-        {
-            name: "start",
-            type: "float",
-            default: 0,
-        },
-        {
-            name: "end",
-            type: "float",
-            default: 360,
-        },
-        {
-            name: "heightDiff",
-            type: "int",
-            default: 0,
-        },
-        {
-            name: "includeAir",
-            type: "bool",
-            default: true,
-        },
-        {
-            name: "includeEntities",
-            type: "bool",
-            default: false,
-        },
-        {
-            name: "direction",
-            type: "Direction",
-            default: null,
-        },
-        {
-            name: "mask",
-            type: "Mask",
-            default: null,
-        },
+        { name: "count", type: "int", range: [2, null] },
+        { name: "start", type: "float", default: 0 },
+        { name: "end", type: "float", default: 360 },
+        { name: "heightDiff", type: "int", default: 0 },
+        { name: "includeAir", type: "bool", default: true },
+        { name: "includeEntities", type: "bool", default: false },
+        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.UP) },
+        { name: "mask", type: "Mask", default: new Mask() },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get("count");
-    const dir = (<Cardinal>args.get("direction"))?.getDirection(builder) ?? Vector.UP;
+    const dir = (<Cardinal>args.get("direction")).getDirection(builder);
     const [start, end] = session.selection.getRange();
     const heightDiff = args.get("heightDiff");
     const [startRotation, endRotation] = [args.get("start"), args.get("end")];

@@ -1,9 +1,9 @@
 import { PlayerUtil } from "@modules/player_util.js";
-import { RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
 import config from "config.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "jumpto",
     permission: "worldedit.navigation.jumpto.command",
     description: "commands.wedit:jumpto.description",
