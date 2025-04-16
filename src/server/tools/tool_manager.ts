@@ -51,7 +51,7 @@ class ToolBuilder {
         });
 
         Server.on("entityCreate", ({ entity }) => {
-            if (!entity?.hasComponent("minecraft:item")) return;
+            if (!entity?.isValid || !entity.hasComponent("minecraft:item")) return;
 
             const player = entity.dimension.getPlayers({ closest: 1, location: entity.location, maxDistance: 2 })[0];
             if (player) this.onItemDrop(entity.getComponent("item").itemStack, player);
