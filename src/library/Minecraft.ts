@@ -200,7 +200,7 @@ class ServerBuild extends ServerBuilder {
                             } else {
                                 name += types === undefined ? `: ${arg.type}` : "";
                             }
-                            list.push({ name, type: types ?? customEnumValues ? CustomCommandParamType.Enum : CustomCommandParamType.String });
+                            list.push({ name, type: types ?? (customEnumValues ? CustomCommandParamType.Enum : CustomCommandParamType.String) });
                         }
                     });
 
