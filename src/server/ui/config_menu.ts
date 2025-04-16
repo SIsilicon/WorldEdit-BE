@@ -415,7 +415,7 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
     },
     submit: (ctx, _, input) => {
         if (!(<string>input.$command).length) return ctx.error("worldedit.config.command.noCommand");
-        ctx.setData("toolData", [((input.$worldeditCmd ? config.commandPrefix : "/") + input.$command) as string]);
+        ctx.setData("toolData", [("/" + input.$command) as string]);
         finishToolEdit(ctx);
     },
     cancel: (ctx) => ctx.returnto("$tools"),

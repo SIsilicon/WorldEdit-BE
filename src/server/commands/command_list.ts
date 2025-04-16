@@ -111,6 +111,3 @@ import "./structure/import.js";
 
 import "./biome/biomeinfo.js";
 import "./biome/setbiome.js";
-
-import config from "config.js";
-Server.command.prefix = config.commandPrefix;
