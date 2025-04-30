@@ -1,4 +1,4 @@
-import { Player } from "@minecraft/server";
+import { CommandPermissionLevel, Player } from "@minecraft/server";
 import { Server } from "@notbeer-api";
 import { PlayerSession } from "server/sessions";
 import { Tool } from "./base_tool";
@@ -19,7 +19,7 @@ class CommandTool extends Tool {
             Server.command.callCommand(player, self.command.substring(0, firstSpace).trim(), self.command.substring(firstSpace).trim());
             session.usingItem = usingItem;
         } else {
-            if (player.isOp()) {
+            if (player.commandPermissionLevel >= CommandPermissionLevel.GameDirectors) {
                 Server.queueCommand(self.command, player);
             }
         }

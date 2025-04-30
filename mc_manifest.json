@@ -10,12 +10,12 @@
 			1,
 			0,
 			0,
-			2
+			3
 		],
 		"min_engine_version": [
 			1,
 			21,
-			80
+			90
 		]
 	},
 	"bp_modules": [
@@ -59,11 +59,11 @@
 	"bp_dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.0.0-beta"
+			"version": "2.1.0-beta"
 		},
 		{
 			"module_name": "@minecraft/server-ui",
-			"version": "2.0.0-beta"
+			"version": "2.1.0-beta"
 		}
 	],
 	"bp_server_dependencies": [
