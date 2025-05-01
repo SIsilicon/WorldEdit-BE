@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2025-02-15 05:42\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -69,6 +69,12 @@ msgstr "選択範囲のスタック"
 
 msgid "item.wedit:selection_move"
 msgstr "選択範囲の移動"
+
+msgid "item.wedit:draw_line"
+msgstr "線を引く"
+
+msgid "item.wedit:draw_curve"
+msgstr "曲線を描く"
 
 msgid "item.wedit:draw_sphere"
 msgstr "球体を生成"
@@ -180,6 +186,9 @@ msgstr "生成する形状を選択"
 
 msgid "worldedit.genMode.line"
 msgstr "線"
+
+msgid "worldedit.genMode.curve"
+msgstr "曲線"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球体"
@@ -740,16 +749,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "グラデーション %s を作成しました。"
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "グラデーション %s を削除しました。"
 
 msgid "commands.wedit:gradient.description"
-msgstr "パターンで使用するグラデーションを作成する。"
+msgstr "グラデーションの管理"
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "グラデーションを作成してパターンに使用します。"
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "グラデーションを削除"
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "作成されたグラデーションの一覧。"
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "グラデーション %s は存在しません。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "リストにグラデーションがありません"
 
 msgid "commands.wedit:green.description"
 msgstr "近くの土ブロックを草ブロックに変える"
@@ -984,6 +1002,9 @@ msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "スーパーピッケルのモードは現在: area"
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "スーパーピッケルの切り替え"

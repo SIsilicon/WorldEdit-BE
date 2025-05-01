@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2025-02-11 05:44\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -72,6 +72,9 @@ msgstr "移動選擇"
 
 msgid "item.wedit:draw_line"
 msgstr "畫線"
+
+msgid "item.wedit:draw_curve"
+msgstr "繪製曲線"
 
 msgid "item.wedit:draw_sphere"
 msgstr "繪製球體"
@@ -183,6 +186,9 @@ msgstr "選擇要生成的形狀"
 
 msgid "worldedit.genMode.line"
 msgstr "線"
+
+msgid "worldedit.genMode.curve"
+msgstr "曲線"
 
 msgid "worldedit.genMode.sphere"
 msgstr "球體"
@@ -743,16 +749,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "已建立漸層 %s。"
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "漸層 %s 已刪除。"
 
 msgid "commands.wedit:gradient.description"
+msgstr "管理您的漸層。"
+
+msgid "commands.wedit:gradient.description.create"
 msgstr "建立要在圖案中使用的漸層。"
 
+msgid "commands.wedit:gradient.description.delete"
+msgstr "刪除漸層。"
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "列出已建立的漸層。"
+
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "漸層 %s 不存在。"
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "沒有可列出的漸層。"
 
 msgid "commands.wedit:green.description"
 msgstr "把附近的泥土切換成草地"

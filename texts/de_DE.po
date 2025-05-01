@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2025-04-16 19:31\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -72,6 +72,9 @@ msgstr "Move Selection"
 
 msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
+
+msgid "item.wedit:draw_curve"
+msgstr "Draw Curve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
@@ -161,7 +164,7 @@ msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
 msgid "worldedit.regionMode.fill"
-msgstr "Fill Mode"
+msgstr "Füllmodus"
 
 msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
@@ -183,6 +186,9 @@ msgstr "Select Shape to Generate"
 
 msgid "worldedit.genMode.line"
 msgstr "Linie"
+
+msgid "worldedit.genMode.curve"
+msgstr "Curve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Kugel"
@@ -746,7 +752,16 @@ msgid "commands.wedit:gradient.delete"
 msgstr "Gradient %s deleted."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Erstelle einen Farbverlauf für Muster."
+msgstr "Manage your gradients."
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "Create a gradient to use in patterns."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Delete a gradient."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "List created gradients."
 
 msgid "commands.wedit:gradient.noExist"
 msgstr "Gradient %s does not exist."
@@ -987,6 +1002,9 @@ msgstr "Schnee in der Region simulieren"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Super pickaxe mode is now: area."
+
+msgid "commands.wedit:superpickaxe.description"
+msgstr "Toggle the super pickaxe"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Toggle the super pickaxe"

@@ -11,10 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2024-11-23 17:13\n"
+"PO-Revision-Date: 2025-02-26 11:06\n"
 
 msgid "pack.description"
-msgstr "Находящийся в разработке порт мода Java и многого другого! Addon от Silicon. (@iSiliconS)."
+msgstr "Находящийся в разработке порт мода из Java и многого другого! Addon от Silicon. (§l§b@iSiliconS§r)."
 
 msgid "script.watchdog.error.hang"
 msgstr "§cСкрипты WorldEdit остановились! Сбросьте их с помощью §r/reload§c или перезапустите мир.§r"
@@ -72,6 +72,9 @@ msgstr "Переместить выделение"
 
 msgid "item.wedit:draw_line"
 msgstr "Нарисовать линию"
+
+msgid "item.wedit:draw_curve"
+msgstr "Нарисовать изгиб"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Нарисуйте сферу"
@@ -184,6 +187,9 @@ msgstr "Выберите форму для создания"
 msgid "worldedit.genMode.line"
 msgstr "Линия"
 
+msgid "worldedit.genMode.curve"
+msgstr "Изгиб"
+
 msgid "worldedit.genMode.sphere"
 msgstr "Сфера"
 
@@ -227,7 +233,7 @@ msgid "worldedit.config.tool.cycle"
 msgstr "Инструмент для поворота блоков"
 
 msgid "worldedit.config.brush.sphere"
-msgstr "Сферовая кисть"
+msgstr "Сферическая кисть"
 
 msgid "worldedit.config.brush.cylinder"
 msgstr "Цилиндрическая кисть"
@@ -743,16 +749,25 @@ msgid "commands.wedit:gradient.create"
 msgstr "Создан градиент %s."
 
 msgid "commands.wedit:gradient.delete"
-msgstr "Gradient %s deleted."
+msgstr "Градиент %s удалён."
 
 msgid "commands.wedit:gradient.description"
-msgstr "Создайте градиент для использования в узорах."
+msgstr "Настройте свои градиенты."
+
+msgid "commands.wedit:gradient.description.create"
+msgstr "Создайте градиент для использования в шаблонах."
+
+msgid "commands.wedit:gradient.description.delete"
+msgstr "Удалить градиент."
+
+msgid "commands.wedit:gradient.description.list"
+msgstr "Список созданных градиентов."
 
 msgid "commands.wedit:gradient.noExist"
-msgstr "Gradient %s does not exist."
+msgstr "Градиента %s не существует."
 
 msgid "commands.wedit:gradient.none"
-msgstr "There are no gradients to list"
+msgstr "Здесь нету градиентов для списка"
 
 msgid "commands.wedit:green.description"
 msgstr "Превратить близлежащую землю в траву"
@@ -893,10 +908,10 @@ msgid "commands.wedit:replacenear.description"
 msgstr "Заменить близлежащие блоки другими блоками"
 
 msgid "commands.wedit:revolve.description"
-msgstr "Make copies of the selection revolving around the player"
+msgstr "Создать копии выбора вращения вокруг игрока"
 
 msgid "commands.wedit:revolve.explain"
-msgstr "Created %s blocks from revolving."
+msgstr "Создано %s блоков с вращения."
 
 msgid "commands.wedit:rotate.description"
 msgstr "Повернуть блоки в выделении"
@@ -944,7 +959,7 @@ msgid "commands.wedit:set.description"
 msgstr "Заполнить выделение выбранным блоком"
 
 msgid "commands.wedit:setbiome.changed"
-msgstr "Биомы были изменены примерно на 100% блоков."
+msgstr "Биомы были изменены примерно на %s блоков."
 
 msgid "commands.wedit:setbiome.description"
 msgstr "Измените выбранные вами биомы"
