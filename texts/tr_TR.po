@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-05-02 06:56\n"
+"PO-Revision-Date: 2025-05-02 08:12\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -713,28 +713,28 @@ msgid "commands.wedit:fillr.description"
 msgstr "Bir bölgeyi tekrarlı olarak belirli bloklarla doldur"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Yakında akan lav bloklarını kaynağa dönüştürün"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Düzeltmek için yakınınızda lav olmalı."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Yakında akan su bloklarını kaynağa dönüştürün"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "You need to be close to some water to fix."
+msgstr "Düzeltmek için yakınınızda su olmalı."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Seçimi döndür"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "%s blok döndürüldü."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Aşağı ya da yukarı döndürme yapılamıyor!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "Seçiminizde herhangi bir şekli oluşturun"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
