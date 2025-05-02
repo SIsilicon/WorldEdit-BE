@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-05-02 06:56\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "Eğri Çiz"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Küre Çiz"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "Çizgi"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "Eğri"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Küre"
@@ -656,61 +656,61 @@ msgid "commands.wedit:count.explain"
 msgstr "%s blok bulundu."
 
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Geçerli seçimini kaldır ve panoya ekle"
 
 msgid "commands.wedit:cut.explain"
 msgstr "Cut %s blocks."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Silindir oluştur"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Seçimdeki farklı blokların miktarını analiz et"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Yakındaki sıvıları kurut"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Kurutmak için suya ya da lava yakın olmalısınız."
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Seçiminizin görünürlüğünü ayarlayın"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Seçimleriniz artık gözükmeyecek."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Seçimleriniz artık gözükecek."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Seçim alanını genişlet"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Seçim alanını dünya yükseklik sınırına dikey olarak genişlet"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "Bölge %s blok genişletildi."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Seçimi sonradan kullanmak için dışarı aktarır."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s'i dışarı aktarıldı."
 
 msgid "commands.wedit:export.otherWorlds"
 msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Yakındaki ateşleri söndür"
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Seçimden bir anahat oluşturun"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Bir bölgeyi belirli bloklarla doldur"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Bir bölgeyi tekrarlı olarak belirli bloklarla doldur"
 
 msgid "commands.wedit:fixlava.description"
 msgstr "Make nearby flowing lava blocks source blocks"
