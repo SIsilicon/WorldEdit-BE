@@ -9,12 +9,12 @@
 		"version": [
 			0,
 			9,
-			7
+			8
 		],
 		"min_engine_version": [
 			1,
 			21,
-			70
+			80
 		]
 	},
 	"bp_modules": [
