@@ -32,7 +32,7 @@ function writeMetaData(name: string, data: string, player: Player) {
     while (dimension.getEntitiesAtBlockLocation(blockLoc).length) {
         blockLoc = blockLoc.offset(0, 1, 0);
     }
-    const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
+    const entity = dimension.spawnEntity(<any>"wedit:struct_meta", blockLoc);
     entity.nameTag = data;
 
     world.structureManager.delete(name);

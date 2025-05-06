@@ -136,7 +136,7 @@ class BiomeDetector extends EventEmitter implements PooledResource {
         return new Promise<number>((resolve, reject) => {
             try {
                 if (!this.entityAvailable()) {
-                    this.entity = dim.spawnEntity("wedit:biome_detector", loc);
+                    this.entity = dim.spawnEntity(<any>"wedit:biome_detector", loc);
                     // contentLog.debug("entity created:", this.id);
                 } else {
                     this.entity.nameTag = "wedit:biome_update";

@@ -24,7 +24,7 @@ function readMetaData(name: string, player: Player) {
     while (dimension.getEntitiesAtBlockLocation(blockLoc).some((e) => e.typeId == "wedit:struct_meta")) {
         blockLoc = blockLoc.offset(1, 0, 0);
     }
-    const entity = dimension.spawnEntity("wedit:struct_meta", blockLoc);
+    const entity = dimension.spawnEntity(<any>"wedit:struct_meta", blockLoc);
     entity.nameTag = "__placeholder__";
 
     world.structureManager.place(name, player.dimension, blockLoc);
