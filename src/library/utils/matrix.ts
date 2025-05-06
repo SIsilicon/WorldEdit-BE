@@ -12,7 +12,8 @@ export class Matrix {
 
     static fromRotation(degrees: number, axis: axis | Vector3) {
         // Based on http://www.gamedev.net/reference/articles/article1199.asp
-        const radians = degrees * (Math.PI / 180);
+        const wrapped = ((degrees % 360) + 360) % 360;
+        const radians = (wrapped > 180 ? wrapped - 360 : wrapped) * (Math.PI / 180);
         const c = Math.floor(10_000 * Math.cos(radians)) / 10_000;
         const s = Math.floor(10_000 * Math.sin(radians)) / 10_000;
         const t = 1 - c;

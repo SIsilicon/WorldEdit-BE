@@ -183,7 +183,8 @@ export class Vector {
 
     rotate(degrees: number, axis: axis) {
         if (!degrees) return this.clone();
-        const radians = degrees * (Math.PI / 180);
+        const wrapped = ((degrees % 360) + 360) % 360;
+        const radians = (wrapped > 180 ? wrapped - 360 : wrapped) * (Math.PI / 180);
         const cos = Math.cos(radians);
         const sin = Math.sin(radians);
 
