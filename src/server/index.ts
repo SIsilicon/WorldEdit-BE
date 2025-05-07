@@ -34,7 +34,8 @@ Server.on("playerLeave", (ev) => {
 Server.on("tick", () => {
     if (!ready) return;
 
-    for (const player of world.getPlayers()) {
+    const realPlayers = world.getPlayers().filter((p) => p != undefined);
+    for (const player of realPlayers) {
         if (!activeBuilders.includes(player)) {
             if (PlayerUtil.isHotbarStashed(player)) {
                 PlayerUtil.restoreHotbar(player);
