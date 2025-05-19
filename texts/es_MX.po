@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish, Mexico\n"
 "Language: es_MX\n"
-"PO-Revision-Date: 2025-02-06 18:11\n"
+"PO-Revision-Date: 2025-05-19 00:08\n"
 
 msgid "pack.description"
 msgstr "¡Port en desarrollo de el mod original de Java y más! Addon de Slsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "Selección de contorno"
 
 msgid "item.wedit:selection_hollow"
-msgstr "Spanish, México"
+msgstr "Selección hueca"
 
 msgid "item.wedit:selection_stack"
 msgstr ""
@@ -104,7 +104,7 @@ msgid "worldedit.config.mainMenu"
 msgstr "Ajustes de WorldEdit"
 
 msgid "worldedit.config.brushes"
-msgstr "Brocha"
+msgstr "Brochas"
 
 msgid "worldedit.config.tools"
 msgstr "Herramientas"
@@ -224,10 +224,10 @@ msgid "worldedit.config.tool.stacker"
 msgstr "Herramienta Apiladora"
 
 msgid "worldedit.config.tool.cmd"
-msgstr "Español"
+msgstr "Herramienta de comando"
 
 msgid "worldedit.config.tool.repl"
-msgstr "Español"
+msgstr "Herramienta de reemplazo de bloques"
 
 msgid "worldedit.config.tool.cycle"
 msgstr "Bloquear herramienta Stacker"
@@ -293,7 +293,7 @@ msgid "worldedit.config.confirm"
 msgstr "¿Está bien?"
 
 msgid "worldedit.config.confirm.create"
-msgstr "Estás de acuerdo con la configuración que creaste?"
+msgstr "¿Estás de acuerdo con la configuración que creaste?"
 
 msgid "worldedit.config.confirm.delete"
 msgstr "¿Está seguro de que desea desvincular este elemento?"
