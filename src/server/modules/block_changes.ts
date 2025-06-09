@@ -52,6 +52,10 @@ class BlockChangeImpl implements BlockChanges {
     getBlock(loc: Vector3): BlockUnit {
         const perm = this.getBlockPerm(loc);
         return {
+            x: loc.x,
+            y: loc.y,
+            z: loc.z,
+
             typeId: perm.type.id,
             permutation: perm,
             location: loc,

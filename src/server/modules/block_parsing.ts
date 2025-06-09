@@ -8,6 +8,10 @@ export interface parsedBlock {
 }
 
 export interface BlockUnit {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+
     readonly typeId: string;
     readonly permutation: BlockPermutation;
     readonly location: Vector3;
@@ -47,10 +51,10 @@ const lexer = new Tokenizr();
     lexer.rule(/[a-zA-Z_][a-zA-Z0-9_]*/, (ctx) => {
         ctx.accept("id");
     });
-    lexer.rule(/[0-9]+(\.[0-9]+)*/, (ctx, match) => {
+    lexer.rule(/-?[0-9]+(\.[0-9]+)*/, (ctx, match) => {
         ctx.accept("number", parseFloat(match[0]));
     });
-    lexer.rule(/[0-9]+/, (ctx, match) => {
+    lexer.rule(/-?[0-9]+/, (ctx, match) => {
         ctx.accept("number", parseInt(match[0]));
     });
 }

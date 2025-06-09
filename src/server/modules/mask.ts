@@ -226,7 +226,22 @@ export class Mask implements CustomArgType {
                     }
                 } else if (token.value == "#") {
                     const t = tokens.next();
-                    if (t.value == "existing") {
+                    if (t.value == "slope") {
+                        let t = tokens.next();
+                        if (t.value != "[") throwTokenError(t);
+                        t = tokens.next();
+                        if (t.type != "number") throwTokenError(t);
+                        const lowerAngle = <number>t.value;
+                        t = tokens.next();
+                        if (t.value != ":") throwTokenError(t);
+                        t = tokens.next();
+                        if (t.type != "number") throwTokenError(t);
+                        const upperAngle = <number>t.value;
+                        t = tokens.next();
+                        if (t.value != "]") throwTokenError(t);
+
+                        out.push(new SlopeMask(nodeToken(), lowerAngle, upperAngle));
+                    } else if (t.value == "existing") {
                         out.push(new ExistingMask(nodeToken()));
                     } else if (t.value == "surface" || t.value == "exposed") {
                         out.push(new SurfaceMask(nodeToken()));
@@ -429,6 +444,50 @@ class ShadowMask extends MaskNode {
             if (Vector.sub(hitLocation, start).length > ray.length + 0.01 || Vector.equals(hit.block, block.location)) return false;
         }
         return true;
+    }
+}
+
+class SlopeMask extends MaskNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+
+    static readonly testDistance = 2;
+    static readonly testOffsets = {
+        "-z": Vector.from(Direction.North).mul(SlopeMask.testDistance),
+        "+z": Vector.from(Direction.South).mul(SlopeMask.testDistance),
+        "+x": Vector.from(Direction.East).mul(SlopeMask.testDistance),
+        "-x": Vector.from(Direction.West).mul(SlopeMask.testDistance),
+    };
+
+    constructor(
+        token: Token,
+        public lowerAngle: number,
+        public upperAngle: number
+    ) {
+        super(token);
+    }
+
+    matchesBlock(block: BlockUnit) {
+        const heights: { [dir: string]: number } = {};
+
+        for (const [entry, offset] of Object.entries(SlopeMask.testOffsets)) {
+            const start = Vector.add(block, offset).add(0.5);
+
+            let testBlock = block.dimension.getBlock(start);
+            while (testBlock?.isSolid) {
+                testBlock = testBlock.above();
+                start.y++;
+            }
+
+            const hit = block.dimension.getBlockFromRay(start, Vector.DOWN, { includePassableBlocks: false, includeLiquidBlocks: false });
+            if (hit) heights[entry] = hit.block.y + hit.faceLocation.y;
+        }
+
+        const distance2 = SlopeMask.testDistance * 2;
+        const slopeX = Math.abs(heights["+z"] - heights["-z"]) / distance2;
+        const slopeZ = Math.abs(heights["+x"] - heights["-x"]) / distance2;
+        const pitch = 90 - Math.atan(1 / Math.sqrt(slopeX ** 2 + slopeZ ** 2)) * (180 / Math.PI);
+        return pitch >= this.lowerAngle && pitch <= this.upperAngle;
     }
 }
 
