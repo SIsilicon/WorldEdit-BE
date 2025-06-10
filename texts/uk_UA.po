@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-06-10 02:53\n"
+"PO-Revision-Date: 2025-06-10 22:50\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -660,6 +660,12 @@ msgstr "Кількість блоків, які відповідають мас�
 
 msgid "commands.wedit:count.explain"
 msgstr "Переміщено %s блоків."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "Видалити поточний вибір і помістити його в буфер обміну"
