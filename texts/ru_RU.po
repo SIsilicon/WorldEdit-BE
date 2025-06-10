@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2025-02-26 11:06\n"
+"PO-Revision-Date: 2025-06-10 02:53\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода из Java и многого другого! Addon от Silicon. (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "Команда WorldEdit"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Первая точка не была выбрана."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Первая точка поставлена на %s."
@@ -928,6 +934,9 @@ msgstr "Вы можете вращаться только вдоль оси Y!"
 msgid "commands.wedit:sel.clear"
 msgstr "Выделение очищено."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоид: разбить блок на point 1, использовать в блоке для point 2"
 
@@ -936,6 +945,9 @@ msgstr "Переключатель цилиндров: разбейте блок
 
 msgid "commands.wedit:sel.description"
 msgstr "Сменить режим выделения"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Выделите два угла кубоида"
