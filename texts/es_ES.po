@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2025-06-10 22:50\n"
+"PO-Revision-Date: 2025-06-10 23:54\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -882,6 +882,9 @@ msgstr "%s bloques pegados."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "No se puede pegar el portapapeles en su ubicación original."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Establece la primera posición de tu selección a la posición especificada o actual"
