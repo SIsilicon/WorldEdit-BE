@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2025-06-10 22:50\n"
+"PO-Revision-Date: 2025-06-10 23:55\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода из Java и многого другого! Addon от Silicon. (§l§b@iSiliconS§r)."
@@ -882,6 +882,9 @@ msgstr "Вставлено %s блоков."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Не удается вставить буфер обмена в его исходное местоположение."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Установите первую позицию вашего выбора в указанную или текущую позицию"
