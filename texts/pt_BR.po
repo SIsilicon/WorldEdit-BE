@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-03-08 00:13\n"
+"PO-Revision-Date: 2025-06-10 02:53\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "É comando da edição de mundo"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "A primeira seleção ainda não foi feita."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Primeira posição definida para %s."
@@ -928,6 +934,9 @@ msgstr "Você só pode girar na orientação Y!"
 msgid "commands.wedit:sel.clear"
 msgstr "Seleção limpa."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: break block for point 1, use on block for point 2"
 
@@ -936,6 +945,9 @@ msgstr "Cylinder selector: break block for the center, use on block to expand ra
 
 msgid "commands.wedit:sel.description"
 msgstr "Alterar modo de seleção"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Selecionar dois cantos para o paralelepípedo"
