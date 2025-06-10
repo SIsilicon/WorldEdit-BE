@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-02-13 23:48\n"
+"PO-Revision-Date: 2025-06-10 02:53\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "是否为创世神命令"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
@@ -928,6 +934,9 @@ msgstr "你只能沿Y轴旋转！"
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "立方体选区模式：使用选择器左键破坏单个方块设置第一个对角点，然后对另一个方块右键（Pe则是长按）设置第二个对角点."
 
@@ -936,6 +945,9 @@ msgstr "圆柱体选区模式：使用选择器左键破坏单个方块来设置
 
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "选择一个立方体的两个对角。"
