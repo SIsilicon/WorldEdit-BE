@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-06-10 02:53\n"
+"PO-Revision-Date: 2025-06-10 22:50\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -660,6 +660,12 @@ msgstr "Contar o número de blocos que correspondem com a máscara"
 
 msgid "commands.wedit:count.explain"
 msgstr "Encontrados %s blocos."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "Remove sua seleção atual e a coloca na área de transferência"
