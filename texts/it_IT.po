@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2025-06-10 22:50\n"
+"PO-Revision-Date: 2025-06-10 23:54\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -882,6 +882,9 @@ msgstr "Incollato %s blocchi."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Can't paste the clipboard at its original location."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Imposta la prima posizione della selezione alla posizione specificata o corrente"
