@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-02-22 10:02\n"
+"PO-Revision-Date: 2025-06-10 02:53\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "Є командою WorldEdit"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Перше виділення ще не зроблено."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Перша позиція встановлена ​​на %s."
@@ -928,6 +934,9 @@ msgstr "Обертати можна тільки вздовж осі Y!"
 msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоїд: розбити блок в точці 1, використовувати на блоці в точці 2"
 
@@ -936,6 +945,9 @@ msgstr "Вибір циліндрів: розбити блок для центр
 
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Виділити два кути кубоїда"
