@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-05-27 15:50\n"
+"PO-Revision-Date: 2025-06-10 02:52\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "Er WorldEdit-kommando"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Første posisjon satt til %s."
@@ -928,6 +934,9 @@ msgstr "Du kan kun rotere langs Y-aksen!"
 msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Kube: ødelegg blokk for punkt 1, bruk på blokk for punkt 1"
 
@@ -936,6 +945,9 @@ msgstr "Syllinder velger: ødelegg blokk for midten, brukt på blokk for å utvi
 
 msgid "commands.wedit:sel.description"
 msgstr "Endre utvalgs-modus"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Velg to gjørner av en kube"
