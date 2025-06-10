@@ -6,9 +6,10 @@ import { CuboidShape } from "../shapes/cuboid.js";
 import { CylinderShape } from "../shapes/cylinder.js";
 import { getWorldHeightLimits } from "../util.js";
 import config from "config.js";
+import { ConvexShape } from "server/shapes/convex.js";
 
 // TODO: Add other selection modes
-export const selectionModes = ["cuboid", "extend", "sphere", "cylinder", "volume"] as const;
+export const selectionModes = ["cuboid", "extend", "sphere", "cylinder", "convex", "volume"] as const;
 export type selectMode = (typeof selectionModes)[number];
 
 export abstract class Selection {
@@ -64,6 +65,7 @@ class DefaultSelection extends Selection {
 
     private _mode: selectMode = "cuboid";
     private _points: Vector[] = [];
+    private _shape: [Shape, Vector] | undefined;
 
     get isEmpty() {
         let points = 0;
@@ -107,13 +109,13 @@ class DefaultSelection extends Selection {
             this._points.length = index + 1;
         }
 
-        if (index == 0 && this._mode != "cuboid") {
+        if (index == 0 && this._mode == "convex") {
+            this._points = [loc];
+        } else if (index == 0 && this._mode != "cuboid") {
             this._points = [loc, loc.offset(0, 0, 0)];
         } else if (this._mode == "cuboid") {
             this._points[index] = loc;
-            if (this._mode != "cuboid") {
-                this._points.length = 1;
-            }
+            if (this._mode != "cuboid") this._points.length = 1;
         } else if (this._mode == "extend") {
             this._points[0] = Vector.min(this._points[0], this._points[1]).min(loc).floor();
             this._points[1] = Vector.max(this._points[0], this._points[1]).max(loc).floor();
@@ -129,19 +131,23 @@ class DefaultSelection extends Selection {
             this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).floor();
             this._points[0].y = min.y;
             this._points[1].y = max.y;
+        } else if (this._mode == "convex") {
+            if (!this._points[1]) this._points[1] = loc;
+            else this._points.push(loc);
         }
 
         const [min, max] = getWorldHeightLimits(this.player.dimension);
         this._points.forEach((p) => (p.y = Math.min(Math.max(p.y, min), max)));
+        this.updateShape();
     }
 
     /**
      * Clears the selection points that have been made.
      */
     public clear() {
-        if (this._points.length) {
-            this._points = [];
-        }
+        if (!this._points.length) return;
+        this._points = [];
+        this.updateShape();
     }
 
     /**
@@ -149,22 +155,7 @@ class DefaultSelection extends Selection {
      * @returns
      */
     public getShape(): [Shape, Vector] | undefined {
-        if (this.isEmpty) return undefined;
-
-        if (this.isCuboid) {
-            const [start, end] = regionBounds(this._points);
-            const size = Vector.sub(end, start).add(1);
-            return [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
-        } else if (this._mode == "sphere") {
-            const center = this._points[0];
-            const radius = Vector.sub(this._points[1], this._points[0]).length;
-            return [new SphereShape(radius), center];
-        } else if (this._mode == "cylinder") {
-            const center = this._points[0];
-            const vec = Vector.sub(this._points[1], this._points[0]);
-            const height = Math.abs(vec.y) + 1;
-            return [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
-        }
+        return this._shape;
     }
 
     /**
@@ -204,6 +195,27 @@ class DefaultSelection extends Selection {
         const [shape, loc] = this.getShape();
         if (shape) return shape.getRegion(loc);
         return undefined;
+    }
+
+    private updateShape() {
+        if (this.isEmpty) {
+            this._shape = undefined;
+        } else if (this.isCuboid) {
+            const [start, end] = regionBounds(this._points);
+            const size = Vector.sub(end, start).add(1);
+            this._shape = [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
+        } else if (this._mode == "sphere") {
+            const center = this._points[0];
+            const radius = Vector.sub(this._points[1], this._points[0]).length;
+            this._shape = [new SphereShape(radius), center];
+        } else if (this._mode == "cylinder") {
+            const center = this._points[0];
+            const vec = Vector.sub(this._points[1], this._points[0]);
+            const height = Math.abs(vec.y) + 1;
+            this._shape = [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
+        } else if (this._mode == "convex") {
+            this._shape = this._points.length >= 4 ? [new ConvexShape(this._points), Vector.ZERO] : undefined;
+        }
     }
 }
 

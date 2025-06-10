@@ -292,8 +292,8 @@ export class PlayerSession {
     onTick() {
         // Draw Selection
         if (this.selection.isEmpty) return;
-        const [shape, loc] = this.selection.getShape();
-        this.lazySelectionDraw(() => shape.draw(this.player, loc));
+        const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
+        if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc));
     }
 }
 

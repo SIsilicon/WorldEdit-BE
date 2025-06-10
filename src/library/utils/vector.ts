@@ -119,7 +119,7 @@ export class Vector {
     }
 
     setIdx(idx: number, val: number) {
-        this.vals[idx] = val;
+        return (this.vals[idx] = val);
     }
 
     largestAxis(): axis {
@@ -237,6 +237,11 @@ export class Vector {
     dot(v: anyVec) {
         v = Vector.from(v);
         return this.x * v.x + this.y * v.y + this.z * v.z;
+    }
+
+    cross(v: anyVec) {
+        v = Vector.from(v);
+        return new Vector(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
     }
 
     transform(mat: Matrix) {

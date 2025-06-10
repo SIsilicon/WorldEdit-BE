@@ -7,7 +7,7 @@ const registerInformation: CommandInfo = {
     description: "commands.wedit:sel.description",
     aliases: ["deselect", "desel"],
     usage: [
-        { name: "mode", type: "enum", values: ["cuboid", "extend", "sphere", "cyl"], default: "" },
+        { name: "mode", type: "enum", values: ["cuboid", "extend", "sphere", "cyl", "convex"], default: "" },
         { name: "makeDefault", type: "bool", default: false },
     ],
 };
@@ -27,6 +27,9 @@ registerCommand(registerInformation, function (session, builder, args) {
         } else if (mode === "cyl") {
             session.selection.mode = "cylinder";
             return "commands.wedit:sel.cyl";
+        } else if (mode === "convex") {
+            session.selection.mode = "convex";
+            return "commands.wedit:sel.convex";
         } else {
             session.selection.clear();
             return "commands.wedit:sel.clear";
