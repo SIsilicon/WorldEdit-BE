@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-06-04 09:55\n"
+"PO-Revision-Date: 2025-06-10 02:52\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -363,6 +363,12 @@ msgstr "월드에딧 명령어"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "첫 번째 위치가 %s 로 설정되었습니다."
@@ -928,6 +934,9 @@ msgstr "Y축을 따라서만 회전할 수 있습니다!"
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "직육면체: 지점 1에 대한 블록을 끊고, 지점 2에 대한 블록을 사용합니다."
 
@@ -936,6 +945,9 @@ msgstr "실린더 선택기: 중앙을 위한 블록을 부수고, 블록 위에
 
 msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "정육면체의 두 모서리 선택"
