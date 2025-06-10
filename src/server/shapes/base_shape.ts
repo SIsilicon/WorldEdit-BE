@@ -48,7 +48,7 @@ export abstract class Shape {
 
     protected shapeCacheKey: string;
 
-    private outlineCache: [string, Vector][];
+    protected outlineCache: [string, Vector][];
 
     private genVars: shapeGenVars;
 

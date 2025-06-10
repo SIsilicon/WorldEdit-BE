@@ -215,6 +215,7 @@ class DefaultSelection extends Selection {
             this._shape = [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
         } else if (this._mode == "convex") {
             this._shape = this._points.length >= 4 ? [new ConvexShape(this._points), Vector.ZERO] : undefined;
+            if (this._shape) (this._shape[0] as ConvexShape).drawCurve = true;
         }
     }
 }
