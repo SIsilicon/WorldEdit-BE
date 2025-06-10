@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-06-10 02:52\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -363,6 +363,12 @@ msgstr "Is WorldEdit Command"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "La première sélection n'a pas encore été faite."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Première position définie sur %s."
@@ -928,6 +934,9 @@ msgstr "You can only rotate along the Y axis!"
 msgid "commands.wedit:sel.clear"
 msgstr "Sélection effacée."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: break block for point 1, use on block for point 2"
 
@@ -936,6 +945,9 @@ msgstr "Cylinder selector: break block for the center, use on block to expand ra
 
 msgid "commands.wedit:sel.description"
 msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Select two corners of a cuboid"
