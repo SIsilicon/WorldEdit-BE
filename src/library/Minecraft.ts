@@ -183,7 +183,7 @@ class ServerBuild extends ServerBuilder {
                                 bool: CustomCommandParamType.Boolean,
                                 int: CustomCommandParamType.Integer,
                                 float: CustomCommandParamType.Float,
-                                string: CustomCommandParamType.Float,
+                                string: CustomCommandParamType.String,
                                 xyz: CustomCommandParamType.Location,
                                 enum: CustomCommandParamType.Enum,
                             }[arg.type];
