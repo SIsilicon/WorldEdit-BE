@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2025-06-10 02:53\n"
+"PO-Revision-Date: 2025-06-10 22:50\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода из Java и многого другого! Addon от Silicon. (§l§b@iSiliconS§r)."
@@ -660,6 +660,12 @@ msgstr "Количество блоков, совпадающих с маско�
 
 msgid "commands.wedit:count.explain"
 msgstr "Перемещено %s блоков."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "Удалите текущий выбор и поместите его в заметки"
