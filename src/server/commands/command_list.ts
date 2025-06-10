@@ -66,6 +66,7 @@ import "./region/smooth.js";
 import "./region/faces.js";
 import "./region/hollow.js";
 import "./region/line.js";
+import "./region/curve.js";
 import "./region/center.js";
 
 import "./utilities/fill.js";
