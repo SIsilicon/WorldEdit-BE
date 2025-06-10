@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-02-11 05:44\n"
+"PO-Revision-Date: 2025-06-10 02:53\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -363,6 +363,12 @@ msgstr "WorldEdit 是指令嗎"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "第一個位置還沒設定。"
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一個位置已設定至 %s。"
@@ -928,6 +934,9 @@ msgstr "您只能沿 Y 軸旋轉！"
 msgid "commands.wedit:sel.clear"
 msgstr "已清除所選擇的區域"
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "長方體： 破壞方塊以設定點 1，對著方塊使用以設定點 2"
 
@@ -936,6 +945,9 @@ msgstr "圓柱體選擇器： 破壞方塊以設定中心，對著方塊使用�
 
 msgid "commands.wedit:sel.description"
 msgstr "變更選擇模式"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "選擇長方體的兩個角"
