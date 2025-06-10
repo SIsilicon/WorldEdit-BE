@@ -42,7 +42,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             for (const point of blocks) {
                 const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
-                yield;
+                yield count / blocks.size;
             }
 
             history.trackSelection(record);
