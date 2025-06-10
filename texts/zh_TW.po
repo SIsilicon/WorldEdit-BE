@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-06-10 22:50\n"
+"PO-Revision-Date: 2025-06-10 23:55\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -882,6 +882,9 @@ msgstr "已貼上 %s 個方塊"
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "無法將剪貼簿貼到其原始位置。"
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "設定你所選中的區域的第一個位置到指定或目前的位置"
