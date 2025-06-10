@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2025-06-10 02:52\n"
+"PO-Revision-Date: 2025-06-10 22:50\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -660,6 +660,12 @@ msgstr "Count the number of blocks that match a mask"
 
 msgid "commands.wedit:count.explain"
 msgstr "Found %s blocks."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "Rimuovi la selezione corrente e posizionala negli appunti"
