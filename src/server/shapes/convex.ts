@@ -40,15 +40,12 @@ export class ConvexShape extends Shape {
             const points = Array.from(plotCurve(this.points))
                 .filter((_, i) => i % 3 === 0)
                 .map((p) => Vector.from(p).add(0.5));
-            const edges = points.map((_, i) => [i, i + 1] as [number, number]);
-            edges.pop(); // Remove last edge to avoid connecting the last point to the first
-            this.curveParticles = this.drawShape(points, edges);
+            this.curveParticles = this.drawLine(points);
         }
 
         for (const face of this.faces) {
             const points = face.map((i) => this.points[i].add(0.5));
-            const edges = points.map((_, i) => [i, (i + 1) % points.length] as [number, number]);
-            particles.push(...this.drawShape(points, edges));
+            particles.push(...this.drawLine(points, true));
         }
 
         return particles;

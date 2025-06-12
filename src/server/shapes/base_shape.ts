@@ -147,6 +147,12 @@ export abstract class Shape {
         }
     }
 
+    protected drawLine(vertices: Vector[], closedLoop = false): [string, Vector][] {
+        const edges = vertices.map((_, i) => [i, (i + 1) % vertices.length] as [number, number]);
+        if (!closedLoop) edges.splice(edges.length - 1, 1);
+        return this.drawShape(vertices, edges);
+    }
+
     protected drawShape(vertices: Vector[], edges: [number, number][]): [string, Vector][] {
         const edgePoints: Vector[] = [];
         for (const edge of edges) {
