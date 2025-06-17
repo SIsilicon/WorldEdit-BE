@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-06-10 23:55\n"
+"PO-Revision-Date: 2025-06-17 18:30\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -1023,9 +1023,6 @@ msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "超级镐子处于: 范围破坏模式"
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "切换为超级镐子"
