@@ -4,6 +4,10 @@ export default {
      */
     debug: true,
     /**
+     * What character(s) to use to define the beginning of custom commands.
+     */
+    commandPrefix: ";",
+    /**
      * Whether the addon should use simpler methods to run operations faster.
      * This comes with the drawback of more limited capabilities.
      */

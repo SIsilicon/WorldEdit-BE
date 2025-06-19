@@ -1,17 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Player, Vector3 } from "@minecraft/server";
 import { configuration } from "../configurations.js";
-import {
-    storedRegisterInformation,
-    registerInformation,
-    commandArgList,
-    commandArg,
-    commandSubDef,
-    commandSyntaxError,
-    argParseResult,
-    commandNum,
-    commandEnum,
-} from "../@types/classes/CommandBuilder";
+import { storedRegisterInformation, registerInformation, commandArgList, commandArg, commandSubDef, commandSyntaxError, argParseResult, commandNum } from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
 import { contentLog, RawText } from "../utils/index.js";
 
@@ -160,11 +150,53 @@ export class CommandBuilder {
         this.customArgTypes.set(name, argType);
     }
 
-    getCustomArgEnums(name: string) {
-        return this.customArgTypes.get(name)?.commandEnumValues;
+    printCommandArguments(name: string, player?: Player): Array<string> {
+        const register = this.getRegistration(name);
+        if (!register) return;
+
+        const usages: Array<string> = [];
+
+        function accumulate(base: Array<string>, args: commandArgList, subName = "_") {
+            const text = [...base];
+            let hasSubCommand = false;
+
+            if (subName.charAt(0) != "_") {
+                text.push(subName);
+            }
+
+            args?.forEach((arg) => {
+                if ("subName" in arg) {
+                    hasSubCommand = true;
+                    if (player && !playerHandler.hasPermission(player, arg.permission)) {
+                        return;
+                    }
+                    accumulate(text, arg.args, arg.subName);
+                } else {
+                    let argText = arg.default ? "[" : "<";
+                    argText += arg.name + ": ";
+                    if ("range" in arg && typeof arg.range[0] == "number" && typeof arg.range[1] == "number") argText += arg.range[0] + ".." + arg.range[1];
+                    else argText += arg.type;
+
+                    text.push(argText + (arg.default ? "]" : ">"));
+                }
+            });
+
+            if (!hasSubCommand) {
+                usages.push(text.join(" "));
+            }
+        }
+
+        if (player && !playerHandler.hasPermission(player, register.permission)) {
+            return [];
+        }
+
+        if (!register.usage.length) return [""];
+        accumulate([], register.usage);
+
+        return usages;
     }
 
-    parseArgs(comnand: string, args: Array<string>, subCommands: Array<string>): Map<string, any> {
+    parseArgs(comnand: string, args: Array<string>): Map<string, any> {
         const result = new Map<string, any>();
         const argDefs = this.getRegistration(comnand)?.usage;
         if (argDefs == undefined) return;
@@ -204,14 +236,6 @@ export class CommandBuilder {
                 value = cmdBaseInfo.name;
             } else if (type == "string") {
                 value = args[idx++];
-            } else if (type == "enum") {
-                if (!(<commandEnum>def).values.includes(args[idx])) throw RawText.translate("commands.generic.unknown");
-                value = args[idx++];
-            } else if (type == "bool") {
-                if (args[idx].toLowerCase() == "true") value = true;
-                else if (args[idx].toLowerCase() == "false") value = false;
-                else throw RawText.translate("commands.generic.bool.invalid").with(args[idx]);
-                idx++;
             } else if (this.customArgTypes.has(type)) {
                 try {
                     const parse = this.customArgTypes.get(type).parseArgs(args, idx);
@@ -234,24 +258,13 @@ export class CommandBuilder {
             return idx;
         };
 
-        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, subCommands: Array<string>) => {
+        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>) => {
             let defIdx = 0;
             let hasNamedSubCmd = false;
 
             function processSubCmd(idx: number, arg: string) {
                 let processed = false;
                 let unnamedSubs: Array<commandSubDef> = [];
-
-                if (subCommands.length) {
-                    const argDef = <commandSubDef>argDefs[defIdx];
-                    if (argDef.subName === subCommands[0]) {
-                        idx = processList(idx, argDef.args, result, subCommands.slice(1));
-                        result.set(argDef.subName, true);
-                        processed = true;
-                        unnamedSubs = [];
-                    }
-                    return idx;
-                }
 
                 // process named sub-commands and collect unnamed ones
                 while (defIdx < argDefs.length && "subName" in argDefs[defIdx]) {
@@ -262,7 +275,7 @@ export class CommandBuilder {
                         } else {
                             hasNamedSubCmd = true;
                             if (argDef.subName == arg) {
-                                idx = processList(idx + 1, argDef.args, result, subCommands);
+                                idx = processList(idx + 1, argDef.args, result);
                                 result.set(argDef.subName, true);
                                 processed = true;
                                 unnamedSubs = [];
@@ -287,7 +300,7 @@ export class CommandBuilder {
                 for (const sub of unnamedSubs) {
                     try {
                         const subResult = new Map<string, any>();
-                        idx = processList(i, sub.args, subResult, subCommands);
+                        idx = processList(i, sub.args, subResult);
                         result.set(sub.subName, true);
                         subResult.forEach((v, k) => result.set(k, v));
                         break;
@@ -295,7 +308,10 @@ export class CommandBuilder {
                         fails.push(e);
                     }
                 }
-                if (fails.length != 0 && fails.length == unnamedSubs.length) throw fails[0];
+
+                if (fails.length != 0 && fails.length == unnamedSubs.length) {
+                    throw fails[0];
+                }
 
                 return idx;
             }
@@ -331,19 +347,21 @@ export class CommandBuilder {
             // Process optional arguments (and throw if some are required)
             while (defIdx < (argDefs?.length ?? 0)) {
                 const argDef = argDefs[defIdx];
-                if ("type" in argDef) {
-                    const def = argDef.default?.clone?.() ?? argDef.default;
-                    result.set(argDef.name, def);
-                } else if ("subName" in argDef) {
-                    if (!subCommands.length) processSubCmd(i, "");
-                } else {
-                    // Required arguments not specified
-                    const err: commandSyntaxError = {
-                        isSyntaxError: true,
-                        stack: contentLog.stack(),
-                        idx: -1,
-                    };
-                    throw err;
+                if (!("flag" in argDef)) {
+                    if ("type" in argDef && argDef?.default != undefined && !("subName" in argDef)) {
+                        const def = argDef.default.clone?.() ?? argDef.default;
+                        result.set(argDef.name, def);
+                    } else if ("subName" in argDef) {
+                        processSubCmd(i, "");
+                    } else {
+                        // Required arguments not specified
+                        const err: commandSyntaxError = {
+                            isSyntaxError: true,
+                            stack: contentLog.stack(),
+                            idx: -1,
+                        };
+                        throw err;
+                    }
                 }
                 defIdx++;
             }
@@ -351,18 +369,20 @@ export class CommandBuilder {
             return i;
         };
 
-        processList(0, argDefs, result, [...subCommands]);
+        processList(0, argDefs, result);
         return result;
     }
 
-    callCommand(player: Player, command: string, args: Array<string> | string = [], subCommands: Array<string> = []) {
+    callCommand(player: Player, command: string, args: Array<string> | string = []) {
         function regexIndexOf(text: string, re: RegExp, index: number) {
             const i = text.slice(index).search(re);
             return i == -1 ? -1 : i + index;
         }
 
         const getCommand = Command.getAllRegistation().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
-        if (!getCommand) throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
+        if (!getCommand) {
+            throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
+        }
 
         let msg = "";
         const offsets: Array<number> = [];
@@ -401,7 +421,9 @@ export class CommandBuilder {
             msg = args.join(" ");
         }
 
-        offsets.forEach((v, i) => (offsets[i] = v + this.prefix.length + command.length + 1));
+        offsets.forEach((v, i) => {
+            offsets[i] = v + this.prefix.length + command.length + 1;
+        });
         msg = this.prefix + command + " " + msg;
 
         for (const element of Command.getAllRegistation()) {
@@ -412,9 +434,10 @@ export class CommandBuilder {
              */
             let result;
             try {
-                if (element.permission && !playerHandler.hasPermission(player, element.permission)) throw RawText.translate("commands.generic.wedit:noPermission");
-                const map = Command.parseArgs(command, args, subCommands);
-                result = element.callback(player, msg, map);
+                if (element.permission && !playerHandler.hasPermission(player, element.permission)) {
+                    throw RawText.translate("commands.generic.wedit:noPermission");
+                }
+                result = element.callback(player, msg, Command.parseArgs(command, args));
             } catch (e) {
                 if (e.isSyntaxError) {
                     contentLog.error(e.stack);
@@ -432,7 +455,9 @@ export class CommandBuilder {
                         e.printError(player);
                     } else {
                         RawText.text(e).printError(player);
-                        if (e.stack) RawText.text(e.stack).printError(player);
+                        if (e.stack) {
+                            RawText.text(e.stack).printError(player);
+                        }
                     }
                 }
             }

@@ -10,7 +10,9 @@ Server.command.addCustomArgType("Pattern", Pattern);
 Server.command.addCustomArgType("Direction", Cardinal);
 Server.command.addCustomArgType("Expression", Expression);
 Server.command.addCustomArgType("Biome", Biome);
+Server.command.prefix = config.commandPrefix;
 
+import "./misc/help.js";
 import "./misc/worldedit.js";
 import "./misc/limit.js";
 import "./misc/kit.js";
@@ -113,3 +115,4 @@ import "./structure/import.js";
 
 import "./biome/biomeinfo.js";
 import "./biome/setbiome.js";
+import config from "config.js";
