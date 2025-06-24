@@ -1,6 +1,65 @@
 import { Vector3 } from "@minecraft/server";
 import { regionIterateBlocks, Vector, VectorSet } from "@notbeer-api";
 
+export function* plotTriangle(a: Vector3, b: Vector3, c: Vector3) {
+    // Convert to Vector for easier math
+    const va = Vector.from(a);
+    const vb = Vector.from(b);
+    const vc = Vector.from(c);
+
+    // Find the axis with the largest range to sort vertices
+    const axis = Vector.sub(va.max(vb).max(vc), va.min(vb).min(vc)).largestAxis();
+
+    // Sort vertices by the largest axis (Eg: va.y <= vb.y <= vc.y)
+    const [v0, v1, v2] = [va, vb, vc].sort((v1, v2) => v1[axis] - v2[axis]).map((v) => v.floor());
+
+    const blocks = new VectorSet<Vector>();
+
+    function edgeInterpolate(p1: Vector, p2: Vector, s: number, edges: [number, number][] = []) {
+        if (p1[axis] === p2[axis]) return;
+        const t = (s - p1[axis]) / (p2[axis] - p1[axis]);
+        if (t >= 0 && t <= 1) {
+            const pt = p1.lerp(p2, t);
+            edges.push([Math.round(pt[axis === "x" ? "y" : "x"]), Math.round(pt[axis === "z" ? "y" : "z"])]);
+        }
+    }
+
+    // For each "axis value" between v0[axis] and v2[axis], find intersection points with triangle edges
+    for (let s = Math.ceil(v0[axis]); s <= Math.floor(v2[axis]); s++) {
+        // Find t for edges v0-v1 and v0-v2
+        let edges: [number, number][] = [];
+
+        edgeInterpolate(v0, v1, s, edges);
+        edgeInterpolate(v1, v2, s, edges);
+        edgeInterpolate(v0, v2, s, edges);
+
+        // Remove duplicate intersection points if there are more than 2
+        if (edges.length > 2) {
+            // Remove duplicate intersection points
+            const seen = new Set<string>();
+            edges = edges.filter(([x, z]) => {
+                const key = `${x},${z}`;
+                if (seen.has(key)) return false;
+                return seen.add(key), true;
+            });
+        }
+        if (edges.length < 2) continue;
+
+        // Fill between the two intersection points
+        const [[x0, z0], [x1, z1]] = edges;
+        const s0 = new Vector(axis === "x" ? s : x0, axis === "y" ? s : axis === "x" ? x0 : z0, axis === "z" ? s : z0);
+        const s1 = new Vector(axis === "x" ? s : x1, axis === "y" ? s : axis === "x" ? x1 : z1, axis === "z" ? s : z1);
+        for (const pt of plotLine(s0, s1)) yield pt, blocks.add(pt);
+    }
+
+    // Optionally, add triangle edges using plotLine
+    for (const pt of plotLine(v0, v1)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
+    for (const pt of plotLine(v1, v2)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
+    for (const pt of plotLine(v2, v0)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
+
+    return blocks;
+}
+
 export function* plotLine(pos1: Vector3, pos2: Vector3) {
     const delta = Vector.sub(pos2, pos1);
     const increment = delta.map(Math.sign);
@@ -27,8 +86,8 @@ export function* plotLine(pos1: Vector3, pos2: Vector3) {
     return result;
 }
 
-export function* plotCurve(points: Vector3[]) {
-    return yield* new Spline(points.map((p) => TensionVector.from(p))).plotCurve();
+export function* plotCurve(points: Vector3[], options?: { precision?: number; plotLines?: boolean }) {
+    return yield* new Spline(points.map((p) => TensionVector.from(p))).plotCurve(options?.plotLines ?? true, options?.precision ?? 4);
 }
 
 export function* balloonPath(points: Iterable<Vector3>, radius: number) {
@@ -95,25 +154,58 @@ export class TensionVector extends Vector {
 
 /**
  * @name Spline
- * @description An implementation of Kochanek-Bartels splines in three dimensions.
+ * @description An implementation of Kochanek-Bartels splines in three dimensions. (MODIFIED)
  * @author Allen Woods
  **/
 export class Spline {
-    private knotsArray: TensionVector[] = [];
-    private hypSum = 0;
+    private knots: TensionVector[] = [];
+    private internalKnots: TensionVector[] = [];
+    private hypotenuseSum = 0;
 
     constructor(knotVectorData: TensionVector[]) {
-        this.knots = knotVectorData;
+        this.knots = [...knotVectorData];
+        this.update();
+    }
+
+    sample(t: number) {
+        // If t is out of bounds, return the first or last knot
+        if (t <= 0) return this.knots[0];
+        if (t >= 1) return this.knots[this.knots.length - 1];
+
+        // Calculate the hypotenuse sum to find the correct segment
+        const x = t * this.hypotenuseSum;
+        const interval = this.arbitraryInterval(x);
+        if (typeof interval !== "object" || isNaN(interval.t)) return this.knots[0];
+
+        // Calculate the position on the curve using the segment and t value
+        return this.calcPosition(interval.t, interval.k);
+    }
+
+    // Update internal state of spline. Call when knots change.
+    update() {
+        // The math of this curve requires specific point locations. So...
+        // Prepend a duplicate of the first point before the start of the curve
+        // And append duplicates of the last point after the end of the curve
+        this.internalKnots = [this.knots[0], ...this.knots, this.knots[this.knots.length - 1], this.knots[this.knots.length - 1]];
+
+        this.hypotenuseSum = 0;
+        for (let k = 1; k < this.internalKnots.length - 1; k++) this.hypotenuseSum += this.hypotenuseAtKnot(k);
+    }
+
+    get length() {
+        return this.hypotenuseSum;
     }
 
     /* Helper methods for adding points */
 
     prependKnot(vector: TensionVector) {
         this.knots.unshift(vector);
+        this.update();
     }
 
     appendKnot(vector: TensionVector) {
         this.knots.push(vector);
+        this.update();
     }
 
     /* Helper methods for accessing points */
@@ -131,59 +223,39 @@ export class Spline {
     }
 
     seriesOfKnots(startIdx: number, endIdx: number) {
-        if (Math.sign(startIdx) !== -1 && Math.sign(endIdx) !== -1) {
-            endIdx += 1;
-            return this.knots.slice(startIdx, endIdx);
-        }
-    }
-
-    /* Getter and Setter methods for all knots */
-
-    get knots() {
-        return this.knotsArray;
-    }
-
-    set knots(vectorArray: TensionVector[]) {
-        const tempKnots: TensionVector[] = [];
-        vectorArray.forEach((vector) => tempKnots.push(vector));
-        this.knotsArray = tempKnots;
+        if (Math.sign(startIdx) === -1 || Math.sign(endIdx) === -1) return;
+        return this.knots.slice(startIdx, endIdx + 1);
     }
 
     /* Hermite basis functions */
 
-    h0(t: number) {
+    private h0(t: number) {
         return (1 + 2 * t) * ((1 - t) * (1 - t));
     }
-    h1(t: number) {
+    private h1(t: number) {
         return t * ((1 - t) * (1 - t));
     }
-    h2(t: number) {
+    private h2(t: number) {
         return t * t * (3 - 2 * t);
     }
-    h3(t: number) {
+    private h3(t: number) {
         return t * t * (t - 1);
     }
 
     // This function calculates a hypotenuse between the given point and the next point forward
-    hypotenuseAtKnot(knotNumber: number) {
-        const v1 = this.nthKnot(knotNumber);
-        const v2 = this.nthKnot(knotNumber + 1);
+    private hypotenuseAtKnot(knotNumber: number) {
+        const v1 = this.internalKnots[knotNumber];
+        const v2 = this.internalKnots[knotNumber + 1];
         return Vector.sub(v1, v2).length;
-    }
-
-    sumHypotenuseOfAllKnots() {
-        this.hypSum = 0;
-        for (let k = 1; k < this.knots.length - 1; k++) this.hypSum += this.hypotenuseAtKnot(k);
-        return this.hypSum;
     }
 
     // This function receives a value of "x" and calculates a "t" value based on its progression
     // within the hypotenuse yielded by the preceding point and the next nearest point.
-    arbitraryInterval(x: number) {
+    private arbitraryInterval(x: number) {
         const hyps = [];
-        const sum = this.sumHypotenuseOfAllKnots();
+        const sum = this.hypotenuseSum;
 
-        for (let k = 1; k < this.knots.length - 1; k++) {
+        for (let k = 1; k < this.internalKnots.length - 1; k++) {
             const hyp = { x: 0, l: this.hypotenuseAtKnot(k) };
             if (hyps.length > 0) hyp.x = hyps[hyps.length - 1].x + hyps[hyps.length - 1].l;
             hyps.push(hyp);
@@ -208,15 +280,15 @@ export class Spline {
     // Kochanek-Bartels functions //
 
     // We pass in the index "i" that is the starting point for the piece we are drawing.
-    d(i: number) {
+    private d(i: number) {
         // create an empty array to fill with calculations
         const tangentsArray = [];
 
         // get the points at indexes "i-1", "i", "i+1", and "i+2"
-        const ptm1 = this.knots[i - 1];
-        const pt0 = this.knots[i];
-        const ptp1 = this.knots[i + 1];
-        const ptp2 = this.knots[i + 2];
+        const ptm1 = this.internalKnots[i - 1];
+        const pt0 = this.internalKnots[i];
+        const ptp1 = this.internalKnots[i + 1];
+        const ptp2 = this.internalKnots[i + 2];
 
         // For each of the two tangents we need
         for (let j = 0; j < 2; j++) {
@@ -262,13 +334,13 @@ export class Spline {
         return tangentsArray;
     }
 
-    calcPosition(t: number, k: number) {
+    private calcPosition(t: number, k: number) {
         // Create a null object to store calculations in
         const positionObject = new TensionVector(0, 0, 0, 0, 0, 0);
 
         // Create pointers to the start and end points of this piece
-        const pt0 = this.knots[k];
-        const pt1 = this.knots[k + 1];
+        const pt0 = this.internalKnots[k];
+        const pt1 = this.internalKnots[k + 1];
 
         // Create local pointer to the tangents for this piece
         const dTan = this.d(k);
@@ -288,57 +360,58 @@ export class Spline {
         return positionObject;
     }
 
-    *plotCurve() {
+    *plotCurve(plotLines = true, precision = 4) {
         const blocks = new VectorSet<Vector>();
 
         // Prevent drawing altogether if there aren't enough points to draw a line
-        if (this.knots.length < 2) return blocks;
+        if (this.knots.length < 1) return blocks;
+        // If there is only one point, plot it and return
+        if (this.knots.length < 2) {
+            const loc = Vector.from(this.knots[0]);
+            yield loc;
+            return blocks.add(loc);
+        }
 
-        // The math of this curve requires specific point locations. So...
-        // Prepend a duplicate of the first point before the start of the curve
-        this.knots.unshift(this.knots[0]);
-        // Append duplicates of the last point after the end of the curve
-        for (let i = 0; i < 2; i++) this.knots.push(this.knots[this.knots.length - 1]);
-
-        // For each knot along this spline
-        const incrementalSpeed = 4;
         let lastPosition = new Vector(0, 0, 0);
 
-        try {
-            const hypotSum = this.sumHypotenuseOfAllKnots();
-            for (let x = 0; x < hypotSum; x += incrementalSpeed) {
-                const t = this.arbitraryInterval(x);
-                if (typeof t === "object" && !isNaN(t.t)) {
-                    const curveTraceVector = this.calcPosition(t.t, t.k);
-                    const drawPosition = TensionVector.from(curveTraceVector).add(0.5).floor();
-                    if (t.t !== 0) {
-                        for (const loc of plotLine(lastPosition, drawPosition)) {
-                            if (blocks.has(loc)) continue;
-                            blocks.add(loc);
-                            yield loc;
-                        }
-                    }
-                    lastPosition = drawPosition;
-                }
-            }
-            // Make sure the end is plotted
-            const t = this.arbitraryInterval(hypotSum);
+        const hypotSum = this.hypotenuseSum;
+        for (let x = 0; x < hypotSum; x += precision) {
+            const t = this.arbitraryInterval(x);
             if (typeof t === "object" && !isNaN(t.t)) {
                 const curveTraceVector = this.calcPosition(t.t, t.k);
-                const drawPosition = TensionVector.from(curveTraceVector).add(0.5).floor();
-                if (!lastPosition.floor().equals(drawPosition.floor())) {
+                const drawPosition = curveTraceVector.add(0.5).floor();
+                if (!plotLines) {
+                    if (!blocks.has(curveTraceVector)) {
+                        blocks.add(curveTraceVector);
+                        yield curveTraceVector;
+                    }
+                } else if (t.t !== 0) {
                     for (const loc of plotLine(lastPosition, drawPosition)) {
                         if (blocks.has(loc)) continue;
                         blocks.add(loc);
                         yield loc;
                     }
                 }
+                lastPosition = drawPosition;
             }
-        } finally {
-            // Remove the appended points
-            for (let i = 0; i < 2; i++) this.knots.pop();
-            // Remove the prepended point
-            this.knots.shift();
+        }
+        // Make sure the end is plotted
+        const t = this.arbitraryInterval(hypotSum);
+        if (typeof t === "object" && !isNaN(t.t)) {
+            const curveTraceVector = this.calcPosition(t.t, t.k);
+            const drawPosition = curveTraceVector.add(0.5).floor();
+            if (!plotLines) {
+                if (!blocks.has(curveTraceVector)) {
+                    blocks.add(curveTraceVector);
+                    yield curveTraceVector;
+                }
+            } else if (!lastPosition.floor().equals(drawPosition.floor())) {
+                for (const loc of plotLine(lastPosition, drawPosition)) {
+                    if (blocks.has(loc)) continue;
+                    blocks.add(loc);
+                    yield loc;
+                }
+            }
         }
 
         return blocks;

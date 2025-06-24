@@ -1,4 +1,4 @@
-import { Block, BlockVolume, BlockVolumeBase, ListBlockVolume, Player, Vector3 } from "@minecraft/server";
+import { Block, BlockVolume, BlockVolumeBase, Dimension, ListBlockVolume, Player, Vector3 } from "@minecraft/server";
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -73,14 +73,6 @@ export abstract class Shape {
      * @param options Options passed from {generate}
      */
     protected abstract prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions): void;
-
-    /**
-     * Tells the shape generator whether a block should generate a particular location.
-     * @param relLoc a location relative to the shape's center
-     * @param genVars an object containing variables created in {prepGeneration}
-     * @return True if a block should be generated; false otherwise
-     */
-    protected abstract inShape(relLoc: Vector, genVars: shapeGenVars): boolean;
 
     /**
      * Generates a list of particles that when displayed, shows the shape.
@@ -180,6 +172,67 @@ export abstract class Shape {
     }
 
     /**
+     * Tells the shape generator whether a block should generate a particular location.
+     * @param relLoc a location relative to the shape's center
+     * @param genVars an object containing variables created in {prepGeneration}
+     * @return True if a block should be generated; false otherwise
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected inShape(relLoc: Vector, genVars: shapeGenVars) {
+        return false;
+    }
+
+    protected *calculateShape(
+        dimension: Dimension,
+        loc: Vector3,
+        min: Vector3,
+        max: Vector3,
+        pattern: Pattern,
+        mask: Mask
+    ): Generator<JobFunction | Promise<unknown>, [(Block[] | BlockVolumeBase)[], number]> {
+        let progress = 0;
+        let blocksAffected = 0;
+        const volumes: (Block[] | BlockVolumeBase)[] = [];
+
+        const simplePattern = pattern.isSimple();
+        const simpleMask = mask.isSimple();
+        const volume = regionVolume(min, max);
+        const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
+
+        for (const [chunkMin, chunkMax] of regionIterateChunks(min, max)) {
+            yield Jobs.setProgress(progress / volume);
+
+            const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
+            if (chunkStatus === ChunkStatus.FULL && simpleMask) {
+                const volume = regionVolume(chunkMin, chunkMax);
+                progress += volume;
+                blocksAffected += volume;
+                volumes.push(new BlockVolume(chunkMin, chunkMax));
+            } else if (chunkStatus === ChunkStatus.EMPTY) {
+                const volume = regionVolume(chunkMin, chunkMax);
+                progress += volume;
+            } else {
+                const blocks = [];
+                for (const blockLoc of regionIterateBlocks(chunkMin, chunkMax)) {
+                    yield Jobs.setProgress(progress / volume);
+                    progress++;
+                    if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
+                        const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
+                        if (simpleMask || mask.matchesBlock(block)) {
+                            blocks.push(block);
+                            blocksAffected++;
+                        }
+                    }
+                    yield;
+                }
+                if (blocks.length) volumes.push(simplePattern ? new ListBlockVolume(blocks) : blocks);
+            }
+        }
+
+        return [volumes, blocksAffected];
+    }
+
+    /**
      * Generates a block formation at a certain location.
      * @param loc The location the shape will be generated at
      * @param pattern The pattern that the shape will be made with
@@ -197,11 +250,8 @@ export abstract class Shape {
         max.y = Math.min(maxY, max.y);
         const canGenerate = max.y >= min.y;
         pattern = pattern.withContext(session, [min, max]);
-        const simplePattern = pattern.isSimple();
 
         if (!Jobs.inContext()) assertCanBuildWithin(player, min, max);
-        let blocksAffected = 0;
-        const volumes: (Block[] | BlockVolumeBase)[] = [];
 
         const history = options?.recordHistory ?? true ? session.history : undefined;
         const record = history?.record();
@@ -224,48 +274,18 @@ export abstract class Shape {
             activeMask = (!activeMask ? globalMask : globalMask ? activeMask.intersect(globalMask) : activeMask)?.withContext(session);
             const simpleMask = activeMask.isSimple();
 
-            let progress = 0;
-            const volume = regionVolume(min, max);
-            const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
-            yield Jobs.nextStep("Calculating shape...");
             // Collect blocks and areas that will be changed.
-            for (const [chunkMin, chunkMax] of regionIterateChunks(min, max)) {
-                yield Jobs.setProgress(progress / volume);
+            yield Jobs.nextStep("Calculating shape...");
+            const [volumes, blocksAffected] = yield* this.calculateShape(dimension, loc, min, max, pattern, activeMask);
 
-                const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
-                if (chunkStatus === ChunkStatus.FULL && simpleMask) {
-                    const volume = regionVolume(chunkMin, chunkMax);
-                    progress += volume;
-                    blocksAffected += volume;
-                    volumes.push(new BlockVolume(chunkMin, chunkMax));
-                } else if (chunkStatus === ChunkStatus.EMPTY) {
-                    const volume = regionVolume(chunkMin, chunkMax);
-                    progress += volume;
-                } else {
-                    const blocks = [];
-                    for (const blockLoc of regionIterateBlocks(chunkMin, chunkMax)) {
-                        yield Jobs.setProgress(progress / volume);
-                        progress++;
-                        if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                            const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
-                            if (simpleMask || activeMask.matchesBlock(block)) {
-                                blocks.push(block);
-                                blocksAffected++;
-                            }
-                        }
-                        yield;
-                    }
-                    if (blocks.length) volumes.push(simplePattern ? new ListBlockVolume(blocks) : blocks);
-                }
-            }
-
-            progress = 0;
+            let progress = 0;
             yield Jobs.nextStep("Generating blocks...");
             if (history) yield* history.trackRegion(record, min, max);
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
             for (const volume of volumes) {
                 yield Jobs.setProgress(progress / blocksAffected);
                 if (Array.isArray(volume)) {
+                    player.sendMessage("Blocks length: " + volume.length);
                     for (let block of volume) {
                         if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
                         if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;

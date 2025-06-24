@@ -10,6 +10,7 @@ import { createSelectionForPlayer, Selection, selectMode } from "@modules/select
 import { ConfigContext } from "./ui/types.js";
 import config from "config.js";
 import { Database } from "library/@types/classes/databaseBuilder.js";
+import { LoftShape } from "./shapes/loft.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -101,6 +102,11 @@ export class PlayerSession {
      * The clipboard region created by the player.
      */
     public clipboard: RegionBuffer;
+
+    /**
+     * The loft the player is building.
+     */
+    public loft: LoftShape;
 
     /**
      * The transformation properties currently on the clipboard
@@ -290,6 +296,8 @@ export class PlayerSession {
     }
 
     onTick() {
+        // Draw Loft
+        if (this.loft) this.loft.draw(this.player, Vector.ZERO);
         // Draw Selection
         if (this.selection.isEmpty) return;
         const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];

@@ -69,7 +69,6 @@ class ServerBuild extends ServerBuilder {
              * This is for the command builder and a emitter
              */
             const msg = data.message;
-            console.warn(this.command.prefix, msg);
             if (!msg.startsWith(this.command.prefix)) return;
             data.cancel = true;
             const command = msg.split(/\s+/)[0].slice(this.command.prefix.length);

@@ -123,8 +123,8 @@ export class Vector {
     }
 
     largestAxis(): axis {
-        if (this.x > this.y && this.x > this.z) return "x";
-        else if (this.y > this.x && this.y > this.z) return "y";
+        if (this.x >= this.y && this.x >= this.z) return "x";
+        else if (this.y >= this.x && this.y >= this.z) return "y";
         else return "z";
     }
 

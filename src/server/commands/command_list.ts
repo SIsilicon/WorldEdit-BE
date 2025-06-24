@@ -43,6 +43,7 @@ import "./clipboard/copy.js";
 import "./clipboard/paste.js";
 import "./clipboard/clearclipboard.js";
 
+import "./generation/loft.js";
 import "./generation/hsphere.js";
 import "./generation/sphere.js";
 import "./generation/cyl.js";

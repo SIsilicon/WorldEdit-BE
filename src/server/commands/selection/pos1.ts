@@ -1,8 +1,8 @@
 import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
 import { RawText, CommandPosition, Vector, CommandInfo } from "@notbeer-api";
-import { Selection } from "@modules/selection.js";
 import { Vector3 } from "@minecraft/server";
+import { PlayerSession } from "server/sessions.js";
 
 const registerInformation: CommandInfo = {
     name: "pos1",
@@ -12,7 +12,13 @@ const registerInformation: CommandInfo = {
     aliases: ["1"],
 };
 
-export function setPos1(selection: Selection, loc: Vector3) {
+export function setPos1(session: PlayerSession, loc: Vector3) {
+    if (session.loft) {
+        session.loft.newCurve(loc);
+        return "";
+    }
+
+    const selection = session.selection;
     const prevPoints = selection.points;
     selection.set(0, Vector.from(loc));
 
@@ -26,5 +32,5 @@ export function setPos1(selection: Selection, loc: Vector3) {
 }
 
 registerCommand(registerInformation, function (session, builder, args) {
-    return setPos1(session.selection, args.get("coordinates").relativeTo(builder, true));
+    return setPos1(session, args.get("coordinates").relativeTo(builder, true));
 });
