@@ -18,15 +18,23 @@ export class LoftShape extends Shape {
         this.updateParticles();
     }
 
+    public newCurve(point: Vector3) {
+        this.curves.push([TensionVector.from(point)]);
+        this.updateParticles();
+    }
+
     public addPoint(point: Vector3) {
         if (!this.curves.length) this.curves.push([]);
         this.curves[this.curves.length - 1].push(TensionVector.from(point));
         this.updateParticles();
     }
 
-    public newCurve(point: Vector3) {
-        this.curves.push([TensionVector.from(point)]);
+    public removeLastPoint() {
+        if (!this.curves.length) return false;
+        this.curves[this.curves.length - 1].pop();
+        if (!this.curves[this.curves.length - 1].length) this.curves.pop();
         this.updateParticles();
+        return this.curves.length > 0;
     }
 
     public getRegion(loc: Vector3): [Vector, Vector] {
