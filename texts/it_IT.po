@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2025-06-17 18:30\n"
+"PO-Revision-Date: 2025-06-24 01:58\n"
 
 msgid "pack.description"
 msgstr "Un porting in fase di sviluppo dell'originale mod di Java e altro ancora! Addon di SIsilicon (§l§b@iSiliconS§r)."
@@ -849,6 +849,24 @@ msgstr "Limite di modifica del blocco impostato su %s."
 
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Il tuo limite massimo consentito è %s."
+
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
 
 msgid "commands.wedit:mask.description"
 msgstr "Imposta quali tipo di blocchi un pennello può influenzare"
