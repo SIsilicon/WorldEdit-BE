@@ -2,7 +2,7 @@ import { Block, BlockVolume, BlockVolumeBase, Dimension, ListBlockVolume, Player
 import { assertCanBuildWithin } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
-import { regionIterateBlocks, regionIterateChunks, regionVolume, Vector } from "@notbeer-api";
+import { regionIterateBlocks, regionIterateChunks, regionVolume, Vector, VectorSet } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { getWorldHeightLimits, snap } from "../util.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
@@ -189,7 +189,7 @@ export abstract class Shape {
         max: Vector3,
         pattern: Pattern,
         mask: Mask
-    ): Generator<JobFunction | Promise<unknown>, [(Block[] | BlockVolumeBase)[], number]> {
+    ): Generator<JobFunction | Promise<unknown>, [(Block[] | BlockVolumeBase)[] | VectorSet<Block>, number]> {
         let progress = 0;
         let blocksAffected = 0;
         const volumes: (Block[] | BlockVolumeBase)[] = [];
@@ -282,15 +282,18 @@ export abstract class Shape {
             yield Jobs.nextStep("Generating blocks...");
             if (history) yield* history.trackRegion(record, min, max);
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
-            for (const volume of volumes) {
+            for (let volume of volumes) {
                 yield Jobs.setProgress(progress / blocksAffected);
                 if (Array.isArray(volume)) {
-                    player.sendMessage("Blocks length: " + volume.length);
                     for (let block of volume) {
                         if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
                         if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
                         progress++;
                     }
+                } else if (volume instanceof Block) {
+                    if (!volume.isValid && Jobs.inContext()) volume = yield* Jobs.loadBlock(volume);
+                    if ((!activeMask || activeMask.matchesBlock(volume)) && pattern.setBlock(volume)) count++;
+                    progress++;
                 } else {
                     if (Jobs.inContext()) yield* Jobs.loadArea(volume.getMin(), volume.getMax());
                     count += pattern.fillBlocks(dimension, volume, maskInSimpleFill);

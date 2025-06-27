@@ -1,8 +1,8 @@
-import { Block, BlockVolumeBase, Dimension, Vector3 } from "@minecraft/server";
+import { Block, BlockVolume, Dimension, Vector3 } from "@minecraft/server";
 import { Shape } from "./base_shape";
 import { Vector, VectorSet } from "@notbeer-api";
 import { plotCurve, plotTriangle, Spline, TensionVector } from "server/commands/region/paths_func";
-import { JobFunction, Jobs } from "@modules/jobs";
+import { Jobs } from "@modules/jobs";
 
 export class LoftShape extends Shape {
     protected customHollow = false;
@@ -47,8 +47,13 @@ export class LoftShape extends Shape {
 
     protected prepGeneration() {}
 
-    protected *calculateShape(dimension: Dimension): Generator<JobFunction | Promise<unknown>, [(Block[] | BlockVolumeBase)[], number]> {
+    protected *calculateShape(dimension: Dimension, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
         const blocks = new VectorSet<Block>();
+        const volume = new BlockVolume(min, max);
+
+        function* addBlock(block: Vector3) {
+            if (volume.isInside(block)) blocks.add(dimension.getBlock(block) ?? (yield* Jobs.loadBlock(block)));
+        }
 
         const curves = this.curves.map((curve) => new Spline(curve));
         const width = curves.reduce((max, curve) => Math.max(max, curve.length), 0);
@@ -75,13 +80,13 @@ export class LoftShape extends Shape {
 
                 for (const loc of plotTriangle(startA, endA, startB)) {
                     const block = loc.floor();
-                    if (!blocks.has(block)) blocks.add(dimension.getBlock(block) ?? (yield* Jobs.loadBlock(block)));
-                    yield;
+                    if (!blocks.has(block)) yield* addBlock(block);
+                    else yield;
                 }
                 for (const loc of plotTriangle(endA, startB, endB)) {
                     const block = loc.floor();
-                    if (!blocks.has(block)) blocks.add(dimension.getBlock(block) ?? (yield* Jobs.loadBlock(block)));
-                    yield;
+                    if (!blocks.has(block)) yield* addBlock(block);
+                    else yield;
                 }
 
                 startA = endA;
@@ -89,7 +94,7 @@ export class LoftShape extends Shape {
             }
         }
 
-        return [[Array.from(blocks.values())], blocks.size];
+        return [blocks, blocks.size];
     }
 
     public getOutline() {
