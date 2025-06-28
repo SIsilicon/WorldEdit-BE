@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-03-08 00:13\n"
+"PO-Revision-Date: 2025-06-24 01:59\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -364,6 +364,12 @@ msgstr "É comando da edição de mundo"
 msgid "worldedit.selection.noPrimary"
 msgstr "A primeira seleção ainda não foi feita."
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
+
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Primeira posição definida para %s."
 
@@ -655,6 +661,12 @@ msgstr "Contar o número de blocos que correspondem com a máscara"
 msgid "commands.wedit:count.explain"
 msgstr "Encontrados %s blocos."
 
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
+
 msgid "commands.wedit:cut.description"
 msgstr "Remove sua seleção atual e a coloca na área de transferência"
 
@@ -838,6 +850,24 @@ msgstr "Limite de alterações setado para %s."
 msgid "commands.wedit:limit.tooHigh"
 msgstr "O seu limite máximo permitido é %s."
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "Define quais tipos de blocos um pincel pode afetar, se houver"
 
@@ -870,6 +900,9 @@ msgstr "Colou %s blocos."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Não é possível colar a área de transferência na sua posição original."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Define a primeira posição da sua seleção para a posição especificada ou atual"
@@ -928,6 +961,9 @@ msgstr "Você só pode girar na orientação Y!"
 msgid "commands.wedit:sel.clear"
 msgstr "Seleção limpa."
 
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
+
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: break block for point 1, use on block for point 2"
 
@@ -936,6 +972,9 @@ msgstr "Cylinder selector: break block for the center, use on block to expand ra
 
 msgid "commands.wedit:sel.description"
 msgstr "Alterar modo de seleção"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Selecionar dois cantos para o paralelepípedo"
