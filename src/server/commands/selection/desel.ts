@@ -6,28 +6,24 @@ const registerInformation: CommandInfo = {
     name: "sel",
     description: "commands.wedit:sel.description",
     aliases: ["deselect", "desel"],
-    usage: [
-        { name: "mode", type: "enum", values: ["cuboid", "extend", "sphere", "cyl", "convex"], default: "" },
-        { name: "makeDefault", type: "bool", default: false },
-    ],
+    usage: [{ flag: "d" }, { subName: "cuboid" }, { subName: "extend" }, { subName: "sphere" }, { subName: "cyl" }, { subName: "_nothing" }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
     try {
-        const mode = args.get("mode") as string;
-        if (mode === "cuboid") {
+        if (args.has("cuboid")) {
             session.selection.mode = "cuboid";
             return "commands.wedit:sel.cuboid";
-        } else if (mode === "extend") {
+        } else if (args.has("extend")) {
             session.selection.mode = "extend";
             return "commands.wedit:sel.extend";
-        } else if (mode === "sphere") {
+        } else if (args.has("sphere")) {
             session.selection.mode = "sphere";
             return "commands.wedit:sel.sphere";
-        } else if (mode === "cyl") {
+        } else if (args.has("cyl")) {
             session.selection.mode = "cylinder";
             return "commands.wedit:sel.cyl";
-        } else if (mode === "convex") {
+        } else if (args.has("convex")) {
             session.selection.mode = "convex";
             return "commands.wedit:sel.convex";
         } else {
@@ -35,7 +31,7 @@ registerCommand(registerInformation, function (session, builder, args) {
             return "commands.wedit:sel.clear";
         }
     } finally {
-        if (args.get("makeDefault")) {
+        if (args.has("d")) {
             for (const mode of selectionModes) builder.removeTag(`wedit:defaultTag_${mode}`);
             builder.addTag(`wedit:defaultTag_${session.selection.mode}`);
         }

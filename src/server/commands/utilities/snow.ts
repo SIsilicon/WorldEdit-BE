@@ -9,11 +9,7 @@ const registerInformation: CommandInfo = {
     name: "snow",
     permission: "worldedit.utility.snow",
     description: "commands.wedit:snow.description",
-    usage: [
-        { name: "size", type: "int", range: [1, null] },
-        { name: "height", type: "int", range: [1, null], default: -1 },
-        { name: "accumulateSnow", type: "bool", default: false },
-    ],
+    usage: [{ flag: "s" }, { name: "size", type: "int", range: [1, null] }, { name: "height", type: "int", range: [1, null], default: -1 }],
 };
 
 function canSnowOn(block: Block) {
@@ -100,7 +96,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                         block.setType("ice");
                         changed++;
                     } else if (block.matches("snow_layer")) {
-                        if (args.get("accumulateSnow") && Math.random() < 0.4) {
+                        if (args.has("s") && Math.random() < 0.4) {
                             let perm = block.permutation;
                             const prevHeight = perm.getState("height") as number;
                             perm = perm.withState("height", Math.min(prevHeight + 1, 7));

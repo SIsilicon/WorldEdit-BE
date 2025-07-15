@@ -8,20 +8,14 @@ const registerInformation: CommandInfo = {
     name: "rotate",
     permission: "worldedit.region.rotate",
     description: "commands.wedit:rotate.description",
-    usage: [
-        { name: "rotate", type: "int" },
-        { name: "rotateX", type: "int", default: 0 },
-        { name: "rotateZ", type: "int", default: 0 },
-        { name: "aroundOrigin", type: "bool", default: false },
-        { name: "affectWorld", type: "bool", default: false },
-    ],
+    usage: [{ flag: "o" }, { flag: "w" }, { flag: "s" }, { name: "rotate", type: "int" }, { name: "rotateX", type: "int", default: 0 }, { name: "rotateZ", type: "int", default: 0 }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     let blockCount = 0;
     const rotation = new Vector(args.get("rotateX"), args.get("rotate"), args.get("rotateZ"));
 
-    if (args.get("affectWorld")) {
+    if (args.has("w")) {
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { rotation }));
         blockCount = session.selection.getBlockCount();
     } else {

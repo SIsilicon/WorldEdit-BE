@@ -51,7 +51,7 @@ class ServerBuild extends ServerBuilder {
     constructor() {
         super();
         this._buildEvent();
-        // this._buildCommands();
+        this._buildCommands();
     }
     /**
      * @private

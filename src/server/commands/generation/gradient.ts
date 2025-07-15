@@ -11,13 +11,10 @@ const registerInformation: CommandInfo = {
         {
             subName: "create",
             args: [
+                { flag: "s" },
+                { flag: "f", name: "fade", type: "float", range: [0, 1] as [number, number] },
                 { name: "id", type: "string" },
-                { name: "fade", type: "float", range: [0, 1] },
-                { subName: "selection" },
-                {
-                    subName: "_",
-                    args: [{ name: "patterns", type: "Pattern...", default: [new Pattern("stone")] }],
-                },
+                { name: "patterns", type: "Pattern...", default: [new Pattern("stone")] },
             ],
         },
         {
@@ -39,7 +36,7 @@ function truncateStringFromMiddle(str: string, length: number) {
 registerCommand(registerInformation, function (session, builder, args) {
     if (args.has("create")) {
         const patterns = [];
-        if (args.has("selection")) {
+        if (args.has("s")) {
             assertCuboidSelection(session);
             const [min, max] = session.selection.getRange();
             const size = regionSize(min, max);
@@ -62,7 +59,7 @@ registerCommand(registerInformation, function (session, builder, args) {
             patterns.push(...args.get("patterns"));
         }
 
-        session.createGradient(args.get("id"), args.get("fade") ?? 1.0, patterns);
+        session.createGradient(args.get("id"), args.get("f-fade") ?? 1.0, patterns);
         return RawText.translate("commands.wedit:gradient.create").with(args.get("id"));
     } else if (args.has("delete")) {
         if (session.getGradientNames().includes(args.get("id"))) {

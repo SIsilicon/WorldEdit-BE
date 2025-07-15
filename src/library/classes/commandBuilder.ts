@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Player, Vector3 } from "@minecraft/server";
 import { configuration } from "../configurations.js";
-import { storedRegisterInformation, registerInformation, commandArgList, commandArg, commandSubDef, commandSyntaxError, argParseResult, commandNum } from "../@types/classes/CommandBuilder";
+import {
+    storedRegisterInformation,
+    registerInformation,
+    commandArgList,
+    commandFlag,
+    commandArg,
+    commandSubDef,
+    commandSyntaxError,
+    argParseResult,
+    commandNum,
+} from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
 import { contentLog, RawText } from "../utils/index.js";
 
@@ -159,18 +169,32 @@ export class CommandBuilder {
         function accumulate(base: Array<string>, args: commandArgList, subName = "_") {
             const text = [...base];
             let hasSubCommand = false;
+            let flagText: string;
 
             if (subName.charAt(0) != "_") {
                 text.push(subName);
             }
 
             args?.forEach((arg) => {
+                if ((!("flag" in arg) || (arg.flag && arg.name)) && flagText) {
+                    text.push(flagText + "]");
+                    flagText = null;
+                }
+
                 if ("subName" in arg) {
                     hasSubCommand = true;
                     if (player && !playerHandler.hasPermission(player, arg.permission)) {
                         return;
                     }
                     accumulate(text, arg.args, arg.subName);
+                } else if ("flag" in arg) {
+                    if (!flagText) flagText = "[-";
+
+                    flagText += arg.flag;
+                    if (arg.name) {
+                        text.push(flagText + ` <${arg.name}: ${arg.type}>]`);
+                        flagText = null;
+                    }
                 } else {
                     let argText = arg.default ? "[" : "<";
                     argText += arg.name + ": ";
@@ -180,6 +204,11 @@ export class CommandBuilder {
                     text.push(argText + (arg.default ? "]" : ">"));
                 }
             });
+
+            if (flagText) {
+                text.push(flagText + "]");
+                flagText = null;
+            }
 
             if (!hasSubCommand) {
                 usages.push(text.join(" "));
@@ -258,9 +287,16 @@ export class CommandBuilder {
             return idx;
         };
 
-        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>) => {
+        const processList = (currIdx: number, argDefs: commandArgList, result: Map<string, any>, flagDefs?: Map<string, commandFlag>) => {
             let defIdx = 0;
             let hasNamedSubCmd = false;
+            let invalidFlags: string[] = [];
+            flagDefs = new Map<string, commandFlag>(flagDefs);
+            argDefs?.forEach((argDef) => {
+                if ("flag" in argDef && !flagDefs.has(argDef.flag)) {
+                    flagDefs.set(argDef.flag, argDef);
+                }
+            });
 
             function processSubCmd(idx: number, arg: string) {
                 let processed = false;
@@ -275,7 +311,7 @@ export class CommandBuilder {
                         } else {
                             hasNamedSubCmd = true;
                             if (argDef.subName == arg) {
-                                idx = processList(idx + 1, argDef.args, result);
+                                idx = processList(idx + 1, argDef.args, result, flagDefs);
                                 result.set(argDef.subName, true);
                                 processed = true;
                                 unnamedSubs = [];
@@ -300,9 +336,16 @@ export class CommandBuilder {
                 for (const sub of unnamedSubs) {
                     try {
                         const subResult = new Map<string, any>();
-                        idx = processList(i, sub.args, subResult);
+                        idx = processList(i, sub.args, subResult, flagDefs);
                         result.set(sub.subName, true);
                         subResult.forEach((v, k) => result.set(k, v));
+                        invalidFlags.forEach((f, i) => {
+                            if (sub.args.map((argDef) => ("flag" in argDef ? argDef.flag : null)).includes(f)) {
+                                result.set(f, true);
+                                invalidFlags[i] = "";
+                            }
+                        });
+                        invalidFlags = invalidFlags.filter((f) => f !== "");
                         break;
                     } catch (e) {
                         fails.push(e);
@@ -316,10 +359,43 @@ export class CommandBuilder {
                 return idx;
             }
 
+            const numList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
             let i: number;
             for (i = currIdx; i < args.length; i++) {
                 const arg = args[i];
-                let argDef = argDefs[defIdx];
+
+                if (arg.startsWith("-") && !numList.includes(arg.charAt(1))) {
+                    for (const f of arg) {
+                        if (f == "-") continue;
+                        if (flagDefs.has(f)) {
+                            result.set(f, true);
+                            const argDef = flagDefs.get(f);
+                            if (argDef.type != undefined) {
+                                i =
+                                    processArg(
+                                        i + 1,
+                                        {
+                                            name: argDef.flag + "-" + argDef.name,
+                                            type: argDef.type,
+                                        },
+                                        result
+                                    ) - 1;
+                            }
+                        } else {
+                            invalidFlags.push(f);
+                        }
+                    }
+                    continue;
+                }
+
+                let argDef: commandArg | commandSubDef;
+                while (defIdx < (argDefs?.length ?? 0)) {
+                    if (!("flag" in argDefs[defIdx])) {
+                        argDef = <typeof argDef>argDefs[defIdx];
+                        break;
+                    }
+                    defIdx++;
+                }
 
                 // Leftover arguments
                 if (!argDef) {
@@ -336,7 +412,7 @@ export class CommandBuilder {
                     }
                 }
 
-                if ("type" in argDef) {
+                if ("type" in argDef && !("flag" in argDef)) {
                     i = processArg(i, argDef, result) - 1;
                     defIdx++;
                 } else if ("subName" in argDef) {
@@ -364,6 +440,10 @@ export class CommandBuilder {
                     }
                 }
                 defIdx++;
+            }
+
+            if (invalidFlags.length != 0) {
+                throw RawText.translate("commands.generic.wedit:invalidFlag").with(invalidFlags[0]);
             }
 
             return i;

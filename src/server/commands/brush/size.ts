@@ -16,7 +16,7 @@ const registerInformation: CommandInfo = {
         {
             subName: "_selection",
             permission: "worldedit.selection.size",
-            args: [{ name: "countClipboard", type: "bool", default: false }],
+            args: [{ flag: "c" }],
         },
     ],
 };
@@ -27,7 +27,7 @@ registerCommand(registerInformation, function (session, builder, args) {
         let size: Vector;
         let blockCount: number;
 
-        if (args.get("countClipboard")) {
+        if (args.has("c")) {
             assertClipboard(session);
 
             size = Vector.from(session.clipboard.getSize());

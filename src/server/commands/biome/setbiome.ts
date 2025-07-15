@@ -10,10 +10,7 @@ const registerInformation: CommandInfo = {
     name: "setbiome",
     permission: "worldedit.biome.set",
     description: "commands.wedit:setbiome.description",
-    usage: [
-        { name: "biome", type: "Biome" },
-        { name: "changeAtPosition", type: "bool", default: false },
-    ],
+    usage: [{ name: "biome", type: "Biome" }, { flag: "p" }],
 };
 
 const users: Player[] = [];
@@ -22,7 +19,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const biome = (args.get("biome") as Biome).getId();
     const biomeChanges = new BiomeChanges(builder.dimension);
 
-    if (args.get("changeAtPosition")) {
+    if (args.has("p")) {
         biomeChanges.setBiome(PlayerUtil.getBlockLocation(builder), biome);
         biomeChanges.flush();
         changeCount++;

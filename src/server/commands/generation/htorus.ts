@@ -1,6 +1,5 @@
 import { CommandInfo, RawText } from "@notbeer-api";
 import { getCommandFunc, registerCommand } from "../register_commands.js";
-import { Cardinal } from "@modules/directions.js";
 
 const registerInformation: CommandInfo = {
     name: "htorus",
@@ -10,11 +9,11 @@ const registerInformation: CommandInfo = {
         { name: "pattern", type: "Pattern" },
         { name: "outerRadius", type: "float", range: [0.01, null] },
         { name: "innerRadius", type: "float", range: [0.01, null] },
-        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.UP) },
+        { flag: "d", name: "direction", type: "Direction" },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    args.set("hollow", true);
+    args.set("h", true);
     return yield* getCommandFunc("torus")(session, builder, args) as Generator<unknown, RawText | string>;
 });

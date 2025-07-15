@@ -9,11 +9,7 @@ const registerInformation: CommandInfo = {
     name: "gen",
     permission: "worldedit.generation.shape",
     description: "commands.wedit:gen.description",
-    usage: [
-        { name: "pattern", type: "Pattern" },
-        { name: "expression", type: "Expression" },
-        { name: "hollow", type: "bool", default: false },
-    ],
+    usage: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "expression", type: "Expression" }],
     aliases: ["g"],
 };
 
@@ -23,7 +19,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const [start, end] = session.selection.points;
 
     const pattern: Pattern = args.get("pattern");
-    const isHollow = args.get("hollow");
+    const isHollow = args.has("h");
 
     const loc = Vector.min(start, end).floor();
     const exprShape = new ExpressionShape(Vector.from(regionSize(start, end)), args.get("expression"));

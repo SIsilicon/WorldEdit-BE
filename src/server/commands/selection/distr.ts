@@ -8,16 +8,13 @@ const registerInformation: CommandInfo = {
     name: "distr",
     description: "commands.wedit:distr.description",
     permission: "worldedit.analysis.distr",
-    usage: [
-        { name: "checkClipboard", type: "bool", default: false },
-        { name: "strict", type: "bool", default: false },
-    ],
+    usage: [{ flag: "c" }, { flag: "d" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     let total: number;
     const counts: Map<string, number> = new Map();
-    const getStates = args.get("strict");
+    const getStates = args.has("d");
 
     yield* Jobs.run(session, 1, function* () {
         yield Jobs.nextStep("Analysing blocks...");
@@ -32,7 +29,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             counts.set(id, (counts.get(id) ?? 0) + 1);
         };
 
-        if (args.get("checkClipboard")) {
+        if (args.has("c")) {
             assertClipboard(session);
             total = session.clipboard.getVolume();
             const clipboard = session.clipboard;

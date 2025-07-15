@@ -3,29 +3,33 @@ import { assertClipboard } from "@modules/assert.js";
 import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { transformSelection } from "./transform_func.js";
 import { Jobs } from "@modules/jobs.js";
-import { commandArgList } from "library/@types/classes/CommandBuilder.js";
-
-const suffixArguments: commandArgList = [
-    { name: "aroundOrigin", type: "bool", default: false },
-    { name: "affectWorld", type: "bool", default: false },
-];
 
 const registerInformation: CommandInfo = {
     name: "scale",
     permission: "worldedit.region.scale",
     description: "commands.wedit:scale.description",
     usage: [
+        { flag: "o" },
+        { flag: "w" },
+        { flag: "s" },
         {
             subName: "_",
-            args: [{ name: "scale", type: "float" }, ...suffixArguments],
+            args: [{ name: "scale", type: "float" }],
         },
         {
             subName: "_xy",
-            args: [{ name: "scaleXZ", type: "float" }, { name: "scaleY", type: "float" }, ...suffixArguments],
+            args: [
+                { name: "scaleXZ", type: "float" },
+                { name: "scaleY", type: "float" },
+            ],
         },
         {
             subName: "_xyz",
-            args: [{ name: "scaleX", type: "float" }, { name: "scaleY", type: "float" }, { name: "scaleZ", type: "float" }, ...suffixArguments],
+            args: [
+                { name: "scaleX", type: "float" },
+                { name: "scaleY", type: "float" },
+                { name: "scaleZ", type: "float" },
+            ],
         },
     ],
 };
@@ -37,7 +41,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     else scale = new Vector(args.get("scale"), args.get("scale"), args.get("scale"));
 
     let blockCount = 0;
-    if (args.get("affectWorld")) {
+    if (args.has("w")) {
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { scale }));
         blockCount = session.selection.getBlockCount();
     } else {

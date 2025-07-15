@@ -37,7 +37,7 @@ class CopyTool extends CommandButton {
 Tools.register(CopyTool, "copy", "wedit:copy_button");
 
 class PasteTool extends CommandButton implements PreviewPaste {
-    command = "paste";
+    command = ["paste", "-s"];
     permission = "worldedit.clipboard.paste";
 
     use = function (self: CommandButton, player: Player, session: PlayerSession) {
@@ -67,7 +67,7 @@ class RotateCWTool extends Tool implements PreviewPaste {
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
         const args = ["90"];
-        if (player.isSneaking) args.push("0", "0", "true");
+        if (player.isSneaking) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
     };
 
@@ -81,7 +81,7 @@ class RotateCCWTool extends Tool implements PreviewPaste {
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
         const args = ["-90"];
-        if (player.isSneaking) args.push("0", "0", "true");
+        if (player.isSneaking) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
     };
 
@@ -94,8 +94,8 @@ class FlipTool extends Tool implements PreviewPaste {
     permission = "worldedit.region.flip";
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
-        const args = ["left"];
-        if (player.isSneaking) args.push("true");
+        const args = [];
+        if (player.isSneaking) args.push("-o");
         Server.command.callCommand(player, "flip", args);
     };
 

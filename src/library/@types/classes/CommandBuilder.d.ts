@@ -17,6 +17,11 @@ export interface commandEnum extends commandArg {
     type: "enum";
     values: Array<string>;
 }
+export interface commandFlag {
+    flag: string;
+    name?: string;
+    type?: string;
+}
 export interface commandSubDef {
     subName: string;
     permission?: string;
@@ -24,7 +29,7 @@ export interface commandSubDef {
     args?: commandArgList;
 }
 
-export type commandArgList = Array<commandNum | commandEnum | commandArg | commandSubDef>;
+export type commandArgList = Array<commandNum | commandEnum | commandArg | commandFlag | commandSubDef>;
 
 export interface argParseResult<T> {
     result: T;

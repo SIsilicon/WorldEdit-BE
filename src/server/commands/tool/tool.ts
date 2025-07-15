@@ -26,10 +26,7 @@ const registerInformation: CommandInfo = {
             subName: "extruder",
             permission: "worldedit.tool.extruder",
             description: "commands.wedit:tool.description.extruder",
-            args: [
-                { name: "range", type: "int", range: [1, null], default: 1 },
-                { name: "digging", type: "bool", default: false },
-            ],
+            args: [{ flag: "d" }, { name: "range", type: "int", range: [1, null], default: 1 }],
         },
         {
             subName: "selwand",
@@ -90,7 +87,7 @@ const stack_command = (session: PlayerSession, builder: Player, args: Map<string
 
 const extruder_command = (session: PlayerSession, builder: Player, args: Map<string, unknown>) => {
     assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission);
-    session.bindTool("extruder_wand", null, args.get("range"), args.get("digging"));
+    session.bindTool("extruder_wand", null, args.get("range"), args.has("d"));
     return RawText.translate("commands.wedit:tool.bind.extruder").with(heldItemName(builder));
 };
 

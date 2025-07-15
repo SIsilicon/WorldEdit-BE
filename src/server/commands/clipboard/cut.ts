@@ -14,12 +14,7 @@ const registerInformation: CommandInfo = {
     name: "cut",
     permission: "worldedit.clipboard.cut",
     description: "commands.wedit:cut.description",
-    usage: [
-        { name: "includeAir", type: "bool", default: true },
-        { name: "includeEntities", type: "bool", default: false },
-        { name: "mask", type: "Mask", default: new Mask() },
-        { name: "fill", type: "Pattern", default: new Pattern("air") },
-    ],
+    usage: [{ flag: "a" }, { flag: "e" }, { name: "fill", type: "Pattern", default: new Pattern("air") }, { flag: "m", name: "mask", type: "Mask" }],
 };
 
 /**
@@ -33,8 +28,8 @@ const registerInformation: CommandInfo = {
 export function* cut(session: PlayerSession, args: Map<string, any>, fill: Pattern = new Pattern("air"), toClipboard: boolean): Generator<JobFunction | Promise<unknown>, RegionBuffer> {
     const usingItem = args.get("_using_item");
     const dim = session.player.dimension;
-    const mask: Mask = usingItem ? session.globalMask : args.get("mask");
-    const includeEntities: boolean = usingItem ? session.includeEntities : args.get("includeEntities");
+    const mask: Mask = usingItem ? session.globalMask : args.has("m") ? args.get("m-mask") : undefined;
+    const includeEntities: boolean = usingItem ? session.includeEntities : args.has("e");
     const [start, end] = session.selection.getRange();
 
     let buffer: RegionBuffer;

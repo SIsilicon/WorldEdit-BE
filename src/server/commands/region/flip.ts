@@ -9,11 +9,7 @@ const registerInformation: CommandInfo = {
     name: "flip",
     permission: "worldedit.region.flip",
     description: "commands.wedit:flip.description",
-    usage: [
-        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.LEFT) },
-        { name: "aroundOrigin", type: "bool", default: false },
-        { name: "affectWorld", type: "bool", default: false },
-    ],
+    usage: [{ flag: "o" }, { flag: "w" }, { flag: "s" }, { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.LEFT) }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -24,7 +20,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (dir.z) flip.z *= -1;
 
     let blockCount = 0;
-    if (args.get("affectWorld")) {
+    if (args.has("w")) {
         yield* Jobs.run(session, 4, transformSelection(session, builder, args, { scale: flip }));
         blockCount = session.selection.getBlockCount();
     } else {

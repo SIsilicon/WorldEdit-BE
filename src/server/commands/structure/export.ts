@@ -10,11 +10,7 @@ const registerInformation: CommandInfo = {
     name: "export",
     permission: "worldedit.structure.export",
     description: "commands.wedit:export.description",
-    usage: [
-        { name: "name", type: "string" },
-        { name: "includeAir", type: "bool", default: true },
-        { name: "includeEntities", type: "bool", default: false },
-    ],
+    usage: [{ flag: "e" }, { flag: "a" }, { name: "name", type: "string" }],
 };
 
 function writeMetaData(name: string, data: string, player: Player) {
@@ -41,7 +37,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const range = session.selection.getRange();
     const dimension = builder.dimension;
-    const excludeAir = !args.get("includeAir");
+    const excludeAir = args.has("a");
 
     let struct_name: string = args.get("name");
     if (!struct_name.includes(":")) struct_name = "wedit:" + struct_name;
@@ -72,7 +68,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             if (
                 !(yield* RegionBuffer.createFromWorld(...range, dimension, {
                     saveAs: namespace + ":weditstructexport_" + struct,
-                    includeEntities: args.get("includeEntities"),
+                    includeEntities: args.has("e"),
                 }))
             )
                 throw "Failed to save structure";

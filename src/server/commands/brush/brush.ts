@@ -24,22 +24,13 @@ const registerInformation: CommandInfo = {
             subName: "sphere",
             permission: "worldedit.brush.sphere",
             description: "commands.wedit:brush.description.sphere",
-            args: [
-                { name: "pattern", type: "Pattern" },
-                { name: "radius", type: "float", default: 3 },
-                { name: "hollow", type: "bool", default: false },
-            ],
+            args: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "radius", type: "float", default: 3 }],
         },
         {
             subName: "cyl",
             permission: "worldedit.brush.cylinder",
             description: "commands.wedit:brush.description.cylinder",
-            args: [
-                { name: "pattern", type: "Pattern" },
-                { name: "radius", type: "float", default: 3 },
-                { name: "height", type: "int", default: 3 },
-                { name: "hollow", type: "bool", default: false },
-            ],
+            args: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "radius", type: "float", default: 3 }, { name: "height", type: "int", default: 3 }],
         },
         {
             subName: "smooth",
@@ -124,15 +115,15 @@ export function createDefaultBrush() {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sphere_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
-    assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission);
-    session.bindTool("brush", null, new SphereBrush(args.get("radius"), args.get("pattern"), args.get("hollow")));
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[1]).permission!);
+    session.bindTool("brush", null, new SphereBrush(args.get("radius"), args.get("pattern"), args.get("h")));
     return RawText.translate("commands.wedit:brush.bind.sphere").with(args.get("radius"));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cylinder_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, (<commandSubDef>registerInformation.usage[2]).permission);
-    session.bindTool("brush", null, new CylinderBrush(args.get("radius"), args.get("height"), args.get("pattern"), args.get("hollow")));
+    session.bindTool("brush", null, new CylinderBrush(args.get("radius"), args.get("height"), args.get("pattern"), args.get("h")));
     return RawText.translate("commands.wedit:brush.bind.cylinder").with(args.get("radius")).with(args.get("height"));
 };
 

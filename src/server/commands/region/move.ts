@@ -12,12 +12,13 @@ const registerInformation: CommandInfo = {
     permission: "worldedit.region.move",
     description: "commands.wedit:move.description",
     usage: [
+        { flag: "a" },
+        { flag: "e" },
+        { flag: "s" },
         { name: "amount", type: "int", default: 1, range: [1, null] },
         { name: "offset", type: "Direction", default: new Cardinal() },
         { name: "replace", type: "Pattern", default: new Pattern("air") },
-        { name: "includeAir", type: "bool", default: true },
-        { name: "includeEntities", type: "bool", default: false },
-        { name: "mask", type: "Mask", default: undefined },
+        { flag: "m", name: "mask", type: "Mask" },
     ],
 };
 
@@ -46,10 +47,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield Jobs.nextStep("Pasting blocks...");
             yield* temp.load(movedStart, dim);
 
-            history.trackSelection(record);
-            session.selection.set(0, movedStart);
-            session.selection.set(1, movedEnd);
-
+            if (args.has("s")) {
+                history.trackSelection(record);
+                session.selection.set(0, movedStart);
+                session.selection.set(1, movedEnd);
+            }
             yield* history.commit(record);
         } catch (e) {
             history.cancel(record);

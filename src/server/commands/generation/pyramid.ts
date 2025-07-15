@@ -8,16 +8,12 @@ const registerInformation: CommandInfo = {
     name: "pyramid",
     permission: "worldedit.generation.pyramid",
     description: "commands.wedit:pyramid.description",
-    usage: [
-        { name: "pattern", type: "Pattern" },
-        { name: "size", type: "int", range: [1, null] },
-        { name: "hollow", type: "bool", default: false },
-    ],
+    usage: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "size", type: "int", range: [1, null] }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     const pattern: Pattern = args.get("pattern");
-    const isHollow = args.get("hollow");
+    const isHollow = args.has("h");
     const size: number = args.get("size");
 
     const loc = session.getPlacementPosition();

@@ -5,28 +5,27 @@ import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
 import { Cardinal } from "@modules/directions.js";
-import { Mask } from "@modules/mask.js";
 
 const registerInformation: CommandInfo = {
     name: "revolve",
     permission: "worldedit.region.revolve",
     description: "commands.wedit:revolve.description",
     usage: [
+        { flag: "a" },
+        { flag: "s" },
         { name: "count", type: "int", range: [2, null] },
         { name: "start", type: "float", default: 0 },
         { name: "end", type: "float", default: 360 },
         { name: "heightDiff", type: "int", default: 0 },
-        { name: "includeAir", type: "bool", default: true },
-        { name: "includeEntities", type: "bool", default: false },
-        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.UP) },
-        { name: "mask", type: "Mask", default: new Mask() },
+        { flag: "d", name: "direction", type: "Direction" },
+        { flag: "m", name: "mask", type: "Mask" },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertCuboidSelection(session);
     const amount = args.get("count");
-    const dir = (<Cardinal>args.get("direction")).getDirection(builder);
+    const dir = (<Cardinal>args.get("d-direction"))?.getDirection(builder) ?? Vector.UP;
     const [start, end] = session.selection.getRange();
     const heightDiff = args.get("heightDiff");
     const [startRotation, endRotation] = [args.get("start"), args.get("end")];
@@ -63,9 +62,11 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 count += tempRevolve.getVolume();
             }
 
-            history.trackSelection(record);
-            session.selection.set(0, points[points.length - 2]);
-            session.selection.set(1, points[points.length - 1]);
+            if (args.has("s")) {
+                history.trackSelection(record);
+                session.selection.set(0, points[points.length - 2]);
+                session.selection.set(1, points[points.length - 1]);
+            }
 
             yield* history.commit(record);
         } catch (e) {
