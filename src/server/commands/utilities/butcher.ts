@@ -21,6 +21,7 @@ const registerInformation = {
 };
 
 const animals = [
+    "minecraft:armadillo",
     "minecraft:cow",
     "minecraft:pig",
     "minecraft:chicken",
@@ -43,22 +44,9 @@ const animals = [
 
 const ambientMobs = ["minecraft:bee", "minecraft:bat"];
 
-const waterMobs = [
-    "minecraft:axolotl",
-    "minecraft:turtle",
-    "minecraft:cod",
-    "minecraft:dolphin",
-    "minecraft:drowned",
-    "minecraft:pufferfish",
-    "minecraft:salmon",
-    "minecraft:tropicalfish",
-    "minecraft:guardian",
-    "minecraft:elder_guardian",
-];
-
 registerCommand(registerInformation, function (session, builder, args) {
     const dimension = builder.dimension;
-    const radius: number = args.get("radius") < 0 ? Infinity : args.get("radius");
+    const radius: number = args.get("radius") < 0 ? undefined : args.get("radius");
 
     const allFriendlies = args.has("f");
     const flags = {
@@ -76,11 +64,7 @@ registerCommand(registerInformation, function (session, builder, args) {
     for (const flag in flags) if (flags[flag as keyof typeof flags]) allOff = false;
 
     let entityCount = 0;
-    const entityQuery: EntityQueryOptions = {
-        excludeTypes: ["minecraft:player"],
-        location: session.getPlacementPosition(),
-        maxDistance: radius,
-    };
+    const entityQuery: EntityQueryOptions = { excludeTypes: ["minecraft:player"], location: session.getPlacementPosition(), maxDistance: radius };
     for (const entity of dimension.getEntities(entityQuery)) {
         let matches = false;
 
@@ -92,7 +76,7 @@ registerCommand(registerInformation, function (session, builder, args) {
         else if (flags.p && entity.hasComponent("minecraft:is_tamed")) matches = true;
         else if (flags.a && animals.includes(entity.typeId)) matches = true;
         else if (flags.b && ambientMobs.includes(entity.typeId)) matches = true;
-        else if (flags.w && waterMobs.includes(entity.typeId)) matches = true;
+        else if (flags.w && entity.matches({ families: ["aquatic"] })) matches = true;
 
         if (matches) {
             try {
