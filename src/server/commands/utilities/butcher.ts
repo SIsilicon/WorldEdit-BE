@@ -1,8 +1,8 @@
-import { RawText } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { EntityQueryOptions } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 
-const registerInformation = {
+const registerInformation: CommandInfo = {
     name: "butcher",
     permission: "worldedit.utility.butcher",
     description: "commands.wedit:butcher.description",
