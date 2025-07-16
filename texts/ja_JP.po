@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-02-15 05:42\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -364,6 +364,12 @@ msgstr "WorldEdit のコマンドである"
 msgid "worldedit.selection.noPrimary"
 msgstr "最初の選択がまだ行われていません。"
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
+
 msgid "worldedit.selection.cuboid.primary"
 msgstr "最初の位置を %s に設定しました。"
 
@@ -550,6 +556,9 @@ msgstr "地形を整形するブラシを作成する"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "地形を覆わせるブラシを作成する"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
 
@@ -654,6 +663,12 @@ msgstr "マスクに一致するブロックの数を数える"
 
 msgid "commands.wedit:count.explain"
 msgstr "%s 個のブロックが見つかりました。"
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "現在の選択範囲を削除してクリップボードにコピーする"
@@ -838,6 +853,36 @@ msgstr "ブロックの変更上限を %s に設定しました。"
 msgid "commands.wedit:limit.tooHigh"
 msgstr "設定できる上限は %s までです。"
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "ブラシが影響を与えるブロックの種類を (必要ならば) 設定する"
 
@@ -870,6 +915,9 @@ msgstr "%s 個のブロックをペーストしました。"
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "元の位置にクリップボードを貼り付けることはできません。"
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
@@ -925,8 +973,14 @@ msgstr "'%s' は90°の倍数ではありません！"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Y軸のみ回転できます!"
 
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
+
 msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "直方体:\"pos1を破壊したブロック、pos2をブロックの使用\""
@@ -936,6 +990,9 @@ msgstr "円柱の選択：中心の破壊されたブロックから半径と高
 
 msgid "commands.wedit:sel.description"
 msgstr "選択モードを変更する"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "直方体の2つの角を設定する"
@@ -1002,9 +1059,6 @@ msgstr "領域内に降雪をシミュレートする"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "スーパーピッケルのモードは現在: area"
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "スーパーピッケルの切り替え"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "スーパーピッケルの切り替え"
@@ -1134,6 +1188,12 @@ msgstr "ブロック置換ツール"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "ブロック循環ツール"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"

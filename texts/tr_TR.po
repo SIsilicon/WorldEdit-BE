@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "Çizgi çiz"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "Eğri Çiz"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Küre Çiz"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "Çizgi"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "Eğri"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Küre"
@@ -363,6 +363,12 @@ msgstr "WorldEdit Komutu"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "İlk seçim daha yapılmadı."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "İlk konum %s'ye ayarlandı."
@@ -550,6 +556,9 @@ msgstr "Bir arazi şekillendirme fırçası oluşturur"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Bir arazi kaplama fırçası oluşturur"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "Maske fırçası ayarlandı."
 
@@ -655,86 +664,92 @@ msgstr "Bir maskeyle eşleşen blok sayısını sayın"
 msgid "commands.wedit:count.explain"
 msgstr "%s blok bulundu."
 
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
+
 msgid "commands.wedit:cut.description"
-msgstr "Remove your current selection and place it in the clipboard"
+msgstr "Geçerli seçimini kaldır ve panoya ekle"
 
 msgid "commands.wedit:cut.explain"
 msgstr "Cut %s blocks."
 
 msgid "commands.wedit:cyl.description"
-msgstr "Generate a cylinder"
+msgstr "Silindir oluştur"
 
 msgid "commands.wedit:distr.description"
-msgstr "Analyse the amount of different blocks in the selection"
+msgstr "Seçimdeki farklı blokların miktarını analiz et"
 
 msgid "commands.wedit:drain.description"
-msgstr "Drain nearby fluids"
+msgstr "Yakındaki sıvıları kurut"
 
 msgid "commands.wedit:drain.noFluid"
-msgstr "You need to be close to some water or lava to drain."
+msgstr "Kurutmak için suya ya da lava yakın olmalısınız."
 
 msgid "commands.wedit:drawsel.description"
-msgstr "Toggle your selection's visibility"
+msgstr "Seçiminizin görünürlüğünü ayarlayın"
 
 msgid "commands.wedit:drawsel.disabled"
-msgstr "Your selections will no longer be visible."
+msgstr "Seçimleriniz artık gözükmeyecek."
 
 msgid "commands.wedit:drawsel.enabled"
-msgstr "Your selections will now be visible."
+msgstr "Seçimleriniz artık gözükecek."
 
 msgid "commands.wedit:expand.description"
-msgstr "Expand the selection area"
+msgstr "Seçim alanını genişlet"
 
 msgid "commands.wedit:expand.description.vert"
-msgstr "Vertically expand your selection to world height limits"
+msgstr "Seçim alanını dünya yükseklik sınırına dikey olarak genişlet"
 
 msgid "commands.wedit:expand.explain"
-msgstr "Region expanded %s blocks."
+msgstr "Bölge %s blok genişletildi."
 
 msgid "commands.wedit:export.description"
-msgstr "Exports the selection for later use."
+msgstr "Seçimi sonradan kullanmak için dışarı aktarır."
 
 msgid "commands.wedit:export.explain"
-msgstr "%s has been exported."
+msgstr "%s'i dışarı aktarıldı."
 
 msgid "commands.wedit:export.otherWorlds"
 msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
 
 msgid "commands.wedit:extinguish.description"
-msgstr "Extinguish nearby fires"
+msgstr "Yakındaki ateşleri söndür"
 
 msgid "commands.wedit:faces.description"
-msgstr "Generate an outline from your selection"
+msgstr "Seçimden bir anahat oluşturun"
 
 msgid "commands.wedit:fill.description"
-msgstr "Fill an area with certain blocks"
+msgstr "Bir bölgeyi belirli bloklarla doldur"
 
 msgid "commands.wedit:fillr.description"
-msgstr "Recursively fill an area with certain blocks"
+msgstr "Bir bölgeyi tekrarlı olarak belirli bloklarla doldur"
 
 msgid "commands.wedit:fixlava.description"
-msgstr "Make nearby flowing lava blocks source blocks"
+msgstr "Yakında akan lav bloklarını kaynağa dönüştürün"
 
 msgid "commands.wedit:fixlava.noLava"
-msgstr "You need to be close to some lava to fix."
+msgstr "Düzeltmek için yakınınızda lav olmalı."
 
 msgid "commands.wedit:fixwater.description"
-msgstr "Make nearby flowing water blocks source blocks"
+msgstr "Yakında akan su bloklarını kaynağa dönüştürün"
 
 msgid "commands.wedit:fixwater.noWater"
-msgstr "You need to be close to some water to fix."
+msgstr "Düzeltmek için yakınınızda su olmalı."
 
 msgid "commands.wedit:flip.description"
-msgstr "Flip the selection"
+msgstr "Seçimi döndür"
 
 msgid "commands.wedit:flip.explain"
-msgstr "Flipped %s blocks."
+msgstr "%s blok döndürüldü."
 
 msgid "commands.wedit:flip.notLateral"
-msgstr "Cannot flip up or down!"
+msgstr "Aşağı ya da yukarı döndürme yapılamıyor!"
 
 msgid "commands.wedit:gen.description"
-msgstr "Generate any kind of shape in your selection"
+msgstr "Seçiminizde herhangi bir şekli oluşturun"
 
 msgid "commands.wedit:gmask.description"
 msgstr "Set the global mask"
@@ -838,6 +853,36 @@ msgstr "Block change limit set to %s."
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Your maximum allowable limit is %s."
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "Set what kind of blocks a brush can affect, if any"
 
@@ -870,6 +915,9 @@ msgstr "Pasted %s blocks."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Can't paste the clipboard at its original location."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Set the first position of your selection to the specified or current position"
@@ -925,8 +973,14 @@ msgstr "'%s' is not an increment of 90°!"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "You can only rotate along the Y axis!"
 
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
+
 msgid "commands.wedit:sel.clear"
 msgstr "Seçim temizlendi."
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: break block for point 1, use on block for point 2"
@@ -936,6 +990,9 @@ msgstr "Cylinder selector: break block for the center, use on block to expand ra
 
 msgid "commands.wedit:sel.description"
 msgstr "Change selection mode"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Select two corners of a cuboid"
@@ -1131,6 +1188,12 @@ msgstr "Block replacer tool"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "Block cycler tool"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Unbind held tool"
