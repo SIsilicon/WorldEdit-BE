@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-06-24 01:58\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -556,6 +556,9 @@ msgstr "创建一个地形塑造笔刷"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "创建地形覆盖笔刷"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "已设定笔刷替换的方块"
 
@@ -853,6 +856,18 @@ msgstr "允许您设定的极限为 %s。"
 msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
 msgid "commands.wedit:loft.started"
 msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
 
@@ -957,6 +972,9 @@ msgstr "'%s'不是一个90°的倍数！"
 
 msgid "commands.wedit:rotate.yOnly"
 msgstr "你只能沿Y轴旋转！"
+
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
 
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
@@ -1170,6 +1188,12 @@ msgstr "方块替换工具"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "方块循环工具"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"
