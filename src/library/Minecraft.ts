@@ -134,8 +134,7 @@ class ServerBuild extends ServerBuilder {
          * Emit to 'entityCreate' event listener
          */
         afterEvents.entitySpawn.subscribe((data) => {
-            if (!data.entity) return;
-            this.emit("entityCreate", data);
+            if (data.entity?.isValid) this.emit("entityCreate", data);
         });
 
         let tickCount = 0;
