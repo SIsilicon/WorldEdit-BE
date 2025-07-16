@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-06-24 01:58\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -556,6 +556,9 @@ msgstr "Lager en børste som formerer terrenget"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Lager en børste som kan overlappe terreng"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pensel-maske satt."
 
@@ -853,6 +856,18 @@ msgstr "Maksimalt tillat grense er %s."
 msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
 msgid "commands.wedit:loft.started"
 msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
 
@@ -957,6 +972,9 @@ msgstr "'%s' er ikke et interval av 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Du kan kun rotere langs Y-aksen!"
+
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
@@ -1170,6 +1188,12 @@ msgstr "Blokk erstatningsverktøy"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "Blokk syklusverktøy"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"
