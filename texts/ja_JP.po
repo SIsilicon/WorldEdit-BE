@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-06-24 01:58\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -556,6 +556,9 @@ msgstr "地形を整形するブラシを作成する"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "地形を覆わせるブラシを作成する"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
 
@@ -853,6 +856,18 @@ msgstr "設定できる上限は %s までです。"
 msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
 msgid "commands.wedit:loft.started"
 msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
 
@@ -957,6 +972,9 @@ msgstr "'%s' は90°の倍数ではありません！"
 
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Y軸のみ回転できます!"
+
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
 
 msgid "commands.wedit:sel.clear"
 msgstr "選択を消去しました。"
@@ -1170,6 +1188,12 @@ msgstr "ブロック置換ツール"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "ブロック循環ツール"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "保持しているツールの紐づけを解除する"
