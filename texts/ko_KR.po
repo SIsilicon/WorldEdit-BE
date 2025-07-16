@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-06-24 01:58\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -556,6 +556,9 @@ msgstr "지형 형성 브러시 생성"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "지형 오버레이 브러시 생성"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "브러시 마스크 설정."
 
@@ -853,6 +856,18 @@ msgstr "허용된 최대치는 %s 입니다."
 msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
 msgid "commands.wedit:loft.started"
 msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
 
@@ -957,6 +972,9 @@ msgstr "'%s'은 90°의 증분이 아닙니다!"
 
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Y축을 따라서만 회전할 수 있습니다!"
+
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
 
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
@@ -1170,6 +1188,12 @@ msgstr "블록 교체 도구"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "블럭 쌓기 도구"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"
