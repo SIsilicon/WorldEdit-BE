@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-07-21 16:51\n"
+"PO-Revision-Date: 2025-07-21 18:06\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -56,10 +56,10 @@ msgid "item.wedit:selection_fill"
 msgstr "Заповнити виділення"
 
 msgid "item.wedit:selection_wall"
-msgstr "Стіна виділення"
+msgstr "Стінне виділення"
 
 msgid "item.wedit:selection_outline"
-msgstr "Контур виділення"
+msgstr "Контурне виділення"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Виділення пустоти"
@@ -854,7 +854,7 @@ msgid "commands.wedit:limit.tooHigh"
 msgstr "Ваше максимальне обмеження становить %s."
 
 msgid "commands.wedit:loft.description"
-msgstr "Create a loft from a series of selected points"
+msgstr "Створити плаз із серії виділених точок"
 
 msgid "commands.wedit:loft.description.start"
 msgstr "Увійти в режим плазу і створювати рамки через команди виділення і палички"
@@ -869,19 +869,19 @@ msgid "commands.wedit:loft.description.clear"
 msgstr "Очистити плаз і повернути до звичайної поведінки команди виділення/палички"
 
 msgid "commands.wedit:loft.started"
-msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+msgstr "Початок нового плазу. Створіть нові рамки з першими точками виділення (pos1), і підійміть їх з другими точками виділення (pos2)."
 
 msgid "commands.wedit:loft.cleared"
-msgstr "Cleared loft and returned to normal selection behaviour."
+msgstr "Плаз очищено і повернуто нормальну поведінку виділення."
 
 msgid "commands.wedit:loft.removed"
-msgstr "Removed the last point added to loft."
+msgstr "Вилучено останню точку, додану до плазу."
 
 msgid "commands.wedit:loft.removed.last"
-msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+msgstr "Вилучено останню точку, що залишилася у плазу. Тепер її очищено і повернуто нормальну поведінку виділення."
 
 msgid "commands.wedit:loft.notStarted"
-msgstr "No loft has been created yet!"
+msgstr "Жодного плазу ще не створено!"
 
 msgid "commands.wedit:mask.description"
 msgstr "Встановити тип блоків, на які пензель може впливати, якщо такі є"
@@ -1190,7 +1190,7 @@ msgid "commands.wedit:tool.description.cycler"
 msgstr "Інструмент циклу блоків"
 
 msgid "commands.wedit:tool.description.extruder"
-msgstr "Інструмент виштовхування"
+msgstr "Виштовхувати"
 
 msgid "commands.wedit:tool.description.fill"
 msgstr "Заливка"
