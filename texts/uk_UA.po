@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-07-21 16:51\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -557,7 +557,7 @@ msgid "commands.wedit:brush.description.overlay"
 msgstr "Створює пензель накладання рельєфу"
 
 msgid "commands.wedit:brush.description.blob"
-msgstr "Creates a blob generating brush"
+msgstr "Створює пензель для створення крапель"
 
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маску пензля встановлено."
@@ -857,16 +857,16 @@ msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
 msgid "commands.wedit:loft.description.start"
-msgstr "Enter loft mode and create frames using selection commands and wands"
+msgstr "Увійти в режим плазу і створювати рамки через команди виділення і палички"
 
 msgid "commands.wedit:loft.description.set"
-msgstr "Fill the loft frame with a specified pattern"
+msgstr "Заповнити рамку плазу із заданим шаблоном"
 
 msgid "commands.wedit:loft.description.remove"
-msgstr "Remove the last point added to the loft frame"
+msgstr "Вилучити останню точку, додану до рамки плазу"
 
 msgid "commands.wedit:loft.description.clear"
-msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+msgstr "Очистити плаз і повернути до звичайної поведінки команди виділення/палички"
 
 msgid "commands.wedit:loft.started"
 msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
@@ -974,7 +974,7 @@ msgid "commands.wedit:rotate.yOnly"
 msgstr "Обертати можна лише вздовж осі Y!"
 
 msgid "commands.wedit:scale.description"
-msgstr "Scale the selection"
+msgstr "Масштабувати виділення"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
@@ -1190,10 +1190,10 @@ msgid "commands.wedit:tool.description.cycler"
 msgstr "Інструмент циклу блоків"
 
 msgid "commands.wedit:tool.description.extruder"
-msgstr "Extrusion tool"
+msgstr "Інструмент виштовхування"
 
 msgid "commands.wedit:tool.description.fill"
-msgstr "Fill tool"
+msgstr "Заливка"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Від'єднати прив'язку інструмента"
