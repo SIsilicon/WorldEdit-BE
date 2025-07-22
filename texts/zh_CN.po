@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-02-13 23:48\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -364,6 +364,12 @@ msgstr "是否为创世神命令"
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
+
 msgid "worldedit.selection.cuboid.primary"
 msgstr "第一个点设定为 %s。"
 
@@ -550,6 +556,9 @@ msgstr "创建一个地形塑造笔刷"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "创建地形覆盖笔刷"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "已设定笔刷替换的方块"
 
@@ -654,6 +663,12 @@ msgstr "计数匹配掩码的方块数量"
 
 msgid "commands.wedit:count.explain"
 msgstr "找到 %s 个方块。"
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "删除您当前的选区并将其记录在剪贴板"
@@ -838,6 +853,36 @@ msgstr "可变化的方块限制已设定为 %s。"
 msgid "commands.wedit:limit.tooHigh"
 msgstr "允许您设定的极限为 %s。"
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "设定笔刷可以在哪些方块上生效（默认空气，如果有的话再加）"
 
@@ -870,6 +915,9 @@ msgstr "已粘贴%s个方块"
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "不能粘贴剪贴板到其初始位置。"
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "将您的选区的第一个点设置为指定的或当前的位置"
@@ -925,8 +973,14 @@ msgstr "'%s'不是一个90°的倍数！"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "你只能沿Y轴旋转！"
 
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
+
 msgid "commands.wedit:sel.clear"
 msgstr "选区已清除"
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "立方体选区模式：使用选择器左键破坏单个方块设置第一个对角点，然后对另一个方块右键（Pe则是长按）设置第二个对角点."
@@ -936,6 +990,9 @@ msgstr "圆柱体选区模式：使用选择器左键破坏单个方块来设置
 
 msgid "commands.wedit:sel.description"
 msgstr "更改选区模式"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "选择一个立方体的两个对角。"
@@ -1002,9 +1059,6 @@ msgstr "模拟该地区的雪"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "超级镐子处于: 范围破坏模式"
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "切换为超级镐子"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "切换为超级镐子"
@@ -1134,6 +1188,12 @@ msgstr "方块替换工具"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "方块循环工具"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "取消绑定所持工具"

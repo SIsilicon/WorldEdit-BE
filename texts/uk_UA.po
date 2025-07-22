@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-02-22 10:02\n"
+"PO-Revision-Date: 2025-07-21 18:06\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -56,10 +56,10 @@ msgid "item.wedit:selection_fill"
 msgstr "Заповнити виділення"
 
 msgid "item.wedit:selection_wall"
-msgstr "Стіна виділення"
+msgstr "Стінне виділення"
 
 msgid "item.wedit:selection_outline"
-msgstr "Контур виділення"
+msgstr "Контурне виділення"
 
 msgid "item.wedit:selection_hollow"
 msgstr "Виділення пустоти"
@@ -68,7 +68,7 @@ msgid "item.wedit:selection_stack"
 msgstr "Виділення стосу"
 
 msgid "item.wedit:selection_move"
-msgstr "Виділення переміщення"
+msgstr "Перемістити виділення"
 
 msgid "item.wedit:draw_line"
 msgstr "Малювати лінію"
@@ -119,7 +119,7 @@ msgid "worldedit.config.general.includeEntities"
 msgstr "Включати сутності в буфер обміну"
 
 msgid "worldedit.config.general.includeAir"
-msgstr "Включати повітря в буфер обміну"
+msgstr "Включати повітря у буфер обміну"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Режим швидкодії"
@@ -308,7 +308,7 @@ msgid "worldedit.config.height"
 msgstr "Висота"
 
 msgid "worldedit.config.smooth"
-msgstr "Згладжування"
+msgstr "Гладкість"
 
 msgid "worldedit.config.range"
 msgstr "Діапазон"
@@ -364,17 +364,23 @@ msgstr "Є командою WorldEdit"
 msgid "worldedit.selection.noPrimary"
 msgstr "Перше виділення ще не зроблено."
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Початок нового виділення опуклої на %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Додано точку %1 виділення опуклої."
+
 msgid "worldedit.selection.cuboid.primary"
-msgstr "Перша позиція встановлена ​​на %s."
+msgstr "Перша позиція установлена ​​на %s."
 
 msgid "worldedit.selection.cuboid.primaryArea"
-msgstr "Перша позиція встановлена ​​на %1 (%2)."
+msgstr "Перша позиція установлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.cuboid.secondary"
-msgstr "Друга позиція встановлена ​​на %s."
+msgstr "Друга позиція установлена ​​на %s."
 
 msgid "worldedit.selection.cuboid.secondaryArea"
-msgstr "Друга позиція встановлена ​​на %1 (%2)."
+msgstr "Друга позиція установлена ​​на %1 (%2)."
 
 msgid "worldedit.selection.cylinder.primary"
 msgstr "Початок нового циліндричного виділення в %s."
@@ -383,16 +389,16 @@ msgid "worldedit.selection.cylinder.secondaryArea"
 msgstr "Радіус встановлено на %1/%2 блоки (~%3)."
 
 msgid "worldedit.selection.extend.primaryArea"
-msgstr "Виділення почато на %1 (%2)."
+msgstr "Розпочато виділення на %1 (%2)."
 
 msgid "worldedit.selection.extend.secondaryArea"
 msgstr "Розширене виділення для охоплення %1 (%2)."
 
 msgid "worldedit.selection.sphere.primary"
-msgstr "Радіус встановлено на %1."
+msgstr "Радіус установлено на %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
-msgstr "Радіус встановлено на %1 (~%2)."
+msgstr "Радіус установлено на %1 (~%2)."
 
 msgid "worldedit.tool.noItem"
 msgstr "Предмет має бути у вашій руці."
@@ -550,6 +556,9 @@ msgstr "Створює пензель формування рельєфу"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Створює пензель накладання рельєфу"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Створює пензель для створення крапель"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "Маску пензля встановлено."
 
@@ -654,6 +663,12 @@ msgstr "Кількість блоків, які відповідають мас�
 
 msgid "commands.wedit:count.explain"
 msgstr "Переміщено %s блоків."
+
+msgid "commands.wedit:curve.description"
+msgstr "Створити криву між кількома точками виділення"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "ця команда працює лише з опуклими виділеннями"
 
 msgid "commands.wedit:cut.description"
 msgstr "Видалити поточний вибір і помістити його в буфер обміну"
@@ -838,6 +853,36 @@ msgstr "Обмеження зміни блоку встановлено на %s.
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Ваше максимальне обмеження становить %s."
 
+msgid "commands.wedit:loft.description"
+msgstr "Створити плаз із серії виділених точок"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Увійти в режим плазу і створювати рамки через команди виділення і палички"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Заповнити рамку плазу із заданим шаблоном"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Вилучити останню точку, додану до рамки плазу"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Очистити плаз і повернути до звичайної поведінки команди виділення/палички"
+
+msgid "commands.wedit:loft.started"
+msgstr "Початок нового плазу. Створіть нові рамки з першими точками виділення (pos1), і підійміть їх з другими точками виділення (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Плаз очищено і повернуто нормальну поведінку виділення."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Вилучено останню точку, додану до плазу."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Вилучено останню точку, що залишилася у плазу. Тепер її очищено і повернуто нормальну поведінку виділення."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "Жодного плазу ще не створено!"
+
 msgid "commands.wedit:mask.description"
 msgstr "Встановити тип блоків, на які пензель може впливати, якщо такі є"
 
@@ -870,6 +915,9 @@ msgstr "Вставлено %s блоків."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Не вдається вставити дані з буфер обміну в початкове місце."
+
+msgid "commands.wedit:path.description"
+msgstr "Створити шлях у вашому буфері обміну"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Встановити першу позицію вашого виділення на вказану або поточну позицію"
@@ -914,19 +962,25 @@ msgid "commands.wedit:revolve.explain"
 msgstr "Створено блоки (%s) з оберту."
 
 msgid "commands.wedit:rotate.description"
-msgstr "Повернути блоки у виділенні"
+msgstr "Обернути виділення"
 
 msgid "commands.wedit:rotate.explain"
-msgstr "Повернуто %s блоків."
+msgstr "Обернено блоки (%s)."
 
 msgid "commands.wedit:rotate.notNinety"
 msgstr "'%s' не є приростом 90°!"
 
 msgid "commands.wedit:rotate.yOnly"
-msgstr "Обертати можна тільки вздовж осі Y!"
+msgstr "Обертати можна лише вздовж осі Y!"
+
+msgid "commands.wedit:scale.description"
+msgstr "Масштабувати виділення"
 
 msgid "commands.wedit:sel.clear"
 msgstr "Виділення очищено."
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "Кубоїд: розбити блок в точці 1, використовувати на блоці в точці 2"
@@ -936,6 +990,9 @@ msgstr "Вибір циліндрів: розбити блок для центр
 
 msgid "commands.wedit:sel.description"
 msgstr "Змінити режим виділення"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Вибрати точки для опуклої оболонки"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Виділити два кути кубоїда"
@@ -1002,9 +1059,6 @@ msgstr "Імітація снігу в області"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Режим супер кайла: площа."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "Супер кайло"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Супер кайло"
@@ -1135,6 +1189,12 @@ msgstr "Інструмент заміни блоків"
 msgid "commands.wedit:tool.description.cycler"
 msgstr "Інструмент циклу блоків"
 
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Виштовхувати"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Заливка"
+
 msgid "commands.wedit:tool.description.none"
 msgstr "Від'єднати прив'язку інструмента"
 
@@ -1169,22 +1229,22 @@ msgid "commands.wedit:wand.description"
 msgstr "Видати собі паличку виділення"
 
 msgid "commands.wedit:wand.explain"
-msgstr "Розбити блок: виділити позицію #1; «Використовувати» на блоці: виділити позицію #2"
+msgstr "Розбити блок: обрати позицію №1, «Використати» по блоку: обрати позицію №2"
 
 msgid "commands.wedit:worldedit.description"
 msgstr "Команди WorldEdit"
 
 msgid "commands.wedit:worldedit.description.perf"
-msgstr "Перемикнути режим продуктивності для поточного сеансу."
+msgstr "Перемикнути режим швидкодії для поточної сесії."
 
 msgid "commands.wedit:worldedit.perf.enabled"
-msgstr "Режим продуктивності ввімкнено."
+msgstr "Режим швидкодії увімкнено."
 
 msgid "commands.wedit:worldedit.perf.disabled"
-msgstr "Режим продуктивності вимкнено."
+msgstr "Режим швидкодії вимкнено."
 
 msgid "commands.wedit:worldedit.description.version"
-msgstr "Отримати версію WorldEdit"
+msgstr "Завантажити версію WorldEdit"
 
 msgid "commands.wedit:worldedit.version"
 msgstr "Версія WorldEdit: %s"
@@ -1193,16 +1253,16 @@ msgid "howtoplay.category.worldEdit"
 msgstr "WorldEdit"
 
 msgid "howtoplay.wedit:quick_start"
-msgstr "Швидкий старт"
+msgstr "Швидкий початок"
 
 msgid "howtoplay.wedit:quick_start.title"
-msgstr "Як грати: Швидкий старт для WorldEdit"
+msgstr "Як грати: швидкий початок до WorldEdit"
 
 msgid "howtoplay.wedit:license"
 msgstr "Ліцензія"
 
 msgid "howtoplay.wedit:license.title"
-msgstr "Як грати: Ліцензія WorldEdit"
+msgstr "Як грати: ліцензія WorldEdit"
 
 msgid "howtoplay.wedit:quick_start.text.1"
 msgstr "Ласкаво просимо! Це порт оригінальної модифікації WorldEdit для Minecraft: Java Edition. Ця модифікація допоможе вам формувати свій світ прямо в Minecraft."
@@ -1280,7 +1340,7 @@ msgid "howtoplay.wedit:quick_start.text.20"
 msgstr "§r5. Видаліть пензель із меню, щоб вимкнути його."
 
 msgid "howtoplay.wedit:quick_start.header.7"
-msgstr "Що зараз?"
+msgstr "Що тепер?"
 
 msgid "howtoplay.wedit:quick_start.text.23"
 msgstr "Щоб дізнатися більше про цю модифікацію, ви можете перейти до онлайн-документації тут: §ehttps://worldedit-be-docs.readthedocs.io§r"

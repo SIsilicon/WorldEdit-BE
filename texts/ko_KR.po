@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -62,7 +62,7 @@ msgid "item.wedit:selection_outline"
 msgstr "테두리 선택"
 
 msgid "item.wedit:selection_hollow"
-msgstr "구덩이 도구"
+msgstr "구멍 내기"
 
 msgid "item.wedit:selection_stack"
 msgstr "쌓기 도구"
@@ -364,6 +364,12 @@ msgstr "월드에딧 명령어"
 msgid "worldedit.selection.noPrimary"
 msgstr "아직 첫 번째 선택 지점 선택이 이루어지지 않았습니다."
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
+
 msgid "worldedit.selection.cuboid.primary"
 msgstr "첫 번째 위치가 %s 로 설정되었습니다."
 
@@ -550,6 +556,9 @@ msgstr "지형 형성 브러시 생성"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "지형 오버레이 브러시 생성"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "브러시 마스크 설정."
 
@@ -654,6 +663,12 @@ msgstr "마스크와 일치하는 블록 수를 계산합니다"
 
 msgid "commands.wedit:count.explain"
 msgstr "%s 블럭들이 찾아짐."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "현재 선택 항목을 제거하고 클립보드에 배치합니다."
@@ -838,6 +853,36 @@ msgstr "블록 변경 제한이 %s로 설정되었습니다."
 msgid "commands.wedit:limit.tooHigh"
 msgstr "허용된 최대치는 %s 입니다."
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "브러시가 영향을 미칠 수 있는 블록 유형 설정(있는 경우)"
 
@@ -870,6 +915,9 @@ msgstr "%s 블럭을 붙여넣었습니다."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "클립보드를 원래 위치에 붙여넣을 수 없네요."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "선택 영역의 첫 번째 위치를 지정 위치 또는 현재 위치로 설정합니다."
@@ -925,8 +973,14 @@ msgstr "'%s'은 90°의 증분이 아닙니다!"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Y축을 따라서만 회전할 수 있습니다!"
 
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
+
 msgid "commands.wedit:sel.clear"
 msgstr "선택 영역을 지웠습니다."
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "직육면체: 지점 1에 대한 블록을 끊고, 지점 2에 대한 블록을 사용합니다."
@@ -936,6 +990,9 @@ msgstr "실린더 선택기: 중앙을 위한 블록을 부수고, 블록 위에
 
 msgid "commands.wedit:sel.description"
 msgstr "선택모드 변경"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "정육면체의 두 모서리 선택"
@@ -1002,9 +1059,6 @@ msgstr "해당 지역의 눈 시뮬레이션하기"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "슈퍼 곡괭이 모드가 이제 공간으로 변경되었습니다."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "슈퍼 곡괭이를 토글합니다"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "슈퍼 곡괭이를 토글합니다"
@@ -1134,6 +1188,12 @@ msgstr "블록 교체 도구"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "블럭 쌓기 도구"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "잡은 도구 바인딩 해제"

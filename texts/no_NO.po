@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-02-06 18:10\n"
+"PO-Revision-Date: 2025-07-20 20:10\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -74,7 +74,7 @@ msgid "item.wedit:draw_line"
 msgstr "Tegn Linje"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "Tegn kurve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Tegn kule"
@@ -188,7 +188,7 @@ msgid "worldedit.genMode.line"
 msgstr "Linje"
 
 msgid "worldedit.genMode.curve"
-msgstr "Curve"
+msgstr "Kurve"
 
 msgid "worldedit.genMode.sphere"
 msgstr "Kule"
@@ -363,6 +363,12 @@ msgstr "Er WorldEdit-kommando"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "Første valg har ikke blitt gjort ennå."
+
+msgid "worldedit.selection.convex.primary"
+msgstr "Starter en ny konveksutvalg ved %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "La til punkt %1 konveksutvalg."
 
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Første posisjon satt til %s."
@@ -550,6 +556,9 @@ msgstr "Lager en børste som formerer terrenget"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Lager en børste som kan overlappe terreng"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Lager et pensel som genererer klumper"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pensel-maske satt."
 
@@ -654,6 +663,12 @@ msgstr "Tell antall blokker som passer til en maske"
 
 msgid "commands.wedit:count.explain"
 msgstr "Fant %s blokker."
+
+msgid "commands.wedit:curve.description"
+msgstr "Lagde en kurve mellom flere valgpunkter"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "denne kommandoen fungerer kun med konveksutvalg"
 
 msgid "commands.wedit:cut.description"
 msgstr "Fjern ditt nåværende utvalg og plasser det på utklippstavlen"
@@ -838,6 +853,36 @@ msgstr "Grense for blokker endret satt til %s."
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Maksimalt tillat grense er %s."
 
+msgid "commands.wedit:loft.description"
+msgstr "Lag en loft fra en rekke med valgta punkter"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Gå inn i loft-modus og lag rammer ved bruk av utvalgskommadoer og staver"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fyll loft-rammen med et angitt mønster"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Fjern det siste punktet lagt til i loft-rammen"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Fjern loftet og gå tilbake til vanlig utvalgskommando/stavatferd"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starter en ny loft. Lag nye rammer med de første valgte punktene (pos1), og øk dem med andre valgte punkter (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Fjernet loft og gått tilbake til vanlig utvalgsatferd."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Fjernet siste punkt lagt til loften."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Fjernet det siste punktet i loften. Den er nå fjernet og gått tilbake til vanlig utvalgsatferd."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "Ingen loft er opprettet enda!"
+
 msgid "commands.wedit:mask.description"
 msgstr "Angi hva slags blokk en pensel kan påvirke, hvis noen"
 
@@ -870,6 +915,9 @@ msgstr "Limte inn %s blokker."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Kan ikke lime inn utklippstavlen til sin opprinnelige posisjon."
+
+msgid "commands.wedit:path.description"
+msgstr "Lag en sti med utklippstavlen"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Angi den første posisjonen til utvalget ditt til den spesifiserte eller nåværende posisjonen"
@@ -925,8 +973,14 @@ msgstr "'%s' er ikke et interval av 90°!"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Du kan kun rotere langs Y-aksen!"
 
+msgid "commands.wedit:scale.description"
+msgstr "Skaler utvalget"
+
 msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
+
+msgid "commands.wedit:sel.convex"
+msgstr "Konveksbase-velger: ødelegg en blokk for første punkt i basen, bruk på bokk for å legge til flere punkter"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "Kube: ødelegg blokk for punkt 1, bruk på blokk for punkt 1"
@@ -936,6 +990,9 @@ msgstr "Syllinder velger: ødelegg blokk for midten, brukt på blokk for å utvi
 
 msgid "commands.wedit:sel.description"
 msgstr "Endre utvalgs-modus"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Velg punkter for konveksbase"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Velg to gjørner av en kube"
@@ -1002,9 +1059,6 @@ msgstr "Simuler snø i området"
 
 msgid "commands.wedit:superpickaxe.area"
 msgstr "Superhakke-modus er nå: område."
-
-msgid "commands.wedit:superpickaxe.description"
-msgstr "Veksle om superhakken er på eller ikke"
 
 msgid "commands.wedit:superpickaxe.description"
 msgstr "Veksle om superhakken er på eller ikke"
@@ -1134,6 +1188,12 @@ msgstr "Blokk erstatningsverktøy"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "Blokk syklusverktøy"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Ekstruderingsverktøy"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fyllverktøy"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Fjern bindingen av verktøyet som blir holdt"

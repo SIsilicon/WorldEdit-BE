@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2025-04-16 19:31\n"
+"PO-Revision-Date: 2025-07-16 21:19\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -364,6 +364,12 @@ msgstr "Ist WorldEdit Befehl"
 msgid "worldedit.selection.noPrimary"
 msgstr "Erste Auswahl wurde noch nicht getroffen."
 
+msgid "worldedit.selection.convex.primary"
+msgstr "Starting a new convex selection at %s."
+
+msgid "worldedit.selection.convex.secondaryArea"
+msgstr "Added point %1 convex selection."
+
 msgid "worldedit.selection.cuboid.primary"
 msgstr "Erste Position auf %s gesetzt."
 
@@ -550,6 +556,9 @@ msgstr "Erstellt einen Geländeform-Pinsel"
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Erstellt eine Geländeüberlagerung"
 
+msgid "commands.wedit:brush.description.blob"
+msgstr "Creates a blob generating brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "Pinselmaske gesetzt."
 
@@ -654,6 +663,12 @@ msgstr "Zählt die Anzahl der Blöcke, die einer Maske entsprechen"
 
 msgid "commands.wedit:count.explain"
 msgstr "%s Blöcke gefunden."
+
+msgid "commands.wedit:curve.description"
+msgstr "Create a curve between multiple selection points"
+
+msgid "commands.wedit:curve.invalidType"
+msgstr "this command only works with convex selections"
 
 msgid "commands.wedit:cut.description"
 msgstr "Entfernen Sie Ihre aktuelle Auswahl und legen Sie sie in die Zwischenablage"
@@ -838,6 +853,36 @@ msgstr "Blockveränderungslimit auf %s gesetzt."
 msgid "commands.wedit:limit.tooHigh"
 msgstr "Ihr maximal zulässiges Limit ist %s."
 
+msgid "commands.wedit:loft.description"
+msgstr "Create a loft from a series of selected points"
+
+msgid "commands.wedit:loft.description.start"
+msgstr "Enter loft mode and create frames using selection commands and wands"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft frame with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft frame"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+
+msgid "commands.wedit:loft.started"
+msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+
+msgid "commands.wedit:loft.cleared"
+msgstr "Cleared loft and returned to normal selection behaviour."
+
+msgid "commands.wedit:loft.removed"
+msgstr "Removed the last point added to loft."
+
+msgid "commands.wedit:loft.removed.last"
+msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+
+msgid "commands.wedit:loft.notStarted"
+msgstr "No loft has been created yet!"
+
 msgid "commands.wedit:mask.description"
 msgstr "Legen Sie fest, welche Art von Blöcken ein Pinsel beeinflussen kann, falls es welche gibt"
 
@@ -870,6 +915,9 @@ msgstr "%s Blöcke eingefügt."
 
 msgid "commands.wedit:paste.noOriginal"
 msgstr "Kann die Zwischenablage nicht an ihrer ursprünglichen Position einfügen."
+
+msgid "commands.wedit:path.description"
+msgstr "Create a path with your clipboard"
 
 msgid "commands.wedit:pos1.description"
 msgstr "Setzen Sie die erste Position Ihrer Auswahl auf die angegebene oder aktuelle Position"
@@ -925,8 +973,14 @@ msgstr "'%s' ist keine Steigerung von 90°!"
 msgid "commands.wedit:rotate.yOnly"
 msgstr "Du kannst nur entlang der Y-Achse drehen!"
 
+msgid "commands.wedit:scale.description"
+msgstr "Scale the selection"
+
 msgid "commands.wedit:sel.clear"
 msgstr "Auswahl geleert."
+
+msgid "commands.wedit:sel.convex"
+msgstr "Convex Hull selector: break block for the first point in the hull, use on block to add more points"
 
 msgid "commands.wedit:sel.cuboid"
 msgstr "Cuboid: break block for point 1, use on block for point 2"
@@ -936,6 +990,9 @@ msgstr "Cylinder selector: break block for the center, use on block to expand ra
 
 msgid "commands.wedit:sel.description"
 msgstr "Auswahlmodus ändern"
+
+msgid "commands.wedit:sel.description.convex"
+msgstr "Select points for a convex hull"
 
 msgid "commands.wedit:sel.description.cuboid"
 msgstr "Wählen Sie zwei Ecken eines Quaders"
@@ -1131,6 +1188,12 @@ msgstr "Blockersatzwerkzeug"
 
 msgid "commands.wedit:tool.description.cycler"
 msgstr "Blockwechselwerkzeug"
+
+msgid "commands.wedit:tool.description.extruder"
+msgstr "Extrusion tool"
+
+msgid "commands.wedit:tool.description.fill"
+msgstr "Fill tool"
 
 msgid "commands.wedit:tool.description.none"
 msgstr "Gehaltenes Wekzeug entfernen"
