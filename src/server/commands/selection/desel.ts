@@ -6,7 +6,7 @@ const registerInformation: CommandInfo = {
     name: "sel",
     description: "commands.wedit:sel.description",
     aliases: ["deselect", "desel"],
-    usage: [{ flag: "d" }, { subName: "cuboid" }, { subName: "extend" }, { subName: "sphere" }, { subName: "cyl" }, { subName: "_nothing" }],
+    usage: [{ flag: "d" }, { subName: "cuboid" }, { subName: "extend" }, { subName: "sphere" }, { subName: "cyl" }, { subName: "convex" }, { subName: "_nothing" }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
