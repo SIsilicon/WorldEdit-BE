@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-07-23 07:10\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -74,16 +74,16 @@ msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "Zeichne Kurve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Zeichne Zylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Zeichne Pyramide"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Sie müssen einen Block angeben, auf den die Auswahl gesetzt werden soll!"
@@ -134,7 +134,7 @@ msgid "worldedit.config.general.drawOutlines.self"
 msgstr "Visible to Self"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Für jeden Sichtbar"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Auswahlmodus"
@@ -170,7 +170,7 @@ msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Wand Modus"
 
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
@@ -179,7 +179,7 @@ msgid "worldedit.regionMode.stack"
 msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Bewegungsmodus"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
@@ -314,7 +314,7 @@ msgid "worldedit.config.range"
 msgstr "Bereich"
 
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Menge"
 
 msgid "worldedit.config.pattern"
 msgstr "Muster"
@@ -425,13 +425,13 @@ msgid "worldedit.whitelist.enabled"
 msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "Whitelist deaktiviert."
 
 msgid "worldedit.whitelist.status.on"
-msgstr "The whitelist is currently on."
+msgstr "Die Whitelist ist gerade eben aktiviert."
 
 msgid "worldedit.whitelist.status.off"
-msgstr "The whitelist is currently off."
+msgstr "Die Whitelist ist gerade eben deaktiviert."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Fehler beim Speichern des Verlaufspunktes!"
