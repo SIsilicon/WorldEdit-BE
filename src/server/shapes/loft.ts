@@ -47,7 +47,7 @@ export class LoftShape extends Shape {
 
     protected prepGeneration() {}
 
-    protected *calculateShape(dimension: Dimension, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
+    protected *calculateShape(dimension: Dimension, _loc: Vector3, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
         const blocks = new VectorSet<Block>();
         const volume = new BlockVolume(min, max);
 
@@ -94,6 +94,7 @@ export class LoftShape extends Shape {
             }
         }
 
+        console.warn(JSON.stringify(min), JSON.stringify(max));
         return [blocks, blocks.size];
     }
 
@@ -123,6 +124,7 @@ export class LoftShape extends Shape {
             this.start = this.start.min(loc);
             this.end = this.end.max(loc);
         }
+        console.warn(JSON.stringify(this.start), JSON.stringify(this.end));
 
         return particles;
     }
