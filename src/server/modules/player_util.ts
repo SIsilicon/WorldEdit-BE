@@ -91,7 +91,7 @@ class PlayerHandler {
         if (!mask || mask.empty()) {
             const maxDistance = Math.min(range, config.traceDistance);
             let hit = player.getBlockFromViewDirection({ includePassableBlocks: false, includeLiquidBlocks: false, maxDistance: maxDistance * 2 });
-            if (hit && Vector.from(hit.block).distanceTo(player.getViewDirection()) > maxDistance) hit = undefined;
+            if (hit && Vector.from(hit.block).distanceTo(player.getHeadLocation()) > maxDistance) hit = undefined;
             return hit || range === undefined ? Vector.from(hit?.block) : Vector.mul(player.getViewDirection(), range).add(player.getHeadLocation()).floor();
         }
 
