@@ -9,7 +9,6 @@ const registerInformation: CommandInfo = {
         { name: "pattern", type: "Pattern" },
         { flag: "r" },
         { flag: "d", name: "dome", type: "Direction" },
-        { name: "pattern", type: "Pattern" },
         {
             subName: "_",
             args: [{ name: "radii", type: "float", range: [0.01, null] }],

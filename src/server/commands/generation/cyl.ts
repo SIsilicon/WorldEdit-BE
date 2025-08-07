@@ -14,7 +14,6 @@ const registerInformation: CommandInfo = {
         { flag: "h" },
         { flag: "r" },
         { flag: "d", name: "direction", type: "Direction" },
-        { name: "pattern", type: "Pattern" },
         {
             subName: "_",
             args: [
