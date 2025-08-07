@@ -296,12 +296,15 @@ export class PlayerSession {
     }
 
     onTick() {
+        if (!this.selection.visible) return;
+
         // Draw Loft
         if (this.loft) this.loft.draw(this.player, Vector.ZERO);
         // Draw Selection
-        if (this.selection.isEmpty) return;
-        const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
-        if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc));
+        if (!this.selection.isEmpty) {
+            const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
+            if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc));
+        }
     }
 }
 
