@@ -104,9 +104,16 @@ export class LoftShape extends Shape {
         const particles = [];
 
         const maxCurvePoints = this.curves.reduce((max, curve) => Math.max(max, curve.length), 0);
-        const curveSamples = this.curves.map((curve) => Array.from(plotCurve(curve, { precision: 1, plotLines: false })));
+        const curveSamples = this.curves.map((curve) => Array.from(plotCurve(curve, { precision: 2, plotLines: false })));
 
-        for (const curve of curveSamples) particles.push(...this.drawLine(curve.map((point) => point.add(0.5))));
+        for (const curve of curveSamples)
+            particles.push(
+                ...this.drawLine(
+                    curve.map((point) => point.add(0.5)),
+                    false,
+                    true
+                )
+            );
         if (curveSamples.length > 1)
             for (let i = 0; i < maxCurvePoints; i++)
                 particles.push(
@@ -114,9 +121,11 @@ export class LoftShape extends Shape {
                         Array.from(
                             plotCurve(
                                 curveSamples.map((c) => LoftShape.sampleCurve(c, i / (maxCurvePoints - 1))),
-                                { precision: 1, plotLines: false }
+                                { precision: 2, plotLines: false }
                             )
-                        ).map((point) => point.add(0.5))
+                        ).map((point) => point.add(0.5)),
+                        false,
+                        true
                     )
                 );
 
@@ -124,7 +133,6 @@ export class LoftShape extends Shape {
             this.start = this.start.min(loc);
             this.end = this.end.max(loc);
         }
-        console.warn(JSON.stringify(this.start), JSON.stringify(this.end));
 
         return particles;
     }

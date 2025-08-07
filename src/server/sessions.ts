@@ -131,6 +131,7 @@ export class PlayerSession {
     private readonly regions = new Map<string, RegionBuffer>();
     private readonly gradients: Database<gradients>;
     private readonly lazySelectionDraw = everyCall(8);
+    private readonly lazyLoftDraw = everyCall(9);
 
     private placementMode: "player" | "selection" = "player";
 
@@ -299,7 +300,7 @@ export class PlayerSession {
         if (!this.selection.visible) return;
 
         // Draw Loft
-        if (this.loft) this.loft.draw(this.player, Vector.ZERO);
+        if (this.loft) this.lazyLoftDraw(() => this.loft.draw(this.player, Vector.ZERO));
         // Draw Selection
         if (!this.selection.isEmpty) {
             const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
