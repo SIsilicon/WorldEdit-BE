@@ -14,7 +14,7 @@
 		"min_engine_version": [
 			1,
 			21,
-			100
+			110
 		]
 	},
 	"bp_modules": [
@@ -58,7 +58,7 @@
 	"bp_dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.2.0-beta"
+			"version": "2.3.0-beta"
 		},
 		{
 			"module_name": "@minecraft/server-ui",
