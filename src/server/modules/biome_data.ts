@@ -1,8 +1,6 @@
-import { Dimension, Vector3, world, Entity, ScoreboardObjective } from "@minecraft/server";
-import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector, whenReady } from "@notbeer-api";
-import { EventEmitter } from "library/classes/eventEmitter.js";
+import { Dimension, Vector3, world } from "@minecraft/server";
+import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector } from "@notbeer-api";
 import { locToString, wrap } from "../util.js";
-import { errorEventSym, PooledResource, readyEventSym, ResourcePool } from "./extern/resource_pools.js";
 
 class Biome implements CustomArgType {
     private id = -1;
@@ -123,105 +121,6 @@ class BiomeChanges {
     }
 }
 
-class BiomeDetector extends EventEmitter implements PooledResource {
-    public id: number;
-
-    private entity: Entity;
-
-    constructor() {
-        super();
-    }
-
-    detect(dim: Dimension, loc: Vector3) {
-        return new Promise<number>((resolve, reject) => {
-            try {
-                if (!this.entityAvailable()) {
-                    this.entity = dim.spawnEntity(<any>"wedit:biome_detector", loc);
-                    // contentLog.debug("entity created:", this.id);
-                } else {
-                    this.entity.nameTag = "wedit:biome_update";
-                    this.entity.teleport(loc, {
-                        dimension: dim,
-                        rotation: { x: 0, y: 0 },
-                    });
-                    // contentLog.debug("entity tpd:", this.id);
-                }
-            } catch (err) {
-                contentLog.debug("entity error #1:", this.id);
-                contentLog.debug(err);
-                this.emit(errorEventSym);
-                reject(err);
-            }
-
-            const onEvent = () => {
-                try {
-                    const biomeId = biomeScores.getScore(this.entity.scoreboardIdentity);
-                    this.entity.triggerEvent("wedit:despawn");
-
-                    this.emit(readyEventSym);
-                    resolve(biomeId);
-                } catch (err) {
-                    contentLog.debug("entity error #2:", this.id);
-                    contentLog.debug(err);
-                    this.emit(errorEventSym);
-                    reject(err);
-                } finally {
-                    world.afterEvents.dataDrivenEntityTrigger.unsubscribe(onEvent);
-                }
-            };
-            world.afterEvents.dataDrivenEntityTrigger.subscribe(onEvent, {
-                entities: [this.entity],
-                eventTypes: ["wedit:biome_update"],
-            });
-        });
-    }
-
-    close() {
-        if (this.entityAvailable()) {
-            contentLog.debug("entity removed:", this.id);
-            this.entity.triggerEvent("wedit:despawn");
-        }
-    }
-
-    private entityAvailable() {
-        if (!this.entity) return false;
-        try {
-            // eslint-disable-next-line no-self-assign
-            this.entity.nameTag = this.entity.nameTag;
-            return true;
-        } catch {
-            return false;
-        }
-    }
-}
-
-const detectorPool = new ResourcePool({
-    constructor: BiomeDetector,
-    arguments: [],
-    maxCount: 32,
-
-    log: () => {
-        // if(logLevel < 1) {
-        //   contentLog.error(...args);
-        // } else if (logLevel < 2) {
-        //   contentLog.log(...args);
-        // } else {
-        //   contentLog.debug(...args);
-        // }
-    },
-
-    busyTimeout: 100,
-    idleTimeout: 200,
-});
-
-let biomeScores: ScoreboardObjective;
-whenReady(() => (biomeScores = world.scoreboard.getObjective("wedit:biome") ?? world.scoreboard.addObjective("wedit:biome", "")));
-
-async function getBiomeId(dim: Dimension, loc: Vector3) {
-    const detector = await detectorPool.allocate();
-    return await detector.detect(dim, loc);
-}
-
 const nameToId = {
     ocean: 0,
     plains: 1,
@@ -312,4 +211,4 @@ const nameToId = {
 } as const;
 const idToName = Object.fromEntries(Object.entries(nameToId).map(([k, v]) => [v, k]));
 
-export { getBiomeId, BiomeChanges, Biome };
+export { BiomeChanges, Biome };
