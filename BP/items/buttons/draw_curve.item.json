@@ -1,13 +1,12 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.21.80",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:draw_curve",
-            "category": "commands"
+            "identifier": "wedit:draw_curve"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "draw_curve"
+                "textures": { "default": "draw_curve" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:throwable": {}

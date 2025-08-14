@@ -1,13 +1,16 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.21.80",
     "minecraft:item": {
         "description": {
             "identifier": "wedit:confirm_button",
-            "category": "commands"
+            "menu_category": {
+                "category": "none",
+                "is_hidden_in_commands": true
+            }
         },
         "components": {
             "minecraft:icon": {
-                "texture": "confirm"
+                "textures": { "default": "confirm" }
             },
             "minecraft:display_name": {
                 "value": "dr.button.ok"

@@ -1,13 +1,12 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.21.80",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:selection_stack",
-            "category": "commands"
+            "identifier": "wedit:selection_stack"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "selection_stack"
+                "textures": { "default": "selection_stack" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:throwable": {}

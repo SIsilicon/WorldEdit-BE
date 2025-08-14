@@ -77,6 +77,17 @@ msgstr "Draw Cylinder"
 msgid "item.wedit:draw_pyramid"
 msgstr "Draw Pyramid"
 
+# ITEM CATALOG
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
+
 # WORLDEDIT TOOLS AND CONFIG
 
 msgid "worldEdit.selectionFill.noPattern"

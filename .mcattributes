@@ -2,3 +2,6 @@ diagnostic.disable.mcfunction.syntax.unknown=true
 diagnostic.disable.minecraft.language.comment.invalid=true
 diagnostic.disable.minecraft.manifest.version.minimum=true
 diagnostic.disable.minecraft.manifest.module.missing=true
+diagnostic.disable.behaviorpack.item.component.missing=true
+diagnostic.disable.behaviorpack.entity.duplicate_id=true
+diagnostic.disable.behaviorpack.block.duplicate_id=true
