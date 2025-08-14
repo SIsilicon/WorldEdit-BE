@@ -21,7 +21,7 @@ Tools.register(SelectionTool, "selection_wand");
 class FarSelectionTool extends Tool {
     permission = "worldedit.selection.hpos";
     use = function (self: Tool, player: Player) {
-        Server.command.callCommand(player, player.isSneaking ? "hpos1" : "hpos2");
+        Server.command.callCommand(player, Server.player.isSneaking(player) ? "hpos1" : "hpos2");
     };
     break = function (self: Tool, player: Player) {
         Server.command.callCommand(player, "hpos1");

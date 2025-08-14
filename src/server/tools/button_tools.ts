@@ -67,7 +67,7 @@ class RotateCWTool extends Tool implements PreviewPaste {
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
         const args = ["90"];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
     };
 
@@ -81,7 +81,7 @@ class RotateCCWTool extends Tool implements PreviewPaste {
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
         const args = ["-90"];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
     };
 
@@ -95,7 +95,7 @@ class FlipTool extends Tool implements PreviewPaste {
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
         const args = [];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "flip", args);
     };
 

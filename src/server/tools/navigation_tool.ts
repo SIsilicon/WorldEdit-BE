@@ -14,7 +14,7 @@ class NavigationTool extends Tool {
         const blockLoc = PlayerUtil.getBlockLocation(player).offset(0, 1, 0);
         if (blockLoc.y >= limits[0] && blockLoc.y <= limits[1] && !dimension.getBlock(blockLoc).isAir) {
             Server.command.callCommand(player, "unstuck", []);
-        } else if (player.isSneaking) {
+        } else if (Server.player.isSneaking(player)) {
             Server.command.callCommand(player, "thru", []);
         } else {
             Server.command.callCommand(player, "jumpto", []);

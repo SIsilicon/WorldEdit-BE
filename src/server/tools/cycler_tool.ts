@@ -3,13 +3,14 @@ import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { print, wrap } from "server/util.js";
+import { Server } from "@notbeer-api";
 
 class BlockCyclerTool extends Tool {
     private stateIndex = 0;
 
     permission = "worldedit.cycler";
     useOn = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             self.break(self, player, session, loc);
         } else {
             self.update(player, loc, true);

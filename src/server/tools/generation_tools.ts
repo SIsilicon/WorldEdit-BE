@@ -23,7 +23,7 @@ abstract class GeneratorTool extends Tool {
     protected posStart = new WeakMap<PlayerSession, [Vector, string]>(); // [location, dimension type]
 
     protected baseUse(player: Player, session: PlayerSession, loc?: Vector) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectGenMode", player);
             return true;
         }

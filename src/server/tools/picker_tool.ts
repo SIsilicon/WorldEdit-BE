@@ -1,4 +1,4 @@
-import { RawText } from "@notbeer-api";
+import { RawText, Server } from "@notbeer-api";
 import { BlockPermutation, Vector3, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
@@ -11,7 +11,7 @@ class PatternPickerTool extends Tool {
         let addedToPattern = false;
         const block = dimension.getBlock(loc).permutation;
         let blockName = block.type.id;
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             session.globalPattern.addBlock(block);
             addedToPattern = true;
         } else {
@@ -27,7 +27,7 @@ class PatternPickerTool extends Tool {
     };
     use = function (self: Tool, player: Player, session: PlayerSession) {
         let addedToPattern = true;
-        if (!player.isSneaking) {
+        if (!Server.player.isSneaking(player)) {
             session.globalPattern.clear();
             addedToPattern = false;
         }
@@ -44,7 +44,7 @@ class MaskPickerTool extends Tool {
         let addedToPattern = false;
         const block = dimension.getBlock(loc).permutation;
         let blockName = block.type.id;
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             session.globalMask.addBlock(block);
             addedToPattern = true;
         } else {
@@ -60,7 +60,7 @@ class MaskPickerTool extends Tool {
     };
     use = function (self: Tool, player: Player, session: PlayerSession) {
         let addedToPattern = true;
-        if (!player.isSneaking) {
+        if (!Server.player.isSneaking(player)) {
             session.globalMask.clear();
             addedToPattern = false;
         }

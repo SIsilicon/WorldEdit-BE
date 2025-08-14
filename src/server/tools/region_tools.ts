@@ -9,7 +9,7 @@ class SelectionFillTool extends Tool {
     permission = "worldedit.region.replace";
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             if (session.globalMask.empty()) {
@@ -26,7 +26,7 @@ class SelectionWallTool extends Tool {
     permission = "worldedit.region.walls";
 
     use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "walls", ["air"]);
@@ -39,7 +39,7 @@ class SelectionOutlineTool extends Tool {
     permission = "worldedit.region.faces";
 
     use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "faces", ["air"]);
@@ -52,7 +52,7 @@ class SelectionHollowTool extends Tool {
     permission = "worldedit.region.hollow";
 
     use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "hollow", ["1"]);
@@ -65,7 +65,7 @@ class SelectionStackTool extends Tool {
     permission = "worldedit.region.stack";
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             assertCuboidSelection(session);
@@ -79,7 +79,7 @@ class SelectionMoveTool extends Tool {
     permission = "worldedit.region.move";
 
     use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             assertCuboidSelection(session);

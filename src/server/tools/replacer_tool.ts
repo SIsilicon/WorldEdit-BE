@@ -3,6 +3,7 @@ import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { Pattern } from "@modules/pattern.js";
+import { Server } from "@notbeer-api";
 
 class BlockReplacerTool extends Tool {
     public pattern: Pattern;
@@ -10,7 +11,7 @@ class BlockReplacerTool extends Tool {
     noDelay = true;
     permission = "worldedit.repl";
     useOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             self.break(self, player, session, loc);
         } else {
             self.pattern.setBlock(player.dimension.getBlock(loc));
