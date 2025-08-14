@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-07-21 18:06\n"
+"PO-Revision-Date: 2025-08-14 16:52\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -84,6 +84,18 @@ msgstr "Намалювати циліндр"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Намалювати піраміду"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Потрібно вказати блок, на який потрібно встановити виділення!"

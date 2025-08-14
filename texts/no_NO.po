@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-07-20 20:10\n"
+"PO-Revision-Date: 2025-08-14 16:52\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -84,6 +84,18 @@ msgstr "Tegn syllinder"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Tegn pyramide"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"

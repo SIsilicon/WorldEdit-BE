@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-08-14 16:52\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -84,6 +84,18 @@ msgstr "繪製圓柱體"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "繪製金字塔"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "你需要選擇填充選中區域的方塊！"

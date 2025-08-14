@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-08-14 16:52\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -84,6 +84,18 @@ msgstr "绘制圆柱体"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "绘制圆椎体"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "您需要指定一个方块来设置选区！"
