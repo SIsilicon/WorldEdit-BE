@@ -6,7 +6,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "flip" }
+                "textures": { "default": "wedit:flip" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:throwable": {}

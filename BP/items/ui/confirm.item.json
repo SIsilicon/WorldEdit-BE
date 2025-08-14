@@ -10,7 +10,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "confirm" }
+                "textures": { "default": "wedit:confirm" }
             },
             "minecraft:display_name": {
                 "value": "dr.button.ok"

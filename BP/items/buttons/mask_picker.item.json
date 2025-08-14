@@ -6,7 +6,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "maskdropper" }
+                "textures": { "default": "wedit:maskdropper" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:liquid_clipped": { "value": true },

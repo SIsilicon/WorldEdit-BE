@@ -6,7 +6,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "rotate_ccw" }
+                "textures": { "default": "wedit:rotate_ccw" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:throwable": {}

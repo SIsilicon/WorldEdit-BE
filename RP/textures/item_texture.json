@@ -2,82 +2,82 @@
     "resource_pack_name": "wedit",
     "texture_name": "atlas.items",
     "texture_data": {
-        "copy": {
+        "wedit:copy": {
             "textures": "textures/items/copy"
         },
-        "cut": {
+        "wedit:cut": {
             "textures": "textures/items/cut"
         },
-        "paste": {
+        "wedit:paste": {
             "textures": "textures/items/paste"
         },
-        "undo": {
+        "wedit:undo": {
             "textures": "textures/items/undo"
         },
-        "redo": {
+        "wedit:redo": {
             "textures": "textures/items/redo"
         },
-        "rotate_cw": {
+        "wedit:rotate_cw": {
             "textures": "textures/items/rotate_cw"
         },
-        "rotate_ccw": {
+        "wedit:rotate_ccw": {
             "textures": "textures/items/rotate_ccw"
         },
-        "flip": {
+        "wedit:flip": {
             "textures": "textures/items/flip"
         },
-        "eyedropper": {
+        "wedit:eyedropper": {
             "textures": "textures/items/eyedropper"
         },
-        "maskdropper": {
+        "wedit:maskdropper": {
             "textures": "textures/items/maskdropper"
         },
-        "spawn_glass": {
+        "wedit:spawn_glass": {
             "textures": "textures/items/spawn_glass"
         },
-        "selection_hollow": {
+        "wedit:selection_hollow": {
             "textures": "textures/items/selection_hollow"
         },
-        "selection_fill": {
+        "wedit:selection_fill": {
             "textures": "textures/items/selection_fill"
         },
-        "selection_outline": {
+        "wedit:selection_outline": {
             "textures": "textures/items/selection_outline"
         },
-        "selection_stack": {
+        "wedit:selection_stack": {
             "textures": "textures/items/selection_stack"
         },
-        "selection_move": {
+        "wedit:selection_move": {
             "textures": "textures/items/selection_move"
         },
-        "selection_wall": {
+        "wedit:selection_wall": {
             "textures": "textures/items/selection_wall"
         },
-        "draw_line": {
+        "wedit:draw_line": {
             "textures": "textures/items/draw_line"
         },
-        "draw_curve": {
+        "wedit:draw_curve": {
             "textures": "textures/items/draw_curve"
         },
-        "draw_sphere": {
+        "wedit:draw_sphere": {
             "textures": "textures/items/draw_sphere"
         },
-        "draw_cylinder": {
+        "wedit:draw_cylinder": {
             "textures": "textures/items/draw_cylinder"
         },
-        "draw_pyramid": {
+        "wedit:draw_pyramid": {
             "textures": "textures/items/draw_pyramid"
         },
-        "config": {
+        "wedit:config": {
             "textures": "textures/ui/gear"
         },
-        "confirm": {
+        "wedit:confirm": {
             "textures": "textures/ui/confirm"
         },
-        "cancel": {
+        "wedit:cancel": {
             "textures": "textures/ui/cancel"
         },
-        "blank": {
+        "wedit:blank": {
             "textures": "textures/ui/blank"
         }
     }

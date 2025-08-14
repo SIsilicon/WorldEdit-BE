@@ -10,7 +10,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "cancel" }
+                "textures": { "default": "wedit:cancel" }
             },
             "minecraft:display_name": {
                 "value": "gui.back"

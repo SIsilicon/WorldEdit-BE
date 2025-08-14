@@ -10,7 +10,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "blank" }
+                "textures": { "default": "wedit:blank" }
             },
             "minecraft:display_name": {
                 "value": " "

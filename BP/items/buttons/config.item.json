@@ -6,7 +6,7 @@
         },
         "components": {
             "minecraft:icon": {
-                "textures": { "default": "config" }
+                "textures": { "default": "wedit:config" }
             },
             "minecraft:display_name": {
                 "value": "worldedit.config.mainMenu"
