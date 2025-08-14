@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-08-14 16:52\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -84,6 +84,18 @@ msgstr "원기둥 그리기"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "피라미드 그리기"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "선택 항목을 설정할 블록을 지정해야 합니다!"
