@@ -2,8 +2,9 @@ import { world, Player, Entity, Dimension, CommandResult } from "@minecraft/serv
 import { EventEmitter } from "./eventEmitter.js";
 import { runCommandReturn } from "../@types/classes/ServerBuilder";
 import { sleep } from "@notbeer-api";
+import { EventList } from "library/@types/Events.js";
 
-export class ServerBuilder extends EventEmitter {
+export class ServerBuilder extends EventEmitter<EventList> {
     private commandQueue: Promise<runCommandReturn>[] = [];
     private flushingCommands = false;
 

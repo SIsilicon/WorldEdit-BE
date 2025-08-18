@@ -14,6 +14,7 @@ import {
 } from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
 import { contentLog, RawText } from "../utils/index.js";
+import { EventEmitter } from "./eventEmitter.js";
 
 //import { printDebug } from "@modules/../util.js"
 
@@ -93,7 +94,7 @@ export class CommandPosition implements CustomArgType {
     }
 }
 
-export class CommandBuilder {
+export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, command: string, args: Array<string>, result: any] }> {
     public prefix: string = configuration.prefix;
     private _registrationInformation: Array<storedRegisterInformation> = [];
     private customArgTypes: Map<string, typeof CustomArgType> = new Map();
@@ -518,6 +519,7 @@ export class CommandBuilder {
                     throw RawText.translate("commands.generic.wedit:noPermission");
                 }
                 result = element.callback(player, msg, Command.parseArgs(command, args));
+                this.emit("runCommand", player, command, args, result);
             } catch (e) {
                 if (e.isSyntaxError) {
                     contentLog.error(e.stack);

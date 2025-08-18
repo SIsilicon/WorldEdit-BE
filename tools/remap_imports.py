@@ -48,6 +48,15 @@ def modify_file(path):
                             modified = True
                             break
                 newlines.append(line)
+            
+            # Append server index with gametest index during testing
+            if (
+                args.watch
+                and path.replace("\\", "/").endswith("server/index.js")
+                and 'import "../gametest/index.js";' not in "".join(newlines)
+            ):
+                newlines.append('import "../gametest/index.js";\n')
+                modified = True
         except:
             pass
 

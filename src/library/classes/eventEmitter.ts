@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EventEmitterConstructor, EventEmitterTypes } from "../@types/classes/eventEmitter";
+import { EventEmitterTypes } from "../@types/classes/eventEmitter";
 
-export const EventEmitter: EventEmitterConstructor = class Class implements EventEmitterTypes {
+export class EventEmitter<T extends { [K in keyof T]: any[] }> implements EventEmitterTypes<T> {
     private _listeners: any[] = [];
     private _configurations = {
         maxListeners: 10,
@@ -10,12 +10,12 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
 
     /**
      * @private
-     * @param {string} eventName Event type to listen for
+     * @param {any} eventName Event type to listen for
      * @param {Function} listener Function to callback on fire
      * @param {boolean} [once] Whether to listen for the event only ONCE or not
      * @param {boolean} [prepend] Insert the Event in the beginning of the Array, so it executes first
      */
-    private _addListener(eventName: string, listener: (...args: any[]) => void, once?: boolean, prepend?: boolean): void {
+    private _addListener(eventName: any, listener: (...args: any[]) => void, once?: boolean, prepend?: boolean): void {
         const listenerCount = this.listenerCount(eventName);
         if (listenerCount >= this._configurations.maxListeners)
             throw `Warning: Possible EventEmitter memory leak detected. ${listenerCount + 1} ${eventName} listeners added. Use emitter.setMaxListeners(n) to increase limit`;
@@ -34,13 +34,13 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
      * @param {string} eventName Event type to remove
      * @param {Function} listener Function that is being called
      */
-    private _removeListener(eventName: string, listener: (...args: any[]) => void): void {
+    private _removeListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): void {
         if (typeof listener === "number") this._listeners.splice(listener, 1);
         const index = this._listeners.findIndex((v) => v.eventName === eventName && v.listener === listener);
         if (index !== -1) this._listeners.splice(index, 1);
     }
 
-    addListener(eventName: string, listener: (...args: any[]) => void): this {
+    addListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._addListener(eventName, listener, false);
         return this;
     }
@@ -50,7 +50,7 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         return this;
     }
 
-    emit(eventName: string, ...args: any[]): boolean {
+    emit<K extends keyof T>(eventName: K, ...args: T[K]): boolean {
         let status = false;
         this._listeners.forEach((object) => {
             if (object.eventName === eventName) {
@@ -70,11 +70,11 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         return this._configurations?.maxListeners;
     }
 
-    listenerCount(eventName: string): number {
+    listenerCount<K extends keyof T>(eventName: K): number {
         return eventName ? this._listeners.filter((v) => v.eventName === eventName).length : this._listeners.length;
     }
 
-    listeners(eventName: string): Array<Function> {
+    listeners<K extends keyof T>(eventName: K): Array<Function> {
         const Functions: Array<Function> = [];
         this._listeners.forEach((object) => {
             if (object.eventName === eventName && !object.once) Functions.push(object.listener);
@@ -82,36 +82,36 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         return Functions;
     }
 
-    off(eventName: string, listener: (...args: any[]) => void): this {
+    off<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._removeListener(eventName, listener);
         return this;
     }
 
-    on(eventName: string, listener: (...args: any[]) => void): this {
+    on<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._addListener(eventName, listener, false);
         return this;
     }
 
-    once(eventName: string, listener: (...args: any[]) => void): this {
+    once<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._addListener(eventName, listener, true);
         return this;
     }
 
-    prependListener(eventName: string, listener: (...args: any[]) => void): this {
+    prependListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._addListener(eventName, listener, false, true);
         return this;
     }
 
-    prependOnceListener(eventName: string, listener: (...args: any[]) => void): this {
+    prependOnceListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._addListener(eventName, listener, true, true);
         return this;
     }
 
-    removeAllListeners(eventName: string): void {
+    removeAllListeners<K extends keyof T>(eventName: K): void {
         eventName ? (this._listeners = this._listeners.filter((element) => element.eventName !== eventName)) : (this._listeners = []);
     }
 
-    removeListener(eventName: string, listener: (...args: any[]) => void): this {
+    removeListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this {
         this._removeListener(eventName, listener);
         return this;
     }
@@ -120,11 +120,11 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         if (typeof number === "number") this._configurations.maxListeners = number;
     }
 
-    rawListeners(eventName: string): Array<Function> {
+    rawListeners<K extends keyof T>(eventName: K): Array<Function> {
         const Functions: Array<Function> = [];
         this._listeners.forEach((object) => {
             if (object.eventName === eventName) Functions.push(object.listener);
         });
         return Functions;
     }
-};
+}
