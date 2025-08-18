@@ -38,7 +38,7 @@ import { UIForms } from "./classes/uiFormBuilder.js";
 import { Block } from "./classes/blockBuilder.js";
 
 export { CustomArgType, CommandPosition } from "./classes/commandBuilder.js";
-export { commandSyntaxError, registerInformation as CommandInfo } from "./@types/classes/CommandBuilder";
+export type { commandSyntaxError, registerInformation as CommandInfo } from "./@types/classes/CommandBuilder";
 export { Databases } from "./classes/databaseBuilder.js";
 export { configuration } from "./configurations.js";
 

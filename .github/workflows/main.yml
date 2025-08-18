@@ -25,26 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Install python and npm
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
+      # Install npm
       - uses: bahmutov/npm-install@v1
         with:
           node-version: 16
-      
-      # Install isort and black for linting
-      - name: Install isort and black
-        run: pip install isort black
-
-      # Run isort
-      - name: Run isort
-        run: isort --check-only --profile black .
-
-      # Run black
-      - name: Run black
-        run: black --check --color --diff .
-      
+            
       # Run eslint
       - name: Test eslint
         run: npm run lint
@@ -67,15 +52,9 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           node-version: 16
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
       
-      - name: Install polib
-        run: pip install polib
-
       - name: Run build script (${{ matrix.target }})
-        run: python build.py --clean --target ${{ matrix.target }}
+        run: node build.mjs --target=${{ matrix.target }}
       
       - name: Archive addon artifact (release)
         uses: actions/upload-artifact@v4

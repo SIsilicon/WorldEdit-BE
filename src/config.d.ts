@@ -1,73 +1,76 @@
-export default {
+declare const _default: {
     /**
      * Enables debug messages to content logs.
      */
-    debug: true,
+    debug: boolean;
     /**
      * What character(s) to use to define the beginning of custom commands.
      */
-    commandPrefix: ";",
+    commandPrefix: string;
     /**
      * Whether the addon should use simpler methods to run operations faster.
      * This comes with the drawback of more limited capabilities.
      */
-    performanceMode: false,
+    performanceMode: boolean;
     /**
      * How many operations can be recorded in a player's history.
      */
-    maxHistorySize: 25,
+    maxHistorySize: number;
     /**
      * Whether a player's outlines are drawn by default. Outlines include selections, brush influence and paste location
      */
-    drawOutlines: true,
+    drawOutlines: boolean | "local";
     /**
      * How long (in ticks) until a previously active builder's session gets deleted.
      * This includes their undo/redo history.
      */
-    ticksToDeleteSession: 12000,
+    ticksToDeleteSession: number;
     /**
      * Whether commands executed by items print their messages to the action bar or the chat.
      */
-    printToActionBar: true,
+    printToActionBar: boolean;
     /**
      * The default item used for marking selection wand.
      */
-    wandItem: "minecraft:wooden_axe",
+    wandItem: string;
     /**
      * The default item used for the navigation wand.
      */
-    navWandItem: "minecraft:ender_pearl",
+    navWandItem: string;
     /**
      * The distance the navigation wand, among other tools and commands, traces for a block of interest.
      */
-    traceDistance: 128,
+    traceDistance: number;
     /**
      * The maximum brush radius allowed.
      */
-    maxBrushRadius: 6,
+    maxBrushRadius: number;
     /**
      * Whether blocks broken by the super pickaxe in "single" mode drop.
      */
-    superPickaxeDrop: true,
+    superPickaxeDrop: boolean;
     /**
      * Whether blocks broken by the super pickaxe in "area" and "recursive" mode drop.
      */
-    superPickaxeManyDrop: false,
+    superPickaxeManyDrop: boolean;
     /**
      * The default amount of blocks that can be "potentially" affected within a single operation.
      */
-    defaultChangeLimit: -1,
+    defaultChangeLimit: number;
     /**
      * The absolute change limit that can be set from the ;limit command.
      * Bypassed with "worldedit.limit.unlimited" permission.
      */
-    maxChangeLimit: 0,
+    maxChangeLimit: number;
     /**
      * How long an async operation will run until giving Minecraft a chance to run.
      * The higher the value, the faster the operation, but the slower Minecraft takes to run.
      */
-    asyncTimeBudget: 150,
+    asyncTimeBudget: number;
 };
+export default _default;
 
-// WorldEdit version (do not change)
-export const VERSION = "0.10.1";
+/**
+ * WorldEdit version (do not change)
+ */
+export declare const VERSION: string;
