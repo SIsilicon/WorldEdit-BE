@@ -132,8 +132,6 @@ buildConfig(args);
 buildLang(args);
 
 const buildArgs = {
-    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
-    bundle: false,
     outdir: scriptOutputDir,
     platform: "node",
     target: ["es2020"],
@@ -156,8 +154,8 @@ const buildArgs = {
                 return contents;
             },
             function gametest(filePath, contents) {
-                if (!path.normalize(filePath).endsWith(path.normalize("src/server/index.ts")) || !args.gametest) return;
-                contents += `\nimport "../gametest/index.js";`;
+                if (!path.normalize(filePath).endsWith(path.normalize("src/index.ts")) || !args.gametest) return;
+                contents += `\nimport "gametest/index.js";`;
                 return contents;
             },
         ]),
@@ -170,11 +168,22 @@ if (args.watch) {
     watchAndSync("RP", path.join(args.syncDir, `development_resource_packs/${packName}RP`));
 
     // Build the scripts and fs.watch for changes
-    const ctx = await esbuild.context({ ...buildArgs, sourcemap: true });
+    const ctx = await esbuild.context({
+        ...buildArgs,
+        entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
+        sourcemap: true,
+        bundle: false,
+    });
     await ctx.watch();
 } else {
     // Build the scripts and bundle them into the script output folder.
-    const ctx = await esbuild.context({ ...buildArgs, sourcemap: false });
+    const ctx = await esbuild.context({
+        ...buildArgs,
+        external: ["@minecraft/*", "config.js"],
+        entryPoints: ["src/index.ts"],
+        sourcemap: false,
+        bundle: true,
+    });
     await ctx.rebuild();
     await ctx.dispose();
 

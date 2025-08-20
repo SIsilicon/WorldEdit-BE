@@ -38,7 +38,7 @@
 				0,
 				0
 			],
-			"entry": "scripts/server/index.js"
+			"entry": "scripts/index.js"
 		}
 	],
 	"bp_capabilities": [

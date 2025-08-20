@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build
+name: Build and Test
 
 # Controls when the workflow will run
 on:
@@ -17,48 +17,42 @@ on:
 jobs:
   # This workflow contains a single job called "lint"
   lint:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Install npm
       - uses: bahmutov/npm-install@v1
         with:
           node-version: 16
-            
-      # Run eslint
+      
       - name: Test eslint
         run: npm run lint
   
+  # This workflow contains a single job called "gametest"
   gametest:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Install npm
       - uses: bahmutov/npm-install@v1
         with:
           node-version: 16
+
+      - name: Run build script (server + gametest)
+        run: |
+          node build.mjs --target=server --gametest
+          echo "import { world } from '@minecraft/server'; world.afterEvents.worldLoad.subscribe(() => world.getDimension('overworld').runCommand('gametest runset worldedit'));" >> builds/WorldEditBP/scripts/index.js
 
       - name: Download bedrock dedicated server
         run: |
           wget https://www.minecraft.net/bedrockdedicatedserver/bin-linux-preview/bedrock-server-1.21.110.24.zip -O bedrock-server.zip
           unzip bedrock-server.zip -d bedrock-server
-          chmod +x bedrock-server/bedrock_server
-
-      - name: Run build script (server + gametest)
-        run: |
-          node build.mjs --target=server --gametest
-          echo "import { world } from '@minecraft/server'; world.afterEvents.worldLoad.subscribe(() => world.getDimension('overworld').runCommand('gametest runset worldedit'));" >> builds/WorldEditBP/scripts/gametest/index.js
       
       - name: Set up Bedrock server
         run: |
+          chmod +x bedrock-server/bedrock_server
           mkdir -p "bedrock-server/worlds/Bedrock level"
           cp -r test/world/*  "bedrock-server/worlds/Bedrock level/"
           node tools/add_to_world.mjs --world-path="bedrock-server/worlds/Bedrock level"
@@ -79,16 +73,13 @@ jobs:
 
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     
     strategy:
       matrix:
         target: [debug, release]
     
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
       - uses: montudor/action-zip@v1
