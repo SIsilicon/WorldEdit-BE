@@ -4,9 +4,19 @@
       {
         "type": "minecraft-js",
         "request": "attach",
-        "name": "Wait for Minecraft Debug Connections",
+        "name": "Debug with Minecraft",
         "mode": "listen",
-        "localRoot": "${workspaceFolder}/BP",
+        "preLaunchTask": "watch",
+        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+        "port": 19144
+      },
+      {
+        "type": "minecraft-js",
+        "request": "attach",
+        "name": "Debug with Minecraft Preview",
+        "mode": "listen",
+        "preLaunchTask": "watch:preview",
+        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
         "port": 19144
       }
     ]
