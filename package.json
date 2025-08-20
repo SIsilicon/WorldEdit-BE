@@ -19,7 +19,8 @@
         "build": "node build.mjs --target=release",
         "lint": "npx eslint src",
         "lint:fix": "npm run lint -- --fix",
-        "format": "npm run lint:fix"
+        "format": "npm run lint:fix",
+        "gametest": "act -j gametest"
     },
     "license": "GPL-3.0-or-later",
     "devDependencies": {
