@@ -1,15 +1,15 @@
 import { Player, world } from "@minecraft/server";
-import { print } from "./util.js";
+import { print } from "server/util.js";
 import isWhitelistEnabled from "whitelist.js";
 import config from "config.js";
 
-import { contentLog, Server, configuration } from "../library/Minecraft.js";
-import { getSession, removeSession } from "./sessions.js";
-import { PlayerUtil } from "./modules/player_util.js";
+import { contentLog, Server, configuration } from "@notbeer-api";
+import { getSession, removeSession } from "server/sessions.js";
+import { PlayerUtil } from "server/modules/player_util.js";
 
-import "./commands/command_list.js";
-import "./tools/tool_list.js";
-import "./ui/index.js";
+import "server/commands/command_list.js";
+import "server/tools/tool_list.js";
+import "server/ui/index.js";
 
 Server.setMaxListeners(256);
 configuration.multiThreadingTimeBudget = config.asyncTimeBudget;

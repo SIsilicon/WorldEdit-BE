@@ -1,7 +1,0 @@
-# Build dependencies
-polib==1.1.1
-watchdog==2.1.6
-
-# Lint dependencies
-black
-isort

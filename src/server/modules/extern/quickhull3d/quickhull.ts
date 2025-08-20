@@ -718,7 +718,7 @@ export class QuickHull {
             const face = this.newFaces[i];
             if (face.mark === Mark.Visible) {
                 // eslint-disable-next-line
-        while (this.doAdjacentMerge(face, MergeType.NonConvexWrtLargerFace)) {}
+                while (this.doAdjacentMerge(face, MergeType.NonConvexWrtLargerFace)) {}
             }
         }
 
@@ -730,7 +730,7 @@ export class QuickHull {
             if (face.mark === Mark.NonConvex) {
                 face.mark = Mark.Visible;
                 // eslint-disable-next-line
-        while (this.doAdjacentMerge(face, MergeType.NonConvexWrtLargerFace)) {}
+                while (this.doAdjacentMerge(face, MergeType.NonConvexWrtLargerFace)) {}
             }
         }
 

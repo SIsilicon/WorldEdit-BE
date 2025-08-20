@@ -38,7 +38,7 @@
 				0,
 				0
 			],
-			"entry": "scripts/server/index.js"
+			"entry": "scripts/index.js"
 		}
 	],
 	"bp_capabilities": [
@@ -63,6 +63,10 @@
 		{
 			"module_name": "@minecraft/server-ui",
 			"version": "2.1.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-gametest",
+			"version": "1.0.0-beta"
 		}
 	],
 	"bp_server_dependencies": [

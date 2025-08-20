@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import config from "config";
+import config from "config.js";
 
 function date() {
     return `[${new Date().toLocaleTimeString()}]`;
