@@ -133,6 +133,8 @@ buildLang(args);
 
 const buildArgs = {
     outdir: scriptOutputDir,
+    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
+    bundle: false,
     platform: "node",
     target: ["es2020"],
     tsconfig: "tsconfig.json",
@@ -168,22 +170,11 @@ if (args.watch) {
     watchAndSync("RP", path.join(args.syncDir, `development_resource_packs/${packName}RP`));
 
     // Build the scripts and fs.watch for changes
-    const ctx = await esbuild.context({
-        ...buildArgs,
-        entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
-        sourcemap: true,
-        bundle: false,
-    });
+    const ctx = await esbuild.context({ ...buildArgs, sourcemap: true, minify: false });
     await ctx.watch();
 } else {
     // Build the scripts and bundle them into the script output folder.
-    const ctx = await esbuild.context({
-        ...buildArgs,
-        external: ["@minecraft/*", "config.js"],
-        entryPoints: ["src/index.ts"],
-        sourcemap: false,
-        bundle: true,
-    });
+    const ctx = await esbuild.context({ ...buildArgs, sourcemap: false, minify: true });
     await ctx.rebuild();
     await ctx.dispose();
 

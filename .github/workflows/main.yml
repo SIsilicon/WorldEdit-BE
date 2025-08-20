@@ -65,7 +65,7 @@ jobs:
             SERVER_PID=$!
             sleep 10  # Let the server run for a bit
             kill $SERVER_PID
-            if grep -q "onTestFailed" ../server_output.log; then
+            if grep -q "onTestFailed" ../server_output.log || grep -q " ERROR]" ../server_output.log; then
               echo "Error during gametest execution:"
               cat ../server_output.log
               exit 1
