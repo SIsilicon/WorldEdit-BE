@@ -6,7 +6,9 @@ import { Command } from "commander";
 import { ZipFile } from "yazl";
 import { glob } from "glob";
 import { argv, env, exit } from "process";
-import { infoPlugin } from "./tools/plugins.mjs";
+import { copyDir, ensureDir, removeDirIfExists } from "./tools/utils.mjs";
+import { infoPlugin, transformerPlugin } from "./tools/plugins.mjs";
+import tsconfig from "./tsconfig.json" assert { type: "json" };
 import buildManifest from "./tools/process_manifest.mjs";
 import buildLang from "./tools/po2lang.mjs";
 import buildConfig from "./tools/process_config.mjs";
@@ -28,7 +30,8 @@ program
             exit(1);
         }
     })
-    .option("-p, --package-only", "Only package what's already there.");
+    .option("-p, --package-only", "Only package what's already there.")
+    .option("-g --gametest", "Whether to build with gametest enabled.");
 program.parse(argv);
 
 const args = program.opts();
@@ -36,36 +39,7 @@ const srcDir = path.resolve("src");
 const scriptOutputDir = path.resolve("BP/scripts");
 const buildsDir = path.resolve("builds");
 const packName = "WorldEdit";
-
-const buildArgs = {
-    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts"] }),
-    bundle: false,
-    outdir: scriptOutputDir,
-    platform: "node",
-    target: ["es2020"],
-    tsconfig: "tsconfig.json",
-    format: "esm",
-    plugins: [infoPlugin],
-};
-
-function ensureDir(dir) {
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-}
-
-function removeDirIfExists(dir) {
-    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
-}
-
-function copyDir(src, dest) {
-    if (!fs.existsSync(src)) return;
-    fs.mkdirSync(dest, { recursive: true });
-    for (const entry of fs.readdirSync(src)) {
-        const srcPath = path.join(src, entry);
-        const destPath = path.join(dest, entry);
-        if (fs.statSync(srcPath).isDirectory()) copyDir(srcPath, destPath);
-        else fs.copyFileSync(srcPath, destPath);
-    }
-}
+const modulePaths = tsconfig.compilerOptions.paths || {};
 
 function syncChange(eventType, srcRoot, destRoot, filename) {
     if (!filename) return;
@@ -96,7 +70,7 @@ function syncChange(eventType, srcRoot, destRoot, filename) {
 function watchAndSync(srcRoot, destRoot) {
     copyDir(srcRoot, destRoot);
     fs.watch(srcRoot, { recursive: true }, (eventType, filename) => {
-        syncChange(eventType, srcRoot, destRoot, filename);
+        if (filename) syncChange(eventType, srcRoot, destRoot, filename);
     });
 }
 
@@ -130,6 +104,8 @@ if (args.watch === "stable") {
     }
     args.syncDir = args.server;
 }
+// Enable gametest when in watch mode.
+if (args.watch) args.gametest = true;
 
 // Clear the script output folder.
 const removeFilesRecursively = (dir) => {
@@ -154,6 +130,39 @@ buildConfig(args);
 
 // Build lang files
 buildLang(args);
+
+const buildArgs = {
+    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
+    bundle: false,
+    outdir: scriptOutputDir,
+    platform: "node",
+    target: ["es2020"],
+    tsconfig: "tsconfig.json",
+    format: "esm",
+    plugins: [
+        infoPlugin(),
+        transformerPlugin(/\.(js|ts)$/, [
+            function remapImports(filePath, contents) {
+                for (const [alias, paths] of Object.entries(modulePaths)) {
+                    // Remove trailing /* from alias and path if present
+                    const aliasPattern = alias.replace(/\/\*$/, "");
+                    const target = paths[0].replace(/\/\*$/, "");
+                    // Replace both import and require statements
+                    const importRegex = new RegExp(`(['"\`])${aliasPattern}(\\/[^'"\`]*)?\\1`, "g");
+                    contents = contents.replace(importRegex, (match, quote, subPath = "") => {
+                        return `${quote}${target}${subPath}${quote}`;
+                    });
+                }
+                return contents;
+            },
+            function gametest(filePath, contents) {
+                if (!path.normalize(filePath).endsWith(path.normalize("src/server/index.ts")) || !args.gametest) return;
+                contents += `\nimport "../gametest/index.js";`;
+                return contents;
+            },
+        ]),
+    ],
+};
 
 if (args.watch) {
     // Sync the BP and RP directories with the development pack folders

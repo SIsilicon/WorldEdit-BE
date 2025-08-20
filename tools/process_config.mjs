@@ -1,5 +1,5 @@
 import fs from "fs";
-import { exitMessage } from "./util.mjs";
+import { exitMessage } from "./utils.mjs";
 
 function valueToString(value) {
     if (typeof value === "string") return `"${value}"`;
@@ -67,7 +67,10 @@ function processConfig(args) {
     // Generate BP/scripts/config.js
     fs.writeFileSync("BP/scripts/config.js", generateScript(settings, versionStr, isServer), "utf8");
     // Generate builds/variables.json
-    if (isServer) fs.writeFileSync("builds/variables.json", generateVariables(settings), "utf8");
+    if (isServer) {
+        fs.mkdirSync("builds");
+        fs.writeFileSync("builds/variables.json", generateVariables(settings), "utf8");
+    }
 }
 
 export default function (args) {

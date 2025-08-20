@@ -3,7 +3,7 @@ import { print } from "./util.js";
 import isWhitelistEnabled from "whitelist.js";
 import config from "config.js";
 
-import { contentLog, Server, configuration } from "../library/Minecraft.js";
+import { contentLog, Server, configuration } from "@notbeer-api";
 import { getSession, removeSession } from "./sessions.js";
 import { PlayerUtil } from "./modules/player_util.js";
 
