@@ -11,7 +11,7 @@ interface RecordedOperation {
 const recording = new Map<string, RecordedOperation[]>();
 
 system.beforeEvents.startup.subscribe((ev) => {
-    ev.customCommandRegistry.registerEnum("wedit:recordAction", ["start", "save", "stop", "replay"]);
+    ev.customCommandRegistry.registerEnum("wedit:recordAction", ["start", "save", "stop", "replay", "list"]);
     ev.customCommandRegistry.registerCommand(
         {
             name: "wedit:record",
@@ -26,6 +26,7 @@ system.beforeEvents.startup.subscribe((ev) => {
             else if (action === "save") saveRecording(player, filename);
             else if (action === "stop") stopRecording(player);
             else if (action === "replay") replayRecording(player, filename);
+            else if (action === "list") listRecordings(player);
             return { status: CustomCommandStatus.Success };
         }
     );
@@ -83,6 +84,14 @@ async function replayRecording(player: Player, filename: string) {
         const thread = Server.command.callCommand(player, op.command, op.args);
         while (thread.isActive()) await sleep(1);
     }
+}
+
+function listRecordings(player: Player) {
+    player.sendMessage(
+        `Saved recordings: ${Object.keys(getRecordDatabase(player).data)
+            .map((f) => `\n- ${f}`)
+            .join("")}`
+    );
 }
 
 function getRecordDatabase(player: Player) {
