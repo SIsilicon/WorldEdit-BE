@@ -56,8 +56,8 @@ function processManifest(debugMode) {
     processJsonElement(manifest, bp_manifest, rp_manifest);
 
     let version = manifest.header.version;
-    bp_manifest.header.name += " " + version.join ? version.join(".") : version;
-    rp_manifest.header.name += " " + version.join ? version.join(".") : version;
+    bp_manifest.header.name += " " + (version.join ? version.join(".") : version);
+    rp_manifest.header.name += " " + (version.join ? version.join(".") : version);
 
     if (typeof version !== "string") version = version.slice(0, 3);
     bp_manifest.header.version = version;
