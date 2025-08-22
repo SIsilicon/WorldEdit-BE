@@ -27,9 +27,10 @@ export function* plotTriangle(a: Vector3, b: Vector3, c: Vector3) {
         f2.cross([0, 0, 1]),
     ];
 
+    const boxHalfSize = new Vector(0.5, 0.5, 0.5);
+
     function triangleBlockIntersect(block: Vector3) {
         const boxCenter = Vector.add(block, 0.5);
-        const boxHalfSize = new Vector(0.5, 0.5, 0.5);
         const [v0, v1, v2] = [va, vb, vc].map((v) => v.sub(boxCenter));
         for (const axis of axes) if (!overlapOnAxis(axis, v0, v1, v2, boxHalfSize)) return false;
         return true;
