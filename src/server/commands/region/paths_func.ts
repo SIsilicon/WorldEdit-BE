@@ -31,19 +31,21 @@ export function* plotTriangle(a: Vector3, b: Vector3, c: Vector3) {
         const boxCenter = Vector.add(block, 0.5);
         const boxHalfSize = new Vector(0.5, 0.5, 0.5);
         const [v0, v1, v2] = [va, vb, vc].map((v) => v.sub(boxCenter));
-        for (const axis of axes) {
-            const p0 = v0.dot(axis);
-            const p1 = v1.dot(axis);
-            const p2 = v2.dot(axis);
-
-            const minP = Math.min(p0, p1, p2);
-            const maxP = Math.max(p0, p1, p2);
-
-            const r = boxHalfSize.x * Math.abs(axis.x) + boxHalfSize.y * Math.abs(axis.y) + boxHalfSize.z * Math.abs(axis.z);
-
-            if (minP > r || maxP < -r) false;
-        }
+        for (const axis of axes) if (!overlapOnAxis(axis, v0, v1, v2, boxHalfSize)) return false;
         return true;
+    }
+
+    function overlapOnAxis(axis: Vector3, v0: Vector, v1: Vector, v2: Vector, boxHalfSize: Vector3) {
+        const p0 = v0.dot(axis);
+        const p1 = v1.dot(axis);
+        const p2 = v2.dot(axis);
+
+        const minP = Math.min(p0, p1, p2);
+        const maxP = Math.max(p0, p1, p2);
+
+        const r = boxHalfSize.x * Math.abs(axis.x) + boxHalfSize.y * Math.abs(axis.y) + boxHalfSize.z * Math.abs(axis.z);
+
+        return !(minP > r || maxP < -r);
     }
 
     const blocks = new VectorSet<Vector>();

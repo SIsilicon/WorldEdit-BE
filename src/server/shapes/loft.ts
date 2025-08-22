@@ -57,7 +57,7 @@ export class LoftShape extends Shape {
 
         const curves = this.curves.map((curve) => new Spline(curve));
         const width = curves.reduce((max, curve) => Math.max(max, curve.length), 0);
-        const widthSamples = Math.floor(width / 8) + 1;
+        const widthSamples = Math.floor(width / 4) + 1;
         let length = 0;
         const lengthCurves = [];
         for (let i = 0; i <= widthSamples; i++) {
@@ -66,7 +66,7 @@ export class LoftShape extends Shape {
             lengthCurves.push(curve);
         }
 
-        const lengthSamples = Math.floor(length / 8) + 1;
+        const lengthSamples = Math.floor(length / 4) + 1;
         for (let i = 1; i < lengthCurves.length; i++) {
             const curveA = lengthCurves[i - 1];
             const curveB = lengthCurves[i];
@@ -86,6 +86,8 @@ export class LoftShape extends Shape {
                     if (!blocks.has(block)) yield* addBlock(block);
                     else yield;
                 }
+
+                yield Jobs.setProgress((j + i * lengthSamples) / (lengthSamples * lengthCurves.length));
 
                 startA = endA;
                 startB = endB;
