@@ -1,10 +1,10 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { CommandInfo, RawText, regionIterateChunks, regionLoaded, regionSize, Server, Vector } from "@notbeer-api";
-import { BlockPermutation, BlockVolume, Player, StructureSaveMode, world } from "@minecraft/server";
+import { CommandInfo, RawText, regionSize, Server, Vector } from "@notbeer-api";
+import { Player, StructureSaveMode, world } from "@minecraft/server";
 import { registerCommand } from "../register_commands.js";
 import { Jobs } from "@modules/jobs.js";
-import { RegionBuffer } from "@modules/region_buffer.js";
+import { RegionBuffer, RegionSaveOptions } from "@modules/region_buffer.js";
 
 const registerInformation: CommandInfo = {
     name: "export",
@@ -38,40 +38,21 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const range = session.selection.getRange();
     const dimension = builder.dimension;
     const excludeAir = args.has("a");
+    const includeEntities = args.has("e");
 
     let struct_name: string = args.get("name");
     if (!struct_name.includes(":")) struct_name = "wedit:" + struct_name;
     const [namespace, struct] = struct_name.split(":") as [string, string];
 
-    let tempStruct: RegionBuffer;
     yield* Jobs.run(session, 1, function* () {
-        if (excludeAir) tempStruct = yield* RegionBuffer.createFromWorld(...range, dimension);
-
         try {
             world.scoreboard.getObjective("wedit:exports") ?? world.scoreboard.addObjective("wedit:exports", "");
             if (Server.runCommand(`scoreboard players set ${struct_name} wedit:exports 1`).error) throw "Failed to save name to exports list";
 
-            if (excludeAir) {
-                yield Jobs.nextStep("Masking air...");
-                let count = 0;
-                const size = Vector.sub(range[1], range[0]).add(1);
-                const structVoid = BlockPermutation.resolve("minecraft:structure_void");
-                for (const [subStart, subEnd] of regionIterateChunks(...range)) {
-                    if (!regionLoaded(subStart, subEnd, dimension)) yield* Jobs.loadArea(subStart, subEnd);
-                    dimension.fillBlocks(new BlockVolume(subStart.floor(), subEnd.floor()), structVoid, { blockFilter: { includeTypes: ["air"] } });
-                    const subSize = subEnd.sub(subStart).add(1);
-                    count += subSize.x * subSize.y * subSize.z;
-                    yield Jobs.setProgress(count / (size.x * size.y * size.z));
-                }
-            }
+            const createOptions: RegionSaveOptions = { saveAs: namespace + ":weditstructexport_" + struct, includeEntities };
+            if (excludeAir) createOptions.modifier = (block) => !block.isAir;
 
-            if (
-                !(yield* RegionBuffer.createFromWorld(...range, dimension, {
-                    saveAs: namespace + ":weditstructexport_" + struct,
-                    includeEntities: args.has("e"),
-                }))
-            )
-                throw "Failed to save structure";
+            if (!(yield* RegionBuffer.createFromWorld(...range, dimension, createOptions))) throw "Failed to save structure";
 
             const size = regionSize(...range);
             const playerPos = PlayerUtil.getBlockLocation(builder).add(0.5);
@@ -92,11 +73,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
             Server.runCommand(`scoreboard players reset ${struct_name} wedit:exports`);
             console.error(e);
             throw "commands.generic.wedit:commandFail";
-        } finally {
-            if (tempStruct) {
-                tempStruct.load(range[0], dimension);
-                tempStruct.deref();
-            }
         }
     });
 

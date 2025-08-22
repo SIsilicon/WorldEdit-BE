@@ -140,9 +140,7 @@ const smooth_command = (session: PlayerSession, builder: Player, args: Map<strin
 const struct_command = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
     assertPermission(builder, (<commandSubDef>registerInformation.usage[4]).permission);
     const clipboard = args.has("clipboard");
-    if (clipboard) {
-        assertClipboard(session);
-    }
+    if (clipboard) assertClipboard(session);
 
     session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : (args.get("structureName") as string[]), args.get("mask")));
     const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");

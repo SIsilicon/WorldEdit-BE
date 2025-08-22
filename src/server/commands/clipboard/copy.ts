@@ -47,7 +47,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
     if (!buffer) return undefined;
 
     if (toClipboard) {
-        if (session.clipboard) session.deleteRegion(session.clipboard);
+        session.clipboard = buffer;
         session.clipboardTransform = {
             rotation: Vector.ZERO,
             scale: Vector.ONE,
@@ -55,7 +55,6 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
             originalDim: player.dimension.id,
             offset: Vector.sub(start, Vector.from(player.location).floor().add(0.5)),
         };
-        session.clipboard = buffer;
     }
 
     return buffer;

@@ -99,11 +99,6 @@ export class PlayerSession {
     public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
 
     /**
-     * The clipboard region created by the player.
-     */
-    public clipboard: RegionBuffer;
-
-    /**
      * The loft the player is building.
      */
     public loft: LoftShape;
@@ -133,6 +128,7 @@ export class PlayerSession {
     private readonly lazySelectionDraw = everyCall(8);
     private readonly lazyLoftDraw = everyCall(9);
 
+    private clipboardBuffer?: RegionBuffer;
     private placementMode: "player" | "selection" = "player";
 
     constructor(player: Player) {
@@ -165,6 +161,16 @@ export class PlayerSession {
 
     public get drawOutlines() {
         return this.selection.visible;
+    }
+
+    public set clipboard(region: RegionBuffer | undefined) {
+        if (this.clipboardBuffer === region) return;
+        this.deleteRegion(region);
+        this.clipboardBuffer = region;
+    }
+
+    public get clipboard() {
+        return this.clipboardBuffer;
     }
 
     /**
@@ -268,8 +274,9 @@ export class PlayerSession {
     }
 
     public deleteRegion(buffer: RegionBuffer) {
-        buffer?.deref();
+        if (!this.regions.has(buffer?.id)) return;
         this.regions.delete(buffer?.id);
+        buffer?.deref();
     }
 
     public createGradient(id: string, dither: number, patterns: Pattern[]) {

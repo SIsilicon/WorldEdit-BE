@@ -53,7 +53,6 @@ registerCommand(registerInformation, function (session, builder, args) {
     const name: string = args.get("name");
     const { buffer, metadata } = importStructure(name, builder);
 
-    if (session.clipboard) session.deleteRegion(session.clipboard);
     session.clipboard = buffer;
     session.clipboardTransform = {
         offset: Vector.from(metadata.relative),
