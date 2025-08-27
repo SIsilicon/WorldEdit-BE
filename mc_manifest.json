@@ -55,6 +55,9 @@
 			]
 		}
 	],
+	"rp_capabilities": [
+		"pbr"
+	],
 	"bp_dependencies": [
 		{
 			"module_name": "@minecraft/server",
