@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-08-14 16:52\n"
+"PO-Revision-Date: 2025-08-27 22:13\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -84,6 +84,24 @@ msgstr "繪製圓柱體"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "繪製金字塔"
+
+msgid "item.wedit:draw_loft"
+msgstr "Draw Loft"
+
+msgid "item.wedit:fill_loft"
+msgstr "Fill Loft"
+
+msgid "item.wedit:start_loft_curve"
+msgstr "Start Curve on Loft"
+
+msgid "item.wedit:add_loft_point"
+msgstr "Add Point to Loft"
+
+msgid "item.wedit:remove_loft_point"
+msgstr "Remove Last Point"
+
+msgid "item.wedit:clear_loft_points"
+msgstr "Clear Loft Points"
 
 msgid "wedit:itemGroup.name.clipboard"
 msgstr "WorldEdit Clipboard Operations"
@@ -210,6 +228,12 @@ msgstr "圓柱體"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "金字塔"
+
+msgid "worldedit.genMode.loft"
+msgstr "Loft"
+
+msgid "worldedit.loft_manager"
+msgstr "Loft Manager"
 
 msgid "worldedit.stack.title"
 msgstr "選擇堆疊數量"
