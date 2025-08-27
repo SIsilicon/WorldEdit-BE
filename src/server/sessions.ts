@@ -307,11 +307,11 @@ export class PlayerSession {
         if (!this.selection.visible) return;
 
         // Draw Loft
-        if (this.loft) this.lazyLoftDraw(() => this.loft.draw(this.player, Vector.ZERO));
+        if (this.loft) this.lazyLoftDraw(() => this.loft.draw(this.player, Vector.ZERO, this.selection.visible === "local"));
         // Draw Selection
         if (!this.selection.isEmpty) {
             const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
-            if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc));
+            if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc, this.selection.visible === "local"));
         }
     }
 }

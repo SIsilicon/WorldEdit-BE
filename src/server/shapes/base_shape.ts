@@ -91,11 +91,11 @@ export abstract class Shape {
         return ChunkStatus.DETAIL;
     }
 
-    public draw(player: Player, loc: Vector3) {
+    public draw(player: Player, loc: Vector3, isLocal = false) {
         try {
             for (const [id, pos] of (this.outlineCache = this.outlineCache ?? this.getOutline())) {
                 try {
-                    player.spawnParticle(id, pos.add(loc));
+                    (isLocal ? player : player.dimension).spawnParticle(id, pos.add(loc));
                 } catch {
                     /* pass */
                 }
