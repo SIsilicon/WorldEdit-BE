@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-08-14 16:52\n"
+"PO-Revision-Date: 2025-08-27 22:13\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -84,6 +84,24 @@ msgstr "Draw Cylinder"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Draw Pyramid"
+
+msgid "item.wedit:draw_loft"
+msgstr "Draw Loft"
+
+msgid "item.wedit:fill_loft"
+msgstr "Fill Loft"
+
+msgid "item.wedit:start_loft_curve"
+msgstr "Start Curve on Loft"
+
+msgid "item.wedit:add_loft_point"
+msgstr "Add Point to Loft"
+
+msgid "item.wedit:remove_loft_point"
+msgstr "Remove Last Point"
+
+msgid "item.wedit:clear_loft_points"
+msgstr "Clear Loft Points"
 
 msgid "wedit:itemGroup.name.clipboard"
 msgstr "WorldEdit Clipboard Operations"
@@ -210,6 +228,12 @@ msgstr "Cylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramid"
+
+msgid "worldedit.genMode.loft"
+msgstr "Loft"
+
+msgid "worldedit.loft_manager"
+msgstr "Loft Manager"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
