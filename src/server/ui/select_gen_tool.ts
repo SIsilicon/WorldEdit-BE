@@ -29,5 +29,10 @@ Server.uiForms.register("$selectGenMode", {
             action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_pyramid")),
             icon: "textures/items/draw_pyramid",
         },
+        {
+            text: "%worldedit.genMode.loft",
+            action: (_, player) => Server.player.getEquipment(player).setEquipment(EquipmentSlot.Mainhand, new ItemStack("wedit:draw_loft")),
+            icon: "textures/items/draw_loft",
+        },
     ],
 });

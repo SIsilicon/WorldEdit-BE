@@ -10,6 +10,7 @@ import { Jobs } from "@modules/jobs";
 import { SphereShape } from "server/shapes/sphere";
 import { CylinderShape } from "server/shapes/cylinder";
 import { PyramidShape } from "server/shapes/pyramid";
+import { HotbarUI } from "@modules/hotbar_ui";
 
 function trySpawnParticle(player: Player, type: string, location: Vector3) {
     try {
@@ -325,3 +326,16 @@ class DrawPyramidTool extends GeneratorTool {
     use = this.commonUse;
 }
 Tools.register(DrawPyramidTool, "draw_pyramid", "wedit:draw_pyramid");
+
+class DrawLoftTool extends Tool {
+    permission = "worldedit.generation.shape";
+
+    use = function (self: Tool, player: Player) {
+        if (Server.player.isSneaking(player)) {
+            Server.uiForms.show("$selectGenMode", player);
+        } else {
+            HotbarUI.show("$loftManager", player);
+        }
+    };
+}
+Tools.register(DrawLoftTool, "draw_loft", "wedit:draw_loft");

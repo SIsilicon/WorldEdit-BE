@@ -46,7 +46,8 @@
                                 "wedit:draw_cylinder",
                                 "wedit:draw_pyramid",
                                 "wedit:draw_line",
-                                "wedit:draw_curve"
+                                "wedit:draw_curve",
+                                "wedit:draw_loft"
                         ]
                     },
                     {

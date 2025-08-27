@@ -22,7 +22,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return session.loft ? "commands.wedit:loft.removed" : "commands.wedit:loft.removed.last";
     } else if (args.has("set")) {
         if (!session.loft) throw "commands.wedit:loft.notStarted";
-        const pattern = args.get("pattern");
+        if (args.get("_using_item") && session.globalPattern.empty()) {
+            throw RawText.translate("worldEdit.selectionFill.noPattern");
+        }
+        const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
         const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
         return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
     }

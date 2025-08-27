@@ -12,3 +12,4 @@ import "./button_tools.js";
 import "./brush_tools.js";
 import "./region_tools.js";
 import "./superpickaxe_tool.js";
+import "./loft_tools.js";

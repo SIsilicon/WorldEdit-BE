@@ -68,6 +68,24 @@
         "wedit:draw_pyramid": {
             "textures": "textures/items/draw_pyramid"
         },
+        "wedit:draw_loft": {
+            "textures": "textures/items/draw_loft"
+        },
+        "wedit:start_loft_curve": {
+            "textures": "textures/items/start_loft_curve"
+        },
+        "wedit:add_loft_point": {
+            "textures": "textures/items/add_loft_point"
+        },
+        "wedit:remove_loft_point": {
+            "textures": "textures/items/remove_loft_point"
+        },
+        "wedit:clear_loft_points": {
+            "textures": "textures/items/clear_loft_points"
+        },
+        "wedit:fill_loft": {
+            "textures": "textures/items/fill_loft"
+        },
         "wedit:config": {
             "textures": "textures/ui/gear"
         },
