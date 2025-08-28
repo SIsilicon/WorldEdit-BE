@@ -525,11 +525,11 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
                         throw RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end));
                     }
                 } else {
-                    if (e instanceof RawText) throw e;
-                    else {
-                        let rawtext = RawText.text(e);
-                        if (e.stack) rawtext = RawText.text(e.stack);
-                        throw rawtext;
+                    if (e instanceof RawText) {
+                        throw e;
+                    } else {
+                        contentLog.error(e, e.stack);
+                        throw RawText.text(e);
                     }
                 }
             }
