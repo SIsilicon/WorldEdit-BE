@@ -119,7 +119,7 @@ export class LoftShape extends Shape {
                     ...this.drawLine(
                         Array.from(
                             plotCurve(
-                                curveSamples.map((c) => LoftShape.sampleCurve(c, i / (maxCurvePoints - 1))),
+                                curveSamples.map((c) => LoftShape.sampleCurve(c, i / Math.max(maxCurvePoints - 1, 1))),
                                 { precision: 2, plotLines: false }
                             )
                         ).map((point) => point.add(0.5)),

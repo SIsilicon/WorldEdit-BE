@@ -856,8 +856,11 @@ msgstr "Ваш максимально допустимый лимит - %s."
 msgid "commands.wedit:loft.description"
 msgstr "Create a loft from a series of selected points"
 
-msgid "commands.wedit:loft.description.start"
-msgstr "Enter loft mode and create frames using selection commands and wands"
+msgid "commands.wedit:loft.description.start_curve"
+msgstr "Create a new curve frame to shape the loft with."
+
+msgid "commands.wedit:loft.description.add_point"
+msgstr "Add a point to the loft's last curve frame"
 
 msgid "commands.wedit:loft.description.set"
 msgstr "Fill the loft frame with a specified pattern"
@@ -866,19 +869,19 @@ msgid "commands.wedit:loft.description.remove"
 msgstr "Remove the last point added to the loft frame"
 
 msgid "commands.wedit:loft.description.clear"
-msgstr "Clear the loft and revert back to normal selection command/wand behaviour"
+msgstr "Clear the loft's frames"
 
 msgid "commands.wedit:loft.started"
-msgstr "Starting a new loft. Create new frames with first selection points (pos1), and grow them with second selection points (pos2)."
+msgstr "Started a new curve on loft at %s."
 
 msgid "commands.wedit:loft.cleared"
-msgstr "Cleared loft and returned to normal selection behaviour."
+msgstr "Cleared loft."
 
 msgid "commands.wedit:loft.removed"
 msgstr "Removed the last point added to loft."
 
 msgid "commands.wedit:loft.removed.last"
-msgstr "Removed the last point left in loft. It is now cleared and normal selection behaviour is returned."
+msgstr "Removed the last point left in loft."
 
 msgid "commands.wedit:loft.notStarted"
 msgstr "No loft has been created yet!"

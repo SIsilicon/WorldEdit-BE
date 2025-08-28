@@ -7,26 +7,23 @@ import { PlayerSession } from "server/sessions";
 class AddLoftPointTool extends Tool {
     permission = "worldedit.generation.shape";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (!session.loft) Server.command.callCommand(player, "loft", "start");
-        Server.command.callCommand(
-            player,
-            "pos2",
-            Vector.from(player.location)
+    use = function (self: Tool, player: Player) {
+        Server.command.callCommand(player, "loft", [
+            "add_point",
+            ...Vector.from(player.location)
+                .floor()
                 .toArray()
-                .map((v) => `${v}`)
-        );
+                .map((v) => `${v}`),
+        ]);
     };
 
     useOn = function (self: Tool, player: Player, session: PlayerSession, location: Vector) {
-        if (!session.loft) Server.command.callCommand(player, "loft", "start");
-        Server.command.callCommand(
-            player,
-            "pos2",
-            Vector.from(location)
+        Server.command.callCommand(player, "loft", [
+            "add_point",
+            ...Vector.from(location)
                 .toArray()
-                .map((v) => `${v}`)
-        );
+                .map((v) => `${v}`),
+        ]);
     };
 }
 Tools.register(AddLoftPointTool, "add_loft_point", "wedit:add_loft_point");
@@ -34,26 +31,23 @@ Tools.register(AddLoftPointTool, "add_loft_point", "wedit:add_loft_point");
 class StartLoftCurveTool extends Tool {
     permission = "worldedit.generation.shape";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (!session.loft) Server.command.callCommand(player, "loft", "start");
-        Server.command.callCommand(
-            player,
-            "pos1",
-            Vector.from(player.location)
+    use = function (self: Tool, player: Player) {
+        Server.command.callCommand(player, "loft", [
+            "start_curve",
+            ...Vector.from(player.location)
+                .floor()
                 .toArray()
-                .map((v) => `${v}`)
-        );
+                .map((v) => `${v}`),
+        ]);
     };
 
     useOn = function (self: Tool, player: Player, session: PlayerSession, location: Vector) {
-        if (!session.loft) Server.command.callCommand(player, "loft", "start");
-        Server.command.callCommand(
-            player,
-            "pos1",
-            Vector.from(location)
+        Server.command.callCommand(player, "loft", [
+            "start_curve",
+            ...Vector.from(location)
                 .toArray()
-                .map((v) => `${v}`)
-        );
+                .map((v) => `${v}`),
+        ]);
     };
 }
 Tools.register(StartLoftCurveTool, "start_loft_curve", "wedit:start_loft_curve");

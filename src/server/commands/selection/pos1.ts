@@ -13,11 +13,6 @@ const registerInformation: CommandInfo = {
 };
 
 export function setPos1(session: PlayerSession, loc: Vector3) {
-    if (session.loft) {
-        session.loft.newCurve(loc);
-        return "";
-    }
-
     const selection = session.selection;
     const prevPoints = selection.points;
     selection.set(0, Vector.from(loc));
