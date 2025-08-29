@@ -398,6 +398,31 @@ Server.uiForms.register<ConfigContext>("$editTool_stacker_wand", {
 });
 toolsWithProperties.push("stacker_wand");
 
+Server.uiForms.register<ConfigContext>("$editTool_extruder_wand", {
+    title: editToolTitle,
+    inputs: {
+        $range: {
+            type: "slider",
+            name: "%worldedit.config.range",
+            min: 1,
+            max: config.traceDistance,
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 5 : (getToolProperty(ctx, player, "range") as number)),
+        },
+        $mode: {
+            type: "dropdown",
+            name: "%worldedit.config.mode",
+            options: ["%worldedit.extruderMode.pull", "%worldedit.extruderMode.dig"],
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : (getToolProperty(ctx, player, "digging") as boolean) ? 1 : 0),
+        },
+    },
+    submit: (ctx, player, input) => {
+        ctx.setData("toolData", [input.$range as number, !!(input.$mode as number)]);
+        finishToolEdit(ctx);
+    },
+    cancel: (ctx) => ctx.returnto("$tools"),
+});
+toolsWithProperties.push("extruder_wand");
+
 Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
     title: editToolTitle,
     inputs: {
@@ -712,6 +737,14 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
             },
         },
         {
+            text: "%worldedit.config.tool.extruder",
+            icon: "textures/ui/extruder_wand",
+            action: (ctx) => {
+                ctx.setData("creatingTool", "extruder_wand");
+                ctx.goto("$editTool_extruder_wand");
+            },
+        },
+        {
             text: "%worldedit.config.tool.cmd",
             icon: "textures/ui/command_wand",
             action: (ctx) => {
@@ -805,24 +838,12 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
             const item = ctx.getData("currentItem");
             const toolData = ctx.getData("toolData");
 
-            if (toolType == "selection_wand") {
-                session.bindTool("selection_wand", item);
-            } else if (toolType == "far_selection_wand") {
-                session.bindTool("far_selection_wand", item);
-            } else if (toolType == "navigation_wand") {
-                session.bindTool("selection_wand", item);
-            } else if (toolType == "stacker_wand") {
-                session.bindTool("stacker_wand", item, ...toolData);
-            } else if (toolType == "command_wand") {
-                session.bindTool("command_wand", item, ...toolData);
-            } else if (toolType == "replacer_wand") {
-                session.bindTool("replacer_wand", item, ...toolData);
-            } else if (toolType == "cycler_wand") {
-                session.bindTool("cycler_wand", item);
-            } else if (toolType.endsWith("brush")) {
+            if (toolType.endsWith("brush")) {
                 session.bindTool("brush", item, toolData[0], toolData[1]);
                 Tools.setProperty(item, player.id, "range", toolData[2]);
                 Tools.setProperty(item, player.id, "traceMask", toolData[3]);
+            } else {
+                session.bindTool(toolType, item, ...toolData);
             }
             ctx.returnto("$tools");
         },
