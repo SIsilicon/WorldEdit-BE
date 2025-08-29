@@ -1,4 +1,4 @@
-import { Player, Vector3 } from "@minecraft/server";
+import { ItemStack, Player, RawMessage, Vector3 } from "@minecraft/server";
 import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -65,15 +65,11 @@ const brushPatternInput: ModalFormInput = {
 };
 
 function displayItem(item: string) {
-    let result = item;
-    if (result.startsWith("minecraft:")) {
-        result = result.slice("minecraft:".length);
-    }
-    return result;
+    return { translate: new ItemStack(item).localizationKey };
 }
 
 function editToolTitle(ctx: MenuConfigCtx) {
-    return "%accessibility.textbox.editing : " + displayItem(ctx.getData("currentItem"));
+    return { rawtext: [{ translate: "accessibility.textbox.editing" }, { text: ": " }, displayItem(ctx.getData("currentItem"))] };
 }
 
 function getToolProperty(ctx: MenuConfigCtx, player: Player, prop: string) {
@@ -205,7 +201,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
         for (const tool of getTools(player, ctx.getData("editingBrush"))) {
             const toolType = Tools.getBindingType(tool, player.id) as ToolTypes;
             buttons.push({
-                text: displayItem(tool),
+                text: { rawtext: [{ text: "|-- " }, displayItem(tool), { text: " --|" }] },
                 action: (ctx: MenuConfigCtx) => {
                     ctx.setData("creatingTool", null);
                     ctx.setData("currentItem", tool);
@@ -859,11 +855,9 @@ Server.uiForms.register<ConfigContext>("$confirmDelete", {
     title: "%worldedit.config.confirm",
     message: (ctx) => {
         const deleting = ctx.getData("deletingTools");
-        let message = "%worldedit.config.confirm.delete";
-        for (const item of deleting) {
-            message += `\n${displayItem(item)}`;
-        }
-        return message;
+        const message: RawMessage[] = [{ translate: "worldedit.config.confirm.delete" }];
+        for (const item of deleting) message.push({ text: "\n" }, displayItem(item));
+        return { rawtext: message };
     },
     button1: {
         text: "%dr.button.ok",
