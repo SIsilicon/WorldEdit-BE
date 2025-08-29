@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-08-27 22:13\n"
+"PO-Revision-Date: 2025-08-29 00:34\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -190,6 +190,12 @@ msgstr "Сфера"
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Циліндр"
 
+msgid "worldedit.extruderMode.pull"
+msgstr "Pull out Blocks"
+
+msgid "worldedit.extruderMode.dig"
+msgstr "Dig in Blocks"
+
 msgid "worldedit.regionMode.selectOp"
 msgstr "Виберіть регіон завдання"
 
@@ -258,6 +264,9 @@ msgstr "Навігаційна паличка"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "Укладальник"
+
+msgid "worldedit.config.tool.extruder"
+msgstr "Extruder Tool"
 
 msgid "worldedit.config.tool.cmd"
 msgstr "Командний інструмент"
@@ -348,6 +357,9 @@ msgstr "Гладкість"
 
 msgid "worldedit.config.range"
 msgstr "Діапазон"
+
+msgid "worldedit.config.mode"
+msgstr "Mode"
 
 msgid "worldedit.config.amount"
 msgstr "Кількість"
@@ -892,8 +904,11 @@ msgstr "Ваше максимальне обмеження становить %s
 msgid "commands.wedit:loft.description"
 msgstr "Створити плаз із серії виділених точок"
 
-msgid "commands.wedit:loft.description.start"
-msgstr "Увійти в режим плазу і створювати рамки через команди виділення і палички"
+msgid "commands.wedit:loft.description.start_curve"
+msgstr "Create a new curve frame to shape the loft with."
+
+msgid "commands.wedit:loft.description.add_point"
+msgstr "Add a point to the loft's last curve frame"
 
 msgid "commands.wedit:loft.description.set"
 msgstr "Заповнити рамку плазу із заданим шаблоном"
@@ -902,19 +917,22 @@ msgid "commands.wedit:loft.description.remove"
 msgstr "Вилучити останню точку, додану до рамки плазу"
 
 msgid "commands.wedit:loft.description.clear"
-msgstr "Очистити плаз і повернути до звичайної поведінки команди виділення/палички"
+msgstr "Clear the loft's frames"
 
 msgid "commands.wedit:loft.started"
-msgstr "Початок нового плазу. Створіть нові рамки з першими точками виділення (pos1), і підійміть їх з другими точками виділення (pos2)."
+msgstr "Started a new curve on loft at %s."
+
+msgid "commands.wedit:loft.added"
+msgstr "Added a point to loft at %s."
 
 msgid "commands.wedit:loft.cleared"
-msgstr "Плаз очищено і повернуто нормальну поведінку виділення."
+msgstr "Cleared loft."
 
 msgid "commands.wedit:loft.removed"
 msgstr "Вилучено останню точку, додану до плазу."
 
 msgid "commands.wedit:loft.removed.last"
-msgstr "Вилучено останню точку, що залишилася у плазу. Тепер її очищено і повернуто нормальну поведінку виділення."
+msgstr "Removed the last point left in loft."
 
 msgid "commands.wedit:loft.notStarted"
 msgstr "Жодного плазу ще не створено!"
