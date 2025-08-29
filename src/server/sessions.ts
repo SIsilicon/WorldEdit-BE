@@ -165,7 +165,7 @@ export class PlayerSession {
 
     public set clipboard(region: RegionBuffer | undefined) {
         if (this.clipboardBuffer === region) return;
-        this.deleteRegion(region);
+        this.deleteRegion(this.clipboardBuffer);
         this.clipboardBuffer = region;
     }
 
