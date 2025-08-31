@@ -762,6 +762,7 @@ class RegionBlockImpl implements RegionBlock {
     matches(blockName: string, states?: Record<string, boolean | number | string>): boolean {
         return this.permutation.matches(blockName, states);
     }
+
     setPermutation(permutation: BlockPermutation): void {
         let key: string;
         if (permutation?.type.id !== this.permutation?.type.id && (key = locToString(this.location)) in this.bufferBlockNBT) {
