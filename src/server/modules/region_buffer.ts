@@ -1,5 +1,5 @@
 import { axis, contentLog, generateId, iterateChunk, Matrix, regionIterateBlocks, regionSize, regionTransformedBounds, regionVolume, Thread, Vector } from "@notbeer-api";
-import { Block, BlockPermutation, BlockType, Dimension, Structure, StructureMirrorAxis, StructureRotation, StructureSaveMode, Vector3, VectorXZ, world } from "@minecraft/server";
+import { Block, BlockPermutation, BlockType, Dimension, Structure, StructureMirrorAxis, StructureRotation, StructureSaveMode, system, Vector3, VectorXZ, world } from "@minecraft/server";
 import { blockHasNBTData, locToString, stringToLoc, wrap } from "../util.js";
 import { Mask } from "./mask.js";
 import { JobFunction, Jobs } from "./jobs.js";
@@ -235,6 +235,7 @@ export class RegionBuffer {
     private static readonly MAX_SIZE: Vector = new Vector(64, 256, 64);
 
     public readonly id: string;
+    public readonly savedToWorld: boolean;
     public readonly getBlock: (loc: Vector3) => RegionBlock | undefined;
 
     private structure: Structure | undefined;
@@ -344,6 +345,7 @@ export class RegionBuffer {
     private constructor(id: string | undefined, multipleStructures: boolean) {
         contentLog.debug("creating structure", this.id);
         this.id = id ?? "wedit:buffer_" + generateId();
+        this.savedToWorld = id !== undefined;
         if (multipleStructures) this.getBlock = this.getBlockMulti;
         else this.getBlock = this.getBlockSingle;
     }
@@ -674,6 +676,8 @@ class RegionBlockImpl implements RegionBlock {
     private static AIR = "minecraft:air";
     private static LIQUIDS = ["minecraft:water", "minecraft:lava"];
 
+    private static structureSaveQueues = new WeakMap<Structure, number>();
+
     readonly buffer: RegionBuffer;
     readonly x: number;
     readonly y: number;
@@ -765,6 +769,17 @@ class RegionBlockImpl implements RegionBlock {
             delete this.bufferBlockNBT[key];
         }
         this.bufferStructure.setBlockPermutation(this.bufferStructureLocation, permutation);
+
+        // Queue Structure Saving
+        if (this.buffer.savedToWorld && !RegionBlockImpl.structureSaveQueues.has(this.bufferStructure)) {
+            RegionBlockImpl.structureSaveQueues.set(
+                this.bufferStructure,
+                system.run(() => {
+                    RegionBlockImpl.structureSaveQueues.delete(this.bufferStructure);
+                    this.bufferStructure.saveToWorld();
+                })
+            );
+        }
     }
     setType(blockType: BlockType | string): void {
         this.setPermutation(BlockPermutation.resolve(typeof blockType === "string" ? blockType : blockType.id));
