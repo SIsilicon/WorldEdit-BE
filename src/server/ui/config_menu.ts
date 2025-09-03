@@ -832,7 +832,7 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
             const session = ctx.getData("session");
             const toolType = getToolType(ctx, player);
             const item = ctx.getData("currentItem");
-            const toolData = ctx.getData("toolData");
+            const toolData = ctx.getData("toolData") ?? [];
 
             if (toolType.endsWith("brush")) {
                 session.bindTool("brush", item, toolData[0], toolData[1]);
