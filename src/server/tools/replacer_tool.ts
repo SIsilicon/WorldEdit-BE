@@ -10,19 +10,19 @@ class BlockReplacerTool extends Tool {
 
     noDelay = true;
     permission = "worldedit.repl";
-    useOn = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
+    useOn(player: Player, session: PlayerSession, loc: Vector3) {
         if (Server.player.isSneaking(player)) {
-            self.break(self, player, session, loc);
+            this.break(player, session, loc);
         } else {
-            self.pattern.setBlock(player.dimension.getBlock(loc));
+            this.pattern.setBlock(player.dimension.getBlock(loc));
         }
-    };
+    }
 
-    break = function (self: BlockReplacerTool, player: Player, session: PlayerSession, loc: Vector3) {
+    break(player: Player, session: PlayerSession, loc: Vector3) {
         const pattern = new Pattern();
         pattern.addBlock(player.dimension.getBlock(loc).permutation);
         session.setToolProperty(null, "pattern", pattern);
-    };
+    }
 
     constructor(pattern: Pattern) {
         super();

@@ -8,7 +8,7 @@ import { getWorldHeightLimits } from "server/util.js";
 class NavigationTool extends Tool {
     permission = "worldedit.navigation";
 
-    use = function (self: Tool, player: Player) {
+    use(player: Player) {
         const dimension = player.dimension;
         const limits = getWorldHeightLimits(dimension);
         const blockLoc = PlayerUtil.getBlockLocation(player).offset(0, 1, 0);
@@ -19,6 +19,6 @@ class NavigationTool extends Tool {
         } else {
             Server.command.callCommand(player, "jumpto", []);
         }
-    };
+    }
 }
 Tools.register(NavigationTool, "navigation_wand");

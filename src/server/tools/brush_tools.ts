@@ -19,37 +19,33 @@ class BrushTool extends Tool {
 
     permission = "worldedit.brush";
 
-    use = function* (self: BrushTool, player: Player, session: PlayerSession) {
-        const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
-        if (!hit) throw "commands.wedit:jumpto.none";
-        yield* self.brush.apply(hit, session, self.mask);
-    };
-
-    tick = function* (self: BrushTool, player: Player, session: PlayerSession, tick: number): Generator<void> {
-        this.ticksToUpdate -= tick - this.prevTick;
-        this.prevTick = tick;
-        if (this.ticksToUpdate > 0 || !session.drawOutlines) return;
-
-        this.ticksToUpdate = 3;
-        const hit = PlayerUtil.traceForBlock(player, self.range, self.traceMask);
-        yield;
-        if (hit) {
-            if (!outlines.has(session)) outlines.set(session, { lastHit: hit, lazyCall: everyCall(4) });
-
-            const [shape, offset] = self.brush.getOutline();
-            const { lastHit, lazyCall } = outlines.get(session);
-            if (lastHit && !lastHit.equals(hit)) shape.draw(player, Vector.add(hit, offset));
-            else lazyCall(() => shape.draw(player, Vector.add(hit, offset)));
-            outlines.get(session).lastHit = hit;
-            yield;
-        }
-    };
-
     constructor(brush: Brush, mask?: Mask, traceMask?: Mask) {
         super();
         this.brush = brush;
         this.mask = mask;
         this.traceMask = traceMask;
+    }
+
+    *use(player: Player, session: PlayerSession) {
+        const hit = PlayerUtil.traceForBlock(player, this.range, this.traceMask);
+        if (!hit) throw "commands.wedit:jumpto.none";
+        yield* this.brush.apply(hit, session, this.mask);
+    }
+
+    *tick(player: Player, session: PlayerSession) {
+        if (!session.drawOutlines) return;
+
+        const hit = PlayerUtil.traceForBlock(player, this.range, this.traceMask);
+        if (!hit) return;
+
+        if (!outlines.has(session)) outlines.set(session, { lastHit: hit, lazyCall: everyCall(4) });
+
+        const [shape, offset] = this.brush.getOutline();
+        const { lastHit, lazyCall } = outlines.get(session);
+        if (lastHit && !lastHit.equals(hit)) shape.draw(player, Vector.add(hit, offset));
+        else lazyCall(() => shape.draw(player, Vector.add(hit, offset)));
+        outlines.get(session).lastHit = hit;
+        yield;
     }
 
     set size(value: number) {

@@ -215,7 +215,7 @@ class ToolBuilder {
             this.prevHeldTool.set(player, tool);
         }
 
-        const gen = tool.tick?.(tool, player, getSession(player), tick);
+        const gen = tool.tick?.(player, getSession(player), tick);
         if (gen) yield* gen;
     }
 

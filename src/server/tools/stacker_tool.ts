@@ -12,16 +12,23 @@ class StackerTool extends Tool {
     public mask: Mask;
 
     permission = "worldedit.region.stack";
-    useOn = function* (self: StackerTool, player: Player, session: PlayerSession, loc: Vector) {
+
+    constructor(range: number, mask: Mask) {
+        super();
+        this.range = range;
+        this.mask = mask;
+    }
+
+    *useOn(player: Player, session: PlayerSession, loc: Vector) {
         const dim = player.dimension;
         const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
         const start = loc.add(dir);
-        const mask = self.mask.withContext(session);
+        const mask = this.mask.withContext(session);
         if (!mask.matchesBlock(dim.getBlock(start))) {
             return;
         }
         let end = loc;
-        for (let i = 0; i < self.range; i++) {
+        for (let i = 0; i < this.range; i++) {
             end = end.add(dir);
             if (!mask.matchesBlock(dim.getBlock(end.add(dir)))) break;
         }
@@ -39,12 +46,6 @@ class StackerTool extends Tool {
         } finally {
             tempStack?.deref();
         }
-    };
-
-    constructor(range: number, mask: Mask) {
-        super();
-        this.range = range;
-        this.mask = mask;
     }
 
     toJSON() {
