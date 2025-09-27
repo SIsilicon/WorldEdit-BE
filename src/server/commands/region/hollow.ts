@@ -1,9 +1,9 @@
 import { Vector3 } from "@minecraft/server";
-import { assertSelection, assertCanBuildWithin } from "@modules/assert.js";
+import { assertSelection } from "@modules/assert.js";
 import { JobFunction, Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
 import { Server, RawText, Vector, iterateChunk, regionVolume, CommandInfo } from "@notbeer-api";
-import { canPlaceBlock, getWorldHeightLimits, locToString, stringToLoc } from "server/util.js";
+import { getWorldHeightLimits, locToString, stringToLoc } from "server/util.js";
 import { PlayerSession } from "server/sessions.js";
 import { registerCommand } from "../register_commands.js";
 
@@ -48,6 +48,8 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             volume = locStringSet.size;
             yield Jobs.nextStep("Calculating blocks...");
             for (const loc of session.selection.getBlocks({ hollow: true })) {
+                if (loc.y < min.y || loc.y > max.y) continue;
+
                 const queue: Vector3[] = [loc];
                 while (queue.length != 0) {
                     const loc = queue.shift();
@@ -55,7 +57,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                     yield Jobs.setProgress(progress / volume);
                     progress++;
                     if (!locStringSet.has(locString)) continue;
-                    if (canPlaceBlock(loc, dimension) && !Server.block.isAirOrFluid(dimension.getBlock(loc).permutation)) continue;
+                    if (!Server.block.isAirOrFluid((dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)!)).permutation)) continue;
                     locStringSet.delete(locString);
                     for (const offset of [
                         [0, 1, 0],
@@ -101,7 +103,8 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             yield Jobs.nextStep("Generating blocks...");
             yield* history.trackRegion(record, min, max);
             for (const locString of locStringSet) {
-                const block = dimension.getBlock(stringToLoc(locString));
+                const loc = stringToLoc(locString);
+                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)!);
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 if (iterateChunk()) yield Jobs.setProgress(progress / volume);
                 progress++;
@@ -118,9 +121,6 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
 
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
-    // TODO: Load chunks for
-    assertCanBuildWithin(builder, ...session.selection.getRange());
-
     const pattern: Pattern = args.get("pattern");
     const thickness = args.get("thickness") as number;
     const count = yield* Jobs.run(session, 3, hollow(session, pattern, thickness));
