@@ -43,9 +43,7 @@ export class StructureBrush extends Brush {
         this.mask = mask;
         this.updateStructIdx();
 
-        for (const struct of this.structs) {
-            struct.ref();
-        }
+        for (const struct of this.structs) struct.ref();
     }
 
     public resize() {
@@ -73,7 +71,7 @@ export class StructureBrush extends Brush {
             let start = loc.offset(-regionSize.x / 2, 1, -regionSize.z / 2).ceil();
             let end = start.add(regionSize).sub(1);
             const center = start.add(end.add(1)).mul(0.5);
-            const mask = this.mask.withContext(session);
+            const mask = this.mask?.withContext(session);
             const options: RegionLoadOptions = { offset: start.sub(center), mask };
             if (this.randomTransform) {
                 const newTransform = this.lastTransform.slice() as typeof this.lastTransform;
