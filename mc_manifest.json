@@ -9,12 +9,12 @@
 		"version": [
 			0,
 			10,
-			0
+			1
 		],
 		"min_engine_version": [
 			1,
 			21,
-			100
+			110
 		]
 	},
 	"bp_modules": [
@@ -38,7 +38,7 @@
 				0,
 				0
 			],
-			"entry": "scripts/server/index.js"
+			"entry": "scripts/index.js"
 		}
 	],
 	"bp_capabilities": [
@@ -55,14 +55,21 @@
 			]
 		}
 	],
+	"rp_capabilities": [
+		"pbr"
+	],
 	"bp_dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.2.0-beta"
+			"version": "2.3.0-beta"
 		},
 		{
 			"module_name": "@minecraft/server-ui",
 			"version": "2.1.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-gametest",
+			"version": "1.0.0-beta"
 		}
 	],
 	"bp_server_dependencies": [

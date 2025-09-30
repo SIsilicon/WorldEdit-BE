@@ -1,13 +1,12 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.21.80",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:undo_button",
-            "category": "commands"
+            "identifier": "wedit:undo_button"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "undo"
+                "textures": { "default": "wedit:undo" }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:throwable": {}

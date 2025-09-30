@@ -47,7 +47,7 @@ export class LoftShape extends Shape {
 
     protected prepGeneration() {}
 
-    protected *calculateShape(dimension: Dimension, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
+    protected *calculateShape(dimension: Dimension, _loc: Vector3, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
         const blocks = new VectorSet<Block>();
         const volume = new BlockVolume(min, max);
 
@@ -71,23 +71,23 @@ export class LoftShape extends Shape {
             const curveA = lengthCurves[i - 1];
             const curveB = lengthCurves[i];
 
-            let startA = curveA.sample(0).add(0.5).floor();
-            let startB = curveB.sample(0).add(0.5).floor();
-            for (let x = 1; x <= lengthSamples; x++) {
-                const sample = x / lengthSamples;
-                const endA = curveA.sample(sample).add(0.5).floor();
-                const endB = curveB.sample(sample).add(0.5).floor();
+            let startA = curveA.sample(0).add(0.5);
+            let startB = curveB.sample(0).add(0.5);
+            for (let j = 1; j <= lengthSamples; j++) {
+                const sample = j / lengthSamples;
+                const endA = curveA.sample(sample).add(0.5);
+                const endB = curveB.sample(sample).add(0.5);
 
-                for (const loc of plotTriangle(startA, endA, startB)) {
-                    const block = loc.floor();
+                for (const block of plotTriangle(startA, endA, startB)) {
                     if (!blocks.has(block)) yield* addBlock(block);
                     else yield;
                 }
-                for (const loc of plotTriangle(endA, startB, endB)) {
-                    const block = loc.floor();
+                for (const block of plotTriangle(endA, startB, endB)) {
                     if (!blocks.has(block)) yield* addBlock(block);
                     else yield;
                 }
+
+                yield Jobs.setProgress((j + i * lengthSamples) / (lengthSamples * lengthCurves.length));
 
                 startA = endA;
                 startB = endB;
@@ -103,19 +103,28 @@ export class LoftShape extends Shape {
         const particles = [];
 
         const maxCurvePoints = this.curves.reduce((max, curve) => Math.max(max, curve.length), 0);
-        const curveSamples = this.curves.map((curve) => Array.from(plotCurve(curve, { precision: 1, plotLines: false })));
+        const curveSamples = this.curves.map((curve) => Array.from(plotCurve(curve, { precision: 2, plotLines: false })));
 
-        for (const curve of curveSamples) particles.push(...this.drawLine(curve.map((point) => point.add(0.5))));
+        for (const curve of curveSamples)
+            particles.push(
+                ...this.drawLine(
+                    curve.map((point) => point.add(0.5)),
+                    false,
+                    true
+                )
+            );
         if (curveSamples.length > 1)
             for (let i = 0; i < maxCurvePoints; i++)
                 particles.push(
                     ...this.drawLine(
                         Array.from(
                             plotCurve(
-                                curveSamples.map((c) => LoftShape.sampleCurve(c, i / (maxCurvePoints - 1))),
-                                { precision: 1, plotLines: false }
+                                curveSamples.map((c) => LoftShape.sampleCurve(c, i / Math.max(maxCurvePoints - 1, 1))),
+                                { precision: 2, plotLines: false }
                             )
-                        ).map((point) => point.add(0.5))
+                        ).map((point) => point.add(0.5)),
+                        false,
+                        true
                     )
                 );
 

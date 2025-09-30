@@ -13,9 +13,8 @@ import {
     commandNum,
 } from "../@types/classes/CommandBuilder";
 import { Player as playerHandler } from "./playerBuilder.js";
-import { contentLog, RawText } from "../utils/index.js";
-
-//import { printDebug } from "@modules/../util.js"
+import { contentLog, RawText, Thread } from "../utils/index.js";
+import { EventEmitter } from "./eventEmitter.js";
 
 export class CustomArgType {
     static parseArgs: (args: Array<string>, argIndex: number) => argParseResult<unknown>;
@@ -93,7 +92,7 @@ export class CommandPosition implements CustomArgType {
     }
 }
 
-export class CommandBuilder {
+export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, command: string, args: Array<string>, result: any] }> {
     public prefix: string = configuration.prefix;
     private _registrationInformation: Array<storedRegisterInformation> = [];
     private customArgTypes: Map<string, typeof CustomArgType> = new Map();
@@ -453,16 +452,14 @@ export class CommandBuilder {
         return result;
     }
 
-    callCommand(player: Player, command: string, args: Array<string> | string = []) {
+    callCommand(player: Player, command: string, args: Array<string> | string = [], options?: { noCallback?: boolean }) {
         function regexIndexOf(text: string, re: RegExp, index: number) {
             const i = text.slice(index).search(re);
             return i == -1 ? -1 : i + index;
         }
 
         const getCommand = Command.getAllRegistation().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
-        if (!getCommand) {
-            throw RawText.translate("commands.generic.unknown").with(`${command}`).printError(player);
-        }
+        if (!getCommand) throw RawText.translate("commands.generic.unknown").with(`${command}`);
 
         let msg = "";
         const offsets: Array<number> = [];
@@ -501,9 +498,7 @@ export class CommandBuilder {
             msg = args.join(" ");
         }
 
-        offsets.forEach((v, i) => {
-            offsets[i] = v + this.prefix.length + command.length + 1;
-        });
+        offsets.forEach((v, i) => (offsets[i] = v + this.prefix.length + command.length + 1));
         msg = this.prefix + command + " " + msg;
 
         for (const element of Command.getAllRegistation()) {
@@ -514,30 +509,27 @@ export class CommandBuilder {
              */
             let result;
             try {
-                if (element.permission && !playerHandler.hasPermission(player, element.permission)) {
-                    throw RawText.translate("commands.generic.wedit:noPermission");
-                }
-                result = element.callback(player, msg, Command.parseArgs(command, args));
+                if (element.permission && !playerHandler.hasPermission(player, element.permission)) throw RawText.translate("commands.generic.wedit:noPermission");
+                const parsedArgs = this.parseArgs(command, args);
+                result = options?.noCallback ? new Thread() : element.callback(player, msg, parsedArgs);
+                this.emit("runCommand", player, command, args, result);
             } catch (e) {
                 if (e.isSyntaxError) {
-                    contentLog.error(e.stack);
                     if (e.idx == -1 || e.idx >= args.length) {
-                        RawText.translate("commands.generic.syntax").with(msg).with("").with("").printError(player);
+                        throw RawText.translate("commands.generic.syntax").with(msg).with("").with("");
                     } else {
                         let start = offsets[e.idx];
                         if (e.start) start += e.start;
                         let end = start + args[e.idx].length;
                         if (e.end) end = start + e.end;
-                        RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end)).printError(player);
+                        throw RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end));
                     }
                 } else {
                     if (e instanceof RawText) {
-                        e.printError(player);
+                        throw e;
                     } else {
-                        RawText.text(e).printError(player);
-                        if (e.stack) {
-                            RawText.text(e.stack).printError(player);
-                        }
+                        contentLog.error(e, e.stack);
+                        throw RawText.text(e);
                     }
                 }
             }

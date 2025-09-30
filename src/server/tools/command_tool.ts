@@ -8,23 +8,6 @@ class CommandTool extends Tool {
     public command: string;
     public isCustom = false;
 
-    use = function (self: CommandTool, player: Player, session: PlayerSession) {
-        if (self.isCustom) {
-            let firstSpace = self.command.indexOf(" ");
-            if (firstSpace == -1) {
-                firstSpace = self.command.length;
-            }
-            const usingItem = session.usingItem;
-            session.usingItem = false;
-            Server.command.callCommand(player, self.command.substring(0, firstSpace).trim(), self.command.substring(firstSpace).trim());
-            session.usingItem = usingItem;
-        } else {
-            if (player.commandPermissionLevel >= CommandPermissionLevel.GameDirectors) {
-                Server.queueCommand(self.command, player);
-            }
-        }
-    };
-
     constructor(command: string) {
         super();
         if (command.startsWith(";")) {
@@ -35,6 +18,19 @@ class CommandTool extends Tool {
             this.command = command.slice(1);
         } else {
             this.command = command;
+        }
+    }
+
+    use(player: Player, session: PlayerSession) {
+        if (this.isCustom) {
+            let firstSpace = this.command.indexOf(" ");
+            if (firstSpace == -1) firstSpace = this.command.length;
+            const usingItem = session.usingItem;
+            session.usingItem = false;
+            Server.command.callCommand(player, this.command.substring(0, firstSpace).trim(), this.command.substring(firstSpace).trim());
+            session.usingItem = usingItem;
+        } else {
+            if (player.commandPermissionLevel >= CommandPermissionLevel.GameDirectors) Server.queueCommand(this.command, player);
         }
     }
 

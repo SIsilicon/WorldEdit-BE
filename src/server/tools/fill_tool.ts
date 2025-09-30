@@ -17,12 +17,13 @@ class FillTool extends Tool {
     onSurface = true;
 
     permission = "worldedit.utility.fillr";
-    useOn = function* (self: FillTool, player: Player, session: PlayerSession, loc: Vector3) {
+
+    *useOn(player: Player, session: PlayerSession, loc: Vector3) {
         const dimension = player.dimension;
-        const fillDir = self.direction.getDirection(player);
-        const radius = self.radius;
-        const depth = self.depth;
-        let pattern = self.pattern;
+        const fillDir = this.direction.getDirection(player);
+        const radius = this.radius;
+        const depth = this.depth;
+        let pattern = this.pattern;
 
         yield* Jobs.run(session, 1, function* () {
             yield Jobs.nextStep("Calculating and Generating blocks...");
@@ -56,7 +57,7 @@ class FillTool extends Tool {
             }
             return blocks;
         });
-    };
+    }
 
     constructor(pattern: Pattern, radius: number, depth: number, direction = new Cardinal(Cardinal.Dir.DOWN)) {
         super();

@@ -1,19 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EventList } from "../Events";
 
-export interface EventEmitterConstructor {
-    new (): EventEmitterTypes;
-}
-export interface EventEmitterTypes {
+export interface EventEmitterTypes<T extends { [K in keyof T]: unknown[] }> {
     /**
      * Listen for an event
      * @param eventName Event you want to listen for
      * @param listener Function you want to execute
      * @alias emitter.on()
      */
-    addListener<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    addListener<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    addListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     shutdown(): this;
 
@@ -22,8 +17,7 @@ export interface EventEmitterTypes {
      * @param eventName Event you are firing
      * @param args Event data you are sending
      */
-    emit<K extends keyof EventList>(eventName: K, ...args: EventList[K]): boolean;
-    emit<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, ...args: any[]): boolean;
+    emit<K extends keyof T>(eventName: K, ...args: T[K]): boolean;
 
     eventNames(): Array<string>;
 
@@ -33,61 +27,54 @@ export interface EventEmitterTypes {
      * Get count of event(s)
      * @param eventName Event name you want to find the count for
      */
-    listenerCount<K extends keyof EventList>(eventName?: K): number;
-    listenerCount<S extends string | symbol>(eventName?: Exclude<S, keyof EventList>): number;
+    listenerCount<K extends keyof T>(eventName?: K): number;
 
     /**
      * All event functions that are listening
      * @param eventName Event name you want to find all the listeners on
      */
-    listeners<K extends keyof EventList>(eventName: K): Array<Function>;
-    listeners<S extends string | symbol>(eventName: Exclude<S, keyof EventList>): Array<Function>;
+    listeners<K extends keyof T>(eventName: K): Array<Function>;
 
     /**
      * Turn off an event
      * @param eventName Event you want to stop listening for
      * @param listener Function that is being called
      */
-    off<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    off<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    off<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Listen for an event
      * @param eventName Event you want to listen for
      * @param listener Function you want to execute
      */
-    on<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    on<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    on<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Listen for an event, ONCE
      * @param eventName Event you want to listen for
      * @param listener Function you want to execute
      */
-    once<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    once<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    once<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Listen for an event. This will execute the listener before any other previous ones
      * @param eventName Event you want to listen for
      * @param listener Function you want to execute
      */
-    prependListener<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    prependListener<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    prependListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Listen for an event, ONCE. This will execute the listener before any other previous ones
      * @param eventName Event you want to listen for only ONCE
      * @param listener Function you want to execute
      */
-    prependOnceListener<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    prependOnceListener<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    prependOnceListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Remove type of listeners
      * @param eventName Listener to remove
      */
-    removeAllListeners(eventName?: string | symbol): void;
+    removeAllListeners<K extends keyof T>(eventName?: K): void;
 
     /**
      * Turn off an event
@@ -95,8 +82,7 @@ export interface EventEmitterTypes {
      * @param listener Function that is being called
      * @alias emitter.off()
      */
-    removeListener<K extends keyof EventList>(eventName: K, listener: (...args: EventList[K]) => void): this;
-    removeListener<S extends string | symbol>(eventName: Exclude<S, keyof EventList>, listener: (...args: any[]) => void): this;
+    removeListener<K extends keyof T>(eventName: K, listener: (...args: T[K]) => void): this;
 
     /**
      * Increase or decrease listener count
@@ -108,6 +94,5 @@ export interface EventEmitterTypes {
      * All event functions
      * @param eventName Event name you want to find all the listeners on, including emitter.once()
      */
-    rawListeners<K extends keyof EventList>(eventName: K): Array<Function>;
-    rawListeners<S extends string | symbol>(eventName: Exclude<S, keyof EventList>): Array<Function>;
+    rawListeners<K extends keyof T>(eventName: K): Array<Function>;
 }

@@ -215,7 +215,7 @@ class HotbarUIBuilder {
             return true;
         }
         const ctx = new HotbarContext<T>(player);
-        Object.entries(data).forEach((e) => ctx.setData(e[0] as keyof T, e[1] as (typeof data)[keyof T]));
+        Object.entries(data ?? {}).forEach((e) => ctx.setData(e[0] as keyof T, e[1] as (typeof data)[keyof T]));
         ctx.goto(name);
         return false;
     }

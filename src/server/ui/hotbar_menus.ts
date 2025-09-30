@@ -157,3 +157,15 @@ HotbarUI.register<ConfigContext>("$selectBlocks", {
     },
     cancel: (ctx) => ctx.returnto(ctx.getData("pickerData").return),
 });
+
+HotbarUI.register("$loftManager", {
+    title: "worldedit.loft_manager",
+    items: {
+        0: { item: "wedit:start_loft_curve", action: () => {} },
+        1: { item: "wedit:add_loft_point", action: () => {} },
+        3: { item: "wedit:remove_loft_point", action: () => {} },
+        4: { item: "wedit:clear_loft_points", action: () => {} },
+        6: { item: "wedit:fill_loft", action: () => {} },
+    },
+    cancel: () => {},
+});

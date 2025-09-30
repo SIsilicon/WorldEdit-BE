@@ -8,8 +8,6 @@ const registerInformation: CommandInfo = {
 };
 
 registerCommand(registerInformation, function (session) {
-    if (!session.clipboard) throw "commands.generic.wedit:commandFail";
-    session.deleteRegion(session.clipboard);
-    session.clipboard = null;
+    session.clipboard = undefined;
     return "commands.wedit:clearclipboard.explain";
 });

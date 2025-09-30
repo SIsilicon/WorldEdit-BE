@@ -15,13 +15,13 @@ interface PreviewPaste {
 abstract class CommandButton extends Tool {
     abstract readonly command: string | string[];
 
-    use = function (self: CommandButton, player: Player, session: PlayerSession) {
-        if (typeof self.command == "string") {
-            Server.command.callCommand(player, self.command);
+    use(player: Player, session: PlayerSession) {
+        if (typeof this.command == "string") {
+            Server.command.callCommand(player, this.command);
         } else {
-            Server.command.callCommand(player, self.command[0], self.command.slice(1));
+            Server.command.callCommand(player, this.command[0], this.command.slice(1));
         }
-    };
+    }
 }
 
 class CutTool extends CommandButton {
@@ -40,9 +40,9 @@ class PasteTool extends CommandButton implements PreviewPaste {
     command = ["paste", "-s"];
     permission = "worldedit.clipboard.paste";
 
-    use = function (self: CommandButton, player: Player, session: PlayerSession) {
-        Server.command.callCommand(player, self.command[0], self.command.slice(1) as string[]);
-    };
+    use(player: Player, session: PlayerSession) {
+        Server.command.callCommand(player, this.command[0], this.command.slice(1) as string[]);
+    }
 
     outlines = new WeakMap();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,11 +65,11 @@ Tools.register(RedoTool, "redo", "wedit:redo_button");
 class RotateCWTool extends Tool implements PreviewPaste {
     permission = "worldedit.region.rotate";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         const args = ["90"];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
-    };
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
@@ -79,11 +79,11 @@ Tools.register(RotateCWTool, "rotate_cw", "wedit:rotate_cw_button");
 class RotateCCWTool extends Tool implements PreviewPaste {
     permission = "worldedit.region.rotate";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         const args = ["-90"];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "rotate", args);
-    };
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
@@ -93,11 +93,11 @@ Tools.register(RotateCCWTool, "rotate_ccw", "wedit:rotate_ccw_button");
 class FlipTool extends Tool implements PreviewPaste {
     permission = "worldedit.region.flip";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         const args = [];
-        if (player.isSneaking) args.push("-o");
+        if (Server.player.isSneaking(player)) args.push("-o");
         Server.command.callCommand(player, "flip", args);
-    };
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tick = <any>previewPaste;
@@ -105,20 +105,20 @@ class FlipTool extends Tool implements PreviewPaste {
 Tools.register(FlipTool, "flip", "wedit:flip_button");
 
 class SpawnGlassTool extends Tool {
-    use = function (self: Tool, player: Player) {
+    use(player: Player) {
         Server.queueCommand("setblock ~~~ glass", player);
-    };
+    }
 }
 Tools.register(SpawnGlassTool, "spawn_glass", "wedit:spawn_glass");
 
 class ConfigTool extends Tool {
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         session.enterSettings();
-    };
+    }
 }
 Tools.register(ConfigTool, "config", "wedit:config_button");
 
-function* previewPaste(self: PreviewPaste, player: Player, session: PlayerSession): Generator<void> {
+function* previewPaste(player: Player, session: PlayerSession): Generator<void> {
     if (!session.clipboard || !session.drawOutlines) return;
 
     if (!outlines.has(session)) outlines.set(session, { lazyCall: everyCall(8) });

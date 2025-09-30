@@ -1,4 +1,4 @@
-import { Player, Vector3 } from "@minecraft/server";
+import { ItemStack, Player, RawMessage, Vector3 } from "@minecraft/server";
 import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
@@ -65,15 +65,11 @@ const brushPatternInput: ModalFormInput = {
 };
 
 function displayItem(item: string) {
-    let result = item;
-    if (result.startsWith("minecraft:")) {
-        result = result.slice("minecraft:".length);
-    }
-    return result;
+    return { translate: new ItemStack(item).localizationKey };
 }
 
 function editToolTitle(ctx: MenuConfigCtx) {
-    return "%accessibility.textbox.editing : " + displayItem(ctx.getData("currentItem"));
+    return { rawtext: [{ translate: "accessibility.textbox.editing" }, { text: ": " }, displayItem(ctx.getData("currentItem"))] };
 }
 
 function getToolProperty(ctx: MenuConfigCtx, player: Player, prop: string) {
@@ -205,7 +201,7 @@ Server.uiForms.register<ConfigContext>("$tools", {
         for (const tool of getTools(player, ctx.getData("editingBrush"))) {
             const toolType = Tools.getBindingType(tool, player.id) as ToolTypes;
             buttons.push({
-                text: displayItem(tool),
+                text: { rawtext: [{ text: "|-- " }, displayItem(tool), { text: " --|" }] },
                 action: (ctx: MenuConfigCtx) => {
                     ctx.setData("creatingTool", null);
                     ctx.setData("currentItem", tool);
@@ -398,6 +394,31 @@ Server.uiForms.register<ConfigContext>("$editTool_stacker_wand", {
 });
 toolsWithProperties.push("stacker_wand");
 
+Server.uiForms.register<ConfigContext>("$editTool_extruder_wand", {
+    title: editToolTitle,
+    inputs: {
+        $range: {
+            type: "slider",
+            name: "%worldedit.config.range",
+            min: 1,
+            max: config.traceDistance,
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 5 : (getToolProperty(ctx, player, "range") as number)),
+        },
+        $mode: {
+            type: "dropdown",
+            name: "%worldedit.config.mode",
+            options: ["%worldedit.extruderMode.pull", "%worldedit.extruderMode.dig"],
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : (getToolProperty(ctx, player, "digging") as boolean) ? 1 : 0),
+        },
+    },
+    submit: (ctx, player, input) => {
+        ctx.setData("toolData", [input.$range as number, !!(input.$mode as number)]);
+        finishToolEdit(ctx);
+    },
+    cancel: (ctx) => ctx.returnto("$tools"),
+});
+toolsWithProperties.push("extruder_wand");
+
 Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
     title: editToolTitle,
     inputs: {
@@ -415,7 +436,7 @@ Server.uiForms.register<ConfigContext>("$editTool_command_wand", {
     },
     submit: (ctx, _, input) => {
         if (!(<string>input.$command).length) return ctx.error("worldedit.config.command.noCommand");
-        ctx.setData("toolData", [("/" + input.$command) as string]);
+        ctx.setData("toolData", [((input.$worldeditCmd ? config.commandPrefix : "/") + input.$command) as string]);
         finishToolEdit(ctx);
     },
     cancel: (ctx) => ctx.returnto("$tools"),
@@ -712,6 +733,14 @@ Server.uiForms.register<ConfigContext>("$selectToolType", {
             },
         },
         {
+            text: "%worldedit.config.tool.extruder",
+            icon: "textures/ui/extruder_wand",
+            action: (ctx) => {
+                ctx.setData("creatingTool", "extruder_wand");
+                ctx.goto("$editTool_extruder_wand");
+            },
+        },
+        {
             text: "%worldedit.config.tool.cmd",
             icon: "textures/ui/command_wand",
             action: (ctx) => {
@@ -803,26 +832,14 @@ Server.uiForms.register<ConfigContext>("$confirmToolBind", {
             const session = ctx.getData("session");
             const toolType = getToolType(ctx, player);
             const item = ctx.getData("currentItem");
-            const toolData = ctx.getData("toolData");
+            const toolData = ctx.getData("toolData") ?? [];
 
-            if (toolType == "selection_wand") {
-                session.bindTool("selection_wand", item);
-            } else if (toolType == "far_selection_wand") {
-                session.bindTool("far_selection_wand", item);
-            } else if (toolType == "navigation_wand") {
-                session.bindTool("selection_wand", item);
-            } else if (toolType == "stacker_wand") {
-                session.bindTool("stacker_wand", item, ...toolData);
-            } else if (toolType == "command_wand") {
-                session.bindTool("command_wand", item, ...toolData);
-            } else if (toolType == "replacer_wand") {
-                session.bindTool("replacer_wand", item, ...toolData);
-            } else if (toolType == "cycler_wand") {
-                session.bindTool("cycler_wand", item);
-            } else if (toolType.endsWith("brush")) {
+            if (toolType.endsWith("brush")) {
                 session.bindTool("brush", item, toolData[0], toolData[1]);
                 Tools.setProperty(item, player.id, "range", toolData[2]);
                 Tools.setProperty(item, player.id, "traceMask", toolData[3]);
+            } else {
+                session.bindTool(toolType, item, ...toolData);
             }
             ctx.returnto("$tools");
         },
@@ -838,11 +855,9 @@ Server.uiForms.register<ConfigContext>("$confirmDelete", {
     title: "%worldedit.config.confirm",
     message: (ctx) => {
         const deleting = ctx.getData("deletingTools");
-        let message = "%worldedit.config.confirm.delete";
-        for (const item of deleting) {
-            message += `\n${displayItem(item)}`;
-        }
-        return message;
+        const message: RawMessage[] = [{ translate: "worldedit.config.confirm.delete" }];
+        for (const item of deleting) message.push({ text: "\n" }, displayItem(item));
+        return { rawtext: message };
     },
     button1: {
         text: "%dr.button.ok",

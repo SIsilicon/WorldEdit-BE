@@ -1,62 +1,58 @@
 import { Vector3 } from "@minecraft/server";
-import { regionIterateBlocks, Vector, VectorSet } from "@notbeer-api";
+import { regionBounds, regionIterateBlocks, Vector, VectorSet } from "@notbeer-api";
 
 export function* plotTriangle(a: Vector3, b: Vector3, c: Vector3) {
     // Convert to Vector for easier math
     const va = Vector.from(a);
     const vb = Vector.from(b);
     const vc = Vector.from(c);
+    // Edges
+    const f0 = vb.sub(va);
+    const f1 = vc.sub(vb);
+    const f2 = va.sub(vc);
 
-    // Find the axis with the largest range to sort vertices
-    const axis = Vector.sub(va.max(vb).max(vc), va.min(vb).min(vc)).largestAxis();
+    const axes = [
+        f0.cross(f1), // triangle normal
+        new Vector(1, 0, 0),
+        new Vector(0, 1, 0),
+        new Vector(0, 0, 1), // box face normals
+        f0.cross([1, 0, 0]),
+        f0.cross([0, 1, 0]),
+        f0.cross([0, 0, 1]),
+        f1.cross([1, 0, 0]),
+        f1.cross([0, 1, 0]),
+        f1.cross([0, 0, 1]),
+        f2.cross([1, 0, 0]),
+        f2.cross([0, 1, 0]),
+        f2.cross([0, 0, 1]),
+    ];
 
-    // Sort vertices by the largest axis (Eg: va.y <= vb.y <= vc.y)
-    const [v0, v1, v2] = [va, vb, vc].sort((v1, v2) => v1[axis] - v2[axis]).map((v) => v.floor());
+    const boxHalfSize = new Vector(0.5, 0.5, 0.5);
+
+    function triangleBlockIntersect(block: Vector3) {
+        const boxCenter = Vector.add(block, 0.5);
+        const [v0, v1, v2] = [va, vb, vc].map((v) => v.sub(boxCenter));
+        for (const axis of axes) if (!overlapOnAxis(axis, v0, v1, v2, boxHalfSize)) return false;
+        return true;
+    }
+
+    function overlapOnAxis(axis: Vector3, v0: Vector, v1: Vector, v2: Vector, boxHalfSize: Vector3) {
+        const p0 = v0.dot(axis);
+        const p1 = v1.dot(axis);
+        const p2 = v2.dot(axis);
+
+        const minP = Math.min(p0, p1, p2);
+        const maxP = Math.max(p0, p1, p2);
+
+        const r = boxHalfSize.x * Math.abs(axis.x) + boxHalfSize.y * Math.abs(axis.y) + boxHalfSize.z * Math.abs(axis.z);
+
+        return !(minP > r || maxP < -r);
+    }
 
     const blocks = new VectorSet<Vector>();
-
-    function edgeInterpolate(p1: Vector, p2: Vector, s: number, edges: [number, number][] = []) {
-        if (p1[axis] === p2[axis]) return;
-        const t = (s - p1[axis]) / (p2[axis] - p1[axis]);
-        if (t >= 0 && t <= 1) {
-            const pt = p1.lerp(p2, t);
-            edges.push([Math.round(pt[axis === "x" ? "y" : "x"]), Math.round(pt[axis === "z" ? "y" : "z"])]);
-        }
+    for (const block of regionIterateBlocks(...regionBounds([va, vb, vc].map((v) => v.floor())))) {
+        if (triangleBlockIntersect(block)) yield block;
     }
-
-    // For each "axis value" between v0[axis] and v2[axis], find intersection points with triangle edges
-    for (let s = Math.ceil(v0[axis]); s <= Math.floor(v2[axis]); s++) {
-        // Find t for edges v0-v1 and v0-v2
-        let edges: [number, number][] = [];
-
-        edgeInterpolate(v0, v1, s, edges);
-        edgeInterpolate(v1, v2, s, edges);
-        edgeInterpolate(v0, v2, s, edges);
-
-        // Remove duplicate intersection points if there are more than 2
-        if (edges.length > 2) {
-            // Remove duplicate intersection points
-            const seen = new Set<string>();
-            edges = edges.filter(([x, z]) => {
-                const key = `${x},${z}`;
-                if (seen.has(key)) return false;
-                return seen.add(key), true;
-            });
-        }
-        if (edges.length < 2) continue;
-
-        // Fill between the two intersection points
-        const [[x0, z0], [x1, z1]] = edges;
-        const s0 = new Vector(axis === "x" ? s : x0, axis === "y" ? s : axis === "x" ? x0 : z0, axis === "z" ? s : z0);
-        const s1 = new Vector(axis === "x" ? s : x1, axis === "y" ? s : axis === "x" ? x1 : z1, axis === "z" ? s : z1);
-        for (const pt of plotLine(s0, s1)) yield pt, blocks.add(pt);
-    }
-
-    // Optionally, add triangle edges using plotLine
-    for (const pt of plotLine(v0, v1)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
-    for (const pt of plotLine(v1, v2)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
-    for (const pt of plotLine(v2, v0)) if (!blocks.has(pt)) yield pt, blocks.add(pt);
-
     return blocks;
 }
 

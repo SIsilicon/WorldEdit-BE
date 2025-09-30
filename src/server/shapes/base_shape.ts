@@ -91,11 +91,11 @@ export abstract class Shape {
         return ChunkStatus.DETAIL;
     }
 
-    public draw(player: Player, loc: Vector3) {
+    public draw(player: Player, loc: Vector3, isLocal = false) {
         try {
             for (const [id, pos] of (this.outlineCache = this.outlineCache ?? this.getOutline())) {
                 try {
-                    player.spawnParticle(id, pos.add(loc));
+                    (isLocal ? player : player.dimension).spawnParticle(id, pos.add(loc));
                 } catch {
                     /* pass */
                 }
@@ -139,20 +139,22 @@ export abstract class Shape {
         }
     }
 
-    protected drawLine(vertices: Vector[], closedLoop = false): [string, Vector][] {
+    protected drawLine(vertices: Vector[], closedLoop = false, verticesOnly = false): [string, Vector][] {
         const edges = vertices.map((_, i) => [i, (i + 1) % vertices.length] as [number, number]);
         if (!closedLoop) edges.splice(edges.length - 1, 1);
-        return this.drawShape(vertices, edges);
+        return this.drawShape(vertices, edges, verticesOnly);
     }
 
-    protected drawShape(vertices: Vector[], edges: [number, number][]): [string, Vector][] {
+    protected drawShape(vertices: Vector[], edges: [number, number][], verticesOnly = false): [string, Vector][] {
         const edgePoints: Vector[] = [];
-        for (const edge of edges) {
-            const [a, b] = [vertices[edge[0]], vertices[edge[1]]];
-            const resolution = Math.min(Math.floor(b.sub(a).length), 16);
-            for (let i = 1; i < resolution; i++) {
-                const t = i / resolution;
-                edgePoints.push(a.lerp(b, t));
+        if (!verticesOnly) {
+            for (const edge of edges) {
+                const [a, b] = [vertices[edge[0]], vertices[edge[1]]];
+                const resolution = Math.min(Math.floor(b.sub(a).length), 16);
+                for (let i = 1; i < resolution; i++) {
+                    const t = i / resolution;
+                    edgePoints.push(a.lerp(b, t));
+                }
             }
         }
         return vertices.concat(edgePoints).map((v) => ["wedit:selection_draw", v]);

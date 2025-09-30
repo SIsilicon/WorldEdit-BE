@@ -3,25 +3,27 @@ import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { print, wrap } from "server/util.js";
+import { Server } from "@notbeer-api";
 
 class BlockCyclerTool extends Tool {
     private stateIndex = 0;
 
     permission = "worldedit.cycler";
-    useOn = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
-        if (player.isSneaking) {
-            self.break(self, player, session, loc);
+
+    useOn(player: Player, session: PlayerSession, loc: Vector3) {
+        if (Server.player.isSneaking(player)) {
+            this.break(player, session, loc);
         } else {
-            self.update(player, loc, true);
+            this.update(player, loc, true);
         }
-    };
+    }
 
-    break = function (self: BlockCyclerTool, player: Player, session: PlayerSession, loc: Vector3) {
-        self.stateIndex++;
-        self.update(player, loc, false);
-    };
+    break(player: Player, session: PlayerSession, loc: Vector3) {
+        this.stateIndex++;
+        this.update(player, loc, false);
+    }
 
-    update = function (player: Player, loc: Vector3, increment: boolean) {
+    private update(player: Player, loc: Vector3, increment: boolean) {
         const block = player.dimension.getBlock(loc);
         let permutation = block.permutation;
         try {
@@ -56,6 +58,6 @@ class BlockCyclerTool extends Tool {
         } catch {
             /* pass */
         }
-    };
+    }
 }
 Tools.register(BlockCyclerTool, "cycler_wand");

@@ -8,8 +8,8 @@ import { assertCuboidSelection } from "@modules/assert";
 class SelectionFillTool extends Tool {
     permission = "worldedit.region.replace";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+    use(player: Player, session: PlayerSession) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             if (session.globalMask.empty()) {
@@ -18,73 +18,73 @@ class SelectionFillTool extends Tool {
                 Server.command.callCommand(player, "replace", ["air", "air"]);
             }
         }
-    };
+    }
 }
 Tools.register(SelectionFillTool, "selection_fill", "wedit:selection_fill");
 
 class SelectionWallTool extends Tool {
     permission = "worldedit.region.walls";
 
-    use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+    use(player: Player) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "walls", ["air"]);
         }
-    };
+    }
 }
 Tools.register(SelectionWallTool, "selection_wall", "wedit:selection_wall");
 
 class SelectionOutlineTool extends Tool {
     permission = "worldedit.region.faces";
 
-    use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+    use(player: Player) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "faces", ["air"]);
         }
-    };
+    }
 }
 Tools.register(SelectionOutlineTool, "selection_outline", "wedit:selection_outline");
 
 class SelectionHollowTool extends Tool {
     permission = "worldedit.region.hollow";
 
-    use = function (self: Tool, player: Player) {
-        if (player.isSneaking) {
+    use(player: Player) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             Server.command.callCommand(player, "hollow", ["1"]);
         }
-    };
+    }
 }
 Tools.register(SelectionHollowTool, "selection_hollow", "wedit:selection_hollow");
 
 class SelectionStackTool extends Tool {
     permission = "worldedit.region.stack";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+    use(player: Player, session: PlayerSession) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             assertCuboidSelection(session);
             Server.uiForms.show("$stackAmount", player);
         }
-    };
+    }
 }
 Tools.register(SelectionStackTool, "selection_stack", "wedit:selection_stack");
 
 class SelectionMoveTool extends Tool {
     permission = "worldedit.region.move";
 
-    use = function (self: Tool, player: Player, session: PlayerSession) {
-        if (player.isSneaking) {
+    use(player: Player, session: PlayerSession) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectRegionMode", player);
         } else {
             assertCuboidSelection(session);
             Server.uiForms.show("$moveAmount", player);
         }
-    };
+    }
 }
 Tools.register(SelectionMoveTool, "selection_move", "wedit:selection_move");

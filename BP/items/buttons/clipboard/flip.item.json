@@ -1,0 +1,15 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "wedit:flip_button"
+        },
+        "components": {
+            "minecraft:icon": {
+                "textures": { "default": "wedit:flip" }
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:throwable": {}
+        }
+    }
+}

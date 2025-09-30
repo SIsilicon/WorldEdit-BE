@@ -1,0 +1,15 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "wedit:selection_outline"
+        },
+        "components": {
+            "minecraft:icon": {
+                "textures": { "default": "wedit:selection_outline" }
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:throwable": {}
+        }
+    }
+}

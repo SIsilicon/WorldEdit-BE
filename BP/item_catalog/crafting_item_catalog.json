@@ -1,0 +1,72 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:crafting_items_catalog": {
+        "categories": [
+            {
+                "category_name": "items",
+                "groups": [
+                    {
+                        "group_identifier": {
+                            "icon": "wedit:copy_button",
+                            "name": "wedit:itemGroup.name.clipboard"
+                        },
+
+                        "items": [
+                                "wedit:copy_button",
+                                "wedit:cut_button",
+                                "wedit:paste_button",
+                                "wedit:rotate_cw_button",
+                                "wedit:rotate_ccw_button",
+                                "wedit:flip_button"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "wedit:selection_fill",
+                            "name": "wedit:itemGroup.name.region"
+                        },
+
+                        "items": [
+                                "wedit:selection_fill",
+                                "wedit:selection_wall",
+                                "wedit:selection_outline",
+                                "wedit:selection_hollow",
+                                "wedit:selection_move",
+                                "wedit:selection_stack"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "wedit:draw_sphere",
+                            "name": "wedit:itemGroup.name.shapes"
+                        },
+
+                        "items": [
+                                "wedit:draw_sphere",
+                                "wedit:draw_cylinder",
+                                "wedit:draw_pyramid",
+                                "wedit:draw_line",
+                                "wedit:draw_curve",
+                                "wedit:draw_loft"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "wedit:undo_button",
+                            "name": "wedit:itemGroup.name.buttons"
+                        },
+
+                        "items": [
+                                "wedit:undo_button",
+                                "wedit:redo_button",
+                                "wedit:pattern_picker",
+                                "wedit:mask_picker",
+                                "wedit:spawn_glass",
+                                "wedit:config_button"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

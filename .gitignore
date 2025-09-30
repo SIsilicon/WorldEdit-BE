@@ -17,6 +17,8 @@ RP/manifest.json
 BP/manifest.json
 node_modules
 .venv
+!.vscode/tasks.json
+!.vscode/launch.json
 .vscode
 app/.import
 __pycache__

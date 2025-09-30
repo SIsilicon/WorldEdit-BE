@@ -9,37 +9,51 @@
         "url": "https://github.com/SIsilicon/WorldEdit-BE/issues"
     },
     "scripts": {
-        "watch": "python build.py --watch=stable",
-        "watch:preview": "python build.py --watch=preview",
-        "watch:server": "python build.py --watch=server",
-        "build:client": "python build.py --target=release --clean",
-        "build:server": "python build.py --target=server --clean",
-        "build:all": "python build.py --target=release --clean && python build.py --target=server",
-        "build:beta": "python build.py --target=debug --clean",
+        "watch": "node build.mjs --watch=stable",
+        "watch:preview": "node build.mjs --watch=preview",
+        "watch:server": "node build.mjs --watch=server",
+        "build:client": "node build.mjs --target=release",
+        "build:server": "node build.mjs --target=server",
+        "build:all": "node build.mjs --target=release && node build.mjs --target=server",
+        "build:beta": "node build.mjs --target=debug",
+        "build": "node build.mjs --target=release",
         "lint": "npx eslint src",
         "lint:fix": "npm run lint -- --fix",
-        "format": "npm run lint:fix"
+        "format": "npm run lint:fix",
+        "gametest": "act -j gametest"
     },
     "license": "GPL-3.0-or-later",
     "devDependencies": {
+        "@types/glob": "^8.1.0",
+        "@types/yazl": "^3.3.0",
         "@typescript-eslint/eslint-plugin": "^7.1.0",
         "@typescript-eslint/parser": "^7.1.0",
+        "commander": "^14.0.0",
+        "esbuild": "^0.25.9",
         "eslint": "^8.57.0",
         "eslint-plugin-prettier": "^5.1.3",
-        "typescript": "^5.8.2"
+        "glob": "^11.0.3",
+        "pofile": "^1.1.4",
+        "typescript": "^5.8.2",
+        "yazl": "^3.3.1"
     },
     "dependencies": {
-        "@minecraft/server": "^2.2.0-beta.1.21.100-preview.20",
+        "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24",
         "@minecraft/server-admin": "1.0.0-beta.1.19.80-stable",
-        "@minecraft/server-editor": "^0.1.0-beta.1.21.100-preview.20",
-        "@minecraft/server-ui": "^2.1.0-beta.1.21.100-preview.20"
+        "@minecraft/server-editor": "^0.1.0-beta.1.21.110-preview.24",
+        "@minecraft/server-gametest": "^1.0.0-beta.1.21.110-preview.24",
+        "@minecraft/server-ui": "^2.1.0-beta.1.21.110-preview.20",
+        "@minecraft/vanilla-data": "^1.21.110-preview.24"
     },
     "overrides": {
         "@minecraft/server-ui": {
-            "@minecraft/server": "^2.2.0-beta.1.21.100-preview.20"
+            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
         },
         "@minecraft/server-editor": {
-            "@minecraft/server": "^2.2.0-beta.1.21.100-preview.20"
+            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
+        },
+        "@minecraft/server-gametest": {
+            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
         }
     }
 }

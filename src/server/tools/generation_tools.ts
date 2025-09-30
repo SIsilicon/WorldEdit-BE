@@ -10,6 +10,7 @@ import { Jobs } from "@modules/jobs";
 import { SphereShape } from "server/shapes/sphere";
 import { CylinderShape } from "server/shapes/cylinder";
 import { PyramidShape } from "server/shapes/pyramid";
+import { HotbarUI } from "@modules/hotbar_ui";
 
 function trySpawnParticle(player: Player, type: string, location: Vector3) {
     try {
@@ -23,7 +24,7 @@ abstract class GeneratorTool extends Tool {
     protected posStart = new WeakMap<PlayerSession, [Vector, string]>(); // [location, dimension type]
 
     protected baseUse(player: Player, session: PlayerSession, loc?: Vector) {
-        if (player.isSneaking) {
+        if (Server.player.isSneaking(player)) {
             Server.uiForms.show("$selectGenMode", player);
             return true;
         }
@@ -60,25 +61,25 @@ abstract class GeneratorTool extends Tool {
         return this.posStart.delete(session);
     }
 
-    stopHold = function (self: GeneratorTool, _: Player, session: PlayerSession) {
-        self.posStart.delete(session);
-    };
+    stopHold(_: Player, session: PlayerSession) {
+        this.posStart.delete(session);
+    }
 
-    drop = function (self: GeneratorTool, _: Player, session: PlayerSession) {
-        self.posStart.delete(session);
-    };
+    drop(_: Player, session: PlayerSession) {
+        this.posStart.delete(session);
+    }
 }
 
 class DrawLineTool extends GeneratorTool {
     permission = "worldedit.region.line";
 
-    commonUse = function* (self: DrawLineTool, player: Player, session: PlayerSession, loc?: Vector) {
-        if (self.baseUse(player, session, loc)) return;
+    *commonUse(player: Player, session: PlayerSession, loc?: Vector) {
+        if (this.baseUse(player, session, loc)) return;
 
-        const pos1 = self.getFirstPos(session);
-        const pos2 = self.traceForPos(player);
+        const pos1 = this.getFirstPos(session);
+        const pos2 = this.traceForPos(player);
         const [start, end] = regionBounds([pos1, pos2]);
-        self.clearFirstPos(session);
+        this.clearFirstPos(session);
 
         const dim = player.dimension;
         const pattern = session.globalPattern.withContext(session, [start, end]);
@@ -102,13 +103,13 @@ class DrawLineTool extends GeneratorTool {
         }
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
-    };
+    }
 
-    tick = function (self: DrawLineTool, player: Player, session: PlayerSession) {
-        if (self.baseTick(player, session)) return;
+    tick(player: Player, session: PlayerSession) {
+        if (this.baseTick(player, session)) return;
 
-        let lineStart = self.getFirstPos(session);
-        const lineEnd = self.traceForPos(player);
+        let lineStart = this.getFirstPos(session);
+        const lineEnd = this.traceForPos(player);
         const length = lineEnd.sub(lineStart).length;
         if (length > 32) lineStart = lineEnd.add(lineStart.sub(lineEnd).normalized().mul(32)).floor();
 
@@ -122,7 +123,7 @@ class DrawLineTool extends GeneratorTool {
             trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 1]));
             trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 1]));
         }
-    };
+    }
 
     useOn = this.commonUse;
     use = this.commonUse;
@@ -134,21 +135,21 @@ class DrawCurveTool extends GeneratorTool {
 
     paths = new Map<PlayerSession, Vector[]>();
 
-    commonUse = function* (self: DrawCurveTool, player: Player, session: PlayerSession, loc?: Vector) {
-        if (self.baseUse(player, session, loc)) return;
+    *commonUse(player: Player, session: PlayerSession, loc?: Vector) {
+        if (this.baseUse(player, session, loc)) return;
 
-        if (!self.paths.has(session)) self.paths.set(session, []);
-        const points = self.paths.get(session);
+        if (!this.paths.has(session)) this.paths.set(session, []);
+        const points = this.paths.get(session);
 
-        const nextPoint = self.traceForPos(player);
+        const nextPoint = this.traceForPos(player);
         if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) {
             points.push(nextPoint);
             return;
         }
 
-        points.unshift(self.getFirstPos(session));
-        self.clearFirstPos(session);
-        self.paths.delete(session);
+        points.unshift(this.getFirstPos(session));
+        this.clearFirstPos(session);
+        this.paths.delete(session);
 
         const dim = player.dimension;
 
@@ -176,16 +177,16 @@ class DrawCurveTool extends GeneratorTool {
         }
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
-    };
+    }
 
-    tick = function (self: DrawCurveTool, player: Player, session: PlayerSession) {
-        if (self.baseTick(player, session)) return;
-        if (self.paths.has(session) && !self.getFirstPos(session)) self.paths.delete(session);
+    tick(player: Player, session: PlayerSession) {
+        if (this.baseTick(player, session)) return;
+        if (this.paths.has(session) && !this.getFirstPos(session)) this.paths.delete(session);
 
-        const points = self.paths.get(session)?.slice() ?? [];
-        const nextPoint = self.traceForPos(player);
+        const points = this.paths.get(session)?.slice() ?? [];
+        const nextPoint = this.traceForPos(player);
         if (!points.length || !Vector.equals(points[points.length - 1], nextPoint)) points.push(nextPoint);
-        points.unshift(self.getFirstPos(session));
+        points.unshift(this.getFirstPos(session));
 
         for (const point of plotCurve(points)) {
             trySpawnParticle(player, "wedit:selection_draw", point);
@@ -197,7 +198,7 @@ class DrawCurveTool extends GeneratorTool {
             trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [0, 1, 1]));
             trySpawnParticle(player, "wedit:selection_draw", Vector.add(point, [1, 1, 1]));
         }
-    };
+    }
 
     useOn = this.commonUse;
     use = this.commonUse;
@@ -207,24 +208,24 @@ Tools.register(DrawCurveTool, "draw_curve", "wedit:draw_curve");
 class DrawSphereTool extends GeneratorTool {
     permission = "worldedit.generation.sphere";
 
-    commonUse = function* (self: DrawSphereTool, player: Player, session: PlayerSession, loc?: Vector) {
-        if (self.baseUse(player, session, loc)) return;
+    *commonUse(player: Player, session: PlayerSession, loc?: Vector) {
+        if (this.baseUse(player, session, loc)) return;
 
-        const center = self.getFirstPos(session);
-        const radius = Math.floor(self.traceForPos(player).sub(center).length);
+        const center = this.getFirstPos(session);
+        const radius = Math.floor(this.traceForPos(player).sub(center).length);
         const sphereShape = new SphereShape(radius);
         const pattern = session.globalPattern.withContext(session, sphereShape.getRegion(center));
-        self.clearFirstPos(session);
+        this.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
-    };
+    }
 
-    tick = function (self: DrawSphereTool, player: Player, session: PlayerSession) {
-        if (self.baseTick(player, session)) return;
+    tick(player: Player, session: PlayerSession) {
+        if (this.baseTick(player, session)) return;
 
-        const center = self.getFirstPos(session);
-        const radius = Math.floor(center.sub(self.traceForPos(player)).length) + 0.5;
+        const center = this.getFirstPos(session);
+        const radius = Math.floor(center.sub(this.traceForPos(player)).length) + 0.5;
 
         const axes: [Vector, axis][] = [
             [new Vector(0, 1, 0), "x"],
@@ -240,7 +241,7 @@ class DrawSphereTool extends GeneratorTool {
                 trySpawnParticle(player, "wedit:selection_draw", point);
             }
         }
-    };
+    }
 
     useOn = this.commonUse;
     use = this.commonUse;
@@ -250,24 +251,24 @@ Tools.register(DrawSphereTool, "draw_sphere", "wedit:draw_sphere");
 class DrawCylinderTool extends GeneratorTool {
     permission = "worldedit.generation.cyl";
 
-    commonUse = function* (self: DrawCylinderTool, player: Player, session: PlayerSession, loc?: Vector) {
-        if (self.baseUse(player, session, loc)) return;
+    *commonUse(player: Player, session: PlayerSession, loc?: Vector) {
+        if (this.baseUse(player, session, loc)) return;
 
-        const [shape, center] = self.getShape(player, session);
+        const [shape, center] = this.getShape(player, session);
         const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
-        self.clearFirstPos(session);
+        this.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
-    };
+    }
 
-    tick = function (self: DrawCylinderTool, player: Player, session: PlayerSession) {
-        if (self.baseTick(player, session)) return;
+    tick(player: Player, session: PlayerSession) {
+        if (this.baseTick(player, session)) return;
 
-        const [shape, loc] = self.getShape(player, session);
+        const [shape, loc] = this.getShape(player, session);
         shape.draw(player, loc);
-    };
+    }
 
     getShape(player: Player, session: PlayerSession): [CylinderShape, Vector] {
         const center = this.getFirstPos(session).clone();
@@ -289,24 +290,24 @@ Tools.register(DrawCylinderTool, "draw_cylinder", "wedit:draw_cylinder");
 class DrawPyramidTool extends GeneratorTool {
     permission = "worldedit.generation.pyramid";
 
-    commonUse = function* (self: DrawPyramidTool, player: Player, session: PlayerSession, loc?: Vector) {
-        if (self.baseUse(player, session, loc)) return;
+    *commonUse(player: Player, session: PlayerSession, loc?: Vector) {
+        if (this.baseUse(player, session, loc)) return;
 
-        const [shape, center] = self.getShape(player, session);
+        const [shape, center] = this.getShape(player, session);
         const pattern = session.globalPattern.withContext(session, shape.getRegion(center));
-        self.clearFirstPos(session);
+        this.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
         print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
-    };
+    }
 
-    tick = function (self: DrawPyramidTool, player: Player, session: PlayerSession) {
-        if (self.baseTick(player, session)) return;
+    tick(player: Player, session: PlayerSession) {
+        if (this.baseTick(player, session)) return;
 
-        const [shape, loc] = self.getShape(player, session);
+        const [shape, loc] = this.getShape(player, session);
         shape.draw(player, loc);
-    };
+    }
 
     getShape(player: Player, session: PlayerSession): [PyramidShape, Vector] {
         const center = this.getFirstPos(session).clone();
@@ -325,3 +326,16 @@ class DrawPyramidTool extends GeneratorTool {
     use = this.commonUse;
 }
 Tools.register(DrawPyramidTool, "draw_pyramid", "wedit:draw_pyramid");
+
+class DrawLoftTool extends Tool {
+    permission = "worldedit.generation.shape";
+
+    use(player: Player) {
+        if (Server.player.isSneaking(player)) {
+            Server.uiForms.show("$selectGenMode", player);
+        } else {
+            HotbarUI.show("$loftManager", player);
+        }
+    }
+}
+Tools.register(DrawLoftTool, "draw_loft", "wedit:draw_loft");

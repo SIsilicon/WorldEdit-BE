@@ -1,8 +1,9 @@
-import * as Minecraft from "@minecraft/server";
+import { EntityEquippableComponent, EntityInventoryComponent, Player as MinecraftPlayer, world } from "@minecraft/server";
+import { InputButton, ButtonState } from "@minecraft/server";
 import { getItemCountReturn } from "../@types/classes/PlayerBuilder.js";
 import isWhitelistEnabled from "whitelist.js";
 
-type Player = Minecraft.Player;
+type Player = MinecraftPlayer;
 
 export class PlayerBuilder {
     /**
@@ -56,7 +57,7 @@ export class PlayerBuilder {
      * @example PlayerBuilder.list();
      */
     list(): Array<Player> {
-        return Array.from(Minecraft.world.getPlayers()) as Array<Player>;
+        return Array.from(world.getPlayers()) as Array<Player>;
     }
     /**
      * Get the player's inventory container
@@ -64,7 +65,7 @@ export class PlayerBuilder {
      * @returns {InventoryComponentContainer}
      */
     getInventory(player: Player) {
-        return (player.getComponent("minecraft:inventory") as Minecraft.EntityInventoryComponent).container;
+        return (player.getComponent("minecraft:inventory") as EntityInventoryComponent).container;
     }
     /**
      * Get the player's equipment component
@@ -72,7 +73,7 @@ export class PlayerBuilder {
      * @returns {Minecraft.EntityEquippableComponent}
      */
     getEquipment(player: Player) {
-        return player.getComponent("minecraft:equippable") as Minecraft.EntityEquippableComponent;
+        return player.getComponent("minecraft:equippable") as EntityEquippableComponent;
     }
     /**
      * Get the amount on a specific items player(s) has
@@ -99,6 +100,15 @@ export class PlayerBuilder {
      */
     getHeldItem(player: Player) {
         return this.getInventory(player).getItem(player.selectedSlotIndex);
+    }
+
+    /**
+     * Check if a player is sneaking (including midair)
+     * @param {Player} player Player to check
+     * @returns {boolean}
+     */
+    isSneaking(player: Player): boolean {
+        return player.isSneaking || (player.inputInfo.getButtonState(InputButton.Sneak) === ButtonState.Pressed && player.isFlying && Math.abs(player.getVelocity().y) < 0.01);
     }
 }
 export const Player = new PlayerBuilder();

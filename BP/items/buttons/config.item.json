@@ -1,13 +1,12 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.21.80",
     "minecraft:item": {
         "description": {
-            "identifier": "wedit:config_button",
-            "category": "commands"
+            "identifier": "wedit:config_button"
         },
         "components": {
             "minecraft:icon": {
-                "texture": "config"
+                "textures": { "default": "wedit:config" }
             },
             "minecraft:display_name": {
                 "value": "worldedit.config.mainMenu"

@@ -99,11 +99,6 @@ export class PlayerSession {
     public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
 
     /**
-     * The clipboard region created by the player.
-     */
-    public clipboard: RegionBuffer;
-
-    /**
      * The loft the player is building.
      */
     public loft: LoftShape;
@@ -131,7 +126,9 @@ export class PlayerSession {
     private readonly regions = new Map<string, RegionBuffer>();
     private readonly gradients: Database<gradients>;
     private readonly lazySelectionDraw = everyCall(8);
+    private readonly lazyLoftDraw = everyCall(9);
 
+    private clipboardBuffer?: RegionBuffer;
     private placementMode: "player" | "selection" = "player";
 
     constructor(player: Player) {
@@ -164,6 +161,16 @@ export class PlayerSession {
 
     public get drawOutlines() {
         return this.selection.visible;
+    }
+
+    public set clipboard(region: RegionBuffer | undefined) {
+        if (this.clipboardBuffer === region) return;
+        this.deleteRegion(this.clipboardBuffer);
+        this.clipboardBuffer = region;
+    }
+
+    public get clipboard() {
+        return this.clipboardBuffer;
     }
 
     /**
@@ -267,8 +274,9 @@ export class PlayerSession {
     }
 
     public deleteRegion(buffer: RegionBuffer) {
-        buffer?.deref();
+        if (!this.regions.has(buffer?.id)) return;
         this.regions.delete(buffer?.id);
+        buffer?.deref();
     }
 
     public createGradient(id: string, dither: number, patterns: Pattern[]) {
@@ -296,12 +304,15 @@ export class PlayerSession {
     }
 
     onTick() {
+        if (!this.selection.visible) return;
+
         // Draw Loft
-        if (this.loft) this.loft.draw(this.player, Vector.ZERO);
+        if (this.loft) this.lazyLoftDraw(() => this.loft.draw(this.player, Vector.ZERO, this.selection.visible === "local"));
         // Draw Selection
-        if (this.selection.isEmpty) return;
-        const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
-        if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc));
+        if (!this.selection.isEmpty) {
+            const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
+            if (shape) this.lazySelectionDraw(() => shape.draw(this.player, loc, this.selection.visible === "local"));
+        }
     }
 }
 

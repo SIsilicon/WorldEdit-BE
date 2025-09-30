@@ -95,7 +95,7 @@ export class RawText {
     }
 
     print(player: Player) {
-        system.run(() => player.runCommand(`tellraw @s ${this.toString()}`));
+        system.run(() => (player.isValid ? player.runCommand(`tellraw @s ${this.toString()}`) : undefined));
     }
 
     printError(player: Player) {

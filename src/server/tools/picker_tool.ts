@@ -1,85 +1,64 @@
-import { RawText } from "@notbeer-api";
-import { BlockPermutation, Vector3, Player } from "@minecraft/server";
+import { RawText, Server } from "@notbeer-api";
+import { Vector3, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
 import { Tool } from "./base_tool.js";
 import { Tools } from "./tool_manager.js";
 import { print } from "server/util.js";
 
 class PatternPickerTool extends Tool {
-    useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
+    useOn(player: Player, session: PlayerSession, loc: Vector3) {
         const dimension = player.dimension;
         let addedToPattern = false;
-        const block = dimension.getBlock(loc).permutation;
-        let blockName = block.type.id;
-        if (player.isSneaking) {
-            session.globalPattern.addBlock(block);
+        const block = dimension.getBlock(loc);
+        if (Server.player.isSneaking(player)) {
+            session.globalPattern.addBlock(block.permutation);
             addedToPattern = true;
         } else {
             session.globalPattern.clear();
-            session.globalPattern.addBlock(block);
+            session.globalPattern.addBlock(block.permutation);
         }
+        print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("translate", block.localizationKey), player, true);
+    }
 
-        blockName += printBlockStates(block);
-        if (blockName.startsWith("minecraft:")) {
-            blockName = blockName.slice("minecraft:".length);
-        }
-        print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("text", blockName), player, true);
-    };
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         let addedToPattern = true;
-        if (!player.isSneaking) {
+        if (!Server.player.isSneaking(player)) {
             session.globalPattern.clear();
             addedToPattern = false;
         }
-        session.globalPattern.addBlock(BlockPermutation.resolve("minecraft:air"));
-        print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("text", "air"), player, true);
-    };
+        const block = player.dimension.getBlock(player.getHeadLocation());
+        session.globalPattern.addBlock(block.permutation);
+        print(RawText.translate("worldedit.patternPicker." + (addedToPattern ? "add" : "set")).append("translate", block.localizationKey), player, true);
+    }
 }
 Tools.register(PatternPickerTool, "pattern_picker", "wedit:pattern_picker");
 
 class MaskPickerTool extends Tool {
     permission = "worldedit.global-mask";
-    useOn = function (self: Tool, player: Player, session: PlayerSession, loc: Vector3) {
+
+    useOn(player: Player, session: PlayerSession, loc: Vector3) {
         const dimension = player.dimension;
         let addedToPattern = false;
-        const block = dimension.getBlock(loc).permutation;
-        let blockName = block.type.id;
-        if (player.isSneaking) {
-            session.globalMask.addBlock(block);
+        const block = dimension.getBlock(loc);
+        if (Server.player.isSneaking(player)) {
+            session.globalMask.addBlock(block.permutation);
             addedToPattern = true;
         } else {
             session.globalMask.clear();
-            session.globalMask.addBlock(block);
+            session.globalMask.addBlock(block.permutation);
         }
+        print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("translate", block.localizationKey), player, true);
+    }
 
-        blockName += printBlockStates(block);
-        if (blockName.startsWith("minecraft:")) {
-            blockName = blockName.slice("minecraft:".length);
-        }
-        print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("text", blockName), player, true);
-    };
-    use = function (self: Tool, player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         let addedToPattern = true;
-        if (!player.isSneaking) {
+        if (!Server.player.isSneaking(player)) {
             session.globalMask.clear();
             addedToPattern = false;
         }
-        session.globalMask.addBlock(BlockPermutation.resolve("minecraft:air"));
-        print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("text", "air"), player, true);
-    };
+        const block = player.dimension.getBlock(player.getHeadLocation());
+        session.globalMask.addBlock(block.permutation);
+        print(RawText.translate("worldedit.maskPicker." + (addedToPattern ? "add" : "set")).append("translate", block.localizationKey), player, true);
+    }
 }
 Tools.register(MaskPickerTool, "mask_picker", "wedit:mask_picker");
-
-function printBlockStates(block: BlockPermutation) {
-    let propString = "";
-    const properties = block.getAllStates();
-    if (Object.keys(properties).length && block.type.id != "water" && block.type.id != "lava") {
-        for (const prop in properties) {
-            if (prop.startsWith("wall_connection_type") || prop.startsWith("liquid_depth")) {
-                continue;
-            }
-            propString += `\n§o${prop}§r: ${properties[prop]}`;
-        }
-    }
-    return propString;
-}

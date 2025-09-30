@@ -20,31 +20,31 @@ export abstract class Tool {
     /**
      * The function that's called when the tool is being used.
      */
-    readonly use: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
+    use?(player: Player, session: PlayerSession): void | Generator<unknown, void>;
     /**
      * The function that's called when the tool is being used on a block.
      */
-    readonly useOn: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
+    useOn?(player: Player, session: PlayerSession, loc: Vector): void | Generator<unknown, void>;
     /**
      * The function that's called when the tool has broken a block.
      */
-    readonly break: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
+    break?(player: Player, session: PlayerSession, loc: Vector): void | Generator<unknown, void>;
     /**
      * The function that's called when the tool has hit a block.
      */
-    readonly hit: (self: Tool, player: Player, session: PlayerSession, loc: Vector) => void | Generator<unknown, void>;
+    hit?(player: Player, session: PlayerSession, loc: Vector): void | Generator<unknown, void>;
     /**
      * The function that's called when the tool is dropped.
      */
-    readonly drop: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
+    drop?(player: Player, session: PlayerSession): void | Generator<unknown, void>;
     /**
      * The function that's called when the tool stops being held.
      */
-    readonly stopHold: (self: Tool, player: Player, session: PlayerSession) => void | Generator<unknown, void>;
+    stopHold?(player: Player, session: PlayerSession): void | Generator<unknown, void>;
     /**
      * The function that's called every tick the tool is held.
      */
-    readonly tick: (self: Tool, player: Player, session: PlayerSession, tick: number) => void | Generator<unknown, void>;
+    tick?(player: Player, session: PlayerSession, tick: number): void | Generator<unknown, void>;
     /**
      * The permission required for the tool to be used.
      */
@@ -76,30 +76,22 @@ export abstract class Tool {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const onFail = (e: any) => {
             printerr(e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e, player, true);
-            if (e.stack) {
-                printerr(e.stack, player, false);
-            }
+            if (e.stack) printerr(e.stack, player, false);
         };
 
         new Thread().start(
             function* (self: Tool, player: Player, session: PlayerSession, action: ToolAction, loc: Vector) {
                 session.usingItem = true;
                 try {
-                    if (!Server.player.hasPermission(player, self.permission)) {
-                        throw "worldedit.tool.noPerm";
-                    }
+                    if (!Server.player.hasPermission(player, self.permission)) throw "worldedit.tool.noPerm";
 
                     if (system.currentTick - self.lastUse > 4 || self.noDelay) {
                         self.lastUse = system.currentTick;
 
                         if (!(action == ToolAction.USE && self.useOnTick == tick)) {
                             if (action == ToolAction.USE_ON) self.useOnTick = tick;
-                            const func = self[action];
-                            if (func.constructor.name == "GeneratorFunction") {
-                                yield* func(self, player, session, loc) as Generator<unknown, void>;
-                            } else {
-                                func(self, player, session, loc) as void;
-                            }
+                            const result = self[action]!(player, session, loc);
+                            if (typeof (result as Generator)?.next === "function") yield* result as Generator;
                         }
                     }
                 } catch (e) {

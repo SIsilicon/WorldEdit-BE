@@ -89,10 +89,13 @@ class PlayerHandler {
         const dim = player.dimension;
 
         if (!mask || mask.empty()) {
-            const maxDistance = Math.min(range, config.traceDistance);
+            const maxDistance = Math.min(range ?? config.traceDistance, config.traceDistance);
             let hit = player.getBlockFromViewDirection({ includePassableBlocks: false, includeLiquidBlocks: false, maxDistance: maxDistance * 2 });
-            if (hit && Vector.from(hit.block).distanceTo(player.getViewDirection()) > maxDistance) hit = undefined;
-            return hit || range === undefined ? Vector.from(hit?.block) : Vector.mul(player.getViewDirection(), range).add(player.getHeadLocation()).floor();
+            if (hit && Vector.from(hit.block).distanceTo(player.getHeadLocation()) > maxDistance) hit = undefined;
+
+            if (!hit && typeof range !== "number") return undefined;
+            else if (hit) return Vector.from(hit!.block);
+            else return Vector.mul(player.getViewDirection(), range).add(player.getHeadLocation()).floor();
         }
 
         let prevPoint = new Vector(Infinity, Infinity, Infinity);

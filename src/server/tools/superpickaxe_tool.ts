@@ -10,7 +10,7 @@ class SuperPickaxeTool extends Tool {
     noDelay = true;
     permission = "worldedit.superpickaxe";
 
-    break = function* (self: SuperPickaxeTool, player: Player, session: PlayerSession, loc: Vector): Generator<void> {
+    *break(player: Player, session: PlayerSession, loc: Vector): Generator<void> {
         const dimension = player.dimension;
         const typeId = dimension.getBlock(loc).typeId;
         if (typeId == "minecraft:air") return;
@@ -55,13 +55,9 @@ class SuperPickaxeTool extends Tool {
             }
             yield;
         }
-    };
+    }
 
     hit = this.break;
-
-    constructor() {
-        super();
-    }
 }
 Tools.register(
     SuperPickaxeTool,
@@ -73,9 +69,6 @@ Tools.register(
 );
 
 function destroyBlock(dimension: Dimension, loc: Vector3, drop: boolean) {
-    if (drop) {
-        Server.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air destroy`, dimension);
-    } else {
-        dimension.getBlock(loc).setType("minecraft:air");
-    }
+    if (drop) Server.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air destroy`, dimension);
+    else dimension.getBlock(loc).setType("minecraft:air");
 }

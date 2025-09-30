@@ -274,6 +274,11 @@ export class Vector {
         return `${this.x} ${this.y} ${this.z}`;
     }
 
+    /** Returns angles in radians */
+    toAngles() {
+        return { x: Math.asin(-this.y), y: Math.atan2(-this.x, this.z) };
+    }
+
     toArray() {
         return [this.x, this.y, this.z] as [number, number, number];
     }

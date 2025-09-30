@@ -1,4 +1,8 @@
 {
+    "commandPrefix": {
+        "description": "What character(s) to use to define the beginning of custom commands.",
+        "default": ";"
+    },
     "performanceMode": {
         "description": "Whether the addon should use simpler methods to run operations faster.\nThis comes with the drawback of more limited capabilities.",
         "default": false
