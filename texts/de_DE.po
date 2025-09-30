@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-08-29 00:34\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -74,16 +74,46 @@ msgid "item.wedit:draw_line"
 msgstr "Linie zeichnen"
 
 msgid "item.wedit:draw_curve"
-msgstr "Draw Curve"
+msgstr "Zeichne Kurve"
 
 msgid "item.wedit:draw_sphere"
 msgstr "Draw Sphere"
 
 msgid "item.wedit:draw_cylinder"
-msgstr "Draw Cylinder"
+msgstr "Zeichne Zylinder"
 
 msgid "item.wedit:draw_pyramid"
-msgstr "Draw Pyramid"
+msgstr "Zeichne Pyramide"
+
+msgid "item.wedit:draw_loft"
+msgstr "Draw Loft"
+
+msgid "item.wedit:fill_loft"
+msgstr "Fill Loft"
+
+msgid "item.wedit:start_loft_curve"
+msgstr "Start Curve on Loft"
+
+msgid "item.wedit:add_loft_point"
+msgstr "Add Point to Loft"
+
+msgid "item.wedit:remove_loft_point"
+msgstr "Remove Last Point"
+
+msgid "item.wedit:clear_loft_points"
+msgstr "Clear Loft Points"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Sie müssen einen Block angeben, auf den die Auswahl gesetzt werden soll!"
@@ -134,7 +164,7 @@ msgid "worldedit.config.general.drawOutlines.self"
 msgstr "Visible to Self"
 
 msgid "worldedit.config.general.drawOutlines.all"
-msgstr "Visible to Everyone"
+msgstr "Für jeden Sichtbar"
 
 msgid "worldedit.config.general.selectMode"
 msgstr "Auswahlmodus"
@@ -160,6 +190,12 @@ msgstr "Kugel"
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Zylinder"
 
+msgid "worldedit.extruderMode.pull"
+msgstr "Pull out Blocks"
+
+msgid "worldedit.extruderMode.dig"
+msgstr "Dig in Blocks"
+
 msgid "worldedit.regionMode.selectOp"
 msgstr "Select Region Operation"
 
@@ -170,7 +206,7 @@ msgid "worldedit.regionMode.outline"
 msgstr "Outline Mode"
 
 msgid "worldedit.regionMode.wall"
-msgstr "Wall Mode"
+msgstr "Wand Modus"
 
 msgid "worldedit.regionMode.hollow"
 msgstr "Hollow Mode"
@@ -179,7 +215,7 @@ msgid "worldedit.regionMode.stack"
 msgstr "Stack Mode"
 
 msgid "worldedit.regionMode.move"
-msgstr "Move Mode"
+msgstr "Bewegungsmodus"
 
 msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
@@ -198,6 +234,12 @@ msgstr "Zylinder"
 
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramide"
+
+msgid "worldedit.genMode.loft"
+msgstr "Loft"
+
+msgid "worldedit.loft_manager"
+msgstr "Loft Manager"
 
 msgid "worldedit.stack.title"
 msgstr "Select stack amount"
@@ -222,6 +264,9 @@ msgstr "Navigations-Stab"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "Stapelwerkzeug"
+
+msgid "worldedit.config.tool.extruder"
+msgstr "Extruder Tool"
 
 msgid "worldedit.config.tool.cmd"
 msgstr "Befehlswerkzeug"
@@ -313,8 +358,11 @@ msgstr "Glätte"
 msgid "worldedit.config.range"
 msgstr "Bereich"
 
+msgid "worldedit.config.mode"
+msgstr "Mode"
+
 msgid "worldedit.config.amount"
-msgstr "Amount"
+msgstr "Menge"
 
 msgid "worldedit.config.pattern"
 msgstr "Muster"
@@ -425,13 +473,13 @@ msgid "worldedit.whitelist.enabled"
 msgstr "Whitelist enabled. Grant yourself permission by running the command §e/tag @s add worldedit§r."
 
 msgid "worldedit.whitelist.disabled"
-msgstr "Whitelist disabled."
+msgstr "Whitelist deaktiviert."
 
 msgid "worldedit.whitelist.status.on"
-msgstr "The whitelist is currently on."
+msgstr "Die Whitelist ist gerade eben aktiviert."
 
 msgid "worldedit.whitelist.status.off"
-msgstr "The whitelist is currently off."
+msgstr "Die Whitelist ist gerade eben deaktiviert."
 
 msgid "worldedit.error.saveHistory"
 msgstr "Fehler beim Speichern des Verlaufspunktes!"
@@ -873,6 +921,9 @@ msgstr "Clear the loft's frames"
 
 msgid "commands.wedit:loft.started"
 msgstr "Started a new curve on loft at %s."
+
+msgid "commands.wedit:loft.added"
+msgstr "Added a point to loft at %s."
 
 msgid "commands.wedit:loft.cleared"
 msgstr "Cleared loft."

@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-07-16 21:19\n"
+"PO-Revision-Date: 2025-08-29 00:34\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -84,6 +84,36 @@ msgstr "Silindir Çiz"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Piramit Çiz"
+
+msgid "item.wedit:draw_loft"
+msgstr "Draw Loft"
+
+msgid "item.wedit:fill_loft"
+msgstr "Fill Loft"
+
+msgid "item.wedit:start_loft_curve"
+msgstr "Start Curve on Loft"
+
+msgid "item.wedit:add_loft_point"
+msgstr "Add Point to Loft"
+
+msgid "item.wedit:remove_loft_point"
+msgstr "Remove Last Point"
+
+msgid "item.wedit:clear_loft_points"
+msgstr "Clear Loft Points"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Seçimi ayarlamak için bir blok belirlemeniz gerekiyor!"
@@ -160,6 +190,12 @@ msgstr "Küre"
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Silindir"
 
+msgid "worldedit.extruderMode.pull"
+msgstr "Pull out Blocks"
+
+msgid "worldedit.extruderMode.dig"
+msgstr "Dig in Blocks"
+
 msgid "worldedit.regionMode.selectOp"
 msgstr "Bölge İşlemini Seçin"
 
@@ -199,6 +235,12 @@ msgstr "Silindir"
 msgid "worldedit.genMode.pyramid"
 msgstr "Piramit"
 
+msgid "worldedit.genMode.loft"
+msgstr "Loft"
+
+msgid "worldedit.loft_manager"
+msgstr "Loft Manager"
+
 msgid "worldedit.stack.title"
 msgstr "Yığın miktarını seç"
 
@@ -222,6 +264,9 @@ msgstr "Gezinme çubuğu"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "İstifleyici Aracı"
+
+msgid "worldedit.config.tool.extruder"
+msgstr "Extruder Tool"
 
 msgid "worldedit.config.tool.cmd"
 msgstr "Komut Aleti"
@@ -312,6 +357,9 @@ msgstr "Pürüzsüzlük"
 
 msgid "worldedit.config.range"
 msgstr "Uzaklık"
+
+msgid "worldedit.config.mode"
+msgstr "Mode"
 
 msgid "worldedit.config.amount"
 msgstr "Miktar"
@@ -873,6 +921,9 @@ msgstr "Clear the loft's frames"
 
 msgid "commands.wedit:loft.started"
 msgstr "Started a new curve on loft at %s."
+
+msgid "commands.wedit:loft.added"
+msgstr "Added a point to loft at %s."
 
 msgid "commands.wedit:loft.cleared"
 msgstr "Cleared loft."

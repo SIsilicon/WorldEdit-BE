@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-07-20 20:10\n"
+"PO-Revision-Date: 2025-08-29 00:34\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -84,6 +84,36 @@ msgstr "Tegn syllinder"
 
 msgid "item.wedit:draw_pyramid"
 msgstr "Tegn pyramide"
+
+msgid "item.wedit:draw_loft"
+msgstr "Draw Loft"
+
+msgid "item.wedit:fill_loft"
+msgstr "Fill Loft"
+
+msgid "item.wedit:start_loft_curve"
+msgstr "Start Curve on Loft"
+
+msgid "item.wedit:add_loft_point"
+msgstr "Add Point to Loft"
+
+msgid "item.wedit:remove_loft_point"
+msgstr "Remove Last Point"
+
+msgid "item.wedit:clear_loft_points"
+msgstr "Clear Loft Points"
+
+msgid "wedit:itemGroup.name.clipboard"
+msgstr "WorldEdit Clipboard Operations"
+
+msgid "wedit:itemGroup.name.region"
+msgstr "WorldEdit Region Operations"
+
+msgid "wedit:itemGroup.name.shapes"
+msgstr "WorldEdit Shape Generators"
+
+msgid "wedit:itemGroup.name.buttons"
+msgstr "WorldEdit Other Operations"
 
 msgid "worldEdit.selectionFill.noPattern"
 msgstr "Du må spesifisere en blokk for å sette valget til!"
@@ -160,6 +190,12 @@ msgstr "Kule"
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Syllinder"
 
+msgid "worldedit.extruderMode.pull"
+msgstr "Pull out Blocks"
+
+msgid "worldedit.extruderMode.dig"
+msgstr "Dig in Blocks"
+
 msgid "worldedit.regionMode.selectOp"
 msgstr "Belg regionsoperasjon"
 
@@ -199,6 +235,12 @@ msgstr "Syllinder"
 msgid "worldedit.genMode.pyramid"
 msgstr "Pyramide"
 
+msgid "worldedit.genMode.loft"
+msgstr "Loft"
+
+msgid "worldedit.loft_manager"
+msgstr "Loft Manager"
+
 msgid "worldedit.stack.title"
 msgstr "Velg stabelmengde"
 
@@ -222,6 +264,9 @@ msgstr "Navigeringsstav"
 
 msgid "worldedit.config.tool.stacker"
 msgstr "Stable-verktøy"
+
+msgid "worldedit.config.tool.extruder"
+msgstr "Extruder Tool"
 
 msgid "worldedit.config.tool.cmd"
 msgstr "Kommandoverktøy"
@@ -312,6 +357,9 @@ msgstr "Glatthet"
 
 msgid "worldedit.config.range"
 msgstr "Område"
+
+msgid "worldedit.config.mode"
+msgstr "Mode"
 
 msgid "worldedit.config.amount"
 msgstr "Mengde"
@@ -856,8 +904,11 @@ msgstr "Maksimalt tillat grense er %s."
 msgid "commands.wedit:loft.description"
 msgstr "Lag en loft fra en rekke med valgta punkter"
 
-msgid "commands.wedit:loft.description.start"
-msgstr "Gå inn i loft-modus og lag rammer ved bruk av utvalgskommadoer og staver"
+msgid "commands.wedit:loft.description.start_curve"
+msgstr "Create a new curve frame to shape the loft with."
+
+msgid "commands.wedit:loft.description.add_point"
+msgstr "Add a point to the loft's last curve frame"
 
 msgid "commands.wedit:loft.description.set"
 msgstr "Fyll loft-rammen med et angitt mønster"
@@ -866,19 +917,22 @@ msgid "commands.wedit:loft.description.remove"
 msgstr "Fjern det siste punktet lagt til i loft-rammen"
 
 msgid "commands.wedit:loft.description.clear"
-msgstr "Fjern loftet og gå tilbake til vanlig utvalgskommando/stavatferd"
+msgstr "Clear the loft's frames"
 
 msgid "commands.wedit:loft.started"
-msgstr "Starter en ny loft. Lag nye rammer med de første valgte punktene (pos1), og øk dem med andre valgte punkter (pos2)."
+msgstr "Started a new curve on loft at %s."
+
+msgid "commands.wedit:loft.added"
+msgstr "Added a point to loft at %s."
 
 msgid "commands.wedit:loft.cleared"
-msgstr "Fjernet loft og gått tilbake til vanlig utvalgsatferd."
+msgstr "Cleared loft."
 
 msgid "commands.wedit:loft.removed"
 msgstr "Fjernet siste punkt lagt til loften."
 
 msgid "commands.wedit:loft.removed.last"
-msgstr "Fjernet det siste punktet i loften. Den er nå fjernet og gått tilbake til vanlig utvalgsatferd."
+msgstr "Removed the last point left in loft."
 
 msgid "commands.wedit:loft.notStarted"
 msgstr "Ingen loft er opprettet enda!"
