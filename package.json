@@ -38,22 +38,22 @@
         "yazl": "^3.3.1"
     },
     "dependencies": {
-        "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24",
+        "@minecraft/server": "^2.4.0-beta.1.21.120-preview.25",
         "@minecraft/server-admin": "1.0.0-beta.1.19.80-stable",
-        "@minecraft/server-editor": "^0.1.0-beta.1.21.110-preview.24",
-        "@minecraft/server-gametest": "^1.0.0-beta.1.21.110-preview.24",
-        "@minecraft/server-ui": "^2.1.0-beta.1.21.110-preview.20",
-        "@minecraft/vanilla-data": "^1.21.110-preview.24"
+        "@minecraft/server-editor": "^0.1.0-beta.1.21.120-preview.25",
+        "@minecraft/server-gametest": "^1.0.0-beta.1.21.120-preview.25",
+        "@minecraft/server-ui": "^2.1.0-beta.1.21.120-preview.25",
+        "@minecraft/vanilla-data": "^1.21.120-preview.25"
     },
     "overrides": {
         "@minecraft/server-ui": {
-            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
+            "@minecraft/server": "^2.4.0-beta.1.21.120-preview.25"
         },
         "@minecraft/server-editor": {
-            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
+            "@minecraft/server": "^2.4.0-beta.1.21.120-preview.25"
         },
         "@minecraft/server-gametest": {
-            "@minecraft/server": "^2.3.0-beta.1.21.110-preview.24"
+            "@minecraft/server": "^2.4.0-beta.1.21.120-preview.25"
         }
     }
 }
