@@ -47,7 +47,7 @@ jobs:
 
       - name: Download bedrock dedicated server
         run: |
-          wget https://www.minecraft.net/bedrockdedicatedserver/bin-linux-preview/bedrock-server-1.21.110.24.zip -O bedrock-server.zip
+          wget https://www.minecraft.net/bedrockdedicatedserver/bin-linux-preview/bedrock-server-1.21.120.25.zip -O bedrock-server.zip
           unzip bedrock-server.zip -d bedrock-server
       
       - name: Set up Bedrock server
