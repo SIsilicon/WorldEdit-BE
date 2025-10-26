@@ -1,6 +1,6 @@
 import { assertCuboidSelection } from "@modules/assert.js";
 import { Jobs } from "@modules/jobs.js";
-import { CommandInfo, RawText, regionBounds, regionOffset, Vector } from "@notbeer-api";
+import { CommandInfo, Matrix, RawText, regionBounds, regionOffset, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { copy } from "../clipboard/copy.js";
 import { RegionBuffer } from "@modules/region_buffer.js";
@@ -13,6 +13,7 @@ const registerInformation: CommandInfo = {
     usage: [
         { flag: "a" },
         { flag: "s" },
+        { flag: "r" },
         { name: "count", type: "int", range: [2, null] },
         { name: "start", type: "float", default: 0 },
         { name: "end", type: "float", default: 360 },
@@ -27,23 +28,32 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const amount = args.get("count");
     const dir = (<Cardinal>args.get("d-direction"))?.getDirection(builder) ?? Vector.UP;
     const [start, end] = session.selection.getRange();
+    const center = Vector.add(start, Vector.add(end, 1.0)).mul(0.5);
     const heightDiff = args.get("heightDiff");
     const [startRotation, endRotation] = [args.get("start"), args.get("end")];
+    const rotatingStructure = !args.has("r");
     const origin = Vector.from(builder.location).floor().add(0.5);
     const offset = start.sub(origin);
     const dim = builder.dimension;
 
-    // [load position, rotation angles]
-    const loads: [Vector, Vector][] = [];
+    const loads: [position: Vector, rotation: Vector][] = [];
     const points: Vector[] = [];
     const [originStart, originEnd] = regionOffset(start, end, offset.mul(-1));
     for (let i = 0; i <= amount; i++) {
         const t = i / amount;
         const rotation = dir.mul((1 - t) * startRotation + t * endRotation);
         const height = dir.mul(Math.round(t * heightDiff));
-        const [loadStart, loadEnd] = RegionBuffer.createBounds(originStart, originEnd, { offset: offset.add(height), rotation });
-        loads.push([origin.add(height), rotation]);
-        points.push(loadStart, loadEnd);
+        if (rotatingStructure) {
+            const [loadStart, loadEnd] = RegionBuffer.createBounds(originStart, originEnd, { offset: offset.add(height), rotation });
+            loads.push([origin.add(height), rotation]);
+            points.push(loadStart, loadEnd);
+        } else {
+            const rotatedCenter = center.transform(Matrix.fromRotationFlipOffset(rotation, Vector.ONE, origin));
+            const loadAt = rotatedCenter.sub(center).round().add(height).add(origin).add(offset);
+            const [loadStart, loadEnd] = RegionBuffer.createBounds(originStart, originEnd, { offset: loadAt.sub(origin) });
+            loads.push([loadAt, Vector.ZERO]);
+            points.push(loadStart, loadEnd);
+        }
     }
     const revolveRegion = regionBounds(points);
 
@@ -58,7 +68,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, ...revolveRegion);
             for (const [loadPosition, rotation] of loads) {
                 yield Jobs.nextStep("Pasting blocks...");
-                yield* tempRevolve.load(loadPosition, dim, { rotation, offset });
+                yield* tempRevolve.load(loadPosition, dim, { rotation, offset: rotatingStructure ? offset : undefined });
                 count += tempRevolve.getVolume();
             }
 
