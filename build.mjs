@@ -31,7 +31,8 @@ program
         }
     })
     .option("-p, --package-only", "Only package what's already there.")
-    .option("-g --gametest", "Whether to build with gametest enabled.");
+    .option("-g --gametest", "Whether to build with gametest enabled.")
+    .option("-e, --editor", "Whether to build for editor mode.");
 program.parse(argv);
 
 const args = program.opts();
@@ -96,7 +97,7 @@ if (!fs.existsSync(scriptOutputDir)) throw "The output scripts folder does not e
 if (args.watch === "stable") {
     args.syncDir = env.LOCALAPPDATA + "\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang";
 } else if (args.watch === "preview") {
-    args.syncDir = env.LOCALAPPDATA + "\\Packages\\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\\LocalState\\games\\com.mojang";
+    args.syncDir = env.APPDATA + "\\Minecraft Bedrock Preview\\Users\\Shared\\games\\com.mojang";
 } else if (args.watch === "server") {
     if (!args.server) {
         console.error("You must specify a server path when using the --server option.");
@@ -133,7 +134,7 @@ buildLang(args);
 
 const buildArgs = {
     outdir: scriptOutputDir,
-    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**"] }),
+    entryPoints: await glob("src/**/*.{ts,js}", { ignore: ["src/**/*.d.ts", args.gametest ? "" : "src/gametest/**", args.editor ? "" : "src/editor/**"] }),
     bundle: false,
     platform: "node",
     target: ["es2020"],
@@ -158,6 +159,11 @@ const buildArgs = {
             function gametest(filePath, contents) {
                 if (!path.normalize(filePath).endsWith(path.normalize("src/index.ts")) || !args.gametest) return;
                 contents += `\nimport "gametest/index.js";`;
+                return contents;
+            },
+            function editor(filePath, contents) {
+                if (!path.normalize(filePath).endsWith(path.normalize("src/index.ts")) || !args.editor) return;
+                contents += `\nimport "editor/index.js";`;
                 return contents;
             },
         ]),
@@ -185,19 +191,18 @@ if (args.watch) {
     copyDir("BP", path.join(buildsDir, `${packName}BP`));
     copyDir("RP", path.join(buildsDir, `${packName}RP`));
 
-    if (args.target !== "debug") {
-        if (args.target === "release" || args.target === "server") {
-            const zipName = args.target === "release" ? `${packName}.mcaddon` : `${packName}.server.zip`;
-            const zipPath = path.join(buildsDir, zipName);
-            const zip = new ZipFile();
-            if (args.target === "server") {
-                const variablesPath = path.join(buildsDir, "variables.json");
-                if (fs.existsSync(variablesPath)) zip.addFile(variablesPath, "variables.json");
-            }
-            zipWriteDir(zip, path.join(buildsDir, `${packName}BP`), `${packName}BP`);
-            zipWriteDir(zip, path.join(buildsDir, `${packName}RP`), `${packName}RP`);
-            zip.outputStream.pipe(fs.createWriteStream(zipPath)).on("close", () => {});
-            zip.end();
+    if (args.target === "release" || args.target === "server") {
+        const exportName = args.editor ? `${packName}.editor` : packName;
+        const zipName = args.target === "release" ? `${exportName}.mcaddon` : `${exportName}.server.zip`;
+        const zipPath = path.join(buildsDir, zipName);
+        const zip = new ZipFile();
+        if (args.target === "server") {
+            const variablesPath = path.join(buildsDir, "variables.json");
+            if (fs.existsSync(variablesPath)) zip.addFile(variablesPath, "variables.json");
         }
+        zipWriteDir(zip, path.join(buildsDir, `${packName}BP`), `${packName}BP`);
+        zipWriteDir(zip, path.join(buildsDir, `${packName}RP`), `${packName}RP`);
+        zip.outputStream.pipe(fs.createWriteStream(zipPath)).on("close", () => {});
+        zip.end();
     }
 }

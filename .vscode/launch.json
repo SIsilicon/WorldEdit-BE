@@ -18,6 +18,24 @@
         "preLaunchTask": "watch:preview",
         "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
         "port": 19144
+      },
+      {
+        "type": "minecraft-js",
+        "request": "attach",
+        "name": "Debug with Minecraft Editor",
+        "mode": "listen",
+        "preLaunchTask": "watch:editor",
+        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+        "port": 19144
+      },
+      {
+        "type": "minecraft-js",
+        "request": "attach",
+        "name": "Debug with Minecraft Editor Preview",
+        "mode": "listen",
+        "preLaunchTask": "watch:editor:preview",
+        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+        "port": 19144
       }
     ]
   }

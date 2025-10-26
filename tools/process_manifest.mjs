@@ -1,15 +1,15 @@
 import fs from "fs";
 
-function processJsonElement(element, bpElement, rpElement) {
+function processJsonElement(element, bpElement, rpElement, options = {}) {
     function process(key, value) {
         if (Array.isArray(value)) {
             bpElement[key] = [];
             rpElement[key] = [];
-            processJsonElement(value, bpElement[key], rpElement[key]);
+            processJsonElement(value, bpElement[key], rpElement[key], options);
         } else if (typeof value === "object" && value !== null) {
             bpElement[key] = {};
             rpElement[key] = {};
-            processJsonElement(value, bpElement[key], rpElement[key]);
+            processJsonElement(value, bpElement[key], rpElement[key], options);
         } else {
             if (Array.isArray(bpElement)) {
                 bpElement.push(value);
@@ -29,7 +29,16 @@ function processJsonElement(element, bpElement, rpElement) {
         for (const [key, value] of Object.entries(element)) {
             if (key.startsWith("bp_")) {
                 if (key.startsWith("bp_server_")) {
-                    const sub = bpElement[key.slice(10)];
+                    if (!options.isServer) continue;
+                    const sub = bpElement[key.slice("bp_server_".length)];
+                    if (Array.isArray(sub)) {
+                        bpElement[key.slice(10)] = sub.concat(value);
+                    } else if (typeof sub === "object" && sub !== null) {
+                        bpElement[key.slice(10)] = { ...sub, ...value };
+                    }
+                } else if (key.startsWith("bp_editor_")) {
+                    if (!options.isEditor) continue;
+                    const sub = bpElement[key.slice("bp_editor_".length)];
                     if (Array.isArray(sub)) {
                         bpElement[key.slice(10)] = sub.concat(value);
                     } else if (typeof sub === "object" && sub !== null) {
@@ -47,13 +56,13 @@ function processJsonElement(element, bpElement, rpElement) {
     }
 }
 
-function processManifest(debugMode) {
+function processManifest(debugMode, isServer, isEditor) {
     const bp_manifest = {};
     const rp_manifest = {};
 
     // load base manifest
     const manifest = JSON.parse(fs.readFileSync("mc_manifest.json", "utf8"));
-    processJsonElement(manifest, bp_manifest, rp_manifest);
+    processJsonElement(manifest, bp_manifest, rp_manifest, { isServer, isEditor });
 
     let version = manifest.header.version;
     bp_manifest.header.name += " " + (version.join ? version.join(".") : version);
@@ -89,11 +98,13 @@ function processManifest(debugMode) {
 
 export default function (args) {
     const debugMode = args.target === "debug";
-    processManifest(debugMode);
+    const isServer = args.target === "server" || args.target === "server";
+    const isEditor = args.editor === true;
+    processManifest(debugMode, isServer, isEditor);
 
     if (args.watch) {
         fs.watch("mc_manifest.json", { persistent: true, recursive: false }, (eventType, filename) => {
-            if (filename === "mc_manifest.json") processManifest(debugMode);
+            if (filename === "mc_manifest.json") processManifest(debugMode, isServer, isEditor);
         });
     }
 }

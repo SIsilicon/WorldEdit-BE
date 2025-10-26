@@ -51,6 +51,52 @@
                     }
                 }
             ]
+        },
+        {
+            "label": "watch:editor",
+            "type": "npm",
+            "script": "watch:editor",
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "Building...",
+                        "endsPattern": "Build completed"
+                    }
+                }
+            ]
+        },
+        {
+            "label": "watch:editor:preview",
+            "type": "npm",
+            "script": "watch:editor:preview",
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "Building...",
+                        "endsPattern": "Build completed"
+                    }
+                }
+            ]
         }
     ],
 }

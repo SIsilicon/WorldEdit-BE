@@ -14,7 +14,7 @@
 		"min_engine_version": [
 			1,
 			21,
-			120
+			130
 		]
 	},
 	"bp_modules": [
@@ -75,6 +75,12 @@
 	"bp_server_dependencies": [
 		{
 			"module_name": "@minecraft/server-admin",
+			"version": "beta"
+		}
+	],
+	"bp_editor_dependencies": [
+		{
+			"module_name": "@minecraft/server-editor",
 			"version": "beta"
 		}
 	],
