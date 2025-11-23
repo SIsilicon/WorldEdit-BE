@@ -54,18 +54,10 @@ function processConfig(args) {
     if (!fs.existsSync("mc_manifest.json")) exitMessage("Manifest file 'mc_manifest.json' not found");
     const manifest = JSON.parse(fs.readFileSync("mc_manifest.json"));
     const version = manifest.header.version;
-    let versionStr;
-    if (typeof version === "string") {
-        versionStr = version;
-    } else {
-        versionStr = version.join(".");
-        if (version.length > 3) versionStr += " [BETA]";
-    }
-
     const isServer = args.watch === "server" || args.target === "server";
 
     // Generate BP/scripts/config.js
-    fs.writeFileSync("BP/scripts/config.js", generateScript(settings, versionStr, isServer), "utf8");
+    fs.writeFileSync("BP/scripts/config.js", generateScript(settings, version, isServer), "utf8");
     // Generate builds/variables.json
     if (isServer) {
         ensureDir("builds");

@@ -64,13 +64,9 @@ function processManifest(debugMode, isServer, isEditor) {
     const manifest = JSON.parse(fs.readFileSync("mc_manifest.json", "utf8"));
     processJsonElement(manifest, bp_manifest, rp_manifest, { isServer, isEditor });
 
-    let version = manifest.header.version;
-    bp_manifest.header.name += " " + (version.join ? version.join(".") : version);
-    rp_manifest.header.name += " " + (version.join ? version.join(".") : version);
-
-    if (typeof version !== "string") version = version.slice(0, 3);
-    bp_manifest.header.version = version;
-    rp_manifest.header.version = version;
+    const version = manifest.header.version;
+    bp_manifest.header.name += " " + version;
+    rp_manifest.header.name += " " + version;
 
     if (!bp_manifest.dependencies) bp_manifest.dependencies = [];
     bp_manifest.dependencies.push({
