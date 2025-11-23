@@ -15,18 +15,15 @@
         "watch:editor": "node build.mjs --watch=stable --editor",
         "watch:editor:preview": "node build.mjs --watch=preview --editor",
         "watch:editor:server": "node build.mjs --watch=server --editor",
-
         "build:client": "node build.mjs --target=release",
         "build:server": "node build.mjs --target=server",
         "build:editor": "node build.mjs --target=release --editor",
         "build:all": "node build.mjs --target=release && node build.mjs --target=server && node build.mjs --target=release --editor",
         "build:beta": "node build.mjs --target=debug",
         "build": "node build.mjs --target=release",
-
         "lint": "npx eslint src",
         "lint:fix": "npm run lint -- --fix",
         "format": "npm run lint:fix",
-
         "gametest": "act -j gametest"
     },
     "license": "GPL-3.0-or-later",
@@ -45,22 +42,22 @@
         "yazl": "^3.3.1"
     },
     "dependencies": {
-        "@minecraft/server": "^2.5.0-beta.1.21.130-preview.22",
+        "@minecraft/server": "^2.5.0-beta.1.21.130-preview.28",
         "@minecraft/server-admin": "1.0.0-beta.1.19.80-stable",
-        "@minecraft/server-editor": "^0.1.0-beta.1.21.130-preview.22",
-        "@minecraft/server-gametest": "^1.0.0-beta.1.21.130-preview.22",
-        "@minecraft/server-ui": "^2.1.0-beta.1.21.130-preview.22",
-        "@minecraft/vanilla-data": "^1.21.130-preview.22"
+        "@minecraft/server-editor": "^0.1.0-beta.1.21.130-preview.28",
+        "@minecraft/server-gametest": "^1.0.0-beta.1.21.130-preview.28",
+        "@minecraft/server-ui": "^2.1.0-beta.1.21.130-preview.28",
+        "@minecraft/vanilla-data": "^1.21.130-preview.28"
     },
     "overrides": {
         "@minecraft/server-ui": {
-            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.22"
+            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.28"
         },
         "@minecraft/server-editor": {
-            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.22"
+            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.28"
         },
         "@minecraft/server-gametest": {
-            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.22"
+            "@minecraft/server": "^2.5.0-beta.1.21.130-preview.28"
         }
     }
 }

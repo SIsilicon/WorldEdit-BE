@@ -45,6 +45,7 @@ export class Pattern implements CustomArgType {
     }
 
     withContext(session: PlayerSession, range: [Vector3, Vector3]) {
+        this.getRootNode().preProcess();
         const pattern = this.clone();
         pattern.context.session = session;
         pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
@@ -93,15 +94,15 @@ export class Pattern implements CustomArgType {
 
     addBlock(permutation: BlockPermutation) {
         if (!this.block) {
-            this.block = new ChainPattern(null);
-        } else if (!(this.block instanceof ChainPattern)) {
+            this.block = new ChainPatternNode(null);
+        } else if (!(this.block instanceof ChainPatternNode)) {
             const old = this.block;
-            this.block = new ChainPattern(null);
+            this.block = new ChainPatternNode(null);
             this.block.nodes.push(old);
         }
 
         const block = blockPermutation2ParsedBlock(permutation);
-        this.block.nodes.push(new BlockPattern(null, block));
+        this.block.nodes.push(new BlockPatternNode(null, parsedBlock2BlockPermutation(block)));
 
         if (this.stringObj) this.stringObj += ",";
         this.stringObj += block.id.replace("minecraft:", "");
@@ -109,54 +110,22 @@ export class Pattern implements CustomArgType {
         this.simpleCache = undefined;
     }
 
-    getBlockSummary() {
-        let text = "";
-        const blockMap = new Map<string, number>();
-        for (const pattern of this.block.nodes) {
-            let sub = (<BlockPattern>pattern).block.id.replace("minecraft:", "");
-            for (const state of (<BlockPattern>pattern).block.states) {
-                const val = state[1];
-                if (typeof val == "string" && val != "x" && val != "y" && val != "z") {
-                    sub += `(${val})`;
-                    break;
-                }
-            }
-            if (blockMap.has(sub)) {
-                blockMap.set(sub, blockMap.get(sub) + 1);
-            } else {
-                blockMap.set(sub, 1);
-            }
-        }
-
-        let i = 0;
-        for (const block of blockMap) {
-            if (block[1] > 1) {
-                text += `${block[1]}x ${block[0]}`;
-            } else {
-                text += block[0];
-            }
-            if (i < blockMap.size - 1) text += ", ";
-            i++;
-        }
-        return text;
-    }
-
     toJSON() {
         return this.stringObj;
     }
 
     isSimple() {
-        return this.block instanceof BlockPattern || (this.block instanceof ChainPattern && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPattern);
+        return this.block instanceof BlockPatternNode || (this.block instanceof ChainPatternNode && this.block.nodes.length == 1 && this.block.nodes[0] instanceof BlockPatternNode);
     }
 
     fillBlocks(dimension: Dimension, volume: BlockVolumeBase, mask?: Mask) {
         const filter = mask?.getSimpleBlockFilter();
         if (this.isSimple()) {
             if (!this.simpleCache) {
-                if (this.block instanceof BlockPattern) {
-                    this.simpleCache = parsedBlock2BlockPermutation(this.block.block);
-                } else if (this.block instanceof ChainPattern) {
-                    this.simpleCache = parsedBlock2BlockPermutation((<BlockPattern>this.block.nodes[0]).block);
+                if (this.block instanceof BlockPatternNode) {
+                    this.simpleCache = this.block.permutation;
+                } else if (this.block instanceof ChainPatternNode) {
+                    this.simpleCache = (this.block.nodes[0] as BlockPatternNode).permutation;
                 }
             }
             return dimension.fillBlocks(volume, this.simpleCache, { blockFilter: filter }).getCapacity();
@@ -202,25 +171,25 @@ export class Pattern implements CustomArgType {
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
                 if (token.value === "void") {
-                    out.push(new VoidPattern(nodeToken()));
+                    out.push(new VoidPatternNode(nodeToken()));
                 } else if (token.type == "id") {
-                    out.push(new BlockPattern(nodeToken(), parseBlock(tokens, input, false) as parsedBlock));
+                    out.push(new BlockPatternNode(nodeToken(), parsedBlock2BlockPermutation(parseBlock(tokens, input, false) as parsedBlock)));
                 } else if (token.type == "number") {
                     const num = token;
                     const t = tokens.next();
                     if (t.value == "%") {
-                        processOps(out, ops, new PercentPattern(nodeToken(), num.value));
+                        processOps(out, ops, new PercentPatternNode(nodeToken(), num.value));
                     } else {
                         throwTokenError(t);
                     }
                 } else if (token.value == ",") {
-                    processOps(out, ops, new ChainPattern(token));
+                    processOps(out, ops, new ChainPatternNode(token));
                 } else if (token.value == "^") {
                     const t = tokens.next();
                     if (t.type == "id") {
-                        out.push(new TypePattern(nodeToken(), parseBlock(tokens, input, true) as string));
+                        out.push(new TypePatternNode(nodeToken(), parseBlock(tokens, input, true) as string));
                     } else if (t.value == "[") {
-                        out.push(new StatePattern(nodeToken(), parseBlockStates(tokens)));
+                        out.push(new StatePatternNode(nodeToken(), parseBlockStates(tokens)));
                     } else {
                         throwTokenError(t);
                     }
@@ -229,7 +198,7 @@ export class Pattern implements CustomArgType {
                     if (t.type != "id") {
                         throwTokenError(t);
                     }
-                    out.push(new RandStatePattern(nodeToken(), parseBlock(tokens, input, true) as string));
+                    out.push(new RandStatePatternNode(nodeToken(), parseBlock(tokens, input, true) as string));
                 } else if (token.value == "$") {
                     const t = tokens.next();
                     let cardinal: Cardinal | "radial" | "light";
@@ -240,7 +209,7 @@ export class Pattern implements CustomArgType {
                         cardinal = d === "rad" ? "radial" : d === "lit" ? "light" : Cardinal.parseArgs([d]).result;
                     }
 
-                    out.push(new GradientPattern(nodeToken(), t.value, cardinal));
+                    out.push(new GradientPatternNode(nodeToken(), t.value, cardinal));
                 } else if (token.value == "#") {
                     const t = tokens.next();
                     if (t.value == "clipboard") {
@@ -251,12 +220,12 @@ export class Pattern implements CustomArgType {
                             const array = parseNumberList(tokens, 3);
                             offset = Vector.from(array as [number, number, number]);
                         }
-                        out.push(new ClipboardPattern(nodeToken(), offset.floor()));
+                        out.push(new ClipboardPatternNode(nodeToken(), offset.floor()));
                     } else if (t.value == "hand") {
-                        out.push(new HandPattern(nodeToken()));
+                        out.push(new HandPatternNode(nodeToken()));
                     } else if (t.value.match?.(/blob[1-9][0-9]*/)) {
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
-                        processOps(out, ops, new BlobPattern(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
+                        processOps(out, ops, new BlobPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
                     } else {
                         throwTokenError(t);
                     }
@@ -299,7 +268,7 @@ export class Pattern implements CustomArgType {
         let out: PatternNode;
         try {
             out = processTokens(false);
-            out.postProcess();
+            out.preProcess();
         } catch (error) {
             if (error.pos != undefined) {
                 const err: commandSyntaxError = {
@@ -320,10 +289,16 @@ export class Pattern implements CustomArgType {
 
         return { result: pattern, argIndex: index + 1 };
     }
+
+    static fromNode(node: PatternNode) {
+        const pattern = new Pattern();
+        pattern.block = node;
+        return pattern;
+    }
 }
 
 type NodeJSON = { type: string; nodes: NodeJSON[] };
-abstract class PatternNode implements AstNode {
+export abstract class PatternNode implements AstNode {
     public nodes: PatternNode[] = [];
     abstract readonly prec: number;
     abstract readonly opCount: number;
@@ -332,8 +307,7 @@ abstract class PatternNode implements AstNode {
 
     abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation | undefined;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    postProcess() {}
+    preProcess() {}
 
     /** Debug only! Not all important data is represented. */
     toJSON(): NodeJSON {
@@ -344,17 +318,15 @@ abstract class PatternNode implements AstNode {
     }
 }
 
-class BlockPattern extends PatternNode {
+export class BlockPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
-    readonly permutation: BlockPermutation;
 
     constructor(
         token: Token,
-        public block: parsedBlock
+        public permutation: BlockPermutation
     ) {
         super(token);
-        this.permutation = parsedBlock2BlockPermutation(block);
     }
 
     getPermutation() {
@@ -362,7 +334,7 @@ class BlockPattern extends PatternNode {
     }
 }
 
-class VoidPattern extends PatternNode {
+export class VoidPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -371,18 +343,23 @@ class VoidPattern extends PatternNode {
     }
 }
 
-class TypePattern extends PatternNode {
+export class TypePatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
-    readonly permutation: BlockPermutation;
-    readonly props: Record<string, string | number | boolean>;
+    private permutation: BlockPermutation;
+    private props: Record<string, string | number | boolean>;
 
-    constructor(
-        token: Token,
-        public type: string
-    ) {
+    constructor(token: Token, type: string) {
         super(token);
-        this.permutation = BlockPermutation.resolve(type);
+        this.type = type;
+    }
+
+    get type() {
+        return this.permutation.type.id;
+    }
+
+    set type(value: string) {
+        this.permutation = BlockPermutation.resolve(value);
         this.props = this.permutation.getAllStates();
     }
 
@@ -395,7 +372,7 @@ class TypePattern extends PatternNode {
     }
 }
 
-class StatePattern extends PatternNode {
+export class StatePatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -416,17 +393,22 @@ class StatePattern extends PatternNode {
     }
 }
 
-class RandStatePattern extends PatternNode {
+export class RandStatePatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
-    readonly permutations: BlockPermutation[];
+    private permutations: BlockPermutation[];
 
-    constructor(
-        token: Token,
-        public block: string
-    ) {
+    constructor(token: Token, type: string) {
         super(token);
-        this.permutations = Array.from(Server.block.iteratePermutations(this.block));
+        this.type = type;
+    }
+
+    get type() {
+        return this.permutations[0].type.id;
+    }
+
+    set type(value: string) {
+        this.permutations = Array.from(Server.block.iteratePermutations(value));
     }
 
     getPermutation() {
@@ -434,7 +416,7 @@ class RandStatePattern extends PatternNode {
     }
 }
 
-class ClipboardPattern extends PatternNode {
+export class ClipboardPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -454,7 +436,7 @@ class ClipboardPattern extends PatternNode {
     }
 }
 
-class HandPattern extends PatternNode {
+export class HandPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -467,7 +449,7 @@ class HandPattern extends PatternNode {
     }
 }
 
-class GradientPattern extends PatternNode {
+export class GradientPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -541,7 +523,7 @@ class GradientPattern extends PatternNode {
     }
 }
 
-class PercentPattern extends PatternNode {
+export class PercentPatternNode extends PatternNode {
     readonly prec = 2;
     readonly opCount = 1;
 
@@ -557,11 +539,32 @@ class PercentPattern extends PatternNode {
     }
 }
 
-class BlobPattern extends PatternNode {
+export class InputPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    private node: PatternNode;
+
+    constructor(
+        token: Token,
+        public input: string
+    ) {
+        super(token);
+    }
+
+    preProcess(): void {
+        this.node = new Pattern(this.input).getRootNode();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext) {
+        return this.node.getPermutation(block, context);
+    }
+}
+
+export class BlobPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 1;
 
-    private readonly offsets: Vector[] = [];
+    private offsets: Vector[] = [];
     private perms: { [key: number]: BlockPermutation } = {};
     private ranges: { [key: number]: { range: [Vector, Vector] } } = {};
     private points: { [key: number]: Vector } = {};
@@ -570,9 +573,19 @@ class BlobPattern extends PatternNode {
 
     constructor(
         token: Token,
-        public readonly size: number
+        public size: number,
+        node?: PatternNode
     ) {
         super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    preProcess() {
+        this.nodes[0].preProcess();
+        this.isRadial = this.nodes[0] instanceof GradientPatternNode && this.nodes[0].cardinal === "radial";
+        this.perms = {};
+        this.ranges = {};
+        this.points = {};
         this.offsets = [];
         for (let z = -1; z <= 1; z++) {
             for (let y = -1; y <= 1; y++) {
@@ -581,14 +594,6 @@ class BlobPattern extends PatternNode {
                 }
             }
         }
-    }
-
-    postProcess() {
-        this.nodes[0].postProcess();
-        this.isRadial = this.nodes[0] instanceof GradientPattern && this.nodes[0].cardinal === "radial";
-        this.perms = {};
-        this.ranges = {};
-        this.points = {};
     }
 
     getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
@@ -633,13 +638,20 @@ class BlobPattern extends PatternNode {
     }
 }
 
-class ChainPattern extends PatternNode {
+export class ChainPatternNode extends PatternNode {
     readonly prec = 1;
     readonly opCount = 2;
 
-    private evenDistribution = true;
+    public weights: number[] | undefined;
+    public evenDistribution = true;
+
     private cumWeights: number[] = [];
     private weightTotal: number;
+
+    constructor(token: Token, nodes: PatternNode[] = []) {
+        super(token);
+        this.nodes.push(...nodes);
+    }
 
     getPermutation(block: BlockUnit, context: patternContext) {
         if (this.nodes.length == 1) {
@@ -656,9 +668,7 @@ class ChainPattern extends PatternNode {
         }
     }
 
-    postProcess() {
-        super.postProcess();
-
+    preProcess() {
         const defaultPercent = 100 / this.nodes.length;
         let totalPercent = 0;
 
@@ -667,32 +677,28 @@ class ChainPattern extends PatternNode {
         this.nodes = [];
         while (patterns.length) {
             const pattern = patterns.shift();
-            if (pattern instanceof ChainPattern) {
+            if (pattern instanceof ChainPatternNode) {
                 const sub = pattern.nodes.reverse();
-                for (const child of sub) {
-                    patterns.unshift(child);
-                }
-            } else if (pattern instanceof PercentPattern) {
+                for (const child of sub) patterns.unshift(child);
+            } else if (pattern instanceof PercentPatternNode) {
                 this.evenDistribution = false;
                 this.nodes.push(pattern.nodes[0]);
                 weights.push(pattern.percent);
-                pattern.nodes[0].postProcess();
+                pattern.nodes[0].preProcess();
                 totalPercent += pattern.percent;
             } else {
                 this.nodes.push(pattern);
                 weights.push(defaultPercent);
-                pattern.postProcess();
+                pattern.preProcess();
                 totalPercent += defaultPercent;
             }
         }
-        weights.map((value) => {
-            // printDebug(value / totalPercent);
-            return value / totalPercent;
-        });
+        this.weights ??= weights.map((value) => value / totalPercent);
 
         if (!this.evenDistribution) {
-            for (let i = 0; i < weights.length; i += 1) {
-                this.cumWeights.push(weights[i] + (this.cumWeights[i - 1] || 0));
+            this.cumWeights.length = 0;
+            for (let i = 0; i < this.weights.length; i += 1) {
+                this.cumWeights.push((this.weights[i] ?? 1) + (this.cumWeights[i - 1] || 0));
             }
             this.weightTotal = this.cumWeights[this.cumWeights.length - 1];
         }

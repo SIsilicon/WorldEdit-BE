@@ -94,29 +94,6 @@ export class Mask implements CustomArgType {
         return intersect;
     }
 
-    getBlockSummary() {
-        if (!this.condition || !(this.condition instanceof ChainMask)) {
-            return "";
-        }
-
-        let text = "";
-        let i = 0;
-        for (const mask of this.condition.nodes) {
-            let sub = (<BlockMask>mask).block.id.replace("minecraft:", "");
-            for (const state of (<BlockMask>mask).block.states) {
-                const val = state[1];
-                if (typeof val == "string" && val != "x" && val != "y" && val != "z") {
-                    sub += `(${val})`;
-                    break;
-                }
-            }
-            text += sub;
-            if (i < this.condition.nodes.length - 1) text += ", ";
-            i++;
-        }
-        return text;
-    }
-
     toJSON() {
         return this.stringObj;
     }

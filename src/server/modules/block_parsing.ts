@@ -4,7 +4,7 @@ import { Token, Tokenizr, ParsingError } from "./extern/tokenizr.js";
 
 export interface parsedBlock {
     id: string;
-    states: Map<string, string | number | boolean>;
+    states?: Map<string, string | number | boolean>;
 }
 
 export interface BlockUnit {
