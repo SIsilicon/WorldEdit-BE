@@ -134,7 +134,7 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
      * @returns {Array<storedRegisterInformation>}
      * @example getAllRegistration();
      */
-    getAllRegistation(): Array<storedRegisterInformation> {
+    getAllRegistration(): Array<storedRegisterInformation> {
         return this._registrationInformation;
     }
     /**
@@ -458,7 +458,7 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
             return i == -1 ? -1 : i + index;
         }
 
-        const getCommand = Command.getAllRegistation().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
+        const getCommand = Command.getAllRegistration().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
         if (!getCommand) throw RawText.translate("commands.generic.unknown").with(`${command}`);
 
         let msg = "";
@@ -501,7 +501,7 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
         offsets.forEach((v, i) => (offsets[i] = v + this.prefix.length + command.length + 1));
         msg = this.prefix + command + " " + msg;
 
-        for (const element of Command.getAllRegistation()) {
+        for (const element of Command.getAllRegistration()) {
             if (!(element.name == command || element.aliases?.includes(command))) continue;
 
             /**

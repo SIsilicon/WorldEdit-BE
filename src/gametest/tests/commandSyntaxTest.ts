@@ -57,7 +57,7 @@ function getPermutations(usage: commandArgList, index = 0): string[][] {
 registerAsync("worldedit", "commandSyntaxTest", async (test) => {
     const player = await spawnWorldEditPlayer(test, Vector.ZERO, "commandSyntaxTestPlayer");
     const errors = [];
-    for (const command of Server.command.getAllRegistation()) {
+    for (const command of Server.command.getAllRegistration()) {
         const permutations = getPermutations(command.usage ?? []);
         for (const args of permutations) {
             try {

@@ -15,7 +15,7 @@ const registerInformation: CommandInfo = {
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
-    const cmdList = Server.command.getAllRegistation();
+    const cmdList = Server.command.getAllRegistration();
 
     // Show a page of the list of available WorldEdit commands
     if (args.has("_page")) {
