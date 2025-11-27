@@ -28,6 +28,10 @@ interface BasePaneItem {
     uniqueId?: string;
 }
 
+interface DividerPaneItem extends BasePaneItem {
+    type: "divider";
+}
+
 interface ButtonPaneItem extends BasePaneItem, IButtonPropertyItemOptions {
     type: "button";
     pressed: () => void;
@@ -78,7 +82,18 @@ interface SubPane extends BasePaneItem, ISubPanePropertyItemOptions {
     items: PaneItem[] | { build: (pane: UIPane) => void };
 }
 
-export type PaneItem = ButtonPaneItem | SliderPaneItem | TogglePaneItem | DropdownPaneItem | ComboBoxPaneItem | ToggleGroupPaneItem | Vector3PaneItem | TextAreaPaneItem | LabelPaneItem | SubPane;
+export type PaneItem =
+    | DividerPaneItem
+    | ButtonPaneItem
+    | SliderPaneItem
+    | TogglePaneItem
+    | DropdownPaneItem
+    | ComboBoxPaneItem
+    | ToggleGroupPaneItem
+    | Vector3PaneItem
+    | TextAreaPaneItem
+    | LabelPaneItem
+    | SubPane;
 
 export interface PaneLayout extends ISubPanePropertyItemOptions {
     items: PaneItem[] | { build: (pane: UIPane) => void };
@@ -168,6 +183,9 @@ export class UIPane {
             const item = items[i];
             const id = item.uniqueId ?? i;
             switch (item.type) {
+                case "divider":
+                    this.properties[id] = this.pane.addDivider();
+                    break;
                 case "button":
                     this.properties[id] = this.pane.addButton(item.pressed, item);
                     break;
