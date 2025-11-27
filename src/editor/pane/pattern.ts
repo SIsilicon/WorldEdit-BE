@@ -1,5 +1,5 @@
 import { BlockPermutation, BlockStates, BlockStateType, RawMessage } from "@minecraft/server";
-import { ComboBoxPropertyItemDataType, LayoutDirection } from "@minecraft/server-editor";
+import { ComboBoxPropertyItemDataType } from "@minecraft/server-editor";
 import { Token } from "@modules/extern/tokenizr";
 import {
     PatternNode,
@@ -10,8 +10,6 @@ import {
     StatePatternNode,
     RandStatePatternNode,
     ClipboardPatternNode,
-    HandPatternNode,
-    GradientPatternNode,
     BlobPatternNode,
     Pattern,
     InputPatternNode,
@@ -29,9 +27,9 @@ const patternTypes = new Map<new (...args: any[]) => PatternNode, [string, () =>
     [TypePatternNode, ["Block Type Pattern", () => new TypePatternNode(dummyToken, defaultBLock)]],
     [StatePatternNode, ["Block State Pattern", () => new StatePatternNode(dummyToken, new Map())]],
     [RandStatePatternNode, ["Random Block State Pattern", () => new RandStatePatternNode(dummyToken, defaultBLock)]],
-    [ClipboardPatternNode, ["Clipboard Pattern", () => new ClipboardPatternNode(dummyToken, Vector.ZERO)]],
-    [HandPatternNode, ["Hotbar Pattern", () => new HandPatternNode(dummyToken)]],
-    [GradientPatternNode, ["Gradient Pattern", () => new GradientPatternNode(dummyToken, "")]],
+    // [ClipboardPatternNode, ["Clipboard Pattern", () => new ClipboardPatternNode(dummyToken, Vector.ZERO)]],
+    // [HandPatternNode, ["Hotbar Pattern", () => new HandPatternNode(dummyToken)]],
+    // [GradientPatternNode, ["Gradient Pattern", () => new GradientPatternNode(dummyToken, "")]],
     [BlobPatternNode, ["Blob Pattern", () => new BlobPatternNode(dummyToken, 3, new ChainPatternNode(dummyToken, [blockPatternNode(defaultBLock), blockPatternNode("cobblestone")]))]],
     [InputPatternNode, ["Input Pattern", () => new InputPatternNode(dummyToken, defaultBLock)]],
 ]);
@@ -114,6 +112,7 @@ export class PatternUIBuilder {
                 type: "combo_box",
                 title: "Block",
                 dataType: ComboBoxPropertyItemDataType.Block,
+                showImage: true,
                 value: node.permutation.type.id,
                 onChange: (value) => {
                     node.permutation = BlockPermutation.resolve(value);
@@ -130,11 +129,28 @@ export class PatternUIBuilder {
             Object.values(patternPane.getAllSubPanes()).forEach((pane, index) => callback(pane, index));
         };
 
+        const updateSubPanes = () => {
+            eachSubPane((pane, index) => {
+                pane.setVisibility(2, node.nodes.length > 1);
+                pane.setValue(0, node.getWeight(index) * 100);
+                pane.title = `Sub-Pattern ${index + 1}`;
+            });
+        };
+
         const addPatternUI = (pane: UIPane, index: number, subNode: PatternNode) => {
             const subPane = pane.addSubPane({
                 title: `Sub-Pattern ${index + 1}`,
                 items: [
-                    { type: "slider", title: "Weight", value: node.weights?.[index] ?? 1, min: 0.1, visible: !node.evenDistribution, onChange: (value) => (node.weights[index] = value) },
+                    {
+                        type: "slider",
+                        title: "Weight",
+                        value: node.getWeight(index) * 100,
+                        min: 0,
+                        max: 100,
+                        isInteger: true,
+                        visible: !node.evenDistribution,
+                        onChange: (value) => node.setWeight(index, value / 100),
+                    },
                     { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
                     {
                         type: "button",
@@ -144,20 +160,13 @@ export class PatternUIBuilder {
                         pressed: () => {
                             pane.removeSubPane(subPane);
                             node.nodes.splice(index, 1);
-                            node.weights?.splice(index, 1);
-                            eachSubPane((pane, index) => {
-                                pane.setVisibility(2, node.nodes.length > 1);
-                                pane.title = `Sub-Pattern ${index + 1}`;
-                            });
+                            node.removeWeight(index);
+                            updateSubPanes();
                         },
                     },
                 ],
             });
             this.buildPatternUI(pane.getSubPane(subPane).getSubPane(1), subNode, node);
-            eachSubPane((pane, index) => {
-                pane.setVisibility(2, node.nodes.length > 1);
-                pane.title = `Sub-Pattern ${index + 1}`;
-            });
         };
 
         pane.changeItems([
@@ -168,9 +177,6 @@ export class PatternUIBuilder {
                 onChange: (value) => {
                     node.evenDistribution = value;
                     eachSubPane((pane) => pane.setVisibility(0, !node.evenDistribution));
-                    node.weights ??= [];
-                    node.weights.length = node.nodes.length;
-                    for (let i = 0; i < node.weights.length; i++) node.weights[i] ??= 1;
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -178,16 +184,17 @@ export class PatternUIBuilder {
                 type: "button",
                 title: "Add Sub-Pattern",
                 pressed: () => {
-                    const newNode = new BlockPatternNode(dummyToken, BlockPermutation.resolve("stone"));
+                    const newNode = blockPatternNode();
                     node.nodes.push(newNode);
-                    node.weights?.push(1);
-                    addPatternUI(pane.getSubPane(1), node.nodes.length - 1, newNode);
+                    addPatternUI(patternPane, node.nodes.length - 1, newNode);
+                    updateSubPanes();
                 },
             },
         ]);
 
         const patternPane = pane.getSubPane(1);
         for (let i = 0; i < node.nodes.length; i++) addPatternUI(patternPane, i, node.nodes[i]);
+        updateSubPanes();
     }
 
     private buildTypeOrRandStatePatternUI(pane: UIPane, node: TypePatternNode | RandStatePatternNode) {
@@ -196,6 +203,7 @@ export class PatternUIBuilder {
                 type: "combo_box",
                 title: "Block",
                 dataType: ComboBoxPropertyItemDataType.Block,
+                showImage: true,
                 value: node.type,
                 onChange: (value) => (node.type = value),
             },
@@ -209,7 +217,6 @@ export class PatternUIBuilder {
             const subPane = pane.addSubPane({
                 hasMargins: false,
                 hasExpander: false,
-                direction: LayoutDirection.Vertical,
                 items: [
                     {
                         type: "dropdown",
@@ -220,7 +227,7 @@ export class PatternUIBuilder {
                     },
                     {
                         type: "button",
-                        title: "X",
+                        title: "Delete State",
                         variant: 3,
                         pressed: () => {
                             pane.removeSubPane(subPane);
@@ -248,14 +255,14 @@ export class PatternUIBuilder {
                     if (value === -1) return;
                     const newState = validNewStates[value];
                     node.states.set(newState.id, newState.validValues[0]);
-                    addStateUI(pane.getSubPane(0), newState);
+                    addStateUI(statePane, newState);
                     updateStateEntries();
                     pane.setValue(1, -1);
                 },
             },
         ]);
 
-        const statePane = pane.getSubPane(1);
+        const statePane = pane.getSubPane(0);
         for (const [state, value] of node.states.entries()) addStateUI(statePane, BlockStates.get(state), value);
         updateStateEntries();
     }

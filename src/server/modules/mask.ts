@@ -40,6 +40,7 @@ export class Mask implements CustomArgType {
     withContext(session: PlayerSession) {
         const mask = this.clone();
         mask.context.placePosition = session.getPlacementPosition().add(0.5);
+        mask.getRootNode()?.prepare();
         return mask;
     }
 
@@ -51,6 +52,10 @@ export class Mask implements CustomArgType {
     matchesBlock(block: BlockUnit) {
         if (this.empty()) return true;
         return this.condition.matchesBlock(block, this.context);
+    }
+
+    getRootNode() {
+        return this.condition;
     }
 
     clear() {
@@ -65,11 +70,11 @@ export class Mask implements CustomArgType {
 
     addBlock(permutation: BlockPermutation) {
         if (this.condition == null) {
-            this.condition = new ChainMask(null);
+            this.condition = new ChainMaskNode(null);
         }
 
         const block = blockPermutation2ParsedBlock(permutation);
-        this.condition.nodes.push(new BlockMask(null, block));
+        this.condition.nodes.push(new BlockMaskNode(null, block));
 
         if (this.stringObj) this.stringObj += ",";
         this.stringObj += block.id.replace("minecraft:", "");
@@ -85,7 +90,7 @@ export class Mask implements CustomArgType {
         } else if (!this.condition) {
             node = mask.condition;
         } else {
-            node = new IntersectMask(null);
+            node = new IntersectMaskNode(null);
             node.nodes = [this.condition, mask.condition];
         }
 
@@ -103,9 +108,9 @@ export class Mask implements CustomArgType {
         const child = root?.nodes[0];
         return (
             !root ||
-            root instanceof BlockMask ||
-            (root instanceof ChainMask && root.nodes.every((node) => node instanceof BlockMask)) ||
-            (root instanceof NegateMask && (child instanceof BlockMask || (child instanceof ChainMask && child.nodes.every((node) => node instanceof BlockMask))))
+            root instanceof BlockMaskNode ||
+            (root instanceof ChainMaskNode && root.nodes.every((node) => node instanceof BlockMaskNode)) ||
+            (root instanceof NegateMaskNode && (child instanceof BlockMaskNode || (child instanceof ChainMaskNode && child.nodes.every((node) => node instanceof BlockMaskNode))))
         );
     }
 
@@ -131,12 +136,12 @@ export class Mask implements CustomArgType {
         const excludePerms: BlockPermutation[] = [];
         this.simpleCache = {};
 
-        if (this.condition instanceof BlockMask) addToFilter(this.condition.block, includeTypes, includePerms);
-        else if (this.condition instanceof ChainMask) this.condition.nodes.forEach((node) => addToFilter((<BlockMask>node).block, includeTypes, includePerms));
-        else if (this.condition instanceof NegateMask) {
+        if (this.condition instanceof BlockMaskNode) addToFilter(this.condition.block, includeTypes, includePerms);
+        else if (this.condition instanceof ChainMaskNode) this.condition.nodes.forEach((node) => addToFilter((<BlockMaskNode>node).block, includeTypes, includePerms));
+        else if (this.condition instanceof NegateMaskNode) {
             const negated = this.condition.nodes[0];
-            if (negated instanceof BlockMask) addToFilter(negated.block, excludeTypes, excludePerms);
-            else if (negated instanceof ChainMask) negated.nodes.forEach((node) => addToFilter((<BlockMask>node).block, excludeTypes, excludePerms));
+            if (negated instanceof BlockMaskNode) addToFilter(negated.block, excludeTypes, excludePerms);
+            else if (negated instanceof ChainMaskNode) negated.nodes.forEach((node) => addToFilter((<BlockMaskNode>node).block, excludeTypes, excludePerms));
         }
 
         if (includeTypes.length) this.simpleCache.includeTypes = includeTypes;
@@ -177,18 +182,18 @@ export class Mask implements CustomArgType {
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
                 if (token.type == "id") {
-                    out.push(new BlockMask(nodeToken(), parseBlock(tokens, input, false, true) as parsedBlock));
+                    out.push(new BlockMaskNode(nodeToken(), parseBlock(tokens, input, false, true) as parsedBlock));
                 } else if (token.value == ",") {
-                    processOps(out, ops, new ChainMask(token));
+                    processOps(out, ops, new ChainMaskNode(token));
                 } else if (token.type == "space") {
-                    processOps(out, ops, new IntersectMask(token));
+                    processOps(out, ops, new IntersectMaskNode(token));
                 } else if (token.value == "!") {
-                    processOps(out, ops, new NegateMask(token));
+                    processOps(out, ops, new NegateMaskNode(token));
                 } else if (token.type == "bracket") {
                     if (token.value == "<") {
-                        processOps(out, ops, new OffsetMask(token, 0, 1, 0));
+                        processOps(out, ops, new OffsetMaskNode(token, Vector.UP));
                     } else if (token.value == ">") {
-                        processOps(out, ops, new OffsetMask(token, 0, -1, 0));
+                        processOps(out, ops, new OffsetMaskNode(token, Vector.DOWN));
                     } else if (token.value == "(") {
                         out.push(processTokens(true));
                     } else if (token.value == ")") {
@@ -217,19 +222,19 @@ export class Mask implements CustomArgType {
                         t = tokens.next();
                         if (t.value != "]") throwTokenError(t);
 
-                        out.push(new SlopeMask(nodeToken(), lowerAngle, upperAngle));
+                        out.push(new SlopeMaskNode(nodeToken(), lowerAngle, upperAngle));
                     } else if (t.value == "existing") {
-                        out.push(new ExistingMask(nodeToken()));
+                        out.push(new ExistingMaskNode(nodeToken()));
                     } else if (t.value == "surface" || t.value == "exposed") {
-                        out.push(new SurfaceMask(nodeToken()));
+                        out.push(new SurfaceMaskNode(nodeToken()));
                     } else if (t.value == "shadow") {
-                        out.push(new ShadowMask(nodeToken()));
+                        out.push(new ShadowMaskNode(nodeToken()));
                     } else if (t.value == "#") {
                         const id = tokens.next();
                         if (id.type != "id") {
                             throwTokenError(id);
                         }
-                        out.push(new TagMask(nodeToken(), id.value));
+                        out.push(new TagMaskNode(nodeToken(), id.value));
                     } else {
                         throwTokenError(t);
                     }
@@ -238,7 +243,7 @@ export class Mask implements CustomArgType {
                     if (num.type != "number") {
                         throwTokenError(num);
                     }
-                    out.push(new PercentMask(nodeToken(), num.value / 100));
+                    out.push(new PercentMaskNode(nodeToken(), num.value / 100));
                 } else if (token.value == "^") {
                     let states: parsedBlock["states"];
                     let strict = false;
@@ -255,7 +260,7 @@ export class Mask implements CustomArgType {
                     } else {
                         throwTokenError(t);
                     }
-                    out.push(new StateMask(nodeToken(), states, strict));
+                    out.push(new StateMaskNode(nodeToken(), states, strict));
                 } else if (token.type == "EOF") {
                     if (inBracket) {
                         throwTokenError(token);
@@ -282,7 +287,7 @@ export class Mask implements CustomArgType {
         let out: MaskNode;
         try {
             out = processTokens(false);
-            out.postProcess();
+            out.optimize();
         } catch (error) {
             if (error.pos != undefined) {
                 const err: commandSyntaxError = {
@@ -303,32 +308,48 @@ export class Mask implements CustomArgType {
 
         return { result: mask, argIndex: index + 1 };
     }
+
+    static fromNode(node: MaskNode) {
+        const mask = new Mask();
+        mask.condition = node;
+        return mask;
+    }
 }
 
-abstract class MaskNode implements AstNode {
+export abstract class MaskNode implements AstNode {
     public nodes: MaskNode[] = [];
     abstract readonly prec: number;
     abstract readonly opCount: number;
 
     constructor(public readonly token: Token) {}
 
+    prepare() {
+        for (const node of this.nodes) node.prepare();
+    }
+
     abstract matchesBlock(block: BlockUnit, context: maskContext): boolean;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    postProcess() {}
+    optimize() {
+        for (const node of this.nodes) node.optimize();
+    }
 }
 
-class BlockMask extends MaskNode {
+export class BlockMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
-    readonly states: Record<string, string | number | boolean>;
+
+    states: Record<string, string | number | boolean>;
 
     constructor(
         token: Token,
         public block: parsedBlock
     ) {
         super(token);
-        this.states = Object.fromEntries(block.states?.entries() ?? []);
+    }
+
+    prepare() {
+        super.prepare();
+        this.states = Object.fromEntries(this.block.states?.entries() ?? []);
     }
 
     matchesBlock(block: BlockUnit) {
@@ -336,7 +357,7 @@ class BlockMask extends MaskNode {
     }
 }
 
-class StateMask extends MaskNode {
+export class StateMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -350,19 +371,16 @@ class StateMask extends MaskNode {
 
     matchesBlock(block: BlockUnit) {
         const props = block.permutation.getAllStates();
-        let states_passed = 0;
+        let statesPassed = 0;
         for (const [state, val] of this.states.entries()) {
-            if (this.strict && state in props && val == props[state]) {
-                states_passed++;
-            } else if (!this.strict && (!(state in props) || val == props[state])) {
-                states_passed++;
-            }
+            if (this.strict && state in props && val === props[state]) statesPassed++;
+            else if (!this.strict && (!(state in props) || val === props[state])) statesPassed++;
         }
-        return states_passed == this.states.size;
+        return statesPassed === this.states.size;
     }
 }
 
-class SurfaceMask extends MaskNode {
+export class SurfaceMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -385,7 +403,7 @@ class SurfaceMask extends MaskNode {
     }
 }
 
-class ExistingMask extends MaskNode {
+export class ExistingMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -394,7 +412,7 @@ class ExistingMask extends MaskNode {
     }
 }
 
-class ShadowMask extends MaskNode {
+export class ShadowMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -410,7 +428,7 @@ class ShadowMask extends MaskNode {
     matchesBlock(block: BlockUnit, context: maskContext) {
         const start = context.placePosition;
         const toBlock = Vector.sub(Vector.add(block.location, [0.5, 0.5, 0.5]), start);
-        for (const face of ShadowMask.testFaces) {
+        for (const face of ShadowMaskNode.testFaces) {
             if (face.dot(toBlock) > 0) continue;
             const target = Vector.add(block.location, face).add(0.5);
             const ray = Vector.sub(target, start);
@@ -424,16 +442,16 @@ class ShadowMask extends MaskNode {
     }
 }
 
-class SlopeMask extends MaskNode {
+export class SlopeMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
     static readonly testDistance = 2;
     static readonly testOffsets = {
-        "-z": Vector.from(Direction.North).mul(SlopeMask.testDistance),
-        "+z": Vector.from(Direction.South).mul(SlopeMask.testDistance),
-        "+x": Vector.from(Direction.East).mul(SlopeMask.testDistance),
-        "-x": Vector.from(Direction.West).mul(SlopeMask.testDistance),
+        "-z": Vector.from(Direction.North).mul(SlopeMaskNode.testDistance),
+        "+z": Vector.from(Direction.South).mul(SlopeMaskNode.testDistance),
+        "+x": Vector.from(Direction.East).mul(SlopeMaskNode.testDistance),
+        "-x": Vector.from(Direction.West).mul(SlopeMaskNode.testDistance),
     };
 
     constructor(
@@ -447,7 +465,7 @@ class SlopeMask extends MaskNode {
     matchesBlock(block: BlockUnit) {
         const heights: { [dir: string]: number } = {};
 
-        for (const [entry, offset] of Object.entries(SlopeMask.testOffsets)) {
+        for (const [entry, offset] of Object.entries(SlopeMaskNode.testOffsets)) {
             const start = Vector.add(block, offset).add(0.5);
 
             let testBlock = block.dimension.getBlock(start);
@@ -460,7 +478,7 @@ class SlopeMask extends MaskNode {
             if (hit) heights[entry] = hit.block.y + hit.faceLocation.y;
         }
 
-        const distance2 = SlopeMask.testDistance * 2;
+        const distance2 = SlopeMaskNode.testDistance * 2;
         const slopeX = Math.abs(heights["+z"] - heights["-z"]) / distance2;
         const slopeZ = Math.abs(heights["+x"] - heights["-x"]) / distance2;
         const pitch = 90 - Math.atan(1 / Math.sqrt(slopeX ** 2 + slopeZ ** 2)) * (180 / Math.PI);
@@ -468,7 +486,7 @@ class SlopeMask extends MaskNode {
     }
 }
 
-class TagMask extends MaskNode {
+export class TagMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -484,7 +502,29 @@ class TagMask extends MaskNode {
     }
 }
 
-class PercentMask extends MaskNode {
+export class InputMaskNode extends MaskNode {
+    readonly prec = -1;
+    readonly opCount = 0;
+    private node: MaskNode;
+
+    constructor(
+        token: Token,
+        public input: string
+    ) {
+        super(token);
+    }
+
+    prepare() {
+        super.prepare();
+        this.node = new Mask(this.input).getRootNode();
+    }
+
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        return this.node.matchesBlock(block, context);
+    }
+}
+
+export class PercentMaskNode extends MaskNode {
     readonly prec = -1;
     readonly opCount = 0;
 
@@ -500,71 +540,44 @@ class PercentMask extends MaskNode {
     }
 }
 
-class ChainMask extends MaskNode {
+export class ChainMaskNode extends MaskNode {
     readonly prec = 3;
     readonly opCount = 2;
+    readonly variableOps = true;
 
-    matchesBlock(block: BlockUnit, context: maskContext) {
-        for (const mask of this.nodes) {
-            if (mask.matchesBlock(block, context)) return true;
-        }
-        return false;
+    constructor(token: Token, nodes: MaskNode[] = []) {
+        super(token);
+        this.nodes = [...nodes];
     }
 
-    postProcess() {
-        super.postProcess();
-
-        const masks = this.nodes;
-        this.nodes = [];
-        while (masks.length) {
-            const mask = masks.shift();
-            if (mask instanceof ChainMask) {
-                const sub = mask.nodes.reverse();
-                for (const child of sub) {
-                    masks.unshift(child);
-                }
-            } else {
-                this.nodes.push(mask);
-                mask.postProcess();
-            }
-        }
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        return this.nodes.some((mask) => mask.matchesBlock(block, context));
     }
 }
 
-class IntersectMask extends MaskNode {
+export class IntersectMaskNode extends MaskNode {
     readonly prec = 1;
     readonly opCount = 2;
+    readonly variableOps = true;
 
-    matchesBlock(block: BlockUnit, context: maskContext) {
-        for (const mask of this.nodes) {
-            if (!mask.matchesBlock(block, context)) return false;
-        }
-        return true;
+    constructor(token: Token, nodes: MaskNode[] = []) {
+        super(token);
+        this.nodes = [...nodes];
     }
 
-    postProcess() {
-        super.postProcess();
-
-        const masks = this.nodes;
-        this.nodes = [];
-        while (masks.length) {
-            const mask = masks.shift();
-            if (mask instanceof IntersectMask) {
-                const sub = mask.nodes.reverse();
-                for (const child of sub) {
-                    masks.unshift(child);
-                }
-            } else {
-                this.nodes.push(mask);
-                mask.postProcess();
-            }
-        }
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        return this.nodes.every((mask) => mask.matchesBlock(block, context));
     }
 }
 
-class NegateMask extends MaskNode {
+export class NegateMaskNode extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
+
+    constructor(token: Token, node?: MaskNode) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
 
     matchesBlock(block: BlockUnit, context: maskContext) {
         return !this.nodes[0].matchesBlock(block, context);
@@ -572,17 +585,27 @@ class NegateMask extends MaskNode {
 }
 
 // Overlay and Underlay
-class OffsetMask extends MaskNode {
+export class OffsetMaskNode extends MaskNode {
     readonly prec = 2;
     readonly opCount = 1;
 
+    private x: number;
+    private y: number;
+    private z: number;
+
     constructor(
         token: Token,
-        public x: number,
-        public y: number,
-        public z: number
+        public offset: Vector3,
+        node?: MaskNode
     ) {
         super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        this.x = this.offset.x;
+        this.y = this.offset.y;
+        this.z = this.offset.z;
     }
 
     matchesBlock(block: BlockUnit, context: maskContext) {
@@ -597,8 +620,9 @@ class OffsetMask extends MaskNode {
         );
     }
 
-    postProcess() {
-        while (this.nodes[0] instanceof OffsetMask) {
+    optimize() {
+        super.optimize();
+        while (this.nodes[0] instanceof OffsetMaskNode) {
             this.x += this.nodes[0].x;
             this.y += this.nodes[0].y;
             this.z += this.nodes[0].z;

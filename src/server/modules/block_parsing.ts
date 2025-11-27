@@ -24,6 +24,7 @@ export interface BlockUnit {
 export interface AstNode {
     prec: number;
     opCount: number;
+    variableOps?: boolean;
     rightAssoc?: boolean;
     nodes: AstNode[];
     token: Token;
@@ -97,24 +98,15 @@ export function throwTokenError(token: Token): never {
 export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     while (ops.length) {
         const op2 = ops.slice(-1)[0];
-        if (op && (op.prec > op2.prec || (op.prec == op2.prec && op2.rightAssoc))) {
-            break;
-        }
-
-        if (out.length < op2.opCount) {
-            throwTokenError(op2.token);
-        }
+        if (op && (op.prec > op2.prec || (op.prec == op2.prec && op2.rightAssoc))) break;
+        if (out.length < op2.opCount) throwTokenError(op2.token);
 
         ops.pop(); // <= op2
-        for (let i = 0; i < op2.opCount; i++) {
-            op2.nodes.unshift(out.pop());
-        }
+        for (let i = 0; op2.variableOps ? out.length : i < op2.opCount; i++) op2.nodes.unshift(out.pop());
         out.push(op2);
     }
 
-    if (op) {
-        ops.push(op);
-    }
+    if (op) ops.push(op);
 }
 
 export function blockPermutation2ParsedBlock(block: BlockPermutation) {

@@ -1,5 +1,5 @@
 import { Vector3, BlockPermutation, Player, Dimension, BlockVolumeBase } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector, Server, whenReady } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, Vector, Server, whenReady, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
@@ -45,7 +45,6 @@ export class Pattern implements CustomArgType {
     }
 
     withContext(session: PlayerSession, range: [Vector3, Vector3]) {
-        this.getRootNode().preProcess();
         const pattern = this.clone();
         pattern.context.session = session;
         pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
@@ -57,6 +56,7 @@ export class Pattern implements CustomArgType {
         } catch {
             pattern.context.hand = BlockPermutation.resolve("minecraft:air");
         }
+        pattern.getRootNode().prepare();
         return pattern;
     }
 
@@ -183,7 +183,7 @@ export class Pattern implements CustomArgType {
                         throwTokenError(t);
                     }
                 } else if (token.value == ",") {
-                    processOps(out, ops, new ChainPatternNode(token));
+                    processOps(out, ops, new ChainPatternNode(nodeToken()));
                 } else if (token.value == "^") {
                     const t = tokens.next();
                     if (t.type == "id") {
@@ -268,7 +268,7 @@ export class Pattern implements CustomArgType {
         let out: PatternNode;
         try {
             out = processTokens(false);
-            out.preProcess();
+            out.optimize();
         } catch (error) {
             if (error.pos != undefined) {
                 const err: commandSyntaxError = {
@@ -305,9 +305,15 @@ export abstract class PatternNode implements AstNode {
 
     constructor(public readonly token: Token) {}
 
+    prepare() {
+        for (const node of this.nodes) node.prepare();
+    }
+
     abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation | undefined;
 
-    preProcess() {}
+    optimize() {
+        for (const node of this.nodes) node.optimize();
+    }
 
     /** Debug only! Not all important data is represented. */
     toJSON(): NodeJSON {
@@ -349,17 +355,16 @@ export class TypePatternNode extends PatternNode {
     private permutation: BlockPermutation;
     private props: Record<string, string | number | boolean>;
 
-    constructor(token: Token, type: string) {
+    constructor(
+        token: Token,
+        public type: string
+    ) {
         super(token);
-        this.type = type;
     }
 
-    get type() {
-        return this.permutation.type.id;
-    }
-
-    set type(value: string) {
-        this.permutation = BlockPermutation.resolve(value);
+    prepare() {
+        super.prepare();
+        this.permutation = BlockPermutation.resolve(this.type);
         this.props = this.permutation.getAllStates();
     }
 
@@ -551,7 +556,7 @@ export class InputPatternNode extends PatternNode {
         super(token);
     }
 
-    preProcess(): void {
+    prepare() {
         this.node = new Pattern(this.input).getRootNode();
     }
 
@@ -580,19 +585,15 @@ export class BlobPatternNode extends PatternNode {
         if (node) this.nodes.push(node);
     }
 
-    preProcess() {
-        this.nodes[0].preProcess();
+    prepare() {
+        super.prepare();
         this.isRadial = this.nodes[0] instanceof GradientPatternNode && this.nodes[0].cardinal === "radial";
         this.perms = {};
         this.ranges = {};
         this.points = {};
         this.offsets = [];
-        for (let z = -1; z <= 1; z++) {
-            for (let y = -1; y <= 1; y++) {
-                for (let x = -1; x <= 1; x++) {
-                    this.offsets.push(new Vector(x * this.size, y * this.size, z * this.size));
-                }
-            }
+        for (const { x, y, z } of regionIterateBlocks(new Vector(-1, -1, -1), new Vector(1, 1, 1))) {
+            this.offsets.push(new Vector(x * this.size, y * this.size, z * this.size));
         }
     }
 
@@ -641,10 +642,11 @@ export class BlobPatternNode extends PatternNode {
 export class ChainPatternNode extends PatternNode {
     readonly prec = 1;
     readonly opCount = 2;
+    readonly variableOps = true;
 
-    public weights: number[] | undefined;
     public evenDistribution = true;
 
+    private weights: number[] | undefined;
     private cumWeights: number[] = [];
     private weightTotal: number;
 
@@ -653,54 +655,63 @@ export class ChainPatternNode extends PatternNode {
         this.nodes.push(...nodes);
     }
 
+    getWeight(index: number) {
+        return this.weights?.[index] ?? 1 / this.nodes.length;
+    }
+
+    setWeight(index: number, weight: number) {
+        this.weights ??= [];
+        this.weights.length = Math.max(this.weights.length, index + 1);
+        this.weights[index] = weight;
+    }
+
+    removeWeight(index: number) {
+        this.weights?.splice(index, 1);
+    }
+
+    prepare() {
+        super.prepare();
+        if (this.evenDistribution) return;
+
+        this.cumWeights.length = 0;
+        for (let i = 0; i < this.nodes.length; i++) this.cumWeights.push(this.getWeight(i) + (this.cumWeights[i - 1] || 0));
+        this.weightTotal = this.cumWeights[this.cumWeights.length - 1];
+    }
+
     getPermutation(block: BlockUnit, context: patternContext) {
-        if (this.nodes.length == 1) {
+        if (this.nodes.length === 1) {
             return this.nodes[0].getPermutation(block, context);
         } else if (this.evenDistribution) {
             return this.nodes[Math.floor(Math.random() * this.nodes.length)].getPermutation(block, context);
         } else {
             const rand = Math.random() * this.weightTotal;
             for (let i = 0; i < this.nodes.length; i++) {
-                if (this.cumWeights[i] >= rand) {
-                    return this.nodes[i].getPermutation(block, context);
-                }
+                if (this.cumWeights[i] >= rand) return this.nodes[i].getPermutation(block, context);
             }
         }
     }
 
-    preProcess() {
-        const defaultPercent = 100 / this.nodes.length;
-        let totalPercent = 0;
+    optimize() {
+        super.optimize();
+        const defaultWeight = 1 / this.nodes.length;
+        let totalWeight = 0;
 
         const patterns = this.nodes;
         const weights = [];
         this.nodes = [];
         while (patterns.length) {
             const pattern = patterns.shift();
-            if (pattern instanceof ChainPatternNode) {
-                const sub = pattern.nodes.reverse();
-                for (const child of sub) patterns.unshift(child);
-            } else if (pattern instanceof PercentPatternNode) {
+            if (pattern instanceof PercentPatternNode) {
                 this.evenDistribution = false;
                 this.nodes.push(pattern.nodes[0]);
-                weights.push(pattern.percent);
-                pattern.nodes[0].preProcess();
-                totalPercent += pattern.percent;
+                weights.push(pattern.percent / 100);
+                totalWeight += pattern.percent / 100;
             } else {
                 this.nodes.push(pattern);
-                weights.push(defaultPercent);
-                pattern.preProcess();
-                totalPercent += defaultPercent;
+                weights.push(defaultWeight);
+                totalWeight += defaultWeight;
             }
         }
-        this.weights ??= weights.map((value) => value / totalPercent);
-
-        if (!this.evenDistribution) {
-            this.cumWeights.length = 0;
-            for (let i = 0; i < this.weights.length; i += 1) {
-                this.cumWeights.push((this.weights[i] ?? 1) + (this.cumWeights[i - 1] || 0));
-            }
-            this.weightTotal = this.cumWeights[this.cumWeights.length - 1];
-        }
+        this.weights ??= weights.map((value) => value / totalWeight);
     }
 }

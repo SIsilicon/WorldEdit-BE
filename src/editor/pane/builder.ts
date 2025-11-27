@@ -16,6 +16,7 @@ import {
     IStringPropertyItemOptions,
     ISubPanePropertyItemOptions,
     ITextPropertyItemOptions,
+    IToggleGroupPropertyItemOptions,
     IVector3PropertyItemOptions,
     LocalizedString,
     makeObservable,
@@ -24,6 +25,7 @@ import { generateId } from "@notbeer-api";
 
 interface BasePaneItem {
     type: string;
+    uniqueId?: string;
 }
 
 interface ButtonPaneItem extends BasePaneItem, IButtonPropertyItemOptions {
@@ -51,6 +53,11 @@ interface ComboBoxPaneItem extends BasePaneItem, IComboBoxPropertyItemOptions {
     value: string;
 }
 
+interface ToggleGroupPaneItem extends BasePaneItem, IToggleGroupPropertyItemOptions {
+    type: "toggle_group";
+    value: number;
+}
+
 interface Vector3PaneItem extends BasePaneItem, IVector3PropertyItemOptions {
     type: "vector3";
     value: { x: number; y: number; z: number };
@@ -71,7 +78,7 @@ interface SubPane extends BasePaneItem, ISubPanePropertyItemOptions {
     items: PaneItem[] | { build: (pane: UIPane) => void };
 }
 
-export type PaneItem = ButtonPaneItem | SliderPaneItem | TogglePaneItem | DropdownPaneItem | ComboBoxPaneItem | Vector3PaneItem | TextAreaPaneItem | LabelPaneItem | SubPane;
+export type PaneItem = ButtonPaneItem | SliderPaneItem | TogglePaneItem | DropdownPaneItem | ComboBoxPaneItem | ToggleGroupPaneItem | Vector3PaneItem | TextAreaPaneItem | LabelPaneItem | SubPane;
 
 export interface PaneLayout extends ISubPanePropertyItemOptions {
     items: PaneItem[] | { build: (pane: UIPane) => void };
@@ -106,24 +113,33 @@ export class UIPane {
         this.mainPane.setTitle(value);
     }
 
-    getValue(index: number) {
-        return this.observables[index]?.value;
+    get visible() {
+        return this.mainPane.visible;
     }
 
-    setValue(index: number, value: number | boolean | Vector3 | LocalizedString) {
-        this.observables[index].set(value);
+    set visible(value: boolean) {
+        if (value) this.mainPane.show();
+        else this.mainPane.hide();
     }
 
-    setVisibility(index: number, visible: boolean) {
-        this.properties[index].visible = visible;
+    getValue(id: string | number) {
+        return this.observables[id]?.value;
     }
 
-    setEnabled(index: number, enabled: boolean) {
-        this.properties[index].enable = enabled;
+    setValue(id: string | number, value: number | boolean | Vector3 | LocalizedString) {
+        this.observables[id].set(value);
     }
 
-    updateEntries(index: number, entries: IDropdownPropertyItemEntry[], newValue?: number) {
-        (this.properties[index] as IDropdownPropertyItem).updateEntries(entries, newValue);
+    setVisibility(id: string | number, visible: boolean) {
+        this.properties[id].visible = visible;
+    }
+
+    setEnabled(id: string | number, enabled: boolean) {
+        this.properties[id].enable = enabled;
+    }
+
+    updateEntries(id: string | number, entries: IDropdownPropertyItemEntry[], newValue?: number) {
+        (this.properties[id] as IDropdownPropertyItem).updateEntries(entries, newValue);
     }
 
     addSubPane(layout: PaneLayout) {
@@ -150,33 +166,37 @@ export class UIPane {
         this.pane.beginConstruct();
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
+            const id = item.uniqueId ?? i;
             switch (item.type) {
                 case "button":
-                    this.properties[i] = this.pane.addButton(item.pressed, item);
+                    this.properties[id] = this.pane.addButton(item.pressed, item);
                     break;
                 case "label":
-                    this.properties[i] = this.pane.addText(this.makeObservable(item.text, i), item);
+                    this.properties[id] = this.pane.addText(this.makeObservable(item.text, id), item);
                     break;
                 case "text_area":
-                    this.properties[i] = this.pane.addString(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addString(this.makeObservable(item.value, id), item);
                     break;
                 case "toggle":
-                    this.properties[i] = this.pane.addBool(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addBool(this.makeObservable(item.value, id), item);
                     break;
                 case "slider":
-                    this.properties[i] = this.pane.addNumber(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addNumber(this.makeObservable(item.value, id), item);
                     break;
                 case "dropdown":
-                    this.properties[i] = this.pane.addDropdown(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addDropdown(this.makeObservable(item.value, id), item);
                     break;
                 case "combo_box":
-                    this.properties[i] = this.pane.addComboBox(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addComboBox(this.makeObservable(item.value, id), item);
+                    break;
+                case "toggle_group":
+                    this.properties[id] = this.pane.addToggleGroup(this.makeObservable(item.value, id), item);
                     break;
                 case "vector3":
-                    this.properties[i] = this.pane.addVector3(this.makeObservable(item.value, i), item);
+                    this.properties[id] = this.pane.addVector3(this.makeObservable(item.value, id), item);
                     break;
                 case "subpane":
-                    this.createSubPane(i, item);
+                    this.createSubPane(id, item);
                     break;
                 default:
                     this.pane;
@@ -194,9 +214,9 @@ export class UIPane {
         return id;
     }
 
-    private makeObservable(value: any, index: number) {
+    private makeObservable(value: any, id: string | number) {
         const observable = makeObservable(value);
-        this.observables[index] = observable;
+        this.observables[id] = observable;
         return observable;
     }
 }
