@@ -191,18 +191,17 @@ if (args.watch) {
     copyDir("BP", path.join(buildsDir, `${packName}BP`));
     copyDir("RP", path.join(buildsDir, `${packName}RP`));
 
-    if (args.target === "release" || args.target === "server") {
-        const exportName = args.editor ? `${packName}.editor` : packName;
-        const zipName = args.target === "release" ? `${exportName}.mcaddon` : `${exportName}.server.zip`;
-        const zipPath = path.join(buildsDir, zipName);
-        const zip = new ZipFile();
-        if (args.target === "server") {
-            const variablesPath = path.join(buildsDir, "variables.json");
-            if (fs.existsSync(variablesPath)) zip.addFile(variablesPath, "variables.json");
-        }
-        zipWriteDir(zip, path.join(buildsDir, `${packName}BP`), `${packName}BP`);
-        zipWriteDir(zip, path.join(buildsDir, `${packName}RP`), `${packName}RP`);
-        zip.outputStream.pipe(fs.createWriteStream(zipPath)).on("close", () => {});
-        zip.end();
+    let exportName = args.target === "debug" ? `${packName}.beta` : packName;
+    exportName = args.editor ? `${exportName}.editor` : exportName;
+    exportName = args.target === "server" ? `${exportName}.server.zip` : `${exportName}.mcaddon`;
+    const zipPath = path.join(buildsDir, exportName);
+    const zip = new ZipFile();
+    if (args.target === "server") {
+        const variablesPath = path.join(buildsDir, "variables.json");
+        if (fs.existsSync(variablesPath)) zip.addFile(variablesPath, "variables.json");
     }
+    zipWriteDir(zip, path.join(buildsDir, `${packName}BP`), `${packName}BP`);
+    zipWriteDir(zip, path.join(buildsDir, `${packName}RP`), `${packName}RP`);
+    zip.outputStream.pipe(fs.createWriteStream(zipPath)).on("close", () => {});
+    zip.end();
 }

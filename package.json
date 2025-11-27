@@ -19,7 +19,7 @@
         "build:server": "node build.mjs --target=server",
         "build:editor": "node build.mjs --target=release --editor",
         "build:all": "node build.mjs --target=release && node build.mjs --target=server && node build.mjs --target=release --editor",
-        "build:beta": "node build.mjs --target=debug",
+        "build:beta": "node build.mjs --target=debug && node build.mjs --target=debug --editor",
         "build": "node build.mjs --target=release",
         "lint": "npx eslint src",
         "lint:fix": "npm run lint -- --fix",
