@@ -55,7 +55,10 @@ export class RaiseBrush extends Brush {
         throw "commands.generic.wedit:noMaterial";
     }
 
-    public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
+    public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
+        let loc: Vector;
+        for (const location of locations) loc = location;
+
         const point = loc.offset(-this.size, -this.size, -this.size);
         yield* smooth(session, this.iterations, this.shape, point, this.mask, mask);
     }

@@ -306,6 +306,10 @@ export class VectorSet<T extends Vector3 = Vector3> implements Set<T> {
         return this;
     }
 
+    get(vector: Vector3) {
+        return this.map.get(`${vector.x} ${vector.y} ${vector.z}`);
+    }
+
     clear() {
         this.map.clear();
     }

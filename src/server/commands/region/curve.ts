@@ -23,19 +23,21 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const thickness = <number>args.get("thickness");
 
     const points = session.selection.points;
-    const [start, end] = session.selection.getRange();
-
     const dim = builder.dimension;
-    const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end]);
-    const mask = session.globalMask.withContext(session);
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
         const history = session.history;
         const record = history.record();
         try {
-            const blocks = yield* balloonPath(plotCurve(points), thickness);
+            const curveSamples = yield* plotCurve(points);
+            const blocks = yield* balloonPath(curveSamples, thickness);
             const [start, end] = regionBounds(blocks);
+            const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end], {
+                strokePoints: Array.from(curveSamples),
+                gradientRadius: thickness,
+            });
+            const mask = session.globalMask.withContext(session);
 
             yield* history.trackRegion(record, start, end);
             count = 0;

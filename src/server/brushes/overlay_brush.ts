@@ -1,4 +1,4 @@
-import { Server, Vector, regionIterateBlocks } from "@notbeer-api";
+import { Server, Vector, VectorSet, regionIterateBlocks } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -56,8 +56,7 @@ export class OverlayBrush extends Brush {
         return this.pattern;
     }
 
-    public *apply(hit: Vector, session: PlayerSession, mask?: Mask) {
-        const range: [Vector, Vector] = [hit.offset(-this.radius, 1, -this.radius), hit.offset(this.radius, 1, this.radius)];
+    public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const minY = getWorldHeightLimits(session.player.dimension)[0];
         const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
         const surfaceMask = this.surfaceMask.withContext(session);
@@ -68,26 +67,31 @@ export class OverlayBrush extends Brush {
         const record = history.record();
         const blockChanges = recordBlockChanges(session, record);
         try {
-            for (const loc of regionIterateBlocks(...range)) {
-                if (hit.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
-                    continue;
-                }
-
-                const trace = Vector.sub(loc, [0, 1, 0]);
-                while (trace.y >= minY) {
-                    const block = blockChanges.getBlock(trace);
-                    if (!isAirOrFluid(block.permutation) && surfaceMask.matchesBlock(block)) {
-                        for (let i = 0; i < Math.abs(this.depth); i++) {
-                            const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
-                            if (!activeMask || activeMask.matchesBlock(block)) {
-                                this.pattern.setBlock(block);
-                            }
-                        }
-                        break;
+            const affected = new VectorSet();
+            for (const hit of locations) {
+                const range: [Vector, Vector] = [hit.offset(-this.radius, 1, -this.radius), hit.offset(this.radius, 1, this.radius)];
+                for (const loc of regionIterateBlocks(...range)) {
+                    if (affected.has(loc) || hit.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
+                        continue;
                     }
-                    trace.y--;
+
+                    affected.add(loc);
+                    const trace = Vector.sub(loc, [0, 1, 0]);
+                    while (trace.y >= minY) {
+                        const block = blockChanges.getBlock(trace);
+                        if (!isAirOrFluid(block.permutation) && surfaceMask.matchesBlock(block)) {
+                            for (let i = 0; i < Math.abs(this.depth); i++) {
+                                const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
+                                if (!activeMask || activeMask.matchesBlock(block)) {
+                                    this.pattern.setBlock(block);
+                                }
+                            }
+                            break;
+                        }
+                        trace.y--;
+                    }
+                    yield;
                 }
-                yield;
             }
 
             yield* blockChanges.flush();

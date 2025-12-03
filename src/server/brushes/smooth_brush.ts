@@ -55,9 +55,9 @@ export class SmoothBrush extends Brush {
         throw "commands.generic.wedit:noMaterial";
     }
 
-    public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
-        const point = loc.offset(-this.size, -this.size, -this.size);
-        yield* smooth(session, this.iterations, this.shape, point, this.mask, mask);
+    public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
+        const points = locations.map((location) => location.sub(this.size));
+        yield* smooth(session, this.iterations, this.shape, points, this.mask, mask);
     }
 
     public getOutline(): [Shape, Vector3] {

@@ -31,18 +31,24 @@ registerCommand(registerInformation, function* (session, builder, args) {
     }
 
     const dim = builder.dimension;
-    const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end]);
-    const mask = session.globalMask.withContext(session);
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
         const history = session.history;
         const record = history.record();
         try {
+            const curveSamples = yield* plotLine(Vector.from(pos1), Vector.from(pos2));
+            const blocks = yield* balloonPath(curveSamples, thickness);
+            const pattern = (<Pattern>(args.get("_using_item") ? session.globalPattern : args.get("pattern"))).withContext(session, [start, end], {
+                strokePoints: Array.from(curveSamples),
+                gradientRadius: thickness,
+            });
+            const mask = session.globalMask.withContext(session);
+
             yield* history.trackRegion(record, start, end);
             count = 0;
-            for (const point of balloonPath(plotLine(Vector.from(pos1), Vector.from(pos2)), thickness)) {
-                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+            for (const location of blocks) {
+                const block = dim.getBlock(location) ?? (yield* Jobs.loadBlock(location));
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }

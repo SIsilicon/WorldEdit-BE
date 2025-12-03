@@ -4,75 +4,84 @@ import { Mask } from "../../modules/mask.js";
 import { RegionBuffer } from "../../modules/region_buffer.js";
 import { PlayerSession } from "../../sessions.js";
 import { Shape } from "../../shapes/base_shape.js";
-import { Vector } from "@notbeer-api";
+import { Vector, VectorSet } from "@notbeer-api";
 
-type map = (number | undefined)[][];
+class Column<T extends object> {
+    readonly y = 0;
+    readonly x: number;
+    readonly z: number;
+
+    readonly initialHeight: number;
+
+    data: T = {} as any;
+
+    constructor(
+        coord: VectorXZ,
+        public minHeight: number,
+        public maxHeight: number,
+        public height: number
+    ) {
+        this.x = coord.x;
+        this.z = coord.z;
+        this.initialHeight = height;
+    }
+}
+
+type Map<T extends object = Record<string, any>> = VectorSet<Column<T>>;
 
 const API = {
-    createMap: function (sizeX: number, sizeZ: number): map {
-        const arr: map = [];
-        for (let x = 0; x < sizeX; x++) {
-            const arrX: (number | undefined)[] = [];
-            for (let z = 0; z < sizeZ; z++) arrX.push(undefined);
-            arr.push(arrX);
-        }
-        return arr;
-    },
-
-    modifyMap: function* (arr: map, func: (x: number, z: number) => Generator<any, number | undefined> | number | undefined, jobMsg: string): Generator<JobFunction> {
+    modifyMap: function* (map: Map, callback: (coord: VectorXZ) => Generator<any, number | undefined> | number | undefined, jobMsg: string): Generator<JobFunction> {
         let count = 0;
-        const size = arr.length * arr[0].length;
+        const size = map.size;
         yield Jobs.nextStep(jobMsg);
-        for (let x = 0; x < arr.length; x++) {
-            for (let z = 0; z < arr[x].length; z++) {
-                const result = func(x, z);
-                arr[x][z] = <number>(result && typeof result === "object" ? yield* result : result);
-                yield Jobs.setProgress(++count / size);
-            }
+        for (const coord of map) {
+            callback(coord);
+            yield Jobs.setProgress(++count / size);
         }
     },
 
-    getMap: function (arr: map, x: number, z: number) {
-        return arr[x]?.[z] ?? undefined;
+    getColumn: function <T extends object>(map: Map<T>, x: number, z: number) {
+        return map.get({ x, y: 0, z });
     },
 };
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc: Vector3, heightMask: Mask, mask?: Mask): Generator<JobFunction | Promise<unknown>, number> {
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, locations: Vector3 | Vector3[], heightMask: Mask, mask?: Mask): Generator<JobFunction | Promise<unknown>, number> {
     return yield* modifyHeight(
         session,
-        function* ({ x: sizeX, z: sizeZ }, map, API) {
-            const back = API.createMap(sizeX, sizeZ);
+        function* (map: Map<{ back: number }>, API) {
             for (let i = 0; i < iter; i++) {
                 yield* API.modifyMap(
-                    back,
-                    (x, z) => {
-                        const c = API.getMap(map, x, z);
-                        if (c == undefined) return undefined;
+                    map,
+                    ({ x, z }) => {
+                        const column = API.getColumn(map, x, z);
+                        if (column.height == undefined) return undefined;
 
-                        let height = c * 0.6;
-                        height += (API.getMap(map, x, z - 1) ?? c) * 0.2;
-                        height += (API.getMap(map, x, z + 1) ?? c) * 0.2;
-                        return height;
+                        let height = column.height * 0.6;
+                        height += (API.getColumn(map, x, z - 1)?.height ?? column.height) * 0.2;
+                        height += (API.getColumn(map, x, z + 1)?.height ?? column.height) * 0.2;
+
+                        column.data.back = height;
                     },
                     "worldbuilder.oreville_wb:job.height.smooth"
                 );
                 yield* API.modifyMap(
                     map,
-                    (x, z) => {
-                        const c = API.getMap(back, x, z);
-                        if (c == undefined) return undefined;
+                    ({ x, z }) => {
+                        const column = API.getColumn(map, x, z);
+                        if (column.data.back === undefined) return undefined;
 
-                        let height = c * 0.6;
-                        height += (API.getMap(back, x - 1, z) ?? c) * 0.2;
-                        height += (API.getMap(back, x + 1, z) ?? c) * 0.2;
-                        return height;
+                        let height = column.data.back * 0.6;
+                        height += (API.getColumn(map, x - 1, z)?.data.back ?? column.data.back) * 0.2;
+                        height += (API.getColumn(map, x + 1, z)?.data.back ?? column.data.back) * 0.2;
+
+                        column.height = height;
                     },
                     "worldbuilder.oreville_wb:job.height.smooth"
                 );
             }
         },
         shape,
-        loc,
+        locations,
         heightMask,
         mask
     );
@@ -80,82 +89,100 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loc:
 
 export function* modifyHeight(
     session: PlayerSession,
-    modify: (size: VectorXZ, heightMap: map, api: typeof API) => Generator<JobFunction>,
+    modify: (columns: Map, api: typeof API) => Generator<JobFunction>,
     shape: Shape,
-    loc: Vector3,
+    locations: Vector3 | Vector3[],
     heightMask: Mask,
     mask?: Mask
 ): Generator<JobFunction | Promise<unknown>, number> {
-    const [min, max] = shape.getRegion(loc);
+    if (!Array.isArray(locations)) locations = [locations];
+
     const player = session.player;
     const dim = player.dimension;
 
-    const { min: minY, max: maxY } = dim.heightRange;
-    min.y = Math.max(minY, min.y);
-    max.y = Math.min(maxY - 1, max.y);
-    mask = (mask ? mask.intersect(session.globalMask) : session.globalMask)?.clone() ?? new Mask();
-    heightMask = heightMask.clone();
+    let min = new Vector(Infinity, Infinity, Infinity);
+    let max = new Vector(-Infinity, -Infinity, -Infinity);
+    const map = new VectorSet<Column<any>>();
 
-    const [sizeX, sizeZ] = [max.x - min.x + 1, max.z - min.z + 1];
-    const map = API.createMap(sizeX, sizeZ);
-    const bottom = API.createMap(sizeX, sizeZ);
-    const top = API.createMap(sizeX, sizeZ);
-    const base = API.createMap(sizeX, sizeZ);
+    mask = (mask ?? new Mask()).intersect(session.globalMask).withContext(session);
+    heightMask = heightMask.withContext(session);
 
-    yield* API.modifyMap(
-        map,
-        function* (x, z) {
-            const yRange = shape.getYRange(x, z);
-            if (!yRange) return;
+    const { min: dimMin, max: dimMax } = dim.heightRange;
 
-            yRange[0] = Math.max(yRange[0] + loc.y, minY);
-            yRange[1] = Math.min(yRange[1] + loc.y, maxY);
-            let h: Vector3;
+    // Create height map
+    yield Jobs.nextStep("Getting heightmap...");
+    for (let i = 0; i < locations.length; i++) {
+        const loc = locations[i];
+        const [subMin, subMax] = shape.getRegion(Vector.ZERO);
+        const area = (subMin.x + 1) * (subMax.z + 1);
+        let count = 0;
+        for (let z = subMin.z; z <= subMax.z; z++) {
+            for (let x = subMin.x; x <= subMax.x; x++) {
+                yield Jobs.setProgress((i + count++ / area) / locations.length);
+                const coords = { x: x + loc.x, y: 0, z: z + loc.z };
+                if (map.has(coords)) continue;
 
-            for (h = new Vector(x + min.x, yRange[1], z + min.z); h.y >= yRange[0]; h.y--) {
-                const block = dim.getBlock(h) ?? (yield* Jobs.loadBlock(h))!;
-                if (!block.isAir && heightMask.matchesBlock(block)) break;
+                const yRange = shape.getYRange(x, z);
+                if (!yRange) continue;
+
+                yRange[0] = Math.max(yRange[0] + loc.y, dimMin);
+                yRange[1] = Math.min(yRange[1] + loc.y, dimMax);
+
+                let h: Vector3;
+                for (h = new Vector(coords.x, yRange[1], coords.z); h.y >= yRange[0]; h.y--) {
+                    const block = dim.getBlock(h) ?? (yield* Jobs.loadBlock(h))!;
+                    if (!block.isAir && heightMask.matchesBlock(block)) break;
+                }
+
+                if (h.y !== yRange[0] - 1) {
+                    map.add(new Column(coords, ...yRange, h.y));
+                    min = min.min({ ...coords, y: yRange[0] });
+                    max = max.max({ ...coords, y: yRange[1] });
+                }
             }
-            if (h.y != yRange[0] - 1) {
-                base[x][z] = h.y;
-                bottom[x][z] = yRange[0];
-                top[x][z] = yRange[1];
-                return h.y;
-            }
-        },
-        "Getting heightmap..."
-    ); // TODO: Localize
+        }
+    }
 
-    yield* modify({ x: sizeX, z: sizeZ }, map, API);
+    // If the height map is empty, don't go any further
+    if (!map.size) return;
 
+    // Modify the height map
+    yield* modify(map, API);
+
+    // Move the blocks in the world according to the modified height map
     let count = 0;
     const history = session.history;
     const record = history.record();
-    const rangeYDiff = max.y - min.y;
     let warpBuffer: RegionBuffer | undefined;
     try {
         yield* history.trackRegion(record, min, max);
 
-        yield Jobs.nextStep("Calculating blocks...");
-        warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
-            function* canSmooth(loc: Vector3) {
-                const globalLoc = Vector.add(loc, min);
-                const global = dim.getBlock(globalLoc) ?? (yield* Jobs.loadBlock(globalLoc))!;
-                return global.isAir || mask!.matchesBlock(global);
-            }
+        yield Jobs.nextStep("Placing blocks...");
+        for (const column of map.values()) {
+            const min = { x: column.x, y: column.minHeight, z: column.z };
+            const max = { x: column.x, y: column.maxHeight, z: column.z };
+            const rangeYDiff = max.y - min.y;
+            warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
+                function* canSmooth(loc: Vector3) {
+                    const globalLoc = Vector.add(loc, min);
+                    const block = dim.getBlock(globalLoc) ?? (yield* Jobs.loadBlock(globalLoc))!;
+                    return block.isAir || mask!.matchesBlock(block);
+                }
 
-            if (yield* canSmooth(loc)) {
-                const heightDiff = API.getMap(map, loc.x, loc.z)! - API.getMap(base, loc.x, loc.z)!;
-                const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
-                sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), rangeYDiff);
-                if (!isNaN(heightDiff) && (yield* canSmooth(sampleLoc))) return dim.getBlock(sampleLoc.add(min));
-            }
-        });
+                if (yield* canSmooth(loc)) {
+                    const heightDiff = column.height - column.initialHeight;
+                    const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
+                    sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), rangeYDiff);
+                    if (yield* canSmooth(sampleLoc)) return dim.getBlock(sampleLoc.add(min));
+                }
+            });
 
-        yield Jobs.nextStep("Placing blocks");
-        if (warpBuffer) {
-            yield* warpBuffer.load(min, dim);
-            count = warpBuffer.getVolume();
+            if (warpBuffer) {
+                yield* warpBuffer.load(min, dim);
+                count += warpBuffer.getVolume();
+                warpBuffer.deref();
+                warpBuffer = undefined;
+            }
         }
         yield* history.commit(record);
     } catch (e) {

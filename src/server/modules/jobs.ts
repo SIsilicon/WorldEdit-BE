@@ -37,7 +37,7 @@ class JobHandler {
         for (let i = 0; i < 9; i++) whenReady(() => removeTickingArea("wedit:ticking_area_" + i));
     }
 
-    public *run<T, TReturn>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | (() => Generator<T | JobFunction, TReturn>)) {
+    public *run<T, TReturn, U>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | ((this: U) => Generator<T | JobFunction, TReturn>), thisArg?: U) {
         const jobId = ++globalJobIdCounter;
         const job = {
             stepCount: steps,
@@ -50,7 +50,7 @@ class JobHandler {
         };
         this.jobs.set(jobId, job);
 
-        const gen = "next" in func ? func : func();
+        const gen = "next" in func ? func : func.bind(thisArg || {})();
         let val: IteratorResult<T | JobFunction, TReturn>;
         let lastPromise: unknown;
         while (!val?.done) {

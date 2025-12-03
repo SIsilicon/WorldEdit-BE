@@ -17,6 +17,9 @@ export const brushTypes: Map<string, brushConstruct> = new Map();
 export abstract class Brush {
     public abstract readonly id: string;
 
+    /** Whether the brush works in strokes. */
+    public readonly usesStrokes: boolean = true;
+
     /**
      * A method that changes the size of the brush.
      * @param size The new size of the brush
@@ -33,11 +36,11 @@ export abstract class Brush {
 
     /**
      * Applies the brush's effect somewhere in the world.
-     * @param loc The location where the brush is being applied
+     * @param locations The locations where the brush is being applied
      * @param session The session that's using this brush
      * @param mask An optional mask to decide where the brush can affect the world
      */
-    public abstract apply(loc: Vector, session: PlayerSession, mask?: Mask): Generator<unknown, void>;
+    public abstract apply(locations: Vector[], session: PlayerSession, mask?: Mask): Generator<unknown, void>;
 
     /**
      * Gets the shape outline of the brush, and the offset from the hit postition to draw it at.

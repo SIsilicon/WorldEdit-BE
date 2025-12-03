@@ -19,13 +19,21 @@ import {
 } from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
+import { buildKDTree } from "library/utils/kdtree.js";
 
 interface patternContext {
     session: PlayerSession;
     hand: BlockPermutation;
     range: [Vector, Vector];
+    getCenter: (location: Vector3) => Vector;
+    gradientRadius: number;
     placePosition: Vector;
     cardinal: Cardinal;
+}
+
+export interface patternContextOptions {
+    strokePoints?: Vector3[];
+    gradientRadius?: number;
 }
 
 export class Pattern implements CustomArgType {
@@ -44,18 +52,46 @@ export class Pattern implements CustomArgType {
         });
     }
 
-    withContext(session: PlayerSession, range: [Vector3, Vector3]) {
+    withContext(session: PlayerSession, range: [Vector3, Vector3], options?: patternContextOptions) {
         const pattern = this.clone();
         pattern.context.session = session;
         pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
         pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
         pattern.context.placePosition = session.getPlacementPosition();
+        pattern.context.gradientRadius = options?.gradientRadius ?? Vector.sub(range[1], range[0]).length / 2;
         try {
             const item = Server.player.getHeldItem(session.player);
             pattern.context.hand = Server.block.itemToPermutation(item);
         } catch {
             pattern.context.hand = BlockPermutation.resolve("minecraft:air");
         }
+
+        const centers = (options?.strokePoints ?? [Vector.add(...range).div(2)]).map(Vector.from);
+        if (centers.length > 32) {
+            // KD Tree
+            const kdRoot = buildKDTree(centers);
+            pattern.context.getCenter = (location: Vector3) => {
+                const nearest = kdRoot.nearest(location);
+                return Vector.from(nearest ?? centers[0]);
+            };
+        } else {
+            // Linear Search
+            pattern.context.getCenter = (location: Vector3) => {
+                const locV = Vector.from(location);
+                let closest = centers[0];
+                let minDist = locV.distanceTo(closest);
+                for (let i = 1; i < centers.length; i++) {
+                    const c = centers[i];
+                    const d = locV.distanceTo(c);
+                    if (d < minDist) {
+                        minDist = d;
+                        closest = c;
+                    }
+                }
+                return Vector.from(closest);
+            };
+        }
+
         pattern.getRootNode().prepare();
         return pattern;
     }
@@ -481,37 +517,35 @@ export class GradientPatternNode extends PatternNode {
 
     getPermutation(block: BlockUnit, context: patternContext) {
         const gradient = context.session.getGradient(this.gradientId);
-        if (gradient) {
-            const patternLength = gradient.patterns.length;
-            let index = 0;
-            if (this.radial) {
-                let center = context.range[0].lerp(context.range[1], 0.5);
-                let maxLength;
-                if (this.radialOrigin === "center") {
-                    maxLength = context.range[1].distanceTo(context.range[0]) / 2;
-                } else {
-                    const point = context.placePosition;
-                    const max = context.range[1];
-                    const min = context.range[0];
-                    // Determine which corner is farthest based on the relative position of the point to the center
-                    const farthestX = point.x < center.x ? max.x : min.x;
-                    const farthestY = point.y < center.y ? max.y : min.y;
-                    const farthestZ = point.z < center.z ? max.z : min.z;
-                    maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
-                    center = point;
-                }
-                index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
-            } else {
-                if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
-                    this.updateDirectionParams(context.cardinal, context.session.player);
-                    this.ctxCardinal = context.cardinal;
-                }
-                const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
-                const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
-                index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+        if (!gradient) return undefined;
+
+        const patternLength = gradient.patterns.length;
+        let index = 0;
+        if (this.radial) {
+            let center = context.getCenter(block.location);
+            let maxLength = context.gradientRadius;
+            if (this.radialOrigin !== "center") {
+                const point = context.placePosition;
+                const max = context.range[1];
+                const min = context.range[0];
+                // Determine which corner is farthest based on the relative position of the point to the center
+                const farthestX = point.x < center.x ? max.x : min.x;
+                const farthestY = point.y < center.y ? max.y : min.y;
+                const farthestZ = point.z < center.z ? max.z : min.z;
+                maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
+                center = point;
             }
-            return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
+            index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+        } else {
+            if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
+                this.updateDirectionParams(context.cardinal, context.session.player);
+                this.ctxCardinal = context.cardinal;
+            }
+            const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
+            const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
+            index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
         }
+        return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
     }
 
     private updateDirectionParams(cardinal: Cardinal, player?: Player) {
@@ -627,7 +661,8 @@ export class BlobPatternNode extends PatternNode {
         }
 
         if (this.isRadial) {
-            return this.nodes[0].getPermutation(block, { ...context, ...this.ranges[closestCell] });
+            const subGradientRadius = this.ranges[closestCell].range[1].distanceTo(this.ranges[closestCell].range[0]) / 2;
+            return this.nodes[0].getPermutation(block, { ...context, gradientRadius: subGradientRadius });
         } else {
             if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
             return this.perms[closestCell];

@@ -82,20 +82,22 @@ class PlayerHandler {
      * @param mask What kind of blocks the ray can hit
      * @return The location of the block the ray hits or reached its range at; null otherwise
      */
-    traceForBlock(player: Player, range?: number, mask?: Mask) {
-        if (mask && hasSession(player.id)) mask = mask?.withContext(getSession(player));
+    traceForBlock(player: Player, range?: number, options?: { mask?: Mask }) {
         const start = player.getHeadLocation();
         const dir = getViewVector(player);
         const dim = player.dimension;
 
+        let mask = options?.mask;
+        if (mask && hasSession(player.id)) mask = mask?.withContext(getSession(player));
+
         if (!mask || mask.empty()) {
             const maxDistance = Math.min(range ?? config.traceDistance, config.traceDistance);
-            let hit = player.getBlockFromViewDirection({ includePassableBlocks: false, includeLiquidBlocks: false, maxDistance: maxDistance * 2 });
-            if (hit && Vector.from(hit.block).distanceTo(player.getHeadLocation()) > maxDistance) hit = undefined;
+            let hit = dim.getBlockFromRay(start, dir, { includePassableBlocks: false, includeLiquidBlocks: false, maxDistance: maxDistance * 2 });
+            if (hit && Vector.from(hit.block).distanceTo(start) > maxDistance) hit = undefined;
 
             if (!hit && typeof range !== "number") return undefined;
             else if (hit) return Vector.from(hit!.block);
-            else return Vector.mul(player.getViewDirection(), range).add(player.getHeadLocation()).floor();
+            else return Vector.mul(dir, range).add(start).floor();
         }
 
         let prevPoint = new Vector(Infinity, Infinity, Infinity);

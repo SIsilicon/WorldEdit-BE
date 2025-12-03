@@ -14,6 +14,8 @@ import { Shape } from "server/shapes/base_shape.js";
 export class StructureBrush extends Brush {
     public readonly id = "structure_brush";
 
+    public readonly usesStrokes = false;
+
     private structs: RegionBuffer[];
     private mask: Mask;
     private size: Vector;
@@ -62,7 +64,7 @@ export class StructureBrush extends Brush {
         throw "commands.generic.wedit:noMaterial";
     }
 
-    public *apply(loc: Vector, session: PlayerSession) {
+    public *apply([loc]: Vector[], session: PlayerSession) {
         const history = session.history;
         const record = history.record();
         try {

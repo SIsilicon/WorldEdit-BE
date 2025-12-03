@@ -1,5 +1,6 @@
 import { Vector3 } from "@minecraft/server";
 import { regionBounds, regionIterateBlocks, Vector, VectorSet } from "@notbeer-api";
+import { Shape, shapeGenOptions } from "server/shapes/base_shape";
 
 export function* plotTriangle(a: Vector3, b: Vector3, c: Vector3) {
     // Convert to Vector for easier math
@@ -86,12 +87,15 @@ export function* plotCurve(points: Vector3[], options?: { precision?: number; pl
     return yield* new Spline(points.map((p) => TensionVector.from(p))).plotCurve(options?.plotLines ?? true, options?.precision ?? 4);
 }
 
-export function* balloonPath(points: Iterable<Vector3>, radius: number) {
+export function balloonPath(points: Iterable<Vector3>, radius: number): Generator<Vector, VectorSet<Vector>>;
+export function balloonPath(points: Iterable<Vector3>, shape: Shape, options?: shapeGenOptions): Generator<Vector, VectorSet<Vector>>;
+export function* balloonPath(points: Iterable<Vector3>, shape: number | Shape, options?: shapeGenOptions) {
     const ballooned = new VectorSet<Vector>();
+    const isShape = shape instanceof Shape;
     for (const point of points) {
         const center = Vector.from(point);
-        for (const block of regionIterateBlocks(Vector.sub(point, radius), Vector.add(point, radius))) {
-            if (center.distanceTo(block) >= radius + 0.5 || ballooned.has(block)) continue;
+        for (const block of isShape ? shape.getBlocks(center, options) : regionIterateBlocks(Vector.sub(point, shape), Vector.add(point, shape))) {
+            if (ballooned.has(block) || (!isShape && center.distanceTo(block) >= shape + 0.5)) continue;
             const blockVec = Vector.from(block);
             ballooned.add(blockVec);
             yield blockVec;

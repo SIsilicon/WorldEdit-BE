@@ -29,7 +29,7 @@ class ExtrudeTool extends Tool {
         yield* Jobs.run(
             session,
             1,
-            function* (this: ExtrudeTool) {
+            function* () {
                 const blocks = yield* floodFill(loc, this.range, (ctx, dir) => extrudeDir.dot(dir) === 0 && ctx.nextBlock.type === startBlockType && isAirOrFluid(ctx.nextBlock.offset(extrudeOffset)));
                 if (!blocks.size) return;
 
@@ -67,7 +67,8 @@ class ExtrudeTool extends Tool {
                 } finally {
                     tempExtrude?.deref();
                 }
-            }.bind(this)
+            },
+            this
         );
     }
 

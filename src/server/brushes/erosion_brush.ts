@@ -1,8 +1,8 @@
-import { Server, Vector, iterateChunk, regionIterateBlocks, whenReady } from "@notbeer-api";
+import { Server, Vector, VectorSet, iterateChunk, regionIterateBlocks, whenReady } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
-import { BlockPermutation, Vector3 } from "@minecraft/server";
+import { BlockPermutation } from "@minecraft/server";
 import { directionVectors } from "@modules/directions.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { BlockChanges, recordBlockChanges } from "@modules/block_changes.js";
@@ -81,29 +81,32 @@ export class ErosionBrush extends Brush {
         throw "commands.generic.wedit:noMaterial";
     }
 
-    public *apply(loc: Vector, session: PlayerSession, mask?: Mask) {
-        const range: [Vector, Vector] = [loc.sub(this.radius), loc.add(this.radius)];
+    public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const [minY, maxY] = getWorldHeightLimits(session.player.dimension);
         const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
-        range[0].y = Math.max(minY, range[0].y);
-        range[1].y = Math.min(maxY, range[1].y);
 
         const history = session.history;
         const record = history.record();
         const blockChanges = recordBlockChanges(session, record);
         try {
-            const locations: Vector3[] = [];
-            const centre = Vector.add(...range).mul(0.5);
-            const r2 = (this.radius + 0.5) * (this.radius + 0.5);
-            for (const loc of regionIterateBlocks(...range)) {
-                if (centre.sub(loc).lengthSqr <= r2) locations.push(loc);
+            const affected = new VectorSet();
+            for (const loc of locations) {
+                const range: [Vector, Vector] = [loc.sub(this.radius), loc.add(this.radius)];
+                range[0].y = Math.max(minY, range[0].y);
+                range[1].y = Math.min(maxY, range[1].y);
+                const centre = Vector.add(...range).mul(0.5);
+                const r2 = (this.radius + 0.5) * (this.radius + 0.5);
+                for (const loc of regionIterateBlocks(...range)) {
+                    if (centre.sub(loc).lengthSqr <= r2) affected.add(loc);
+                }
+                yield;
             }
 
             for (let i = 0; i < this.preset.erodeIterations; i++) {
-                yield* this.processErosion(locations, this.preset.erodeThreshold, blockChanges, activeMask);
+                yield* this.processErosion(affected, this.preset.erodeThreshold, blockChanges, activeMask);
             }
             for (let i = 0; i < this.preset.fillIterations; i++) {
-                yield* this.processFill(locations, this.preset.fillThreshold, blockChanges, activeMask);
+                yield* this.processFill(affected, this.preset.fillThreshold, blockChanges, activeMask);
             }
 
             yield* blockChanges.flush();
@@ -118,7 +121,7 @@ export class ErosionBrush extends Brush {
         return [new SphereShape(this.radius), Vector.ZERO];
     }
 
-    private *processErosion(locations: Vector3[], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
+    private *processErosion(locations: VectorSet, threshold: number, blockChanges: BlockChanges, mask?: Mask) {
         const isAirOrFluid = Server.block.isAirOrFluid;
 
         for (const loc of locations) {
@@ -161,7 +164,7 @@ export class ErosionBrush extends Brush {
         blockChanges.applyIteration();
     }
 
-    private *processFill(locations: Vector3[], threshold: number, blockChanges: BlockChanges, mask?: Mask) {
+    private *processFill(locations: VectorSet, threshold: number, blockChanges: BlockChanges, mask?: Mask) {
         const isAirOrFluid = Server.block.isAirOrFluid;
         for (const loc of locations) {
             if (!isAirOrFluid(blockChanges.getBlockPerm(loc))) continue;

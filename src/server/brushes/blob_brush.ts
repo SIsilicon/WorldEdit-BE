@@ -1,4 +1,4 @@
-import { regionIterateBlocks, Vector } from "@notbeer-api";
+import { Vector, VectorSet } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -7,6 +7,36 @@ import { Jobs } from "@modules/jobs.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { SphereShape } from "server/shapes/sphere.js";
 import { Shape } from "server/shapes/base_shape.js";
+import { Vector3 } from "@minecraft/server";
+import { buildKDTree } from "library/utils/kdtree.js";
+
+class Cell implements Vector3 {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+
+    constructor(
+        vector: Vector3,
+        public value: number
+    ) {
+        this.x = vector.x;
+        this.y = vector.y;
+        this.z = vector.z;
+    }
+}
+
+function addCellToVectorSet(set: VectorSet, cell: Cell) {
+    // Initialize cell's neighbours in the set if there are none
+    for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+            for (let z = -1; z <= 1; z++) {
+                const coord = Vector.add(cell, [x, y, z]);
+                if (!set.has(coord)) set.add(new Cell(coord, 0.0));
+            }
+        }
+    }
+    set.add(cell);
+}
 
 /**
  * creates a blob of blocks
@@ -51,96 +81,99 @@ export class BlobBrush extends Brush {
         return this.pattern;
     }
 
-    public *apply(hit: Vector, session: PlayerSession, mask?: Mask) {
+    public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const dimension = session.player.dimension;
-        const [min, max] = [hit.sub(this.radius), hit.add(this.radius)];
-        const pattern = this.pattern.withContext(session, [min, max]);
-        mask = mask?.withContext(session);
+        let min = new Vector(Infinity, Infinity, Infinity);
+        let max = new Vector(-Infinity, -Infinity, -Infinity);
 
+        const brushSize = this.radius + 0.5;
+        const smoothness = this.smoothness;
+        const growPercent = this.growPercent / 100;
+        let splat = new VectorSet<Cell>();
+        let backSplat = new VectorSet<Cell>();
+
+        for (const loc of locations) {
+            addCellToVectorSet(splat, new Cell(loc, 1.0));
+            min = Vector.min(min, loc.sub(brushSize));
+            max = Vector.max(max, loc.add(brushSize));
+        }
         const [minY, maxY] = getWorldHeightLimits(dimension);
         min.y = Math.max(minY, min.y);
         max.y = Math.min(maxY, max.y);
 
-        const brushSize = this.radius;
-        const smoothness = this.smoothness;
-        const brushSizeDoubled = 2 * brushSize;
-        const growPercent = this.growPercent / 100;
-        let splat = Array.from({ length: brushSizeDoubled + 1 }, () => Array.from({ length: brushSizeDoubled + 1 }, () => Array(brushSizeDoubled + 1).fill(0)));
-        let backSplat = Array.from({ length: brushSizeDoubled + 1 }, () => Array.from({ length: brushSizeDoubled + 1 }, () => Array(brushSizeDoubled + 1).fill(0)));
-        splat[brushSize][brushSize][brushSize] = 1;
+        const kdRoot = buildKDTree(locations);
+        const distanceFromStroke = (location: Vector3) => {
+            const nearest = kdRoot.nearest(location);
+            return Vector.sub(location, nearest).length;
+        };
 
-        yield* Jobs.run(session, 1, function* () {
-            // Grow blob
-            for (let r = 0; r < brushSize * Math.SQRT2; r++) {
-                for (const { x, y, z } of regionIterateBlocks(Vector.ZERO, Vector.ONE.mul(brushSizeDoubled))) {
-                    if (splat[x][y][z] === 0) {
-                        let neighbours = 0;
-                        if (splat[x - 1]?.[y][z] === 1) neighbours++;
-                        if (splat[x][y - 1]?.[z] === 1) neighbours++;
-                        if (splat[x][y][z - 1] === 1) neighbours++;
-                        if (splat[x + 1]?.[y][z] === 1) neighbours++;
-                        if (splat[x][y + 1]?.[z] === 1) neighbours++;
-                        if (splat[x][y][z + 1] === 1) neighbours++;
-                        backSplat[x][y][z] = Number(neighbours >= 1 && Math.random() <= growPercent);
-                    } else {
-                        backSplat[x][y][z] = 1;
-                    }
-                }
-
-                const temp = splat;
-                splat = backSplat;
-                backSplat = temp;
-                yield;
-            }
-            // Smooth blob
-            for (let s = 0; s < smoothness * 3; s++) {
-                const axis = s % 3;
-                const offsetX = Number(axis === 0);
-                const offsetY = Number(axis === 1);
-                const offsetZ = Number(axis === 2);
-
-                for (const { x, y, z } of regionIterateBlocks(Vector.ZERO, Vector.ONE.mul(brushSizeDoubled))) {
-                    let density = splat[x][y][z] * 1.4;
-                    density += (splat[x + offsetX]?.[y + offsetY]?.[z + offsetZ] ?? 0) * 0.8;
-                    density += (splat[x - offsetX]?.[y - offsetY]?.[z - offsetZ] ?? 0) * 0.8;
-                    backSplat[x][y][z] = density / 3;
-                }
-
-                const temp = splat;
-                splat = backSplat;
-                backSplat = temp;
-                yield;
-            }
-
-            const rSquared = Math.pow(brushSize + 1, 2);
-
-            const history = session.history;
-            const record = history.record();
-            try {
-                yield* history.trackRegion(record, min, max);
-                for (let x = brushSizeDoubled; x >= 0; x--) {
-                    const xSquared = Math.pow(x - brushSize - 1, 2);
-                    for (let y = brushSizeDoubled; y >= 0; y--) {
-                        const height = hit.y - brushSize + y;
-                        if (height < min.y || height > max.y) continue;
-
-                        const ySquared = Math.pow(y - brushSize - 1, 2);
-                        for (let z = brushSizeDoubled; z >= 0; z--) {
-                            if (splat[x][y][z] > 0.5 && xSquared + ySquared + Math.pow(z - brushSize - 1, 2) <= rSquared) {
-                                const loc = new Vector(hit.x - brushSize + x, height, hit.z - brushSize + z);
-                                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
-                                if (!mask || mask.matchesBlock(block)) pattern.setBlock(block);
-                                yield;
-                            }
+        yield* Jobs.run(
+            session,
+            1,
+            function* () {
+                // Grow blob
+                for (let r = 0; r < brushSize * Math.SQRT2; r++) {
+                    for (const cell of splat) {
+                        if (!cell.value) {
+                            let neighbours = 0;
+                            if (splat.get({ ...cell, x: cell.x - 1 })?.value) neighbours++;
+                            if (splat.get({ ...cell, y: cell.y - 1 })?.value) neighbours++;
+                            if (splat.get({ ...cell, z: cell.z - 1 })?.value) neighbours++;
+                            if (splat.get({ ...cell, x: cell.x + 1 })?.value) neighbours++;
+                            if (splat.get({ ...cell, y: cell.y + 1 })?.value) neighbours++;
+                            if (splat.get({ ...cell, z: cell.z + 1 })?.value) neighbours++;
+                            if (neighbours >= 1 && Math.random() <= growPercent) addCellToVectorSet(backSplat, new Cell(cell, 1.0));
+                        } else {
+                            addCellToVectorSet(backSplat, cell);
                         }
                     }
+
+                    const temp = splat;
+                    splat = backSplat;
+                    backSplat = temp;
+                    yield;
                 }
-                yield* history.commit(record);
-            } catch (e) {
-                history.cancel(record);
-                throw e;
-            }
-        });
+                // Smooth blob
+                for (let s = 0; s < smoothness * 3; s++) {
+                    const axis = s % 3;
+                    const offset = new Vector(Number(axis === 0), Number(axis === 1), Number(axis === 2));
+
+                    for (const cell of splat) {
+                        let density = cell.value * 1.4;
+                        density += (splat.get(Vector.add(cell, offset))?.value ?? 0) * 0.8;
+                        density += (splat.get(Vector.sub(cell, offset))?.value ?? 0) * 0.8;
+                        addCellToVectorSet(backSplat, new Cell(cell, density / 3));
+                    }
+
+                    const temp = splat;
+                    splat = backSplat;
+                    backSplat = temp;
+                    yield;
+                }
+
+                const pattern = this.pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
+                mask = mask?.withContext(session);
+
+                const history = session.history;
+                const record = history.record();
+                try {
+                    yield* history.trackRegion(record, min, max);
+                    for (const cell of splat) {
+                        if (cell.y < min.y || cell.y > max.y) continue;
+                        if (cell.value > 0.5 && distanceFromStroke(cell) <= brushSize) {
+                            const block = dimension.getBlock(cell) ?? (yield* Jobs.loadBlock(cell));
+                            if (!mask || mask.matchesBlock(block)) pattern.setBlock(block);
+                            yield;
+                        }
+                    }
+                    yield* history.commit(record);
+                } catch (e) {
+                    history.cancel(record);
+                    throw e;
+                }
+            },
+            this
+        );
     }
 
     public getOutline(): [Shape, Vector] {
