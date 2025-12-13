@@ -1,13 +1,15 @@
 /* eslint-disable prefer-const */
-import { IPlayerUISession } from "@minecraft/server-editor";
+import { IPlayerUISession, Widget, WidgetComponentClipboard, WidgetGroupSelectionMode } from "@minecraft/server-editor";
 import { UIPane } from "editor/pane/builder";
 import { EditorModule } from "./base";
 import { Pattern } from "@modules/pattern";
-import { Server } from "@notbeer-api";
+import { regionSize, Server, Vector } from "@notbeer-api";
 import { PatternUIBuilder } from "editor/pane/pattern";
 import { MaskUIBuilder } from "editor/pane/mask";
 import { Mask } from "@modules/mask";
 import { Cardinal } from "@modules/directions";
+import { getSession } from "server/sessions";
+import { system } from "@minecraft/server";
 
 enum RegionOperatorMode {
     Fill,
@@ -24,17 +26,26 @@ directions.splice(0, directions.length / 2);
 
 export class RegionOpModule extends EditorModule {
     private pane: UIPane;
-    private readonly patternUIBuilder = new PatternUIBuilder(new Pattern("stone"));
-    private readonly maskUIBuilder = new MaskUIBuilder(new Mask("air"));
+    private widget: Widget;
+    private widgetComponents: WidgetComponentClipboard[] = [];
+
+    private tickId: number;
+
     private enableMask = false;
     private direction = Cardinal.Dir.FORWARD;
     private distance = 5;
     private stackCount = 1;
-    private mode = 0;
+    private mode = RegionOperatorMode.Fill;
+
+    private readonly patternUIBuilder = new PatternUIBuilder(new Pattern("stone"));
+    private readonly maskUIBuilder = new MaskUIBuilder(new Mask("air"));
 
     constructor(session: IPlayerUISession) {
         super(session);
         const tool = session.toolRail.addTool("worldedit:region_operations", { title: "WorldEdit Region Operations" });
+        const widgetGroup = session.extensionContext.widgetManager.createGroup({ groupSelectionMode: WidgetGroupSelectionMode.None, visible: true });
+
+        this.widget = widgetGroup.createWidget(Vector.ZERO, { visible: true });
 
         this.pane = new UIPane(this.session, {
             title: "Region Operations",
@@ -105,7 +116,10 @@ export class RegionOpModule extends EditorModule {
                     uniqueId: "direction",
                     entries: directions.map((dir, index) => ({ label: dir, value: index })),
                     value: Cardinal.Dir.FORWARD,
-                    onChange: (value) => (this.direction = value),
+                    onChange: (value) => {
+                        this.direction = value;
+                        this.updateWidgets();
+                    },
                 },
                 {
                     type: "slider",
@@ -113,7 +127,10 @@ export class RegionOpModule extends EditorModule {
                     uniqueId: "distance",
                     min: 1,
                     value: 5,
-                    onChange: (value) => (this.distance = value),
+                    onChange: (value) => {
+                        this.distance = value;
+                        this.updateWidgets();
+                    },
                 },
                 {
                     type: "slider",
@@ -121,7 +138,10 @@ export class RegionOpModule extends EditorModule {
                     uniqueId: "stackCount",
                     min: 1,
                     value: 1,
-                    onChange: (value) => (this.stackCount = value),
+                    onChange: (value) => {
+                        this.stackCount = value;
+                        this.updateWidgets();
+                    },
                 },
                 {
                     type: "subpane",
@@ -158,6 +178,19 @@ export class RegionOpModule extends EditorModule {
         this.pane.bindToTool(tool);
         this.session.extensionContext.afterEvents.SelectionChange.subscribe(this.onSelectionChange);
         this.updatePane();
+
+        let lastCardinal = new Cardinal(this.direction).getDirection(this.player);
+        this.tickId = system.runInterval(() => {
+            const cardinal = new Cardinal(this.direction).getDirection(this.player);
+            if (!lastCardinal.equals(cardinal)) {
+                lastCardinal = cardinal;
+                this.updateWidgets();
+            }
+        }, 2);
+    }
+
+    teardown() {
+        system.clearRun(this.tickId);
     }
 
     private updatePane() {
@@ -166,6 +199,54 @@ export class RegionOpModule extends EditorModule {
         this.pane.setVisibility("direction", this.mode === RegionOperatorMode.Stack || this.mode === RegionOperatorMode.Move);
         this.pane.setVisibility("distance", this.mode === RegionOperatorMode.Move);
         this.pane.setVisibility("stackCount", this.mode === RegionOperatorMode.Stack);
+        this.updateWidgets();
+    }
+
+    private updateWidgets() {
+        const relativeOffsets: Vector[] = [];
+        const direction = new Cardinal(this.direction).getDirection(this.player);
+        const selection = getSession(this.player).selection;
+
+        if (selection) {
+            if (this.mode === RegionOperatorMode.Move) {
+                relativeOffsets.push(direction.mul(this.distance));
+            } else if (this.mode === RegionOperatorMode.Stack) {
+                const size = regionSize(...getSession(this.player).selection.getRange());
+                for (let i = 0; i < this.stackCount; i++) {
+                    relativeOffsets.push(direction.mul(i + 1).mul(size));
+                }
+            }
+        }
+
+        for (let i = 0; i < relativeOffsets.length; i++) {
+            if (!this.widgetComponents[i]) {
+                const selection = this.session.extensionContext.selectionManager.volume;
+                const clipboard = this.session.extensionContext.clipboardManager.create();
+                clipboard.readFromWorld(selection!.get());
+                this.widgetComponents.push(
+                    this.widget.addClipboardComponent("region-op-preview" + i, clipboard, {
+                        normalizedOrigin: new Vector(-1, -1, -1),
+                        showOutline: true,
+                        visible: true,
+                    })
+                );
+            }
+            this.widgetComponents[i].offset = relativeOffsets[i].add(selection.getRange()[0]);
+        }
+
+        while (this.widgetComponents.length > relativeOffsets.length) {
+            const component = this.widgetComponents.pop();
+            component.delete();
+        }
+
+        this.widget.visible = !!this.widgetComponents.length;
+    }
+
+    private clearWidgets() {
+        while (this.widgetComponents.length) {
+            const component = this.widgetComponents.pop();
+            component.delete();
+        }
     }
 
     private usesPatternAndMask() {
@@ -178,5 +259,7 @@ export class RegionOpModule extends EditorModule {
 
     private onSelectionChange = () => {
         this.pane.setEnabled(1, this.canOperate());
+        this.clearWidgets();
+        this.updateWidgets();
     };
 }
