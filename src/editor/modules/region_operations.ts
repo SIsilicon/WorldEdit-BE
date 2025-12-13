@@ -17,6 +17,7 @@ enum RegionOperatorMode {
     Wall,
     Stack,
     Move,
+    Smooth,
 }
 
 const directions = Object.keys(Cardinal.Dir);
@@ -32,13 +33,16 @@ export class RegionOpModule extends EditorModule {
     private tickId: number;
 
     private enableMask = false;
+    private enableHeightMask = false;
     private direction = Cardinal.Dir.FORWARD;
     private distance = 5;
     private stackCount = 1;
+    private iterations = 1;
     private mode = RegionOperatorMode.Fill;
 
     private readonly patternUIBuilder = new PatternUIBuilder(new Pattern("stone"));
     private readonly maskUIBuilder = new MaskUIBuilder(new Mask("air"));
+    private readonly heightMaskUIBuilder = new MaskUIBuilder(new Mask("#surface"));
 
     constructor(session: IPlayerUISession) {
         super(session);
@@ -60,6 +64,7 @@ export class RegionOpModule extends EditorModule {
                         { label: "Wall Selection", value: RegionOperatorMode.Wall },
                         { label: "Stack Selection", value: RegionOperatorMode.Stack },
                         { label: "Move Selection", value: RegionOperatorMode.Move },
+                        { label: "Smooth Selection", value: RegionOperatorMode.Smooth },
                     ],
                     onChange: (value) => {
                         this.mode = value;
@@ -70,44 +75,7 @@ export class RegionOpModule extends EditorModule {
                     type: "button",
                     title: "Execute Operation",
                     enable: this.canOperate(),
-                    pressed: () => {
-                        if (this.usesPatternAndMask()) {
-                            const args = new Map<string, any>([
-                                ["pattern", this.patternUIBuilder.pattern],
-                                ["mask", this.enableMask ? this.maskUIBuilder.mask : new Mask()],
-                            ]);
-                            const command = {
-                                [RegionOperatorMode.Fill]: "replace",
-                                [RegionOperatorMode.Outline]: "faces",
-                                [RegionOperatorMode.Wall]: "walls",
-                            }[this.mode];
-                            Server.command.getRegistration(command).callback(this.player, "editor-callback", args);
-                        } else if (this.mode === RegionOperatorMode.Stack) {
-                            Server.command.getRegistration("stack").callback(
-                                this.player,
-                                "editor-callback",
-                                new Map(
-                                    Object.entries({
-                                        a: true,
-                                        count: this.stackCount,
-                                        offset: new Cardinal(this.direction),
-                                    })
-                                )
-                            );
-                        } else if (this.mode === RegionOperatorMode.Move) {
-                            Server.command.getRegistration("move").callback(
-                                this.player,
-                                "editor-callback",
-                                new Map(
-                                    Object.entries({
-                                        a: true,
-                                        amount: this.distance,
-                                        offset: new Cardinal(this.direction),
-                                    })
-                                )
-                            );
-                        }
-                    },
+                    pressed: this.performOperation.bind(this),
                 },
                 { type: "divider" },
                 {
@@ -144,6 +112,16 @@ export class RegionOpModule extends EditorModule {
                     },
                 },
                 {
+                    type: "slider",
+                    title: "Iterations",
+                    uniqueId: "iterations",
+                    min: 1,
+                    value: 1,
+                    onChange: (value) => {
+                        this.iterations = value;
+                    },
+                },
+                {
                     type: "subpane",
                     title: "Pattern",
                     uniqueId: "pattern",
@@ -162,6 +140,30 @@ export class RegionOpModule extends EditorModule {
                                 this.enableMask = value;
                                 const pane = this.pane.getSubPane("mask").getSubPane(1);
                                 if (value) this.maskUIBuilder.build(pane);
+                                else pane.changeItems([]);
+                            },
+                        },
+                        {
+                            type: "subpane",
+                            hasMargins: false,
+                            hasExpander: false,
+                            items: [],
+                        },
+                    ],
+                },
+                {
+                    type: "subpane",
+                    title: "Mask",
+                    uniqueId: "heightMask",
+                    items: [
+                        {
+                            type: "toggle",
+                            title: "Enable Height Mask",
+                            value: this.enableHeightMask,
+                            onChange: (value) => {
+                                this.enableHeightMask = value;
+                                const pane = this.pane.getSubPane("heightMask").getSubPane(1);
+                                if (value) this.heightMaskUIBuilder.build(pane);
                                 else pane.changeItems([]);
                             },
                         },
@@ -193,12 +195,64 @@ export class RegionOpModule extends EditorModule {
         system.clearRun(this.tickId);
     }
 
+    private performOperation() {
+        if (this.usesPatternAndMask()) {
+            const args = new Map<string, any>([
+                ["pattern", this.patternUIBuilder.pattern],
+                ["mask", this.enableMask ? this.maskUIBuilder.mask : new Mask()],
+            ]);
+            const command = {
+                [RegionOperatorMode.Fill]: "replace",
+                [RegionOperatorMode.Outline]: "faces",
+                [RegionOperatorMode.Wall]: "walls",
+            }[this.mode];
+            Server.command.getRegistration(command).callback(this.player, "editor-callback", args);
+        } else if (this.mode === RegionOperatorMode.Stack) {
+            Server.command.getRegistration("stack").callback(
+                this.player,
+                "editor-callback",
+                new Map(
+                    Object.entries({
+                        a: true,
+                        count: this.stackCount,
+                        offset: new Cardinal(this.direction),
+                    })
+                )
+            );
+        } else if (this.mode === RegionOperatorMode.Move) {
+            Server.command.getRegistration("move").callback(
+                this.player,
+                "editor-callback",
+                new Map(
+                    Object.entries({
+                        a: true,
+                        amount: this.distance,
+                        offset: new Cardinal(this.direction),
+                    })
+                )
+            );
+        } else if (this.mode === RegionOperatorMode.Smooth) {
+            Server.command.getRegistration("smooth").callback(
+                this.player,
+                "editor-callback",
+                new Map(
+                    Object.entries({
+                        iterations: this.iterations,
+                        mask: this.enableHeightMask ? this.heightMaskUIBuilder.mask : new Mask(),
+                    })
+                )
+            );
+        }
+    }
+
     private updatePane() {
-        this.pane.getSubPane("pattern").visible = this.usesPatternAndMask();
-        this.pane.getSubPane("mask").visible = this.usesPatternAndMask();
         this.pane.setVisibility("direction", this.mode === RegionOperatorMode.Stack || this.mode === RegionOperatorMode.Move);
         this.pane.setVisibility("distance", this.mode === RegionOperatorMode.Move);
         this.pane.setVisibility("stackCount", this.mode === RegionOperatorMode.Stack);
+        this.pane.setVisibility("iterations", this.mode === RegionOperatorMode.Smooth);
+        this.pane.getSubPane("pattern").visible = this.usesPatternAndMask();
+        this.pane.getSubPane("mask").visible = this.usesPatternAndMask();
+        this.pane.getSubPane("heightMask").visible = this.mode === RegionOperatorMode.Smooth;
         this.updateWidgets();
     }
 
