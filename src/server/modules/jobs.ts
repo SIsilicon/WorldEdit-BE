@@ -1,5 +1,5 @@
-import { Server, RawText, removeTickingArea, setTickingAreaCircle, Thread, getCurrentThread, regionCenter, sleep, whenReady } from "@notbeer-api";
-import { Player, Dimension, Vector3, Block, system } from "@minecraft/server";
+import { Server, RawText, Thread, getCurrentThread, sleep, regionIterateChunks, whenReady } from "@notbeer-api";
+import { Player, Dimension, Vector3, system, world, TickingAreaManager } from "@minecraft/server";
 import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
 
@@ -24,17 +24,25 @@ interface job {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type JobFunction = { readonly jobFunc: "nextStep" | "setProgress"; readonly data: any };
 
+let tickingAreas: TickingAreaManager;
+
 class JobHandler {
     private jobs = new Map<JobContext, job>();
     private current: JobContext;
-    private occupiedTickingAreaSlots = [false];
+    private occupiedTickingAreaSlots = [false, false, false, false, false];
 
     constructor() {
         Server.on("tick", () => {
             this.manageTickingAreaSlots();
             this.printJobs();
         });
-        for (let i = 0; i < 9; i++) whenReady(() => removeTickingArea("wedit:ticking_area_" + i));
+
+        whenReady(() => {
+            tickingAreas ??= world.tickingAreaManager;
+            for (const tickingArea of tickingAreas.getAllTickingAreas()) {
+                if (tickingArea.identifier.startsWith("job_ticking_slot_")) tickingAreas.removeTickingArea(tickingArea);
+            }
+        });
     }
 
     public *run<T, TReturn, U>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | ((this: U) => Generator<T | JobFunction, TReturn>), thisArg?: U) {
@@ -88,12 +96,23 @@ class JobHandler {
         if (this.current) return { jobFunc: "setProgress", data: percent };
     }
 
-    public *loadBlock(loc: Vector3, ctx: JobContext = this.current): Generator<Promise<void>, Block | undefined> {
+    public *loadBlock(loc: Vector3, ctx: JobContext = this.current) {
+        if (!(yield* this.loadArea(loc, loc, ctx))) return undefined;
+        return this.jobs.get(ctx).dimension.getBlock(loc);
+    }
+
+    public *loadArea(start: Vector3, end: Vector3, ctx: JobContext = this.current) {
         const job = this.jobs.get(ctx);
         while (true) {
-            if (!Jobs.isContextValid(ctx)) return undefined;
-            const block = job.dimension.getBlock(loc);
-            if (block) return block;
+            if (!Jobs.isContextValid(ctx)) return false;
+
+            let tickingAreaNeeded = false;
+            for (const [min] of regionIterateChunks(start, end)) {
+                if (job.dimension.isChunkLoaded(min)) continue;
+                tickingAreaNeeded = true;
+                break;
+            }
+            if (!tickingAreaNeeded) return true;
 
             if (job.tickingAreaSlot === undefined) {
                 if (!job.tickingAreaRequestTime) job.tickingAreaRequestTime = Date.now();
@@ -101,13 +120,14 @@ class JobHandler {
                 continue;
             }
 
-            if (setTickingAreaCircle(loc, 4, job.dimension, "wedit:ticking_area_" + job.tickingAreaSlot)) yield sleep(1);
-            else throw new UnloadedChunksError("worldedit.error.tickArea");
+            try {
+                const tickingArea = "job_ticking_slot_" + job.tickingAreaSlot;
+                if (tickingAreas.hasTickingArea(tickingArea)) tickingAreas.removeTickingArea(tickingArea);
+                yield tickingAreas.createTickingArea(tickingArea, { dimension: job.dimension, from: start, to: end });
+            } catch {
+                throw new UnloadedChunksError("worldedit.error.tickArea");
+            }
         }
-    }
-
-    public *loadArea(start: Vector3, end: Vector3, ctx?: JobContext) {
-        return !!(yield* this.loadBlock(regionCenter(start, end), ctx));
     }
 
     public inContext(): boolean {
@@ -150,7 +170,7 @@ class JobHandler {
             job.step = job.stepCount - 1;
             if (job.message?.length) job.message = "Finished!"; // TODO: Localize
             if (job.tickingAreaSlot !== undefined) {
-                removeTickingArea("wedit:ticking_area_" + job.tickingAreaSlot, job.dimension);
+                tickingAreas.removeTickingArea("job_ticking_slot_" + job.tickingAreaSlot);
                 this.occupiedTickingAreaSlots[job.tickingAreaSlot] = false;
             }
             this.printJobs();

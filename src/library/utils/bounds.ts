@@ -121,11 +121,11 @@ export function* regionIterateChunks(start: Vector3, end: Vector3, ySubChunks = 
             if (ySubChunks) {
                 for (let chunkY = minChunk.y; chunkY < maxChunk.y; chunkY += 16) {
                     const chunk = new Vector(chunkX, chunkY, chunkZ);
-                    yield [min.max(chunk), max.min(chunk.add(15))];
+                    yield [min.max(chunk), max.min(chunk.add(15))] as [Vector, Vector];
                 }
             } else {
                 const chunk = new Vector(chunkX, minChunk.y, chunkZ);
-                yield [min.max(chunk), max.min(chunk.add(15))];
+                yield [min.max(chunk), max.min(chunk.add(15))] as [Vector, Vector];
             }
         }
     }

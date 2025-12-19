@@ -7,4 +7,3 @@ export * from "./scheduling.js";
 export * from "./vector.js";
 export * from "./matrix.js";
 export * from "./uniqueId.js";
-export * from "./tickingarea.js";
