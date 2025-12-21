@@ -12,7 +12,7 @@ export interface BlockChanges {
     setBlock(loc: Vector3, block: BlockPermutation): void;
 
     applyIteration(): void;
-    flush(): Generator<any>;
+    flush(): Generator<any, number>;
 }
 
 let air: BlockPermutation;
@@ -110,6 +110,7 @@ class BlockChangeImpl implements BlockChanges {
 
         this.ranges.length = 0;
         this.changes.clear();
+        return i;
     }
 
     private vec2string(vec: Vector3) {
