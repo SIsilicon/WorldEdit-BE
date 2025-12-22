@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2025-12-21 15:40\n"
+"PO-Revision-Date: 2025-12-22 00:33\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -493,11 +493,32 @@ msgstr "History is still being recorded!"
 msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blocks have been changed."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blocks have been created."
+
+msgid "commands.wedit:blocks.calculating"
+msgstr "Calculating shape..."
+
+msgid "commands.wedit:blocks.generating"
+msgstr "Generating blocks..."
+
+msgid "commands.wedit:blocks.calculating_generating"
+msgstr "Calculating and Generating blocks..."
+
+msgid "commands.wedit:transform.getting"
+msgstr "Getting blocks..."
+
+msgid "commands.wedit:transform.transforming"
+msgstr "Transforming blocks..."
+
+msgid "commands.wedit:heightmap.getting"
+msgstr "Getting heightmap..."
+
+msgid "commands.wedit:heightmap.placing"
+msgstr "Placing blocks..."
 
 msgid "commands.generic.wedit:commandFail"
 msgstr "Failed to execute this command."
@@ -549,6 +570,12 @@ msgstr "Biome at your position: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Biomes in your selection: %s"
+
+msgid "commands.wedit:biome.setting"
+msgstr "Setting biome data..."
+
+msgid "commands.wedit:biome.reading"
+msgstr "Reading biome data..."
 
 msgid "commands.wedit:blockid.description"
 msgstr "Prints the id and states of the block you're looking at."
@@ -706,8 +733,14 @@ msgstr "Copy the current selection to the clipboard"
 msgid "commands.wedit:copy.explain"
 msgstr "Copied %s blocks."
 
+msgid "commands.wedit:copy.copying"
+msgstr "Copying blocks..."
+
 msgid "commands.wedit:count.description"
 msgstr "Count the number of blocks that match a mask"
+
+msgid "commands.wedit:count.counting"
+msgstr "Counting blocks..."
 
 msgid "commands.wedit:count.explain"
 msgstr "Found %s blocks."
@@ -730,8 +763,14 @@ msgstr "Generate a cylinder"
 msgid "commands.wedit:distr.description"
 msgstr "Analyse the amount of different blocks in the selection"
 
+msgid "commands.wedit:distr.analysing"
+msgstr "Analysing blocks..."
+
 msgid "commands.wedit:drain.description"
 msgstr "Drain nearby fluids"
+
+msgid "commands.wedit:drain.draining"
+msgstr "Calculating and Draining blocks..."
 
 msgid "commands.wedit:drain.noFluid"
 msgstr "You need to be close to some water or lava to drain."
@@ -769,6 +808,9 @@ msgstr "Extinguish nearby fires"
 msgid "commands.wedit:faces.description"
 msgstr "Generate an outline from your selection"
 
+msgid "commands.wedit:overlay.description"
+msgstr "Overlay blocks on surfaces within the selection"
+
 msgid "commands.wedit:fill.description"
 msgstr "Fill an area with certain blocks"
 
@@ -778,11 +820,17 @@ msgstr "Recursively fill an area with certain blocks"
 msgid "commands.wedit:fixlava.description"
 msgstr "Make nearby flowing lava blocks source blocks"
 
+msgid "commands.wedit:fixlava.fixing"
+msgstr "Calculating and Fixing lava..."
+
 msgid "commands.wedit:fixlava.noLava"
 msgstr "You need to be close to some lava to fix."
 
 msgid "commands.wedit:fixwater.description"
 msgstr "Make nearby flowing water blocks source blocks"
+
+msgid "commands.wedit:fixwater.fixing"
+msgstr "Calculating and Fixing water..."
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "You need to be close to some water to fix."
@@ -964,6 +1012,9 @@ msgstr "Region outset."
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
 
+msgid "commands.wedit:paste.pasting"
+msgstr "Pasting blocks..."
+
 msgid "commands.wedit:paste.explain"
 msgstr "Pasted %s blocks."
 
@@ -1141,6 +1192,9 @@ msgstr "Super pickaxe mode is now: single."
 msgid "commands.wedit:thaw.description"
 msgstr "Melt snow and ice exposed to the sky"
 
+msgid "commands.wedit:utility.raycasting"
+msgstr "Raycasting..."
+
 msgid "commands.wedit:stack.description"
 msgstr "Repeat the contents of the current selection"
 
@@ -1170,6 +1224,9 @@ msgstr "Generate a torus."
 
 msgid "commands.wedit:terrain.description"
 msgstr "Generate terrain with noise"
+
+msgid "commands.wedit:terrain.generating"
+msgstr "Generating terrain..."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"
