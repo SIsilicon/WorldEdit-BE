@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "임시 틱 로딩 구역을 만드는 데 실패했습니다!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 블록이 바뀌었습니다."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s 블록이 생성되었습니다."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

@@ -71,17 +71,17 @@ export class OverlayBrush extends Brush {
             for (const hit of locations) {
                 const range: [Vector, Vector] = [hit.offset(-this.radius, 1, -this.radius), hit.offset(this.radius, 1, this.radius)];
                 for (const loc of regionIterateBlocks(...range)) {
-                    if (affected.has(loc) || hit.sub(loc).lengthSqr > r2 || !isAirOrFluid(blockChanges.getBlockPerm(loc))) {
+                    if (affected.has(loc) || hit.sub(loc).lengthSqr > r2 || !isAirOrFluid(yield* blockChanges.getBlockPerm(loc))) {
                         continue;
                     }
 
                     affected.add(loc);
                     const trace = Vector.sub(loc, [0, 1, 0]);
                     while (trace.y >= minY) {
-                        const block = blockChanges.getBlock(trace);
+                        const block = yield* blockChanges.getBlock(trace);
                         if (!isAirOrFluid(block.permutation) && surfaceMask.matchesBlock(block)) {
                             for (let i = 0; i < Math.abs(this.depth); i++) {
-                                const block = blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
+                                const block = yield* blockChanges.getBlock(trace.offset(0, this.depth > 0 ? -i : i + 1, 0));
                                 if (!activeMask || activeMask.matchesBlock(block)) {
                                     this.pattern.setBlock(block);
                                 }

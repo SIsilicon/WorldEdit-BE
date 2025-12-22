@@ -225,10 +225,10 @@ msgstr "§eYou have been given WorldEdit permissions. Go to (Settings > How to P
 msgid "worldedit.permission.revoked"
 msgstr "§eYour WorldEdit permissions have been removed.§r"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blocks have been changed."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blocks have been created."
 
 msgid "commands.generic.wedit:commandFail"

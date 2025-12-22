@@ -30,7 +30,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
         [start, end] = [start.sub(thickness), end.add(thickness)];
     }
 
-    const dim = builder.dimension;
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
@@ -48,7 +47,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, start, end);
             count = 0;
             for (const location of blocks) {
-                const block = dim.getBlock(location) ?? (yield* Jobs.loadBlock(location));
+                const block = yield* Jobs.loadBlock(location);
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
@@ -60,5 +59,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

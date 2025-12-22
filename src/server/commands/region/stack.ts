@@ -55,7 +55,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             tempStack = yield* copy(session, args, false);
             yield* history.trackRegion(record, ...stackRegion);
             for (const load of loads) {
-                yield Jobs.nextStep("Pasting blocks...");
+                yield Jobs.nextStep("commands.wedit:paste.pasting");
                 yield* tempStack.load(load[0], dim);
                 count += regionVolume(load[0], load[1]);
             }

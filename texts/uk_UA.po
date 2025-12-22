@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Не вдалося створити тимчасову область такту!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s блоків змінено."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s блоків створено."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

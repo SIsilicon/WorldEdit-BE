@@ -19,5 +19,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     const [shape, loc] = session.selection.getShape();
     const count = yield* Jobs.run(session, 2 + args.get("iterations") * 2, smooth(session, args.get("iterations"), shape, loc, args.get("mask"), null));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

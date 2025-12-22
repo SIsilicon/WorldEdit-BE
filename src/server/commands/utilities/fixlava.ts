@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (!fixlavaStart) throw "commands.wedit:fixlava.noLava";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
-        yield Jobs.nextStep("Calculating and Fixing lava...");
+        yield Jobs.nextStep("commands.wedit:fixlava.fixing");
         yield Jobs.setProgress(-1);
 
         const blocks = yield* floodFill(fixlavaStart, args.get("radius"), (ctx) => !!ctx.nextBlock.typeId.match("lava"));
@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setType("lava");
+                (yield* Jobs.loadBlock(loc)).setType("lava");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);
@@ -51,5 +51,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return blocks;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${blocks.size}`);
 });

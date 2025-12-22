@@ -19,14 +19,13 @@ class FillTool extends Tool {
     permission = "worldedit.utility.fillr";
 
     *useOn(player: Player, session: PlayerSession, loc: Vector3) {
-        const dimension = player.dimension;
         const fillDir = this.direction.getDirection(player);
         const radius = this.radius;
         const depth = this.depth;
         let pattern = this.pattern;
 
         yield* Jobs.run(session, 1, function* () {
-            yield Jobs.nextStep("Calculating and Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating_generating");
             yield Jobs.setProgress(-1);
 
             const blocks = yield* floodFill(loc, radius, (ctx, dir) => {
@@ -47,7 +46,7 @@ class FillTool extends Tool {
                 yield* history.trackRegion(record, blocks);
                 let i = 0;
                 for (const loc of blocks) {
-                    pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
+                    pattern.setBlock(yield* Jobs.loadBlock(loc));
                     yield Jobs.setProgress(i++ / blocks.size);
                 }
                 yield* history.commit(record);

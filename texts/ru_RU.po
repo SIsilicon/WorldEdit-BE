@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Не удалось создать временную область для заметок!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s блоки были изменены."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s блоки были созданы."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

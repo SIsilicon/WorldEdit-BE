@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     range[1].y = Math.min(range[1].y, heightLimits[1] - 1);
 
     return yield* Jobs.run(session, 2, function* () {
-        yield Jobs.nextStep("Raycasting..."); // TODO: Localize
+        yield Jobs.nextStep("commands.wedit:utility.raycasting");
         let i = 0;
 
         const blocks: Block[] = [];
@@ -63,7 +63,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 i++;
             }
 
-        yield Jobs.nextStep("Generating blocks..."); // TODO: Localize
+        yield Jobs.nextStep("commands.wedit:blocks.generating");
         let changed = 0;
         i = 0;
 
@@ -92,6 +92,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }
         }
 
-        return RawText.translate("commands.blocks.wedit:changed").with(`${changed}`);
+        return RawText.translate("commands.wedit:blocks.changed").with(`${changed}`);
     });
 });

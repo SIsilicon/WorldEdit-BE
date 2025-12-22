@@ -33,7 +33,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         try {
             if (pasteContent) {
                 yield* history.trackRegion(record, pasteStart, pasteEnd);
-                yield Jobs.nextStep("Pasting blocks...");
+                yield Jobs.nextStep("commands.wedit:paste.pasting");
                 yield* session.clipboard.load(pasteFrom, builder.dimension, { ...transform, mask: args.get("m-mask")?.withContext(session) });
             }
             if (setSelection) {

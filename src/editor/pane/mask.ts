@@ -14,7 +14,6 @@ import {
     OffsetMaskNode,
     PercentMaskNode,
     ShadowMaskNode,
-    SlopeMaskNode,
     StateMaskNode,
     SurfaceMaskNode,
     TagMaskNode,
@@ -36,7 +35,6 @@ const maskTypes = new Map<new (...args: any[]) => MaskNode, [string, () => MaskN
     [ExistingMaskNode, ["Existing Mask", () => new ExistingMaskNode(dummyToken)]],
     [ShadowMaskNode, ["Shadow Mask", () => new ShadowMaskNode(dummyToken)]],
     [PercentMaskNode, ["Random Mask", () => new PercentMaskNode(dummyToken, 0.5)]],
-    [SlopeMaskNode, ["Slope Mask", () => new SlopeMaskNode(dummyToken, 45, 90)]],
     [InputMaskNode, ["Input Mask", () => new InputMaskNode(dummyToken, defaultBLock)]],
 ]);
 
@@ -96,7 +94,7 @@ export class MaskUIBuilder {
             const subPane = pane.getSubPane(1);
             if (type === BlockMaskNode) this.buildBlockMaskUI(subPane, maskNode as BlockMaskNode);
             else if (type === StateMaskNode) this.buildStateMaskUI(subPane, maskNode as StateMaskNode);
-            else if (type === SlopeMaskNode) this.buildSlopeMaskUI(subPane, maskNode as SlopeMaskNode);
+            else if (type === SurfaceMaskNode) this.buildSurfaceMaskUI(subPane, maskNode as SurfaceMaskNode);
             else if (type === TagMaskNode) this.buildTagMaskUI(subPane, maskNode as TagMaskNode);
             else if (type === PercentMaskNode) this.buildPercentMaskUI(subPane, maskNode as PercentMaskNode);
             else if (type === ChainMaskNode) this.buildChainOrIntersectMaskUI(subPane, maskNode as ChainMaskNode);
@@ -328,11 +326,29 @@ export class MaskUIBuilder {
         this.buildMaskUI(pane.getSubPane(1), node.nodes[0], node);
     }
 
-    private buildSlopeMaskUI(pane: UIPane, node: SlopeMaskNode) {
+    private buildSurfaceMaskUI(pane: UIPane, node: SurfaceMaskNode) {
         const range = { min: 0, max: 90 };
         pane.changeItems([
-            { type: "slider", title: "Minimum Angle", ...range, value: node.lowerAngle, onChange: (value) => (node.lowerAngle = value) },
-            { type: "slider", title: "Maximum Angle", ...range, value: node.upperAngle, onChange: (value) => (node.upperAngle = value) },
+            {
+                type: "toggle",
+                title: "Filter Slope",
+                value: node.lowerAngle === undefined || node.upperAngle === undefined,
+                onChange: (value) => {
+                    pane.setVisibility(1, value);
+                    pane.setVisibility(2, value);
+                    if (value) {
+                        node.lowerAngle = 0;
+                        node.upperAngle = 90;
+                        pane.setValue(1, 0);
+                        pane.setValue(2, 90);
+                    } else {
+                        node.lowerAngle = undefined;
+                        node.upperAngle = undefined;
+                    }
+                },
+            },
+            { type: "slider", title: "Minimum Angle", ...range, value: node.lowerAngle ?? 0, onChange: (value) => (node.lowerAngle = value) },
+            { type: "slider", title: "Maximum Angle", ...range, value: node.upperAngle ?? 90, onChange: (value) => (node.upperAngle = value) },
         ]);
     }
 

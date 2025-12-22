@@ -17,7 +17,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const getStates = args.has("d");
 
     yield* Jobs.run(session, 1, function* () {
-        yield Jobs.nextStep("Analysing blocks...");
+        yield Jobs.nextStep("commands.wedit:distr.analysing");
         let i = 0;
         const processBlock = (block: BlockPermutation) => {
             let id = block.type.id;
@@ -41,11 +41,10 @@ registerCommand(registerInformation, function* (session, builder, args) {
         } else {
             assertSelection(session);
             total = session.selection.getBlockCount();
-            const dimension = builder.dimension;
-            yield Jobs.nextStep("Analysing blocks...");
+            yield Jobs.nextStep("commands.wedit:distr.analysing");
 
             for (const loc of session.selection.getBlocks()) {
-                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
+                const block = yield* Jobs.loadBlock(loc);
                 processBlock(block.permutation);
                 yield Jobs.setProgress(++i / total);
             }

@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "一時的なティッキングエリアの作成に失敗しました。"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 個のブロックが変更されました。"
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s 個のブロックが作成されました。"
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

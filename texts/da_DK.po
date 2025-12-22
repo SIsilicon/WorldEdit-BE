@@ -301,10 +301,10 @@ msgstr "Failed to load history point!"
 msgid "worldedit.error.stillRecording"
 msgstr "History is still being recorded!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blocks have been changed."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blocks have been created."
 
 msgid "commands.generic.wedit:commandFail"

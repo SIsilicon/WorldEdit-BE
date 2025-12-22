@@ -31,7 +31,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         let i = 0;
         const blockCount = session.selection.getBlockCount();
         yield* Jobs.run(session, 1, function* () {
-            yield Jobs.nextStep("Setting biome data...");
+            yield Jobs.nextStep("commands.wedit:biome.setting");
             if (session.selection.isCuboid) {
                 const [min, max] = session.selection.getRange();
                 const minSubChunk = Vector.from(min)

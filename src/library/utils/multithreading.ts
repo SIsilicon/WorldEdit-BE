@@ -118,12 +118,10 @@ system.runInterval(() => {
 });
 
 let iterCount = 0;
-function iterateChunk() {
+function* iterateChunk<T>(val: T) {
     if (iterCount++ > 16) {
         iterCount = 0;
-        return true;
-    } else {
-        return false;
+        yield val;
     }
 }
 

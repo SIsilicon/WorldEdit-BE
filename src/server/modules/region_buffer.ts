@@ -275,8 +275,7 @@ export class RegionBuffer {
                 buffer.extraBlockData[locString] = world.structureManager.createFromWorld(name, block.dimension, loc, loc, { includeEntities: false, saveMode: StructureSaveMode.Memory });
             }
 
-            if (iterateChunk()) yield Jobs.setProgress(i / volume);
-            i++;
+            yield* iterateChunk(Jobs.setProgress(++i / volume));
         }
         return buffer;
     }
@@ -296,7 +295,7 @@ export class RegionBuffer {
             const volume = regionVolume(start, end);
             const modifier = options.modifier ?? (() => true);
             for (const loc of regionIterateBlocks(start, end)) {
-                const block = dim.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
+                const block = yield* Jobs.loadBlock(loc);
                 const modResult = modifier(block);
                 const localLoc = Vector.sub(loc, min);
                 // Explicitly compare it to "true" since it could succeed with a block permutation
@@ -311,8 +310,7 @@ export class RegionBuffer {
                     buffer.getBlock(localLoc).setPermutation(!modResult ? undefined : modResult);
                 }
 
-                if (iterateChunk()) yield Jobs.setProgress(i / volume);
-                i++;
+                yield* iterateChunk(Jobs.setProgress(++i / volume));
             }
         }
 
@@ -433,8 +431,7 @@ export class RegionBuffer {
                 const sample = Vector.from(blockLoc).add(0.5).transform(invMatrix).floor();
                 const block = this.getBlock(sample);
 
-                if (iterateChunk()) yield Jobs.setProgress(i / totalIterationCount);
-                i++;
+                yield* iterateChunk(Jobs.setProgress(++i / totalIterationCount));
                 if (!block?.permutation) continue;
 
                 let oldBlock = dim.getBlock(blockLoc);
@@ -469,8 +466,7 @@ export class RegionBuffer {
                 let blockLoc = stringToLoc(key);
                 blockLoc = (shouldTransform ? Vector.add(blockLoc, 0.5).transform(matrix) : Vector.add(blockLoc, loc)).floor();
 
-                if (iterateChunk()) yield Jobs.setProgress(i / totalIterationCount);
-                i++;
+                yield* iterateChunk(Jobs.setProgress(++i / totalIterationCount));
 
                 let oldBlock = dim.getBlock(blockLoc);
                 if (!oldBlock && Jobs.inContext()) oldBlock = yield* Jobs.loadBlock(blockLoc);

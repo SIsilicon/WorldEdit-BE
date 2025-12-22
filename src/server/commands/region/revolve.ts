@@ -67,7 +67,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             tempRevolve = yield* copy(session, args, false);
             yield* history.trackRegion(record, ...revolveRegion);
             for (const [loadPosition, rotation] of loads) {
-                yield Jobs.nextStep("Pasting blocks...");
+                yield Jobs.nextStep("commands.wedit:paste.pasting");
                 yield* tempRevolve.load(loadPosition, dim, { rotation, offset: rotatingStructure ? offset : undefined });
                 count += tempRevolve.getVolume();
             }

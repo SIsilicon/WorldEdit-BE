@@ -48,7 +48,6 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
 
     if (!spread({ ...initialCtx }, Vector.ZERO)) return new VectorSet<Vector>();
 
-    const dimension = Jobs.getRunner().dimension;
     const chunks: Map<string, [Vector, T][]> = new Map();
     const queue: [Vector, T][] = [[Vector.from(start), initialCtx]];
     const result = new VectorSet<Vector>();
@@ -75,12 +74,9 @@ export function* floodFill<T extends FloodFillContext>(start: Vector3, size: num
             result.add(block);
             for (const offset of offsets) {
                 const nextBlockLoc = Vector.add(block, offset);
-                const newCtx = { ...ctx, nextBlock: dimension.getBlock(nextBlockLoc) ?? (yield* Jobs.loadBlock(nextBlockLoc)) };
+                const newCtx = { ...ctx, nextBlock: yield* Jobs.loadBlock(nextBlockLoc) };
                 try {
-                    if (spread(newCtx, offset)) {
-                        addNeighbor(block, offset, newCtx);
-                        // system.run(() => dimension.spawnParticle("minecraft:basic_flame_particle", nextBlockLoc));
-                    }
+                    if (spread(newCtx, offset)) addNeighbor(block, offset, newCtx);
                 } catch {
                     /* pass */
                 }

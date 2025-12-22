@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Kunne ikke opprette et midlertidig sevoppdaterende område!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blokker har blitt endret."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s blokker har blitt opprettet."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

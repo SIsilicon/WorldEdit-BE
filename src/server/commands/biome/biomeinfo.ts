@@ -23,7 +23,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     } else {
         assertSelection(session);
         return yield* Jobs.run(session, 1, function* () {
-            yield Jobs.nextStep("Reading biome data...");
+            yield Jobs.nextStep("commands.wedit:biome.reading");
             const dimension = builder.dimension;
             const biomes = new Set<string>();
             const blockCount = session.selection.getBlockCount();

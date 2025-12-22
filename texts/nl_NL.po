@@ -494,7 +494,7 @@ msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s blokken zijn veranderd."
 
 msgid "commands.wedit:blocks.created"
 msgstr "%s blocks have been created."

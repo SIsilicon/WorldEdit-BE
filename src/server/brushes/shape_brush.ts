@@ -46,7 +46,6 @@ export abstract class ShapeBrush extends Brush {
             function* () {
                 const history = session.history;
                 const record = history.record();
-                const dim = session.player.dimension;
                 try {
                     const blocks = yield* balloonPath(locations, this.shape, { hollow: this.hollow });
                     const range = regionBounds(blocks);
@@ -55,7 +54,7 @@ export abstract class ShapeBrush extends Brush {
 
                     yield* history.trackRegion(record, blocks);
                     for (const point of blocks) {
-                        const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                        const block = yield* Jobs.loadBlock(point);
                         if (mask.matchesBlock(block)) pattern.setBlock(block);
                         yield;
                     }

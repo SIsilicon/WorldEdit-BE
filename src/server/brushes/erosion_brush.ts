@@ -125,13 +125,13 @@ export class ErosionBrush extends Brush {
         const isAirOrFluid = Server.block.isAirOrFluid;
 
         for (const loc of locations) {
-            if (isAirOrFluid(blockChanges.getBlockPerm(loc)) || (mask && !mask.matchesBlock(blockChanges.dimension.getBlock(loc)))) continue;
+            if (isAirOrFluid(yield* blockChanges.getBlockPerm(loc)) || (mask && !mask.matchesBlock(blockChanges.dimension.getBlock(loc)))) continue;
 
             let count = 0;
             const fluidTypes: [string, number][] = [];
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             for (const [_, dir] of directionVectors) {
-                const block = blockChanges.getBlockPerm(Vector.add(loc, dir));
+                const block = yield* blockChanges.getBlockPerm(Vector.add(loc, dir));
                 if (isAirOrFluid(block)) {
                     count++;
                     let foundType = false;
@@ -159,7 +159,7 @@ export class ErosionBrush extends Brush {
                 }
                 blockChanges.setBlock(loc, fluids[maxBlock as keyof typeof fluids]);
             }
-            if (iterateChunk()) yield 0;
+            yield* iterateChunk(0);
         }
         blockChanges.applyIteration();
     }
@@ -167,13 +167,13 @@ export class ErosionBrush extends Brush {
     private *processFill(locations: VectorSet, threshold: number, blockChanges: BlockChanges, mask?: Mask) {
         const isAirOrFluid = Server.block.isAirOrFluid;
         for (const loc of locations) {
-            if (!isAirOrFluid(blockChanges.getBlockPerm(loc))) continue;
+            if (!isAirOrFluid(yield* blockChanges.getBlockPerm(loc))) continue;
 
             let count = 0;
             const blockTypes: [BlockPermutation, number][] = [];
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             for (const [_, dir] of directionVectors) {
-                const block = blockChanges.getBlockPerm(Vector.add(loc, dir));
+                const block = yield* blockChanges.getBlockPerm(Vector.add(loc, dir));
                 if (!isAirOrFluid(block) && (!mask || mask.matchesBlock(blockChanges.dimension.getBlock(Vector.add(loc, dir))))) {
                     count++;
                     let foundType = false;
@@ -199,7 +199,7 @@ export class ErosionBrush extends Brush {
                 }
                 blockChanges.setBlock(loc, maxBlock);
             }
-            if (iterateChunk()) yield 0;
+            yield* iterateChunk(0);
         }
         blockChanges.applyIteration();
     }

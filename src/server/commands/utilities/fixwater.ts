@@ -27,7 +27,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (!fixwaterStart) throw "commands.wedit:fixWater.noWater";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
-        yield Jobs.nextStep("Calculating and Fixing water...");
+        yield Jobs.nextStep("commands.wedit:fixwater.fixing");
         yield Jobs.setProgress(-1);
 
         const blocks = yield* floodFill(fixwaterStart, args.get("radius"), (ctx) => !!ctx.nextBlock.typeId.match("water"));
@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setType("water");
+                (yield* Jobs.loadBlock(loc)).setType("water");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);
@@ -51,5 +51,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return blocks;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${blocks.size}`);
 });

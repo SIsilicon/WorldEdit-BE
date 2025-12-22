@@ -219,7 +219,7 @@ export abstract class Shape {
                     yield Jobs.setProgress(progress / volume);
                     progress++;
                     if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                        const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
+                        const block = yield* Jobs.loadBlock(blockLoc);
                         if (simpleMask || mask.matchesBlock(block)) {
                             blocks.push(block);
                             blocksAffected++;
@@ -260,8 +260,8 @@ export abstract class Shape {
 
         if (!canGenerate) {
             history?.commit(record);
-            yield Jobs.nextStep("Calculating shape...");
-            yield Jobs.nextStep("Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating");
+            yield Jobs.nextStep("commands.wedit:blocks.generating");
             return 0;
         }
 
@@ -277,11 +277,11 @@ export abstract class Shape {
             const simpleMask = activeMask.isSimple();
 
             // Collect blocks and areas that will be changed.
-            yield Jobs.nextStep("Calculating shape...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating");
             const [volumes, blocksAffected] = yield* this.calculateShape(dimension, loc, min, max, pattern, activeMask);
 
             let progress = 0;
-            yield Jobs.nextStep("Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.generating");
             if (history) yield* history.trackRegion(record, min, max);
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
             for (let volume of volumes) {

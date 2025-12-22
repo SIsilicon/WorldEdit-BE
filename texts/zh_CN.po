@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "创建常加载区块失败"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%s 个方块已被更改。"
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%s 个方块已被创建。"
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

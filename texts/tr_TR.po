@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Geçici bir işaretleme alanı oluşturulamadı!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "%sBloklar değişti."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "%sBloklar Yaratıldı."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

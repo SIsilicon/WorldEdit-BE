@@ -24,5 +24,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const [shape, loc] = session.selection.getShape();
     const count = yield* Jobs.run(session, 2, shape.generate(loc, pattern, mask, session));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

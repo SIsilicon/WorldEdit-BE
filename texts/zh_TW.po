@@ -494,10 +494,10 @@ msgid "worldedit.error.tickArea"
 msgstr "無法建立臨時的刻區域！"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocks have been changed."
+msgstr "已變更 %s 個方塊"
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocks have been created."
+msgstr "已建立 %s 個方塊"
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."

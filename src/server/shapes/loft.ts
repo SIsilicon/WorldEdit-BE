@@ -52,7 +52,7 @@ export class LoftShape extends Shape {
         const volume = new BlockVolume(min, max);
 
         function* addBlock(block: Vector3) {
-            if (volume.isInside(block)) blocks.add(dimension.getBlock(block) ?? (yield* Jobs.loadBlock(block)));
+            if (volume.isInside(block)) blocks.add(yield* Jobs.loadBlock(block));
         }
 
         const curves = this.curves.map((curve) => new Spline(curve));

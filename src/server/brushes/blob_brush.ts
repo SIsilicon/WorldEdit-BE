@@ -161,7 +161,7 @@ export class BlobBrush extends Brush {
                     for (const cell of splat) {
                         if (cell.y < min.y || cell.y > max.y) continue;
                         if (cell.value > 0.5 && distanceFromStroke(cell) <= brushSize) {
-                            const block = dimension.getBlock(cell) ?? (yield* Jobs.loadBlock(cell));
+                            const block = yield* Jobs.loadBlock(cell);
                             if (!mask || mask.matchesBlock(block)) pattern.setBlock(block);
                             yield;
                         }

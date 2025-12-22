@@ -110,7 +110,7 @@ export function* modifyHeight(
     const { min: dimMin, max: dimMax } = dim.heightRange;
 
     // Create height map
-    yield Jobs.nextStep("Getting heightmap...");
+    yield Jobs.nextStep("commands.wedit:heightmap.getting");
     for (let i = 0; i < locations.length; i++) {
         const loc = locations[i];
         const [subMin, subMax] = shape.getRegion(Vector.ZERO);
@@ -130,7 +130,7 @@ export function* modifyHeight(
 
                 let h: Vector3;
                 for (h = new Vector(coords.x, yRange[1], coords.z); h.y >= yRange[0]; h.y--) {
-                    const block = dim.getBlock(h) ?? (yield* Jobs.loadBlock(h))!;
+                    const block = (yield* Jobs.loadBlock(h))!;
                     if (!block.isAir && heightMask.matchesBlock(block)) break;
                 }
 
@@ -157,7 +157,7 @@ export function* modifyHeight(
     try {
         yield* history.trackRegion(record, min, max);
 
-        yield Jobs.nextStep("Placing blocks...");
+        yield Jobs.nextStep("commands.wedit:heightmap.placing");
         for (const column of map.values()) {
             const min = { x: column.x, y: column.minHeight, z: column.z };
             const max = { x: column.x, y: column.maxHeight, z: column.z };
@@ -165,7 +165,7 @@ export function* modifyHeight(
             warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
                 function* canSmooth(loc: Vector3) {
                     const globalLoc = Vector.add(loc, min);
-                    const block = dim.getBlock(globalLoc) ?? (yield* Jobs.loadBlock(globalLoc))!;
+                    const block = (yield* Jobs.loadBlock(globalLoc))!;
                     return block.isAir || mask!.matchesBlock(block);
                 }
 
