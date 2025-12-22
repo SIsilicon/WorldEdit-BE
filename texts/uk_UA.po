@@ -493,10 +493,10 @@ msgstr "Історія ще записується!"
 msgid "worldedit.error.tickArea"
 msgstr "Не вдалося створити тимчасову область такту!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s блоків змінено."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s блоків створено."
 
 msgid "commands.generic.wedit:commandFail"

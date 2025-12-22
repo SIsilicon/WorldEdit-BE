@@ -36,7 +36,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
         let volume = regionVolume(min, max);
 
         if (canGenerate) {
-            yield Jobs.nextStep("Calculating shape...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating");
             const locStringSet: Set<string> = new Set();
             for (const loc of session.selection.getBlocks()) {
                 if (iterateChunk()) yield Jobs.setProgress(progress / volume);
@@ -46,7 +46,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
 
             progress = 0;
             volume = locStringSet.size;
-            yield Jobs.nextStep("Calculating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating");
             for (const loc of session.selection.getBlocks({ hollow: true })) {
                 if (loc.y < min.y || loc.y > max.y) continue;
 
@@ -100,7 +100,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
 
             progress = 0;
             volume = locStringSet.size;
-            yield Jobs.nextStep("Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.generating");
             yield* history.trackRegion(record, min, max);
             for (const locString of locStringSet) {
                 const loc = stringToLoc(locString);
@@ -124,5 +124,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pattern: Pattern = args.get("pattern");
     const thickness = args.get("thickness") as number;
     const count = yield* Jobs.run(session, 3, hollow(session, pattern, thickness));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

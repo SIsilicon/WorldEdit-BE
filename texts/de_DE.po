@@ -493,10 +493,10 @@ msgstr "Verlauf wird noch immer aufgezeichnet!"
 msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s Blöcke wurden geändert."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s Blöcke wurden erstellt."
 
 msgid "commands.generic.wedit:commandFail"

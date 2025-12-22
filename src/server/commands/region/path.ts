@@ -63,5 +63,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count * clipboard.getVolume()}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count * clipboard.getVolume()}`);
 });

@@ -493,10 +493,10 @@ msgstr "Geçmiş noktası hala kaydediliyor!"
 msgid "worldedit.error.tickArea"
 msgstr "Geçici bir işaretleme alanı oluşturulamadı!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%sBloklar değişti."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%sBloklar Yaratıldı."
 
 msgid "commands.generic.wedit:commandFail"

@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
         const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
         const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
-        return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
+        return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
     }
 
     return "";

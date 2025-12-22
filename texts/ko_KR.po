@@ -493,10 +493,10 @@ msgstr "기록이 아직 기록중입니다!"
 msgid "worldedit.error.tickArea"
 msgstr "임시 틱 로딩 구역을 만드는 데 실패했습니다!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s 블록이 바뀌었습니다."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s 블록이 생성되었습니다."
 
 msgid "commands.generic.wedit:commandFail"

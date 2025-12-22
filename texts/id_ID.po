@@ -493,10 +493,10 @@ msgstr "Riwayat masih dicatat!"
 msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "Blok %s telah diubah."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blok telah dibuat."
 
 msgid "commands.generic.wedit:commandFail"

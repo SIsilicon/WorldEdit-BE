@@ -46,5 +46,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const cylShape = new CylinderShape(height, ...(<[number, number]>radii), (<Cardinal>args.get("d-direction"))?.getDirection(builder));
     const count = yield* Jobs.run(session, 2, cylShape.generate(loc, pattern, null, session, { hollow: isHollow }));
-    return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
 });

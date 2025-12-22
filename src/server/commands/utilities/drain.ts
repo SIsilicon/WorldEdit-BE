@@ -45,7 +45,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     if (!drainStart) throw "commands.wedit:drain.noFluid";
 
     const blocks = yield* Jobs.run(session, 1, function* () {
-        yield Jobs.nextStep("Calculating and Draining blocks...");
+        yield Jobs.nextStep("commands.wedit:drain.draining");
         yield Jobs.setProgress(-1);
 
         const blocks = yield* floodFill(drainStart, args.get("radius"), (ctx) => {
@@ -73,5 +73,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return blocks;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${blocks.size}`);
 });

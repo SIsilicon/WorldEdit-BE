@@ -110,7 +110,7 @@ export function* modifyHeight(
     const { min: dimMin, max: dimMax } = dim.heightRange;
 
     // Create height map
-    yield Jobs.nextStep("Getting heightmap...");
+    yield Jobs.nextStep("commands.wedit:heightmap.getting");
     for (let i = 0; i < locations.length; i++) {
         const loc = locations[i];
         const [subMin, subMax] = shape.getRegion(Vector.ZERO);
@@ -157,7 +157,7 @@ export function* modifyHeight(
     try {
         yield* history.trackRegion(record, min, max);
 
-        yield Jobs.nextStep("Placing blocks...");
+        yield Jobs.nextStep("commands.wedit:heightmap.placing");
         for (const column of map.values()) {
             const min = { x: column.x, y: column.minHeight, z: column.z };
             const max = { x: column.x, y: column.maxHeight, z: column.z };

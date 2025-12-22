@@ -41,7 +41,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const totalOperations = size.x * size.z;
 
         try {
-            yield Jobs.nextStep("Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.generating");
             for (let x = min.x; x <= max.x; x++) {
                 for (let z = min.z; z <= max.z; z++) {
                     const trace = new Vector(x, max.y, z);
@@ -72,5 +72,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return count;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

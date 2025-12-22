@@ -493,10 +493,10 @@ msgstr "History is still being recorded!"
 msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blocs ont été changés."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blocs ont été créés."
 
 msgid "commands.generic.wedit:commandFail"

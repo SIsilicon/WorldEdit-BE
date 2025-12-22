@@ -20,7 +20,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const count = yield* Jobs.run(session, 1, function* () {
         let i = 0;
         let count = 0;
-        yield Jobs.nextStep("Counting blocks...");
+        yield Jobs.nextStep("commands.wedit:count.counting");
         for (const loc of session.selection.getBlocks()) {
             const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
             count += mask.matchesBlock(block) ? 1 : 0;

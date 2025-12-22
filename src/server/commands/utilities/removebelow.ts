@@ -26,5 +26,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const shape = new CuboidShape(size, depth, size);
     const count = yield* Jobs.run(session, 2, shape.generate(origin, new Pattern("air"), null, session, { ignoreGlobalMask: true }));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

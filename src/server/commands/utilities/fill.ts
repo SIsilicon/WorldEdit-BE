@@ -28,7 +28,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const startBlock = session.getPlacementPosition();
 
     const blocks = yield* Jobs.run(session, 1, function* () {
-        yield Jobs.nextStep("Calculating and Generating blocks...");
+        yield Jobs.nextStep("commands.wedit:blocks.calculating_generating");
         yield Jobs.setProgress(-1);
 
         const blocks = yield* floodFill<fillContext>(startBlock, args.get("radius"), (ctx, dir) => {
@@ -62,5 +62,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return blocks;
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${blocks.size}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${blocks.size}`);
 });

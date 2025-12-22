@@ -55,5 +55,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
     });
 
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

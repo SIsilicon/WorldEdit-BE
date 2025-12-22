@@ -493,10 +493,10 @@ msgstr "历史记录仍在进行！"
 msgid "worldedit.error.tickArea"
 msgstr "创建常加载区块失败"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s 个方块已被更改。"
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s 个方块已被创建。"
 
 msgid "commands.generic.wedit:commandFail"

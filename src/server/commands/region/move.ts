@@ -44,7 +44,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             }
             count = temp.getVolume();
 
-            yield Jobs.nextStep("Pasting blocks...");
+            yield Jobs.nextStep("commands.wedit:paste.pasting");
             yield* temp.load(movedStart, dim);
 
             if (args.has("s")) {

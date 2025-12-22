@@ -21,7 +21,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         const origin = args.has("o") ? center : Vector.from(builder.location).floor().add(0.5);
         options = { offset: start.sub(origin), ...options };
         options.mask = options.mask?.withContext(session);
-        yield Jobs.nextStep("Gettings blocks...");
+        yield Jobs.nextStep("commands.wedit:transform.getting");
         temp = yield* session.createRegion(start, end);
 
         const [newStart, newEnd] = temp.getBounds(origin, options);
@@ -30,7 +30,7 @@ export function* transformSelection(session: PlayerSession, builder: Player, arg
         yield* history.trackRegion(record, newStart, newEnd);
 
         yield* set(session, new Pattern("air"), null, false);
-        yield Jobs.nextStep("Transforming blocks...");
+        yield Jobs.nextStep("commands.wedit:transform.transforming");
         yield* temp.load(origin, dim, options);
 
         if (args.has("s")) {

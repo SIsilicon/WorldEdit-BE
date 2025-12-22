@@ -32,5 +32,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
     const count = yield* Jobs.run(session, 2, set(session, pattern, null, true));
-    return RawText.translate("commands.blocks.wedit:changed").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.changed").with(`${count}`);
 });

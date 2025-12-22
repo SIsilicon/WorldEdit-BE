@@ -493,10 +493,10 @@ msgstr "Histórico ainda salvando!"
 msgid "worldedit.error.tickArea"
 msgstr "Falha ao criar uma área temporária!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blocos foram alterados."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blocos foram criados."
 
 msgid "commands.generic.wedit:commandFail"

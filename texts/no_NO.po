@@ -493,10 +493,10 @@ msgstr "Historikk blir fortsatt tatt opp!"
 msgid "worldedit.error.tickArea"
 msgstr "Kunne ikke opprette et midlertidig sevoppdaterende område!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s blokker har blitt endret."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s blokker har blitt opprettet."
 
 msgid "commands.generic.wedit:commandFail"

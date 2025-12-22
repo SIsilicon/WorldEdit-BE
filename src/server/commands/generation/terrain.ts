@@ -47,7 +47,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         const record = history.record();
         const changes = recordBlockChanges(session, record);
         try {
-            yield Jobs.nextStep("Generating terrain");
+            yield Jobs.nextStep("commands.wedit:terrain.generating");
             for (let x = min.x; x <= max.x; x++) {
                 for (let z = min.z; z <= max.z; z++) {
                     const noiseValue = (noise.octaveNoise(x * frequency, z * frequency, octaves, 0.5, 0.05) * 2 - 1) * amplitude + amplitude;
@@ -78,5 +78,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
         }
         return count;
     });
-    return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
 });

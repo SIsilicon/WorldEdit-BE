@@ -102,7 +102,7 @@ class DrawLineTool extends GeneratorTool {
             throw e;
         }
 
-        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+        print(RawText.translate("commands.wedit:blocks.created").with(`${count}`), player, true);
     }
 
     tick(player: Player, session: PlayerSession) {
@@ -176,7 +176,7 @@ class DrawCurveTool extends GeneratorTool {
             throw e;
         }
 
-        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+        print(RawText.translate("commands.wedit:blocks.created").with(`${count}`), player, true);
     }
 
     tick(player: Player, session: PlayerSession) {
@@ -218,7 +218,7 @@ class DrawSphereTool extends GeneratorTool {
         this.clearFirstPos(session);
 
         const count = yield* Jobs.run(session, 2, sphereShape.generate(center, pattern, null, session));
-        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+        print(RawText.translate("commands.wedit:blocks.created").with(`${count}`), player, true);
     }
 
     tick(player: Player, session: PlayerSession) {
@@ -260,7 +260,7 @@ class DrawCylinderTool extends GeneratorTool {
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
-        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+        print(RawText.translate("commands.wedit:blocks.created").with(`${count}`), player, true);
     }
 
     tick(player: Player, session: PlayerSession) {
@@ -299,7 +299,7 @@ class DrawPyramidTool extends GeneratorTool {
 
         const count = yield* Jobs.run(session, 2, shape.generate(center, pattern, null, session));
 
-        print(RawText.translate("commands.blocks.wedit:created").with(`${count}`), player, true);
+        print(RawText.translate("commands.wedit:blocks.created").with(`${count}`), player, true);
     }
 
     tick(player: Player, session: PlayerSession) {

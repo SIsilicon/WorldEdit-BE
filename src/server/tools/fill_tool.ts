@@ -26,7 +26,7 @@ class FillTool extends Tool {
         let pattern = this.pattern;
 
         yield* Jobs.run(session, 1, function* () {
-            yield Jobs.nextStep("Calculating and Generating blocks...");
+            yield Jobs.nextStep("commands.wedit:blocks.calculating_generating");
             yield Jobs.setProgress(-1);
 
             const blocks = yield* floodFill(loc, radius, (ctx, dir) => {

@@ -493,10 +493,10 @@ msgstr "履歴はまだ記録中です！"
 msgid "worldedit.error.tickArea"
 msgstr "一時的なティッキングエリアの作成に失敗しました。"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s 個のブロックが変更されました。"
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s 個のブロックが作成されました。"
 
 msgid "commands.generic.wedit:commandFail"

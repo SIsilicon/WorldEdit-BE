@@ -493,10 +493,10 @@ msgstr "歷史仍在記錄中！"
 msgid "worldedit.error.tickArea"
 msgstr "無法建立臨時的刻區域！"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "已變更 %s 個方塊"
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "已建立 %s 個方塊"
 
 msgid "commands.generic.wedit:commandFail"

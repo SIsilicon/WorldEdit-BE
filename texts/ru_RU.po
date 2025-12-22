@@ -493,10 +493,10 @@ msgstr "История всё ещё записывается!"
 msgid "worldedit.error.tickArea"
 msgstr "Не удалось создать временную область для заметок!"
 
-msgid "commands.blocks.wedit:changed"
+msgid "commands.wedit:blocks.changed"
 msgstr "%s блоки были изменены."
 
-msgid "commands.blocks.wedit:created"
+msgid "commands.wedit:blocks.created"
 msgstr "%s блоки были созданы."
 
 msgid "commands.generic.wedit:commandFail"

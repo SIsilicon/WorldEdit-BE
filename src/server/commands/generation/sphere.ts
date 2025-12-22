@@ -50,5 +50,5 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     const sphereShape = new SphereShape(...radii, (<Cardinal>args.get("d-dome"))?.getDirection(builder));
     const count = yield* Jobs.run(session, 2, sphereShape.generate(loc, pattern, null, session, { hollow: isHollow }));
-    return RawText.translate("commands.blocks.wedit:created").with(`${count}`);
+    return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
 });

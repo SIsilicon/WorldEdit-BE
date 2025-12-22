@@ -34,7 +34,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
     const airBlock = BlockPermutation.resolve("minecraft:air");
     const filter = mask || !includeAir;
 
-    yield Jobs.nextStep("Copying blocks...");
+    yield Jobs.nextStep("commands.wedit:copy.copying");
     const blocks = (block: Block) => {
         const isAir = block.isAir;
         const willBeAir = isAir || (mask ? !mask.matchesBlock(block) : false);
