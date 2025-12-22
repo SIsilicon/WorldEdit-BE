@@ -14,7 +14,6 @@ const registerInformation: CommandInfo = {
 registerCommand(registerInformation, function* (session, builder, args) {
     assertSelection(session);
     const mask = (<Mask>args.get("mask")).withContext(session);
-    const dimension = builder.dimension;
 
     const total = session.selection.getBlockCount();
     const count = yield* Jobs.run(session, 1, function* () {
@@ -22,7 +21,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
         let count = 0;
         yield Jobs.nextStep("commands.wedit:count.counting");
         for (const loc of session.selection.getBlocks()) {
-            const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
+            const block = yield* Jobs.loadBlock(loc);
             count += mask.matchesBlock(block) ? 1 : 0;
             yield Jobs.setProgress(++i / total);
         }

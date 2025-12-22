@@ -3,12 +3,13 @@ import { Vector, iterateChunk, whenReady } from "@notbeer-api";
 import { BlockUnit } from "./block_parsing";
 import { PlayerSession } from "server/sessions";
 import { History } from "./history";
+import { Jobs } from "./jobs";
 
 export interface BlockChanges {
     readonly dimension: Dimension;
 
-    getBlockPerm(loc: Vector3): BlockPermutation;
-    getBlock(loc: Vector3): BlockUnit;
+    getBlockPerm(loc: Vector3): Generator<any, BlockPermutation>;
+    getBlock(loc: Vector3): Generator<any, BlockUnit>;
     setBlock(loc: Vector3, block: BlockPermutation): void;
 
     applyIteration(): void;
@@ -37,20 +38,22 @@ class BlockChangeImpl implements BlockChanges {
         this.record = record;
     }
 
-    getBlockPerm(loc: Vector3) {
+    *getBlockPerm(loc: Vector3) {
         const key = this.vec2string(loc);
         const change = this.changes.get(key);
         try {
             if (change) return change;
-            if (!this.blockCache.has(key)) this.blockCache.set(key, this.dimension.getBlock(loc));
-            return this.blockCache.get(key).permutation ?? air;
+            if (!this.blockCache.has(key)) this.blockCache.set(key, yield* Jobs.loadBlock(loc));
+            const block = this.blockCache.get(key);
+            if (block && !block.isValid) yield* Jobs.loadArea(block, block);
+            return block.permutation ?? air;
         } catch {
             return air;
         }
     }
 
-    getBlock(loc: Vector3): BlockUnit {
-        const perm = this.getBlockPerm(loc);
+    *getBlock(loc: Vector3): Generator<any, BlockUnit> {
+        const perm = yield* this.getBlockPerm(loc);
         return {
             x: loc.x,
             y: loc.y,
@@ -98,14 +101,15 @@ class BlockChangeImpl implements BlockChanges {
         for (const range of this.ranges) yield* this.history.trackRegion(this.record, ...range);
 
         let i = 0;
-        for (const [loc, block] of this.changes.entries()) {
+        for (const [key, permutation] of this.changes.entries()) {
             try {
-                this.blockCache.get(loc).setPermutation(block);
+                const block = this.blockCache.get(key);
+                if (!block.isValid) yield* Jobs.loadArea(block, block);
+                this.blockCache.get(key).setPermutation(permutation);
             } catch {
                 /* pass */
             }
-            i++;
-            if (iterateChunk) yield i;
+            yield* iterateChunk(++i);
         }
 
         this.ranges.length = 0;
@@ -115,5 +119,10 @@ class BlockChangeImpl implements BlockChanges {
 
     private vec2string(vec: Vector3) {
         return "" + vec.x + "_" + vec.y + "_" + vec.z;
+    }
+
+    private string2vec(str: string) {
+        const [x, y, z] = str.split("_").map(Number);
+        return { x, y, z };
     }
 }

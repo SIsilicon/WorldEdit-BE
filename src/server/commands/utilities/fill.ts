@@ -22,7 +22,6 @@ interface fillContext extends FloodFillContext {
 }
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const dimension = builder.dimension;
     const fillDir = (<Cardinal>args.get("direction")).getDirection(builder);
     const depth: number = args.get("depth");
     const startBlock = session.getPlacementPosition();
@@ -51,7 +50,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
+                pattern.setBlock(yield* Jobs.loadBlock(loc));
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

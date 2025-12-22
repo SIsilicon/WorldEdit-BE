@@ -81,7 +81,6 @@ class DrawLineTool extends GeneratorTool {
         const [start, end] = regionBounds([pos1, pos2]);
         this.clearFirstPos(session);
 
-        const dim = player.dimension;
         const pattern = session.globalPattern.withContext(session, [start, end]);
         const mask = session.globalMask.withContext(session);
 
@@ -92,7 +91,7 @@ class DrawLineTool extends GeneratorTool {
             yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of plotLine(pos1, pos2)) {
-                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                const block = yield* Jobs.loadBlock(point);
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }
@@ -151,8 +150,6 @@ class DrawCurveTool extends GeneratorTool {
         this.clearFirstPos(session);
         this.paths.delete(session);
 
-        const dim = player.dimension;
-
         const history = session.history;
         const record = history.record();
         let count: number;
@@ -166,7 +163,7 @@ class DrawCurveTool extends GeneratorTool {
             yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of blocks) {
-                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                const block = yield* Jobs.loadBlock(point);
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield;
             }

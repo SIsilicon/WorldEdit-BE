@@ -46,12 +46,12 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 for (let z = min.z; z <= max.z; z++) {
                     const trace = new Vector(x, max.y, z);
                     while (trace.y >= min.y) {
-                        const block = blockChanges.getBlock(trace);
+                        const block = yield* blockChanges.getBlock(trace);
                         if (!isAirOrFluid(block.permutation) && surfaceMask.matchesBlock(block)) {
                             for (let i = 0; i < Math.abs(depth); i++) {
                                 const loc = trace.offset(0, depth > 0 ? -i : i + 1, 0);
                                 if (loc.y < min.y || loc.y > max.y) break;
-                                const block = blockChanges.getBlock(loc);
+                                const block = yield* blockChanges.getBlock(loc);
                                 if (globalMask.matchesBlock(block)) pattern.setBlock(block);
                             }
                             break;

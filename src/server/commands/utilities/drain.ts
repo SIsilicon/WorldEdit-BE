@@ -60,7 +60,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc));
+                const block = yield* Jobs.loadBlock(loc);
                 if (drainWaterLogged && !block.typeId.match(fluidMatch)) block.setWaterlogged(false);
                 else block.setType("air");
                 yield Jobs.setProgress(i++ / blocks.size);

@@ -18,7 +18,6 @@ const registerInformation: CommandInfo = {
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const dimension = builder.dimension;
     const fillDir = (args.get("direction") as Cardinal).getDirection(builder);
     const depth: number = args.get(args.get("depth") == -1 ? "radius" : "depth");
     const startBlock = session.getPlacementPosition();
@@ -45,7 +44,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                pattern.setBlock(dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)));
+                pattern.setBlock(yield* Jobs.loadBlock(loc));
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

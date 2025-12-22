@@ -1,4 +1,4 @@
-import { Server, RawText, Thread, getCurrentThread, sleep, regionIterateChunks, whenReady } from "@notbeer-api";
+import { Server, RawText, Thread, getCurrentThread, sleep, regionIterateChunks, whenReady, Vector } from "@notbeer-api";
 import { Player, Dimension, Vector3, system, world, TickingAreaManager } from "@minecraft/server";
 import { PlayerSession, getSession } from "server/sessions";
 import { UnloadedChunksError } from "./assert";
@@ -97,7 +97,7 @@ class JobHandler {
     }
 
     public *loadBlock(loc: Vector3, ctx: JobContext = this.current) {
-        if (!(yield* this.loadArea(loc, loc, ctx))) return undefined;
+        if (!(yield* this.loadArea(Vector.sub(loc, [16, 0, 16]), Vector.add(loc, [16, 0, 16]), ctx))) return undefined;
         return this.jobs.get(ctx).dimension.getBlock(loc);
     }
 

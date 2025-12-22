@@ -56,14 +56,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
                     let base = min.y;
                     if (additive) {
                         const testAt = { x, z, y: base };
-                        if (!dimension.isChunkLoaded(testAt)) yield* Jobs.loadArea(testAt, testAt);
+                        yield* Jobs.loadArea(testAt, testAt);
                         base = dimension.getTopmostBlock({ x, z }, max.y).y + 1;
                     }
 
                     for (let y = base; y <= Math.min(base + terrainHeight, max.y); y++) {
                         const loc = new Vector(x, y, z);
-                        if (!dimension.isChunkLoaded(loc)) yield* Jobs.loadArea(loc, loc);
-                        pattern.setBlock(changes.getBlock(loc));
+                        pattern.setBlock(yield* changes.getBlock(loc));
                     }
 
                     processed++;

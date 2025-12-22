@@ -219,7 +219,7 @@ export abstract class Shape {
                     yield Jobs.setProgress(progress / volume);
                     progress++;
                     if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                        const block = dimension.getBlock(blockLoc) ?? (yield* Jobs.loadBlock(blockLoc));
+                        const block = yield* Jobs.loadBlock(blockLoc);
                         if (simpleMask || mask.matchesBlock(block)) {
                             blocks.push(block);
                             blocksAffected++;

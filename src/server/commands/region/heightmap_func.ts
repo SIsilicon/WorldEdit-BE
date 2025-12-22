@@ -130,7 +130,7 @@ export function* modifyHeight(
 
                 let h: Vector3;
                 for (h = new Vector(coords.x, yRange[1], coords.z); h.y >= yRange[0]; h.y--) {
-                    const block = dim.getBlock(h) ?? (yield* Jobs.loadBlock(h))!;
+                    const block = (yield* Jobs.loadBlock(h))!;
                     if (!block.isAir && heightMask.matchesBlock(block)) break;
                 }
 
@@ -165,7 +165,7 @@ export function* modifyHeight(
             warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
                 function* canSmooth(loc: Vector3) {
                     const globalLoc = Vector.add(loc, min);
-                    const block = dim.getBlock(globalLoc) ?? (yield* Jobs.loadBlock(globalLoc))!;
+                    const block = (yield* Jobs.loadBlock(globalLoc))!;
                     return block.isAir || mask!.matchesBlock(block);
                 }
 

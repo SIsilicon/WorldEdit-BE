@@ -39,9 +39,8 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             yield Jobs.nextStep("commands.wedit:blocks.calculating");
             const locStringSet: Set<string> = new Set();
             for (const loc of session.selection.getBlocks()) {
-                if (iterateChunk()) yield Jobs.setProgress(progress / volume);
+                yield* iterateChunk(Jobs.setProgress(++progress / volume));
                 locStringSet.add(locToString(loc));
-                progress++;
             }
 
             progress = 0;
@@ -57,7 +56,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                     yield Jobs.setProgress(progress / volume);
                     progress++;
                     if (!locStringSet.has(locString)) continue;
-                    if (!Server.block.isAirOrFluid((dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)!)).permutation)) continue;
+                    if (!Server.block.isAirOrFluid((yield* Jobs.loadBlock(loc)!).permutation)) continue;
                     locStringSet.delete(locString);
                     for (const offset of [
                         [0, 1, 0],
@@ -92,7 +91,7 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
                     }
                 }
                 for (const locString of surface) {
-                    if (iterateChunk()) yield Jobs.setProgress(progress / volume);
+                    yield* iterateChunk(Jobs.setProgress(progress / volume));
                     progress += 0.5 / thickness;
                     locStringSet.delete(locString);
                 }
@@ -104,10 +103,9 @@ function* hollow(session: PlayerSession, pattern: Pattern, thickness: number): G
             yield* history.trackRegion(record, min, max);
             for (const locString of locStringSet) {
                 const loc = stringToLoc(locString);
-                const block = dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)!);
+                const block = (yield* Jobs.loadBlock(loc))!;
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
-                if (iterateChunk()) yield Jobs.setProgress(progress / volume);
-                progress++;
+                yield* iterateChunk(Jobs.setProgress(++progress / volume));
             }
         }
 

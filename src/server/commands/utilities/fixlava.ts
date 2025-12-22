@@ -40,7 +40,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                dimension.getBlock(loc) ?? (yield* Jobs.loadBlock(loc)).setType("lava");
+                (yield* Jobs.loadBlock(loc)).setType("lava");
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);

@@ -23,7 +23,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const thickness = <number>args.get("thickness");
 
     const points = session.selection.points;
-    const dim = builder.dimension;
     let count: number;
 
     yield* Jobs.run(session, 1, function* () {
@@ -42,7 +41,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, start, end);
             count = 0;
             for (const point of blocks) {
-                const block = dim.getBlock(point) ?? (yield* Jobs.loadBlock(point));
+                const block = yield* Jobs.loadBlock(point);
                 if (mask.matchesBlock(block) && pattern.setBlock(block)) count++;
                 yield count / blocks.size;
             }
