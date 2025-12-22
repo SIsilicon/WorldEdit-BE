@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-12-21 15:40\n"
+"PO-Revision-Date: 2025-12-22 00:33\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -493,11 +493,32 @@ msgstr "历史记录仍在进行！"
 msgid "worldedit.error.tickArea"
 msgstr "创建常加载区块失败"
 
-msgid "commands.blocks.wedit:changed"
-msgstr "%s 个方块已被更改。"
+msgid "commands.wedit:blocks.changed"
+msgstr "%s blocks have been changed."
 
-msgid "commands.blocks.wedit:created"
-msgstr "%s 个方块已被创建。"
+msgid "commands.wedit:blocks.created"
+msgstr "%s blocks have been created."
+
+msgid "commands.wedit:blocks.calculating"
+msgstr "Calculating shape..."
+
+msgid "commands.wedit:blocks.generating"
+msgstr "Generating blocks..."
+
+msgid "commands.wedit:blocks.calculating_generating"
+msgstr "Calculating and Generating blocks..."
+
+msgid "commands.wedit:transform.getting"
+msgstr "Getting blocks..."
+
+msgid "commands.wedit:transform.transforming"
+msgstr "Transforming blocks..."
+
+msgid "commands.wedit:heightmap.getting"
+msgstr "Getting heightmap..."
+
+msgid "commands.wedit:heightmap.placing"
+msgstr "Placing blocks..."
 
 msgid "commands.generic.wedit:commandFail"
 msgstr "无法执行此命令。"
@@ -549,6 +570,12 @@ msgstr "您当前坐标的生物群系为:%s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "您当前选区内的生物群系为:%s"
+
+msgid "commands.wedit:biome.setting"
+msgstr "Setting biome data..."
+
+msgid "commands.wedit:biome.reading"
+msgstr "Reading biome data..."
 
 msgid "commands.wedit:blockid.description"
 msgstr "显示你所看到方块的id与状态。"
@@ -706,8 +733,14 @@ msgstr "将选区复制到剪贴板"
 msgid "commands.wedit:copy.explain"
 msgstr "已复制 %s 个方块。"
 
+msgid "commands.wedit:copy.copying"
+msgstr "Copying blocks..."
+
 msgid "commands.wedit:count.description"
 msgstr "计数匹配掩码的方块数量"
+
+msgid "commands.wedit:count.counting"
+msgstr "Counting blocks..."
 
 msgid "commands.wedit:count.explain"
 msgstr "找到 %s 个方块。"
@@ -730,8 +763,14 @@ msgstr "生成一个圆柱体"
 msgid "commands.wedit:distr.description"
 msgstr "分析选择中不同方块的数量"
 
+msgid "commands.wedit:distr.analysing"
+msgstr "Analysing blocks..."
+
 msgid "commands.wedit:drain.description"
 msgstr "消耗附近的液体"
+
+msgid "commands.wedit:drain.draining"
+msgstr "Calculating and Draining blocks..."
 
 msgid "commands.wedit:drain.noFluid"
 msgstr "你需要靠近某些水或熔岩来排水。"
@@ -769,6 +808,9 @@ msgstr "扑灭附近的火焰"
 msgid "commands.wedit:faces.description"
 msgstr "基于您的选区生成轮廓"
 
+msgid "commands.wedit:overlay.description"
+msgstr "Overlay blocks on surfaces within the selection"
+
 msgid "commands.wedit:fill.description"
 msgstr "用特定方块填充区域"
 
@@ -778,11 +820,17 @@ msgstr "用某些方块递归填充区域"
 msgid "commands.wedit:fixlava.description"
 msgstr "使附近的熔岩变成熔岩源"
 
+msgid "commands.wedit:fixlava.fixing"
+msgstr "Calculating and Fixing lava..."
+
 msgid "commands.wedit:fixlava.noLava"
 msgstr "你需要靠近熔岩来修复。"
 
 msgid "commands.wedit:fixwater.description"
 msgstr "使附近的水变成水源"
+
+msgid "commands.wedit:fixwater.fixing"
+msgstr "Calculating and Fixing water..."
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "你需要靠近水才能修复。"
@@ -964,6 +1012,9 @@ msgstr "已扩展区域。"
 msgid "commands.wedit:paste.description"
 msgstr "将您的剪切板粘贴至这个世界"
 
+msgid "commands.wedit:paste.pasting"
+msgstr "Pasting blocks..."
+
 msgid "commands.wedit:paste.explain"
 msgstr "已粘贴%s个方块"
 
@@ -1141,6 +1192,9 @@ msgstr "超级镐子处于：单方块破坏模式"
 msgid "commands.wedit:thaw.description"
 msgstr "使暴露于天空的冰雪融化"
 
+msgid "commands.wedit:utility.raycasting"
+msgstr "Raycasting..."
+
 msgid "commands.wedit:stack.description"
 msgstr "重复当前选区的内容"
 
@@ -1170,6 +1224,9 @@ msgstr "生成一个圆环"
 
 msgid "commands.wedit:terrain.description"
 msgstr "Generate terrain with noise"
+
+msgid "commands.wedit:terrain.generating"
+msgstr "Generating terrain..."
 
 msgid "commands.wedit:ascend.description"
 msgstr "上升一层"
