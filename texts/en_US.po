@@ -340,6 +340,8 @@ msgid "worldedit.selection.sphere.primary"
 msgstr "Radius set to %1."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius set to %1 (~%2)."
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
 
 msgid "worldedit.tool.noItem"
 msgstr "An item must be in your main hand."

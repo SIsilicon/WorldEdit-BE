@@ -60,12 +60,13 @@ export abstract class Selection {
     public abstract getRange(): [Vector, Vector];
 }
 
-class DefaultSelection extends Selection {
+export class DefaultSelection extends Selection {
     public visible: boolean | "local" = config.drawOutlines;
+
+    protected shape: [Shape, Vector] | undefined;
 
     private _mode: selectMode = "cuboid";
     private _points: Vector[] = [];
-    private _shape: [Shape, Vector] | undefined;
 
     get isEmpty() {
         let points = 0;
@@ -155,7 +156,7 @@ class DefaultSelection extends Selection {
      * @returns
      */
     public getShape(): [Shape, Vector] | undefined {
-        return this._shape;
+        return this.shape;
     }
 
     /**
@@ -163,7 +164,6 @@ class DefaultSelection extends Selection {
      */
     public *getBlocks(options?: shapeGenOptions) {
         if (this.isEmpty) return;
-
         const [shape, loc] = this.getShape();
         yield* shape.getBlocks(loc, options);
     }
@@ -197,25 +197,25 @@ class DefaultSelection extends Selection {
         return undefined;
     }
 
-    private updateShape() {
+    protected updateShape() {
         if (this.isEmpty) {
-            this._shape = undefined;
+            this.shape = undefined;
         } else if (this.isCuboid) {
             const [start, end] = regionBounds(this._points);
             const size = Vector.sub(end, start).add(1);
-            this._shape = [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
+            this.shape = [new CuboidShape(size.x, size.y, size.z), Vector.from(start)];
         } else if (this._mode == "sphere") {
             const center = this._points[0];
             const radius = Vector.sub(this._points[1], this._points[0]).length;
-            this._shape = [new SphereShape(radius), center];
+            this.shape = [new SphereShape(radius), center];
         } else if (this._mode == "cylinder") {
             const center = this._points[0];
             const vec = Vector.sub(this._points[1], this._points[0]);
             const height = Math.abs(vec.y) + 1;
-            this._shape = [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
+            this.shape = [new CylinderShape(height, Math.round(vec.mul([1, 0, 1]).length)), center.offset(0, height / 2, 0)];
         } else if (this._mode == "convex") {
-            this._shape = this._points.length >= 4 ? [new ConvexShape(this._points), Vector.ZERO] : undefined;
-            if (this._shape) (this._shape[0] as ConvexShape).drawCurve = true;
+            this.shape = this._points.length >= 4 ? [new ConvexShape(this._points), Vector.ZERO] : undefined;
+            if (this.shape) (this.shape[0] as ConvexShape).drawCurve = true;
         }
     }
 }

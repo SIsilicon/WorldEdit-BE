@@ -1,62 +1,60 @@
 import { EditorModule } from "./base";
-import { BlockVolume, Player } from "@minecraft/server";
-import { Vector } from "@notbeer-api";
+import { BlockVolume, Player, system } from "@minecraft/server";
 import { IPlayerUISession, SelectionContainerVolume, SelectionManager } from "@minecraft/server-editor";
-import { Selection, setSelectionClass } from "@modules/selection";
-import { Shape } from "server/shapes/base_shape";
-import { CuboidShape } from "server/shapes/cuboid";
+import { DefaultSelection, setSelectionClass } from "@modules/selection";
+import { Vector } from "@notbeer-api";
+import { VolumeShape } from "editor/shapes/volume";
+import { getSession } from "server/sessions";
 
 const selections = new WeakMap<Player, SelectionManager>();
+const ignoreSelectionUpdates = new WeakMap<Player, number>();
 
-class EditorSelection extends Selection {
-    public mode: "cuboid" | "extend" | "sphere" | "cylinder" | "volume" = "extend";
+function ignoreSelectionUpdate(player: Player) {
+    if (ignoreSelectionUpdates.has(player)) system.clearRun(ignoreSelectionUpdates.get(player));
+    ignoreSelectionUpdates.set(
+        player,
+        system.runTimeout(() => ignoreSelectionUpdates.delete(player), 2)
+    );
+}
 
-    public visible = true;
+class EditorSelection extends DefaultSelection {
+    private shapeBuildJob: number | undefined;
 
-    get isEmpty() {
-        return !this.volume || this.volume.isEmpty;
+    public updateVolumeShape() {
+        this.set(0, Vector.ZERO);
+        this.set(1, Vector.ZERO);
+        this.shape = [new VolumeShape(this.volume.get()), Vector.ZERO];
     }
 
-    get isCuboid() {
-        return this.volume.get().getVolumeList().length === 1;
-    }
+    protected updateShape() {
+        super.updateShape();
 
-    get points() {
-        const volume = this.volume.get();
-        if (this.isCuboid) return [volume.getVolumeList()[0].from, volume.getVolumeList()[0].to].map((v) => Vector.from(v));
-        else if (this.isEmpty) return [undefined, undefined];
-        else return [volume.getMin(), volume.getMax()].map((v) => Vector.from(v));
-    }
+        if (this.shapeBuildJob !== undefined) {
+            system.clearRun(this.shapeBuildJob);
+            this.shapeBuildJob = undefined;
+        }
 
-    set(index: 0 | 1, loc: Vector): void {
-        if (this.isEmpty) this.volume.add(new BlockVolume(loc, loc));
+        if (this.mode === "volume") return;
 
-        const volume = this.volume.get().getVolumeList()[0];
-        volume[index === 0 ? "from" : "to"] = loc;
-        this.volume.set(volume);
-    }
-
-    clear() {
-        this.volume.clear();
-    }
-
-    getShape(): [Shape, Vector] | undefined {
-        const box = this.volume.getBoundingBox();
-        const size = Vector.sub(box.max, box.min).add(1);
-        return [new CuboidShape(size.x, size.y, size.z), Vector.from(box.min)];
-    }
-
-    *getBlocks() {
-        for (const block of this.volume.get().getBlockLocationIterator()) yield block;
-    }
-
-    getBlockCount() {
-        return this.volume.volumeCount;
-    }
-
-    getRange(): [Vector, Vector] {
-        const box = this.volume.getBoundingBox();
-        return [Vector.from(box.min), Vector.from(box.max)];
+        if (this.isEmpty) {
+            this.volume.clear();
+        } else if (this.isCuboid) {
+            this.volume.set(new BlockVolume(...this.getRange()));
+        } else {
+            this.volume.clear();
+            this.shapeBuildJob = system.runJob(
+                function* (this: EditorSelection) {
+                    const blocks = [];
+                    for (const block of this.getBlocks()) {
+                        blocks.push(block);
+                        yield;
+                    }
+                    this.volume.set(blocks);
+                    ignoreSelectionUpdate(this.player);
+                }.call(this)
+            );
+        }
+        ignoreSelectionUpdate(this.player);
     }
 
     private get volume(): SelectionContainerVolume {
@@ -68,7 +66,27 @@ setSelectionClass(EditorSelection);
 export class SelectionModule extends EditorModule {
     constructor(session: IPlayerUISession) {
         super(session);
-        selections.set(this.player, this.session.extensionContext.selectionManager);
+        const selection = this.session.extensionContext.selectionManager;
+        selections.set(this.player, selection);
+
+        this.session.extensionContext.afterEvents.SelectionChange.subscribe(() => {
+            if (ignoreSelectionUpdates.has(this.player)) return;
+
+            const worldEditSelection = getSession(this.player).selection as EditorSelection;
+            if (selection.volume.isEmpty) {
+                worldEditSelection.clear();
+            } else if (selection.volume.volumeCount === 1) {
+                if (!worldEditSelection.isCuboid) worldEditSelection.mode = "cuboid";
+                const { min, max } = selection.volume.getBoundingBox();
+                worldEditSelection.set(0, Vector.from(min));
+                worldEditSelection.set(1, Vector.from(max));
+            } else {
+                if (worldEditSelection.mode !== "volume") {
+                    worldEditSelection.mode = "volume";
+                    worldEditSelection.updateVolumeShape();
+                }
+            }
+        });
     }
 
     teardown() {
