@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-08-29 00:34\n"
+"PO-Revision-Date: 2025-12-22 19:33\n"
 
 msgid "pack.description"
 msgstr "Порт оригінальної модифікації Java, що знаходиться в розробці, і багато іншого! Доповнення від SIsilicon (§l§b@iSiliconS§r)."
@@ -499,6 +499,27 @@ msgstr "%s блоків змінено."
 msgid "commands.wedit:blocks.created"
 msgstr "%s блоків створено."
 
+msgid "commands.wedit:blocks.calculating"
+msgstr "Calculating shape..."
+
+msgid "commands.wedit:blocks.generating"
+msgstr "Generating blocks..."
+
+msgid "commands.wedit:blocks.calculating_generating"
+msgstr "Calculating and Generating blocks..."
+
+msgid "commands.wedit:transform.getting"
+msgstr "Getting blocks..."
+
+msgid "commands.wedit:transform.transforming"
+msgstr "Transforming blocks..."
+
+msgid "commands.wedit:heightmap.getting"
+msgstr "Getting heightmap..."
+
+msgid "commands.wedit:heightmap.placing"
+msgstr "Placing blocks..."
+
 msgid "commands.generic.wedit:commandFail"
 msgstr "Не вдалося виконати цю команду."
 
@@ -549,6 +570,12 @@ msgstr "Біом на якому ви є: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Біоми у вашому виділенні: %s"
+
+msgid "commands.wedit:biome.setting"
+msgstr "Setting biome data..."
+
+msgid "commands.wedit:biome.reading"
+msgstr "Reading biome data..."
 
 msgid "commands.wedit:blockid.description"
 msgstr "Виводить ідентифікатор та стани блоку, на який ви дивитеся."
@@ -706,8 +733,14 @@ msgstr "Скопіювати поточне виділення в буфер о�
 msgid "commands.wedit:copy.explain"
 msgstr "Скопійовано %s блоків."
 
+msgid "commands.wedit:copy.copying"
+msgstr "Copying blocks..."
+
 msgid "commands.wedit:count.description"
 msgstr "Кількість блоків, які відповідають масці"
+
+msgid "commands.wedit:count.counting"
+msgstr "Counting blocks..."
 
 msgid "commands.wedit:count.explain"
 msgstr "Переміщено %s блоків."
@@ -730,8 +763,14 @@ msgstr "Згенерувати циліндр"
 msgid "commands.wedit:distr.description"
 msgstr "Аналіз кількість різних блоків у виділенні"
 
+msgid "commands.wedit:distr.analysing"
+msgstr "Analysing blocks..."
+
 msgid "commands.wedit:drain.description"
 msgstr "Висушити найближчі рідини"
+
+msgid "commands.wedit:drain.draining"
+msgstr "Calculating and Draining blocks..."
 
 msgid "commands.wedit:drain.noFluid"
 msgstr "Вам потрібно бути близько до води або лави, щоб висушити."
@@ -769,6 +808,9 @@ msgstr "Погасити вогонь поблизу"
 msgid "commands.wedit:faces.description"
 msgstr "Створити контур у вашому регіоні"
 
+msgid "commands.wedit:overlay.description"
+msgstr "Overlay blocks on surfaces within the selection"
+
 msgid "commands.wedit:fill.description"
 msgstr "Заповнити область певними блоками"
 
@@ -778,11 +820,17 @@ msgstr "Рекурсивно заповнити область певними б
 msgid "commands.wedit:fixlava.description"
 msgstr "Зробити сусідні блоки лави блоками джерела"
 
+msgid "commands.wedit:fixlava.fixing"
+msgstr "Calculating and Fixing lava..."
+
 msgid "commands.wedit:fixlava.noLava"
 msgstr "Вам потрібно бути близько до лави, щоб виправити."
 
 msgid "commands.wedit:fixwater.description"
 msgstr "Зробити сусідні блоки води в повні блоки води"
+
+msgid "commands.wedit:fixwater.fixing"
+msgstr "Calculating and Fixing water..."
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "Вам потрібно бути близько до води, щоб виправити."
@@ -964,6 +1012,9 @@ msgstr "Початок регіону."
 msgid "commands.wedit:paste.description"
 msgstr "Вставити дані з буфер обміну у світ"
 
+msgid "commands.wedit:paste.pasting"
+msgstr "Pasting blocks..."
+
 msgid "commands.wedit:paste.explain"
 msgstr "Вставлено %s блоків."
 
@@ -1141,6 +1192,9 @@ msgstr "Режим супер кайла: одинарний."
 msgid "commands.wedit:thaw.description"
 msgstr "Розтопити сніг і лід, виставлені на небо"
 
+msgid "commands.wedit:utility.raycasting"
+msgstr "Raycasting..."
+
 msgid "commands.wedit:stack.description"
 msgstr "Повторити вміст поточного виділення"
 
@@ -1167,6 +1221,12 @@ msgstr "Перед вами не знайдено вільного місця."
 
 msgid "commands.wedit:torus.description"
 msgstr "Згенерувати тор."
+
+msgid "commands.wedit:terrain.description"
+msgstr "Generate terrain with noise"
+
+msgid "commands.wedit:terrain.calculating"
+msgstr "Calculating terrain..."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Піднятися вверх"

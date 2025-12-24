@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-08-29 00:34\n"
+"PO-Revision-Date: 2025-12-22 19:33\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -499,6 +499,27 @@ msgstr "%sBloklar değişti."
 msgid "commands.wedit:blocks.created"
 msgstr "%sBloklar Yaratıldı."
 
+msgid "commands.wedit:blocks.calculating"
+msgstr "Calculating shape..."
+
+msgid "commands.wedit:blocks.generating"
+msgstr "Generating blocks..."
+
+msgid "commands.wedit:blocks.calculating_generating"
+msgstr "Calculating and Generating blocks..."
+
+msgid "commands.wedit:transform.getting"
+msgstr "Getting blocks..."
+
+msgid "commands.wedit:transform.transforming"
+msgstr "Transforming blocks..."
+
+msgid "commands.wedit:heightmap.getting"
+msgstr "Getting heightmap..."
+
+msgid "commands.wedit:heightmap.placing"
+msgstr "Placing blocks..."
+
 msgid "commands.generic.wedit:commandFail"
 msgstr "Bu komutu yürütmekte hata oluştu."
 
@@ -549,6 +570,12 @@ msgstr "Pozisyonundaki biyomlar: %s"
 
 msgid "commands.wedit:biomeinfo.selection"
 msgstr "Seçimindeki biyomlar: %s"
+
+msgid "commands.wedit:biome.setting"
+msgstr "Setting biome data..."
+
+msgid "commands.wedit:biome.reading"
+msgstr "Reading biome data..."
 
 msgid "commands.wedit:blockid.description"
 msgstr "Baktığınız bloğun id'sini ve durumlarını yazdırır."
@@ -706,8 +733,14 @@ msgstr "Geçerli seçimi panoya kopyala"
 msgid "commands.wedit:copy.explain"
 msgstr "%s Blok kopyalandı."
 
+msgid "commands.wedit:copy.copying"
+msgstr "Copying blocks..."
+
 msgid "commands.wedit:count.description"
 msgstr "Bir maskeyle eşleşen blok sayısını sayın"
+
+msgid "commands.wedit:count.counting"
+msgstr "Counting blocks..."
 
 msgid "commands.wedit:count.explain"
 msgstr "%s blok bulundu."
@@ -730,8 +763,14 @@ msgstr "Silindir oluştur"
 msgid "commands.wedit:distr.description"
 msgstr "Seçimdeki farklı blokların miktarını analiz et"
 
+msgid "commands.wedit:distr.analysing"
+msgstr "Analysing blocks..."
+
 msgid "commands.wedit:drain.description"
 msgstr "Yakındaki sıvıları kurut"
+
+msgid "commands.wedit:drain.draining"
+msgstr "Calculating and Draining blocks..."
 
 msgid "commands.wedit:drain.noFluid"
 msgstr "Kurutmak için suya ya da lava yakın olmalısınız."
@@ -769,6 +808,9 @@ msgstr "Yakındaki ateşleri söndür"
 msgid "commands.wedit:faces.description"
 msgstr "Seçimden bir anahat oluşturun"
 
+msgid "commands.wedit:overlay.description"
+msgstr "Overlay blocks on surfaces within the selection"
+
 msgid "commands.wedit:fill.description"
 msgstr "Bir bölgeyi belirli bloklarla doldur"
 
@@ -778,11 +820,17 @@ msgstr "Bir bölgeyi tekrarlı olarak belirli bloklarla doldur"
 msgid "commands.wedit:fixlava.description"
 msgstr "Yakında akan lav bloklarını kaynağa dönüştürün"
 
+msgid "commands.wedit:fixlava.fixing"
+msgstr "Calculating and Fixing lava..."
+
 msgid "commands.wedit:fixlava.noLava"
 msgstr "Düzeltmek için yakınınızda lav olmalı."
 
 msgid "commands.wedit:fixwater.description"
 msgstr "Yakında akan su bloklarını kaynağa dönüştürün"
+
+msgid "commands.wedit:fixwater.fixing"
+msgstr "Calculating and Fixing water..."
 
 msgid "commands.wedit:fixwater.noWater"
 msgstr "Düzeltmek için yakınınızda su olmalı."
@@ -964,6 +1012,9 @@ msgstr "Region outset."
 msgid "commands.wedit:paste.description"
 msgstr "Paste your clipboard into the world"
 
+msgid "commands.wedit:paste.pasting"
+msgstr "Pasting blocks..."
+
 msgid "commands.wedit:paste.explain"
 msgstr "Pasted %s blocks."
 
@@ -1141,6 +1192,9 @@ msgstr "Super pickaxe mode is now: single."
 msgid "commands.wedit:thaw.description"
 msgstr "Melt snow and ice exposed to the sky"
 
+msgid "commands.wedit:utility.raycasting"
+msgstr "Raycasting..."
+
 msgid "commands.wedit:stack.description"
 msgstr "Repeat the contents of the current selection"
 
@@ -1167,6 +1221,12 @@ msgstr "No free spot ahead of you found."
 
 msgid "commands.wedit:torus.description"
 msgstr "Generate a torus."
+
+msgid "commands.wedit:terrain.description"
+msgstr "Generate terrain with noise"
+
+msgid "commands.wedit:terrain.calculating"
+msgstr "Calculating terrain..."
 
 msgid "commands.wedit:ascend.description"
 msgstr "Go up a floor"
