@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -448,6 +448,9 @@ msgstr "Radius satt til %1."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius satt til %1 (~%2)."
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "En gjenstand må være i hovedhånden din."
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Kunne ikke opprette et midlertidig sevoppdaterende område!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blokker har blitt endret."
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blokker har blitt opprettet."
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
