@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -448,6 +448,9 @@ msgstr "半径设置为 %1"
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "半径设置为 %1 (~%2)"
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "一个物品必须放在您的主手位"
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "创建常加载区块失败"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s 个方块已被更改。"
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s 个方块已被创建。"
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
