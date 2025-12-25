@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -448,6 +448,9 @@ msgstr "범위가 %1로 설정되었습니다."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "범위가 %1로 설정되었습니다. (~%2 까지)"
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "당신의 손에 아이템이 있어야 합니다."
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "임시 틱 로딩 구역을 만드는 데 실패했습니다!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s 블록이 바뀌었습니다."
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s 블록이 생성되었습니다."
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
