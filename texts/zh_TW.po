@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -448,6 +448,9 @@ msgstr "範圍設定為 %1。"
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "範圍設定為 %1 (~%2)。"
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "你的主手必須有一個物品。"
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "無法建立臨時的刻區域！"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "已變更 %s 個方塊"
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "已建立 %s 個方塊"
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
