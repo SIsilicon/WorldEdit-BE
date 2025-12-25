@@ -3,6 +3,7 @@ import { Vertex } from "./vertex.js";
 import { HalfEdge } from "./halfedge.js";
 import { Face, Mark } from "./face.js";
 import { axis, Vector } from "@notbeer-api";
+import { Vector2 } from "@minecraft/server";
 
 type IFace = number[];
 
@@ -225,6 +226,32 @@ export class QuickHull {
             }
         }
         return true;
+    }
+
+    convexHull2d(v0: Vertex, v1: Vertex, v2: Vertex) {
+        const normal = getPlaneNormal(v0.point, v1.point, v2.point);
+        const u = v1.point.sub(v0.point);
+        const vVec = normal.cross(u);
+        const uNorm = u.normalized();
+        const vNorm = vVec.normalized();
+        const projected: Array<Vector2 & { index: number }> = [];
+        for (const vertex of this.vertices) {
+            const p = vertex.point;
+            const proj = p.sub(v0.point);
+            const x = proj.dot(uNorm);
+            const y = proj.dot(vNorm);
+            projected.push({ x, y, index: vertex.index });
+        }
+        const hullIndices = monotoneChain(projected);
+        const hullVertices = hullIndices.map((i) => this.vertices[i]);
+        this.faces = [];
+        if (hullVertices.length < 3) {
+            return;
+        }
+        for (let i = 1; i < hullVertices.length - 1; i++) {
+            const face = Face.createTriangle(hullVertices[0], hullVertices[i], hullVertices[i + 1]);
+            this.faces.push(face);
+        }
     }
 
     /**
@@ -741,10 +768,10 @@ export class QuickHull {
     build(): QuickHull {
         let eyeVertex: Vertex;
         const [v0, v1, v2, v3] = this.computeTetrahedronExtremes();
-        // if (this.allPointsBelongToPlane(v0, v1, v2)) {
-        //     this.convexHull2d(v0, v1, v2);
-        //     return this;
-        // }
+        if (this.allPointsBelongToPlane(v0, v1, v2)) {
+            this.convexHull2d(v0, v1, v2);
+            return this;
+        }
         this.createInitialSimplex(v0, v1, v2, v3);
         while ((eyeVertex = this.nextVertexToAdd())) {
             this.addVertexToHull(eyeVertex);
@@ -770,12 +797,34 @@ export function isPointInsideHull(point: Vector, points: Vector[], faces: IFace[
         const planeNormal = getPlaneNormal(a, b, c);
 
         // Get the point with respect to the first vertex of the face.
-        const pointAbsA = point.sub(a).add(planeNormal.mul(tolerance));
+        const pointAbsA = point.sub(a).add(planeNormal.normalized().mul(-tolerance));
         const dotProduct = planeNormal.dot(pointAbsA);
 
         if (dotProduct > 0) return false;
     }
     return true;
+}
+
+export function isPointInsideHull2D(point: Vector, points: Vector[], edges: Array<[number, number]>, tolerance = 0): boolean {
+    const px = point.x;
+    const py = point.y;
+    let inside = false;
+    for (let i = 0; i < edges.length; i++) {
+        const [ia, ib] = edges[i];
+        const a = points[ia];
+        const b = points[ib];
+        // apply tolerance to y to avoid precision issues
+        const ay = a.y - tolerance;
+        const by = b.y - tolerance;
+        // check if the horizontal ray to the right intersects the segment
+        if (ay > py !== by > py) {
+            const ax = a.x;
+            const bx = b.x;
+            const xint = ax + ((py - ay) * (bx - ax)) / (by - ay);
+            if (px <= xint) inside = !inside;
+        }
+    }
+    return inside;
 }
 
 function getPlaneNormal(p0: Vector, p1: Vector, p2: Vector): Vector {
@@ -791,4 +840,30 @@ function pointLineDistance(p: Vector, a: Vector, b: Vector) {
     const s = ab.lengthSqr;
     if (s === 0) throw Error("a and b are the same point");
     return area / s;
+}
+
+function monotoneChain(points: Array<Vector2 & { index: number }>): number[] {
+    if (points.length <= 1) return points.map((p) => p.index);
+    points.sort((a, b) => a.x - b.x || a.y - b.y);
+    const hull: Array<Vector2 & { index: number }> = [];
+    for (const p of points) {
+        while (hull.length >= 2 && crossProduct2d(hull[hull.length - 2], hull[hull.length - 1], p) <= 0) {
+            hull.pop();
+        }
+        hull.push(p);
+    }
+    const t = hull.length + 1;
+    for (let i = points.length - 2; i >= 0; i--) {
+        const p = points[i];
+        while (hull.length >= t && crossProduct2d(hull[hull.length - 2], hull[hull.length - 1], p) <= 0) {
+            hull.pop();
+        }
+        hull.push(p);
+    }
+    hull.pop();
+    return hull.map((p) => p.index);
+}
+
+function crossProduct2d(o: Vector2, a: Vector2, b: Vector2): number {
+    return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
 }

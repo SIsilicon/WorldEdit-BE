@@ -163,7 +163,7 @@ export class DefaultSelection extends Selection {
      * @return The blocks within the current selection
      */
     public *getBlocks(options?: shapeGenOptions) {
-        if (this.isEmpty) return;
+        if (this.isEmpty || !this.getShape()) return;
         const [shape, loc] = this.getShape();
         yield* shape.getBlocks(loc, options);
     }
