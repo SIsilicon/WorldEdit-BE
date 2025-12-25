@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -448,6 +448,9 @@ msgstr "Yarıçap %1 olarak ayarlandı."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Yarıçap %1 (~%2) olarak ayarlandı"
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "Bir eşya elinde olmalı."
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Geçici bir işaretleme alanı oluşturulamadı!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%sBloklar değişti."
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%sBloklar Yaratıldı."
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
