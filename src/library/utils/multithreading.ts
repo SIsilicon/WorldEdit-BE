@@ -6,7 +6,8 @@ import { setTickTimeout, sleep } from "./scheduling.js";
 let threadId = 1;
 
 const threads: Thread[] = [];
-const promiseData = new Map<Thread, unknown>();
+const tasks = new WeakMap<Thread, Generator>();
+const promises = new WeakMap<Thread, unknown>();
 const waitForPromise = { waitingForPromise: true } as const;
 
 class ErrorPackage {
@@ -17,7 +18,6 @@ class ErrorPackage {
 class Thread<T extends any[] = any[]> {
     public readonly id: number;
 
-    private task: Generator<unknown>;
     private active = false;
     private valid = true;
 
@@ -25,12 +25,20 @@ class Thread<T extends any[] = any[]> {
         this.id = ++threadId;
     }
 
+    get isActive() {
+        return this.active;
+    }
+
+    get isValid() {
+        return this.active;
+    }
+
     start(task: (...args: T) => Generator<unknown>, ...args: T) {
         if (!this.valid) {
             return;
         }
 
-        this.task = task(...args);
+        tasks.set(this, task(...args));
         threads.unshift(this);
         this.active = true;
         this.valid = false;
@@ -44,11 +52,12 @@ class Thread<T extends any[] = any[]> {
         if (threads.includes(this)) threads.splice(threads.indexOf(this), 1);
         this.active = false;
 
-        while (Object.is(promiseData.get(this), waitForPromise)) await sleep(1);
+        while (Object.is(promises.get(this), waitForPromise)) await sleep(1);
 
-        let promiseRes = promiseData.get(this);
-        promiseData.delete(this);
-        let next = promiseRes instanceof ErrorPackage ? this.task.throw(promiseRes.err) : this.task.next(promiseRes);
+        let promiseRes = promises.get(this);
+        const task = tasks.get(this);
+        promises.delete(this);
+        let next = promiseRes instanceof ErrorPackage ? task.throw(promiseRes.err) : task.next(promiseRes);
         while (!next.done) {
             if (next.value instanceof Promise) {
                 try {
@@ -57,7 +66,7 @@ class Thread<T extends any[] = any[]> {
                     promiseRes = new ErrorPackage(err);
                 }
             }
-            next = promiseRes instanceof ErrorPackage ? this.task.throw(promiseRes.err) : this.task.next(promiseRes);
+            next = promiseRes instanceof ErrorPackage ? task.throw(promiseRes.err) : task.next(promiseRes);
             promiseRes = undefined;
         }
     }
@@ -65,20 +74,8 @@ class Thread<T extends any[] = any[]> {
     abort() {
         if (this.valid || !this.active) return;
         if (threads.includes(this)) threads.splice(threads.indexOf(this), 1);
-        promiseData.delete(this);
+        promises.delete(this);
         this.active = false;
-    }
-
-    /**
-     * @internal
-     * @returns The generator task
-     */
-    getTask() {
-        return this.task;
-    }
-
-    isActive() {
-        return this.active;
     }
 
     toString() {
@@ -91,26 +88,27 @@ system.runInterval(() => {
     const ms = Date.now();
     while (Date.now() - ms < configuration.multiThreadingTimeBudget && threads.length) {
         const thread = threads.pop();
+        const task = tasks.get(thread);
         currentThread = thread;
         try {
-            const promiseRes = promiseData.get(thread);
+            const promiseRes = promises.get(thread);
             if (Object.is(promiseRes, waitForPromise)) {
                 setTickTimeout(() => threads.unshift(thread));
                 continue;
             }
-            promiseData.delete(thread);
-            const next = promiseRes instanceof ErrorPackage ? thread.getTask().throw(promiseRes.err) : thread.getTask().next(promiseRes);
+            promises.delete(thread);
+            const next = promiseRes instanceof ErrorPackage ? task.throw(promiseRes.err) : task.next(promiseRes);
             if (next.done) {
                 thread.join();
                 continue;
             } else if (next.value instanceof Promise) {
-                promiseData.set(thread, waitForPromise);
-                next.value.then((result) => promiseData.set(thread, result)).catch((err) => promiseData.set(thread, new ErrorPackage(err)));
+                promises.set(thread, waitForPromise);
+                next.value.then((result) => promises.set(thread, result)).catch((err) => promises.set(thread, new ErrorPackage(err)));
             }
             threads.unshift(thread);
         } catch (e) {
             contentLog.error(e);
-            thread.getTask().throw(e);
+            task.throw(e);
             thread.join();
         }
         currentThread = undefined;
