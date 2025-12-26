@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -447,6 +447,9 @@ msgstr "Radius set to %1."
 
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius set to %1 (~%2)."
+
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
 
 msgid "worldedit.tool.noItem"
 msgstr "An item must be in your main hand."

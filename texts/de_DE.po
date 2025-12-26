@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2025-12-25 19:53\n"
 
 msgid "pack.description"
 msgstr "Ein Entwicklungs-Port der ursprünglichen Java-Mod und mehr! Addon von Slsilicon (§l§b@iSiliconS§r)."
@@ -448,6 +448,9 @@ msgstr "Radius gesetzt auf %1."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Radius gesetzt auf %1 (~%2)."
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "Ein Objekt muss in Ihrer Haupthand sein."
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s Blöcke wurden geändert."
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s Blöcke wurden erstellt."
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
