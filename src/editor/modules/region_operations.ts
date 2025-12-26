@@ -1,15 +1,16 @@
 /* eslint-disable prefer-const */
-import { IPlayerUISession, Widget, WidgetComponentClipboard, WidgetGroupSelectionMode } from "@minecraft/server-editor";
+import { IPlayerUISession, ProgressIndicatorPropertyItemVariant, Widget, WidgetComponentClipboard, WidgetGroupSelectionMode } from "@minecraft/server-editor";
 import { UIPane } from "editor/pane/builder";
 import { EditorModule } from "./base";
 import { Pattern } from "@modules/pattern";
-import { regionSize, Server, Vector } from "@notbeer-api";
+import { regionSize, Server, Thread, Vector } from "@notbeer-api";
 import { PatternUIBuilder } from "editor/pane/pattern";
 import { MaskUIBuilder } from "editor/pane/mask";
 import { Mask } from "@modules/mask";
 import { Cardinal } from "@modules/directions";
 import { getSession } from "server/sessions";
 import { system } from "@minecraft/server";
+import { Jobs } from "@modules/jobs";
 
 enum RegionOperatorMode {
     Fill,
@@ -31,6 +32,7 @@ export class RegionOpModule extends EditorModule {
     private widgetComponents: WidgetComponentClipboard[] = [];
 
     private tickId: number;
+    private thread?: Thread;
 
     private enableMask = false;
     private enableHeightMask = false;
@@ -46,7 +48,7 @@ export class RegionOpModule extends EditorModule {
 
     constructor(session: IPlayerUISession) {
         super(session);
-        const tool = session.toolRail.addTool("worldedit:region_operations", { title: "WorldEdit Region Operations" });
+        const tool = session.toolRail.addTool("worldedit:region_operations", { title: "WorldEdit Region Operations", icon: "pack://textures/editor/region_operations_tool.png" });
         const widgetGroup = session.extensionContext.widgetManager.createGroup({ groupSelectionMode: WidgetGroupSelectionMode.None, visible: true });
 
         this.widget = widgetGroup.createWidget(Vector.ZERO, { visible: true });
@@ -77,6 +79,7 @@ export class RegionOpModule extends EditorModule {
                     enable: this.canOperate(),
                     pressed: this.performOperation.bind(this),
                 },
+                { type: "progress", uniqueId: "operationProgress", variant: ProgressIndicatorPropertyItemVariant.ProgressBar, visible: false },
                 { type: "divider" },
                 {
                     type: "dropdown",
@@ -188,6 +191,15 @@ export class RegionOpModule extends EditorModule {
                 lastCardinal = cardinal;
                 this.updateWidgets();
             }
+
+            if (this.thread && !this.thread.isActive) this.thread = undefined;
+            const job = this.thread ? Jobs.getJobsForThread(this.thread)[0] : undefined;
+            if (job) {
+                this.pane.setVisibility("operationProgress", true);
+                this.pane.setValue("operationProgress", Jobs.getProgress(job));
+            } else {
+                this.pane.setVisibility("operationProgress", false);
+            }
         }, 2);
     }
 
@@ -206,7 +218,7 @@ export class RegionOpModule extends EditorModule {
                 [RegionOperatorMode.Outline]: "faces",
                 [RegionOperatorMode.Wall]: "walls",
             }[this.mode];
-            Server.command.getRegistration(command).callback(this.player, "editor-callback", args);
+            this.thread = Server.command.getRegistration(command).callback(this.player, "editor-callback", args);
         } else if (this.mode === RegionOperatorMode.Stack) {
             Server.command.getRegistration("stack").callback(
                 this.player,
@@ -220,7 +232,7 @@ export class RegionOpModule extends EditorModule {
                 )
             );
         } else if (this.mode === RegionOperatorMode.Move) {
-            Server.command.getRegistration("move").callback(
+            this.thread = Server.command.getRegistration("move").callback(
                 this.player,
                 "editor-callback",
                 new Map(
@@ -232,7 +244,7 @@ export class RegionOpModule extends EditorModule {
                 )
             );
         } else if (this.mode === RegionOperatorMode.Smooth) {
-            Server.command.getRegistration("smooth").callback(
+            this.thread = Server.command.getRegistration("smooth").callback(
                 this.player,
                 "editor-callback",
                 new Map(

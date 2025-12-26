@@ -10,6 +10,7 @@ import {
     INumberPropertyItemOptions,
     IObservable,
     IPlayerUISession,
+    IProgressIndicatorPropertyItemOptions,
     IPropertyItemBase,
     IPropertyPane,
     IRootPropertyPane,
@@ -30,6 +31,10 @@ interface BasePaneItem {
 
 interface DividerPaneItem extends BasePaneItem {
     type: "divider";
+}
+
+interface ProgressPaneItem extends BasePaneItem, IProgressIndicatorPropertyItemOptions {
+    type: "progress";
 }
 
 interface ButtonPaneItem extends BasePaneItem, IButtonPropertyItemOptions {
@@ -85,6 +90,7 @@ interface SubPane extends BasePaneItem, ISubPanePropertyItemOptions {
 export type PaneItem =
     | DividerPaneItem
     | ButtonPaneItem
+    | ProgressPaneItem
     | SliderPaneItem
     | TogglePaneItem
     | DropdownPaneItem
@@ -102,8 +108,8 @@ export interface PaneLayout extends ISubPanePropertyItemOptions {
 export class UIPane {
     private pane: IPropertyPane;
     private readonly subPanes: Record<string | number, UIPane> = {};
-    private readonly observables: Record<number, IObservable<number | boolean | Vector3 | LocalizedString>> = {};
-    private readonly properties: Record<number, IPropertyItemBase> = {};
+    private readonly observables: Record<string | number, IObservable<number | boolean | Vector3 | LocalizedString>> = {};
+    private readonly properties: Record<string | number, IPropertyItemBase> = {};
     private readonly mainPane: IPropertyPane;
 
     constructor(
@@ -188,6 +194,9 @@ export class UIPane {
                     break;
                 case "button":
                     this.properties[id] = this.pane.addButton(item.pressed, item);
+                    break;
+                case "progress":
+                    this.properties[id] = this.pane.addProgressIndicator({ ...item, progress: this.makeObservable(item.progress ?? 0, id) });
                     break;
                 case "label":
                     this.properties[id] = this.pane.addText(this.makeObservable(item.text, id), item);

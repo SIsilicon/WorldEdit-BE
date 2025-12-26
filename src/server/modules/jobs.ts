@@ -146,11 +146,23 @@ class JobHandler {
         return this.jobs.get(ctx ?? this.getContext()).player;
     }
 
-    public getJobsForSession(session: PlayerSession) {
-        const jobs = [];
+    public getProgress(ctx: JobContext) {
+        return this.jobs.get(ctx)?.percent;
+    }
+
+    public getJobsForSession(session: PlayerSession): JobContext[] {
+        const jobs: JobContext[] = [];
         const player = session.player;
         for (const [id, data] of this.jobs.entries()) {
             if (data.player === player) jobs.push(id);
+        }
+        return jobs;
+    }
+
+    public getJobsForThread(thread: Thread): JobContext[] {
+        const jobs: JobContext[] = [];
+        for (const [id, data] of this.jobs.entries()) {
+            if (data.thread === thread) jobs.push(id);
         }
         return jobs;
     }
