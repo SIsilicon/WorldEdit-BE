@@ -46,7 +46,9 @@
 		{
 			"module_name": "@minecraft/server-ui",
 			"version": "beta"
-		},
+		}
+	],
+	"bp_gametest_dependencies": [
 		{
 			"module_name": "@minecraft/server-gametest",
 			"version": "beta"

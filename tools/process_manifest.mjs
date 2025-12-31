@@ -22,31 +22,30 @@ function processJsonElement(element, bpElement, rpElement, options = {}) {
     }
 
     if (Array.isArray(element)) {
-        for (let i = 0; i < element.length; i++) {
-            process(i, element[i]);
-        }
+        for (let i = 0; i < element.length; i++) process(i, element[i]);
     } else if (typeof element === "object" && element !== null) {
         for (const [key, value] of Object.entries(element)) {
             if (key.startsWith("bp_")) {
-                if (key.startsWith("bp_server_")) {
-                    if (!options.isServer) continue;
-                    const sub = bpElement[key.slice("bp_server_".length)];
-                    if (Array.isArray(sub)) {
-                        bpElement[key.slice(10)] = sub.concat(value);
-                    } else if (typeof sub === "object" && sub !== null) {
-                        bpElement[key.slice(10)] = { ...sub, ...value };
+                const bpSpecialPrefixes = [
+                    { prefix: "bp_gametest_", condition: options.debugMode },
+                    { prefix: "bp_server_", condition: options.isServer },
+                    { prefix: "bp_editor_", condition: options.isEditor },
+                ];
+                let handled = false;
+                for (const { prefix, condition } of bpSpecialPrefixes) {
+                    if (key.startsWith(prefix)) {
+                        if (condition) {
+                            const sliceLen = prefix.length;
+                            const subKey = key.slice(sliceLen);
+                            const sub = bpElement[subKey];
+                            if (Array.isArray(sub)) bpElement[subKey] = sub.concat(value);
+                            else if (typeof sub === "object" && sub !== null) bpElement[subKey] = { ...sub, ...value };
+                        }
+                        handled = true;
+                        break;
                     }
-                } else if (key.startsWith("bp_editor_")) {
-                    if (!options.isEditor) continue;
-                    const sub = bpElement[key.slice("bp_editor_".length)];
-                    if (Array.isArray(sub)) {
-                        bpElement[key.slice(10)] = sub.concat(value);
-                    } else if (typeof sub === "object" && sub !== null) {
-                        bpElement[key.slice(10)] = { ...sub, ...value };
-                    }
-                } else {
-                    bpElement[key.slice(3)] = value;
                 }
+                if (!handled) bpElement[key.slice(3)] = value;
             } else if (key.startsWith("rp_")) {
                 rpElement[key.slice(3)] = value;
             } else {
@@ -62,7 +61,7 @@ function processManifest(debugMode, isServer, isEditor) {
 
     // load base manifest
     const manifest = JSON.parse(fs.readFileSync("mc_manifest.json", "utf8"));
-    processJsonElement(manifest, bp_manifest, rp_manifest, { isServer, isEditor });
+    processJsonElement(manifest, bp_manifest, rp_manifest, { isServer, isEditor, debugMode });
 
     const version = manifest.header.version;
     bp_manifest.header.name += " " + version;
@@ -93,9 +92,9 @@ function processManifest(debugMode, isServer, isEditor) {
 }
 
 export default function (args) {
-    const debugMode = args.target === "debug";
+    const debugMode = args.gametest || args.target === "debug";
     const isServer = args.target === "server" || args.target === "server";
-    const isEditor = args.editor === true;
+    const isEditor = args.editor;
     processManifest(debugMode, isServer, isEditor);
 
     if (args.watch) {
