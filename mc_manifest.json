@@ -66,15 +66,17 @@
 		{
 			"module_name": "@minecraft/server-ui",
 			"version": "beta"
-		},
-		{
-			"module_name": "@minecraft/server-gametest",
-			"version": "beta"
 		}
 	],
 	"bp_server_dependencies": [
 		{
 			"module_name": "@minecraft/server-admin",
+			"version": "beta"
+		}
+	],
+	"bp_gametest_dependencies": [
+		{
+			"module_name": "@minecraft/server-gametest",
 			"version": "beta"
 		}
 	],
