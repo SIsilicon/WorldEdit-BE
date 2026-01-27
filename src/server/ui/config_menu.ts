@@ -1,8 +1,8 @@
-import { ItemStack, Player, RawMessage, Vector3 } from "@minecraft/server";
+import { ItemStack, Player, RawMessage } from "@minecraft/server";
 import { HotbarUI } from "@modules/hotbar_ui.js";
 import { Mask } from "@modules/mask.js";
-import { Pattern } from "@modules/pattern.js";
-import { regionSize, Server } from "@notbeer-api";
+import { Pattern, patternsFromSelection } from "@modules/pattern.js";
+import { Server } from "@notbeer-api";
 import { MenuContext, ModalForm } from "library/@types/classes/uiFormBuilder.js";
 import { Brush } from "../brushes/base_brush.js";
 import { SphereBrush } from "../brushes/sphere_brush.js";
@@ -59,7 +59,7 @@ const brushPatternInput: ModalFormInput = {
         placeholder: "Eg: stone,dirt",
         default: (ctx, player) => {
             if (ctx.getData("creatingTool")) return "";
-            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().toJSON();
+            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().toString();
         },
     },
 };
@@ -292,8 +292,8 @@ Server.uiForms.register<ConfigContext>("$addGradient", {
 
         ctx.setData("pickerData", {
             return: "$gradients",
-            onFinish: (ctx, player) => {
-                ctx.setData("gradientData", [gradientId, input.$dither as number, ...getSession(player).selection.getRange()]);
+            onFinish: (ctx) => {
+                ctx.setData("gradientData", [gradientId, input.$dither as number]);
                 ctx.goto("$confirmGradientSelection");
             },
         });
@@ -307,37 +307,10 @@ Server.uiForms.register<ConfigContext>("$confirmGradientSelection", {
     message: "%worldedit.config.confirm.create",
     button1: {
         text: "%dr.button.ok",
-        action: (ctx, player) => {
+        action: (ctx) => {
             const session = ctx.getData("session");
-            const [id, dither, min, max] = ctx.getData("gradientData");
-            const size = regionSize(min, max);
-            const dim = player.dimension;
-            const patterns = [];
-            type axis = "x" | "y" | "z";
-            let s: axis, t: axis, u: axis;
-            if (size.x > size.y && size.x > size.z) {
-                s = "y";
-                t = "z";
-                u = "x";
-            } else if (size.z > size.x && size.z > size.y) {
-                s = "x";
-                t = "y";
-                u = "z";
-            } else {
-                s = "x";
-                t = "z";
-                u = "y";
-            }
-
-            for (let i = min[u]; i <= max[u]; i++) {
-                const pattern = new Pattern();
-                for (let j = min[s]; j <= max[s]; j++) {
-                    for (let k = min[t]; k <= max[t]; k++) {
-                        pattern.addBlock(dim.getBlock({ [s]: j, [t]: k, [u]: i } as unknown as Vector3).permutation);
-                    }
-                }
-                patterns.push(pattern);
-            }
+            const [id, dither] = ctx.getData("gradientData");
+            const patterns = patternsFromSelection(session.selection);
 
             session.createGradient(id, dither, patterns);
             ctx.returnto("$gradients");
@@ -452,7 +425,7 @@ Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
             placeholder: "Eg: stone,dirt",
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return "";
-                return (getToolProperty(ctx, player, "pattern") as Pattern).toJSON();
+                return (getToolProperty(ctx, player, "pattern") as Pattern).toString();
             },
         },
         ...usePickerInput,

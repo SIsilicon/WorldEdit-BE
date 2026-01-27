@@ -1,4 +1,4 @@
-import { Player, Vector3 } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import { Mask } from "@modules/mask";
 import { Pattern } from "@modules/pattern";
 import { selectMode } from "@modules/selection";
@@ -18,7 +18,7 @@ export interface ConfigContext {
 
     creatingTool?: ToolTypes | BrushTypes;
     toolData?: [number, Mask] | [Brush, Mask, number, Mask] | [string] | [Pattern] | [number, boolean];
-    gradientData?: [string, number, Vector3, Vector3];
+    gradientData?: [string, number];
 
     deletingTools?: string[];
 

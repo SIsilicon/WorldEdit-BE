@@ -6,6 +6,7 @@ import {
     IDropdownPropertyItem,
     IDropdownPropertyItemEntry,
     IDropdownPropertyItemOptions,
+    IModalOverlayPane,
     IModalTool,
     INumberPropertyItemOptions,
     IObservable,
@@ -15,6 +16,7 @@ import {
     IPropertyPane,
     IRootPropertyPane,
     IStringPropertyItemOptions,
+    ISubPanePropertyItem,
     ISubPanePropertyItemOptions,
     ITextPropertyItemOptions,
     IToggleGroupPropertyItemOptions,
@@ -23,18 +25,21 @@ import {
     makeObservable,
 } from "@minecraft/server-editor";
 import { generateId } from "@notbeer-api";
+import { getSession } from "server/sessions";
+
+type MayObservable<T> = IObservable<T> | T;
 
 interface BasePaneItem {
     type: string;
     uniqueId?: string;
 }
 
-interface DividerPaneItem extends BasePaneItem {
-    type: "divider";
+interface ObservablePaneItem<T> extends BasePaneItem {
+    validator?: (value: T) => T | undefined;
 }
 
-interface ProgressPaneItem extends BasePaneItem, IProgressIndicatorPropertyItemOptions {
-    type: "progress";
+interface DividerPaneItem extends BasePaneItem {
+    type: "divider";
 }
 
 interface ButtonPaneItem extends BasePaneItem, IButtonPropertyItemOptions {
@@ -42,44 +47,48 @@ interface ButtonPaneItem extends BasePaneItem, IButtonPropertyItemOptions {
     pressed: () => void;
 }
 
-interface TogglePaneItem extends BasePaneItem, IBoolPropertyItemOptions {
+interface ProgressPaneItem extends ObservablePaneItem<number>, IProgressIndicatorPropertyItemOptions {
+    type: "progress";
+}
+
+interface TogglePaneItem extends ObservablePaneItem<boolean>, IBoolPropertyItemOptions {
     type: "toggle";
-    value: boolean;
+    value: MayObservable<boolean>;
 }
 
-interface SliderPaneItem extends BasePaneItem, INumberPropertyItemOptions {
+interface SliderPaneItem extends ObservablePaneItem<number>, INumberPropertyItemOptions {
     type: "slider";
-    value: number;
+    value: MayObservable<number>;
 }
 
-interface DropdownPaneItem extends BasePaneItem, IDropdownPropertyItemOptions {
+interface DropdownPaneItem extends ObservablePaneItem<number>, IDropdownPropertyItemOptions {
     type: "dropdown";
-    value: number;
+    value: MayObservable<number>;
 }
 
-interface ComboBoxPaneItem extends BasePaneItem, IComboBoxPropertyItemOptions {
+interface ComboBoxPaneItem extends ObservablePaneItem<string>, IComboBoxPropertyItemOptions {
     type: "combo_box";
-    value: string;
+    value: MayObservable<string>;
 }
 
-interface ToggleGroupPaneItem extends BasePaneItem, IToggleGroupPropertyItemOptions {
+interface ToggleGroupPaneItem extends ObservablePaneItem<number>, IToggleGroupPropertyItemOptions {
     type: "toggle_group";
-    value: number;
+    value: MayObservable<number>;
 }
 
-interface Vector3PaneItem extends BasePaneItem, IVector3PropertyItemOptions {
+interface Vector3PaneItem extends ObservablePaneItem<Vector3>, IVector3PropertyItemOptions {
     type: "vector3";
-    value: { x: number; y: number; z: number };
+    value: MayObservable<Vector3>;
 }
 
-interface TextAreaPaneItem extends BasePaneItem, IStringPropertyItemOptions {
+interface TextAreaPaneItem extends ObservablePaneItem<string>, IStringPropertyItemOptions {
     type: "text_area";
-    value: string;
+    value: MayObservable<string>;
 }
 
-interface LabelPaneItem extends BasePaneItem, ITextPropertyItemOptions {
+interface LabelPaneItem extends ObservablePaneItem<string>, ITextPropertyItemOptions {
     type: "label";
-    text: string;
+    text: MayObservable<string>;
 }
 
 interface SubPane extends BasePaneItem, ISubPanePropertyItemOptions {
@@ -101,13 +110,20 @@ export type PaneItem =
     | LabelPaneItem
     | SubPane;
 
+export type PaneBuilder = { build: (pane: UIPane) => void };
+
 export interface PaneLayout extends ISubPanePropertyItemOptions {
-    items: PaneItem[] | { build: (pane: UIPane) => void };
+    items: PaneItem[] | PaneBuilder;
+}
+
+export interface ModalPaneLayout extends PaneLayout {
+    title?: LocalizedString;
 }
 
 export class UIPane {
     private pane: IPropertyPane;
     private readonly subPanes: Record<string | number, UIPane> = {};
+    private readonly modals: Record<string, IModalOverlayPane> = {};
     private readonly observables: Record<string | number, IObservable<number | boolean | Vector3 | LocalizedString>> = {};
     private readonly properties: Record<string | number, IPropertyItemBase> = {};
     private readonly mainPane: IPropertyPane;
@@ -120,6 +136,14 @@ export class UIPane {
         this.mainPane = basePane ?? session.createPropertyPane({ title: layout.title });
         if (Array.isArray(layout.items)) this.changeItems(layout.items);
         else layout.items.build(this);
+    }
+
+    get player() {
+        return this.session.extensionContext.player;
+    }
+
+    get worldedit() {
+        return getSession(this.player);
     }
 
     get propertyPane() {
@@ -164,7 +188,7 @@ export class UIPane {
     }
 
     addSubPane(layout: PaneLayout) {
-        return this.createSubPane(generateId(), layout) as string;
+        return this.createSubPane(generateId(), layout, this.pane.createSubPane(layout)) as string;
     }
 
     getSubPane(id: string | number) {
@@ -179,6 +203,20 @@ export class UIPane {
         if (!(id in this.subPanes)) return;
         this.pane.removeSubPane(this.subPanes[id].mainPane);
         delete this.subPanes[id];
+    }
+
+    createModalPane(layout: ModalPaneLayout) {
+        const id = generateId();
+        this.modals[id] = (this.mainPane as IRootPropertyPane).createModalOverlayPane({ title: layout.title });
+        return this.createSubPane(id, layout, this.modals[id].contentPane);
+    }
+
+    showModalPane(id: string) {
+        this.modals[id].show();
+    }
+
+    hideModalPane(id: string) {
+        this.modals[id].hide();
     }
 
     changeItems(items: PaneItem[]) {
@@ -196,34 +234,34 @@ export class UIPane {
                     this.properties[id] = this.pane.addButton(item.pressed, item);
                     break;
                 case "progress":
-                    this.properties[id] = this.pane.addProgressIndicator({ ...item, progress: this.makeObservable(item.progress ?? 0, id) });
+                    this.properties[id] = this.pane.addProgressIndicator({ ...item, progress: this.makeObservable((item.progress as number) ?? 0, id, item.validator) });
                     break;
                 case "label":
-                    this.properties[id] = this.pane.addText(this.makeObservable(item.text, id), item);
+                    this.properties[id] = this.pane.addText(this.makeObservable(item.text, id, item.validator), item);
                     break;
                 case "text_area":
-                    this.properties[id] = this.pane.addString(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addString(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "toggle":
-                    this.properties[id] = this.pane.addBool(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addBool(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "slider":
-                    this.properties[id] = this.pane.addNumber(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addNumber(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "dropdown":
-                    this.properties[id] = this.pane.addDropdown(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addDropdown(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "combo_box":
-                    this.properties[id] = this.pane.addComboBox(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addComboBox(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "toggle_group":
-                    this.properties[id] = this.pane.addToggleGroup(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addToggleGroup(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "vector3":
-                    this.properties[id] = this.pane.addVector3(this.makeObservable(item.value, id), item);
+                    this.properties[id] = this.pane.addVector3(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "subpane":
-                    this.createSubPane(id, item);
+                    this.createSubPane(id, item, this.pane.createSubPane(item));
                     break;
                 default:
                     this.pane;
@@ -236,13 +274,13 @@ export class UIPane {
         tool.bindPropertyPane(this.mainPane as IRootPropertyPane);
     }
 
-    private createSubPane(id: string | number, layout: PaneLayout) {
-        this.subPanes[id] = new UIPane(this.session, layout, this.pane.createSubPane(layout));
+    private createSubPane<T extends string | number>(id: T, layout: PaneLayout, pane: ISubPanePropertyItem): T {
+        this.subPanes[id] = new UIPane(this.session, layout, pane);
         return id;
     }
 
-    private makeObservable(value: any, id: string | number) {
-        const observable = makeObservable(value);
+    private makeObservable<T extends number | boolean | Vector3 | LocalizedString>(value: MayObservable<T>, id: string | number, validator?: (value: T) => T | undefined) {
+        const observable = typeof value === "object" && "value" in value ? value : makeObservable(value, validator ? { validate: validator } : undefined);
         this.observables[id] = observable;
         return observable;
     }

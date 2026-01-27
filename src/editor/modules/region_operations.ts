@@ -96,8 +96,8 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Distance",
                     uniqueId: "distance",
-                    min: 1,
                     value: 5,
+                    validator: (value) => Math.max(value, 1),
                     onChange: (value) => {
                         this.distance = value;
                         this.updateWidgets();
@@ -107,8 +107,8 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Stack Count",
                     uniqueId: "stackCount",
-                    min: 1,
                     value: 1,
+                    validator: (value) => Math.max(value, 1),
                     onChange: (value) => {
                         this.stackCount = value;
                         this.updateWidgets();
@@ -118,8 +118,8 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Iterations",
                     uniqueId: "iterations",
-                    min: 1,
                     value: 1,
+                    validator: (value) => Math.max(value, 1),
                     onChange: (value) => {
                         this.iterations = value;
                     },

@@ -13,9 +13,11 @@ import {
     BlobPatternNode,
     Pattern,
     InputPatternNode,
+    GradientPatternNode,
 } from "@modules/pattern";
 import { Vector } from "@notbeer-api";
-import { UIPane } from "./builder";
+import { PaneBuilder, UIPane } from "./builder";
+import { EventEmitter } from "library/classes/eventEmitter";
 
 const dummyToken = new Token("", undefined, "");
 const defaultBLock = "stone";
@@ -29,15 +31,18 @@ const patternTypes = new Map<new (...args: any[]) => PatternNode, [string, () =>
     [RandStatePatternNode, ["Random Block State Pattern", () => new RandStatePatternNode(dummyToken, defaultBLock)]],
     // [ClipboardPatternNode, ["Clipboard Pattern", () => new ClipboardPatternNode(dummyToken, Vector.ZERO)]],
     // [HandPatternNode, ["Hotbar Pattern", () => new HandPatternNode(dummyToken)]],
-    // [GradientPatternNode, ["Gradient Pattern", () => new GradientPatternNode(dummyToken, "")]],
+    [GradientPatternNode, ["Gradient Pattern", () => new GradientPatternNode(dummyToken, "")]],
     [BlobPatternNode, ["Blob Pattern", () => new BlobPatternNode(dummyToken, 3, new ChainPatternNode(dummyToken, [blockPatternNode(defaultBLock), blockPatternNode("cobblestone")]))]],
     [InputPatternNode, ["Input Pattern", () => new InputPatternNode(dummyToken, defaultBLock)]],
 ]);
 
-export class PatternUIBuilder {
-    private node: PatternNode | undefined;
+export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements PaneBuilder {
+    private node?: PatternNode;
+    private gradientListener?: (list: string[]) => void;
+    private pane?: UIPane;
 
     constructor(pattern: Pattern) {
+        super();
         this.node = pattern.getRootNode();
     }
 
@@ -47,6 +52,11 @@ export class PatternUIBuilder {
 
     build(pane: UIPane) {
         this.buildPatternUI(pane, this.node);
+        this.pane = pane;
+    }
+
+    destroy() {
+        if (this.gradientListener) this.pane.worldedit.off("gradientListUpdated", this.gradientListener);
     }
 
     private buildPatternUI(pane: UIPane, patternNode: PatternNode, parentNode?: PatternNode) {
@@ -71,6 +81,7 @@ export class PatternUIBuilder {
                             const index = siblings.indexOf(oldNode);
                             siblings.splice(index, 1, patternNode);
                         }
+                        this.emit("changed");
                     },
                 },
                 { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -84,7 +95,7 @@ export class PatternUIBuilder {
             else if (type === RandStatePatternNode) this.buildTypeOrRandStatePatternUI(subPane, patternNode as RandStatePatternNode);
             // else if (type === ClipboardPatternNode) this.buildClipboardPatternUI(subPane, patternNode as ClipboardPatternNode);
             // else if (type === HandPatternNode) this.buildTypeOrRandStatePatternUI(subPane, patternNode.node as RandStatePatternNode);
-            // else if (type === GradientPatternNode) this.buildTypeOrRandStatePatternUI(subPane, patternNode as RandStatePatternNode);
+            else if (type === GradientPatternNode) this.buildGradientPatternUI(subPane, patternNode as GradientPatternNode);
             else if (type === BlobPatternNode) this.buildBlobPatternUI(subPane, patternNode as BlobPatternNode);
             else if (type === InputPatternNode) this.buildInputPatternUI(subPane, patternNode as InputPatternNode);
         };
@@ -101,7 +112,10 @@ export class PatternUIBuilder {
                         title: key,
                         value: validValues.indexOf(value),
                         entries: validValues.map((v, i) => ({ label: `${v}`, value: i })),
-                        onChange: (index) => (node.permutation = node.permutation.withState(key as any, validValues[index])),
+                        onChange: (index) => {
+                            node.permutation = node.permutation.withState(key as any, validValues[index]);
+                            this.emit("changed");
+                        },
                     };
                 })
             );
@@ -117,6 +131,7 @@ export class PatternUIBuilder {
                 onChange: (value) => {
                     node.permutation = BlockPermutation.resolve(value);
                     buildBlockProperties();
+                    this.emit("changed");
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -149,7 +164,10 @@ export class PatternUIBuilder {
                         max: 100,
                         isInteger: true,
                         visible: !node.evenDistribution,
-                        onChange: (value) => node.setWeight(index, value / 100),
+                        onChange: (value) => {
+                            node.setWeight(index, value / 100);
+                            this.emit("changed");
+                        },
                     },
                     { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
                     {
@@ -162,6 +180,7 @@ export class PatternUIBuilder {
                             node.nodes.splice(index, 1);
                             node.removeWeight(index);
                             updateSubPanes();
+                            this.emit("changed");
                         },
                     },
                 ],
@@ -177,6 +196,7 @@ export class PatternUIBuilder {
                 onChange: (value) => {
                     node.evenDistribution = value;
                     eachSubPane((pane) => pane.setVisibility(0, !node.evenDistribution));
+                    this.emit("changed");
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -188,6 +208,7 @@ export class PatternUIBuilder {
                     node.nodes.push(newNode);
                     addPatternUI(patternPane, node.nodes.length - 1, newNode);
                     updateSubPanes();
+                    this.emit("changed");
                 },
             },
         ]);
@@ -205,7 +226,10 @@ export class PatternUIBuilder {
                 dataType: ComboBoxPropertyItemDataType.Block,
                 showImage: true,
                 value: node.type,
-                onChange: (value) => (node.type = value),
+                onChange: (value) => {
+                    node.type = value;
+                    this.emit("changed");
+                },
             },
         ]);
     }
@@ -223,7 +247,10 @@ export class PatternUIBuilder {
                         title: state,
                         value: defaultValue !== undefined ? state.validValues.indexOf(defaultValue) : 0,
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
-                        onChange: (index) => node.states.set(state.id, state.validValues[index]),
+                        onChange: (index) => {
+                            node.states.set(state.id, state.validValues[index]);
+                            this.emit("changed");
+                        },
                     },
                     {
                         type: "button",
@@ -233,6 +260,7 @@ export class PatternUIBuilder {
                             pane.removeSubPane(subPane);
                             node.states.delete(state.id);
                             updateStateEntries();
+                            this.emit("changed");
                         },
                     },
                 ],
@@ -258,6 +286,7 @@ export class PatternUIBuilder {
                     addStateUI(statePane, newState);
                     updateStateEntries();
                     pane.setValue(1, -1);
+                    this.emit("changed");
                 },
             },
         ]);
@@ -273,7 +302,10 @@ export class PatternUIBuilder {
                 type: "vector3",
                 title: "Offset",
                 value: { x: node.offset.x, y: node.offset.y, z: node.offset.z },
-                onChange: (value) => (node.offset = new Vector(value.x, value.y, value.z)),
+                onChange: (value) => {
+                    node.offset = new Vector(value.x, value.y, value.z);
+                    this.emit("changed");
+                },
             },
         ]);
     }
@@ -299,6 +331,7 @@ export class PatternUIBuilder {
                             pane.setValue(1, { id: message.translate, props: message.with as string[] });
                         }
                     }
+                    this.emit("changed");
                 },
             },
             { type: "label", visible: false, text: "" },
@@ -311,10 +344,41 @@ export class PatternUIBuilder {
                 type: "slider",
                 title: "Blob Size",
                 value: node.size,
-                onChange: (value) => (node.size = value),
+                onChange: (value) => {
+                    node.size = value;
+                    this.emit("changed");
+                },
             },
             { type: "subpane", title: "Sub-Pattern", items: [] },
         ]);
         this.buildPatternUI(pane.getSubPane(1), node.nodes[0], node);
+    }
+
+    private buildGradientPatternUI(pane: UIPane, node: GradientPatternNode) {
+        let gradients = pane.worldedit.getGradientNames();
+        pane.changeItems([
+            {
+                type: "dropdown",
+                title: "Gradient ID",
+                value: gradients.indexOf(node.gradientId),
+                entries: gradients.map((id, i) => ({ label: id, value: i })),
+                onChange: (value) => {
+                    node.gradientId = gradients[value];
+                    this.emit("changed");
+                },
+            },
+        ]);
+
+        if (this.gradientListener) pane.worldedit.off("gradientListUpdated", this.gradientListener);
+        this.gradientListener = (newList) => {
+            const currentGradient = gradients[pane.getValue(0) as number];
+            gradients = newList;
+            pane.updateEntries(
+                0,
+                gradients.map((id, i) => ({ label: id, value: i }))
+            );
+            pane.setValue(0, gradients.indexOf(currentGradient));
+        };
+        pane.worldedit.on("gradientListUpdated", this.gradientListener);
     }
 }

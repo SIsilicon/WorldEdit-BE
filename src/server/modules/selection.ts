@@ -19,7 +19,7 @@ export abstract class Selection {
     public abstract mode: selectMode;
     public abstract visible: boolean | "local";
 
-    protected readonly player: Player;
+    public readonly player: Player;
 
     constructor(player: Player) {
         this.player = player;

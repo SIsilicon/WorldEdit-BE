@@ -1,7 +1,7 @@
 import { ComboBoxPropertyItemDataType } from "@minecraft/server-editor";
 import { Token } from "@modules/extern/tokenizr";
 import { Vector, whenReady } from "@notbeer-api";
-import { UIPane } from "./builder";
+import { PaneBuilder, UIPane } from "./builder";
 import {
     BlockMaskNode,
     ChainMaskNode,
@@ -19,6 +19,7 @@ import {
     TagMaskNode,
 } from "@modules/mask";
 import { BlockPermutation, BlockStates, BlockStateType, BlockTypes, RawMessage } from "@minecraft/server";
+import { EventEmitter } from "library/classes/eventEmitter";
 
 const dummyToken = new Token("", undefined, "");
 const defaultBLock = "air";
@@ -49,10 +50,11 @@ whenReady(() => {
     blockTags.push(...set.keys());
 });
 
-export class MaskUIBuilder {
+export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements PaneBuilder {
     private node: MaskNode | undefined;
 
     constructor(mask: Mask) {
+        super();
         this.node = mask.getRootNode();
     }
 
@@ -86,6 +88,7 @@ export class MaskUIBuilder {
                             const index = siblings.indexOf(oldNode);
                             siblings.splice(index, 1, maskNode);
                         }
+                        this.emit("changed");
                     },
                 },
                 { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -120,7 +123,10 @@ export class MaskUIBuilder {
                         title: state,
                         value: defaultValue !== undefined ? state.validValues.indexOf(defaultValue) : 0,
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
-                        onChange: (index) => node.block.states.set(state.id, state.validValues[index]),
+                        onChange: (index) => {
+                            node.block.states.set(state.id, state.validValues[index]);
+                            this.emit("changed");
+                        },
                     },
                     {
                         type: "button",
@@ -130,6 +136,7 @@ export class MaskUIBuilder {
                             node.block.states.delete(state.id);
                             statePanes.delete(state.id);
                             updateStateEntries();
+                            this.emit("changed");
                         },
                     },
                 ],
@@ -161,6 +168,7 @@ export class MaskUIBuilder {
                         node.block.states.delete(state);
                     }
                     updateStateEntries();
+                    this.emit("changed");
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -177,6 +185,7 @@ export class MaskUIBuilder {
                     addStateUI(pane.getSubPane(1), newState);
                     updateStateEntries();
                     pane.setValue(2, -1);
+                    this.emit("changed");
                 },
             },
         ]);
@@ -199,7 +208,10 @@ export class MaskUIBuilder {
                         title: state,
                         value: defaultValue !== undefined ? state.validValues.indexOf(defaultValue) : 0,
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
-                        onChange: (index) => node.states.set(state.id, state.validValues[index]),
+                        onChange: (index) => {
+                            node.states.set(state.id, state.validValues[index]);
+                            this.emit("changed");
+                        },
                     },
                     {
                         type: "button",
@@ -209,6 +221,7 @@ export class MaskUIBuilder {
                             pane.removeSubPane(subPane);
                             node.states.delete(state.id);
                             updateStateEntries();
+                            this.emit("changed");
                         },
                     },
                 ],
@@ -225,7 +238,10 @@ export class MaskUIBuilder {
                 type: "toggle",
                 title: "Strict Mode",
                 value: node.strict,
-                onChange: (value) => (node.strict = value),
+                onChange: (value) => {
+                    node.strict = value;
+                    this.emit("changed");
+                },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
             {
@@ -240,6 +256,7 @@ export class MaskUIBuilder {
                     addStateUI(statePane, newState);
                     updateStateEntries();
                     pane.setValue(1, -1);
+                    this.emit("changed");
                 },
             },
         ]);
@@ -256,7 +273,10 @@ export class MaskUIBuilder {
                 title: "Block Tag",
                 value: blockTags.indexOf(node.tag),
                 entries: blockTags.map((label, value) => ({ label, value })),
-                onChange: (value) => (node.tag = blockTags[value]),
+                onChange: (value) => {
+                    node.tag = blockTags[value];
+                    this.emit("changed");
+                },
             },
         ]);
     }
@@ -287,6 +307,7 @@ export class MaskUIBuilder {
                             pane.removeSubPane(subPane);
                             node.nodes.splice(index, 1);
                             updateSubPanes();
+                            this.emit("changed");
                         },
                     },
                 ],
@@ -304,6 +325,7 @@ export class MaskUIBuilder {
                     node.nodes.push(newNode);
                     addMaskUI(maskPane, node.nodes.length - 1, newNode);
                     updateSubPanes();
+                    this.emit("changed");
                 },
             },
         ]);
@@ -320,7 +342,15 @@ export class MaskUIBuilder {
 
     private buildOffsetMaskUI(pane: UIPane, node: OffsetMaskNode) {
         pane.changeItems([
-            { type: "vector3", title: "Offset", value: node.offset, onChange: (value) => (node.offset = value) },
+            {
+                type: "vector3",
+                title: "Offset",
+                value: node.offset,
+                onChange: (value) => {
+                    node.offset = value;
+                    this.emit("changed");
+                },
+            },
             { type: "subpane", title: "Sub-Mask", items: [] },
         ]);
         this.buildMaskUI(pane.getSubPane(1), node.nodes[0], node);
@@ -345,15 +375,46 @@ export class MaskUIBuilder {
                         node.lowerAngle = undefined;
                         node.upperAngle = undefined;
                     }
+                    this.emit("changed");
                 },
             },
-            { type: "slider", title: "Minimum Angle", ...range, value: node.lowerAngle ?? 0, onChange: (value) => (node.lowerAngle = value) },
-            { type: "slider", title: "Maximum Angle", ...range, value: node.upperAngle ?? 90, onChange: (value) => (node.upperAngle = value) },
+            {
+                type: "slider",
+                title: "Minimum Angle",
+                ...range,
+                value: node.lowerAngle ?? 0,
+                onChange: (value) => {
+                    node.lowerAngle = value;
+                    this.emit("changed");
+                },
+            },
+            {
+                type: "slider",
+                title: "Maximum Angle",
+                ...range,
+                value: node.upperAngle ?? 90,
+                onChange: (value) => {
+                    node.upperAngle = value;
+                    this.emit("changed");
+                },
+            },
         ]);
     }
 
     private buildPercentMaskUI(pane: UIPane, node: PercentMaskNode) {
-        pane.changeItems([{ type: "slider", title: "Chance", min: 0, max: 100, value: node.percent * 100, onChange: (value) => (node.percent = value / 100) }]);
+        pane.changeItems([
+            {
+                type: "slider",
+                title: "Chance",
+                min: 0,
+                max: 100,
+                value: node.percent * 100,
+                onChange: (value) => {
+                    node.percent = value / 100;
+                    this.emit("changed");
+                },
+            },
+        ]);
     }
 
     private buildInputMaskUI(pane: UIPane, node: InputMaskNode) {
@@ -377,6 +438,7 @@ export class MaskUIBuilder {
                             pane.setValue(1, { id: message.translate, props: message.with as string[] });
                         }
                     }
+                    this.emit("changed");
                 },
             },
             { type: "label", visible: false, text: "" },

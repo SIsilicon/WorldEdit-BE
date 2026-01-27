@@ -1,5 +1,5 @@
 import { Vector3, BlockPermutation, Player, Dimension, BlockVolumeBase } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector, Server, whenReady, regionIterateBlocks } from "@notbeer-api";
+import { CustomArgType, commandSyntaxError, Vector, Server, whenReady, regionIterateBlocks, regionSize } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
 import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
@@ -20,6 +20,7 @@ import {
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
 import { buildKDTree } from "library/utils/kdtree.js";
+import { Selection } from "./selection.js";
 
 interface patternContext {
     session: PlayerSession;
@@ -31,6 +32,12 @@ interface patternContext {
     cardinal: Cardinal;
 }
 
+interface patternNodeJSON {
+    type: string;
+    settings?: any;
+    children?: patternNodeJSON[];
+}
+
 export interface patternContextOptions {
     strokePoints?: Vector3[];
     gradientRadius?: number;
@@ -38,17 +45,17 @@ export interface patternContextOptions {
 
 export class Pattern implements CustomArgType {
     private block: PatternNode;
-    private stringObj = "";
+    private stringSource = undefined;
     private simpleCache: BlockPermutation;
 
     private context = {} as patternContext;
 
-    constructor(pattern = "") {
+    constructor(pattern: string | patternNodeJSON = "") {
         if (!pattern) return;
         whenReady(() => {
-            const obj = Pattern.parseArgs([pattern]).result;
+            const obj = typeof pattern === "string" ? Pattern.parseArgs([pattern]).result : Pattern.parseJSON(pattern);
             this.block = obj.block;
-            this.stringObj = obj.stringObj;
+            this.stringSource = obj.stringSource;
         });
     }
 
@@ -119,35 +126,33 @@ export class Pattern implements CustomArgType {
     }
 
     clear() {
-        this.block = null;
-        this.stringObj = "";
+        this.block = undefined;
+        this.stringSource = this.stringSource ? "" : undefined;
         this.simpleCache = undefined;
     }
 
     empty() {
-        return this.block == null;
+        return !this.block;
     }
 
     addBlock(permutation: BlockPermutation) {
         if (!this.block) {
-            this.block = new ChainPatternNode(null);
+            this.block = new ChainPatternNode(undefined);
         } else if (!(this.block instanceof ChainPatternNode)) {
             const old = this.block;
-            this.block = new ChainPatternNode(null);
+            this.block = new ChainPatternNode(undefined);
             this.block.nodes.push(old);
         }
 
         const block = blockPermutation2ParsedBlock(permutation);
-        this.block.nodes.push(new BlockPatternNode(null, parsedBlock2BlockPermutation(block)));
+        this.block.nodes.push(new BlockPatternNode(undefined, parsedBlock2BlockPermutation(block)));
 
-        if (this.stringObj) this.stringObj += ",";
-        this.stringObj += block.id.replace("minecraft:", "");
-        if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+        if (this.stringSource) {
+            this.stringSource += ",";
+            this.stringSource += block.id.replace("minecraft:", "");
+            if (block.states.size) this.stringSource += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+        }
         this.simpleCache = undefined;
-    }
-
-    toJSON() {
-        return this.stringObj;
     }
 
     isSimple() {
@@ -175,15 +180,27 @@ export class Pattern implements CustomArgType {
         }
     }
 
+    optimize() {
+        this.block.optimize();
+    }
+
     clone() {
         const pattern = new Pattern();
         pattern.block = this.block;
-        pattern.stringObj = this.stringObj;
+        pattern.stringSource = this.stringSource;
         return pattern;
     }
 
+    convertToJSON() {
+        this.stringSource = undefined;
+    }
+
+    toJSON() {
+        return this.stringSource ?? this.block?.toJSON() ?? "";
+    }
+
     toString() {
-        return `[pattern: ${this.stringObj}]`;
+        return `[pattern: ${this.stringSource ?? JSON.stringify(this.block)}]`;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
@@ -320,10 +337,64 @@ export class Pattern implements CustomArgType {
         }
 
         const pattern = new Pattern();
-        pattern.stringObj = args[index];
+        pattern.stringSource = args[index];
         pattern.block = out;
 
         return { result: pattern, argIndex: index + 1 };
+    }
+
+    static parseJSON(json: patternNodeJSON): Pattern {
+        function buildNode({ type, settings, children }: patternNodeJSON): PatternNode {
+            let node!: PatternNode;
+            switch (type) {
+                case "block":
+                    node = new BlockPatternNode(null, BlockPermutation.resolve(settings.id, settings.states));
+                    break;
+                case "void":
+                    node = new VoidPatternNode(null);
+                    break;
+                case "type":
+                    node = new TypePatternNode(null, settings.type);
+                    break;
+                case "state":
+                    node = new StatePatternNode(null, new Map(Object.entries(settings.states)));
+                    break;
+                case "randstate":
+                    node = new RandStatePatternNode(null, settings.type);
+                    break;
+                case "clipboard":
+                    node = new ClipboardPatternNode(null, Vector.from(settings.offset));
+                    break;
+                case "hand":
+                    node = new HandPatternNode(null);
+                    break;
+                case "gradient":
+                    node = new GradientPatternNode(null, settings.gradientId, settings.cardinal);
+                    break;
+                case "percent":
+                    node = new PercentPatternNode(null, settings.percent);
+                    break;
+                case "input":
+                    node = new InputPatternNode(null, settings.input);
+                    break;
+                case "blob":
+                    node = new BlobPatternNode(null, settings.size);
+                    break;
+                case "chain":
+                    node = new ChainPatternNode(null);
+                    break;
+                default:
+                    throw new Error(`Unknown pattern type: ${type}`);
+            }
+
+            if (children) node.nodes = children.map((child) => buildNode(child));
+            return node;
+        }
+
+        const pattern = new Pattern();
+        pattern.block = buildNode(json);
+        pattern.block.optimize();
+        return pattern;
     }
 
     static fromNode(node: PatternNode) {
@@ -333,7 +404,6 @@ export class Pattern implements CustomArgType {
     }
 }
 
-type NodeJSON = { type: string; nodes: NodeJSON[] };
 export abstract class PatternNode implements AstNode {
     public nodes: PatternNode[] = [];
     abstract readonly prec: number;
@@ -351,13 +421,7 @@ export abstract class PatternNode implements AstNode {
         for (const node of this.nodes) node.optimize();
     }
 
-    /** Debug only! Not all important data is represented. */
-    toJSON(): NodeJSON {
-        return {
-            type: this.constructor.name,
-            nodes: this.nodes.map((n) => n.toJSON()),
-        };
-    }
+    abstract toJSON(): patternNodeJSON;
 }
 
 export class BlockPatternNode extends PatternNode {
@@ -374,6 +438,16 @@ export class BlockPatternNode extends PatternNode {
     getPermutation() {
         return this.permutation;
     }
+
+    toJSON() {
+        return {
+            type: "block",
+            settings: {
+                id: this.permutation.type.id,
+                states: this.permutation.getAllStates(),
+            },
+        };
+    }
 }
 
 export class VoidPatternNode extends PatternNode {
@@ -382,6 +456,10 @@ export class VoidPatternNode extends PatternNode {
 
     getPermutation() {
         return <BlockPermutation>undefined;
+    }
+
+    toJSON() {
+        return { type: "void" };
     }
 }
 
@@ -411,6 +489,10 @@ export class TypePatternNode extends PatternNode {
         });
         return permutation;
     }
+
+    toJSON() {
+        return { type: "type", settings: { type: this.type } };
+    }
 }
 
 export class StatePatternNode extends PatternNode {
@@ -431,6 +513,10 @@ export class StatePatternNode extends PatternNode {
             if (state in props) permutation = permutation.withState(<any>state, val);
         });
         return permutation;
+    }
+
+    toJSON() {
+        return { type: "state", settings: { states: Object.fromEntries(this.states) } };
     }
 }
 
@@ -455,6 +541,10 @@ export class RandStatePatternNode extends PatternNode {
     getPermutation() {
         return this.permutations[Math.floor(Math.random() * this.permutations.length)];
     }
+
+    toJSON() {
+        return { type: "randstate", settings: { type: this.type } };
+    }
 }
 
 export class ClipboardPatternNode extends PatternNode {
@@ -475,6 +565,13 @@ export class ClipboardPatternNode extends PatternNode {
         const sampledLoc = new Vector(wrap(offset.x, size.x), wrap(offset.y, size.y), wrap(offset.z, size.z));
         return clipboard.getBlock(sampledLoc).permutation;
     }
+
+    toJSON() {
+        return {
+            type: "clipboard",
+            settings: { offset: [this.offset.x, this.offset.y, this.offset.z] },
+        };
+    }
 }
 
 export class HandPatternNode extends PatternNode {
@@ -487,6 +584,10 @@ export class HandPatternNode extends PatternNode {
 
     getPermutation(_: BlockUnit, context: patternContext) {
         return context.hand;
+    }
+
+    toJSON() {
+        return { type: "hand" };
     }
 }
 
@@ -560,6 +661,10 @@ export class GradientPatternNode extends PatternNode {
         }
         this.invertCoords = dir[this.axis] < 0;
     }
+
+    toJSON() {
+        return { type: "gradient", settings: { gradientId: this.gradientId, cardinal: this.cardinal } };
+    }
 }
 
 export class PercentPatternNode extends PatternNode {
@@ -574,7 +679,11 @@ export class PercentPatternNode extends PatternNode {
     }
 
     getPermutation() {
-        return null as BlockPermutation;
+        return undefined as BlockPermutation;
+    }
+
+    toJSON() {
+        return { type: "percent", settings: { percent: this.percent }, children: [this.nodes[0].toJSON()] };
     }
 }
 
@@ -596,6 +705,10 @@ export class InputPatternNode extends PatternNode {
 
     getPermutation(block: BlockUnit, context: patternContext) {
         return this.node.getPermutation(block, context);
+    }
+
+    toJSON() {
+        return { type: "input", settings: { input: this.input } };
     }
 }
 
@@ -669,6 +782,10 @@ export class BlobPatternNode extends PatternNode {
         }
     }
 
+    toJSON() {
+        return { type: "blob", settings: { size: this.size }, children: [this.nodes[0].toJSON()] };
+    }
+
     private randomNum() {
         return Math.random() * (this.size - 1);
     }
@@ -681,7 +798,7 @@ export class ChainPatternNode extends PatternNode {
 
     public evenDistribution = true;
 
-    private weights: number[] | undefined;
+    private weights: (number | undefined)[] = [];
     private cumWeights: number[] = [];
     private weightTotal: number;
 
@@ -695,8 +812,7 @@ export class ChainPatternNode extends PatternNode {
     }
 
     setWeight(index: number, weight: number) {
-        this.weights ??= [];
-        this.weights.length = Math.max(this.weights.length, index + 1);
+        while (this.weights.length <= index) this.weights.push(undefined);
         this.weights[index] = weight;
     }
 
@@ -728,25 +844,74 @@ export class ChainPatternNode extends PatternNode {
 
     optimize() {
         super.optimize();
-        const defaultWeight = 1 / this.nodes.length;
-        let totalWeight = 0;
-
         const patterns = this.nodes;
-        const weights = [];
         this.nodes = [];
         while (patterns.length) {
             const pattern = patterns.shift();
             if (pattern instanceof PercentPatternNode) {
                 this.evenDistribution = false;
                 this.nodes.push(pattern.nodes[0]);
-                weights.push(pattern.percent / 100);
-                totalWeight += pattern.percent / 100;
+                this.weights.push(pattern.percent);
             } else {
                 this.nodes.push(pattern);
-                weights.push(defaultWeight);
-                totalWeight += defaultWeight;
+                this.weights.push(undefined);
             }
         }
-        this.weights ??= weights.map((value) => value / totalWeight);
+
+        const reduced: { [patternJson: string]: [node: PatternNode, weight: number] } = {};
+        for (let i = 0; i < this.nodes.length; i++) {
+            const json = JSON.stringify(this.nodes[i].toJSON());
+            reduced[json] ??= [this.nodes[i], 0];
+            reduced[json][1] += this.getWeight(i);
+        }
+
+        const reducedList = Object.values(reduced);
+        if (reducedList.length < this.nodes.length) {
+            this.evenDistribution = false;
+            this.nodes.length = 0;
+            this.weights.length = 0;
+            for (const [node, weight] of reducedList) {
+                this.nodes.push(node);
+                this.weights.push(weight);
+            }
+        }
     }
+
+    toJSON() {
+        return {
+            type: "chain",
+            children: this.nodes.map((node, i) => {
+                if (!this.evenDistribution && this.weights[i] !== undefined) {
+                    const percentNode = new PercentPatternNode(null, this.weights[i]);
+                    percentNode.nodes.push(node);
+                    return percentNode.toJSON();
+                } else {
+                    return node.toJSON();
+                }
+            }),
+        };
+    }
+}
+
+export function patternsFromSelection(selection: Selection) {
+    if (selection.isEmpty) return [];
+
+    const [min, max] = selection.getRange();
+    const dim = selection.player.dimension;
+    const layers: { [layer: number]: Pattern } = {};
+    const layerAxis = regionSize(min, max).largestAxis();
+
+    for (const block of selection.getBlocks()) {
+        const pattern = (layers[block[layerAxis]] ??= new Pattern());
+        pattern.addBlock(dim.getBlock(block).permutation);
+    }
+
+    const patterns: Pattern[] = [];
+    for (const layer in layers) {
+        const pattern = layers[layer];
+        pattern.optimize();
+        patterns.push(pattern);
+    }
+
+    return patterns;
 }

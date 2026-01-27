@@ -21,19 +21,25 @@ interface maskContext {
     placePosition: Vector;
 }
 
+interface maskNodeJSON {
+    type: string;
+    settings?: any;
+    children?: maskNodeJSON[];
+}
+
 export class Mask implements CustomArgType {
     private condition: MaskNode;
-    private stringObj = "";
+    private stringSource = undefined;
     private simpleCache: BlockFilter;
 
     private context = {} as maskContext;
 
-    constructor(mask = "") {
+    constructor(mask: string | maskNodeJSON = "") {
         if (!mask) return;
         whenReady(() => {
-            const obj = Mask.parseArgs([mask]).result;
+            const obj = typeof mask === "string" ? Mask.parseArgs([mask]).result : Mask.parseJSON(mask);
             this.condition = obj.condition;
-            this.stringObj = obj.stringObj;
+            this.stringSource = obj.stringSource;
         });
     }
 
@@ -59,27 +65,28 @@ export class Mask implements CustomArgType {
     }
 
     clear() {
-        this.condition = null;
-        this.stringObj = "";
+        this.condition = undefined;
+        this.stringSource = this.stringSource ? "" : undefined;
         this.simpleCache = undefined;
     }
 
     empty() {
-        return this.condition == null;
+        return !this.condition;
     }
 
     addBlock(permutation: BlockPermutation) {
         if (this.condition == null) {
-            this.condition = new ChainMaskNode(null);
+            this.condition = new ChainMaskNode(undefined);
         }
 
         const block = blockPermutation2ParsedBlock(permutation);
-        this.condition.nodes.push(new BlockMaskNode(null, block));
+        this.condition.nodes.push(new BlockMaskNode(undefined, block));
 
-        if (this.stringObj) this.stringObj += ",";
-        this.stringObj += block.id.replace("minecraft:", "");
-        if (block.states.size) this.stringObj += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
-
+        if (this.stringSource) {
+            this.stringSource += ",";
+            this.stringSource += block.id.replace("minecraft:", "");
+            if (block.states.size) this.stringSource += `[${[...block.states].map(([key, value]) => `${key}=${value}`).join(",")}]`;
+        }
         this.simpleCache = undefined;
     }
 
@@ -97,10 +104,6 @@ export class Mask implements CustomArgType {
         const intersect = new Mask();
         intersect.condition = node;
         return intersect;
-    }
-
-    toJSON() {
-        return this.stringObj;
     }
 
     isSimple() {
@@ -155,12 +158,20 @@ export class Mask implements CustomArgType {
     clone() {
         const mask = new Mask();
         mask.condition = this.condition;
-        mask.stringObj = this.stringObj;
+        mask.stringSource = this.stringSource;
         return mask;
     }
 
+    convertToJSON() {
+        this.stringSource = undefined;
+    }
+
+    toJSON() {
+        return this.stringSource ?? this.condition?.toJSON() ?? "";
+    }
+
     toString() {
-        return `[mask: ${this.stringObj}]`;
+        return `[mask: ${this.stringSource ?? JSON.stringify(this.condition)}]`;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
@@ -303,10 +314,66 @@ export class Mask implements CustomArgType {
         }
 
         const mask = new Mask();
-        mask.stringObj = args[index];
+        mask.stringSource = args[index];
         mask.condition = out;
 
         return { result: mask, argIndex: index + 1 };
+    }
+
+    static parseJSON(json: maskNodeJSON): Mask {
+        function buildNode({ type, settings, children }: maskNodeJSON): MaskNode {
+            let node!: MaskNode;
+            switch (type) {
+                case "block": {
+                    const block: parsedBlock = { id: settings.id, states: settings.states ? new Map(Object.entries(settings.states)) : null };
+                    node = new BlockMaskNode(null, block);
+                    break;
+                }
+                case "state":
+                    node = new StateMaskNode(null, settings.states ? new Map(Object.entries(settings.states)) : new Map(), settings.strict);
+                    break;
+                case "percent":
+                    node = new PercentMaskNode(null, settings.percent);
+                    break;
+                case "existing":
+                    node = new ExistingMaskNode(null);
+                    break;
+                case "surface":
+                    node = new SurfaceMaskNode(null, settings?.lowerAngle, settings?.upperAngle);
+                    break;
+                case "shadow":
+                    node = new ShadowMaskNode(null);
+                    break;
+                case "tag":
+                    node = new TagMaskNode(null, settings.tag);
+                    break;
+                case "input":
+                    node = new InputMaskNode(null, settings.input);
+                    break;
+                case "chain":
+                    node = new ChainMaskNode(null);
+                    break;
+                case "intersect":
+                    node = new IntersectMaskNode(null);
+                    break;
+                case "negate":
+                    node = new NegateMaskNode(null);
+                    break;
+                case "offset":
+                    node = new OffsetMaskNode(null, Vector.from(settings.offset));
+                    break;
+                default:
+                    throw new Error(`Unknown mask type: ${type}`);
+            }
+
+            if (children) node.nodes = children.map((c) => buildNode(c));
+            return node;
+        }
+
+        const mask = new Mask();
+        mask.condition = buildNode(json);
+        mask.condition.optimize();
+        return mask;
     }
 
     static fromNode(node: MaskNode) {
@@ -332,6 +399,8 @@ export abstract class MaskNode implements AstNode {
     optimize() {
         for (const node of this.nodes) node.optimize();
     }
+
+    abstract toJSON(): maskNodeJSON;
 }
 
 export class BlockMaskNode extends MaskNode {
@@ -355,6 +424,10 @@ export class BlockMaskNode extends MaskNode {
     matchesBlock(block: BlockUnit) {
         return block.permutation.matches(this.block.id, this.states);
     }
+
+    toJSON() {
+        return { type: "block", settings: { id: this.block.id, states: Object.fromEntries(this.block.states?.entries() ?? []) } };
+    }
 }
 
 export class StateMaskNode extends MaskNode {
@@ -377,6 +450,10 @@ export class StateMaskNode extends MaskNode {
             else if (!this.strict && (!(state in props) || val === props[state])) statesPassed++;
         }
         return statesPassed === this.states.size;
+    }
+
+    toJSON() {
+        return { type: "state", settings: { states: Object.fromEntries(this.states ?? []), strict: this.strict } };
     }
 }
 
@@ -440,6 +517,10 @@ export class SurfaceMaskNode extends MaskNode {
         const pitch = 90 - Math.atan(1 / Math.sqrt(slopeX ** 2 + slopeZ ** 2)) * (180 / Math.PI);
         return pitch >= this.lowerAngle && pitch <= this.upperAngle;
     }
+
+    toJSON() {
+        return { type: "surface", settings: { lowerAngle: this.lowerAngle, upperAngle: this.upperAngle } };
+    }
 }
 
 export class ExistingMaskNode extends MaskNode {
@@ -448,6 +529,10 @@ export class ExistingMaskNode extends MaskNode {
 
     matchesBlock(block: BlockUnit) {
         return !block.isAir;
+    }
+
+    toJSON() {
+        return { type: "existing" };
     }
 }
 
@@ -479,6 +564,10 @@ export class ShadowMaskNode extends MaskNode {
         }
         return true;
     }
+
+    toJSON() {
+        return { type: "shadow" };
+    }
 }
 
 export class TagMaskNode extends MaskNode {
@@ -494,6 +583,10 @@ export class TagMaskNode extends MaskNode {
 
     matchesBlock(block: BlockUnit) {
         return block.hasTag(this.tag);
+    }
+
+    toJSON() {
+        return { type: "tag", settings: { tag: this.tag } };
     }
 }
 
@@ -517,6 +610,10 @@ export class InputMaskNode extends MaskNode {
     matchesBlock(block: BlockUnit, context: maskContext) {
         return this.node.matchesBlock(block, context);
     }
+
+    toJSON() {
+        return { type: "input", settings: { input: this.input } };
+    }
 }
 
 export class PercentMaskNode extends MaskNode {
@@ -533,6 +630,10 @@ export class PercentMaskNode extends MaskNode {
     matchesBlock() {
         return Math.random() < this.percent;
     }
+
+    toJSON() {
+        return { type: "percent", settings: { percent: this.percent } };
+    }
 }
 
 export class ChainMaskNode extends MaskNode {
@@ -547,6 +648,10 @@ export class ChainMaskNode extends MaskNode {
 
     matchesBlock(block: BlockUnit, context: maskContext) {
         return this.nodes.some((mask) => mask.matchesBlock(block, context));
+    }
+
+    toJSON() {
+        return { type: "chain", children: this.nodes.map((node) => node.toJSON()) };
     }
 }
 
@@ -563,6 +668,10 @@ export class IntersectMaskNode extends MaskNode {
     matchesBlock(block: BlockUnit, context: maskContext) {
         return this.nodes.every((mask) => mask.matchesBlock(block, context));
     }
+
+    toJSON() {
+        return { type: "intersect", children: this.nodes.map((node) => node.toJSON()) };
+    }
 }
 
 export class NegateMaskNode extends MaskNode {
@@ -576,6 +685,10 @@ export class NegateMaskNode extends MaskNode {
 
     matchesBlock(block: BlockUnit, context: maskContext) {
         return !this.nodes[0].matchesBlock(block, context);
+    }
+
+    toJSON() {
+        return { type: "negate", children: [this.nodes[0].toJSON()] };
     }
 }
 
@@ -623,5 +736,9 @@ export class OffsetMaskNode extends MaskNode {
             this.z += this.nodes[0].z;
             this.nodes = this.nodes[0].nodes;
         }
+    }
+
+    toJSON() {
+        return { type: "offset", settings: { offset: [this.offset.x, this.offset.y, this.offset.z] }, children: [this.nodes[0].toJSON()] };
     }
 }

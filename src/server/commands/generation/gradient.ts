@@ -74,7 +74,7 @@ registerCommand(registerInformation, function (session, builder, args) {
             return gradients
                 .map((id) => {
                     const patterns = session.getGradient(id).patterns;
-                    const patternStr = patterns.map((p) => `"${p.toJSON()}"`).join(", ");
+                    const patternStr = patterns.map((p) => `"${p.toString()}"`).join(", ");
                     return `- ${id} (${truncateStringFromMiddle(patternStr, 100)})`;
                 })
                 .join("\n");

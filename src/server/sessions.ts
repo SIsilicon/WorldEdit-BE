@@ -11,6 +11,7 @@ import { ConfigContext } from "./ui/types.js";
 import config from "config.js";
 import { Database } from "library/@types/classes/databaseBuilder.js";
 import { LoftShape } from "./shapes/loft.js";
+import { EventEmitter } from "library/classes/eventEmitter.js";
 
 const playerSessions: Map<string, PlayerSession> = new Map();
 const pendingDeletion: Map<string, [number, PlayerSession]> = new Map();
@@ -59,7 +60,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
  * Represents a WorldEdit user's current session with the addon.
  * It manages their selections, operation history, and other things related to WorldEdit per player.
  */
-export class PlayerSession {
+export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: string[]] }> {
     /**
      * Is true while a WorldEdit command is being called from an item; false otherwise.
      * @readonly
@@ -132,6 +133,7 @@ export class PlayerSession {
     private placementMode: "player" | "selection" = "player";
 
     constructor(player: Player) {
+        super();
         this.player = player;
         this.playerId = player.id;
         this.gradients = Databases.load<gradients>("gradients", player);
@@ -282,6 +284,7 @@ export class PlayerSession {
     public createGradient(id: string, dither: number, patterns: Pattern[]) {
         this.gradients.data[id] = { dither, patterns };
         this.gradients.save();
+        this.emit("gradientListUpdated", this.getGradientNames());
     }
 
     public getGradient(id: string) {
@@ -295,6 +298,7 @@ export class PlayerSession {
     public deleteGradient(id: string) {
         delete this.gradients.data[id];
         this.gradients.save();
+        this.emit("gradientListUpdated", this.getGradientNames());
     }
 
     delete() {
