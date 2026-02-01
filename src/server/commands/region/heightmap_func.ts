@@ -30,7 +30,7 @@ class Column<T extends object> {
 type Map<T extends object = Record<string, any>> = VectorSet<Column<T>>;
 
 const API = {
-    modifyMap: function* (map: Map, callback: (coord: VectorXZ) => Generator<any, number | undefined> | number | undefined, jobMsg: string): Generator<JobFunction> {
+    modifyMap: function* (map: Map, callback: (coord: VectorXZ) => Generator<any, void> | void, jobMsg: string): Generator<JobFunction> {
         let count = 0;
         const size = map.size;
         yield Jobs.nextStep(jobMsg);
@@ -54,7 +54,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loca
                     map,
                     ({ x, z }) => {
                         const column = API.getColumn(map, x, z);
-                        if (column.height == undefined) return undefined;
+                        if (column.height == undefined) return;
 
                         let height = column.height * 0.6;
                         height += (API.getColumn(map, x, z - 1)?.height ?? column.height) * 0.2;
@@ -68,7 +68,7 @@ export function* smooth(session: PlayerSession, iter: number, shape: Shape, loca
                     map,
                     ({ x, z }) => {
                         const column = API.getColumn(map, x, z);
-                        if (column.data.back === undefined) return undefined;
+                        if (column.data.back === undefined) return;
 
                         let height = column.data.back * 0.6;
                         height += (API.getColumn(map, x - 1, z)?.data.back ?? column.data.back) * 0.2;

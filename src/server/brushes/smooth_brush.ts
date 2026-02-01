@@ -6,7 +6,6 @@ import { Mask } from "@modules/mask.js";
 import { smooth } from "../commands/region/heightmap_func.js";
 import { Shape } from "server/shapes/base_shape.js";
 import { Vector3 } from "@minecraft/server";
-import { Jobs } from "@modules/jobs.js";
 
 /**
  * This smooths the terrain in the world.
@@ -58,7 +57,7 @@ export class SmoothBrush extends Brush {
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const points = locations.map((location) => location.sub(this.size));
-        yield* Jobs.run(session, 1, smooth(session, this.iterations, this.shape, points, this.mask, mask), this);
+        yield* smooth(session, this.iterations, this.shape, points, this.mask, mask);
     }
 
     public getOutline(): [Shape, Vector3] {

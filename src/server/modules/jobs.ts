@@ -194,7 +194,7 @@ class JobHandler {
         const progresses = new Map<Player, [string, number][]>();
 
         for (const job of this.jobs.values()) {
-            if (job.message?.length) {
+            if (job.message?.length && job.stepCount >= 0) {
                 if (!progresses.has(job.player)) progresses.set(job.player, []);
                 const percent = (job.percent + job.step) / job.stepCount;
                 progresses.get(job.player).push([job.tickingAreaRequestTime ? "Loading Chunks..." : job.message, percent]);

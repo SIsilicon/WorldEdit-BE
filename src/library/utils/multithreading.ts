@@ -34,9 +34,7 @@ class Thread<T extends any[] = any[]> {
     }
 
     start(task: (...args: T) => Generator<unknown>, ...args: T) {
-        if (!this.valid) {
-            return;
-        }
+        if (!this.valid) return;
 
         tasks.set(this, task(...args));
         threads.unshift(this);

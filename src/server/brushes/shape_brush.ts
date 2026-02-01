@@ -40,32 +40,25 @@ export abstract class ShapeBrush extends Brush {
     }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
-        yield* Jobs.run(
-            session,
-            1,
-            function* () {
-                const history = session.history;
-                const record = history.record();
-                try {
-                    const blocks = yield* balloonPath(locations, this.shape, { hollow: this.hollow });
-                    const range = regionBounds(blocks);
-                    const pattern = this.pattern.withContext(session, range, { strokePoints: locations, gradientRadius: this.gradientRadius });
-                    mask = session.globalMask.intersect(mask ?? new Mask()).withContext(session);
+        const history = session.history;
+        const record = history.record();
+        try {
+            const blocks = yield* balloonPath(locations, this.shape, { hollow: this.hollow });
+            const range = regionBounds(blocks);
+            const pattern = this.pattern.withContext(session, range, { strokePoints: locations, gradientRadius: this.gradientRadius });
+            mask = session.globalMask.intersect(mask ?? new Mask()).withContext(session);
 
-                    yield* history.trackRegion(record, blocks);
-                    for (const point of blocks) {
-                        const block = yield* Jobs.loadBlock(point);
-                        if (mask.matchesBlock(block)) pattern.setBlock(block);
-                        yield;
-                    }
-                    yield* history.commit(record);
-                } catch (e) {
-                    history.cancel(record);
-                    throw e;
-                }
-            },
-            this
-        );
+            yield* history.trackRegion(record, blocks);
+            for (const point of blocks) {
+                const block = yield* Jobs.loadBlock(point);
+                if (mask.matchesBlock(block)) pattern.setBlock(block);
+                yield;
+            }
+            yield* history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        }
     }
 
     public getOutline(): [Shape, Vector] {

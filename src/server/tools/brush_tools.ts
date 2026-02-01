@@ -6,7 +6,8 @@ import { PlayerSession } from "../sessions.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { PlayerUtil } from "@modules/player_util.js";
-import { everyCall, Vector, VectorSet } from "@notbeer-api";
+import { everyCall, Thread, Vector, VectorSet } from "@notbeer-api";
+import { Jobs } from "@modules/jobs.js";
 
 const outlines = new WeakMap<PlayerSession, { lastHit: Vector; lazyCall: (cb: () => any) => void }>();
 const strokes = new WeakMap<PlayerSession, { lastUseTick: number; hits: VectorSet<Vector>; tempHits: Vector[] }>();
@@ -28,7 +29,7 @@ class BrushTool extends Tool {
         this.traceMask = traceMask;
     }
 
-    *use(player: Player, session: PlayerSession) {
+    use(player: Player, session: PlayerSession) {
         const hit = PlayerUtil.traceForBlock(player, this.range, { mask: this.traceMask });
         if (this.brush.usesStrokes) {
             if (!strokes.has(session)) strokes.set(session, { lastUseTick: 0, hits: new VectorSet(), tempHits: [] });
@@ -38,7 +39,7 @@ class BrushTool extends Tool {
             hits.add(hit);
             tempHits.length = 0;
         } else {
-            yield* this.brush.apply([hit], session, this.mask);
+            this.applyBrush(session, [hit]);
         }
     }
 
@@ -54,7 +55,7 @@ class BrushTool extends Tool {
             const { lastUseTick, hits, tempHits } = strokes.get(session);
             if (system.currentTick > lastUseTick + 5) {
                 strokes.delete(session);
-                yield* this.brush.apply(Array.from(hits.values()), session, this.mask);
+                this.applyBrush(session, Array.from(hits.values()));
             } else if (hit) {
                 tempHits.push(hit);
             }
@@ -79,6 +80,10 @@ class BrushTool extends Tool {
 
     set material(value: Pattern) {
         this.brush.paintWith(value);
+    }
+
+    applyBrush(session: PlayerSession, locations: Vector[]) {
+        new Thread().start(Jobs.run.bind(Jobs), session, -1, this.brush.apply(locations, session, this.mask));
     }
 
     delete() {
