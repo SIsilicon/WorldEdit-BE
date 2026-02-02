@@ -23,7 +23,7 @@ class EditorHistory extends History {
     }
 
     cancel() {
-        this.transactionManager.commitOpenTransaction();
+        this.transactionManager.discardOpenTransaction();
         this.activeThread = undefined;
     }
 
@@ -75,7 +75,9 @@ setHistoryClass(EditorHistory);
 export class HistoryModule extends EditorModule {
     constructor(session: IPlayerUISession) {
         super(session);
-        transactionManagers.set(this.player, this.session.extensionContext.transactionManager);
+        const transactionManager = this.session.extensionContext.transactionManager;
+        transactionManagers.set(this.player, transactionManager);
+        transactionManager.discardOpenTransaction();
     }
 
     teardown() {
