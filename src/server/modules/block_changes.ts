@@ -102,13 +102,9 @@ class BlockChangeImpl implements BlockChanges {
 
         let i = 0;
         for (const [key, permutation] of this.changes.entries()) {
-            try {
-                const block = this.blockCache.get(key);
-                if (!block.isValid) yield* Jobs.loadArea(block, block);
-                this.blockCache.get(key).setPermutation(permutation);
-            } catch {
-                /* pass */
-            }
+            const block = this.blockCache.get(key) ?? (yield* Jobs.loadBlock(this.string2vec(key)));
+            if (!block.isValid) yield* Jobs.loadArea(block, block);
+            block.setPermutation(permutation);
             yield* iterateChunk(++i);
         }
 

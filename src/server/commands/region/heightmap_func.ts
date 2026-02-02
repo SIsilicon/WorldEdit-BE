@@ -1,10 +1,10 @@
 import { Vector3, VectorXZ } from "@minecraft/server";
 import { JobFunction, Jobs } from "../../modules/jobs.js";
 import { Mask } from "../../modules/mask.js";
-import { RegionBuffer } from "../../modules/region_buffer.js";
 import { PlayerSession } from "../../sessions.js";
 import { Shape } from "../../shapes/base_shape.js";
 import { Vector, VectorSet } from "@notbeer-api";
+import { recordBlockChanges } from "@modules/block_changes.js";
 
 class Column<T extends object> {
     readonly y = 0;
@@ -100,9 +100,8 @@ export function* modifyHeight(
     const player = session.player;
     const dim = player.dimension;
 
-    let min = new Vector(Infinity, Infinity, Infinity);
-    let max = new Vector(-Infinity, -Infinity, -Infinity);
     const map = new VectorSet<Column<any>>();
+    const chunks = new Map<string, Column<any>[]>();
 
     mask = (mask ?? new Mask()).intersect(session.globalMask).withContext(session);
     heightMask = heightMask.withContext(session);
@@ -111,6 +110,7 @@ export function* modifyHeight(
 
     // Create height map
     yield Jobs.nextStep("commands.wedit:heightmap.getting");
+    // TODO: Sort locations by height to reduce "overdraw"
     for (let i = 0; i < locations.length; i++) {
         const loc = locations[i];
         const [subMin, subMax] = shape.getRegion(Vector.ZERO);
@@ -120,6 +120,7 @@ export function* modifyHeight(
             for (let x = subMin.x; x <= subMax.x; x++) {
                 yield Jobs.setProgress((i + count++ / area) / locations.length);
                 const coords = { x: x + loc.x, y: 0, z: z + loc.z };
+                // TODO: Check if the existing column is higher
                 if (map.has(coords)) continue;
 
                 const yRange = shape.getYRange(x, z);
@@ -135,9 +136,12 @@ export function* modifyHeight(
                 }
 
                 if (h.y !== yRange[0] - 1) {
-                    map.add(new Column(coords, ...yRange, h.y));
-                    min = min.min({ ...coords, y: yRange[0] });
-                    max = max.max({ ...coords, y: yRange[1] });
+                    const column = new Column(coords, ...yRange, h.y);
+                    map.add(column);
+
+                    const chunkKey = `${Math.floor(coords.x / 8)} ${Math.floor(coords.z / 8)}`;
+                    if (!chunks.has(chunkKey)) chunks.set(chunkKey, []);
+                    chunks.get(chunkKey).push(column);
                 }
             }
         }
@@ -151,45 +155,40 @@ export function* modifyHeight(
 
     // Move the blocks in the world according to the modified height map
     let count = 0;
+    let columnsProcessed = 0;
     const history = session.history;
     const record = history.record();
-    let warpBuffer: RegionBuffer | undefined;
     try {
-        yield* history.trackRegion(record, min, max);
-
         yield Jobs.nextStep("commands.wedit:heightmap.placing");
-        for (const column of map.values()) {
-            const min = { x: column.x, y: column.minHeight, z: column.z };
-            const max = { x: column.x, y: column.maxHeight, z: column.z };
-            const rangeYDiff = max.y - min.y;
-            warpBuffer = yield* RegionBuffer.create(min, max, function* (loc) {
-                function* canSmooth(loc: Vector3) {
-                    const globalLoc = Vector.add(loc, min);
-                    const block = (yield* Jobs.loadBlock(globalLoc))!;
-                    return block.isAir || mask!.matchesBlock(block);
-                }
 
-                if (yield* canSmooth(loc)) {
-                    const heightDiff = column.height - column.initialHeight;
-                    const sampleLoc = Vector.add(loc, [0, -heightDiff, 0]).round();
-                    sampleLoc.y = Math.min(Math.max(sampleLoc.y, 0), rangeYDiff);
-                    if (yield* canSmooth(sampleLoc)) return dim.getBlock(sampleLoc.add(min));
-                }
-            });
+        for (const chunk of chunks.values()) {
+            const blockChanges = recordBlockChanges(session, record);
+            for (const column of chunk) {
+                yield Jobs.setProgress(columnsProcessed++ / map.size);
 
-            if (warpBuffer) {
-                yield* warpBuffer.load(min, dim);
-                count += warpBuffer.getVolume();
-                warpBuffer.deref();
-                warpBuffer = undefined;
+                const initialHeight = Math.floor(column.initialHeight);
+                const newHeight = Math.floor(column.height);
+                const difference = initialHeight - newHeight;
+                const direction = Math.sign(difference);
+                if (!difference) continue;
+
+                for (let y = newHeight; y !== initialHeight + direction; y += direction) {
+                    const location = { x: column.x, y, z: column.z };
+                    const sampleY = Math.min(Math.max(y + difference, dimMin), dimMax - 1);
+                    const sampledBlock = yield* Jobs.loadBlock({ ...location, y: sampleY });
+                    if (sampledBlock.isAir || mask!.matchesBlock(sampledBlock)) {
+                        blockChanges.setBlock(location, sampledBlock.permutation);
+                        count++;
+                    }
+                }
             }
+            yield* blockChanges.flush();
         }
+
         yield* history.commit(record);
     } catch (e) {
         history.cancel(record);
         throw e;
-    } finally {
-        warpBuffer?.deref();
     }
 
     return count;
