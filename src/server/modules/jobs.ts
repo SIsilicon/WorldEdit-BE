@@ -97,8 +97,13 @@ class JobHandler {
     }
 
     public *loadBlock(loc: Vector3, ctx: JobContext = this.current) {
-        if (!(yield* this.loadArea(Vector.sub(loc, [16, 0, 16]), Vector.add(loc, [16, 0, 16]), ctx))) return undefined;
-        return this.jobs.get(ctx).dimension.getBlock(loc);
+        const dimension = this.jobs.get(ctx).dimension;
+        let block = dimension.getBlock(loc);
+        if (!block) {
+            if (!(yield* this.loadArea(Vector.sub(loc, [16, 0, 16]), Vector.add(loc, [16, 0, 16]), ctx))) return undefined;
+            block = dimension.getBlock(loc);
+        }
+        return block;
     }
 
     public *loadArea(start: Vector3, end: Vector3, ctx: JobContext = this.current) {
