@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2025-12-25 19:53\n"
+"PO-Revision-Date: 2026-02-04 04:49\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -597,6 +597,12 @@ msgstr "Pincel suave equipado (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Pincel suave equipado (%1 x %2x usando filtro)."
+
+msgid "commands.wedit:brush.bind.raise.noFilter"
+msgstr "Raise brush equipped (%1)."
+
+msgid "commands.wedit:brush.bind.raise.filter"
+msgstr "Raise brush equipped (%1 using filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "Pincel de prancheta equipado."
