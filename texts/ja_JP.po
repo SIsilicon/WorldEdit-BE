@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-12-25 19:53\n"
+"PO-Revision-Date: 2026-02-04 04:49\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -597,6 +597,12 @@ msgstr "スムーズブラシを装備しました (%1 x %2x) 。"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "スムーズブラシを装備しました (%1 x %2x、フィルター付き) 。"
+
+msgid "commands.wedit:brush.bind.raise.noFilter"
+msgstr "Raise brush equipped (%1)."
+
+msgid "commands.wedit:brush.bind.raise.filter"
+msgstr "Raise brush equipped (%1 using filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "クリップボードブラシを装備しました。"
