@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-12-25 19:53\n"
+"PO-Revision-Date: 2026-02-04 04:49\n"
 
 msgid "pack.description"
 msgstr "這是一個由原版 Java 端口的開發中模組並有更多功能！此附加包的作者為 SIsilicon (§l§b@iSiliconS§r)。"
@@ -597,6 +597,12 @@ msgstr "配備平滑筆刷 (%1 x %2x)。"
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "已裝備平滑筆刷樣式 (%1 x %2x 倍，使用篩選)。"
+
+msgid "commands.wedit:brush.bind.raise.noFilter"
+msgstr "Raise brush equipped (%1)."
+
+msgid "commands.wedit:brush.bind.raise.filter"
+msgstr "Raise brush equipped (%1 using filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "已配備剪貼簿筆刷樣式。"
