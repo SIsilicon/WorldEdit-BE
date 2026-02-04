@@ -35,7 +35,6 @@ export class PatternListUIBuilder extends EventEmitter<{ changed: [] }> implemen
         const updateSubPanes = () => {
             eachSubPane((pane, index) => {
                 pane.setVisibility(1, this.builders.length > 1);
-                console.log(this.builders.length);
                 pane.title = `Pattern ${index + 1}`;
             });
         };
