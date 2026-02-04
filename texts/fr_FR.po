@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-12-22 19:33\n"
+"PO-Revision-Date: 2026-02-04 04:49\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -448,6 +448,9 @@ msgstr "Rayon défini à %1."
 msgid "worldedit.selection.sphere.secondaryArea"
 msgstr "Rayon défini a %1 (~%2)."
 
+msgid "worldedit.selection.volume.primary"
+msgstr "You can only edit volume selections in editor mode's selection tool."
+
 msgid "worldedit.tool.noItem"
 msgstr "Un objet doit être dans votre main principale."
 
@@ -494,10 +497,10 @@ msgid "worldedit.error.tickArea"
 msgstr "Failed to create a temporary ticking area!"
 
 msgid "commands.wedit:blocks.changed"
-msgstr "%s blocs ont été changés."
+msgstr "%s blocks have been changed."
 
 msgid "commands.wedit:blocks.created"
-msgstr "%s blocs ont été créés."
+msgstr "%s blocks have been created."
 
 msgid "commands.wedit:blocks.calculating"
 msgstr "Calculating shape..."
@@ -594,6 +597,12 @@ msgstr "Brosse lisse équipée (%1 x %2x)."
 
 msgid "commands.wedit:brush.bind.smooth.filter"
 msgstr "Brosse lisse équipée (%1 x %2x avec filtre)."
+
+msgid "commands.wedit:brush.bind.raise.noFilter"
+msgstr "Raise brush equipped (%1)."
+
+msgid "commands.wedit:brush.bind.raise.filter"
+msgstr "Raise brush equipped (%1 using filter)."
 
 msgid "commands.wedit:brush.bind.clipboard"
 msgstr "Clipboard brush equipped."
