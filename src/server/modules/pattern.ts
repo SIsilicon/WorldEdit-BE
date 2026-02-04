@@ -19,7 +19,7 @@ import {
 } from "./block_parsing.js";
 import { Cardinal } from "./directions.js";
 import { Mask } from "./mask.js";
-import { buildKDTree } from "library/utils/kdtree.js";
+import { closestPoint } from "library/utils/closestpoint.js";
 import { Selection } from "./selection.js";
 
 interface patternContext {
@@ -74,30 +74,7 @@ export class Pattern implements CustomArgType {
         }
 
         const centers = (options?.strokePoints ?? [Vector.add(...range).div(2)]).map(Vector.from);
-        if (centers.length > 32) {
-            // KD Tree
-            const kdRoot = buildKDTree(centers);
-            pattern.context.getCenter = (location: Vector3) => {
-                const nearest = kdRoot.nearest(location);
-                return Vector.from(nearest ?? centers[0]);
-            };
-        } else {
-            // Linear Search
-            pattern.context.getCenter = (location: Vector3) => {
-                const locV = Vector.from(location);
-                let closest = centers[0];
-                let minDist = locV.distanceTo(closest);
-                for (let i = 1; i < centers.length; i++) {
-                    const c = centers[i];
-                    const d = locV.distanceTo(c);
-                    if (d < minDist) {
-                        minDist = d;
-                        closest = c;
-                    }
-                }
-                return Vector.from(closest);
-            };
-        }
+        pattern.context.getCenter = closestPoint(centers);
 
         pattern.getRootNode().prepare();
         return pattern;

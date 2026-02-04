@@ -11,19 +11,23 @@ class Column<T extends object> {
     readonly x: number;
     readonly z: number;
 
-    readonly initialHeight: number;
+    height: number;
+    initialHeight: number;
 
     data: T = {} as any;
 
     constructor(
         coord: VectorXZ,
         public minHeight: number,
-        public maxHeight: number,
-        public height: number
+        public maxHeight: number
     ) {
         this.x = coord.x;
         this.z = coord.z;
-        this.initialHeight = height;
+    }
+
+    initializeHeight(initial: number) {
+        this.initialHeight = initial;
+        this.height = initial;
     }
 }
 
@@ -110,7 +114,6 @@ export function* modifyHeight(
 
     // Create height map
     yield Jobs.nextStep("commands.wedit:heightmap.getting");
-    // TODO: Sort locations by height to reduce "overdraw"
     for (let i = 0; i < locations.length; i++) {
         const loc = locations[i];
         const [subMin, subMax] = shape.getRegion(Vector.ZERO);
@@ -119,31 +122,42 @@ export function* modifyHeight(
         for (let z = subMin.z; z <= subMax.z; z++) {
             for (let x = subMin.x; x <= subMax.x; x++) {
                 yield Jobs.setProgress((i + count++ / area) / locations.length);
-                const coords = { x: x + loc.x, y: 0, z: z + loc.z };
-                // TODO: Check if the existing column is higher
-                if (map.has(coords)) continue;
 
+                const coords = { x: x + loc.x, y: 0, z: z + loc.z };
                 const yRange = shape.getYRange(x, z);
                 if (!yRange) continue;
 
                 yRange[0] = Math.max(yRange[0] + loc.y, dimMin);
                 yRange[1] = Math.min(yRange[1] + loc.y, dimMax);
 
-                let h: Vector3;
-                for (h = new Vector(coords.x, yRange[1], coords.z); h.y >= yRange[0]; h.y--) {
-                    const block = (yield* Jobs.loadBlock(h))!;
-                    if (!block.isAir && heightMask.matchesBlock(block)) break;
-                }
-
-                if (h.y !== yRange[0] - 1) {
-                    const column = new Column(coords, ...yRange, h.y);
+                if (map.has(coords)) {
+                    const column = map.get(coords);
+                    column.minHeight = Math.min(column.minHeight, yRange[0]);
+                    column.maxHeight = Math.max(column.maxHeight, yRange[1]);
+                } else {
+                    const column = new Column(coords, ...yRange);
                     map.add(column);
-
-                    const chunkKey = `${Math.floor(coords.x / 8)} ${Math.floor(coords.z / 8)}`;
-                    if (!chunks.has(chunkKey)) chunks.set(chunkKey, []);
-                    chunks.get(chunkKey).push(column);
                 }
             }
+        }
+    }
+
+    // Calculate initial height in each column and populate the chunk map
+    const columns = Array.from(map.values());
+    for (const column of columns) {
+        let h: Vector3;
+        for (h = new Vector(column.x, column.maxHeight, column.z); h.y >= column.minHeight; h.y--) {
+            const block = (yield* Jobs.loadBlock(h))!;
+            if (!block.isAir && heightMask.matchesBlock(block)) break;
+        }
+
+        if (h.y !== column.minHeight - 1) {
+            column.initializeHeight(h.y);
+            const chunkKey = `${Math.floor(column.x / 8)} ${Math.floor(column.z / 8)}`;
+            if (!chunks.has(chunkKey)) chunks.set(chunkKey, []);
+            chunks.get(chunkKey).push(column);
+        } else {
+            map.delete(column);
         }
     }
 
@@ -172,7 +186,7 @@ export function* modifyHeight(
                 const direction = Math.sign(difference);
                 if (!difference) continue;
 
-                for (let y = newHeight; y !== initialHeight + direction; y += direction) {
+                for (let y = newHeight - direction; y !== initialHeight + direction; y += direction) {
                     const location = { x: column.x, y, z: column.z };
                     const sampleY = Math.min(Math.max(y + difference, dimMin), dimMax - 1);
                     const sampledBlock = yield* Jobs.loadBlock({ ...location, y: sampleY });

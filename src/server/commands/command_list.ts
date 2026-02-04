@@ -4,12 +4,14 @@ import { Expression } from "@modules/expression.js";
 import { Mask } from "@modules/mask.js";
 import { Pattern } from "@modules/pattern.js";
 import { Biome } from "@modules/biome_data.js";
+import { Easing } from "@modules/easing.js";
 
 Server.command.addCustomArgType("Mask", Mask);
 Server.command.addCustomArgType("Pattern", Pattern);
 Server.command.addCustomArgType("Direction", Cardinal);
 Server.command.addCustomArgType("Expression", Expression);
 Server.command.addCustomArgType("Biome", Biome);
+Server.command.addCustomArgType("Easing", Easing);
 Server.command.prefix = config.commandPrefix;
 
 import "./misc/help.js";

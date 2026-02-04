@@ -1,41 +1,45 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "minecraft-js",
-        "request": "attach",
-        "name": "Debug with Minecraft",
-        "mode": "listen",
-        "preLaunchTask": "watch",
-        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
-        "port": 19144
-      },
-      {
-        "type": "minecraft-js",
-        "request": "attach",
-        "name": "Debug with Minecraft Preview",
-        "mode": "listen",
-        "preLaunchTask": "watch:preview",
-        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
-        "port": 19144
-      },
-      {
-        "type": "minecraft-js",
-        "request": "attach",
-        "name": "Debug with Minecraft Editor",
-        "mode": "listen",
-        "preLaunchTask": "watch:editor",
-        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
-        "port": 19144
-      },
-      {
-        "type": "minecraft-js",
-        "request": "attach",
-        "name": "Debug with Minecraft Editor Preview",
-        "mode": "listen",
-        "preLaunchTask": "watch:editor:preview",
-        "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
-        "port": 19144
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug with Minecraft",
+      "mode": "listen",
+      "preLaunchTask": "watch",
+      "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+      "targetModuleUuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
+      "port": 19144
+    },
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug with Minecraft Preview",
+      "mode": "listen",
+      "preLaunchTask": "watch:preview",
+      "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+      "targetModuleUuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
+      "port": 19144
+    },
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug with Minecraft Editor",
+      "mode": "listen",
+      "preLaunchTask": "watch:editor",
+      "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+      "targetModuleUuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
+      "port": 19144
+    },
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug with Minecraft Editor Preview",
+      "mode": "listen",
+      "preLaunchTask": "watch:editor:preview",
+      "sourceMapRoot": "${workspaceFolder}/BP/scripts/",
+      "targetModuleUuid": "7f97c5a5-a9ec-4773-b29f-a26e0f653ee2",
+      "port": 19144
+    }
+  ]
+}

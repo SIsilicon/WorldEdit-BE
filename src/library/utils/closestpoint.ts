@@ -1,4 +1,5 @@
 import { Vector3 } from "@minecraft/server";
+import { Vector } from "@notbeer-api";
 
 // KD-tree helpers for faster nearest center queries
 class KDNode {
@@ -42,7 +43,7 @@ function squaredDist(a: Vector3, b: Vector3) {
     return dx * dx + dy * dy + dz * dz;
 }
 
-export function buildKDTree(points: Vector3[], depth = 0): KDNode | undefined {
+function buildKDTree(points: Vector3[], depth = 0): KDNode | undefined {
     if (!points || points.length === 0) return undefined;
     const axis = (depth % 3) as 0 | 1 | 2;
     const pts = points.slice();
@@ -52,4 +53,31 @@ export function buildKDTree(points: Vector3[], depth = 0): KDNode | undefined {
     node.left = buildKDTree(pts.slice(0, mid), depth + 1);
     node.right = buildKDTree(pts.slice(mid + 1), depth + 1);
     return node;
+}
+
+export function closestPoint(points: Vector3[]) {
+    if (points.length > 32) {
+        // KD Tree
+        const kdRoot = buildKDTree(points);
+        return (location: Vector3) => {
+            const nearest = kdRoot.nearest(location);
+            return Vector.from(nearest ?? points[0]);
+        };
+    } else {
+        // Linear Search
+        return (location: Vector3) => {
+            const locV = Vector.from(location);
+            let closest = points[0];
+            let minDist = locV.distanceTo(closest);
+            for (let i = 1; i < points.length; i++) {
+                const c = points[i];
+                const d = locV.distanceTo(c);
+                if (d < minDist) {
+                    minDist = d;
+                    closest = c;
+                }
+            }
+            return Vector.from(closest);
+        };
+    }
 }

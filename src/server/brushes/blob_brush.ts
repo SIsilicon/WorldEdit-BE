@@ -8,7 +8,7 @@ import { getWorldHeightLimits } from "server/util.js";
 import { SphereShape } from "server/shapes/sphere.js";
 import { Shape } from "server/shapes/base_shape.js";
 import { Vector3 } from "@minecraft/server";
-import { buildKDTree } from "library/utils/kdtree.js";
+import { closestPoint } from "library/utils/closestpoint.js";
 
 class Cell implements Vector3 {
     readonly x: number;
@@ -101,9 +101,9 @@ export class BlobBrush extends Brush {
         min.y = Math.max(minY, min.y);
         max.y = Math.min(maxY, max.y);
 
-        const kdRoot = buildKDTree(locations);
+        const closest = closestPoint(locations);
         const distanceFromStroke = (location: Vector3) => {
-            const nearest = kdRoot.nearest(location);
+            const nearest = closest(location);
             return Vector.sub(location, nearest).length;
         };
 
