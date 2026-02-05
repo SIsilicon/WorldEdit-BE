@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2026-02-04 04:49\n"
+"PO-Revision-Date: 2026-02-05 04:51\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -295,6 +295,9 @@ msgstr "侵蚀笔刷"
 msgid "worldedit.config.brush.overlay"
 msgstr "叠加笔刷"
 
+msgid "worldedit.config.brush.raise"
+msgstr "Raise Brush"
+
 msgid "worldedit.config.gradient.use"
 msgstr "在填充方块选择器中使用渐变功能"
 
@@ -408,6 +411,105 @@ msgstr "未指定命令"
 
 msgid "worldedit.config.command.isWorldEdit"
 msgstr "是否为创世神命令"
+
+msgid "worldedit.config.falloff.amount"
+msgstr "Falloff Amount"
+
+msgid "worldedit.config.falloff.type"
+msgstr "Falloff Type"
+
+msgid "worldedit.config.falloff.type.linear"
+msgstr "Linear"
+
+msgid "worldedit.config.falloff.type.in_quad"
+msgstr "In Quad"
+
+msgid "worldedit.config.falloff.type.out_quad"
+msgstr "Out Quad"
+
+msgid "worldedit.config.falloff.type.in_out_quad"
+msgstr "In Out Quad"
+
+msgid "worldedit.config.falloff.type.in_cubic"
+msgstr "In Cubic"
+
+msgid "worldedit.config.falloff.type.out_cubic"
+msgstr "Out Cubic"
+
+msgid "worldedit.config.falloff.type.in_out_cubic"
+msgstr "In Out Cubic"
+
+msgid "worldedit.config.falloff.type.in_quart"
+msgstr "In Quart"
+
+msgid "worldedit.config.falloff.type.out_quart"
+msgstr "Out Quart"
+
+msgid "worldedit.config.falloff.type.in_out_quart"
+msgstr "In Out Quart"
+
+msgid "worldedit.config.falloff.type.in_quint"
+msgstr "In Quint"
+
+msgid "worldedit.config.falloff.type.out_quint"
+msgstr "Out Quint"
+
+msgid "worldedit.config.falloff.type.in_out_quint"
+msgstr "In Out Quint"
+
+msgid "worldedit.config.falloff.type.in_sine"
+msgstr "In Sine"
+
+msgid "worldedit.config.falloff.type.out_sine"
+msgstr "Out Sine"
+
+msgid "worldedit.config.falloff.type.in_out_sine"
+msgstr "In Out Sine"
+
+msgid "worldedit.config.falloff.type.in_expo"
+msgstr "In Exponential"
+
+msgid "worldedit.config.falloff.type.out_expo"
+msgstr "Out Exponential"
+
+msgid "worldedit.config.falloff.type.in_out_expo"
+msgstr "In Out Exponential"
+
+msgid "worldedit.config.falloff.type.in_circ"
+msgstr "In Circular"
+
+msgid "worldedit.config.falloff.type.out_circ"
+msgstr "Out Circular"
+
+msgid "worldedit.config.falloff.type.in_out_circ"
+msgstr "In Out Circular"
+
+msgid "worldedit.config.falloff.type.in_back"
+msgstr "In Back"
+
+msgid "worldedit.config.falloff.type.out_back"
+msgstr "Out Back"
+
+msgid "worldedit.config.falloff.type.in_out_back"
+msgstr "In Out Back"
+
+msgid "worldedit.config.falloff.type.in_elastic"
+msgstr "In Elastic"
+
+msgid "worldedit.config.falloff.type.out_elastic"
+msgstr "Out Elastic"
+
+msgid "worldedit.config.falloff.type.in_out_elastic"
+msgstr "In Out Elastic"
+
+msgid "worldedit.config.falloff.type.in_bounce"
+msgstr "In Bounce"
+
+msgid "worldedit.config.falloff.type.out_bounce"
+msgstr "Out Bounce"
+
+msgid "worldedit.config.falloff.type.in_out_bounce"
+msgstr "In Out Bounce"
 
 msgid "worldedit.selection.noPrimary"
 msgstr "您还没有选定第一个点。"
