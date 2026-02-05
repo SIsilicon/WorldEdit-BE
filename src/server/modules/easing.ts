@@ -1,7 +1,7 @@
 import { CustomArgType } from "@notbeer-api";
 import easingFunctions from "./extern/easingFunctions";
 
-type EasingType = keyof typeof easingFunctions;
+type EasingType = string;
 
 export class Easing implements CustomArgType {
     private easingFunction: (typeof easingFunctions)[EasingType];
@@ -24,7 +24,8 @@ export class Easing implements CustomArgType {
     }
 
     static parseArgs(args: Array<string>, index = 0) {
-        const easingType = args[index].toLowerCase().replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+        let easingType = args[index].toLowerCase().replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+        if (easingType !== "linear") easingType = "ease" + easingType[0].toUpperCase() + easingType.slice(1);
         if (!(easingType in easingFunctions)) {
             throw "";
         }

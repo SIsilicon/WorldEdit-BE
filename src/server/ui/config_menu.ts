@@ -4,18 +4,21 @@ import { Mask } from "@modules/mask.js";
 import { Pattern, patternsFromSelection } from "@modules/pattern.js";
 import { Server } from "@notbeer-api";
 import { MenuContext, ModalForm } from "library/@types/classes/uiFormBuilder.js";
-import { Brush } from "../brushes/base_brush.js";
-import { SphereBrush } from "../brushes/sphere_brush.js";
-import { CylinderBrush } from "../brushes/cylinder_brush.js";
-import { SmoothBrush } from "../brushes/smooth_brush.js";
 import { Tools } from "../tools/tool_manager.js";
 import { selectionModes } from "@modules/selection.js";
 import { ConfigContext, ToolTypes } from "./types.js";
-import config from "config.js";
-import { StructureBrush } from "server/brushes/structure_brush.js";
 import { getSession } from "server/sessions.js";
+import { Brush } from "../brushes/base_brush.js";
+import { StructureBrush } from "server/brushes/structure_brush.js";
+import { SphereBrush } from "../brushes/sphere_brush.js";
+import { CylinderBrush } from "../brushes/cylinder_brush.js";
+import { SmoothBrush } from "../brushes/smooth_brush.js";
 import { ErosionBrush } from "server/brushes/erosion_brush.js";
 import { OverlayBrush } from "server/brushes/overlay_brush.js";
+import { RaiseBrush } from "server/brushes/raise_brush.js";
+import { Easing } from "@modules/easing.js";
+import easingsFunctions from "@modules/extern/easingFunctions.js";
+import config from "config.js";
 
 type MenuConfigCtx = MenuContext<ConfigContext>;
 type ModalFormInput = ModalForm<ConfigContext>["inputs"];
@@ -670,6 +673,105 @@ Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
     cancel: (ctx) => ctx.returnto("$tools"),
 });
 
+Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
+    title: editToolTitle,
+    inputs: {
+        ...brushSizeInput,
+        ...maskInput,
+        $height: {
+            type: "slider",
+            name: "%worldedit.config.height",
+            min: -6,
+            max: 6,
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as RaiseBrush).getHeight()),
+        },
+        $heightMask: {
+            type: "textField",
+            name: "%worldedit.config.mask.height",
+            placeholder: "Eg: grass,stone %gametest.optionalPrefix",
+            default: (ctx, player) => {
+                if (ctx.getData("creatingTool")) return "";
+                return (getToolProperty(ctx, player, "brush") as RaiseBrush).getHeightMask()?.toJSON() ?? "";
+            },
+        },
+        $falloffAmount: {
+            type: "slider",
+            name: "%worldedit.config.falloff.amount",
+            min: 0,
+            max: 100,
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : (getToolProperty(ctx, player, "brush") as RaiseBrush).getFalloffAmount() * 100),
+        },
+        $falloffType: {
+            type: "dropdown",
+            name: "%worldedit.config.falloff.type",
+            options: [
+                "%worldedit.config.falloff.type.linear",
+                "%worldedit.config.falloff.type.in_quad",
+                "%worldedit.config.falloff.type.out_quad",
+                "%worldedit.config.falloff.type.in_out_quad",
+                "%worldedit.config.falloff.type.in_cubic",
+                "%worldedit.config.falloff.type.out_cubic",
+                "%worldedit.config.falloff.type.in_out_cubic",
+                "%worldedit.config.falloff.type.in_quart",
+                "%worldedit.config.falloff.type.out_quart",
+                "%worldedit.config.falloff.type.in_out_quart",
+                "%worldedit.config.falloff.type.in_quint",
+                "%worldedit.config.falloff.type.out_quint",
+                "%worldedit.config.falloff.type.in_out_quint",
+                "%worldedit.config.falloff.type.in_sine",
+                "%worldedit.config.falloff.type.out_sine",
+                "%worldedit.config.falloff.type.in_out_sine",
+                "%worldedit.config.falloff.type.in_expo",
+                "%worldedit.config.falloff.type.out_expo",
+                "%worldedit.config.falloff.type.in_out_expo",
+                "%worldedit.config.falloff.type.in_circ",
+                "%worldedit.config.falloff.type.out_circ",
+                "%worldedit.config.falloff.type.in_out_circ",
+                "%worldedit.config.falloff.type.in_back",
+                "%worldedit.config.falloff.type.out_back",
+                "%worldedit.config.falloff.type.in_out_back",
+                "%worldedit.config.falloff.type.in_elastic",
+                "%worldedit.config.falloff.type.out_elastic",
+                "%worldedit.config.falloff.type.in_out_elastic",
+                "%worldedit.config.falloff.type.in_bounce",
+                "%worldedit.config.falloff.type.out_bounce",
+                "%worldedit.config.falloff.type.in_out_bounce",
+            ],
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : Object.keys(easingsFunctions).indexOf((getToolProperty(ctx, player, "brush") as RaiseBrush).getFalloffType().type)),
+        },
+        ...usePickerInput,
+    },
+    submit: (ctx, player, input) => {
+        const heightMask = verifyMask(<string>input.$heightMask);
+        if (typeof heightMask === "string") return ctx.error(heightMask);
+
+        const brush = new RaiseBrush(
+            input.$size as number,
+            input.$height as number,
+            heightMask,
+            new Easing(Object.keys(easingsFunctions)[input.$falloffType as number]),
+            (input.$falloffAmount as number) / 100
+        );
+
+        if (input.$usePicker) {
+            ctx.setData("pickerData", {
+                return: "$editTool_raise_brush",
+                onFinish: (ctx, _, mask) => {
+                    ctx.setData("toolData", [brush, mask, null, null]);
+                    finishToolEdit(ctx);
+                },
+            });
+            HotbarUI.goto("$pickMask", player, ctx);
+        } else {
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [brush, mask, null, null]);
+            finishToolEdit(ctx);
+        }
+    },
+    cancel: (ctx) => ctx.returnto("$tools"),
+});
+
 Server.uiForms.register<ConfigContext>("$selectToolType", {
     title: "%worldedit.config.choose.tool",
     buttons: [
@@ -790,6 +892,14 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
             action: (ctx) => {
                 ctx.setData("creatingTool", "overlay_brush");
                 ctx.goto("$editTool_overlay_brush");
+            },
+        },
+        {
+            text: "%worldedit.config.brush.raise",
+            icon: "textures/ui/raise_brush",
+            action: (ctx) => {
+                ctx.setData("creatingTool", "raise_brush");
+                ctx.goto("$editTool_raise_brush");
             },
         },
     ],

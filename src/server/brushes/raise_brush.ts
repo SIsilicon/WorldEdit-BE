@@ -50,12 +50,20 @@ export class RaiseBrush extends Brush {
         return this.size;
     }
 
-    public getIterations() {
+    public getHeight() {
         return this.height;
     }
 
     public getHeightMask() {
         return this.mask;
+    }
+
+    public getFalloffAmount() {
+        return this.falloffAmount;
+    }
+
+    public getFalloffType() {
+        return this.falloffType;
     }
 
     public paintWith() {
