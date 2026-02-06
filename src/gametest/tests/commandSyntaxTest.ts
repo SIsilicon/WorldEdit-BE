@@ -28,6 +28,8 @@ function getTestValue(type: string) {
             return ["x>y"];
         case "Biome":
             return ["plains"];
+        case "Easing":
+            return ["in_out_circ"];
         default:
             if (type) throw "Unknown type for command syntax test: " + type;
             return [];
