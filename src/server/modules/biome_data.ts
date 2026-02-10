@@ -1,17 +1,15 @@
-import { Dimension, Vector3, world } from "@minecraft/server";
+import { BiomeTypes, Dimension, Vector3, world } from "@minecraft/server";
 import { commandSyntaxError, contentLog, CustomArgType, Databases, Vector } from "@notbeer-api";
-import { locToString, wrap } from "../util.js";
+import { locToString, stringToLoc, wrap } from "../util.js";
+import { Jobs } from "./jobs.js";
 
 class Biome implements CustomArgType {
-    private id = -1;
-    private name = "unknown";
+    private id = "minecraft:ocean";
 
-    constructor(id = "") {
-        if (Number.parseInt(id) < 0) return;
+    constructor(id?: string) {
         if (id) {
             const obj = Biome.parseArgs([id]).result;
             this.id = obj.id;
-            this.name = obj.name;
         }
     }
 
@@ -19,35 +17,24 @@ class Biome implements CustomArgType {
         return this.id;
     }
 
-    getName() {
-        return this.name;
-    }
-
     clone() {
         const clone = new Biome();
         clone.id = this.id;
-        clone.name = this.name;
         return clone;
     }
 
     toString() {
-        return `[biome: ${this.name}/${this.id}]`;
+        return `[biome: ${this.id}]`;
     }
 
     static parseArgs(args: string[], index = 0) {
         const input = args[index];
         const result = new Biome();
-        if (!input) {
-            return { result, argIndex: index + 1 };
-        }
+        if (!input) return { result, argIndex: index + 1 };
 
-        if (input in nameToId) {
-            result.name = input;
-            result.id = nameToId[input as keyof typeof nameToId];
-        } else if (Number.parseInt(input) in idToName) {
-            const num = Number.parseInt(input);
-            result.id = num;
-            result.name = idToName[num as keyof typeof idToName];
+        const biomeType = BiomeTypes.get(input);
+        if (biomeType) {
+            result.id = biomeType.id;
         } else {
             const err: commandSyntaxError = {
                 isSyntaxError: true,
@@ -62,56 +49,58 @@ class Biome implements CustomArgType {
 
 class BiomeChanges {
     // map of subchunks; each subchunk is a map of biome changes
-    private changes: Map<string, Map<number, number>> = new Map();
+    private changes: Map<string, Map<number, string>> = new Map();
+    private heightRange: { min: number; max: number };
 
-    constructor(public dimension: Dimension) {}
+    constructor(public dimension: Dimension) {
+        this.heightRange = dimension.heightRange;
+    }
 
-    setBiome(loc: Vector3, biome: number) {
+    *setBiome(loc: Vector3, biome: string) {
+        if (loc.y < this.heightRange.min || loc.y >= this.heightRange.max) return;
+
         const subChunkCoord = locToString(new Vector(Math.floor(loc.x / 16), Math.floor(loc.y / 16), Math.floor(loc.z / 16)));
 
-        if (!this.changes.has(subChunkCoord)) {
-            this.changes.set(subChunkCoord, new Map());
-        }
+        if (!this.changes.has(subChunkCoord)) this.changes.set(subChunkCoord, new Map());
         const subChunk = this.changes.get(subChunkCoord);
         subChunk.set(this.locToId(new Vector(wrap(loc.x, 16), wrap(loc.y, 16), wrap(loc.z, 16))), biome);
 
-        if (subChunk.size == 4096) {
-            this.flush();
-        }
+        if (subChunk.size == 4096) yield* this.flush();
     }
 
-    flush() {
+    *flush() {
         for (const [chunk, data] of this.changes) {
             const tableName = `biome,${this.dimension.id},${chunk}`;
-            const database = Databases.load(tableName, world, true);
+            const database = Databases.load<{ biomes: number[]; palette: string[] }>(tableName, world);
 
-            let biomes: number[] = [];
+            let biomes: string[] = [];
             if (!("biomes" in database)) {
                 biomes.length = 4096;
-                biomes = biomes.fill(-1);
+                biomes = biomes.fill("");
             } else {
-                const palette: number[] = database.data.palette;
-                biomes = (database.data.biomes as number[]).map((idx) => (idx ? palette[idx - 1] : -1));
+                const palette: string[] = database.data.palette;
+                biomes = (database.data.biomes as number[]).map((idx) => (idx ? palette[idx - 1] : ""));
             }
 
-            for (const [loc, biome] of data.entries()) {
-                biomes[loc] = biome;
-            }
+            for (const [loc, biome] of data.entries()) biomes[loc] = biome;
 
-            const paletteMap = new Map<number, number>();
-            for (const biome of biomes) {
-                if (biome >= 0) {
-                    paletteMap.set(biome, null);
-                }
-            }
+            const paletteMap = new Map<string, number>();
+            for (const biome of biomes) if (biome !== "") paletteMap.set(biome, null);
             const newPalette = Array.from(paletteMap.keys());
             paletteMap.clear();
             newPalette.forEach((val, idx) => paletteMap.set(val, idx + 1));
-            paletteMap.set(-1, 0);
+            paletteMap.set("", 0);
 
             database.data.biomes = biomes.map((biome) => paletteMap.get(biome));
             database.data.palette = newPalette;
             database.save();
+
+            // Force update chunk to ensure it's saved in the world data.
+            const updateLocation = stringToLoc(chunk).mul(16);
+            const updateBlock = yield* Jobs.loadBlock(updateLocation);
+            const oldPermutation = updateBlock.permutation;
+            updateBlock.setType(updateBlock.matches("air") ? "stone" : "air");
+            updateBlock.setPermutation(oldPermutation);
         }
         this.changes.clear();
     }
@@ -120,95 +109,5 @@ class BiomeChanges {
         return loc.x + loc.y * 16 + loc.z * 256;
     }
 }
-
-const nameToId = {
-    ocean: 0,
-    plains: 1,
-    desert: 2,
-    extreme_hills: 3,
-    forest: 4,
-    taiga: 5,
-    swampland: 6,
-    river: 7,
-    hell: 8,
-    the_end: 9,
-    legacy_frozen_ocean: 10,
-    frozen_river: 11,
-    ice_plains: 12,
-    ice_mountains: 13,
-    mushroom_island: 14,
-    mushroom_island_shore: 15,
-    beach: 16,
-    desert_hills: 17,
-    forest_hills: 18,
-    taiga_hills: 19,
-    extreme_hills_edge: 20,
-    jungle: 21,
-    jungle_hills: 22,
-    jungle_edge: 23,
-    deep_ocean: 24,
-    stone_beach: 25,
-    cold_beach: 26,
-    birch_forest: 27,
-    birch_forest_hills: 28,
-    roofed_forest: 29,
-    cold_taiga: 30,
-    cold_taiga_hills: 31,
-    mega_taiga: 32,
-    mega_taiga_hills: 33,
-    extreme_hills_plus_trees: 34,
-    savanna: 35,
-    savanna_plateau: 36,
-    mesa: 37,
-    mesa_plateau_stone: 38,
-    mesa_plateau: 39,
-    warm_ocean: 40,
-    deep_warm_ocean: 41,
-    lukewarm_ocean: 42,
-    deep_lukewarm_ocean: 43,
-    cold_ocean: 44,
-    deep_cold_ocean: 45,
-    frozen_ocean: 46,
-    deep_frozen_ocean: 47,
-    bamboo_jungle: 48,
-    bamboo_jungle_hills: 49,
-    sunflower_plains: 129,
-    desert_mutated: 130,
-    extreme_hills_mutated: 131,
-    flower_forest: 132,
-    taiga_mutated: 133,
-    swampland_mutated: 134,
-    ice_plains_spikes: 140,
-    jungle_mutated: 149,
-    jungle_edge_mutated: 151,
-    birch_forest_mutated: 155,
-    birch_forest_hills_mutated: 156,
-    roofed_forest_mutated: 157,
-    cold_taiga_mutated: 158,
-    redwood_taiga_mutated: 160,
-    redwood_taiga_hills_mutated: 161,
-    extreme_hills_plus_trees_mutated: 162,
-    savanna_mutated: 163,
-    savanna_plateau_mutated: 164,
-    mesa_bryce: 165,
-    mesa_plateau_stone_mutated: 166,
-    mesa_plateau_mutated: 167,
-    soulsand_valley: 178,
-    crimson_forest: 179,
-    warped_forest: 180,
-    basalt_deltas: 181,
-    jagged_peaks: 182,
-    frozen_peaks: 183,
-    snowy_slopes: 184,
-    grove: 185,
-    meadow: 186,
-    lush_caves: 187,
-    dripstone_caves: 188,
-    stony_peaks: 189,
-    deep_dark: 190,
-    mangrove_swamp: 191,
-    cherry_grove: 192,
-} as const;
-const idToName = Object.fromEntries(Object.entries(nameToId).map(([k, v]) => [v, k]));
 
 export { BiomeChanges, Biome };

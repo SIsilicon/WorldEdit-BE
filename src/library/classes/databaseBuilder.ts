@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Entity, ScoreboardObjective, World, world } from "@minecraft/server";
+import { Entity, World, world } from "@minecraft/server";
 import { Database } from "../@types/classes/databaseBuilder";
-import { contentLog, Server, whenReady } from "@notbeer-api";
-
-let objective: ScoreboardObjective;
-whenReady(() => world.scoreboard.getObjective("GAMETEST_DB") ?? world.scoreboard.addObjective("GAMETEST_DB", ""));
+import { contentLog } from "@notbeer-api";
 
 const databases: { [k: string]: DatabaseImpl<any> } = {};
 const parsers: ((key: string, value: any, databaseName: string) => any)[] = [];
@@ -22,10 +19,10 @@ function getDatabaseKey(name: string, provider?: World | Entity) {
 }
 
 class DatabaseManager {
-    load<T extends object = { [key: string]: any }>(name: string, provider: World | Entity = world, legacyStorage = false) {
+    load<T extends object = { [key: string]: any }>(name: string, provider: World | Entity = world) {
         const key = getDatabaseKey(name, provider);
         if (!databases[key]) {
-            databases[key] = new DatabaseImpl<T>(name, provider, legacyStorage);
+            databases[key] = new DatabaseImpl<T>(name, provider);
             databases[key].load();
         }
         return <Database<T>>databases[key];
@@ -62,8 +59,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
 
     constructor(
         private name: string,
-        private provider: World | Entity = world,
-        private legacyStorage = false
+        private provider: World | Entity = world
     ) {}
 
     get data() {
@@ -79,16 +75,11 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
     }
 
     get rawData(): string | undefined {
-        const table = this.getScoreboardParticipant();
         let data: string | undefined;
-        if (table) {
-            data = (<string>JSON.parse(`"${table.displayName}"`)).slice(`[\\"${this.getScoreboardName()}\\"`.length - 1, -1);
-        } else {
-            data = <string>this.provider.getDynamicProperty(this.name);
-            let page: string | undefined;
-            let i = 2;
-            while (data && (page = <string>this.provider.getDynamicProperty(`__page${i++}__` + this.name))) data += page;
-        }
+        data = <string>this.provider.getDynamicProperty(this.name);
+        let page: string | undefined;
+        let i = 2;
+        while (data && (page = <string>this.provider.getDynamicProperty(`__page${i++}__` + this.name))) data += page;
         return data;
     }
 
@@ -108,16 +99,6 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
 
     save(): void {
         if (!this.valid) throw new Error(`Can't save data to invalid database "${this.name}".`);
-
-        const table = this.getScoreboardParticipant();
-        if (this.legacyStorage) {
-            const scoreboardName = this.getScoreboardName();
-            if (table) Server.runCommand(`scoreboard players reset "${table.displayName}" GAMETEST_DB`);
-            Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify([scoreboardName, this._data]))} GAMETEST_DB 0`);
-            return;
-        } else if (table && !this.legacyStorage) {
-            objective.removeParticipant(table);
-        }
 
         const data = JSON.stringify(this._data);
         // Try smaller divisions of data until the right number of pages is found.
@@ -160,15 +141,10 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
 
     delete() {
         if (!this.valid) throw new Error(`Can't delete invalid database "${this.name}".`);
-        const table = this.getScoreboardParticipant();
-        if (table) {
-            objective.removeParticipant(table);
-        } else {
-            this.provider.setDynamicProperty(this.name, undefined);
-            let page = 2;
-            while (this.provider.getDynamicProperty(`__page${page}__` + this.name)) {
-                this.provider.setDynamicProperty(`__page${page++}__` + this.name, undefined);
-            }
+        this.provider.setDynamicProperty(this.name, undefined);
+        let page = 2;
+        while (this.provider.getDynamicProperty(`__page${page}__` + this.name)) {
+            this.provider.setDynamicProperty(`__page${page++}__` + this.name, undefined);
         }
         this.valid = false;
         Databases.delete(this.name, this.provider);
@@ -177,20 +153,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
     toJSON() {
         const json: any = { __dbName__: this.name };
         if (this.provider instanceof Entity) json.__dbProvider__ = this.provider.id;
-        if (this.legacyStorage) json.__dbLegacy__ = true;
         return json;
-    }
-
-    private getScoreboardParticipant() {
-        for (const table of objective?.getParticipants() ?? []) {
-            if (table.displayName.startsWith(`[\\"${this.getScoreboardName()}\\"`)) return table;
-        }
-    }
-
-    private getScoreboardName() {
-        let name = "wedit:" + this.name;
-        if (this.provider instanceof Entity) name += this.provider.id;
-        return name;
     }
 }
 
@@ -198,6 +161,6 @@ Databases.addParser((_, value) => {
     if (!value || typeof value !== "object" || !value.__dbName__) return value;
     const provider = value.__dbProvider__ ? world.getEntity(value.__dbProvider__) : world;
     const key = getDatabaseKey(value.__dbName__, provider);
-    if (!databases[key]) databases[key] = new DatabaseImpl(value.__dbName__, provider, value.__dbLegacy__);
+    if (!databases[key]) databases[key] = new DatabaseImpl(value.__dbName__, provider);
     return databases[key];
 });

@@ -1,5 +1,5 @@
 import { Player } from "@minecraft/server";
-import { assertCanBuildWithin, assertSelection } from "@modules/assert.js";
+import { assertSelection } from "@modules/assert.js";
 import { Biome, BiomeChanges } from "@modules/biome_data.js";
 import { Jobs } from "@modules/jobs.js";
 import { PlayerUtil } from "@modules/player_util.js";
@@ -19,55 +19,52 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const biome = (args.get("biome") as Biome).getId();
     const biomeChanges = new BiomeChanges(builder.dimension);
 
-    if (args.has("p")) {
-        biomeChanges.setBiome(PlayerUtil.getBlockLocation(builder), biome);
-        biomeChanges.flush();
-        changeCount++;
-        yield;
-    } else {
+    yield* Jobs.run(session, 1, function* () {
+        if (args.has("p")) {
+            yield* biomeChanges.setBiome(PlayerUtil.getBlockLocation(builder), biome);
+            yield* biomeChanges.flush();
+            changeCount++;
+            return;
+        }
+
         assertSelection(session);
-        assertCanBuildWithin(builder, ...session.selection.getRange());
+        yield Jobs.nextStep("commands.wedit:biome.setting");
 
         let i = 0;
         const blockCount = session.selection.getBlockCount();
-        yield* Jobs.run(session, 1, function* () {
-            yield Jobs.nextStep("commands.wedit:biome.setting");
-            if (session.selection.isCuboid) {
-                const [min, max] = session.selection.getRange();
-                const minSubChunk = Vector.from(min)
-                    .mul(1 / 16)
-                    .floor();
-                const maxSubChunk = Vector.from(max)
-                    .mul(1 / 16)
-                    .floor();
+        if (session.selection.isCuboid) {
+            const [min, max] = session.selection.getRange();
+            const minSubChunk = Vector.from(min)
+                .mul(1 / 16)
+                .floor();
+            const maxSubChunk = Vector.from(max)
+                .mul(1 / 16)
+                .floor();
 
-                for (let subZ = minSubChunk.z; subZ <= maxSubChunk.z; subZ++) {
-                    for (let subY = minSubChunk.y; subY <= maxSubChunk.y; subY++) {
-                        for (let subX = minSubChunk.x; subX <= maxSubChunk.x; subX++) {
-                            const chunkMin = new Vector(subX, subY, subZ).mul(16).max(min);
-                            const chunkMax = new Vector(subX, subY, subZ).mul(16).add(15).min(max);
+            for (let subZ = minSubChunk.z; subZ <= maxSubChunk.z; subZ++) {
+                for (let subY = minSubChunk.y; subY <= maxSubChunk.y; subY++) {
+                    for (let subX = minSubChunk.x; subX <= maxSubChunk.x; subX++) {
+                        const chunkMin = new Vector(subX, subY, subZ).mul(16).max(min);
+                        const chunkMax = new Vector(subX, subY, subZ).mul(16).add(15).min(max);
 
-                            for (const block of regionIterateBlocks(chunkMin.floor(), chunkMax.floor())) {
-                                biomeChanges.setBiome(block, biome);
-                                yield Jobs.setProgress(++i / blockCount);
-                                changeCount++;
-                            }
-                            biomeChanges.flush();
-                            yield;
+                        for (const block of regionIterateBlocks(chunkMin.floor(), chunkMax.floor())) {
+                            yield* biomeChanges.setBiome(block, biome);
+                            yield Jobs.setProgress(++i / blockCount);
+                            changeCount++;
                         }
+                        yield* biomeChanges.flush();
                     }
                 }
-            } else {
-                for (const block of session.selection.getBlocks()) {
-                    biomeChanges.setBiome(block, biome);
-                    yield Jobs.setProgress(++i / blockCount);
-                    changeCount++;
-                }
-                biomeChanges.flush();
-                yield;
             }
-        });
-    }
+        } else {
+            for (const block of session.selection.getBlocks()) {
+                yield* biomeChanges.setBiome(block, biome);
+                yield Jobs.setProgress(++i / blockCount);
+                changeCount++;
+            }
+            yield* biomeChanges.flush();
+        }
+    });
     let message = RawText.translate("commands.wedit:setbiome.changed").with(changeCount);
     if (!users.includes(builder)) {
         message = message.append("text", "\n").append("translate", "commands.wedit:setbiome.warning");
