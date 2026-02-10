@@ -1,9 +1,8 @@
-import { IPlayerUISession, makeObservable } from "@minecraft/server-editor";
+import { ButtonVariant, IPlayerUISession, makeObservable } from "@minecraft/server-editor";
 import { UIPane } from "editor/pane/builder";
 import { EditorModule } from "./base";
 import { PatternListUIBuilder } from "editor/pane/patternList";
 import { Pattern } from "@modules/pattern";
-import { ButtonPropertyItemVariant } from "editor/fix";
 
 export class GradientsModule extends EditorModule {
     private readonly pane: UIPane;
@@ -22,7 +21,6 @@ export class GradientsModule extends EditorModule {
         super(session);
         this.editPatternList = new PatternListUIBuilder([], this.player);
         this.createPatternList = new PatternListUIBuilder([], this.player);
-
         const tool = session.toolRail.addTool("worldedit:gradients", { title: "WorldEdit Gradients", icon: "pack://textures/editor/gradients_tool.png" });
         this.pane = new UIPane(this.session, {
             title: "Gradients",
@@ -38,7 +36,7 @@ export class GradientsModule extends EditorModule {
                 {
                     type: "button",
                     title: "Create New Gradient",
-                    variant: ButtonPropertyItemVariant.Confirmation,
+                    variant: ButtonVariant.Confirmation,
                     pressed: () => {
                         this.createName.set("");
                         this.createDithering.set(0);
@@ -71,7 +69,7 @@ export class GradientsModule extends EditorModule {
                         {
                             type: "button",
                             title: "Delete",
-                            variant: ButtonPropertyItemVariant.Destructive,
+                            variant: ButtonVariant.Destructive,
                             pressed: () => {
                                 if (!this.selectedGradientIdx) return;
                                 const gradients = this.worldedit.getGradientNames();
@@ -110,7 +108,7 @@ export class GradientsModule extends EditorModule {
                     type: "button",
                     title: "Create New Gradient",
                     uniqueId: "createGradient",
-                    variant: ButtonPropertyItemVariant.Confirmation,
+                    variant: ButtonVariant.Confirmation,
                     enable: false,
                     pressed: () => {
                         this.worldedit.createGradient(this.createName.value, this.createDithering.value, this.createPatternList.patterns);
@@ -120,7 +118,7 @@ export class GradientsModule extends EditorModule {
                 {
                     type: "button",
                     title: "Cancel",
-                    variant: ButtonPropertyItemVariant.Destructive,
+                    variant: ButtonVariant.Destructive,
                     pressed: () => this.pane.hideModalPane(this.createPane),
                 },
             ],
