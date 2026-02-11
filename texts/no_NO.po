@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2026-02-05 04:51\n"
+"PO-Revision-Date: 2026-02-11 03:28\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -911,7 +911,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s har blitt eksportert."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eMerk: For å bruke eksporterte strukturer i andre verdener, er WorldEdit applikasjonen nødvendig for å pakke ut til ekstern bruk.§r"
+msgstr "§eNote: To use exported structures in other worlds, an external app is required to extract it for external use. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Slukk brann i nærheten"
@@ -1238,7 +1238,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "Endre biomene i utvalget ditt"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eMerk: Du må behandle verdenen med WorldEdit applikasjonen for biomendringene til å gå i bruk.§r"
+msgstr "§eNote: You need to process the world with an external app for the biome changes to apply. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Bytt utvalgsområdet"
