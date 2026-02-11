@@ -74,12 +74,12 @@ class BiomeChanges {
             const database = Databases.load<{ biomes: number[]; palette: string[] }>(tableName, world);
 
             let biomes: string[] = [];
-            if (!("biomes" in database)) {
+            if (!("biomes" in database.data)) {
                 biomes.length = 4096;
                 biomes = biomes.fill("");
             } else {
                 const palette: string[] = database.data.palette;
-                biomes = (database.data.biomes as number[]).map((idx) => (idx ? palette[idx - 1] : ""));
+                biomes = database.data.biomes.map((idx) => (idx ? palette[idx - 1] : ""));
             }
 
             for (const [loc, biome] of data.entries()) biomes[loc] = biome;
@@ -105,8 +105,14 @@ class BiomeChanges {
         this.changes.clear();
     }
 
-    private locToId(loc: Vector3) {
-        return loc.x + loc.y * 16 + loc.z * 256;
+    /**
+     * Converts an offset from the minimum corner of the chunk to a chunk block index.
+     *
+     * @param offset The offset from the minimum corner of the chunk.
+     * @returns The chunk block index.
+     */
+    private locToId(offset: Vector3): number {
+        return ((offset.x & 0xf) << 8) | (offset.y & 0xf) | ((offset.z & 0xf) << 4);
     }
 }
 

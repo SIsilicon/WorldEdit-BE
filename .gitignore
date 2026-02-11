@@ -20,6 +20,5 @@ node_modules
 !.vscode/tasks.json
 !.vscode/launch.json
 .vscode
-app/.import
 __pycache__
 bin

@@ -800,7 +800,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s has been exported."
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§eNote: To use exported structures in other worlds, the WorldEdit app is required to extract it for external use.§r"
+msgstr "§eNote: To use exported structures in other worlds, an external app is required to extract it for external use. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "Padamkan api terdekat"
@@ -1127,7 +1127,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "Change the biomes in your selection"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§eNote: You need to process the world with the WorldEdit app for the biome changes to apply.§r"
+msgstr "§eNote: You need to process the world with an external app for the biome changes to apply. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "Shift the selection area"

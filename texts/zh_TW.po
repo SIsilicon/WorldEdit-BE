@@ -800,7 +800,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s 已導出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§e注意： 若要在其他世界中使用匯出的結構，需要 WorldEdit 應用程式將其提取以供外部使用。§r"
+msgstr "§eNote: To use exported structures in other worlds, an external app is required to extract it for external use. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "已熄滅附近的火焰"
@@ -1127,7 +1127,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "變更選擇範圍內的生態域"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§e注意： 您需要使用 WorldEdit 應用程式處理世界才能套用生態域變更。§r"
+msgstr "§eNote: You need to process the world with an external app for the biome changes to apply. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "轉移選擇區域"
