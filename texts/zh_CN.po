@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2026-02-05 04:51\n"
+"PO-Revision-Date: 2026-02-11 03:28\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -911,7 +911,7 @@ msgid "commands.wedit:export.explain"
 msgstr "%s 已被导出。"
 
 msgid "commands.wedit:export.otherWorlds"
-msgstr "§e注: 要在其他世界上使用导出的结构, 创世神软件需要提取它以供外部使用。§r"
+msgstr "§eNote: To use exported structures in other worlds, an external app is required to extract it for external use. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:extinguish.description"
 msgstr "扑灭附近的火焰"
@@ -1238,7 +1238,7 @@ msgid "commands.wedit:setbiome.description"
 msgstr "更改您的选区中的群系"
 
 msgid "commands.wedit:setbiome.warning"
-msgstr "§e注意：您需要使用创世神应用程序处理世界才能应用生物群落的更改。§r"
+msgstr "§eNote: You need to process the world with an external app for the biome changes to apply. Get the link by running \";worldedit app\".§r"
 
 msgid "commands.wedit:shift.description"
 msgstr "移动选区"
