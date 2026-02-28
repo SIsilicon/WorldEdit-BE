@@ -44,10 +44,11 @@ function addCellToVectorSet(set: VectorSet, cell: Cell) {
 export class BlobBrush extends Brush {
     public readonly id = "blob_brush";
 
-    private growPercent: number;
-    private smoothness: number;
-    private pattern: Pattern;
-    private radius: number;
+    public growPercent: number;
+    public smoothness: number;
+
+    private _pattern: Pattern;
+    private _radius: number;
 
     /**
      * @param radius The radius of the brush
@@ -57,28 +58,27 @@ export class BlobBrush extends Brush {
      */
     constructor(radius: number, pattern: Pattern, growPercent = 50, smoothness = 0) {
         super();
-        this.assertSizeInRange(radius);
         this.growPercent = growPercent;
         this.smoothness = smoothness;
         this.pattern = pattern;
         this.radius = radius;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
-        this.radius = value;
+        this._radius = value;
     }
 
-    public getSize(): number {
-        return this.radius;
+    public get pattern(): Pattern {
+        return this._pattern;
     }
 
-    public paintWith(value: Pattern) {
-        this.pattern = value;
-    }
-
-    public getPattern(): Pattern {
-        return this.pattern;
+    public set pattern(value: Pattern) {
+        this._pattern = value;
     }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
@@ -151,7 +151,7 @@ export class BlobBrush extends Brush {
                     yield;
                 }
 
-                const pattern = this.pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
+                const pattern = this._pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
                 mask = mask?.withContext(session);
 
                 const history = session.history;
@@ -184,7 +184,7 @@ export class BlobBrush extends Brush {
         return {
             id: this.id,
             radius: this.radius,
-            pattern: this.pattern,
+            pattern: this._pattern,
             growPercent: this.growPercent,
             smoothness: this.smoothness,
         };

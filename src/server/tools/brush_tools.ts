@@ -75,11 +75,13 @@ class BrushTool extends Tool {
     }
 
     set size(value: number) {
-        this.brush.resize(value);
+        if (!("radius" in this.brush)) throw "commands.generic.wedit:noSize";
+        this.brush.radius = value;
     }
 
     set material(value: Pattern) {
-        this.brush.paintWith(value);
+        if (!("pattern" in this.brush)) throw "commands.generic.wedit:noMaterial";
+        this.brush.pattern = value;
     }
 
     applyBrush(session: PlayerSession, locations: Vector[]) {

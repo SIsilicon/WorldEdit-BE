@@ -134,49 +134,13 @@ export class RegionOpModule extends EditorModule {
                     type: "subpane",
                     title: "Mask",
                     uniqueId: "mask",
-                    items: [
-                        {
-                            type: "toggle",
-                            title: "Enable Mask",
-                            value: this.enableMask,
-                            onChange: (value) => {
-                                this.enableMask = value;
-                                const pane = this.pane.getSubPane("mask").getSubPane(1);
-                                if (value) this.maskUIBuilder.build(pane);
-                                else pane.changeItems([]);
-                            },
-                        },
-                        {
-                            type: "subpane",
-                            hasMargins: false,
-                            hasExpander: false,
-                            items: [],
-                        },
-                    ],
+                    items: this.maskUIBuilder,
                 },
                 {
                     type: "subpane",
-                    title: "Mask",
+                    title: "Height Mask",
                     uniqueId: "heightMask",
-                    items: [
-                        {
-                            type: "toggle",
-                            title: "Enable Height Mask",
-                            value: this.enableHeightMask,
-                            onChange: (value) => {
-                                this.enableHeightMask = value;
-                                const pane = this.pane.getSubPane("heightMask").getSubPane(1);
-                                if (value) this.heightMaskUIBuilder.build(pane);
-                                else pane.changeItems([]);
-                            },
-                        },
-                        {
-                            type: "subpane",
-                            hasMargins: false,
-                            hasExpander: false,
-                            items: [],
-                        },
-                    ],
+                    items: this.heightMaskUIBuilder,
                 },
             ],
         });
@@ -210,8 +174,8 @@ export class RegionOpModule extends EditorModule {
     private performOperation() {
         if (this.usesPatternAndMask()) {
             const args = new Map<string, any>([
-                ["pattern", this.patternUIBuilder.pattern],
-                ["mask", this.enableMask ? this.maskUIBuilder.mask : new Mask()],
+                ["pattern", this.patternUIBuilder.value],
+                ["mask", this.enableMask ? this.maskUIBuilder.value : new Mask()],
             ]);
             const command = {
                 [RegionOperatorMode.Fill]: "replace",
@@ -250,7 +214,7 @@ export class RegionOpModule extends EditorModule {
                 new Map(
                     Object.entries({
                         iterations: this.iterations,
-                        mask: this.enableHeightMask ? this.heightMaskUIBuilder.mask : new Mask(),
+                        mask: this.enableHeightMask ? this.heightMaskUIBuilder.value : new Mask(),
                     })
                 )
             );

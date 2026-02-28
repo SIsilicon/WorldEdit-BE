@@ -261,6 +261,7 @@ export class UIPane {
                     this.properties[id] = this.pane.addVector3(this.makeObservable(item.value, id, item.validator), item);
                     break;
                 case "subpane":
+                    delete item.uniqueId;
                     this.createSubPane(id, item, this.pane.createSubPane(item));
                     break;
                 default:

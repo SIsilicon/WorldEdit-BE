@@ -49,7 +49,7 @@ const API = {
     },
 };
 
-export function* smooth(session: PlayerSession, iter: number, shape: Shape, locations: Vector3 | Vector3[], heightMask: Mask, mask?: Mask): Generator<JobFunction | Promise<unknown>, number> {
+export function* smooth(session: PlayerSession, iter: number, shape: Shape, locations: Vector3 | Vector3[], heightMask?: Mask, mask?: Mask): Generator<JobFunction | Promise<unknown>, number> {
     return yield* modifyHeight(
         session,
         function* (map: Map<{ back: number }>, API) {
@@ -96,7 +96,7 @@ export function* modifyHeight(
     modify: (columns: Map, api: typeof API) => Generator<JobFunction>,
     shape: Shape,
     locations: Vector3 | Vector3[],
-    heightMask: Mask,
+    heightMask?: Mask,
     mask?: Mask
 ): Generator<JobFunction | Promise<unknown>, number> {
     if (!Array.isArray(locations)) locations = [locations];
@@ -108,7 +108,7 @@ export function* modifyHeight(
     const chunks = new Map<string, Column<any>[]>();
 
     mask = (mask ?? new Mask()).intersect(session.globalMask).withContext(session);
-    heightMask = heightMask.withContext(session);
+    heightMask = heightMask?.withContext(session) ?? new Mask();
 
     const { min: dimMin, max: dimMax } = dim.heightRange;
 

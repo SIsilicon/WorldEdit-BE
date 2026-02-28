@@ -36,12 +36,6 @@ export type shapeGenVars = {
  * A base shape class for generating blocks in a variety of formations.
  */
 export abstract class Shape {
-    /**
-     * Whether the shape is being used in a brush.
-     * Shapes used in a brush may handle history recording differently from other cases.
-     */
-    public usedInBrush = false;
-
     protected static readonly ChunkStatus = ChunkStatus;
 
     protected abstract customHollow: boolean;

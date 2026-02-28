@@ -1,5 +1,5 @@
 import { BlockPermutation, BlockStates, BlockStateType, RawMessage } from "@minecraft/server";
-import { ComboBoxPropertyItemDataType } from "@minecraft/server-editor";
+import { ComboBoxPropertyItemDataType, IObservable, ObservableValidator } from "@minecraft/server-editor";
 import { Token } from "@modules/extern/tokenizr";
 import {
     PatternNode,
@@ -36,7 +36,9 @@ const patternTypes = new Map<new (...args: any[]) => PatternNode, [string, () =>
     [InputPatternNode, ["Input Pattern", () => new InputPatternNode(dummyToken, defaultBLock)]],
 ]);
 
-export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements PaneBuilder {
+export class PatternUIBuilder extends EventEmitter<{ changed: [pattern: Pattern] }> implements PaneBuilder, IObservable<Pattern> {
+    validator?: ObservableValidator<Pattern>;
+
     private node?: PatternNode;
     private gradientListener?: (list: string[]) => void;
     private pane?: UIPane;
@@ -46,8 +48,17 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
         this.node = pattern.getRootNode();
     }
 
-    get pattern() {
+    get value() {
         return Pattern.fromNode(this.node);
+    }
+
+    set(newValue: Pattern) {
+        if (this.validator) newValue ??= this.validator.validate(newValue);
+        const changed = newValue.toJSON() !== this.value.toJSON();
+        this.node = newValue.getRootNode();
+        if (this.pane) this.build(this.pane);
+        if (changed) this.emit("changed", this.value);
+        return changed;
     }
 
     build(pane: UIPane) {
@@ -81,7 +92,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                             const index = siblings.indexOf(oldNode);
                             siblings.splice(index, 1, patternNode);
                         }
-                        this.emit("changed");
+                        this.emit("changed", this.value);
                     },
                 },
                 { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -114,7 +125,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                         entries: validValues.map((v, i) => ({ label: `${v}`, value: i })),
                         onChange: (index) => {
                             node.permutation = node.permutation.withState(key as any, validValues[index]);
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     };
                 })
@@ -131,7 +142,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 onChange: (value) => {
                     node.permutation = BlockPermutation.resolve(value);
                     buildBlockProperties();
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -166,7 +177,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                         visible: !node.evenDistribution,
                         onChange: (value) => {
                             node.setWeight(index, value / 100);
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                     { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -180,7 +191,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                             node.nodes.splice(index, 1);
                             node.removeWeight(index);
                             updateSubPanes();
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                 ],
@@ -196,7 +207,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 onChange: (value) => {
                     node.evenDistribution = value;
                     eachSubPane((pane) => pane.setVisibility(0, !node.evenDistribution));
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -208,7 +219,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                     node.nodes.push(newNode);
                     addPatternUI(patternPane, node.nodes.length - 1, newNode);
                     updateSubPanes();
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -228,7 +239,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 value: node.type,
                 onChange: (value) => {
                     node.type = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -249,7 +260,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
                         onChange: (index) => {
                             node.states.set(state.id, state.validValues[index]);
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                     {
@@ -260,7 +271,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                             pane.removeSubPane(subPane);
                             node.states.delete(state.id);
                             updateStateEntries();
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                 ],
@@ -286,7 +297,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                     addStateUI(statePane, newState);
                     updateStateEntries();
                     pane.setValue(1, -1);
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -304,7 +315,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 value: { x: node.offset.x, y: node.offset.y, z: node.offset.z },
                 onChange: (value) => {
                     node.offset = new Vector(value.x, value.y, value.z);
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -331,7 +342,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                             pane.setValue(1, { id: message.translate, props: message.with as string[] });
                         }
                     }
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "label", visible: false, text: "" },
@@ -346,7 +357,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 value: node.size,
                 onChange: (value) => {
                     node.size = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", title: "Sub-Pattern", items: [] },
@@ -364,7 +375,7 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [] }> implements P
                 entries: gradients.map((id, i) => ({ label: id, value: i })),
                 onChange: (value) => {
                     node.gradientId = gradients[value];
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);

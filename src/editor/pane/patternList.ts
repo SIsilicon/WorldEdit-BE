@@ -17,7 +17,7 @@ export class PatternListUIBuilder extends EventEmitter<{ changed: [] }> implemen
     }
 
     get patterns() {
-        return this.builders.map((builder) => builder.pattern);
+        return this.builders.map((builder) => builder.value);
     }
 
     set patterns(value: Pattern[]) {

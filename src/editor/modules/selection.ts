@@ -1,9 +1,10 @@
 import { EditorModule } from "./base";
-import { BlockVolume, Player, system } from "@minecraft/server";
+import { Player, system } from "@minecraft/server";
 import { IPlayerUISession, SelectionContainerVolume, SelectionManager } from "@minecraft/server-editor";
 import { DefaultSelection, setSelectionClass } from "@modules/selection";
 import { Vector } from "@notbeer-api";
 import { VolumeShape } from "editor/shapes/volume";
+import { shapeToBlockVolume } from "editor/util";
 import { getSession } from "server/sessions";
 
 const selections = new WeakMap<Player, SelectionManager>();
@@ -18,7 +19,7 @@ function ignoreSelectionUpdate(player: Player) {
 }
 
 class EditorSelection extends DefaultSelection {
-    private shapeBuildJob: number | undefined;
+    private volumeUpdator = shapeToBlockVolume();
 
     public updateVolumeShape() {
         this.set(0, Vector.ZERO);
@@ -29,32 +30,18 @@ class EditorSelection extends DefaultSelection {
     protected updateShape() {
         super.updateShape();
 
-        if (this.shapeBuildJob !== undefined) {
-            system.clearRun(this.shapeBuildJob);
-            this.shapeBuildJob = undefined;
-        }
-
         if (this.mode === "volume") return;
 
-        if (this.isEmpty) {
-            this.volume.clear();
-        } else if (this.isCuboid) {
-            this.volume.set(new BlockVolume(...this.getRange()));
-        } else {
-            this.volume.clear();
-            this.shapeBuildJob = system.runJob(
-                function* (this: EditorSelection) {
-                    const blocks = [];
-                    for (const block of this.getBlocks()) {
-                        blocks.push(block);
-                        yield;
-                    }
-                    this.volume.set(blocks);
-                    ignoreSelectionUpdate(this.player);
-                }.call(this)
-            );
-        }
-        ignoreSelectionUpdate(this.player);
+        const [shape, location] = this.getShape();
+        this.volumeUpdator.update(shape, (volume) => {
+            if (!volume) {
+                this.volume.clear();
+            } else {
+                volume.translate(location);
+                this.volume.set(volume);
+            }
+            ignoreSelectionUpdate(this.player);
+        });
     }
 
     private get volume(): SelectionContainerVolume {

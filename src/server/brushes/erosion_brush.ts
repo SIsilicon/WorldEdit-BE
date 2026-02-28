@@ -47,10 +47,9 @@ whenReady(
 export class ErosionBrush extends Brush {
     public readonly id = "erosion_brush";
 
-    private radius: number;
-    private preset: ErosionPreset;
-
-    private type: ErosionType;
+    private erosionPreset: ErosionPreset;
+    private _erosionType: ErosionType;
+    private _radius: number;
 
     /**
      * @param radius The radius of the spheres
@@ -58,27 +57,27 @@ export class ErosionBrush extends Brush {
      */
     constructor(radius: number, type: ErosionType) {
         super();
-        this.assertSizeInRange(radius);
         this.radius = radius;
-        this.preset = erosionTypes.get(type);
-        this.type = type;
+        this.erosionPreset = erosionTypes.get(type);
+        this.erosionType = type;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
-        this.radius = value;
+        this._radius = value;
     }
 
-    public getSize(): number {
-        return this.radius;
+    public get erosionType(): ErosionType {
+        return this._erosionType;
     }
 
-    public getType(): ErosionType {
-        return this.type;
-    }
-
-    public paintWith() {
-        throw "commands.generic.wedit:noMaterial";
+    public set erosionType(value: ErosionType) {
+        this._erosionType = value;
+        this.erosionPreset = erosionTypes.get(value);
     }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
@@ -102,11 +101,11 @@ export class ErosionBrush extends Brush {
                 yield;
             }
 
-            for (let i = 0; i < this.preset.erodeIterations; i++) {
-                yield* this.processErosion(affected, this.preset.erodeThreshold, blockChanges, activeMask);
+            for (let i = 0; i < this.erosionPreset.erodeIterations; i++) {
+                yield* this.processErosion(affected, this.erosionPreset.erodeThreshold, blockChanges, activeMask);
             }
-            for (let i = 0; i < this.preset.fillIterations; i++) {
-                yield* this.processFill(affected, this.preset.fillThreshold, blockChanges, activeMask);
+            for (let i = 0; i < this.erosionPreset.fillIterations; i++) {
+                yield* this.processFill(affected, this.erosionPreset.fillThreshold, blockChanges, activeMask);
             }
 
             yield* blockChanges.flush();
@@ -208,13 +207,13 @@ export class ErosionBrush extends Brush {
         return {
             id: this.id,
             radius: this.radius,
-            type: this.type,
+            erosionType: this.erosionType,
         };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public static parseJSON(json: { [key: string]: any }) {
-        return [json.radius, json.type];
+        return [json.radius, json.erosionType ?? json.type];
     }
 }
 brushTypes.set("erosion_brush", ErosionBrush);

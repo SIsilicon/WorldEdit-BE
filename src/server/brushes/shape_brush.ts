@@ -12,8 +12,9 @@ import { balloonPath } from "server/commands/region/paths_func.js";
  */
 export abstract class ShapeBrush extends Brush {
     protected shape: Shape;
-    protected pattern: Pattern;
-    protected hollow: boolean;
+
+    public pattern: Pattern;
+    public hollow: boolean;
 
     /**
      * @param pattern The pattern the shape will be made of
@@ -26,18 +27,6 @@ export abstract class ShapeBrush extends Brush {
     }
 
     protected abstract get gradientRadius(): number;
-
-    public paintWith(value: Pattern) {
-        this.pattern = value;
-    }
-
-    public getPattern(): Pattern {
-        return this.pattern;
-    }
-
-    public isHollow(): boolean {
-        return this.hollow;
-    }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const history = session.history;

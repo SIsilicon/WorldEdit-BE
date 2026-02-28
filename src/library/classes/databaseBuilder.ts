@@ -139,6 +139,13 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
         this.loaded = true;
     }
 
+    unload() {
+        if (!this.valid) throw new Error(`Can't unload invalid database "${this.name}".`);
+        this.loaded = false;
+        this._data = undefined;
+        Databases.delete(this.name, this.provider);
+    }
+
     delete() {
         if (!this.valid) throw new Error(`Can't delete invalid database "${this.name}".`);
         this.provider.setDynamicProperty(this.name, undefined);

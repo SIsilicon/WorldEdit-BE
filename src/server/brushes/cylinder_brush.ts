@@ -9,8 +9,8 @@ import { ShapeBrush } from "./shape_brush.js";
 export class CylinderBrush extends ShapeBrush {
     public readonly id = "cylinder_brush";
 
-    private height: number;
-    private radius: number;
+    private _height: number;
+    private _radius: number;
 
     /**
      * @param radius The radius of the cylinders
@@ -20,30 +20,31 @@ export class CylinderBrush extends ShapeBrush {
      */
     constructor(radius: number, height: number, pattern: Pattern, hollow: boolean) {
         super(pattern, hollow);
-        this.assertSizeInRange(radius);
-        this.shape = new CylinderShape(height, radius);
-        this.shape.usedInBrush = true;
-        this.height = height;
         this.radius = radius;
+        this.height = height;
+    }
+
+    public get height() {
+        return this._height;
+    }
+
+    public set height(value: number) {
+        this.shape = new CylinderShape(value, this.radius);
+        this._height = value;
+    }
+
+    public get radius() {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
+        this.assertSizeInRange(value);
+        this.shape = new CylinderShape(this.height, value);
+        this._radius = value;
     }
 
     protected get gradientRadius() {
         return Math.max(this.radius, this.height / 2);
-    }
-
-    public resize(value: number) {
-        this.assertSizeInRange(value);
-        this.shape = new CylinderShape(this.height, value);
-        this.shape.usedInBrush = true;
-        this.radius = value;
-    }
-
-    public getSize() {
-        return this.radius;
-    }
-
-    public getHeight() {
-        return this.height;
     }
 
     public toJSON() {

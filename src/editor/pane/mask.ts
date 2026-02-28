@@ -1,4 +1,4 @@
-import { ComboBoxPropertyItemDataType } from "@minecraft/server-editor";
+import { ComboBoxPropertyItemDataType, IObservable, makeObservable, ObservableValidator } from "@minecraft/server-editor";
 import { Token } from "@modules/extern/tokenizr";
 import { Vector, whenReady } from "@notbeer-api";
 import { PaneBuilder, UIPane } from "./builder";
@@ -50,20 +50,68 @@ whenReady(() => {
     blockTags.push(...set.keys());
 });
 
-export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements PaneBuilder {
-    private node: MaskNode | undefined;
+export class MaskUIBuilder extends EventEmitter<{ changed: [mask: Mask | undefined] }> implements PaneBuilder, IObservable<Mask | undefined> {
+    validator?: ObservableValidator<Mask | null>;
 
-    constructor(mask: Mask) {
+    private node: MaskNode;
+    private enabled = makeObservable(false);
+    private pane?: UIPane;
+
+    constructor(mask?: Mask) {
         super();
-        this.node = mask.getRootNode();
+        this.node = (mask ?? new Mask("air")).getRootNode();
+        this.enabled.set(!!mask);
     }
 
-    get mask() {
-        return Mask.fromNode(this.node);
+    get value(): Mask | undefined {
+        return this.enabled.value ? Mask.fromNode(this.node) : undefined;
+    }
+
+    set(newValue: Mask | undefined): boolean {
+        if (!newValue) return this.disable();
+        if (this.validator) newValue ??= this.validator.validate(newValue);
+        const changed = newValue?.toJSON() !== this.value?.toJSON();
+        this.node = newValue.getRootNode();
+        if (this.pane) this.build(this.pane);
+        if (!this.enabled.value) this.enabled.set(true);
+        else if (changed) this.emit("changed", this.value);
+        return changed;
+    }
+
+    disable() {
+        if (!this.enabled.value) return false;
+        this.enabled.set(false);
+        return true;
+    }
+
+    enable() {
+        if (this.enabled.value) return false;
+        this.enabled.set(true);
+        return true;
     }
 
     build(pane: UIPane) {
-        this.buildMaskUI(pane, this.node);
+        pane.changeItems([
+            {
+                type: "toggle",
+                title: "Enabled",
+                value: this.enabled,
+                onChange: (value) => {
+                    const maskPane = pane.getSubPane(1);
+                    maskPane.visible = value;
+                    this.emit("changed", this.value);
+                },
+            },
+            {
+                type: "subpane",
+                hasExpander: false,
+                hasMargins: false,
+                items: [],
+            },
+        ]);
+        pane.getSubPane(1).visible = this.enabled.value;
+        this.buildMaskUI(pane.getSubPane(1), this.node);
+        this.pane = pane;
     }
 
     private buildMaskUI(pane: UIPane, maskNode: MaskNode, parentNode?: MaskNode) {
@@ -88,7 +136,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                             const index = siblings.indexOf(oldNode);
                             siblings.splice(index, 1, maskNode);
                         }
-                        this.emit("changed");
+                        this.emit("changed", this.value);
                     },
                 },
                 { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -125,7 +173,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
                         onChange: (index) => {
                             node.block.states.set(state.id, state.validValues[index]);
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                     {
@@ -136,7 +184,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                             node.block.states.delete(state.id);
                             statePanes.delete(state.id);
                             updateStateEntries();
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                 ],
@@ -168,7 +216,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                         node.block.states.delete(state);
                     }
                     updateStateEntries();
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -185,7 +233,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                     addStateUI(pane.getSubPane(1), newState);
                     updateStateEntries();
                     pane.setValue(2, -1);
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -210,7 +258,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                         entries: state.validValues.map((v, i) => ({ label: `${v}`, value: i })),
                         onChange: (index) => {
                             node.states.set(state.id, state.validValues[index]);
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                     {
@@ -221,7 +269,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                             pane.removeSubPane(subPane);
                             node.states.delete(state.id);
                             updateStateEntries();
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                 ],
@@ -240,7 +288,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 value: node.strict,
                 onChange: (value) => {
                     node.strict = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", hasExpander: false, hasMargins: false, items: [] },
@@ -256,7 +304,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                     addStateUI(statePane, newState);
                     updateStateEntries();
                     pane.setValue(1, -1);
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -275,7 +323,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 entries: blockTags.map((label, value) => ({ label, value })),
                 onChange: (value) => {
                     node.tag = blockTags[value];
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -307,7 +355,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                             pane.removeSubPane(subPane);
                             node.nodes.splice(index, 1);
                             updateSubPanes();
-                            this.emit("changed");
+                            this.emit("changed", this.value);
                         },
                     },
                 ],
@@ -325,7 +373,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                     node.nodes.push(newNode);
                     addMaskUI(maskPane, node.nodes.length - 1, newNode);
                     updateSubPanes();
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -348,7 +396,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 value: node.offset,
                 onChange: (value) => {
                     node.offset = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "subpane", title: "Sub-Mask", items: [] },
@@ -375,7 +423,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                         node.lowerAngle = undefined;
                         node.upperAngle = undefined;
                     }
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             {
@@ -385,7 +433,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 value: node.lowerAngle ?? 0,
                 onChange: (value) => {
                     node.lowerAngle = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             {
@@ -395,7 +443,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 value: node.upperAngle ?? 90,
                 onChange: (value) => {
                     node.upperAngle = value;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -411,7 +459,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                 value: node.percent * 100,
                 onChange: (value) => {
                     node.percent = value / 100;
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
         ]);
@@ -438,7 +486,7 @@ export class MaskUIBuilder extends EventEmitter<{ changed: [] }> implements Pane
                             pane.setValue(1, { id: message.translate, props: message.with as string[] });
                         }
                     }
-                    this.emit("changed");
+                    this.emit("changed", this.value);
                 },
             },
             { type: "label", visible: false, text: "" },

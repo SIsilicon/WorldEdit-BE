@@ -13,10 +13,11 @@ import { Vector3 } from "@minecraft/server";
 export class SmoothBrush extends Brush {
     public readonly id = "smooth_brush";
 
+    public iterations: number;
+    public heightMask: Mask;
+
     private shape: CuboidShape;
-    private size: number;
-    private iterations: number;
-    private mask: Mask;
+    private _radius: number;
 
     /**
      * @param radius The radius of the smoothing area
@@ -25,51 +26,40 @@ export class SmoothBrush extends Brush {
      */
     constructor(radius: number, iterations: number, mask: Mask) {
         super();
-        this.assertSizeInRange(radius);
-        this.shape = new CuboidShape(radius * 2 + 1, radius * 2 + 1, radius * 2 + 1);
-        this.size = radius;
+        this.radius = radius;
         this.iterations = iterations;
-        this.mask = mask;
+        this.heightMask = mask;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
         this.shape = new CuboidShape(value * 2 + 1, value * 2 + 1, value * 2 + 1);
-        this.size = value;
-        this.shape.usedInBrush = true;
-    }
-
-    public getSize() {
-        return this.size;
+        this._radius = value;
     }
 
     public getIterations() {
         return this.iterations;
     }
 
-    public getHeightMask() {
-        return this.mask;
-    }
-
-    public paintWith() {
-        throw "commands.generic.wedit:noMaterial";
-    }
-
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
-        const points = locations.map((location) => location.sub(this.size));
-        yield* smooth(session, this.iterations, this.shape, points, this.mask, mask);
+        const points = locations.map((location) => location.sub(this.radius));
+        yield* smooth(session, this.iterations, this.shape, points, this.heightMask, mask);
     }
 
     public getOutline(): [Shape, Vector3] {
-        return [new CuboidShape(this.size * 2, this.size * 2, this.size * 2), Vector.ONE.mul(-this.size)];
+        return [new CuboidShape(this.radius * 2, this.radius * 2, this.radius * 2), Vector.ONE.mul(-this.radius)];
     }
 
     public toJSON() {
         return {
             id: this.id,
-            radius: this.size,
+            radius: this.radius,
             iterations: this.iterations,
-            mask: this.mask,
+            mask: this.heightMask,
         };
     }
 

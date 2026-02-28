@@ -48,20 +48,8 @@ export class StructureBrush extends Brush {
         for (const struct of this.structs) struct.ref();
     }
 
-    public resize() {
-        throw "commands.generic.wedit:noSize";
-    }
-
-    public getSize() {
-        return -1;
-    }
-
     public getMask() {
         return this.mask;
-    }
-
-    public paintWith() {
-        throw "commands.generic.wedit:noMaterial";
     }
 
     public *apply([loc]: Vector[], session: PlayerSession) {
@@ -98,6 +86,13 @@ export class StructureBrush extends Brush {
 
     public getOutline(): [Shape, Vector3] {
         return [new CuboidShape(...this.size.toArray()), new Vector(-this.size.x / 2, 1, -this.size.z / 2).ceil()];
+    }
+
+    public toJSON() {
+        return {
+            id: this.id,
+            mask: this.mask,
+        };
     }
 
     public delete() {

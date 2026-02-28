@@ -39,7 +39,11 @@ const brushSizeInput: ModalFormInput = {
         name: "%worldedit.config.radius",
         min: 1,
         max: config.maxBrushRadius,
-        default: (ctx, player) => (ctx.getData("creatingTool") ? 3 : (getToolProperty(ctx, player, "brush") as Brush).getSize()),
+        default: (ctx, player) => {
+            if (ctx.getData("creatingTool")) return 3;
+            const brush = getToolProperty(ctx, player, "brush") as Brush;
+            return "radius" in brush ? (brush as Brush & { radius: number }).radius : 3;
+        },
     },
 };
 
@@ -62,7 +66,7 @@ const brushPatternInput: ModalFormInput = {
         placeholder: "Eg: stone,dirt",
         default: (ctx, player) => {
             if (ctx.getData("creatingTool")) return "";
-            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).getPattern().toString();
+            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).pattern.toString();
         },
     },
 };
@@ -463,7 +467,7 @@ Server.uiForms.register<ConfigContext>("$editTool_sphere_brush", {
         $hollow: {
             type: "toggle",
             name: "%worldedit.config.hollow",
-            default: (ctx, player) => (!ctx.getData("creatingTool") ? (getToolProperty(ctx, player, "brush") as SphereBrush).isHollow() : false),
+            default: (ctx, player) => (!ctx.getData("creatingTool") ? (getToolProperty(ctx, player, "brush") as SphereBrush).hollow : false),
         },
         ...usePickerInput,
     },
@@ -498,14 +502,14 @@ Server.uiForms.register<ConfigContext>("$editTool_cylinder_brush", {
             name: "%worldedit.config.height",
             min: 1,
             max: config.maxBrushRadius * 2,
-            default: (ctx, player) => (ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as CylinderBrush).getHeight()),
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as CylinderBrush).height),
         },
         ...brushPatternInput,
         ...maskInput,
         $hollow: {
             type: "toggle",
             name: "%worldedit.config.hollow",
-            default: (ctx, player) => (!ctx.getData("creatingTool") ? (getToolProperty(ctx, player, "brush") as CylinderBrush).isHollow() : false),
+            default: (ctx, player) => (!ctx.getData("creatingTool") ? (getToolProperty(ctx, player, "brush") as CylinderBrush).hollow : false),
         },
         ...usePickerInput,
     },
@@ -549,7 +553,7 @@ Server.uiForms.register<ConfigContext>("$editTool_smooth_brush", {
             placeholder: "Eg: grass,stone %gametest.optionalPrefix",
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return "";
-                return (getToolProperty(ctx, player, "brush") as SmoothBrush).getHeightMask()?.toJSON() ?? "";
+                return (getToolProperty(ctx, player, "brush") as SmoothBrush).heightMask?.toJSON() ?? "";
             },
         },
         ...usePickerInput,
@@ -607,7 +611,7 @@ Server.uiForms.register<ConfigContext>("$editTool_erosion_brush", {
             options: ["Erode", "Lift", "Fill", "Melt", "Smooth"],
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return 0;
-                return (getToolProperty(ctx, player, "brush") as ErosionBrush).getType();
+                return (getToolProperty(ctx, player, "brush") as ErosionBrush).erosionType;
             },
         },
         ...maskInput,
@@ -645,7 +649,7 @@ Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
             max: 10,
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return 1;
-                return (getToolProperty(ctx, player, "brush") as OverlayBrush).getDepth();
+                return (getToolProperty(ctx, player, "brush") as OverlayBrush).depth;
             },
         },
         ...maskInput,
@@ -683,7 +687,7 @@ Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
             name: "%worldedit.config.height",
             min: -6,
             max: 6,
-            default: (ctx, player) => (ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as RaiseBrush).getHeight()),
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 1 : (getToolProperty(ctx, player, "brush") as RaiseBrush).height),
         },
         $heightMask: {
             type: "textField",
@@ -691,7 +695,7 @@ Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
             placeholder: "Eg: grass,stone %gametest.optionalPrefix",
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return "";
-                return (getToolProperty(ctx, player, "brush") as RaiseBrush).getHeightMask()?.toJSON() ?? "";
+                return (getToolProperty(ctx, player, "brush") as RaiseBrush).heightMask?.toJSON() ?? "";
             },
         },
         $falloffAmount: {
@@ -699,7 +703,7 @@ Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
             name: "%worldedit.config.falloff.amount",
             min: 0,
             max: 100,
-            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : (getToolProperty(ctx, player, "brush") as RaiseBrush).getFalloffAmount() * 100),
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : (getToolProperty(ctx, player, "brush") as RaiseBrush).falloffAmount * 100),
         },
         $falloffType: {
             type: "dropdown",
@@ -737,7 +741,7 @@ Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
                 "%worldedit.config.falloff.type.out_bounce",
                 "%worldedit.config.falloff.type.in_out_bounce",
             ],
-            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : Object.keys(easingsFunctions).indexOf((getToolProperty(ctx, player, "brush") as RaiseBrush).getFalloffType().type)),
+            default: (ctx, player) => (ctx.getData("creatingTool") ? 0 : Object.keys(easingsFunctions).indexOf((getToolProperty(ctx, player, "brush") as RaiseBrush).falloffType.type)),
         },
         ...usePickerInput,
     },

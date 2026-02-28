@@ -15,6 +15,9 @@ export interface Database<T = { [key: string]: any }> {
     /** Saves all changes made in the database. */
     save(): void;
 
+    /** Unloads the database from memory. Saved data will remain in the provider. */
+    unload(): void;
+
     /** Deletes the database from the provider it was loaded from. */
     delete(): void;
 }

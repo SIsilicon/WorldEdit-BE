@@ -15,13 +15,13 @@ import { Easing } from "@modules/easing.js";
 export class RaiseBrush extends Brush {
     public readonly id = "raise_brush";
 
-    private shape: CylinderShape;
-    private size: number;
-    private height: number;
-    private mask: Mask;
+    public height: number;
+    public heightMask: Mask;
+    public falloffType: Easing;
+    public falloffAmount: number;
 
-    private falloffType: Easing;
-    private falloffAmount: number;
+    private shape: CylinderShape;
+    private _radius: number;
 
     /**
      * @param radius The radius of the smoothing area
@@ -30,44 +30,21 @@ export class RaiseBrush extends Brush {
      */
     constructor(radius: number, height: number, mask: Mask, falloffType: Easing, falloffAmount: number) {
         super();
-        this.assertSizeInRange(radius);
-        this.shape = new CylinderShape(radius + 2, radius);
-        this.size = radius;
+        this.radius = radius;
         this.height = height;
-        this.mask = mask;
+        this.heightMask = mask;
         this.falloffType = falloffType;
         this.falloffAmount = falloffAmount;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
         this.shape = new CylinderShape(value + 2, value);
-        this.size = value;
-        this.shape.usedInBrush = true;
-    }
-
-    public getSize() {
-        return this.size;
-    }
-
-    public getHeight() {
-        return this.height;
-    }
-
-    public getHeightMask() {
-        return this.mask;
-    }
-
-    public getFalloffAmount() {
-        return this.falloffAmount;
-    }
-
-    public getFalloffType() {
-        return this.falloffType;
-    }
-
-    public paintWith() {
-        throw "commands.generic.wedit:noMaterial";
+        this._radius = value;
     }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
@@ -75,7 +52,7 @@ export class RaiseBrush extends Brush {
         const getFalloff = (x: number, z: number) => {
             if (this.falloffAmount < 0.01) return 1;
             const center = closest({ x, y: 0, z });
-            let value = (1 - Math.hypot(center.x - x, center.z - z) / this.size) / this.falloffAmount;
+            let value = (1 - Math.hypot(center.x - x, center.z - z) / this.radius) / this.falloffAmount;
             value = Math.min(Math.max(value, 0), 1);
             return this.falloffType.evaluate(value);
         };
@@ -94,21 +71,21 @@ export class RaiseBrush extends Brush {
             }.bind(this),
             this.shape,
             locations,
-            this.mask,
+            this.heightMask,
             mask
         );
     }
 
     public getOutline(): [Shape, Vector3] {
-        return [new CylinderShape(this.size + 2, this.size), Vector.ZERO];
+        return [new CylinderShape(this.radius + 2, this.radius), Vector.ZERO];
     }
 
     public toJSON() {
         return {
             id: this.id,
-            radius: this.size,
+            radius: this.radius,
             height: this.height,
-            mask: this.mask,
+            mask: this.heightMask,
             falloffType: this.falloffType,
             falloffAmount: this.falloffAmount,
         };

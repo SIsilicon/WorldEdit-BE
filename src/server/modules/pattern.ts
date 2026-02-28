@@ -66,12 +66,8 @@ export class Pattern implements CustomArgType {
         pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
         pattern.context.placePosition = session.getPlacementPosition();
         pattern.context.gradientRadius = options?.gradientRadius ?? Vector.sub(range[1], range[0]).length / 2;
-        try {
-            const item = Server.player.getHeldItem(session.player);
-            pattern.context.hand = Server.block.itemToPermutation(item);
-        } catch {
-            pattern.context.hand = BlockPermutation.resolve("minecraft:air");
-        }
+        const item = Server.player.getHeldItem(session.player);
+        pattern.context.hand = item ? Server.block.itemToPermutation(item) : BlockPermutation.resolve("air");
 
         const centers = (options?.strokePoints ?? [Vector.add(...range).div(2)]).map(Vector.from);
         pattern.context.getCenter = closestPoint(centers);

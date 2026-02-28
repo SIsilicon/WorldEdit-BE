@@ -9,7 +9,7 @@ import { ShapeBrush } from "./shape_brush.js";
 export class SphereBrush extends ShapeBrush {
     public readonly id = "sphere_brush";
 
-    private radius: number;
+    private _radius: number;
 
     /**
      * @param radius The radius of the spheres
@@ -18,25 +18,21 @@ export class SphereBrush extends ShapeBrush {
      */
     constructor(radius: number, pattern: Pattern, hollow: boolean) {
         super(pattern, hollow);
-        this.assertSizeInRange(radius);
-        this.shape = new SphereShape(radius);
-        this.shape.usedInBrush = true;
         this.radius = radius;
     }
 
     protected get gradientRadius() {
-        return this.radius;
+        return this._radius;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
         this.shape = new SphereShape(value);
-        this.shape.usedInBrush = true;
-        this.radius = value;
-    }
-
-    public getSize(): number {
-        return this.radius;
+        this._radius = value;
     }
 
     public toJSON() {

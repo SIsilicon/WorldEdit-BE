@@ -15,7 +15,7 @@ class ErrorPackage {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-class Thread<T extends any[] = any[]> {
+class Thread {
     public readonly id: number;
 
     private active = false;
@@ -33,7 +33,7 @@ class Thread<T extends any[] = any[]> {
         return this.active;
     }
 
-    start(task: (...args: T) => Generator<unknown>, ...args: T) {
+    start<T extends any[]>(task: (...args: T) => Generator<unknown>, ...args: T) {
         if (!this.valid) return;
 
         tasks.set(this, task(...args));

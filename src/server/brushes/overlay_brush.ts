@@ -15,10 +15,11 @@ import { Vector3 } from "@minecraft/server";
 export class OverlayBrush extends Brush {
     public readonly id = "overlay_brush";
 
-    private pattern: Pattern;
-    private radius: number;
-    private depth: number;
-    private surfaceMask: Mask;
+    public pattern: Pattern;
+    public depth: number;
+    public surfaceMask?: Mask;
+
+    private _radius: number;
 
     /**
      * @param radius The radius of the brush (no limit to depth)
@@ -26,40 +27,27 @@ export class OverlayBrush extends Brush {
      * @param pattern The type of block(s) to overlay with
      * @param surfaceMask What is considered a surface
      */
-    constructor(radius: number, depth: number, pattern: Pattern, surfaceMask: Mask) {
+    constructor(radius: number, depth: number, pattern: Pattern, surfaceMask?: Mask) {
         super();
-        this.assertSizeInRange(radius);
         this.pattern = pattern;
         this.radius = radius;
         this.depth = depth;
-        this.surfaceMask = surfaceMask ?? new Mask();
+        this.surfaceMask = surfaceMask;
     }
 
-    public resize(value: number) {
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public set radius(value: number) {
         this.assertSizeInRange(value);
-        this.radius = value;
-    }
-
-    public getSize(): number {
-        return this.radius;
-    }
-
-    getDepth(): number {
-        return this.depth;
-    }
-
-    public paintWith(value: Pattern) {
-        this.pattern = value;
-    }
-
-    public getPattern(): Pattern {
-        return this.pattern;
+        this._radius = value;
     }
 
     public *apply(locations: Vector[], session: PlayerSession, mask?: Mask) {
         const minY = getWorldHeightLimits(session.player.dimension)[0];
         const activeMask = (!mask ? session.globalMask : session.globalMask ? mask.intersect(session.globalMask) : mask)?.withContext(session);
-        const surfaceMask = this.surfaceMask.withContext(session);
+        const surfaceMask = this.surfaceMask?.withContext(session) ?? new Mask();
         const isAirOrFluid = Server.block.isAirOrFluid;
         const r2 = Math.pow(this.radius + 0.5, 2);
 

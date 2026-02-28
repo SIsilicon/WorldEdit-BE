@@ -8,10 +8,11 @@ import { glob } from "glob";
 import { argv, env, exit } from "process";
 import { copyDir, ensureDir, removeDirIfExists } from "./tools/utils.mjs";
 import { infoPlugin, transformerPlugin } from "./tools/plugins.mjs";
-import tsconfig from "./tsconfig.json" assert { type: "json" };
 import buildManifest from "./tools/process_manifest.mjs";
 import buildLang from "./tools/po2lang.mjs";
 import buildConfig from "./tools/process_config.mjs";
+
+const tsconfig = JSON.parse(fs.readFileSync("./tsconfig.json", "utf8"));
 
 const program = new Command();
 program
@@ -143,6 +144,29 @@ const buildArgs = {
     plugins: [
         infoPlugin(),
         transformerPlugin(/\.(js|ts)$/, [
+            function resolveIndexImports(filePath, contents) {
+                // Transform folder imports to explicit index file imports
+                const importRegex = /(?:from\s+|import\s+)(['"`])(\.[^'"`]+)\1/g;
+
+                contents = contents.replace(importRegex, (match, quote, importPath) => {
+                    // Get the directory of the current file
+                    const currentDir = path.dirname(filePath);
+                    // Resolve the import path relative to the current file
+                    const resolvedPath = path.resolve(currentDir, importPath);
+
+                    // Check if it's a directory with an index file
+                    if (fs.existsSync(resolvedPath) && fs.statSync(resolvedPath).isDirectory()) {
+                        const indexTs = path.join(resolvedPath, "index.ts");
+                        const indexJs = path.join(resolvedPath, "index.js");
+                        if (fs.existsSync(indexTs) || fs.existsSync(indexJs)) {
+                            // Add /index to the import path
+                            return match.replace(importPath, `${importPath}/index`);
+                        }
+                    }
+                    return match;
+                });
+                return contents;
+            },
             function remapImports(filePath, contents) {
                 for (const [alias, paths] of Object.entries(modulePaths)) {
                     // Remove trailing /* from alias and path if present
@@ -172,11 +196,34 @@ const buildArgs = {
 
 if (args.watch) {
     // Sync the BP and RP directories with the development pack folders
-    watchAndSync("BP", path.join(args.syncDir, `development_behavior_packs/${packName}BP`));
-    watchAndSync("RP", path.join(args.syncDir, `development_resource_packs/${packName}RP`));
+    const bpDest = path.join(args.syncDir, `development_behavior_packs/${packName}BP`);
+    const rpDest = path.join(args.syncDir, `development_resource_packs/${packName}RP`);
+
+    watchAndSync("BP", bpDest);
+    watchAndSync("RP", rpDest);
 
     // Build the scripts and fs.watch for changes
-    const ctx = await esbuild.context({ ...buildArgs, sourcemap: true, minify: false });
+    const ctx = await esbuild.context({
+        ...buildArgs,
+        sourcemap: true,
+        minify: false,
+        plugins: [
+            ...buildArgs.plugins,
+            {
+                name: "sync-on-rebuild",
+                setup(build) {
+                    build.onEnd(() => {
+                        // Re-sync the entire BP folder after each build to ensure consistency
+                        try {
+                            copyDir("BP", bpDest);
+                        } catch (err) {
+                            console.error("Failed to sync BP folder:", err);
+                        }
+                    });
+                },
+            },
+        ],
+    });
     await ctx.watch();
 } else {
     // Build the scripts and bundle them into the script output folder.
