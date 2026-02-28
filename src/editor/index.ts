@@ -3,12 +3,12 @@ import { HistoryModule } from "./modules/history";
 import { SelectionModule } from "./modules/selection";
 import { RegionOpModule } from "./modules/region_operations";
 import { GradientsModule } from "./modules/gradients";
-import { BrushPainterBehavior } from "./modules/brushes";
+import { BrushPainterModule } from "./modules/brushes";
 
 registerEditorExtension(
     "WorldEdit: Bedrock Edition",
     (session) => {
-        return [new HistoryModule(session), new SelectionModule(session), new RegionOpModule(session), new BrushPainterBehavior(session), new GradientsModule(session)];
+        return [new HistoryModule(session), new SelectionModule(session), new RegionOpModule(session), new BrushPainterModule(session), new GradientsModule(session)];
     },
     () => {},
     { toolGroupId: "worldedit" }

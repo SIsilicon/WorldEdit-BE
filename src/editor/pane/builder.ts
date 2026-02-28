@@ -167,6 +167,14 @@ export class UIPane {
         else this.mainPane.hide();
     }
 
+    show() {
+        this.visible = true;
+    }
+
+    hide() {
+        this.visible = false;
+    }
+
     getValue(id: string | number) {
         return this.observables[id]?.value;
     }

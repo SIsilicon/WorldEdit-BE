@@ -66,7 +66,7 @@ const brushPatternInput: ModalFormInput = {
         placeholder: "Eg: stone,dirt",
         default: (ctx, player) => {
             if (ctx.getData("creatingTool")) return "";
-            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).pattern.toString();
+            return (getToolProperty(ctx, player, "brush") as SphereBrush | CylinderBrush).pattern.toJSON();
         },
     },
 };
@@ -432,7 +432,7 @@ Server.uiForms.register<ConfigContext>("$editTool_replacer_wand", {
             placeholder: "Eg: stone,dirt",
             default: (ctx, player) => {
                 if (ctx.getData("creatingTool")) return "";
-                return (getToolProperty(ctx, player, "pattern") as Pattern).toString();
+                return (getToolProperty(ctx, player, "pattern") as Pattern).toJSON();
             },
         },
         ...usePickerInput,

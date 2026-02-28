@@ -1,4 +1,4 @@
-import { BlockPermutation, BlockStates, ItemStack } from "@minecraft/server";
+import { BlockPermutation, BlockStates, BlockTypes, ItemStack } from "@minecraft/server";
 
 export class BlockBuilder {
     /**
@@ -56,6 +56,7 @@ export class BlockBuilder {
 
     itemToPermutation(item: ItemStack) {
         const block = item.typeId;
+        if (!BlockTypes.get(block)) return undefined;
         for (const permutation of this.iteratePermutations(block)) {
             if (permutation.getItemStack().isStackableWith(item)) {
                 if (permutation.getState("persistent_bit") != undefined) {
