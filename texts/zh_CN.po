@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2026-02-11 03:28\n"
+"PO-Revision-Date: 2026-02-28 15:53\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -290,7 +290,7 @@ msgid "worldedit.config.brush.struct"
 msgstr "结构笔刷"
 
 msgid "worldedit.config.brush.erosion"
-msgstr "侵蚀笔刷"
+msgstr "Erosion Brush"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "叠加笔刷"
@@ -713,7 +713,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "已装载结构笔刷。"
 
 msgid "commands.wedit:brush.bind.erosion"
-msgstr "已装备冲蚀笔刷（%s）。"
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
 msgstr "已装备覆盖笔刷（%s）。"
@@ -737,7 +737,7 @@ msgid "commands.wedit:brush.description.struct"
 msgstr "创建一支可放置结构的笔刷"
 
 msgid "commands.wedit:brush.description.erosion"
-msgstr "创建一个地形塑造笔刷"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "创建地形覆盖笔刷"
