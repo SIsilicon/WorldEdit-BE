@@ -32,7 +32,7 @@ class EditorSelection extends DefaultSelection {
 
         if (this.mode === "volume") return;
 
-        const [shape, location] = this.getShape();
+        const [shape, location] = this.getShape() ?? [undefined, undefined];
         this.volumeUpdator.update(shape, (volume) => {
             if (!volume) {
                 this.volume.clear();
