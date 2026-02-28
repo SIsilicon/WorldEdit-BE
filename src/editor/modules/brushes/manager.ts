@@ -107,13 +107,14 @@ class EditorBrushManager {
         if (this.paintingHandler === undefined) return;
         system.clearRun(this.paintingHandler);
         this.paintingHandler = undefined;
-        this.previewVolumeOutline?.getVolume().clear();
         if (!discard) {
             this.applyBrush(Array.from(this.locations.values()), (success) => {
                 this.onComplete?.(success ? PaintCompletionState.Success : PaintCompletionState.Failed);
+                this.previewVolumeOutline?.getVolume().clear();
             });
         } else {
             this.onComplete?.(PaintCompletionState.Canceled);
+            this.previewVolumeOutline?.getVolume().clear();
         }
         this.onComplete = undefined;
     }
