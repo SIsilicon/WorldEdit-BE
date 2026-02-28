@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2026-02-11 03:28\n"
+"PO-Revision-Date: 2026-02-28 15:53\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -290,7 +290,7 @@ msgid "worldedit.config.brush.struct"
 msgstr "ストラクチャーブラシ"
 
 msgid "worldedit.config.brush.erosion"
-msgstr "侵食ブラシ"
+msgstr "Erosion Brush"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "オーバーレイブラシ"
@@ -713,7 +713,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "ストラクチャーブラシを装備しました。"
 
 msgid "commands.wedit:brush.bind.erosion"
-msgstr "侵食ブラシを装備しました (%s)。"
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
 msgstr "オーバーレイブラシを装備しました (%s)。"
@@ -737,7 +737,7 @@ msgid "commands.wedit:brush.description.struct"
 msgstr "構造物を配置するブラシを作成する"
 
 msgid "commands.wedit:brush.description.erosion"
-msgstr "地形を整形するブラシを作成する"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "地形を覆わせるブラシを作成する"
