@@ -107,73 +107,66 @@ export class BlobBrush extends Brush {
             return Vector.sub(location, nearest).length;
         };
 
-        yield* Jobs.run(
-            session,
-            1,
-            function* () {
-                // Grow blob
-                for (let r = 0; r < brushSize * Math.SQRT2; r++) {
-                    for (const cell of splat) {
-                        if (!cell.value) {
-                            let neighbours = 0;
-                            if (splat.get({ ...cell, x: cell.x - 1 })?.value) neighbours++;
-                            if (splat.get({ ...cell, y: cell.y - 1 })?.value) neighbours++;
-                            if (splat.get({ ...cell, z: cell.z - 1 })?.value) neighbours++;
-                            if (splat.get({ ...cell, x: cell.x + 1 })?.value) neighbours++;
-                            if (splat.get({ ...cell, y: cell.y + 1 })?.value) neighbours++;
-                            if (splat.get({ ...cell, z: cell.z + 1 })?.value) neighbours++;
-                            if (neighbours >= 1 && Math.random() <= growPercent) addCellToVectorSet(backSplat, new Cell(cell, 1.0));
-                        } else {
-                            addCellToVectorSet(backSplat, cell);
-                        }
-                    }
+        // Grow blob
+        for (let r = 0; r < brushSize * Math.SQRT2; r++) {
+            for (const cell of splat) {
+                if (!cell.value) {
+                    let neighbours = 0;
+                    if (splat.get({ ...cell, x: cell.x - 1 })?.value) neighbours++;
+                    if (splat.get({ ...cell, y: cell.y - 1 })?.value) neighbours++;
+                    if (splat.get({ ...cell, z: cell.z - 1 })?.value) neighbours++;
+                    if (splat.get({ ...cell, x: cell.x + 1 })?.value) neighbours++;
+                    if (splat.get({ ...cell, y: cell.y + 1 })?.value) neighbours++;
+                    if (splat.get({ ...cell, z: cell.z + 1 })?.value) neighbours++;
+                    if (neighbours >= 1 && Math.random() <= growPercent) addCellToVectorSet(backSplat, new Cell(cell, 1.0));
+                } else {
+                    addCellToVectorSet(backSplat, cell);
+                }
+            }
 
-                    const temp = splat;
-                    splat = backSplat;
-                    backSplat = temp;
+            const temp = splat;
+            splat = backSplat;
+            backSplat = temp;
+            yield;
+        }
+        // Smooth blob
+        for (let s = 0; s < smoothness * 3; s++) {
+            const axis = s % 3;
+            const offset = new Vector(Number(axis === 0), Number(axis === 1), Number(axis === 2));
+
+            for (const cell of splat) {
+                let density = cell.value * 1.4;
+                density += (splat.get(Vector.add(cell, offset))?.value ?? 0) * 0.8;
+                density += (splat.get(Vector.sub(cell, offset))?.value ?? 0) * 0.8;
+                addCellToVectorSet(backSplat, new Cell(cell, density / 3));
+            }
+
+            const temp = splat;
+            splat = backSplat;
+            backSplat = temp;
+            yield;
+        }
+
+        const pattern = this._pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
+        mask = mask?.withContext(session);
+
+        const history = session.history;
+        const record = history.record();
+        try {
+            yield* history.trackRegion(record, min, max);
+            for (const cell of splat) {
+                if (cell.y < min.y || cell.y > max.y) continue;
+                if (cell.value > 0.5 && distanceFromStroke(cell) <= brushSize) {
+                    const block = yield* Jobs.loadBlock(cell);
+                    if (!mask || mask.matchesBlock(block)) pattern.setBlock(block);
                     yield;
                 }
-                // Smooth blob
-                for (let s = 0; s < smoothness * 3; s++) {
-                    const axis = s % 3;
-                    const offset = new Vector(Number(axis === 0), Number(axis === 1), Number(axis === 2));
-
-                    for (const cell of splat) {
-                        let density = cell.value * 1.4;
-                        density += (splat.get(Vector.add(cell, offset))?.value ?? 0) * 0.8;
-                        density += (splat.get(Vector.sub(cell, offset))?.value ?? 0) * 0.8;
-                        addCellToVectorSet(backSplat, new Cell(cell, density / 3));
-                    }
-
-                    const temp = splat;
-                    splat = backSplat;
-                    backSplat = temp;
-                    yield;
-                }
-
-                const pattern = this._pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
-                mask = mask?.withContext(session);
-
-                const history = session.history;
-                const record = history.record();
-                try {
-                    yield* history.trackRegion(record, min, max);
-                    for (const cell of splat) {
-                        if (cell.y < min.y || cell.y > max.y) continue;
-                        if (cell.value > 0.5 && distanceFromStroke(cell) <= brushSize) {
-                            const block = yield* Jobs.loadBlock(cell);
-                            if (!mask || mask.matchesBlock(block)) pattern.setBlock(block);
-                            yield;
-                        }
-                    }
-                    yield* history.commit(record);
-                } catch (e) {
-                    history.cancel(record);
-                    throw e;
-                }
-            },
-            this
-        );
+            }
+            yield* history.commit(record);
+        } catch (e) {
+            history.cancel(record);
+            throw e;
+        }
     }
 
     public getOutline(): [Shape, Vector] {

@@ -46,6 +46,8 @@ class JobHandler {
     }
 
     public *run<T, TReturn, U>(session: PlayerSession, steps: number, func: Generator<T | JobFunction, TReturn> | ((this: U) => Generator<T | JobFunction, TReturn>), thisArg?: U) {
+        if (this.inContext()) throw new Error("Cannot run a job in another job!");
+
         const jobId = ++globalJobIdCounter;
         const job = {
             stepCount: steps,
