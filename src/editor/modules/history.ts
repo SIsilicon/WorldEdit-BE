@@ -17,7 +17,11 @@ class EditorHistory extends History {
 
     *commit(): Generator<any, void> {
         yield;
-        this.transactionManager.commitOpenTransaction();
+        try {
+            this.transactionManager.commitOpenTransaction();
+        } catch {
+            /* pass */
+        }
         this.activeThread = undefined;
         return;
     }
