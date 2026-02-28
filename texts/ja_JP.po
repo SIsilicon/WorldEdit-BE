@@ -289,7 +289,7 @@ msgstr "スムーズブラシ"
 msgid "worldedit.config.brush.struct"
 msgstr "ストラクチャーブラシ"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "侵食ブラシ"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "クリップボードブラシを装備しました。"
 msgid "commands.wedit:brush.bind.struct"
 msgstr "ストラクチャーブラシを装備しました。"
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "侵食ブラシを装備しました (%s)。"
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "地形をなだらかにするスムーズブラシを生成する"
 msgid "commands.wedit:brush.description.struct"
 msgstr "構造物を配置するブラシを作成する"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "地形を整形するブラシを作成する"
 
 msgid "commands.wedit:brush.description.overlay"

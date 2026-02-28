@@ -289,7 +289,7 @@ msgstr "Сглаживающий кисть"
 msgid "worldedit.config.brush.struct"
 msgstr "Структурная кисть"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "Кисть Эрозии"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "Выбрана кисть буфера обмена."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Конструкция оснащена щеткой."
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "Оснащенная эрозионной щеткой(%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "Создать кисть для сглаживания рельефа"
 msgid "commands.wedit:brush.description.struct"
 msgstr "Создает кисть, которая накладывает структуры"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "Создает кисть для придания формы рельефу"
 
 msgid "commands.wedit:brush.description.overlay"

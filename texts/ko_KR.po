@@ -289,7 +289,7 @@ msgstr "다듬기 브러시"
 msgid "worldedit.config.brush.struct"
 msgstr "구조 브러시"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "침식 브러시"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "클립보드 브러시 장착됨."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "구조 브러시 장착됨."
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "침식 브러시 장착됨 (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "지형 스무딩 브러시 생성"
 msgid "commands.wedit:brush.description.struct"
 msgstr "구조 배치 브러시 생성"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "지형 형성 브러시 생성"
 
 msgid "commands.wedit:brush.description.overlay"

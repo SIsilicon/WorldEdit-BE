@@ -289,7 +289,7 @@ msgstr "平滑畫筆"
 msgid "worldedit.config.brush.struct"
 msgstr "結構畫筆"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "侵蝕畫筆"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "已配備剪貼簿筆刷樣式。"
 msgid "commands.wedit:brush.bind.struct"
 msgstr "已配備結構類型之筆刷。"
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "已配備侵蝕類型之筆刷 (%s)。"
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "製作一個地形平滑筆刷"
 msgid "commands.wedit:brush.description.struct"
 msgstr "建立可放置結構的筆刷"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "製作一個可編輯地形形狀的筆刷"
 
 msgid "commands.wedit:brush.description.overlay"

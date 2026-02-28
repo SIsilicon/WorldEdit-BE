@@ -289,7 +289,7 @@ msgstr "Pincel liso(suave)"
 msgid "worldedit.config.brush.struct"
 msgstr "Pincel de estrutura"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "Pincel de erosão"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "Pincel de prancheta equipado."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Pincel de estrutura equipado."
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "Pincel de erosão equipado (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "Criar um pincel de suavizar terreno"
 msgid "commands.wedit:brush.description.struct"
 msgstr "Cria um Pincel que coloca estruturas"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "Cria um pincel de edição de terreno"
 
 msgid "commands.wedit:brush.description.overlay"

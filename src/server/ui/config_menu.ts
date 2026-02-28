@@ -883,7 +883,7 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
             },
         },
         {
-            text: "%worldedit.config.brush.erode",
+            text: "%worldedit.config.brush.erosion",
             icon: "textures/ui/erosion_brush",
             action: (ctx) => {
                 ctx.setData("creatingTool", "erosion_brush");

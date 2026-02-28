@@ -82,8 +82,8 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "erode",
-            permission: "worldedit.brush.erode",
-            description: "commands.wedit:brush.description.erode",
+            permission: "worldedit.brush.erosion",
+            description: "commands.wedit:brush.description.erosion",
             args: [
                 {
                     subName: "_",
@@ -188,7 +188,7 @@ const erodeSubCommand = (session: PlayerSession, builder: Player, args: Map<stri
 
     session.bindTool("brush", null, new ErosionBrush(args.get("radius"), type));
     session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
-    return RawText.translate("commands.wedit:brush.bind.erode").with(args.get("radius"));
+    return RawText.translate("commands.wedit:brush.bind.erosion").with(args.get("radius"));
 };
 
 const overlaySubCommand = (session: PlayerSession, builder: Player, args: Map<string, any>) => {

@@ -289,7 +289,7 @@ msgstr "Brosse douce"
 msgid "worldedit.config.brush.struct"
 msgstr "Brosse de structure"
 
-msgid "worldedit.config.brush.erode"
+msgid "worldedit.config.brush.erosion"
 msgstr "Pinceau d'érosion"
 
 msgid "worldedit.config.brush.overlay"
@@ -712,7 +712,7 @@ msgstr "Clipboard brush equipped."
 msgid "commands.wedit:brush.bind.struct"
 msgstr "Structure brush equipped."
 
-msgid "commands.wedit:brush.bind.erode"
+msgid "commands.wedit:brush.bind.erosion"
 msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
@@ -736,7 +736,7 @@ msgstr "Créer une brosse de lissage du terrain"
 msgid "commands.wedit:brush.description.struct"
 msgstr "Creates a brush that places structures"
 
-msgid "commands.wedit:brush.description.erode"
+msgid "commands.wedit:brush.description.erosion"
 msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
