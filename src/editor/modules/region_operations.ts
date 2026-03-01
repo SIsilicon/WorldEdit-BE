@@ -31,8 +31,6 @@ export class RegionOpModule extends EditorModule {
     private tickId: number;
     private thread?: Thread;
 
-    private enableMask = false;
-    private enableHeightMask = false;
     private direction = CardinalDirection.Forward;
     private distance = 5;
     private stackCount = 1;
@@ -93,8 +91,9 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Distance",
                     uniqueId: "distance",
+                    min: 1,
                     value: 5,
-                    validator: (value) => Math.max(value, 1),
+                    isInteger: true,
                     onChange: (value) => {
                         this.distance = value;
                         this.updateWidgets();
@@ -104,8 +103,9 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Stack Count",
                     uniqueId: "stackCount",
+                    min: 1,
                     value: 1,
-                    validator: (value) => Math.max(value, 1),
+                    isInteger: true,
                     onChange: (value) => {
                         this.stackCount = value;
                         this.updateWidgets();
@@ -115,8 +115,9 @@ export class RegionOpModule extends EditorModule {
                     type: "slider",
                     title: "Iterations",
                     uniqueId: "iterations",
+                    min: 1,
                     value: 1,
-                    validator: (value) => Math.max(value, 1),
+                    isInteger: true,
                     onChange: (value) => {
                         this.iterations = value;
                     },
@@ -172,7 +173,7 @@ export class RegionOpModule extends EditorModule {
         if (this.usesPatternAndMask()) {
             const args = new Map<string, any>([
                 ["pattern", this.patternUIBuilder.value],
-                ["mask", this.enableMask ? this.maskUIBuilder.value : new Mask()],
+                ["mask", this.maskUIBuilder.value],
             ]);
             const command = {
                 [RegionOperatorMode.Fill]: "replace",
@@ -211,7 +212,7 @@ export class RegionOpModule extends EditorModule {
                 new Map(
                     Object.entries({
                         iterations: this.iterations,
-                        mask: this.enableHeightMask ? this.heightMaskUIBuilder.value : new Mask(),
+                        mask: this.heightMaskUIBuilder.value,
                     })
                 )
             );
