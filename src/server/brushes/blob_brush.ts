@@ -1,4 +1,4 @@
-import { Vector, VectorSet } from "@notbeer-api";
+import { Vector } from "@notbeer-api";
 import { PlayerSession } from "../sessions.js";
 import { brushTypes, Brush } from "./base_brush.js";
 import { Mask } from "@modules/mask.js";
@@ -7,35 +7,38 @@ import { Jobs } from "@modules/jobs.js";
 import { getWorldHeightLimits } from "server/util.js";
 import { SphereShape } from "server/shapes/sphere.js";
 import { Shape } from "server/shapes/base_shape.js";
-import { Vector3 } from "@minecraft/server";
+import { Direction, Vector3 } from "@minecraft/server";
 import { closestPoint } from "library/utils/closestpoint.js";
 
-class Cell implements Vector3 {
-    readonly x: number;
-    readonly y: number;
-    readonly z: number;
+const neighborChecks = Object.values(Direction).map((direction) => Vector.from(direction).toJSON());
 
-    constructor(
-        vector: Vector3,
-        public value: number
-    ) {
-        this.x = vector.x;
-        this.y = vector.y;
-        this.z = vector.z;
+class CellMap {
+    private map = new Map<string, number>();
+
+    set(cell: Vector3, value: number) {
+        // Initialize cell's neighbours in the set if there are none
+        for (const direction of neighborChecks) {
+            const coord = { x: cell.x + direction.x, y: cell.y + direction.y, z: cell.z + direction.z };
+            const key = this.toKey(coord);
+            if (!this.map.has(key)) this.map.set(key, 0);
+        }
+        this.map.set(this.toKey(cell), value);
     }
-}
 
-function addCellToVectorSet(set: VectorSet, cell: Cell) {
-    // Initialize cell's neighbours in the set if there are none
-    for (let x = -1; x <= 1; x++) {
-        for (let y = -1; y <= 1; y++) {
-            for (let z = -1; z <= 1; z++) {
-                const coord = Vector.add(cell, [x, y, z]);
-                if (!set.has(coord)) set.add(new Cell(coord, 0.0));
-            }
+    get(cell: Vector3) {
+        return this.map.get(this.toKey(cell));
+    }
+
+    *[Symbol.iterator]() {
+        for (const [key, value] of this.map.entries()) {
+            const [x, y, z] = key.split(" ").map(Number);
+            yield { x, y, z, value };
         }
     }
-    set.add(cell);
+
+    private toKey(vector: Vector3) {
+        return vector.x + " " + vector.y + " " + vector.z;
+    }
 }
 
 /**
@@ -89,11 +92,11 @@ export class BlobBrush extends Brush {
         const brushSize = this.radius + 0.5;
         const smoothness = this.smoothness;
         const growPercent = this.growPercent / 100;
-        let splat = new VectorSet<Cell>();
-        let backSplat = new VectorSet<Cell>();
+        let splat = new CellMap();
+        let backSplat = new CellMap();
 
         for (const loc of locations) {
-            addCellToVectorSet(splat, new Cell(loc, 1.0));
+            splat.set(loc, 1.0);
             min = Vector.min(min, loc.sub(brushSize));
             max = Vector.max(max, loc.add(brushSize));
         }
@@ -112,15 +115,15 @@ export class BlobBrush extends Brush {
             for (const cell of splat) {
                 if (!cell.value) {
                     let neighbours = 0;
-                    if (splat.get({ ...cell, x: cell.x - 1 })?.value) neighbours++;
-                    if (splat.get({ ...cell, y: cell.y - 1 })?.value) neighbours++;
-                    if (splat.get({ ...cell, z: cell.z - 1 })?.value) neighbours++;
-                    if (splat.get({ ...cell, x: cell.x + 1 })?.value) neighbours++;
-                    if (splat.get({ ...cell, y: cell.y + 1 })?.value) neighbours++;
-                    if (splat.get({ ...cell, z: cell.z + 1 })?.value) neighbours++;
-                    if (neighbours >= 1 && Math.random() <= growPercent) addCellToVectorSet(backSplat, new Cell(cell, 1.0));
+                    if (splat.get({ ...cell, x: cell.x - 1 })) neighbours++;
+                    if (splat.get({ ...cell, y: cell.y - 1 })) neighbours++;
+                    if (splat.get({ ...cell, z: cell.z - 1 })) neighbours++;
+                    if (splat.get({ ...cell, x: cell.x + 1 })) neighbours++;
+                    if (splat.get({ ...cell, y: cell.y + 1 })) neighbours++;
+                    if (splat.get({ ...cell, z: cell.z + 1 })) neighbours++;
+                    if (neighbours >= 1 && Math.random() <= growPercent) backSplat.set(cell, 1.0);
                 } else {
-                    addCellToVectorSet(backSplat, cell);
+                    backSplat.set(cell, cell.value);
                 }
             }
 
@@ -132,13 +135,13 @@ export class BlobBrush extends Brush {
         // Smooth blob
         for (let s = 0; s < smoothness * 3; s++) {
             const axis = s % 3;
-            const offset = new Vector(Number(axis === 0), Number(axis === 1), Number(axis === 2));
+            const { x, y, z } = { x: Number(axis === 0), y: Number(axis === 1), z: Number(axis === 2) };
 
             for (const cell of splat) {
                 let density = cell.value * 1.4;
-                density += (splat.get(Vector.add(cell, offset))?.value ?? 0) * 0.8;
-                density += (splat.get(Vector.sub(cell, offset))?.value ?? 0) * 0.8;
-                addCellToVectorSet(backSplat, new Cell(cell, density / 3));
+                density += (splat.get({ x: cell.x + x, y: cell.y + y, z: cell.z + z }) ?? 0) * 0.8;
+                density += (splat.get({ x: cell.x - x, y: cell.y - y, z: cell.z - z }) ?? 0) * 0.8;
+                backSplat.set(cell, density / 3);
             }
 
             const temp = splat;

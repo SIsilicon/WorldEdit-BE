@@ -697,10 +697,10 @@ Server.uiForms.register<ConfigContext>("$editTool_blob_brush", {
             type: "slider",
             name: "%worldedit.config.smooth",
             min: 0,
-            max: 100,
+            max: 6,
             default: (ctx, player) => {
-                if (ctx.getData("creatingTool")) return 50;
-                return (getToolProperty(ctx, player, "brush") as BlobBrush).smoothness * 100;
+                if (ctx.getData("creatingTool")) return 0;
+                return (getToolProperty(ctx, player, "brush") as BlobBrush).smoothness;
             },
         },
         ...maskInput,
@@ -711,7 +711,7 @@ Server.uiForms.register<ConfigContext>("$editTool_blob_brush", {
             ctx.setData("pickerData", {
                 return: "$editTool_blob_brush",
                 onFinish: (ctx, _, mask, pattern) => {
-                    ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, (input.$smoothness as number) / 100), mask, null, null]);
+                    ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, input.$smoothness as number), mask, null, null]);
                     finishToolEdit(ctx);
                 },
             });
@@ -721,7 +721,7 @@ Server.uiForms.register<ConfigContext>("$editTool_blob_brush", {
             if (typeof pattern === "string") return ctx.error(pattern);
             const mask = verifyMask(<string>input.$mask);
             if (typeof mask === "string") return ctx.error(mask);
-            ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, (input.$smoothness as number) / 100), mask, null, null]);
+            ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, input.$smoothness as number), mask, null, null]);
             finishToolEdit(ctx);
         }
     },

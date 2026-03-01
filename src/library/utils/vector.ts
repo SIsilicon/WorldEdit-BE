@@ -283,6 +283,10 @@ export class Vector {
         return [this.x, this.y, this.z] as [number, number, number];
     }
 
+    toJSON(): Vector3 {
+        return { x: this.x, y: this.y, z: this.z };
+    }
+
     toString() {
         return `(${this.vals[0]}, ${this.vals[1]}, ${this.vals[2]})`;
     }
