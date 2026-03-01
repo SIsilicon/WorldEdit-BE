@@ -64,7 +64,7 @@ export class RaiseBrush extends Brush {
                     map,
                     ({ x, z }) => {
                         const column = API.getColumn(map, x, z);
-                        column.height += (this.height + 0.5) * getFalloff(x, z);
+                        column.height += this.height * getFalloff(x, z);
                     },
                     ""
                 );

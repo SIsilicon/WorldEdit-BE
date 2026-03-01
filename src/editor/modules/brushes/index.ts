@@ -117,6 +117,7 @@ export class BrushPainterModule extends EditorModule {
             onExecute: (_mouseRay, mouseProps) => {
                 if (mouseProps.mouseAction !== MouseActionType.LeftButton) return;
 
+                // FIXME: There are circumstances where paintingActive is false on mouse release.
                 if (mouseProps.inputType === MouseInputType.ButtonDown) {
                     this.beginPainting();
                 } else if (mouseProps.inputType === MouseInputType.ButtonUp && this.paintingActive) {

@@ -180,8 +180,8 @@ export function* modifyHeight(
             for (const column of chunk) {
                 yield Jobs.setProgress(columnsProcessed++ / map.size);
 
-                const initialHeight = Math.floor(column.initialHeight);
-                const newHeight = Math.floor(column.height);
+                const initialHeight = Math.round(column.initialHeight);
+                const newHeight = Math.round(column.height);
                 const difference = initialHeight - newHeight;
                 const direction = Math.sign(difference);
                 if (!difference) continue;
