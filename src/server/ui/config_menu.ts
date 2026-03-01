@@ -19,6 +19,7 @@ import { RaiseBrush } from "server/brushes/raise_brush.js";
 import { Easing } from "@modules/easing.js";
 import easingsFunctions from "@modules/extern/easingFunctions.js";
 import config from "config.js";
+import { BlobBrush } from "server/brushes/blob_brush.js";
 
 type MenuConfigCtx = MenuContext<ConfigContext>;
 type ModalFormInput = ModalForm<ConfigContext>["inputs"];
@@ -677,6 +678,56 @@ Server.uiForms.register<ConfigContext>("$editTool_overlay_brush", {
     cancel: (ctx) => ctx.returnto("$tools"),
 });
 
+Server.uiForms.register<ConfigContext>("$editTool_blob_brush", {
+    title: editToolTitle,
+    inputs: {
+        ...brushSizeInput,
+        ...brushPatternInput,
+        $growPercent: {
+            type: "slider",
+            name: "%worldedit.config.growPercent",
+            min: 0,
+            max: 100,
+            default: (ctx, player) => {
+                if (ctx.getData("creatingTool")) return 50;
+                return (getToolProperty(ctx, player, "brush") as BlobBrush).growPercent;
+            },
+        },
+        $smoothness: {
+            type: "slider",
+            name: "%worldedit.config.smooth",
+            min: 0,
+            max: 100,
+            default: (ctx, player) => {
+                if (ctx.getData("creatingTool")) return 50;
+                return (getToolProperty(ctx, player, "brush") as BlobBrush).smoothness * 100;
+            },
+        },
+        ...maskInput,
+        ...usePickerInput,
+    },
+    submit: (ctx, player, input) => {
+        if (input.$usePicker) {
+            ctx.setData("pickerData", {
+                return: "$editTool_blob_brush",
+                onFinish: (ctx, _, mask, pattern) => {
+                    ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, (input.$smoothness as number) / 100), mask, null, null]);
+                    finishToolEdit(ctx);
+                },
+            });
+            HotbarUI.goto("$pickPatternMask", player, ctx);
+        } else {
+            const pattern = verifyPattern(<string>input.$pattern);
+            if (typeof pattern === "string") return ctx.error(pattern);
+            const mask = verifyMask(<string>input.$mask);
+            if (typeof mask === "string") return ctx.error(mask);
+            ctx.setData("toolData", [new BlobBrush(input.$size as number, pattern, input.$growPercent as number, (input.$smoothness as number) / 100), mask, null, null]);
+            finishToolEdit(ctx);
+        }
+    },
+    cancel: (ctx) => ctx.returnto("$tools"),
+});
+
 Server.uiForms.register<ConfigContext>("$editTool_raise_brush", {
     title: editToolTitle,
     inputs: {
@@ -896,6 +947,14 @@ Server.uiForms.register<ConfigContext>("$selectBrushType", {
             action: (ctx) => {
                 ctx.setData("creatingTool", "overlay_brush");
                 ctx.goto("$editTool_overlay_brush");
+            },
+        },
+        {
+            text: "%worldedit.config.brush.blob",
+            icon: "textures/ui/blob_brush",
+            action: (ctx) => {
+                ctx.setData("creatingTool", "blob_brush");
+                ctx.goto("$editTool_blob_brush");
             },
         },
         {
