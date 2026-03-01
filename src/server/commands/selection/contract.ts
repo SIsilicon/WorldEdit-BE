@@ -1,5 +1,5 @@
 import { assertCuboidSelection } from "@modules/assert.js";
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { CommandInfo, RawText } from "@notbeer-api";
 import { Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
@@ -13,7 +13,7 @@ const registerInformation: CommandInfo = {
             subName: "_",
             args: [
                 { name: "amount", type: "int" },
-                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
+                { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Forward) },
             ],
         },
         {
@@ -21,7 +21,7 @@ const registerInformation: CommandInfo = {
             args: [
                 { name: "amount", type: "int" },
                 { name: "reverseAmount", type: "int" },
-                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
+                { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Forward) },
             ],
         },
     ],

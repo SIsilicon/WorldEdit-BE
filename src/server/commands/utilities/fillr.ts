@@ -1,4 +1,4 @@
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { Jobs } from "@modules/jobs.js";
 import { Pattern } from "@modules/pattern.js";
 import { CommandInfo, RawText, regionBounds } from "@notbeer-api";
@@ -13,7 +13,7 @@ const registerInformation: CommandInfo = {
         { name: "pattern", type: "Pattern" },
         { name: "radius", type: "float" },
         { name: "depth", type: "int", range: [1, null], default: -1 },
-        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.DOWN) },
+        { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Down) },
     ],
 };
 

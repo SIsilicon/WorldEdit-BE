@@ -2,9 +2,6 @@ import { Player } from "@minecraft/server";
 import { RawText, Vector, CustomArgType } from "@notbeer-api";
 import { getViewVector } from "server/util";
 
-const directions = ["up", "down", "left", "right", "forward", "back", "north", "south", "east", "west", "me"];
-const dirAliases = ["u", "d", "l", "r", "f", "b", "n", "s", "e", "w", "m"];
-
 const DIRECTIONS: { [k: string]: Vector } = {
     u: new Vector(0, 1, 0),
     d: new Vector(0, -1, 0),
@@ -16,44 +13,32 @@ const DIRECTIONS: { [k: string]: Vector } = {
 
 export const directionVectors = Object.entries(DIRECTIONS);
 
-enum Dir {
-    FORWARD,
-    BACK,
-    LEFT,
-    RIGHT,
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    UP,
-    DOWN,
+export enum CardinalDirection {
+    Forward = "forward",
+    Back = "back",
+    Left = "left",
+    Right = "right",
+    North = "north",
+    South = "south",
+    East = "east",
+    West = "west",
+    Up = "up",
+    Down = "down",
 }
 
 export class Cardinal implements CustomArgType {
-    static commandEnumValues = [...directions, ...dirAliases];
-    static readonly Dir = Dir;
-    readonly Dir = Cardinal.Dir;
+    public direction: CardinalDirection;
 
-    private direction = "me";
+    constructor(direction: CardinalDirection = CardinalDirection.Forward) {
+        this.direction = direction;
+    }
 
-    constructor(dir: Dir = Cardinal.Dir.FORWARD) {
-        this.direction = {
-            [Dir.FORWARD]: "f",
-            [Dir.BACK]: "b",
-            [Dir.LEFT]: "l",
-            [Dir.RIGHT]: "r",
-            [Dir.NORTH]: "n",
-            [Dir.SOUTH]: "s",
-            [Dir.EAST]: "e",
-            [Dir.WEST]: "w",
-            [Dir.UP]: "u",
-            [Dir.DOWN]: "d",
-        }[dir];
+    get cardinal() {
+        return this.direction;
     }
 
     clone() {
-        const cardinal = new Cardinal();
-        cardinal.direction = this.direction;
+        const cardinal = new Cardinal(this.direction);
         return cardinal;
     }
 
@@ -73,9 +58,9 @@ export class Cardinal implements CustomArgType {
                 cardinal.y = Math.sign(dir.y);
             }
 
-            if (dirChar == "b") {
+            if (dirChar === "b") {
                 cardinal = cardinal.mul(-1);
-            } else if (dirChar == "l" || dirChar == "r") {
+            } else if (dirChar === "l" || dirChar === "r") {
                 if (absDir[0] > absDir[2]) {
                     cardinal = new Vector(Math.sign(dir.x), 0, 0);
                 } else {
@@ -83,7 +68,7 @@ export class Cardinal implements CustomArgType {
                 }
 
                 const xTemp = cardinal.x;
-                if (dirChar == "r") {
+                if (dirChar === "r") {
                     cardinal.x = -cardinal.z;
                     cardinal.z = xTemp;
                 } else {
@@ -96,20 +81,18 @@ export class Cardinal implements CustomArgType {
         }
     }
 
-    getDirectionLetter() {
-        return this.direction;
+    toJSON() {
+        return this.cardinal;
     }
 
     static parseArgs(args: Array<string>, index = 0) {
-        const dir = args[index][0].toLowerCase();
-        if (!directions.includes(dir) && !dirAliases.includes(dir)) {
-            throw RawText.translate("commands.generic.wedit:invalidDir").with(args[index]);
-            /*printDebug(dir);
-            printDebug(dir in directions);*/
-        }
+        let direction = args[index][0].toLowerCase();
+        if (direction === "me" || direction === "m") direction = CardinalDirection.Forward;
+        else if (direction.length === 1) direction = Object.values(CardinalDirection).find((dir) => dir[0] === direction);
 
-        const cardinal = new Cardinal();
-        cardinal.direction = dir;
+        if (!Object.keys(CardinalDirection).includes(direction)) throw RawText.translate("commands.generic.wedit:invalidDir").with(args[index]);
+
+        const cardinal = new Cardinal(direction as CardinalDirection);
         return { result: cardinal, argIndex: index + 1 };
     }
 }

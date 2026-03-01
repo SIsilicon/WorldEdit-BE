@@ -18,6 +18,7 @@ import {
 import { Vector } from "@notbeer-api";
 import { PaneBuilder, UIPane } from "./builder";
 import { EventEmitter } from "library/classes/eventEmitter";
+import { Cardinal, CardinalDirection } from "@modules/directions";
 
 const dummyToken = new Token("", undefined, "");
 const defaultBLock = "stone";
@@ -366,6 +367,8 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [pattern: Pattern]
     }
 
     private buildGradientPatternUI(pane: UIPane, node: GradientPatternNode) {
+        const cardinals = Object.values(CardinalDirection) as string[];
+        const directions = [...cardinals, "radial", "light"];
         let gradients = pane.worldedit.getGradientNames();
         pane.changeItems([
             {
@@ -375,6 +378,17 @@ export class PatternUIBuilder extends EventEmitter<{ changed: [pattern: Pattern]
                 entries: gradients.map((id, i) => ({ label: id, value: i })),
                 onChange: (value) => {
                     node.gradientId = gradients[value];
+                    this.emit("changed", this.value);
+                },
+            },
+            {
+                type: "dropdown",
+                title: "Direction",
+                value: directions.indexOf(node.cardinal instanceof Cardinal ? node.cardinal.cardinal : node.cardinal),
+                entries: directions.map((direction, index) => ({ value: index, label: direction })),
+                onChange: (valueIdx) => {
+                    const value = directions[valueIdx];
+                    node.cardinal = cardinals.includes(value) ? new Cardinal(value as CardinalDirection) : (value as "radial" | "light");
                     this.emit("changed", this.value);
                 },
             },

@@ -18,7 +18,6 @@ import { EventEmitter } from "./eventEmitter.js";
 
 export class CustomArgType {
     static parseArgs: (args: Array<string>, argIndex: number) => argParseResult<unknown>;
-    static readonly commandEnumValues?: string[];
     clone: () => CustomArgType;
 }
 

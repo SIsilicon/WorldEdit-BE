@@ -7,7 +7,7 @@ import { regionSize, Server, Thread, Vector } from "@notbeer-api";
 import { PatternUIBuilder } from "editor/pane/pattern";
 import { MaskUIBuilder } from "editor/pane/mask";
 import { Mask } from "@modules/mask";
-import { Cardinal } from "@modules/directions";
+import { Cardinal, CardinalDirection } from "@modules/directions";
 import { getSession } from "server/sessions";
 import { system } from "@minecraft/server";
 import { Jobs } from "@modules/jobs";
@@ -21,10 +21,7 @@ enum RegionOperatorMode {
     Smooth,
 }
 
-const directions = Object.keys(Cardinal.Dir);
-// Object.keys on an enum returns not just the enumerators, but there number equivalent.
-// Removing those with splice()
-directions.splice(0, directions.length / 2);
+const directions = Object.values(CardinalDirection);
 
 export class RegionOpModule extends EditorModule {
     private pane: UIPane;
@@ -36,7 +33,7 @@ export class RegionOpModule extends EditorModule {
 
     private enableMask = false;
     private enableHeightMask = false;
-    private direction = Cardinal.Dir.FORWARD;
+    private direction = CardinalDirection.Forward;
     private distance = 5;
     private stackCount = 1;
     private iterations = 1;
@@ -86,9 +83,9 @@ export class RegionOpModule extends EditorModule {
                     title: "Direction",
                     uniqueId: "direction",
                     entries: directions.map((dir, index) => ({ label: dir, value: index })),
-                    value: Cardinal.Dir.FORWARD,
+                    value: directions.indexOf(CardinalDirection.Forward),
                     onChange: (value) => {
-                        this.direction = value;
+                        this.direction = directions[value];
                         this.updateWidgets();
                     },
                 },

@@ -6,7 +6,7 @@ import { Pattern } from "@modules/pattern.js";
 import { Jobs } from "@modules/jobs.js";
 import { regionBounds } from "@notbeer-api";
 import { floodFill } from "server/commands/utilities/floodfill_func.js";
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 
 class FillTool extends Tool {
     public pattern: Pattern;
@@ -58,7 +58,7 @@ class FillTool extends Tool {
         });
     }
 
-    constructor(pattern: Pattern, radius: number, depth: number, direction = new Cardinal(Cardinal.Dir.DOWN)) {
+    constructor(pattern: Pattern, radius: number, depth: number, direction = new Cardinal(CardinalDirection.Down)) {
         super();
         this.pattern = pattern;
         this.radius = radius;
@@ -72,7 +72,7 @@ class FillTool extends Tool {
             pattern: this.pattern,
             radius: this.radius,
             depth: this.depth,
-            direction: this.direction.getDirectionLetter(),
+            direction: this.direction,
         };
     }
 

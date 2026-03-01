@@ -1,4 +1,4 @@
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { Vector, regionBounds, regionOffset } from "@notbeer-api";
 import { Block, Player } from "@minecraft/server";
 import { PlayerSession } from "../sessions.js";
@@ -22,7 +22,7 @@ class ExtrudeTool extends Tool {
 
     *useOn(player: Player, session: PlayerSession, loc: Vector) {
         const dim = player.dimension;
-        const extrudeDir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
+        const extrudeDir = new Cardinal(CardinalDirection.Back).getDirection(player);
         const extrudeOffset = Vector.from(extrudeDir);
         const startBlockType = dim.getBlock(loc).type;
 

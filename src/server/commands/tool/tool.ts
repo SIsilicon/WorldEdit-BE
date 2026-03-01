@@ -5,7 +5,7 @@ import { registerCommand } from "../register_commands.js";
 import { assertPermission } from "@modules/assert.js";
 import { Mask } from "@modules/mask.js";
 import { RawText } from "@notbeer-api";
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { commandSubDef } from "library/@types/classes/CommandBuilder.js";
 
 const registerInformation: CommandInfo = {
@@ -57,7 +57,7 @@ const registerInformation: CommandInfo = {
                 { name: "pattern", type: "Pattern" },
                 { name: "radius", type: "float" },
                 { name: "depth", type: "int", range: [1, null], default: -1 },
-                { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.DOWN) },
+                { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Down) },
             ],
         },
         {

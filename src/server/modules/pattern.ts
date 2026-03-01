@@ -17,7 +17,7 @@ import {
     parsedBlock2BlockPermutation,
     BlockUnit,
 } from "./block_parsing.js";
-import { Cardinal } from "./directions.js";
+import { Cardinal, CardinalDirection } from "./directions.js";
 import { Mask } from "./mask.js";
 import { closestPoint } from "library/utils/closestpoint.js";
 import { Selection } from "./selection.js";
@@ -63,7 +63,7 @@ export class Pattern implements CustomArgType {
         const pattern = this.clone();
         pattern.context.session = session;
         pattern.context.range = [Vector.from(range[0]), Vector.from(range[1])];
-        pattern.context.cardinal = new Cardinal(Cardinal.Dir.FORWARD);
+        pattern.context.cardinal = new Cardinal(CardinalDirection.Forward);
         pattern.context.placePosition = session.getPlacementPosition();
         pattern.context.gradientRadius = options?.gradientRadius ?? Vector.sub(range[1], range[0]).length / 2;
         const item = Server.player.getHeldItem(session.player);
@@ -342,7 +342,11 @@ export class Pattern implements CustomArgType {
                     node = new HandPatternNode(null);
                     break;
                 case "gradient":
-                    node = new GradientPatternNode(null, settings.gradientId, settings.cardinal);
+                    node = new GradientPatternNode(
+                        null, //
+                        settings.gradientId,
+                        settings.cardinal in CardinalDirection ? new Cardinal(settings.cardinal) : settings.cardinal
+                    );
                     break;
                 case "percent":
                     node = new PercentPatternNode(null, settings.percent);
@@ -573,20 +577,20 @@ export class GradientPatternNode extends PatternNode {
 
     private radial = false;
     private radialOrigin: "center" | "placement" = "center";
-    private ctxCardinal: Cardinal;
+    private lastContext: patternContext;
 
     constructor(
         token: Token,
         public gradientId: string,
-        public cardinal?: Cardinal | "radial" | "light"
+        public cardinal: Cardinal | "radial" | "light" = new Cardinal()
     ) {
         super(token);
-        const isRadial = cardinal === "radial" || cardinal === "light";
-        if (cardinal && !isRadial) this.updateDirectionParams(cardinal);
-        if (isRadial) {
-            this.radial = true;
-            if (cardinal === "light") this.radialOrigin = "placement";
-        }
+    }
+
+    prepare() {
+        this.radial = this.cardinal === "radial" || this.cardinal === "light";
+        if (this.radial) this.radialOrigin = this.cardinal === "light" ? "placement" : "center";
+        this.lastContext = undefined;
     }
 
     getPermutation(block: BlockUnit, context: patternContext) {
@@ -611,9 +615,9 @@ export class GradientPatternNode extends PatternNode {
             }
             index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
         } else {
-            if (!this.cardinal && this.ctxCardinal !== context.cardinal) {
-                this.updateDirectionParams(context.cardinal, context.session.player);
-                this.ctxCardinal = context.cardinal;
+            if (this.lastContext !== context) {
+                this.updateCardinalDirectionParams(context.session.player);
+                this.lastContext = context;
             }
             const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
             const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
@@ -622,16 +626,12 @@ export class GradientPatternNode extends PatternNode {
         return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
     }
 
-    private updateDirectionParams(cardinal: Cardinal, player?: Player) {
-        const dir = cardinal.getDirection(player);
+    private updateCardinalDirectionParams(player: Player) {
+        const dir = (this.cardinal as Cardinal).getDirection(player);
         const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
-        if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) {
-            this.axis = "x";
-        } else if (absDir[1] > absDir[0] && absDir[1] > absDir[2]) {
-            this.axis = "y";
-        } else {
-            this.axis = "z";
-        }
+        if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) this.axis = "x";
+        else if (absDir[1] > absDir[0] && absDir[1] > absDir[2]) this.axis = "y";
+        else this.axis = "z";
         this.invertCoords = dir[this.axis] < 0;
     }
 

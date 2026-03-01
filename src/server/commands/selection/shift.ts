@@ -1,5 +1,5 @@
 import { assertSelection } from "@modules/assert.js";
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { CommandInfo, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 
@@ -9,7 +9,7 @@ const registerInformation: CommandInfo = {
     permission: "worldedit.selection.shift",
     usage: [
         { name: "amount", type: "int" },
-        { name: "direction", type: "Direction", default: new Cardinal(Cardinal.Dir.FORWARD) },
+        { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Forward) },
     ],
 };
 

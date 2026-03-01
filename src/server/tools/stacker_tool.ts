@@ -1,4 +1,4 @@
-import { Cardinal } from "@modules/directions.js";
+import { Cardinal, CardinalDirection } from "@modules/directions.js";
 import { Mask } from "@modules/mask.js";
 import { Vector, regionIterateBlocks } from "@notbeer-api";
 import { Player } from "@minecraft/server";
@@ -21,7 +21,7 @@ class StackerTool extends Tool {
 
     *useOn(player: Player, session: PlayerSession, loc: Vector) {
         const dim = player.dimension;
-        const dir = new Cardinal(Cardinal.Dir.BACK).getDirection(player);
+        const dir = new Cardinal(CardinalDirection.Back).getDirection(player);
         const start = loc.add(dir);
         const mask = this.mask.withContext(session);
         if (!mask.matchesBlock(dim.getBlock(start))) {
