@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2026-03-01 22:24\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "Un portage en développement du mod Java et bien plus ! Add-on par SIsilicon (@iSiliconS)."
@@ -153,6 +153,9 @@ msgstr "Inclure l'air dans le presse-papiers"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Mode performance"
+
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dessiner les contours"
