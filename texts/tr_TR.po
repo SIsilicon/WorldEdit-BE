@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2026-02-11 03:28\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -154,6 +154,9 @@ msgstr "Havayı Panoya Dahil et"
 msgid "worldedit.config.general.perfMode"
 msgstr "Performans modu"
 
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
+
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Anahat çizin"
 
@@ -290,10 +293,13 @@ msgid "worldedit.config.brush.struct"
 msgstr "Yapı Fırçası"
 
 msgid "worldedit.config.brush.erosion"
-msgstr "Erozyon Fırçası"
+msgstr "Erosion Brush"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "Kaplama Fırçası"
+
+msgid "worldedit.config.brush.blob"
+msgstr "Blob Brush"
 
 msgid "worldedit.config.brush.raise"
 msgstr "Raise Brush"
@@ -357,6 +363,9 @@ msgstr "Yükseklik"
 
 msgid "worldedit.config.smooth"
 msgstr "Pürüzsüzlük"
+
+msgid "worldedit.config.growPercent"
+msgstr "Growth Percent"
 
 msgid "worldedit.config.range"
 msgstr "Uzaklık"
@@ -713,7 +722,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Yapı fırçası donanıldı."
 
 msgid "commands.wedit:brush.bind.erosion"
-msgstr "Erozyon fırçası donanıldı (%s)."
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
 msgstr "Kaplama fırçası donanıldı (%s)."
@@ -737,7 +746,7 @@ msgid "commands.wedit:brush.description.struct"
 msgstr "Yapıları yerleştiren bir fırça oluşturur"
 
 msgid "commands.wedit:brush.description.erosion"
-msgstr "Bir arazi şekillendirme fırçası oluşturur"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Bir arazi kaplama fırçası oluşturur"

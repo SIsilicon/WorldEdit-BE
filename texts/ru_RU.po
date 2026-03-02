@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2026-02-11 03:28\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "Находящийся в разработке порт мода из Java и многого другого! Addon от Silicon. (§l§b@iSiliconS§r)."
@@ -154,6 +154,9 @@ msgstr "Включить air в Буфер Обмена"
 msgid "worldedit.config.general.perfMode"
 msgstr "Производительный режим"
 
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
+
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Рисовать контуры"
 
@@ -290,10 +293,13 @@ msgid "worldedit.config.brush.struct"
 msgstr "Структурная кисть"
 
 msgid "worldedit.config.brush.erosion"
-msgstr "Кисть Эрозии"
+msgstr "Erosion Brush"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "Кисть наложения"
+
+msgid "worldedit.config.brush.blob"
+msgstr "Blob Brush"
 
 msgid "worldedit.config.brush.raise"
 msgstr "Raise Brush"
@@ -357,6 +363,9 @@ msgstr "Высота"
 
 msgid "worldedit.config.smooth"
 msgstr "Гладкость"
+
+msgid "worldedit.config.growPercent"
+msgstr "Growth Percent"
 
 msgid "worldedit.config.range"
 msgstr "Диапазон"
@@ -713,7 +722,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "Конструкция оснащена щеткой."
 
 msgid "commands.wedit:brush.bind.erosion"
-msgstr "Оснащенная эрозионной щеткой(%s)."
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
 msgstr "Кисть для наложения готова (%s)."
@@ -737,7 +746,7 @@ msgid "commands.wedit:brush.description.struct"
 msgstr "Создает кисть, которая накладывает структуры"
 
 msgid "commands.wedit:brush.description.erosion"
-msgstr "Создает кисть для придания формы рельефу"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "Создает кисть для наложения рельефа"

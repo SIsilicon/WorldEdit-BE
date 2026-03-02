@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2026-02-11 03:28\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -154,6 +154,9 @@ msgstr "클립보드 안에 빈 공간 포함"
 msgid "worldedit.config.general.perfMode"
 msgstr "성능 모드"
 
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
+
 msgid "worldedit.config.general.drawOutlines"
 msgstr "테두리 그리기"
 
@@ -290,10 +293,13 @@ msgid "worldedit.config.brush.struct"
 msgstr "구조 브러시"
 
 msgid "worldedit.config.brush.erosion"
-msgstr "침식 브러시"
+msgstr "Erosion Brush"
 
 msgid "worldedit.config.brush.overlay"
 msgstr "겉깔개 브러시"
+
+msgid "worldedit.config.brush.blob"
+msgstr "Blob Brush"
 
 msgid "worldedit.config.brush.raise"
 msgstr "Raise Brush"
@@ -357,6 +363,9 @@ msgstr "높이"
 
 msgid "worldedit.config.smooth"
 msgstr "부드러운 정도"
+
+msgid "worldedit.config.growPercent"
+msgstr "Growth Percent"
 
 msgid "worldedit.config.range"
 msgstr "범위"
@@ -713,7 +722,7 @@ msgid "commands.wedit:brush.bind.struct"
 msgstr "구조 브러시 장착됨."
 
 msgid "commands.wedit:brush.bind.erosion"
-msgstr "침식 브러시 장착됨 (%s)."
+msgstr "Erosion brush equipped (%s)."
 
 msgid "commands.wedit:brush.bind.overlay"
 msgstr "오버레이 브러시 장착됨 (%s)."
@@ -737,7 +746,7 @@ msgid "commands.wedit:brush.description.struct"
 msgstr "구조 배치 브러시 생성"
 
 msgid "commands.wedit:brush.description.erosion"
-msgstr "지형 형성 브러시 생성"
+msgstr "Creates a terrain shaping brush"
 
 msgid "commands.wedit:brush.description.overlay"
 msgstr "지형 오버레이 브러시 생성"
