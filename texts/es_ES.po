@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2026-03-01 22:24\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -153,6 +153,9 @@ msgstr "Incluir aire en portapapele"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Modo Rendimiento"
+
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Dibujar lineas salientes"
