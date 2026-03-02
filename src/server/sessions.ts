@@ -61,6 +61,10 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
  * It manages their selections, operation history, and other things related to WorldEdit per player.
  */
 export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: string[]] }> {
+    private static readonly INCLUDE_ENTITIES_PROPERTY = "wedit:includeEntities";
+    private static readonly INCLUDE_AIR_PROPERTY = "wedit:includeAir";
+    private static readonly CONTINUOUS_STROKES_PROPERTY = "wedit:continuousStrokes";
+
     /**
      * Is true while a WorldEdit command is being called from an item; false otherwise.
      * @readonly
@@ -78,16 +82,6 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
      * It's used by various commands and operation that are affected by masks such as the ;cyl command and brushes in combination of their own masks.
      */
     public globalMask = new Mask();
-
-    /**
-     * Whether the copy and cut items should include entities in the clipboard.
-     */
-    public includeEntities = false;
-
-    /**
-     * Whether the copy and cut items should include air in the clipboard.
-     */
-    public includeAir = false;
 
     /**
      * Whether the session should run in performance mode.
@@ -173,6 +167,39 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
 
     public get clipboard() {
         return this.clipboardBuffer;
+    }
+
+    /**
+     * Whether the copy and cut items should include entities in the clipboard.
+     */
+    public set includeEntities(value: boolean) {
+        this.player.setDynamicProperty(PlayerSession.INCLUDE_ENTITIES_PROPERTY, value);
+    }
+
+    public get includeEntities() {
+        return <boolean>this.player.getDynamicProperty(PlayerSession.INCLUDE_ENTITIES_PROPERTY) ?? false;
+    }
+
+    /**
+     * Whether the copy and cut items should include air in the clipboard.
+     */
+    public set includeAir(value: boolean) {
+        this.player.setDynamicProperty(PlayerSession.INCLUDE_AIR_PROPERTY, value);
+    }
+
+    public get includeAir() {
+        return <boolean>this.player.getDynamicProperty(PlayerSession.INCLUDE_AIR_PROPERTY) ?? false;
+    }
+
+    /**
+     * Whether the copy and cut items should include air in the clipboard.
+     */
+    public set continuousStrokes(value: boolean) {
+        this.player.setDynamicProperty(PlayerSession.CONTINUOUS_STROKES_PROPERTY, value);
+    }
+
+    public get continuousStrokes() {
+        return <boolean>this.player.getDynamicProperty(PlayerSession.CONTINUOUS_STROKES_PROPERTY) ?? true;
     }
 
     /**

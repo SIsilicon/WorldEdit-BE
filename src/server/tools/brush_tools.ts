@@ -31,7 +31,7 @@ class BrushTool extends Tool {
 
     use(player: Player, session: PlayerSession) {
         const hit = PlayerUtil.traceForBlock(player, this.range, { mask: this.traceMask });
-        if (this.brush.usesStrokes) {
+        if (this.brush.usesStrokes && session.continuousStrokes) {
             if (!strokes.has(session)) strokes.set(session, { lastUseTick: 0, hits: new VectorSet(), tempHits: [] });
             strokes.get(session).lastUseTick = system.currentTick;
             const { hits, tempHits } = strokes.get(session);

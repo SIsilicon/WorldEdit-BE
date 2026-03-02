@@ -161,6 +161,11 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
             type: "toggle",
             default: (ctx) => ctx.getData("session").includeAir,
         },
+        $continuousStrokes: {
+            name: "%worldedit.config.general.continuousStrokes",
+            type: "toggle",
+            default: (ctx) => ctx.getData("session").continuousStrokes,
+        },
         $perfMode: {
             name: "%worldedit.config.general.perfMode",
             type: "toggle",
@@ -188,6 +193,7 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
         const session = ctx.getData("session");
         session.includeAir = input.$includeAir as boolean;
         session.includeEntities = input.$includeEntities as boolean;
+        session.continuousStrokes = input.$continuousStrokes as boolean;
         session.performanceMode = input.$perfMode as boolean;
         session.drawOutlines = <boolean | "local">[false, "local", true][input.$drawOutlines as number];
         session.selection.mode = selectionModes[input.$selectionMode as number];
