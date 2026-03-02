@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2026-03-01 22:24\n"
+"PO-Revision-Date: 2026-03-02 04:53\n"
 
 msgid "pack.description"
 msgstr "Orijinal Java modunun ve daha fazlasının geliştirilme aşamasındaki bir portu! SIsilicon (§l§b@iSiliconS§r) tarafından geliştirilen eklenti."
@@ -153,6 +153,9 @@ msgstr "Havayı Panoya Dahil et"
 
 msgid "worldedit.config.general.perfMode"
 msgstr "Performans modu"
+
+msgid "worldedit.config.general.continuousStrokes"
+msgstr "Continuous Brush Strokes"
 
 msgid "worldedit.config.general.drawOutlines"
 msgstr "Anahat çizin"
