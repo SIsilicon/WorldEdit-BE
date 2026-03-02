@@ -12,31 +12,32 @@ import { closestPoint } from "library/utils/closestpoint.js";
 
 const neighborChecks = Object.values(Direction).map((direction) => Vector.from(direction).toJSON());
 
+interface Cell extends Vector3 {
+    value: number;
+}
+
 class CellMap {
-    private map = new Map<string, number>();
+    private map = new Map<string, Cell>();
 
     set(cell: Vector3, value: number) {
         // Initialize cell's neighbours in the set if there are none
         for (const direction of neighborChecks) {
             const coord = { x: cell.x + direction.x, y: cell.y + direction.y, z: cell.z + direction.z };
-            const key = this.toKey(coord);
-            if (!this.map.has(key)) this.map.set(key, 0);
+            const key = this.hash(coord);
+            if (!this.map.has(key)) this.map.set(key, { ...coord, value });
         }
-        this.map.set(this.toKey(cell), value);
+        this.map.set(this.hash(cell), { ...cell, value });
     }
 
     get(cell: Vector3) {
-        return this.map.get(this.toKey(cell));
+        return this.map.get(this.hash(cell))?.value;
     }
 
     *[Symbol.iterator]() {
-        for (const [key, value] of this.map.entries()) {
-            const [x, y, z] = key.split(" ").map(Number);
-            yield { x, y, z, value };
-        }
+        for (const cell of this.map.values()) yield cell;
     }
 
-    private toKey(vector: Vector3) {
+    private hash(vector: Vector3) {
         return vector.x + " " + vector.y + " " + vector.z;
     }
 }
@@ -137,17 +138,21 @@ export class BlobBrush extends Brush {
             const axis = s % 3;
             const { x, y, z } = { x: Number(axis === 0), y: Number(axis === 1), z: Number(axis === 2) };
 
+            let yielding = 0;
             for (const cell of splat) {
                 let density = cell.value * 1.4;
                 density += (splat.get({ x: cell.x + x, y: cell.y + y, z: cell.z + z }) ?? 0) * 0.8;
                 density += (splat.get({ x: cell.x - x, y: cell.y - y, z: cell.z - z }) ?? 0) * 0.8;
                 backSplat.set(cell, density / 3);
+                if (yielding++ > 100) {
+                    yielding = 0;
+                    yield;
+                }
             }
 
             const temp = splat;
             splat = backSplat;
             backSplat = temp;
-            yield;
         }
 
         const pattern = this._pattern.withContext(session, [min, max], { gradientRadius: brushSize, strokePoints: locations });
