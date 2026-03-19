@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2026-03-02 04:53\n"
+"PO-Revision-Date: 2026-03-19 21:49\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -754,6 +754,9 @@ msgstr "地形を覆わせるブラシを作成する"
 msgid "commands.wedit:brush.description.blob"
 msgstr "Creates a blob generating brush"
 
+msgid "commands.wedit:brush.description.raise"
+msgstr "Creates a terrain raising brush"
+
 msgid "commands.wedit:brush.mask.set"
 msgstr "ブラシのマスクを設定しました。"
 
@@ -1144,6 +1147,9 @@ msgstr "元の位置にクリップボードを貼り付けることはできま
 msgid "commands.wedit:path.description"
 msgstr "Create a path with your clipboard"
 
+msgid "commands.wedit:path.description.rotated"
+msgstr "Create a path with your clipboard rotated along the path"
+
 msgid "commands.wedit:pos1.description"
 msgstr "選択範囲の最初の位置を、指定または現在の位置に設定する"
 
@@ -1476,6 +1482,9 @@ msgstr "パフォーマンス優先モードを有効にしました。"
 
 msgid "commands.wedit:worldedit.perf.disabled"
 msgstr "パフォーマンス優先モードを無効にしました。"
+
+msgid "commands.wedit:worldedit.description.app"
+msgstr "Get the link to the external app."
 
 msgid "commands.wedit:worldedit.description.version"
 msgstr "WorldEdit のバージョンを取得する"
