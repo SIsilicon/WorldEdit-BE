@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2026-03-19 21:49\n"
+"PO-Revision-Date: 2026-07-05 01:54\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -1206,6 +1206,9 @@ msgstr "Du kan kun rotere langs Y-aksen!"
 
 msgid "commands.wedit:scale.description"
 msgstr "Skaler utvalget"
+
+msgid "commands.wedit:scale.explain"
+msgstr "Scaled %s blocks."
 
 msgid "commands.wedit:sel.clear"
 msgstr "Utvalg fjernet."
