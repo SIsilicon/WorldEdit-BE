@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2026-03-19 21:49\n"
+"PO-Revision-Date: 2026-07-05 01:54\n"
 
 msgid "pack.description"
 msgstr "Uma adaptação em desenvolvimento da modificação Java original e mais! Addon por SIsilicon (§l§b@iSiliconS§r)."
@@ -1206,6 +1206,9 @@ msgstr "Você só pode girar na orientação Y!"
 
 msgid "commands.wedit:scale.description"
 msgstr "Scale the selection"
+
+msgid "commands.wedit:scale.explain"
+msgstr "Scaled %s blocks."
 
 msgid "commands.wedit:sel.clear"
 msgstr "Seleção limpa."
