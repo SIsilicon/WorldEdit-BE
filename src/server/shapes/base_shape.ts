@@ -20,6 +20,7 @@ export type shapeGenOptions = {
     hollow?: boolean;
     hollowThickness?: number;
     wall?: boolean;
+    edges?: boolean;
     recordHistory?: boolean;
     ignoreGlobalMask?: boolean;
 };
