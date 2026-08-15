@@ -21,6 +21,7 @@ import { Cardinal, CardinalDirection } from "./directions.js";
 import { Mask } from "./mask.js";
 import { closestPoint } from "library/utils/closestpoint.js";
 import { Selection } from "./selection.js";
+import { Noise } from "./noise.js";
 
 interface patternContext {
     session: PlayerSession;
@@ -252,6 +253,9 @@ export class Pattern implements CustomArgType {
                     } else if (t.value.match?.(/blob[1-9][0-9]*/)) {
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new BlobPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
+                    } else if (t.value.match?.(/perlin[1-9][0-9]*/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new PerlinPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6))));
                     } else {
                         throwTokenError(t);
                     }
@@ -357,6 +361,9 @@ export class Pattern implements CustomArgType {
                 case "blob":
                     node = new BlobPatternNode(null, settings.size);
                     break;
+                case "perlin":
+                    node = new PerlinPatternNode(null, settings.size);
+                    break;
                 case "chain":
                     node = new ChainPatternNode(null);
                     break;
@@ -386,7 +393,7 @@ export abstract class PatternNode implements AstNode {
     abstract readonly prec: number;
     abstract readonly opCount: number;
 
-    constructor(public readonly token: Token) {}
+    constructor(public readonly token: Token) { }
 
     prepare() {
         for (const node of this.nodes) node.prepare();
@@ -761,6 +768,84 @@ export class BlobPatternNode extends PatternNode {
 
     private randomNum() {
         return Math.random() * (this.size - 1);
+    }
+}
+
+export class PerlinPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise;
+
+    constructor(
+        token: Token,
+        public size: number,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+        this.noise = new Noise();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        const node = this.nodes[0];
+
+        if (!(node instanceof ChainPatternNode)) {
+            return node.getPermutation(block, context);
+        }
+
+        const loc = block.location;
+
+        const noiseValue = this.noise.perlin3D(
+            loc.x / this.size,
+            loc.y / this.size,
+            loc.z / this.size
+        );
+
+        const value = Math.min(1, Math.max(0, (noiseValue - 0.5) * 3.5 + 0.5));
+
+        if (node.nodes.length === 1) {
+            return node.nodes[0].getPermutation(block, context);
+        }
+
+        if (node.evenDistribution) {
+            const index = Math.min(
+                Math.floor(value * node.nodes.length),
+                node.nodes.length - 1
+            );
+
+            return node.nodes[index].getPermutation(block, context);
+        }
+
+        let totalWeight = 0;
+        for (let i = 0; i < node.nodes.length; i++) {
+            totalWeight += node.getWeight(i);
+        }
+
+        const target = value * totalWeight;
+        let accumulated = 0;
+
+        for (let i = 0; i < node.nodes.length; i++) {
+            accumulated += node.getWeight(i);
+
+            if (target <= accumulated) {
+                return node.nodes[i].getPermutation(block, context);
+            }
+        }
+
+        return node.nodes[node.nodes.length - 1].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "perlin",
+            settings: { size: this.size },
+            children: [this.nodes[0].toJSON()],
+        };
     }
 }
 
