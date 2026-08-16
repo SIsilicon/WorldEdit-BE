@@ -5,10 +5,16 @@ labels: bug
 body:
 - type: checkboxes
   attributes:
-    label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the bug you encountered.
+    label: Declarations
+    description: Please search to see if an issue already exists for the bug you encountered. Ensure you read the [Quick Start](https://worldedit-be-docs.readthedocs.io/en/latest/quick_start/) guide and [FAQ](https://worldedit-be-docs.readthedocs.io/en/latest/common_questions/) before continuing.
     options:
     - label: I have searched the existing issues
+      required: true 
+    - label: I have enabled Beta APIs
+      required: true 
+    - label: I have read the Quick Start guide
+      required: true 
+    - label: I have checked the FAQ
       required: true 
 
 - type: textarea
