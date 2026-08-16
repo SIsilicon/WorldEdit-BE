@@ -31,5 +31,3 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
     return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
 });
-
-

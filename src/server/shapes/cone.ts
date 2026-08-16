@@ -1,4 +1,4 @@
-import { Shape, shapeGenOptions, shapeGenVars } from "./base_shape.js";
+import { Shape, shapeGenVars } from "./base_shape.js";
 import { Vector, axis } from "@notbeer-api";
 
 export class ConeShape extends Shape {
@@ -62,13 +62,7 @@ export class ConeShape extends Shape {
         };
 
         const tip = localPoint(this.height, 0, 0);
-        const vertices = [
-            localPoint(0, radius, 0),
-            localPoint(0, -radius, 0),
-            localPoint(0, 0, radius),
-            localPoint(0, 0, -radius),
-            tip,
-        ];
+        const vertices = [localPoint(0, radius, 0), localPoint(0, -radius, 0), localPoint(0, 0, radius), localPoint(0, 0, -radius), tip];
 
         const edges: [number, number][] = [
             [0, 4],
@@ -80,7 +74,7 @@ export class ConeShape extends Shape {
         return [...this.drawCircle(new Vector(0, 0, 0), radius, this.axis), ...this.drawShape(vertices, edges)];
     }
 
-    protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
+    protected prepGeneration(genVars: shapeGenVars) {
         genVars.radius = this.radius;
         genVars.height = this.height;
     }
@@ -92,10 +86,7 @@ export class ConeShape extends Shape {
             return false;
         }
 
-        const radius =
-            genVars.height === 1
-                ? genVars.radius + 0.5
-                : genVars.radius + 0.5 - (genVars.radius * distance) / (genVars.height - 1);
+        const radius = genVars.height === 1 ? genVars.radius + 0.5 : genVars.radius + 0.5 - (genVars.radius * distance) / (genVars.height - 1);
 
         const a = relLoc[this.crossAxes[0]] / radius;
         const b = relLoc[this.crossAxes[1]] / radius;
