@@ -94,6 +94,7 @@ export class StructureBrush extends Brush {
         return {
             id: this.id,
             mask: this.mask,
+            randomTransform: this.randomTransform,
         };
     }
 
