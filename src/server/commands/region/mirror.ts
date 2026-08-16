@@ -10,13 +10,7 @@ const registerInformation: CommandInfo = {
     name: "mirror",
     permission: "worldedit.region.mirror",
     description: "commands.wedit:mirror.description",
-    usage: [
-        { flag: "a" },
-        { flag: "e" },
-        { flag: "s" },
-        { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Left) },
-        { flag: "m", name: "mask", type: "Mask" },
-    ],
+    usage: [{ flag: "a" }, { flag: "e" }, { flag: "s" }, { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Left) }, { flag: "m", name: "mask", type: "Mask" }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
