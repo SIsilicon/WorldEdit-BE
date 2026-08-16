@@ -76,6 +76,7 @@ import "./region/line.js";
 import "./region/curve.js";
 import "./region/path.js";
 import "./region/center.js";
+import "./region/outlines.js";
 
 import "./utilities/fill.js";
 import "./utilities/fillr.js";

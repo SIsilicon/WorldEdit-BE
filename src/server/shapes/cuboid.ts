@@ -53,27 +53,38 @@ export class CuboidShape extends Shape {
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
         genVars.isHollow = options?.hollow ?? false;
         genVars.isWall = options?.wall ?? false;
+        genVars.isEdges = options?.edges ?? false;
         genVars.hollowOffset = options?.hollowThickness ?? 0;
         genVars.end = this.size.map((v) => v - (genVars.isHollow || genVars.isWall ? options?.hollowThickness ?? 1 : 1));
 
-        if (!genVars.isHollow && !genVars.isWall) {
+        if (!genVars.isHollow && !genVars.isWall && !genVars.isEdges) {
             genVars.isSolidCuboid = true;
         }
     }
 
     protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
-        return genVars.isWall || genVars.isHollow ? Shape.ChunkStatus.DETAIL : Shape.ChunkStatus.FULL;
+        return genVars.isWall || genVars.isHollow || genVars.isEdges ? Shape.ChunkStatus.DETAIL : Shape.ChunkStatus.FULL;
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         const end = genVars.end;
         const hollowOffset = genVars.hollowOffset;
+
+        if (genVars.isEdges) {
+            let boundaries = 0;
+
+            if (relLoc.x == 0 || relLoc.x == end[0]) boundaries++;
+            if (relLoc.y == 0 || relLoc.y == end[1]) boundaries++;
+            if (relLoc.z == 0 || relLoc.z == end[2]) boundaries++;
+
+            return boundaries >= 2;
+        }
+
         if (genVars.isWall && relLoc.x > hollowOffset && relLoc.x < end[0] && relLoc.z > hollowOffset && relLoc.z < end[2]) {
             return false;
         } else if (genVars.isHollow && relLoc.x > hollowOffset && relLoc.x < end[0] && relLoc.y > hollowOffset && relLoc.y < end[1] && relLoc.z > hollowOffset && relLoc.z < end[2]) {
             return false;
         }
-
         return true;
     }
 }
