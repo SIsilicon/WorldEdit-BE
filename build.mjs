@@ -96,7 +96,7 @@ if (!fs.existsSync(scriptOutputDir)) throw "The output scripts folder does not e
 
 // Calculate sync location when in fs.watch mode.
 if (args.watch === "stable") {
-    args.syncDir = env.LOCALAPPDATA + "\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang";
+    args.syncDir = env.APPDATA + "\\Minecraft Bedrock\\Users\\Shared\\games\\com.mojang";
 } else if (args.watch === "preview") {
     args.syncDir = env.APPDATA + "\\Minecraft Bedrock Preview\\Users\\Shared\\games\\com.mojang";
 } else if (args.watch === "server") {
