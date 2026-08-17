@@ -70,6 +70,7 @@ const registerInformation: CommandInfo = {
             permission: "worldedit.brush.struct",
             description: "commands.wedit:brush.description.struct",
             args: [
+                { flag: "r" },
                 {
                     subName: "clipboard",
                     args: [{ name: "mask", type: "Mask", default: new Mask() }],
@@ -172,7 +173,7 @@ const structSubCommand = (session: PlayerSession, builder: Player, args: Map<str
     const clipboard = args.has("clipboard");
     if (clipboard) assertClipboard(session);
 
-    session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : (args.get("structureName") as string[]), args.get("mask")));
+    session.bindTool("brush", null, new StructureBrush(clipboard ? session.clipboard : (args.get("structureName") as string[]), args.get("mask"), !args.has("r")));
     const msg = "commands.wedit:brush.bind." + (clipboard ? "clipboard" : "struct");
     return RawText.translate(msg).with(args.get("structureName"));
 };

@@ -30,8 +30,10 @@ export class StructureBrush extends Brush {
      * @param struct The structure being used
      * @param mask Determines what blocks in the world can get replaced by the structure
      */
-    constructor(struct: RegionBuffer | RegionBuffer[] | string[], mask: Mask) {
+    constructor(struct: RegionBuffer | RegionBuffer[] | string[], mask: Mask, randomTransform = true) {
         super();
+
+        this.randomTransform = randomTransform;
 
         if (Array.isArray(struct) && typeof struct[0] == "string") {
             this.imports = struct as string[];
@@ -92,6 +94,7 @@ export class StructureBrush extends Brush {
         return {
             id: this.id,
             mask: this.mask,
+            randomTransform: this.randomTransform,
         };
     }
 
