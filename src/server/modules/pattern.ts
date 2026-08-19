@@ -21,6 +21,7 @@ import { Cardinal, CardinalDirection } from "./directions.js";
 import { Mask } from "./mask.js";
 import { closestPoint } from "library/utils/closestpoint.js";
 import { Selection } from "./selection.js";
+import { Noise } from "./noise.js";
 
 interface patternContext {
     session: PlayerSession;
@@ -194,6 +195,27 @@ export class Pattern implements CustomArgType {
                 return mergeTokens(token, tokens.curr(), input);
             }
 
+            function parseNoiseParams(defaults: number[], validators: ((value: number) => boolean)[] = []) {
+                const values = [...defaults];
+                let index = 0;
+
+                while (tokens.peek()?.value == ":") {
+                    const colon = tokens.next();
+                    if (index >= defaults.length) throwTokenError(colon);
+
+                    const valueToken = tokens.next();
+                    if (!valueToken || valueToken.type != "number") throwTokenError(valueToken ?? colon);
+
+                    const value = valueToken.value as number;
+                    if (validators[index] && !validators[index](value)) throwTokenError(valueToken);
+
+                    values[index] = value;
+                    index++;
+                }
+
+                return values;
+            }
+
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
                 if (token.value === "void") {
@@ -249,9 +271,62 @@ export class Pattern implements CustomArgType {
                         out.push(new ClipboardPatternNode(nodeToken(), offset.floor()));
                     } else if (t.value == "hand") {
                         out.push(new HandPatternNode(nodeToken()));
-                    } else if (t.value.match?.(/blob[1-9][0-9]*/)) {
+                    } else if (t.value.match?.(/^blob[1-9][0-9]*$/)) {
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new BlobPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
+                    } else if (t.value.match?.(/^perlin[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new PerlinPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6))));
+                    } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
+                        const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new CrackedPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(7)), thickness));
+                    } else if (t.value.match?.(/^wood[1-9][0-9]*$/)) {
+                        const [bands] = parseNoiseParams([10], [(value) => value > 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WoodPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4)), bands));
+                    } else if (t.value.match?.(/^turbulence[1-9][0-9]*$/)) {
+                        const [octaves, persistence, lacunarity] = parseNoiseParams(
+                            [4, 0.5, 2],
+                            [(value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TurbulencePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(10)), octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^marble[1-9][0-9]*$/)) {
+                        const [bands, distortion, octaves, persistence, lacunarity] = parseNoiseParams(
+                            [1, 8, 4, 0.5, 2],
+                            [(value) => value > 0, (value) => value >= 0, (value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new MarblePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6)), bands, distortion, octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^fbm[1-9][0-9]*$/)) {
+                        const [octaves, persistence, lacunarity] = parseNoiseParams(
+                            [4, 0.5, 2],
+                            [(value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new FbmPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(3)), octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^veins[1-9][0-9]*$/)) {
+                        const [width] = parseNoiseParams([0.1], [(value) => value >= 0 && value <= 1]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new VeinsPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(5)), width));
+                    } else if (t.value.match?.(/^warped[1-9][0-9]*$/)) {
+                        const [strength] = parseNoiseParams([1.5], [(value) => value >= 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WarpedPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6)), strength));
+                    } else if (t.value.match?.(/^simplex[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SimplexPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(7))));
+                    } else if (t.value.match?.(/^value[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new ValuePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(5))));
+                    } else if (t.value.match?.(/^pingpong[1-9][0-9]*$/)) {
+                        const [strength, octaves, persistence, lacunarity] = parseNoiseParams(
+                            [2, 4, 0.5, 2],
+                            [(value) => value > 0, (value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new PingPongPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(8)), strength, octaves, persistence, lacunarity));
                     } else {
                         throwTokenError(t);
                     }
@@ -356,6 +431,39 @@ export class Pattern implements CustomArgType {
                     break;
                 case "blob":
                     node = new BlobPatternNode(null, settings.size);
+                    break;
+                case "perlin":
+                    node = new PerlinPatternNode(null, settings.size);
+                    break;
+                case "cracked":
+                    node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);
+                    break;
+                case "wood":
+                    node = new WoodPatternNode(null, settings.size, settings.bands ?? 10);
+                    break;
+                case "turbulence":
+                    node = new TurbulencePatternNode(null, settings.size, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "marble":
+                    node = new MarblePatternNode(null, settings.size, settings.bands ?? 1, settings.distortion ?? 8, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "fbm":
+                    node = new FbmPatternNode(null, settings.size, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "veins":
+                    node = new VeinsPatternNode(null, settings.size, settings.width ?? 0.1);
+                    break;
+                case "warped":
+                    node = new WarpedPatternNode(null, settings.size, settings.strength ?? 1.5);
+                    break;
+                case "simplex":
+                    node = new SimplexPatternNode(null, settings.size);
+                    break;
+                case "value":
+                    node = new ValuePatternNode(null, settings.size);
+                    break;
+                case "pingpong":
+                    node = new PingPongPatternNode(null, settings.size, settings.strength ?? 2, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
                     break;
                 case "chain":
                     node = new ChainPatternNode(null);
@@ -685,6 +793,26 @@ export class InputPatternNode extends PatternNode {
     }
 }
 
+function collectEvenPatternNodes(node: PatternNode): PatternNode[] {
+    const patterns: PatternNode[] = [];
+
+    const collect = (current: PatternNode) => {
+        if (current instanceof ChainPatternNode && current.evenDistribution) {
+            for (const child of current.nodes) collect(child);
+        } else {
+            patterns.push(current);
+        }
+    };
+
+    collect(node);
+    return patterns;
+}
+
+function getPatternFromValue(patterns: PatternNode[], value: number) {
+    const clamped = Math.min(Math.max(value, 0), 1 - Number.EPSILON);
+    return patterns[Math.floor(clamped * patterns.length)];
+}
+
 export class BlobPatternNode extends PatternNode {
     readonly prec = -1;
     readonly opCount = 1;
@@ -761,6 +889,613 @@ export class BlobPatternNode extends PatternNode {
 
     private randomNum() {
         return Math.random() * (this.size - 1);
+    }
+}
+
+export class PerlinPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].perlin3D(loc.x / this.size, loc.y / this.size, loc.z / this.size);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "perlin",
+            settings: { size: this.size },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class CrackedPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private offsets: Vector[] = [];
+    private points: { [key: number]: Vector } = {};
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public thickness: number = 1,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.points = {};
+        this.offsets = [];
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+
+        for (const { x, y, z } of regionIterateBlocks(new Vector(-1, -1, -1), new Vector(1, 1, 1))) {
+            this.offsets.push(new Vector(x * this.size, y * this.size, z * this.size));
+        }
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        const size = this.size;
+        const blockLoc = Vector.from(block.location);
+        const cellLoc = blockLoc.div(size).floor().mul(size);
+
+        let nearest = Infinity;
+        let secondNearest = Infinity;
+
+        for (const offset of this.offsets) {
+            const locX = cellLoc.x + offset.x;
+            const locY = cellLoc.y + offset.y;
+            const locZ = cellLoc.z + offset.z;
+
+            const neighbour = Math.floor(Math.floor(locX / size) * 4576.498 + Math.floor(locY / size) * 76392.953 + Math.floor(locZ / size) * 203478.295) % 1024;
+
+            if (!this.points[neighbour]) {
+                this.points[neighbour] = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
+            }
+
+            const point = this.points[neighbour];
+
+            const distance = Math.hypot(locX + point.x - blockLoc.x, locY + point.y - blockLoc.y, locZ + point.z - blockLoc.z);
+
+            if (distance < nearest) {
+                secondNearest = nearest;
+                nearest = distance;
+            } else if (distance < secondNearest) {
+                secondNearest = distance;
+            }
+        }
+
+        const crackDistance = secondNearest - nearest;
+
+        const basePattern = this.patterns[0] ?? this.nodes[0];
+        const crackPattern = this.patterns[1] ?? basePattern;
+
+        return (crackDistance <= this.thickness ? crackPattern : basePattern).getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "cracked",
+            settings: { size: this.size, thickness: this.thickness },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+
+    private randomNum() {
+        return Math.random() * (this.size - 1);
+    }
+}
+
+export class WoodPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise;
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public bands: number = 10,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = new Noise();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+
+        const noiseValue = this.noise.perlin3D(loc.x / this.size, loc.y / this.size, loc.z / this.size);
+
+        const g = noiseValue * this.bands;
+        const grain = g - Math.floor(g);
+
+        return getPatternFromValue(this.patterns, grain).getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "wood",
+            settings: { size: this.size, bands: this.bands },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class TurbulencePatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public octaves: number = 4,
+        public persistence: number = 0.5,
+        public lacunarity: number = 2,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].turbulence3D(loc.x / this.size, loc.y / this.size, loc.z / this.size, this.octaves, this.persistence, this.lacunarity);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "turbulence",
+            settings: { size: this.size, octaves: this.octaves, persistence: this.persistence, lacunarity: this.lacunarity },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class MarblePatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise;
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public bands: number = 1,
+        public distortion: number = 8,
+        public octaves: number = 4,
+        public persistence: number = 0.5,
+        public lacunarity: number = 2,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = new Noise();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        const x = loc.x / this.size;
+        const y = loc.y / this.size;
+        const z = loc.z / this.size;
+        const distortion = (this.noise.octaveNoise3D(x, y, z, this.octaves, this.persistence, this.lacunarity) - 0.5) * this.distortion;
+        const bandValue = (Math.sin((x + y * 0.35 + z) * Math.PI * 2 * this.bands + distortion) + 1) / 2;
+
+        return getPatternFromValue(this.patterns, bandValue).getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "marble",
+            settings: { size: this.size, bands: this.bands, distortion: this.distortion, octaves: this.octaves, persistence: this.persistence, lacunarity: this.lacunarity },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class FbmPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public octaves: number = 4,
+        public persistence: number = 0.5,
+        public lacunarity: number = 2,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].octaveNoise3D(loc.x / this.size, loc.y / this.size, loc.z / this.size, this.octaves, this.persistence, this.lacunarity);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "fbm",
+            settings: { size: this.size, octaves: this.octaves, persistence: this.persistence, lacunarity: this.lacunarity },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class VeinsPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise;
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public width: number = 0.1,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = new Noise();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        const ridge = this.noise.ridged3D(loc.x / this.size, loc.y / this.size, loc.z / this.size);
+        const veinStart = 1 - this.width;
+
+        if (ridge < veinStart) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const veinPatterns = this.patterns.slice(1);
+        const veinValue = (ridge - veinStart) / (1 - veinStart);
+
+        return getPatternFromValue(veinPatterns, veinValue).getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "veins",
+            settings: { size: this.size, width: this.width },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class WarpedPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public strength: number = 1.5,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].warpedPerlin3D(loc.x / this.size, loc.y / this.size, loc.z / this.size, this.strength);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "warped",
+            settings: { size: this.size, strength: this.strength },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class SimplexPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].simplex3D(loc.x / this.size, loc.y / this.size, loc.z / this.size);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "simplex",
+            settings: { size: this.size },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class ValuePatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise[] = [];
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = this.patterns.map(() => new Noise());
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        let bestIndex = 0;
+        let bestValue = -Infinity;
+
+        for (let i = 0; i < this.patterns.length; i++) {
+            const value = this.noise[i].value3D(loc.x / this.size, loc.y / this.size, loc.z / this.size);
+
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = i;
+            }
+        }
+
+        return this.patterns[bestIndex].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "value",
+            settings: { size: this.size },
+            children: [this.nodes[0].toJSON()],
+        };
+    }
+}
+
+export class PingPongPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private noise: Noise;
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public size: number,
+        public strength: number = 2,
+        public octaves: number = 4,
+        public persistence: number = 0.5,
+        public lacunarity: number = 2,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+        this.noise = new Noise();
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
+        if (this.patterns.length === 1) {
+            return this.patterns[0].getPermutation(block, context);
+        }
+
+        const loc = block.location;
+        const value = this.noise.pingPong3D(loc.x / this.size, loc.y / this.size, loc.z / this.size, this.octaves, this.persistence, this.lacunarity, this.strength);
+
+        return getPatternFromValue(this.patterns, value).getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "pingpong",
+            settings: { size: this.size, strength: this.strength, octaves: this.octaves, persistence: this.persistence, lacunarity: this.lacunarity },
+            children: [this.nodes[0].toJSON()],
+        };
     }
 }
 
