@@ -177,7 +177,21 @@ export class Pattern implements CustomArgType {
     }
 
     static parseArgs(args: Array<string>, index = 0) {
-        const input = args[index];
+        let input = args[index];
+        let argIndex = index + 1;
+
+        if (!input) {
+            return { result: new Pattern(), argIndex };
+        }
+
+        let parentheses = (input.match(/\(/g)?.length ?? 0) - (input.match(/\)/g)?.length ?? 0);
+
+        while (parentheses > 0 && argIndex < args.length) {
+            const next = args[argIndex++];
+            input += " " + next;
+            parentheses += (next.match(/\(/g)?.length ?? 0) - (next.match(/\)/g)?.length ?? 0);
+        }
+
         if (!input) {
             return { result: new Pattern(), argIndex: index + 1 };
         }
@@ -194,8 +208,98 @@ export class Pattern implements CustomArgType {
                 return mergeTokens(token, tokens.curr(), input);
             }
 
+            function parseGradientDirection() {
+                let cardinal: Cardinal | "radial" | "light";
+
+                if (tokens.peek()?.value == ".") {
+                    tokens.next();
+
+                    const direction = tokens.next();
+                    if (!direction || direction.type != "id") {
+                        throwTokenError(direction ?? tokens.curr());
+                    }
+
+                    const d = direction.value as string;
+                    cardinal = d === "rad" ? "radial" : d === "lit" ? "light" : Cardinal.parseArgs([d]).result;
+                }
+
+                return cardinal;
+            }
+
+            function parseInlineGradient() {
+                const open = tokens.next();
+                if (!open || open.value != "(") {
+                    throwTokenError(open ?? tokens.curr());
+                }
+
+                const patterns: PatternNode[] = [];
+
+                let segmentStart: Token;
+                let segmentEnd: Token;
+
+                const closers: string[] = [];
+                const matchingBracket: Record<string, string> = {
+                    "(": ")",
+                    "[": "]",
+                    "{": "}",
+                    "<": ">",
+                };
+
+                function addPattern() {
+                    if (!segmentStart || !segmentEnd) return;
+
+                    const source = input.substring(segmentStart.pos, segmentEnd.pos + segmentEnd.text.length).trim();
+
+                    if (source) {
+                        patterns.push(Pattern.parseArgs([source]).result.getRootNode());
+                    }
+
+                    segmentStart = undefined;
+                    segmentEnd = undefined;
+                }
+
+                for (;;) {
+                    const part = tokens.next();
+
+                    if (!part) {
+                        throwTokenError(open);
+                    }
+
+                    if (part.value == ")" && !closers.length) {
+                        addPattern();
+                        break;
+                    }
+
+                    if (part.type == "space" && !closers.length) {
+                        addPattern();
+                        continue;
+                    }
+
+                    if (matchingBracket[part.value]) {
+                        closers.push(matchingBracket[part.value]);
+                    } else if (closers.length && part.value == closers[closers.length - 1]) {
+                        closers.pop();
+                    }
+
+                    segmentStart ??= part;
+                    segmentEnd = part;
+                }
+
+                if (!patterns.length) {
+                    throwTokenError(open);
+                }
+
+                const cardinal = parseGradientDirection();
+
+                const gradient = new GradientPatternNode(nodeToken(), undefined, cardinal);
+                gradient.nodes.push(...patterns);
+
+                return gradient;
+            }
+
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
+                if (token.type == "space") continue;
                 if (token.value === "void") {
                     out.push(new VoidPatternNode(nodeToken()));
                 } else if (token.type == "id") {
@@ -227,15 +331,15 @@ export class Pattern implements CustomArgType {
                     out.push(new RandStatePatternNode(nodeToken(), parseBlock(tokens, input, true) as string));
                 } else if (token.value == "$") {
                     const t = tokens.next();
-                    let cardinal: Cardinal | "radial" | "light";
-                    if (t.type != "id") throwTokenError(t);
-                    if (tokens.peek().value == ".") {
-                        tokens.next();
-                        const d: string = tokens.next()?.value;
-                        cardinal = d === "rad" ? "radial" : d === "lit" ? "light" : Cardinal.parseArgs([d]).result;
-                    }
 
-                    out.push(new GradientPatternNode(nodeToken(), t.value, cardinal));
+                    if (t.type != "id") throwTokenError(t);
+
+                    if (t.value == "gradient" && tokens.peek()?.value == "(") {
+                        out.push(parseInlineGradient());
+                    } else {
+                        const cardinal = parseGradientDirection();
+                        out.push(new GradientPatternNode(nodeToken(), t.value, cardinal));
+                    }
                 } else if (token.value == "#") {
                     const t = tokens.next();
                     if (t.value == "clipboard") {
@@ -310,10 +414,10 @@ export class Pattern implements CustomArgType {
         }
 
         const pattern = new Pattern();
-        pattern.stringSource = args[index];
+        pattern.stringSource = input;
         pattern.block = out;
 
-        return { result: pattern, argIndex: index + 1 };
+        return { result: pattern, argIndex };
     }
 
     static parseJSON(json: patternNodeJSON): Pattern {
@@ -581,23 +685,30 @@ export class GradientPatternNode extends PatternNode {
 
     constructor(
         token: Token,
-        public gradientId: string,
+        public gradientId: string | undefined,
         public cardinal: Cardinal | "radial" | "light" = new Cardinal()
     ) {
         super(token);
     }
 
     prepare() {
+        super.prepare();
+
         this.radial = this.cardinal === "radial" || this.cardinal === "light";
         if (this.radial) this.radialOrigin = this.cardinal === "light" ? "placement" : "center";
         this.lastContext = undefined;
     }
 
     getPermutation(block: BlockUnit, context: patternContext) {
-        const gradient = context.session.getGradient(this.gradientId);
-        if (!gradient) return undefined;
+        const storedGradient = this.gradientId ? context.session.getGradient(this.gradientId) : undefined;
 
-        const patternLength = gradient.patterns.length;
+        const patterns = this.nodes.length ? this.nodes : storedGradient?.patterns.map((pattern) => pattern.getRootNode());
+
+        const dither = this.nodes.length ? 1.0 : storedGradient?.dither;
+
+        if (!patterns?.length || dither == undefined) return undefined;
+
+        const patternLength = patterns.length;
         let index = 0;
         if (this.radial) {
             let center = context.getCenter(block.location);
@@ -613,7 +724,7 @@ export class GradientPatternNode extends PatternNode {
                 maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
                 center = point;
             }
-            index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+            index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - dither) + Math.random() * dither);
         } else {
             if (this.lastContext !== context) {
                 this.updateCardinalDirectionParams(context.session.player);
@@ -621,9 +732,9 @@ export class GradientPatternNode extends PatternNode {
             }
             const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
             const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
-            index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
+            index = Math.floor(direction * (patternLength - dither) + Math.random() * dither);
         }
-        return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
+        return patterns[Math.min(Math.max(index, 0), patternLength - 1)].getPermutation(block, context);
     }
 
     private updateCardinalDirectionParams(player: Player) {
@@ -636,7 +747,14 @@ export class GradientPatternNode extends PatternNode {
     }
 
     toJSON() {
-        return { type: "gradient", settings: { gradientId: this.gradientId, cardinal: this.cardinal } };
+        return {
+            type: "gradient",
+            settings: {
+                gradientId: this.gradientId,
+                cardinal: this.cardinal,
+            },
+            children: this.nodes.length ? this.nodes.map((node) => node.toJSON()) : undefined,
+        };
     }
 }
 
