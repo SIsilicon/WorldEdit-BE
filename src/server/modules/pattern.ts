@@ -134,6 +134,7 @@ export class Pattern implements CustomArgType {
 
     fillBlocks(dimension: Dimension, volume: BlockVolumeBase, mask?: Mask) {
         const filter = mask?.getSimpleBlockFilter();
+        filter!.excludeTypes = ["minecraft:obsidian"];
         if (this.isSimple()) {
             if (!this.simpleCache) {
                 if (this.block instanceof BlockPatternNode) {
@@ -144,10 +145,16 @@ export class Pattern implements CustomArgType {
             }
             return dimension.fillBlocks(volume, this.simpleCache, { blockFilter: filter }).getCapacity();
         } else {
+            // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
+            // Due to the bug above, dimension.getBlocks does not work as expected in certain situations.
+            // So until this is fixed, we manually filter the blocks.
+
             let count = 0;
-            volume = dimension.getBlocks(volume, filter);
-            for (const block of volume.getBlockLocationIterator()) {
-                count += this.setBlock(dimension.getBlock(block)) ? 1 : 0;
+            // volume = dimension.getBlocks(volume, filter);
+            for (const location of volume.getBlockLocationIterator()) {
+                const block = dimension.getBlock(location);
+                if (!block || !mask?.matchesBlock(block)) continue; // Temporary
+                count += this.setBlock(block) ? 1 : 0;
             }
             return count;
         }
