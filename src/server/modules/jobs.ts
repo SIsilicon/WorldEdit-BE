@@ -81,6 +81,7 @@ class JobHandler {
                     lastPromise = yield val.value;
                 }
             } catch (err) {
+                this.current = undefined;
                 this.finishJob(jobId);
                 throw err;
             }
