@@ -43,25 +43,9 @@
         "yazl": "^3.3.1"
     },
     "dependencies": {
-        "@minecraft/server": "2.9.0-beta.1.26.32-stable",
-        "@minecraft/server-admin": "1.0.0-beta.1.26.32-stable",
-        "@minecraft/server-editor": "0.1.0-beta.1.26.32-stable",
-        "@minecraft/server-gametest": "1.0.0-beta.1.26.32-stable",
-        "@minecraft/server-ui": "2.2.0-beta.1.26.32-stable",
-        "@minecraft/vanilla-data": "1.26.32"
-    },
-    "overrides": {
-        "@minecraft/server-ui": {
-            "@minecraft/server": "2.9.0-beta.1.26.32-stable"
-        },
-        "@minecraft/server-admin": {
-            "@minecraft/server": "2.9.0-beta.1.26.32-stable"
-        },
-        "@minecraft/server-editor": {
-            "@minecraft/server": "2.9.0-beta.1.26.32-stable"
-        },
-        "@minecraft/server-gametest": {
-            "@minecraft/server": "2.9.0-beta.1.26.32-stable"
-        }
+        "@minecraft/server": "^2.10.0-beta.1.26.40-preview.30",
+        "@minecraft/server-editor": "^0.1.0-beta.1.26.40-preview.30",
+        "@minecraft/server-gametest": "1.0.0-beta.1.26.40-preview.30",
+        "@minecraft/server-ui": "2.2.0-beta.1.26.40-preview.30"
     }
 }

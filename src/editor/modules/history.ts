@@ -2,39 +2,53 @@ import { History, setHistoryClass } from "@modules/history";
 import { EditorModule } from "./base";
 import { Player, Vector3 } from "@minecraft/server";
 import { VectorSet, Thread, getCurrentThread } from "@notbeer-api";
-import { IPlayerUISession, TransactionManager } from "@minecraft/server-editor";
+import { IPlayerUISession, PendingTransaction, TransactionManager } from "@minecraft/server-editor";
 
 const transactionManagers = new WeakMap<Player, TransactionManager>();
 
+let historyPointId = 0;
+
 class EditorHistory extends History {
     private activeThread?: Thread;
+    private transactions = new Map<number, PendingTransaction>();
 
-    record() {
-        if (!this.transactionManager.openTransaction("WorldEdit operation")) this.assertNotRecording();
-        this.activeThread = getCurrentThread();
-        return 0;
+    private get transactionManager(): TransactionManager {
+        return transactionManagers.get(this.player)!;
     }
 
-    *commit(): Generator<any, void> {
+    record() {
+        const transaction = this.transactionManager.createPendingTransaction("WorldEdit operation");
+        if (!transaction.isValid()) this.assertNotRecording();
+        this.activeThread = getCurrentThread();
+        const historyPoint = historyPointId++;
+        this.transactions.set(historyPoint, transaction);
+        return historyPoint;
+    }
+
+    *commit(historyPoint: number): Generator<any, void> {
         yield;
         try {
-            this.transactionManager.commitOpenTransaction();
+            this.transactions.get(historyPoint)?.submit();
         } catch {
             /* pass */
         }
+        this.transactions.delete(historyPoint);
         this.activeThread = undefined;
         return;
     }
 
-    cancel() {
-        this.transactionManager.discardOpenTransaction();
+    cancel(historyPoint: number) {
+        this.transactions.get(historyPoint)?.discard();
+        this.transactions.delete(historyPoint);
         this.activeThread = undefined;
     }
 
-    *trackRegion(_: number, start: Vector3 | Vector3[] | VectorSet, end?: Vector3): Generator<any, void> {
+    *trackRegion(historyPoint: number, start: Vector3 | Vector3[] | VectorSet, end?: Vector3): Generator<any, void> {
         yield;
-        if ("x" in start) this.transactionManager.trackBlockChangeArea(start, end);
-        else this.transactionManager.trackBlockChangeList(Array.from(start));
+        const transaction = this.transactions.get(historyPoint);
+        if (!transaction) return;
+        if ("x" in start) transaction.trackBlockChangeArea(start, end as Vector3);
+        else transaction.trackBlockChangeList(Array.from(start));
         return;
     }
 
@@ -61,17 +75,11 @@ class EditorHistory extends History {
     }
 
     isRecording(): boolean {
-        const madeTransaction = this.transactionManager.openTransaction("Testing WorldEdit history recording");
-        if (madeTransaction) this.transactionManager.discardOpenTransaction();
-        return !madeTransaction;
+        return this.transactions.size > 0;
     }
 
     getActivePointsInThread(thread: Thread): number[] {
         return thread === this.activeThread ? [0] : [];
-    }
-
-    private get transactionManager(): TransactionManager {
-        return transactionManagers.get(this.player)!;
     }
 }
 setHistoryClass(EditorHistory);
@@ -81,7 +89,6 @@ export class HistoryModule extends EditorModule {
         super(session);
         const transactionManager = this.session.extensionContext.transactionManager;
         transactionManagers.set(this.player, transactionManager);
-        transactionManager.discardOpenTransaction();
     }
 
     teardown() {
