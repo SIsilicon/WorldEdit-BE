@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2026-07-05 01:54\n"
+"PO-Revision-Date: 2026-08-16 01:57\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -933,6 +933,9 @@ msgstr "Generer en omrisse fra ditt utvalg"
 
 msgid "commands.wedit:overlay.description"
 msgstr "Overlay blocks on surfaces within the selection"
+
+msgid "commands.wedit:outlines.description"
+msgstr "Generate the edges of a cuboid selection"
 
 msgid "commands.wedit:fill.description"
 msgstr "Fyll et område med visse blokker"
