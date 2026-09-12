@@ -1,3 +1,4 @@
+import { BlockPermutation } from "@minecraft/server";
 import { Jobs } from "@modules/jobs.js";
 import { CommandInfo, RawText, Vector } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
@@ -14,11 +15,11 @@ const registerInformation: CommandInfo = {
 registerCommand(registerInformation, function* (session, builder, args) {
     const dimension = builder.dimension;
     const playerBlock = session.getPlacementPosition();
-    let fixwaterStart: Vector;
+    let fixwaterStart: Vector | undefined;
     for (const offset of fluidLookPositions) {
         const loc = playerBlock.offset(offset.x, offset.y, offset.z);
         const block = dimension.getBlock(loc);
-        if (block.typeId.match("water")) {
+        if (block?.typeId.match("water")) {
             fixwaterStart = loc;
             break;
         }
@@ -40,7 +41,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, blocks);
             let i = 0;
             for (const loc of blocks) {
-                (yield* Jobs.loadBlock(loc)).setType("water");
+                (yield* Jobs.loadBlock(loc))?.setPermutation(BlockPermutation.resolve("water"));
                 yield Jobs.setProgress(i++ / blocks.size);
             }
             yield* history.commit(record);
