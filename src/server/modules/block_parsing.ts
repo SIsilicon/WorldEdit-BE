@@ -98,11 +98,17 @@ export function throwTokenError(token: Token): never {
 export function processOps(out: AstNode[], ops: AstNode[], op?: AstNode) {
     while (ops.length) {
         const op2 = ops.slice(-1)[0];
+
+        if (op && op.variableOps && op2.variableOps && op.constructor === op2.constructor) return;
+
         if (op && (op.prec > op2.prec || (op.prec == op2.prec && op2.rightAssoc))) break;
+
         if (out.length < op2.opCount) throwTokenError(op2.token);
 
-        ops.pop(); // <= op2
+        ops.pop();
+
         for (let i = 0; op2.variableOps ? out.length : i < op2.opCount; i++) op2.nodes.unshift(out.pop());
+
         out.push(op2);
     }
 
