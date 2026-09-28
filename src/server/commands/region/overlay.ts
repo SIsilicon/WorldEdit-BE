@@ -35,7 +35,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const record = history.record();
     const blockChanges = recordBlockChanges(session, record);
 
-    const count = yield* Jobs.run(session, 1, function* () {
+    const count = yield* Jobs.run(session, 2, function* () {
         let count = 0;
         let processed = 0;
         const totalOperations = size.x * size.z;
@@ -63,6 +63,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
                 }
             }
 
+            yield Jobs.nextStep("commands.wedit:blocks.placing");
             count = yield* blockChanges.flush();
             yield* history.commit(record);
         } catch (err) {
