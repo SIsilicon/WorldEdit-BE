@@ -90,6 +90,9 @@ export function* regionIterateBlocks(start: Vector3, end: Vector3, centered = fa
     if (centered) {
         min = min.add(0.5);
         max = max.add(0.5);
+    } else {
+        min = min.floor();
+        max = max.floor();
     }
     for (let z = min.z; z <= max.z; z++) {
         for (let y = min.y; y <= max.y; y++) {
