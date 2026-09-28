@@ -41,7 +41,6 @@ registerCommand(registerInformation, function* (session, builder, args) {
         } else {
             assertSelection(session);
             total = session.selection.getBlockCount();
-            yield Jobs.nextStep("commands.wedit:distr.analysing");
 
             for (const loc of session.selection.getBlocks()) {
                 const block = yield* Jobs.loadBlock(loc);
@@ -79,7 +78,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
 
         const percent = ((count / total) * 100).toFixed(3);
         if (block.startsWith("minecraft:")) block = block.slice("minecraft:".length);
-        result.append("text", `\n${count}${" ".repeat(8 - count.toString().length * 1.5)} (%${percent}) ${block}`);
+        result.append("text", `\n${count}${" ".repeat(Math.max(0, 8 - count.toString().length * 1.5))} (%${percent}) ${block}`);
     }
     return result;
 });
