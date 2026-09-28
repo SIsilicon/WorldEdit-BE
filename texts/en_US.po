@@ -1135,3 +1135,8 @@ msgstr "To learn more about this addon, you can go to its online documentation h
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
+
+msgid "worldedit.job.finished"
+msgstr "Finished!"
+msgid "worldedit.job.loadingChunks"
+msgstr "Loading Chunks..."

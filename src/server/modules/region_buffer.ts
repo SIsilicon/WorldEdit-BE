@@ -929,5 +929,4 @@ const mappings = {
         true_true_2: new Vector(0, -0.5, -1),
         true_true_3: new Vector(0, -0.5, 1),
     },
-    // TODO: Support glow lychen
 } as const;

@@ -265,7 +265,6 @@ export abstract class Shape {
             this.genVars = {};
             this.prepGeneration(this.genVars, options);
 
-            // TODO: Localize
             let activeMask = mask ?? new Mask();
             const globalMask = options?.ignoreGlobalMask ?? false ? new Mask() : session.globalMask;
             activeMask = (!activeMask ? globalMask : globalMask ? activeMask.intersect(globalMask) : activeMask)?.withContext(session);

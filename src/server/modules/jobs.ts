@@ -188,7 +188,7 @@ class JobHandler {
             const job = this.jobs.get(jobId);
             job.percent = 1;
             job.step = job.stepCount - 1;
-            if (job.message?.length) job.message = "Finished!"; // TODO: Localize
+            if (job.message?.length) job.message = "worldedit.job.finished";
             if (job.tickingAreaSlot !== undefined) {
                 tickingAreas.removeTickingArea("job_ticking_slot_" + job.tickingAreaSlot);
                 this.occupiedTickingAreaSlots[job.tickingAreaSlot] = false;
@@ -205,7 +205,7 @@ class JobHandler {
             if (job.message?.length && job.stepCount >= 0) {
                 if (!progresses.has(job.player)) progresses.set(job.player, []);
                 const percent = (job.percent + job.step) / job.stepCount;
-                progresses.get(job.player).push([job.tickingAreaRequestTime ? "Loading Chunks..." : job.message, percent]);
+                progresses.get(job.player).push([job.tickingAreaRequestTime ? "worldedit.job.loadingChunks" : job.message, percent]);
             }
         }
 
