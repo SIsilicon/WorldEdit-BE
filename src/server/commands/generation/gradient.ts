@@ -42,9 +42,9 @@ registerCommand(registerInformation, function (session, builder, args) {
             const size = regionSize(min, max);
             const dim = builder.dimension;
             let s: axis, t: axis, u: axis;
-            if (size.x > size.y && size.x > size.z) (s = "y"), (t = "z"), (u = "x");
-            else if (size.z > size.x && size.z > size.y) (s = "x"), (t = "y"), (u = "z");
-            else (s = "x"), (t = "z"), (u = "y");
+            if (size.x > size.y && size.x > size.z) ((s = "y"), (t = "z"), (u = "x"));
+            else if (size.z > size.x && size.z > size.y) ((s = "x"), (t = "y"), (u = "z"));
+            else ((s = "x"), (t = "z"), (u = "y"));
 
             for (let i = min[u]; i <= max[u]; i++) {
                 const pattern = new Pattern();
