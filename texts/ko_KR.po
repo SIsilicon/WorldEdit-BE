@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2026-08-16 01:57\n"
+"PO-Revision-Date: 2026-09-30 15:54\n"
 
 msgid "pack.description"
 msgstr "기존 Java 모드의 복사본을 개발 중입니다! 애드온 제작자: SIsilicon (§l§b@iSiliconS§r)."
@@ -1596,4 +1596,10 @@ msgstr "이 애드온에 대해 자세히 알아보려면 다음 온라인 설�
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
+
+msgid "worldedit.job.finished"
+msgstr "Finished!"
+
+msgid "worldedit.job.loadingChunks"
+msgstr "Loading Chunks..."
 
