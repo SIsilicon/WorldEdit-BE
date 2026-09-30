@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2026-08-16 01:57\n"
+"PO-Revision-Date: 2026-09-30 15:54\n"
 
 msgid "pack.description"
 msgstr "¡Un addon en beta del mod original de Java y más! Addon de SIsilicon (§l§b@iSiliconS§r)."
@@ -1596,4 +1596,10 @@ msgstr "Para obtener más información sobre este complemento, puedes ir a su do
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
+
+msgid "worldedit.job.finished"
+msgstr "Finished!"
+
+msgid "worldedit.job.loadingChunks"
+msgstr "Loading Chunks..."
 
