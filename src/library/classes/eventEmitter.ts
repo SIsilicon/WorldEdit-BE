@@ -56,7 +56,7 @@ export class EventEmitter<T extends { [K in keyof T]: any[] }> implements EventE
             if (object.eventName === eventName) {
                 if (object.once && object.executed) return;
                 object.listener(...args);
-                (status = true), (object.executed = true);
+                ((status = true), (object.executed = true));
             }
         });
         return status;

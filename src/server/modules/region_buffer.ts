@@ -586,8 +586,8 @@ export class RegionBuffer {
     private delete() {
         const thread = new Thread();
         thread.start(function* (self: RegionBuffer) {
-            for (const structure of Object.values(self.extraBlockData)) world.structureManager.delete(structure), yield;
-            for (const structure of Object.values(self.structures)) world.structureManager.delete(structure), yield;
+            for (const structure of Object.values(self.extraBlockData)) (world.structureManager.delete(structure), yield);
+            for (const structure of Object.values(self.structures)) (world.structureManager.delete(structure), yield);
             if (self.structure) world.structureManager.delete(self.structure);
             self.size = Vector.ZERO;
             self.volume = 0;
