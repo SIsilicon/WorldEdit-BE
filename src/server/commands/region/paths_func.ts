@@ -68,7 +68,7 @@ export function* plotLine(pos1: Vector3, pos2: Vector3) {
     const current = Vector.from(pos1);
     const result = new VectorSet<Vector>();
     for (let j = 0; j < absDelta[maxIndex]; j++) {
-        result.add(current);
+        result.add(current.clone());
         yield current.clone();
         for (const axis of Vector.AXES) {
             if (error[axis] > 0) {
@@ -78,7 +78,7 @@ export function* plotLine(pos1: Vector3, pos2: Vector3) {
             error[axis] += absDelta2[axis];
         }
     }
-    result.add(current);
+    result.add(current.clone());
     yield current.clone();
     return result;
 }
