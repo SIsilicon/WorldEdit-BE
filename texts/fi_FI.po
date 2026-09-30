@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
-"PO-Revision-Date: 2026-09-30 15:54\n"
+"PO-Revision-Date: 2026-09-30 17:23\n"
 
 msgid "pack.description"
 msgstr "An in-development port of the original Java mod and more! Addon by SIsilicon (§l§b@iSiliconS§r)."
@@ -618,6 +618,9 @@ msgstr "Calculating shape..."
 
 msgid "commands.wedit:blocks.generating"
 msgstr "Generating blocks..."
+
+msgid "commands.wedit:blocks.placing"
+msgstr "Placing blocks..."
 
 msgid "commands.wedit:blocks.calculating_generating"
 msgstr "Calculating and Generating blocks..."
