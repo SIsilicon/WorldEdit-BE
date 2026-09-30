@@ -55,7 +55,7 @@ export class CuboidShape extends Shape {
         genVars.isWall = options?.wall ?? false;
         genVars.isEdges = options?.edges ?? false;
         genVars.hollowOffset = options?.hollowThickness ?? 0;
-        genVars.end = this.size.map((v) => v - (genVars.isHollow || genVars.isWall ? options?.hollowThickness ?? 1 : 1));
+        genVars.end = this.size.map((v) => v - (genVars.isHollow || genVars.isWall ? (options?.hollowThickness ?? 1) : 1));
 
         if (!genVars.isHollow && !genVars.isWall && !genVars.isEdges) {
             genVars.isSolidCuboid = true;

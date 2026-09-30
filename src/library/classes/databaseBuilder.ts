@@ -122,7 +122,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
             return;
         }
 
-        contentLog.error(`Failed to save database ${this.name} to ${this.provider instanceof Entity ? this.provider.nameTag ?? this.provider.id : "the world"}`);
+        contentLog.error(`Failed to save database ${this.name} to ${this.provider instanceof Entity ? (this.provider.nameTag ?? this.provider.id) : "the world"}`);
         contentLog.debug(contentLog.stack());
     }
 
@@ -132,7 +132,7 @@ class DatabaseImpl<T extends object = { [key: string]: any }> implements Databas
         try {
             this._data = parseJSON(this.name, this.rawData ?? "{}");
         } catch (err) {
-            contentLog.error(`Failed to load database ${this.name} from ${this.provider instanceof Entity ? this.provider.nameTag ?? this.provider.id : "the world"}`);
+            contentLog.error(`Failed to load database ${this.name} from ${this.provider instanceof Entity ? (this.provider.nameTag ?? this.provider.id) : "the world"}`);
             if (err) contentLog.debug(err, err.stack);
             return;
         }
