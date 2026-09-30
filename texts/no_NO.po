@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
-"PO-Revision-Date: 2026-08-16 01:57\n"
+"PO-Revision-Date: 2026-09-30 15:54\n"
 
 msgid "pack.description"
 msgstr "En under-utvikling port av den originale Java-modden og mer! Utdvidelse av SIsilicon (§l§b@iSiliconS§r)."
@@ -1596,4 +1596,10 @@ msgstr "For å lære mer om dett tillegget kan du gå til den nettbaserte docume
 
 msgid "howtoplay.category.minecraft"
 msgstr "Minecraft"
+
+msgid "worldedit.job.finished"
+msgstr "Finished!"
+
+msgid "worldedit.job.loadingChunks"
+msgstr "Loading Chunks..."
 
