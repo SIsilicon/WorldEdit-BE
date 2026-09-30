@@ -4,7 +4,7 @@ import { Pattern } from "@modules/pattern.js";
 import { CommandInfo, RawText, Vector, regionIterateBlocks, regionIterateChunks, regionSize } from "@notbeer-api";
 import { Jobs } from "@modules/jobs.js";
 import { Noise } from "@modules/noise.js";
-import { BlockVolume } from "@minecraft/server";
+import { BlockPermutation, BlockVolume } from "@minecraft/server";
 
 const registerInformation: CommandInfo = {
     name: "terrain",
@@ -35,6 +35,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const octaves: number = args.get("octaves");
     const seed: number = args.get("s-seed") ?? Math.floor(Math.random() * 1000000);
     const additive: boolean = args.has("a");
+    const air = BlockPermutation.resolve("air");
 
     const noise = new Noise(seed);
     const dimension = builder.dimension;
@@ -76,15 +77,35 @@ registerCommand(registerInformation, function* (session, builder, args) {
             yield* history.trackRegion(record, min, max);
             for (const [key, { minY, maxY }] of columns) {
                 const [x, z] = key.split(",").map(Number);
-                yield* Jobs.loadArea({ x, y: minY, z }, { x, y: maxY, z });
+                yield* Jobs.loadArea({ x, y: minY, z }, { x, y: additive ? maxY : max.y, z });
+
                 if (simpleMask) {
                     count += pattern.fillBlocks(dimension, new BlockVolume({ x, y: minY, z }, { x, y: maxY, z }), mask);
+
+                    if (!additive && maxY < max.y) {
+                        count += dimension
+                            .fillBlocks(new BlockVolume({ x, y: maxY + 1, z }, { x, y: max.y, z }), air, {
+                                blockFilter: mask.getSimpleBlockFilter(),
+                            })
+                            .getCapacity();
+                    }
                 } else {
                     for (let y = minY; y <= maxY; y++) {
                         const block = dimension.getBlock({ x, y, z });
                         if (mask.matchesBlock(block)) {
                             pattern.setBlock(block);
                             count++;
+                        }
+                    }
+
+                    if (!additive) {
+                        for (let y = maxY + 1; y <= max.y; y++) {
+                            const block = dimension.getBlock({ x, y, z });
+                            if (mask.matchesBlock(block)) {
+                                const oldBlock = block.permutation;
+                                block.setPermutation(air);
+                                if (!oldBlock.matches(block.typeId)) count++;
+                            }
                         }
                     }
                 }
