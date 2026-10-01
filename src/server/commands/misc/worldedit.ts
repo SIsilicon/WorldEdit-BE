@@ -6,7 +6,7 @@ import { CommandInfo } from "@notbeer-api";
 const registerInformation: CommandInfo = {
     name: "worldedit",
     description: "commands.wedit:worldedit.description",
-    usage: [{ subName: "version" }, { subName: "perf" }, { subName: "app" }],
+    usage: [{ subName: "version" }, { subName: "perf" }, { subName: "debug" }, { subName: "app" }],
     aliases: ["we"],
 };
 
@@ -16,6 +16,9 @@ registerCommand(registerInformation, function (session, builder, args) {
     } else if (args.has("perf")) {
         session.performanceMode = !session.performanceMode;
         return RawText.translate(`commands.wedit:worldedit.perf.${session.performanceMode ? "enabled" : "disabled"}`);
+    } else if (args.has("debug")) {
+        session.debugMode = !session.debugMode;
+        return RawText.translate(`commands.wedit:worldedit.debug.${session.debugMode ? "enabled" : "disabled"}`);
     } else if (args.has("app")) {
         return RawText.text("https://github.com/8Crafter-Studios/Bedrock-World-Editor");
     }
