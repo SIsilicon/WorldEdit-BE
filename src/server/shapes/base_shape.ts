@@ -200,7 +200,10 @@ export abstract class Shape {
             yield Jobs.setProgress(progress / volume);
 
             const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
-            if (chunkStatus === ChunkStatus.FULL && simpleMask) {
+            if (chunkStatus === ChunkStatus.FULL && simpleMask && simplePattern) {
+                // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
+                // Due to the bug above, the optimized volume path can skip blocks in newly loaded chunks.
+                // Complex patterns therefore use the per-block loading path instead.
                 const volume = regionVolume(chunkMin, chunkMax);
                 progress += volume;
                 blocksAffected += volume;
@@ -282,7 +285,7 @@ export abstract class Shape {
                 yield Jobs.setProgress(progress / blocksAffected);
                 if (Array.isArray(volume)) {
                     for (let block of volume) {
-                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
+                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(block);
                         if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
                         progress++;
                     }
