@@ -32,7 +32,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const heightDiff = args.get("heightDiff");
     const [startRotation, endRotation] = [args.get("start"), args.get("end")];
     const rotatingStructure = !args.has("r");
-    const origin = Vector.from(builder.location).floor().add(0.5);
+    const origin = session.getPlacementPosition().add(0.5);
     const offset = start.sub(origin);
     const dim = builder.dimension;
 
