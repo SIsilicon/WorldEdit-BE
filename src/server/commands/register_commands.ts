@@ -1,5 +1,5 @@
 import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from "@notbeer-api";
-import { getSession, hasSession, PlayerSession } from "../sessions.js";
+import { getDebugSessions, getSession, hasSession, PlayerSession } from "../sessions.js";
 import { print, printerr } from "../util.js";
 import { Player } from "@minecraft/server";
 import { UnloadedChunksError } from "@modules/assert.js";
@@ -8,6 +8,12 @@ import { UnloadedChunksError } from "@modules/assert.js";
 export type commandFunc = (s: PlayerSession, p: Player, args: Map<string, any>) => Generator<unknown, RawText | string> | RawText | string;
 
 const commandList = new Map<string, [CommandInfo, commandFunc]>();
+
+function debugLog(sessions: PlayerSession[], message: string) {
+    for (const session of sessions) {
+        print(RawText.text(`§8[Debug] §7${message}`), session.player, false);
+    }
+}
 
 const sawOutsideWorldErr: Player[] = [];
 
@@ -22,18 +28,29 @@ export function registerCommand(registerInformation: CommandInfo, callback: comm
         const thread = new Thread();
         thread.start(
             function* (msg, player, args) {
+                const session = getSession(player);
+                const debugSessions = getDebugSessions();
                 const timer = new Timer();
+
                 try {
                     timer.start();
-                    contentLog.log(`Processing command '${msg}' for '${player.name}'`);
+
+                    const processingMessage = `Processing command '${msg}' for '${player.name}'`;
+                    contentLog.log(processingMessage);
+                    debugLog(debugSessions, processingMessage);
+
                     let result: string | RawText;
+
                     if (callback.constructor.name == "GeneratorFunction") {
-                        result = yield* callback(getSession(player), player, args) as Generator<void, RawText | string>;
+                        result = yield* callback(session, player, args) as Generator<void, RawText | string>;
                     } else {
-                        result = callback(getSession(player), player, args) as string | RawText;
+                        result = callback(session, player, args) as string | RawText;
                     }
                     const time = timer.end();
-                    contentLog.log(`Time taken to execute: ${time}ms (${time / 1000.0} secs)`);
+                    const timeMessage = `Time taken to execute: ${time}ms (${time / 1000.0} secs)`;
+                    contentLog.log(timeMessage);
+
+                    debugLog(debugSessions, timeMessage);
                     if (result) print(result, player, toActionBar);
                 } catch (e) {
                     const errMsg = e.message ? RawText.text(`${e.name}: `).append("translate", e.message) : e;
