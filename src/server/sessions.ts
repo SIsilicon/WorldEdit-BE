@@ -1,4 +1,4 @@
-import { Player, system, Vector3 } from "@minecraft/server";
+import { ButtonState, InputButton, Player, system, Vector3 } from "@minecraft/server";
 import { Server, Vector, setTickTimeout, contentLog, Databases, everyCall } from "@notbeer-api";
 import { Tools } from "./tools/tool_manager.js";
 import { createHistoryBufferForSession, History } from "@modules/history.js";
@@ -87,6 +87,11 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
      * Whether the session should run in performance mode.
      */
     public performanceMode = false;
+
+    /**
+     * is the player in speeddmode
+     */
+    public speedMode = false;
 
     /**
      * The amount of blocks that can be changed in one operation.
@@ -207,6 +212,62 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
      */
     togglePlacementPosition() {
         this.placementMode = this.placementMode == "player" ? "selection" : "player";
+    }
+
+    toggleSpeed() {
+        this.speedMode = !this.speedMode;
+        return this.speedMode;
+    }
+
+    private updateSpeed() {
+        const thrustH = 0.375;
+        const thrustV = 0.375;
+        const speedCap = 5;
+
+        const movement = this.player.inputInfo.getMovementVector();
+        const up = this.player.inputInfo.getButtonState(InputButton.Jump) === ButtonState.Pressed;
+        const down = this.player.inputInfo.getButtonState(InputButton.Sneak) === ButtonState.Pressed;
+
+        if (!up && !down && Math.abs(movement.x) < 1e-3 && Math.abs(movement.y) < 1e-3) return;
+
+        let forward = this.player.getViewDirection();
+        const length = Math.hypot(forward.x, forward.z);
+
+        if (length < 1e-6) {
+            forward = { x: 0, y: 0, z: 1 };
+        } else {
+            forward = {
+                x: forward.x / length,
+                y: 0,
+                z: forward.z / length,
+            };
+        }
+
+        const right = {
+            x: forward.z,
+            y: 0,
+            z: -forward.x,
+        };
+
+        const x = (forward.x * movement.y + right.x * movement.x) * thrustH;
+        const z = (forward.z * movement.y + right.z * movement.x) * thrustH;
+        const y = (up ? thrustV : 0) - (down ? thrustV : 0);
+
+        this.player.applyImpulse({ x, y, z });
+
+        const velocity = this.player.getVelocity();
+        const speed = Math.hypot(velocity.x, velocity.y, velocity.z);
+
+        if (speed > speedCap) {
+            const scale = speedCap / speed;
+
+            this.player.clearVelocity();
+            this.player.applyImpulse({
+                x: velocity.x * scale,
+                y: velocity.y * scale,
+                z: velocity.z * scale,
+            });
+        }
     }
 
     /**
@@ -335,10 +396,13 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
     }
 
     onTick() {
+        if (this.speedMode) this.updateSpeed();
+
         if (!this.selection.visible) return;
 
         // Draw Loft
         if (this.loft) this.lazyLoftDraw(() => this.loft.draw(this.player, Vector.ZERO, this.selection.visible === "local"));
+
         // Draw Selection
         if (!this.selection.isEmpty) {
             const [shape, loc] = this.selection.getShape() ?? [undefined, undefined];
