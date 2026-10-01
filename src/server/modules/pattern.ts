@@ -147,7 +147,7 @@ export class Pattern implements CustomArgType {
         } else {
             // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
             // Due to the bug above, dimension.getBlocks does not work as expected in certain situations.
-            // So until this is fixed, we manually filter the blocks.
+            // The optimized volume path can skip blocks in newly loaded chunks.
 
             let count = 0;
             // volume = dimension.getBlocks(volume, filter);
