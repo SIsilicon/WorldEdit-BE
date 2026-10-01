@@ -53,7 +53,7 @@ export function* copy(session: PlayerSession, args: Map<string, any>, toClipboar
             scale: Vector.ONE,
             originalLoc: start,
             originalDim: player.dimension.id,
-            offset: Vector.sub(start, Vector.from(player.location).floor().add(0.5)),
+            offset: Vector.sub(start, session.getPlacementPosition().add(0.5)),
         };
     }
 

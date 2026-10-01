@@ -1,6 +1,6 @@
 import { assertClipboard } from "@modules/assert";
 import { Jobs } from "@modules/jobs.js";
-import { CommandInfo, RawText, Vector } from "@notbeer-api";
+import { CommandInfo, RawText } from "@notbeer-api";
 import { registerCommand } from "../register_commands.js";
 import { RegionLoadOptions } from "@modules/region_buffer.js";
 
@@ -18,7 +18,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const pasteOriginal = args.has("o");
     const pasteContent = !args.has("n");
 
-    let pasteFrom = Vector.from(builder.location).floor().add(0.5);
+    let pasteFrom = session.getPlacementPosition().add(0.5);
     let transform: RegionLoadOptions = session.clipboardTransform;
     if (pasteOriginal) {
         if (session.clipboardTransform.originalDim != builder.dimension.id || !session.clipboardTransform.originalLoc) throw "commands.wedit:paste.noOriginal";
