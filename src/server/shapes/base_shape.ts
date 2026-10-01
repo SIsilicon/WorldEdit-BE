@@ -202,8 +202,8 @@ export abstract class Shape {
             const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
             if (chunkStatus === ChunkStatus.FULL && simpleMask && simplePattern) {
                 // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
-                // Due to the bug above, dimension.getBlocks does not work as expected in certain situations.
-                // So until this is fixed, we manually filter the blocks.
+                // Due to the bug above, the optimized volume path can skip blocks in newly loaded chunks.
+                // Complex patterns therefore use the per-block loading path instead.
                 const volume = regionVolume(chunkMin, chunkMax);
                 progress += volume;
                 blocksAffected += volume;
