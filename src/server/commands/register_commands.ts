@@ -1,7 +1,7 @@
 import { CommandInfo, Server, Thread, Timer, RawText, contentLog } from "@notbeer-api";
 import { getDebugSessions, getSession, hasSession, PlayerSession } from "../sessions.js";
 import { print, printerr } from "../util.js";
-import { Player } from "@minecraft/server";
+import { Player, system } from "@minecraft/server";
 import { UnloadedChunksError } from "@modules/assert.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,6 +14,21 @@ function debugLog(sessions: PlayerSession[], message: string) {
         print(RawText.text(`§8[Debug] §7${message}`), session.player, false);
     }
 }
+
+Server.command.on("commandError", (player, command, args, error) => {
+    const commandText = `${Server.command.prefix}${command}${args.length ? ` ${args.join(" ")}` : ""}`;
+    const playerName = player.name;
+
+    system.run(() => {
+        for (const session of getDebugSessions()) {
+            if (session.player.id === player.id) continue;
+
+            print(RawText.text(`§8[Debug] §cCommand error from '${playerName}': ${commandText}`), session.player, false);
+
+            printerr(error, session.player, false);
+        }
+    });
+});
 
 const sawOutsideWorldErr: Player[] = [];
 
