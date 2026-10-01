@@ -200,7 +200,8 @@ export abstract class Shape {
             yield Jobs.setProgress(progress / volume);
 
             const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
-            if (chunkStatus === ChunkStatus.FULL && simpleMask) {
+            if (chunkStatus === ChunkStatus.FULL && simpleMask && simplePattern) {
+                // temporary change meow meow
                 const volume = regionVolume(chunkMin, chunkMax);
                 progress += volume;
                 blocksAffected += volume;
@@ -282,7 +283,7 @@ export abstract class Shape {
                 yield Jobs.setProgress(progress / blocksAffected);
                 if (Array.isArray(volume)) {
                     for (let block of volume) {
-                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
+                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(block);
                         if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
                         progress++;
                     }
