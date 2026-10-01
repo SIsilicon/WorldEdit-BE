@@ -67,6 +67,7 @@ import "./region/stack.js";
 import "./region/revolve.js";
 import "./region/rotate.js";
 import "./region/flip.js";
+import "./region/mirror.js";
 import "./region/scale.js";
 import "./region/walls.js";
 import "./region/smooth.js";
