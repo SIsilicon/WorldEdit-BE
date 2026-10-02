@@ -185,7 +185,13 @@ Server.uiForms.register<ConfigContext>("$generalOptions", {
         $selectionMode: {
             name: "%worldedit.config.general.selectMode",
             type: "dropdown",
-            options: ["%worldedit.selectionMode.cuboid", "%worldedit.selectionMode.extend", "%worldedit.selectionMode.sphere", "%worldedit.selectionMode.cylinder"],
+            options: [
+                "%worldedit.selectionMode.cuboid",
+                "%worldedit.selectionMode.extend",
+                "%worldedit.selectionMode.sphere",
+                "%worldedit.selectionMode.ellipsoid",
+                "%worldedit.selectionMode.cylinder",
+            ],
             default: (ctx) => selectionModes.indexOf(ctx.getData("session").selection.mode),
         },
     },

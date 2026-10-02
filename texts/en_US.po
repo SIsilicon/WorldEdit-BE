@@ -157,6 +157,16 @@ msgid "worldedit.selectionMode.extend"
 msgstr "Extend"
 msgid "worldedit.selectionMode.sphere"
 msgstr "Sphere"
+
+msgid "worldedit.selectionMode.ellipsoid"
+msgstr "Ellipsoid"
+
+msgid "worldedit.selection.ellipsoid.primary"
+msgstr "Starting a new ellipsoid selection at %s."
+
+msgid "worldedit.selection.ellipsoid.secondaryArea"
+msgstr "Radii set to %1/%2/%3 blocks (~%4)."
+
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Cylinder"
 

@@ -6,7 +6,7 @@ const registerInformation: CommandInfo = {
     name: "sel",
     description: "commands.wedit:sel.description",
     aliases: ["deselect", "desel"],
-    usage: [{ flag: "d" }, { subName: "cuboid" }, { subName: "extend" }, { subName: "sphere" }, { subName: "cyl" }, { subName: "convex" }, { subName: "_nothing" }],
+    usage: [{ flag: "d" }, { subName: "cuboid" }, { subName: "extend" }, { subName: "sphere" }, { subName: "ellipsoid" }, { subName: "cyl" }, { subName: "convex" }, { subName: "_nothing" }],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -20,6 +20,9 @@ registerCommand(registerInformation, function (session, builder, args) {
         } else if (args.has("sphere")) {
             session.selection.mode = "sphere";
             return "commands.wedit:sel.sphere";
+        } else if (args.has("ellipsoid")) {
+            session.selection.mode = "ellipsoid";
+            return "commands.wedit:sel.ellipsoid";
         } else if (args.has("cyl")) {
             session.selection.mode = "cylinder";
             return "commands.wedit:sel.cyl";
