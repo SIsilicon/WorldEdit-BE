@@ -170,6 +170,12 @@ msgstr "Radii set to %1/%2/%3 blocks (~%4)."
 msgid "worldedit.selectionMode.cylinder"
 msgstr "Cylinder"
 
+msgid "commands.wedit:sel.ellipsoid"
+msgstr "Ellipsoid selector: break block for the center, use on block to extend the radii"
+
+msgid "commands.wedit:sel.description.ellipsoid"
+msgstr "Select an ellipsoid"
+
 msgid "worldedit.extruderMode.pull"
 msgstr "Pull out Blocks"
 msgid "worldedit.extruderMode.dig"

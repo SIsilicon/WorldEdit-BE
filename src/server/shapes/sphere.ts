@@ -38,7 +38,7 @@ export class SphereShape extends Shape {
     }
 
     public getOutline() {
-        // TODO: Support oblique spheres
+        // TODO: Support rotated/oblique ellipsoids
         const radiusX = this.radii[0] + 0.5;
         const radiusY = this.radii[1] + 0.5;
         const radiusZ = this.radii[2] + 0.5;
