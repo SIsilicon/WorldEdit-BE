@@ -191,7 +191,11 @@ export abstract class Shape {
         let blocksAffected = 0;
         const volumes: (Block[] | BlockVolumeBase)[] = [];
 
-        const simplePattern = pattern.isSimple();
+        // const simplePattern = pattern.isSimple();
+        // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
+        // Bulk pattern fills can skip blocks in newly loaded chunks.
+        // Temporarily force all patterns through the per-block loading path.
+        const simplePattern = false;
         const simpleMask = mask.isSimple();
         const volume = regionVolume(min, max);
         const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
