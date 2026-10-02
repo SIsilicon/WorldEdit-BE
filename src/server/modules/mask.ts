@@ -200,6 +200,8 @@ export class Mask implements CustomArgType {
                     processOps(out, ops, new IntersectMaskNode(token));
                 } else if (token.value == "!") {
                     processOps(out, ops, new NegateMaskNode(token));
+                } else if (token.value == "~") {
+                    processOps(out, ops, new AdjacentMaskNode(token));
                 } else if (token.type == "bracket") {
                     if (token.value == "<") {
                         processOps(out, ops, new OffsetMaskNode(token, Vector.UP));
@@ -358,6 +360,9 @@ export class Mask implements CustomArgType {
                     break;
                 case "negate":
                     node = new NegateMaskNode(null);
+                    break;
+                case "adjacent":
+                    node = new AdjacentMaskNode(null);
                     break;
                 case "offset":
                     node = new OffsetMaskNode(null, Vector.from(settings.offset));
@@ -689,6 +694,35 @@ export class NegateMaskNode extends MaskNode {
 
     toJSON() {
         return { type: "negate", children: [this.nodes[0].toJSON()] };
+    }
+}
+
+// adjacent mask (kind of like overlay and underlay but also with the sides of the block)
+export class AdjacentMaskNode extends MaskNode {
+    readonly prec = 2;
+    readonly opCount = 1;
+
+    constructor(token: Token, node?: MaskNode) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    matchesBlock(block: BlockUnit, context: maskContext) {
+        const loc = Vector.from(block.location);
+        const dimension = block.dimension;
+
+        return (
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(0, 1, 0)), context) ||
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(0, -1, 0)), context) ||
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(-1, 0, 0)), context) ||
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(1, 0, 0)), context) ||
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(0, 0, -1)), context) ||
+            this.nodes[0].matchesBlock(dimension.getBlock(loc.offset(0, 0, 1)), context)
+        );
+    }
+
+    toJSON() {
+        return { type: "adjacent", children: [this.nodes[0].toJSON()] };
     }
 }
 
