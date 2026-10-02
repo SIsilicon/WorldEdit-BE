@@ -36,9 +36,7 @@ export class LoftShape extends Shape {
     constructor(curves: Vector3[][] = []) {
         super();
 
-        this.curves = curves.map((curve) =>
-            curve.map((point) => TensionVector.from(point))
-        );
+        this.curves = curves.map((curve) => curve.map((point) => TensionVector.from(point)));
 
         this.updateParticles();
     }
@@ -53,9 +51,7 @@ export class LoftShape extends Shape {
             this.curves.push([]);
         }
 
-        this.curves[this.curves.length - 1].push(
-            TensionVector.from(point)
-        );
+        this.curves[this.curves.length - 1].push(TensionVector.from(point));
 
         this.updateParticles();
     }
@@ -87,18 +83,10 @@ export class LoftShape extends Shape {
         let closestPoint = -1;
         let closestDistance = Infinity;
 
-        for (
-            let curveIndex = 0;
-            curveIndex < this.curves.length;
-            curveIndex++
-        ) {
+        for (let curveIndex = 0; curveIndex < this.curves.length; curveIndex++) {
             const curve = this.curves[curveIndex];
 
-            for (
-                let pointIndex = 0;
-                pointIndex < curve.length;
-                pointIndex++
-            ) {
+            for (let pointIndex = 0; pointIndex < curve.length; pointIndex++) {
                 const distance = target.distanceTo(curve[pointIndex]);
 
                 if (distance < closestDistance) {
@@ -124,9 +112,7 @@ export class LoftShape extends Shape {
         return this.curves.length > 0;
     }
 
-    public setGenerationOptions(
-        options: Partial<LoftGenerationOptions>
-    ) {
+    public setGenerationOptions(options: Partial<LoftGenerationOptions>) {
         this.generationOptions = {
             lowPoly: false,
             outlineOnly: false,
@@ -160,14 +146,8 @@ export class LoftShape extends Shape {
             end.z += 2;
         }
 
-        if (
-            this.generationOptions.drop &&
-            this.generationOptions.dropMinY !== undefined
-        ) {
-            start.y = Math.min(
-                start.y,
-                this.generationOptions.dropMinY
-            );
+        if (this.generationOptions.drop && this.generationOptions.dropMinY !== undefined) {
+            start.y = Math.min(start.y, this.generationOptions.dropMinY);
         }
 
         return [start, end];
@@ -179,22 +159,14 @@ export class LoftShape extends Shape {
 
     protected prepGeneration() {}
 
-    protected *calculateShape(
-        dimension: Dimension,
-        _loc: Vector3,
-        min: Vector3,
-        max: Vector3
-    ): ReturnType<Shape["calculateShape"]> {
+    protected *calculateShape(dimension: Dimension, _loc: Vector3, min: Vector3, max: Vector3): ReturnType<Shape["calculateShape"]> {
         const blocks = new VectorSet<Block>();
         const volume = new BlockVolume(min, max);
 
         function* addBlock(block: Vector3) {
             const location = Vector.from(block).floor();
 
-            if (
-                !volume.isInside(location) ||
-                blocks.has(location)
-            ) {
+            if (!volume.isInside(location) || blocks.has(location)) {
                 return;
             }
 
@@ -202,31 +174,16 @@ export class LoftShape extends Shape {
         }
 
         function* addLine(a: Vector3, b: Vector3) {
-            for (const block of plotLine(
-                Vector.from(a).floor(),
-                Vector.from(b).floor()
-            )) {
+            for (const block of plotLine(Vector.from(a).floor(), Vector.from(b).floor())) {
                 yield* addBlock(block);
             }
         }
 
-        const frameCurves = this.curves.map((curve) =>
-            this.createSampler(
-                curve,
-                this.generationOptions.lowPoly
-            )
-        );
+        const frameCurves = this.curves.map((curve) => this.createSampler(curve, this.generationOptions.lowPoly));
 
-        const width = frameCurves.reduce(
-            (maxLength, curve) =>
-                Math.max(maxLength, curve.length),
-            0
-        );
+        const width = frameCurves.reduce((maxLength, curve) => Math.max(maxLength, curve.length), 0);
 
-        const widthSamples = Math.max(
-            Math.floor(width / 4) + 1,
-            1
-        );
+        const widthSamples = Math.max(Math.floor(width / 4) + 1, 1);
 
         let length = 0;
 
@@ -235,23 +192,15 @@ export class LoftShape extends Shape {
         for (let i = 0; i <= widthSamples; i++) {
             const sample = i / widthSamples;
 
-            const points = frameCurves.map((curve) =>
-                curve.sample(sample)
-            );
+            const points = frameCurves.map((curve) => curve.sample(sample));
 
-            const curve = this.createSampler(
-                points,
-                this.generationOptions.lowPoly
-            );
+            const curve = this.createSampler(points, this.generationOptions.lowPoly);
 
             length = Math.max(length, curve.length);
             lengthCurves.push(curve);
         }
 
-        const lengthSamples = Math.max(
-            Math.floor(length / 4) + 1,
-            1
-        );
+        const lengthSamples = Math.max(Math.floor(length / 4) + 1, 1);
 
         /*
          * Build the same 2D loft grid the old implementation
@@ -265,17 +214,9 @@ export class LoftShape extends Shape {
             const row: Vector[] = [];
 
             for (let j = 0; j <= lengthSamples; j++) {
-                row.push(
-                    lengthCurves[i]
-                        .sample(j / lengthSamples)
-                        .add(0.5)
-                );
+                row.push(lengthCurves[i].sample(j / lengthSamples).add(0.5));
 
-                yield Jobs.setProgress(
-                    (j + i * (lengthSamples + 1)) /
-                        ((widthSamples + 1) *
-                            (lengthSamples + 1))
-                );
+                yield Jobs.setProgress((j + i * (lengthSamples + 1)) / ((widthSamples + 1) * (lengthSamples + 1)));
             }
 
             grid.push(row);
@@ -287,61 +228,31 @@ export class LoftShape extends Shape {
          * Instead of filling every triangle, draw evenly
          * divided lines across both directions of the loft.
          */
-        if (
-            this.generationOptions.count !== undefined
-        ) {
-            const divisions = Math.max(
-                1,
-                this.generationOptions.count
-            );
+        if (this.generationOptions.count !== undefined) {
+            const divisions = Math.max(1, this.generationOptions.count);
 
-            const widthIndices =
-                LoftShape.getDivisionIndices(
-                    widthSamples,
-                    divisions
-                );
+            const widthIndices = LoftShape.getDivisionIndices(widthSamples, divisions);
 
-            const lengthIndices =
-                LoftShape.getDivisionIndices(
-                    lengthSamples,
-                    divisions
-                );
+            const lengthIndices = LoftShape.getDivisionIndices(lengthSamples, divisions);
 
             // Lines travelling between frames.
             for (const i of widthIndices) {
-                for (
-                    let j = 1;
-                    j <= lengthSamples;
-                    j++
-                ) {
-                    yield* addLine(
-                        grid[i][j - 1],
-                        grid[i][j]
-                    );
+                for (let j = 1; j <= lengthSamples; j++) {
+                    yield* addLine(grid[i][j - 1], grid[i][j]);
                 }
             }
 
             // Close the last frame back to the first.
             if (this.generationOptions.close) {
                 for (const i of widthIndices) {
-                    yield* addLine(
-                        grid[i][lengthSamples],
-                        grid[i][0]
-                    );
+                    yield* addLine(grid[i][lengthSamples], grid[i][0]);
                 }
             }
 
             // Lines travelling across each frame.
             for (const j of lengthIndices) {
-                for (
-                    let i = 1;
-                    i <= widthSamples;
-                    i++
-                ) {
-                    yield* addLine(
-                        grid[i - 1][j],
-                        grid[i][j]
-                    );
+                for (let i = 1; i <= widthSamples; i++) {
+                    yield* addLine(grid[i - 1][j], grid[i][j]);
                 }
             }
         }
@@ -367,40 +278,28 @@ export class LoftShape extends Shape {
             if (this.generationOptions.close) {
                 // Close those two edges back onto themselves.
                 if (firstSide.length > 1) {
-                    yield* addLine(
-                        firstSide[firstSide.length - 1],
-                        firstSide[0]
-                    );
+                    yield* addLine(firstSide[firstSide.length - 1], firstSide[0]);
                 }
 
                 if (lastSide.length > 1) {
-                    yield* addLine(
-                        lastSide[lastSide.length - 1],
-                        lastSide[0]
-                    );
+                    yield* addLine(lastSide[lastSide.length - 1], lastSide[0]);
                 }
             } else {
                 // First and last frame boundaries.
                 for (let i = 1; i < grid.length; i++) {
-                    yield* addLine(
-                        grid[i - 1][0],
-                        grid[i][0]
-                    );
+                    yield* addLine(grid[i - 1][0], grid[i][0]);
 
                     const previous = grid[i - 1];
                     const current = grid[i];
 
-                    yield* addLine(
-                        previous[previous.length - 1],
-                        current[current.length - 1]
-                    );
+                    yield* addLine(previous[previous.length - 1], current[current.length - 1]);
                 }
             }
         }
 
         /*
-        * Normal filled loft.
-        */
+         * Normal filled loft.
+         */
         else {
             for (let i = 1; i <= widthSamples; i++) {
                 for (let j = 1; j <= lengthSamples; j++) {
@@ -444,27 +343,18 @@ export class LoftShape extends Shape {
          * For every generated loft block, continue downward
          * through air until existing terrain is reached.
          */
-        if (
-            this.generationOptions.drop &&
-            this.generationOptions.dropMinY !== undefined
-        ) {
+        if (this.generationOptions.drop && this.generationOptions.dropMinY !== undefined) {
             const surfaceBlocks = Array.from(blocks);
 
             for (const surfaceBlock of surfaceBlocks) {
-                for (
-                    let y = surfaceBlock.y - 1;
-                    y >=
-                    this.generationOptions.dropMinY;
-                    y--
-                ) {
+                for (let y = surfaceBlock.y - 1; y >= this.generationOptions.dropMinY; y--) {
                     const location = {
                         x: surfaceBlock.x,
                         y,
                         z: surfaceBlock.z,
                     };
 
-                    const block =
-                        yield* Jobs.loadBlock(location);
+                    const block = yield* Jobs.loadBlock(location);
 
                     if (!block.isAir) {
                         break;
@@ -481,42 +371,27 @@ export class LoftShape extends Shape {
     }
 
     public getOutline() {
-        this.start = new Vector(
-            Infinity,
-            Infinity,
-            Infinity
-        );
+        this.start = new Vector(Infinity, Infinity, Infinity);
 
-        this.end = new Vector(
-            -Infinity,
-            -Infinity,
-            -Infinity
-        );
+        this.end = new Vector(-Infinity, -Infinity, -Infinity);
 
         const particles = [];
 
-        const maxCurvePoints = this.curves.reduce(
-            (max, curve) =>
-                Math.max(max, curve.length),
-            0
-        );
+        const maxCurvePoints = this.curves.reduce((max, curve) => Math.max(max, curve.length), 0);
 
-        const curveSamples = this.curves.map(
-            (curve) =>
-                Array.from(
-                    plotCurve(curve, {
-                        precision: 2,
-                        plotLines: false,
-                    })
-                )
+        const curveSamples = this.curves.map((curve) =>
+            Array.from(
+                plotCurve(curve, {
+                    precision: 2,
+                    plotLines: false,
+                })
+            )
         );
 
         for (const curve of curveSamples) {
             particles.push(
                 ...this.drawLine(
-                    curve.map((point) =>
-                        point.add(0.5)
-                    ),
+                    curve.map((point) => point.add(0.5)),
                     false,
                     true
                 )
@@ -524,35 +399,18 @@ export class LoftShape extends Shape {
         }
 
         if (curveSamples.length > 1) {
-            for (
-                let i = 0;
-                i < maxCurvePoints;
-                i++
-            ) {
+            for (let i = 0; i < maxCurvePoints; i++) {
                 particles.push(
                     ...this.drawLine(
                         Array.from(
                             plotCurve(
-                                curveSamples.map(
-                                    (curve) =>
-                                        LoftShape.sampleCurve(
-                                            curve,
-                                            i /
-                                                Math.max(
-                                                    maxCurvePoints -
-                                                        1,
-                                                    1
-                                                )
-                                        )
-                                ),
+                                curveSamples.map((curve) => LoftShape.sampleCurve(curve, i / Math.max(maxCurvePoints - 1, 1))),
                                 {
                                     precision: 2,
                                     plotLines: false,
                                 }
                             )
-                        ).map((point) =>
-                            point.add(0.5)
-                        ),
+                        ).map((point) => point.add(0.5)),
                         false,
                         true
                     )
@@ -576,13 +434,8 @@ export class LoftShape extends Shape {
      * Creates either the normal smooth Spline or the -p
      * piecewise-linear version.
      */
-    private createSampler(
-        points: Vector3[],
-        lowPoly: boolean,
-    ): LoftSampler {
-        const curve = points.map((point) =>
-            Vector.from(point)
-        );
+    private createSampler(points: Vector3[], lowPoly: boolean): LoftSampler {
+        const curve = points.map((point) => Vector.from(point));
 
         if (!curve.length) {
             return {
@@ -599,16 +452,11 @@ export class LoftShape extends Shape {
         }
 
         if (!lowPoly) {
-            const spline = new Spline(
-                curve.map((point) =>
-                    TensionVector.from(point)
-                )
-            );
+            const spline = new Spline(curve.map((point) => TensionVector.from(point)));
 
             return {
                 length: spline.length,
-                sample: (t) =>
-                    Vector.from(spline.sample(t)),
+                sample: (t) => Vector.from(spline.sample(t)),
             };
         }
 
@@ -620,10 +468,7 @@ export class LoftShape extends Shape {
         const totalLength = curve.reduce((length, point, index) => {
             if (index === 0) return 0;
 
-            return (
-                length +
-                Vector.sub(point, curve[index - 1]).length
-            );
+            return length + Vector.sub(point, curve[index - 1]).length;
         }, 0);
 
         const segmentCount = curve.length - 1;
@@ -641,10 +486,7 @@ export class LoftShape extends Shape {
                 }
 
                 const scaled = t * segmentCount;
-                const index = Math.min(
-                    Math.floor(scaled),
-                    segmentCount - 1
-                );
+                const index = Math.min(Math.floor(scaled), segmentCount - 1);
                 const progress = scaled - index;
 
                 const start = curve[index];
@@ -653,32 +495,19 @@ export class LoftShape extends Shape {
                 return start.lerp(end, progress);
             },
         };
-
     }
 
-    private static getDivisionIndices(
-        maxIndex: number,
-        divisions: number
-    ) {
+    private static getDivisionIndices(maxIndex: number, divisions: number) {
         const indices = new Set<number>();
 
         for (let i = 0; i <= divisions; i++) {
-            indices.add(
-                Math.round(
-                    (i / divisions) * maxIndex
-                )
-            );
+            indices.add(Math.round((i / divisions) * maxIndex));
         }
 
-        return [...indices].sort(
-            (a, b) => a - b
-        );
+        return [...indices].sort((a, b) => a - b);
     }
 
-    private static sampleCurve(
-        curveSamples: Vector3[],
-        t: number
-    ): Vector3 {
+    private static sampleCurve(curveSamples: Vector3[], t: number): Vector3 {
         const n = curveSamples.length - 1;
         const i = Math.floor(t * n);
         const u = t * n - i;

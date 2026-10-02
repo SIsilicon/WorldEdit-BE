@@ -95,17 +95,13 @@ registerCommand(registerInformation, function* (session, builder, args) {
             throw "commands.wedit:loft.notStarted";
         }
 
-        const hasPoints = args.has("c")
-            ? session.loft.removeClosestPoint(builder.location)
-            : session.loft.removeLastPoint();
+        const hasPoints = args.has("c") ? session.loft.removeClosestPoint(builder.location) : session.loft.removeLastPoint();
 
         if (!hasPoints) {
             session.loft = undefined;
         }
 
-        return session.loft
-            ? "commands.wedit:loft.removed"
-            : "commands.wedit:loft.removed.last";
+        return session.loft ? "commands.wedit:loft.removed" : "commands.wedit:loft.removed.last";
     }
 
     if (args.has("set") || args.has("s")) {
@@ -117,9 +113,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             throw RawText.translate("worldEdit.selectionFill.noPattern");
         }
 
-        const pattern = args.get("_using_item")
-            ? session.globalPattern
-            : args.get("pattern");
+        const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
         const countArg: number = args.get("count");
 
@@ -137,25 +131,14 @@ registerCommand(registerInformation, function* (session, builder, args) {
         });
 
         try {
-            const count = yield* Jobs.run(
-                session,
-                2,
-                session.loft.generate(
-                    Vector.ZERO,
-                    pattern,
-                    undefined,
-                    session
-                )
-            );
+            const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
 
-            return RawText.translate(
-                "commands.wedit:blocks.created"
-            ).with(`${count}`);
+            return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
         } finally {
             session.loft.resetGenerationOptions();
         }
     }
-    
+
     if (args.has("point") || args.has("p")) {
         if (!session.loft) {
             session.loft = new LoftShape([[coordinates!]]);
