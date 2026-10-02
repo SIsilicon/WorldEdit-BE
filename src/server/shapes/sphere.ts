@@ -38,9 +38,12 @@ export class SphereShape extends Shape {
     }
 
     public getOutline() {
-        // TODO: Support oblique spheres
-        const maxRadius = Math.max(...this.radii) + 0.5;
-        return [...this.drawCircle(Vector.ZERO, maxRadius, "x"), ...this.drawCircle(Vector.ZERO, maxRadius, "y"), ...this.drawCircle(Vector.ZERO, maxRadius, "z")];
+        // TODO: Support rotated/oblique ellipsoids
+        const radiusX = this.radii[0] + 0.5;
+        const radiusY = this.radii[1] + 0.5;
+        const radiusZ = this.radii[2] + 0.5;
+
+        return [...this.drawEllipse(Vector.ZERO, radiusY, radiusZ, "x"), ...this.drawEllipse(Vector.ZERO, radiusX, radiusZ, "y"), ...this.drawEllipse(Vector.ZERO, radiusX, radiusY, "z")];
     }
 
     protected prepGeneration(genVars: shapeGenVars, options?: shapeGenOptions) {
