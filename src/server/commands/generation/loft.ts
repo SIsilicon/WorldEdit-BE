@@ -1,45 +1,131 @@
 import { Jobs } from "@modules/jobs.js";
-import { registerCommand } from "../register_commands.js";
 import { CommandInfo, CommandPosition, RawText, Vector } from "@notbeer-api";
-import { LoftShape } from "server/shapes/loft.js";
-import { printLocation } from "server/util.js";
+import { LoftShape } from "../../shapes/loft.js";
+import { printLocation } from "../../util.js";
+import { registerCommand } from "../register_commands.js";
+
+const coordinateArgs = [
+    {
+        name: "coordinates",
+        type: "xyz",
+        default: new CommandPosition(),
+    },
+];
+
+const setArgs = [{ name: "pattern", type: "Pattern" }];
 
 const registerInformation: CommandInfo = {
     name: "loft",
     permission: "worldedit.generation.shape",
     description: "commands.wedit:loft.description",
     usage: [
-        { subName: "start_curve", args: [{ name: "coordinates", type: "xyz", default: new CommandPosition() }] },
-        { subName: "add_point", args: [{ name: "coordinates", type: "xyz", default: new CommandPosition() }] },
-        { subName: "set", args: [{ name: "pattern", type: "Pattern" }] },
-        { subName: "remove" },
-        { subName: "clear" },
+        {
+            subName: "frame",
+            description: "commands.wedit:loft.description.frame",
+            args: coordinateArgs,
+        },
+        {
+            subName: "f",
+            args: coordinateArgs,
+        },
+        {
+            subName: "point",
+            description: "commands.wedit:loft.description.point",
+            args: coordinateArgs,
+        },
+        {
+            subName: "p",
+            args: coordinateArgs,
+        },
+        {
+            subName: "set",
+            description: "commands.wedit:loft.description.set",
+            args: setArgs,
+        },
+        {
+            subName: "s",
+            args: setArgs,
+        },
+        {
+            subName: "remove",
+            description: "commands.wedit:loft.description.remove",
+        },
+        {
+            subName: "r",
+        },
+        {
+            subName: "clear",
+            description: "commands.wedit:loft.description.clear",
+        },
+        {
+            subName: "c",
+        },
     ],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const coordinates = args.has("coordinates") ? Vector.from((args.get("coordinates") as CommandPosition).relativeTo(builder)).floor() : undefined;
-    if (args.has("start_curve")) {
-        if (!session.loft) session.loft = new LoftShape([[coordinates!]]);
-        else session.loft.newCurve(coordinates);
-        return RawText.translate("commands.wedit:loft.started").with(printLocation(coordinates));
-    } else if (args.has("add_point")) {
-        if (!session.loft) session.loft = new LoftShape([[coordinates!]]);
-        else session.loft.addPoint(coordinates);
-        return RawText.translate("commands.wedit:loft.added").with(printLocation(coordinates));
-    } else if (args.has("clear")) {
+    const coordinates = args.has("coordinates")
+        ? Vector.from((args.get("coordinates") as CommandPosition).relativeTo(builder)).floor()
+        : undefined;
+
+    if (args.has("frame") || args.has("f")) {
+        if (!session.loft) {
+            session.loft = new LoftShape([[coordinates!]]);
+        } else {
+            session.loft.newCurve(coordinates!);
+        }
+
+        return RawText.translate("commands.wedit:loft.frame").with(printLocation(coordinates));
+    }
+
+    if (args.has("point") || args.has("p")) {
+        if (!session.loft) {
+            session.loft = new LoftShape([[coordinates!]]);
+        } else {
+            session.loft.addPoint(coordinates!);
+        }
+
+        return RawText.translate("commands.wedit:loft.point").with(printLocation(coordinates));
+    }
+
+    if (args.has("remove") || args.has("r")) {
+        if (!session.loft) {
+            throw "commands.wedit:loft.notStarted";
+        }
+
+        if (!session.loft.removeLastPoint()) {
+            session.loft = undefined;
+        }
+
+        return session.loft
+            ? "commands.wedit:loft.removed"
+            : "commands.wedit:loft.removed.last";
+    }
+
+    if (args.has("clear") || args.has("c")) {
         session.loft = undefined;
         return "commands.wedit:loft.cleared";
-    } else if (args.has("remove")) {
-        if (!session.loft.removeLastPoint()) session.loft = undefined;
-        return session.loft ? "commands.wedit:loft.removed" : "commands.wedit:loft.removed.last";
-    } else if (args.has("set")) {
-        if (!session.loft) throw "commands.wedit:loft.notStarted";
+    }
+
+    if (args.has("set") || args.has("s")) {
+        if (!session.loft) {
+            throw "commands.wedit:loft.notStarted";
+        }
+
         if (args.get("_using_item") && session.globalPattern.empty()) {
             throw RawText.translate("worldEdit.selectionFill.noPattern");
         }
-        const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
-        const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
+
+        const pattern = args.get("_using_item")
+            ? session.globalPattern
+            : args.get("pattern");
+
+        const count = yield* Jobs.run(
+            session,
+            2,
+            session.loft.generate(Vector.ZERO, pattern, undefined, session)
+        );
+
         return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
     }
 
