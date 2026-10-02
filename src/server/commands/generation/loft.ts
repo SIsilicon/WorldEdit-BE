@@ -3,6 +3,7 @@ import { CommandInfo, CommandPosition, RawText, Vector } from "@notbeer-api";
 import { LoftShape } from "../../shapes/loft.js";
 import { printLocation } from "../../util.js";
 import { registerCommand } from "../register_commands.js";
+import { getWorldHeightLimits } from "../../util.js";
 
 const coordinateArgs = [
     {
@@ -12,7 +13,19 @@ const coordinateArgs = [
     },
 ];
 
-const setArgs = [{ name: "pattern", type: "Pattern" }];
+const setArgs = [
+    { flag: "p" },
+    { flag: "o" },
+    { flag: "c" },
+    { flag: "d" },
+    { name: "pattern", type: "Pattern" },
+    {
+        name: "count",
+        type: "int",
+        default: 0,
+        range: [0, null],
+    },
+];
 
 const registerInformation: CommandInfo = {
     name: "loft",
@@ -49,6 +62,7 @@ const registerInformation: CommandInfo = {
         {
             subName: "remove",
             description: "commands.wedit:loft.description.remove",
+            args: [{ flag: "c" }],
         },
         {
             subName: "r",
@@ -76,31 +90,22 @@ registerCommand(registerInformation, function* (session, builder, args) {
         return RawText.translate("commands.wedit:loft.frame").with(printLocation(coordinates));
     }
 
-    if (args.has("point") || args.has("p")) {
-        if (!session.loft) {
-            session.loft = new LoftShape([[coordinates!]]);
-        } else {
-            session.loft.addPoint(coordinates!);
-        }
-
-        return RawText.translate("commands.wedit:loft.point").with(printLocation(coordinates));
-    }
-
     if (args.has("remove") || args.has("r")) {
         if (!session.loft) {
             throw "commands.wedit:loft.notStarted";
         }
 
-        if (!session.loft.removeLastPoint()) {
+        const hasPoints = args.has("c")
+            ? session.loft.removeClosestPoint(builder.location)
+            : session.loft.removeLastPoint();
+
+        if (!hasPoints) {
             session.loft = undefined;
         }
 
-        return session.loft ? "commands.wedit:loft.removed" : "commands.wedit:loft.removed.last";
-    }
-
-    if (args.has("clear") || args.has("c")) {
-        session.loft = undefined;
-        return "commands.wedit:loft.cleared";
+        return session.loft
+            ? "commands.wedit:loft.removed"
+            : "commands.wedit:loft.removed.last";
     }
 
     if (args.has("set") || args.has("s")) {
@@ -112,11 +117,58 @@ registerCommand(registerInformation, function* (session, builder, args) {
             throw RawText.translate("worldEdit.selectionFill.noPattern");
         }
 
-        const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
+        const pattern = args.get("_using_item")
+            ? session.globalPattern
+            : args.get("pattern");
 
-        const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
+        const countArg: number = args.get("count");
 
-        return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
+        const [minY] = getWorldHeightLimits(builder.dimension);
+
+        session.loft.setGenerationOptions({
+            lowPoly: args.has("p"),
+            outlineOnly: args.has("o"),
+            close: args.has("c"),
+            drop: args.has("d"),
+
+            count: countArg > 0 ? countArg : undefined,
+
+            dropMinY: minY,
+        });
+
+        try {
+            const count = yield* Jobs.run(
+                session,
+                2,
+                session.loft.generate(
+                    Vector.ZERO,
+                    pattern,
+                    undefined,
+                    session
+                )
+            );
+
+            return RawText.translate(
+                "commands.wedit:blocks.created"
+            ).with(`${count}`);
+        } finally {
+            session.loft.resetGenerationOptions();
+        }
+    }
+    
+    if (args.has("point") || args.has("p")) {
+        if (!session.loft) {
+            session.loft = new LoftShape([[coordinates!]]);
+        } else {
+            session.loft.addPoint(coordinates!);
+        }
+
+        return RawText.translate("commands.wedit:loft.point").with(printLocation(coordinates));
+    }
+
+    if (args.has("clear") || args.has("c")) {
+        session.loft = undefined;
+        return "commands.wedit:loft.cleared";
     }
 
     return "";
