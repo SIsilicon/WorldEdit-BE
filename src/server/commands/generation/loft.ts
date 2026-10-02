@@ -64,9 +64,7 @@ const registerInformation: CommandInfo = {
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
-    const coordinates = args.has("coordinates")
-        ? Vector.from((args.get("coordinates") as CommandPosition).relativeTo(builder)).floor()
-        : undefined;
+    const coordinates = args.has("coordinates") ? Vector.from((args.get("coordinates") as CommandPosition).relativeTo(builder)).floor() : undefined;
 
     if (args.has("frame") || args.has("f")) {
         if (!session.loft) {
@@ -97,9 +95,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
             session.loft = undefined;
         }
 
-        return session.loft
-            ? "commands.wedit:loft.removed"
-            : "commands.wedit:loft.removed.last";
+        return session.loft ? "commands.wedit:loft.removed" : "commands.wedit:loft.removed.last";
     }
 
     if (args.has("clear") || args.has("c")) {
@@ -116,15 +112,9 @@ registerCommand(registerInformation, function* (session, builder, args) {
             throw RawText.translate("worldEdit.selectionFill.noPattern");
         }
 
-        const pattern = args.get("_using_item")
-            ? session.globalPattern
-            : args.get("pattern");
+        const pattern = args.get("_using_item") ? session.globalPattern : args.get("pattern");
 
-        const count = yield* Jobs.run(
-            session,
-            2,
-            session.loft.generate(Vector.ZERO, pattern, undefined, session)
-        );
+        const count = yield* Jobs.run(session, 2, session.loft.generate(Vector.ZERO, pattern, undefined, session));
 
         return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
     }
