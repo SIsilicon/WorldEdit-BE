@@ -5,6 +5,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "replacenear",
+    aliases: ["rn"],
     permission: "worldedit.utility.replacenear",
     description: "commands.wedit:replacenear.description",
     usage: [

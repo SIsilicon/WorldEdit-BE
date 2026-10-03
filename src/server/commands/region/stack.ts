@@ -9,6 +9,7 @@ import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation: CommandInfo = {
     name: "stack",
+    aliases: ["st"],
     permission: "worldedit.region.stack",
     description: "commands.wedit:stack.description",
     usage: [

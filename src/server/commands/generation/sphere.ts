@@ -7,6 +7,7 @@ import { Cardinal } from "@modules/directions.js";
 
 const registerInformation: CommandInfo = {
     name: "sphere",
+    aliases: ["sph"],
     permission: "worldedit.generation.sphere",
     description: "commands.wedit:sphere.description",
     usage: [

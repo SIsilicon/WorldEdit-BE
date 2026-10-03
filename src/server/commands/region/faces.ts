@@ -6,6 +6,7 @@ import { Mask } from "@modules/mask.js";
 
 const registerInformation: CommandInfo = {
     name: "faces",
+    aliases: ["face", "f"],
     permission: "worldedit.region.faces",
     description: "commands.wedit:faces.description",
     usage: [

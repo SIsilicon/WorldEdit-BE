@@ -7,6 +7,7 @@ import { registerCommand } from "../register_commands.js";
 // TODO: Support multiple directions at once (contract too)
 const registerInformation: CommandInfo = {
     name: "expand",
+    aliases: ["extend", "expend", "exp"],
     description: "commands.wedit:expand.description",
     permission: "worldedit.selection.expand",
     usage: [

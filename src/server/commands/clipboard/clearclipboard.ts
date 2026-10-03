@@ -3,6 +3,7 @@ import { CommandInfo } from "@notbeer-api";
 
 const registerInformation: CommandInfo = {
     name: "clearclipboard",
+    aliases: ["cc"],
     permission: "worldedit.clipboard.clear",
     description: "commands.wedit:clearclipboard.description",
 };
