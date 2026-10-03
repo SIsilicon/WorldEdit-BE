@@ -841,6 +841,17 @@ msgid "commands.wedit:redo.none"
 msgstr "Nothing left to redo."
 msgid "commands.wedit:replace.description"
 msgstr "Replace certain blocks in the selection with other blocks"
+
+msgid "commands.wedit:colorreplace.description"
+msgstr "Replace one block color with another"
+
+msgid "commands.wedit:colorreplace.invalidColor"
+msgstr "'%s' is not a valid dye color."
+
+msgid "commands.wedit:colorreplace.replacing"
+msgstr "Replacing block colors..."
+
+
 msgid "commands.wedit:removeabove.description"
 msgstr "Remove blocks above you"
 msgid "commands.wedit:removebelow.description"

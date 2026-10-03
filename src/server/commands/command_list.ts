@@ -61,6 +61,7 @@ import "./generation/terrain.js";
 import "./region/gmask.js";
 import "./region/set.js";
 import "./region/replace.js";
+import "./region/colorreplace.js";
 import "./region/move.js";
 import "./region/overlay.js";
 import "./region/stack.js";
