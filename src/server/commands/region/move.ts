@@ -9,6 +9,7 @@ import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation: CommandInfo = {
     name: "move",
+    aliases: ["m"],
     permission: "worldedit.region.move",
     description: "commands.wedit:move.description",
     usage: [

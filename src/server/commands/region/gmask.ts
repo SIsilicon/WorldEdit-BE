@@ -4,6 +4,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "gmask",
+    aliases: ["gm"],
     permission: "worldedit.global-mask",
     description: "commands.wedit:gmask.description",
     usage: [{ name: "mask", type: "Mask", default: new Mask() }],

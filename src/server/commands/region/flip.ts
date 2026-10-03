@@ -7,6 +7,7 @@ import { Jobs } from "@modules/jobs.js";
 
 const registerInformation: CommandInfo = {
     name: "flip",
+    aliases: ["f"],
     permission: "worldedit.region.flip",
     description: "commands.wedit:flip.description",
     usage: [{ flag: "o" }, { flag: "w" }, { flag: "s" }, { name: "direction", type: "Direction", default: new Cardinal(CardinalDirection.Left) }],

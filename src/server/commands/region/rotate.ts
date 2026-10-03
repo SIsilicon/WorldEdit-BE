@@ -6,6 +6,7 @@ import { Jobs } from "@modules/jobs.js";
 
 const registerInformation: CommandInfo = {
     name: "rotate",
+    aliases: ["rot"],
     permission: "worldedit.region.rotate",
     description: "commands.wedit:rotate.description",
     usage: [{ flag: "o" }, { flag: "w" }, { flag: "s" }, { name: "rotate", type: "int" }, { name: "rotateX", type: "int", default: 0 }, { name: "rotateZ", type: "int", default: 0 }],
