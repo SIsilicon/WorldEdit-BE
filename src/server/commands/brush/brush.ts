@@ -191,6 +191,10 @@ const registerInformation: CommandInfo = {
                                 },
                             ],
                         },
+                        {
+                            subName: "_",
+                            args: [],
+                        },
                     ],
                 },
             ],
