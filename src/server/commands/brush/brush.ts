@@ -15,6 +15,8 @@ import { BlobBrush } from "server/brushes/blob_brush.js";
 import { commandSubDef } from "library/@types/classes/CommandBuilder.js";
 import { RaiseBrush } from "server/brushes/raise_brush.js";
 import { Easing } from "@modules/easing.js";
+import { TerrainBrush } from "server/brushes/terrain_brush.js";
+import { getTerrainHeightmapNames, hasTerrainHeightmap } from "server/brushes/terrain_heightmaps.js";
 
 const registerInformation: CommandInfo = {
     name: "brush",
@@ -130,6 +132,69 @@ const registerInformation: CommandInfo = {
                 { name: "smoothness", type: "int", default: 0, range: [0, 6] },
             ],
         },
+        {
+            subName: "terrain",
+            permission: "worldedit.brush.terrain",
+            description: "commands.wedit:brush.description.terrain",
+            args: [
+                {
+                    subName: "list",
+                    args: [],
+                },
+                {
+                    subName: "_",
+                    args: [
+                        {
+                            name: "radius",
+                            type: "int",
+                            range: [1, null],
+                        },
+                        {
+                            name: "intensity",
+                            type: "int",
+                            range: [1, 10],
+                            default: 1,
+                        },
+                        {
+                            subName: "pull",
+                            args: [
+                                {
+                                    name: "heightmap",
+                                    type: "string",
+                                    default: "mountain1",
+                                },
+                                {
+                                    subName: "flat",
+                                    args: [],
+                                },
+                                {
+                                    subName: "_",
+                                    args: [],
+                                },
+                            ],
+                        },
+                        {
+                            subName: "push",
+                            args: [
+                                {
+                                    name: "heightmap",
+                                    type: "string",
+                                    default: "mountain1",
+                                },
+                                {
+                                    subName: "flat",
+                                    args: [],
+                                },
+                                {
+                                    subName: "_",
+                                    args: [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
     ],
 };
 
@@ -206,6 +271,47 @@ const blobSubCommand = (session: PlayerSession, builder: Player, args: Map<strin
     return RawText.translate("commands.wedit:brush.bind.blob").with(args.get("radius"));
 };
 
+const terrainSubCommand = (session: PlayerSession, builder: Player, args: Map<string, any>) => {
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[9]).permission);
+
+    let heightmap = args.get("heightmap") ?? "mountain1";
+
+    let flat = args.has("flat");
+
+    // Allows:
+    // ;br terrain 50 10 pull flat
+    //
+    // "flat" would otherwise be parsed as
+    // the optional heightmap string.
+    if (heightmap === "flat") {
+        heightmap = "mountain1";
+        flat = true;
+    }
+
+    if (!hasTerrainHeightmap(heightmap)) {
+        throw RawText.translate("commands.wedit:brush.terrain.invalidHeightmap").with(heightmap);
+    }
+
+    const mode = args.has("push") ? "push" : "pull";
+
+    session.bindTool("brush", null, new TerrainBrush(args.get("radius"), args.get("intensity"), mode, heightmap, flat));
+
+    session.setToolProperty(null, "traceMask", new Mask("!water,air,lava"));
+
+    return RawText.translate("commands.wedit:brush.bind.terrain")
+        .with(args.get("radius"))
+        .with(args.get("intensity"))
+        .with(mode)
+        .with(heightmap)
+        .with(flat ? "flat" : "normal");
+};
+
+const terrainListSubCommand = (builder: Player) => {
+    assertPermission(builder, (<commandSubDef>registerInformation.usage[9]).permission);
+
+    return RawText.translate("commands.wedit:brush.terrain.list").with(getTerrainHeightmapNames().join(", "));
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has("erode")) {
@@ -224,6 +330,12 @@ registerCommand(registerInformation, function (session, builder, args) {
         msg = overlaySubCommand(session, builder, args);
     } else if (args.has("blob")) {
         msg = blobSubCommand(session, builder, args);
+    } else if (args.has("terrain")) {
+        if (args.has("list")) {
+            return terrainListSubCommand(builder);
+        }
+
+        msg = terrainSubCommand(session, builder, args);
     } else {
         session.unbindTool(null);
         return "commands.wedit:brush.unbind";
