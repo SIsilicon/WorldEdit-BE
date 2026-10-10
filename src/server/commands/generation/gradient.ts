@@ -5,11 +5,13 @@ import { Pattern } from "@modules/pattern.js";
 
 const registerInformation: CommandInfo = {
     name: "gradient",
+    aliases: ["grad"],
     permission: "worldedit.generation.gradient",
     description: "commands.wedit:gradient.description",
     usage: [
         {
             subName: "create",
+            aliases: ["c"],
             args: [
                 { flag: "s" },
                 { flag: "f", name: "fade", type: "float", range: [0, 1] as [number, number] },
@@ -19,9 +21,10 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "delete",
+            aliases: ["d", "remove", "del"],
             args: [{ name: "id", type: "string" }],
         },
-        { subName: "list" },
+        { subName: "list", aliases: ["help"] },
     ],
 };
 

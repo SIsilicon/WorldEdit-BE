@@ -5,6 +5,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "trim",
+    aliases: ["tr"],
     description: "commands.wedit:trim.description",
     permission: "worldedit.selection.trim",
     usage: [{ name: "mask", type: "Mask", default: new Mask("#existing") }],

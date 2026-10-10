@@ -8,6 +8,7 @@ import { Cardinal } from "@modules/directions.js";
 
 const registerInformation: CommandInfo = {
     name: "revolve",
+    aliases: ["rev"],
     permission: "worldedit.region.revolve",
     description: "commands.wedit:revolve.description",
     usage: [

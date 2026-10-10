@@ -308,9 +308,11 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
                             unnamedSubs.push(argDef);
                         } else {
                             hasNamedSubCmd = true;
-                            if (argDef.subName == arg) {
+                            if (argDef.subName == arg || argDef.aliases?.includes(arg)) {
                                 idx = processList(idx + 1, argDef.args, result, flagDefs);
+
                                 result.set(argDef.subName, true);
+
                                 processed = true;
                                 unnamedSubs = [];
                             }

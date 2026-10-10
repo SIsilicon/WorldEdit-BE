@@ -3,6 +3,7 @@ import { getCommandFunc, registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "hsphere",
+    aliases: ["hsph"],
     permission: "worldedit.generation.sphere",
     description: "commands.wedit:hsphere.description",
     usage: [

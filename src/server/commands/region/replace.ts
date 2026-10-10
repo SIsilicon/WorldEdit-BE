@@ -5,6 +5,7 @@ import { CommandInfo, RawText } from "@notbeer-api";
 
 const registerInformation: CommandInfo = {
     name: "replace",
+    aliases: ["r", "repalce"], // common typo that i do half the time so im adding it as an alias
     permission: "worldedit.region.replace",
     description: "commands.wedit:replace.description",
     usage: [

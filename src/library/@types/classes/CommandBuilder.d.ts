@@ -24,6 +24,7 @@ export interface commandFlag {
 }
 export interface commandSubDef {
     subName: string;
+    aliases?: Array<string>;
     permission?: string;
     description?: string;
     args?: commandArgList;

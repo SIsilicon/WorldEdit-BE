@@ -5,13 +5,13 @@ import { CommandInfo } from "@notbeer-api";
 
 const registerInformation: CommandInfo = {
     name: "help",
+    aliases: ["?"],
     permission: "worldedit.help",
     description: "commands.help.description",
     usage: [
         { subName: "_page", args: [{ name: "page", type: "int", default: 1 }] },
         { subName: "_command", args: [{ name: "command", type: "CommandName" }] },
     ],
-    aliases: ["?"],
 };
 
 registerCommand(registerInformation, function (session, builder, args) {
@@ -19,16 +19,13 @@ registerCommand(registerInformation, function (session, builder, args) {
 
     // Show a page of the list of available WorldEdit commands
     if (args.has("_page")) {
-        const cmdInfo: [string, string][] = [];
+        const cmdInfo: [string, string, string[]][] = [];
+
         for (const cmd of cmdList) {
             const usages = Server.command.printCommandArguments(cmd.name, builder);
+
             for (const usage of usages) {
-                cmdInfo.push([cmd.name, usage]);
-                if (cmd.aliases) {
-                    for (const alias of cmd.aliases) {
-                        cmdInfo.push([alias, usage]);
-                    }
-                }
+                cmdInfo.push([cmd.name, usage, cmd.aliases ?? []]);
             }
         }
 
@@ -46,9 +43,11 @@ registerCommand(registerInformation, function (session, builder, args) {
             return 1;
         });
 
-        const PAGE_SIZE = 7;
+        const PAGE_SIZE = 15;
         const totalPages = Math.ceil(cmdInfo.length / PAGE_SIZE);
+
         const page: number = Math.max(args.get("page"), 1);
+
         const pageOff = (Math.min(page, totalPages) - 1) * PAGE_SIZE;
 
         const msg = RawText.text("§2")
@@ -56,10 +55,19 @@ registerCommand(registerInformation, function (session, builder, args) {
             .with(`${pageOff / PAGE_SIZE + 1}`)
             .with(`${totalPages}`)
             .append("text", "§r");
+
         for (let i = pageOff; i < Math.min(pageOff + PAGE_SIZE, cmdInfo.length); i++) {
-            const cmd = cmdInfo[i];
-            msg.append("text", `\n${Server.command.prefix}${cmd[0]} ${cmd[1]}`);
+            const [name, usage, aliases] = cmdInfo[i];
+
+            msg.append("text", `\n${Server.command.prefix}${name} ${usage}`);
+
+            if (aliases.length) {
+                const aliasText = aliases.map((alias) => `${Server.command.prefix}${alias}`).join(" ");
+
+                msg.append("text", ` §8{aliases -> ${aliasText}}§r`);
+            }
         }
+
         return msg;
     }
 

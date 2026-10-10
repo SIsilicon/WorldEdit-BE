@@ -8,6 +8,7 @@ import { BlockPermutation, BlockVolume } from "@minecraft/server";
 
 const registerInformation: CommandInfo = {
     name: "terrain",
+    aliases: ["ter", "t"],
     permission: "worldedit.generation.terrain",
     description: "commands.wedit:terrain.description",
     usage: [

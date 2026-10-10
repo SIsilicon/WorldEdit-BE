@@ -7,6 +7,7 @@ import { smooth } from "./heightmap_func.js";
 
 const registerInformation: CommandInfo = {
     name: "smooth",
+    aliases: ["sm"],
     permission: "worldedit.region.smooth",
     description: "commands.wedit:smooth.description",
     usage: [

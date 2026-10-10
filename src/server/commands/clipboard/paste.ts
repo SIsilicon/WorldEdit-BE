@@ -6,6 +6,7 @@ import { RegionLoadOptions } from "@modules/region_buffer.js";
 
 const registerInformation: CommandInfo = {
     name: "paste",
+    aliases: ["p"],
     permission: "worldedit.clipboard.paste",
     description: "commands.wedit:paste.description",
     usage: [{ flag: "o" }, { flag: "s" }, { flag: "n" }, { flag: "m", name: "mask", type: "Mask" }],

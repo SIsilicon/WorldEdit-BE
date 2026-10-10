@@ -24,18 +24,21 @@ const registerInformation: CommandInfo = {
         { subName: "none" },
         {
             subName: "sphere",
+            aliases: ["s"],
             permission: "worldedit.brush.sphere",
             description: "commands.wedit:brush.description.sphere",
             args: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "radius", type: "float", default: 3 }],
         },
         {
             subName: "cyl",
+            aliases: ["cylinder", "c"],
             permission: "worldedit.brush.cylinder",
             description: "commands.wedit:brush.description.cyl",
             args: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "radius", type: "float", default: 3 }, { name: "height", type: "int", default: 3 }],
         },
         {
             subName: "smooth",
+            aliases: ["sm"],
             permission: "worldedit.brush.smooth",
             description: "commands.wedit:brush.description.smooth",
             args: [
@@ -46,6 +49,7 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "raise",
+            aliases: ["r"],
             permission: "worldedit.brush.raise",
             description: "commands.wedit:brush.description.raise",
             args: [
@@ -67,6 +71,7 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "struct",
+            aliases: ["st"],
             permission: "worldedit.brush.struct",
             description: "commands.wedit:brush.description.struct",
             args: [
@@ -83,6 +88,7 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "erode",
+            aliases: ["erosion", "e"],
             permission: "worldedit.brush.erosion",
             description: "commands.wedit:brush.description.erosion",
             args: [
@@ -110,6 +116,7 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "overlay",
+            aliases: ["o"],
             permission: "worldedit.brush.overlay",
             description: "commands.wedit:brush.description.overlay",
             args: [
@@ -121,6 +128,7 @@ const registerInformation: CommandInfo = {
         },
         {
             subName: "blob",
+            aliases: ["b"],
             permission: "worldedit.brush.blob",
             description: "commands.wedit:brush.description.blob",
             args: [
