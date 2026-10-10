@@ -1143,3 +1143,18 @@ msgid "worldedit.job.finished"
 msgstr "Finished!"
 msgid "worldedit.job.loadingChunks"
 msgstr "Loading Chunks..."
+
+msgid "worldedit.selection.poly.primary"
+msgstr "Starting a new polygon selection at %s."
+msgid "worldedit.selection.poly.secondaryArea"
+msgstr "Added polygon point at %1 (%2 blocks selected)."
+
+msgid "worldedit.selectionMode.convex"
+msgstr "Convex"
+msgid "worldedit.selectionMode.poly"
+msgstr "Polygon"
+
+msgid "commands.wedit:sel.poly"
+msgstr "Polygon selector: break block to start a polygon, use on blocks to add points"
+msgid "commands.wedit:sel.description.poly"
+msgstr "Select a polygonal area with multiple points"
