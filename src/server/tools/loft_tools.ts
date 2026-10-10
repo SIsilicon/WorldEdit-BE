@@ -1,80 +1,29 @@
 import { Player } from "@minecraft/server";
-import { Tool } from "./base_tool";
-import { Tools } from "./tool_manager";
 import { Server, Vector } from "@notbeer-api";
-import { PlayerSession } from "server/sessions";
+import { PlayerSession } from "../sessions.js";
+import { Tool } from "./base_tool.js";
+import { Tools } from "./tool_manager.js";
 
-class AddLoftPointTool extends Tool {
+class LoftWandTool extends Tool {
     permission = "worldedit.generation.shape";
 
-    use(player: Player) {
+    break(player: Player, session: PlayerSession, location: Vector) {
         Server.command.callCommand(player, "loft", [
-            "add_point",
-            ...Vector.from(player.location)
-                .floor()
+            "frame",
+            ...Vector.from(location)
                 .toArray()
-                .map((v) => `${v}`),
+                .map((value) => `${value}`),
         ]);
     }
 
     useOn(player: Player, session: PlayerSession, location: Vector) {
         Server.command.callCommand(player, "loft", [
-            "add_point",
+            "point",
             ...Vector.from(location)
                 .toArray()
-                .map((v) => `${v}`),
+                .map((value) => `${value}`),
         ]);
     }
 }
-Tools.register(AddLoftPointTool, "add_loft_point", "wedit:add_loft_point");
 
-class StartLoftCurveTool extends Tool {
-    permission = "worldedit.generation.shape";
-
-    use(player: Player) {
-        Server.command.callCommand(player, "loft", [
-            "start_curve",
-            ...Vector.from(player.location)
-                .floor()
-                .toArray()
-                .map((v) => `${v}`),
-        ]);
-    }
-
-    useOn(player: Player, session: PlayerSession, location: Vector) {
-        Server.command.callCommand(player, "loft", [
-            "start_curve",
-            ...Vector.from(location)
-                .toArray()
-                .map((v) => `${v}`),
-        ]);
-    }
-}
-Tools.register(StartLoftCurveTool, "start_loft_curve", "wedit:start_loft_curve");
-
-class RemoveLoftPointTool extends Tool {
-    permission = "worldedit.generation.shape";
-
-    use(player: Player) {
-        Server.command.callCommand(player, "loft", ["remove"]);
-    }
-}
-Tools.register(RemoveLoftPointTool, "remove_loft_point", "wedit:remove_loft_point");
-
-class ClearLoftPointsTool extends Tool {
-    permission = "worldedit.generation.shape";
-
-    use(player: Player) {
-        Server.command.callCommand(player, "loft", ["clear"]);
-    }
-}
-Tools.register(ClearLoftPointsTool, "clear_loft_point", "wedit:clear_loft_points");
-
-class FillLoftTool extends Tool {
-    permission = "worldedit.generation.shape";
-
-    use(player: Player) {
-        Server.command.callCommand(player, "loft", ["set", "air"]);
-    }
-}
-Tools.register(FillLoftTool, "fill_loft", "wedit:fill_loft");
+Tools.register(LoftWandTool, "loft_wand");
