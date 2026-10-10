@@ -72,11 +72,17 @@ class ServerBuild extends ServerBuilder {
             if (!msg.startsWith(this.command.prefix)) return;
             data.cancel = true;
             const command = msg.split(/\s+/)[0].slice(this.command.prefix.length);
+            const argString = msg.substring(msg.indexOf(command) + command.length).trim();
+
             try {
-                this.command.callCommand(data.sender, command, msg.substring(msg.indexOf(command) + command.length).trim());
+                this.command.callCommand(data.sender, command, argString);
             } catch (e) {
-                if (e instanceof RawText) e.printError(data.sender);
-                else RawText.text(e).printError(data.sender);
+                const error = e instanceof RawText ? e : RawText.text(e);
+                const args = argString ? argString.split(/\s+/) : [];
+
+                this.command.emit("commandError", data.sender, command, args, error);
+
+                error.printError(data.sender);
             }
         });
 

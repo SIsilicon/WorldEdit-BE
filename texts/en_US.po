@@ -1049,6 +1049,16 @@ msgid "commands.wedit:worldedit.perf.enabled"
 msgstr "Performance mode enabled."
 msgid "commands.wedit:worldedit.perf.disabled"
 msgstr "Performance mode disabled."
+
+msgid "commands.wedit:worldedit.description.debug"
+msgstr "Toggle command debug information in chat."
+
+msgid "commands.wedit:worldedit.debug.enabled"
+msgstr "Debug mode enabled."
+
+msgid "commands.wedit:worldedit.debug.disabled"
+msgstr "Debug mode disabled."
+
 msgid "commands.wedit:worldedit.description.app"
 msgstr "Get the link to the external app."
 msgid "commands.wedit:worldedit.description.version"
