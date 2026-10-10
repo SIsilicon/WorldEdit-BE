@@ -57,6 +57,7 @@ import "./generation/htorus.js";
 import "./generation/gen.js";
 import "./generation/gradient.js";
 import "./generation/terrain.js";
+import "./generation/cone.js";
 
 import "./region/gmask.js";
 import "./region/set.js";
