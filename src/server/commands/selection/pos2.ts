@@ -23,6 +23,9 @@ export function setPos2(session: PlayerSession, loc: Vector3) {
         let sub = [printLocation(selection.points[1])];
         if (selection.mode == "sphere") {
             sub = [`${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`];
+        } else if (selection.mode == "ellipsoid") {
+            const vec = Vector.sub(selection.points[1], selection.points[0]);
+            sub = [`${Math.abs(vec.x)}`, `${Math.abs(vec.y)}`, `${Math.abs(vec.z)}`];
         } else if (selection.mode == "cylinder") {
             const vec = Vector.sub(selection.points[1], selection.points[0]);
             sub = [`${Math.round(vec.mul([1, 0, 1]).length)}`, `${Math.abs(vec.y) + 1}`];
