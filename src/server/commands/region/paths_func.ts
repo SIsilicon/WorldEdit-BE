@@ -83,6 +83,87 @@ export function* plotLine(pos1: Vector3, pos2: Vector3) {
     return result;
 }
 
+export function* plotRope(pos1: Vector3, pos2: Vector3, extraLength = 5) {
+    const start = Vector.from(pos1);
+    const end = Vector.from(pos2);
+
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const dz = end.z - start.z;
+
+    const horizontalLength = Math.hypot(dx, dz);
+    const directLength = Math.hypot(horizontalLength, dy);
+
+    if (directLength === 0 || extraLength <= 0 || horizontalLength < 0.001) {
+        return yield* plotLine(start, end);
+    }
+
+    const ropeLength = directLength * (1 + extraLength / 100);
+
+    // A hanging rope forms a catenary.
+    // This is the horizontal component of the rope's arc length.
+    const horizontalArc = Math.sqrt(ropeLength * ropeLength - dy * dy);
+
+    const ratio = horizontalArc / horizontalLength;
+
+    // Solve sinh(u) / u = ratio.
+    let minU = 0.000001;
+    let maxU = 1;
+
+    while (Math.sinh(maxU) / maxU < ratio && maxU < 32) {
+        maxU *= 2;
+    }
+
+    for (let i = 0; i < 60; i++) {
+        const mid = (minU + maxU) / 2;
+
+        if (Math.sinh(mid) / mid < ratio) {
+            minU = mid;
+        } else {
+            maxU = mid;
+        }
+    }
+
+    const u = (minU + maxU) / 2;
+    const a = horizontalLength / (2 * u);
+
+    const center = horizontalLength / 2 - a * Math.asinh(dy / horizontalArc);
+
+    const yOffset = start.y - a * Math.cosh(-center / a);
+
+    const xDir = dx / horizontalLength;
+    const zDir = dz / horizontalLength;
+
+    const steps = Math.max(2, Math.ceil(horizontalLength * 2));
+
+    const blocks = new VectorSet<Vector>();
+
+    let previous: Vector;
+
+    for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const distance = horizontalLength * t;
+
+        const point = new Vector(start.x + xDir * distance, a * Math.cosh((distance - center) / a) + yOffset, start.z + zDir * distance).add(0.5).floor();
+
+        if (!previous) {
+            blocks.add(point);
+            yield point;
+        } else {
+            for (const block of plotLine(previous, point)) {
+                if (blocks.has(block)) continue;
+
+                blocks.add(block);
+                yield block;
+            }
+        }
+
+        previous = point;
+    }
+
+    return blocks;
+}
+
 export function* plotCurve(points: Vector3[], options?: { precision?: number; plotLines?: boolean }) {
     return yield* new Spline(points.map((p) => TensionVector.from(p))).plotCurve(options?.plotLines ?? true, options?.precision ?? 4);
 }
