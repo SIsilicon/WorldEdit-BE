@@ -63,7 +63,49 @@ export class CuboidShape extends Shape {
     }
 
     protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
-        return genVars.isWall || genVars.isHollow || genVars.isEdges ? Shape.ChunkStatus.DETAIL : Shape.ChunkStatus.FULL;
+        if (!genVars.isWall && !genVars.isHollow && !genVars.isEdges) {
+            return Shape.ChunkStatus.FULL;
+        }
+
+        const end = genVars.end;
+        const hollowOffset = genVars.hollowOffset;
+
+        if (genVars.isEdges) {
+            const touchesX = (relLocMin.x <= 0 && relLocMax.x >= 0) || (relLocMin.x <= end[0] && relLocMax.x >= end[0]);
+
+            const touchesY = (relLocMin.y <= 0 && relLocMax.y >= 0) || (relLocMin.y <= end[1] && relLocMax.y >= end[1]);
+
+            const touchesZ = (relLocMin.z <= 0 && relLocMax.z >= 0) || (relLocMin.z <= end[2] && relLocMax.z >= end[2]);
+
+            const touchedAxes = Number(touchesX) + Number(touchesY) + Number(touchesZ);
+
+            return touchedAxes >= 2 ? Shape.ChunkStatus.DETAIL : Shape.ChunkStatus.EMPTY;
+        }
+
+        const overlapsInterior = (min: number, max: number, axisEnd: number) => max > hollowOffset && min < axisEnd;
+
+        const fullyInsideInterior = (min: number, max: number, axisEnd: number) => min > hollowOffset && max < axisEnd;
+
+        const axes = genVars.isWall
+            ? [
+                  [relLocMin.x, relLocMax.x, end[0]],
+                  [relLocMin.z, relLocMax.z, end[2]],
+              ]
+            : [
+                  [relLocMin.x, relLocMax.x, end[0]],
+                  [relLocMin.y, relLocMax.y, end[1]],
+                  [relLocMin.z, relLocMax.z, end[2]],
+              ];
+
+        if (axes.every(([min, max, axisEnd]) => fullyInsideInterior(min, max, axisEnd))) {
+            return Shape.ChunkStatus.EMPTY;
+        }
+
+        if (axes.some(([min, max, axisEnd]) => !overlapsInterior(min, max, axisEnd))) {
+            return Shape.ChunkStatus.FULL;
+        }
+
+        return Shape.ChunkStatus.DETAIL;
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {

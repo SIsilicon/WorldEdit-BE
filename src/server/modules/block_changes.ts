@@ -88,7 +88,11 @@ class BlockChangeImpl implements BlockChanges {
 
     applyIteration() {
         if (!this.iteration.size) return;
-        this.changes = new Map([...this.changes, ...this.iteration]);
+
+        for (const [key, permutation] of this.iteration) {
+            this.changes.set(key, permutation);
+        }
+
         this.iteration.clear();
     }
 

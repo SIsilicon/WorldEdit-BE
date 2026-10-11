@@ -61,27 +61,29 @@ export function canPlaceBlock(loc: Vector3, dim: Dimension) {
     }
 }
 
+const nbtComponents: `${BlockComponentTypes}`[] = ["minecraft:inventory", "minecraft:sign", "minecraft:piston", "minecraft:record_player", "minecraft:fluid_container"];
+
+const nbtBlocks = new Set([
+    "minecraft:bee_nest",
+    "minecraft:beehive",
+    "minecraft:command_block",
+    "minecraft:chain_command_block",
+    "minecraft:repeating_command_block",
+    "minecraft:structure_block",
+    "minecraft:flower_pot",
+    "minecraft:noteblock",
+    "minecraft:mob_spawner",
+    "minecraft:standing_banner",
+    "minecraft:wall_banner",
+    "minecraft:skull",
+    "minecraft:snow_layer",
+    "minecraft:end_gateway",
+    "minecraft:beacon",
+    "minecraft:bed",
+]);
+
 export function blockHasNBTData(block: Block) {
-    const components: `${BlockComponentTypes}`[] = ["minecraft:inventory", "minecraft:sign", "minecraft:piston", "minecraft:record_player", "minecraft:fluid_container"];
-    const nbt_blocks = [
-        "minecraft:bee_nest",
-        "minecraft:beehive",
-        "minecraft:command_block",
-        "minecraft:chain_command_block",
-        "minecraft:repeating_command_block",
-        "minecraft:structure_block",
-        "minecraft:flower_pot",
-        "minecraft:noteblock",
-        "minecraft:mob_spawner",
-        "minecraft:standing_banner",
-        "minecraft:wall_banner",
-        "minecraft:skull",
-        "minecraft:snow_layer",
-        "minecraft:end_gateway", // TEST
-        "minecraft:beacon",
-        "minecraft:bed",
-    ];
-    return components.some((component) => !!block.getComponent(component)) || nbt_blocks.includes(block.typeId);
+    return nbtComponents.some((component) => !!block.getComponent(component)) || nbtBlocks.has(block.typeId);
 }
 
 /**

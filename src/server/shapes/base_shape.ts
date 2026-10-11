@@ -191,7 +191,6 @@ export abstract class Shape {
         let blocksAffected = 0;
         const volumes: (Block[] | BlockVolumeBase)[] = [];
 
-        const simplePattern = pattern.isSimple();
         const simpleMask = mask.isSimple();
         const volume = regionVolume(min, max);
         const inShapeFunc = this.customHollow ? "inShape" : "inShapeHollow";
@@ -202,27 +201,48 @@ export abstract class Shape {
             const chunkStatus = this.getChunkStatus(Vector.sub(chunkMin, loc).floor(), Vector.sub(chunkMax, loc).floor(), this.genVars);
             if (chunkStatus === ChunkStatus.FULL && simpleMask) {
                 const volume = regionVolume(chunkMin, chunkMax);
+
                 progress += volume;
                 blocksAffected += volume;
+
                 volumes.push(new BlockVolume(chunkMin, chunkMax));
             } else if (chunkStatus === ChunkStatus.EMPTY) {
                 const volume = regionVolume(chunkMin, chunkMax);
                 progress += volume;
             } else {
-                const blocks = [];
+                const blockLocs: Vector3[] = [];
+
+                let blocksSinceYield = 0;
+
                 for (const blockLoc of regionIterateBlocks(chunkMin, chunkMax)) {
-                    yield Jobs.setProgress(progress / volume);
                     progress++;
-                    if (this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
-                        const block = yield* Jobs.loadBlock(blockLoc);
-                        if (simpleMask || mask.matchesBlock(block)) {
-                            blocks.push(block);
-                            blocksAffected++;
-                        }
+
+                    if (++blocksSinceYield >= 64) {
+                        blocksSinceYield = 0;
+                        yield Jobs.setProgress(progress / volume);
                     }
-                    yield;
+
+                    if (!this[inShapeFunc](Vector.sub(blockLoc, loc).floor(), this.genVars)) {
+                        continue;
+                    }
+
+                    if (simpleMask) {
+                        blockLocs.push(blockLoc);
+                        blocksAffected++;
+                        continue;
+                    }
+
+                    const block = yield* Jobs.loadBlock(blockLoc);
+
+                    if (mask.matchesBlock(block)) {
+                        blockLocs.push(blockLoc);
+                        blocksAffected++;
+                    }
                 }
-                if (blocks.length) volumes.push(simplePattern ? new ListBlockVolume(blocks) : blocks);
+
+                if (blockLocs.length) {
+                    volumes.push(new ListBlockVolume(blockLocs));
+                }
             }
         }
 
@@ -276,23 +296,46 @@ export abstract class Shape {
 
             let progress = 0;
             yield Jobs.nextStep("commands.wedit:blocks.generating");
+
             if (history) yield* history.trackRegion(record, min, max);
+
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
+
+            // Complex masks have already been applied in calculateShape().
+            // Use an empty mask when filling their prefiltered volumes.
+            const fillMask = maskInSimpleFill ?? new Mask();
+
             for (let volume of volumes) {
                 yield Jobs.setProgress(progress / blocksAffected);
+
                 if (Array.isArray(volume)) {
                     for (let block of volume) {
-                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
-                        if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
+                        if (!block.isValid && Jobs.inContext()) {
+                            block = yield* Jobs.loadBlock(block);
+                        }
+
+                        if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) {
+                            count++;
+                        }
+
                         progress++;
                     }
                 } else if (volume instanceof Block) {
-                    if (!volume.isValid && Jobs.inContext()) volume = yield* Jobs.loadBlock(volume);
-                    if ((!activeMask || activeMask.matchesBlock(volume)) && pattern.setBlock(volume)) count++;
+                    if (!volume.isValid && Jobs.inContext()) {
+                        volume = yield* Jobs.loadBlock(volume);
+                    }
+
+                    if ((!activeMask || activeMask.matchesBlock(volume)) && pattern.setBlock(volume)) {
+                        count++;
+                    }
+
                     progress++;
                 } else {
-                    if (Jobs.inContext()) yield* Jobs.loadArea(volume.getMin(), volume.getMax());
-                    count += pattern.fillBlocks(dimension, volume, maskInSimpleFill);
+                    if (Jobs.inContext()) {
+                        yield* Jobs.loadArea(volume.getMin(), volume.getMax());
+                    }
+
+                    count += pattern.fillBlocks(dimension, volume, fillMask);
                     progress += volume.getCapacity();
                 }
             }

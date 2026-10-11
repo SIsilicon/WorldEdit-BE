@@ -355,6 +355,24 @@ export class RegionBuffer {
 
         const matrix = RegionBuffer.getTransformationMatrix(loc, options);
         const invMatrix = matrix.invert();
+
+        const transformCache = new Map<object, Map<string | number, string>>();
+
+        const transformState = (mapping: { [key: string | number]: Vector | [number, number, number] }, state: string | number) => {
+            let cache = transformCache.get(mapping);
+
+            if (!cache) {
+                cache = new Map();
+                transformCache.set(mapping, cache);
+            }
+
+            if (!cache.has(state)) {
+                cache.set(state, this.transformMapping(mapping, state, matrix));
+            }
+
+            return cache.get(state)!;
+        };
+
         const shouldTransform = options.rotation || options.scale;
 
         let transform: (block: BlockPermutation) => BlockPermutation;
@@ -396,7 +414,7 @@ export class RegionBuffer {
                     const state = this.transformMapping(mappings.cardinalDirectionMap, cardinalDir, matrix);
                     block = block.withState("minecraft:cardinal_direction", state);
                 } else if (facingDir != null) {
-                    const state = this.transformMapping(mappings.facingDirectionMap, facingDir, matrix);
+                    const state = transformState(mappings.facingDirectionMap, facingDir);
                     block = block.withState("facing_direction", parseInt(state));
                 } else if (direction != null) {
                     const mapping = blockName.includes("powered_repeater") || blockName.includes("powered_comparator") ? mappings.redstoneMap : mappings.directionMap;
@@ -430,16 +448,16 @@ export class RegionBuffer {
             for (const blockLoc of regionIterateBlocks(...bounds)) {
                 const sample = Vector.from(blockLoc).add(0.5).transform(invMatrix).floor();
                 const block = this.getBlock(sample);
-
                 yield* iterateChunk(Jobs.setProgress(++i / totalIterationCount));
-                if (!block?.permutation) continue;
+
+                const permutation = block?.permutation;
+                if (!permutation) continue;
 
                 let oldBlock = dim.getBlock(blockLoc);
                 if (!oldBlock && Jobs.inContext()) oldBlock = yield* Jobs.loadBlock(blockLoc);
                 if (options.mask && !options.mask.matchesBlock(oldBlock)) continue;
-
                 if (block.nbtStructure) world.structureManager.place(block.nbtStructure, dim, blockLoc);
-                oldBlock.setPermutation(transform(block.permutation));
+                oldBlock.setPermutation(transform(permutation));
             }
 
             const volumeQuery = { location: loc, volume: Vector.sub(this.size, [1, 1, 1]) };
@@ -507,9 +525,20 @@ export class RegionBuffer {
 
     private getBlockMulti(loc: Vector3) {
         if (loc.x < 0 || loc.x >= this.size.x || loc.y < 0 || loc.y >= this.size.y || loc.z < 0 || loc.z >= this.size.z) return undefined;
-        const offset = { x: Math.floor(loc.x / RegionBuffer.MAX_SIZE.x), y: Math.floor(loc.y / RegionBuffer.MAX_SIZE.y), z: Math.floor(loc.z / RegionBuffer.MAX_SIZE.z) };
-        const structure = this.structures[locToString(offset)];
-        return new RegionBlockImpl(this, this.extraBlockData, loc, structure, Vector.sub(loc, Vector.mul(offset, RegionBuffer.MAX_SIZE)));
+
+        const size = RegionBuffer.MAX_SIZE;
+
+        const offsetX = Math.floor(loc.x / size.x);
+        const offsetY = Math.floor(loc.y / size.y);
+        const offsetZ = Math.floor(loc.z / size.z);
+
+        const structure = this.structures[`${offsetX}_${offsetY}_${offsetZ}`];
+
+        return new RegionBlockImpl(this, this.extraBlockData, loc, structure, {
+            x: loc.x - offsetX * size.x,
+            y: loc.y - offsetY * size.y,
+            z: loc.z - offsetZ * size.z,
+        });
     }
 
     private *loadStructs(loc: Vector3, dim: Dimension, options: { rotation?: number; flip?: VectorXZ; includeBlocks?: boolean } = {}) {

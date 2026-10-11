@@ -49,6 +49,50 @@ export class SphereShape extends Shape {
         genVars.thickness = options?.hollowThickness ?? 1;
     }
 
+    protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
+        const radii: number[] = genVars.radiiOff;
+
+        const closest = new Vector(
+            relLocMin.x > 0 ? relLocMin.x : relLocMax.x < 0 ? relLocMax.x : 0,
+            relLocMin.y > 0 ? relLocMin.y : relLocMax.y < 0 ? relLocMax.y : 0,
+            relLocMin.z > 0 ? relLocMin.z : relLocMax.z < 0 ? relLocMax.z : 0
+        );
+
+        const furthest = new Vector(
+            Math.max(Math.abs(relLocMin.x), Math.abs(relLocMax.x)),
+            Math.max(Math.abs(relLocMin.y), Math.abs(relLocMax.y)),
+            Math.max(Math.abs(relLocMin.z), Math.abs(relLocMax.z))
+        );
+
+        const distanceSq = (point: Vector, radius: number[]) => (point.x / radius[0]) ** 2 + (point.y / radius[1]) ** 2 + (point.z / radius[2]) ** 2;
+
+        if (distanceSq(closest, radii) > 1) {
+            return Shape.ChunkStatus.EMPTY;
+        }
+
+        const outerMax = distanceSq(furthest, radii);
+
+        if (!genVars.isHollow) {
+            return outerMax <= 1 ? Shape.ChunkStatus.FULL : Shape.ChunkStatus.DETAIL;
+        }
+
+        const innerRadii = radii.map((radius) => radius - genVars.thickness);
+
+        if (innerRadii.some((radius) => radius <= 0)) {
+            return Shape.ChunkStatus.DETAIL;
+        }
+
+        if (distanceSq(furthest, innerRadii) < 1) {
+            return Shape.ChunkStatus.EMPTY;
+        }
+
+        if (outerMax <= 1 && distanceSq(closest, innerRadii) >= 1) {
+            return Shape.ChunkStatus.FULL;
+        }
+
+        return Shape.ChunkStatus.DETAIL;
+    }
+
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
         if (genVars.isHollow) {
             const thickness = genVars.thickness;

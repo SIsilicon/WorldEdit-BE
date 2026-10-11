@@ -78,4 +78,41 @@ export class CylinderShape extends Shape {
 
         return false;
     }
+
+    protected getChunkStatus(relLocMin: Vector, relLocMax: Vector, genVars: shapeGenVars) {
+        const radii: number[] = genVars.radiiOff;
+        const [axisA, , axisB] = this.axes;
+
+        const closest = [relLocMin[axisA] > 0 ? relLocMin[axisA] : relLocMax[axisA] < 0 ? relLocMax[axisA] : 0, relLocMin[axisB] > 0 ? relLocMin[axisB] : relLocMax[axisB] < 0 ? relLocMax[axisB] : 0];
+
+        const furthest = [Math.max(Math.abs(relLocMin[axisA]), Math.abs(relLocMax[axisA])), Math.max(Math.abs(relLocMin[axisB]), Math.abs(relLocMax[axisB]))];
+
+        const distanceSq = (point: number[], radius: number[]) => (point[0] / radius[0]) ** 2 + (point[1] / radius[1]) ** 2;
+
+        if (distanceSq(closest, radii) > 1) {
+            return Shape.ChunkStatus.EMPTY;
+        }
+
+        const outerMax = distanceSq(furthest, radii);
+
+        if (!genVars.isHollow) {
+            return outerMax <= 1 ? Shape.ChunkStatus.FULL : Shape.ChunkStatus.DETAIL;
+        }
+
+        const innerRadii = radii.map((radius) => radius - genVars.thickness);
+
+        if (innerRadii.some((radius) => radius <= 0)) {
+            return Shape.ChunkStatus.DETAIL;
+        }
+
+        if (distanceSq(furthest, innerRadii) < 1) {
+            return Shape.ChunkStatus.EMPTY;
+        }
+
+        if (outerMax <= 1 && distanceSq(closest, innerRadii) >= 1) {
+            return Shape.ChunkStatus.FULL;
+        }
+
+        return Shape.ChunkStatus.DETAIL;
+    }
 }
