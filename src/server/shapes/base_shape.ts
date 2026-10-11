@@ -289,7 +289,6 @@ export abstract class Shape {
             const globalMask = (options?.ignoreGlobalMask ?? false) ? new Mask() : session.globalMask;
             activeMask = (!activeMask ? globalMask : globalMask ? activeMask.intersect(globalMask) : activeMask)?.withContext(session);
             const simpleMask = activeMask.isSimple();
-            const simplePattern = pattern.isSimple();
 
             // Collect blocks and areas that will be changed.
             yield Jobs.nextStep("commands.wedit:blocks.calculating");
@@ -297,80 +296,47 @@ export abstract class Shape {
 
             let progress = 0;
             yield Jobs.nextStep("commands.wedit:blocks.generating");
+
             if (history) yield* history.trackRegion(record, min, max);
+
             const maskInSimpleFill = simpleMask ? activeMask : undefined;
+
+            // Complex masks have already been applied in calculateShape().
+            // Use an empty mask when filling their prefiltered volumes.
+            const fillMask = maskInSimpleFill ?? new Mask();
+
             for (let volume of volumes) {
                 yield Jobs.setProgress(progress / blocksAffected);
+
                 if (Array.isArray(volume)) {
                     for (let block of volume) {
-                        if (!block.isValid && Jobs.inContext()) block = yield* Jobs.loadBlock(loc);
-                        if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) count++;
+                        if (!block.isValid && Jobs.inContext()) {
+                            block = yield* Jobs.loadBlock(block);
+                        }
+
+                        if ((!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) {
+                            count++;
+                        }
+
                         progress++;
                     }
                 } else if (volume instanceof Block) {
-                    if (!volume.isValid && Jobs.inContext()) volume = yield* Jobs.loadBlock(volume);
-                    if ((!activeMask || activeMask.matchesBlock(volume)) && pattern.setBlock(volume)) count++;
+                    if (!volume.isValid && Jobs.inContext()) {
+                        volume = yield* Jobs.loadBlock(volume);
+                    }
+
+                    if ((!activeMask || activeMask.matchesBlock(volume)) && pattern.setBlock(volume)) {
+                        count++;
+                    }
+
                     progress++;
                 } else {
                     if (Jobs.inContext()) {
                         yield* Jobs.loadArea(volume.getMin(), volume.getMax());
                     }
 
-                    const capacity = volume.getCapacity();
-
-                    if (capacity === 16 * 16 * 16) {
-                        // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
-                        // The first bulk fill initializes newly loaded subchunks.
-                        // A second fill is needed for the full volume to place correctly.
-                        pattern.fillBlocks(dimension, volume, maskInSimpleFill);
-
-                        yield;
-
-                        count += pattern.fillBlocks(dimension, volume, maskInSimpleFill);
-                        progress += capacity;
-                    } else {
-                        if (Jobs.inContext()) {
-                            yield* Jobs.loadArea(volume.getMin(), volume.getMax());
-                        }
-
-                        const capacity = volume.getCapacity();
-
-                        if (simplePattern && volume instanceof BlockVolume && capacity === 16 * 16 * 16) {
-                            // FIXME: https://bugs.mojang.com/browse/MCPE/issues/MCPE-240572
-                            // The first bulk fill initializes newly loaded subchunks.
-                            // A second fill is needed for the full volume to place correctly.
-                            pattern.fillBlocks(dimension, volume, maskInSimpleFill);
-
-                            yield;
-
-                            count += pattern.fillBlocks(dimension, volume, maskInSimpleFill);
-
-                            progress += capacity;
-                        } else {
-                            // Complex patterns and partial/detail volumes use the safe
-                            // per-block path to avoid MCPE-240572.
-                            let blocksSinceYield = 0;
-
-                            for (const blockLoc of volume.getBlockLocationIterator()) {
-                                let block = dimension.getBlock(blockLoc);
-
-                                if (!block && Jobs.inContext()) {
-                                    block = yield* Jobs.loadBlock(blockLoc);
-                                }
-
-                                if (block && (!maskInSimpleFill || maskInSimpleFill.matchesBlock(block)) && pattern.setBlock(block)) {
-                                    count++;
-                                }
-
-                                progress++;
-
-                                if (++blocksSinceYield >= 64) {
-                                    blocksSinceYield = 0;
-                                    yield;
-                                }
-                            }
-                        }
-                    }
+                    count += pattern.fillBlocks(dimension, volume, fillMask);
+                    progress += volume.getCapacity();
                 }
             }
 
