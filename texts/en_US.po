@@ -1143,3 +1143,21 @@ msgid "worldedit.job.finished"
 msgstr "Finished!"
 msgid "worldedit.job.loadingChunks"
 msgstr "Loading Chunks..."
+
+
+
+msgid "commands.wedit:brush.bind.terrain"
+msgstr "Terrain brush equipped (%1, intensity %2, %3, %4)."
+
+msgid "commands.wedit:brush.description.terrain"
+msgstr "Creates a heightmap terrain brush"
+
+msgid "commands.wedit:brush.terrain.invalidHeightmap"
+msgstr "'%s' is not a valid terrain heightmap."
+
+msgid "commands.wedit:brush.bind.terrain"
+msgstr "Terrain brush equipped (%1, intensity %2, %3, %4, %5)."
+
+msgid "commands.wedit:brush.terrain.list"
+msgstr "Available terrain heightmaps: %s"
+
