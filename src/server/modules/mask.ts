@@ -480,12 +480,13 @@ export class SurfaceMaskNode extends MaskNode {
     matchesBlock(block: BlockUnit) {
         const loc = Vector.from(block.location);
         const dim = block.dimension;
+
         const isEmpty = (loc: Vector3) => {
-            return dim.getBlock(loc).isAir;
+            return dim.getBlock(loc)?.isAir ?? false;
         };
 
         const isSurface =
-            !isEmpty(loc) &&
+            !block.isAir &&
             (isEmpty(loc.offset(0, 1, 0)) ||
                 isEmpty(loc.offset(0, -1, 0)) ||
                 isEmpty(loc.offset(-1, 0, 0)) ||
