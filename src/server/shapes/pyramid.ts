@@ -3,16 +3,29 @@ import { Vector } from "@notbeer-api";
 
 export class PyramidShape extends Shape {
     private size: number;
+    private direction: Vector;
 
     protected customHollow = true;
 
-    constructor(size: number) {
+    constructor(size: number, direction?: Vector) {
         super();
         this.size = size;
+        this.direction = direction ?? new Vector(0, 1, 0);
     }
 
     public getRegion(loc: Vector) {
-        return <[Vector, Vector]>[loc.offset(-this.size + 1, 0, -this.size + 1), loc.offset(this.size - 1, this.size - 1, this.size - 1)];
+        const extent = this.size - 1;
+        const min = new Vector(-extent, -extent, -extent);
+        const max = new Vector(extent, extent, extent);
+
+        if (this.direction.x > 0) min.x = 0;
+        else if (this.direction.x < 0) max.x = 0;
+        else if (this.direction.y > 0) min.y = 0;
+        else if (this.direction.y < 0) max.y = 0;
+        else if (this.direction.z > 0) min.z = 0;
+        else if (this.direction.z < 0) max.z = 0;
+
+        return <[Vector, Vector]>[loc.offset(min.x, min.y, min.z), loc.offset(max.x, max.y, max.z)];
     }
 
     public getYRange(): null {
@@ -46,8 +59,21 @@ export class PyramidShape extends Shape {
     }
 
     protected inShape(relLoc: Vector, genVars: shapeGenVars) {
-        const latSize = this.size - relLoc.y - 0.5;
-        const local = [relLoc.x, relLoc.z];
+        let height: number;
+        let local: [number, number];
+
+        if (this.direction.x !== 0) {
+            height = relLoc.x * this.direction.x;
+            local = [relLoc.y, relLoc.z];
+        } else if (this.direction.y !== 0) {
+            height = relLoc.y * this.direction.y;
+            local = [relLoc.x, relLoc.z];
+        } else {
+            height = relLoc.z * this.direction.z;
+            local = [relLoc.x, relLoc.y];
+        }
+
+        const latSize = this.size - height - 0.5;
 
         if (genVars.isHollow) {
             const hLatSize = latSize - genVars.thickness;

@@ -3,12 +3,13 @@ import { Pattern } from "@modules/pattern.js";
 import { CommandInfo, RawText } from "@notbeer-api";
 import { PyramidShape } from "../../shapes/pyramid.js";
 import { registerCommand } from "../register_commands.js";
+import { Cardinal } from "@modules/directions.js";
 
 const registerInformation: CommandInfo = {
     name: "pyramid",
     permission: "worldedit.generation.pyramid",
     description: "commands.wedit:pyramid.description",
-    usage: [{ flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "size", type: "int", range: [1, null] }],
+    usage: [{ flag: "d", name: "direction", type: "Direction" }, { flag: "h" }, { name: "pattern", type: "Pattern" }, { name: "size", type: "int", range: [1, null] }],
 };
 
 registerCommand(registerInformation, function* (session, builder, args) {
@@ -17,7 +18,7 @@ registerCommand(registerInformation, function* (session, builder, args) {
     const size: number = args.get("size");
 
     const loc = session.getPlacementPosition();
-    const pyramidShape = new PyramidShape(size);
+    const pyramidShape = new PyramidShape(size, (<Cardinal>args.get("d-direction"))?.getDirection(builder));
     const count = yield* Jobs.run(session, 2, pyramidShape.generate(loc, pattern, null, session, { hollow: isHollow }));
     return RawText.translate("commands.wedit:blocks.created").with(`${count}`);
 });

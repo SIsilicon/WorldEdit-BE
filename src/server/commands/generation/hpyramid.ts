@@ -6,6 +6,7 @@ const registerInformation: CommandInfo = {
     permission: "worldedit.generation.pyramid",
     description: "commands.wedit:hpyramid.description",
     usage: [
+        { flag: "d", name: "direction", type: "Direction" },
         { name: "pattern", type: "Pattern" },
         { name: "size", type: "int", range: [1, null] },
     ],
