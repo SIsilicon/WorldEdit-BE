@@ -71,6 +71,11 @@ const registerInformation: CommandInfo = {
             permission: "worldedit.cycler",
             description: "commands.wedit:tool.description.cycler",
         },
+        {
+            subName: "loftwand",
+            permission: "worldedit.generation.shape",
+            description: "commands.wedit:tool.description.loftwand",
+        },
     ],
 };
 
@@ -133,6 +138,14 @@ const cycler_command = (session: PlayerSession, builder: Player) => {
     return RawText.translate("commands.wedit:tool.bind.cycler").with(heldItemName(builder));
 };
 
+const loftwand_command = (session: PlayerSession, builder: Player) => {
+    assertPermission(builder, "worldedit.generation.shape");
+
+    session.bindTool("loft_wand", "minecraft:paper");
+
+    return RawText.translate("commands.wedit:tool.bind.loftwand").with("paper");
+};
+
 registerCommand(registerInformation, function (session, builder, args) {
     let msg: RawText;
     if (args.has("stacker")) {
@@ -153,6 +166,8 @@ registerCommand(registerInformation, function (session, builder, args) {
         msg = repl_command(session, builder, args);
     } else if (args.has("cycler")) {
         msg = cycler_command(session, builder);
+    } else if (args.has("loftwand")) {
+        msg = loftwand_command(session, builder);
     } else {
         session.unbindTool(null);
         return "commands.wedit:tool.unbind";

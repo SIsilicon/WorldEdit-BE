@@ -139,6 +139,7 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
         if (!this.getTools().length) {
             this.bindTool("selection_wand", config.wandItem);
             this.bindTool("navigation_wand", config.navWandItem);
+            this.bindTool("loft_wand", "minecraft:paper");
         }
         if (PlayerUtil.isHotbarStashed(player)) {
             PlayerUtil.restoreHotbar(player);

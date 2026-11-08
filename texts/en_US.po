@@ -1143,3 +1143,51 @@ msgid "worldedit.job.finished"
 msgstr "Finished!"
 msgid "worldedit.job.loadingChunks"
 msgstr "Loading Chunks..."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+msgid "commands.wedit:loft.description"
+msgstr "Create and manage a loft"
+
+msgid "commands.wedit:loft.description.frame"
+msgstr "Create a new frame in the loft"
+
+msgid "commands.wedit:loft.description.point"
+msgstr "Add a point to the current loft frame"
+
+msgid "commands.wedit:loft.description.set"
+msgstr "Fill the loft with a specified pattern"
+
+msgid "commands.wedit:loft.description.remove"
+msgstr "Remove the last point added to the loft"
+
+msgid "commands.wedit:loft.description.clear"
+msgstr "Clear the current loft"
+
+msgid "commands.wedit:loft.frame"
+msgstr "Created a new loft frame at %s."
+
+msgid "commands.wedit:loft.point"
+msgstr "Added a point to the loft at %s."
+
+msgid "commands.wedit:tool.description.loftwand"
+msgstr "Loft selection wand"
+
+msgid "commands.wedit:tool.bind.loftwand"
+msgstr "Loft wand bound to %s."
+
