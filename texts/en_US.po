@@ -184,6 +184,13 @@ msgid "worldedit.genMode.selectOp"
 msgstr "Select Shape to Generate"
 msgid "worldedit.genMode.line"
 msgstr "Line"
+
+msgid "commands.wedit:rope.description"
+msgstr "Create a hanging rope or bridge between your first and second selection points"
+
+msgid "commands.wedit:rope.invalidType"
+msgstr "This command only works with cuboid selections"
+
 msgid "worldedit.genMode.curve"
 msgstr "Curve"
 msgid "worldedit.genMode.sphere"
