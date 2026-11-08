@@ -20,7 +20,8 @@ export function setPos2(session: PlayerSession, loc: Vector3) {
     if (selection.points.some((loc, idx) => !loc || !prevPoints[idx] || !loc.equals(prevPoints[idx]))) {
         const blockCount = selection.getBlockCount();
         const translate = !blockCount && selection.isCuboid ? `worldedit.selection.${selection.mode}.secondary` : `worldedit.selection.${selection.mode}.secondaryArea`;
-        let sub = [printLocation(selection.points[1])];
+        const points = selection.points;
+        let sub = [printLocation(points[selection.mode === "poly" ? points.length - 1 : 1])];
         if (selection.mode == "sphere") {
             sub = [`${Math.round(Vector.sub(selection.points[1], selection.points[0]).length)}`];
         } else if (selection.mode == "cylinder") {
