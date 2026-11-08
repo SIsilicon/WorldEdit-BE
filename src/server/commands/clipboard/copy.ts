@@ -9,6 +9,7 @@ import { RegionBuffer } from "@modules/region_buffer.js";
 
 const registerInformation: CommandInfo = {
     name: "copy",
+    aliases: ["c"],
     permission: "worldedit.clipboard.copy",
     description: "commands.wedit:copy.description",
     usage: [{ flag: "a" }, { flag: "e" }, { flag: "m", name: "mask", type: "Mask" }],

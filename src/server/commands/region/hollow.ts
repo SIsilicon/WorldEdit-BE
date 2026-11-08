@@ -9,6 +9,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "hollow",
+    aliases: ["h"],
     permission: "worldedit.region.hollow",
     description: "commands.wedit:hollow.description",
     usage: [

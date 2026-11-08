@@ -6,6 +6,7 @@ import { Jobs } from "@modules/jobs.js";
 
 const registerInformation: CommandInfo = {
     name: "scale",
+    aliases: ["sc"],
     permission: "worldedit.region.scale",
     description: "commands.wedit:scale.description",
     usage: [

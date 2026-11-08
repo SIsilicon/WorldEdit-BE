@@ -5,6 +5,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "shift",
+    aliases: ["sh"],
     description: "commands.wedit:shift.description",
     permission: "worldedit.selection.shift",
     usage: [

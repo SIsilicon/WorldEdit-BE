@@ -5,6 +5,7 @@ import { Jobs } from "@modules/jobs.js";
 
 const registerInformation: CommandInfo = {
     name: "undo",
+    aliases: ["u"],
     permission: "worldedit.history.undo",
     description: "commands.wedit:undo.description",
     usage: [{ name: "times", type: "int", range: [1, null], default: 1 }],

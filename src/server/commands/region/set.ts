@@ -8,6 +8,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "set",
+    aliases: ["s"],
     permission: "worldedit.region.set",
     description: "commands.wedit:set.description",
     usage: [{ name: "pattern", type: "Pattern" }],

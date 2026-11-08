@@ -8,6 +8,7 @@ import { registerCommand } from "../register_commands.js";
 
 const registerInformation: CommandInfo = {
     name: "setbiome",
+    aliases: ["replacebiome"],
     permission: "worldedit.biome.set",
     description: "commands.wedit:setbiome.description",
     usage: [{ name: "biome", type: "Biome" }, { flag: "p" }],
