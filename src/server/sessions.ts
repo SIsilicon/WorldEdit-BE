@@ -89,6 +89,11 @@ export class PlayerSession extends EventEmitter<{ gradientListUpdated: [list: st
     public performanceMode = false;
 
     /**
+     * Whether the session should run in debug mode.
+     */
+    public debugMode = false;
+
+    /**
      * The amount of blocks that can be changed in one operation.
      */
     public changeLimit = config.defaultChangeLimit == -1 ? Infinity : config.defaultChangeLimit;
@@ -373,6 +378,10 @@ export function removeSession(playerId: string) {
 
 export function hasSession(playerId: string) {
     return playerSessions.has(playerId);
+}
+
+export function getDebugSessions() {
+    return [...playerSessions.values()].filter((session) => session.debugMode);
 }
 
 // Delayed a tick so that it's processed before other listeners

@@ -91,7 +91,10 @@ export class CommandPosition implements CustomArgType {
     }
 }
 
-export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, command: string, args: Array<string>, result: any] }> {
+export class CommandBuilder extends EventEmitter<{
+    runCommand: [player: Player, command: string, args: Array<string>, result: any];
+    commandError: [player: Player, command: string, args: Array<string>, error: RawText];
+}> {
     public prefix: string = configuration.prefix;
     private _registrationInformation: Array<storedRegisterInformation> = [];
     private customArgTypes: Map<string, typeof CustomArgType> = new Map();
@@ -458,7 +461,14 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
         }
 
         const getCommand = Command.getAllRegistration().some((element) => element.name === command || (element.aliases && element.aliases.includes(command)));
-        if (!getCommand) throw RawText.translate("commands.generic.unknown").with(`${command}`);
+
+        if (!getCommand) {
+            const error = RawText.translate("commands.generic.unknown").with(`${command}`);
+            const commandArgs = typeof args === "string" ? args.trim().split(/\s+/).filter(Boolean) : args;
+
+            this.emit("commandError", player, command, commandArgs, error);
+            throw error;
+        }
 
         let msg = "";
         const offsets: Array<number> = [];
@@ -513,24 +523,28 @@ export class CommandBuilder extends EventEmitter<{ runCommand: [player: Player, 
                 result = options?.noCallback ? new Thread() : element.callback(player, msg, parsedArgs);
                 this.emit("runCommand", player, command, args, result);
             } catch (e) {
+                let error: RawText;
+
                 if (e.isSyntaxError) {
                     if (e.idx == -1 || e.idx >= args.length) {
-                        throw RawText.translate("commands.generic.syntax").with(msg).with("").with("");
+                        error = RawText.translate("commands.generic.syntax").with(msg).with("").with("");
                     } else {
                         let start = offsets[e.idx];
                         if (e.start) start += e.start;
+
                         let end = start + args[e.idx].length;
                         if (e.end) end = start + e.end;
-                        throw RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end));
+
+                        error = RawText.translate("commands.generic.syntax").with(msg.slice(0, start)).with(msg.slice(start, end)).with(msg.slice(end));
                     }
+                } else if (e instanceof RawText) {
+                    error = e;
                 } else {
-                    if (e instanceof RawText) {
-                        throw e;
-                    } else {
-                        contentLog.error(e, e.stack);
-                        throw RawText.text(e);
-                    }
+                    contentLog.error(e, e.stack);
+                    error = RawText.text(e);
                 }
+
+                throw error;
             }
             return result;
         }
