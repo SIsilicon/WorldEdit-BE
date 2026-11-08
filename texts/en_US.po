@@ -1007,6 +1007,20 @@ msgid "commands.wedit:tool.description.navwand"
 msgstr "Navigation tool"
 msgid "commands.wedit:tool.description.stacker"
 msgstr "Block stacker tool"
+
+
+msgid "commands.wedit:togglespeed.description"
+msgstr "Toggle enhanced movement speed or set its multiplier"
+msgid "commands.wedit:togglespeed.enabled"
+msgstr "Speed mode enabled."
+msgid "commands.wedit:togglespeed.disabled"
+msgstr "Speed mode disabled."
+msgid "commands.wedit:togglespeed.set"
+msgstr "Speed mode enabled at %sx speed."
+msgid "commands.wedit:togglespeed.changed"
+msgstr "Speed multiplier changed to %sx."
+
+
 msgid "commands.wedit:tool.description.cmd"
 msgstr "Command exeution tool; both vanilla and worldedit"
 msgid "commands.wedit:tool.description.repl"
