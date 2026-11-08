@@ -93,6 +93,7 @@ import "./utilities/green.js";
 import "./utilities/extinguish.js";
 import "./utilities/butcher.js";
 import "./utilities/calc.js";
+import "./utilities/barrel.js";
 
 import "./navigation/navwand.js";
 import "./navigation/up.js";
