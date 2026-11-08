@@ -49,6 +49,7 @@ import "./generation/loft.js";
 import "./generation/hsphere.js";
 import "./generation/sphere.js";
 import "./generation/cyl.js";
+import "./generation/dome.js";
 import "./generation/hcyl.js";
 import "./generation/pyramid.js";
 import "./generation/hpyramid.js";
