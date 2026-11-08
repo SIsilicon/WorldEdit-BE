@@ -9,7 +9,8 @@ import config from "config.js";
 import { ConvexShape } from "server/shapes/convex.js";
 
 // TODO: Add other selection modes
-export const selectionModes = ["cuboid", "extend", "sphere", "cylinder", "convex", "volume"] as const;
+// meow i added a new selection mode :3 *proud cat noise* (i want pets and treats now)
+export const selectionModes = ["cuboid", "extend", "sphere", "ellipsoid", "cylinder", "convex", "volume"] as const;
 export type selectMode = (typeof selectionModes)[number];
 
 export abstract class Selection {
@@ -123,6 +124,13 @@ export class DefaultSelection extends Selection {
         } else if (this._mode == "sphere") {
             const radius = Math.round(Vector.sub(loc, this._points[0]).length);
             this._points[1] = new Vector(radius, 0, 0).add(this._points[0]).floor();
+        } else if (this._mode == "ellipsoid") {
+            const previous = Vector.sub(this._points[1], this._points[0]);
+            const current = Vector.sub(loc, this._points[0]);
+            const radiusX = Math.max(Math.abs(previous.x), Math.abs(current.x));
+            const radiusY = Math.max(Math.abs(previous.y), Math.abs(current.y));
+            const radiusZ = Math.max(Math.abs(previous.z), Math.abs(current.z));
+            this._points[1] = this._points[0].offset(radiusX, radiusY, radiusZ).floor();
         } else if (this._mode == "cylinder") {
             const prevVec = Vector.sub(this._points[1], this._points[0]).mul([1, 0, 1]);
             const vec = Vector.sub(loc, this._points[0]).mul([1, 0, 1]);
@@ -180,6 +188,9 @@ export class DefaultSelection extends Selection {
         } else if (this._mode == "sphere") {
             const radius = Vector.sub(this._points[1], this._points[0]).length;
             return Math.round((4 / 3) * Math.PI * Math.pow(radius, 3));
+        } else if (this._mode == "ellipsoid") {
+            const radii = Vector.sub(this._points[1], this._points[0]);
+            return Math.round((4 / 3) * Math.PI * Math.abs(radii.x) * Math.abs(radii.y) * Math.abs(radii.z));
         } else if (this._mode == "cylinder") {
             const vec = Vector.sub(this._points[1], this._points[0]);
             const height = Math.abs(vec.y) + 1;
@@ -208,6 +219,10 @@ export class DefaultSelection extends Selection {
             const center = this._points[0];
             const radius = Vector.sub(this._points[1], this._points[0]).length;
             this.shape = [new SphereShape(radius), center];
+        } else if (this._mode == "ellipsoid") {
+            const center = this._points[0];
+            const radii = Vector.sub(this._points[1], this._points[0]);
+            this.shape = [new SphereShape(Math.abs(radii.x), Math.abs(radii.y), Math.abs(radii.z)), center];
         } else if (this._mode == "cylinder") {
             const center = this._points[0];
             const vec = Vector.sub(this._points[1], this._points[0]);

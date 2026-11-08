@@ -156,15 +156,34 @@ export abstract class Shape {
     }
 
     protected drawCircle(center: Vector, radius: number, axis: "x" | "y" | "z"): [string, Vector][] {
-        const vec = axis === "x" ? new Vector(0, 1, 0) : axis === "y" ? new Vector(1, 0, 0) : new Vector(0, 1, 0);
-        const resolution = snap(Math.min(radius * 2 * Math.PI, 36), 4);
+        return this.drawEllipse(center, radius, radius, axis);
+    }
+
+    protected drawEllipse(center: Vector, radiusA: number, radiusB: number, axis: "x" | "y" | "z"): [string, Vector][] {
+        const maxRadius = Math.max(radiusA, radiusB);
+        const resolution = snap(Math.min(maxRadius * 2 * Math.PI, 36), 4);
 
         const points: [string, Vector][] = [];
+
         for (let i = 0; i < resolution; i++) {
-            let point: Vector = vec.rotate((i / resolution) * 360, axis);
-            point = point.mul(radius).add(center).add(0.5);
-            points.push(["wedit:selection_draw", point]);
+            const angle = (i / resolution) * Math.PI * 2;
+
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+
+            let point: Vector;
+
+            if (axis === "x") {
+                point = new Vector(0, cos * radiusA, sin * radiusB);
+            } else if (axis === "y") {
+                point = new Vector(cos * radiusA, 0, sin * radiusB);
+            } else {
+                point = new Vector(cos * radiusA, sin * radiusB, 0);
+            }
+
+            points.push(["wedit:selection_draw", point.add(center).add(0.5)]);
         }
+
         return points;
     }
 
