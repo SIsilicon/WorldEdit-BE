@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2026-07-05 01:53\n"
+"PO-Revision-Date: 2026-09-30 17:23\n"
 
 msgid "pack.description"
 msgstr "オリジナルの Java 版 Mod からの移植などの開発中アドオン! SIsilicon (§l§b@iSiliconS§r) 作。"
@@ -619,6 +619,9 @@ msgstr "Calculating shape..."
 msgid "commands.wedit:blocks.generating"
 msgstr "Generating blocks..."
 
+msgid "commands.wedit:blocks.placing"
+msgstr "Placing blocks..."
+
 msgid "commands.wedit:blocks.calculating_generating"
 msgstr "Calculating and Generating blocks..."
 
@@ -933,6 +936,9 @@ msgstr "選択範囲の輪郭線を生成する"
 
 msgid "commands.wedit:overlay.description"
 msgstr "Overlay blocks on surfaces within the selection"
+
+msgid "commands.wedit:outlines.description"
+msgstr "Generate the edges of a cuboid selection"
 
 msgid "commands.wedit:fill.description"
 msgstr "特定のブロックで範囲を埋める"
@@ -1593,4 +1599,10 @@ msgstr "このアドオンの詳細については、こちらのオンライン
 
 msgid "howtoplay.category.minecraft"
 msgstr "マインクラフト"
+
+msgid "worldedit.job.finished"
+msgstr "Finished!"
+
+msgid "worldedit.job.loadingChunks"
+msgstr "Loading Chunks..."
 
