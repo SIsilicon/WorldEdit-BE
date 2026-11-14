@@ -1,6 +1,70 @@
 
 meowwwww :3
 
+
+## Multiple materials and percentages
+
+All # patterns support multiple comma-separated materials.
+
+Example:
+";set #perlin12(red_wool,blue_wool,yellow_wool)"
+
+### Percentages supported
+
+#blob
+#perlin
+#cracked
+#wood
+#turbulence
+#marble
+#fbm
+#veins
+#warped
+#simplex
+#value
+#pingpong
+
+Notes:
+- Percentages are approximate, not exact block counts.
+- #blob applies weights when selecting each blob's material.
+- #cracked and #veins use the first material as the base.
+  Percentages only affect the choice among the remaining
+  crack/vein materials, not how much of the area is covered.
+
+### Multiple materials supported, percentages NOT supported yet
+
+#grid
+#triangle
+#hexagon
+#brick
+#dots
+#rings
+#bubbles
+#voronoi
+#stripes
+#waves
+#truchet
+#spiral
+#spots
+
+These patterns accept percentage syntax but currently ignore
+the weights. They choose colors evenly or according to their
+fixed geometric roles.
+
+Special material rules:
+- #brick: last material = mortar.
+- #dots, #rings, #truchet, #spots: last material = background.
+- #bubbles with 2 materials: rim, background.
+- #bubbles with 3+ materials: interior colors, rim, background.
+
+// TODO: Add proper percentage support to geometric patterns.
+
+
+
+
+
+
+
 #grid
 
 - ";set #grid3(red_wool,blue_wool)" 
@@ -173,3 +237,44 @@ meowwwww :3
 - ";set #pingpong12:2:4(red_wool,blue_wool)"
 
 **Parameters:**  size strength octaves persistence lacunarity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# lily fav patterns 
+im just gonna give you guys some of my fav pattern for fun lol
+Sisilicon when you read these you gotta try them these looks awesome 
+
+;set #wood20:10(60%oak_planks,30%spruce_planks,10%dark_oak_planks)
+;set #cracked16:2(blackstone,magma,orange_concrete)
+;set #cracked20:2(packed_ice,blue_ice,white_concrete)
+
+;set #perlin12(55%stone_bricks,30%mossy_stone_bricks,15%cracked_stone_bricks)
+;set #wood30:9(50%hardened_clay,30%orange_terracotta,20%red_sandstone)
+;set #veins40(concrete,red_concrete,orange_concrete,yellow_concrete)
+
+like these just look so cool ngl meow
