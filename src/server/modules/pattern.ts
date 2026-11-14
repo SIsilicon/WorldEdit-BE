@@ -47,7 +47,7 @@ import {
     ValuePatternNode,
     PingPongPatternNode,
 } from "./pattern_nodes/noise.js";
-import { GridPatternNode, TrianglePatternNode, HexagonPatternNode } from "./pattern_nodes/geometric.js";
+import { GridPatternNode, TrianglePatternNode, HexagonPatternNode, BrickPatternNode, DotsPatternNode, RingsPatternNode, BubblesPatternNode, VoronoiPatternNode } from "./pattern_nodes/geometric.js";
 
 // Keep old imports from pattern.js compatible with the rest of WorldEdit.
 export * from "./pattern_nodes/base.js";
@@ -316,6 +316,45 @@ export class Pattern implements CustomArgType {
                         if (!Number.isSafeInteger(size)) throwTokenError(t);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new HexagonPatternNode(nodeToken(), size));
+                    } else if (t.value.match?.(/^brick[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(width) || width < 2) throwTokenError(t);
+                        const [height, mortar] = parseNoiseParams(
+                            [Math.max(2, Math.floor(width / 2)), 1],
+                            [(value) => Number.isSafeInteger(value) && value >= 2, (value) => Number.isSafeInteger(value) && value >= 0]
+                        );
+                        if (mortar >= width || mortar >= height) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new BrickPatternNode(nodeToken(), width, height, mortar));
+                    } else if (t.value.match?.(/^dots[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(4), 10);
+                        if (!Number.isSafeInteger(spacing) || spacing < 2) throwTokenError(t);
+                        const [radius] = parseNoiseParams([Math.max(1, Math.floor(spacing / 4))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= spacing / 2]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new DotsPatternNode(nodeToken(), spacing, radius));
+                    } else if (t.value.match?.(/^rings[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(spacing)) throwTokenError(t);
+                        const [thickness] = parseNoiseParams([Math.max(1, Math.floor(spacing / 4))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= spacing]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new RingsPatternNode(nodeToken(), spacing, thickness));
+                    } else if (t.value.match?.(/^bubbles[1-9][0-9]*$/)) {
+                        const average = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(average)) throwTokenError(t);
+                        const defaultVariation = Math.min(2, average - 1);
+                        const [variation, edge, concentration] = parseNoiseParams(
+                            [defaultVariation, Math.min(2, average - defaultVariation), 0.6],
+                            [(value) => Number.isSafeInteger(value) && value >= 0, (value) => Number.isSafeInteger(value) && value >= 1, (value) => value >= 0 && value <= 1]
+                        );
+                        if (variation >= average || edge > average - variation) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new BubblesPatternNode(nodeToken(), average, variation, edge, concentration));
+                    } else if (t.value.match?.(/^voronoi[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        const [jitter] = parseNoiseParams([0.8], [(value) => value >= 0 && value <= 1]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new VoronoiPatternNode(nodeToken(), size, jitter));
                     } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
                         const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
@@ -483,6 +522,21 @@ export class Pattern implements CustomArgType {
                     break;
                 case "hexagon":
                     node = new HexagonPatternNode(null, settings.size);
+                    break;
+                case "brick":
+                    node = new BrickPatternNode(null, settings.width, settings.height, settings.mortar ?? 1);
+                    break;
+                case "dots":
+                    node = new DotsPatternNode(null, settings.spacing, settings.radius);
+                    break;
+                case "rings":
+                    node = new RingsPatternNode(null, settings.spacing, settings.thickness);
+                    break;
+                case "bubbles":
+                    node = new BubblesPatternNode(null, settings.averageRadius, settings.variation ?? 2, settings.edge ?? 2, settings.concentration ?? 0.6);
+                    break;
+                case "voronoi":
+                    node = new VoronoiPatternNode(null, settings.size, settings.jitter ?? 0.8);
                     break;
                 case "cracked":
                     node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);

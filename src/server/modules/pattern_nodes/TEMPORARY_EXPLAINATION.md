@@ -23,6 +23,41 @@ meowwwww :3
 
 **Parameters:** size
 
+#brick
+
+- ";set #brick8:4:1(red_wool,black_concrete)"
+- ";set #brick12:6:1(red_wool,orange_wool,black_concrete)"
+
+**Parameters:** width height mortar thickness. Last material = mortar; earlier materials = bricks. 2D X/Z, rows staggered.
+
+#dots
+
+- ";set #dots8:2(red_wool,blue_wool)"
+- ";set #dots12:4(red_wool,yellow_wool,black_wool)"
+
+**Parameters:** spacing dot radius. Last material = background. 2D X/Z.
+
+#rings
+
+- ";set #rings12:2(red_wool,blue_wool)"
+- ";set #rings16:3(red_wool,orange_wool,black_wool)"
+
+**Parameters:** ring spacing thickness. Last material = background. 2D concentric rings centered on the selection (so they re-center in a new selection).
+
+#bubbles
+
+- ";set #bubbles10:2:2:0.6(white_wool,light_blue_wool,blue_wool)"
+- ";set #bubbles8:2:2:0.9(white_wool,blue_wool)"
+
+**Parameters:** average radius, variation (+/-), edge thickness, concentration (0 to 1 = chance per cell). With 3 materials: inside, rim, background. With 2: hollow rim, background. Bubbles do not overlap. 2D X/Z.
+
+#voronoi
+
+- ";set #voronoi10(red_wool,blue_wool,yellow_wool)"
+- ";set #voronoi16:0.5(stone,andesite,granite)"
+
+**Parameters:** cell size, jitter (0 to 1; default 0.8). Randomized irregular polygon cells. 2D X/Z.
+
 #blob
 
 - ";set #blob10(red_wool,blue_wool)" 
