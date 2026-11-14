@@ -47,7 +47,21 @@ import {
     ValuePatternNode,
     PingPongPatternNode,
 } from "./pattern_nodes/noise.js";
-import { GridPatternNode, TrianglePatternNode, HexagonPatternNode, BrickPatternNode, DotsPatternNode, RingsPatternNode, BubblesPatternNode, VoronoiPatternNode } from "./pattern_nodes/geometric.js";
+import {
+    GridPatternNode,
+    TrianglePatternNode,
+    HexagonPatternNode,
+    BrickPatternNode,
+    DotsPatternNode,
+    RingsPatternNode,
+    BubblesPatternNode,
+    VoronoiPatternNode,
+    StripesPatternNode,
+    WavesPatternNode,
+    TruchetPatternNode,
+    SpiralPatternNode,
+    SpotsPatternNode,
+} from "./pattern_nodes/geometric.js";
 
 // Keep old imports from pattern.js compatible with the rest of WorldEdit.
 export * from "./pattern_nodes/base.js";
@@ -355,6 +369,43 @@ export class Pattern implements CustomArgType {
                         const [jitter] = parseNoiseParams([0.8], [(value) => value >= 0 && value <= 1]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new VoronoiPatternNode(nodeToken(), size, jitter));
+                    } else if (t.value.match?.(/^stripes[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [angle] = parseNoiseParams([0], [(value) => Number.isFinite(value) && value >= 0 && value < 360]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new StripesPatternNode(nodeToken(), width, angle));
+                    } else if (t.value.match?.(/^waves[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [amplitude, wavelength] = parseNoiseParams(
+                            [Math.max(1, Math.floor(width / 2)), width * 6],
+                            [(value) => Number.isFinite(value) && value >= 0, (value) => Number.isSafeInteger(value) && value >= 2]
+                        );
+                        if (!Number.isSafeInteger(wavelength)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WavesPatternNode(nodeToken(), width, amplitude, wavelength));
+                    } else if (t.value.match?.(/^truchet[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size) || size < 4) throwTokenError(t);
+                        const [thickness] = parseNoiseParams([Math.max(1, Math.floor(size / 6))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= size / 2]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TruchetPatternNode(nodeToken(), size, thickness));
+                    } else if (t.value.match?.(/^spiral[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(6), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [turns] = parseNoiseParams([1], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= 32]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SpiralPatternNode(nodeToken(), width, turns));
+                    } else if (t.value.match?.(/^spots[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(spacing) || spacing < 4) throwTokenError(t);
+                        const [radius, concentration] = parseNoiseParams(
+                            [Math.max(1, Math.round(spacing / 2)), 0.75],
+                            [(value) => Number.isFinite(value) && value > 0 && value <= spacing, (value) => Number.isFinite(value) && value >= 0 && value <= 1]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SpotsPatternNode(nodeToken(), spacing, radius, concentration));
                     } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
                         const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
@@ -537,6 +588,21 @@ export class Pattern implements CustomArgType {
                     break;
                 case "voronoi":
                     node = new VoronoiPatternNode(null, settings.size, settings.jitter ?? 0.8);
+                    break;
+                case "stripes":
+                    node = new StripesPatternNode(null, settings.width, settings.angle ?? 0);
+                    break;
+                case "waves":
+                    node = new WavesPatternNode(null, settings.width, settings.amplitude, settings.wavelength);
+                    break;
+                case "truchet":
+                    node = new TruchetPatternNode(null, settings.size, settings.thickness);
+                    break;
+                case "spiral":
+                    node = new SpiralPatternNode(null, settings.width, settings.turns ?? 1);
+                    break;
+                case "spots":
+                    node = new SpotsPatternNode(null, settings.spacing, settings.radius, settings.concentration ?? 0.75);
                     break;
                 case "cracked":
                     node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);

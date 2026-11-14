@@ -58,6 +58,41 @@ meowwwww :3
 
 **Parameters:** cell size, jitter (0 to 1; default 0.8). Randomized irregular polygon cells. 2D X/Z.
 
+#stripes
+
+- ";set #stripes6(red_wool,blue_wool)"
+- ";set #stripes6:45(red_wool,white_wool,blue_wool)"
+
+**Parameters:** stripe width, angle in degrees (default 0; 90 rotates the bands). World-aligned 2D X/Z.
+
+#waves
+
+- ";set #waves6:3:24(red_wool,blue_wool)"
+- ";set #waves8:5:32(red_wool,orange_wool,yellow_wool)"
+
+**Parameters:** band width, wave amplitude, wavelength along Z. World-aligned wavy stripes, 2D X/Z.
+
+#truchet
+
+- ";set #truchet12:2(white_concrete,black_concrete)"
+- ";set #truchet16:3(red_wool,blue_wool,white_wool)"
+
+**Parameters:** tile size, line thickness. Randomly mirrored quarter-circle arcs connect across square tiles. Last material = background; earlier materials = curves. 2D X/Z.
+
+#spiral
+
+- ";set #spiral8:1(red_wool,blue_wool)"
+- ";set #spiral8:2(orange_wool,yellow_wool,black_wool)"
+
+**Parameters:** band width, turns (1 to 32). Selection-centered colorful spiral bands, 2D X/Z. Changing selection re-centers the spiral.
+
+#spots
+
+- ";set #spots12:4:0.75(brown_wool,white_wool)"
+- ";set #spots16:5:0.9(black_wool,brown_wool,orange_wool)"
+
+**Parameters:** cell spacing, approximate spot radius (up to the full spacing; larger spots may overlap), concentration (0 to 1). Organic irregular spots; last material = background; earlier materials = spots. 2D X/Z.
+
 #blob
 
 - ";set #blob10(red_wool,blue_wool)" 
