@@ -1,7 +1,6 @@
-import { Vector3, BlockPermutation, Player, Dimension, BlockVolumeBase } from "@minecraft/server";
-import { CustomArgType, commandSyntaxError, Vector, Server, whenReady, regionIterateBlocks, regionSize } from "@notbeer-api";
+import { Vector3, BlockPermutation, Dimension, BlockVolumeBase } from "@minecraft/server";
+import { CustomArgType, commandSyntaxError, Vector, Server, whenReady, regionSize } from "@notbeer-api";
 import { PlayerSession } from "server/sessions.js";
-import { wrap } from "server/util.js";
 import { Token } from "./extern/tokenizr.js";
 import {
     tokenize,
@@ -10,7 +9,6 @@ import {
     parseBlock,
     parsedBlock,
     parseBlockStates,
-    AstNode,
     processOps,
     parseNumberList,
     blockPermutation2ParsedBlock,
@@ -21,22 +19,55 @@ import { Cardinal, CardinalDirection } from "./directions.js";
 import { Mask } from "./mask.js";
 import { closestPoint } from "library/utils/closestpoint.js";
 import { Selection } from "./selection.js";
+import { PatternNode, patternContext, patternNodeJSON } from "./pattern_nodes/base.js";
+import {
+    BlockPatternNode,
+    VoidPatternNode,
+    TypePatternNode,
+    StatePatternNode,
+    RandStatePatternNode,
+    ClipboardPatternNode,
+    HandPatternNode,
+    GradientPatternNode,
+    PercentPatternNode,
+    InputPatternNode,
+    ChainPatternNode,
+} from "./pattern_nodes/standard.js";
+import {
+    BlobPatternNode,
+    PerlinPatternNode,
+    CrackedPatternNode,
+    WoodPatternNode,
+    TurbulencePatternNode,
+    MarblePatternNode,
+    FbmPatternNode,
+    VeinsPatternNode,
+    WarpedPatternNode,
+    SimplexPatternNode,
+    ValuePatternNode,
+    PingPongPatternNode,
+} from "./pattern_nodes/noise.js";
+import {
+    GridPatternNode,
+    TrianglePatternNode,
+    HexagonPatternNode,
+    BrickPatternNode,
+    DotsPatternNode,
+    RingsPatternNode,
+    BubblesPatternNode,
+    VoronoiPatternNode,
+    StripesPatternNode,
+    WavesPatternNode,
+    TruchetPatternNode,
+    SpiralPatternNode,
+    SpotsPatternNode,
+} from "./pattern_nodes/geometric.js";
 
-interface patternContext {
-    session: PlayerSession;
-    hand: BlockPermutation;
-    range: [Vector, Vector];
-    getCenter: (location: Vector3) => Vector;
-    gradientRadius: number;
-    placePosition: Vector;
-    cardinal: Cardinal;
-}
-
-interface patternNodeJSON {
-    type: string;
-    settings?: any;
-    children?: patternNodeJSON[];
-}
+// Keep old imports from pattern.js compatible with the rest of WorldEdit.
+export * from "./pattern_nodes/base.js";
+export * from "./pattern_nodes/standard.js";
+export * from "./pattern_nodes/noise.js";
+export * from "./pattern_nodes/geometric.js";
 
 export interface patternContextOptions {
     strokePoints?: Vector3[];
@@ -200,6 +231,27 @@ export class Pattern implements CustomArgType {
                 return mergeTokens(token, tokens.curr(), input);
             }
 
+            function parseNoiseParams(defaults: number[], validators: ((value: number) => boolean)[] = []) {
+                const values = [...defaults];
+                let index = 0;
+
+                while (tokens.peek()?.value == ":") {
+                    const colon = tokens.next();
+                    if (index >= defaults.length) throwTokenError(colon);
+
+                    const valueToken = tokens.next();
+                    if (!valueToken || valueToken.type != "number") throwTokenError(valueToken ?? colon);
+
+                    const value = valueToken.value as number;
+                    if (validators[index] && !validators[index](value)) throwTokenError(valueToken);
+
+                    values[index] = value;
+                    index++;
+                }
+
+                return values;
+            }
+
             // eslint-disable-next-line no-cond-assign
             while ((token = tokens.next())) {
                 if (token.value === "void") {
@@ -255,9 +307,155 @@ export class Pattern implements CustomArgType {
                         out.push(new ClipboardPatternNode(nodeToken(), offset.floor()));
                     } else if (t.value == "hand") {
                         out.push(new HandPatternNode(nodeToken()));
-                    } else if (t.value.match?.(/blob[1-9][0-9]*/)) {
+                    } else if (t.value.match?.(/^blob[1-9][0-9]*$/)) {
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new BlobPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4))));
+                    } else if (t.value.match?.(/^perlin[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new PerlinPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6))));
+                    } else if (t.value.match?.(/^grid[1-9][0-9]*$/)) {
+                        const sizeX = Number.parseInt((t.value as string).slice(4), 10);
+                        if (!Number.isSafeInteger(sizeX)) throwTokenError(t);
+                        // A missing third dimension means a 2D grid.
+                        const [sizeZ, sizeY] = parseNoiseParams([sizeX, 0], [(value) => Number.isSafeInteger(value) && value > 0, (value) => Number.isSafeInteger(value) && value > 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new GridPatternNode(nodeToken(), sizeX, sizeZ, sizeY));
+                    } else if (t.value.match?.(/^triangle[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(8), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TrianglePatternNode(nodeToken(), size));
+                    } else if (t.value.match?.(/^hexagon[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new HexagonPatternNode(nodeToken(), size));
+                    } else if (t.value.match?.(/^brick[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(width) || width < 2) throwTokenError(t);
+                        const [height, mortar] = parseNoiseParams(
+                            [Math.max(2, Math.floor(width / 2)), 1],
+                            [(value) => Number.isSafeInteger(value) && value >= 2, (value) => Number.isSafeInteger(value) && value >= 0]
+                        );
+                        if (mortar >= width || mortar >= height) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new BrickPatternNode(nodeToken(), width, height, mortar));
+                    } else if (t.value.match?.(/^dots[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(4), 10);
+                        if (!Number.isSafeInteger(spacing) || spacing < 2) throwTokenError(t);
+                        const [radius] = parseNoiseParams([Math.max(1, Math.floor(spacing / 4))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= spacing / 2]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new DotsPatternNode(nodeToken(), spacing, radius));
+                    } else if (t.value.match?.(/^rings[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(spacing)) throwTokenError(t);
+                        const [thickness] = parseNoiseParams([Math.max(1, Math.floor(spacing / 4))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= spacing]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new RingsPatternNode(nodeToken(), spacing, thickness));
+                    } else if (t.value.match?.(/^bubbles[1-9][0-9]*$/)) {
+                        const average = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(average)) throwTokenError(t);
+                        const defaultVariation = Math.min(2, average - 1);
+                        const [variation, edge, concentration] = parseNoiseParams(
+                            [defaultVariation, Math.min(2, average - defaultVariation), 0.6],
+                            [(value) => Number.isSafeInteger(value) && value >= 0, (value) => Number.isSafeInteger(value) && value >= 1, (value) => value >= 0 && value <= 1]
+                        );
+                        if (variation >= average || edge > average - variation) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new BubblesPatternNode(nodeToken(), average, variation, edge, concentration));
+                    } else if (t.value.match?.(/^voronoi[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        const [jitter] = parseNoiseParams([0.8], [(value) => value >= 0 && value <= 1]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new VoronoiPatternNode(nodeToken(), size, jitter));
+                    } else if (t.value.match?.(/^stripes[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [angle] = parseNoiseParams([0], [(value) => Number.isFinite(value) && value >= 0 && value < 360]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new StripesPatternNode(nodeToken(), width, angle));
+                    } else if (t.value.match?.(/^waves[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [amplitude, wavelength] = parseNoiseParams(
+                            [Math.max(1, Math.floor(width / 2)), width * 6],
+                            [(value) => Number.isFinite(value) && value >= 0, (value) => Number.isSafeInteger(value) && value >= 2]
+                        );
+                        if (!Number.isSafeInteger(wavelength)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WavesPatternNode(nodeToken(), width, amplitude, wavelength));
+                    } else if (t.value.match?.(/^truchet[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size) || size < 4) throwTokenError(t);
+                        const [thickness] = parseNoiseParams([Math.max(1, Math.floor(size / 6))], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= size / 2]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TruchetPatternNode(nodeToken(), size, thickness));
+                    } else if (t.value.match?.(/^spiral[1-9][0-9]*$/)) {
+                        const width = Number.parseInt((t.value as string).slice(6), 10);
+                        if (!Number.isSafeInteger(width)) throwTokenError(t);
+                        const [turns] = parseNoiseParams([1], [(value) => Number.isSafeInteger(value) && value >= 1 && value <= 32]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SpiralPatternNode(nodeToken(), width, turns));
+                    } else if (t.value.match?.(/^spots[1-9][0-9]*$/)) {
+                        const spacing = Number.parseInt((t.value as string).slice(5), 10);
+                        if (!Number.isSafeInteger(spacing) || spacing < 4) throwTokenError(t);
+                        const [radius, concentration] = parseNoiseParams(
+                            [Math.max(1, Math.round(spacing / 2)), 0.75],
+                            [(value) => Number.isFinite(value) && value > 0 && value <= spacing, (value) => Number.isFinite(value) && value >= 0 && value <= 1]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SpotsPatternNode(nodeToken(), spacing, radius, concentration));
+                    } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
+                        const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new CrackedPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(7)), thickness));
+                    } else if (t.value.match?.(/^wood[1-9][0-9]*$/)) {
+                        const [bands] = parseNoiseParams([10], [(value) => value > 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WoodPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(4)), bands));
+                    } else if (t.value.match?.(/^turbulence[1-9][0-9]*$/)) {
+                        const [octaves, persistence, lacunarity] = parseNoiseParams(
+                            [4, 0.5, 2],
+                            [(value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TurbulencePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(10)), octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^marble[1-9][0-9]*$/)) {
+                        const [bands, distortion, octaves, persistence, lacunarity] = parseNoiseParams(
+                            [1, 8, 4, 0.5, 2],
+                            [(value) => value > 0, (value) => value >= 0, (value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new MarblePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6)), bands, distortion, octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^fbm[1-9][0-9]*$/)) {
+                        const [octaves, persistence, lacunarity] = parseNoiseParams(
+                            [4, 0.5, 2],
+                            [(value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new FbmPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(3)), octaves, persistence, lacunarity));
+                    } else if (t.value.match?.(/^veins[1-9][0-9]*$/)) {
+                        const [width] = parseNoiseParams([0.1], [(value) => value >= 0 && value <= 1]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new VeinsPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(5)), width));
+                    } else if (t.value.match?.(/^warped[1-9][0-9]*$/)) {
+                        const [strength] = parseNoiseParams([1.5], [(value) => value >= 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new WarpedPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6)), strength));
+                    } else if (t.value.match?.(/^simplex[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new SimplexPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(7))));
+                    } else if (t.value.match?.(/^value[1-9][0-9]*$/)) {
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new ValuePatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(5))));
+                    } else if (t.value.match?.(/^pingpong[1-9][0-9]*$/)) {
+                        const [strength, octaves, persistence, lacunarity] = parseNoiseParams(
+                            [2, 4, 0.5, 2],
+                            [(value) => value > 0, (value) => Number.isInteger(value) && value >= 1, (value) => value >= 0 && value <= 1, (value) => value > 0]
+                        );
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new PingPongPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(8)), strength, octaves, persistence, lacunarity));
                     } else {
                         throwTokenError(t);
                     }
@@ -323,6 +521,7 @@ export class Pattern implements CustomArgType {
     }
 
     static parseJSON(json: patternNodeJSON): Pattern {
+        const chainExplicitOverrides: Array<[ChainPatternNode, boolean]> = [];
         function buildNode({ type, settings, children }: patternNodeJSON): PatternNode {
             let node!: PatternNode;
             switch (type) {
@@ -363,8 +562,83 @@ export class Pattern implements CustomArgType {
                 case "blob":
                     node = new BlobPatternNode(null, settings.size);
                     break;
+                case "perlin":
+                    node = new PerlinPatternNode(null, settings.size);
+                    break;
+                case "grid":
+                    node = new GridPatternNode(null, settings.sizeX, settings.sizeZ, settings.sizeY ?? 0);
+                    break;
+                case "triangle":
+                    node = new TrianglePatternNode(null, settings.size);
+                    break;
+                case "hexagon":
+                    node = new HexagonPatternNode(null, settings.size);
+                    break;
+                case "brick":
+                    node = new BrickPatternNode(null, settings.width, settings.height, settings.mortar ?? 1);
+                    break;
+                case "dots":
+                    node = new DotsPatternNode(null, settings.spacing, settings.radius);
+                    break;
+                case "rings":
+                    node = new RingsPatternNode(null, settings.spacing, settings.thickness);
+                    break;
+                case "bubbles":
+                    node = new BubblesPatternNode(null, settings.averageRadius, settings.variation ?? 2, settings.edge ?? 2, settings.concentration ?? 0.6);
+                    break;
+                case "voronoi":
+                    node = new VoronoiPatternNode(null, settings.size, settings.jitter ?? 0.8);
+                    break;
+                case "stripes":
+                    node = new StripesPatternNode(null, settings.width, settings.angle ?? 0);
+                    break;
+                case "waves":
+                    node = new WavesPatternNode(null, settings.width, settings.amplitude, settings.wavelength);
+                    break;
+                case "truchet":
+                    node = new TruchetPatternNode(null, settings.size, settings.thickness);
+                    break;
+                case "spiral":
+                    node = new SpiralPatternNode(null, settings.width, settings.turns ?? 1);
+                    break;
+                case "spots":
+                    node = new SpotsPatternNode(null, settings.spacing, settings.radius, settings.concentration ?? 0.75);
+                    break;
+                case "cracked":
+                    node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);
+                    break;
+                case "wood":
+                    node = new WoodPatternNode(null, settings.size, settings.bands ?? 10);
+                    break;
+                case "turbulence":
+                    node = new TurbulencePatternNode(null, settings.size, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "marble":
+                    node = new MarblePatternNode(null, settings.size, settings.bands ?? 1, settings.distortion ?? 8, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "fbm":
+                    node = new FbmPatternNode(null, settings.size, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
+                case "veins":
+                    node = new VeinsPatternNode(null, settings.size, settings.width ?? 0.1);
+                    break;
+                case "warped":
+                    node = new WarpedPatternNode(null, settings.size, settings.strength ?? 1.5);
+                    break;
+                case "simplex":
+                    node = new SimplexPatternNode(null, settings.size);
+                    break;
+                case "value":
+                    node = new ValuePatternNode(null, settings.size);
+                    break;
+                case "pingpong":
+                    node = new PingPongPatternNode(null, settings.size, settings.strength ?? 2, settings.octaves ?? 4, settings.persistence ?? 0.5, settings.lacunarity ?? 2);
+                    break;
                 case "chain":
                     node = new ChainPatternNode(null);
+                    if (typeof settings?.explicitNoiseWeights === "boolean") {
+                        chainExplicitOverrides.push([node as ChainPatternNode, settings.explicitNoiseWeights]);
+                    }
                     break;
                 default:
                     throw new Error(`Unknown pattern type: ${type}`);
@@ -377,6 +651,7 @@ export class Pattern implements CustomArgType {
         const pattern = new Pattern();
         pattern.block = buildNode(json);
         pattern.block.optimize();
+        for (const [node, value] of chainExplicitOverrides) node.hasExplicitWeights = value;
         return pattern;
     }
 
@@ -384,509 +659,6 @@ export class Pattern implements CustomArgType {
         const pattern = new Pattern();
         pattern.block = node;
         return pattern;
-    }
-}
-
-export abstract class PatternNode implements AstNode {
-    public nodes: PatternNode[] = [];
-    abstract readonly prec: number;
-    abstract readonly opCount: number;
-
-    constructor(public readonly token: Token) {}
-
-    prepare() {
-        for (const node of this.nodes) node.prepare();
-    }
-
-    abstract getPermutation(block: BlockUnit, context: patternContext): BlockPermutation | undefined;
-
-    optimize() {
-        for (const node of this.nodes) node.optimize();
-    }
-
-    abstract toJSON(): patternNodeJSON;
-}
-
-export class BlockPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    constructor(
-        token: Token,
-        public permutation: BlockPermutation
-    ) {
-        super(token);
-    }
-
-    getPermutation() {
-        return this.permutation;
-    }
-
-    toJSON() {
-        return {
-            type: "block",
-            settings: {
-                id: this.permutation.type.id,
-                states: this.permutation.getAllStates(),
-            },
-        };
-    }
-}
-
-export class VoidPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    getPermutation() {
-        return <BlockPermutation>undefined;
-    }
-
-    toJSON() {
-        return { type: "void" };
-    }
-}
-
-export class TypePatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-    private permutation: BlockPermutation;
-    private props: Record<string, string | number | boolean>;
-
-    constructor(
-        token: Token,
-        public type: string
-    ) {
-        super(token);
-    }
-
-    prepare() {
-        super.prepare();
-        this.permutation = BlockPermutation.resolve(this.type);
-        this.props = this.permutation.getAllStates();
-    }
-
-    getPermutation(block: BlockUnit): BlockPermutation {
-        let permutation = this.permutation;
-        Object.entries(block.permutation.getAllStates()).forEach(([state, val]) => {
-            if (state in this.props) permutation = permutation.withState(<any>state, val);
-        });
-        return permutation;
-    }
-
-    toJSON() {
-        return { type: "type", settings: { type: this.type } };
-    }
-}
-
-export class StatePatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    constructor(
-        token: Token,
-        public states: parsedBlock["states"]
-    ) {
-        super(token);
-    }
-
-    getPermutation(block: BlockUnit) {
-        let permutation = block.permutation;
-        const props = permutation.getAllStates();
-        this.states.forEach((val, state) => {
-            if (state in props) permutation = permutation.withState(<any>state, val);
-        });
-        return permutation;
-    }
-
-    toJSON() {
-        return { type: "state", settings: { states: Object.fromEntries(this.states) } };
-    }
-}
-
-export class RandStatePatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-    private permutations: BlockPermutation[];
-
-    constructor(token: Token, type: string) {
-        super(token);
-        this.type = type;
-    }
-
-    get type() {
-        return this.permutations[0].type.id;
-    }
-
-    set type(value: string) {
-        this.permutations = Array.from(Server.block.iteratePermutations(value));
-    }
-
-    getPermutation() {
-        return this.permutations[Math.floor(Math.random() * this.permutations.length)];
-    }
-
-    toJSON() {
-        return { type: "randstate", settings: { type: this.type } };
-    }
-}
-
-export class ClipboardPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    constructor(
-        token: Token,
-        public offset: Vector3
-    ) {
-        super(token);
-    }
-
-    getPermutation(block: BlockUnit, context: patternContext) {
-        const clipboard = context.session?.clipboard;
-        const size = clipboard.getSize();
-        const offset = Vector.sub(block.location, this.offset);
-        const sampledLoc = new Vector(wrap(offset.x, size.x), wrap(offset.y, size.y), wrap(offset.z, size.z));
-        return clipboard.getBlock(sampledLoc).permutation;
-    }
-
-    toJSON() {
-        return {
-            type: "clipboard",
-            settings: { offset: [this.offset.x, this.offset.y, this.offset.z] },
-        };
-    }
-}
-
-export class HandPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    constructor(token: Token) {
-        super(token);
-    }
-
-    getPermutation(_: BlockUnit, context: patternContext) {
-        return context.hand;
-    }
-
-    toJSON() {
-        return { type: "hand" };
-    }
-}
-
-export class GradientPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-
-    private axis: "x" | "y" | "z";
-    private invertCoords: boolean;
-
-    private radial = false;
-    private radialOrigin: "center" | "placement" = "center";
-    private lastContext: patternContext;
-
-    constructor(
-        token: Token,
-        public gradientId: string,
-        public cardinal: Cardinal | "radial" | "light" = new Cardinal()
-    ) {
-        super(token);
-    }
-
-    prepare() {
-        this.radial = this.cardinal === "radial" || this.cardinal === "light";
-        if (this.radial) this.radialOrigin = this.cardinal === "light" ? "placement" : "center";
-        this.lastContext = undefined;
-    }
-
-    getPermutation(block: BlockUnit, context: patternContext) {
-        const gradient = context.session.getGradient(this.gradientId);
-        if (!gradient) return undefined;
-
-        const patternLength = gradient.patterns.length;
-        let index = 0;
-        if (this.radial) {
-            let center = context.getCenter(block.location);
-            let maxLength = context.gradientRadius;
-            if (this.radialOrigin !== "center") {
-                const point = context.placePosition;
-                const max = context.range[1];
-                const min = context.range[0];
-                // Determine which corner is farthest based on the relative position of the point to the center
-                const farthestX = point.x < center.x ? max.x : min.x;
-                const farthestY = point.y < center.y ? max.y : min.y;
-                const farthestZ = point.z < center.z ? max.z : min.z;
-                maxLength = point.distanceTo(new Vector(farthestX, farthestY, farthestZ));
-                center = point;
-            }
-            index = Math.floor((center.distanceTo(block.location) / maxLength) * (patternLength - gradient.dither) + Math.random() * gradient.dither);
-        } else {
-            if (this.lastContext !== context) {
-                this.updateCardinalDirectionParams(context.session.player);
-                this.lastContext = context;
-            }
-            const unitCoords = Vector.sub(block.location, context.range[0]).div(context.range[1].sub(context.range[0]).max([1, 1, 1]));
-            const direction = this.invertCoords ? 1.0 - unitCoords[this.axis] : unitCoords[this.axis];
-            index = Math.floor(direction * (patternLength - gradient.dither) + Math.random() * gradient.dither);
-        }
-        return gradient.patterns[Math.min(Math.max(index, 0), patternLength - 1)].getRootNode().getPermutation(block, context);
-    }
-
-    private updateCardinalDirectionParams(player: Player) {
-        const dir = (this.cardinal as Cardinal).getDirection(player);
-        const absDir = [Math.abs(dir.x), Math.abs(dir.y), Math.abs(dir.z)];
-        if (absDir[0] > absDir[1] && absDir[0] > absDir[2]) this.axis = "x";
-        else if (absDir[1] > absDir[0] && absDir[1] > absDir[2]) this.axis = "y";
-        else this.axis = "z";
-        this.invertCoords = dir[this.axis] < 0;
-    }
-
-    toJSON() {
-        return { type: "gradient", settings: { gradientId: this.gradientId, cardinal: this.cardinal } };
-    }
-}
-
-export class PercentPatternNode extends PatternNode {
-    readonly prec = 2;
-    readonly opCount = 1;
-
-    constructor(
-        token: Token,
-        public percent: number
-    ) {
-        super(token);
-    }
-
-    getPermutation() {
-        return undefined as BlockPermutation;
-    }
-
-    toJSON() {
-        return { type: "percent", settings: { percent: this.percent }, children: [this.nodes[0].toJSON()] };
-    }
-}
-
-export class InputPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 0;
-    private node: PatternNode;
-
-    constructor(
-        token: Token,
-        public input: string
-    ) {
-        super(token);
-    }
-
-    prepare() {
-        this.node = new Pattern(this.input).getRootNode();
-    }
-
-    getPermutation(block: BlockUnit, context: patternContext) {
-        return this.node.getPermutation(block, context);
-    }
-
-    toJSON() {
-        return { type: "input", settings: { input: this.input } };
-    }
-}
-
-export class BlobPatternNode extends PatternNode {
-    readonly prec = -1;
-    readonly opCount = 1;
-
-    private offsets: Vector[] = [];
-    private perms: { [key: number]: BlockPermutation } = {};
-    private ranges: { [key: number]: { range: [Vector, Vector] } } = {};
-    private points: { [key: number]: Vector } = {};
-
-    private isRadial = false;
-
-    constructor(
-        token: Token,
-        public size: number,
-        node?: PatternNode
-    ) {
-        super(token);
-        if (node) this.nodes.push(node);
-    }
-
-    prepare() {
-        super.prepare();
-        this.isRadial = this.nodes[0] instanceof GradientPatternNode && this.nodes[0].cardinal === "radial";
-        this.perms = {};
-        this.ranges = {};
-        this.points = {};
-        this.offsets = [];
-        for (const { x, y, z } of regionIterateBlocks(new Vector(-1, -1, -1), new Vector(1, 1, 1))) {
-            this.offsets.push(new Vector(x * this.size, y * this.size, z * this.size));
-        }
-    }
-
-    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation {
-        const size = this.size;
-        const blockLoc = Vector.from(block.location);
-        const cellLoc = blockLoc.div(size).floor().mul(size);
-        let closestCell = 0;
-        let minDist = Infinity;
-        for (const offset of this.offsets) {
-            const locX = cellLoc.x + offset.x;
-            const locY = cellLoc.y + offset.y;
-            const locZ = cellLoc.z + offset.z;
-            // cell key
-            const neighbour = Math.floor(Math.floor(locX / size) * 4576.498 + Math.floor(locY / size) * 76392.953 + Math.floor(locZ / size) * 203478.295) % 1024;
-            if (!this.points[neighbour]) {
-                const point = new Vector(this.randomNum(), this.randomNum(), this.randomNum());
-                this.points[neighbour] = point;
-                if (this.isRadial) {
-                    const cellPoint = point.offset(locX, locY, locZ);
-                    this.ranges[neighbour] = { range: [cellPoint.offset(-this.size, -this.size, -this.size), cellPoint.offset(this.size, this.size, this.size)] };
-                }
-            }
-            const point = this.points[neighbour];
-
-            const distance = Math.hypot(locX + point.x - blockLoc.x, locY + point.y - blockLoc.y, locZ + point.z - blockLoc.z);
-            if (distance < minDist) {
-                closestCell = neighbour;
-                minDist = distance;
-            }
-        }
-
-        if (this.isRadial) {
-            const subGradientRadius = this.ranges[closestCell].range[1].distanceTo(this.ranges[closestCell].range[0]) / 2;
-            return this.nodes[0].getPermutation(block, { ...context, gradientRadius: subGradientRadius });
-        } else {
-            if (!(closestCell in this.perms)) this.perms[closestCell] = this.nodes[0].getPermutation(block, context);
-            return this.perms[closestCell];
-        }
-    }
-
-    toJSON() {
-        return { type: "blob", settings: { size: this.size }, children: [this.nodes[0].toJSON()] };
-    }
-
-    private randomNum() {
-        return Math.random() * (this.size - 1);
-    }
-}
-
-export class ChainPatternNode extends PatternNode {
-    readonly prec = 1;
-    readonly opCount = 2;
-    readonly variableOps = true;
-
-    public evenDistribution = true;
-
-    private weights: (number | undefined)[] = [];
-    private cumWeights: number[] = [];
-    private weightTotal: number;
-
-    constructor(token: Token, nodes: PatternNode[] = []) {
-        super(token);
-        this.nodes.push(...nodes);
-    }
-
-    getWeight(index: number) {
-        const weight = this.weights?.[index];
-        if (weight !== undefined) return weight;
-
-        let specifiedTotal = 0;
-        let unspecifiedCount = 0;
-
-        for (let i = 0; i < this.nodes.length; i++) {
-            const nodeWeight = this.weights?.[i];
-
-            if (nodeWeight === undefined) {
-                unspecifiedCount++;
-            } else {
-                specifiedTotal += nodeWeight;
-            }
-        }
-
-        if (!unspecifiedCount) return 0;
-
-        return Math.max(100 - specifiedTotal, 0) / unspecifiedCount;
-    }
-
-    setWeight(index: number, weight: number) {
-        while (this.weights.length <= index) this.weights.push(undefined);
-        this.weights[index] = weight;
-    }
-
-    removeWeight(index: number) {
-        this.weights?.splice(index, 1);
-    }
-
-    prepare() {
-        super.prepare();
-        if (this.evenDistribution) return;
-
-        this.cumWeights.length = 0;
-        for (let i = 0; i < this.nodes.length; i++) this.cumWeights.push(this.getWeight(i) + (this.cumWeights[i - 1] || 0));
-        this.weightTotal = this.cumWeights[this.cumWeights.length - 1];
-    }
-
-    getPermutation(block: BlockUnit, context: patternContext) {
-        if (this.nodes.length === 1) {
-            return this.nodes[0].getPermutation(block, context);
-        } else if (this.evenDistribution) {
-            return this.nodes[Math.floor(Math.random() * this.nodes.length)].getPermutation(block, context);
-        } else {
-            const rand = Math.random() * this.weightTotal;
-            for (let i = 0; i < this.nodes.length; i++) {
-                if (this.cumWeights[i] >= rand) return this.nodes[i].getPermutation(block, context);
-            }
-        }
-    }
-
-    optimize() {
-        super.optimize();
-        const patterns = this.nodes;
-        this.nodes = [];
-        while (patterns.length) {
-            const pattern = patterns.shift();
-            if (pattern instanceof PercentPatternNode) {
-                this.evenDistribution = false;
-                this.nodes.push(pattern.nodes[0]);
-                this.weights.push(pattern.percent);
-            } else {
-                this.nodes.push(pattern);
-                this.weights.push(undefined);
-            }
-        }
-
-        const reduced: { [patternJson: string]: [node: PatternNode, weight: number] } = {};
-        for (let i = 0; i < this.nodes.length; i++) {
-            const json = JSON.stringify(this.nodes[i].toJSON());
-            reduced[json] ??= [this.nodes[i], 0];
-            reduced[json][1] += this.getWeight(i);
-        }
-
-        const reducedList = Object.values(reduced);
-        if (reducedList.length < this.nodes.length) {
-            this.evenDistribution = false;
-            this.nodes.length = 0;
-            this.weights.length = 0;
-            for (const [node, weight] of reducedList) {
-                this.nodes.push(node);
-                this.weights.push(weight);
-            }
-        }
-    }
-
-    toJSON() {
-        return {
-            type: "chain",
-            children: this.nodes.map((node, i) => {
-                if (!this.evenDistribution && this.weights[i] !== undefined) {
-                    const percentNode = new PercentPatternNode(null, this.weights[i]);
-                    percentNode.nodes.push(node);
-                    return percentNode.toJSON();
-                } else {
-                    return node.toJSON();
-                }
-            }),
-        };
     }
 }
 
