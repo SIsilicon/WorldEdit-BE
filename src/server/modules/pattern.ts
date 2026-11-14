@@ -47,7 +47,7 @@ import {
     ValuePatternNode,
     PingPongPatternNode,
 } from "./pattern_nodes/noise.js";
-import { GridPatternNode } from "./pattern_nodes/geometric.js";
+import { GridPatternNode, TrianglePatternNode, HexagonPatternNode } from "./pattern_nodes/geometric.js";
 
 // Keep old imports from pattern.js compatible with the rest of WorldEdit.
 export * from "./pattern_nodes/base.js";
@@ -306,6 +306,16 @@ export class Pattern implements CustomArgType {
                         const [sizeZ, sizeY] = parseNoiseParams([sizeX, 0], [(value) => Number.isSafeInteger(value) && value > 0, (value) => Number.isSafeInteger(value) && value > 0]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new GridPatternNode(nodeToken(), sizeX, sizeZ, sizeY));
+                    } else if (t.value.match?.(/^triangle[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(8), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new TrianglePatternNode(nodeToken(), size));
+                    } else if (t.value.match?.(/^hexagon[1-9][0-9]*$/)) {
+                        const size = Number.parseInt((t.value as string).slice(7), 10);
+                        if (!Number.isSafeInteger(size)) throwTokenError(t);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new HexagonPatternNode(nodeToken(), size));
                     } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
                         const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
@@ -467,6 +477,12 @@ export class Pattern implements CustomArgType {
                     break;
                 case "grid":
                     node = new GridPatternNode(null, settings.sizeX, settings.sizeZ, settings.sizeY ?? 0);
+                    break;
+                case "triangle":
+                    node = new TrianglePatternNode(null, settings.size);
+                    break;
+                case "hexagon":
+                    node = new HexagonPatternNode(null, settings.size);
                     break;
                 case "cracked":
                     node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);
