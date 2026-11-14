@@ -283,6 +283,13 @@ export class Pattern implements CustomArgType {
                     } else if (t.value.match?.(/^perlin[1-9][0-9]*$/)) {
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
                         processOps(out, ops, new PerlinPatternNode(nodeToken(), Number.parseInt((<string>t.value).slice(6))));
+                    } else if (t.value.match?.(/^grid[1-9][0-9]*$/)) {
+                        const sizeX = Number.parseInt((t.value as string).slice(4), 10);
+                        if (!Number.isSafeInteger(sizeX)) throwTokenError(t);
+                        // A missing third dimension means a 2D grid.
+                        const [sizeZ, sizeY] = parseNoiseParams([sizeX, 0], [(value) => Number.isSafeInteger(value) && value > 0, (value) => Number.isSafeInteger(value) && value > 0]);
+                        if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
+                        processOps(out, ops, new GridPatternNode(nodeToken(), sizeX, sizeZ, sizeY));
                     } else if (t.value.match?.(/^cracked[1-9][0-9]*$/)) {
                         const [thickness] = parseNoiseParams([1], [(value) => value >= 0]);
                         if (tokens.peek()?.value != "(") throwTokenError(tokens.peek());
@@ -441,6 +448,9 @@ export class Pattern implements CustomArgType {
                     break;
                 case "perlin":
                     node = new PerlinPatternNode(null, settings.size);
+                    break;
+                case "grid":
+                    node = new GridPatternNode(null, settings.sizeX, settings.sizeZ, settings.sizeY ?? 0);
                     break;
                 case "cracked":
                     node = new CrackedPatternNode(null, settings.size, settings.thickness ?? 1);
@@ -984,6 +994,60 @@ export class BlobPatternNode extends PatternNode {
 
     private randomNum() {
         return Math.random() * (this.size - 1);
+    }
+}
+
+export class GridPatternNode extends PatternNode {
+    readonly prec = -1;
+    readonly opCount = 1;
+
+    private patterns: PatternNode[] = [];
+
+    constructor(
+        token: Token,
+        public sizeX: number,
+        public sizeZ: number,
+        public sizeY: number = 0,
+        node?: PatternNode
+    ) {
+        super(token);
+        if (node) this.nodes.push(node);
+    }
+
+    prepare() {
+        super.prepare();
+        this.patterns = collectEvenPatternNodes(this.nodes[0]);
+    }
+
+    getPermutation(block: BlockUnit, context: patternContext): BlockPermutation | undefined {
+        if (!this.patterns.length) return undefined;
+
+        const loc = block.location;
+
+        const gridX = Math.floor(loc.x / this.sizeX);
+        const gridZ = Math.floor(loc.z / this.sizeZ);
+
+        // In 2D mode, ignore Y completely.
+        const gridY = this.sizeY > 0 ? Math.floor(loc.y / this.sizeY) : 0;
+
+        const cell = gridX + gridZ + gridY;
+
+        // Positive modulo also works with negative world coordinates.
+        const index = ((cell % this.patterns.length) + this.patterns.length) % this.patterns.length;
+
+        return this.patterns[index].getPermutation(block, context);
+    }
+
+    toJSON() {
+        return {
+            type: "grid",
+            settings: {
+                sizeX: this.sizeX,
+                sizeZ: this.sizeZ,
+                sizeY: this.sizeY,
+            },
+            children: [this.nodes[0].toJSON()],
+        };
     }
 }
 
