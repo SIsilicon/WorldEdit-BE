@@ -895,6 +895,13 @@ msgid "commands.wedit:setbiome.changed"
 msgstr "Biomes were changed for approximately %s blocks."
 msgid "commands.wedit:setbiome.description"
 msgstr "Change the biomes in your selection"
+
+msgid "commands.wedit:replacebiome.description"
+msgstr "Replace a specific biome inside your selection"
+
+msgid "commands.wedit:replacebiome.changed"
+msgstr "Replaced biomes for %s blocks."
+
 msgid "commands.wedit:setbiome.warning"
 msgstr "§eNote: You need to process the world with an external app for the biome changes to apply. Get the link by running \";worldedit app\".§r"
 msgid "commands.wedit:shift.description"

@@ -56,6 +56,31 @@ class BiomeChanges {
         this.heightRange = dimension.heightRange;
     }
 
+    private savedBiomes = new Map<string, { biomes: number[]; palette: string[] }>();
+
+    /** Read unprocessed biome edits first; fall back to the world's actual biome. */
+    getBiome(loc: Vector3): string {
+        const subChunk = locToString(new Vector(Math.floor(loc.x / 16), Math.floor(loc.y / 16), Math.floor(loc.z / 16)));
+        const index = this.locToId(new Vector(wrap(loc.x, 16), wrap(loc.y, 16), wrap(loc.z, 16)));
+
+        const pending = this.changes.get(subChunk)?.get(index);
+        if (pending !== undefined) return pending;
+
+        if (!this.savedBiomes.has(subChunk)) {
+            const tableName = `biome,${this.dimension.id},${subChunk}`;
+            const database = Databases.load<{ biomes: number[]; palette: string[] }>(tableName, world);
+            this.savedBiomes.set(subChunk, {
+                biomes: database.data.biomes ?? [],
+                palette: database.data.palette ?? [],
+            });
+        }
+
+        const data = this.savedBiomes.get(subChunk);
+        const paletteIndex = data.biomes[index] ?? 0;
+        if (paletteIndex > 0) return data.palette[paletteIndex - 1] ?? this.dimension.getBiome(loc).id;
+        return this.dimension.getBiome(loc).id;
+    }
+
     *setBiome(loc: Vector3, biome: string) {
         if (loc.y < this.heightRange.min || loc.y >= this.heightRange.max) return;
 
@@ -94,6 +119,7 @@ class BiomeChanges {
             database.data.biomes = biomes.map((biome) => paletteMap.get(biome));
             database.data.palette = newPalette;
             database.save();
+            this.savedBiomes.delete(chunk);
 
             // Force update chunk to ensure it's saved in the world data.
             const updateLocation = stringToLoc(chunk).mul(16);

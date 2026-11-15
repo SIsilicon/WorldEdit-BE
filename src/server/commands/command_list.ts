@@ -122,4 +122,5 @@ import "./structure/import.js";
 
 import "./biome/biomeinfo.js";
 import "./biome/setbiome.js";
+import "./biome/replacebiome.js";
 import config from "config.js";
